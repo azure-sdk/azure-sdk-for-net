@@ -104,7 +104,6 @@ namespace Azure.ResourceManager.ConfidentialLedger.Models
         public System.Collections.Generic.IList<Azure.ResourceManager.ConfidentialLedger.Models.AadBasedSecurityPrincipal> AadBasedSecurityPrincipals { get { throw null; } }
         public System.Collections.Generic.IList<Azure.ResourceManager.ConfidentialLedger.Models.CertBasedSecurityPrincipal> CertBasedSecurityPrincipals { get { throw null; } }
         public System.Uri IdentityServiceUri { get { throw null; } }
-        public string LedgerInternalNamespace { get { throw null; } }
         public string LedgerName { get { throw null; } }
         public Azure.ResourceManager.ConfidentialLedger.Models.ConfidentialLedgerType? LedgerType { get { throw null; } set { } }
         public System.Uri LedgerUri { get { throw null; } }
