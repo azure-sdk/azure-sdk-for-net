@@ -6,7 +6,8 @@
 This sample shows how to call GetReceivedInvitationAsync with required parameters and parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
-var client = new ReceivedInvitationsClient("<https://my-service.azure.com>", credential);
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ReceivedInvitationsClient(endpoint, credential);
 
 Response response = await client.GetReceivedInvitationAsync("<receivedInvitationName>");
 
@@ -87,7 +88,8 @@ This method takes one of the JSON objects below as a payload. Please select a JS
 This sample shows how to call GetReceivedInvitation with required parameters and parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
-var client = new ReceivedInvitationsClient("<https://my-service.azure.com>", credential);
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ReceivedInvitationsClient(endpoint, credential);
 
 Response response = client.GetReceivedInvitation("<receivedInvitationName>");
 
@@ -168,7 +170,8 @@ This method takes one of the JSON objects below as a payload. Please select a JS
 This sample shows how to call RejectAsync with required parameters and request content, and how to parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
-var client = new ReceivedInvitationsClient("<https://my-service.azure.com>", credential);
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ReceivedInvitationsClient(endpoint, credential);
 
 var data = new {
     properties = new {
@@ -187,7 +190,8 @@ Console.WriteLine(result.ToString());
 This sample shows how to call RejectAsync with all parameters and request content, and how to parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
-var client = new ReceivedInvitationsClient("<https://my-service.azure.com>", credential);
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ReceivedInvitationsClient(endpoint, credential);
 
 var data = new {
     properties = new {
@@ -335,7 +339,8 @@ This method takes one of the JSON objects below as a payload. Please select a JS
 This sample shows how to call Reject with required parameters and request content, and how to parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
-var client = new ReceivedInvitationsClient("<https://my-service.azure.com>", credential);
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ReceivedInvitationsClient(endpoint, credential);
 
 var data = new {
     properties = new {
@@ -354,7 +359,8 @@ Console.WriteLine(result.ToString());
 This sample shows how to call Reject with all parameters and request content, and how to parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
-var client = new ReceivedInvitationsClient("<https://my-service.azure.com>", credential);
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ReceivedInvitationsClient(endpoint, credential);
 
 var data = new {
     properties = new {
@@ -502,7 +508,8 @@ This method takes one of the JSON objects below as a payload. Please select a JS
 This sample shows how to call GetReceivedInvitationsAsync and parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
-var client = new ReceivedInvitationsClient("<https://my-service.azure.com>", credential);
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ReceivedInvitationsClient(endpoint, credential);
 
 await foreach (var data in client.GetReceivedInvitationsAsync())
 {
@@ -514,7 +521,8 @@ await foreach (var data in client.GetReceivedInvitationsAsync())
 This sample shows how to call GetReceivedInvitationsAsync with all parameters, and how to parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
-var client = new ReceivedInvitationsClient("<https://my-service.azure.com>", credential);
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ReceivedInvitationsClient(endpoint, credential);
 
 await foreach (var data in client.GetReceivedInvitationsAsync("<skipToken>", "<filter>", "<orderby>"))
 {
@@ -549,7 +557,8 @@ Schema for <c>ReceivedInvitationListValue</c>:
 This sample shows how to call GetReceivedInvitations and parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
-var client = new ReceivedInvitationsClient("<https://my-service.azure.com>", credential);
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ReceivedInvitationsClient(endpoint, credential);
 
 foreach (var data in client.GetReceivedInvitations())
 {
@@ -561,7 +570,8 @@ foreach (var data in client.GetReceivedInvitations())
 This sample shows how to call GetReceivedInvitations with all parameters, and how to parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
-var client = new ReceivedInvitationsClient("<https://my-service.azure.com>", credential);
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ReceivedInvitationsClient(endpoint, credential);
 
 foreach (var data in client.GetReceivedInvitations("<skipToken>", "<filter>", "<orderby>"))
 {
