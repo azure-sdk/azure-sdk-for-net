@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="GetKeyVaultConnectionAsync(String,RequestContext)">
+<example>
+This sample shows how to call GetKeyVaultConnectionAsync with required parameters and parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new KeyVaultConnectionsClient(endpoint, credential);
+
+Response response = await client.GetKeyVaultConnectionAsync("<keyVaultName>");
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("properties").GetProperty("baseUrl").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("name").ToString());
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for the response payload.
+
+Response Body:
+
+Schema for <c>AzureKeyVault</c>:
+<code>{
+  properties: {
+    baseUrl: string, # Optional.
+    description: string, # Optional.
+  }, # Optional.
+  id: string, # Optional.
+  name: string, # Optional.
+}
+</code>
+
+</remarks>
+    </member>
+    <member name="GetKeyVaultConnection(String,RequestContext)">
+<example>
+This sample shows how to call GetKeyVaultConnection with required parameters and parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new KeyVaultConnectionsClient(endpoint, credential);
+
+Response response = client.GetKeyVaultConnection("<keyVaultName>");
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("properties").GetProperty("baseUrl").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("name").ToString());
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for the response payload.
+
+Response Body:
+
+Schema for <c>AzureKeyVault</c>:
+<code>{
+  properties: {
+    baseUrl: string, # Optional.
+    description: string, # Optional.
+  }, # Optional.
+  id: string, # Optional.
+  name: string, # Optional.
+}
+</code>
+
+</remarks>
+    </member>
+    <member name="CreateAsync(String,RequestContent,RequestContext)">
+<example>
+This sample shows how to call CreateAsync with required parameters and parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new KeyVaultConnectionsClient(endpoint, credential);
+
+var data = new {};
+
+Response response = await client.CreateAsync("<keyVaultName>", RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code>
+This sample shows how to call CreateAsync with all parameters and request content, and how to parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new KeyVaultConnectionsClient(endpoint, credential);
+
+var data = new {
+    properties = new {
+        baseUrl = "<baseUrl>",
+        description = "<description>",
+    },
+};
+
+Response response = await client.CreateAsync("<keyVaultName>", RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("properties").GetProperty("baseUrl").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("name").ToString());
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for the request and response payloads.
+
+Request Body:
+
+Schema for <c>AzureKeyVault</c>:
+<code>{
+  properties: {
+    baseUrl: string, # Optional.
+    description: string, # Optional.
+  }, # Optional.
+  id: string, # Optional.
+  name: string, # Optional.
+}
+</code>
+
+Response Body:
+
+Schema for <c>AzureKeyVault</c>:
+<code>{
+  properties: {
+    baseUrl: string, # Optional.
+    description: string, # Optional.
+  }, # Optional.
+  id: string, # Optional.
+  name: string, # Optional.
+}
+</code>
+
+</remarks>
+    </member>
+    <member name="Create(String,RequestContent,RequestContext)">
+<example>
+This sample shows how to call Create with required parameters and parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new KeyVaultConnectionsClient(endpoint, credential);
+
+var data = new {};
+
+Response response = client.Create("<keyVaultName>", RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code>
+This sample shows how to call Create with all parameters and request content, and how to parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new KeyVaultConnectionsClient(endpoint, credential);
+
+var data = new {
+    properties = new {
+        baseUrl = "<baseUrl>",
+        description = "<description>",
+    },
+};
+
+Response response = client.Create("<keyVaultName>", RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("properties").GetProperty("baseUrl").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("name").ToString());
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for the request and response payloads.
+
+Request Body:
+
+Schema for <c>AzureKeyVault</c>:
+<code>{
+  properties: {
+    baseUrl: string, # Optional.
+    description: string, # Optional.
+  }, # Optional.
+  id: string, # Optional.
+  name: string, # Optional.
+}
+</code>
+
+Response Body:
+
+Schema for <c>AzureKeyVault</c>:
+<code>{
+  properties: {
+    baseUrl: string, # Optional.
+    description: string, # Optional.
+  }, # Optional.
+  id: string, # Optional.
+  name: string, # Optional.
+}
+</code>
+
+</remarks>
+    </member>
+    <member name="DeleteAsync(String,RequestContext)">
+<example>
+This sample shows how to call DeleteAsync with required parameters and parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new KeyVaultConnectionsClient(endpoint, credential);
+
+Response response = await client.DeleteAsync("<keyVaultName>");
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("properties").GetProperty("baseUrl").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("name").ToString());
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for the response payload.
+
+Response Body:
+
+Schema for <c>AzureKeyVault</c>:
+<code>{
+  properties: {
+    baseUrl: string, # Optional.
+    description: string, # Optional.
+  }, # Optional.
+  id: string, # Optional.
+  name: string, # Optional.
+}
+</code>
+
+</remarks>
+    </member>
+    <member name="Delete(String,RequestContext)">
+<example>
+This sample shows how to call Delete with required parameters and parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new KeyVaultConnectionsClient(endpoint, credential);
+
+Response response = client.Delete("<keyVaultName>");
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("properties").GetProperty("baseUrl").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("name").ToString());
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for the response payload.
+
+Response Body:
+
+Schema for <c>AzureKeyVault</c>:
+<code>{
+  properties: {
+    baseUrl: string, # Optional.
+    description: string, # Optional.
+  }, # Optional.
+  id: string, # Optional.
+  name: string, # Optional.
+}
+</code>
+
+</remarks>
+    </member>
+    <member name="GetKeyVaultConnectionsAsync(RequestContext)">
+<example>
+This sample shows how to call GetKeyVaultConnectionsAsync and parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new KeyVaultConnectionsClient(endpoint, credential);
+
+await foreach (var data in client.GetKeyVaultConnectionsAsync())
+{
+    JsonElement result = JsonDocument.Parse(data.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("properties").GetProperty("baseUrl").ToString());
+    Console.WriteLine(result.GetProperty("properties").GetProperty("description").ToString());
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("name").ToString());
+}
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for one item in the pageable response.
+
+Response Body:
+
+Schema for <c>AzureKeyVaultListValue</c>:
+<code>{
+  properties: {
+    baseUrl: string, # Optional.
+    description: string, # Optional.
+  }, # Optional.
+  id: string, # Optional.
+  name: string, # Optional.
+}
+</code>
+
+</remarks>
+    </member>
+    <member name="GetKeyVaultConnections(RequestContext)">
+<example>
+This sample shows how to call GetKeyVaultConnections and parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new KeyVaultConnectionsClient(endpoint, credential);
+
+foreach (var data in client.GetKeyVaultConnections())
+{
+    JsonElement result = JsonDocument.Parse(data.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("properties").GetProperty("baseUrl").ToString());
+    Console.WriteLine(result.GetProperty("properties").GetProperty("description").ToString());
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("name").ToString());
+}
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for one item in the pageable response.
+
+Response Body:
+
+Schema for <c>AzureKeyVaultListValue</c>:
+<code>{
+  properties: {
+    baseUrl: string, # Optional.
+    description: string, # Optional.
+  }, # Optional.
+  id: string, # Optional.
+  name: string, # Optional.
+}
+</code>
+
+</remarks>
+    </member>
+  </members>
+</doc>
