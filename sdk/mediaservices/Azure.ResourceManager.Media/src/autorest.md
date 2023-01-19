@@ -8,7 +8,7 @@ azure-arm: true
 csharp: true
 library-name: Media
 namespace: Azure.ResourceManager.Media
-require: https://github.com/Azure/azure-rest-api-specs/blob/aefbcc5fb18a3b33f401394ebeae01df0733c830/specification/mediaservices/resource-manager/readme.md
+require: /mnt/vss/_work/1/s/azure-rest-api-specs/specification/mediaservices/resource-manager/readme.md
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
 skip-csproj: true
