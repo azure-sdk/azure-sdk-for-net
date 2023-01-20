@@ -50,7 +50,6 @@ namespace Azure.ResourceManager.ConfidentialLedger.Models
             Optional<string> ledgerName = default;
             Optional<Uri> ledgerUri = default;
             Optional<Uri> identityServiceUri = default;
-            Optional<string> ledgerInternalNamespace = default;
             Optional<ConfidentialLedgerType> ledgerType = default;
             Optional<ConfidentialLedgerProvisioningState> provisioningState = default;
             Optional<IList<AadBasedSecurityPrincipal>> aadBasedSecurityPrincipals = default;
@@ -80,11 +79,6 @@ namespace Azure.ResourceManager.ConfidentialLedger.Models
                         continue;
                     }
                     identityServiceUri = new Uri(property.Value.GetString());
-                    continue;
-                }
-                if (property.NameEquals("ledgerInternalNamespace"))
-                {
-                    ledgerInternalNamespace = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("ledgerType"))
@@ -138,7 +132,7 @@ namespace Azure.ResourceManager.ConfidentialLedger.Models
                     continue;
                 }
             }
-            return new ConfidentialLedgerProperties(ledgerName.Value, ledgerUri.Value, identityServiceUri.Value, ledgerInternalNamespace.Value, Optional.ToNullable(ledgerType), Optional.ToNullable(provisioningState), Optional.ToList(aadBasedSecurityPrincipals), Optional.ToList(certBasedSecurityPrincipals));
+            return new ConfidentialLedgerProperties(ledgerName.Value, ledgerUri.Value, identityServiceUri.Value, Optional.ToNullable(ledgerType), Optional.ToNullable(provisioningState), Optional.ToList(aadBasedSecurityPrincipals), Optional.ToList(certBasedSecurityPrincipals));
         }
     }
 }

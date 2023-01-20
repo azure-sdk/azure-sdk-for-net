@@ -25,17 +25,15 @@ namespace Azure.ResourceManager.ConfidentialLedger.Models
         /// <param name="ledgerName"> Unique name for the Confidential Ledger. </param>
         /// <param name="ledgerUri"> Endpoint for calling Ledger Service. </param>
         /// <param name="identityServiceUri"> Endpoint for accessing network identity. </param>
-        /// <param name="ledgerInternalNamespace"> Internal namespace for the Ledger. </param>
         /// <param name="ledgerType"> Type of Confidential Ledger. </param>
         /// <param name="provisioningState"> Provisioning state of Ledger Resource. </param>
         /// <param name="aadBasedSecurityPrincipals"> Array of all AAD based Security Principals. </param>
         /// <param name="certBasedSecurityPrincipals"> Array of all cert based Security Principals. </param>
-        internal ConfidentialLedgerProperties(string ledgerName, Uri ledgerUri, Uri identityServiceUri, string ledgerInternalNamespace, ConfidentialLedgerType? ledgerType, ConfidentialLedgerProvisioningState? provisioningState, IList<AadBasedSecurityPrincipal> aadBasedSecurityPrincipals, IList<CertBasedSecurityPrincipal> certBasedSecurityPrincipals)
+        internal ConfidentialLedgerProperties(string ledgerName, Uri ledgerUri, Uri identityServiceUri, ConfidentialLedgerType? ledgerType, ConfidentialLedgerProvisioningState? provisioningState, IList<AadBasedSecurityPrincipal> aadBasedSecurityPrincipals, IList<CertBasedSecurityPrincipal> certBasedSecurityPrincipals)
         {
             LedgerName = ledgerName;
             LedgerUri = ledgerUri;
             IdentityServiceUri = identityServiceUri;
-            LedgerInternalNamespace = ledgerInternalNamespace;
             LedgerType = ledgerType;
             ProvisioningState = provisioningState;
             AadBasedSecurityPrincipals = aadBasedSecurityPrincipals;
@@ -48,8 +46,6 @@ namespace Azure.ResourceManager.ConfidentialLedger.Models
         public Uri LedgerUri { get; }
         /// <summary> Endpoint for accessing network identity. </summary>
         public Uri IdentityServiceUri { get; }
-        /// <summary> Internal namespace for the Ledger. </summary>
-        public string LedgerInternalNamespace { get; }
         /// <summary> Type of Confidential Ledger. </summary>
         public ConfidentialLedgerType? LedgerType { get; set; }
         /// <summary> Provisioning state of Ledger Resource. </summary>
