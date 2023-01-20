@@ -1,55 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doc>
   <members>
-    <member name="GetAccountPropertiesAsync(RequestContext)">
+    <member name="GetWorkflowAsync(Guid,RequestContext)">
 <example>
-This sample shows how to call GetAccountPropertiesAsync and parse the result.
+This sample shows how to call GetWorkflowAsync with required parameters and parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
 var endpoint = new Uri("<https://my-service.azure.com>");
 var client = new PurviewAccountClient(endpoint, credential);
 
-Response response = await client.GetAccountPropertiesAsync();
+Response response = await client.GetWorkflowAsync(Guid.NewGuid());
 
 JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("actionDag").ToString());
 Console.WriteLine(result.GetProperty("id").ToString());
-Console.WriteLine(result.GetProperty("identity").GetProperty("principalId").ToString());
-Console.WriteLine(result.GetProperty("identity").GetProperty("tenantId").ToString());
-Console.WriteLine(result.GetProperty("identity").GetProperty("type").ToString());
-Console.WriteLine(result.GetProperty("location").ToString());
+Console.WriteLine(result.GetProperty("triggers")[0].GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("triggers")[0].GetProperty("underGlossaryHierarchy").ToString());
+Console.WriteLine(result.GetProperty("triggers")[0].GetProperty("underCollection").ToString());
+Console.WriteLine(result.GetProperty("triggers")[0].GetProperty("underGlossary").ToString());
+Console.WriteLine(result.GetProperty("createdTime").ToString());
+Console.WriteLine(result.GetProperty("createdBy").ToString());
+Console.WriteLine(result.GetProperty("lastUpdateTime").ToString());
+Console.WriteLine(result.GetProperty("updatedBy").ToString());
 Console.WriteLine(result.GetProperty("name").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("cloudConnectors").GetProperty("awsExternalId").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("createdAt").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("createdBy").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("createdByObjectId").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("endpoints").GetProperty("catalog").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("endpoints").GetProperty("guardian").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("endpoints").GetProperty("scan").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("friendlyName").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("managedResourceGroupName").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("managedResources").GetProperty("eventHubNamespace").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("managedResources").GetProperty("resourceGroup").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("managedResources").GetProperty("storageAccount").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("privateEndpointConnections")[0].GetProperty("id").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("privateEndpointConnections")[0].GetProperty("name").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("privateEndpointConnections")[0].GetProperty("properties").GetProperty("privateEndpoint").GetProperty("id").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("privateEndpointConnections")[0].GetProperty("properties").GetProperty("privateLinkServiceConnectionState").GetProperty("actionsRequired").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("privateEndpointConnections")[0].GetProperty("properties").GetProperty("privateLinkServiceConnectionState").GetProperty("description").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("privateEndpointConnections")[0].GetProperty("properties").GetProperty("privateLinkServiceConnectionState").GetProperty("status").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("privateEndpointConnections")[0].GetProperty("properties").GetProperty("provisioningState").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("privateEndpointConnections")[0].GetProperty("type").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("provisioningState").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("publicNetworkAccess").ToString());
-Console.WriteLine(result.GetProperty("sku").GetProperty("capacity").ToString());
-Console.WriteLine(result.GetProperty("sku").GetProperty("name").ToString());
-Console.WriteLine(result.GetProperty("systemData").GetProperty("createdAt").ToString());
-Console.WriteLine(result.GetProperty("systemData").GetProperty("createdBy").ToString());
-Console.WriteLine(result.GetProperty("systemData").GetProperty("createdByType").ToString());
-Console.WriteLine(result.GetProperty("systemData").GetProperty("lastModifiedAt").ToString());
-Console.WriteLine(result.GetProperty("systemData").GetProperty("lastModifiedBy").ToString());
-Console.WriteLine(result.GetProperty("systemData").GetProperty("lastModifiedByType").ToString());
-Console.WriteLine(result.GetProperty("tags").GetProperty("<test>").ToString());
-Console.WriteLine(result.GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("isEnabled").ToString());
+Console.WriteLine(result.GetProperty("description").ToString());
 ]]></code>
 </example>
 <remarks>
@@ -57,126 +32,54 @@ Below is the JSON schema for the response payload.
 
 Response Body:
 
-Schema for <c>Account</c>:
+Schema for <c>Workflow</c>:
 <code>{
-  id: string, # Optional. Gets or sets the identifier.
-  identity: {
-    principalId: string, # Optional. Service principal object Id
-    tenantId: string, # Optional. Tenant Id
-    type: &quot;SystemAssigned&quot;, # Optional. Identity Type
-  }, # Optional. Identity Info on the tracked resource
-  location: string, # Optional. Gets or sets the location.
-  name: string, # Optional. Gets or sets the name.
-  properties: {
-    cloudConnectors: {
-      awsExternalId: string, # Optional. AWS external identifier.
-Configured in AWS to allow use of the role arn used for scanning
-    }, # Optional. Cloud connectors.
-External cloud identifier used as part of scanning configuration.
-    createdAt: string (ISO 8601 Format), # Optional. Gets the time at which the entity was created.
-    createdBy: string, # Optional. Gets the creator of the entity.
-    createdByObjectId: string, # Optional. Gets the creators of the entity&apos;s object id.
-    endpoints: {
-      catalog: string, # Optional. Gets the catalog endpoint.
-      guardian: string, # Optional. Gets the guardian endpoint.
-      scan: string, # Optional. Gets the scan endpoint.
-    }, # Optional. The URIs that are the public endpoints of the account.
-    friendlyName: string, # Optional. Gets or sets the friendly name.
-    managedResourceGroupName: string, # Optional. Gets or sets the managed resource group name
-    managedResources: {
-      eventHubNamespace: string, # Optional. Gets the managed event hub namespace resource identifier.
-      resourceGroup: string, # Optional. Gets the managed resource group resource identifier. This resource group will host resource dependencies for the account.
-      storageAccount: string, # Optional. Gets the managed storage account resource identifier.
-    }, # Optional. Gets the resource identifiers of the managed resources.
-    privateEndpointConnections: [
-      {
-        id: string, # Optional. Gets or sets the identifier.
-        name: string, # Optional. Gets or sets the name.
-        properties: {
-          privateEndpoint: {
-            id: string, # Optional. The private endpoint identifier.
-          }, # Optional. The private endpoint information.
-          privateLinkServiceConnectionState: {
-            actionsRequired: string, # Optional. The required actions.
-            description: string, # Optional. The description.
-            status: &quot;Unknown&quot; | &quot;Pending&quot; | &quot;Approved&quot; | &quot;Rejected&quot; | &quot;Disconnected&quot;, # Optional. The status.
-          }, # Optional. The private link service connection state.
-          provisioningState: string, # Optional. The provisioning state.
-        }, # Optional. The connection identifier.
-        type: string, # Optional. Gets or sets the type.
-      }
-    ], # Optional. Gets the private endpoint connections information.
-    provisioningState: &quot;Unknown&quot; | &quot;Creating&quot; | &quot;Moving&quot; | &quot;Deleting&quot; | &quot;SoftDeleting&quot; | &quot;SoftDeleted&quot; | &quot;Failed&quot; | &quot;Succeeded&quot; | &quot;Canceled&quot;, # Optional. Gets or sets the state of the provisioning.
-    publicNetworkAccess: &quot;NotSpecified&quot; | &quot;Enabled&quot; | &quot;Disabled&quot;, # Optional. Gets or sets the public network access.
-  }, # Optional. Gets or sets the properties.
-  sku: {
-    capacity: number, # Optional. Gets or sets the sku capacity. Possible values include: 4, 16
-    name: &quot;Standard&quot;, # Optional. Gets or sets the sku name.
-  }, # Optional. Gets or sets the Sku.
-  systemData: {
-    createdAt: string (ISO 8601 Format), # Optional. The timestamp of resource creation (UTC).
-    createdBy: string, # Optional. The identity that created the resource.
-    createdByType: &quot;User&quot; | &quot;Application&quot; | &quot;ManagedIdentity&quot; | &quot;Key&quot;, # Optional. The type of identity that created the resource.
-    lastModifiedAt: string (ISO 8601 Format), # Optional. The timestamp of the last modification the resource (UTC).
-    lastModifiedBy: string, # Optional. The identity that last modified the resource.
-    lastModifiedByType: &quot;User&quot; | &quot;Application&quot; | &quot;ManagedIdentity&quot; | &quot;Key&quot;, # Optional. The type of identity that last modified the resource.
-  }, # Optional. Metadata pertaining to creation and last modification of the resource.
-  tags: Dictionary&lt;string, string&gt;, # Optional. Tags on the azure resource.
-  type: string, # Optional. Gets or sets the type.
+  actionDag: AnyObject, # Required. The action DAG(Directed Acyclic Graph), it defines steps to be executed in a workflow run and their order.
+  id: Guid, # Required. The id of workflow.
+  triggers: [
+    {
+      type: &quot;when_term_creation_is_requested&quot; | &quot;when_term_deletion_is_requested&quot; | &quot;when_term_update_is_requested&quot; | &quot;when_terms_import_is_requested&quot; | &quot;when_data_access_grant_is_requested&quot; | &quot;when_asset_update_is_requested&quot; | &quot;when_dsar_deletion_is_requested&quot; | &quot;when_dsar_export_is_requested&quot;, # Required.
+      underGlossaryHierarchy: string, # Optional. Glossary term hierarchy path.
+      underCollection: string, # Optional. The collection name.
+      underGlossary: string, # Optional. The glossary guid.
+    }
+  ], # Required. It describes under what condition a workflow will run.  
+  createdTime: string (ISO 8601 Format), # Required. The created time of workflow.
+  createdBy: string, # Required. The person who created the workflow.
+  lastUpdateTime: string (ISO 8601 Format), # Required. The last update time.
+  updatedBy: string, # Required. The person who updated the workflow.
+  name: string, # Required. The name of a workflow.
+  isEnabled: boolean, # Required. Whether the workflow is enabled or not.
+  description: string, # Required. Description of a workflow.
 }
 </code>
 
 </remarks>
     </member>
-    <member name="GetAccountProperties(RequestContext)">
+    <member name="GetWorkflow(Guid,RequestContext)">
 <example>
-This sample shows how to call GetAccountProperties and parse the result.
+This sample shows how to call GetWorkflow with required parameters and parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
 var endpoint = new Uri("<https://my-service.azure.com>");
 var client = new PurviewAccountClient(endpoint, credential);
 
-Response response = client.GetAccountProperties();
+Response response = client.GetWorkflow(Guid.NewGuid());
 
 JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("actionDag").ToString());
 Console.WriteLine(result.GetProperty("id").ToString());
-Console.WriteLine(result.GetProperty("identity").GetProperty("principalId").ToString());
-Console.WriteLine(result.GetProperty("identity").GetProperty("tenantId").ToString());
-Console.WriteLine(result.GetProperty("identity").GetProperty("type").ToString());
-Console.WriteLine(result.GetProperty("location").ToString());
+Console.WriteLine(result.GetProperty("triggers")[0].GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("triggers")[0].GetProperty("underGlossaryHierarchy").ToString());
+Console.WriteLine(result.GetProperty("triggers")[0].GetProperty("underCollection").ToString());
+Console.WriteLine(result.GetProperty("triggers")[0].GetProperty("underGlossary").ToString());
+Console.WriteLine(result.GetProperty("createdTime").ToString());
+Console.WriteLine(result.GetProperty("createdBy").ToString());
+Console.WriteLine(result.GetProperty("lastUpdateTime").ToString());
+Console.WriteLine(result.GetProperty("updatedBy").ToString());
 Console.WriteLine(result.GetProperty("name").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("cloudConnectors").GetProperty("awsExternalId").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("createdAt").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("createdBy").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("createdByObjectId").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("endpoints").GetProperty("catalog").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("endpoints").GetProperty("guardian").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("endpoints").GetProperty("scan").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("friendlyName").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("managedResourceGroupName").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("managedResources").GetProperty("eventHubNamespace").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("managedResources").GetProperty("resourceGroup").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("managedResources").GetProperty("storageAccount").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("privateEndpointConnections")[0].GetProperty("id").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("privateEndpointConnections")[0].GetProperty("name").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("privateEndpointConnections")[0].GetProperty("properties").GetProperty("privateEndpoint").GetProperty("id").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("privateEndpointConnections")[0].GetProperty("properties").GetProperty("privateLinkServiceConnectionState").GetProperty("actionsRequired").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("privateEndpointConnections")[0].GetProperty("properties").GetProperty("privateLinkServiceConnectionState").GetProperty("description").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("privateEndpointConnections")[0].GetProperty("properties").GetProperty("privateLinkServiceConnectionState").GetProperty("status").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("privateEndpointConnections")[0].GetProperty("properties").GetProperty("provisioningState").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("privateEndpointConnections")[0].GetProperty("type").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("provisioningState").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("publicNetworkAccess").ToString());
-Console.WriteLine(result.GetProperty("sku").GetProperty("capacity").ToString());
-Console.WriteLine(result.GetProperty("sku").GetProperty("name").ToString());
-Console.WriteLine(result.GetProperty("systemData").GetProperty("createdAt").ToString());
-Console.WriteLine(result.GetProperty("systemData").GetProperty("createdBy").ToString());
-Console.WriteLine(result.GetProperty("systemData").GetProperty("createdByType").ToString());
-Console.WriteLine(result.GetProperty("systemData").GetProperty("lastModifiedAt").ToString());
-Console.WriteLine(result.GetProperty("systemData").GetProperty("lastModifiedBy").ToString());
-Console.WriteLine(result.GetProperty("systemData").GetProperty("lastModifiedByType").ToString());
-Console.WriteLine(result.GetProperty("tags").GetProperty("<test>").ToString());
-Console.WriteLine(result.GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("isEnabled").ToString());
+Console.WriteLine(result.GetProperty("description").ToString());
 ]]></code>
 </example>
 <remarks>
@@ -184,143 +87,100 @@ Below is the JSON schema for the response payload.
 
 Response Body:
 
-Schema for <c>Account</c>:
+Schema for <c>Workflow</c>:
 <code>{
-  id: string, # Optional. Gets or sets the identifier.
-  identity: {
-    principalId: string, # Optional. Service principal object Id
-    tenantId: string, # Optional. Tenant Id
-    type: &quot;SystemAssigned&quot;, # Optional. Identity Type
-  }, # Optional. Identity Info on the tracked resource
-  location: string, # Optional. Gets or sets the location.
-  name: string, # Optional. Gets or sets the name.
-  properties: {
-    cloudConnectors: {
-      awsExternalId: string, # Optional. AWS external identifier.
-Configured in AWS to allow use of the role arn used for scanning
-    }, # Optional. Cloud connectors.
-External cloud identifier used as part of scanning configuration.
-    createdAt: string (ISO 8601 Format), # Optional. Gets the time at which the entity was created.
-    createdBy: string, # Optional. Gets the creator of the entity.
-    createdByObjectId: string, # Optional. Gets the creators of the entity&apos;s object id.
-    endpoints: {
-      catalog: string, # Optional. Gets the catalog endpoint.
-      guardian: string, # Optional. Gets the guardian endpoint.
-      scan: string, # Optional. Gets the scan endpoint.
-    }, # Optional. The URIs that are the public endpoints of the account.
-    friendlyName: string, # Optional. Gets or sets the friendly name.
-    managedResourceGroupName: string, # Optional. Gets or sets the managed resource group name
-    managedResources: {
-      eventHubNamespace: string, # Optional. Gets the managed event hub namespace resource identifier.
-      resourceGroup: string, # Optional. Gets the managed resource group resource identifier. This resource group will host resource dependencies for the account.
-      storageAccount: string, # Optional. Gets the managed storage account resource identifier.
-    }, # Optional. Gets the resource identifiers of the managed resources.
-    privateEndpointConnections: [
-      {
-        id: string, # Optional. Gets or sets the identifier.
-        name: string, # Optional. Gets or sets the name.
-        properties: {
-          privateEndpoint: {
-            id: string, # Optional. The private endpoint identifier.
-          }, # Optional. The private endpoint information.
-          privateLinkServiceConnectionState: {
-            actionsRequired: string, # Optional. The required actions.
-            description: string, # Optional. The description.
-            status: &quot;Unknown&quot; | &quot;Pending&quot; | &quot;Approved&quot; | &quot;Rejected&quot; | &quot;Disconnected&quot;, # Optional. The status.
-          }, # Optional. The private link service connection state.
-          provisioningState: string, # Optional. The provisioning state.
-        }, # Optional. The connection identifier.
-        type: string, # Optional. Gets or sets the type.
-      }
-    ], # Optional. Gets the private endpoint connections information.
-    provisioningState: &quot;Unknown&quot; | &quot;Creating&quot; | &quot;Moving&quot; | &quot;Deleting&quot; | &quot;SoftDeleting&quot; | &quot;SoftDeleted&quot; | &quot;Failed&quot; | &quot;Succeeded&quot; | &quot;Canceled&quot;, # Optional. Gets or sets the state of the provisioning.
-    publicNetworkAccess: &quot;NotSpecified&quot; | &quot;Enabled&quot; | &quot;Disabled&quot;, # Optional. Gets or sets the public network access.
-  }, # Optional. Gets or sets the properties.
-  sku: {
-    capacity: number, # Optional. Gets or sets the sku capacity. Possible values include: 4, 16
-    name: &quot;Standard&quot;, # Optional. Gets or sets the sku name.
-  }, # Optional. Gets or sets the Sku.
-  systemData: {
-    createdAt: string (ISO 8601 Format), # Optional. The timestamp of resource creation (UTC).
-    createdBy: string, # Optional. The identity that created the resource.
-    createdByType: &quot;User&quot; | &quot;Application&quot; | &quot;ManagedIdentity&quot; | &quot;Key&quot;, # Optional. The type of identity that created the resource.
-    lastModifiedAt: string (ISO 8601 Format), # Optional. The timestamp of the last modification the resource (UTC).
-    lastModifiedBy: string, # Optional. The identity that last modified the resource.
-    lastModifiedByType: &quot;User&quot; | &quot;Application&quot; | &quot;ManagedIdentity&quot; | &quot;Key&quot;, # Optional. The type of identity that last modified the resource.
-  }, # Optional. Metadata pertaining to creation and last modification of the resource.
-  tags: Dictionary&lt;string, string&gt;, # Optional. Tags on the azure resource.
-  type: string, # Optional. Gets or sets the type.
+  actionDag: AnyObject, # Required. The action DAG(Directed Acyclic Graph), it defines steps to be executed in a workflow run and their order.
+  id: Guid, # Required. The id of workflow.
+  triggers: [
+    {
+      type: &quot;when_term_creation_is_requested&quot; | &quot;when_term_deletion_is_requested&quot; | &quot;when_term_update_is_requested&quot; | &quot;when_terms_import_is_requested&quot; | &quot;when_data_access_grant_is_requested&quot; | &quot;when_asset_update_is_requested&quot; | &quot;when_dsar_deletion_is_requested&quot; | &quot;when_dsar_export_is_requested&quot;, # Required.
+      underGlossaryHierarchy: string, # Optional. Glossary term hierarchy path.
+      underCollection: string, # Optional. The collection name.
+      underGlossary: string, # Optional. The glossary guid.
+    }
+  ], # Required. It describes under what condition a workflow will run.  
+  createdTime: string (ISO 8601 Format), # Required. The created time of workflow.
+  createdBy: string, # Required. The person who created the workflow.
+  lastUpdateTime: string (ISO 8601 Format), # Required. The last update time.
+  updatedBy: string, # Required. The person who updated the workflow.
+  name: string, # Required. The name of a workflow.
+  isEnabled: boolean, # Required. Whether the workflow is enabled or not.
+  description: string, # Required. Description of a workflow.
 }
 </code>
 
 </remarks>
     </member>
-    <member name="UpdateAccountPropertiesAsync(RequestContent,RequestContext)">
+    <member name="CreateOrReplaceWorkflowAsync(Guid,RequestContent,RequestContext)">
 <example>
-This sample shows how to call UpdateAccountPropertiesAsync and parse the result.
-<code><![CDATA[
-var credential = new DefaultAzureCredential();
-var endpoint = new Uri("<https://my-service.azure.com>");
-var client = new PurviewAccountClient(endpoint, credential);
-
-var data = new {};
-
-Response response = await client.UpdateAccountPropertiesAsync(RequestContent.Create(data));
-
-JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-Console.WriteLine(result.ToString());
-]]></code>
-This sample shows how to call UpdateAccountPropertiesAsync with all request content, and how to parse the result.
+This sample shows how to call CreateOrReplaceWorkflowAsync with required parameters and request content, and how to parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
 var endpoint = new Uri("<https://my-service.azure.com>");
 var client = new PurviewAccountClient(endpoint, credential);
 
 var data = new {
-    friendlyName = "<friendlyName>",
+    triggers = new[] {
+        new {
+            type = "when_term_creation_is_requested",
+        }
+    },
+    name = "<name>",
+    isEnabled = true,
+    description = "<description>",
 };
 
-Response response = await client.UpdateAccountPropertiesAsync(RequestContent.Create(data));
+Response response = await client.CreateOrReplaceWorkflowAsync(Guid.NewGuid(), RequestContent.Create(data));
 
 JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("actionDag").ToString());
 Console.WriteLine(result.GetProperty("id").ToString());
-Console.WriteLine(result.GetProperty("identity").GetProperty("principalId").ToString());
-Console.WriteLine(result.GetProperty("identity").GetProperty("tenantId").ToString());
-Console.WriteLine(result.GetProperty("identity").GetProperty("type").ToString());
-Console.WriteLine(result.GetProperty("location").ToString());
+Console.WriteLine(result.GetProperty("triggers")[0].GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("createdTime").ToString());
+Console.WriteLine(result.GetProperty("createdBy").ToString());
+Console.WriteLine(result.GetProperty("lastUpdateTime").ToString());
+Console.WriteLine(result.GetProperty("updatedBy").ToString());
 Console.WriteLine(result.GetProperty("name").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("cloudConnectors").GetProperty("awsExternalId").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("createdAt").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("createdBy").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("createdByObjectId").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("endpoints").GetProperty("catalog").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("endpoints").GetProperty("guardian").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("endpoints").GetProperty("scan").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("friendlyName").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("managedResourceGroupName").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("managedResources").GetProperty("eventHubNamespace").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("managedResources").GetProperty("resourceGroup").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("managedResources").GetProperty("storageAccount").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("privateEndpointConnections")[0].GetProperty("id").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("privateEndpointConnections")[0].GetProperty("name").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("privateEndpointConnections")[0].GetProperty("properties").GetProperty("privateEndpoint").GetProperty("id").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("privateEndpointConnections")[0].GetProperty("properties").GetProperty("privateLinkServiceConnectionState").GetProperty("actionsRequired").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("privateEndpointConnections")[0].GetProperty("properties").GetProperty("privateLinkServiceConnectionState").GetProperty("description").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("privateEndpointConnections")[0].GetProperty("properties").GetProperty("privateLinkServiceConnectionState").GetProperty("status").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("privateEndpointConnections")[0].GetProperty("properties").GetProperty("provisioningState").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("privateEndpointConnections")[0].GetProperty("type").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("provisioningState").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("publicNetworkAccess").ToString());
-Console.WriteLine(result.GetProperty("sku").GetProperty("capacity").ToString());
-Console.WriteLine(result.GetProperty("sku").GetProperty("name").ToString());
-Console.WriteLine(result.GetProperty("systemData").GetProperty("createdAt").ToString());
-Console.WriteLine(result.GetProperty("systemData").GetProperty("createdBy").ToString());
-Console.WriteLine(result.GetProperty("systemData").GetProperty("createdByType").ToString());
-Console.WriteLine(result.GetProperty("systemData").GetProperty("lastModifiedAt").ToString());
-Console.WriteLine(result.GetProperty("systemData").GetProperty("lastModifiedBy").ToString());
-Console.WriteLine(result.GetProperty("systemData").GetProperty("lastModifiedByType").ToString());
-Console.WriteLine(result.GetProperty("tags").GetProperty("<test>").ToString());
-Console.WriteLine(result.GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("isEnabled").ToString());
+Console.WriteLine(result.GetProperty("description").ToString());
+]]></code>
+This sample shows how to call CreateOrReplaceWorkflowAsync with all parameters and request content, and how to parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new PurviewAccountClient(endpoint, credential);
+
+var data = new {
+    triggers = new[] {
+        new {
+            type = "when_term_creation_is_requested",
+            underGlossaryHierarchy = "<underGlossaryHierarchy>",
+            underCollection = "<underCollection>",
+            underGlossary = "<underGlossary>",
+        }
+    },
+    name = "<name>",
+    isEnabled = true,
+    description = "<description>",
+    actionDag = new {},
+};
+
+Response response = await client.CreateOrReplaceWorkflowAsync(Guid.NewGuid(), RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("actionDag").ToString());
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("triggers")[0].GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("triggers")[0].GetProperty("underGlossaryHierarchy").ToString());
+Console.WriteLine(result.GetProperty("triggers")[0].GetProperty("underCollection").ToString());
+Console.WriteLine(result.GetProperty("triggers")[0].GetProperty("underGlossary").ToString());
+Console.WriteLine(result.GetProperty("createdTime").ToString());
+Console.WriteLine(result.GetProperty("createdBy").ToString());
+Console.WriteLine(result.GetProperty("lastUpdateTime").ToString());
+Console.WriteLine(result.GetProperty("updatedBy").ToString());
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("isEnabled").ToString());
+Console.WriteLine(result.GetProperty("description").ToString());
 ]]></code>
 </example>
 <remarks>
@@ -328,151 +188,119 @@ Below is the JSON schema for the request and response payloads.
 
 Request Body:
 
-Schema for <c>DataPlaneAccountUpdateParameters</c>:
+Schema for <c>WorkflowCreateOrUpdateCommand</c>:
 <code>{
-  friendlyName: string, # Optional. The friendly name for the azure resource.
+  triggers: [
+    {
+      type: &quot;when_term_creation_is_requested&quot; | &quot;when_term_deletion_is_requested&quot; | &quot;when_term_update_is_requested&quot; | &quot;when_terms_import_is_requested&quot; | &quot;when_data_access_grant_is_requested&quot; | &quot;when_asset_update_is_requested&quot; | &quot;when_dsar_deletion_is_requested&quot; | &quot;when_dsar_export_is_requested&quot;, # Required.
+      underGlossaryHierarchy: string, # Optional. Glossary term hierarchy path.
+      underCollection: string, # Optional. The collection name.
+      underGlossary: string, # Optional. The glossary guid.
+    }
+  ], # Required. It describes under what condition a workflow will run.  
+  name: string, # Required. The workflow name.
+  isEnabled: boolean, # Required. Whether the workflow enabled or not.
+  description: string, # Required. Description of a workflow.
+  actionDag: AnyObject, # Optional. The action DAG(Directed Acyclic Graph), it defines actual flow.
 }
 </code>
 
 Response Body:
 
-Schema for <c>Account</c>:
+Schema for <c>Workflow</c>:
 <code>{
-  id: string, # Optional. Gets or sets the identifier.
-  identity: {
-    principalId: string, # Optional. Service principal object Id
-    tenantId: string, # Optional. Tenant Id
-    type: &quot;SystemAssigned&quot;, # Optional. Identity Type
-  }, # Optional. Identity Info on the tracked resource
-  location: string, # Optional. Gets or sets the location.
-  name: string, # Optional. Gets or sets the name.
-  properties: {
-    cloudConnectors: {
-      awsExternalId: string, # Optional. AWS external identifier.
-Configured in AWS to allow use of the role arn used for scanning
-    }, # Optional. Cloud connectors.
-External cloud identifier used as part of scanning configuration.
-    createdAt: string (ISO 8601 Format), # Optional. Gets the time at which the entity was created.
-    createdBy: string, # Optional. Gets the creator of the entity.
-    createdByObjectId: string, # Optional. Gets the creators of the entity&apos;s object id.
-    endpoints: {
-      catalog: string, # Optional. Gets the catalog endpoint.
-      guardian: string, # Optional. Gets the guardian endpoint.
-      scan: string, # Optional. Gets the scan endpoint.
-    }, # Optional. The URIs that are the public endpoints of the account.
-    friendlyName: string, # Optional. Gets or sets the friendly name.
-    managedResourceGroupName: string, # Optional. Gets or sets the managed resource group name
-    managedResources: {
-      eventHubNamespace: string, # Optional. Gets the managed event hub namespace resource identifier.
-      resourceGroup: string, # Optional. Gets the managed resource group resource identifier. This resource group will host resource dependencies for the account.
-      storageAccount: string, # Optional. Gets the managed storage account resource identifier.
-    }, # Optional. Gets the resource identifiers of the managed resources.
-    privateEndpointConnections: [
-      {
-        id: string, # Optional. Gets or sets the identifier.
-        name: string, # Optional. Gets or sets the name.
-        properties: {
-          privateEndpoint: {
-            id: string, # Optional. The private endpoint identifier.
-          }, # Optional. The private endpoint information.
-          privateLinkServiceConnectionState: {
-            actionsRequired: string, # Optional. The required actions.
-            description: string, # Optional. The description.
-            status: &quot;Unknown&quot; | &quot;Pending&quot; | &quot;Approved&quot; | &quot;Rejected&quot; | &quot;Disconnected&quot;, # Optional. The status.
-          }, # Optional. The private link service connection state.
-          provisioningState: string, # Optional. The provisioning state.
-        }, # Optional. The connection identifier.
-        type: string, # Optional. Gets or sets the type.
-      }
-    ], # Optional. Gets the private endpoint connections information.
-    provisioningState: &quot;Unknown&quot; | &quot;Creating&quot; | &quot;Moving&quot; | &quot;Deleting&quot; | &quot;SoftDeleting&quot; | &quot;SoftDeleted&quot; | &quot;Failed&quot; | &quot;Succeeded&quot; | &quot;Canceled&quot;, # Optional. Gets or sets the state of the provisioning.
-    publicNetworkAccess: &quot;NotSpecified&quot; | &quot;Enabled&quot; | &quot;Disabled&quot;, # Optional. Gets or sets the public network access.
-  }, # Optional. Gets or sets the properties.
-  sku: {
-    capacity: number, # Optional. Gets or sets the sku capacity. Possible values include: 4, 16
-    name: &quot;Standard&quot;, # Optional. Gets or sets the sku name.
-  }, # Optional. Gets or sets the Sku.
-  systemData: {
-    createdAt: string (ISO 8601 Format), # Optional. The timestamp of resource creation (UTC).
-    createdBy: string, # Optional. The identity that created the resource.
-    createdByType: &quot;User&quot; | &quot;Application&quot; | &quot;ManagedIdentity&quot; | &quot;Key&quot;, # Optional. The type of identity that created the resource.
-    lastModifiedAt: string (ISO 8601 Format), # Optional. The timestamp of the last modification the resource (UTC).
-    lastModifiedBy: string, # Optional. The identity that last modified the resource.
-    lastModifiedByType: &quot;User&quot; | &quot;Application&quot; | &quot;ManagedIdentity&quot; | &quot;Key&quot;, # Optional. The type of identity that last modified the resource.
-  }, # Optional. Metadata pertaining to creation and last modification of the resource.
-  tags: Dictionary&lt;string, string&gt;, # Optional. Tags on the azure resource.
-  type: string, # Optional. Gets or sets the type.
+  actionDag: AnyObject, # Required. The action DAG(Directed Acyclic Graph), it defines steps to be executed in a workflow run and their order.
+  id: Guid, # Required. The id of workflow.
+  triggers: [
+    {
+      type: &quot;when_term_creation_is_requested&quot; | &quot;when_term_deletion_is_requested&quot; | &quot;when_term_update_is_requested&quot; | &quot;when_terms_import_is_requested&quot; | &quot;when_data_access_grant_is_requested&quot; | &quot;when_asset_update_is_requested&quot; | &quot;when_dsar_deletion_is_requested&quot; | &quot;when_dsar_export_is_requested&quot;, # Required.
+      underGlossaryHierarchy: string, # Optional. Glossary term hierarchy path.
+      underCollection: string, # Optional. The collection name.
+      underGlossary: string, # Optional. The glossary guid.
+    }
+  ], # Required. It describes under what condition a workflow will run.  
+  createdTime: string (ISO 8601 Format), # Required. The created time of workflow.
+  createdBy: string, # Required. The person who created the workflow.
+  lastUpdateTime: string (ISO 8601 Format), # Required. The last update time.
+  updatedBy: string, # Required. The person who updated the workflow.
+  name: string, # Required. The name of a workflow.
+  isEnabled: boolean, # Required. Whether the workflow is enabled or not.
+  description: string, # Required. Description of a workflow.
 }
 </code>
 
 </remarks>
     </member>
-    <member name="UpdateAccountProperties(RequestContent,RequestContext)">
+    <member name="CreateOrReplaceWorkflow(Guid,RequestContent,RequestContext)">
 <example>
-This sample shows how to call UpdateAccountProperties and parse the result.
-<code><![CDATA[
-var credential = new DefaultAzureCredential();
-var endpoint = new Uri("<https://my-service.azure.com>");
-var client = new PurviewAccountClient(endpoint, credential);
-
-var data = new {};
-
-Response response = client.UpdateAccountProperties(RequestContent.Create(data));
-
-JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-Console.WriteLine(result.ToString());
-]]></code>
-This sample shows how to call UpdateAccountProperties with all request content, and how to parse the result.
+This sample shows how to call CreateOrReplaceWorkflow with required parameters and request content, and how to parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
 var endpoint = new Uri("<https://my-service.azure.com>");
 var client = new PurviewAccountClient(endpoint, credential);
 
 var data = new {
-    friendlyName = "<friendlyName>",
+    triggers = new[] {
+        new {
+            type = "when_term_creation_is_requested",
+        }
+    },
+    name = "<name>",
+    isEnabled = true,
+    description = "<description>",
 };
 
-Response response = client.UpdateAccountProperties(RequestContent.Create(data));
+Response response = client.CreateOrReplaceWorkflow(Guid.NewGuid(), RequestContent.Create(data));
 
 JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("actionDag").ToString());
 Console.WriteLine(result.GetProperty("id").ToString());
-Console.WriteLine(result.GetProperty("identity").GetProperty("principalId").ToString());
-Console.WriteLine(result.GetProperty("identity").GetProperty("tenantId").ToString());
-Console.WriteLine(result.GetProperty("identity").GetProperty("type").ToString());
-Console.WriteLine(result.GetProperty("location").ToString());
+Console.WriteLine(result.GetProperty("triggers")[0].GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("createdTime").ToString());
+Console.WriteLine(result.GetProperty("createdBy").ToString());
+Console.WriteLine(result.GetProperty("lastUpdateTime").ToString());
+Console.WriteLine(result.GetProperty("updatedBy").ToString());
 Console.WriteLine(result.GetProperty("name").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("cloudConnectors").GetProperty("awsExternalId").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("createdAt").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("createdBy").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("createdByObjectId").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("endpoints").GetProperty("catalog").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("endpoints").GetProperty("guardian").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("endpoints").GetProperty("scan").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("friendlyName").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("managedResourceGroupName").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("managedResources").GetProperty("eventHubNamespace").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("managedResources").GetProperty("resourceGroup").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("managedResources").GetProperty("storageAccount").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("privateEndpointConnections")[0].GetProperty("id").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("privateEndpointConnections")[0].GetProperty("name").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("privateEndpointConnections")[0].GetProperty("properties").GetProperty("privateEndpoint").GetProperty("id").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("privateEndpointConnections")[0].GetProperty("properties").GetProperty("privateLinkServiceConnectionState").GetProperty("actionsRequired").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("privateEndpointConnections")[0].GetProperty("properties").GetProperty("privateLinkServiceConnectionState").GetProperty("description").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("privateEndpointConnections")[0].GetProperty("properties").GetProperty("privateLinkServiceConnectionState").GetProperty("status").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("privateEndpointConnections")[0].GetProperty("properties").GetProperty("provisioningState").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("privateEndpointConnections")[0].GetProperty("type").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("provisioningState").ToString());
-Console.WriteLine(result.GetProperty("properties").GetProperty("publicNetworkAccess").ToString());
-Console.WriteLine(result.GetProperty("sku").GetProperty("capacity").ToString());
-Console.WriteLine(result.GetProperty("sku").GetProperty("name").ToString());
-Console.WriteLine(result.GetProperty("systemData").GetProperty("createdAt").ToString());
-Console.WriteLine(result.GetProperty("systemData").GetProperty("createdBy").ToString());
-Console.WriteLine(result.GetProperty("systemData").GetProperty("createdByType").ToString());
-Console.WriteLine(result.GetProperty("systemData").GetProperty("lastModifiedAt").ToString());
-Console.WriteLine(result.GetProperty("systemData").GetProperty("lastModifiedBy").ToString());
-Console.WriteLine(result.GetProperty("systemData").GetProperty("lastModifiedByType").ToString());
-Console.WriteLine(result.GetProperty("tags").GetProperty("<test>").ToString());
-Console.WriteLine(result.GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("isEnabled").ToString());
+Console.WriteLine(result.GetProperty("description").ToString());
+]]></code>
+This sample shows how to call CreateOrReplaceWorkflow with all parameters and request content, and how to parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new PurviewAccountClient(endpoint, credential);
+
+var data = new {
+    triggers = new[] {
+        new {
+            type = "when_term_creation_is_requested",
+            underGlossaryHierarchy = "<underGlossaryHierarchy>",
+            underCollection = "<underCollection>",
+            underGlossary = "<underGlossary>",
+        }
+    },
+    name = "<name>",
+    isEnabled = true,
+    description = "<description>",
+    actionDag = new {},
+};
+
+Response response = client.CreateOrReplaceWorkflow(Guid.NewGuid(), RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("actionDag").ToString());
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("triggers")[0].GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("triggers")[0].GetProperty("underGlossaryHierarchy").ToString());
+Console.WriteLine(result.GetProperty("triggers")[0].GetProperty("underCollection").ToString());
+Console.WriteLine(result.GetProperty("triggers")[0].GetProperty("underGlossary").ToString());
+Console.WriteLine(result.GetProperty("createdTime").ToString());
+Console.WriteLine(result.GetProperty("createdBy").ToString());
+Console.WriteLine(result.GetProperty("lastUpdateTime").ToString());
+Console.WriteLine(result.GetProperty("updatedBy").ToString());
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("isEnabled").ToString());
+Console.WriteLine(result.GetProperty("description").ToString());
 ]]></code>
 </example>
 <remarks>
@@ -480,98 +308,283 @@ Below is the JSON schema for the request and response payloads.
 
 Request Body:
 
-Schema for <c>DataPlaneAccountUpdateParameters</c>:
+Schema for <c>WorkflowCreateOrUpdateCommand</c>:
 <code>{
-  friendlyName: string, # Optional. The friendly name for the azure resource.
+  triggers: [
+    {
+      type: &quot;when_term_creation_is_requested&quot; | &quot;when_term_deletion_is_requested&quot; | &quot;when_term_update_is_requested&quot; | &quot;when_terms_import_is_requested&quot; | &quot;when_data_access_grant_is_requested&quot; | &quot;when_asset_update_is_requested&quot; | &quot;when_dsar_deletion_is_requested&quot; | &quot;when_dsar_export_is_requested&quot;, # Required.
+      underGlossaryHierarchy: string, # Optional. Glossary term hierarchy path.
+      underCollection: string, # Optional. The collection name.
+      underGlossary: string, # Optional. The glossary guid.
+    }
+  ], # Required. It describes under what condition a workflow will run.  
+  name: string, # Required. The workflow name.
+  isEnabled: boolean, # Required. Whether the workflow enabled or not.
+  description: string, # Required. Description of a workflow.
+  actionDag: AnyObject, # Optional. The action DAG(Directed Acyclic Graph), it defines actual flow.
 }
 </code>
 
 Response Body:
 
-Schema for <c>Account</c>:
+Schema for <c>Workflow</c>:
 <code>{
-  id: string, # Optional. Gets or sets the identifier.
-  identity: {
-    principalId: string, # Optional. Service principal object Id
-    tenantId: string, # Optional. Tenant Id
-    type: &quot;SystemAssigned&quot;, # Optional. Identity Type
-  }, # Optional. Identity Info on the tracked resource
-  location: string, # Optional. Gets or sets the location.
-  name: string, # Optional. Gets or sets the name.
-  properties: {
-    cloudConnectors: {
-      awsExternalId: string, # Optional. AWS external identifier.
-Configured in AWS to allow use of the role arn used for scanning
-    }, # Optional. Cloud connectors.
-External cloud identifier used as part of scanning configuration.
-    createdAt: string (ISO 8601 Format), # Optional. Gets the time at which the entity was created.
-    createdBy: string, # Optional. Gets the creator of the entity.
-    createdByObjectId: string, # Optional. Gets the creators of the entity&apos;s object id.
-    endpoints: {
-      catalog: string, # Optional. Gets the catalog endpoint.
-      guardian: string, # Optional. Gets the guardian endpoint.
-      scan: string, # Optional. Gets the scan endpoint.
-    }, # Optional. The URIs that are the public endpoints of the account.
-    friendlyName: string, # Optional. Gets or sets the friendly name.
-    managedResourceGroupName: string, # Optional. Gets or sets the managed resource group name
-    managedResources: {
-      eventHubNamespace: string, # Optional. Gets the managed event hub namespace resource identifier.
-      resourceGroup: string, # Optional. Gets the managed resource group resource identifier. This resource group will host resource dependencies for the account.
-      storageAccount: string, # Optional. Gets the managed storage account resource identifier.
-    }, # Optional. Gets the resource identifiers of the managed resources.
-    privateEndpointConnections: [
-      {
-        id: string, # Optional. Gets or sets the identifier.
-        name: string, # Optional. Gets or sets the name.
-        properties: {
-          privateEndpoint: {
-            id: string, # Optional. The private endpoint identifier.
-          }, # Optional. The private endpoint information.
-          privateLinkServiceConnectionState: {
-            actionsRequired: string, # Optional. The required actions.
-            description: string, # Optional. The description.
-            status: &quot;Unknown&quot; | &quot;Pending&quot; | &quot;Approved&quot; | &quot;Rejected&quot; | &quot;Disconnected&quot;, # Optional. The status.
-          }, # Optional. The private link service connection state.
-          provisioningState: string, # Optional. The provisioning state.
-        }, # Optional. The connection identifier.
-        type: string, # Optional. Gets or sets the type.
-      }
-    ], # Optional. Gets the private endpoint connections information.
-    provisioningState: &quot;Unknown&quot; | &quot;Creating&quot; | &quot;Moving&quot; | &quot;Deleting&quot; | &quot;SoftDeleting&quot; | &quot;SoftDeleted&quot; | &quot;Failed&quot; | &quot;Succeeded&quot; | &quot;Canceled&quot;, # Optional. Gets or sets the state of the provisioning.
-    publicNetworkAccess: &quot;NotSpecified&quot; | &quot;Enabled&quot; | &quot;Disabled&quot;, # Optional. Gets or sets the public network access.
-  }, # Optional. Gets or sets the properties.
-  sku: {
-    capacity: number, # Optional. Gets or sets the sku capacity. Possible values include: 4, 16
-    name: &quot;Standard&quot;, # Optional. Gets or sets the sku name.
-  }, # Optional. Gets or sets the Sku.
-  systemData: {
-    createdAt: string (ISO 8601 Format), # Optional. The timestamp of resource creation (UTC).
-    createdBy: string, # Optional. The identity that created the resource.
-    createdByType: &quot;User&quot; | &quot;Application&quot; | &quot;ManagedIdentity&quot; | &quot;Key&quot;, # Optional. The type of identity that created the resource.
-    lastModifiedAt: string (ISO 8601 Format), # Optional. The timestamp of the last modification the resource (UTC).
-    lastModifiedBy: string, # Optional. The identity that last modified the resource.
-    lastModifiedByType: &quot;User&quot; | &quot;Application&quot; | &quot;ManagedIdentity&quot; | &quot;Key&quot;, # Optional. The type of identity that last modified the resource.
-  }, # Optional. Metadata pertaining to creation and last modification of the resource.
-  tags: Dictionary&lt;string, string&gt;, # Optional. Tags on the azure resource.
-  type: string, # Optional. Gets or sets the type.
+  actionDag: AnyObject, # Required. The action DAG(Directed Acyclic Graph), it defines steps to be executed in a workflow run and their order.
+  id: Guid, # Required. The id of workflow.
+  triggers: [
+    {
+      type: &quot;when_term_creation_is_requested&quot; | &quot;when_term_deletion_is_requested&quot; | &quot;when_term_update_is_requested&quot; | &quot;when_terms_import_is_requested&quot; | &quot;when_data_access_grant_is_requested&quot; | &quot;when_asset_update_is_requested&quot; | &quot;when_dsar_deletion_is_requested&quot; | &quot;when_dsar_export_is_requested&quot;, # Required.
+      underGlossaryHierarchy: string, # Optional. Glossary term hierarchy path.
+      underCollection: string, # Optional. The collection name.
+      underGlossary: string, # Optional. The glossary guid.
+    }
+  ], # Required. It describes under what condition a workflow will run.  
+  createdTime: string (ISO 8601 Format), # Required. The created time of workflow.
+  createdBy: string, # Required. The person who created the workflow.
+  lastUpdateTime: string (ISO 8601 Format), # Required. The last update time.
+  updatedBy: string, # Required. The person who updated the workflow.
+  name: string, # Required. The name of a workflow.
+  isEnabled: boolean, # Required. Whether the workflow is enabled or not.
+  description: string, # Required. Description of a workflow.
 }
 </code>
 
 </remarks>
     </member>
-    <member name="GetAccessKeysAsync(RequestContext)">
+    <member name="DeleteWorkflowAsync(Guid,RequestContext)">
 <example>
-This sample shows how to call GetAccessKeysAsync and parse the result.
+This sample shows how to call DeleteWorkflowAsync with required parameters.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
 var endpoint = new Uri("<https://my-service.azure.com>");
 var client = new PurviewAccountClient(endpoint, credential);
 
-Response response = await client.GetAccessKeysAsync();
+Response response = await client.DeleteWorkflowAsync(Guid.NewGuid());
+Console.WriteLine(response.Status);
+]]></code>
+</example>
+    </member>
+    <member name="DeleteWorkflow(Guid,RequestContext)">
+<example>
+This sample shows how to call DeleteWorkflow with required parameters.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new PurviewAccountClient(endpoint, credential);
+
+Response response = client.DeleteWorkflow(Guid.NewGuid());
+Console.WriteLine(response.Status);
+]]></code>
+</example>
+    </member>
+    <member name="SubmitUserRequestsAsync(RequestContent,RequestContext)">
+<example>
+This sample shows how to call SubmitUserRequestsAsync with required request content, and how to parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new PurviewAccountClient(endpoint, credential);
+
+var data = new {
+    operations = new[] {
+        new {
+            type = "CreateTerm",
+            payload = new {},
+        }
+    },
+};
+
+Response response = await client.SubmitUserRequestsAsync(RequestContent.Create(data));
 
 JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-Console.WriteLine(result.GetProperty("atlasKafkaPrimaryEndpoint").ToString());
-Console.WriteLine(result.GetProperty("atlasKafkaSecondaryEndpoint").ToString());
+Console.WriteLine(result.GetProperty("requestId").ToString());
+Console.WriteLine(result.GetProperty("requestor").ToString());
+Console.WriteLine(result.GetProperty("operations")[0].GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("operations")[0].GetProperty("payload").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+]]></code>
+This sample shows how to call SubmitUserRequestsAsync with all request content, and how to parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new PurviewAccountClient(endpoint, credential);
+
+var data = new {
+    operations = new[] {
+        new {
+            type = "CreateTerm",
+            payload = new {},
+        }
+    },
+    comment = "<comment>",
+};
+
+Response response = await client.SubmitUserRequestsAsync(RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("requestId").ToString());
+Console.WriteLine(result.GetProperty("requestor").ToString());
+Console.WriteLine(result.GetProperty("operations")[0].GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("operations")[0].GetProperty("payload").ToString());
+Console.WriteLine(result.GetProperty("operations")[0].GetProperty("workflowRunIds")[0].ToString());
+Console.WriteLine(result.GetProperty("comment").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for the request and response payloads.
+
+Request Body:
+
+Schema for <c>UserRequestPayload</c>:
+<code>{
+  operations: [
+    {
+      type: &quot;CreateTerm&quot; | &quot;UpdateTerm&quot; | &quot;DeleteTerm&quot; | &quot;ImportTerms&quot; | &quot;UpdateAsset&quot; | &quot;GrantDataAccess&quot; | &quot;DSARDelete&quot; | &quot;DSARExport&quot;, # Required. The operation type.
+      payload: AnyObject, # Required. The payload of each operation which user want to submit.
+    }
+  ], # Required. The list of operations user want to submit, each operation matches one Purview API call and will do the operation directly.
+  comment: string, # Optional. The comment when submit a user request.
+}
+</code>
+
+Response Body:
+
+Schema for <c>UserRequestResponse</c>:
+<code>{
+  requestId: Guid, # Required. The user request id.
+  requestor: Guid, # Required. The person who submitted the user request.
+  operations: [
+    {
+      type: &quot;CreateTerm&quot; | &quot;UpdateTerm&quot; | &quot;DeleteTerm&quot; | &quot;ImportTerms&quot; | &quot;UpdateAsset&quot; | &quot;GrantDataAccess&quot; | &quot;DSARDelete&quot; | &quot;DSARExport&quot;, # Required. The operation type.
+      payload: AnyObject, # Required. The payload of each operation which user want to submit.
+      workflowRunIds: [Guid], # Optional.
+    }
+  ], # Required. The list of operations user want to submit, each operation matches one Purview API call and will do the operation directly.
+  comment: string, # Optional. The comment when submit a user request.
+  status: &quot;NotStarted&quot; | &quot;InProgress&quot; | &quot;Failed&quot; | &quot;Completed&quot; | &quot;Canceling&quot; | &quot;CancellationFailed&quot; | &quot;Canceled&quot;, # Required. The status.
+}
+</code>
+
+</remarks>
+    </member>
+    <member name="SubmitUserRequests(RequestContent,RequestContext)">
+<example>
+This sample shows how to call SubmitUserRequests with required request content, and how to parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new PurviewAccountClient(endpoint, credential);
+
+var data = new {
+    operations = new[] {
+        new {
+            type = "CreateTerm",
+            payload = new {},
+        }
+    },
+};
+
+Response response = client.SubmitUserRequests(RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("requestId").ToString());
+Console.WriteLine(result.GetProperty("requestor").ToString());
+Console.WriteLine(result.GetProperty("operations")[0].GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("operations")[0].GetProperty("payload").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+]]></code>
+This sample shows how to call SubmitUserRequests with all request content, and how to parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new PurviewAccountClient(endpoint, credential);
+
+var data = new {
+    operations = new[] {
+        new {
+            type = "CreateTerm",
+            payload = new {},
+        }
+    },
+    comment = "<comment>",
+};
+
+Response response = client.SubmitUserRequests(RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("requestId").ToString());
+Console.WriteLine(result.GetProperty("requestor").ToString());
+Console.WriteLine(result.GetProperty("operations")[0].GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("operations")[0].GetProperty("payload").ToString());
+Console.WriteLine(result.GetProperty("operations")[0].GetProperty("workflowRunIds")[0].ToString());
+Console.WriteLine(result.GetProperty("comment").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for the request and response payloads.
+
+Request Body:
+
+Schema for <c>UserRequestPayload</c>:
+<code>{
+  operations: [
+    {
+      type: &quot;CreateTerm&quot; | &quot;UpdateTerm&quot; | &quot;DeleteTerm&quot; | &quot;ImportTerms&quot; | &quot;UpdateAsset&quot; | &quot;GrantDataAccess&quot; | &quot;DSARDelete&quot; | &quot;DSARExport&quot;, # Required. The operation type.
+      payload: AnyObject, # Required. The payload of each operation which user want to submit.
+    }
+  ], # Required. The list of operations user want to submit, each operation matches one Purview API call and will do the operation directly.
+  comment: string, # Optional. The comment when submit a user request.
+}
+</code>
+
+Response Body:
+
+Schema for <c>UserRequestResponse</c>:
+<code>{
+  requestId: Guid, # Required. The user request id.
+  requestor: Guid, # Required. The person who submitted the user request.
+  operations: [
+    {
+      type: &quot;CreateTerm&quot; | &quot;UpdateTerm&quot; | &quot;DeleteTerm&quot; | &quot;ImportTerms&quot; | &quot;UpdateAsset&quot; | &quot;GrantDataAccess&quot; | &quot;DSARDelete&quot; | &quot;DSARExport&quot;, # Required. The operation type.
+      payload: AnyObject, # Required. The payload of each operation which user want to submit.
+      workflowRunIds: [Guid], # Optional.
+    }
+  ], # Required. The list of operations user want to submit, each operation matches one Purview API call and will do the operation directly.
+  comment: string, # Optional. The comment when submit a user request.
+  status: &quot;NotStarted&quot; | &quot;InProgress&quot; | &quot;Failed&quot; | &quot;Completed&quot; | &quot;Canceling&quot; | &quot;CancellationFailed&quot; | &quot;Canceled&quot;, # Required. The status.
+}
+</code>
+
+</remarks>
+    </member>
+    <member name="GetWorkflowRunAsync(Guid,RequestContext)">
+<example>
+This sample shows how to call GetWorkflowRunAsync with required parameters and parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new PurviewAccountClient(endpoint, credential);
+
+Response response = await client.GetWorkflowRunAsync(Guid.NewGuid());
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("workflowId").ToString());
+Console.WriteLine(result.GetProperty("startTime").ToString());
+Console.WriteLine(result.GetProperty("requestor").ToString());
+Console.WriteLine(result.GetProperty("userRequestId").ToString());
+Console.WriteLine(result.GetProperty("runPayload").GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("runPayload").GetProperty("targetValue").ToString());
+Console.WriteLine(result.GetProperty("runPayload").GetProperty("payload").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("endTime").ToString());
+Console.WriteLine(result.GetProperty("cancelTime").ToString());
+Console.WriteLine(result.GetProperty("cancelComment").ToString());
+Console.WriteLine(result.GetProperty("actionDag").ToString());
+Console.WriteLine(result.GetProperty("detail").GetProperty("runInput").ToString());
+Console.WriteLine(result.GetProperty("detail").GetProperty("actions").ToString());
 ]]></code>
 </example>
 <remarks>
@@ -579,28 +592,58 @@ Below is the JSON schema for the response payload.
 
 Response Body:
 
-Schema for <c>AccessKeys</c>:
+Schema for <c>WorkflowRun</c>:
 <code>{
-  atlasKafkaPrimaryEndpoint: string, # Optional. Gets or sets the primary connection string.
-  atlasKafkaSecondaryEndpoint: string, # Optional. Gets or sets the secondary connection string.
+  id: Guid, # Optional. The workflow run id.
+  workflowId: Guid, # Optional. The workflow id.
+  startTime: string (ISO 8601 Format), # Optional. Workflow run start time.
+  requestor: Guid, # Optional. The person who submitted the user request.
+  userRequestId: Guid, # Optional. The user request id.
+  runPayload: {
+    type: &quot;CreateTerm&quot; | &quot;UpdateTerm&quot; | &quot;DeleteTerm&quot; | &quot;ImportTerms&quot; | &quot;UpdateAsset&quot; | &quot;GrantDataAccess&quot; | &quot;DSARDelete&quot; | &quot;DSARExport&quot;, # Required. The workflow run payload type.
+    targetValue: string, # Required. The target value which need involve workflow to update.
+    payload: AnyObject, # Required. The payload of each operation which user want to submit.
+  }, # Optional. The input of a workflow run. Align with operation in user request. 
+  status: &quot;NotStarted&quot; | &quot;InProgress&quot; | &quot;Failed&quot; | &quot;Completed&quot; | &quot;Canceling&quot; | &quot;CancellationFailed&quot; | &quot;Canceled&quot;, # Optional. The status.
+  endTime: string (ISO 8601 Format), # Optional. The time of workflow run completed.
+  cancelTime: string (ISO 8601 Format), # Optional. The time of workflow run be canceled.
+  cancelComment: string, # Optional. The comment when cancel a workflow run.
+  actionDag: AnyObject, # Required. The action DAG(Directed Acyclic Graph), it defines actual flow.
+  detail: {
+    runInput: AnyObject, # Required. Built-in variables starts with @runInput. Its properties are determined by trigger type at workflow run time. 
+    actions: AnyObject, # Required. Any object
+  }, # Required. It refers to the &quot;detail&quot; property of a workflow run object, which contains run context and runtime information of actions.
 }
 </code>
 
 </remarks>
     </member>
-    <member name="GetAccessKeys(RequestContext)">
+    <member name="GetWorkflowRun(Guid,RequestContext)">
 <example>
-This sample shows how to call GetAccessKeys and parse the result.
+This sample shows how to call GetWorkflowRun with required parameters and parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
 var endpoint = new Uri("<https://my-service.azure.com>");
 var client = new PurviewAccountClient(endpoint, credential);
 
-Response response = client.GetAccessKeys();
+Response response = client.GetWorkflowRun(Guid.NewGuid());
 
 JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-Console.WriteLine(result.GetProperty("atlasKafkaPrimaryEndpoint").ToString());
-Console.WriteLine(result.GetProperty("atlasKafkaSecondaryEndpoint").ToString());
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("workflowId").ToString());
+Console.WriteLine(result.GetProperty("startTime").ToString());
+Console.WriteLine(result.GetProperty("requestor").ToString());
+Console.WriteLine(result.GetProperty("userRequestId").ToString());
+Console.WriteLine(result.GetProperty("runPayload").GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("runPayload").GetProperty("targetValue").ToString());
+Console.WriteLine(result.GetProperty("runPayload").GetProperty("payload").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("endTime").ToString());
+Console.WriteLine(result.GetProperty("cancelTime").ToString());
+Console.WriteLine(result.GetProperty("cancelComment").ToString());
+Console.WriteLine(result.GetProperty("actionDag").ToString());
+Console.WriteLine(result.GetProperty("detail").GetProperty("runInput").ToString());
+Console.WriteLine(result.GetProperty("detail").GetProperty("actions").ToString());
 ]]></code>
 </example>
 <remarks>
@@ -608,18 +651,35 @@ Below is the JSON schema for the response payload.
 
 Response Body:
 
-Schema for <c>AccessKeys</c>:
+Schema for <c>WorkflowRun</c>:
 <code>{
-  atlasKafkaPrimaryEndpoint: string, # Optional. Gets or sets the primary connection string.
-  atlasKafkaSecondaryEndpoint: string, # Optional. Gets or sets the secondary connection string.
+  id: Guid, # Optional. The workflow run id.
+  workflowId: Guid, # Optional. The workflow id.
+  startTime: string (ISO 8601 Format), # Optional. Workflow run start time.
+  requestor: Guid, # Optional. The person who submitted the user request.
+  userRequestId: Guid, # Optional. The user request id.
+  runPayload: {
+    type: &quot;CreateTerm&quot; | &quot;UpdateTerm&quot; | &quot;DeleteTerm&quot; | &quot;ImportTerms&quot; | &quot;UpdateAsset&quot; | &quot;GrantDataAccess&quot; | &quot;DSARDelete&quot; | &quot;DSARExport&quot;, # Required. The workflow run payload type.
+    targetValue: string, # Required. The target value which need involve workflow to update.
+    payload: AnyObject, # Required. The payload of each operation which user want to submit.
+  }, # Optional. The input of a workflow run. Align with operation in user request. 
+  status: &quot;NotStarted&quot; | &quot;InProgress&quot; | &quot;Failed&quot; | &quot;Completed&quot; | &quot;Canceling&quot; | &quot;CancellationFailed&quot; | &quot;Canceled&quot;, # Optional. The status.
+  endTime: string (ISO 8601 Format), # Optional. The time of workflow run completed.
+  cancelTime: string (ISO 8601 Format), # Optional. The time of workflow run be canceled.
+  cancelComment: string, # Optional. The comment when cancel a workflow run.
+  actionDag: AnyObject, # Required. The action DAG(Directed Acyclic Graph), it defines actual flow.
+  detail: {
+    runInput: AnyObject, # Required. Built-in variables starts with @runInput. Its properties are determined by trigger type at workflow run time. 
+    actions: AnyObject, # Required. Any object
+  }, # Required. It refers to the &quot;detail&quot; property of a workflow run object, which contains run context and runtime information of actions.
 }
 </code>
 
 </remarks>
     </member>
-    <member name="RegenerateAccessKeyAsync(RequestContent,RequestContext)">
+    <member name="CancelWorkflowRunAsync(Guid,RequestContent,RequestContext)">
 <example>
-This sample shows how to call RegenerateAccessKeyAsync and parse the result.
+This sample shows how to call CancelWorkflowRunAsync with required parameters.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
 var endpoint = new Uri("<https://my-service.azure.com>");
@@ -627,53 +687,39 @@ var client = new PurviewAccountClient(endpoint, credential);
 
 var data = new {};
 
-Response response = await client.RegenerateAccessKeyAsync(RequestContent.Create(data));
-
-JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-Console.WriteLine(result.ToString());
+Response response = await client.CancelWorkflowRunAsync(Guid.NewGuid(), RequestContent.Create(data));
+Console.WriteLine(response.Status);
 ]]></code>
-This sample shows how to call RegenerateAccessKeyAsync with all request content, and how to parse the result.
+This sample shows how to call CancelWorkflowRunAsync with all parameters and request content.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
 var endpoint = new Uri("<https://my-service.azure.com>");
 var client = new PurviewAccountClient(endpoint, credential);
 
 var data = new {
-    keyType = "PrimaryAtlasKafkaKey",
+    comment = "<comment>",
 };
 
-Response response = await client.RegenerateAccessKeyAsync(RequestContent.Create(data));
-
-JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-Console.WriteLine(result.GetProperty("atlasKafkaPrimaryEndpoint").ToString());
-Console.WriteLine(result.GetProperty("atlasKafkaSecondaryEndpoint").ToString());
+Response response = await client.CancelWorkflowRunAsync(Guid.NewGuid(), RequestContent.Create(data));
+Console.WriteLine(response.Status);
 ]]></code>
 </example>
 <remarks>
-Below is the JSON schema for the request and response payloads.
+Below is the JSON schema for the request payload.
 
 Request Body:
 
-Schema for <c>AccessKeyOptions</c>:
+Schema for <c>WorkflowRunCancelRequest</c>:
 <code>{
-  keyType: &quot;PrimaryAtlasKafkaKey&quot; | &quot;SecondaryAtlasKafkaKey&quot;, # Optional. The access key type.
-}
-</code>
-
-Response Body:
-
-Schema for <c>AccessKeys</c>:
-<code>{
-  atlasKafkaPrimaryEndpoint: string, # Optional. Gets or sets the primary connection string.
-  atlasKafkaSecondaryEndpoint: string, # Optional. Gets or sets the secondary connection string.
+  comment: string, # Optional. The comment of canceling a workflow run.
 }
 </code>
 
 </remarks>
     </member>
-    <member name="RegenerateAccessKey(RequestContent,RequestContext)">
+    <member name="CancelWorkflowRun(Guid,RequestContent,RequestContext)">
 <example>
-This sample shows how to call RegenerateAccessKey and parse the result.
+This sample shows how to call CancelWorkflowRun with required parameters.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
 var endpoint = new Uri("<https://my-service.azure.com>");
@@ -681,85 +727,913 @@ var client = new PurviewAccountClient(endpoint, credential);
 
 var data = new {};
 
-Response response = client.RegenerateAccessKey(RequestContent.Create(data));
-
-JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-Console.WriteLine(result.ToString());
+Response response = client.CancelWorkflowRun(Guid.NewGuid(), RequestContent.Create(data));
+Console.WriteLine(response.Status);
 ]]></code>
-This sample shows how to call RegenerateAccessKey with all request content, and how to parse the result.
+This sample shows how to call CancelWorkflowRun with all parameters and request content.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
 var endpoint = new Uri("<https://my-service.azure.com>");
 var client = new PurviewAccountClient(endpoint, credential);
 
 var data = new {
-    keyType = "PrimaryAtlasKafkaKey",
+    comment = "<comment>",
 };
 
-Response response = client.RegenerateAccessKey(RequestContent.Create(data));
-
-JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-Console.WriteLine(result.GetProperty("atlasKafkaPrimaryEndpoint").ToString());
-Console.WriteLine(result.GetProperty("atlasKafkaSecondaryEndpoint").ToString());
+Response response = client.CancelWorkflowRun(Guid.NewGuid(), RequestContent.Create(data));
+Console.WriteLine(response.Status);
 ]]></code>
 </example>
 <remarks>
-Below is the JSON schema for the request and response payloads.
+Below is the JSON schema for the request payload.
 
 Request Body:
 
-Schema for <c>AccessKeyOptions</c>:
+Schema for <c>WorkflowRunCancelRequest</c>:
 <code>{
-  keyType: &quot;PrimaryAtlasKafkaKey&quot; | &quot;SecondaryAtlasKafkaKey&quot;, # Optional. The access key type.
-}
-</code>
-
-Response Body:
-
-Schema for <c>AccessKeys</c>:
-<code>{
-  atlasKafkaPrimaryEndpoint: string, # Optional. Gets or sets the primary connection string.
-  atlasKafkaSecondaryEndpoint: string, # Optional. Gets or sets the secondary connection string.
+  comment: string, # Optional. The comment of canceling a workflow run.
 }
 </code>
 
 </remarks>
     </member>
-    <member name="GetCollectionsAsync(String,RequestContext)">
+    <member name="GetWorkflowTaskAsync(Guid,RequestContext)">
 <example>
-This sample shows how to call GetCollectionsAsync and parse the result.
+This sample shows how to call GetWorkflowTaskAsync with required parameters and parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
 var endpoint = new Uri("<https://my-service.azure.com>");
 var client = new PurviewAccountClient(endpoint, credential);
 
-await foreach (var data in client.GetCollectionsAsync())
+Response response = await client.GetWorkflowTaskAsync(Guid.NewGuid());
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("title").ToString());
+Console.WriteLine(result.GetProperty("workflowRunId").ToString());
+Console.WriteLine(result.GetProperty("workflowId").ToString());
+Console.WriteLine(result.GetProperty("requestor").ToString());
+Console.WriteLine(result.GetProperty("createdTime").ToString());
+Console.WriteLine(result.GetProperty("lastUpdateTime").ToString());
+Console.WriteLine(result.GetProperty("payload").GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("payload").GetProperty("targetValue").ToString());
+Console.WriteLine(result.GetProperty("payload").GetProperty("payload").ToString());
+Console.WriteLine(result.GetProperty("reminderInfo").GetProperty("lastRemindTime").ToString());
+Console.WriteLine(result.GetProperty("reminderInfo").GetProperty("nextRemindTime").ToString());
+Console.WriteLine(result.GetProperty("reminderInfo").GetProperty("reminderSettings").ToString());
+Console.WriteLine(result.GetProperty("expiryInfo").GetProperty("lastExpiryNotificationTime").ToString());
+Console.WriteLine(result.GetProperty("expiryInfo").GetProperty("nextExpiryNotificationTime").ToString());
+Console.WriteLine(result.GetProperty("expiryInfo").GetProperty("expiryTime").ToString());
+Console.WriteLine(result.GetProperty("expiryInfo").GetProperty("expirySettings").GetProperty("expireAfter").ToString());
+Console.WriteLine(result.GetProperty("expiryInfo").GetProperty("expirySettings").GetProperty("notifyOnExpiration")[0].ToString());
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for the response payload.
+
+Response Body:
+
+This method takes one of the JSON objects below as a payload. Please select a JSON object to view the schema for this.
+<details><summary>Approval</summary>Schema for <c>Approval</c>:
+<code>{
+  approvalDetail: {
+    approvalType: &quot;PendingOnAny&quot; | &quot;PendingOnAll&quot;, # Required. The approval type of an approval task.
+    status: &quot;Pending&quot; | &quot;Approved&quot; | &quot;Rejected&quot; | &quot;Canceled&quot;, # Required. The status of an approval task.
+    approvers: AnyObject, # Required. The list of approvers with reply.
+  }, # Optional. The approval task details
+  type: Approval, # Required. The workflow task type.
+  id: Guid, # Required. The workflow task id.
+  title: string, # Optional. The workflow task title.
+  workflowRunId: Guid, # Required. The workflow run id.
+  workflowId: Guid, # Required. The workflow id.
+  requestor: Guid, # Required. The person who submitted the user request.
+  createdTime: string (ISO 8601 Format), # Required. The created time.
+  lastUpdateTime: string (ISO 8601 Format), # Required. The last update time.
+  payload: {
+    type: &quot;CreateTerm&quot; | &quot;UpdateTerm&quot; | &quot;DeleteTerm&quot; | &quot;ImportTerms&quot; | &quot;UpdateAsset&quot; | &quot;GrantDataAccess&quot; | &quot;DSARDelete&quot; | &quot;DSARExport&quot;, # Required. The task payload type.
+    targetValue: string, # Required. The target value of entity which user want to involve workflow to update.
+    payload: AnyObject, # Optional. The payload of the task.
+  }, # Required. Info and material that helps assignees to take action.
+  reminderInfo: {
+    lastRemindTime: string (ISO 8601 Format), # Optional. The last update time.
+    nextRemindTime: string (ISO 8601 Format), # Required. The next remind time.
+    reminderSettings: AnyObject, # Required. The reminder settings.
+  }, # Optional. Info of task reminder.
+  expiryInfo: {
+    lastExpiryNotificationTime: string (ISO 8601 Format), # Optional. The last expiry notification time.
+    nextExpiryNotificationTime: string (ISO 8601 Format), # Required. The next expiry notification time.
+    expiryTime: string (ISO 8601 Format), # Required. The expiry time.
+    expirySettings: {
+      expireAfter: AnyObject, # Required. The time of expiry.
+      notifyOnExpiration: [Guid], # Optional.
+    }, # Required.
+  }, # Optional. Info of task expiry.
+}
+</code>
+</details>
+<details><summary>~+ 2 more JSON objects</summary><details><summary>SimpleTask</summary>Schema for <c>SimpleTask</c>:
+<code>{
+  taskDetail: {
+    taskBody: string, # Required. The simple task body.
+    assignedTo: [Guid], # Required. The users or groups were assigned the simple task.
+    status: &quot;NotStarted&quot; | &quot;InProgress&quot; | &quot;Completed&quot; | &quot;Canceled&quot;, # Required. Simple task status.
+    changeHistory: [
+      {
+        updatedBy: Guid, # Required.
+        updatedTime: string (ISO 8601 Format), # Required.
+        type: &quot;ApproveApproval&quot; | &quot;RejectApproval&quot; | &quot;Reassign&quot; | &quot;ChangeTaskStatus&quot; | &quot;ClaimTask&quot; | &quot;ReleaseTask&quot;, # Required.
+        change: AnyObject, # Required. The changes made on this task.
+      }
+    ], # Required.
+  }, # Optional. Workflow simple task details.
+  type: SimpleTask, # Required. The workflow task type.
+  id: Guid, # Required. The workflow task id.
+  title: string, # Optional. The workflow task title.
+  workflowRunId: Guid, # Required. The workflow run id.
+  workflowId: Guid, # Required. The workflow id.
+  requestor: Guid, # Required. The person who submitted the user request.
+  createdTime: string (ISO 8601 Format), # Required. The created time.
+  lastUpdateTime: string (ISO 8601 Format), # Required. The last update time.
+  payload: {
+    type: &quot;CreateTerm&quot; | &quot;UpdateTerm&quot; | &quot;DeleteTerm&quot; | &quot;ImportTerms&quot; | &quot;UpdateAsset&quot; | &quot;GrantDataAccess&quot; | &quot;DSARDelete&quot; | &quot;DSARExport&quot;, # Required. The task payload type.
+    targetValue: string, # Required. The target value of entity which user want to involve workflow to update.
+    payload: AnyObject, # Optional. The payload of the task.
+  }, # Required. Info and material that helps assignees to take action.
+  reminderInfo: {
+    lastRemindTime: string (ISO 8601 Format), # Optional. The last update time.
+    nextRemindTime: string (ISO 8601 Format), # Required. The next remind time.
+    reminderSettings: AnyObject, # Required. The reminder settings.
+  }, # Optional. Info of task reminder.
+  expiryInfo: {
+    lastExpiryNotificationTime: string (ISO 8601 Format), # Optional. The last expiry notification time.
+    nextExpiryNotificationTime: string (ISO 8601 Format), # Required. The next expiry notification time.
+    expiryTime: string (ISO 8601 Format), # Required. The expiry time.
+    expirySettings: {
+      expireAfter: AnyObject, # Required. The time of expiry.
+      notifyOnExpiration: [Guid], # Optional.
+    }, # Required.
+  }, # Optional. Info of task expiry.
+}
+</code>
+</details>
+<details><summary>DsarTask</summary>Schema for <c>DsarTask</c>:
+<code>{
+  taskDetail: {
+    taskBody: string, # Required. The dsar task body.
+    assignedTo: [Guid], # Required. The users or groups were assigned the dsar task.
+    claimedBy: Guid, # Optional. The user who claimed the dsar task.
+    approvers: [Guid], # Required. The list of approvers.
+    dsarId: Guid, # Required. The dsar id.
+    dsarTaskId: Guid, # Required. The dsar task id.
+    status: &quot;NotStarted&quot; | &quot;InProgress&quot; | &quot;Completed&quot; | &quot;NotApplicable&quot; | &quot;Approved&quot; | &quot;Reopened&quot;, # Required. The dsar task status.
+    changeHistory: [
+      {
+        updatedBy: Guid, # Required.
+        updatedTime: string (ISO 8601 Format), # Required.
+        type: &quot;ApproveApproval&quot; | &quot;RejectApproval&quot; | &quot;Reassign&quot; | &quot;ChangeTaskStatus&quot; | &quot;ClaimTask&quot; | &quot;ReleaseTask&quot;, # Required.
+        change: AnyObject, # Required. The changes made on this task.
+      }
+    ], # Required.
+  }, # Optional. Workflow dsar task details.
+  type: DsarTask, # Required. The workflow task type.
+  id: Guid, # Required. The workflow task id.
+  title: string, # Optional. The workflow task title.
+  workflowRunId: Guid, # Required. The workflow run id.
+  workflowId: Guid, # Required. The workflow id.
+  requestor: Guid, # Required. The person who submitted the user request.
+  createdTime: string (ISO 8601 Format), # Required. The created time.
+  lastUpdateTime: string (ISO 8601 Format), # Required. The last update time.
+  payload: {
+    type: &quot;CreateTerm&quot; | &quot;UpdateTerm&quot; | &quot;DeleteTerm&quot; | &quot;ImportTerms&quot; | &quot;UpdateAsset&quot; | &quot;GrantDataAccess&quot; | &quot;DSARDelete&quot; | &quot;DSARExport&quot;, # Required. The task payload type.
+    targetValue: string, # Required. The target value of entity which user want to involve workflow to update.
+    payload: AnyObject, # Optional. The payload of the task.
+  }, # Required. Info and material that helps assignees to take action.
+  reminderInfo: {
+    lastRemindTime: string (ISO 8601 Format), # Optional. The last update time.
+    nextRemindTime: string (ISO 8601 Format), # Required. The next remind time.
+    reminderSettings: AnyObject, # Required. The reminder settings.
+  }, # Optional. Info of task reminder.
+  expiryInfo: {
+    lastExpiryNotificationTime: string (ISO 8601 Format), # Optional. The last expiry notification time.
+    nextExpiryNotificationTime: string (ISO 8601 Format), # Required. The next expiry notification time.
+    expiryTime: string (ISO 8601 Format), # Required. The expiry time.
+    expirySettings: {
+      expireAfter: AnyObject, # Required. The time of expiry.
+      notifyOnExpiration: [Guid], # Optional.
+    }, # Required.
+  }, # Optional. Info of task expiry.
+}
+</code>
+</details>
+</details>
+
+</remarks>
+    </member>
+    <member name="GetWorkflowTask(Guid,RequestContext)">
+<example>
+This sample shows how to call GetWorkflowTask with required parameters and parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new PurviewAccountClient(endpoint, credential);
+
+Response response = client.GetWorkflowTask(Guid.NewGuid());
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("title").ToString());
+Console.WriteLine(result.GetProperty("workflowRunId").ToString());
+Console.WriteLine(result.GetProperty("workflowId").ToString());
+Console.WriteLine(result.GetProperty("requestor").ToString());
+Console.WriteLine(result.GetProperty("createdTime").ToString());
+Console.WriteLine(result.GetProperty("lastUpdateTime").ToString());
+Console.WriteLine(result.GetProperty("payload").GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("payload").GetProperty("targetValue").ToString());
+Console.WriteLine(result.GetProperty("payload").GetProperty("payload").ToString());
+Console.WriteLine(result.GetProperty("reminderInfo").GetProperty("lastRemindTime").ToString());
+Console.WriteLine(result.GetProperty("reminderInfo").GetProperty("nextRemindTime").ToString());
+Console.WriteLine(result.GetProperty("reminderInfo").GetProperty("reminderSettings").ToString());
+Console.WriteLine(result.GetProperty("expiryInfo").GetProperty("lastExpiryNotificationTime").ToString());
+Console.WriteLine(result.GetProperty("expiryInfo").GetProperty("nextExpiryNotificationTime").ToString());
+Console.WriteLine(result.GetProperty("expiryInfo").GetProperty("expiryTime").ToString());
+Console.WriteLine(result.GetProperty("expiryInfo").GetProperty("expirySettings").GetProperty("expireAfter").ToString());
+Console.WriteLine(result.GetProperty("expiryInfo").GetProperty("expirySettings").GetProperty("notifyOnExpiration")[0].ToString());
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for the response payload.
+
+Response Body:
+
+This method takes one of the JSON objects below as a payload. Please select a JSON object to view the schema for this.
+<details><summary>Approval</summary>Schema for <c>Approval</c>:
+<code>{
+  approvalDetail: {
+    approvalType: &quot;PendingOnAny&quot; | &quot;PendingOnAll&quot;, # Required. The approval type of an approval task.
+    status: &quot;Pending&quot; | &quot;Approved&quot; | &quot;Rejected&quot; | &quot;Canceled&quot;, # Required. The status of an approval task.
+    approvers: AnyObject, # Required. The list of approvers with reply.
+  }, # Optional. The approval task details
+  type: Approval, # Required. The workflow task type.
+  id: Guid, # Required. The workflow task id.
+  title: string, # Optional. The workflow task title.
+  workflowRunId: Guid, # Required. The workflow run id.
+  workflowId: Guid, # Required. The workflow id.
+  requestor: Guid, # Required. The person who submitted the user request.
+  createdTime: string (ISO 8601 Format), # Required. The created time.
+  lastUpdateTime: string (ISO 8601 Format), # Required. The last update time.
+  payload: {
+    type: &quot;CreateTerm&quot; | &quot;UpdateTerm&quot; | &quot;DeleteTerm&quot; | &quot;ImportTerms&quot; | &quot;UpdateAsset&quot; | &quot;GrantDataAccess&quot; | &quot;DSARDelete&quot; | &quot;DSARExport&quot;, # Required. The task payload type.
+    targetValue: string, # Required. The target value of entity which user want to involve workflow to update.
+    payload: AnyObject, # Optional. The payload of the task.
+  }, # Required. Info and material that helps assignees to take action.
+  reminderInfo: {
+    lastRemindTime: string (ISO 8601 Format), # Optional. The last update time.
+    nextRemindTime: string (ISO 8601 Format), # Required. The next remind time.
+    reminderSettings: AnyObject, # Required. The reminder settings.
+  }, # Optional. Info of task reminder.
+  expiryInfo: {
+    lastExpiryNotificationTime: string (ISO 8601 Format), # Optional. The last expiry notification time.
+    nextExpiryNotificationTime: string (ISO 8601 Format), # Required. The next expiry notification time.
+    expiryTime: string (ISO 8601 Format), # Required. The expiry time.
+    expirySettings: {
+      expireAfter: AnyObject, # Required. The time of expiry.
+      notifyOnExpiration: [Guid], # Optional.
+    }, # Required.
+  }, # Optional. Info of task expiry.
+}
+</code>
+</details>
+<details><summary>~+ 2 more JSON objects</summary><details><summary>SimpleTask</summary>Schema for <c>SimpleTask</c>:
+<code>{
+  taskDetail: {
+    taskBody: string, # Required. The simple task body.
+    assignedTo: [Guid], # Required. The users or groups were assigned the simple task.
+    status: &quot;NotStarted&quot; | &quot;InProgress&quot; | &quot;Completed&quot; | &quot;Canceled&quot;, # Required. Simple task status.
+    changeHistory: [
+      {
+        updatedBy: Guid, # Required.
+        updatedTime: string (ISO 8601 Format), # Required.
+        type: &quot;ApproveApproval&quot; | &quot;RejectApproval&quot; | &quot;Reassign&quot; | &quot;ChangeTaskStatus&quot; | &quot;ClaimTask&quot; | &quot;ReleaseTask&quot;, # Required.
+        change: AnyObject, # Required. The changes made on this task.
+      }
+    ], # Required.
+  }, # Optional. Workflow simple task details.
+  type: SimpleTask, # Required. The workflow task type.
+  id: Guid, # Required. The workflow task id.
+  title: string, # Optional. The workflow task title.
+  workflowRunId: Guid, # Required. The workflow run id.
+  workflowId: Guid, # Required. The workflow id.
+  requestor: Guid, # Required. The person who submitted the user request.
+  createdTime: string (ISO 8601 Format), # Required. The created time.
+  lastUpdateTime: string (ISO 8601 Format), # Required. The last update time.
+  payload: {
+    type: &quot;CreateTerm&quot; | &quot;UpdateTerm&quot; | &quot;DeleteTerm&quot; | &quot;ImportTerms&quot; | &quot;UpdateAsset&quot; | &quot;GrantDataAccess&quot; | &quot;DSARDelete&quot; | &quot;DSARExport&quot;, # Required. The task payload type.
+    targetValue: string, # Required. The target value of entity which user want to involve workflow to update.
+    payload: AnyObject, # Optional. The payload of the task.
+  }, # Required. Info and material that helps assignees to take action.
+  reminderInfo: {
+    lastRemindTime: string (ISO 8601 Format), # Optional. The last update time.
+    nextRemindTime: string (ISO 8601 Format), # Required. The next remind time.
+    reminderSettings: AnyObject, # Required. The reminder settings.
+  }, # Optional. Info of task reminder.
+  expiryInfo: {
+    lastExpiryNotificationTime: string (ISO 8601 Format), # Optional. The last expiry notification time.
+    nextExpiryNotificationTime: string (ISO 8601 Format), # Required. The next expiry notification time.
+    expiryTime: string (ISO 8601 Format), # Required. The expiry time.
+    expirySettings: {
+      expireAfter: AnyObject, # Required. The time of expiry.
+      notifyOnExpiration: [Guid], # Optional.
+    }, # Required.
+  }, # Optional. Info of task expiry.
+}
+</code>
+</details>
+<details><summary>DsarTask</summary>Schema for <c>DsarTask</c>:
+<code>{
+  taskDetail: {
+    taskBody: string, # Required. The dsar task body.
+    assignedTo: [Guid], # Required. The users or groups were assigned the dsar task.
+    claimedBy: Guid, # Optional. The user who claimed the dsar task.
+    approvers: [Guid], # Required. The list of approvers.
+    dsarId: Guid, # Required. The dsar id.
+    dsarTaskId: Guid, # Required. The dsar task id.
+    status: &quot;NotStarted&quot; | &quot;InProgress&quot; | &quot;Completed&quot; | &quot;NotApplicable&quot; | &quot;Approved&quot; | &quot;Reopened&quot;, # Required. The dsar task status.
+    changeHistory: [
+      {
+        updatedBy: Guid, # Required.
+        updatedTime: string (ISO 8601 Format), # Required.
+        type: &quot;ApproveApproval&quot; | &quot;RejectApproval&quot; | &quot;Reassign&quot; | &quot;ChangeTaskStatus&quot; | &quot;ClaimTask&quot; | &quot;ReleaseTask&quot;, # Required.
+        change: AnyObject, # Required. The changes made on this task.
+      }
+    ], # Required.
+  }, # Optional. Workflow dsar task details.
+  type: DsarTask, # Required. The workflow task type.
+  id: Guid, # Required. The workflow task id.
+  title: string, # Optional. The workflow task title.
+  workflowRunId: Guid, # Required. The workflow run id.
+  workflowId: Guid, # Required. The workflow id.
+  requestor: Guid, # Required. The person who submitted the user request.
+  createdTime: string (ISO 8601 Format), # Required. The created time.
+  lastUpdateTime: string (ISO 8601 Format), # Required. The last update time.
+  payload: {
+    type: &quot;CreateTerm&quot; | &quot;UpdateTerm&quot; | &quot;DeleteTerm&quot; | &quot;ImportTerms&quot; | &quot;UpdateAsset&quot; | &quot;GrantDataAccess&quot; | &quot;DSARDelete&quot; | &quot;DSARExport&quot;, # Required. The task payload type.
+    targetValue: string, # Required. The target value of entity which user want to involve workflow to update.
+    payload: AnyObject, # Optional. The payload of the task.
+  }, # Required. Info and material that helps assignees to take action.
+  reminderInfo: {
+    lastRemindTime: string (ISO 8601 Format), # Optional. The last update time.
+    nextRemindTime: string (ISO 8601 Format), # Required. The next remind time.
+    reminderSettings: AnyObject, # Required. The reminder settings.
+  }, # Optional. Info of task reminder.
+  expiryInfo: {
+    lastExpiryNotificationTime: string (ISO 8601 Format), # Optional. The last expiry notification time.
+    nextExpiryNotificationTime: string (ISO 8601 Format), # Required. The next expiry notification time.
+    expiryTime: string (ISO 8601 Format), # Required. The expiry time.
+    expirySettings: {
+      expireAfter: AnyObject, # Required. The time of expiry.
+      notifyOnExpiration: [Guid], # Optional.
+    }, # Required.
+  }, # Optional. Info of task expiry.
+}
+</code>
+</details>
+</details>
+
+</remarks>
+    </member>
+    <member name="ApproveApprovalTaskAsync(Guid,RequestContent,RequestContext)">
+<example>
+This sample shows how to call ApproveApprovalTaskAsync with required parameters.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new PurviewAccountClient(endpoint, credential);
+
+var data = new {};
+
+Response response = await client.ApproveApprovalTaskAsync(Guid.NewGuid(), RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call ApproveApprovalTaskAsync with all parameters and request content.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new PurviewAccountClient(endpoint, credential);
+
+var data = new {
+    comment = "<comment>",
+};
+
+Response response = await client.ApproveApprovalTaskAsync(Guid.NewGuid(), RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for the request payload.
+
+Request Body:
+
+Schema for <c>ApprovalResponseComment</c>:
+<code>{
+  comment: string, # Optional. The comment of approving or rejecting an approval request.
+}
+</code>
+
+</remarks>
+    </member>
+    <member name="ApproveApprovalTask(Guid,RequestContent,RequestContext)">
+<example>
+This sample shows how to call ApproveApprovalTask with required parameters.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new PurviewAccountClient(endpoint, credential);
+
+var data = new {};
+
+Response response = client.ApproveApprovalTask(Guid.NewGuid(), RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call ApproveApprovalTask with all parameters and request content.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new PurviewAccountClient(endpoint, credential);
+
+var data = new {
+    comment = "<comment>",
+};
+
+Response response = client.ApproveApprovalTask(Guid.NewGuid(), RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for the request payload.
+
+Request Body:
+
+Schema for <c>ApprovalResponseComment</c>:
+<code>{
+  comment: string, # Optional. The comment of approving or rejecting an approval request.
+}
+</code>
+
+</remarks>
+    </member>
+    <member name="RejectApprovalTaskAsync(Guid,RequestContent,RequestContext)">
+<example>
+This sample shows how to call RejectApprovalTaskAsync with required parameters.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new PurviewAccountClient(endpoint, credential);
+
+var data = new {};
+
+Response response = await client.RejectApprovalTaskAsync(Guid.NewGuid(), RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call RejectApprovalTaskAsync with all parameters and request content.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new PurviewAccountClient(endpoint, credential);
+
+var data = new {
+    comment = "<comment>",
+};
+
+Response response = await client.RejectApprovalTaskAsync(Guid.NewGuid(), RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for the request payload.
+
+Request Body:
+
+Schema for <c>ApprovalResponseComment</c>:
+<code>{
+  comment: string, # Optional. The comment of approving or rejecting an approval request.
+}
+</code>
+
+</remarks>
+    </member>
+    <member name="RejectApprovalTask(Guid,RequestContent,RequestContext)">
+<example>
+This sample shows how to call RejectApprovalTask with required parameters.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new PurviewAccountClient(endpoint, credential);
+
+var data = new {};
+
+Response response = client.RejectApprovalTask(Guid.NewGuid(), RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call RejectApprovalTask with all parameters and request content.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new PurviewAccountClient(endpoint, credential);
+
+var data = new {
+    comment = "<comment>",
+};
+
+Response response = client.RejectApprovalTask(Guid.NewGuid(), RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for the request payload.
+
+Request Body:
+
+Schema for <c>ApprovalResponseComment</c>:
+<code>{
+  comment: string, # Optional. The comment of approving or rejecting an approval request.
+}
+</code>
+
+</remarks>
+    </member>
+    <member name="ReassignWorkflowTaskAsync(Guid,RequestContent,RequestContext)">
+<example>
+This sample shows how to call ReassignWorkflowTaskAsync with required parameters.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new PurviewAccountClient(endpoint, credential);
+
+var data = new {};
+
+Response response = await client.ReassignWorkflowTaskAsync(Guid.NewGuid(), RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call ReassignWorkflowTaskAsync with all parameters and request content.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new PurviewAccountClient(endpoint, credential);
+
+var data = new {
+    reassignments = new[] {
+        new {
+            reassignFrom = "73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a",
+            reassignTo = "73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a",
+        }
+    },
+};
+
+Response response = await client.ReassignWorkflowTaskAsync(Guid.NewGuid(), RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for the request payload.
+
+Request Body:
+
+Schema for <c>ReassignCommand</c>:
+<code>{
+  reassignments: [
+    {
+      reassignFrom: Guid, # Required. Reassign a workflow task from a user or a group.
+      reassignTo: Guid, # Required. Reassign a workflow task to a user or a group.
+    }
+  ], # Optional. The request body of reassigning a workflow task.
+}
+</code>
+
+</remarks>
+    </member>
+    <member name="ReassignWorkflowTask(Guid,RequestContent,RequestContext)">
+<example>
+This sample shows how to call ReassignWorkflowTask with required parameters.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new PurviewAccountClient(endpoint, credential);
+
+var data = new {};
+
+Response response = client.ReassignWorkflowTask(Guid.NewGuid(), RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call ReassignWorkflowTask with all parameters and request content.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new PurviewAccountClient(endpoint, credential);
+
+var data = new {
+    reassignments = new[] {
+        new {
+            reassignFrom = "73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a",
+            reassignTo = "73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a",
+        }
+    },
+};
+
+Response response = client.ReassignWorkflowTask(Guid.NewGuid(), RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for the request payload.
+
+Request Body:
+
+Schema for <c>ReassignCommand</c>:
+<code>{
+  reassignments: [
+    {
+      reassignFrom: Guid, # Required. Reassign a workflow task from a user or a group.
+      reassignTo: Guid, # Required. Reassign a workflow task to a user or a group.
+    }
+  ], # Optional. The request body of reassigning a workflow task.
+}
+</code>
+
+</remarks>
+    </member>
+    <member name="UpdateTaskRequestAsync(Guid,RequestContent,RequestContext)">
+<example>
+This sample shows how to call UpdateTaskRequestAsync with required parameters and request content.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new PurviewAccountClient(endpoint, credential);
+
+var data = new {
+    newStatus = "Not Started",
+};
+
+Response response = await client.UpdateTaskRequestAsync(Guid.NewGuid(), RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call UpdateTaskRequestAsync with all parameters and request content.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new PurviewAccountClient(endpoint, credential);
+
+var data = new {
+    newStatus = "Not Started",
+    comment = "<comment>",
+};
+
+Response response = await client.UpdateTaskRequestAsync(Guid.NewGuid(), RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for the request payload.
+
+Request Body:
+
+Schema for <c>TaskUpdateCommand</c>:
+<code>{
+  newStatus: &quot;Not Started&quot; | &quot;In Progress&quot; | &quot;Completed&quot; | &quot;Canceled&quot;, # Required. The new status will be used to update the task.
+  comment: string, # Optional. The comment when update a task.
+}
+</code>
+
+</remarks>
+    </member>
+    <member name="UpdateTaskRequest(Guid,RequestContent,RequestContext)">
+<example>
+This sample shows how to call UpdateTaskRequest with required parameters and request content.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new PurviewAccountClient(endpoint, credential);
+
+var data = new {
+    newStatus = "Not Started",
+};
+
+Response response = client.UpdateTaskRequest(Guid.NewGuid(), RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call UpdateTaskRequest with all parameters and request content.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new PurviewAccountClient(endpoint, credential);
+
+var data = new {
+    newStatus = "Not Started",
+    comment = "<comment>",
+};
+
+Response response = client.UpdateTaskRequest(Guid.NewGuid(), RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for the request payload.
+
+Request Body:
+
+Schema for <c>TaskUpdateCommand</c>:
+<code>{
+  newStatus: &quot;Not Started&quot; | &quot;In Progress&quot; | &quot;Completed&quot; | &quot;Canceled&quot;, # Required. The new status will be used to update the task.
+  comment: string, # Optional. The comment when update a task.
+}
+</code>
+
+</remarks>
+    </member>
+    <member name="ClaimDsarTaskRequestAsync(Guid,RequestContent,RequestContext)">
+<example>
+This sample shows how to call ClaimDsarTaskRequestAsync with required parameters.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new PurviewAccountClient(endpoint, credential);
+
+var data = new {};
+
+Response response = await client.ClaimDsarTaskRequestAsync(Guid.NewGuid(), RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call ClaimDsarTaskRequestAsync with all parameters and request content.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new PurviewAccountClient(endpoint, credential);
+
+var data = new {
+    comment = "<comment>",
+};
+
+Response response = await client.ClaimDsarTaskRequestAsync(Guid.NewGuid(), RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for the request payload.
+
+Request Body:
+
+Schema for <c>DsarTaskClaimCommand</c>:
+<code>{
+  comment: string, # Optional. The comment when claiming a DSAR task.
+}
+</code>
+
+</remarks>
+    </member>
+    <member name="ClaimDsarTaskRequest(Guid,RequestContent,RequestContext)">
+<example>
+This sample shows how to call ClaimDsarTaskRequest with required parameters.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new PurviewAccountClient(endpoint, credential);
+
+var data = new {};
+
+Response response = client.ClaimDsarTaskRequest(Guid.NewGuid(), RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call ClaimDsarTaskRequest with all parameters and request content.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new PurviewAccountClient(endpoint, credential);
+
+var data = new {
+    comment = "<comment>",
+};
+
+Response response = client.ClaimDsarTaskRequest(Guid.NewGuid(), RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for the request payload.
+
+Request Body:
+
+Schema for <c>DsarTaskClaimCommand</c>:
+<code>{
+  comment: string, # Optional. The comment when claiming a DSAR task.
+}
+</code>
+
+</remarks>
+    </member>
+    <member name="ReleaseDsarTaskRequestAsync(Guid,RequestContent,RequestContext)">
+<example>
+This sample shows how to call ReleaseDsarTaskRequestAsync with required parameters.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new PurviewAccountClient(endpoint, credential);
+
+var data = new {};
+
+Response response = await client.ReleaseDsarTaskRequestAsync(Guid.NewGuid(), RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call ReleaseDsarTaskRequestAsync with all parameters and request content.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new PurviewAccountClient(endpoint, credential);
+
+var data = new {
+    comment = "<comment>",
+};
+
+Response response = await client.ReleaseDsarTaskRequestAsync(Guid.NewGuid(), RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for the request payload.
+
+Request Body:
+
+Schema for <c>DsarTaskReleaseCommand</c>:
+<code>{
+  comment: string, # Optional. The comment when releasing a DSAR task.
+}
+</code>
+
+</remarks>
+    </member>
+    <member name="ReleaseDsarTaskRequest(Guid,RequestContent,RequestContext)">
+<example>
+This sample shows how to call ReleaseDsarTaskRequest with required parameters.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new PurviewAccountClient(endpoint, credential);
+
+var data = new {};
+
+Response response = client.ReleaseDsarTaskRequest(Guid.NewGuid(), RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call ReleaseDsarTaskRequest with all parameters and request content.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new PurviewAccountClient(endpoint, credential);
+
+var data = new {
+    comment = "<comment>",
+};
+
+Response response = client.ReleaseDsarTaskRequest(Guid.NewGuid(), RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for the request payload.
+
+Request Body:
+
+Schema for <c>DsarTaskReleaseCommand</c>:
+<code>{
+  comment: string, # Optional. The comment when releasing a DSAR task.
+}
+</code>
+
+</remarks>
+    </member>
+    <member name="GetWorkflowsAsync(RequestContext)">
+<example>
+This sample shows how to call GetWorkflowsAsync and parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new PurviewAccountClient(endpoint, credential);
+
+await foreach (var data in client.GetWorkflowsAsync())
 {
     JsonElement result = JsonDocument.Parse(data.ToStream()).RootElement;
-    Console.WriteLine(result.ToString());
-}
-]]></code>
-This sample shows how to call GetCollectionsAsync with all parameters, and how to parse the result.
-<code><![CDATA[
-var credential = new DefaultAzureCredential();
-var endpoint = new Uri("<https://my-service.azure.com>");
-var client = new PurviewAccountClient(endpoint, credential);
-
-await foreach (var data in client.GetCollectionsAsync("<skipToken>"))
-{
-    JsonElement result = JsonDocument.Parse(data.ToStream()).RootElement;
-    Console.WriteLine(result.GetProperty("collectionProvisioningState").ToString());
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("triggers")[0].GetProperty("type").ToString());
+    Console.WriteLine(result.GetProperty("triggers")[0].GetProperty("underGlossaryHierarchy").ToString());
+    Console.WriteLine(result.GetProperty("triggers")[0].GetProperty("underCollection").ToString());
+    Console.WriteLine(result.GetProperty("triggers")[0].GetProperty("underGlossary").ToString());
+    Console.WriteLine(result.GetProperty("createdTime").ToString());
+    Console.WriteLine(result.GetProperty("createdBy").ToString());
+    Console.WriteLine(result.GetProperty("lastUpdateTime").ToString());
+    Console.WriteLine(result.GetProperty("updatedBy").ToString());
+    Console.WriteLine(result.GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("isEnabled").ToString());
     Console.WriteLine(result.GetProperty("description").ToString());
-    Console.WriteLine(result.GetProperty("friendlyName").ToString());
-    Console.WriteLine(result.GetProperty("name").ToString());
-    Console.WriteLine(result.GetProperty("parentCollection").GetProperty("referenceName").ToString());
-    Console.WriteLine(result.GetProperty("parentCollection").GetProperty("type").ToString());
-    Console.WriteLine(result.GetProperty("systemData").GetProperty("createdAt").ToString());
-    Console.WriteLine(result.GetProperty("systemData").GetProperty("createdBy").ToString());
-    Console.WriteLine(result.GetProperty("systemData").GetProperty("createdByType").ToString());
-    Console.WriteLine(result.GetProperty("systemData").GetProperty("lastModifiedAt").ToString());
-    Console.WriteLine(result.GetProperty("systemData").GetProperty("lastModifiedBy").ToString());
-    Console.WriteLine(result.GetProperty("systemData").GetProperty("lastModifiedByType").ToString());
 }
 ]]></code>
 </example>
@@ -768,64 +1642,52 @@ Below is the JSON schema for one item in the pageable response.
 
 Response Body:
 
-Schema for <c>CollectionListValue</c>:
+Schema for <c>WorkflowMetadataListValue</c>:
 <code>{
-  collectionProvisioningState: &quot;Unknown&quot; | &quot;Creating&quot; | &quot;Moving&quot; | &quot;Deleting&quot; | &quot;Failed&quot; | &quot;Succeeded&quot;, # Optional. Gets the state of the provisioning.
-  description: string, # Optional. Gets or sets the description.
-  friendlyName: string, # Optional. Gets or sets the friendly name of the collection.
-  name: string, # Optional. Gets the name.
-  parentCollection: {
-    referenceName: string, # Optional. Gets or sets the reference name.
-    type: string, # Optional. Gets the reference type property.
-  }, # Optional. Gets or sets the parent collection reference.
-  systemData: {
-    createdAt: string (ISO 8601 Format), # Optional. The timestamp of resource creation (UTC).
-    createdBy: string, # Optional. The identity that created the resource.
-    createdByType: &quot;User&quot; | &quot;Application&quot; | &quot;ManagedIdentity&quot; | &quot;Key&quot;, # Optional. The type of identity that created the resource.
-    lastModifiedAt: string (ISO 8601 Format), # Optional. The timestamp of the last modification the resource (UTC).
-    lastModifiedBy: string, # Optional. The identity that last modified the resource.
-    lastModifiedByType: &quot;User&quot; | &quot;Application&quot; | &quot;ManagedIdentity&quot; | &quot;Key&quot;, # Optional. The type of identity that last modified the resource.
-  }, # Optional. Gets the system data that contains information about who and when created and updated the resource.
+  id: Guid, # Required. The id of workflow.
+  triggers: [
+    {
+      type: &quot;when_term_creation_is_requested&quot; | &quot;when_term_deletion_is_requested&quot; | &quot;when_term_update_is_requested&quot; | &quot;when_terms_import_is_requested&quot; | &quot;when_data_access_grant_is_requested&quot; | &quot;when_asset_update_is_requested&quot; | &quot;when_dsar_deletion_is_requested&quot; | &quot;when_dsar_export_is_requested&quot;, # Required.
+      underGlossaryHierarchy: string, # Optional. Glossary term hierarchy path.
+      underCollection: string, # Optional. The collection name.
+      underGlossary: string, # Optional. The glossary guid.
+    }
+  ], # Required. It describes under what condition a workflow will run.  
+  createdTime: string (ISO 8601 Format), # Required. The created time of workflow.
+  createdBy: string, # Required. The person who created the workflow.
+  lastUpdateTime: string (ISO 8601 Format), # Required. The last update time.
+  updatedBy: string, # Required. The person who updated the workflow.
+  name: string, # Required. The name of a workflow.
+  isEnabled: boolean, # Required. Whether the workflow is enabled or not.
+  description: string, # Required. Description of a workflow.
 }
 </code>
 
 </remarks>
     </member>
-    <member name="GetCollections(String,RequestContext)">
+    <member name="GetWorkflows(RequestContext)">
 <example>
-This sample shows how to call GetCollections and parse the result.
+This sample shows how to call GetWorkflows and parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
 var endpoint = new Uri("<https://my-service.azure.com>");
 var client = new PurviewAccountClient(endpoint, credential);
 
-foreach (var data in client.GetCollections())
+foreach (var data in client.GetWorkflows())
 {
     JsonElement result = JsonDocument.Parse(data.ToStream()).RootElement;
-    Console.WriteLine(result.ToString());
-}
-]]></code>
-This sample shows how to call GetCollections with all parameters, and how to parse the result.
-<code><![CDATA[
-var credential = new DefaultAzureCredential();
-var endpoint = new Uri("<https://my-service.azure.com>");
-var client = new PurviewAccountClient(endpoint, credential);
-
-foreach (var data in client.GetCollections("<skipToken>"))
-{
-    JsonElement result = JsonDocument.Parse(data.ToStream()).RootElement;
-    Console.WriteLine(result.GetProperty("collectionProvisioningState").ToString());
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("triggers")[0].GetProperty("type").ToString());
+    Console.WriteLine(result.GetProperty("triggers")[0].GetProperty("underGlossaryHierarchy").ToString());
+    Console.WriteLine(result.GetProperty("triggers")[0].GetProperty("underCollection").ToString());
+    Console.WriteLine(result.GetProperty("triggers")[0].GetProperty("underGlossary").ToString());
+    Console.WriteLine(result.GetProperty("createdTime").ToString());
+    Console.WriteLine(result.GetProperty("createdBy").ToString());
+    Console.WriteLine(result.GetProperty("lastUpdateTime").ToString());
+    Console.WriteLine(result.GetProperty("updatedBy").ToString());
+    Console.WriteLine(result.GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("isEnabled").ToString());
     Console.WriteLine(result.GetProperty("description").ToString());
-    Console.WriteLine(result.GetProperty("friendlyName").ToString());
-    Console.WriteLine(result.GetProperty("name").ToString());
-    Console.WriteLine(result.GetProperty("parentCollection").GetProperty("referenceName").ToString());
-    Console.WriteLine(result.GetProperty("parentCollection").GetProperty("type").ToString());
-    Console.WriteLine(result.GetProperty("systemData").GetProperty("createdAt").ToString());
-    Console.WriteLine(result.GetProperty("systemData").GetProperty("createdBy").ToString());
-    Console.WriteLine(result.GetProperty("systemData").GetProperty("createdByType").ToString());
-    Console.WriteLine(result.GetProperty("systemData").GetProperty("lastModifiedAt").ToString());
-    Console.WriteLine(result.GetProperty("systemData").GetProperty("lastModifiedBy").ToString());
-    Console.WriteLine(result.GetProperty("systemData").GetProperty("lastModifiedByType").ToString());
 }
 ]]></code>
 </example>
@@ -834,137 +1696,69 @@ Below is the JSON schema for one item in the pageable response.
 
 Response Body:
 
-Schema for <c>CollectionListValue</c>:
+Schema for <c>WorkflowMetadataListValue</c>:
 <code>{
-  collectionProvisioningState: &quot;Unknown&quot; | &quot;Creating&quot; | &quot;Moving&quot; | &quot;Deleting&quot; | &quot;Failed&quot; | &quot;Succeeded&quot;, # Optional. Gets the state of the provisioning.
-  description: string, # Optional. Gets or sets the description.
-  friendlyName: string, # Optional. Gets or sets the friendly name of the collection.
-  name: string, # Optional. Gets the name.
-  parentCollection: {
-    referenceName: string, # Optional. Gets or sets the reference name.
-    type: string, # Optional. Gets the reference type property.
-  }, # Optional. Gets or sets the parent collection reference.
-  systemData: {
-    createdAt: string (ISO 8601 Format), # Optional. The timestamp of resource creation (UTC).
-    createdBy: string, # Optional. The identity that created the resource.
-    createdByType: &quot;User&quot; | &quot;Application&quot; | &quot;ManagedIdentity&quot; | &quot;Key&quot;, # Optional. The type of identity that created the resource.
-    lastModifiedAt: string (ISO 8601 Format), # Optional. The timestamp of the last modification the resource (UTC).
-    lastModifiedBy: string, # Optional. The identity that last modified the resource.
-    lastModifiedByType: &quot;User&quot; | &quot;Application&quot; | &quot;ManagedIdentity&quot; | &quot;Key&quot;, # Optional. The type of identity that last modified the resource.
-  }, # Optional. Gets the system data that contains information about who and when created and updated the resource.
+  id: Guid, # Required. The id of workflow.
+  triggers: [
+    {
+      type: &quot;when_term_creation_is_requested&quot; | &quot;when_term_deletion_is_requested&quot; | &quot;when_term_update_is_requested&quot; | &quot;when_terms_import_is_requested&quot; | &quot;when_data_access_grant_is_requested&quot; | &quot;when_asset_update_is_requested&quot; | &quot;when_dsar_deletion_is_requested&quot; | &quot;when_dsar_export_is_requested&quot;, # Required.
+      underGlossaryHierarchy: string, # Optional. Glossary term hierarchy path.
+      underCollection: string, # Optional. The collection name.
+      underGlossary: string, # Optional. The glossary guid.
+    }
+  ], # Required. It describes under what condition a workflow will run.  
+  createdTime: string (ISO 8601 Format), # Required. The created time of workflow.
+  createdBy: string, # Required. The person who created the workflow.
+  lastUpdateTime: string (ISO 8601 Format), # Required. The last update time.
+  updatedBy: string, # Required. The person who updated the workflow.
+  name: string, # Required. The name of a workflow.
+  isEnabled: boolean, # Required. Whether the workflow is enabled or not.
+  description: string, # Required. Description of a workflow.
 }
 </code>
 
 </remarks>
     </member>
-    <member name="GetResourceSetRulesAsync(String,RequestContext)">
+    <member name="GetWorkflowRunsAsync(String,String,IEnumerable,IEnumerable,IEnumerable,Int32,RequestContext)">
 <example>
-This sample shows how to call GetResourceSetRulesAsync and parse the result.
+This sample shows how to call GetWorkflowRunsAsync and parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
 var endpoint = new Uri("<https://my-service.azure.com>");
 var client = new PurviewAccountClient(endpoint, credential);
 
-await foreach (var data in client.GetResourceSetRulesAsync())
+await foreach (var data in client.GetWorkflowRunsAsync())
 {
     JsonElement result = JsonDocument.Parse(data.ToStream()).RootElement;
-    Console.WriteLine(result.ToString());
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("workflowId").ToString());
+    Console.WriteLine(result.GetProperty("startTime").ToString());
+    Console.WriteLine(result.GetProperty("requestor").ToString());
+    Console.WriteLine(result.GetProperty("runPayload").GetProperty("type").ToString());
+    Console.WriteLine(result.GetProperty("runPayload").GetProperty("targetValue").ToString());
+    Console.WriteLine(result.GetProperty("status").ToString());
 }
 ]]></code>
-This sample shows how to call GetResourceSetRulesAsync with all parameters, and how to parse the result.
+This sample shows how to call GetWorkflowRunsAsync with all parameters, and how to parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
 var endpoint = new Uri("<https://my-service.azure.com>");
 var client = new PurviewAccountClient(endpoint, credential);
 
-await foreach (var data in client.GetResourceSetRulesAsync("<skipToken>"))
+await foreach (var data in client.GetWorkflowRunsAsync("<timeWindow>", "<orderby>", new String[]{"<runStatuses>"}, new String[]{"<userRequestIds>"}, new String[]{"<workflowIds>"}, 1234))
 {
     JsonElement result = JsonDocument.Parse(data.ToStream()).RootElement;
-    Console.WriteLine(result.GetProperty("advancedResourceSet").GetProperty("modifiedAt").ToString());
-    Console.WriteLine(result.GetProperty("advancedResourceSet").GetProperty("resourceSetProcessing").ToString());
-    Console.WriteLine(result.GetProperty("name").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("acceptedPatterns")[0].GetProperty("createdBy").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("acceptedPatterns")[0].GetProperty("filterType").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("acceptedPatterns")[0].GetProperty("lastUpdatedTimestamp").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("acceptedPatterns")[0].GetProperty("modifiedBy").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("acceptedPatterns")[0].GetProperty("name").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("acceptedPatterns")[0].GetProperty("path").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("complexReplacers")[0].GetProperty("createdBy").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("complexReplacers")[0].GetProperty("description").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("complexReplacers")[0].GetProperty("disabled").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("complexReplacers")[0].GetProperty("disableRecursiveReplacerApplication").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("complexReplacers")[0].GetProperty("lastUpdatedTimestamp").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("complexReplacers")[0].GetProperty("modifiedBy").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("complexReplacers")[0].GetProperty("name").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("complexReplacers")[0].GetProperty("typeName").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("createdBy").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("enableDefaultPatterns").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("lastUpdatedTimestamp").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("modifiedBy").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("normalizationRules")[0].GetProperty("description").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("normalizationRules")[0].GetProperty("disabled").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("normalizationRules")[0].GetProperty("dynamicReplacement").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("normalizationRules")[0].GetProperty("entityTypes")[0].ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("normalizationRules")[0].GetProperty("lastUpdatedTimestamp").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("normalizationRules")[0].GetProperty("name").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("normalizationRules")[0].GetProperty("regex").GetProperty("maxDigits").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("normalizationRules")[0].GetProperty("regex").GetProperty("maxLetters").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("normalizationRules")[0].GetProperty("regex").GetProperty("minDashes").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("normalizationRules")[0].GetProperty("regex").GetProperty("minDigits").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("normalizationRules")[0].GetProperty("regex").GetProperty("minDigitsOrLetters").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("normalizationRules")[0].GetProperty("regex").GetProperty("minDots").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("normalizationRules")[0].GetProperty("regex").GetProperty("minHex").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("normalizationRules")[0].GetProperty("regex").GetProperty("minLetters").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("normalizationRules")[0].GetProperty("regex").GetProperty("minUnderscores").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("normalizationRules")[0].GetProperty("regex").GetProperty("options").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("normalizationRules")[0].GetProperty("regex").GetProperty("regexStr").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("normalizationRules")[0].GetProperty("replaceWith").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("normalizationRules")[0].GetProperty("version").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("condition").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("createdBy").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("description").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("disabled").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("disableRecursiveReplacerApplication").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("doNotReplaceRegex").GetProperty("maxDigits").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("doNotReplaceRegex").GetProperty("maxLetters").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("doNotReplaceRegex").GetProperty("minDashes").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("doNotReplaceRegex").GetProperty("minDigits").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("doNotReplaceRegex").GetProperty("minDigitsOrLetters").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("doNotReplaceRegex").GetProperty("minDots").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("doNotReplaceRegex").GetProperty("minHex").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("doNotReplaceRegex").GetProperty("minLetters").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("doNotReplaceRegex").GetProperty("minUnderscores").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("doNotReplaceRegex").GetProperty("options").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("doNotReplaceRegex").GetProperty("regexStr").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("lastUpdatedTimestamp").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("modifiedBy").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("name").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("regex").GetProperty("maxDigits").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("regex").GetProperty("maxLetters").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("regex").GetProperty("minDashes").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("regex").GetProperty("minDigits").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("regex").GetProperty("minDigitsOrLetters").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("regex").GetProperty("minDots").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("regex").GetProperty("minHex").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("regex").GetProperty("minLetters").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("regex").GetProperty("minUnderscores").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("regex").GetProperty("options").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("regex").GetProperty("regexStr").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("replaceWith").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("rejectedPatterns")[0].GetProperty("createdBy").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("rejectedPatterns")[0].GetProperty("filterType").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("rejectedPatterns")[0].GetProperty("lastUpdatedTimestamp").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("rejectedPatterns")[0].GetProperty("modifiedBy").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("rejectedPatterns")[0].GetProperty("name").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("rejectedPatterns")[0].GetProperty("path").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("scopedRules")[0].GetProperty("bindingUrl").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("scopedRules")[0].GetProperty("rules")[0].GetProperty("displayName").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("scopedRules")[0].GetProperty("rules")[0].GetProperty("isResourceSet").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("scopedRules")[0].GetProperty("rules")[0].GetProperty("lastUpdatedTimestamp").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("scopedRules")[0].GetProperty("rules")[0].GetProperty("name").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("scopedRules")[0].GetProperty("rules")[0].GetProperty("qualifiedName").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("scopedRules")[0].GetProperty("storeType").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("version").ToString());
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("workflowId").ToString());
+    Console.WriteLine(result.GetProperty("startTime").ToString());
+    Console.WriteLine(result.GetProperty("requestor").ToString());
+    Console.WriteLine(result.GetProperty("userRequestId").ToString());
+    Console.WriteLine(result.GetProperty("runPayload").GetProperty("type").ToString());
+    Console.WriteLine(result.GetProperty("runPayload").GetProperty("targetValue").ToString());
+    Console.WriteLine(result.GetProperty("status").ToString());
+    Console.WriteLine(result.GetProperty("endTime").ToString());
+    Console.WriteLine(result.GetProperty("cancelTime").ToString());
+    Console.WriteLine(result.GetProperty("cancelComment").ToString());
 }
 ]]></code>
 </example>
@@ -973,211 +1767,66 @@ Below is the JSON schema for one item in the pageable response.
 
 Response Body:
 
-Schema for <c>ResourceSetRuleConfigListValue</c>:
+Schema for <c>WorkflowRunListValue</c>:
 <code>{
-  advancedResourceSet: {
-    modifiedAt: string (ISO 8601 Format), # Optional. Date at which ResourceSetProcessing property of the account is updated.
-    resourceSetProcessing: &quot;Default&quot; | &quot;Advanced&quot;, # Optional. The advanced resource property of the account.
-  }, # Optional. Gets or sets the advanced resource set property of the account.
-  name: string, # Optional. The name of the rule
-  pathPatternConfig: {
-    acceptedPatterns: [
-      {
-        createdBy: string, # Optional.
-        filterType: &quot;Pattern&quot; | &quot;Regex&quot;, # Optional.
-        lastUpdatedTimestamp: number, # Optional.
-        modifiedBy: string, # Optional.
-        name: string, # Required.
-        path: string, # Required.
-      }
-    ], # Optional.
-    complexReplacers: [
-      {
-        createdBy: string, # Optional.
-        description: string, # Optional.
-        disabled: boolean, # Optional.
-        disableRecursiveReplacerApplication: boolean, # Optional.
-        lastUpdatedTimestamp: number, # Optional.
-        modifiedBy: string, # Optional.
-        name: string, # Optional.
-        typeName: string, # Optional.
-      }
-    ], # Optional.
-    createdBy: string, # Required.
-    enableDefaultPatterns: boolean, # Required.
-    lastUpdatedTimestamp: number, # Optional.
-    modifiedBy: string, # Optional.
-    normalizationRules: [
-      {
-        description: string, # Optional.
-        disabled: boolean, # Optional.
-        dynamicReplacement: boolean, # Optional.
-        entityTypes: [string], # Optional.
-        lastUpdatedTimestamp: number, # Optional.
-        name: string, # Optional.
-        regex: {
-          maxDigits: number, # Optional.
-          maxLetters: number, # Optional.
-          minDashes: number, # Optional.
-          minDigits: number, # Optional.
-          minDigitsOrLetters: number, # Optional.
-          minDots: number, # Optional.
-          minHex: number, # Optional.
-          minLetters: number, # Optional.
-          minUnderscores: number, # Optional.
-          options: number, # Optional.
-          regexStr: string, # Optional.
-        }, # Optional.
-        replaceWith: string, # Optional.
-        version: number, # Optional.
-      }
-    ], # Optional.
-    regexReplacers: [
-      {
-        condition: string, # Optional.
-        createdBy: string, # Optional.
-        description: string, # Optional.
-        disabled: boolean, # Required.
-        disableRecursiveReplacerApplication: boolean, # Optional.
-        doNotReplaceRegex: FastRegex, # Optional.
-        lastUpdatedTimestamp: number, # Optional.
-        modifiedBy: string, # Optional.
-        name: string, # Required.
-        regex: FastRegex, # Optional.
-        replaceWith: string, # Optional.
-      }
-    ], # Optional.
-    rejectedPatterns: [Filter], # Optional.
-    scopedRules: [
-      {
-        bindingUrl: string, # Required.
-        rules: [
-          {
-            displayName: string, # Optional.
-            isResourceSet: boolean, # Optional.
-            lastUpdatedTimestamp: number, # Optional.
-            name: string, # Optional.
-            qualifiedName: string, # Required.
-          }
-        ], # Optional.
-        storeType: string, # Required.
-      }
-    ], # Optional.
-    version: number, # Optional.
-  }, # Optional. The configuration rules for path pattern extraction.
+  id: Guid, # Required. The workflow run id.
+  workflowId: Guid, # Required. The workflow id.
+  startTime: string (ISO 8601 Format), # Required. Workflow run start time.
+  requestor: Guid, # Required. The person who submitted the user request.
+  userRequestId: Guid, # Optional. The user request id.
+  runPayload: {
+    type: &quot;CreateTerm&quot; | &quot;UpdateTerm&quot; | &quot;DeleteTerm&quot; | &quot;ImportTerms&quot; | &quot;UpdateAsset&quot; | &quot;GrantDataAccess&quot; | &quot;DSARDelete&quot; | &quot;DSARExport&quot;, # Required. The workflow run payload type.
+    targetValue: string, # Required. The target value which need involve workflow to update.
+  }, # Required. The input of a workflow run. Align with operation in user request. 
+  status: &quot;NotStarted&quot; | &quot;InProgress&quot; | &quot;Failed&quot; | &quot;Completed&quot; | &quot;Canceling&quot; | &quot;CancellationFailed&quot; | &quot;Canceled&quot;, # Required. The status.
+  endTime: string (ISO 8601 Format), # Optional. The time of workflow run completed.
+  cancelTime: string (ISO 8601 Format), # Optional. The time of workflow run be canceled.
+  cancelComment: string, # Optional. The comment when cancel a workflow run.
 }
 </code>
 
 </remarks>
     </member>
-    <member name="GetResourceSetRules(String,RequestContext)">
+    <member name="GetWorkflowRuns(String,String,IEnumerable,IEnumerable,IEnumerable,Int32,RequestContext)">
 <example>
-This sample shows how to call GetResourceSetRules and parse the result.
+This sample shows how to call GetWorkflowRuns and parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
 var endpoint = new Uri("<https://my-service.azure.com>");
 var client = new PurviewAccountClient(endpoint, credential);
 
-foreach (var data in client.GetResourceSetRules())
+foreach (var data in client.GetWorkflowRuns())
 {
     JsonElement result = JsonDocument.Parse(data.ToStream()).RootElement;
-    Console.WriteLine(result.ToString());
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("workflowId").ToString());
+    Console.WriteLine(result.GetProperty("startTime").ToString());
+    Console.WriteLine(result.GetProperty("requestor").ToString());
+    Console.WriteLine(result.GetProperty("runPayload").GetProperty("type").ToString());
+    Console.WriteLine(result.GetProperty("runPayload").GetProperty("targetValue").ToString());
+    Console.WriteLine(result.GetProperty("status").ToString());
 }
 ]]></code>
-This sample shows how to call GetResourceSetRules with all parameters, and how to parse the result.
+This sample shows how to call GetWorkflowRuns with all parameters, and how to parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
 var endpoint = new Uri("<https://my-service.azure.com>");
 var client = new PurviewAccountClient(endpoint, credential);
 
-foreach (var data in client.GetResourceSetRules("<skipToken>"))
+foreach (var data in client.GetWorkflowRuns("<timeWindow>", "<orderby>", new String[]{"<runStatuses>"}, new String[]{"<userRequestIds>"}, new String[]{"<workflowIds>"}, 1234))
 {
     JsonElement result = JsonDocument.Parse(data.ToStream()).RootElement;
-    Console.WriteLine(result.GetProperty("advancedResourceSet").GetProperty("modifiedAt").ToString());
-    Console.WriteLine(result.GetProperty("advancedResourceSet").GetProperty("resourceSetProcessing").ToString());
-    Console.WriteLine(result.GetProperty("name").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("acceptedPatterns")[0].GetProperty("createdBy").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("acceptedPatterns")[0].GetProperty("filterType").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("acceptedPatterns")[0].GetProperty("lastUpdatedTimestamp").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("acceptedPatterns")[0].GetProperty("modifiedBy").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("acceptedPatterns")[0].GetProperty("name").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("acceptedPatterns")[0].GetProperty("path").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("complexReplacers")[0].GetProperty("createdBy").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("complexReplacers")[0].GetProperty("description").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("complexReplacers")[0].GetProperty("disabled").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("complexReplacers")[0].GetProperty("disableRecursiveReplacerApplication").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("complexReplacers")[0].GetProperty("lastUpdatedTimestamp").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("complexReplacers")[0].GetProperty("modifiedBy").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("complexReplacers")[0].GetProperty("name").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("complexReplacers")[0].GetProperty("typeName").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("createdBy").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("enableDefaultPatterns").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("lastUpdatedTimestamp").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("modifiedBy").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("normalizationRules")[0].GetProperty("description").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("normalizationRules")[0].GetProperty("disabled").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("normalizationRules")[0].GetProperty("dynamicReplacement").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("normalizationRules")[0].GetProperty("entityTypes")[0].ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("normalizationRules")[0].GetProperty("lastUpdatedTimestamp").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("normalizationRules")[0].GetProperty("name").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("normalizationRules")[0].GetProperty("regex").GetProperty("maxDigits").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("normalizationRules")[0].GetProperty("regex").GetProperty("maxLetters").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("normalizationRules")[0].GetProperty("regex").GetProperty("minDashes").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("normalizationRules")[0].GetProperty("regex").GetProperty("minDigits").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("normalizationRules")[0].GetProperty("regex").GetProperty("minDigitsOrLetters").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("normalizationRules")[0].GetProperty("regex").GetProperty("minDots").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("normalizationRules")[0].GetProperty("regex").GetProperty("minHex").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("normalizationRules")[0].GetProperty("regex").GetProperty("minLetters").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("normalizationRules")[0].GetProperty("regex").GetProperty("minUnderscores").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("normalizationRules")[0].GetProperty("regex").GetProperty("options").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("normalizationRules")[0].GetProperty("regex").GetProperty("regexStr").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("normalizationRules")[0].GetProperty("replaceWith").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("normalizationRules")[0].GetProperty("version").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("condition").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("createdBy").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("description").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("disabled").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("disableRecursiveReplacerApplication").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("doNotReplaceRegex").GetProperty("maxDigits").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("doNotReplaceRegex").GetProperty("maxLetters").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("doNotReplaceRegex").GetProperty("minDashes").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("doNotReplaceRegex").GetProperty("minDigits").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("doNotReplaceRegex").GetProperty("minDigitsOrLetters").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("doNotReplaceRegex").GetProperty("minDots").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("doNotReplaceRegex").GetProperty("minHex").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("doNotReplaceRegex").GetProperty("minLetters").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("doNotReplaceRegex").GetProperty("minUnderscores").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("doNotReplaceRegex").GetProperty("options").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("doNotReplaceRegex").GetProperty("regexStr").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("lastUpdatedTimestamp").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("modifiedBy").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("name").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("regex").GetProperty("maxDigits").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("regex").GetProperty("maxLetters").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("regex").GetProperty("minDashes").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("regex").GetProperty("minDigits").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("regex").GetProperty("minDigitsOrLetters").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("regex").GetProperty("minDots").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("regex").GetProperty("minHex").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("regex").GetProperty("minLetters").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("regex").GetProperty("minUnderscores").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("regex").GetProperty("options").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("regex").GetProperty("regexStr").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("regexReplacers")[0].GetProperty("replaceWith").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("rejectedPatterns")[0].GetProperty("createdBy").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("rejectedPatterns")[0].GetProperty("filterType").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("rejectedPatterns")[0].GetProperty("lastUpdatedTimestamp").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("rejectedPatterns")[0].GetProperty("modifiedBy").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("rejectedPatterns")[0].GetProperty("name").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("rejectedPatterns")[0].GetProperty("path").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("scopedRules")[0].GetProperty("bindingUrl").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("scopedRules")[0].GetProperty("rules")[0].GetProperty("displayName").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("scopedRules")[0].GetProperty("rules")[0].GetProperty("isResourceSet").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("scopedRules")[0].GetProperty("rules")[0].GetProperty("lastUpdatedTimestamp").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("scopedRules")[0].GetProperty("rules")[0].GetProperty("name").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("scopedRules")[0].GetProperty("rules")[0].GetProperty("qualifiedName").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("scopedRules")[0].GetProperty("storeType").ToString());
-    Console.WriteLine(result.GetProperty("pathPatternConfig").GetProperty("version").ToString());
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("workflowId").ToString());
+    Console.WriteLine(result.GetProperty("startTime").ToString());
+    Console.WriteLine(result.GetProperty("requestor").ToString());
+    Console.WriteLine(result.GetProperty("userRequestId").ToString());
+    Console.WriteLine(result.GetProperty("runPayload").GetProperty("type").ToString());
+    Console.WriteLine(result.GetProperty("runPayload").GetProperty("targetValue").ToString());
+    Console.WriteLine(result.GetProperty("status").ToString());
+    Console.WriteLine(result.GetProperty("endTime").ToString());
+    Console.WriteLine(result.GetProperty("cancelTime").ToString());
+    Console.WriteLine(result.GetProperty("cancelComment").ToString());
 }
 ]]></code>
 </example>
@@ -1186,98 +1835,205 @@ Below is the JSON schema for one item in the pageable response.
 
 Response Body:
 
-Schema for <c>ResourceSetRuleConfigListValue</c>:
+Schema for <c>WorkflowRunListValue</c>:
 <code>{
-  advancedResourceSet: {
-    modifiedAt: string (ISO 8601 Format), # Optional. Date at which ResourceSetProcessing property of the account is updated.
-    resourceSetProcessing: &quot;Default&quot; | &quot;Advanced&quot;, # Optional. The advanced resource property of the account.
-  }, # Optional. Gets or sets the advanced resource set property of the account.
-  name: string, # Optional. The name of the rule
-  pathPatternConfig: {
-    acceptedPatterns: [
-      {
-        createdBy: string, # Optional.
-        filterType: &quot;Pattern&quot; | &quot;Regex&quot;, # Optional.
-        lastUpdatedTimestamp: number, # Optional.
-        modifiedBy: string, # Optional.
-        name: string, # Required.
-        path: string, # Required.
-      }
-    ], # Optional.
-    complexReplacers: [
-      {
-        createdBy: string, # Optional.
-        description: string, # Optional.
-        disabled: boolean, # Optional.
-        disableRecursiveReplacerApplication: boolean, # Optional.
-        lastUpdatedTimestamp: number, # Optional.
-        modifiedBy: string, # Optional.
-        name: string, # Optional.
-        typeName: string, # Optional.
-      }
-    ], # Optional.
-    createdBy: string, # Required.
-    enableDefaultPatterns: boolean, # Required.
-    lastUpdatedTimestamp: number, # Optional.
-    modifiedBy: string, # Optional.
-    normalizationRules: [
-      {
-        description: string, # Optional.
-        disabled: boolean, # Optional.
-        dynamicReplacement: boolean, # Optional.
-        entityTypes: [string], # Optional.
-        lastUpdatedTimestamp: number, # Optional.
-        name: string, # Optional.
-        regex: {
-          maxDigits: number, # Optional.
-          maxLetters: number, # Optional.
-          minDashes: number, # Optional.
-          minDigits: number, # Optional.
-          minDigitsOrLetters: number, # Optional.
-          minDots: number, # Optional.
-          minHex: number, # Optional.
-          minLetters: number, # Optional.
-          minUnderscores: number, # Optional.
-          options: number, # Optional.
-          regexStr: string, # Optional.
-        }, # Optional.
-        replaceWith: string, # Optional.
-        version: number, # Optional.
-      }
-    ], # Optional.
-    regexReplacers: [
-      {
-        condition: string, # Optional.
-        createdBy: string, # Optional.
-        description: string, # Optional.
-        disabled: boolean, # Required.
-        disableRecursiveReplacerApplication: boolean, # Optional.
-        doNotReplaceRegex: FastRegex, # Optional.
-        lastUpdatedTimestamp: number, # Optional.
-        modifiedBy: string, # Optional.
-        name: string, # Required.
-        regex: FastRegex, # Optional.
-        replaceWith: string, # Optional.
-      }
-    ], # Optional.
-    rejectedPatterns: [Filter], # Optional.
-    scopedRules: [
-      {
-        bindingUrl: string, # Required.
-        rules: [
-          {
-            displayName: string, # Optional.
-            isResourceSet: boolean, # Optional.
-            lastUpdatedTimestamp: number, # Optional.
-            name: string, # Optional.
-            qualifiedName: string, # Required.
-          }
-        ], # Optional.
-        storeType: string, # Required.
-      }
-    ], # Optional.
-    version: number, # Optional.
-  }, # Optional. The configuration rules for path pattern extraction.
+  id: Guid, # Required. The workflow run id.
+  workflowId: Guid, # Required. The workflow id.
+  startTime: string (ISO 8601 Format), # Required. Workflow run start time.
+  requestor: Guid, # Required. The person who submitted the user request.
+  userRequestId: Guid, # Optional. The user request id.
+  runPayload: {
+    type: &quot;CreateTerm&quot; | &quot;UpdateTerm&quot; | &quot;DeleteTerm&quot; | &quot;ImportTerms&quot; | &quot;UpdateAsset&quot; | &quot;GrantDataAccess&quot; | &quot;DSARDelete&quot; | &quot;DSARExport&quot;, # Required. The workflow run payload type.
+    targetValue: string, # Required. The target value which need involve workflow to update.
+  }, # Required. The input of a workflow run. Align with operation in user request. 
+  status: &quot;NotStarted&quot; | &quot;InProgress&quot; | &quot;Failed&quot; | &quot;Completed&quot; | &quot;Canceling&quot; | &quot;CancellationFailed&quot; | &quot;Canceled&quot;, # Required. The status.
+  endTime: string (ISO 8601 Format), # Optional. The time of workflow run completed.
+  cancelTime: string (ISO 8601 Format), # Optional. The time of workflow run be canceled.
+  cancelComment: string, # Optional. The comment when cancel a workflow run.
+}
+</code>
+
+</remarks>
+    </member>
+    <member name="GetWorkflowTasksAsync(String,IEnumerable,String,Int32,String,IEnumerable,IEnumerable,String,RequestContext)">
+<example>
+This sample shows how to call GetWorkflowTasksAsync and parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new PurviewAccountClient(endpoint, credential);
+
+await foreach (var data in client.GetWorkflowTasksAsync())
+{
+    JsonElement result = JsonDocument.Parse(data.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("type").ToString());
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("workflowRunId").ToString());
+    Console.WriteLine(result.GetProperty("workflowId").ToString());
+    Console.WriteLine(result.GetProperty("requestor").ToString());
+    Console.WriteLine(result.GetProperty("createdTime").ToString());
+    Console.WriteLine(result.GetProperty("lastUpdateTime").ToString());
+    Console.WriteLine(result.GetProperty("payload").GetProperty("type").ToString());
+    Console.WriteLine(result.GetProperty("payload").GetProperty("targetValue").ToString());
+}
+]]></code>
+This sample shows how to call GetWorkflowTasksAsync with all parameters, and how to parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new PurviewAccountClient(endpoint, credential);
+
+await foreach (var data in client.GetWorkflowTasksAsync("<viewMode>", new String[]{"<workflowIds>"}, "<timeWindow>", 1234, "<orderby>", new String[]{"<taskTypes>"}, new String[]{"<taskStatuses>"}, "<workflowNameKeyword>"))
+{
+    JsonElement result = JsonDocument.Parse(data.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("type").ToString());
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("title").ToString());
+    Console.WriteLine(result.GetProperty("workflowRunId").ToString());
+    Console.WriteLine(result.GetProperty("workflowId").ToString());
+    Console.WriteLine(result.GetProperty("requestor").ToString());
+    Console.WriteLine(result.GetProperty("createdTime").ToString());
+    Console.WriteLine(result.GetProperty("lastUpdateTime").ToString());
+    Console.WriteLine(result.GetProperty("payload").GetProperty("type").ToString());
+    Console.WriteLine(result.GetProperty("payload").GetProperty("targetValue").ToString());
+    Console.WriteLine(result.GetProperty("payload").GetProperty("payload").ToString());
+    Console.WriteLine(result.GetProperty("reminderInfo").GetProperty("lastRemindTime").ToString());
+    Console.WriteLine(result.GetProperty("reminderInfo").GetProperty("nextRemindTime").ToString());
+    Console.WriteLine(result.GetProperty("reminderInfo").GetProperty("reminderSettings").ToString());
+    Console.WriteLine(result.GetProperty("expiryInfo").GetProperty("lastExpiryNotificationTime").ToString());
+    Console.WriteLine(result.GetProperty("expiryInfo").GetProperty("nextExpiryNotificationTime").ToString());
+    Console.WriteLine(result.GetProperty("expiryInfo").GetProperty("expiryTime").ToString());
+    Console.WriteLine(result.GetProperty("expiryInfo").GetProperty("expirySettings").GetProperty("expireAfter").ToString());
+    Console.WriteLine(result.GetProperty("expiryInfo").GetProperty("expirySettings").GetProperty("notifyOnExpiration")[0].ToString());
+}
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for one item in the pageable response.
+
+Response Body:
+
+Schema for <c>TasksListValue</c>:
+<code>{
+  type: &quot;Approval&quot; | &quot;SimpleTask&quot; | &quot;DsarTask&quot; | &quot;approval&quot; | &quot;simpleTask&quot; | &quot;dsarTask&quot;, # Required. The workflow task type.
+  id: Guid, # Required. The workflow task id.
+  title: string, # Optional. The workflow task title.
+  workflowRunId: Guid, # Required. The workflow run id.
+  workflowId: Guid, # Required. The workflow id.
+  requestor: Guid, # Required. The person who submitted the user request.
+  createdTime: string (ISO 8601 Format), # Required. The created time.
+  lastUpdateTime: string (ISO 8601 Format), # Required. The last update time.
+  payload: {
+    type: &quot;CreateTerm&quot; | &quot;UpdateTerm&quot; | &quot;DeleteTerm&quot; | &quot;ImportTerms&quot; | &quot;UpdateAsset&quot; | &quot;GrantDataAccess&quot; | &quot;DSARDelete&quot; | &quot;DSARExport&quot;, # Required. The task payload type.
+    targetValue: string, # Required. The target value of entity which user want to involve workflow to update.
+    payload: AnyObject, # Optional. The payload of the task.
+  }, # Required. Info and material that helps assignees to take action.
+  reminderInfo: {
+    lastRemindTime: string (ISO 8601 Format), # Optional. The last update time.
+    nextRemindTime: string (ISO 8601 Format), # Required. The next remind time.
+    reminderSettings: AnyObject, # Required. The reminder settings.
+  }, # Optional. Info of task reminder.
+  expiryInfo: {
+    lastExpiryNotificationTime: string (ISO 8601 Format), # Optional. The last expiry notification time.
+    nextExpiryNotificationTime: string (ISO 8601 Format), # Required. The next expiry notification time.
+    expiryTime: string (ISO 8601 Format), # Required. The expiry time.
+    expirySettings: {
+      expireAfter: AnyObject, # Required. The time of expiry.
+      notifyOnExpiration: [Guid], # Optional.
+    }, # Required.
+  }, # Optional. Info of task expiry.
+}
+</code>
+
+</remarks>
+    </member>
+    <member name="GetWorkflowTasks(String,IEnumerable,String,Int32,String,IEnumerable,IEnumerable,String,RequestContext)">
+<example>
+This sample shows how to call GetWorkflowTasks and parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new PurviewAccountClient(endpoint, credential);
+
+foreach (var data in client.GetWorkflowTasks())
+{
+    JsonElement result = JsonDocument.Parse(data.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("type").ToString());
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("workflowRunId").ToString());
+    Console.WriteLine(result.GetProperty("workflowId").ToString());
+    Console.WriteLine(result.GetProperty("requestor").ToString());
+    Console.WriteLine(result.GetProperty("createdTime").ToString());
+    Console.WriteLine(result.GetProperty("lastUpdateTime").ToString());
+    Console.WriteLine(result.GetProperty("payload").GetProperty("type").ToString());
+    Console.WriteLine(result.GetProperty("payload").GetProperty("targetValue").ToString());
+}
+]]></code>
+This sample shows how to call GetWorkflowTasks with all parameters, and how to parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new PurviewAccountClient(endpoint, credential);
+
+foreach (var data in client.GetWorkflowTasks("<viewMode>", new String[]{"<workflowIds>"}, "<timeWindow>", 1234, "<orderby>", new String[]{"<taskTypes>"}, new String[]{"<taskStatuses>"}, "<workflowNameKeyword>"))
+{
+    JsonElement result = JsonDocument.Parse(data.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("type").ToString());
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("title").ToString());
+    Console.WriteLine(result.GetProperty("workflowRunId").ToString());
+    Console.WriteLine(result.GetProperty("workflowId").ToString());
+    Console.WriteLine(result.GetProperty("requestor").ToString());
+    Console.WriteLine(result.GetProperty("createdTime").ToString());
+    Console.WriteLine(result.GetProperty("lastUpdateTime").ToString());
+    Console.WriteLine(result.GetProperty("payload").GetProperty("type").ToString());
+    Console.WriteLine(result.GetProperty("payload").GetProperty("targetValue").ToString());
+    Console.WriteLine(result.GetProperty("payload").GetProperty("payload").ToString());
+    Console.WriteLine(result.GetProperty("reminderInfo").GetProperty("lastRemindTime").ToString());
+    Console.WriteLine(result.GetProperty("reminderInfo").GetProperty("nextRemindTime").ToString());
+    Console.WriteLine(result.GetProperty("reminderInfo").GetProperty("reminderSettings").ToString());
+    Console.WriteLine(result.GetProperty("expiryInfo").GetProperty("lastExpiryNotificationTime").ToString());
+    Console.WriteLine(result.GetProperty("expiryInfo").GetProperty("nextExpiryNotificationTime").ToString());
+    Console.WriteLine(result.GetProperty("expiryInfo").GetProperty("expiryTime").ToString());
+    Console.WriteLine(result.GetProperty("expiryInfo").GetProperty("expirySettings").GetProperty("expireAfter").ToString());
+    Console.WriteLine(result.GetProperty("expiryInfo").GetProperty("expirySettings").GetProperty("notifyOnExpiration")[0].ToString());
+}
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for one item in the pageable response.
+
+Response Body:
+
+Schema for <c>TasksListValue</c>:
+<code>{
+  type: &quot;Approval&quot; | &quot;SimpleTask&quot; | &quot;DsarTask&quot; | &quot;approval&quot; | &quot;simpleTask&quot; | &quot;dsarTask&quot;, # Required. The workflow task type.
+  id: Guid, # Required. The workflow task id.
+  title: string, # Optional. The workflow task title.
+  workflowRunId: Guid, # Required. The workflow run id.
+  workflowId: Guid, # Required. The workflow id.
+  requestor: Guid, # Required. The person who submitted the user request.
+  createdTime: string (ISO 8601 Format), # Required. The created time.
+  lastUpdateTime: string (ISO 8601 Format), # Required. The last update time.
+  payload: {
+    type: &quot;CreateTerm&quot; | &quot;UpdateTerm&quot; | &quot;DeleteTerm&quot; | &quot;ImportTerms&quot; | &quot;UpdateAsset&quot; | &quot;GrantDataAccess&quot; | &quot;DSARDelete&quot; | &quot;DSARExport&quot;, # Required. The task payload type.
+    targetValue: string, # Required. The target value of entity which user want to involve workflow to update.
+    payload: AnyObject, # Optional. The payload of the task.
+  }, # Required. Info and material that helps assignees to take action.
+  reminderInfo: {
+    lastRemindTime: string (ISO 8601 Format), # Optional. The last update time.
+    nextRemindTime: string (ISO 8601 Format), # Required. The next remind time.
+    reminderSettings: AnyObject, # Required. The reminder settings.
+  }, # Optional. Info of task reminder.
+  expiryInfo: {
+    lastExpiryNotificationTime: string (ISO 8601 Format), # Optional. The last expiry notification time.
+    nextExpiryNotificationTime: string (ISO 8601 Format), # Required. The next expiry notification time.
+    expiryTime: string (ISO 8601 Format), # Required. The expiry time.
+    expirySettings: {
+      expireAfter: AnyObject, # Required. The time of expiry.
+      notifyOnExpiration: [Guid], # Optional.
+    }, # Required.
+  }, # Optional. Info of task expiry.
 }
 </code>
 
