@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="RunScanAsync(String,String,String,String,RequestContext)">
+<example>
+This sample shows how to call RunScanAsync with required parameters and parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var client = new ScanResultClient("<https://my-service.azure.com>", credential);
+
+Response response = await client.RunScanAsync("<dataSourceName>", "<scanName>", "<runId>");
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code>
+This sample shows how to call RunScanAsync with all parameters, and how to parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var client = new ScanResultClient("<https://my-service.azure.com>", credential);
+
+Response response = await client.RunScanAsync("<dataSourceName>", "<scanName>", "<runId>", "<scanLevel>");
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("scanResultId").ToString());
+Console.WriteLine(result.GetProperty("startTime").ToString());
+Console.WriteLine(result.GetProperty("endTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("details")[0].GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("details")[0].GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("details")[0].GetProperty("target").ToString());
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for the response payload.
+
+Response Body:
+
+Schema for <c>OperationResponse</c>:
+<code>{
+  scanResultId: Guid, # Optional.
+  startTime: string (ISO 8601 Format), # Optional.
+  endTime: string (ISO 8601 Format), # Optional.
+  status: &quot;Accepted&quot; | &quot;InProgress&quot; | &quot;TransientFailure&quot; | &quot;Succeeded&quot; | &quot;Failed&quot; | &quot;Canceled&quot;, # Optional.
+  error: {
+    code: string, # Optional.
+    message: string, # Optional.
+    target: string, # Optional.
+    details: [
+      {
+        code: string, # Optional.
+        message: string, # Optional.
+        target: string, # Optional.
+        details: [ErrorInfo], # Optional.
+      }
+    ], # Optional.
+  }, # Optional.
+}
+</code>
+
+</remarks>
+    </member>
+    <member name="RunScan(String,String,String,String,RequestContext)">
+<example>
+This sample shows how to call RunScan with required parameters and parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var client = new ScanResultClient("<https://my-service.azure.com>", credential);
+
+Response response = client.RunScan("<dataSourceName>", "<scanName>", "<runId>");
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code>
+This sample shows how to call RunScan with all parameters, and how to parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var client = new ScanResultClient("<https://my-service.azure.com>", credential);
+
+Response response = client.RunScan("<dataSourceName>", "<scanName>", "<runId>", "<scanLevel>");
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("scanResultId").ToString());
+Console.WriteLine(result.GetProperty("startTime").ToString());
+Console.WriteLine(result.GetProperty("endTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("details")[0].GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("details")[0].GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("details")[0].GetProperty("target").ToString());
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for the response payload.
+
+Response Body:
+
+Schema for <c>OperationResponse</c>:
+<code>{
+  scanResultId: Guid, # Optional.
+  startTime: string (ISO 8601 Format), # Optional.
+  endTime: string (ISO 8601 Format), # Optional.
+  status: &quot;Accepted&quot; | &quot;InProgress&quot; | &quot;TransientFailure&quot; | &quot;Succeeded&quot; | &quot;Failed&quot; | &quot;Canceled&quot;, # Optional.
+  error: {
+    code: string, # Optional.
+    message: string, # Optional.
+    target: string, # Optional.
+    details: [
+      {
+        code: string, # Optional.
+        message: string, # Optional.
+        target: string, # Optional.
+        details: [ErrorInfo], # Optional.
+      }
+    ], # Optional.
+  }, # Optional.
+}
+</code>
+
+</remarks>
+    </member>
+    <member name="CancelScanAsync(String,String,String,RequestContext)">
+<example>
+This sample shows how to call CancelScanAsync with required parameters and parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var client = new ScanResultClient("<https://my-service.azure.com>", credential);
+
+Response response = await client.CancelScanAsync("<dataSourceName>", "<scanName>", "<runId>");
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("scanResultId").ToString());
+Console.WriteLine(result.GetProperty("startTime").ToString());
+Console.WriteLine(result.GetProperty("endTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("details")[0].GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("details")[0].GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("details")[0].GetProperty("target").ToString());
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for the response payload.
+
+Response Body:
+
+Schema for <c>OperationResponse</c>:
+<code>{
+  scanResultId: Guid, # Optional.
+  startTime: string (ISO 8601 Format), # Optional.
+  endTime: string (ISO 8601 Format), # Optional.
+  status: &quot;Accepted&quot; | &quot;InProgress&quot; | &quot;TransientFailure&quot; | &quot;Succeeded&quot; | &quot;Failed&quot; | &quot;Canceled&quot;, # Optional.
+  error: {
+    code: string, # Optional.
+    message: string, # Optional.
+    target: string, # Optional.
+    details: [
+      {
+        code: string, # Optional.
+        message: string, # Optional.
+        target: string, # Optional.
+        details: [ErrorInfo], # Optional.
+      }
+    ], # Optional.
+  }, # Optional.
+}
+</code>
+
+</remarks>
+    </member>
+    <member name="CancelScan(String,String,String,RequestContext)">
+<example>
+This sample shows how to call CancelScan with required parameters and parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var client = new ScanResultClient("<https://my-service.azure.com>", credential);
+
+Response response = client.CancelScan("<dataSourceName>", "<scanName>", "<runId>");
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("scanResultId").ToString());
+Console.WriteLine(result.GetProperty("startTime").ToString());
+Console.WriteLine(result.GetProperty("endTime").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("details")[0].GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("details")[0].GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("details")[0].GetProperty("target").ToString());
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for the response payload.
+
+Response Body:
+
+Schema for <c>OperationResponse</c>:
+<code>{
+  scanResultId: Guid, # Optional.
+  startTime: string (ISO 8601 Format), # Optional.
+  endTime: string (ISO 8601 Format), # Optional.
+  status: &quot;Accepted&quot; | &quot;InProgress&quot; | &quot;TransientFailure&quot; | &quot;Succeeded&quot; | &quot;Failed&quot; | &quot;Canceled&quot;, # Optional.
+  error: {
+    code: string, # Optional.
+    message: string, # Optional.
+    target: string, # Optional.
+    details: [
+      {
+        code: string, # Optional.
+        message: string, # Optional.
+        target: string, # Optional.
+        details: [ErrorInfo], # Optional.
+      }
+    ], # Optional.
+  }, # Optional.
+}
+</code>
+
+</remarks>
+    </member>
+    <member name="GetScanHistoriesAsync(String,String,RequestContext)">
+<example>
+This sample shows how to call GetScanHistoriesAsync with required parameters and parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var client = new ScanResultClient("<https://my-service.azure.com>", credential);
+
+await foreach (var data in client.GetScanHistoriesAsync("<dataSourceName>", "<scanName>"))
+{
+    JsonElement result = JsonDocument.Parse(data.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("parentId").ToString());
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("resourceId").ToString());
+    Console.WriteLine(result.GetProperty("status").ToString());
+    Console.WriteLine(result.GetProperty("assetsDiscovered").ToString());
+    Console.WriteLine(result.GetProperty("assetsClassified").ToString());
+    Console.WriteLine(result.GetProperty("diagnostics").GetProperty("notifications")[0].GetProperty("message").ToString());
+    Console.WriteLine(result.GetProperty("diagnostics").GetProperty("notifications")[0].GetProperty("code").ToString());
+    Console.WriteLine(result.GetProperty("diagnostics").GetProperty("exceptionCountMap").GetProperty("<test>").ToString());
+    Console.WriteLine(result.GetProperty("startTime").ToString());
+    Console.WriteLine(result.GetProperty("queuedTime").ToString());
+    Console.WriteLine(result.GetProperty("pipelineStartTime").ToString());
+    Console.WriteLine(result.GetProperty("endTime").ToString());
+    Console.WriteLine(result.GetProperty("scanRulesetVersion").ToString());
+    Console.WriteLine(result.GetProperty("scanRulesetType").ToString());
+    Console.WriteLine(result.GetProperty("scanLevelType").ToString());
+    Console.WriteLine(result.GetProperty("errorMessage").ToString());
+    Console.WriteLine(result.GetProperty("error").GetProperty("code").ToString());
+    Console.WriteLine(result.GetProperty("error").GetProperty("message").ToString());
+    Console.WriteLine(result.GetProperty("error").GetProperty("target").ToString());
+    Console.WriteLine(result.GetProperty("error").GetProperty("details")[0].GetProperty("code").ToString());
+    Console.WriteLine(result.GetProperty("error").GetProperty("details")[0].GetProperty("message").ToString());
+    Console.WriteLine(result.GetProperty("error").GetProperty("details")[0].GetProperty("target").ToString());
+    Console.WriteLine(result.GetProperty("runType").ToString());
+    Console.WriteLine(result.GetProperty("dataSourceType").ToString());
+}
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for one item in the pageable response.
+
+Response Body:
+
+Schema for <c>ScanHistoryListValue</c>:
+<code>{
+  parentId: string, # Optional.
+  id: string, # Optional.
+  resourceId: string, # Optional.
+  status: string, # Optional.
+  assetsDiscovered: number, # Optional.
+  assetsClassified: number, # Optional.
+  diagnostics: {
+    notifications: [
+      {
+        message: string, # Optional.
+        code: number, # Optional.
+      }
+    ], # Optional.
+    exceptionCountMap: Dictionary&lt;string, number&gt;, # Optional. Dictionary of &lt;integer&gt;
+  }, # Optional.
+  startTime: string (ISO 8601 Format), # Optional.
+  queuedTime: string (ISO 8601 Format), # Optional.
+  pipelineStartTime: string (ISO 8601 Format), # Optional.
+  endTime: string (ISO 8601 Format), # Optional.
+  scanRulesetVersion: number, # Optional.
+  scanRulesetType: &quot;Custom&quot; | &quot;System&quot;, # Optional.
+  scanLevelType: &quot;Full&quot; | &quot;Incremental&quot;, # Optional.
+  errorMessage: string, # Optional.
+  error: {
+    code: string, # Optional.
+    message: string, # Optional.
+    target: string, # Optional.
+    details: [
+      {
+        code: string, # Optional.
+        message: string, # Optional.
+        target: string, # Optional.
+        details: [ErrorModel], # Optional.
+      }
+    ], # Optional.
+  }, # Optional.
+  runType: string, # Optional.
+  dataSourceType: &quot;None&quot; | &quot;AzureSubscription&quot; | &quot;AzureResourceGroup&quot; | &quot;AzureSynapseWorkspace&quot; | &quot;AzureSynapse&quot; | &quot;AdlsGen1&quot; | &quot;AdlsGen2&quot; | &quot;AmazonAccount&quot; | &quot;AmazonS3&quot; | &quot;AmazonSql&quot; | &quot;AzureCosmosDb&quot; | &quot;AzureDataExplorer&quot; | &quot;AzureFileService&quot; | &quot;AzureSqlDatabase&quot; | &quot;AmazonPostgreSql&quot; | &quot;AzurePostgreSql&quot; | &quot;SqlServerDatabase&quot; | &quot;AzureSqlDatabaseManagedInstance&quot; | &quot;AzureSqlDataWarehouse&quot; | &quot;AzureMySql&quot; | &quot;AzureStorage&quot; | &quot;Teradata&quot; | &quot;Oracle&quot; | &quot;SapS4Hana&quot; | &quot;SapEcc&quot; | &quot;PowerBI&quot;, # Optional.
+}
+</code>
+
+</remarks>
+    </member>
+    <member name="GetScanHistories(String,String,RequestContext)">
+<example>
+This sample shows how to call GetScanHistories with required parameters and parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var client = new ScanResultClient("<https://my-service.azure.com>", credential);
+
+foreach (var data in client.GetScanHistories("<dataSourceName>", "<scanName>"))
+{
+    JsonElement result = JsonDocument.Parse(data.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("parentId").ToString());
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("resourceId").ToString());
+    Console.WriteLine(result.GetProperty("status").ToString());
+    Console.WriteLine(result.GetProperty("assetsDiscovered").ToString());
+    Console.WriteLine(result.GetProperty("assetsClassified").ToString());
+    Console.WriteLine(result.GetProperty("diagnostics").GetProperty("notifications")[0].GetProperty("message").ToString());
+    Console.WriteLine(result.GetProperty("diagnostics").GetProperty("notifications")[0].GetProperty("code").ToString());
+    Console.WriteLine(result.GetProperty("diagnostics").GetProperty("exceptionCountMap").GetProperty("<test>").ToString());
+    Console.WriteLine(result.GetProperty("startTime").ToString());
+    Console.WriteLine(result.GetProperty("queuedTime").ToString());
+    Console.WriteLine(result.GetProperty("pipelineStartTime").ToString());
+    Console.WriteLine(result.GetProperty("endTime").ToString());
+    Console.WriteLine(result.GetProperty("scanRulesetVersion").ToString());
+    Console.WriteLine(result.GetProperty("scanRulesetType").ToString());
+    Console.WriteLine(result.GetProperty("scanLevelType").ToString());
+    Console.WriteLine(result.GetProperty("errorMessage").ToString());
+    Console.WriteLine(result.GetProperty("error").GetProperty("code").ToString());
+    Console.WriteLine(result.GetProperty("error").GetProperty("message").ToString());
+    Console.WriteLine(result.GetProperty("error").GetProperty("target").ToString());
+    Console.WriteLine(result.GetProperty("error").GetProperty("details")[0].GetProperty("code").ToString());
+    Console.WriteLine(result.GetProperty("error").GetProperty("details")[0].GetProperty("message").ToString());
+    Console.WriteLine(result.GetProperty("error").GetProperty("details")[0].GetProperty("target").ToString());
+    Console.WriteLine(result.GetProperty("runType").ToString());
+    Console.WriteLine(result.GetProperty("dataSourceType").ToString());
+}
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for one item in the pageable response.
+
+Response Body:
+
+Schema for <c>ScanHistoryListValue</c>:
+<code>{
+  parentId: string, # Optional.
+  id: string, # Optional.
+  resourceId: string, # Optional.
+  status: string, # Optional.
+  assetsDiscovered: number, # Optional.
+  assetsClassified: number, # Optional.
+  diagnostics: {
+    notifications: [
+      {
+        message: string, # Optional.
+        code: number, # Optional.
+      }
+    ], # Optional.
+    exceptionCountMap: Dictionary&lt;string, number&gt;, # Optional. Dictionary of &lt;integer&gt;
+  }, # Optional.
+  startTime: string (ISO 8601 Format), # Optional.
+  queuedTime: string (ISO 8601 Format), # Optional.
+  pipelineStartTime: string (ISO 8601 Format), # Optional.
+  endTime: string (ISO 8601 Format), # Optional.
+  scanRulesetVersion: number, # Optional.
+  scanRulesetType: &quot;Custom&quot; | &quot;System&quot;, # Optional.
+  scanLevelType: &quot;Full&quot; | &quot;Incremental&quot;, # Optional.
+  errorMessage: string, # Optional.
+  error: {
+    code: string, # Optional.
+    message: string, # Optional.
+    target: string, # Optional.
+    details: [
+      {
+        code: string, # Optional.
+        message: string, # Optional.
+        target: string, # Optional.
+        details: [ErrorModel], # Optional.
+      }
+    ], # Optional.
+  }, # Optional.
+  runType: string, # Optional.
+  dataSourceType: &quot;None&quot; | &quot;AzureSubscription&quot; | &quot;AzureResourceGroup&quot; | &quot;AzureSynapseWorkspace&quot; | &quot;AzureSynapse&quot; | &quot;AdlsGen1&quot; | &quot;AdlsGen2&quot; | &quot;AmazonAccount&quot; | &quot;AmazonS3&quot; | &quot;AmazonSql&quot; | &quot;AzureCosmosDb&quot; | &quot;AzureDataExplorer&quot; | &quot;AzureFileService&quot; | &quot;AzureSqlDatabase&quot; | &quot;AmazonPostgreSql&quot; | &quot;AzurePostgreSql&quot; | &quot;SqlServerDatabase&quot; | &quot;AzureSqlDatabaseManagedInstance&quot; | &quot;AzureSqlDataWarehouse&quot; | &quot;AzureMySql&quot; | &quot;AzureStorage&quot; | &quot;Teradata&quot; | &quot;Oracle&quot; | &quot;SapS4Hana&quot; | &quot;SapEcc&quot; | &quot;PowerBI&quot;, # Optional.
+}
+</code>
+
+</remarks>
+    </member>
+  </members>
+</doc>

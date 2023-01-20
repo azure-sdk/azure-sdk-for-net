@@ -1,0 +1,643 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="GetTriggerAsync(String,String,RequestContext)">
+<example>
+This sample shows how to call GetTriggerAsync with required parameters and parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var client = new TriggersClient("<https://my-service.azure.com>", credential);
+
+Response response = await client.GetTriggerAsync("<dataSourceName>", "<scanName>");
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("frequency").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("interval").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("startTime").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("endTime").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("schedule").GetProperty("additionalProperties").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("schedule").GetProperty("minutes")[0].ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("schedule").GetProperty("hours")[0].ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("schedule").GetProperty("weekDays")[0].ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("schedule").GetProperty("monthDays")[0].ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("schedule").GetProperty("monthlyOccurrences")[0].GetProperty("additionalProperties").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("schedule").GetProperty("monthlyOccurrences")[0].GetProperty("day").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("schedule").GetProperty("monthlyOccurrences")[0].GetProperty("occurrence").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("timeZone").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrenceInterval").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("lastModifiedAt").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("lastScheduled").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("scanLevel").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("incrementalScanStartTime").ToString());
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("name").ToString());
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for the response payload.
+
+Response Body:
+
+Schema for <c>Trigger</c>:
+<code>{
+  properties: {
+    recurrence: {
+      frequency: &quot;Week&quot; | &quot;Month&quot;, # Optional.
+      interval: number, # Optional.
+      startTime: string (ISO 8601 Format), # Optional.
+      endTime: string (ISO 8601 Format), # Optional.
+      schedule: {
+        additionalProperties: Dictionary&lt;string, AnyObject&gt;, # Optional. Dictionary of &lt;AnyObject&gt;
+        minutes: [number], # Optional.
+        hours: [number], # Optional.
+        weekDays: [&quot;Sunday&quot; | &quot;Monday&quot; | &quot;Tuesday&quot; | &quot;Wednesday&quot; | &quot;Thursday&quot; | &quot;Friday&quot; | &quot;Saturday&quot;], # Optional.
+        monthDays: [number], # Optional.
+        monthlyOccurrences: [
+          {
+            additionalProperties: Dictionary&lt;string, AnyObject&gt;, # Optional. Dictionary of &lt;AnyObject&gt;
+            day: &quot;Sunday&quot; | &quot;Monday&quot; | &quot;Tuesday&quot; | &quot;Wednesday&quot; | &quot;Thursday&quot; | &quot;Friday&quot; | &quot;Saturday&quot;, # Optional.
+            occurrence: number, # Optional.
+          }
+        ], # Optional.
+      }, # Optional.
+      timeZone: string, # Optional.
+    }, # Optional.
+    recurrenceInterval: string, # Optional.
+    createdAt: string (ISO 8601 Format), # Optional.
+    lastModifiedAt: string (ISO 8601 Format), # Optional.
+    lastScheduled: string (ISO 8601 Format), # Optional.
+    scanLevel: &quot;Full&quot; | &quot;Incremental&quot;, # Optional.
+    incrementalScanStartTime: string (ISO 8601 Format), # Optional.
+  }, # Optional.
+  id: string, # Optional.
+  name: string, # Optional.
+}
+</code>
+
+</remarks>
+    </member>
+    <member name="GetTrigger(String,String,RequestContext)">
+<example>
+This sample shows how to call GetTrigger with required parameters and parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var client = new TriggersClient("<https://my-service.azure.com>", credential);
+
+Response response = client.GetTrigger("<dataSourceName>", "<scanName>");
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("frequency").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("interval").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("startTime").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("endTime").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("schedule").GetProperty("additionalProperties").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("schedule").GetProperty("minutes")[0].ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("schedule").GetProperty("hours")[0].ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("schedule").GetProperty("weekDays")[0].ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("schedule").GetProperty("monthDays")[0].ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("schedule").GetProperty("monthlyOccurrences")[0].GetProperty("additionalProperties").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("schedule").GetProperty("monthlyOccurrences")[0].GetProperty("day").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("schedule").GetProperty("monthlyOccurrences")[0].GetProperty("occurrence").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("timeZone").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrenceInterval").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("lastModifiedAt").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("lastScheduled").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("scanLevel").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("incrementalScanStartTime").ToString());
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("name").ToString());
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for the response payload.
+
+Response Body:
+
+Schema for <c>Trigger</c>:
+<code>{
+  properties: {
+    recurrence: {
+      frequency: &quot;Week&quot; | &quot;Month&quot;, # Optional.
+      interval: number, # Optional.
+      startTime: string (ISO 8601 Format), # Optional.
+      endTime: string (ISO 8601 Format), # Optional.
+      schedule: {
+        additionalProperties: Dictionary&lt;string, AnyObject&gt;, # Optional. Dictionary of &lt;AnyObject&gt;
+        minutes: [number], # Optional.
+        hours: [number], # Optional.
+        weekDays: [&quot;Sunday&quot; | &quot;Monday&quot; | &quot;Tuesday&quot; | &quot;Wednesday&quot; | &quot;Thursday&quot; | &quot;Friday&quot; | &quot;Saturday&quot;], # Optional.
+        monthDays: [number], # Optional.
+        monthlyOccurrences: [
+          {
+            additionalProperties: Dictionary&lt;string, AnyObject&gt;, # Optional. Dictionary of &lt;AnyObject&gt;
+            day: &quot;Sunday&quot; | &quot;Monday&quot; | &quot;Tuesday&quot; | &quot;Wednesday&quot; | &quot;Thursday&quot; | &quot;Friday&quot; | &quot;Saturday&quot;, # Optional.
+            occurrence: number, # Optional.
+          }
+        ], # Optional.
+      }, # Optional.
+      timeZone: string, # Optional.
+    }, # Optional.
+    recurrenceInterval: string, # Optional.
+    createdAt: string (ISO 8601 Format), # Optional.
+    lastModifiedAt: string (ISO 8601 Format), # Optional.
+    lastScheduled: string (ISO 8601 Format), # Optional.
+    scanLevel: &quot;Full&quot; | &quot;Incremental&quot;, # Optional.
+    incrementalScanStartTime: string (ISO 8601 Format), # Optional.
+  }, # Optional.
+  id: string, # Optional.
+  name: string, # Optional.
+}
+</code>
+
+</remarks>
+    </member>
+    <member name="CreateTriggerAsync(String,String,RequestContent,RequestContext)">
+<example>
+This sample shows how to call CreateTriggerAsync with required parameters and parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var client = new TriggersClient("<https://my-service.azure.com>", credential);
+
+var data = new {};
+
+Response response = await client.CreateTriggerAsync("<dataSourceName>", "<scanName>", RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code>
+This sample shows how to call CreateTriggerAsync with all parameters and request content, and how to parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var client = new TriggersClient("<https://my-service.azure.com>", credential);
+
+var data = new {
+    properties = new {
+        recurrence = new {
+            frequency = "Week",
+            interval = 1234,
+            startTime = "2022-05-10T18:57:31.2311892Z",
+            endTime = "2022-05-10T18:57:31.2311892Z",
+            schedule = new {
+                additionalProperties = new {
+                    key = new {},
+                },
+                minutes = new[] {
+                    1234
+                },
+                hours = new[] {
+                    1234
+                },
+                weekDays = new[] {
+                    "Sunday"
+                },
+                monthDays = new[] {
+                    1234
+                },
+                monthlyOccurrences = new[] {
+                    new {
+                        additionalProperties = new {
+                            key = new {},
+                        },
+                        day = "Sunday",
+                        occurrence = 1234,
+                    }
+                },
+            },
+            timeZone = "<timeZone>",
+        },
+        recurrenceInterval = "<recurrenceInterval>",
+        scanLevel = "Full",
+        incrementalScanStartTime = "2022-05-10T18:57:31.2311892Z",
+    },
+};
+
+Response response = await client.CreateTriggerAsync("<dataSourceName>", "<scanName>", RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("frequency").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("interval").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("startTime").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("endTime").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("schedule").GetProperty("additionalProperties").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("schedule").GetProperty("minutes")[0].ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("schedule").GetProperty("hours")[0].ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("schedule").GetProperty("weekDays")[0].ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("schedule").GetProperty("monthDays")[0].ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("schedule").GetProperty("monthlyOccurrences")[0].GetProperty("additionalProperties").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("schedule").GetProperty("monthlyOccurrences")[0].GetProperty("day").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("schedule").GetProperty("monthlyOccurrences")[0].GetProperty("occurrence").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("timeZone").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrenceInterval").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("lastModifiedAt").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("lastScheduled").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("scanLevel").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("incrementalScanStartTime").ToString());
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("name").ToString());
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for the request and response payloads.
+
+Request Body:
+
+Schema for <c>Trigger</c>:
+<code>{
+  properties: {
+    recurrence: {
+      frequency: &quot;Week&quot; | &quot;Month&quot;, # Optional.
+      interval: number, # Optional.
+      startTime: string (ISO 8601 Format), # Optional.
+      endTime: string (ISO 8601 Format), # Optional.
+      schedule: {
+        additionalProperties: Dictionary&lt;string, AnyObject&gt;, # Optional. Dictionary of &lt;AnyObject&gt;
+        minutes: [number], # Optional.
+        hours: [number], # Optional.
+        weekDays: [&quot;Sunday&quot; | &quot;Monday&quot; | &quot;Tuesday&quot; | &quot;Wednesday&quot; | &quot;Thursday&quot; | &quot;Friday&quot; | &quot;Saturday&quot;], # Optional.
+        monthDays: [number], # Optional.
+        monthlyOccurrences: [
+          {
+            additionalProperties: Dictionary&lt;string, AnyObject&gt;, # Optional. Dictionary of &lt;AnyObject&gt;
+            day: &quot;Sunday&quot; | &quot;Monday&quot; | &quot;Tuesday&quot; | &quot;Wednesday&quot; | &quot;Thursday&quot; | &quot;Friday&quot; | &quot;Saturday&quot;, # Optional.
+            occurrence: number, # Optional.
+          }
+        ], # Optional.
+      }, # Optional.
+      timeZone: string, # Optional.
+    }, # Optional.
+    recurrenceInterval: string, # Optional.
+    createdAt: string (ISO 8601 Format), # Optional.
+    lastModifiedAt: string (ISO 8601 Format), # Optional.
+    lastScheduled: string (ISO 8601 Format), # Optional.
+    scanLevel: &quot;Full&quot; | &quot;Incremental&quot;, # Optional.
+    incrementalScanStartTime: string (ISO 8601 Format), # Optional.
+  }, # Optional.
+  id: string, # Optional.
+  name: string, # Optional.
+}
+</code>
+
+Response Body:
+
+Schema for <c>Trigger</c>:
+<code>{
+  properties: {
+    recurrence: {
+      frequency: &quot;Week&quot; | &quot;Month&quot;, # Optional.
+      interval: number, # Optional.
+      startTime: string (ISO 8601 Format), # Optional.
+      endTime: string (ISO 8601 Format), # Optional.
+      schedule: {
+        additionalProperties: Dictionary&lt;string, AnyObject&gt;, # Optional. Dictionary of &lt;AnyObject&gt;
+        minutes: [number], # Optional.
+        hours: [number], # Optional.
+        weekDays: [&quot;Sunday&quot; | &quot;Monday&quot; | &quot;Tuesday&quot; | &quot;Wednesday&quot; | &quot;Thursday&quot; | &quot;Friday&quot; | &quot;Saturday&quot;], # Optional.
+        monthDays: [number], # Optional.
+        monthlyOccurrences: [
+          {
+            additionalProperties: Dictionary&lt;string, AnyObject&gt;, # Optional. Dictionary of &lt;AnyObject&gt;
+            day: &quot;Sunday&quot; | &quot;Monday&quot; | &quot;Tuesday&quot; | &quot;Wednesday&quot; | &quot;Thursday&quot; | &quot;Friday&quot; | &quot;Saturday&quot;, # Optional.
+            occurrence: number, # Optional.
+          }
+        ], # Optional.
+      }, # Optional.
+      timeZone: string, # Optional.
+    }, # Optional.
+    recurrenceInterval: string, # Optional.
+    createdAt: string (ISO 8601 Format), # Optional.
+    lastModifiedAt: string (ISO 8601 Format), # Optional.
+    lastScheduled: string (ISO 8601 Format), # Optional.
+    scanLevel: &quot;Full&quot; | &quot;Incremental&quot;, # Optional.
+    incrementalScanStartTime: string (ISO 8601 Format), # Optional.
+  }, # Optional.
+  id: string, # Optional.
+  name: string, # Optional.
+}
+</code>
+
+</remarks>
+    </member>
+    <member name="CreateTrigger(String,String,RequestContent,RequestContext)">
+<example>
+This sample shows how to call CreateTrigger with required parameters and parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var client = new TriggersClient("<https://my-service.azure.com>", credential);
+
+var data = new {};
+
+Response response = client.CreateTrigger("<dataSourceName>", "<scanName>", RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code>
+This sample shows how to call CreateTrigger with all parameters and request content, and how to parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var client = new TriggersClient("<https://my-service.azure.com>", credential);
+
+var data = new {
+    properties = new {
+        recurrence = new {
+            frequency = "Week",
+            interval = 1234,
+            startTime = "2022-05-10T18:57:31.2311892Z",
+            endTime = "2022-05-10T18:57:31.2311892Z",
+            schedule = new {
+                additionalProperties = new {
+                    key = new {},
+                },
+                minutes = new[] {
+                    1234
+                },
+                hours = new[] {
+                    1234
+                },
+                weekDays = new[] {
+                    "Sunday"
+                },
+                monthDays = new[] {
+                    1234
+                },
+                monthlyOccurrences = new[] {
+                    new {
+                        additionalProperties = new {
+                            key = new {},
+                        },
+                        day = "Sunday",
+                        occurrence = 1234,
+                    }
+                },
+            },
+            timeZone = "<timeZone>",
+        },
+        recurrenceInterval = "<recurrenceInterval>",
+        scanLevel = "Full",
+        incrementalScanStartTime = "2022-05-10T18:57:31.2311892Z",
+    },
+};
+
+Response response = client.CreateTrigger("<dataSourceName>", "<scanName>", RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("frequency").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("interval").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("startTime").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("endTime").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("schedule").GetProperty("additionalProperties").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("schedule").GetProperty("minutes")[0].ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("schedule").GetProperty("hours")[0].ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("schedule").GetProperty("weekDays")[0].ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("schedule").GetProperty("monthDays")[0].ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("schedule").GetProperty("monthlyOccurrences")[0].GetProperty("additionalProperties").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("schedule").GetProperty("monthlyOccurrences")[0].GetProperty("day").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("schedule").GetProperty("monthlyOccurrences")[0].GetProperty("occurrence").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("timeZone").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrenceInterval").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("lastModifiedAt").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("lastScheduled").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("scanLevel").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("incrementalScanStartTime").ToString());
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("name").ToString());
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for the request and response payloads.
+
+Request Body:
+
+Schema for <c>Trigger</c>:
+<code>{
+  properties: {
+    recurrence: {
+      frequency: &quot;Week&quot; | &quot;Month&quot;, # Optional.
+      interval: number, # Optional.
+      startTime: string (ISO 8601 Format), # Optional.
+      endTime: string (ISO 8601 Format), # Optional.
+      schedule: {
+        additionalProperties: Dictionary&lt;string, AnyObject&gt;, # Optional. Dictionary of &lt;AnyObject&gt;
+        minutes: [number], # Optional.
+        hours: [number], # Optional.
+        weekDays: [&quot;Sunday&quot; | &quot;Monday&quot; | &quot;Tuesday&quot; | &quot;Wednesday&quot; | &quot;Thursday&quot; | &quot;Friday&quot; | &quot;Saturday&quot;], # Optional.
+        monthDays: [number], # Optional.
+        monthlyOccurrences: [
+          {
+            additionalProperties: Dictionary&lt;string, AnyObject&gt;, # Optional. Dictionary of &lt;AnyObject&gt;
+            day: &quot;Sunday&quot; | &quot;Monday&quot; | &quot;Tuesday&quot; | &quot;Wednesday&quot; | &quot;Thursday&quot; | &quot;Friday&quot; | &quot;Saturday&quot;, # Optional.
+            occurrence: number, # Optional.
+          }
+        ], # Optional.
+      }, # Optional.
+      timeZone: string, # Optional.
+    }, # Optional.
+    recurrenceInterval: string, # Optional.
+    createdAt: string (ISO 8601 Format), # Optional.
+    lastModifiedAt: string (ISO 8601 Format), # Optional.
+    lastScheduled: string (ISO 8601 Format), # Optional.
+    scanLevel: &quot;Full&quot; | &quot;Incremental&quot;, # Optional.
+    incrementalScanStartTime: string (ISO 8601 Format), # Optional.
+  }, # Optional.
+  id: string, # Optional.
+  name: string, # Optional.
+}
+</code>
+
+Response Body:
+
+Schema for <c>Trigger</c>:
+<code>{
+  properties: {
+    recurrence: {
+      frequency: &quot;Week&quot; | &quot;Month&quot;, # Optional.
+      interval: number, # Optional.
+      startTime: string (ISO 8601 Format), # Optional.
+      endTime: string (ISO 8601 Format), # Optional.
+      schedule: {
+        additionalProperties: Dictionary&lt;string, AnyObject&gt;, # Optional. Dictionary of &lt;AnyObject&gt;
+        minutes: [number], # Optional.
+        hours: [number], # Optional.
+        weekDays: [&quot;Sunday&quot; | &quot;Monday&quot; | &quot;Tuesday&quot; | &quot;Wednesday&quot; | &quot;Thursday&quot; | &quot;Friday&quot; | &quot;Saturday&quot;], # Optional.
+        monthDays: [number], # Optional.
+        monthlyOccurrences: [
+          {
+            additionalProperties: Dictionary&lt;string, AnyObject&gt;, # Optional. Dictionary of &lt;AnyObject&gt;
+            day: &quot;Sunday&quot; | &quot;Monday&quot; | &quot;Tuesday&quot; | &quot;Wednesday&quot; | &quot;Thursday&quot; | &quot;Friday&quot; | &quot;Saturday&quot;, # Optional.
+            occurrence: number, # Optional.
+          }
+        ], # Optional.
+      }, # Optional.
+      timeZone: string, # Optional.
+    }, # Optional.
+    recurrenceInterval: string, # Optional.
+    createdAt: string (ISO 8601 Format), # Optional.
+    lastModifiedAt: string (ISO 8601 Format), # Optional.
+    lastScheduled: string (ISO 8601 Format), # Optional.
+    scanLevel: &quot;Full&quot; | &quot;Incremental&quot;, # Optional.
+    incrementalScanStartTime: string (ISO 8601 Format), # Optional.
+  }, # Optional.
+  id: string, # Optional.
+  name: string, # Optional.
+}
+</code>
+
+</remarks>
+    </member>
+    <member name="DeleteTriggerAsync(String,String,RequestContext)">
+<example>
+This sample shows how to call DeleteTriggerAsync with required parameters and parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var client = new TriggersClient("<https://my-service.azure.com>", credential);
+
+Response response = await client.DeleteTriggerAsync("<dataSourceName>", "<scanName>");
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("frequency").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("interval").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("startTime").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("endTime").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("schedule").GetProperty("additionalProperties").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("schedule").GetProperty("minutes")[0].ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("schedule").GetProperty("hours")[0].ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("schedule").GetProperty("weekDays")[0].ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("schedule").GetProperty("monthDays")[0].ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("schedule").GetProperty("monthlyOccurrences")[0].GetProperty("additionalProperties").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("schedule").GetProperty("monthlyOccurrences")[0].GetProperty("day").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("schedule").GetProperty("monthlyOccurrences")[0].GetProperty("occurrence").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("timeZone").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrenceInterval").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("lastModifiedAt").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("lastScheduled").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("scanLevel").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("incrementalScanStartTime").ToString());
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("name").ToString());
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for the response payload.
+
+Response Body:
+
+Schema for <c>Trigger</c>:
+<code>{
+  properties: {
+    recurrence: {
+      frequency: &quot;Week&quot; | &quot;Month&quot;, # Optional.
+      interval: number, # Optional.
+      startTime: string (ISO 8601 Format), # Optional.
+      endTime: string (ISO 8601 Format), # Optional.
+      schedule: {
+        additionalProperties: Dictionary&lt;string, AnyObject&gt;, # Optional. Dictionary of &lt;AnyObject&gt;
+        minutes: [number], # Optional.
+        hours: [number], # Optional.
+        weekDays: [&quot;Sunday&quot; | &quot;Monday&quot; | &quot;Tuesday&quot; | &quot;Wednesday&quot; | &quot;Thursday&quot; | &quot;Friday&quot; | &quot;Saturday&quot;], # Optional.
+        monthDays: [number], # Optional.
+        monthlyOccurrences: [
+          {
+            additionalProperties: Dictionary&lt;string, AnyObject&gt;, # Optional. Dictionary of &lt;AnyObject&gt;
+            day: &quot;Sunday&quot; | &quot;Monday&quot; | &quot;Tuesday&quot; | &quot;Wednesday&quot; | &quot;Thursday&quot; | &quot;Friday&quot; | &quot;Saturday&quot;, # Optional.
+            occurrence: number, # Optional.
+          }
+        ], # Optional.
+      }, # Optional.
+      timeZone: string, # Optional.
+    }, # Optional.
+    recurrenceInterval: string, # Optional.
+    createdAt: string (ISO 8601 Format), # Optional.
+    lastModifiedAt: string (ISO 8601 Format), # Optional.
+    lastScheduled: string (ISO 8601 Format), # Optional.
+    scanLevel: &quot;Full&quot; | &quot;Incremental&quot;, # Optional.
+    incrementalScanStartTime: string (ISO 8601 Format), # Optional.
+  }, # Optional.
+  id: string, # Optional.
+  name: string, # Optional.
+}
+</code>
+
+</remarks>
+    </member>
+    <member name="DeleteTrigger(String,String,RequestContext)">
+<example>
+This sample shows how to call DeleteTrigger with required parameters and parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var client = new TriggersClient("<https://my-service.azure.com>", credential);
+
+Response response = client.DeleteTrigger("<dataSourceName>", "<scanName>");
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("frequency").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("interval").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("startTime").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("endTime").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("schedule").GetProperty("additionalProperties").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("schedule").GetProperty("minutes")[0].ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("schedule").GetProperty("hours")[0].ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("schedule").GetProperty("weekDays")[0].ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("schedule").GetProperty("monthDays")[0].ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("schedule").GetProperty("monthlyOccurrences")[0].GetProperty("additionalProperties").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("schedule").GetProperty("monthlyOccurrences")[0].GetProperty("day").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("schedule").GetProperty("monthlyOccurrences")[0].GetProperty("occurrence").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrence").GetProperty("timeZone").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("recurrenceInterval").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("lastModifiedAt").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("lastScheduled").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("scanLevel").ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("incrementalScanStartTime").ToString());
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("name").ToString());
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for the response payload.
+
+Response Body:
+
+Schema for <c>Trigger</c>:
+<code>{
+  properties: {
+    recurrence: {
+      frequency: &quot;Week&quot; | &quot;Month&quot;, # Optional.
+      interval: number, # Optional.
+      startTime: string (ISO 8601 Format), # Optional.
+      endTime: string (ISO 8601 Format), # Optional.
+      schedule: {
+        additionalProperties: Dictionary&lt;string, AnyObject&gt;, # Optional. Dictionary of &lt;AnyObject&gt;
+        minutes: [number], # Optional.
+        hours: [number], # Optional.
+        weekDays: [&quot;Sunday&quot; | &quot;Monday&quot; | &quot;Tuesday&quot; | &quot;Wednesday&quot; | &quot;Thursday&quot; | &quot;Friday&quot; | &quot;Saturday&quot;], # Optional.
+        monthDays: [number], # Optional.
+        monthlyOccurrences: [
+          {
+            additionalProperties: Dictionary&lt;string, AnyObject&gt;, # Optional. Dictionary of &lt;AnyObject&gt;
+            day: &quot;Sunday&quot; | &quot;Monday&quot; | &quot;Tuesday&quot; | &quot;Wednesday&quot; | &quot;Thursday&quot; | &quot;Friday&quot; | &quot;Saturday&quot;, # Optional.
+            occurrence: number, # Optional.
+          }
+        ], # Optional.
+      }, # Optional.
+      timeZone: string, # Optional.
+    }, # Optional.
+    recurrenceInterval: string, # Optional.
+    createdAt: string (ISO 8601 Format), # Optional.
+    lastModifiedAt: string (ISO 8601 Format), # Optional.
+    lastScheduled: string (ISO 8601 Format), # Optional.
+    scanLevel: &quot;Full&quot; | &quot;Incremental&quot;, # Optional.
+    incrementalScanStartTime: string (ISO 8601 Format), # Optional.
+  }, # Optional.
+  id: string, # Optional.
+  name: string, # Optional.
+}
+</code>
+
+</remarks>
+    </member>
+  </members>
+</doc>
