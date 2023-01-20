@@ -556,6 +556,7 @@ namespace Azure.ResourceManager.Sql
         public Azure.ResourceManager.Sql.Models.InstanceFailoverGroupReadWriteEndpoint ReadWriteEndpoint { get { throw null; } set { } }
         public Azure.ResourceManager.Sql.Models.InstanceFailoverGroupReplicationRole? ReplicationRole { get { throw null; } }
         public string ReplicationState { get { throw null; } }
+        public Azure.ResourceManager.Sql.Models.SecondaryInstanceType? SecondaryType { get { throw null; } set { } }
     }
     public partial class InstanceFailoverGroupResource : Azure.ResourceManager.ArmResource
     {
@@ -7074,6 +7075,24 @@ namespace Azure.ResourceManager.Sql.Models
         public static bool operator ==(Azure.ResourceManager.Sql.Models.SampleSchemaName left, Azure.ResourceManager.Sql.Models.SampleSchemaName right) { throw null; }
         public static implicit operator Azure.ResourceManager.Sql.Models.SampleSchemaName (string value) { throw null; }
         public static bool operator !=(Azure.ResourceManager.Sql.Models.SampleSchemaName left, Azure.ResourceManager.Sql.Models.SampleSchemaName right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct SecondaryInstanceType : System.IEquatable<Azure.ResourceManager.Sql.Models.SecondaryInstanceType>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public SecondaryInstanceType(string value) { throw null; }
+        public static Azure.ResourceManager.Sql.Models.SecondaryInstanceType Geo { get { throw null; } }
+        public static Azure.ResourceManager.Sql.Models.SecondaryInstanceType Standby { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.Sql.Models.SecondaryInstanceType other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.Sql.Models.SecondaryInstanceType left, Azure.ResourceManager.Sql.Models.SecondaryInstanceType right) { throw null; }
+        public static implicit operator Azure.ResourceManager.Sql.Models.SecondaryInstanceType (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.Sql.Models.SecondaryInstanceType left, Azure.ResourceManager.Sql.Models.SecondaryInstanceType right) { throw null; }
         public override string ToString() { throw null; }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]

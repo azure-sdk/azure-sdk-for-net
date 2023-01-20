@@ -46,14 +46,6 @@ namespace Azure.ResourceManager.Sql
             return apiVersion;
         }
 
-        /// <summary> Gets a collection of InstanceFailoverGroupResources in the ResourceGroupResource. </summary>
-        /// <param name="locationName"> The name of the region where the resource is located. </param>
-        /// <returns> An object representing collection of InstanceFailoverGroupResources and their operations over a InstanceFailoverGroupResource. </returns>
-        public virtual InstanceFailoverGroupCollection GetInstanceFailoverGroups(AzureLocation locationName)
-        {
-            return new InstanceFailoverGroupCollection(Client, Id, locationName);
-        }
-
         /// <summary> Gets a collection of InstancePoolResources in the ResourceGroupResource. </summary>
         /// <returns> An object representing collection of InstancePoolResources and their operations over a InstancePoolResource. </returns>
         public virtual InstancePoolCollection GetInstancePools()
@@ -108,6 +100,14 @@ namespace Azure.ResourceManager.Sql
         public virtual VirtualClusterCollection GetVirtualClusters()
         {
             return GetCachedClient(Client => new VirtualClusterCollection(Client, Id));
+        }
+
+        /// <summary> Gets a collection of InstanceFailoverGroupResources in the ResourceGroupResource. </summary>
+        /// <param name="locationName"> The name of the region where the resource is located. </param>
+        /// <returns> An object representing collection of InstanceFailoverGroupResources and their operations over a InstanceFailoverGroupResource. </returns>
+        public virtual InstanceFailoverGroupCollection GetInstanceFailoverGroups(AzureLocation locationName)
+        {
+            return new InstanceFailoverGroupCollection(Client, Id, locationName);
         }
 
         /// <summary>
