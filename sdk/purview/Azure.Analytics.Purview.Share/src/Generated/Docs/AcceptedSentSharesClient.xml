@@ -6,7 +6,8 @@
 This sample shows how to call GetAcceptedSentShareAsync with required parameters and parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
-var client = new AcceptedSentSharesClient("<https://my-service.azure.com>", credential);
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new AcceptedSentSharesClient(endpoint, credential);
 
 Response response = await client.GetAcceptedSentShareAsync("<sentShareName>", "<acceptedSentShareName>");
 
@@ -54,7 +55,8 @@ Response Body:
 This sample shows how to call GetAcceptedSentShare with required parameters and parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
-var client = new AcceptedSentSharesClient("<https://my-service.azure.com>", credential);
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new AcceptedSentSharesClient(endpoint, credential);
 
 Response response = client.GetAcceptedSentShare("<sentShareName>", "<acceptedSentShareName>");
 
@@ -102,7 +104,8 @@ Response Body:
 This sample shows how to call GetAcceptedSentSharesAsync with required parameters and parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
-var client = new AcceptedSentSharesClient("<https://my-service.azure.com>", credential);
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new AcceptedSentSharesClient(endpoint, credential);
 
 await foreach (var data in client.GetAcceptedSentSharesAsync("<sentShareName>"))
 {
@@ -114,7 +117,8 @@ await foreach (var data in client.GetAcceptedSentSharesAsync("<sentShareName>"))
 This sample shows how to call GetAcceptedSentSharesAsync with all parameters, and how to parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
-var client = new AcceptedSentSharesClient("<https://my-service.azure.com>", credential);
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new AcceptedSentSharesClient(endpoint, credential);
 
 await foreach (var data in client.GetAcceptedSentSharesAsync("<sentShareName>", "<skipToken>"))
 {
@@ -149,7 +153,8 @@ Schema for <c>AcceptedSentShareListValue</c>:
 This sample shows how to call GetAcceptedSentShares with required parameters and parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
-var client = new AcceptedSentSharesClient("<https://my-service.azure.com>", credential);
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new AcceptedSentSharesClient(endpoint, credential);
 
 foreach (var data in client.GetAcceptedSentShares("<sentShareName>"))
 {
@@ -161,7 +166,8 @@ foreach (var data in client.GetAcceptedSentShares("<sentShareName>"))
 This sample shows how to call GetAcceptedSentShares with all parameters, and how to parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
-var client = new AcceptedSentSharesClient("<https://my-service.azure.com>", credential);
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new AcceptedSentSharesClient(endpoint, credential);
 
 foreach (var data in client.GetAcceptedSentShares("<sentShareName>", "<skipToken>"))
 {
@@ -196,7 +202,8 @@ Schema for <c>AcceptedSentShareListValue</c>:
 This sample shows how to call ReinstateAsync with required parameters and request content, and how to parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
-var client = new AcceptedSentSharesClient("<https://my-service.azure.com>", credential);
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new AcceptedSentSharesClient(endpoint, credential);
 
 var data = new {
     properties = new {},
@@ -213,7 +220,8 @@ Console.WriteLine(result.ToString());
 This sample shows how to call ReinstateAsync with all parameters and request content, and how to parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
-var client = new AcceptedSentSharesClient("<https://my-service.azure.com>", credential);
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new AcceptedSentSharesClient(endpoint, credential);
 
 var data = new {
     properties = new {
@@ -294,7 +302,8 @@ Response Body:
 This sample shows how to call Reinstate with required parameters and request content, and how to parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
-var client = new AcceptedSentSharesClient("<https://my-service.azure.com>", credential);
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new AcceptedSentSharesClient(endpoint, credential);
 
 var data = new {
     properties = new {},
@@ -311,7 +320,8 @@ Console.WriteLine(result.ToString());
 This sample shows how to call Reinstate with all parameters and request content, and how to parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
-var client = new AcceptedSentSharesClient("<https://my-service.azure.com>", credential);
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new AcceptedSentSharesClient(endpoint, credential);
 
 var data = new {
     properties = new {
@@ -392,7 +402,8 @@ Response Body:
 This sample shows how to call RevokeAsync with required parameters and parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
-var client = new AcceptedSentSharesClient("<https://my-service.azure.com>", credential);
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new AcceptedSentSharesClient(endpoint, credential);
 
 var operation = await client.RevokeAsync(WaitUntil.Completed, "<sentShareName>", "<acceptedSentShareName>");
 
@@ -404,7 +415,8 @@ Console.WriteLine(result.ToString());
 This sample shows how to call RevokeAsync with all parameters, and how to parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
-var client = new AcceptedSentSharesClient("<https://my-service.azure.com>", credential);
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new AcceptedSentSharesClient(endpoint, credential);
 
 var operation = await client.RevokeAsync(WaitUntil.Completed, "<sentShareName>", "<acceptedSentShareName>", "<repeatabilityRequestId>");
 
@@ -453,7 +465,8 @@ Response Body:
 This sample shows how to call Revoke with required parameters and parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
-var client = new AcceptedSentSharesClient("<https://my-service.azure.com>", credential);
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new AcceptedSentSharesClient(endpoint, credential);
 
 var operation = client.Revoke(WaitUntil.Completed, "<sentShareName>", "<acceptedSentShareName>");
 
@@ -465,7 +478,8 @@ Console.WriteLine(result.ToString());
 This sample shows how to call Revoke with all parameters, and how to parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
-var client = new AcceptedSentSharesClient("<https://my-service.azure.com>", credential);
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new AcceptedSentSharesClient(endpoint, credential);
 
 var operation = client.Revoke(WaitUntil.Completed, "<sentShareName>", "<acceptedSentShareName>", "<repeatabilityRequestId>");
 
@@ -514,7 +528,8 @@ Response Body:
 This sample shows how to call UpdateExpirationAsync with required parameters and request content, and how to parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
-var client = new AcceptedSentSharesClient("<https://my-service.azure.com>", credential);
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new AcceptedSentSharesClient(endpoint, credential);
 
 var data = new {
     properties = new {},
@@ -531,7 +546,8 @@ Console.WriteLine(result.ToString());
 This sample shows how to call UpdateExpirationAsync with all parameters and request content, and how to parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
-var client = new AcceptedSentSharesClient("<https://my-service.azure.com>", credential);
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new AcceptedSentSharesClient(endpoint, credential);
 
 var data = new {
     properties = new {
@@ -612,7 +628,8 @@ Response Body:
 This sample shows how to call UpdateExpiration with required parameters and request content, and how to parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
-var client = new AcceptedSentSharesClient("<https://my-service.azure.com>", credential);
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new AcceptedSentSharesClient(endpoint, credential);
 
 var data = new {
     properties = new {},
@@ -629,7 +646,8 @@ Console.WriteLine(result.ToString());
 This sample shows how to call UpdateExpiration with all parameters and request content, and how to parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
-var client = new AcceptedSentSharesClient("<https://my-service.azure.com>", credential);
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new AcceptedSentSharesClient(endpoint, credential);
 
 var data = new {
     properties = new {

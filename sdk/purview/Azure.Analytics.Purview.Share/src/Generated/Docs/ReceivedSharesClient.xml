@@ -6,7 +6,8 @@
 This sample shows how to call GetReceivedShareAsync with required parameters and parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
-var client = new ReceivedSharesClient("<https://my-service.azure.com>", credential);
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ReceivedSharesClient(endpoint, credential);
 
 Response response = await client.GetReceivedShareAsync("<receivedShareName>");
 
@@ -62,7 +63,8 @@ Response Body:
 This sample shows how to call GetReceivedShare with required parameters and parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
-var client = new ReceivedSharesClient("<https://my-service.azure.com>", credential);
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ReceivedSharesClient(endpoint, credential);
 
 Response response = client.GetReceivedShare("<receivedShareName>");
 
@@ -118,7 +120,8 @@ Response Body:
 This sample shows how to call CreateAsync with required parameters and request content, and how to parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
-var client = new ReceivedSharesClient("<https://my-service.azure.com>", credential);
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ReceivedSharesClient(endpoint, credential);
 
 var data = new {
     properties = new {
@@ -141,7 +144,8 @@ Console.WriteLine(result.ToString());
 This sample shows how to call CreateAsync with all parameters and request content, and how to parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
-var client = new ReceivedSharesClient("<https://my-service.azure.com>", credential);
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ReceivedSharesClient(endpoint, credential);
 
 var data = new {
     properties = new {
@@ -244,7 +248,8 @@ Response Body:
 This sample shows how to call Create with required parameters and request content, and how to parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
-var client = new ReceivedSharesClient("<https://my-service.azure.com>", credential);
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ReceivedSharesClient(endpoint, credential);
 
 var data = new {
     properties = new {
@@ -267,7 +272,8 @@ Console.WriteLine(result.ToString());
 This sample shows how to call Create with all parameters and request content, and how to parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
-var client = new ReceivedSharesClient("<https://my-service.azure.com>", credential);
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ReceivedSharesClient(endpoint, credential);
 
 var data = new {
     properties = new {
@@ -370,7 +376,8 @@ Response Body:
 This sample shows how to call GetReceivedSharesAsync and parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
-var client = new ReceivedSharesClient("<https://my-service.azure.com>", credential);
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ReceivedSharesClient(endpoint, credential);
 
 await foreach (var data in client.GetReceivedSharesAsync())
 {
@@ -382,7 +389,8 @@ await foreach (var data in client.GetReceivedSharesAsync())
 This sample shows how to call GetReceivedSharesAsync with all parameters, and how to parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
-var client = new ReceivedSharesClient("<https://my-service.azure.com>", credential);
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ReceivedSharesClient(endpoint, credential);
 
 await foreach (var data in client.GetReceivedSharesAsync("<skipToken>", "<filter>", "<orderby>"))
 {
@@ -417,7 +425,8 @@ Schema for <c>ReceivedShareListValue</c>:
 This sample shows how to call GetReceivedShares and parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
-var client = new ReceivedSharesClient("<https://my-service.azure.com>", credential);
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ReceivedSharesClient(endpoint, credential);
 
 foreach (var data in client.GetReceivedShares())
 {
@@ -429,7 +438,8 @@ foreach (var data in client.GetReceivedShares())
 This sample shows how to call GetReceivedShares with all parameters, and how to parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
-var client = new ReceivedSharesClient("<https://my-service.azure.com>", credential);
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ReceivedSharesClient(endpoint, credential);
 
 foreach (var data in client.GetReceivedShares("<skipToken>", "<filter>", "<orderby>"))
 {
@@ -464,7 +474,8 @@ Schema for <c>ReceivedShareListValue</c>:
 This sample shows how to call DeleteAsync with required parameters.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
-var client = new ReceivedSharesClient("<https://my-service.azure.com>", credential);
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ReceivedSharesClient(endpoint, credential);
 
 var operation = await client.DeleteAsync(WaitUntil.Completed, "<receivedShareName>");
 
@@ -480,7 +491,8 @@ Delete a received share
 This sample shows how to call Delete with required parameters.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
-var client = new ReceivedSharesClient("<https://my-service.azure.com>", credential);
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ReceivedSharesClient(endpoint, credential);
 
 var operation = client.Delete(WaitUntil.Completed, "<receivedShareName>");
 
