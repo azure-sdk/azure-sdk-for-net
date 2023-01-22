@@ -8,12 +8,12 @@ title: Question Answering
 license-header: MICROSOFT_MIT_NO_VERSION
 
 batch:
-- input-file: https://raw.githubusercontent.com/Azure/azure-rest-api-specs/59ad2b7dd63e952822aa51e11a26a0af5724f996/specification/cognitiveservices/data-plane/Language/stable/2021-10-01/questionanswering.json
+- input-file: https://github.com/Azure/azure-rest-api-specs/blob/3c7ba021cc3776caa0c82c2cb1b4f55e7b35b75d/specification/cognitiveservices/data-plane/Language/stable/2021-10-01/questionanswering.json
   clear-output-folder: true
   model-namespace: false
   generation1-convenience-client: true
 
-- input-file: https://raw.githubusercontent.com/Azure/azure-rest-api-specs/59ad2b7dd63e952822aa51e11a26a0af5724f996/specification/cognitiveservices/data-plane/Language/stable/2021-10-01/questionanswering-authoring.json
+- input-file: https://github.com/Azure/azure-rest-api-specs/blob/3c7ba021cc3776caa0c82c2cb1b4f55e7b35b75d/specification/cognitiveservices/data-plane/Language/stable/2021-10-01/questionanswering-authoring.json
   namespace: Azure.AI.Language.QuestionAnswering.Authoring
   add-credentials: true
   data-plane: true
