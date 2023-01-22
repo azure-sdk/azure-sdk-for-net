@@ -38,6 +38,9 @@ namespace Azure.ResourceManager.BotService.Models
         private const string OutlookChannelValue = "OutlookChannel";
         private const string OmnichannelValue = "Omnichannel";
         private const string TelephonyChannelValue = "TelephonyChannel";
+        private const string AcsChatChannelValue = "AcsChatChannel";
+        private const string SearchAssistantValue = "SearchAssistant";
+        private const string M365ExtensionsValue = "M365Extensions";
 
         /// <summary> AlexaChannel. </summary>
         public static ChannelName AlexaChannel { get; } = new ChannelName(AlexaChannelValue);
@@ -71,6 +74,12 @@ namespace Azure.ResourceManager.BotService.Models
         public static ChannelName Omnichannel { get; } = new ChannelName(OmnichannelValue);
         /// <summary> TelephonyChannel. </summary>
         public static ChannelName TelephonyChannel { get; } = new ChannelName(TelephonyChannelValue);
+        /// <summary> AcsChatChannel. </summary>
+        public static ChannelName AcsChatChannel { get; } = new ChannelName(AcsChatChannelValue);
+        /// <summary> SearchAssistant. </summary>
+        public static ChannelName SearchAssistant { get; } = new ChannelName(SearchAssistantValue);
+        /// <summary> M365Extensions. </summary>
+        public static ChannelName M365Extensions { get; } = new ChannelName(M365ExtensionsValue);
         /// <summary> Determines if two <see cref="ChannelName"/> values are the same. </summary>
         public static bool operator ==(ChannelName left, ChannelName right) => left.Equals(right);
         /// <summary> Determines if two <see cref="ChannelName"/> values are not the same. </summary>
