@@ -20,11 +20,6 @@ namespace Azure.ResourceManager.HybridCompute.Models
                 writer.WritePropertyName("identity");
                 JsonSerializer.Serialize(writer, Identity);
             }
-            if (Optional.IsDefined(Properties))
-            {
-                writer.WritePropertyName("properties");
-                writer.WriteObjectValue(Properties);
-            }
             if (Optional.IsCollectionDefined(Tags))
             {
                 writer.WritePropertyName("tags");
@@ -36,6 +31,34 @@ namespace Azure.ResourceManager.HybridCompute.Models
                 }
                 writer.WriteEndObject();
             }
+            writer.WritePropertyName("properties");
+            writer.WriteStartObject();
+            if (Optional.IsDefined(LocationData))
+            {
+                writer.WritePropertyName("locationData");
+                writer.WriteObjectValue(LocationData);
+            }
+            if (Optional.IsDefined(OSProfile))
+            {
+                writer.WritePropertyName("osProfile");
+                writer.WriteObjectValue(OSProfile);
+            }
+            if (Optional.IsDefined(CloudMetadata))
+            {
+                writer.WritePropertyName("cloudMetadata");
+                writer.WriteObjectValue(CloudMetadata);
+            }
+            if (Optional.IsDefined(ParentClusterResourceId))
+            {
+                writer.WritePropertyName("parentClusterResourceId");
+                writer.WriteStringValue(ParentClusterResourceId);
+            }
+            if (Optional.IsDefined(PrivateLinkScopeResourceId))
+            {
+                writer.WritePropertyName("privateLinkScopeResourceId");
+                writer.WriteStringValue(PrivateLinkScopeResourceId);
+            }
+            writer.WriteEndObject();
             writer.WriteEndObject();
         }
     }

@@ -5,6 +5,7 @@
 
 #nullable disable
 
+using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
@@ -18,11 +19,6 @@ namespace Azure.ResourceManager.HybridCompute
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
-            if (Optional.IsDefined(Properties))
-            {
-                writer.WritePropertyName("properties");
-                writer.WriteObjectValue(Properties);
-            }
             if (Optional.IsCollectionDefined(Tags))
             {
                 writer.WritePropertyName("tags");
@@ -36,30 +32,97 @@ namespace Azure.ResourceManager.HybridCompute
             }
             writer.WritePropertyName("location");
             writer.WriteStringValue(Location);
+            writer.WritePropertyName("properties");
+            writer.WriteStartObject();
+            if (Optional.IsDefined(ForceUpdateTag))
+            {
+                writer.WritePropertyName("forceUpdateTag");
+                writer.WriteStringValue(ForceUpdateTag);
+            }
+            if (Optional.IsDefined(Publisher))
+            {
+                writer.WritePropertyName("publisher");
+                writer.WriteStringValue(Publisher);
+            }
+            if (Optional.IsDefined(TypePropertiesType))
+            {
+                writer.WritePropertyName("type");
+                writer.WriteStringValue(TypePropertiesType);
+            }
+            if (Optional.IsDefined(TypeHandlerVersion))
+            {
+                writer.WritePropertyName("typeHandlerVersion");
+                writer.WriteStringValue(TypeHandlerVersion);
+            }
+            if (Optional.IsDefined(EnableAutomaticUpgrade))
+            {
+                writer.WritePropertyName("enableAutomaticUpgrade");
+                writer.WriteBooleanValue(EnableAutomaticUpgrade.Value);
+            }
+            if (Optional.IsDefined(AutoUpgradeMinorVersion))
+            {
+                writer.WritePropertyName("autoUpgradeMinorVersion");
+                writer.WriteBooleanValue(AutoUpgradeMinorVersion.Value);
+            }
+            if (Optional.IsCollectionDefined(Settings))
+            {
+                writer.WritePropertyName("settings");
+                writer.WriteStartObject();
+                foreach (var item in Settings)
+                {
+                    writer.WritePropertyName(item.Key);
+#if NET6_0_OR_GREATER
+				writer.WriteRawValue(item.Value);
+#else
+                    JsonSerializer.Serialize(writer, JsonDocument.Parse(item.Value.ToString()).RootElement);
+#endif
+                }
+                writer.WriteEndObject();
+            }
+            if (Optional.IsCollectionDefined(ProtectedSettings))
+            {
+                writer.WritePropertyName("protectedSettings");
+                writer.WriteStartObject();
+                foreach (var item in ProtectedSettings)
+                {
+                    writer.WritePropertyName(item.Key);
+#if NET6_0_OR_GREATER
+				writer.WriteRawValue(item.Value);
+#else
+                    JsonSerializer.Serialize(writer, JsonDocument.Parse(item.Value.ToString()).RootElement);
+#endif
+                }
+                writer.WriteEndObject();
+            }
+            if (Optional.IsDefined(InstanceView))
+            {
+                writer.WritePropertyName("instanceView");
+                writer.WriteObjectValue(InstanceView);
+            }
+            writer.WriteEndObject();
             writer.WriteEndObject();
         }
 
         internal static HybridComputeMachineExtensionData DeserializeHybridComputeMachineExtensionData(JsonElement element)
         {
-            Optional<MachineExtensionProperties> properties = default;
             Optional<IDictionary<string, string>> tags = default;
             AzureLocation location = default;
             ResourceIdentifier id = default;
             string name = default;
             ResourceType type = default;
             Optional<SystemData> systemData = default;
+            Optional<string> forceUpdateTag = default;
+            Optional<string> publisher = default;
+            Optional<string> type0 = default;
+            Optional<string> typeHandlerVersion = default;
+            Optional<bool> enableAutomaticUpgrade = default;
+            Optional<bool> autoUpgradeMinorVersion = default;
+            Optional<IDictionary<string, BinaryData>> settings = default;
+            Optional<IDictionary<string, BinaryData>> protectedSettings = default;
+            Optional<string> provisioningState = default;
+            Optional<MachineExtensionInstanceView> instanceView = default;
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("properties"))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
-                    properties = MachineExtensionProperties.DeserializeMachineExtensionProperties(property.Value);
-                    continue;
-                }
                 if (property.NameEquals("tags"))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -105,8 +168,105 @@ namespace Azure.ResourceManager.HybridCompute
                     systemData = JsonSerializer.Deserialize<SystemData>(property.Value.GetRawText());
                     continue;
                 }
+                if (property.NameEquals("properties"))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        property.ThrowNonNullablePropertyIsNull();
+                        continue;
+                    }
+                    foreach (var property0 in property.Value.EnumerateObject())
+                    {
+                        if (property0.NameEquals("forceUpdateTag"))
+                        {
+                            forceUpdateTag = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("publisher"))
+                        {
+                            publisher = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("type"))
+                        {
+                            type0 = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("typeHandlerVersion"))
+                        {
+                            typeHandlerVersion = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("enableAutomaticUpgrade"))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            enableAutomaticUpgrade = property0.Value.GetBoolean();
+                            continue;
+                        }
+                        if (property0.NameEquals("autoUpgradeMinorVersion"))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            autoUpgradeMinorVersion = property0.Value.GetBoolean();
+                            continue;
+                        }
+                        if (property0.NameEquals("settings"))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            Dictionary<string, BinaryData> dictionary = new Dictionary<string, BinaryData>();
+                            foreach (var property1 in property0.Value.EnumerateObject())
+                            {
+                                dictionary.Add(property1.Name, BinaryData.FromString(property1.Value.GetRawText()));
+                            }
+                            settings = dictionary;
+                            continue;
+                        }
+                        if (property0.NameEquals("protectedSettings"))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            Dictionary<string, BinaryData> dictionary = new Dictionary<string, BinaryData>();
+                            foreach (var property1 in property0.Value.EnumerateObject())
+                            {
+                                dictionary.Add(property1.Name, BinaryData.FromString(property1.Value.GetRawText()));
+                            }
+                            protectedSettings = dictionary;
+                            continue;
+                        }
+                        if (property0.NameEquals("provisioningState"))
+                        {
+                            provisioningState = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("instanceView"))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            instanceView = MachineExtensionInstanceView.DeserializeMachineExtensionInstanceView(property0.Value);
+                            continue;
+                        }
+                    }
+                    continue;
+                }
             }
-            return new HybridComputeMachineExtensionData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, properties.Value);
+            return new HybridComputeMachineExtensionData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, forceUpdateTag.Value, publisher.Value, type0.Value, typeHandlerVersion.Value, Optional.ToNullable(enableAutomaticUpgrade), Optional.ToNullable(autoUpgradeMinorVersion), Optional.ToDictionary(settings), Optional.ToDictionary(protectedSettings), provisioningState.Value, instanceView.Value);
         }
     }
 }

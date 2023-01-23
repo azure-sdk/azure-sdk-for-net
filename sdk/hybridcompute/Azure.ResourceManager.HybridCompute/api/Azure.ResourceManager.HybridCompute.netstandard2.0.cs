@@ -1,7 +1,41 @@
 namespace Azure.ResourceManager.HybridCompute
 {
+    public partial class ExtensionValueCollection : Azure.ResourceManager.ArmCollection, System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.HybridCompute.ExtensionValueResource>, System.Collections.Generic.IEnumerable<Azure.ResourceManager.HybridCompute.ExtensionValueResource>, System.Collections.IEnumerable
+    {
+        protected ExtensionValueCollection() { }
+        public virtual Azure.Response<bool> Exists(string version, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<bool>> ExistsAsync(string version, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.HybridCompute.ExtensionValueResource> Get(string version, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Pageable<Azure.ResourceManager.HybridCompute.ExtensionValueResource> GetAll(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.AsyncPageable<Azure.ResourceManager.HybridCompute.ExtensionValueResource> GetAllAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.HybridCompute.ExtensionValueResource>> GetAsync(string version, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        System.Collections.Generic.IAsyncEnumerator<Azure.ResourceManager.HybridCompute.ExtensionValueResource> System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.HybridCompute.ExtensionValueResource>.GetAsyncEnumerator(System.Threading.CancellationToken cancellationToken) { throw null; }
+        System.Collections.Generic.IEnumerator<Azure.ResourceManager.HybridCompute.ExtensionValueResource> System.Collections.Generic.IEnumerable<Azure.ResourceManager.HybridCompute.ExtensionValueResource>.GetEnumerator() { throw null; }
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() { throw null; }
+    }
+    public partial class ExtensionValueData : Azure.ResourceManager.Models.ResourceData
+    {
+        public ExtensionValueData() { }
+        public string ExtensionType { get { throw null; } }
+        public string Publisher { get { throw null; } }
+        public string Version { get { throw null; } }
+    }
+    public partial class ExtensionValueResource : Azure.ResourceManager.ArmResource
+    {
+        public static readonly Azure.Core.ResourceType ResourceType;
+        protected ExtensionValueResource() { }
+        public virtual Azure.ResourceManager.HybridCompute.ExtensionValueData Data { get { throw null; } }
+        public virtual bool HasData { get { throw null; } }
+        public static Azure.Core.ResourceIdentifier CreateResourceIdentifier(string subscriptionId, Azure.Core.AzureLocation location, string publisher, string extensionType, string version) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.HybridCompute.ExtensionValueResource> Get(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.HybridCompute.ExtensionValueResource>> GetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+    }
     public static partial class HybridComputeExtensions
     {
+        public static Azure.Response<Azure.ResourceManager.HybridCompute.ExtensionValueResource> GetExtensionValue(this Azure.ResourceManager.Resources.SubscriptionResource subscriptionResource, Azure.Core.AzureLocation location, string publisher, string extensionType, string version, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public static System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.HybridCompute.ExtensionValueResource>> GetExtensionValueAsync(this Azure.ResourceManager.Resources.SubscriptionResource subscriptionResource, Azure.Core.AzureLocation location, string publisher, string extensionType, string version, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public static Azure.ResourceManager.HybridCompute.ExtensionValueResource GetExtensionValueResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
+        public static Azure.ResourceManager.HybridCompute.ExtensionValueCollection GetExtensionValues(this Azure.ResourceManager.Resources.SubscriptionResource subscriptionResource, Azure.Core.AzureLocation location, string publisher, string extensionType) { throw null; }
         public static Azure.Response<Azure.ResourceManager.HybridCompute.HybridComputeMachineResource> GetHybridComputeMachine(this Azure.ResourceManager.Resources.ResourceGroupResource resourceGroupResource, string machineName, Azure.ResourceManager.HybridCompute.Models.InstanceViewType? expand = default(Azure.ResourceManager.HybridCompute.Models.InstanceViewType?), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.HybridCompute.HybridComputeMachineResource>> GetHybridComputeMachineAsync(this Azure.ResourceManager.Resources.ResourceGroupResource resourceGroupResource, string machineName, Azure.ResourceManager.HybridCompute.Models.InstanceViewType? expand = default(Azure.ResourceManager.HybridCompute.Models.InstanceViewType?), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static Azure.ResourceManager.HybridCompute.HybridComputeMachineExtensionResource GetHybridComputeMachineExtensionResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
@@ -38,9 +72,35 @@ namespace Azure.ResourceManager.HybridCompute
     public partial class HybridComputeMachineData : Azure.ResourceManager.Models.TrackedResourceData
     {
         public HybridComputeMachineData(Azure.Core.AzureLocation location) : base (default(Azure.Core.AzureLocation)) { }
+        public string AdFqdn { get { throw null; } }
+        public Azure.ResourceManager.HybridCompute.Models.AgentConfiguration AgentConfiguration { get { throw null; } }
+        public string AgentVersion { get { throw null; } }
+        public string ClientPublicKey { get { throw null; } set { } }
+        public string CloudMetadataProvider { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string> DetectedProperties { get { throw null; } }
+        public string DisplayName { get { throw null; } }
+        public string DnsFqdn { get { throw null; } }
+        public string DomainName { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyList<Azure.ResponseError> ErrorDetails { get { throw null; } }
+        public System.Collections.Generic.IList<Azure.ResourceManager.HybridCompute.Models.MachineExtensionInstanceView> Extensions { get { throw null; } }
         public Azure.ResourceManager.Models.ManagedServiceIdentity Identity { get { throw null; } set { } }
-        public Azure.ResourceManager.HybridCompute.Models.MachineProperties Properties { get { throw null; } set { } }
+        public System.DateTimeOffset? LastStatusChange { get { throw null; } }
+        public Azure.ResourceManager.HybridCompute.Models.LocationData LocationData { get { throw null; } set { } }
+        public string MachineFqdn { get { throw null; } }
+        public string MssqlDiscovered { get { throw null; } set { } }
+        public string OSName { get { throw null; } }
+        public Azure.ResourceManager.HybridCompute.Models.OSProfile OSProfile { get { throw null; } set { } }
+        public string OSSku { get { throw null; } }
+        public string OSType { get { throw null; } set { } }
+        public string OSVersion { get { throw null; } }
+        public string ParentClusterResourceId { get { throw null; } set { } }
+        public string PrivateLinkScopeResourceId { get { throw null; } set { } }
+        public string ProvisioningState { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.HybridCompute.HybridComputeMachineExtensionData> Resources { get { throw null; } }
+        public Azure.ResourceManager.HybridCompute.Models.HybridComputeServiceStatuses ServiceStatuses { get { throw null; } set { } }
+        public Azure.ResourceManager.HybridCompute.Models.HybridComputeStatusType? Status { get { throw null; } }
+        public string VmId { get { throw null; } set { } }
+        public string VmUuid { get { throw null; } }
     }
     public partial class HybridComputeMachineExtensionCollection : Azure.ResourceManager.ArmCollection, System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.HybridCompute.HybridComputeMachineExtensionResource>, System.Collections.Generic.IEnumerable<Azure.ResourceManager.HybridCompute.HybridComputeMachineExtensionResource>, System.Collections.IEnumerable
     {
@@ -60,7 +120,16 @@ namespace Azure.ResourceManager.HybridCompute
     public partial class HybridComputeMachineExtensionData : Azure.ResourceManager.Models.TrackedResourceData
     {
         public HybridComputeMachineExtensionData(Azure.Core.AzureLocation location) : base (default(Azure.Core.AzureLocation)) { }
-        public Azure.ResourceManager.HybridCompute.Models.MachineExtensionProperties Properties { get { throw null; } set { } }
+        public bool? AutoUpgradeMinorVersion { get { throw null; } set { } }
+        public bool? EnableAutomaticUpgrade { get { throw null; } set { } }
+        public string ForceUpdateTag { get { throw null; } set { } }
+        public Azure.ResourceManager.HybridCompute.Models.MachineExtensionInstanceView InstanceView { get { throw null; } set { } }
+        public System.Collections.Generic.IDictionary<string, System.BinaryData> ProtectedSettings { get { throw null; } }
+        public string ProvisioningState { get { throw null; } }
+        public string Publisher { get { throw null; } set { } }
+        public System.Collections.Generic.IDictionary<string, System.BinaryData> Settings { get { throw null; } }
+        public string TypeHandlerVersion { get { throw null; } set { } }
+        public string TypePropertiesType { get { throw null; } set { } }
     }
     public partial class HybridComputeMachineExtensionResource : Azure.ResourceManager.ArmResource
     {
@@ -291,13 +360,24 @@ namespace Azure.ResourceManager.HybridCompute.Models
     public partial class HybridComputeMachineExtensionPatch : Azure.ResourceManager.HybridCompute.Models.HybridComputeResourceUpdate
     {
         public HybridComputeMachineExtensionPatch() { }
-        public Azure.ResourceManager.HybridCompute.Models.MachineExtensionUpdateProperties Properties { get { throw null; } set { } }
+        public bool? AutoUpgradeMinorVersion { get { throw null; } set { } }
+        public bool? EnableAutomaticUpgrade { get { throw null; } set { } }
+        public string ForceUpdateTag { get { throw null; } set { } }
+        public string MachineExtensionUpdatePropertiesType { get { throw null; } set { } }
+        public System.Collections.Generic.IDictionary<string, System.BinaryData> ProtectedSettings { get { throw null; } }
+        public string Publisher { get { throw null; } set { } }
+        public System.Collections.Generic.IDictionary<string, System.BinaryData> Settings { get { throw null; } }
+        public string TypeHandlerVersion { get { throw null; } set { } }
     }
     public partial class HybridComputeMachinePatch : Azure.ResourceManager.HybridCompute.Models.HybridComputeResourceUpdate
     {
         public HybridComputeMachinePatch() { }
+        public string CloudMetadataProvider { get { throw null; } }
         public Azure.ResourceManager.Models.ManagedServiceIdentity Identity { get { throw null; } set { } }
-        public Azure.ResourceManager.HybridCompute.Models.MachineUpdateProperties Properties { get { throw null; } set { } }
+        public Azure.ResourceManager.HybridCompute.Models.LocationData LocationData { get { throw null; } set { } }
+        public Azure.ResourceManager.HybridCompute.Models.OSProfile OSProfile { get { throw null; } set { } }
+        public string ParentClusterResourceId { get { throw null; } set { } }
+        public string PrivateLinkScopeResourceId { get { throw null; } set { } }
     }
     public partial class HybridComputePrivateLinkResourceProperties
     {
@@ -423,75 +503,10 @@ namespace Azure.ResourceManager.HybridCompute.Models
         public string Message { get { throw null; } set { } }
         public System.DateTimeOffset? Time { get { throw null; } set { } }
     }
-    public partial class MachineExtensionProperties
-    {
-        public MachineExtensionProperties() { }
-        public bool? AutoUpgradeMinorVersion { get { throw null; } set { } }
-        public bool? EnableAutomaticUpgrade { get { throw null; } set { } }
-        public string ForceUpdateTag { get { throw null; } set { } }
-        public Azure.ResourceManager.HybridCompute.Models.MachineExtensionInstanceView InstanceView { get { throw null; } set { } }
-        public string MachineExtensionPropertiesType { get { throw null; } set { } }
-        public System.Collections.Generic.IDictionary<string, System.BinaryData> ProtectedSettings { get { throw null; } }
-        public string ProvisioningState { get { throw null; } }
-        public string Publisher { get { throw null; } set { } }
-        public System.Collections.Generic.IDictionary<string, System.BinaryData> Settings { get { throw null; } }
-        public string TypeHandlerVersion { get { throw null; } set { } }
-    }
-    public partial class MachineExtensionUpdateProperties
-    {
-        public MachineExtensionUpdateProperties() { }
-        public bool? AutoUpgradeMinorVersion { get { throw null; } set { } }
-        public bool? EnableAutomaticUpgrade { get { throw null; } set { } }
-        public string ForceUpdateTag { get { throw null; } set { } }
-        public string MachineExtensionUpdatePropertiesType { get { throw null; } set { } }
-        public System.Collections.Generic.IDictionary<string, System.BinaryData> ProtectedSettings { get { throw null; } }
-        public string Publisher { get { throw null; } set { } }
-        public System.Collections.Generic.IDictionary<string, System.BinaryData> Settings { get { throw null; } }
-        public string TypeHandlerVersion { get { throw null; } set { } }
-    }
     public partial class MachineExtensionUpgrade
     {
         public MachineExtensionUpgrade() { }
         public System.Collections.Generic.IDictionary<string, Azure.ResourceManager.HybridCompute.Models.ExtensionTargetProperties> ExtensionTargets { get { throw null; } }
-    }
-    public partial class MachineProperties
-    {
-        public MachineProperties() { }
-        public string AdFqdn { get { throw null; } }
-        public Azure.ResourceManager.HybridCompute.Models.AgentConfiguration AgentConfiguration { get { throw null; } }
-        public string AgentVersion { get { throw null; } }
-        public string ClientPublicKey { get { throw null; } set { } }
-        public string CloudMetadataProvider { get { throw null; } }
-        public System.Collections.Generic.IReadOnlyDictionary<string, string> DetectedProperties { get { throw null; } }
-        public string DisplayName { get { throw null; } }
-        public string DnsFqdn { get { throw null; } }
-        public string DomainName { get { throw null; } }
-        public System.Collections.Generic.IReadOnlyList<Azure.ResponseError> ErrorDetails { get { throw null; } }
-        public System.DateTimeOffset? LastStatusChange { get { throw null; } }
-        public Azure.ResourceManager.HybridCompute.Models.LocationData LocationData { get { throw null; } set { } }
-        public string MachineFqdn { get { throw null; } }
-        public string MssqlDiscovered { get { throw null; } set { } }
-        public string OSName { get { throw null; } }
-        public Azure.ResourceManager.HybridCompute.Models.OSProfile OSProfile { get { throw null; } set { } }
-        public string OSSku { get { throw null; } }
-        public string OSType { get { throw null; } set { } }
-        public string OSVersion { get { throw null; } }
-        public string ParentClusterResourceId { get { throw null; } set { } }
-        public string PrivateLinkScopeResourceId { get { throw null; } set { } }
-        public string ProvisioningState { get { throw null; } }
-        public Azure.ResourceManager.HybridCompute.Models.HybridComputeServiceStatuses ServiceStatuses { get { throw null; } set { } }
-        public Azure.ResourceManager.HybridCompute.Models.HybridComputeStatusType? Status { get { throw null; } }
-        public string VmId { get { throw null; } set { } }
-        public string VmUuid { get { throw null; } }
-    }
-    public partial class MachineUpdateProperties
-    {
-        public MachineUpdateProperties() { }
-        public string CloudMetadataProvider { get { throw null; } }
-        public Azure.ResourceManager.HybridCompute.Models.LocationData LocationData { get { throw null; } set { } }
-        public Azure.ResourceManager.HybridCompute.Models.OSProfile OSProfile { get { throw null; } set { } }
-        public string ParentClusterResourceId { get { throw null; } set { } }
-        public string PrivateLinkScopeResourceId { get { throw null; } set { } }
     }
     public partial class OSProfile
     {

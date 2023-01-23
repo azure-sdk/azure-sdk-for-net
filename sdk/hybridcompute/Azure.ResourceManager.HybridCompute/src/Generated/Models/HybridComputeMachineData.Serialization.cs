@@ -5,8 +5,10 @@
 
 #nullable disable
 
+using System;
 using System.Collections.Generic;
 using System.Text.Json;
+using Azure;
 using Azure.Core;
 using Azure.ResourceManager.HybridCompute.Models;
 using Azure.ResourceManager.Models;
@@ -18,11 +20,6 @@ namespace Azure.ResourceManager.HybridCompute
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
-            if (Optional.IsDefined(Properties))
-            {
-                writer.WritePropertyName("properties");
-                writer.WriteObjectValue(Properties);
-            }
             if (Optional.IsDefined(Identity))
             {
                 writer.WritePropertyName("identity");
@@ -41,12 +38,74 @@ namespace Azure.ResourceManager.HybridCompute
             }
             writer.WritePropertyName("location");
             writer.WriteStringValue(Location);
+            writer.WritePropertyName("properties");
+            writer.WriteStartObject();
+            if (Optional.IsDefined(LocationData))
+            {
+                writer.WritePropertyName("locationData");
+                writer.WriteObjectValue(LocationData);
+            }
+            if (Optional.IsDefined(ServiceStatuses))
+            {
+                writer.WritePropertyName("serviceStatuses");
+                writer.WriteObjectValue(ServiceStatuses);
+            }
+            if (Optional.IsDefined(CloudMetadata))
+            {
+                writer.WritePropertyName("cloudMetadata");
+                writer.WriteObjectValue(CloudMetadata);
+            }
+            if (Optional.IsDefined(OSProfile))
+            {
+                writer.WritePropertyName("osProfile");
+                writer.WriteObjectValue(OSProfile);
+            }
+            if (Optional.IsDefined(VmId))
+            {
+                writer.WritePropertyName("vmId");
+                writer.WriteStringValue(VmId);
+            }
+            if (Optional.IsDefined(ClientPublicKey))
+            {
+                writer.WritePropertyName("clientPublicKey");
+                writer.WriteStringValue(ClientPublicKey);
+            }
+            if (Optional.IsDefined(OSType))
+            {
+                writer.WritePropertyName("osType");
+                writer.WriteStringValue(OSType);
+            }
+            if (Optional.IsCollectionDefined(Extensions))
+            {
+                writer.WritePropertyName("extensions");
+                writer.WriteStartArray();
+                foreach (var item in Extensions)
+                {
+                    writer.WriteObjectValue(item);
+                }
+                writer.WriteEndArray();
+            }
+            if (Optional.IsDefined(PrivateLinkScopeResourceId))
+            {
+                writer.WritePropertyName("privateLinkScopeResourceId");
+                writer.WriteStringValue(PrivateLinkScopeResourceId);
+            }
+            if (Optional.IsDefined(ParentClusterResourceId))
+            {
+                writer.WritePropertyName("parentClusterResourceId");
+                writer.WriteStringValue(ParentClusterResourceId);
+            }
+            if (Optional.IsDefined(MssqlDiscovered))
+            {
+                writer.WritePropertyName("mssqlDiscovered");
+                writer.WriteStringValue(MssqlDiscovered);
+            }
+            writer.WriteEndObject();
             writer.WriteEndObject();
         }
 
         internal static HybridComputeMachineData DeserializeHybridComputeMachineData(JsonElement element)
         {
-            Optional<MachineProperties> properties = default;
             Optional<IReadOnlyList<HybridComputeMachineExtensionData>> resources = default;
             Optional<ManagedServiceIdentity> identity = default;
             Optional<IDictionary<string, string>> tags = default;
@@ -55,18 +114,35 @@ namespace Azure.ResourceManager.HybridCompute
             string name = default;
             ResourceType type = default;
             Optional<SystemData> systemData = default;
+            Optional<LocationData> locationData = default;
+            Optional<AgentConfiguration> agentConfiguration = default;
+            Optional<HybridComputeServiceStatuses> serviceStatuses = default;
+            Optional<CloudMetadata> cloudMetadata = default;
+            Optional<OSProfile> osProfile = default;
+            Optional<string> provisioningState = default;
+            Optional<HybridComputeStatusType> status = default;
+            Optional<DateTimeOffset> lastStatusChange = default;
+            Optional<IReadOnlyList<ResponseError>> errorDetails = default;
+            Optional<string> agentVersion = default;
+            Optional<string> vmId = default;
+            Optional<string> displayName = default;
+            Optional<string> machineFqdn = default;
+            Optional<string> clientPublicKey = default;
+            Optional<string> osName = default;
+            Optional<string> osVersion = default;
+            Optional<string> osType = default;
+            Optional<string> vmUuid = default;
+            Optional<IList<MachineExtensionInstanceView>> extensions = default;
+            Optional<string> osSku = default;
+            Optional<string> domainName = default;
+            Optional<string> adFqdn = default;
+            Optional<string> dnsFqdn = default;
+            Optional<string> privateLinkScopeResourceId = default;
+            Optional<string> parentClusterResourceId = default;
+            Optional<string> mssqlDiscovered = default;
+            Optional<IReadOnlyDictionary<string, string>> detectedProperties = default;
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("properties"))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
-                    properties = MachineProperties.DeserializeMachineProperties(property.Value);
-                    continue;
-                }
                 if (property.NameEquals("resources"))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -137,8 +213,220 @@ namespace Azure.ResourceManager.HybridCompute
                     systemData = JsonSerializer.Deserialize<SystemData>(property.Value.GetRawText());
                     continue;
                 }
+                if (property.NameEquals("properties"))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        property.ThrowNonNullablePropertyIsNull();
+                        continue;
+                    }
+                    foreach (var property0 in property.Value.EnumerateObject())
+                    {
+                        if (property0.NameEquals("locationData"))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            locationData = LocationData.DeserializeLocationData(property0.Value);
+                            continue;
+                        }
+                        if (property0.NameEquals("agentConfiguration"))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            agentConfiguration = AgentConfiguration.DeserializeAgentConfiguration(property0.Value);
+                            continue;
+                        }
+                        if (property0.NameEquals("serviceStatuses"))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            serviceStatuses = HybridComputeServiceStatuses.DeserializeHybridComputeServiceStatuses(property0.Value);
+                            continue;
+                        }
+                        if (property0.NameEquals("cloudMetadata"))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            cloudMetadata = CloudMetadata.DeserializeCloudMetadata(property0.Value);
+                            continue;
+                        }
+                        if (property0.NameEquals("osProfile"))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            osProfile = OSProfile.DeserializeOSProfile(property0.Value);
+                            continue;
+                        }
+                        if (property0.NameEquals("provisioningState"))
+                        {
+                            provisioningState = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("status"))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            status = new HybridComputeStatusType(property0.Value.GetString());
+                            continue;
+                        }
+                        if (property0.NameEquals("lastStatusChange"))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            lastStatusChange = property0.Value.GetDateTimeOffset("O");
+                            continue;
+                        }
+                        if (property0.NameEquals("errorDetails"))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            List<ResponseError> array = new List<ResponseError>();
+                            foreach (var item in property0.Value.EnumerateArray())
+                            {
+                                array.Add(JsonSerializer.Deserialize<ResponseError>(item.GetRawText()));
+                            }
+                            errorDetails = array;
+                            continue;
+                        }
+                        if (property0.NameEquals("agentVersion"))
+                        {
+                            agentVersion = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("vmId"))
+                        {
+                            vmId = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("displayName"))
+                        {
+                            displayName = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("machineFqdn"))
+                        {
+                            machineFqdn = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("clientPublicKey"))
+                        {
+                            clientPublicKey = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("osName"))
+                        {
+                            osName = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("osVersion"))
+                        {
+                            osVersion = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("osType"))
+                        {
+                            osType = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("vmUuid"))
+                        {
+                            vmUuid = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("extensions"))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            List<MachineExtensionInstanceView> array = new List<MachineExtensionInstanceView>();
+                            foreach (var item in property0.Value.EnumerateArray())
+                            {
+                                array.Add(MachineExtensionInstanceView.DeserializeMachineExtensionInstanceView(item));
+                            }
+                            extensions = array;
+                            continue;
+                        }
+                        if (property0.NameEquals("osSku"))
+                        {
+                            osSku = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("domainName"))
+                        {
+                            domainName = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("adFqdn"))
+                        {
+                            adFqdn = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("dnsFqdn"))
+                        {
+                            dnsFqdn = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("privateLinkScopeResourceId"))
+                        {
+                            privateLinkScopeResourceId = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("parentClusterResourceId"))
+                        {
+                            parentClusterResourceId = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("mssqlDiscovered"))
+                        {
+                            mssqlDiscovered = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("detectedProperties"))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            Dictionary<string, string> dictionary = new Dictionary<string, string>();
+                            foreach (var property1 in property0.Value.EnumerateObject())
+                            {
+                                dictionary.Add(property1.Name, property1.Value.GetString());
+                            }
+                            detectedProperties = dictionary;
+                            continue;
+                        }
+                    }
+                    continue;
+                }
             }
-            return new HybridComputeMachineData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, properties.Value, Optional.ToList(resources), identity);
+            return new HybridComputeMachineData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, Optional.ToList(resources), identity, locationData.Value, agentConfiguration.Value, serviceStatuses.Value, cloudMetadata.Value, osProfile.Value, provisioningState.Value, Optional.ToNullable(status), Optional.ToNullable(lastStatusChange), Optional.ToList(errorDetails), agentVersion.Value, vmId.Value, displayName.Value, machineFqdn.Value, clientPublicKey.Value, osName.Value, osVersion.Value, osType.Value, vmUuid.Value, Optional.ToList(extensions), osSku.Value, domainName.Value, adFqdn.Value, dnsFqdn.Value, privateLinkScopeResourceId.Value, parentClusterResourceId.Value, mssqlDiscovered.Value, Optional.ToDictionary(detectedProperties));
         }
     }
 }
