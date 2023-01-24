@@ -28,11 +28,6 @@ namespace Azure.ResourceManager.DataProtectionBackup.Models
                 writer.WriteObjectValue(item);
             }
             writer.WriteEndArray();
-            if (Optional.IsDefined(IsVaultProtectedByResourceGuard))
-            {
-                writer.WritePropertyName("isVaultProtectedByResourceGuard");
-                writer.WriteBooleanValue(IsVaultProtectedByResourceGuard.Value);
-            }
             writer.WriteEndObject();
         }
 
