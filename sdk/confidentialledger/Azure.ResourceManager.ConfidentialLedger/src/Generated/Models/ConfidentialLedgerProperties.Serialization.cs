@@ -53,6 +53,7 @@ namespace Azure.ResourceManager.ConfidentialLedger.Models
             Optional<string> ledgerInternalNamespace = default;
             Optional<ConfidentialLedgerType> ledgerType = default;
             Optional<ConfidentialLedgerProvisioningState> provisioningState = default;
+            Optional<LedgerRunningState> runningState = default;
             Optional<IList<AadBasedSecurityPrincipal>> aadBasedSecurityPrincipals = default;
             Optional<IList<CertBasedSecurityPrincipal>> certBasedSecurityPrincipals = default;
             foreach (var property in element.EnumerateObject())
@@ -107,6 +108,16 @@ namespace Azure.ResourceManager.ConfidentialLedger.Models
                     provisioningState = new ConfidentialLedgerProvisioningState(property.Value.GetString());
                     continue;
                 }
+                if (property.NameEquals("runningState"))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        property.ThrowNonNullablePropertyIsNull();
+                        continue;
+                    }
+                    runningState = new LedgerRunningState(property.Value.GetString());
+                    continue;
+                }
                 if (property.NameEquals("aadBasedSecurityPrincipals"))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -138,7 +149,7 @@ namespace Azure.ResourceManager.ConfidentialLedger.Models
                     continue;
                 }
             }
-            return new ConfidentialLedgerProperties(ledgerName.Value, ledgerUri.Value, identityServiceUri.Value, ledgerInternalNamespace.Value, Optional.ToNullable(ledgerType), Optional.ToNullable(provisioningState), Optional.ToList(aadBasedSecurityPrincipals), Optional.ToList(certBasedSecurityPrincipals));
+            return new ConfidentialLedgerProperties(ledgerName.Value, ledgerUri.Value, identityServiceUri.Value, ledgerInternalNamespace.Value, Optional.ToNullable(ledgerType), Optional.ToNullable(provisioningState), Optional.ToNullable(runningState), Optional.ToList(aadBasedSecurityPrincipals), Optional.ToList(certBasedSecurityPrincipals));
         }
     }
 }

@@ -28,9 +28,10 @@ namespace Azure.ResourceManager.ConfidentialLedger.Models
         /// <param name="ledgerInternalNamespace"> Internal namespace for the Ledger. </param>
         /// <param name="ledgerType"> Type of Confidential Ledger. </param>
         /// <param name="provisioningState"> Provisioning state of Ledger Resource. </param>
+        /// <param name="runningState"> Running state of Ledger Resource. </param>
         /// <param name="aadBasedSecurityPrincipals"> Array of all AAD based Security Principals. </param>
         /// <param name="certBasedSecurityPrincipals"> Array of all cert based Security Principals. </param>
-        internal ConfidentialLedgerProperties(string ledgerName, Uri ledgerUri, Uri identityServiceUri, string ledgerInternalNamespace, ConfidentialLedgerType? ledgerType, ConfidentialLedgerProvisioningState? provisioningState, IList<AadBasedSecurityPrincipal> aadBasedSecurityPrincipals, IList<CertBasedSecurityPrincipal> certBasedSecurityPrincipals)
+        internal ConfidentialLedgerProperties(string ledgerName, Uri ledgerUri, Uri identityServiceUri, string ledgerInternalNamespace, ConfidentialLedgerType? ledgerType, ConfidentialLedgerProvisioningState? provisioningState, LedgerRunningState? runningState, IList<AadBasedSecurityPrincipal> aadBasedSecurityPrincipals, IList<CertBasedSecurityPrincipal> certBasedSecurityPrincipals)
         {
             LedgerName = ledgerName;
             LedgerUri = ledgerUri;
@@ -38,6 +39,7 @@ namespace Azure.ResourceManager.ConfidentialLedger.Models
             LedgerInternalNamespace = ledgerInternalNamespace;
             LedgerType = ledgerType;
             ProvisioningState = provisioningState;
+            RunningState = runningState;
             AadBasedSecurityPrincipals = aadBasedSecurityPrincipals;
             CertBasedSecurityPrincipals = certBasedSecurityPrincipals;
         }
@@ -54,6 +56,8 @@ namespace Azure.ResourceManager.ConfidentialLedger.Models
         public ConfidentialLedgerType? LedgerType { get; set; }
         /// <summary> Provisioning state of Ledger Resource. </summary>
         public ConfidentialLedgerProvisioningState? ProvisioningState { get; }
+        /// <summary> Running state of Ledger Resource. </summary>
+        public LedgerRunningState? RunningState { get; }
         /// <summary> Array of all AAD based Security Principals. </summary>
         public IList<AadBasedSecurityPrincipal> AadBasedSecurityPrincipals { get; }
         /// <summary> Array of all cert based Security Principals. </summary>

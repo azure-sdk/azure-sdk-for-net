@@ -109,6 +109,7 @@ namespace Azure.ResourceManager.ConfidentialLedger.Models
         public Azure.ResourceManager.ConfidentialLedger.Models.ConfidentialLedgerType? LedgerType { get { throw null; } set { } }
         public System.Uri LedgerUri { get { throw null; } }
         public Azure.ResourceManager.ConfidentialLedger.Models.ConfidentialLedgerProvisioningState? ProvisioningState { get { throw null; } }
+        public Azure.ResourceManager.ConfidentialLedger.Models.LedgerRunningState? RunningState { get { throw null; } }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct ConfidentialLedgerProvisioningState : System.IEquatable<Azure.ResourceManager.ConfidentialLedger.Models.ConfidentialLedgerProvisioningState>
@@ -169,6 +170,27 @@ namespace Azure.ResourceManager.ConfidentialLedger.Models
         public static bool operator ==(Azure.ResourceManager.ConfidentialLedger.Models.ConfidentialLedgerType left, Azure.ResourceManager.ConfidentialLedger.Models.ConfidentialLedgerType right) { throw null; }
         public static implicit operator Azure.ResourceManager.ConfidentialLedger.Models.ConfidentialLedgerType (string value) { throw null; }
         public static bool operator !=(Azure.ResourceManager.ConfidentialLedger.Models.ConfidentialLedgerType left, Azure.ResourceManager.ConfidentialLedger.Models.ConfidentialLedgerType right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct LedgerRunningState : System.IEquatable<Azure.ResourceManager.ConfidentialLedger.Models.LedgerRunningState>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public LedgerRunningState(string value) { throw null; }
+        public static Azure.ResourceManager.ConfidentialLedger.Models.LedgerRunningState Active { get { throw null; } }
+        public static Azure.ResourceManager.ConfidentialLedger.Models.LedgerRunningState Paused { get { throw null; } }
+        public static Azure.ResourceManager.ConfidentialLedger.Models.LedgerRunningState Pausing { get { throw null; } }
+        public static Azure.ResourceManager.ConfidentialLedger.Models.LedgerRunningState Resuming { get { throw null; } }
+        public static Azure.ResourceManager.ConfidentialLedger.Models.LedgerRunningState Unknown { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.ConfidentialLedger.Models.LedgerRunningState other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.ConfidentialLedger.Models.LedgerRunningState left, Azure.ResourceManager.ConfidentialLedger.Models.LedgerRunningState right) { throw null; }
+        public static implicit operator Azure.ResourceManager.ConfidentialLedger.Models.LedgerRunningState (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.ConfidentialLedger.Models.LedgerRunningState left, Azure.ResourceManager.ConfidentialLedger.Models.LedgerRunningState right) { throw null; }
         public override string ToString() { throw null; }
     }
 }
