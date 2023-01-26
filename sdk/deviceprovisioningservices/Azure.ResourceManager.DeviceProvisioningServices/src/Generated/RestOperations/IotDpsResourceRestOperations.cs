@@ -34,7 +34,7 @@ namespace Azure.ResourceManager.DeviceProvisioningServices
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2022-02-05";
+            _apiVersion = apiVersion ?? "2022-12-12";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 

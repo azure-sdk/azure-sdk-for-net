@@ -41,11 +41,15 @@ namespace Azure.ResourceManager.DeviceProvisioningServices
         /// <param name="etag"> The Etag field is *not* required. If it is provided in the response body, it must also be provided as a header per the normal ETag convention. </param>
         /// <param name="properties"> Service specific properties for a provisioning service. </param>
         /// <param name="sku"> Sku info for a provisioning Service. </param>
-        internal DeviceProvisioningServiceData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ETag? etag, DeviceProvisioningServiceProperties properties, DeviceProvisioningServicesSkuInfo sku) : base(id, name, resourceType, systemData, tags, location)
+        /// <param name="resourcegroup"> The resource group of the resource. </param>
+        /// <param name="subscriptionid"> The subscription id of the resource. </param>
+        internal DeviceProvisioningServiceData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ETag? etag, DeviceProvisioningServiceProperties properties, DeviceProvisioningServicesSkuInfo sku, string resourcegroup, string subscriptionid) : base(id, name, resourceType, systemData, tags, location)
         {
             ETag = etag;
             Properties = properties;
             Sku = sku;
+            Resourcegroup = resourcegroup;
+            Subscriptionid = subscriptionid;
         }
 
         /// <summary> The Etag field is *not* required. If it is provided in the response body, it must also be provided as a header per the normal ETag convention. </summary>
@@ -54,5 +58,9 @@ namespace Azure.ResourceManager.DeviceProvisioningServices
         public DeviceProvisioningServiceProperties Properties { get; set; }
         /// <summary> Sku info for a provisioning Service. </summary>
         public DeviceProvisioningServicesSkuInfo Sku { get; set; }
+        /// <summary> The resource group of the resource. </summary>
+        public string Resourcegroup { get; set; }
+        /// <summary> The subscription id of the resource. </summary>
+        public string Subscriptionid { get; set; }
     }
 }

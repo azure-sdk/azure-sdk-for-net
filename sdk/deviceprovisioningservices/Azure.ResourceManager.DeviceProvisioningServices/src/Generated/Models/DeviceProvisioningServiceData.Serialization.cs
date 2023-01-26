@@ -28,6 +28,16 @@ namespace Azure.ResourceManager.DeviceProvisioningServices
             writer.WriteObjectValue(Properties);
             writer.WritePropertyName("sku");
             writer.WriteObjectValue(Sku);
+            if (Optional.IsDefined(Resourcegroup))
+            {
+                writer.WritePropertyName("resourcegroup");
+                writer.WriteStringValue(Resourcegroup);
+            }
+            if (Optional.IsDefined(Subscriptionid))
+            {
+                writer.WritePropertyName("subscriptionid");
+                writer.WriteStringValue(Subscriptionid);
+            }
             if (Optional.IsCollectionDefined(Tags))
             {
                 writer.WritePropertyName("tags");
@@ -49,6 +59,8 @@ namespace Azure.ResourceManager.DeviceProvisioningServices
             Optional<ETag> etag = default;
             DeviceProvisioningServiceProperties properties = default;
             DeviceProvisioningServicesSkuInfo sku = default;
+            Optional<string> resourcegroup = default;
+            Optional<string> subscriptionid = default;
             Optional<IDictionary<string, string>> tags = default;
             AzureLocation location = default;
             ResourceIdentifier id = default;
@@ -75,6 +87,16 @@ namespace Azure.ResourceManager.DeviceProvisioningServices
                 if (property.NameEquals("sku"))
                 {
                     sku = DeviceProvisioningServicesSkuInfo.DeserializeDeviceProvisioningServicesSkuInfo(property.Value);
+                    continue;
+                }
+                if (property.NameEquals("resourcegroup"))
+                {
+                    resourcegroup = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("subscriptionid"))
+                {
+                    subscriptionid = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("tags"))
@@ -123,7 +145,7 @@ namespace Azure.ResourceManager.DeviceProvisioningServices
                     continue;
                 }
             }
-            return new DeviceProvisioningServiceData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, Optional.ToNullable(etag), properties, sku);
+            return new DeviceProvisioningServiceData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, Optional.ToNullable(etag), properties, sku, resourcegroup.Value, subscriptionid.Value);
         }
     }
 }
