@@ -422,7 +422,7 @@ namespace Azure.ResourceManager.Kusto
             return message;
         }
 
-        /// <summary> Deletes a Kusto principalAssignment. </summary>
+        /// <summary> Deletes a Kusto cluster database script. </summary>
         /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
         /// <param name="resourceGroupName"> The name of the resource group containing the Kusto cluster. </param>
         /// <param name="clusterName"> The name of the Kusto cluster. </param>
@@ -452,7 +452,7 @@ namespace Azure.ResourceManager.Kusto
             }
         }
 
-        /// <summary> Deletes a Kusto principalAssignment. </summary>
+        /// <summary> Deletes a Kusto cluster database script. </summary>
         /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
         /// <param name="resourceGroupName"> The name of the resource group containing the Kusto cluster. </param>
         /// <param name="clusterName"> The name of the Kusto cluster. </param>
