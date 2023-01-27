@@ -95,6 +95,11 @@ namespace Azure.ResourceManager.HealthcareApis
                 writer.WritePropertyName("importConfiguration");
                 writer.WriteObjectValue(ImportConfiguration);
             }
+            if (Optional.IsDefined(ImplementationGuidesConfiguration))
+            {
+                writer.WritePropertyName("implementationGuidesConfiguration");
+                writer.WriteObjectValue(ImplementationGuidesConfiguration);
+            }
             writer.WriteEndObject();
             writer.WriteEndObject();
         }
@@ -121,6 +126,7 @@ namespace Azure.ResourceManager.HealthcareApis
             Optional<FhirServiceEventState> eventState = default;
             Optional<FhirServiceResourceVersionPolicyConfiguration> resourceVersionPolicyConfiguration = default;
             Optional<FhirServiceImportConfiguration> importConfiguration = default;
+            Optional<ImplementationGuidesConfiguration> implementationGuidesConfiguration = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("kind"))
@@ -328,11 +334,21 @@ namespace Azure.ResourceManager.HealthcareApis
                             importConfiguration = FhirServiceImportConfiguration.DeserializeFhirServiceImportConfiguration(property0.Value);
                             continue;
                         }
+                        if (property0.NameEquals("implementationGuidesConfiguration"))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            implementationGuidesConfiguration = ImplementationGuidesConfiguration.DeserializeImplementationGuidesConfiguration(property0.Value);
+                            continue;
+                        }
                     }
                     continue;
                 }
             }
-            return new FhirServiceData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, Optional.ToNullable(kind), Optional.ToNullable(provisioningState), Optional.ToList(accessPolicies), acrConfiguration.Value, authenticationConfiguration.Value, corsConfiguration.Value, exportConfiguration.Value, Optional.ToList(privateEndpointConnections), Optional.ToNullable(publicNetworkAccess), Optional.ToNullable(eventState), resourceVersionPolicyConfiguration.Value, importConfiguration.Value, identity, Optional.ToNullable(etag));
+            return new FhirServiceData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, Optional.ToNullable(kind), Optional.ToNullable(provisioningState), Optional.ToList(accessPolicies), acrConfiguration.Value, authenticationConfiguration.Value, corsConfiguration.Value, exportConfiguration.Value, Optional.ToList(privateEndpointConnections), Optional.ToNullable(publicNetworkAccess), Optional.ToNullable(eventState), resourceVersionPolicyConfiguration.Value, importConfiguration.Value, implementationGuidesConfiguration.Value, identity, Optional.ToNullable(etag));
         }
     }
 }

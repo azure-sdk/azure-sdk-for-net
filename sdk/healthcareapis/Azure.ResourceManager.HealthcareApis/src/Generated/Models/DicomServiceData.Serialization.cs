@@ -81,6 +81,7 @@ namespace Azure.ResourceManager.HealthcareApis
             Optional<Uri> serviceUrl = default;
             Optional<IReadOnlyList<HealthcareApisPrivateEndpointConnectionData>> privateEndpointConnections = default;
             Optional<HealthcareApisPublicNetworkAccess> publicNetworkAccess = default;
+            Optional<FhirServiceEventState> eventState = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("identity"))
@@ -223,11 +224,21 @@ namespace Azure.ResourceManager.HealthcareApis
                             publicNetworkAccess = new HealthcareApisPublicNetworkAccess(property0.Value.GetString());
                             continue;
                         }
+                        if (property0.NameEquals("eventState"))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            eventState = new FhirServiceEventState(property0.Value.GetString());
+                            continue;
+                        }
                     }
                     continue;
                 }
             }
-            return new DicomServiceData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, Optional.ToNullable(provisioningState), authenticationConfiguration.Value, corsConfiguration.Value, serviceUrl.Value, Optional.ToList(privateEndpointConnections), Optional.ToNullable(publicNetworkAccess), identity, Optional.ToNullable(etag));
+            return new DicomServiceData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, Optional.ToNullable(provisioningState), authenticationConfiguration.Value, corsConfiguration.Value, serviceUrl.Value, Optional.ToList(privateEndpointConnections), Optional.ToNullable(publicNetworkAccess), Optional.ToNullable(eventState), identity, Optional.ToNullable(etag));
         }
     }
 }

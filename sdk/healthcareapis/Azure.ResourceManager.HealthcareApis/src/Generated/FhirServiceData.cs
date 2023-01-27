@@ -43,9 +43,10 @@ namespace Azure.ResourceManager.HealthcareApis
         /// <param name="eventState"> Fhir Service event support status. </param>
         /// <param name="resourceVersionPolicyConfiguration"> Determines tracking of history for resources. </param>
         /// <param name="importConfiguration"> Fhir Service import configuration. </param>
+        /// <param name="implementationGuidesConfiguration"> Implementation Guides configuration. </param>
         /// <param name="identity"> Setting indicating whether the service has a managed identity associated with it. </param>
         /// <param name="etag"> An etag associated with the resource, used for optimistic concurrency when editing it. </param>
-        internal FhirServiceData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, FhirServiceKind? kind, HealthcareApisProvisioningState? provisioningState, IList<FhirServiceAccessPolicyEntry> accessPolicies, FhirServiceAcrConfiguration acrConfiguration, FhirServiceAuthenticationConfiguration authenticationConfiguration, FhirServiceCorsConfiguration corsConfiguration, FhirServiceExportConfiguration exportConfiguration, IReadOnlyList<HealthcareApisPrivateEndpointConnectionData> privateEndpointConnections, HealthcareApisPublicNetworkAccess? publicNetworkAccess, FhirServiceEventState? eventState, FhirServiceResourceVersionPolicyConfiguration resourceVersionPolicyConfiguration, FhirServiceImportConfiguration importConfiguration, ManagedServiceIdentity identity, ETag? etag) : base(id, name, resourceType, systemData, tags, location)
+        internal FhirServiceData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, FhirServiceKind? kind, HealthcareApisProvisioningState? provisioningState, IList<FhirServiceAccessPolicyEntry> accessPolicies, FhirServiceAcrConfiguration acrConfiguration, FhirServiceAuthenticationConfiguration authenticationConfiguration, FhirServiceCorsConfiguration corsConfiguration, FhirServiceExportConfiguration exportConfiguration, IReadOnlyList<HealthcareApisPrivateEndpointConnectionData> privateEndpointConnections, HealthcareApisPublicNetworkAccess? publicNetworkAccess, FhirServiceEventState? eventState, FhirServiceResourceVersionPolicyConfiguration resourceVersionPolicyConfiguration, FhirServiceImportConfiguration importConfiguration, ImplementationGuidesConfiguration implementationGuidesConfiguration, ManagedServiceIdentity identity, ETag? etag) : base(id, name, resourceType, systemData, tags, location)
         {
             Kind = kind;
             ProvisioningState = provisioningState;
@@ -59,6 +60,7 @@ namespace Azure.ResourceManager.HealthcareApis
             EventState = eventState;
             ResourceVersionPolicyConfiguration = resourceVersionPolicyConfiguration;
             ImportConfiguration = importConfiguration;
+            ImplementationGuidesConfiguration = implementationGuidesConfiguration;
             Identity = identity;
             ETag = etag;
         }
@@ -99,6 +101,20 @@ namespace Azure.ResourceManager.HealthcareApis
         public FhirServiceResourceVersionPolicyConfiguration ResourceVersionPolicyConfiguration { get; set; }
         /// <summary> Fhir Service import configuration. </summary>
         public FhirServiceImportConfiguration ImportConfiguration { get; set; }
+        /// <summary> Implementation Guides configuration. </summary>
+        internal ImplementationGuidesConfiguration ImplementationGuidesConfiguration { get; set; }
+        /// <summary> If US Core Missing Data requirement is enabled. </summary>
+        public bool? UsCoreMissingData
+        {
+            get => ImplementationGuidesConfiguration is null ? default : ImplementationGuidesConfiguration.UsCoreMissingData;
+            set
+            {
+                if (ImplementationGuidesConfiguration is null)
+                    ImplementationGuidesConfiguration = new ImplementationGuidesConfiguration();
+                ImplementationGuidesConfiguration.UsCoreMissingData = value;
+            }
+        }
+
         /// <summary> Setting indicating whether the service has a managed identity associated with it. </summary>
         public ManagedServiceIdentity Identity { get; set; }
         /// <summary> An etag associated with the resource, used for optimistic concurrency when editing it. </summary>
