@@ -35,11 +35,6 @@ namespace Azure.ResourceManager.Synapse
                 writer.WritePropertyName("containerName");
                 writer.WriteStringValue(ContainerName);
             }
-            if (Optional.IsDefined(UploadedOn))
-            {
-                writer.WritePropertyName("uploadedTimestamp");
-                writer.WriteStringValue(UploadedOn.Value, "O");
-            }
             if (Optional.IsDefined(TypePropertiesType))
             {
                 writer.WritePropertyName("type");
