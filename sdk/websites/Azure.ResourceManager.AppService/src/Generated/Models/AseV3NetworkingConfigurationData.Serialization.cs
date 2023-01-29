@@ -30,6 +30,21 @@ namespace Azure.ResourceManager.AppService
                 writer.WritePropertyName("allowNewPrivateEndpointConnections");
                 writer.WriteBooleanValue(AllowNewPrivateEndpointConnections.Value);
             }
+            if (Optional.IsDefined(FtpEnabled))
+            {
+                writer.WritePropertyName("ftpEnabled");
+                writer.WriteBooleanValue(FtpEnabled.Value);
+            }
+            if (Optional.IsDefined(RemoteDebugEnabled))
+            {
+                writer.WritePropertyName("remoteDebugEnabled");
+                writer.WriteBooleanValue(RemoteDebugEnabled.Value);
+            }
+            if (Optional.IsDefined(InboundIPAddressOverride))
+            {
+                writer.WritePropertyName("inboundIpAddressOverride");
+                writer.WriteStringValue(InboundIPAddressOverride);
+            }
             writer.WriteEndObject();
             writer.WriteEndObject();
         }
@@ -46,6 +61,9 @@ namespace Azure.ResourceManager.AppService
             Optional<IReadOnlyList<IPAddress>> externalInboundIPAddresses = default;
             Optional<IReadOnlyList<IPAddress>> internalInboundIPAddresses = default;
             Optional<bool> allowNewPrivateEndpointConnections = default;
+            Optional<bool> ftpEnabled = default;
+            Optional<bool> remoteDebugEnabled = default;
+            Optional<string> inboundIPAddressOverride = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("kind"))
@@ -157,11 +175,36 @@ namespace Azure.ResourceManager.AppService
                             allowNewPrivateEndpointConnections = property0.Value.GetBoolean();
                             continue;
                         }
+                        if (property0.NameEquals("ftpEnabled"))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            ftpEnabled = property0.Value.GetBoolean();
+                            continue;
+                        }
+                        if (property0.NameEquals("remoteDebugEnabled"))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            remoteDebugEnabled = property0.Value.GetBoolean();
+                            continue;
+                        }
+                        if (property0.NameEquals("inboundIpAddressOverride"))
+                        {
+                            inboundIPAddressOverride = property0.Value.GetString();
+                            continue;
+                        }
                     }
                     continue;
                 }
             }
-            return new AseV3NetworkingConfigurationData(id, name, type, systemData.Value, Optional.ToList(windowsOutboundIPAddresses), Optional.ToList(linuxOutboundIPAddresses), Optional.ToList(externalInboundIPAddresses), Optional.ToList(internalInboundIPAddresses), Optional.ToNullable(allowNewPrivateEndpointConnections), kind.Value);
+            return new AseV3NetworkingConfigurationData(id, name, type, systemData.Value, Optional.ToList(windowsOutboundIPAddresses), Optional.ToList(linuxOutboundIPAddresses), Optional.ToList(externalInboundIPAddresses), Optional.ToList(internalInboundIPAddresses), Optional.ToNullable(allowNewPrivateEndpointConnections), Optional.ToNullable(ftpEnabled), Optional.ToNullable(remoteDebugEnabled), inboundIPAddressOverride.Value, kind.Value);
         }
     }
 }

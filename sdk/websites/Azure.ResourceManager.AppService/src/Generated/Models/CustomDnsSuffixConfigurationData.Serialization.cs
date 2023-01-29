@@ -5,13 +5,15 @@
 
 #nullable disable
 
+using System;
 using System.Text.Json;
 using Azure.Core;
+using Azure.ResourceManager.AppService.Models;
 using Azure.ResourceManager.Models;
 
-namespace Azure.ResourceManager.AppService.Models
+namespace Azure.ResourceManager.AppService
 {
-    public partial class SiteAuthSettingsV2 : IUtf8JsonSerializable
+    public partial class CustomDnsSuffixConfigurationData : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
@@ -23,47 +25,37 @@ namespace Azure.ResourceManager.AppService.Models
             }
             writer.WritePropertyName("properties");
             writer.WriteStartObject();
-            if (Optional.IsDefined(Platform))
+            if (Optional.IsDefined(DnsSuffix))
             {
-                writer.WritePropertyName("platform");
-                writer.WriteObjectValue(Platform);
+                writer.WritePropertyName("dnsSuffix");
+                writer.WriteStringValue(DnsSuffix);
             }
-            if (Optional.IsDefined(GlobalValidation))
+            if (Optional.IsDefined(CertificateUri))
             {
-                writer.WritePropertyName("globalValidation");
-                writer.WriteObjectValue(GlobalValidation);
+                writer.WritePropertyName("certificateUrl");
+                writer.WriteStringValue(CertificateUri.AbsoluteUri);
             }
-            if (Optional.IsDefined(IdentityProviders))
+            if (Optional.IsDefined(KeyVaultReferenceIdentity))
             {
-                writer.WritePropertyName("identityProviders");
-                writer.WriteObjectValue(IdentityProviders);
-            }
-            if (Optional.IsDefined(Login))
-            {
-                writer.WritePropertyName("login");
-                writer.WriteObjectValue(Login);
-            }
-            if (Optional.IsDefined(HttpSettings))
-            {
-                writer.WritePropertyName("httpSettings");
-                writer.WriteObjectValue(HttpSettings);
+                writer.WritePropertyName("keyVaultReferenceIdentity");
+                writer.WriteStringValue(KeyVaultReferenceIdentity);
             }
             writer.WriteEndObject();
             writer.WriteEndObject();
         }
 
-        internal static SiteAuthSettingsV2 DeserializeSiteAuthSettingsV2(JsonElement element)
+        internal static CustomDnsSuffixConfigurationData DeserializeCustomDnsSuffixConfigurationData(JsonElement element)
         {
             Optional<string> kind = default;
             ResourceIdentifier id = default;
             string name = default;
             ResourceType type = default;
             Optional<SystemData> systemData = default;
-            Optional<AuthPlatform> platform = default;
-            Optional<GlobalValidation> globalValidation = default;
-            Optional<AppServiceIdentityProviders> identityProviders = default;
-            Optional<WebAppLoginInfo> login = default;
-            Optional<AppServiceHttpSettings> httpSettings = default;
+            Optional<CustomDnsSuffixProvisioningState> provisioningState = default;
+            Optional<string> provisioningDetails = default;
+            Optional<string> dnsSuffix = default;
+            Optional<Uri> certificateUrl = default;
+            Optional<string> keyVaultReferenceIdentity = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("kind"))
@@ -105,61 +97,46 @@ namespace Azure.ResourceManager.AppService.Models
                     }
                     foreach (var property0 in property.Value.EnumerateObject())
                     {
-                        if (property0.NameEquals("platform"))
+                        if (property0.NameEquals("provisioningState"))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
                                 property0.ThrowNonNullablePropertyIsNull();
                                 continue;
                             }
-                            platform = AuthPlatform.DeserializeAuthPlatform(property0.Value);
+                            provisioningState = property0.Value.GetString().ToCustomDnsSuffixProvisioningState();
                             continue;
                         }
-                        if (property0.NameEquals("globalValidation"))
+                        if (property0.NameEquals("provisioningDetails"))
                         {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                property0.ThrowNonNullablePropertyIsNull();
-                                continue;
-                            }
-                            globalValidation = GlobalValidation.DeserializeGlobalValidation(property0.Value);
+                            provisioningDetails = property0.Value.GetString();
                             continue;
                         }
-                        if (property0.NameEquals("identityProviders"))
+                        if (property0.NameEquals("dnsSuffix"))
                         {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                property0.ThrowNonNullablePropertyIsNull();
-                                continue;
-                            }
-                            identityProviders = AppServiceIdentityProviders.DeserializeAppServiceIdentityProviders(property0.Value);
+                            dnsSuffix = property0.Value.GetString();
                             continue;
                         }
-                        if (property0.NameEquals("login"))
+                        if (property0.NameEquals("certificateUrl"))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
-                                property0.ThrowNonNullablePropertyIsNull();
+                                certificateUrl = null;
                                 continue;
                             }
-                            login = WebAppLoginInfo.DeserializeWebAppLoginInfo(property0.Value);
+                            certificateUrl = new Uri(property0.Value.GetString());
                             continue;
                         }
-                        if (property0.NameEquals("httpSettings"))
+                        if (property0.NameEquals("keyVaultReferenceIdentity"))
                         {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                property0.ThrowNonNullablePropertyIsNull();
-                                continue;
-                            }
-                            httpSettings = AppServiceHttpSettings.DeserializeAppServiceHttpSettings(property0.Value);
+                            keyVaultReferenceIdentity = property0.Value.GetString();
                             continue;
                         }
                     }
                     continue;
                 }
             }
-            return new SiteAuthSettingsV2(id, name, type, systemData.Value, platform.Value, globalValidation.Value, identityProviders.Value, login.Value, httpSettings.Value, kind.Value);
+            return new CustomDnsSuffixConfigurationData(id, name, type, systemData.Value, Optional.ToNullable(provisioningState), provisioningDetails.Value, dnsSuffix.Value, certificateUrl.Value, keyVaultReferenceIdentity.Value, kind.Value);
         }
     }
 }

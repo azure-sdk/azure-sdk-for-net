@@ -8,101 +8,39 @@
 using System;
 using System.Text.Json;
 using Azure.Core;
-using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.AppService.Models
 {
-    public partial class CertificateOrderAction : IUtf8JsonSerializable
+    public partial class CertificateOrderAction
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
-        {
-            writer.WriteStartObject();
-            if (Optional.IsDefined(Kind))
-            {
-                writer.WritePropertyName("kind");
-                writer.WriteStringValue(Kind);
-            }
-            writer.WritePropertyName("properties");
-            writer.WriteStartObject();
-            writer.WriteEndObject();
-            writer.WriteEndObject();
-        }
-
         internal static CertificateOrderAction DeserializeCertificateOrderAction(JsonElement element)
         {
-            Optional<string> kind = default;
-            ResourceIdentifier id = default;
-            string name = default;
-            ResourceType type = default;
-            Optional<SystemData> systemData = default;
             Optional<CertificateOrderActionType> actionType = default;
             Optional<DateTimeOffset> createdAt = default;
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("kind"))
-                {
-                    kind = property.Value.GetString();
-                    continue;
-                }
-                if (property.NameEquals("id"))
-                {
-                    id = new ResourceIdentifier(property.Value.GetString());
-                    continue;
-                }
-                if (property.NameEquals("name"))
-                {
-                    name = property.Value.GetString();
-                    continue;
-                }
-                if (property.NameEquals("type"))
-                {
-                    type = new ResourceType(property.Value.GetString());
-                    continue;
-                }
-                if (property.NameEquals("systemData"))
+                if (property.NameEquals("actionType"))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
                         property.ThrowNonNullablePropertyIsNull();
                         continue;
                     }
-                    systemData = JsonSerializer.Deserialize<SystemData>(property.Value.GetRawText());
+                    actionType = property.Value.GetString().ToCertificateOrderActionType();
                     continue;
                 }
-                if (property.NameEquals("properties"))
+                if (property.NameEquals("createdAt"))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
                         property.ThrowNonNullablePropertyIsNull();
                         continue;
                     }
-                    foreach (var property0 in property.Value.EnumerateObject())
-                    {
-                        if (property0.NameEquals("actionType"))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                property0.ThrowNonNullablePropertyIsNull();
-                                continue;
-                            }
-                            actionType = property0.Value.GetString().ToCertificateOrderActionType();
-                            continue;
-                        }
-                        if (property0.NameEquals("createdAt"))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                property0.ThrowNonNullablePropertyIsNull();
-                                continue;
-                            }
-                            createdAt = property0.Value.GetDateTimeOffset("O");
-                            continue;
-                        }
-                    }
+                    createdAt = property.Value.GetDateTimeOffset("O");
                     continue;
                 }
             }
-            return new CertificateOrderAction(id, name, type, systemData.Value, Optional.ToNullable(actionType), Optional.ToNullable(createdAt), kind.Value);
+            return new CertificateOrderAction(Optional.ToNullable(actionType), Optional.ToNullable(createdAt));
         }
     }
 }

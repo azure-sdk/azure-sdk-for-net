@@ -66,9 +66,9 @@ namespace Azure.ResourceManager.AppService.Models
             string name = default;
             ResourceType type = default;
             Optional<SystemData> systemData = default;
-            Optional<IPAddress> serviceIPAddress = default;
-            Optional<IPAddress> internalIPAddress = default;
-            Optional<IList<IPAddress>> outboundIPAddresses = default;
+            Optional<System.Net.IPAddress> serviceIPAddress = default;
+            Optional<System.Net.IPAddress> internalIPAddress = default;
+            Optional<IList<System.Net.IPAddress>> outboundIPAddresses = default;
             Optional<IList<VirtualIPMapping>> vipMappings = default;
             foreach (var property in element.EnumerateObject())
             {
@@ -118,7 +118,7 @@ namespace Azure.ResourceManager.AppService.Models
                                 property0.ThrowNonNullablePropertyIsNull();
                                 continue;
                             }
-                            serviceIPAddress = IPAddress.Parse(property0.Value.GetString());
+                            serviceIPAddress = System.Net.IPAddress.Parse(property0.Value.GetString());
                             continue;
                         }
                         if (property0.NameEquals("internalIpAddress"))
@@ -128,7 +128,7 @@ namespace Azure.ResourceManager.AppService.Models
                                 property0.ThrowNonNullablePropertyIsNull();
                                 continue;
                             }
-                            internalIPAddress = IPAddress.Parse(property0.Value.GetString());
+                            internalIPAddress = System.Net.IPAddress.Parse(property0.Value.GetString());
                             continue;
                         }
                         if (property0.NameEquals("outboundIpAddresses"))
@@ -138,10 +138,10 @@ namespace Azure.ResourceManager.AppService.Models
                                 property0.ThrowNonNullablePropertyIsNull();
                                 continue;
                             }
-                            List<IPAddress> array = new List<IPAddress>();
+                            List<System.Net.IPAddress> array = new List<System.Net.IPAddress>();
                             foreach (var item in property0.Value.EnumerateArray())
                             {
-                                array.Add(IPAddress.Parse(item.GetString()));
+                                array.Add(System.Net.IPAddress.Parse(item.GetString()));
                             }
                             outboundIPAddresses = array;
                             continue;

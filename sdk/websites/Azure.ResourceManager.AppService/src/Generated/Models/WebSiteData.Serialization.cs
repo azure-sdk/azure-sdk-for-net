@@ -85,6 +85,21 @@ namespace Azure.ResourceManager.AppService
                 writer.WritePropertyName("hyperV");
                 writer.WriteBooleanValue(IsHyperV.Value);
             }
+            if (Optional.IsDefined(VnetRouteAllEnabled))
+            {
+                writer.WritePropertyName("vnetRouteAllEnabled");
+                writer.WriteBooleanValue(VnetRouteAllEnabled.Value);
+            }
+            if (Optional.IsDefined(VnetImagePullEnabled))
+            {
+                writer.WritePropertyName("vnetImagePullEnabled");
+                writer.WriteBooleanValue(VnetImagePullEnabled.Value);
+            }
+            if (Optional.IsDefined(VnetContentShareEnabled))
+            {
+                writer.WritePropertyName("vnetContentShareEnabled");
+                writer.WriteBooleanValue(VnetContentShareEnabled.Value);
+            }
             if (Optional.IsDefined(SiteConfig))
             {
                 writer.WritePropertyName("siteConfig");
@@ -169,6 +184,11 @@ namespace Azure.ResourceManager.AppService
                 writer.WritePropertyName("redundancyMode");
                 writer.WriteStringValue(RedundancyMode.Value.ToSerialString());
             }
+            if (Optional.IsDefined(PublicNetworkAccess))
+            {
+                writer.WritePropertyName("publicNetworkAccess");
+                writer.WriteStringValue(PublicNetworkAccess);
+            }
             if (Optional.IsDefined(IsStorageAccountRequired))
             {
                 writer.WritePropertyName("storageAccountRequired");
@@ -183,6 +203,11 @@ namespace Azure.ResourceManager.AppService
             {
                 writer.WritePropertyName("virtualNetworkSubnetId");
                 writer.WriteStringValue(VirtualNetworkSubnetId);
+            }
+            if (Optional.IsDefined(ManagedEnvironment))
+            {
+                writer.WritePropertyName("managedEnvironment");
+                writer.WriteStringValue(ManagedEnvironment);
             }
             writer.WriteEndObject();
             writer.WriteEndObject();
@@ -212,6 +237,9 @@ namespace Azure.ResourceManager.AppService
             Optional<bool> isXenon = default;
             Optional<bool> hyperV = default;
             Optional<DateTimeOffset> lastModifiedTimeUtc = default;
+            Optional<bool> vnetRouteAllEnabled = default;
+            Optional<bool> vnetImagePullEnabled = default;
+            Optional<bool> vnetContentShareEnabled = default;
             Optional<SiteConfigProperties> siteConfig = default;
             Optional<IReadOnlyList<string>> trafficManagerHostNames = default;
             Optional<bool> scmSiteAlsoStopped = default;
@@ -237,9 +265,11 @@ namespace Azure.ResourceManager.AppService
             Optional<bool> httpsOnly = default;
             Optional<RedundancyMode> redundancyMode = default;
             Optional<Guid?> inProgressOperationId = default;
+            Optional<string> publicNetworkAccess = default;
             Optional<bool> storageAccountRequired = default;
             Optional<string> keyVaultReferenceIdentity = default;
             Optional<ResourceIdentifier> virtualNetworkSubnetId = default;
+            Optional<string> managedEnvironment = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("identity"))
@@ -454,6 +484,36 @@ namespace Azure.ResourceManager.AppService
                                 continue;
                             }
                             lastModifiedTimeUtc = property0.Value.GetDateTimeOffset("O");
+                            continue;
+                        }
+                        if (property0.NameEquals("vnetRouteAllEnabled"))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            vnetRouteAllEnabled = property0.Value.GetBoolean();
+                            continue;
+                        }
+                        if (property0.NameEquals("vnetImagePullEnabled"))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            vnetImagePullEnabled = property0.Value.GetBoolean();
+                            continue;
+                        }
+                        if (property0.NameEquals("vnetContentShareEnabled"))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            vnetContentShareEnabled = property0.Value.GetBoolean();
                             continue;
                         }
                         if (property0.NameEquals("siteConfig"))
@@ -676,6 +736,11 @@ namespace Azure.ResourceManager.AppService
                             inProgressOperationId = property0.Value.GetGuid();
                             continue;
                         }
+                        if (property0.NameEquals("publicNetworkAccess"))
+                        {
+                            publicNetworkAccess = property0.Value.GetString();
+                            continue;
+                        }
                         if (property0.NameEquals("storageAccountRequired"))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -701,11 +766,16 @@ namespace Azure.ResourceManager.AppService
                             virtualNetworkSubnetId = new ResourceIdentifier(property0.Value.GetString());
                             continue;
                         }
+                        if (property0.NameEquals("managedEnvironment"))
+                        {
+                            managedEnvironment = property0.Value.GetString();
+                            continue;
+                        }
                     }
                     continue;
                 }
             }
-            return new WebSiteData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, identity, extendedLocation, state.Value, Optional.ToList(hostNames), repositorySiteName.Value, Optional.ToNullable(usageState), Optional.ToNullable(enabled), Optional.ToList(enabledHostNames), Optional.ToNullable(availabilityState), Optional.ToList(hostNameSslStates), serverFarmId.Value, Optional.ToNullable(reserved), Optional.ToNullable(isXenon), Optional.ToNullable(hyperV), Optional.ToNullable(lastModifiedTimeUtc), siteConfig.Value, Optional.ToList(trafficManagerHostNames), Optional.ToNullable(scmSiteAlsoStopped), targetSwapSlot.Value, hostingEnvironmentProfile.Value, Optional.ToNullable(clientAffinityEnabled), Optional.ToNullable(clientCertEnabled), Optional.ToNullable(clientCertMode), clientCertExclusionPaths.Value, Optional.ToNullable(hostNamesDisabled), customDomainVerificationId.Value, outboundIPAddresses.Value, possibleOutboundIPAddresses.Value, Optional.ToNullable(containerSize), Optional.ToNullable(dailyMemoryTimeQuota), Optional.ToNullable(suspendedTill), Optional.ToNullable(maxNumberOfWorkers), cloningInfo.Value, resourceGroup.Value, Optional.ToNullable(isDefaultContainer), defaultHostName.Value, slotSwapStatus.Value, Optional.ToNullable(httpsOnly), Optional.ToNullable(redundancyMode), Optional.ToNullable(inProgressOperationId), Optional.ToNullable(storageAccountRequired), keyVaultReferenceIdentity.Value, virtualNetworkSubnetId.Value, kind.Value);
+            return new WebSiteData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, identity, extendedLocation, state.Value, Optional.ToList(hostNames), repositorySiteName.Value, Optional.ToNullable(usageState), Optional.ToNullable(enabled), Optional.ToList(enabledHostNames), Optional.ToNullable(availabilityState), Optional.ToList(hostNameSslStates), serverFarmId.Value, Optional.ToNullable(reserved), Optional.ToNullable(isXenon), Optional.ToNullable(hyperV), Optional.ToNullable(lastModifiedTimeUtc), Optional.ToNullable(vnetRouteAllEnabled), Optional.ToNullable(vnetImagePullEnabled), Optional.ToNullable(vnetContentShareEnabled), siteConfig.Value, Optional.ToList(trafficManagerHostNames), Optional.ToNullable(scmSiteAlsoStopped), targetSwapSlot.Value, hostingEnvironmentProfile.Value, Optional.ToNullable(clientAffinityEnabled), Optional.ToNullable(clientCertEnabled), Optional.ToNullable(clientCertMode), clientCertExclusionPaths.Value, Optional.ToNullable(hostNamesDisabled), customDomainVerificationId.Value, outboundIPAddresses.Value, possibleOutboundIPAddresses.Value, Optional.ToNullable(containerSize), Optional.ToNullable(dailyMemoryTimeQuota), Optional.ToNullable(suspendedTill), Optional.ToNullable(maxNumberOfWorkers), cloningInfo.Value, resourceGroup.Value, Optional.ToNullable(isDefaultContainer), defaultHostName.Value, slotSwapStatus.Value, Optional.ToNullable(httpsOnly), Optional.ToNullable(redundancyMode), Optional.ToNullable(inProgressOperationId), publicNetworkAccess.Value, Optional.ToNullable(storageAccountRequired), keyVaultReferenceIdentity.Value, virtualNetworkSubnetId.Value, managedEnvironment.Value, kind.Value);
         }
     }
 }
