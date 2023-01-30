@@ -12,12 +12,12 @@ using Azure.ResourceManager.ServiceLinker;
 
 namespace Azure.ResourceManager.ServiceLinker.Models
 {
-    internal partial class LinkerList
+    internal partial class DryrunList
     {
-        internal static LinkerList DeserializeLinkerList(JsonElement element)
+        internal static DryrunList DeserializeDryrunList(JsonElement element)
         {
             Optional<string> nextLink = default;
-            Optional<IReadOnlyList<LinkerResourceData>> value = default;
+            Optional<IReadOnlyList<DryrunResourceData>> value = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("nextLink"))
@@ -37,16 +37,16 @@ namespace Azure.ResourceManager.ServiceLinker.Models
                         property.ThrowNonNullablePropertyIsNull();
                         continue;
                     }
-                    List<LinkerResourceData> array = new List<LinkerResourceData>();
+                    List<DryrunResourceData> array = new List<DryrunResourceData>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(LinkerResourceData.DeserializeLinkerResourceData(item));
+                        array.Add(DryrunResourceData.DeserializeDryrunResourceData(item));
                     }
                     value = array;
                     continue;
                 }
             }
-            return new LinkerList(nextLink.Value, Optional.ToList(value));
+            return new DryrunList(nextLink.Value, Optional.ToList(value));
         }
     }
 }

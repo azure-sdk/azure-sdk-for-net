@@ -5,6 +5,7 @@
 
 #nullable disable
 
+using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
 
@@ -25,6 +26,33 @@ namespace Azure.ResourceManager.ServiceLinker.Models
                 writer.WritePropertyName("subscriptionId");
                 writer.WriteStringValue(SubscriptionId);
             }
+            if (Optional.IsDefined(DeleteOrUpdateBehavior))
+            {
+                writer.WritePropertyName("deleteOrUpdateBehavior");
+                writer.WriteStringValue(DeleteOrUpdateBehavior.Value.ToString());
+            }
+            if (Optional.IsCollectionDefined(Roles))
+            {
+                writer.WritePropertyName("roles");
+                writer.WriteStartArray();
+                foreach (var item in Roles)
+                {
+                    writer.WriteStringValue(item);
+                }
+                writer.WriteEndArray();
+            }
+            if (Optional.IsDefined(UserName))
+            {
+                if (UserName != null)
+                {
+                    writer.WritePropertyName("userName");
+                    writer.WriteStringValue(UserName);
+                }
+                else
+                {
+                    writer.WriteNull("userName");
+                }
+            }
             writer.WritePropertyName("authType");
             writer.WriteStringValue(AuthType.ToString());
             writer.WriteEndObject();
@@ -34,6 +62,9 @@ namespace Azure.ResourceManager.ServiceLinker.Models
         {
             Optional<string> clientId = default;
             Optional<string> subscriptionId = default;
+            Optional<DeleteOrUpdateBehavior> deleteOrUpdateBehavior = default;
+            Optional<IList<string>> roles = default;
+            Optional<string> userName = default;
             LinkerAuthType authType = default;
             foreach (var property in element.EnumerateObject())
             {
@@ -47,13 +78,48 @@ namespace Azure.ResourceManager.ServiceLinker.Models
                     subscriptionId = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("deleteOrUpdateBehavior"))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        property.ThrowNonNullablePropertyIsNull();
+                        continue;
+                    }
+                    deleteOrUpdateBehavior = new DeleteOrUpdateBehavior(property.Value.GetString());
+                    continue;
+                }
+                if (property.NameEquals("roles"))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        property.ThrowNonNullablePropertyIsNull();
+                        continue;
+                    }
+                    List<string> array = new List<string>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(item.GetString());
+                    }
+                    roles = array;
+                    continue;
+                }
+                if (property.NameEquals("userName"))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        userName = null;
+                        continue;
+                    }
+                    userName = property.Value.GetString();
+                    continue;
+                }
                 if (property.NameEquals("authType"))
                 {
                     authType = new LinkerAuthType(property.Value.GetString());
                     continue;
                 }
             }
-            return new UserAssignedIdentityAuthInfo(authType, clientId.Value, subscriptionId.Value);
+            return new UserAssignedIdentityAuthInfo(authType, clientId.Value, subscriptionId.Value, Optional.ToNullable(deleteOrUpdateBehavior), Optional.ToList(roles), userName.Value);
         }
     }
 }
