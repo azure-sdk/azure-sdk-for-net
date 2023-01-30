@@ -19,6 +19,9 @@ namespace Azure.ResourceManager.ExtendedLocations.Models
         {
             Tags = new ChangeTrackingDictionary<string, string>();
             ClusterExtensionIds = new ChangeTrackingList<ResourceIdentifier>();
+            ExcludedFolderIds = new ChangeTrackingList<string>();
+            ExcludedProjectNumbers = new ChangeTrackingList<string>();
+            ExcludedAccounts = new ChangeTrackingList<string>();
         }
 
         /// <summary> Identity for the resource. Current supported identity types: SystemAssigned, None. </summary>
@@ -39,5 +42,19 @@ namespace Azure.ResourceManager.ExtendedLocations.Models
         public string Namespace { get; set; }
         /// <summary> Provisioning State for the Custom Location. </summary>
         public string ProvisioningState { get; set; }
+        /// <summary> Project id for the GCP single account. </summary>
+        public string ProjectId { get; set; }
+        /// <summary> Project number for GCP single account. </summary>
+        public string ProjectNumber { get; set; }
+        /// <summary> List of folder id&apos;s that needs to be excluded. </summary>
+        public IList<string> ExcludedFolderIds { get; }
+        /// <summary> List of project numbers that needs to be excluded. </summary>
+        public IList<string> ExcludedProjectNumbers { get; }
+        /// <summary> Organization id for the GCP organization. </summary>
+        public string OrganizationId { get; set; }
+        /// <summary> Account id for the AWS account. </summary>
+        public string AccountId { get; set; }
+        /// <summary> List of AWS accounts which needs to be excluded. </summary>
+        public IList<string> ExcludedAccounts { get; }
     }
 }

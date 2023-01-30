@@ -73,6 +73,68 @@ namespace Azure.ResourceManager.ExtendedLocations.Models
                 writer.WritePropertyName("provisioningState");
                 writer.WriteStringValue(ProvisioningState);
             }
+            writer.WritePropertyName("gcpCloudProfile");
+            writer.WriteStartObject();
+            writer.WritePropertyName("singleProject");
+            writer.WriteStartObject();
+            if (Optional.IsDefined(ProjectId))
+            {
+                writer.WritePropertyName("projectId");
+                writer.WriteStringValue(ProjectId);
+            }
+            if (Optional.IsDefined(ProjectNumber))
+            {
+                writer.WritePropertyName("projectNumber");
+                writer.WriteStringValue(ProjectNumber);
+            }
+            writer.WriteEndObject();
+            writer.WritePropertyName("organizationProject");
+            writer.WriteStartObject();
+            if (Optional.IsCollectionDefined(ExcludedFolderIds))
+            {
+                writer.WritePropertyName("excludedFolderIds");
+                writer.WriteStartArray();
+                foreach (var item in ExcludedFolderIds)
+                {
+                    writer.WriteStringValue(item);
+                }
+                writer.WriteEndArray();
+            }
+            if (Optional.IsCollectionDefined(ExcludedProjectNumbers))
+            {
+                writer.WritePropertyName("excludedProjectNumbers");
+                writer.WriteStartArray();
+                foreach (var item in ExcludedProjectNumbers)
+                {
+                    writer.WriteStringValue(item);
+                }
+                writer.WriteEndArray();
+            }
+            if (Optional.IsDefined(OrganizationId))
+            {
+                writer.WritePropertyName("organizationId");
+                writer.WriteStringValue(OrganizationId);
+            }
+            writer.WriteEndObject();
+            writer.WriteEndObject();
+            writer.WritePropertyName("awsCloudProfile");
+            writer.WriteStartObject();
+            if (Optional.IsDefined(AccountId))
+            {
+                writer.WritePropertyName("accountId");
+                writer.WriteStringValue(AccountId);
+            }
+            if (Optional.IsCollectionDefined(ExcludedAccounts))
+            {
+                writer.WritePropertyName("excludedAccounts");
+                writer.WriteStartArray();
+                foreach (var item in ExcludedAccounts)
+                {
+                    writer.WriteStringValue(item);
+                }
+                writer.WriteEndArray();
+            }
+            writer.WriteEndObject();
             writer.WriteEndObject();
             writer.WriteEndObject();
         }

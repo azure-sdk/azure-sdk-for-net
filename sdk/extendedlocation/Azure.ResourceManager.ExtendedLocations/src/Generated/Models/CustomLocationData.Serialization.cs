@@ -78,6 +78,68 @@ namespace Azure.ResourceManager.ExtendedLocations
                 writer.WritePropertyName("provisioningState");
                 writer.WriteStringValue(ProvisioningState);
             }
+            writer.WritePropertyName("gcpCloudProfile");
+            writer.WriteStartObject();
+            writer.WritePropertyName("singleProject");
+            writer.WriteStartObject();
+            if (Optional.IsDefined(ProjectId))
+            {
+                writer.WritePropertyName("projectId");
+                writer.WriteStringValue(ProjectId);
+            }
+            if (Optional.IsDefined(ProjectNumber))
+            {
+                writer.WritePropertyName("projectNumber");
+                writer.WriteStringValue(ProjectNumber);
+            }
+            writer.WriteEndObject();
+            writer.WritePropertyName("organizationProject");
+            writer.WriteStartObject();
+            if (Optional.IsCollectionDefined(ExcludedFolderIds))
+            {
+                writer.WritePropertyName("excludedFolderIds");
+                writer.WriteStartArray();
+                foreach (var item in ExcludedFolderIds)
+                {
+                    writer.WriteStringValue(item);
+                }
+                writer.WriteEndArray();
+            }
+            if (Optional.IsCollectionDefined(ExcludedProjectNumbers))
+            {
+                writer.WritePropertyName("excludedProjectNumbers");
+                writer.WriteStartArray();
+                foreach (var item in ExcludedProjectNumbers)
+                {
+                    writer.WriteStringValue(item);
+                }
+                writer.WriteEndArray();
+            }
+            if (Optional.IsDefined(OrganizationId))
+            {
+                writer.WritePropertyName("organizationId");
+                writer.WriteStringValue(OrganizationId);
+            }
+            writer.WriteEndObject();
+            writer.WriteEndObject();
+            writer.WritePropertyName("awsCloudProfile");
+            writer.WriteStartObject();
+            if (Optional.IsDefined(AccountId))
+            {
+                writer.WritePropertyName("accountId");
+                writer.WriteStringValue(AccountId);
+            }
+            if (Optional.IsCollectionDefined(ExcludedAccounts))
+            {
+                writer.WritePropertyName("excludedAccounts");
+                writer.WriteStartArray();
+                foreach (var item in ExcludedAccounts)
+                {
+                    writer.WriteStringValue(item);
+                }
+                writer.WriteEndArray();
+            }
+            writer.WriteEndObject();
             writer.WriteEndObject();
             writer.WriteEndObject();
         }
@@ -98,6 +160,13 @@ namespace Azure.ResourceManager.ExtendedLocations
             Optional<CustomLocationHostType> hostType = default;
             Optional<string> @namespace = default;
             Optional<string> provisioningState = default;
+            Optional<string> projectId = default;
+            Optional<string> projectNumber = default;
+            Optional<IList<string>> excludedFolderIds = default;
+            Optional<IList<string>> excludedProjectNumbers = default;
+            Optional<string> organizationId = default;
+            Optional<string> accountId = default;
+            Optional<IList<string>> excludedAccounts = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("identity"))
@@ -224,11 +293,124 @@ namespace Azure.ResourceManager.ExtendedLocations
                             provisioningState = property0.Value.GetString();
                             continue;
                         }
+                        if (property0.NameEquals("gcpCloudProfile"))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            foreach (var property1 in property0.Value.EnumerateObject())
+                            {
+                                if (property1.NameEquals("singleProject"))
+                                {
+                                    if (property1.Value.ValueKind == JsonValueKind.Null)
+                                    {
+                                        property1.ThrowNonNullablePropertyIsNull();
+                                        continue;
+                                    }
+                                    foreach (var property2 in property1.Value.EnumerateObject())
+                                    {
+                                        if (property2.NameEquals("projectId"))
+                                        {
+                                            projectId = property2.Value.GetString();
+                                            continue;
+                                        }
+                                        if (property2.NameEquals("projectNumber"))
+                                        {
+                                            projectNumber = property2.Value.GetString();
+                                            continue;
+                                        }
+                                    }
+                                    continue;
+                                }
+                                if (property1.NameEquals("organizationProject"))
+                                {
+                                    if (property1.Value.ValueKind == JsonValueKind.Null)
+                                    {
+                                        property1.ThrowNonNullablePropertyIsNull();
+                                        continue;
+                                    }
+                                    foreach (var property2 in property1.Value.EnumerateObject())
+                                    {
+                                        if (property2.NameEquals("excludedFolderIds"))
+                                        {
+                                            if (property2.Value.ValueKind == JsonValueKind.Null)
+                                            {
+                                                property2.ThrowNonNullablePropertyIsNull();
+                                                continue;
+                                            }
+                                            List<string> array = new List<string>();
+                                            foreach (var item in property2.Value.EnumerateArray())
+                                            {
+                                                array.Add(item.GetString());
+                                            }
+                                            excludedFolderIds = array;
+                                            continue;
+                                        }
+                                        if (property2.NameEquals("excludedProjectNumbers"))
+                                        {
+                                            if (property2.Value.ValueKind == JsonValueKind.Null)
+                                            {
+                                                property2.ThrowNonNullablePropertyIsNull();
+                                                continue;
+                                            }
+                                            List<string> array = new List<string>();
+                                            foreach (var item in property2.Value.EnumerateArray())
+                                            {
+                                                array.Add(item.GetString());
+                                            }
+                                            excludedProjectNumbers = array;
+                                            continue;
+                                        }
+                                        if (property2.NameEquals("organizationId"))
+                                        {
+                                            organizationId = property2.Value.GetString();
+                                            continue;
+                                        }
+                                    }
+                                    continue;
+                                }
+                            }
+                            continue;
+                        }
+                        if (property0.NameEquals("awsCloudProfile"))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            foreach (var property1 in property0.Value.EnumerateObject())
+                            {
+                                if (property1.NameEquals("accountId"))
+                                {
+                                    accountId = property1.Value.GetString();
+                                    continue;
+                                }
+                                if (property1.NameEquals("excludedAccounts"))
+                                {
+                                    if (property1.Value.ValueKind == JsonValueKind.Null)
+                                    {
+                                        property1.ThrowNonNullablePropertyIsNull();
+                                        continue;
+                                    }
+                                    List<string> array = new List<string>();
+                                    foreach (var item in property1.Value.EnumerateArray())
+                                    {
+                                        array.Add(item.GetString());
+                                    }
+                                    excludedAccounts = array;
+                                    continue;
+                                }
+                            }
+                            continue;
+                        }
                     }
                     continue;
                 }
             }
-            return new CustomLocationData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, identity, authentication.Value, Optional.ToList(clusterExtensionIds), displayName.Value, hostResourceId.Value, Optional.ToNullable(hostType), @namespace.Value, provisioningState.Value);
+            return new CustomLocationData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, identity, authentication.Value, Optional.ToList(clusterExtensionIds), displayName.Value, hostResourceId.Value, Optional.ToNullable(hostType), @namespace.Value, provisioningState.Value, projectId.Value, projectNumber.Value, Optional.ToList(excludedFolderIds), Optional.ToList(excludedProjectNumbers), organizationId.Value, accountId.Value, Optional.ToList(excludedAccounts));
         }
     }
 }

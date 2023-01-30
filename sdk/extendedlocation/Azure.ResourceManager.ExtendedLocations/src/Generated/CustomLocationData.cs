@@ -20,6 +20,9 @@ namespace Azure.ResourceManager.ExtendedLocations
         public CustomLocationData(AzureLocation location) : base(location)
         {
             ClusterExtensionIds = new ChangeTrackingList<ResourceIdentifier>();
+            ExcludedFolderIds = new ChangeTrackingList<string>();
+            ExcludedProjectNumbers = new ChangeTrackingList<string>();
+            ExcludedAccounts = new ChangeTrackingList<string>();
         }
 
         /// <summary> Initializes a new instance of CustomLocationData. </summary>
@@ -37,7 +40,14 @@ namespace Azure.ResourceManager.ExtendedLocations
         /// <param name="hostType"> Type of host the Custom Locations is referencing (Kubernetes, etc...). </param>
         /// <param name="namespace"> Kubernetes namespace that will be created on the specified cluster. </param>
         /// <param name="provisioningState"> Provisioning State for the Custom Location. </param>
-        internal CustomLocationData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ManagedServiceIdentity identity, CustomLocationAuthentication authentication, IList<ResourceIdentifier> clusterExtensionIds, string displayName, ResourceIdentifier hostResourceId, CustomLocationHostType? hostType, string @namespace, string provisioningState) : base(id, name, resourceType, systemData, tags, location)
+        /// <param name="projectId"> Project id for the GCP single account. </param>
+        /// <param name="projectNumber"> Project number for GCP single account. </param>
+        /// <param name="excludedFolderIds"> List of folder id&apos;s that needs to be excluded. </param>
+        /// <param name="excludedProjectNumbers"> List of project numbers that needs to be excluded. </param>
+        /// <param name="organizationId"> Organization id for the GCP organization. </param>
+        /// <param name="accountId"> Account id for the AWS account. </param>
+        /// <param name="excludedAccounts"> List of AWS accounts which needs to be excluded. </param>
+        internal CustomLocationData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ManagedServiceIdentity identity, CustomLocationAuthentication authentication, IList<ResourceIdentifier> clusterExtensionIds, string displayName, ResourceIdentifier hostResourceId, CustomLocationHostType? hostType, string @namespace, string provisioningState, string projectId, string projectNumber, IList<string> excludedFolderIds, IList<string> excludedProjectNumbers, string organizationId, string accountId, IList<string> excludedAccounts) : base(id, name, resourceType, systemData, tags, location)
         {
             Identity = identity;
             Authentication = authentication;
@@ -47,6 +57,13 @@ namespace Azure.ResourceManager.ExtendedLocations
             HostType = hostType;
             Namespace = @namespace;
             ProvisioningState = provisioningState;
+            ProjectId = projectId;
+            ProjectNumber = projectNumber;
+            ExcludedFolderIds = excludedFolderIds;
+            ExcludedProjectNumbers = excludedProjectNumbers;
+            OrganizationId = organizationId;
+            AccountId = accountId;
+            ExcludedAccounts = excludedAccounts;
         }
 
         /// <summary> Identity for the resource. Current supported identity types: SystemAssigned, None. </summary>
@@ -65,5 +82,19 @@ namespace Azure.ResourceManager.ExtendedLocations
         public string Namespace { get; set; }
         /// <summary> Provisioning State for the Custom Location. </summary>
         public string ProvisioningState { get; set; }
+        /// <summary> Project id for the GCP single account. </summary>
+        public string ProjectId { get; set; }
+        /// <summary> Project number for GCP single account. </summary>
+        public string ProjectNumber { get; set; }
+        /// <summary> List of folder id&apos;s that needs to be excluded. </summary>
+        public IList<string> ExcludedFolderIds { get; }
+        /// <summary> List of project numbers that needs to be excluded. </summary>
+        public IList<string> ExcludedProjectNumbers { get; }
+        /// <summary> Organization id for the GCP organization. </summary>
+        public string OrganizationId { get; set; }
+        /// <summary> Account id for the AWS account. </summary>
+        public string AccountId { get; set; }
+        /// <summary> List of AWS accounts which needs to be excluded. </summary>
+        public IList<string> ExcludedAccounts { get; }
     }
 }

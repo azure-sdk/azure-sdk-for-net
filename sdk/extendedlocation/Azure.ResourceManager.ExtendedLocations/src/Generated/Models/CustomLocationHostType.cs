@@ -23,9 +23,15 @@ namespace Azure.ResourceManager.ExtendedLocations.Models
         }
 
         private const string KubernetesValue = "Kubernetes";
+        private const string AWSValue = "AWS";
+        private const string GCPValue = "GCP";
 
         /// <summary> Kubernetes. </summary>
         public static CustomLocationHostType Kubernetes { get; } = new CustomLocationHostType(KubernetesValue);
+        /// <summary> AWS. </summary>
+        public static CustomLocationHostType AWS { get; } = new CustomLocationHostType(AWSValue);
+        /// <summary> GCP. </summary>
+        public static CustomLocationHostType GCP { get; } = new CustomLocationHostType(GCPValue);
         /// <summary> Determines if two <see cref="CustomLocationHostType"/> values are the same. </summary>
         public static bool operator ==(CustomLocationHostType left, CustomLocationHostType right) => left.Equals(right);
         /// <summary> Determines if two <see cref="CustomLocationHostType"/> values are not the same. </summary>
