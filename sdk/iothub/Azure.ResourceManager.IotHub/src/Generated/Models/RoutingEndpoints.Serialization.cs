@@ -56,6 +56,16 @@ namespace Azure.ResourceManager.IotHub.Models
                 }
                 writer.WriteEndArray();
             }
+            if (Optional.IsCollectionDefined(CosmosDBSqlContainers))
+            {
+                writer.WritePropertyName("cosmosDBSqlContainers");
+                writer.WriteStartArray();
+                foreach (var item in CosmosDBSqlContainers)
+                {
+                    writer.WriteObjectValue(item);
+                }
+                writer.WriteEndArray();
+            }
             writer.WriteEndObject();
         }
 
@@ -65,6 +75,7 @@ namespace Azure.ResourceManager.IotHub.Models
             Optional<IList<RoutingServiceBusTopicEndpointProperties>> serviceBusTopics = default;
             Optional<IList<RoutingEventHubProperties>> eventHubs = default;
             Optional<IList<RoutingStorageContainerProperties>> storageContainers = default;
+            Optional<IList<RoutingCosmosDBSqlApiProperties>> cosmosDBSqlContainers = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("serviceBusQueues"))
@@ -127,8 +138,23 @@ namespace Azure.ResourceManager.IotHub.Models
                     storageContainers = array;
                     continue;
                 }
+                if (property.NameEquals("cosmosDBSqlContainers"))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        property.ThrowNonNullablePropertyIsNull();
+                        continue;
+                    }
+                    List<RoutingCosmosDBSqlApiProperties> array = new List<RoutingCosmosDBSqlApiProperties>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(RoutingCosmosDBSqlApiProperties.DeserializeRoutingCosmosDBSqlApiProperties(item));
+                    }
+                    cosmosDBSqlContainers = array;
+                    continue;
+                }
             }
-            return new RoutingEndpoints(Optional.ToList(serviceBusQueues), Optional.ToList(serviceBusTopics), Optional.ToList(eventHubs), Optional.ToList(storageContainers));
+            return new RoutingEndpoints(Optional.ToList(serviceBusQueues), Optional.ToList(serviceBusTopics), Optional.ToList(eventHubs), Optional.ToList(storageContainers), Optional.ToList(cosmosDBSqlContainers));
         }
     }
 }
