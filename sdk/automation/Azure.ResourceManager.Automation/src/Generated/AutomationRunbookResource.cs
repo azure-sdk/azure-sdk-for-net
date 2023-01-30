@@ -375,7 +375,7 @@ namespace Azure.ResourceManager.Automation
         /// </list>
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
-        /// <param name="runbookContent"> The runbook draft content. </param>
+        /// <param name="runbookContent"> The runbook draft content. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="runbookContent"/> is null. </exception>
         public virtual async Task<ArmOperation> ReplaceContentRunbookDraftAsync(WaitUntil waitUntil, Stream runbookContent, CancellationToken cancellationToken = default)
@@ -387,7 +387,7 @@ namespace Azure.ResourceManager.Automation
             try
             {
                 var response = await _runbookDraftRestClient.ReplaceContentAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, runbookContent, cancellationToken).ConfigureAwait(false);
-                var operation = new AutomationArmOperation(_runbookDraftClientDiagnostics, Pipeline, _runbookDraftRestClient.CreateReplaceContentRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, runbookContent).Request, response, OperationFinalStateVia.Location);
+                var operation = new AutomationArmOperation(_runbookDraftClientDiagnostics, Pipeline, _runbookDraftRestClient.CreateReplaceContentRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, runbookContent).Request, response, OperationFinalStateVia.AzureAsyncOperation);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -413,7 +413,7 @@ namespace Azure.ResourceManager.Automation
         /// </list>
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
-        /// <param name="runbookContent"> The runbook draft content. </param>
+        /// <param name="runbookContent"> The runbook draft content. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="runbookContent"/> is null. </exception>
         public virtual ArmOperation ReplaceContentRunbookDraft(WaitUntil waitUntil, Stream runbookContent, CancellationToken cancellationToken = default)
@@ -425,7 +425,7 @@ namespace Azure.ResourceManager.Automation
             try
             {
                 var response = _runbookDraftRestClient.ReplaceContent(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, runbookContent, cancellationToken);
-                var operation = new AutomationArmOperation(_runbookDraftClientDiagnostics, Pipeline, _runbookDraftRestClient.CreateReplaceContentRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, runbookContent).Request, response, OperationFinalStateVia.Location);
+                var operation = new AutomationArmOperation(_runbookDraftClientDiagnostics, Pipeline, _runbookDraftRestClient.CreateReplaceContentRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, runbookContent).Request, response, OperationFinalStateVia.AzureAsyncOperation);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletionResponse(cancellationToken);
                 return operation;

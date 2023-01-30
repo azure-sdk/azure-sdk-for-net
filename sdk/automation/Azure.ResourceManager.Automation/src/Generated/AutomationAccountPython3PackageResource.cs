@@ -19,53 +19,53 @@ using Azure.ResourceManager.Automation.Models;
 namespace Azure.ResourceManager.Automation
 {
     /// <summary>
-    /// A Class representing an AutomationAccountPython2Package along with the instance operations that can be performed on it.
-    /// If you have a <see cref="ResourceIdentifier" /> you can construct an <see cref="AutomationAccountPython2PackageResource" />
-    /// from an instance of <see cref="ArmClient" /> using the GetAutomationAccountPython2PackageResource method.
-    /// Otherwise you can get one from its parent resource <see cref="AutomationAccountResource" /> using the GetAutomationAccountPython2Package method.
+    /// A Class representing an AutomationAccountPython3Package along with the instance operations that can be performed on it.
+    /// If you have a <see cref="ResourceIdentifier" /> you can construct an <see cref="AutomationAccountPython3PackageResource" />
+    /// from an instance of <see cref="ArmClient" /> using the GetAutomationAccountPython3PackageResource method.
+    /// Otherwise you can get one from its parent resource <see cref="AutomationAccountResource" /> using the GetAutomationAccountPython3Package method.
     /// </summary>
-    public partial class AutomationAccountPython2PackageResource : ArmResource
+    public partial class AutomationAccountPython3PackageResource : ArmResource
     {
-        /// <summary> Generate the resource identifier of a <see cref="AutomationAccountPython2PackageResource"/> instance. </summary>
+        /// <summary> Generate the resource identifier of a <see cref="AutomationAccountPython3PackageResource"/> instance. </summary>
         public static ResourceIdentifier CreateResourceIdentifier(string subscriptionId, string resourceGroupName, string automationAccountName, string packageName)
         {
-            var resourceId = $"/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/python2Packages/{packageName}";
+            var resourceId = $"/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/python3Packages/{packageName}";
             return new ResourceIdentifier(resourceId);
         }
 
-        private readonly ClientDiagnostics _automationAccountPython2PackagePython2PackageClientDiagnostics;
-        private readonly Python2PackageRestOperations _automationAccountPython2PackagePython2PackageRestClient;
+        private readonly ClientDiagnostics _automationAccountPython3PackagePython3PackageClientDiagnostics;
+        private readonly Python3PackageRestOperations _automationAccountPython3PackagePython3PackageRestClient;
         private readonly AutomationModuleData _data;
 
-        /// <summary> Initializes a new instance of the <see cref="AutomationAccountPython2PackageResource"/> class for mocking. </summary>
-        protected AutomationAccountPython2PackageResource()
+        /// <summary> Initializes a new instance of the <see cref="AutomationAccountPython3PackageResource"/> class for mocking. </summary>
+        protected AutomationAccountPython3PackageResource()
         {
         }
 
-        /// <summary> Initializes a new instance of the <see cref = "AutomationAccountPython2PackageResource"/> class. </summary>
+        /// <summary> Initializes a new instance of the <see cref = "AutomationAccountPython3PackageResource"/> class. </summary>
         /// <param name="client"> The client parameters to use in these operations. </param>
         /// <param name="data"> The resource that is the target of operations. </param>
-        internal AutomationAccountPython2PackageResource(ArmClient client, AutomationModuleData data) : this(client, data.Id)
+        internal AutomationAccountPython3PackageResource(ArmClient client, AutomationModuleData data) : this(client, data.Id)
         {
             HasData = true;
             _data = data;
         }
 
-        /// <summary> Initializes a new instance of the <see cref="AutomationAccountPython2PackageResource"/> class. </summary>
+        /// <summary> Initializes a new instance of the <see cref="AutomationAccountPython3PackageResource"/> class. </summary>
         /// <param name="client"> The client parameters to use in these operations. </param>
         /// <param name="id"> The identifier of the resource that is the target of operations. </param>
-        internal AutomationAccountPython2PackageResource(ArmClient client, ResourceIdentifier id) : base(client, id)
+        internal AutomationAccountPython3PackageResource(ArmClient client, ResourceIdentifier id) : base(client, id)
         {
-            _automationAccountPython2PackagePython2PackageClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Automation", ResourceType.Namespace, Diagnostics);
-            TryGetApiVersion(ResourceType, out string automationAccountPython2PackagePython2PackageApiVersion);
-            _automationAccountPython2PackagePython2PackageRestClient = new Python2PackageRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, automationAccountPython2PackagePython2PackageApiVersion);
+            _automationAccountPython3PackagePython3PackageClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Automation", ResourceType.Namespace, Diagnostics);
+            TryGetApiVersion(ResourceType, out string automationAccountPython3PackagePython3PackageApiVersion);
+            _automationAccountPython3PackagePython3PackageRestClient = new Python3PackageRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, automationAccountPython3PackagePython3PackageApiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
         }
 
         /// <summary> Gets the resource type for the operations. </summary>
-        public static readonly ResourceType ResourceType = "Microsoft.Automation/automationAccounts/python2Packages";
+        public static readonly ResourceType ResourceType = "Microsoft.Automation/automationAccounts/python3Packages";
 
         /// <summary> Gets whether or not the current instance has data. </summary>
         public virtual bool HasData { get; }
@@ -89,29 +89,29 @@ namespace Azure.ResourceManager.Automation
         }
 
         /// <summary>
-        /// Retrieve the python 2 package identified by package name.
+        /// Retrieve the python 3 package identified by package name.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/python2Packages/{packageName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/python3Packages/{packageName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Python2Package_Get</description>
+        /// <description>Python3Package_Get</description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual async Task<Response<AutomationAccountPython2PackageResource>> GetAsync(CancellationToken cancellationToken = default)
+        public virtual async Task<Response<AutomationAccountPython3PackageResource>> GetAsync(CancellationToken cancellationToken = default)
         {
-            using var scope = _automationAccountPython2PackagePython2PackageClientDiagnostics.CreateScope("AutomationAccountPython2PackageResource.Get");
+            using var scope = _automationAccountPython3PackagePython3PackageClientDiagnostics.CreateScope("AutomationAccountPython3PackageResource.Get");
             scope.Start();
             try
             {
-                var response = await _automationAccountPython2PackagePython2PackageRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
+                var response = await _automationAccountPython3PackagePython3PackageRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
-                return Response.FromValue(new AutomationAccountPython2PackageResource(Client, response.Value), response.GetRawResponse());
+                return Response.FromValue(new AutomationAccountPython3PackageResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -121,29 +121,29 @@ namespace Azure.ResourceManager.Automation
         }
 
         /// <summary>
-        /// Retrieve the python 2 package identified by package name.
+        /// Retrieve the python 3 package identified by package name.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/python2Packages/{packageName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/python3Packages/{packageName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Python2Package_Get</description>
+        /// <description>Python3Package_Get</description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual Response<AutomationAccountPython2PackageResource> Get(CancellationToken cancellationToken = default)
+        public virtual Response<AutomationAccountPython3PackageResource> Get(CancellationToken cancellationToken = default)
         {
-            using var scope = _automationAccountPython2PackagePython2PackageClientDiagnostics.CreateScope("AutomationAccountPython2PackageResource.Get");
+            using var scope = _automationAccountPython3PackagePython3PackageClientDiagnostics.CreateScope("AutomationAccountPython3PackageResource.Get");
             scope.Start();
             try
             {
-                var response = _automationAccountPython2PackagePython2PackageRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken);
+                var response = _automationAccountPython3PackagePython3PackageRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
-                return Response.FromValue(new AutomationAccountPython2PackageResource(Client, response.Value), response.GetRawResponse());
+                return Response.FromValue(new AutomationAccountPython3PackageResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -153,15 +153,15 @@ namespace Azure.ResourceManager.Automation
         }
 
         /// <summary>
-        /// Delete the python 2 package by name.
+        /// Delete the python 3 package by name.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/python2Packages/{packageName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/python3Packages/{packageName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Python2Package_Delete</description>
+        /// <description>Python3Package_Delete</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -169,11 +169,11 @@ namespace Azure.ResourceManager.Automation
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual async Task<ArmOperation> DeleteAsync(WaitUntil waitUntil, CancellationToken cancellationToken = default)
         {
-            using var scope = _automationAccountPython2PackagePython2PackageClientDiagnostics.CreateScope("AutomationAccountPython2PackageResource.Delete");
+            using var scope = _automationAccountPython3PackagePython3PackageClientDiagnostics.CreateScope("AutomationAccountPython3PackageResource.Delete");
             scope.Start();
             try
             {
-                var response = await _automationAccountPython2PackagePython2PackageRestClient.DeleteAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
+                var response = await _automationAccountPython3PackagePython3PackageRestClient.DeleteAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
                 var operation = new AutomationArmOperation(response);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
@@ -187,15 +187,15 @@ namespace Azure.ResourceManager.Automation
         }
 
         /// <summary>
-        /// Delete the python 2 package by name.
+        /// Delete the python 3 package by name.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/python2Packages/{packageName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/python3Packages/{packageName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Python2Package_Delete</description>
+        /// <description>Python3Package_Delete</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -203,11 +203,11 @@ namespace Azure.ResourceManager.Automation
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual ArmOperation Delete(WaitUntil waitUntil, CancellationToken cancellationToken = default)
         {
-            using var scope = _automationAccountPython2PackagePython2PackageClientDiagnostics.CreateScope("AutomationAccountPython2PackageResource.Delete");
+            using var scope = _automationAccountPython3PackagePython3PackageClientDiagnostics.CreateScope("AutomationAccountPython3PackageResource.Delete");
             scope.Start();
             try
             {
-                var response = _automationAccountPython2PackagePython2PackageRestClient.Delete(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken);
+                var response = _automationAccountPython3PackagePython3PackageRestClient.Delete(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken);
                 var operation = new AutomationArmOperation(response);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletionResponse(cancellationToken);
@@ -221,31 +221,31 @@ namespace Azure.ResourceManager.Automation
         }
 
         /// <summary>
-        /// Update the python 2 package identified by package name.
+        /// Update the python 3 package identified by package name.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/python2Packages/{packageName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/python3Packages/{packageName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Python2Package_Update</description>
+        /// <description>Python3Package_Update</description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="pythonPackageUpdateParameters"> The update parameters for python package. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="pythonPackageUpdateParameters"/> is null. </exception>
-        public virtual async Task<Response<AutomationAccountPython2PackageResource>> UpdateAsync(PythonPackageUpdateParameters pythonPackageUpdateParameters, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<AutomationAccountPython3PackageResource>> UpdateAsync(PythonPackageUpdateParameters pythonPackageUpdateParameters, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(pythonPackageUpdateParameters, nameof(pythonPackageUpdateParameters));
 
-            using var scope = _automationAccountPython2PackagePython2PackageClientDiagnostics.CreateScope("AutomationAccountPython2PackageResource.Update");
+            using var scope = _automationAccountPython3PackagePython3PackageClientDiagnostics.CreateScope("AutomationAccountPython3PackageResource.Update");
             scope.Start();
             try
             {
-                var response = await _automationAccountPython2PackagePython2PackageRestClient.UpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, pythonPackageUpdateParameters, cancellationToken).ConfigureAwait(false);
-                return Response.FromValue(new AutomationAccountPython2PackageResource(Client, response.Value), response.GetRawResponse());
+                var response = await _automationAccountPython3PackagePython3PackageRestClient.UpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, pythonPackageUpdateParameters, cancellationToken).ConfigureAwait(false);
+                return Response.FromValue(new AutomationAccountPython3PackageResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -255,31 +255,31 @@ namespace Azure.ResourceManager.Automation
         }
 
         /// <summary>
-        /// Update the python 2 package identified by package name.
+        /// Update the python 3 package identified by package name.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/python2Packages/{packageName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/python3Packages/{packageName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Python2Package_Update</description>
+        /// <description>Python3Package_Update</description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="pythonPackageUpdateParameters"> The update parameters for python package. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="pythonPackageUpdateParameters"/> is null. </exception>
-        public virtual Response<AutomationAccountPython2PackageResource> Update(PythonPackageUpdateParameters pythonPackageUpdateParameters, CancellationToken cancellationToken = default)
+        public virtual Response<AutomationAccountPython3PackageResource> Update(PythonPackageUpdateParameters pythonPackageUpdateParameters, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(pythonPackageUpdateParameters, nameof(pythonPackageUpdateParameters));
 
-            using var scope = _automationAccountPython2PackagePython2PackageClientDiagnostics.CreateScope("AutomationAccountPython2PackageResource.Update");
+            using var scope = _automationAccountPython3PackagePython3PackageClientDiagnostics.CreateScope("AutomationAccountPython3PackageResource.Update");
             scope.Start();
             try
             {
-                var response = _automationAccountPython2PackagePython2PackageRestClient.Update(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, pythonPackageUpdateParameters, cancellationToken);
-                return Response.FromValue(new AutomationAccountPython2PackageResource(Client, response.Value), response.GetRawResponse());
+                var response = _automationAccountPython3PackagePython3PackageRestClient.Update(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, pythonPackageUpdateParameters, cancellationToken);
+                return Response.FromValue(new AutomationAccountPython3PackageResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -293,11 +293,11 @@ namespace Azure.ResourceManager.Automation
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/python2Packages/{packageName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/python3Packages/{packageName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Python2Package_Get</description>
+        /// <description>Python3Package_Get</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -305,12 +305,12 @@ namespace Azure.ResourceManager.Automation
         /// <param name="value"> The value for the tag. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="key"/> or <paramref name="value"/> is null. </exception>
-        public virtual async Task<Response<AutomationAccountPython2PackageResource>> AddTagAsync(string key, string value, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<AutomationAccountPython3PackageResource>> AddTagAsync(string key, string value, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(key, nameof(key));
             Argument.AssertNotNull(value, nameof(value));
 
-            using var scope = _automationAccountPython2PackagePython2PackageClientDiagnostics.CreateScope("AutomationAccountPython2PackageResource.AddTag");
+            using var scope = _automationAccountPython3PackagePython3PackageClientDiagnostics.CreateScope("AutomationAccountPython3PackageResource.AddTag");
             scope.Start();
             try
             {
@@ -319,8 +319,8 @@ namespace Azure.ResourceManager.Automation
                     var originalTags = await GetTagResource().GetAsync(cancellationToken).ConfigureAwait(false);
                     originalTags.Value.Data.TagValues[key] = value;
                     await GetTagResource().CreateOrUpdateAsync(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken).ConfigureAwait(false);
-                    var originalResponse = await _automationAccountPython2PackagePython2PackageRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
-                    return Response.FromValue(new AutomationAccountPython2PackageResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
+                    var originalResponse = await _automationAccountPython3PackagePython3PackageRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
+                    return Response.FromValue(new AutomationAccountPython3PackageResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else
                 {
@@ -347,11 +347,11 @@ namespace Azure.ResourceManager.Automation
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/python2Packages/{packageName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/python3Packages/{packageName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Python2Package_Get</description>
+        /// <description>Python3Package_Get</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -359,12 +359,12 @@ namespace Azure.ResourceManager.Automation
         /// <param name="value"> The value for the tag. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="key"/> or <paramref name="value"/> is null. </exception>
-        public virtual Response<AutomationAccountPython2PackageResource> AddTag(string key, string value, CancellationToken cancellationToken = default)
+        public virtual Response<AutomationAccountPython3PackageResource> AddTag(string key, string value, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(key, nameof(key));
             Argument.AssertNotNull(value, nameof(value));
 
-            using var scope = _automationAccountPython2PackagePython2PackageClientDiagnostics.CreateScope("AutomationAccountPython2PackageResource.AddTag");
+            using var scope = _automationAccountPython3PackagePython3PackageClientDiagnostics.CreateScope("AutomationAccountPython3PackageResource.AddTag");
             scope.Start();
             try
             {
@@ -373,8 +373,8 @@ namespace Azure.ResourceManager.Automation
                     var originalTags = GetTagResource().Get(cancellationToken);
                     originalTags.Value.Data.TagValues[key] = value;
                     GetTagResource().CreateOrUpdate(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken);
-                    var originalResponse = _automationAccountPython2PackagePython2PackageRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken);
-                    return Response.FromValue(new AutomationAccountPython2PackageResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
+                    var originalResponse = _automationAccountPython3PackagePython3PackageRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken);
+                    return Response.FromValue(new AutomationAccountPython3PackageResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else
                 {
@@ -401,22 +401,22 @@ namespace Azure.ResourceManager.Automation
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/python2Packages/{packageName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/python3Packages/{packageName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Python2Package_Get</description>
+        /// <description>Python3Package_Get</description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="tags"> The set of tags to use as replacement. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="tags"/> is null. </exception>
-        public virtual async Task<Response<AutomationAccountPython2PackageResource>> SetTagsAsync(IDictionary<string, string> tags, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<AutomationAccountPython3PackageResource>> SetTagsAsync(IDictionary<string, string> tags, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(tags, nameof(tags));
 
-            using var scope = _automationAccountPython2PackagePython2PackageClientDiagnostics.CreateScope("AutomationAccountPython2PackageResource.SetTags");
+            using var scope = _automationAccountPython3PackagePython3PackageClientDiagnostics.CreateScope("AutomationAccountPython3PackageResource.SetTags");
             scope.Start();
             try
             {
@@ -426,8 +426,8 @@ namespace Azure.ResourceManager.Automation
                     var originalTags = await GetTagResource().GetAsync(cancellationToken).ConfigureAwait(false);
                     originalTags.Value.Data.TagValues.ReplaceWith(tags);
                     await GetTagResource().CreateOrUpdateAsync(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken).ConfigureAwait(false);
-                    var originalResponse = await _automationAccountPython2PackagePython2PackageRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
-                    return Response.FromValue(new AutomationAccountPython2PackageResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
+                    var originalResponse = await _automationAccountPython3PackagePython3PackageRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
+                    return Response.FromValue(new AutomationAccountPython3PackageResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else
                 {
@@ -450,22 +450,22 @@ namespace Azure.ResourceManager.Automation
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/python2Packages/{packageName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/python3Packages/{packageName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Python2Package_Get</description>
+        /// <description>Python3Package_Get</description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="tags"> The set of tags to use as replacement. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="tags"/> is null. </exception>
-        public virtual Response<AutomationAccountPython2PackageResource> SetTags(IDictionary<string, string> tags, CancellationToken cancellationToken = default)
+        public virtual Response<AutomationAccountPython3PackageResource> SetTags(IDictionary<string, string> tags, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(tags, nameof(tags));
 
-            using var scope = _automationAccountPython2PackagePython2PackageClientDiagnostics.CreateScope("AutomationAccountPython2PackageResource.SetTags");
+            using var scope = _automationAccountPython3PackagePython3PackageClientDiagnostics.CreateScope("AutomationAccountPython3PackageResource.SetTags");
             scope.Start();
             try
             {
@@ -475,8 +475,8 @@ namespace Azure.ResourceManager.Automation
                     var originalTags = GetTagResource().Get(cancellationToken);
                     originalTags.Value.Data.TagValues.ReplaceWith(tags);
                     GetTagResource().CreateOrUpdate(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken);
-                    var originalResponse = _automationAccountPython2PackagePython2PackageRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken);
-                    return Response.FromValue(new AutomationAccountPython2PackageResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
+                    var originalResponse = _automationAccountPython3PackagePython3PackageRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken);
+                    return Response.FromValue(new AutomationAccountPython3PackageResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else
                 {
@@ -499,22 +499,22 @@ namespace Azure.ResourceManager.Automation
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/python2Packages/{packageName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/python3Packages/{packageName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Python2Package_Get</description>
+        /// <description>Python3Package_Get</description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="key"> The key for the tag. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="key"/> is null. </exception>
-        public virtual async Task<Response<AutomationAccountPython2PackageResource>> RemoveTagAsync(string key, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<AutomationAccountPython3PackageResource>> RemoveTagAsync(string key, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(key, nameof(key));
 
-            using var scope = _automationAccountPython2PackagePython2PackageClientDiagnostics.CreateScope("AutomationAccountPython2PackageResource.RemoveTag");
+            using var scope = _automationAccountPython3PackagePython3PackageClientDiagnostics.CreateScope("AutomationAccountPython3PackageResource.RemoveTag");
             scope.Start();
             try
             {
@@ -523,8 +523,8 @@ namespace Azure.ResourceManager.Automation
                     var originalTags = await GetTagResource().GetAsync(cancellationToken).ConfigureAwait(false);
                     originalTags.Value.Data.TagValues.Remove(key);
                     await GetTagResource().CreateOrUpdateAsync(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken).ConfigureAwait(false);
-                    var originalResponse = await _automationAccountPython2PackagePython2PackageRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
-                    return Response.FromValue(new AutomationAccountPython2PackageResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
+                    var originalResponse = await _automationAccountPython3PackagePython3PackageRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
+                    return Response.FromValue(new AutomationAccountPython3PackageResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else
                 {
@@ -551,22 +551,22 @@ namespace Azure.ResourceManager.Automation
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/python2Packages/{packageName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Automation/automationAccounts/{automationAccountName}/python3Packages/{packageName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Python2Package_Get</description>
+        /// <description>Python3Package_Get</description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="key"> The key for the tag. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="key"/> is null. </exception>
-        public virtual Response<AutomationAccountPython2PackageResource> RemoveTag(string key, CancellationToken cancellationToken = default)
+        public virtual Response<AutomationAccountPython3PackageResource> RemoveTag(string key, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(key, nameof(key));
 
-            using var scope = _automationAccountPython2PackagePython2PackageClientDiagnostics.CreateScope("AutomationAccountPython2PackageResource.RemoveTag");
+            using var scope = _automationAccountPython3PackagePython3PackageClientDiagnostics.CreateScope("AutomationAccountPython3PackageResource.RemoveTag");
             scope.Start();
             try
             {
@@ -575,8 +575,8 @@ namespace Azure.ResourceManager.Automation
                     var originalTags = GetTagResource().Get(cancellationToken);
                     originalTags.Value.Data.TagValues.Remove(key);
                     GetTagResource().CreateOrUpdate(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken);
-                    var originalResponse = _automationAccountPython2PackagePython2PackageRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken);
-                    return Response.FromValue(new AutomationAccountPython2PackageResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
+                    var originalResponse = _automationAccountPython3PackagePython3PackageRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken);
+                    return Response.FromValue(new AutomationAccountPython3PackageResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else
                 {
