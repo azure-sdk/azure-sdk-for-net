@@ -50,6 +50,8 @@ namespace Azure.ResourceManager.DataBox
         public bool? IsDeletable { get { throw null; } }
         public bool? IsPrepareToShipEnabled { get { throw null; } }
         public bool? IsShippingAddressEditable { get { throw null; } }
+        public Azure.ResourceManager.DataBox.Models.ReverseShippingDetailsEditStatus? ReverseShippingDetailsUpdate { get { throw null; } }
+        public Azure.ResourceManager.DataBox.Models.ReverseTransportPreferenceEditStatus? ReverseTransportPreferenceUpdate { get { throw null; } }
         public Azure.ResourceManager.DataBox.Models.DataBoxSku Sku { get { throw null; } set { } }
         public System.DateTimeOffset? StartOn { get { throw null; } }
         public Azure.ResourceManager.DataBox.Models.DataBoxStageName? Status { get { throw null; } }
@@ -135,6 +137,14 @@ namespace Azure.ResourceManager.DataBox.Models
         public System.Collections.Generic.IList<string> BlobPrefixList { get { throw null; } }
         public System.Collections.Generic.IList<string> ContainerList { get { throw null; } }
     }
+    public partial class ContactInfo
+    {
+        public ContactInfo(string contactName, string phone) { }
+        public string ContactName { get { throw null; } set { } }
+        public string Mobile { get { throw null; } set { } }
+        public string Phone { get { throw null; } set { } }
+        public string PhoneExtension { get { throw null; } set { } }
+    }
     public abstract partial class CopyLogDetails
     {
         protected CopyLogDetails() { }
@@ -217,6 +227,7 @@ namespace Azure.ResourceManager.DataBox.Models
         public Azure.ResourceManager.DataBox.Models.DataBoxOrderPreferences Preferences { get { throw null; } set { } }
         public Azure.ResourceManager.DataBox.Models.PackageShippingDetails ReturnPackage { get { throw null; } }
         public string ReverseShipmentLabelSasKey { get { throw null; } }
+        public Azure.ResourceManager.DataBox.Models.ReverseShippingDetails ReverseShippingDetails { get { throw null; } set { } }
         public Azure.ResourceManager.DataBox.Models.DataBoxShippingAddress ShippingAddress { get { throw null; } set { } }
     }
     public partial class DataBoxContactDetails
@@ -320,6 +331,14 @@ namespace Azure.ResourceManager.DataBox.Models
         public string SerialNumber { get { throw null; } }
         public Azure.ResourceManager.DataBox.Models.DataBoxCopyStatus? Status { get { throw null; } }
     }
+    public partial class DataBoxDiskGranularCopyLogDetails : Azure.ResourceManager.DataBox.Models.GranularCopyLogDetails
+    {
+        internal DataBoxDiskGranularCopyLogDetails() { }
+        public Azure.Core.ResourceIdentifier AccountId { get { throw null; } }
+        public string ErrorLogLink { get { throw null; } }
+        public string SerialNumber { get { throw null; } }
+        public string VerboseLogLink { get { throw null; } }
+    }
     public partial class DataBoxDiskGranularCopyProgress : Azure.ResourceManager.DataBox.Models.GranularCopyProgress
     {
         internal DataBoxDiskGranularCopyProgress() { }
@@ -331,6 +350,7 @@ namespace Azure.ResourceManager.DataBox.Models
         public DataBoxDiskJobDetails(Azure.ResourceManager.DataBox.Models.DataBoxContactDetails contactDetails) : base (default(Azure.ResourceManager.DataBox.Models.DataBoxContactDetails)) { }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.DataBox.Models.DataBoxDiskCopyProgress> CopyProgress { get { throw null; } }
         public System.Collections.Generic.IReadOnlyDictionary<string, int> DisksAndSizeDetails { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.DataBox.Models.DataBoxDiskGranularCopyLogDetails> GranularCopyLogDetails { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.DataBox.Models.DataBoxDiskGranularCopyProgress> GranularCopyProgress { get { throw null; } }
         public string Passkey { get { throw null; } set { } }
         public System.Collections.Generic.IDictionary<string, int> PreferredDisks { get { throw null; } }
@@ -441,8 +461,9 @@ namespace Azure.ResourceManager.DataBox.Models
         public DataBoxOrderPreferences() { }
         public Azure.ResourceManager.DataBox.Models.DataBoxDoubleEncryption? DoubleEncryption { get { throw null; } set { } }
         public System.Collections.Generic.IList<string> PreferredDataCenterRegion { get { throw null; } }
+        public Azure.ResourceManager.DataBox.Models.TransportPreferences ReverseTransportPreferences { get { throw null; } set { } }
         public System.Collections.Generic.IList<string> StorageAccountAccessTierPreferences { get { throw null; } }
-        public Azure.ResourceManager.DataBox.Models.TransportShipmentType? TransportPreferencesPreferredShipmentType { get { throw null; } set { } }
+        public Azure.ResourceManager.DataBox.Models.TransportPreferences TransportPreferences { get { throw null; } set { } }
     }
     public partial class DataBoxScheduleAvailabilityContent : Azure.ResourceManager.DataBox.Models.ScheduleAvailabilityContent
     {
@@ -509,6 +530,7 @@ namespace Azure.ResourceManager.DataBox.Models
         public System.Collections.Generic.IReadOnlyList<string> ApiVersions { get { throw null; } }
         public Azure.ResourceManager.DataBox.Models.DataBoxSkuCapacity Capacity { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.DataBox.Models.DataBoxSkuCost> Costs { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyList<string> CountriesWithinCommerceBoundary { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.DataBox.Models.DataLocationToServiceLocationMap> DataLocationToServiceLocationMap { get { throw null; } }
         public Azure.ResourceManager.DataBox.Models.SkuDisabledReason? DisabledReason { get { throw null; } }
         public string DisabledReasonMessage { get { throw null; } }
@@ -586,7 +608,7 @@ namespace Azure.ResourceManager.DataBox.Models
         public DataBoxValidateAddressContent(Azure.ResourceManager.DataBox.Models.DataBoxShippingAddress shippingAddress, Azure.ResourceManager.DataBox.Models.DataBoxSkuName deviceType) { }
         public Azure.ResourceManager.DataBox.Models.DataBoxSkuName DeviceType { get { throw null; } }
         public Azure.ResourceManager.DataBox.Models.DataBoxShippingAddress ShippingAddress { get { throw null; } }
-        public Azure.ResourceManager.DataBox.Models.TransportShipmentType? TransportPreferencesPreferredShipmentType { get { throw null; } set { } }
+        public Azure.ResourceManager.DataBox.Models.TransportPreferences TransportPreferences { get { throw null; } set { } }
     }
     public abstract partial class DataBoxValidationContent
     {
@@ -790,6 +812,10 @@ namespace Azure.ResourceManager.DataBox.Models
         AzureBlob = 0,
         AzureFile = 1,
     }
+    public abstract partial class GranularCopyLogDetails
+    {
+        protected GranularCopyLogDetails() { }
+    }
     public partial class GranularCopyProgress
     {
         internal GranularCopyProgress() { }
@@ -857,8 +883,9 @@ namespace Azure.ResourceManager.DataBox.Models
     }
     public partial class MitigateJobContent
     {
-        public MitigateJobContent(Azure.ResourceManager.DataBox.Models.CustomerResolutionCode customerResolutionCode) { }
-        public Azure.ResourceManager.DataBox.Models.CustomerResolutionCode CustomerResolutionCode { get { throw null; } }
+        public MitigateJobContent() { }
+        public Azure.ResourceManager.DataBox.Models.CustomerResolutionCode? CustomerResolutionCode { get { throw null; } set { } }
+        public System.Collections.Generic.IDictionary<string, Azure.ResourceManager.DataBox.Models.CustomerResolutionCode> SerialNumberCustomerResolutionMap { get { throw null; } }
     }
     public partial class NotificationPreference
     {
@@ -940,6 +967,25 @@ namespace Azure.ResourceManager.DataBox.Models
         public Azure.ResourceManager.DataBox.Models.DataCenterAddressResult DataCenterAddressResponse { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<System.DateTimeOffset> ScheduleAvailabilityResponseAvailableDates { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.DataBox.Models.TransportAvailabilityDetails> TransportAvailabilityDetails { get { throw null; } }
+    }
+    public partial class ReverseShippingDetails
+    {
+        public ReverseShippingDetails() { }
+        public Azure.ResourceManager.DataBox.Models.ContactInfo ContactDetails { get { throw null; } set { } }
+        public bool? IsUpdated { get { throw null; } }
+        public Azure.ResourceManager.DataBox.Models.DataBoxShippingAddress ShippingAddress { get { throw null; } set { } }
+    }
+    public enum ReverseShippingDetailsEditStatus
+    {
+        Enabled = 0,
+        Disabled = 1,
+        NotSupported = 2,
+    }
+    public enum ReverseTransportPreferenceEditStatus
+    {
+        Enabled = 0,
+        Disabled = 1,
+        NotSupported = 2,
     }
     public abstract partial class ScheduleAvailabilityContent
     {
@@ -1035,6 +1081,12 @@ namespace Azure.ResourceManager.DataBox.Models
         internal TransportAvailabilityDetails() { }
         public Azure.ResourceManager.DataBox.Models.TransportShipmentType? ShipmentType { get { throw null; } }
     }
+    public partial class TransportPreferences
+    {
+        public TransportPreferences(Azure.ResourceManager.DataBox.Models.TransportShipmentType preferredShipmentType) { }
+        public bool? IsUpdated { get { throw null; } }
+        public Azure.ResourceManager.DataBox.Models.TransportShipmentType PreferredShipmentType { get { throw null; } set { } }
+    }
     public enum TransportShipmentType
     {
         CustomerManaged = 0,
@@ -1051,7 +1103,9 @@ namespace Azure.ResourceManager.DataBox.Models
         public UpdateJobDetails() { }
         public Azure.ResourceManager.DataBox.Models.DataBoxContactDetails ContactDetails { get { throw null; } set { } }
         public Azure.ResourceManager.DataBox.Models.DataBoxKeyEncryptionKey KeyEncryptionKey { get { throw null; } set { } }
+        public Azure.ResourceManager.DataBox.Models.DataBoxOrderPreferences Preferences { get { throw null; } set { } }
         public Azure.ResourceManager.DataBox.Models.PackageCarrierDetails ReturnToCustomerPackageDetails { get { throw null; } set { } }
+        public Azure.ResourceManager.DataBox.Models.ReverseShippingDetails ReverseShippingDetails { get { throw null; } set { } }
         public Azure.ResourceManager.DataBox.Models.DataBoxShippingAddress ShippingAddress { get { throw null; } set { } }
     }
 }
