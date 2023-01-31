@@ -46,6 +46,16 @@ namespace Azure.ResourceManager.Workloads.Models
                 writer.WritePropertyName("sapSid");
                 writer.WriteStringValue(SapSid);
             }
+            if (Optional.IsDefined(SslPreference))
+            {
+                writer.WritePropertyName("sslPreference");
+                writer.WriteStringValue(SslPreference.Value.ToString());
+            }
+            if (Optional.IsDefined(SslCertificateUri))
+            {
+                writer.WritePropertyName("sslCertificateUri");
+                writer.WriteStringValue(SslCertificateUri.AbsoluteUri);
+            }
             writer.WritePropertyName("providerType");
             writer.WriteStringValue(ProviderType);
             writer.WriteEndObject();
@@ -59,6 +69,8 @@ namespace Azure.ResourceManager.Workloads.Models
             Optional<string> dbPassword = default;
             Optional<Uri> dbPasswordUri = default;
             Optional<string> sapSid = default;
+            Optional<SslPreference> sslPreference = default;
+            Optional<Uri> sslCertificateUri = default;
             string providerType = default;
             foreach (var property in element.EnumerateObject())
             {
@@ -97,13 +109,33 @@ namespace Azure.ResourceManager.Workloads.Models
                     sapSid = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("sslPreference"))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        property.ThrowNonNullablePropertyIsNull();
+                        continue;
+                    }
+                    sslPreference = new SslPreference(property.Value.GetString());
+                    continue;
+                }
+                if (property.NameEquals("sslCertificateUri"))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        sslCertificateUri = null;
+                        continue;
+                    }
+                    sslCertificateUri = new Uri(property.Value.GetString());
+                    continue;
+                }
                 if (property.NameEquals("providerType"))
                 {
                     providerType = property.Value.GetString();
                     continue;
                 }
             }
-            return new MsSqlServerProviderInstanceProperties(providerType, hostname.Value, dbPort.Value, dbUsername.Value, dbPassword.Value, dbPasswordUri.Value, sapSid.Value);
+            return new MsSqlServerProviderInstanceProperties(providerType, hostname.Value, dbPort.Value, dbUsername.Value, dbPassword.Value, dbPasswordUri.Value, sapSid.Value, Optional.ToNullable(sslPreference), sslCertificateUri.Value);
         }
     }
 }

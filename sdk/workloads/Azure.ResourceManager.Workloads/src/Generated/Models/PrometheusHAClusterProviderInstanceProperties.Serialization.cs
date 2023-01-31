@@ -36,6 +36,16 @@ namespace Azure.ResourceManager.Workloads.Models
                 writer.WritePropertyName("clusterName");
                 writer.WriteStringValue(ClusterName);
             }
+            if (Optional.IsDefined(SslPreference))
+            {
+                writer.WritePropertyName("sslPreference");
+                writer.WriteStringValue(SslPreference.Value.ToString());
+            }
+            if (Optional.IsDefined(SslCertificateUri))
+            {
+                writer.WritePropertyName("sslCertificateUri");
+                writer.WriteStringValue(SslCertificateUri.AbsoluteUri);
+            }
             writer.WritePropertyName("providerType");
             writer.WriteStringValue(ProviderType);
             writer.WriteEndObject();
@@ -47,6 +57,8 @@ namespace Azure.ResourceManager.Workloads.Models
             Optional<string> hostname = default;
             Optional<string> sid = default;
             Optional<string> clusterName = default;
+            Optional<SslPreference> sslPreference = default;
+            Optional<Uri> sslCertificateUri = default;
             string providerType = default;
             foreach (var property in element.EnumerateObject())
             {
@@ -75,13 +87,33 @@ namespace Azure.ResourceManager.Workloads.Models
                     clusterName = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("sslPreference"))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        property.ThrowNonNullablePropertyIsNull();
+                        continue;
+                    }
+                    sslPreference = new SslPreference(property.Value.GetString());
+                    continue;
+                }
+                if (property.NameEquals("sslCertificateUri"))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        sslCertificateUri = null;
+                        continue;
+                    }
+                    sslCertificateUri = new Uri(property.Value.GetString());
+                    continue;
+                }
                 if (property.NameEquals("providerType"))
                 {
                     providerType = property.Value.GetString();
                     continue;
                 }
             }
-            return new PrometheusHAClusterProviderInstanceProperties(providerType, prometheusUrl.Value, hostname.Value, sid.Value, clusterName.Value);
+            return new PrometheusHAClusterProviderInstanceProperties(providerType, prometheusUrl.Value, hostname.Value, sid.Value, clusterName.Value, Optional.ToNullable(sslPreference), sslCertificateUri.Value);
         }
     }
 }

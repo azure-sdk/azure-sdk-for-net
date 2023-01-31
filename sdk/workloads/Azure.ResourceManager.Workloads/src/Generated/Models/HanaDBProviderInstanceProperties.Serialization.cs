@@ -51,15 +51,25 @@ namespace Azure.ResourceManager.Workloads.Models
                 writer.WritePropertyName("dbPasswordUri");
                 writer.WriteStringValue(DBPasswordUri.AbsoluteUri);
             }
-            if (Optional.IsDefined(DBSslCertificateUri))
+            if (Optional.IsDefined(SslCertificateUri))
             {
-                writer.WritePropertyName("dbSslCertificateUri");
-                writer.WriteStringValue(DBSslCertificateUri.AbsoluteUri);
+                writer.WritePropertyName("sslCertificateUri");
+                writer.WriteStringValue(SslCertificateUri.AbsoluteUri);
             }
             if (Optional.IsDefined(SslHostNameInCertificate))
             {
                 writer.WritePropertyName("sslHostNameInCertificate");
                 writer.WriteStringValue(SslHostNameInCertificate);
+            }
+            if (Optional.IsDefined(SslPreference))
+            {
+                writer.WritePropertyName("sslPreference");
+                writer.WriteStringValue(SslPreference.Value.ToString());
+            }
+            if (Optional.IsDefined(SapSid))
+            {
+                writer.WritePropertyName("sapSid");
+                writer.WriteStringValue(SapSid);
             }
             writer.WritePropertyName("providerType");
             writer.WriteStringValue(ProviderType);
@@ -75,8 +85,10 @@ namespace Azure.ResourceManager.Workloads.Models
             Optional<string> dbUsername = default;
             Optional<string> dbPassword = default;
             Optional<Uri> dbPasswordUri = default;
-            Optional<Uri> dbSslCertificateUri = default;
+            Optional<Uri> sslCertificateUri = default;
             Optional<string> sslHostNameInCertificate = default;
+            Optional<SslPreference> sslPreference = default;
+            Optional<string> sapSid = default;
             string providerType = default;
             foreach (var property in element.EnumerateObject())
             {
@@ -120,19 +132,34 @@ namespace Azure.ResourceManager.Workloads.Models
                     dbPasswordUri = new Uri(property.Value.GetString());
                     continue;
                 }
-                if (property.NameEquals("dbSslCertificateUri"))
+                if (property.NameEquals("sslCertificateUri"))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
-                        dbSslCertificateUri = null;
+                        sslCertificateUri = null;
                         continue;
                     }
-                    dbSslCertificateUri = new Uri(property.Value.GetString());
+                    sslCertificateUri = new Uri(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("sslHostNameInCertificate"))
                 {
                     sslHostNameInCertificate = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("sslPreference"))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        property.ThrowNonNullablePropertyIsNull();
+                        continue;
+                    }
+                    sslPreference = new SslPreference(property.Value.GetString());
+                    continue;
+                }
+                if (property.NameEquals("sapSid"))
+                {
+                    sapSid = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("providerType"))
@@ -141,7 +168,7 @@ namespace Azure.ResourceManager.Workloads.Models
                     continue;
                 }
             }
-            return new HanaDBProviderInstanceProperties(providerType, hostname.Value, dbName.Value, sqlPort.Value, instanceNumber.Value, dbUsername.Value, dbPassword.Value, dbPasswordUri.Value, dbSslCertificateUri.Value, sslHostNameInCertificate.Value);
+            return new HanaDBProviderInstanceProperties(providerType, hostname.Value, dbName.Value, sqlPort.Value, instanceNumber.Value, dbUsername.Value, dbPassword.Value, dbPasswordUri.Value, sslCertificateUri.Value, sslHostNameInCertificate.Value, Optional.ToNullable(sslPreference), sapSid.Value);
         }
     }
 }

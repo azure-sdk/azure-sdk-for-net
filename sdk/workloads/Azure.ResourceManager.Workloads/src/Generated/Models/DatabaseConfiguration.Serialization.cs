@@ -26,6 +26,11 @@ namespace Azure.ResourceManager.Workloads.Models
             writer.WriteObjectValue(VirtualMachineConfiguration);
             writer.WritePropertyName("instanceCount");
             writer.WriteNumberValue(InstanceCount);
+            if (Optional.IsDefined(DiskConfiguration))
+            {
+                writer.WritePropertyName("diskConfiguration");
+                writer.WriteObjectValue(DiskConfiguration);
+            }
             writer.WriteEndObject();
         }
 
@@ -35,6 +40,7 @@ namespace Azure.ResourceManager.Workloads.Models
             ResourceIdentifier subnetId = default;
             VirtualMachineConfiguration virtualMachineConfiguration = default;
             long instanceCount = default;
+            Optional<DiskConfiguration> diskConfiguration = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("databaseType"))
@@ -62,8 +68,18 @@ namespace Azure.ResourceManager.Workloads.Models
                     instanceCount = property.Value.GetInt64();
                     continue;
                 }
+                if (property.NameEquals("diskConfiguration"))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        property.ThrowNonNullablePropertyIsNull();
+                        continue;
+                    }
+                    diskConfiguration = DiskConfiguration.DeserializeDiskConfiguration(property.Value);
+                    continue;
+                }
             }
-            return new DatabaseConfiguration(Optional.ToNullable(databaseType), subnetId, virtualMachineConfiguration, instanceCount);
+            return new DatabaseConfiguration(Optional.ToNullable(databaseType), subnetId, virtualMachineConfiguration, instanceCount, diskConfiguration.Value);
         }
     }
 }
