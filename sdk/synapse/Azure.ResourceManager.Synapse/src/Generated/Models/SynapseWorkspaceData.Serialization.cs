@@ -65,17 +65,6 @@ namespace Azure.ResourceManager.Synapse
                 writer.WritePropertyName("virtualNetworkProfile");
                 writer.WriteObjectValue(VirtualNetworkProfile);
             }
-            if (Optional.IsCollectionDefined(ConnectivityEndpoints))
-            {
-                writer.WritePropertyName("connectivityEndpoints");
-                writer.WriteStartObject();
-                foreach (var item in ConnectivityEndpoints)
-                {
-                    writer.WritePropertyName(item.Key);
-                    writer.WriteStringValue(item.Value);
-                }
-                writer.WriteEndObject();
-            }
             if (Optional.IsDefined(ManagedVirtualNetwork))
             {
                 writer.WritePropertyName("managedVirtualNetwork");
@@ -150,12 +139,12 @@ namespace Azure.ResourceManager.Synapse
             Optional<string> provisioningState = default;
             Optional<string> sqlAdministratorLogin = default;
             Optional<VirtualNetworkProfile> virtualNetworkProfile = default;
-            Optional<IDictionary<string, string>> connectivityEndpoints = default;
+            Optional<IReadOnlyDictionary<string, string>> connectivityEndpoints = default;
             Optional<string> managedVirtualNetwork = default;
             Optional<IList<SynapsePrivateEndpointConnectionData>> privateEndpointConnections = default;
             Optional<SynapseEncryptionDetails> encryption = default;
             Optional<Guid> workspaceUID = default;
-            Optional<IReadOnlyDictionary<string, BinaryData>> extraProperties = default;
+            Optional<BinaryData> extraProperties = default;
             Optional<SynapseManagedVirtualNetworkSettings> managedVirtualNetworkSettings = default;
             Optional<SynapseWorkspaceRepositoryConfiguration> workspaceRepositoryConfiguration = default;
             Optional<PurviewConfiguration> purviewConfiguration = default;
@@ -334,12 +323,7 @@ namespace Azure.ResourceManager.Synapse
                                 property0.ThrowNonNullablePropertyIsNull();
                                 continue;
                             }
-                            Dictionary<string, BinaryData> dictionary = new Dictionary<string, BinaryData>();
-                            foreach (var property1 in property0.Value.EnumerateObject())
-                            {
-                                dictionary.Add(property1.Name, BinaryData.FromString(property1.Value.GetRawText()));
-                            }
-                            extraProperties = dictionary;
+                            extraProperties = BinaryData.FromString(property0.Value.GetRawText());
                             continue;
                         }
                         if (property0.NameEquals("managedVirtualNetworkSettings"))
@@ -441,7 +425,7 @@ namespace Azure.ResourceManager.Synapse
                     continue;
                 }
             }
-            return new SynapseWorkspaceData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, identity, defaultDataLakeStorage.Value, sqlAdministratorLoginPassword.Value, managedResourceGroupName.Value, provisioningState.Value, sqlAdministratorLogin.Value, virtualNetworkProfile.Value, Optional.ToDictionary(connectivityEndpoints), managedVirtualNetwork.Value, Optional.ToList(privateEndpointConnections), encryption.Value, Optional.ToNullable(workspaceUID), Optional.ToDictionary(extraProperties), managedVirtualNetworkSettings.Value, workspaceRepositoryConfiguration.Value, purviewConfiguration.Value, adlaResourceId.Value, Optional.ToNullable(publicNetworkAccess), cspWorkspaceAdminProperties.Value, Optional.ToDictionary(settings), Optional.ToNullable(azureADOnlyAuthentication), Optional.ToNullable(trustedServiceBypassEnabled));
+            return new SynapseWorkspaceData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, identity, defaultDataLakeStorage.Value, sqlAdministratorLoginPassword.Value, managedResourceGroupName.Value, provisioningState.Value, sqlAdministratorLogin.Value, virtualNetworkProfile.Value, Optional.ToDictionary(connectivityEndpoints), managedVirtualNetwork.Value, Optional.ToList(privateEndpointConnections), encryption.Value, Optional.ToNullable(workspaceUID), extraProperties.Value, managedVirtualNetworkSettings.Value, workspaceRepositoryConfiguration.Value, purviewConfiguration.Value, adlaResourceId.Value, Optional.ToNullable(publicNetworkAccess), cspWorkspaceAdminProperties.Value, Optional.ToDictionary(settings), Optional.ToNullable(azureADOnlyAuthentication), Optional.ToNullable(trustedServiceBypassEnabled));
         }
     }
 }

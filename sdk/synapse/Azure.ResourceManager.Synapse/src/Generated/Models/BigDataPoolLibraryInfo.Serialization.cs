@@ -31,11 +31,6 @@ namespace Azure.ResourceManager.Synapse.Models
                 writer.WritePropertyName("containerName");
                 writer.WriteStringValue(ContainerName);
             }
-            if (Optional.IsDefined(UploadedOn))
-            {
-                writer.WritePropertyName("uploadedTimestamp");
-                writer.WriteStringValue(UploadedOn.Value, "O");
-            }
             if (Optional.IsDefined(LibraryInfoType))
             {
                 writer.WritePropertyName("type");
