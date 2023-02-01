@@ -31,6 +31,11 @@ namespace Azure.ResourceManager.DataBox.Models
                 writer.WritePropertyName("transportPreferences");
                 writer.WriteObjectValue(TransportPreferences);
             }
+            if (Optional.IsDefined(ReverseTransportPreferences))
+            {
+                writer.WritePropertyName("reverseTransportPreferences");
+                writer.WriteObjectValue(ReverseTransportPreferences);
+            }
             if (Optional.IsDefined(EncryptionPreferences))
             {
                 writer.WritePropertyName("encryptionPreferences");
@@ -53,6 +58,7 @@ namespace Azure.ResourceManager.DataBox.Models
         {
             Optional<IList<string>> preferredDataCenterRegion = default;
             Optional<TransportPreferences> transportPreferences = default;
+            Optional<TransportPreferences> reverseTransportPreferences = default;
             Optional<DataBoxEncryptionPreferences> encryptionPreferences = default;
             Optional<IList<string>> storageAccountAccessTierPreferences = default;
             foreach (var property in element.EnumerateObject())
@@ -82,6 +88,16 @@ namespace Azure.ResourceManager.DataBox.Models
                     transportPreferences = TransportPreferences.DeserializeTransportPreferences(property.Value);
                     continue;
                 }
+                if (property.NameEquals("reverseTransportPreferences"))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        property.ThrowNonNullablePropertyIsNull();
+                        continue;
+                    }
+                    reverseTransportPreferences = TransportPreferences.DeserializeTransportPreferences(property.Value);
+                    continue;
+                }
                 if (property.NameEquals("encryptionPreferences"))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -108,7 +124,7 @@ namespace Azure.ResourceManager.DataBox.Models
                     continue;
                 }
             }
-            return new DataBoxOrderPreferences(Optional.ToList(preferredDataCenterRegion), transportPreferences.Value, encryptionPreferences.Value, Optional.ToList(storageAccountAccessTierPreferences));
+            return new DataBoxOrderPreferences(Optional.ToList(preferredDataCenterRegion), transportPreferences.Value, reverseTransportPreferences.Value, encryptionPreferences.Value, Optional.ToList(storageAccountAccessTierPreferences));
         }
     }
 }
