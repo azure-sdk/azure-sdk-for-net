@@ -10,7 +10,7 @@ Run `dotnet build /t:GenerateCode` to generate code.
 azure-arm: true
 library-name: Compute
 namespace: Azure.ResourceManager.Compute
-require: https://github.com/Azure/azure-rest-api-specs/blob/ddca448bd879175a928b990e0f25ca3a0e6c1c33/specification/compute/resource-manager/readme.md
+require: /mnt/vss/_work/1/s/azure-rest-api-specs/specification/compute/resource-manager/readme.md
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
 skip-csproj: true

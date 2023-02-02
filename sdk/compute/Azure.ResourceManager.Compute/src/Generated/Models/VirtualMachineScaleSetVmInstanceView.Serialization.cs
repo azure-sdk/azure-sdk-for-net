@@ -27,6 +27,10 @@ namespace Azure.ResourceManager.Compute.Models
             Optional<IReadOnlyList<InstanceViewStatus>> statuses = default;
             Optional<ResourceIdentifier> assignedHost = default;
             Optional<string> placementGroupId = default;
+            Optional<string> computerName = default;
+            Optional<string> osName = default;
+            Optional<string> osVersion = default;
+            Optional<HyperVGeneration> hyperVGeneration = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("platformUpdateDomain"))
@@ -154,8 +158,33 @@ namespace Azure.ResourceManager.Compute.Models
                     placementGroupId = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("computerName"))
+                {
+                    computerName = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("osName"))
+                {
+                    osName = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("osVersion"))
+                {
+                    osVersion = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("hyperVGeneration"))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        property.ThrowNonNullablePropertyIsNull();
+                        continue;
+                    }
+                    hyperVGeneration = new HyperVGeneration(property.Value.GetString());
+                    continue;
+                }
             }
-            return new VirtualMachineScaleSetVmInstanceView(Optional.ToNullable(platformUpdateDomain), Optional.ToNullable(platformFaultDomain), rdpThumbPrint.Value, vmAgent.Value, maintenanceRedeployStatus.Value, Optional.ToList(disks), Optional.ToList(extensions), vmHealth.Value, bootDiagnostics.Value, Optional.ToList(statuses), assignedHost.Value, placementGroupId.Value);
+            return new VirtualMachineScaleSetVmInstanceView(Optional.ToNullable(platformUpdateDomain), Optional.ToNullable(platformFaultDomain), rdpThumbPrint.Value, vmAgent.Value, maintenanceRedeployStatus.Value, Optional.ToList(disks), Optional.ToList(extensions), vmHealth.Value, bootDiagnostics.Value, Optional.ToList(statuses), assignedHost.Value, placementGroupId.Value, computerName.Value, osName.Value, osVersion.Value, Optional.ToNullable(hyperVGeneration));
         }
     }
 }
