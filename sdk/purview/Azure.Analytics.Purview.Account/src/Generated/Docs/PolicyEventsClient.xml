@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="GetPolicyEventsAsync(String,String,RequestContext)">
+<example>
+This sample shows how to call GetPolicyEventsAsync with required parameters and parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new PolicyEventsClient(endpoint, credential);
+
+Response response = await client.GetPolicyEventsAsync("<scope>", "<syncToken>");
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("count").ToString());
+Console.WriteLine(result.GetProperty("syncToken").ToString());
+Console.WriteLine(result.GetProperty("elements")[0].GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("elements")[0].GetProperty("scopes")[0].ToString());
+Console.WriteLine(result.GetProperty("elements")[0].GetProperty("kind").ToString());
+Console.WriteLine(result.GetProperty("elements")[0].GetProperty("updatedAt").ToString());
+Console.WriteLine(result.GetProperty("elements")[0].GetProperty("version").ToString());
+Console.WriteLine(result.GetProperty("elements")[0].GetProperty("elementJson").ToString());
+Console.WriteLine(result.GetProperty("elements")[0].GetProperty("eventType").ToString());
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for the response payload.
+
+Response Body:
+
+Schema for <c>PolicyEventsResponse</c>:
+<code>{
+  count: number, # Optional. Count of elements in payload.
+  syncToken: string, # Optional. Sync token represents the checkpoint upto which this policy elements list is updated. Client need to store this value and keep updating if PDS returns a new value. Call this API with the most recent value received.
+  elements: [
+    {
+      id: string, # Optional. Id of the policy element.
+      scopes: [string], # Optional. List of scopes included in this policy.
+      kind: string, # Optional. Kind of policy element. Possible values: policy/policySet/attributeRule.
+      updatedAt: string, # Optional. Time at which this policy element is last updated.
+      version: number, # Optional. Current version of policy element. This is auto incremented with each change. Starts with 1.
+      elementJson: string, # Optional. Policy element serialized json payload.
+      eventType: string, # Optional. Type of event. Format: &lt;RP-Name&gt;/&lt;Resource-Type&gt;/&lt;Action&gt;. For Example: Microsoft.Purview/PolicyElements/Delete.
+    }
+  ], # Optional. List of created/updated policy elements.
+}
+</code>
+
+</remarks>
+    </member>
+    <member name="GetPolicyEvents(String,String,RequestContext)">
+<example>
+This sample shows how to call GetPolicyEvents with required parameters and parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new PolicyEventsClient(endpoint, credential);
+
+Response response = client.GetPolicyEvents("<scope>", "<syncToken>");
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("count").ToString());
+Console.WriteLine(result.GetProperty("syncToken").ToString());
+Console.WriteLine(result.GetProperty("elements")[0].GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("elements")[0].GetProperty("scopes")[0].ToString());
+Console.WriteLine(result.GetProperty("elements")[0].GetProperty("kind").ToString());
+Console.WriteLine(result.GetProperty("elements")[0].GetProperty("updatedAt").ToString());
+Console.WriteLine(result.GetProperty("elements")[0].GetProperty("version").ToString());
+Console.WriteLine(result.GetProperty("elements")[0].GetProperty("elementJson").ToString());
+Console.WriteLine(result.GetProperty("elements")[0].GetProperty("eventType").ToString());
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for the response payload.
+
+Response Body:
+
+Schema for <c>PolicyEventsResponse</c>:
+<code>{
+  count: number, # Optional. Count of elements in payload.
+  syncToken: string, # Optional. Sync token represents the checkpoint upto which this policy elements list is updated. Client need to store this value and keep updating if PDS returns a new value. Call this API with the most recent value received.
+  elements: [
+    {
+      id: string, # Optional. Id of the policy element.
+      scopes: [string], # Optional. List of scopes included in this policy.
+      kind: string, # Optional. Kind of policy element. Possible values: policy/policySet/attributeRule.
+      updatedAt: string, # Optional. Time at which this policy element is last updated.
+      version: number, # Optional. Current version of policy element. This is auto incremented with each change. Starts with 1.
+      elementJson: string, # Optional. Policy element serialized json payload.
+      eventType: string, # Optional. Type of event. Format: &lt;RP-Name&gt;/&lt;Resource-Type&gt;/&lt;Action&gt;. For Example: Microsoft.Purview/PolicyElements/Delete.
+    }
+  ], # Optional. List of created/updated policy elements.
+}
+</code>
+
+</remarks>
+    </member>
+  </members>
+</doc>

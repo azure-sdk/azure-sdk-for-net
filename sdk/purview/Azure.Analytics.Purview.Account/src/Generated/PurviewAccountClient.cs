@@ -6,7 +6,7 @@
 #nullable disable
 
 using System;
-using System.Threading;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Azure;
 using Azure.Core;
@@ -22,7 +22,6 @@ namespace Azure.Analytics.Purview.Account
         private readonly TokenCredential _tokenCredential;
         private readonly HttpPipeline _pipeline;
         private readonly Uri _endpoint;
-        private readonly string _apiVersion;
 
         /// <summary> The ClientDiagnostics is used to provide tracing support for the client library. </summary>
         internal ClientDiagnostics ClientDiagnostics { get; }
@@ -36,7 +35,7 @@ namespace Azure.Analytics.Purview.Account
         }
 
         /// <summary> Initializes a new instance of PurviewAccountClient. </summary>
-        /// <param name="endpoint"> The account endpoint of your Purview account. Example: https://{accountName}.purview.azure.com/account/. </param>
+        /// <param name="endpoint"> The account endpoint of your Purview account. Example: https://{accountName}.purview.azure.com/. </param>
         /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> or <paramref name="credential"/> is null. </exception>
         public PurviewAccountClient(Uri endpoint, TokenCredential credential) : this(endpoint, credential, new PurviewAccountClientOptions())
@@ -44,7 +43,7 @@ namespace Azure.Analytics.Purview.Account
         }
 
         /// <summary> Initializes a new instance of PurviewAccountClient. </summary>
-        /// <param name="endpoint"> The account endpoint of your Purview account. Example: https://{accountName}.purview.azure.com/account/. </param>
+        /// <param name="endpoint"> The account endpoint of your Purview account. Example: https://{accountName}.purview.azure.com/. </param>
         /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
         /// <param name="options"> The options for configuring the client. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> or <paramref name="credential"/> is null. </exception>
@@ -58,21 +57,21 @@ namespace Azure.Analytics.Purview.Account
             _tokenCredential = credential;
             _pipeline = HttpPipelineBuilder.Build(options, Array.Empty<HttpPipelinePolicy>(), new HttpPipelinePolicy[] { new BearerTokenAuthenticationPolicy(_tokenCredential, AuthorizationScopes) }, new ResponseClassifier());
             _endpoint = endpoint;
-            _apiVersion = options.Version;
         }
 
-        /// <summary> Get an account. </summary>
+        /// <summary> Get a specific workflow. </summary>
+        /// <param name="workflowId"> The workflow id. </param>
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. Details of the response body schema are in the Remarks section below. </returns>
-        /// <include file="Docs/PurviewAccountClient.xml" path="doc/members/member[@name='GetAccountPropertiesAsync(RequestContext)']/*" />
-        public virtual async Task<Response> GetAccountPropertiesAsync(RequestContext context = null)
+        /// <include file="Docs/PurviewAccountClient.xml" path="doc/members/member[@name='GetWorkflowAsync(Guid,RequestContext)']/*" />
+        public virtual async Task<Response> GetWorkflowAsync(Guid workflowId, RequestContext context = null)
         {
-            using var scope = ClientDiagnostics.CreateScope("PurviewAccountClient.GetAccountProperties");
+            using var scope = ClientDiagnostics.CreateScope("PurviewAccountClient.GetWorkflow");
             scope.Start();
             try
             {
-                using HttpMessage message = CreateGetAccountPropertiesRequest(context);
+                using HttpMessage message = CreateGetWorkflowRequest(workflowId, context);
                 return await _pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
             }
             catch (Exception e)
@@ -82,18 +81,19 @@ namespace Azure.Analytics.Purview.Account
             }
         }
 
-        /// <summary> Get an account. </summary>
+        /// <summary> Get a specific workflow. </summary>
+        /// <param name="workflowId"> The workflow id. </param>
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. Details of the response body schema are in the Remarks section below. </returns>
-        /// <include file="Docs/PurviewAccountClient.xml" path="doc/members/member[@name='GetAccountProperties(RequestContext)']/*" />
-        public virtual Response GetAccountProperties(RequestContext context = null)
+        /// <include file="Docs/PurviewAccountClient.xml" path="doc/members/member[@name='GetWorkflow(Guid,RequestContext)']/*" />
+        public virtual Response GetWorkflow(Guid workflowId, RequestContext context = null)
         {
-            using var scope = ClientDiagnostics.CreateScope("PurviewAccountClient.GetAccountProperties");
+            using var scope = ClientDiagnostics.CreateScope("PurviewAccountClient.GetWorkflow");
             scope.Start();
             try
             {
-                using HttpMessage message = CreateGetAccountPropertiesRequest(context);
+                using HttpMessage message = CreateGetWorkflowRequest(workflowId, context);
                 return _pipeline.ProcessMessage(message, context);
             }
             catch (Exception e)
@@ -103,22 +103,23 @@ namespace Azure.Analytics.Purview.Account
             }
         }
 
-        /// <summary> Updates an account. </summary>
+        /// <summary> Create or replace a workflow. </summary>
+        /// <param name="workflowId"> The workflow id. </param>
         /// <param name="content"> The content to send as the body of the request. Details of the request body schema are in the Remarks section below. </param>
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. Details of the response body schema are in the Remarks section below. </returns>
-        /// <include file="Docs/PurviewAccountClient.xml" path="doc/members/member[@name='UpdateAccountPropertiesAsync(RequestContent,RequestContext)']/*" />
-        public virtual async Task<Response> UpdateAccountPropertiesAsync(RequestContent content, RequestContext context = null)
+        /// <include file="Docs/PurviewAccountClient.xml" path="doc/members/member[@name='CreateOrReplaceWorkflowAsync(Guid,RequestContent,RequestContext)']/*" />
+        public virtual async Task<Response> CreateOrReplaceWorkflowAsync(Guid workflowId, RequestContent content, RequestContext context = null)
         {
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = ClientDiagnostics.CreateScope("PurviewAccountClient.UpdateAccountProperties");
+            using var scope = ClientDiagnostics.CreateScope("PurviewAccountClient.CreateOrReplaceWorkflow");
             scope.Start();
             try
             {
-                using HttpMessage message = CreateUpdateAccountPropertiesRequest(content, context);
+                using HttpMessage message = CreateCreateOrReplaceWorkflowRequest(workflowId, content, context);
                 return await _pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
             }
             catch (Exception e)
@@ -128,22 +129,23 @@ namespace Azure.Analytics.Purview.Account
             }
         }
 
-        /// <summary> Updates an account. </summary>
+        /// <summary> Create or replace a workflow. </summary>
+        /// <param name="workflowId"> The workflow id. </param>
         /// <param name="content"> The content to send as the body of the request. Details of the request body schema are in the Remarks section below. </param>
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. Details of the response body schema are in the Remarks section below. </returns>
-        /// <include file="Docs/PurviewAccountClient.xml" path="doc/members/member[@name='UpdateAccountProperties(RequestContent,RequestContext)']/*" />
-        public virtual Response UpdateAccountProperties(RequestContent content, RequestContext context = null)
+        /// <include file="Docs/PurviewAccountClient.xml" path="doc/members/member[@name='CreateOrReplaceWorkflow(Guid,RequestContent,RequestContext)']/*" />
+        public virtual Response CreateOrReplaceWorkflow(Guid workflowId, RequestContent content, RequestContext context = null)
         {
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = ClientDiagnostics.CreateScope("PurviewAccountClient.UpdateAccountProperties");
+            using var scope = ClientDiagnostics.CreateScope("PurviewAccountClient.CreateOrReplaceWorkflow");
             scope.Start();
             try
             {
-                using HttpMessage message = CreateUpdateAccountPropertiesRequest(content, context);
+                using HttpMessage message = CreateCreateOrReplaceWorkflowRequest(workflowId, content, context);
                 return _pipeline.ProcessMessage(message, context);
             }
             catch (Exception e)
@@ -153,18 +155,19 @@ namespace Azure.Analytics.Purview.Account
             }
         }
 
-        /// <summary> List the authorization keys associated with this account. </summary>
+        /// <summary> Delete a workflow. </summary>
+        /// <param name="workflowId"> The workflow id. </param>
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
-        /// <returns> The response returned from the service. Details of the response body schema are in the Remarks section below. </returns>
-        /// <include file="Docs/PurviewAccountClient.xml" path="doc/members/member[@name='GetAccessKeysAsync(RequestContext)']/*" />
-        public virtual async Task<Response> GetAccessKeysAsync(RequestContext context = null)
+        /// <returns> The response returned from the service. </returns>
+        /// <include file="Docs/PurviewAccountClient.xml" path="doc/members/member[@name='DeleteWorkflowAsync(Guid,RequestContext)']/*" />
+        public virtual async Task<Response> DeleteWorkflowAsync(Guid workflowId, RequestContext context = null)
         {
-            using var scope = ClientDiagnostics.CreateScope("PurviewAccountClient.GetAccessKeys");
+            using var scope = ClientDiagnostics.CreateScope("PurviewAccountClient.DeleteWorkflow");
             scope.Start();
             try
             {
-                using HttpMessage message = CreateGetAccessKeysRequest(context);
+                using HttpMessage message = CreateDeleteWorkflowRequest(workflowId, context);
                 return await _pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
             }
             catch (Exception e)
@@ -174,18 +177,19 @@ namespace Azure.Analytics.Purview.Account
             }
         }
 
-        /// <summary> List the authorization keys associated with this account. </summary>
+        /// <summary> Delete a workflow. </summary>
+        /// <param name="workflowId"> The workflow id. </param>
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
-        /// <returns> The response returned from the service. Details of the response body schema are in the Remarks section below. </returns>
-        /// <include file="Docs/PurviewAccountClient.xml" path="doc/members/member[@name='GetAccessKeys(RequestContext)']/*" />
-        public virtual Response GetAccessKeys(RequestContext context = null)
+        /// <returns> The response returned from the service. </returns>
+        /// <include file="Docs/PurviewAccountClient.xml" path="doc/members/member[@name='DeleteWorkflow(Guid,RequestContext)']/*" />
+        public virtual Response DeleteWorkflow(Guid workflowId, RequestContext context = null)
         {
-            using var scope = ClientDiagnostics.CreateScope("PurviewAccountClient.GetAccessKeys");
+            using var scope = ClientDiagnostics.CreateScope("PurviewAccountClient.DeleteWorkflow");
             scope.Start();
             try
             {
-                using HttpMessage message = CreateGetAccessKeysRequest(context);
+                using HttpMessage message = CreateDeleteWorkflowRequest(workflowId, context);
                 return _pipeline.ProcessMessage(message, context);
             }
             catch (Exception e)
@@ -195,22 +199,22 @@ namespace Azure.Analytics.Purview.Account
             }
         }
 
-        /// <summary> Regenerate the authorization keys associated with this data catalog. </summary>
+        /// <summary> Submit a user request for requestor, a user  request describes user ask to do operation(s) on Purview. If any workflow&apos;s trigger matches with an operation in request, a run of the workflow is created. </summary>
         /// <param name="content"> The content to send as the body of the request. Details of the request body schema are in the Remarks section below. </param>
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. Details of the response body schema are in the Remarks section below. </returns>
-        /// <include file="Docs/PurviewAccountClient.xml" path="doc/members/member[@name='RegenerateAccessKeyAsync(RequestContent,RequestContext)']/*" />
-        public virtual async Task<Response> RegenerateAccessKeyAsync(RequestContent content, RequestContext context = null)
+        /// <include file="Docs/PurviewAccountClient.xml" path="doc/members/member[@name='SubmitUserRequestsAsync(RequestContent,RequestContext)']/*" />
+        public virtual async Task<Response> SubmitUserRequestsAsync(RequestContent content, RequestContext context = null)
         {
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = ClientDiagnostics.CreateScope("PurviewAccountClient.RegenerateAccessKey");
+            using var scope = ClientDiagnostics.CreateScope("PurviewAccountClient.SubmitUserRequests");
             scope.Start();
             try
             {
-                using HttpMessage message = CreateRegenerateAccessKeyRequest(content, context);
+                using HttpMessage message = CreateSubmitUserRequestsRequest(content, context);
                 return await _pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
             }
             catch (Exception e)
@@ -220,22 +224,22 @@ namespace Azure.Analytics.Purview.Account
             }
         }
 
-        /// <summary> Regenerate the authorization keys associated with this data catalog. </summary>
+        /// <summary> Submit a user request for requestor, a user  request describes user ask to do operation(s) on Purview. If any workflow&apos;s trigger matches with an operation in request, a run of the workflow is created. </summary>
         /// <param name="content"> The content to send as the body of the request. Details of the request body schema are in the Remarks section below. </param>
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. Details of the response body schema are in the Remarks section below. </returns>
-        /// <include file="Docs/PurviewAccountClient.xml" path="doc/members/member[@name='RegenerateAccessKey(RequestContent,RequestContext)']/*" />
-        public virtual Response RegenerateAccessKey(RequestContent content, RequestContext context = null)
+        /// <include file="Docs/PurviewAccountClient.xml" path="doc/members/member[@name='SubmitUserRequests(RequestContent,RequestContext)']/*" />
+        public virtual Response SubmitUserRequests(RequestContent content, RequestContext context = null)
         {
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = ClientDiagnostics.CreateScope("PurviewAccountClient.RegenerateAccessKey");
+            using var scope = ClientDiagnostics.CreateScope("PurviewAccountClient.SubmitUserRequests");
             scope.Start();
             try
             {
-                using HttpMessage message = CreateRegenerateAccessKeyRequest(content, context);
+                using HttpMessage message = CreateSubmitUserRequestsRequest(content, context);
                 return _pipeline.ProcessMessage(message, context);
             }
             catch (Exception e)
@@ -245,100 +249,600 @@ namespace Azure.Analytics.Purview.Account
             }
         }
 
-        /// <summary> List the collections in the account. </summary>
-        /// <param name="skipToken"> The String to use. </param>
+        /// <summary> Get a workflow run. </summary>
+        /// <param name="workflowRunId"> The workflow run id. </param>
+        /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
+        /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
+        /// <returns> The response returned from the service. Details of the response body schema are in the Remarks section below. </returns>
+        /// <include file="Docs/PurviewAccountClient.xml" path="doc/members/member[@name='GetWorkflowRunAsync(Guid,RequestContext)']/*" />
+        public virtual async Task<Response> GetWorkflowRunAsync(Guid workflowRunId, RequestContext context = null)
+        {
+            using var scope = ClientDiagnostics.CreateScope("PurviewAccountClient.GetWorkflowRun");
+            scope.Start();
+            try
+            {
+                using HttpMessage message = CreateGetWorkflowRunRequest(workflowRunId, context);
+                return await _pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary> Get a workflow run. </summary>
+        /// <param name="workflowRunId"> The workflow run id. </param>
+        /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
+        /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
+        /// <returns> The response returned from the service. Details of the response body schema are in the Remarks section below. </returns>
+        /// <include file="Docs/PurviewAccountClient.xml" path="doc/members/member[@name='GetWorkflowRun(Guid,RequestContext)']/*" />
+        public virtual Response GetWorkflowRun(Guid workflowRunId, RequestContext context = null)
+        {
+            using var scope = ClientDiagnostics.CreateScope("PurviewAccountClient.GetWorkflowRun");
+            scope.Start();
+            try
+            {
+                using HttpMessage message = CreateGetWorkflowRunRequest(workflowRunId, context);
+                return _pipeline.ProcessMessage(message, context);
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary> Cancel a workflow run. </summary>
+        /// <param name="workflowRunId"> The workflow run id. </param>
+        /// <param name="content"> The content to send as the body of the request. Details of the request body schema are in the Remarks section below. </param>
+        /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
+        /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
+        /// <returns> The response returned from the service. </returns>
+        /// <include file="Docs/PurviewAccountClient.xml" path="doc/members/member[@name='CancelWorkflowRunAsync(Guid,RequestContent,RequestContext)']/*" />
+        public virtual async Task<Response> CancelWorkflowRunAsync(Guid workflowRunId, RequestContent content, RequestContext context = null)
+        {
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var scope = ClientDiagnostics.CreateScope("PurviewAccountClient.CancelWorkflowRun");
+            scope.Start();
+            try
+            {
+                using HttpMessage message = CreateCancelWorkflowRunRequest(workflowRunId, content, context);
+                return await _pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary> Cancel a workflow run. </summary>
+        /// <param name="workflowRunId"> The workflow run id. </param>
+        /// <param name="content"> The content to send as the body of the request. Details of the request body schema are in the Remarks section below. </param>
+        /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
+        /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
+        /// <returns> The response returned from the service. </returns>
+        /// <include file="Docs/PurviewAccountClient.xml" path="doc/members/member[@name='CancelWorkflowRun(Guid,RequestContent,RequestContext)']/*" />
+        public virtual Response CancelWorkflowRun(Guid workflowRunId, RequestContent content, RequestContext context = null)
+        {
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var scope = ClientDiagnostics.CreateScope("PurviewAccountClient.CancelWorkflowRun");
+            scope.Start();
+            try
+            {
+                using HttpMessage message = CreateCancelWorkflowRunRequest(workflowRunId, content, context);
+                return _pipeline.ProcessMessage(message, context);
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary> Get a workflow task. </summary>
+        /// <param name="taskId"> The task id. </param>
+        /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
+        /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
+        /// <returns> The response returned from the service. Details of the response body schema are in the Remarks section below. </returns>
+        /// <include file="Docs/PurviewAccountClient.xml" path="doc/members/member[@name='GetWorkflowTaskAsync(Guid,RequestContext)']/*" />
+        public virtual async Task<Response> GetWorkflowTaskAsync(Guid taskId, RequestContext context = null)
+        {
+            using var scope = ClientDiagnostics.CreateScope("PurviewAccountClient.GetWorkflowTask");
+            scope.Start();
+            try
+            {
+                using HttpMessage message = CreateGetWorkflowTaskRequest(taskId, context);
+                return await _pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary> Get a workflow task. </summary>
+        /// <param name="taskId"> The task id. </param>
+        /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
+        /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
+        /// <returns> The response returned from the service. Details of the response body schema are in the Remarks section below. </returns>
+        /// <include file="Docs/PurviewAccountClient.xml" path="doc/members/member[@name='GetWorkflowTask(Guid,RequestContext)']/*" />
+        public virtual Response GetWorkflowTask(Guid taskId, RequestContext context = null)
+        {
+            using var scope = ClientDiagnostics.CreateScope("PurviewAccountClient.GetWorkflowTask");
+            scope.Start();
+            try
+            {
+                using HttpMessage message = CreateGetWorkflowTaskRequest(taskId, context);
+                return _pipeline.ProcessMessage(message, context);
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary> Approve an approval task. </summary>
+        /// <param name="taskId"> The task id. </param>
+        /// <param name="content"> The content to send as the body of the request. Details of the request body schema are in the Remarks section below. </param>
+        /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
+        /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
+        /// <returns> The response returned from the service. </returns>
+        /// <include file="Docs/PurviewAccountClient.xml" path="doc/members/member[@name='ApproveApprovalTaskAsync(Guid,RequestContent,RequestContext)']/*" />
+        public virtual async Task<Response> ApproveApprovalTaskAsync(Guid taskId, RequestContent content, RequestContext context = null)
+        {
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var scope = ClientDiagnostics.CreateScope("PurviewAccountClient.ApproveApprovalTask");
+            scope.Start();
+            try
+            {
+                using HttpMessage message = CreateApproveApprovalTaskRequest(taskId, content, context);
+                return await _pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary> Approve an approval task. </summary>
+        /// <param name="taskId"> The task id. </param>
+        /// <param name="content"> The content to send as the body of the request. Details of the request body schema are in the Remarks section below. </param>
+        /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
+        /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
+        /// <returns> The response returned from the service. </returns>
+        /// <include file="Docs/PurviewAccountClient.xml" path="doc/members/member[@name='ApproveApprovalTask(Guid,RequestContent,RequestContext)']/*" />
+        public virtual Response ApproveApprovalTask(Guid taskId, RequestContent content, RequestContext context = null)
+        {
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var scope = ClientDiagnostics.CreateScope("PurviewAccountClient.ApproveApprovalTask");
+            scope.Start();
+            try
+            {
+                using HttpMessage message = CreateApproveApprovalTaskRequest(taskId, content, context);
+                return _pipeline.ProcessMessage(message, context);
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary> Reject an approval task. </summary>
+        /// <param name="taskId"> The task id. </param>
+        /// <param name="content"> The content to send as the body of the request. Details of the request body schema are in the Remarks section below. </param>
+        /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
+        /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
+        /// <returns> The response returned from the service. </returns>
+        /// <include file="Docs/PurviewAccountClient.xml" path="doc/members/member[@name='RejectApprovalTaskAsync(Guid,RequestContent,RequestContext)']/*" />
+        public virtual async Task<Response> RejectApprovalTaskAsync(Guid taskId, RequestContent content, RequestContext context = null)
+        {
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var scope = ClientDiagnostics.CreateScope("PurviewAccountClient.RejectApprovalTask");
+            scope.Start();
+            try
+            {
+                using HttpMessage message = CreateRejectApprovalTaskRequest(taskId, content, context);
+                return await _pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary> Reject an approval task. </summary>
+        /// <param name="taskId"> The task id. </param>
+        /// <param name="content"> The content to send as the body of the request. Details of the request body schema are in the Remarks section below. </param>
+        /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
+        /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
+        /// <returns> The response returned from the service. </returns>
+        /// <include file="Docs/PurviewAccountClient.xml" path="doc/members/member[@name='RejectApprovalTask(Guid,RequestContent,RequestContext)']/*" />
+        public virtual Response RejectApprovalTask(Guid taskId, RequestContent content, RequestContext context = null)
+        {
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var scope = ClientDiagnostics.CreateScope("PurviewAccountClient.RejectApprovalTask");
+            scope.Start();
+            try
+            {
+                using HttpMessage message = CreateRejectApprovalTaskRequest(taskId, content, context);
+                return _pipeline.ProcessMessage(message, context);
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary> Reassign a workflow task. </summary>
+        /// <param name="taskId"> The task id. </param>
+        /// <param name="content"> The content to send as the body of the request. Details of the request body schema are in the Remarks section below. </param>
+        /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
+        /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
+        /// <returns> The response returned from the service. </returns>
+        /// <include file="Docs/PurviewAccountClient.xml" path="doc/members/member[@name='ReassignWorkflowTaskAsync(Guid,RequestContent,RequestContext)']/*" />
+        public virtual async Task<Response> ReassignWorkflowTaskAsync(Guid taskId, RequestContent content, RequestContext context = null)
+        {
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var scope = ClientDiagnostics.CreateScope("PurviewAccountClient.ReassignWorkflowTask");
+            scope.Start();
+            try
+            {
+                using HttpMessage message = CreateReassignWorkflowTaskRequest(taskId, content, context);
+                return await _pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary> Reassign a workflow task. </summary>
+        /// <param name="taskId"> The task id. </param>
+        /// <param name="content"> The content to send as the body of the request. Details of the request body schema are in the Remarks section below. </param>
+        /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
+        /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
+        /// <returns> The response returned from the service. </returns>
+        /// <include file="Docs/PurviewAccountClient.xml" path="doc/members/member[@name='ReassignWorkflowTask(Guid,RequestContent,RequestContext)']/*" />
+        public virtual Response ReassignWorkflowTask(Guid taskId, RequestContent content, RequestContext context = null)
+        {
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var scope = ClientDiagnostics.CreateScope("PurviewAccountClient.ReassignWorkflowTask");
+            scope.Start();
+            try
+            {
+                using HttpMessage message = CreateReassignWorkflowTaskRequest(taskId, content, context);
+                return _pipeline.ProcessMessage(message, context);
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary> Update the status of a workflow task request. </summary>
+        /// <param name="taskId"> The task id. </param>
+        /// <param name="content"> The content to send as the body of the request. Details of the request body schema are in the Remarks section below. </param>
+        /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
+        /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
+        /// <returns> The response returned from the service. </returns>
+        /// <include file="Docs/PurviewAccountClient.xml" path="doc/members/member[@name='UpdateSimpleTaskAsync(Guid,RequestContent,RequestContext)']/*" />
+        public virtual async Task<Response> UpdateSimpleTaskAsync(Guid taskId, RequestContent content, RequestContext context = null)
+        {
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var scope = ClientDiagnostics.CreateScope("PurviewAccountClient.UpdateSimpleTask");
+            scope.Start();
+            try
+            {
+                using HttpMessage message = CreateUpdateSimpleTaskRequest(taskId, content, context);
+                return await _pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary> Update the status of a workflow task request. </summary>
+        /// <param name="taskId"> The task id. </param>
+        /// <param name="content"> The content to send as the body of the request. Details of the request body schema are in the Remarks section below. </param>
+        /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
+        /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
+        /// <returns> The response returned from the service. </returns>
+        /// <include file="Docs/PurviewAccountClient.xml" path="doc/members/member[@name='UpdateSimpleTask(Guid,RequestContent,RequestContext)']/*" />
+        public virtual Response UpdateSimpleTask(Guid taskId, RequestContent content, RequestContext context = null)
+        {
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var scope = ClientDiagnostics.CreateScope("PurviewAccountClient.UpdateSimpleTask");
+            scope.Start();
+            try
+            {
+                using HttpMessage message = CreateUpdateSimpleTaskRequest(taskId, content, context);
+                return _pipeline.ProcessMessage(message, context);
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary> Claim a DSAR task request. </summary>
+        /// <param name="taskId"> The task id. </param>
+        /// <param name="content"> The content to send as the body of the request. Details of the request body schema are in the Remarks section below. </param>
+        /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
+        /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
+        /// <returns> The response returned from the service. </returns>
+        /// <include file="Docs/PurviewAccountClient.xml" path="doc/members/member[@name='ClaimDsarTaskRequestAsync(Guid,RequestContent,RequestContext)']/*" />
+        public virtual async Task<Response> ClaimDsarTaskRequestAsync(Guid taskId, RequestContent content, RequestContext context = null)
+        {
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var scope = ClientDiagnostics.CreateScope("PurviewAccountClient.ClaimDsarTaskRequest");
+            scope.Start();
+            try
+            {
+                using HttpMessage message = CreateClaimDsarTaskRequestRequest(taskId, content, context);
+                return await _pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary> Claim a DSAR task request. </summary>
+        /// <param name="taskId"> The task id. </param>
+        /// <param name="content"> The content to send as the body of the request. Details of the request body schema are in the Remarks section below. </param>
+        /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
+        /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
+        /// <returns> The response returned from the service. </returns>
+        /// <include file="Docs/PurviewAccountClient.xml" path="doc/members/member[@name='ClaimDsarTaskRequest(Guid,RequestContent,RequestContext)']/*" />
+        public virtual Response ClaimDsarTaskRequest(Guid taskId, RequestContent content, RequestContext context = null)
+        {
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var scope = ClientDiagnostics.CreateScope("PurviewAccountClient.ClaimDsarTaskRequest");
+            scope.Start();
+            try
+            {
+                using HttpMessage message = CreateClaimDsarTaskRequestRequest(taskId, content, context);
+                return _pipeline.ProcessMessage(message, context);
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary> Release a DSAR task request. </summary>
+        /// <param name="taskId"> The task id. </param>
+        /// <param name="content"> The content to send as the body of the request. Details of the request body schema are in the Remarks section below. </param>
+        /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
+        /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
+        /// <returns> The response returned from the service. </returns>
+        /// <include file="Docs/PurviewAccountClient.xml" path="doc/members/member[@name='ReleaseDsarTaskRequestAsync(Guid,RequestContent,RequestContext)']/*" />
+        public virtual async Task<Response> ReleaseDsarTaskRequestAsync(Guid taskId, RequestContent content, RequestContext context = null)
+        {
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var scope = ClientDiagnostics.CreateScope("PurviewAccountClient.ReleaseDsarTaskRequest");
+            scope.Start();
+            try
+            {
+                using HttpMessage message = CreateReleaseDsarTaskRequestRequest(taskId, content, context);
+                return await _pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary> Release a DSAR task request. </summary>
+        /// <param name="taskId"> The task id. </param>
+        /// <param name="content"> The content to send as the body of the request. Details of the request body schema are in the Remarks section below. </param>
+        /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
+        /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
+        /// <returns> The response returned from the service. </returns>
+        /// <include file="Docs/PurviewAccountClient.xml" path="doc/members/member[@name='ReleaseDsarTaskRequest(Guid,RequestContent,RequestContext)']/*" />
+        public virtual Response ReleaseDsarTaskRequest(Guid taskId, RequestContent content, RequestContext context = null)
+        {
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var scope = ClientDiagnostics.CreateScope("PurviewAccountClient.ReleaseDsarTaskRequest");
+            scope.Start();
+            try
+            {
+                using HttpMessage message = CreateReleaseDsarTaskRequestRequest(taskId, content, context);
+                return _pipeline.ProcessMessage(message, context);
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary> List all workflows. </summary>
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="AsyncPageable{T}"/> from the service containing a list of <see cref="BinaryData"/> objects. Details of the body schema for each item in the collection are in the Remarks section below. </returns>
-        /// <include file="Docs/PurviewAccountClient.xml" path="doc/members/member[@name='GetCollectionsAsync(String,RequestContext)']/*" />
-        public virtual AsyncPageable<BinaryData> GetCollectionsAsync(string skipToken = null, RequestContext context = null)
+        /// <include file="Docs/PurviewAccountClient.xml" path="doc/members/member[@name='GetWorkflowsAsync(RequestContext)']/*" />
+        public virtual AsyncPageable<BinaryData> GetWorkflowsAsync(RequestContext context = null)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => CreateGetCollectionsRequest(skipToken, context);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => CreateGetCollectionsNextPageRequest(nextLink, skipToken, context);
-            return PageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => BinaryData.FromString(e.GetRawText()), ClientDiagnostics, _pipeline, "PurviewAccountClient.GetCollections", "value", "nextLink", context);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => CreateGetWorkflowsRequest(context);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => CreateGetWorkflowsNextPageRequest(nextLink, context);
+            return PageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => BinaryData.FromString(e.GetRawText()), ClientDiagnostics, _pipeline, "PurviewAccountClient.GetWorkflows", "value", "nextLink", context);
         }
 
-        /// <summary> List the collections in the account. </summary>
-        /// <param name="skipToken"> The String to use. </param>
+        /// <summary> List all workflows. </summary>
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Pageable{T}"/> from the service containing a list of <see cref="BinaryData"/> objects. Details of the body schema for each item in the collection are in the Remarks section below. </returns>
-        /// <include file="Docs/PurviewAccountClient.xml" path="doc/members/member[@name='GetCollections(String,RequestContext)']/*" />
-        public virtual Pageable<BinaryData> GetCollections(string skipToken = null, RequestContext context = null)
+        /// <include file="Docs/PurviewAccountClient.xml" path="doc/members/member[@name='GetWorkflows(RequestContext)']/*" />
+        public virtual Pageable<BinaryData> GetWorkflows(RequestContext context = null)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => CreateGetCollectionsRequest(skipToken, context);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => CreateGetCollectionsNextPageRequest(nextLink, skipToken, context);
-            return PageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => BinaryData.FromString(e.GetRawText()), ClientDiagnostics, _pipeline, "PurviewAccountClient.GetCollections", "value", "nextLink", context);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => CreateGetWorkflowsRequest(context);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => CreateGetWorkflowsNextPageRequest(nextLink, context);
+            return PageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => BinaryData.FromString(e.GetRawText()), ClientDiagnostics, _pipeline, "PurviewAccountClient.GetWorkflows", "value", "nextLink", context);
         }
 
-        /// <summary> Get a resource set config service model. </summary>
-        /// <param name="skipToken"> The String to use. </param>
+        /// <summary> List workflow runs. </summary>
+        /// <param name="timeWindow"> Time window of filtering items. Allowed values: &quot;1d&quot; | &quot;7d&quot; | &quot;30d&quot; | &quot;90d&quot;. </param>
+        /// <param name="orderby"> The key word which used to sort the results. Allowed values: &quot;status desc&quot; | &quot;status asc&quot; | &quot;requestor desc&quot; | &quot;requestor asc&quot; | &quot;startTime desc&quot; | &quot;startTime asc&quot; | &quot;createdTime desc&quot; | &quot;createdTime asc&quot;. </param>
+        /// <param name="runStatuses"> Filter workflow runs by workflow run status. </param>
+        /// <param name="userRequestIds"> Filter items by user request id list. </param>
+        /// <param name="workflowIds"> Filter items by workflow id list. </param>
+        /// <param name="maxpagesize"> The maximum page size to get the items at one time. </param>
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="AsyncPageable{T}"/> from the service containing a list of <see cref="BinaryData"/> objects. Details of the body schema for each item in the collection are in the Remarks section below. </returns>
-        /// <include file="Docs/PurviewAccountClient.xml" path="doc/members/member[@name='GetResourceSetRulesAsync(String,RequestContext)']/*" />
-        public virtual AsyncPageable<BinaryData> GetResourceSetRulesAsync(string skipToken = null, RequestContext context = null)
+        /// <include file="Docs/PurviewAccountClient.xml" path="doc/members/member[@name='GetWorkflowRunsAsync(String,String,IEnumerable,IEnumerable,IEnumerable,Int32,RequestContext)']/*" />
+        public virtual AsyncPageable<BinaryData> GetWorkflowRunsAsync(string timeWindow = null, string orderby = null, IEnumerable<string> runStatuses = null, IEnumerable<string> userRequestIds = null, IEnumerable<string> workflowIds = null, int? maxpagesize = null, RequestContext context = null)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => CreateGetResourceSetRulesRequest(skipToken, context);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => CreateGetResourceSetRulesNextPageRequest(nextLink, skipToken, context);
-            return PageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => BinaryData.FromString(e.GetRawText()), ClientDiagnostics, _pipeline, "PurviewAccountClient.GetResourceSetRules", "value", "nextLink", context);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => CreateGetWorkflowRunsRequest(timeWindow, orderby, runStatuses, userRequestIds, workflowIds, maxpagesize, context);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => CreateGetWorkflowRunsNextPageRequest(nextLink, timeWindow, orderby, runStatuses, userRequestIds, workflowIds, maxpagesize, context);
+            return PageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => BinaryData.FromString(e.GetRawText()), ClientDiagnostics, _pipeline, "PurviewAccountClient.GetWorkflowRuns", "value", "nextLink", context);
         }
 
-        /// <summary> Get a resource set config service model. </summary>
-        /// <param name="skipToken"> The String to use. </param>
+        /// <summary> List workflow runs. </summary>
+        /// <param name="timeWindow"> Time window of filtering items. Allowed values: &quot;1d&quot; | &quot;7d&quot; | &quot;30d&quot; | &quot;90d&quot;. </param>
+        /// <param name="orderby"> The key word which used to sort the results. Allowed values: &quot;status desc&quot; | &quot;status asc&quot; | &quot;requestor desc&quot; | &quot;requestor asc&quot; | &quot;startTime desc&quot; | &quot;startTime asc&quot; | &quot;createdTime desc&quot; | &quot;createdTime asc&quot;. </param>
+        /// <param name="runStatuses"> Filter workflow runs by workflow run status. </param>
+        /// <param name="userRequestIds"> Filter items by user request id list. </param>
+        /// <param name="workflowIds"> Filter items by workflow id list. </param>
+        /// <param name="maxpagesize"> The maximum page size to get the items at one time. </param>
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Pageable{T}"/> from the service containing a list of <see cref="BinaryData"/> objects. Details of the body schema for each item in the collection are in the Remarks section below. </returns>
-        /// <include file="Docs/PurviewAccountClient.xml" path="doc/members/member[@name='GetResourceSetRules(String,RequestContext)']/*" />
-        public virtual Pageable<BinaryData> GetResourceSetRules(string skipToken = null, RequestContext context = null)
+        /// <include file="Docs/PurviewAccountClient.xml" path="doc/members/member[@name='GetWorkflowRuns(String,String,IEnumerable,IEnumerable,IEnumerable,Int32,RequestContext)']/*" />
+        public virtual Pageable<BinaryData> GetWorkflowRuns(string timeWindow = null, string orderby = null, IEnumerable<string> runStatuses = null, IEnumerable<string> userRequestIds = null, IEnumerable<string> workflowIds = null, int? maxpagesize = null, RequestContext context = null)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => CreateGetResourceSetRulesRequest(skipToken, context);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => CreateGetResourceSetRulesNextPageRequest(nextLink, skipToken, context);
-            return PageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => BinaryData.FromString(e.GetRawText()), ClientDiagnostics, _pipeline, "PurviewAccountClient.GetResourceSetRules", "value", "nextLink", context);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => CreateGetWorkflowRunsRequest(timeWindow, orderby, runStatuses, userRequestIds, workflowIds, maxpagesize, context);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => CreateGetWorkflowRunsNextPageRequest(nextLink, timeWindow, orderby, runStatuses, userRequestIds, workflowIds, maxpagesize, context);
+            return PageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => BinaryData.FromString(e.GetRawText()), ClientDiagnostics, _pipeline, "PurviewAccountClient.GetWorkflowRuns", "value", "nextLink", context);
         }
 
-        private PurviewResourceSetRule _cachedPurviewResourceSetRule;
-
-        /// <summary> Initializes a new instance of PurviewCollection. </summary>
-        /// <param name="collectionName"> The String to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="collectionName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="collectionName"/> is an empty string, and was expected to be non-empty. </exception>
-        public virtual PurviewCollection GetPurviewCollectionClient(string collectionName)
+        /// <summary> Get all workflow tasks. </summary>
+        /// <param name="viewMode"> To filter user&apos;s sent, received or history workflow tasks. </param>
+        /// <param name="workflowIds"> Filter items by workflow id list. </param>
+        /// <param name="timeWindow"> Time window of filtering items. Allowed values: &quot;1d&quot; | &quot;7d&quot; | &quot;30d&quot; | &quot;90d&quot;. </param>
+        /// <param name="maxpagesize"> The maximum page size to get the items at one time. </param>
+        /// <param name="orderby"> The key word which used to sort the results. Allowed values: &quot;status desc&quot; | &quot;status asc&quot; | &quot;requestor desc&quot; | &quot;requestor asc&quot; | &quot;startTime desc&quot; | &quot;startTime asc&quot; | &quot;createdTime desc&quot; | &quot;createdTime asc&quot;. </param>
+        /// <param name="taskTypes"> Filter items by workflow task type. </param>
+        /// <param name="taskStatuses"> Filter workflow tasks by status. </param>
+        /// <param name="workflowNameKeyword"> The key word which could used to filter workflow item with related workflow. </param>
+        /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
+        /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
+        /// <returns> The <see cref="AsyncPageable{T}"/> from the service containing a list of <see cref="BinaryData"/> objects. Details of the body schema for each item in the collection are in the Remarks section below. </returns>
+        /// <include file="Docs/PurviewAccountClient.xml" path="doc/members/member[@name='GetWorkflowTasksAsync(String,IEnumerable,String,Int32,String,IEnumerable,IEnumerable,String,RequestContext)']/*" />
+        public virtual AsyncPageable<BinaryData> GetWorkflowTasksAsync(string viewMode = null, IEnumerable<string> workflowIds = null, string timeWindow = null, int? maxpagesize = null, string orderby = null, IEnumerable<string> taskTypes = null, IEnumerable<string> taskStatuses = null, string workflowNameKeyword = null, RequestContext context = null)
         {
-            Argument.AssertNotNullOrEmpty(collectionName, nameof(collectionName));
-
-            return new PurviewCollection(ClientDiagnostics, _pipeline, _tokenCredential, _endpoint, collectionName, _apiVersion);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => CreateGetWorkflowTasksRequest(viewMode, workflowIds, timeWindow, maxpagesize, orderby, taskTypes, taskStatuses, workflowNameKeyword, context);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => CreateGetWorkflowTasksNextPageRequest(nextLink, viewMode, workflowIds, timeWindow, maxpagesize, orderby, taskTypes, taskStatuses, workflowNameKeyword, context);
+            return PageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => BinaryData.FromString(e.GetRawText()), ClientDiagnostics, _pipeline, "PurviewAccountClient.GetWorkflowTasks", "value", "nextLink", context);
         }
 
-        /// <summary> Initializes a new instance of PurviewResourceSetRule. </summary>
-        public virtual PurviewResourceSetRule GetPurviewResourceSetRuleClient()
+        /// <summary> Get all workflow tasks. </summary>
+        /// <param name="viewMode"> To filter user&apos;s sent, received or history workflow tasks. </param>
+        /// <param name="workflowIds"> Filter items by workflow id list. </param>
+        /// <param name="timeWindow"> Time window of filtering items. Allowed values: &quot;1d&quot; | &quot;7d&quot; | &quot;30d&quot; | &quot;90d&quot;. </param>
+        /// <param name="maxpagesize"> The maximum page size to get the items at one time. </param>
+        /// <param name="orderby"> The key word which used to sort the results. Allowed values: &quot;status desc&quot; | &quot;status asc&quot; | &quot;requestor desc&quot; | &quot;requestor asc&quot; | &quot;startTime desc&quot; | &quot;startTime asc&quot; | &quot;createdTime desc&quot; | &quot;createdTime asc&quot;. </param>
+        /// <param name="taskTypes"> Filter items by workflow task type. </param>
+        /// <param name="taskStatuses"> Filter workflow tasks by status. </param>
+        /// <param name="workflowNameKeyword"> The key word which could used to filter workflow item with related workflow. </param>
+        /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
+        /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
+        /// <returns> The <see cref="Pageable{T}"/> from the service containing a list of <see cref="BinaryData"/> objects. Details of the body schema for each item in the collection are in the Remarks section below. </returns>
+        /// <include file="Docs/PurviewAccountClient.xml" path="doc/members/member[@name='GetWorkflowTasks(String,IEnumerable,String,Int32,String,IEnumerable,IEnumerable,String,RequestContext)']/*" />
+        public virtual Pageable<BinaryData> GetWorkflowTasks(string viewMode = null, IEnumerable<string> workflowIds = null, string timeWindow = null, int? maxpagesize = null, string orderby = null, IEnumerable<string> taskTypes = null, IEnumerable<string> taskStatuses = null, string workflowNameKeyword = null, RequestContext context = null)
         {
-            return Volatile.Read(ref _cachedPurviewResourceSetRule) ?? Interlocked.CompareExchange(ref _cachedPurviewResourceSetRule, new PurviewResourceSetRule(ClientDiagnostics, _pipeline, _tokenCredential, _endpoint, _apiVersion), null) ?? _cachedPurviewResourceSetRule;
+            HttpMessage FirstPageRequest(int? pageSizeHint) => CreateGetWorkflowTasksRequest(viewMode, workflowIds, timeWindow, maxpagesize, orderby, taskTypes, taskStatuses, workflowNameKeyword, context);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => CreateGetWorkflowTasksNextPageRequest(nextLink, viewMode, workflowIds, timeWindow, maxpagesize, orderby, taskTypes, taskStatuses, workflowNameKeyword, context);
+            return PageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => BinaryData.FromString(e.GetRawText()), ClientDiagnostics, _pipeline, "PurviewAccountClient.GetWorkflowTasks", "value", "nextLink", context);
         }
 
-        internal HttpMessage CreateGetAccountPropertiesRequest(RequestContext context)
+        internal HttpMessage CreateGetWorkflowsRequest(RequestContext context)
         {
             var message = _pipeline.CreateMessage(context, ResponseClassifier200);
             var request = message.Request;
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendPath("/", false);
-            uri.AppendQuery("api-version", _apiVersion, true);
+            uri.AppendRaw("/workflow", false);
+            uri.AppendPath("/workflows", false);
+            uri.AppendQuery("api-version", "2022-05-01-preview", true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
             return message;
         }
 
-        internal HttpMessage CreateUpdateAccountPropertiesRequest(RequestContent content, RequestContext context)
+        internal HttpMessage CreateGetWorkflowRequest(Guid workflowId, RequestContext context)
         {
             var message = _pipeline.CreateMessage(context, ResponseClassifier200);
             var request = message.Request;
-            request.Method = RequestMethod.Patch;
+            request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendPath("/", false);
-            uri.AppendQuery("api-version", _apiVersion, true);
+            uri.AppendRaw("/workflow", false);
+            uri.AppendPath("/workflows/", false);
+            uri.AppendPath(workflowId, true);
+            uri.AppendQuery("api-version", "2022-05-01-preview", true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            return message;
+        }
+
+        internal HttpMessage CreateCreateOrReplaceWorkflowRequest(Guid workflowId, RequestContent content, RequestContext context)
+        {
+            var message = _pipeline.CreateMessage(context, ResponseClassifier200);
+            var request = message.Request;
+            request.Method = RequestMethod.Put;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendRaw("/workflow", false);
+            uri.AppendPath("/workflows/", false);
+            uri.AppendPath(workflowId, true);
+            uri.AppendQuery("api-version", "2022-05-01-preview", true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
             request.Headers.Add("Content-Type", "application/json");
@@ -346,29 +850,32 @@ namespace Azure.Analytics.Purview.Account
             return message;
         }
 
-        internal HttpMessage CreateGetAccessKeysRequest(RequestContext context)
+        internal HttpMessage CreateDeleteWorkflowRequest(Guid workflowId, RequestContext context)
         {
-            var message = _pipeline.CreateMessage(context, ResponseClassifier200);
+            var message = _pipeline.CreateMessage(context, ResponseClassifier204);
             var request = message.Request;
-            request.Method = RequestMethod.Post;
+            request.Method = RequestMethod.Delete;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendPath("/listkeys", false);
-            uri.AppendQuery("api-version", _apiVersion, true);
+            uri.AppendRaw("/workflow", false);
+            uri.AppendPath("/workflows/", false);
+            uri.AppendPath(workflowId, true);
+            uri.AppendQuery("api-version", "2022-05-01-preview", true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
             return message;
         }
 
-        internal HttpMessage CreateRegenerateAccessKeyRequest(RequestContent content, RequestContext context)
+        internal HttpMessage CreateSubmitUserRequestsRequest(RequestContent content, RequestContext context)
         {
             var message = _pipeline.CreateMessage(context, ResponseClassifier200);
             var request = message.Request;
             request.Method = RequestMethod.Post;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendPath("/regeneratekeys", false);
-            uri.AppendQuery("api-version", _apiVersion, true);
+            uri.AppendRaw("/workflow", false);
+            uri.AppendPath("/userrequests", false);
+            uri.AppendQuery("api-version", "2022-05-01-preview", true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
             request.Headers.Add("Content-Type", "application/json");
@@ -376,62 +883,292 @@ namespace Azure.Analytics.Purview.Account
             return message;
         }
 
-        internal HttpMessage CreateGetCollectionsRequest(string skipToken, RequestContext context)
+        internal HttpMessage CreateGetWorkflowRunsRequest(string timeWindow, string orderby, IEnumerable<string> runStatuses, IEnumerable<string> userRequestIds, IEnumerable<string> workflowIds, int? maxpagesize, RequestContext context)
         {
             var message = _pipeline.CreateMessage(context, ResponseClassifier200);
             var request = message.Request;
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendPath("/collections", false);
-            uri.AppendQuery("api-version", _apiVersion, true);
-            if (skipToken != null)
+            uri.AppendRaw("/workflow", false);
+            uri.AppendPath("/workflowruns", false);
+            uri.AppendQuery("api-version", "2022-05-01-preview", true);
+            if (timeWindow != null)
             {
-                uri.AppendQuery("$skipToken", skipToken, true);
+                uri.AppendQuery("timeWindow", timeWindow, true);
+            }
+            if (orderby != null)
+            {
+                uri.AppendQuery("orderby", orderby, true);
+            }
+            if (runStatuses != null)
+            {
+                uri.AppendQueryDelimited("runStatuses", runStatuses, ",", true);
+            }
+            if (userRequestIds != null)
+            {
+                uri.AppendQueryDelimited("userRequestIds", userRequestIds, ",", true);
+            }
+            if (workflowIds != null)
+            {
+                uri.AppendQueryDelimited("workflowIds", workflowIds, ",", true);
+            }
+            if (maxpagesize != null)
+            {
+                uri.AppendQuery("maxpagesize", maxpagesize.Value, true);
             }
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
             return message;
         }
 
-        internal HttpMessage CreateGetResourceSetRulesRequest(string skipToken, RequestContext context)
+        internal HttpMessage CreateGetWorkflowRunRequest(Guid workflowRunId, RequestContext context)
         {
             var message = _pipeline.CreateMessage(context, ResponseClassifier200);
             var request = message.Request;
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendPath("/resourceSetRuleConfigs", false);
-            uri.AppendQuery("api-version", _apiVersion, true);
-            if (skipToken != null)
+            uri.AppendRaw("/workflow", false);
+            uri.AppendPath("/workflowruns/", false);
+            uri.AppendPath(workflowRunId, true);
+            uri.AppendQuery("api-version", "2022-05-01-preview", true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            return message;
+        }
+
+        internal HttpMessage CreateCancelWorkflowRunRequest(Guid workflowRunId, RequestContent content, RequestContext context)
+        {
+            var message = _pipeline.CreateMessage(context, ResponseClassifier200);
+            var request = message.Request;
+            request.Method = RequestMethod.Post;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendRaw("/workflow", false);
+            uri.AppendPath("/workflowruns/", false);
+            uri.AppendPath(workflowRunId, true);
+            uri.AppendPath("/cancel", false);
+            uri.AppendQuery("api-version", "2022-05-01-preview", true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            request.Headers.Add("Content-Type", "application/json");
+            request.Content = content;
+            return message;
+        }
+
+        internal HttpMessage CreateGetWorkflowTasksRequest(string viewMode, IEnumerable<string> workflowIds, string timeWindow, int? maxpagesize, string orderby, IEnumerable<string> taskTypes, IEnumerable<string> taskStatuses, string workflowNameKeyword, RequestContext context)
+        {
+            var message = _pipeline.CreateMessage(context, ResponseClassifier200);
+            var request = message.Request;
+            request.Method = RequestMethod.Get;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendRaw("/workflow", false);
+            uri.AppendPath("/workflowtasks", false);
+            uri.AppendQuery("api-version", "2022-05-01-preview", true);
+            if (viewMode != null)
             {
-                uri.AppendQuery("$skipToken", skipToken, true);
+                uri.AppendQuery("viewMode", viewMode, true);
+            }
+            if (workflowIds != null)
+            {
+                uri.AppendQueryDelimited("workflowIds", workflowIds, ",", true);
+            }
+            if (timeWindow != null)
+            {
+                uri.AppendQuery("timeWindow", timeWindow, true);
+            }
+            if (maxpagesize != null)
+            {
+                uri.AppendQuery("maxpagesize", maxpagesize.Value, true);
+            }
+            if (orderby != null)
+            {
+                uri.AppendQuery("orderby", orderby, true);
+            }
+            if (taskTypes != null)
+            {
+                uri.AppendQueryDelimited("taskTypes", taskTypes, ",", true);
+            }
+            if (taskStatuses != null)
+            {
+                uri.AppendQueryDelimited("taskStatuses", taskStatuses, ",", true);
+            }
+            if (workflowNameKeyword != null)
+            {
+                uri.AppendQuery("workflowNameKeyword", workflowNameKeyword, true);
             }
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
             return message;
         }
 
-        internal HttpMessage CreateGetCollectionsNextPageRequest(string nextLink, string skipToken, RequestContext context)
+        internal HttpMessage CreateGetWorkflowTaskRequest(Guid taskId, RequestContext context)
         {
             var message = _pipeline.CreateMessage(context, ResponseClassifier200);
             var request = message.Request;
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
+            uri.AppendRaw("/workflow", false);
+            uri.AppendPath("/workflowtasks/", false);
+            uri.AppendPath(taskId, true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            return message;
+        }
+
+        internal HttpMessage CreateApproveApprovalTaskRequest(Guid taskId, RequestContent content, RequestContext context)
+        {
+            var message = _pipeline.CreateMessage(context, ResponseClassifier200);
+            var request = message.Request;
+            request.Method = RequestMethod.Post;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendRaw("/workflow", false);
+            uri.AppendPath("/workflowtasks/", false);
+            uri.AppendPath(taskId, true);
+            uri.AppendPath("/approve-approval", false);
+            uri.AppendQuery("api-version", "2022-05-01-preview", true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            request.Headers.Add("Content-Type", "application/json");
+            request.Content = content;
+            return message;
+        }
+
+        internal HttpMessage CreateRejectApprovalTaskRequest(Guid taskId, RequestContent content, RequestContext context)
+        {
+            var message = _pipeline.CreateMessage(context, ResponseClassifier200);
+            var request = message.Request;
+            request.Method = RequestMethod.Post;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendRaw("/workflow", false);
+            uri.AppendPath("/workflowtasks/", false);
+            uri.AppendPath(taskId, true);
+            uri.AppendPath("/reject-approval", false);
+            uri.AppendQuery("api-version", "2022-05-01-preview", true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            request.Headers.Add("Content-Type", "application/json");
+            request.Content = content;
+            return message;
+        }
+
+        internal HttpMessage CreateReassignWorkflowTaskRequest(Guid taskId, RequestContent content, RequestContext context)
+        {
+            var message = _pipeline.CreateMessage(context, ResponseClassifier200);
+            var request = message.Request;
+            request.Method = RequestMethod.Post;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendRaw("/workflow", false);
+            uri.AppendPath("/workflowtasks/", false);
+            uri.AppendPath(taskId, true);
+            uri.AppendPath("/reassign", false);
+            uri.AppendQuery("api-version", "2022-05-01-preview", true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            request.Headers.Add("Content-Type", "application/json");
+            request.Content = content;
+            return message;
+        }
+
+        internal HttpMessage CreateUpdateSimpleTaskRequest(Guid taskId, RequestContent content, RequestContext context)
+        {
+            var message = _pipeline.CreateMessage(context, ResponseClassifier200);
+            var request = message.Request;
+            request.Method = RequestMethod.Post;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendRaw("/workflow", false);
+            uri.AppendPath("/workflowtasks/", false);
+            uri.AppendPath(taskId, true);
+            uri.AppendPath("/change-task-status", false);
+            uri.AppendQuery("api-version", "2022-05-01-preview", true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            request.Headers.Add("Content-Type", "application/json");
+            request.Content = content;
+            return message;
+        }
+
+        internal HttpMessage CreateClaimDsarTaskRequestRequest(Guid taskId, RequestContent content, RequestContext context)
+        {
+            var message = _pipeline.CreateMessage(context, ResponseClassifier200);
+            var request = message.Request;
+            request.Method = RequestMethod.Post;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendRaw("/workflow", false);
+            uri.AppendPath("/workflowtasks/", false);
+            uri.AppendPath(taskId, true);
+            uri.AppendPath("/claim-task", false);
+            uri.AppendQuery("api-version", "2022-05-01-preview", true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            request.Headers.Add("Content-Type", "application/json");
+            request.Content = content;
+            return message;
+        }
+
+        internal HttpMessage CreateReleaseDsarTaskRequestRequest(Guid taskId, RequestContent content, RequestContext context)
+        {
+            var message = _pipeline.CreateMessage(context, ResponseClassifier200);
+            var request = message.Request;
+            request.Method = RequestMethod.Post;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendRaw("/workflow", false);
+            uri.AppendPath("/workflowtasks/", false);
+            uri.AppendPath(taskId, true);
+            uri.AppendPath("/release-task", false);
+            uri.AppendQuery("api-version", "2022-05-01-preview", true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            request.Headers.Add("Content-Type", "application/json");
+            request.Content = content;
+            return message;
+        }
+
+        internal HttpMessage CreateGetWorkflowsNextPageRequest(string nextLink, RequestContext context)
+        {
+            var message = _pipeline.CreateMessage(context, ResponseClassifier200);
+            var request = message.Request;
+            request.Method = RequestMethod.Get;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendRaw("/workflow", false);
             uri.AppendRawNextLink(nextLink, false);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
             return message;
         }
 
-        internal HttpMessage CreateGetResourceSetRulesNextPageRequest(string nextLink, string skipToken, RequestContext context)
+        internal HttpMessage CreateGetWorkflowRunsNextPageRequest(string nextLink, string timeWindow, string orderby, IEnumerable<string> runStatuses, IEnumerable<string> userRequestIds, IEnumerable<string> workflowIds, int? maxpagesize, RequestContext context)
         {
             var message = _pipeline.CreateMessage(context, ResponseClassifier200);
             var request = message.Request;
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
+            uri.AppendRaw("/workflow", false);
+            uri.AppendRawNextLink(nextLink, false);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            return message;
+        }
+
+        internal HttpMessage CreateGetWorkflowTasksNextPageRequest(string nextLink, string viewMode, IEnumerable<string> workflowIds, string timeWindow, int? maxpagesize, string orderby, IEnumerable<string> taskTypes, IEnumerable<string> taskStatuses, string workflowNameKeyword, RequestContext context)
+        {
+            var message = _pipeline.CreateMessage(context, ResponseClassifier200);
+            var request = message.Request;
+            request.Method = RequestMethod.Get;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendRaw("/workflow", false);
             uri.AppendRawNextLink(nextLink, false);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
@@ -440,5 +1177,7 @@ namespace Azure.Analytics.Purview.Account
 
         private static ResponseClassifier _responseClassifier200;
         private static ResponseClassifier ResponseClassifier200 => _responseClassifier200 ??= new StatusCodeClassifier(stackalloc ushort[] { 200 });
+        private static ResponseClassifier _responseClassifier204;
+        private static ResponseClassifier ResponseClassifier204 => _responseClassifier204 ??= new StatusCodeClassifier(stackalloc ushort[] { 204 });
     }
 }
