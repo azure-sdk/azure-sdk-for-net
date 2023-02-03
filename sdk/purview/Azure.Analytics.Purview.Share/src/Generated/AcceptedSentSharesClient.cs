@@ -20,8 +20,7 @@ namespace Azure.Analytics.Purview.Share
         private static readonly string[] AuthorizationScopes = new string[] { "https://purview.azure.net/.default" };
         private readonly TokenCredential _tokenCredential;
         private readonly HttpPipeline _pipeline;
-        private readonly string _endpoint;
-        private readonly string _apiVersion;
+        private readonly Uri _endpoint;
 
         /// <summary> The ClientDiagnostics is used to provide tracing support for the client library. </summary>
         internal ClientDiagnostics ClientDiagnostics { get; }
@@ -35,29 +34,28 @@ namespace Azure.Analytics.Purview.Share
         }
 
         /// <summary> Initializes a new instance of AcceptedSentSharesClient. </summary>
-        /// <param name="endpoint"> The scanning endpoint of your purview account. Example: https://{accountName}.purview.azure.com/share. </param>
+        /// <param name="endpoint"> The account endpoint of your Purview account. Example: https://{accountName}.purview.azure.com/. </param>
         /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> or <paramref name="credential"/> is null. </exception>
-        public AcceptedSentSharesClient(string endpoint, TokenCredential credential) : this(endpoint, credential, new PurviewShareClientOptions())
+        public AcceptedSentSharesClient(Uri endpoint, TokenCredential credential) : this(endpoint, credential, new PurviewPDSClientOptions())
         {
         }
 
         /// <summary> Initializes a new instance of AcceptedSentSharesClient. </summary>
-        /// <param name="endpoint"> The scanning endpoint of your purview account. Example: https://{accountName}.purview.azure.com/share. </param>
+        /// <param name="endpoint"> The account endpoint of your Purview account. Example: https://{accountName}.purview.azure.com/. </param>
         /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
         /// <param name="options"> The options for configuring the client. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> or <paramref name="credential"/> is null. </exception>
-        public AcceptedSentSharesClient(string endpoint, TokenCredential credential, PurviewShareClientOptions options)
+        public AcceptedSentSharesClient(Uri endpoint, TokenCredential credential, PurviewPDSClientOptions options)
         {
             Argument.AssertNotNull(endpoint, nameof(endpoint));
             Argument.AssertNotNull(credential, nameof(credential));
-            options ??= new PurviewShareClientOptions();
+            options ??= new PurviewPDSClientOptions();
 
             ClientDiagnostics = new ClientDiagnostics(options, true);
             _tokenCredential = credential;
             _pipeline = HttpPipelineBuilder.Build(options, Array.Empty<HttpPipelinePolicy>(), new HttpPipelinePolicy[] { new BearerTokenAuthenticationPolicy(_tokenCredential, AuthorizationScopes) }, new ResponseClassifier());
             _endpoint = endpoint;
-            _apiVersion = options.Version;
         }
 
         /// <summary> Get an accepted share with acceptedSentShareName to a particular sent share. </summary>
@@ -346,11 +344,11 @@ namespace Azure.Analytics.Purview.Share
             var request = message.Request;
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
-            uri.AppendRaw(_endpoint, false);
+            uri.Reset(_endpoint);
             uri.AppendPath("/sentShares/", false);
             uri.AppendPath(sentShareName, true);
             uri.AppendPath("/acceptedSentShares", false);
-            uri.AppendQuery("api-version", _apiVersion, true);
+            uri.AppendQuery("api-version", "2021-09-01-preview", true);
             if (skipToken != null)
             {
                 uri.AppendQuery("skipToken", skipToken, true);
@@ -366,12 +364,12 @@ namespace Azure.Analytics.Purview.Share
             var request = message.Request;
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
-            uri.AppendRaw(_endpoint, false);
+            uri.Reset(_endpoint);
             uri.AppendPath("/sentShares/", false);
             uri.AppendPath(sentShareName, true);
             uri.AppendPath("/acceptedSentShares/", false);
             uri.AppendPath(acceptedSentShareName, true);
-            uri.AppendQuery("api-version", _apiVersion, true);
+            uri.AppendQuery("api-version", "2021-09-01-preview", true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
             return message;
@@ -383,13 +381,13 @@ namespace Azure.Analytics.Purview.Share
             var request = message.Request;
             request.Method = RequestMethod.Post;
             var uri = new RawRequestUriBuilder();
-            uri.AppendRaw(_endpoint, false);
+            uri.Reset(_endpoint);
             uri.AppendPath("/sentShares/", false);
             uri.AppendPath(sentShareName, true);
             uri.AppendPath("/acceptedSentShares/", false);
             uri.AppendPath(acceptedSentShareName, true);
             uri.AppendPath(":reinstate", false);
-            uri.AppendQuery("api-version", _apiVersion, true);
+            uri.AppendQuery("api-version", "2021-09-01-preview", true);
             request.Uri = uri;
             if (repeatabilityRequestId != null)
             {
@@ -407,13 +405,13 @@ namespace Azure.Analytics.Purview.Share
             var request = message.Request;
             request.Method = RequestMethod.Post;
             var uri = new RawRequestUriBuilder();
-            uri.AppendRaw(_endpoint, false);
+            uri.Reset(_endpoint);
             uri.AppendPath("/sentShares/", false);
             uri.AppendPath(sentShareName, true);
             uri.AppendPath("/acceptedSentShares/", false);
             uri.AppendPath(acceptedSentShareName, true);
             uri.AppendPath(":revoke", false);
-            uri.AppendQuery("api-version", _apiVersion, true);
+            uri.AppendQuery("api-version", "2021-09-01-preview", true);
             request.Uri = uri;
             if (repeatabilityRequestId != null)
             {
@@ -429,13 +427,13 @@ namespace Azure.Analytics.Purview.Share
             var request = message.Request;
             request.Method = RequestMethod.Post;
             var uri = new RawRequestUriBuilder();
-            uri.AppendRaw(_endpoint, false);
+            uri.Reset(_endpoint);
             uri.AppendPath("/sentShares/", false);
             uri.AppendPath(sentShareName, true);
             uri.AppendPath("/acceptedSentShares/", false);
             uri.AppendPath(acceptedSentShareName, true);
             uri.AppendPath(":update-expiration", false);
-            uri.AppendQuery("api-version", _apiVersion, true);
+            uri.AppendQuery("api-version", "2021-09-01-preview", true);
             request.Uri = uri;
             if (repeatabilityRequestId != null)
             {
@@ -453,7 +451,7 @@ namespace Azure.Analytics.Purview.Share
             var request = message.Request;
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
-            uri.AppendRaw(_endpoint, false);
+            uri.Reset(_endpoint);
             uri.AppendRawNextLink(nextLink, false);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
