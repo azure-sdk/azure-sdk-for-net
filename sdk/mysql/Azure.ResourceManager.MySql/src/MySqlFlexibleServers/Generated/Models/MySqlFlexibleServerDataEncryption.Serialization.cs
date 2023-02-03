@@ -23,7 +23,7 @@ namespace Azure.ResourceManager.MySql.FlexibleServers.Models
             }
             if (Optional.IsDefined(PrimaryKeyUri))
             {
-                writer.WritePropertyName("primaryKeyUri");
+                writer.WritePropertyName("primaryKeyURI");
                 writer.WriteStringValue(PrimaryKeyUri.AbsoluteUri);
             }
             if (Optional.IsDefined(GeoBackupUserAssignedIdentityId))
@@ -33,7 +33,7 @@ namespace Azure.ResourceManager.MySql.FlexibleServers.Models
             }
             if (Optional.IsDefined(GeoBackupKeyUri))
             {
-                writer.WritePropertyName("geoBackupKeyUri");
+                writer.WritePropertyName("geoBackupKeyURI");
                 writer.WriteStringValue(GeoBackupKeyUri.AbsoluteUri);
             }
             if (Optional.IsDefined(EncryptionType))
@@ -63,7 +63,7 @@ namespace Azure.ResourceManager.MySql.FlexibleServers.Models
                     primaryUserAssignedIdentityId = new ResourceIdentifier(property.Value.GetString());
                     continue;
                 }
-                if (property.NameEquals("primaryKeyUri"))
+                if (property.NameEquals("primaryKeyURI"))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
@@ -83,7 +83,7 @@ namespace Azure.ResourceManager.MySql.FlexibleServers.Models
                     geoBackupUserAssignedIdentityId = new ResourceIdentifier(property.Value.GetString());
                     continue;
                 }
-                if (property.NameEquals("geoBackupKeyUri"))
+                if (property.NameEquals("geoBackupKeyURI"))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
