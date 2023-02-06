@@ -5,6 +5,7 @@
 
 #nullable disable
 
+using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
 
@@ -14,72 +15,37 @@ namespace Azure.ResourceManager.Workloads.Models
     {
         internal static SapDiskConfiguration DeserializeSapDiskConfiguration(JsonElement element)
         {
-            Optional<string> volume = default;
-            Optional<string> diskType = default;
-            Optional<long> diskCount = default;
-            Optional<long> diskSizeGB = default;
-            Optional<long> diskIopsReadWrite = default;
-            Optional<long> diskMBpsReadWrite = default;
-            Optional<string> diskStorageType = default;
+            Optional<DiskVolumeConfiguration> recommendedConfiguration = default;
+            Optional<IReadOnlyList<DiskDetails>> supportedConfigurations = default;
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("volume"))
-                {
-                    volume = property.Value.GetString();
-                    continue;
-                }
-                if (property.NameEquals("diskType"))
-                {
-                    diskType = property.Value.GetString();
-                    continue;
-                }
-                if (property.NameEquals("diskCount"))
+                if (property.NameEquals("recommendedConfiguration"))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
                         property.ThrowNonNullablePropertyIsNull();
                         continue;
                     }
-                    diskCount = property.Value.GetInt64();
+                    recommendedConfiguration = DiskVolumeConfiguration.DeserializeDiskVolumeConfiguration(property.Value);
                     continue;
                 }
-                if (property.NameEquals("diskSizeGB"))
+                if (property.NameEquals("supportedConfigurations"))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
                         property.ThrowNonNullablePropertyIsNull();
                         continue;
                     }
-                    diskSizeGB = property.Value.GetInt64();
-                    continue;
-                }
-                if (property.NameEquals("diskIopsReadWrite"))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    List<DiskDetails> array = new List<DiskDetails>();
+                    foreach (var item in property.Value.EnumerateArray())
                     {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
+                        array.Add(DiskDetails.DeserializeDiskDetails(item));
                     }
-                    diskIopsReadWrite = property.Value.GetInt64();
-                    continue;
-                }
-                if (property.NameEquals("diskMBpsReadWrite"))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
-                    diskMBpsReadWrite = property.Value.GetInt64();
-                    continue;
-                }
-                if (property.NameEquals("diskStorageType"))
-                {
-                    diskStorageType = property.Value.GetString();
+                    supportedConfigurations = array;
                     continue;
                 }
             }
-            return new SapDiskConfiguration(volume.Value, diskType.Value, Optional.ToNullable(diskCount), Optional.ToNullable(diskSizeGB), Optional.ToNullable(diskIopsReadWrite), Optional.ToNullable(diskMBpsReadWrite), diskStorageType.Value);
+            return new SapDiskConfiguration(recommendedConfiguration.Value, Optional.ToList(supportedConfigurations));
         }
     }
 }
