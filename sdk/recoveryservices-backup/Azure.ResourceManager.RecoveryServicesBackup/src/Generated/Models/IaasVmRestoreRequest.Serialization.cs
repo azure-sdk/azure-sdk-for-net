@@ -8,6 +8,7 @@
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
+using Azure.ResourceManager.Resources.Models;
 
 namespace Azure.ResourceManager.RecoveryServicesBackup.Models
 {
@@ -126,6 +127,11 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                 writer.WritePropertyName("identityBasedRestoreDetails");
                 writer.WriteObjectValue(IdentityBasedRestoreDetails);
             }
+            if (Optional.IsDefined(ExtendedLocation))
+            {
+                writer.WritePropertyName("extendedLocation");
+                JsonSerializer.Serialize(writer, ExtendedLocation);
+            }
             writer.WritePropertyName("objectType");
             writer.WriteStringValue(ObjectType);
             writer.WriteEndObject();
@@ -160,6 +166,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             Optional<IList<string>> zones = default;
             Optional<IdentityInfo> identityInfo = default;
             Optional<IdentityBasedRestoreDetails> identityBasedRestoreDetails = default;
+            Optional<ExtendedLocation> extendedLocation = default;
             string objectType = "IaasVMRestoreRequest";
             foreach (var property in element.EnumerateObject())
             {
@@ -318,13 +325,23 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                     identityBasedRestoreDetails = IdentityBasedRestoreDetails.DeserializeIdentityBasedRestoreDetails(property.Value);
                     continue;
                 }
+                if (property.NameEquals("extendedLocation"))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        property.ThrowNonNullablePropertyIsNull();
+                        continue;
+                    }
+                    extendedLocation = JsonSerializer.Deserialize<ExtendedLocation>(property.Value.GetRawText());
+                    continue;
+                }
                 if (property.NameEquals("objectType"))
                 {
                     objectType = property.Value.GetString();
                     continue;
                 }
             }
-            return new IaasVmRestoreRequest(objectType, recoveryPointId.Value, Optional.ToNullable(recoveryType), sourceResourceId.Value, targetVirtualMachineId.Value, targetResourceGroupId.Value, storageAccountId.Value, virtualNetworkId.Value, subnetId.Value, targetDomainNameId.Value, region.Value, affinityGroup.Value, Optional.ToNullable(createNewCloudService), Optional.ToNullable(originalStorageAccountOption), encryptionDetails.Value, Optional.ToList(restoreDiskLunList), Optional.ToNullable(restoreWithManagedDisks), diskEncryptionSetId.Value, Optional.ToList(zones), identityInfo.Value, identityBasedRestoreDetails.Value);
+            return new IaasVmRestoreRequest(objectType, recoveryPointId.Value, Optional.ToNullable(recoveryType), sourceResourceId.Value, targetVirtualMachineId.Value, targetResourceGroupId.Value, storageAccountId.Value, virtualNetworkId.Value, subnetId.Value, targetDomainNameId.Value, region.Value, affinityGroup.Value, Optional.ToNullable(createNewCloudService), Optional.ToNullable(originalStorageAccountOption), encryptionDetails.Value, Optional.ToList(restoreDiskLunList), Optional.ToNullable(restoreWithManagedDisks), diskEncryptionSetId.Value, Optional.ToList(zones), identityInfo.Value, identityBasedRestoreDetails.Value, extendedLocation);
         }
     }
 }

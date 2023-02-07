@@ -7,6 +7,7 @@
 
 using System.Collections.Generic;
 using Azure.Core;
+using Azure.ResourceManager.Resources.Models;
 
 namespace Azure.ResourceManager.RecoveryServicesBackup.Models
 {
@@ -66,7 +67,11 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         /// <param name="zones"> Target zone where the VM and its disks should be restored. </param>
         /// <param name="identityInfo"> Managed Identity information required to access customer storage account. </param>
         /// <param name="identityBasedRestoreDetails"> IaaS VM workload specific restore details for restores using managed identity. </param>
-        internal IaasVmRestoreRequest(string objectType, string recoveryPointId, RecoveryType? recoveryType, string sourceResourceId, string targetVirtualMachineId, string targetResourceGroupId, string storageAccountId, string virtualNetworkId, string subnetId, string targetDomainNameId, string region, string affinityGroup, bool? createNewCloudService, bool? originalStorageAccountOption, EncryptionDetails encryptionDetails, IList<int> restoreDiskLunList, bool? restoreWithManagedDisks, string diskEncryptionSetId, IList<string> zones, IdentityInfo identityInfo, IdentityBasedRestoreDetails identityBasedRestoreDetails) : base(objectType)
+        /// <param name="extendedLocation">
+        /// Target extended location where the VM should be restored,
+        /// should be null if restore is to be done in public cloud
+        /// </param>
+        internal IaasVmRestoreRequest(string objectType, string recoveryPointId, RecoveryType? recoveryType, string sourceResourceId, string targetVirtualMachineId, string targetResourceGroupId, string storageAccountId, string virtualNetworkId, string subnetId, string targetDomainNameId, string region, string affinityGroup, bool? createNewCloudService, bool? originalStorageAccountOption, EncryptionDetails encryptionDetails, IList<int> restoreDiskLunList, bool? restoreWithManagedDisks, string diskEncryptionSetId, IList<string> zones, IdentityInfo identityInfo, IdentityBasedRestoreDetails identityBasedRestoreDetails, ExtendedLocation extendedLocation) : base(objectType)
         {
             RecoveryPointId = recoveryPointId;
             RecoveryType = recoveryType;
@@ -88,6 +93,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             Zones = zones;
             IdentityInfo = identityInfo;
             IdentityBasedRestoreDetails = identityBasedRestoreDetails;
+            ExtendedLocation = extendedLocation;
             ObjectType = objectType ?? "IaasVMRestoreRequest";
         }
 
@@ -150,5 +156,10 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         public IdentityInfo IdentityInfo { get; set; }
         /// <summary> IaaS VM workload specific restore details for restores using managed identity. </summary>
         public IdentityBasedRestoreDetails IdentityBasedRestoreDetails { get; set; }
+        /// <summary>
+        /// Target extended location where the VM should be restored,
+        /// should be null if restore is to be done in public cloud
+        /// </summary>
+        public ExtendedLocation ExtendedLocation { get; set; }
     }
 }

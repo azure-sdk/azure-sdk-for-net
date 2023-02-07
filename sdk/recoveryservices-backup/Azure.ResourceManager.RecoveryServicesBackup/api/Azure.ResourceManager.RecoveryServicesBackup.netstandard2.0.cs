@@ -1890,6 +1890,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         public bool? CreateNewCloudService { get { throw null; } set { } }
         public string DiskEncryptionSetId { get { throw null; } set { } }
         public Azure.ResourceManager.RecoveryServicesBackup.Models.EncryptionDetails EncryptionDetails { get { throw null; } set { } }
+        public Azure.ResourceManager.Resources.Models.ExtendedLocation ExtendedLocation { get { throw null; } set { } }
         public Azure.ResourceManager.RecoveryServicesBackup.Models.IdentityBasedRestoreDetails IdentityBasedRestoreDetails { get { throw null; } set { } }
         public Azure.ResourceManager.RecoveryServicesBackup.Models.IdentityInfo IdentityInfo { get { throw null; } set { } }
         public bool? OriginalStorageAccountOption { get { throw null; } set { } }
@@ -2669,6 +2670,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
     {
         public RecoveryPointProperties() { }
         public System.DateTimeOffset? ExpiryOn { get { throw null; } set { } }
+        public bool? IsSoftDeleted { get { throw null; } set { } }
         public string RuleName { get { throw null; } set { } }
     }
     public partial class RecoveryPointRehydrationInfo
