@@ -25,6 +25,16 @@ namespace Azure.ResourceManager.StorageCache.Models
                 writer.WritePropertyName("usageModel");
                 writer.WriteStringValue(UsageModel);
             }
+            if (Optional.IsDefined(VerificationTimer))
+            {
+                writer.WritePropertyName("verificationTimer");
+                writer.WriteNumberValue(VerificationTimer.Value);
+            }
+            if (Optional.IsDefined(WriteBackTimer))
+            {
+                writer.WritePropertyName("writeBackTimer");
+                writer.WriteNumberValue(WriteBackTimer.Value);
+            }
             writer.WriteEndObject();
         }
 
@@ -32,6 +42,8 @@ namespace Azure.ResourceManager.StorageCache.Models
         {
             Optional<string> target = default;
             Optional<string> usageModel = default;
+            Optional<int> verificationTimer = default;
+            Optional<int> writeBackTimer = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("target"))
@@ -44,8 +56,28 @@ namespace Azure.ResourceManager.StorageCache.Models
                     usageModel = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("verificationTimer"))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        property.ThrowNonNullablePropertyIsNull();
+                        continue;
+                    }
+                    verificationTimer = property.Value.GetInt32();
+                    continue;
+                }
+                if (property.NameEquals("writeBackTimer"))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        property.ThrowNonNullablePropertyIsNull();
+                        continue;
+                    }
+                    writeBackTimer = property.Value.GetInt32();
+                    continue;
+                }
             }
-            return new Nfs3Target(target.Value, usageModel.Value);
+            return new Nfs3Target(target.Value, usageModel.Value, Optional.ToNullable(verificationTimer), Optional.ToNullable(writeBackTimer));
         }
     }
 }
