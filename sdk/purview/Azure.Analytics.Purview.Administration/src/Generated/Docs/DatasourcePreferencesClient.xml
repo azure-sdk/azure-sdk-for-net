@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="GetDatasourcePreferenceAsync(String,Boolean,RequestContext)">
+<example>
+This sample shows how to call GetDatasourcePreferenceAsync with required parameters and parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new DatasourcePreferencesClient(endpoint, credential);
+
+Response response = await client.GetDatasourcePreferenceAsync("<scope>");
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code>
+This sample shows how to call GetDatasourcePreferenceAsync with all parameters, and how to parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new DatasourcePreferencesClient(endpoint, credential);
+
+Response response = await client.GetDatasourcePreferenceAsync("<scope>", true);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("consent").GetProperty("properties").GetProperty("scanner").GetProperty("metadata").ToString());
+Console.WriteLine(result.GetProperty("consent").GetProperty("properties").GetProperty("scanner").GetProperty("classification").ToString());
+Console.WriteLine(result.GetProperty("consent").GetProperty("properties").GetProperty("dataUseGovernance").ToString());
+Console.WriteLine(result.GetProperty("consent").GetProperty("excludedScopes")[0].ToString());
+Console.WriteLine(result.GetProperty("accountInfo").GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("accountInfo").GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("accountInfo").GetProperty("location").ToString());
+Console.WriteLine(result.GetProperty("accountInfo").GetProperty("tenantId").ToString());
+Console.WriteLine(result.GetProperty("accountInfo").GetProperty("gatewayEndpoint").ToString());
+Console.WriteLine(result.GetProperty("frequency").ToString());
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for the response payload.
+
+Response Body:
+
+Schema for <c>DatasourcePreferencesResponse</c>:
+<code>{
+  consent: {
+    properties: {
+      scanner: {
+        metadata: boolean, # Optional. Consent for metadata discovery.
+        classification: boolean, # Optional. Consent for classification discovery.
+      }, # Optional. Represents the collection of consent information for scanning service.
+      dataUseGovernance: boolean, # Optional. Consent for data use governance.
+    }, # Optional. Consent properties.
+    excludedScopes: [string], # Optional. Child scopes that need to be excluded (optional).
+  }, # Optional. Consent information related to a resource.
+  accountInfo: {
+    id: string, # Optional. Id of the purview account.
+    name: string, # Optional. Name of the purview account.
+    location: string, # Optional. Region where purview account is created.
+    tenantId: string, # Optional. Tenant id of the purview account.
+    gatewayEndpoint: string, # Optional. Purview account gateway endpoint.
+  }, # Optional. Represents a purview account.
+  frequency: number, # Optional. This represents the frequency at which the RPs will check for consent information.
+}
+</code>
+
+</remarks>
+    </member>
+    <member name="GetDatasourcePreference(String,Boolean,RequestContext)">
+<example>
+This sample shows how to call GetDatasourcePreference with required parameters and parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new DatasourcePreferencesClient(endpoint, credential);
+
+Response response = client.GetDatasourcePreference("<scope>");
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code>
+This sample shows how to call GetDatasourcePreference with all parameters, and how to parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new DatasourcePreferencesClient(endpoint, credential);
+
+Response response = client.GetDatasourcePreference("<scope>", true);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("consent").GetProperty("properties").GetProperty("scanner").GetProperty("metadata").ToString());
+Console.WriteLine(result.GetProperty("consent").GetProperty("properties").GetProperty("scanner").GetProperty("classification").ToString());
+Console.WriteLine(result.GetProperty("consent").GetProperty("properties").GetProperty("dataUseGovernance").ToString());
+Console.WriteLine(result.GetProperty("consent").GetProperty("excludedScopes")[0].ToString());
+Console.WriteLine(result.GetProperty("accountInfo").GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("accountInfo").GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("accountInfo").GetProperty("location").ToString());
+Console.WriteLine(result.GetProperty("accountInfo").GetProperty("tenantId").ToString());
+Console.WriteLine(result.GetProperty("accountInfo").GetProperty("gatewayEndpoint").ToString());
+Console.WriteLine(result.GetProperty("frequency").ToString());
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for the response payload.
+
+Response Body:
+
+Schema for <c>DatasourcePreferencesResponse</c>:
+<code>{
+  consent: {
+    properties: {
+      scanner: {
+        metadata: boolean, # Optional. Consent for metadata discovery.
+        classification: boolean, # Optional. Consent for classification discovery.
+      }, # Optional. Represents the collection of consent information for scanning service.
+      dataUseGovernance: boolean, # Optional. Consent for data use governance.
+    }, # Optional. Consent properties.
+    excludedScopes: [string], # Optional. Child scopes that need to be excluded (optional).
+  }, # Optional. Consent information related to a resource.
+  accountInfo: {
+    id: string, # Optional. Id of the purview account.
+    name: string, # Optional. Name of the purview account.
+    location: string, # Optional. Region where purview account is created.
+    tenantId: string, # Optional. Tenant id of the purview account.
+    gatewayEndpoint: string, # Optional. Purview account gateway endpoint.
+  }, # Optional. Represents a purview account.
+  frequency: number, # Optional. This represents the frequency at which the RPs will check for consent information.
+}
+</code>
+
+</remarks>
+    </member>
+  </members>
+</doc>
