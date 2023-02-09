@@ -26,6 +26,7 @@ namespace Azure.ResourceManager.FrontDoor.Models
         private const string BlockValue = "Block";
         private const string LogValue = "Log";
         private const string RedirectValue = "Redirect";
+        private const string AnomalyScoringValue = "AnomalyScoring";
 
         /// <summary> Allow. </summary>
         public static RuleMatchActionType Allow { get; } = new RuleMatchActionType(AllowValue);
@@ -35,6 +36,8 @@ namespace Azure.ResourceManager.FrontDoor.Models
         public static RuleMatchActionType Log { get; } = new RuleMatchActionType(LogValue);
         /// <summary> Redirect. </summary>
         public static RuleMatchActionType Redirect { get; } = new RuleMatchActionType(RedirectValue);
+        /// <summary> AnomalyScoring. </summary>
+        public static RuleMatchActionType AnomalyScoring { get; } = new RuleMatchActionType(AnomalyScoringValue);
         /// <summary> Determines if two <see cref="RuleMatchActionType"/> values are the same. </summary>
         public static bool operator ==(RuleMatchActionType left, RuleMatchActionType right) => left.Equals(right);
         /// <summary> Determines if two <see cref="RuleMatchActionType"/> values are not the same. </summary>
