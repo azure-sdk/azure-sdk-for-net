@@ -22,6 +22,7 @@ namespace Azure.ResourceManager.AppService.Models
             CustomDomains = new ChangeTrackingList<string>();
             PrivateEndpointConnections = new ChangeTrackingList<ResponseMessageEnvelopeRemotePrivateEndpointConnection>();
             UserProvidedFunctionApps = new ChangeTrackingList<StaticSiteUserProvidedFunctionAppData>();
+            LinkedBackends = new ChangeTrackingList<StaticSiteLinkedBackend>();
         }
 
         /// <summary> Initializes a new instance of StaticSitePatch. </summary>
@@ -42,9 +43,12 @@ namespace Azure.ResourceManager.AppService.Models
         /// <param name="contentDistributionEndpoint"> The content distribution endpoint for the static site. </param>
         /// <param name="keyVaultReferenceIdentity"> Identity to use for Key Vault Reference authentication. </param>
         /// <param name="userProvidedFunctionApps"> User provided function apps registered with the static site. </param>
+        /// <param name="linkedBackends"> Backends linked to the static side. </param>
         /// <param name="provider"> The provider that submitted the last deployment to the primary environment of the static site. </param>
+        /// <param name="enterpriseGradeCdnStatus"> State indicating the status of the enterprise grade CDN serving traffic to the static web app. </param>
+        /// <param name="publicNetworkAccess"> State indicating whether public traffic are allowed or not for a static web app. Allowed Values: &apos;Enabled&apos;, &apos;Disabled&apos; or an empty string. </param>
         /// <param name="kind"> Kind of resource. </param>
-        internal StaticSitePatch(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string defaultHostname, Uri repositoryUri, string branch, IReadOnlyList<string> customDomains, string repositoryToken, StaticSiteBuildProperties buildProperties, IReadOnlyList<ResponseMessageEnvelopeRemotePrivateEndpointConnection> privateEndpointConnections, StagingEnvironmentPolicy? stagingEnvironmentPolicy, bool? allowConfigFileUpdates, StaticSiteTemplate templateProperties, string contentDistributionEndpoint, string keyVaultReferenceIdentity, IReadOnlyList<StaticSiteUserProvidedFunctionAppData> userProvidedFunctionApps, string provider, string kind) : base(id, name, resourceType, systemData)
+        internal StaticSitePatch(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string defaultHostname, Uri repositoryUri, string branch, IReadOnlyList<string> customDomains, string repositoryToken, StaticSiteBuildProperties buildProperties, IReadOnlyList<ResponseMessageEnvelopeRemotePrivateEndpointConnection> privateEndpointConnections, StagingEnvironmentPolicy? stagingEnvironmentPolicy, bool? allowConfigFileUpdates, StaticSiteTemplate templateProperties, string contentDistributionEndpoint, string keyVaultReferenceIdentity, IReadOnlyList<StaticSiteUserProvidedFunctionAppData> userProvidedFunctionApps, IReadOnlyList<StaticSiteLinkedBackend> linkedBackends, string provider, EnterpriseGradeCdnStatus? enterpriseGradeCdnStatus, string publicNetworkAccess, string kind) : base(id, name, resourceType, systemData)
         {
             DefaultHostname = defaultHostname;
             RepositoryUri = repositoryUri;
@@ -59,7 +63,10 @@ namespace Azure.ResourceManager.AppService.Models
             ContentDistributionEndpoint = contentDistributionEndpoint;
             KeyVaultReferenceIdentity = keyVaultReferenceIdentity;
             UserProvidedFunctionApps = userProvidedFunctionApps;
+            LinkedBackends = linkedBackends;
             Provider = provider;
+            EnterpriseGradeCdnStatus = enterpriseGradeCdnStatus;
+            PublicNetworkAccess = publicNetworkAccess;
             Kind = kind;
         }
 
@@ -89,8 +96,14 @@ namespace Azure.ResourceManager.AppService.Models
         public string KeyVaultReferenceIdentity { get; }
         /// <summary> User provided function apps registered with the static site. </summary>
         public IReadOnlyList<StaticSiteUserProvidedFunctionAppData> UserProvidedFunctionApps { get; }
+        /// <summary> Backends linked to the static side. </summary>
+        public IReadOnlyList<StaticSiteLinkedBackend> LinkedBackends { get; }
         /// <summary> The provider that submitted the last deployment to the primary environment of the static site. </summary>
-        public string Provider { get; }
+        public string Provider { get; set; }
+        /// <summary> State indicating the status of the enterprise grade CDN serving traffic to the static web app. </summary>
+        public EnterpriseGradeCdnStatus? EnterpriseGradeCdnStatus { get; set; }
+        /// <summary> State indicating whether public traffic are allowed or not for a static web app. Allowed Values: &apos;Enabled&apos;, &apos;Disabled&apos; or an empty string. </summary>
+        public string PublicNetworkAccess { get; set; }
         /// <summary> Kind of resource. </summary>
         public string Kind { get; set; }
     }
