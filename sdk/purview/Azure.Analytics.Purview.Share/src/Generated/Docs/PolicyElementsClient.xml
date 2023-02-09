@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="GetPolicyElementsAsync(String,String,RequestContext)">
+<example>
+This sample shows how to call GetPolicyElementsAsync with required parameters and parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new PolicyElementsClient(endpoint, credential);
+
+await foreach (var data in client.GetPolicyElementsAsync("<scope>"))
+{
+    JsonElement result = JsonDocument.Parse(data.ToStream()).RootElement;
+    Console.WriteLine(result.ToString());
+}
+]]></code>
+This sample shows how to call GetPolicyElementsAsync with all parameters, and how to parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new PolicyElementsClient(endpoint, credential);
+
+await foreach (var data in client.GetPolicyElementsAsync("<scope>", "<filter>"))
+{
+    JsonElement result = JsonDocument.Parse(data.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("scopes")[0].ToString());
+    Console.WriteLine(result.GetProperty("kind").ToString());
+    Console.WriteLine(result.GetProperty("updatedAt").ToString());
+    Console.WriteLine(result.GetProperty("version").ToString());
+    Console.WriteLine(result.GetProperty("elementJson").ToString());
+}
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for one item in the pageable response.
+
+Response Body:
+
+Schema for <c>PolicyResponseElements</c>:
+<code>{
+  id: string, # Optional. Id of the policy element.
+  scopes: [string], # Optional. List of scopes included in this policy.
+  kind: string, # Optional. Kind of policy element. Possible values: policy/policySet/attributeRule.
+  updatedAt: string, # Optional. Time at which this policy element is last updated.
+  version: number, # Optional. Current version of policy element. This is auto incremented with each change. Starts with 1.
+  elementJson: string, # Optional. Policy element serialized json payload.
+}
+</code>
+
+</remarks>
+    </member>
+    <member name="GetPolicyElements(String,String,RequestContext)">
+<example>
+This sample shows how to call GetPolicyElements with required parameters and parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new PolicyElementsClient(endpoint, credential);
+
+foreach (var data in client.GetPolicyElements("<scope>"))
+{
+    JsonElement result = JsonDocument.Parse(data.ToStream()).RootElement;
+    Console.WriteLine(result.ToString());
+}
+]]></code>
+This sample shows how to call GetPolicyElements with all parameters, and how to parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new PolicyElementsClient(endpoint, credential);
+
+foreach (var data in client.GetPolicyElements("<scope>", "<filter>"))
+{
+    JsonElement result = JsonDocument.Parse(data.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("scopes")[0].ToString());
+    Console.WriteLine(result.GetProperty("kind").ToString());
+    Console.WriteLine(result.GetProperty("updatedAt").ToString());
+    Console.WriteLine(result.GetProperty("version").ToString());
+    Console.WriteLine(result.GetProperty("elementJson").ToString());
+}
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for one item in the pageable response.
+
+Response Body:
+
+Schema for <c>PolicyResponseElements</c>:
+<code>{
+  id: string, # Optional. Id of the policy element.
+  scopes: [string], # Optional. List of scopes included in this policy.
+  kind: string, # Optional. Kind of policy element. Possible values: policy/policySet/attributeRule.
+  updatedAt: string, # Optional. Time at which this policy element is last updated.
+  version: number, # Optional. Current version of policy element. This is auto incremented with each change. Starts with 1.
+  elementJson: string, # Optional. Policy element serialized json payload.
+}
+</code>
+
+</remarks>
+    </member>
+  </members>
+</doc>
