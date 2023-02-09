@@ -24,6 +24,7 @@ namespace Azure.ResourceManager.DataBox.Models
             Optional<SkuDisabledReason> disabledReason = default;
             Optional<string> disabledReasonMessage = default;
             Optional<string> requiredFeature = default;
+            Optional<IReadOnlyList<string>> countriesWithinCommerceBoundary = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("sku"))
@@ -130,11 +131,26 @@ namespace Azure.ResourceManager.DataBox.Models
                             requiredFeature = property0.Value.GetString();
                             continue;
                         }
+                        if (property0.NameEquals("countriesWithinCommerceBoundary"))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            List<string> array = new List<string>();
+                            foreach (var item in property0.Value.EnumerateArray())
+                            {
+                                array.Add(item.GetString());
+                            }
+                            countriesWithinCommerceBoundary = array;
+                            continue;
+                        }
                     }
                     continue;
                 }
             }
-            return new DataBoxSkuInformation(sku.Value, Optional.ToNullable(enabled), Optional.ToList(dataLocationToServiceLocationMap), capacity.Value, Optional.ToList(costs), Optional.ToList(apiVersions), Optional.ToNullable(disabledReason), disabledReasonMessage.Value, requiredFeature.Value);
+            return new DataBoxSkuInformation(sku.Value, Optional.ToNullable(enabled), Optional.ToList(dataLocationToServiceLocationMap), capacity.Value, Optional.ToList(costs), Optional.ToList(apiVersions), Optional.ToNullable(disabledReason), disabledReasonMessage.Value, requiredFeature.Value, Optional.ToList(countriesWithinCommerceBoundary));
         }
     }
 }
