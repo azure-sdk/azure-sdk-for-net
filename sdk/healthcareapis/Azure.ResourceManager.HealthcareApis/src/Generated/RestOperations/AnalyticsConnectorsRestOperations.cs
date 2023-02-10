@@ -16,20 +16,20 @@ using Azure.ResourceManager.HealthcareApis.Models;
 
 namespace Azure.ResourceManager.HealthcareApis
 {
-    internal partial class IotConnectorsRestOperations
+    internal partial class AnalyticsConnectorsRestOperations
     {
         private readonly TelemetryDetails _userAgent;
         private readonly HttpPipeline _pipeline;
         private readonly Uri _endpoint;
         private readonly string _apiVersion;
 
-        /// <summary> Initializes a new instance of IotConnectorsRestOperations. </summary>
+        /// <summary> Initializes a new instance of AnalyticsConnectorsRestOperations. </summary>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
         /// <param name="applicationId"> The application id to use for user agent. </param>
         /// <param name="endpoint"> server parameter. </param>
         /// <param name="apiVersion"> Api Version. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="pipeline"/> or <paramref name="apiVersion"/> is null. </exception>
-        public IotConnectorsRestOperations(HttpPipeline pipeline, string applicationId, Uri endpoint = null, string apiVersion = default)
+        public AnalyticsConnectorsRestOperations(HttpPipeline pipeline, string applicationId, Uri endpoint = null, string apiVersion = default)
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
@@ -50,7 +50,7 @@ namespace Azure.ResourceManager.HealthcareApis
             uri.AppendPath(resourceGroupName, true);
             uri.AppendPath("/providers/Microsoft.HealthcareApis/workspaces/", false);
             uri.AppendPath(workspaceName, true);
-            uri.AppendPath("/iotconnectors", false);
+            uri.AppendPath("/analyticsconnectors", false);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
@@ -58,14 +58,14 @@ namespace Azure.ResourceManager.HealthcareApis
             return message;
         }
 
-        /// <summary> Lists all IoT Connectors for the given workspace. </summary>
+        /// <summary> Lists all Analytics Connectors for the given workspace. </summary>
         /// <param name="subscriptionId"> The subscription identifier. </param>
         /// <param name="resourceGroupName"> The name of the resource group that contains the service instance. </param>
         /// <param name="workspaceName"> The name of workspace resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="workspaceName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="workspaceName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<IotConnectorCollection>> ListByWorkspaceAsync(string subscriptionId, string resourceGroupName, string workspaceName, CancellationToken cancellationToken = default)
+        public async Task<Response<Models.AnalyticsConnectorCollection>> ListByWorkspaceAsync(string subscriptionId, string resourceGroupName, string workspaceName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
@@ -77,9 +77,9 @@ namespace Azure.ResourceManager.HealthcareApis
             {
                 case 200:
                     {
-                        IotConnectorCollection value = default;
+                        Models.AnalyticsConnectorCollection value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = IotConnectorCollection.DeserializeIotConnectorCollection(document.RootElement);
+                        value = Models.AnalyticsConnectorCollection.DeserializeAnalyticsConnectorCollection(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -87,14 +87,14 @@ namespace Azure.ResourceManager.HealthcareApis
             }
         }
 
-        /// <summary> Lists all IoT Connectors for the given workspace. </summary>
+        /// <summary> Lists all Analytics Connectors for the given workspace. </summary>
         /// <param name="subscriptionId"> The subscription identifier. </param>
         /// <param name="resourceGroupName"> The name of the resource group that contains the service instance. </param>
         /// <param name="workspaceName"> The name of workspace resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="workspaceName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="workspaceName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<IotConnectorCollection> ListByWorkspace(string subscriptionId, string resourceGroupName, string workspaceName, CancellationToken cancellationToken = default)
+        public Response<Models.AnalyticsConnectorCollection> ListByWorkspace(string subscriptionId, string resourceGroupName, string workspaceName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
@@ -106,9 +106,9 @@ namespace Azure.ResourceManager.HealthcareApis
             {
                 case 200:
                     {
-                        IotConnectorCollection value = default;
+                        Models.AnalyticsConnectorCollection value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = IotConnectorCollection.DeserializeIotConnectorCollection(document.RootElement);
+                        value = Models.AnalyticsConnectorCollection.DeserializeAnalyticsConnectorCollection(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -116,7 +116,7 @@ namespace Azure.ResourceManager.HealthcareApis
             }
         }
 
-        internal HttpMessage CreateGetRequest(string subscriptionId, string resourceGroupName, string workspaceName, string iotConnectorName)
+        internal HttpMessage CreateGetRequest(string subscriptionId, string resourceGroupName, string workspaceName, string analyticsConnectorName)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -129,8 +129,8 @@ namespace Azure.ResourceManager.HealthcareApis
             uri.AppendPath(resourceGroupName, true);
             uri.AppendPath("/providers/Microsoft.HealthcareApis/workspaces/", false);
             uri.AppendPath(workspaceName, true);
-            uri.AppendPath("/iotconnectors/", false);
-            uri.AppendPath(iotConnectorName, true);
+            uri.AppendPath("/analyticsconnectors/", false);
+            uri.AppendPath(analyticsConnectorName, true);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
@@ -138,73 +138,73 @@ namespace Azure.ResourceManager.HealthcareApis
             return message;
         }
 
-        /// <summary> Gets the properties of the specified IoT Connector. </summary>
+        /// <summary> Gets the properties of the specified Analytics Connector. </summary>
         /// <param name="subscriptionId"> The subscription identifier. </param>
         /// <param name="resourceGroupName"> The name of the resource group that contains the service instance. </param>
         /// <param name="workspaceName"> The name of workspace resource. </param>
-        /// <param name="iotConnectorName"> The name of IoT Connector resource. </param>
+        /// <param name="analyticsConnectorName"> The name of Analytics Connector resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workspaceName"/> or <paramref name="iotConnectorName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workspaceName"/> or <paramref name="iotConnectorName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<HealthcareApisIotConnectorData>> GetAsync(string subscriptionId, string resourceGroupName, string workspaceName, string iotConnectorName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workspaceName"/> or <paramref name="analyticsConnectorName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workspaceName"/> or <paramref name="analyticsConnectorName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<AnalyticsConnectorData>> GetAsync(string subscriptionId, string resourceGroupName, string workspaceName, string analyticsConnectorName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(workspaceName, nameof(workspaceName));
-            Argument.AssertNotNullOrEmpty(iotConnectorName, nameof(iotConnectorName));
+            Argument.AssertNotNullOrEmpty(analyticsConnectorName, nameof(analyticsConnectorName));
 
-            using var message = CreateGetRequest(subscriptionId, resourceGroupName, workspaceName, iotConnectorName);
+            using var message = CreateGetRequest(subscriptionId, resourceGroupName, workspaceName, analyticsConnectorName);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
                 case 200:
                     {
-                        HealthcareApisIotConnectorData value = default;
+                        AnalyticsConnectorData value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = HealthcareApisIotConnectorData.DeserializeHealthcareApisIotConnectorData(document.RootElement);
+                        value = AnalyticsConnectorData.DeserializeAnalyticsConnectorData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 case 404:
-                    return Response.FromValue((HealthcareApisIotConnectorData)null, message.Response);
+                    return Response.FromValue((AnalyticsConnectorData)null, message.Response);
                 default:
                     throw new RequestFailedException(message.Response);
             }
         }
 
-        /// <summary> Gets the properties of the specified IoT Connector. </summary>
+        /// <summary> Gets the properties of the specified Analytics Connector. </summary>
         /// <param name="subscriptionId"> The subscription identifier. </param>
         /// <param name="resourceGroupName"> The name of the resource group that contains the service instance. </param>
         /// <param name="workspaceName"> The name of workspace resource. </param>
-        /// <param name="iotConnectorName"> The name of IoT Connector resource. </param>
+        /// <param name="analyticsConnectorName"> The name of Analytics Connector resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workspaceName"/> or <paramref name="iotConnectorName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workspaceName"/> or <paramref name="iotConnectorName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<HealthcareApisIotConnectorData> Get(string subscriptionId, string resourceGroupName, string workspaceName, string iotConnectorName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workspaceName"/> or <paramref name="analyticsConnectorName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workspaceName"/> or <paramref name="analyticsConnectorName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<AnalyticsConnectorData> Get(string subscriptionId, string resourceGroupName, string workspaceName, string analyticsConnectorName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(workspaceName, nameof(workspaceName));
-            Argument.AssertNotNullOrEmpty(iotConnectorName, nameof(iotConnectorName));
+            Argument.AssertNotNullOrEmpty(analyticsConnectorName, nameof(analyticsConnectorName));
 
-            using var message = CreateGetRequest(subscriptionId, resourceGroupName, workspaceName, iotConnectorName);
+            using var message = CreateGetRequest(subscriptionId, resourceGroupName, workspaceName, analyticsConnectorName);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
                 case 200:
                     {
-                        HealthcareApisIotConnectorData value = default;
+                        AnalyticsConnectorData value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = HealthcareApisIotConnectorData.DeserializeHealthcareApisIotConnectorData(document.RootElement);
+                        value = AnalyticsConnectorData.DeserializeAnalyticsConnectorData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 case 404:
-                    return Response.FromValue((HealthcareApisIotConnectorData)null, message.Response);
+                    return Response.FromValue((AnalyticsConnectorData)null, message.Response);
                 default:
                     throw new RequestFailedException(message.Response);
             }
         }
 
-        internal HttpMessage CreateCreateOrUpdateRequest(string subscriptionId, string resourceGroupName, string workspaceName, string iotConnectorName, HealthcareApisIotConnectorData data)
+        internal HttpMessage CreateCreateOrUpdateRequest(string subscriptionId, string resourceGroupName, string workspaceName, string analyticsConnectorName, AnalyticsConnectorData data)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -217,8 +217,8 @@ namespace Azure.ResourceManager.HealthcareApis
             uri.AppendPath(resourceGroupName, true);
             uri.AppendPath("/providers/Microsoft.HealthcareApis/workspaces/", false);
             uri.AppendPath(workspaceName, true);
-            uri.AppendPath("/iotconnectors/", false);
-            uri.AppendPath(iotConnectorName, true);
+            uri.AppendPath("/analyticsconnectors/", false);
+            uri.AppendPath(analyticsConnectorName, true);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
@@ -230,67 +230,65 @@ namespace Azure.ResourceManager.HealthcareApis
             return message;
         }
 
-        /// <summary> Creates or updates an IoT Connector resource with the specified parameters. </summary>
+        /// <summary> Creates or updates a Analytics Connector resource with the specified parameters. </summary>
         /// <param name="subscriptionId"> The subscription identifier. </param>
         /// <param name="resourceGroupName"> The name of the resource group that contains the service instance. </param>
         /// <param name="workspaceName"> The name of workspace resource. </param>
-        /// <param name="iotConnectorName"> The name of IoT Connector resource. </param>
-        /// <param name="data"> The parameters for creating or updating an IoT Connectors resource. </param>
+        /// <param name="analyticsConnectorName"> The name of Analytics Connector resource. </param>
+        /// <param name="data"> The parameters for creating or updating a Analytics Connector resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workspaceName"/>, <paramref name="iotConnectorName"/> or <paramref name="data"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workspaceName"/> or <paramref name="iotConnectorName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response> CreateOrUpdateAsync(string subscriptionId, string resourceGroupName, string workspaceName, string iotConnectorName, HealthcareApisIotConnectorData data, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workspaceName"/>, <paramref name="analyticsConnectorName"/> or <paramref name="data"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workspaceName"/> or <paramref name="analyticsConnectorName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response> CreateOrUpdateAsync(string subscriptionId, string resourceGroupName, string workspaceName, string analyticsConnectorName, AnalyticsConnectorData data, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(workspaceName, nameof(workspaceName));
-            Argument.AssertNotNullOrEmpty(iotConnectorName, nameof(iotConnectorName));
+            Argument.AssertNotNullOrEmpty(analyticsConnectorName, nameof(analyticsConnectorName));
             Argument.AssertNotNull(data, nameof(data));
 
-            using var message = CreateCreateOrUpdateRequest(subscriptionId, resourceGroupName, workspaceName, iotConnectorName, data);
+            using var message = CreateCreateOrUpdateRequest(subscriptionId, resourceGroupName, workspaceName, analyticsConnectorName, data);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
                 case 200:
                 case 201:
-                case 202:
                     return message.Response;
                 default:
                     throw new RequestFailedException(message.Response);
             }
         }
 
-        /// <summary> Creates or updates an IoT Connector resource with the specified parameters. </summary>
+        /// <summary> Creates or updates a Analytics Connector resource with the specified parameters. </summary>
         /// <param name="subscriptionId"> The subscription identifier. </param>
         /// <param name="resourceGroupName"> The name of the resource group that contains the service instance. </param>
         /// <param name="workspaceName"> The name of workspace resource. </param>
-        /// <param name="iotConnectorName"> The name of IoT Connector resource. </param>
-        /// <param name="data"> The parameters for creating or updating an IoT Connectors resource. </param>
+        /// <param name="analyticsConnectorName"> The name of Analytics Connector resource. </param>
+        /// <param name="data"> The parameters for creating or updating a Analytics Connector resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workspaceName"/>, <paramref name="iotConnectorName"/> or <paramref name="data"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workspaceName"/> or <paramref name="iotConnectorName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response CreateOrUpdate(string subscriptionId, string resourceGroupName, string workspaceName, string iotConnectorName, HealthcareApisIotConnectorData data, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workspaceName"/>, <paramref name="analyticsConnectorName"/> or <paramref name="data"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workspaceName"/> or <paramref name="analyticsConnectorName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response CreateOrUpdate(string subscriptionId, string resourceGroupName, string workspaceName, string analyticsConnectorName, AnalyticsConnectorData data, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(workspaceName, nameof(workspaceName));
-            Argument.AssertNotNullOrEmpty(iotConnectorName, nameof(iotConnectorName));
+            Argument.AssertNotNullOrEmpty(analyticsConnectorName, nameof(analyticsConnectorName));
             Argument.AssertNotNull(data, nameof(data));
 
-            using var message = CreateCreateOrUpdateRequest(subscriptionId, resourceGroupName, workspaceName, iotConnectorName, data);
+            using var message = CreateCreateOrUpdateRequest(subscriptionId, resourceGroupName, workspaceName, analyticsConnectorName, data);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
                 case 200:
                 case 201:
-                case 202:
                     return message.Response;
                 default:
                     throw new RequestFailedException(message.Response);
             }
         }
 
-        internal HttpMessage CreateUpdateRequest(string subscriptionId, string resourceGroupName, string workspaceName, string iotConnectorName, HealthcareApisIotConnectorPatch patch)
+        internal HttpMessage CreateUpdateRequest(string subscriptionId, string resourceGroupName, string workspaceName, string analyticsConnectorName, AnalyticsConnectorPatch patch)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -303,8 +301,8 @@ namespace Azure.ResourceManager.HealthcareApis
             uri.AppendPath(resourceGroupName, true);
             uri.AppendPath("/providers/Microsoft.HealthcareApis/workspaces/", false);
             uri.AppendPath(workspaceName, true);
-            uri.AppendPath("/iotconnectors/", false);
-            uri.AppendPath(iotConnectorName, true);
+            uri.AppendPath("/analyticsconnectors/", false);
+            uri.AppendPath(analyticsConnectorName, true);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
@@ -316,24 +314,24 @@ namespace Azure.ResourceManager.HealthcareApis
             return message;
         }
 
-        /// <summary> Patch an IoT Connector. </summary>
+        /// <summary> Patch Analytics Connector Service details. </summary>
         /// <param name="subscriptionId"> The subscription identifier. </param>
         /// <param name="resourceGroupName"> The name of the resource group that contains the service instance. </param>
         /// <param name="workspaceName"> The name of workspace resource. </param>
-        /// <param name="iotConnectorName"> The name of IoT Connector resource. </param>
-        /// <param name="patch"> The parameters for updating an IoT Connector. </param>
+        /// <param name="analyticsConnectorName"> The name of Analytics Connector resource. </param>
+        /// <param name="patch"> The parameters for updating a Analytics Connector. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workspaceName"/>, <paramref name="iotConnectorName"/> or <paramref name="patch"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workspaceName"/> or <paramref name="iotConnectorName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response> UpdateAsync(string subscriptionId, string resourceGroupName, string workspaceName, string iotConnectorName, HealthcareApisIotConnectorPatch patch, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workspaceName"/>, <paramref name="analyticsConnectorName"/> or <paramref name="patch"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workspaceName"/> or <paramref name="analyticsConnectorName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response> UpdateAsync(string subscriptionId, string resourceGroupName, string workspaceName, string analyticsConnectorName, AnalyticsConnectorPatch patch, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(workspaceName, nameof(workspaceName));
-            Argument.AssertNotNullOrEmpty(iotConnectorName, nameof(iotConnectorName));
+            Argument.AssertNotNullOrEmpty(analyticsConnectorName, nameof(analyticsConnectorName));
             Argument.AssertNotNull(patch, nameof(patch));
 
-            using var message = CreateUpdateRequest(subscriptionId, resourceGroupName, workspaceName, iotConnectorName, patch);
+            using var message = CreateUpdateRequest(subscriptionId, resourceGroupName, workspaceName, analyticsConnectorName, patch);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
@@ -345,24 +343,24 @@ namespace Azure.ResourceManager.HealthcareApis
             }
         }
 
-        /// <summary> Patch an IoT Connector. </summary>
+        /// <summary> Patch Analytics Connector Service details. </summary>
         /// <param name="subscriptionId"> The subscription identifier. </param>
         /// <param name="resourceGroupName"> The name of the resource group that contains the service instance. </param>
         /// <param name="workspaceName"> The name of workspace resource. </param>
-        /// <param name="iotConnectorName"> The name of IoT Connector resource. </param>
-        /// <param name="patch"> The parameters for updating an IoT Connector. </param>
+        /// <param name="analyticsConnectorName"> The name of Analytics Connector resource. </param>
+        /// <param name="patch"> The parameters for updating a Analytics Connector. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workspaceName"/>, <paramref name="iotConnectorName"/> or <paramref name="patch"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workspaceName"/> or <paramref name="iotConnectorName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response Update(string subscriptionId, string resourceGroupName, string workspaceName, string iotConnectorName, HealthcareApisIotConnectorPatch patch, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workspaceName"/>, <paramref name="analyticsConnectorName"/> or <paramref name="patch"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workspaceName"/> or <paramref name="analyticsConnectorName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response Update(string subscriptionId, string resourceGroupName, string workspaceName, string analyticsConnectorName, AnalyticsConnectorPatch patch, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(workspaceName, nameof(workspaceName));
-            Argument.AssertNotNullOrEmpty(iotConnectorName, nameof(iotConnectorName));
+            Argument.AssertNotNullOrEmpty(analyticsConnectorName, nameof(analyticsConnectorName));
             Argument.AssertNotNull(patch, nameof(patch));
 
-            using var message = CreateUpdateRequest(subscriptionId, resourceGroupName, workspaceName, iotConnectorName, patch);
+            using var message = CreateUpdateRequest(subscriptionId, resourceGroupName, workspaceName, analyticsConnectorName, patch);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
@@ -374,7 +372,7 @@ namespace Azure.ResourceManager.HealthcareApis
             }
         }
 
-        internal HttpMessage CreateDeleteRequest(string subscriptionId, string resourceGroupName, string workspaceName, string iotConnectorName)
+        internal HttpMessage CreateDeleteRequest(string subscriptionId, string resourceGroupName, string workspaceName, string analyticsConnectorName)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -387,8 +385,8 @@ namespace Azure.ResourceManager.HealthcareApis
             uri.AppendPath(resourceGroupName, true);
             uri.AppendPath("/providers/Microsoft.HealthcareApis/workspaces/", false);
             uri.AppendPath(workspaceName, true);
-            uri.AppendPath("/iotconnectors/", false);
-            uri.AppendPath(iotConnectorName, true);
+            uri.AppendPath("/analyticsconnectors/", false);
+            uri.AppendPath(analyticsConnectorName, true);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
@@ -396,22 +394,22 @@ namespace Azure.ResourceManager.HealthcareApis
             return message;
         }
 
-        /// <summary> Deletes an IoT Connector. </summary>
+        /// <summary> Deletes a Analytics Connector. </summary>
         /// <param name="subscriptionId"> The subscription identifier. </param>
         /// <param name="resourceGroupName"> The name of the resource group that contains the service instance. </param>
         /// <param name="workspaceName"> The name of workspace resource. </param>
-        /// <param name="iotConnectorName"> The name of IoT Connector resource. </param>
+        /// <param name="analyticsConnectorName"> The name of Analytics Connector resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workspaceName"/> or <paramref name="iotConnectorName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workspaceName"/> or <paramref name="iotConnectorName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response> DeleteAsync(string subscriptionId, string resourceGroupName, string workspaceName, string iotConnectorName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workspaceName"/> or <paramref name="analyticsConnectorName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workspaceName"/> or <paramref name="analyticsConnectorName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response> DeleteAsync(string subscriptionId, string resourceGroupName, string workspaceName, string analyticsConnectorName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(workspaceName, nameof(workspaceName));
-            Argument.AssertNotNullOrEmpty(iotConnectorName, nameof(iotConnectorName));
+            Argument.AssertNotNullOrEmpty(analyticsConnectorName, nameof(analyticsConnectorName));
 
-            using var message = CreateDeleteRequest(subscriptionId, resourceGroupName, workspaceName, iotConnectorName);
+            using var message = CreateDeleteRequest(subscriptionId, resourceGroupName, workspaceName, analyticsConnectorName);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
@@ -424,22 +422,22 @@ namespace Azure.ResourceManager.HealthcareApis
             }
         }
 
-        /// <summary> Deletes an IoT Connector. </summary>
+        /// <summary> Deletes a Analytics Connector. </summary>
         /// <param name="subscriptionId"> The subscription identifier. </param>
         /// <param name="resourceGroupName"> The name of the resource group that contains the service instance. </param>
         /// <param name="workspaceName"> The name of workspace resource. </param>
-        /// <param name="iotConnectorName"> The name of IoT Connector resource. </param>
+        /// <param name="analyticsConnectorName"> The name of Analytics Connector resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workspaceName"/> or <paramref name="iotConnectorName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workspaceName"/> or <paramref name="iotConnectorName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response Delete(string subscriptionId, string resourceGroupName, string workspaceName, string iotConnectorName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workspaceName"/> or <paramref name="analyticsConnectorName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="workspaceName"/> or <paramref name="analyticsConnectorName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response Delete(string subscriptionId, string resourceGroupName, string workspaceName, string analyticsConnectorName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(workspaceName, nameof(workspaceName));
-            Argument.AssertNotNullOrEmpty(iotConnectorName, nameof(iotConnectorName));
+            Argument.AssertNotNullOrEmpty(analyticsConnectorName, nameof(analyticsConnectorName));
 
-            using var message = CreateDeleteRequest(subscriptionId, resourceGroupName, workspaceName, iotConnectorName);
+            using var message = CreateDeleteRequest(subscriptionId, resourceGroupName, workspaceName, analyticsConnectorName);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
@@ -466,7 +464,7 @@ namespace Azure.ResourceManager.HealthcareApis
             return message;
         }
 
-        /// <summary> Lists all IoT Connectors for the given workspace. </summary>
+        /// <summary> Lists all Analytics Connectors for the given workspace. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
         /// <param name="subscriptionId"> The subscription identifier. </param>
         /// <param name="resourceGroupName"> The name of the resource group that contains the service instance. </param>
@@ -474,7 +472,7 @@ namespace Azure.ResourceManager.HealthcareApis
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="workspaceName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="workspaceName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<IotConnectorCollection>> ListByWorkspaceNextPageAsync(string nextLink, string subscriptionId, string resourceGroupName, string workspaceName, CancellationToken cancellationToken = default)
+        public async Task<Response<Models.AnalyticsConnectorCollection>> ListByWorkspaceNextPageAsync(string nextLink, string subscriptionId, string resourceGroupName, string workspaceName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(nextLink, nameof(nextLink));
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
@@ -487,9 +485,9 @@ namespace Azure.ResourceManager.HealthcareApis
             {
                 case 200:
                     {
-                        IotConnectorCollection value = default;
+                        Models.AnalyticsConnectorCollection value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = IotConnectorCollection.DeserializeIotConnectorCollection(document.RootElement);
+                        value = Models.AnalyticsConnectorCollection.DeserializeAnalyticsConnectorCollection(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -497,7 +495,7 @@ namespace Azure.ResourceManager.HealthcareApis
             }
         }
 
-        /// <summary> Lists all IoT Connectors for the given workspace. </summary>
+        /// <summary> Lists all Analytics Connectors for the given workspace. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
         /// <param name="subscriptionId"> The subscription identifier. </param>
         /// <param name="resourceGroupName"> The name of the resource group that contains the service instance. </param>
@@ -505,7 +503,7 @@ namespace Azure.ResourceManager.HealthcareApis
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="workspaceName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="workspaceName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<IotConnectorCollection> ListByWorkspaceNextPage(string nextLink, string subscriptionId, string resourceGroupName, string workspaceName, CancellationToken cancellationToken = default)
+        public Response<Models.AnalyticsConnectorCollection> ListByWorkspaceNextPage(string nextLink, string subscriptionId, string resourceGroupName, string workspaceName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(nextLink, nameof(nextLink));
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
@@ -518,9 +516,9 @@ namespace Azure.ResourceManager.HealthcareApis
             {
                 case 200:
                     {
-                        IotConnectorCollection value = default;
+                        Models.AnalyticsConnectorCollection value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = IotConnectorCollection.DeserializeIotConnectorCollection(document.RootElement);
+                        value = Models.AnalyticsConnectorCollection.DeserializeAnalyticsConnectorCollection(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:

@@ -1,5 +1,50 @@
 namespace Azure.ResourceManager.HealthcareApis
 {
+    public partial class AnalyticsConnectorCollection : Azure.ResourceManager.ArmCollection, System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.HealthcareApis.AnalyticsConnectorResource>, System.Collections.Generic.IEnumerable<Azure.ResourceManager.HealthcareApis.AnalyticsConnectorResource>, System.Collections.IEnumerable
+    {
+        protected AnalyticsConnectorCollection() { }
+        public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.HealthcareApis.AnalyticsConnectorResource> CreateOrUpdate(Azure.WaitUntil waitUntil, string analyticsConnectorName, Azure.ResourceManager.HealthcareApis.AnalyticsConnectorData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.HealthcareApis.AnalyticsConnectorResource>> CreateOrUpdateAsync(Azure.WaitUntil waitUntil, string analyticsConnectorName, Azure.ResourceManager.HealthcareApis.AnalyticsConnectorData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<bool> Exists(string analyticsConnectorName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<bool>> ExistsAsync(string analyticsConnectorName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.HealthcareApis.AnalyticsConnectorResource> Get(string analyticsConnectorName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Pageable<Azure.ResourceManager.HealthcareApis.AnalyticsConnectorResource> GetAll(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.AsyncPageable<Azure.ResourceManager.HealthcareApis.AnalyticsConnectorResource> GetAllAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.HealthcareApis.AnalyticsConnectorResource>> GetAsync(string analyticsConnectorName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        System.Collections.Generic.IAsyncEnumerator<Azure.ResourceManager.HealthcareApis.AnalyticsConnectorResource> System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.HealthcareApis.AnalyticsConnectorResource>.GetAsyncEnumerator(System.Threading.CancellationToken cancellationToken) { throw null; }
+        System.Collections.Generic.IEnumerator<Azure.ResourceManager.HealthcareApis.AnalyticsConnectorResource> System.Collections.Generic.IEnumerable<Azure.ResourceManager.HealthcareApis.AnalyticsConnectorResource>.GetEnumerator() { throw null; }
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() { throw null; }
+    }
+    public partial class AnalyticsConnectorData : Azure.ResourceManager.Models.TrackedResourceData
+    {
+        public AnalyticsConnectorData(Azure.Core.AzureLocation location) : base (default(Azure.Core.AzureLocation)) { }
+        public Azure.ResourceManager.HealthcareApis.Models.AnalyticsConnectorDataDestination DataDestinationConfiguration { get { throw null; } set { } }
+        public Azure.ResourceManager.HealthcareApis.Models.AnalyticsConnectorMapping DataMappingConfiguration { get { throw null; } set { } }
+        public Azure.ResourceManager.HealthcareApis.Models.AnalyticsConnectorDataSource DataSourceConfiguration { get { throw null; } set { } }
+        public Azure.ETag? ETag { get { throw null; } set { } }
+        public Azure.ResourceManager.Models.ManagedServiceIdentity Identity { get { throw null; } set { } }
+        public Azure.ResourceManager.HealthcareApis.Models.HealthcareApisProvisioningState? ProvisioningState { get { throw null; } }
+    }
+    public partial class AnalyticsConnectorResource : Azure.ResourceManager.ArmResource
+    {
+        public static readonly Azure.Core.ResourceType ResourceType;
+        protected AnalyticsConnectorResource() { }
+        public virtual Azure.ResourceManager.HealthcareApis.AnalyticsConnectorData Data { get { throw null; } }
+        public virtual bool HasData { get { throw null; } }
+        public virtual Azure.Response<Azure.ResourceManager.HealthcareApis.AnalyticsConnectorResource> AddTag(string key, string value, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.HealthcareApis.AnalyticsConnectorResource>> AddTagAsync(string key, string value, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public static Azure.Core.ResourceIdentifier CreateResourceIdentifier(string subscriptionId, string resourceGroupName, string workspaceName, string analyticsConnectorName) { throw null; }
+        public virtual Azure.ResourceManager.ArmOperation Delete(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation> DeleteAsync(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.HealthcareApis.AnalyticsConnectorResource> Get(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.HealthcareApis.AnalyticsConnectorResource>> GetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.HealthcareApis.AnalyticsConnectorResource> RemoveTag(string key, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.HealthcareApis.AnalyticsConnectorResource>> RemoveTagAsync(string key, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.HealthcareApis.AnalyticsConnectorResource> SetTags(System.Collections.Generic.IDictionary<string, string> tags, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.HealthcareApis.AnalyticsConnectorResource>> SetTagsAsync(System.Collections.Generic.IDictionary<string, string> tags, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.HealthcareApis.AnalyticsConnectorResource> Update(Azure.WaitUntil waitUntil, Azure.ResourceManager.HealthcareApis.Models.AnalyticsConnectorPatch patch, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.HealthcareApis.AnalyticsConnectorResource>> UpdateAsync(Azure.WaitUntil waitUntil, Azure.ResourceManager.HealthcareApis.Models.AnalyticsConnectorPatch patch, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+    }
     public partial class DicomServiceCollection : Azure.ResourceManager.ArmCollection, System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.HealthcareApis.DicomServiceResource>, System.Collections.Generic.IEnumerable<Azure.ResourceManager.HealthcareApis.DicomServiceResource>, System.Collections.IEnumerable
     {
         protected DicomServiceCollection() { }
@@ -104,6 +149,7 @@ namespace Azure.ResourceManager.HealthcareApis
     {
         public static Azure.Response<Azure.ResourceManager.HealthcareApis.Models.HealthcareApisNameAvailabilityResult> CheckHealthcareApisNameAvailability(this Azure.ResourceManager.Resources.SubscriptionResource subscriptionResource, Azure.ResourceManager.HealthcareApis.Models.HealthcareApisNameAvailabilityContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.HealthcareApis.Models.HealthcareApisNameAvailabilityResult>> CheckHealthcareApisNameAvailabilityAsync(this Azure.ResourceManager.Resources.SubscriptionResource subscriptionResource, Azure.ResourceManager.HealthcareApis.Models.HealthcareApisNameAvailabilityContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public static Azure.ResourceManager.HealthcareApis.AnalyticsConnectorResource GetAnalyticsConnectorResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
         public static Azure.ResourceManager.HealthcareApis.DicomServiceResource GetDicomServiceResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
         public static Azure.ResourceManager.HealthcareApis.FhirServiceResource GetFhirServiceResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
         public static Azure.ResourceManager.HealthcareApis.HealthcareApisIotConnectorResource GetHealthcareApisIotConnectorResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
@@ -411,6 +457,9 @@ namespace Azure.ResourceManager.HealthcareApis
         public virtual Azure.ResourceManager.ArmOperation Delete(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation> DeleteAsync(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.HealthcareApis.HealthcareApisWorkspaceResource> Get(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.HealthcareApis.AnalyticsConnectorResource> GetAnalyticsConnector(string analyticsConnectorName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.HealthcareApis.AnalyticsConnectorResource>> GetAnalyticsConnectorAsync(string analyticsConnectorName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.ResourceManager.HealthcareApis.AnalyticsConnectorCollection GetAnalyticsConnectors() { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.HealthcareApis.HealthcareApisWorkspaceResource>> GetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.HealthcareApis.DicomServiceResource> GetDicomService(string dicomServiceName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.HealthcareApis.DicomServiceResource>> GetDicomServiceAsync(string dicomServiceName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
@@ -437,6 +486,44 @@ namespace Azure.ResourceManager.HealthcareApis
 }
 namespace Azure.ResourceManager.HealthcareApis.Models
 {
+    public partial class AnalyticsConnectorDataDestination
+    {
+        public AnalyticsConnectorDataDestination() { }
+        public System.Collections.Generic.IDictionary<string, System.BinaryData> AdditionalProperties { get { throw null; } }
+        public string Name { get { throw null; } set { } }
+    }
+    public partial class AnalyticsConnectorDataLakeDataDestination : Azure.ResourceManager.HealthcareApis.Models.AnalyticsConnectorDataDestination
+    {
+        public AnalyticsConnectorDataLakeDataDestination(string dataLakeName) { }
+        public string DataLakeName { get { throw null; } set { } }
+    }
+    public partial class AnalyticsConnectorDataSource
+    {
+        public AnalyticsConnectorDataSource() { }
+        public System.Collections.Generic.IDictionary<string, System.BinaryData> AdditionalProperties { get { throw null; } }
+    }
+    public partial class AnalyticsConnectorFhirServiceDataSource : Azure.ResourceManager.HealthcareApis.Models.AnalyticsConnectorDataSource
+    {
+        public AnalyticsConnectorFhirServiceDataSource(System.Uri uri, Azure.ResourceManager.HealthcareApis.Models.FhirServiceVersion kind) { }
+        public Azure.ResourceManager.HealthcareApis.Models.FhirServiceVersion Kind { get { throw null; } set { } }
+        public System.Uri Uri { get { throw null; } set { } }
+    }
+    public partial class AnalyticsConnectorFhirToParquetMapping : Azure.ResourceManager.HealthcareApis.Models.AnalyticsConnectorMapping
+    {
+        public AnalyticsConnectorFhirToParquetMapping() { }
+        public string ExtensionSchemaReference { get { throw null; } set { } }
+        public string FilterConfigurationReference { get { throw null; } set { } }
+    }
+    public partial class AnalyticsConnectorMapping
+    {
+        public AnalyticsConnectorMapping() { }
+        public System.Collections.Generic.IDictionary<string, System.BinaryData> AdditionalProperties { get { throw null; } }
+    }
+    public partial class AnalyticsConnectorPatch : Azure.ResourceManager.HealthcareApis.Models.HealthcareApisResourceTags
+    {
+        public AnalyticsConnectorPatch() { }
+        public Azure.ResourceManager.Models.ManagedServiceIdentity Identity { get { throw null; } set { } }
+    }
     public partial class DicomServiceAuthenticationConfiguration
     {
         public DicomServiceAuthenticationConfiguration() { }
@@ -557,6 +644,24 @@ namespace Azure.ResourceManager.HealthcareApis.Models
         public FhirServiceResourceVersionPolicyConfiguration() { }
         public Azure.ResourceManager.HealthcareApis.Models.FhirResourceVersionPolicy? Default { get { throw null; } set { } }
         public System.Collections.Generic.IDictionary<string, Azure.ResourceManager.HealthcareApis.Models.FhirResourceVersionPolicy> ResourceTypeOverrides { get { throw null; } }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct FhirServiceVersion : System.IEquatable<Azure.ResourceManager.HealthcareApis.Models.FhirServiceVersion>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public FhirServiceVersion(string value) { throw null; }
+        public static Azure.ResourceManager.HealthcareApis.Models.FhirServiceVersion R4 { get { throw null; } }
+        public static Azure.ResourceManager.HealthcareApis.Models.FhirServiceVersion STU3 { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.HealthcareApis.Models.FhirServiceVersion other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.HealthcareApis.Models.FhirServiceVersion left, Azure.ResourceManager.HealthcareApis.Models.FhirServiceVersion right) { throw null; }
+        public static implicit operator Azure.ResourceManager.HealthcareApis.Models.FhirServiceVersion (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.HealthcareApis.Models.FhirServiceVersion left, Azure.ResourceManager.HealthcareApis.Models.FhirServiceVersion right) { throw null; }
+        public override string ToString() { throw null; }
     }
     public partial class HealthcareApisIotConnectorEventHubIngestionConfiguration
     {

@@ -354,6 +354,59 @@ namespace Azure.ResourceManager.HealthcareApis
             return GetFhirServices().Get(fhirServiceName, cancellationToken);
         }
 
+        /// <summary> Gets a collection of AnalyticsConnectorResources in the HealthcareApisWorkspace. </summary>
+        /// <returns> An object representing collection of AnalyticsConnectorResources and their operations over a AnalyticsConnectorResource. </returns>
+        public virtual AnalyticsConnectorCollection GetAnalyticsConnectors()
+        {
+            return GetCachedClient(Client => new AnalyticsConnectorCollection(Client, Id));
+        }
+
+        /// <summary>
+        /// Gets the properties of the specified Analytics Connector.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.HealthcareApis/workspaces/{workspaceName}/analyticsconnectors/{analyticsConnectorName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>AnalyticsConnectors_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="analyticsConnectorName"> The name of Analytics Connector resource. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="analyticsConnectorName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="analyticsConnectorName"/> is null. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<AnalyticsConnectorResource>> GetAnalyticsConnectorAsync(string analyticsConnectorName, CancellationToken cancellationToken = default)
+        {
+            return await GetAnalyticsConnectors().GetAsync(analyticsConnectorName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets the properties of the specified Analytics Connector.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.HealthcareApis/workspaces/{workspaceName}/analyticsconnectors/{analyticsConnectorName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>AnalyticsConnectors_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="analyticsConnectorName"> The name of Analytics Connector resource. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="analyticsConnectorName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="analyticsConnectorName"/> is null. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<AnalyticsConnectorResource> GetAnalyticsConnector(string analyticsConnectorName, CancellationToken cancellationToken = default)
+        {
+            return GetAnalyticsConnectors().Get(analyticsConnectorName, cancellationToken);
+        }
+
         /// <summary>
         /// Gets the properties of the specified workspace.
         /// <list type="bullet">

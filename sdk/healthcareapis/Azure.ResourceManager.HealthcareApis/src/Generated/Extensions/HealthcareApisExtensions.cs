@@ -470,5 +470,24 @@ namespace Azure.ResourceManager.HealthcareApis
             );
         }
         #endregion
+
+        #region AnalyticsConnectorResource
+        /// <summary>
+        /// Gets an object representing an <see cref="AnalyticsConnectorResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="AnalyticsConnectorResource.CreateResourceIdentifier" /> to create an <see cref="AnalyticsConnectorResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="AnalyticsConnectorResource" /> object. </returns>
+        public static AnalyticsConnectorResource GetAnalyticsConnectorResource(this ArmClient client, ResourceIdentifier id)
+        {
+            return client.GetResourceClient(() =>
+            {
+                AnalyticsConnectorResource.ValidateResourceId(id);
+                return new AnalyticsConnectorResource(client, id);
+            }
+            );
+        }
+        #endregion
     }
 }
