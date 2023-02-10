@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="GetFilterAsync(String,String,RequestContext)">
+<example>
+This sample shows how to call GetFilterAsync with required parameters and parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var client = new FiltersClient("<https://my-service.azure.com>", credential);
+
+Response response = await client.GetFilterAsync("<dataSourceName>", "<scanName>");
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("properties").GetProperty("excludeUriPrefixes")[0].ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("includeUriPrefixes")[0].ToString());
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("name").ToString());
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for the response payload.
+
+Response Body:
+
+Schema for <c>Filter</c>:
+<code>{
+  properties: {
+    excludeUriPrefixes: [string], # Optional.
+    includeUriPrefixes: [string], # Optional.
+  }, # Optional.
+  id: string, # Optional.
+  name: string, # Optional.
+}
+</code>
+
+</remarks>
+    </member>
+    <member name="GetFilter(String,String,RequestContext)">
+<example>
+This sample shows how to call GetFilter with required parameters and parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var client = new FiltersClient("<https://my-service.azure.com>", credential);
+
+Response response = client.GetFilter("<dataSourceName>", "<scanName>");
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("properties").GetProperty("excludeUriPrefixes")[0].ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("includeUriPrefixes")[0].ToString());
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("name").ToString());
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for the response payload.
+
+Response Body:
+
+Schema for <c>Filter</c>:
+<code>{
+  properties: {
+    excludeUriPrefixes: [string], # Optional.
+    includeUriPrefixes: [string], # Optional.
+  }, # Optional.
+  id: string, # Optional.
+  name: string, # Optional.
+}
+</code>
+
+</remarks>
+    </member>
+    <member name="CreateOrUpdateAsync(String,String,RequestContent,RequestContext)">
+<example>
+This sample shows how to call CreateOrUpdateAsync with required parameters and parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var client = new FiltersClient("<https://my-service.azure.com>", credential);
+
+var data = new {};
+
+Response response = await client.CreateOrUpdateAsync("<dataSourceName>", "<scanName>", RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code>
+This sample shows how to call CreateOrUpdateAsync with all parameters and request content, and how to parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var client = new FiltersClient("<https://my-service.azure.com>", credential);
+
+var data = new {
+    properties = new {
+        excludeUriPrefixes = new[] {
+            "<String>"
+        },
+        includeUriPrefixes = new[] {
+            "<String>"
+        },
+    },
+};
+
+Response response = await client.CreateOrUpdateAsync("<dataSourceName>", "<scanName>", RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("properties").GetProperty("excludeUriPrefixes")[0].ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("includeUriPrefixes")[0].ToString());
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("name").ToString());
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for the request and response payloads.
+
+Request Body:
+
+Schema for <c>Filter</c>:
+<code>{
+  properties: {
+    excludeUriPrefixes: [string], # Optional.
+    includeUriPrefixes: [string], # Optional.
+  }, # Optional.
+  id: string, # Optional.
+  name: string, # Optional.
+}
+</code>
+
+Response Body:
+
+Schema for <c>Filter</c>:
+<code>{
+  properties: {
+    excludeUriPrefixes: [string], # Optional.
+    includeUriPrefixes: [string], # Optional.
+  }, # Optional.
+  id: string, # Optional.
+  name: string, # Optional.
+}
+</code>
+
+</remarks>
+    </member>
+    <member name="CreateOrUpdate(String,String,RequestContent,RequestContext)">
+<example>
+This sample shows how to call CreateOrUpdate with required parameters and parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var client = new FiltersClient("<https://my-service.azure.com>", credential);
+
+var data = new {};
+
+Response response = client.CreateOrUpdate("<dataSourceName>", "<scanName>", RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code>
+This sample shows how to call CreateOrUpdate with all parameters and request content, and how to parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var client = new FiltersClient("<https://my-service.azure.com>", credential);
+
+var data = new {
+    properties = new {
+        excludeUriPrefixes = new[] {
+            "<String>"
+        },
+        includeUriPrefixes = new[] {
+            "<String>"
+        },
+    },
+};
+
+Response response = client.CreateOrUpdate("<dataSourceName>", "<scanName>", RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("properties").GetProperty("excludeUriPrefixes")[0].ToString());
+Console.WriteLine(result.GetProperty("properties").GetProperty("includeUriPrefixes")[0].ToString());
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("name").ToString());
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for the request and response payloads.
+
+Request Body:
+
+Schema for <c>Filter</c>:
+<code>{
+  properties: {
+    excludeUriPrefixes: [string], # Optional.
+    includeUriPrefixes: [string], # Optional.
+  }, # Optional.
+  id: string, # Optional.
+  name: string, # Optional.
+}
+</code>
+
+Response Body:
+
+Schema for <c>Filter</c>:
+<code>{
+  properties: {
+    excludeUriPrefixes: [string], # Optional.
+    includeUriPrefixes: [string], # Optional.
+  }, # Optional.
+  id: string, # Optional.
+  name: string, # Optional.
+}
+</code>
+
+</remarks>
+    </member>
+  </members>
+</doc>

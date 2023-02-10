@@ -1,0 +1,1849 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="CreateOrUpdateAsync(String,RequestContent,RequestContext)">
+<example>
+This sample shows how to call CreateOrUpdateAsync with required parameters and parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var client = new CollectionClient("<https://my-service.azure.com>", credential);
+
+var data = new {};
+
+Response response = await client.CreateOrUpdateAsync("<collection>", RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code>
+This sample shows how to call CreateOrUpdateAsync with all parameters and request content, and how to parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var client = new CollectionClient("<https://my-service.azure.com>", credential);
+
+var data = new {
+    entity = new {
+        businessAttributes = new {
+            key = new {},
+        },
+        classifications = new[] {
+            new {
+                entityGuid = "<entityGuid>",
+                entityStatus = "InProgress",
+                removePropagationsOnEntityDelete = true,
+                validityPeriods = new[] {
+                    new {
+                        endTime = "<endTime>",
+                        startTime = "<startTime>",
+                        timeZone = "<timeZone>",
+                    }
+                },
+                source = "<source>",
+                sourceDetails = new {
+                    key = new {},
+                },
+                attributes = new {
+                    key = new {},
+                },
+                typeName = "<typeName>",
+                lastModifiedTS = "<lastModifiedTS>",
+            }
+        },
+        createTime = 1234L,
+        createdBy = "<createdBy>",
+        customAttributes = new {
+            key = "<String>",
+        },
+        guid = "<guid>",
+        homeId = "<homeId>",
+        collectionId = "<collectionId>",
+        isIncomplete = true,
+        labels = new[] {
+            "<String>"
+        },
+        meanings = new[] {
+            new {
+                confidence = 1234,
+                createdBy = "<createdBy>",
+                description = "<description>",
+                displayText = "<displayText>",
+                expression = "<expression>",
+                relationGuid = "<relationGuid>",
+                source = "<source>",
+                status = "DISCOVERED",
+                steward = "<steward>",
+                termGuid = "<termGuid>",
+            }
+        },
+        provenanceType = 123.45f,
+        proxy = true,
+        relationshipAttributes = new {
+            key = new {},
+        },
+        status = "InProgress",
+        updateTime = 1234L,
+        updatedBy = "<updatedBy>",
+        version = 123.45f,
+        source = "<source>",
+        sourceDetails = new {
+            key = new {},
+        },
+        contacts = new {
+            key = new[] {
+                new {
+                    id = "<id>",
+                    info = "<info>",
+                }
+            },
+        },
+        attributes = new {
+            key = new {},
+        },
+        typeName = "<typeName>",
+        lastModifiedTS = "<lastModifiedTS>",
+    },
+    referredEntities = new {
+        key = new {
+            businessAttributes = new {
+                key = new {},
+            },
+            classifications = new[] {
+                new {
+                    entityGuid = "<entityGuid>",
+                    entityStatus = "InProgress",
+                    removePropagationsOnEntityDelete = true,
+                    validityPeriods = new[] {
+                        new {
+                            endTime = "<endTime>",
+                            startTime = "<startTime>",
+                            timeZone = "<timeZone>",
+                        }
+                    },
+                    source = "<source>",
+                    sourceDetails = new {
+                        key = new {},
+                    },
+                    attributes = new {
+                        key = new {},
+                    },
+                    typeName = "<typeName>",
+                    lastModifiedTS = "<lastModifiedTS>",
+                }
+            },
+            createTime = 1234L,
+            createdBy = "<createdBy>",
+            customAttributes = new {
+                key = "<String>",
+            },
+            guid = "<guid>",
+            homeId = "<homeId>",
+            collectionId = "<collectionId>",
+            isIncomplete = true,
+            labels = new[] {
+                "<String>"
+            },
+            meanings = new[] {
+                new {
+                    confidence = 1234,
+                    createdBy = "<createdBy>",
+                    description = "<description>",
+                    displayText = "<displayText>",
+                    expression = "<expression>",
+                    relationGuid = "<relationGuid>",
+                    source = "<source>",
+                    status = "DISCOVERED",
+                    steward = "<steward>",
+                    termGuid = "<termGuid>",
+                }
+            },
+            provenanceType = 123.45f,
+            proxy = true,
+            relationshipAttributes = new {
+                key = new {},
+            },
+            status = "InProgress",
+            updateTime = 1234L,
+            updatedBy = "<updatedBy>",
+            version = 123.45f,
+            source = "<source>",
+            sourceDetails = new {
+                key = new {},
+            },
+            contacts = new {
+                key = new[] {
+                    new {
+                        id = "<id>",
+                        info = "<info>",
+                    }
+                },
+            },
+            attributes = new {
+                key = new {},
+            },
+            typeName = "<typeName>",
+            lastModifiedTS = "<lastModifiedTS>",
+        },
+    },
+};
+
+Response response = await client.CreateOrUpdateAsync("<collection>", RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("guidAssignments").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classificationNames")[0].ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("source").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("sourceDetails").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("typeName").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("displayText").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("guid").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("isIncomplete").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("labels")[0].ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meaningNames")[0].ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("confidence").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("displayText").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("expression").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("source").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("steward").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("attributes").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("typeName").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("lastModifiedTS").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classificationNames")[0].ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("source").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("sourceDetails").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("typeName").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("displayText").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("guid").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("isIncomplete").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("labels")[0].ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meaningNames")[0].ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("confidence").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("displayText").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("expression").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("source").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("steward").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("attributes").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("typeName").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("lastModifiedTS").ToString());
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for the request and response payloads.
+
+Request Body:
+
+Schema for <c>AtlasEntityWithExtInfo</c>:
+<code>{
+  entity: {
+    businessAttributes: Dictionary&lt;string, AnyObject&gt;, # Optional. Business Attributes
+    classifications: [
+      {
+        entityGuid: string, # Optional. The GUID of the entity.
+        entityStatus: &quot;InProgress&quot; | &quot;Failed&quot; | &quot;Completed&quot; | &quot;NotStarted&quot; | &quot;Canceling&quot; | &quot;CancellationFailed&quot; | &quot;Canceled&quot; | &quot;Pending&quot; | &quot;Approved&quot; | &quot;Rejected&quot; | &quot;sent&quot; | &quot;received&quot; | &quot;history&quot; | &quot;ACTIVE&quot; | &quot;DELETED&quot;, # Optional.
+        removePropagationsOnEntityDelete: boolean, # Optional. Determines if propagations will be removed on entity deletion.
+        validityPeriods: [
+          {
+            endTime: string, # Optional. The end of the time boundary.
+            startTime: string, # Optional. The start of the time boundary.
+            timeZone: string, # Optional. The timezone of the time boundary.
+          }
+        ], # Optional. An array of time boundaries indicating validity periods.
+        source: string, # Optional. indicate the source who create the classification detail
+        sourceDetails: Dictionary&lt;string, AnyObject&gt;, # Optional. more detail on source information
+        attributes: Dictionary&lt;string, any&gt;, # Optional. The attributes of the struct.
+        typeName: string, # Optional. The name of the type.
+        lastModifiedTS: string, # Optional. ETag for concurrency control.
+      }
+    ], # Optional. An array of classifications.
+    createTime: number, # Optional. The created time of the record.
+    createdBy: string, # Optional. The user who created the record.
+    customAttributes: Dictionary&lt;string, string&gt;, # Optional. Custom Attribute
+    guid: string, # Optional. The GUID of the entity.
+    homeId: string, # Optional. The home ID of the entity.
+    collectionId: string, # Optional. The collection ID of the entity.
+    isIncomplete: boolean, # Optional. Whether it is a shell entity
+    labels: [string], # Optional. labels
+    meanings: [
+      {
+        confidence: number, # Optional. The confidence of the term assignment.
+        createdBy: string, # Optional. The user who created the record.
+        description: string, # Optional. The description of the term assignment.
+        displayText: string, # Optional. The display text.
+        expression: string, # Optional. The expression of the term assignment.
+        relationGuid: string, # Optional. The GUID of the relationship.
+        source: string, # Optional. The source of the term.
+        status: &quot;DISCOVERED&quot; | &quot;PROPOSED&quot; | &quot;IMPORTED&quot; | &quot;VALIDATED&quot; | &quot;DEPRECATED&quot; | &quot;OBSOLETE&quot; | &quot;OTHER&quot;, # Optional. The status of terms assignment.
+        steward: string, # Optional. The steward of the term.
+        termGuid: string, # Optional. The GUID of the term.
+      }
+    ], # Optional. An array of term assignment headers indicating the meanings of the entity.
+    provenanceType: number, # Optional. Used to record the provenance of an instance of an entity or relationship.
+    proxy: boolean, # Optional. Determines if there&apos;s a proxy.
+    relationshipAttributes: Dictionary&lt;string, any&gt;, # Optional. The attributes of relationship.
+    status: &quot;InProgress&quot; | &quot;Failed&quot; | &quot;Completed&quot; | &quot;NotStarted&quot; | &quot;Canceling&quot; | &quot;CancellationFailed&quot; | &quot;Canceled&quot; | &quot;Pending&quot; | &quot;Approved&quot; | &quot;Rejected&quot; | &quot;sent&quot; | &quot;received&quot; | &quot;history&quot; | &quot;ACTIVE&quot; | &quot;DELETED&quot;, # Optional.
+    updateTime: number, # Optional. The update time of the record.
+    updatedBy: string, # Optional. The user who updated the record.
+    version: number, # Optional. The version of the entity.
+    source: string, # Optional. indicate the source who create the classification detail
+    sourceDetails: Dictionary&lt;string, AnyObject&gt;, # Optional. more detail on source information
+    contacts: Dictionary&lt;string, ContactBasic[]&gt;, # Optional. The dictionary of contacts for entities. Key could be Expert or Owner.
+    attributes: Dictionary&lt;string, any&gt;, # Optional. The attributes of the struct.
+    typeName: string, # Optional. The name of the type.
+    lastModifiedTS: string, # Optional. ETag for concurrency control.
+  }, # Optional. An instance of an entity - like hive_table, hive_database.
+  referredEntities: Dictionary&lt;string, AtlasEntity&gt;, # Optional. The referred entities.
+}
+</code>
+
+Response Body:
+
+Schema for <c>EntityMutationResponse</c>:
+<code>{
+  guidAssignments: Dictionary&lt;string, string&gt;, # Optional. A map of GUID assignments with entities.
+  mutatedEntities: Dictionary&lt;string, AtlasEntityHeader[]&gt;, # Optional. The entity headers of mutated entities.
+  partialUpdatedEntities: [
+    {
+      classificationNames: [string], # Optional. An array of classification names.
+      classifications: [
+        {
+          entityGuid: string, # Optional. The GUID of the entity.
+          entityStatus: &quot;InProgress&quot; | &quot;Failed&quot; | &quot;Completed&quot; | &quot;NotStarted&quot; | &quot;Canceling&quot; | &quot;CancellationFailed&quot; | &quot;Canceled&quot; | &quot;Pending&quot; | &quot;Approved&quot; | &quot;Rejected&quot; | &quot;sent&quot; | &quot;received&quot; | &quot;history&quot; | &quot;ACTIVE&quot; | &quot;DELETED&quot;, # Optional.
+          removePropagationsOnEntityDelete: boolean, # Optional. Determines if propagations will be removed on entity deletion.
+          validityPeriods: [
+            {
+              endTime: string, # Optional. The end of the time boundary.
+              startTime: string, # Optional. The start of the time boundary.
+              timeZone: string, # Optional. The timezone of the time boundary.
+            }
+          ], # Optional. An array of time boundaries indicating validity periods.
+          source: string, # Optional. indicate the source who create the classification detail
+          sourceDetails: Dictionary&lt;string, AnyObject&gt;, # Optional. more detail on source information
+          attributes: Dictionary&lt;string, any&gt;, # Optional. The attributes of the struct.
+          typeName: string, # Optional. The name of the type.
+          lastModifiedTS: string, # Optional. ETag for concurrency control.
+        }
+      ], # Optional. An array of classifications.
+      displayText: string, # Optional. The display text.
+      guid: string, # Optional. The GUID of the record.
+      isIncomplete: boolean, # Optional. Whether it is a shell entity
+      labels: [string], # Optional. labels
+      meaningNames: [string], # Optional. An array of meanings.
+      meanings: [
+        {
+          confidence: number, # Optional. The confidence of the term assignment.
+          createdBy: string, # Optional. The user who created the record.
+          description: string, # Optional. The description of the term assignment.
+          displayText: string, # Optional. The display text.
+          expression: string, # Optional. The expression of the term assignment.
+          relationGuid: string, # Optional. The GUID of the relationship.
+          source: string, # Optional. The source of the term.
+          status: &quot;DISCOVERED&quot; | &quot;PROPOSED&quot; | &quot;IMPORTED&quot; | &quot;VALIDATED&quot; | &quot;DEPRECATED&quot; | &quot;OBSOLETE&quot; | &quot;OTHER&quot;, # Optional. The status of terms assignment.
+          steward: string, # Optional. The steward of the term.
+          termGuid: string, # Optional. The GUID of the term.
+        }
+      ], # Optional. An array of term assignment headers.
+      status: &quot;InProgress&quot; | &quot;Failed&quot; | &quot;Completed&quot; | &quot;NotStarted&quot; | &quot;Canceling&quot; | &quot;CancellationFailed&quot; | &quot;Canceled&quot; | &quot;Pending&quot; | &quot;Approved&quot; | &quot;Rejected&quot; | &quot;sent&quot; | &quot;received&quot; | &quot;history&quot; | &quot;ACTIVE&quot; | &quot;DELETED&quot;, # Optional.
+      attributes: Dictionary&lt;string, any&gt;, # Optional. The attributes of the struct.
+      typeName: string, # Optional. The name of the type.
+      lastModifiedTS: string, # Optional. ETag for concurrency control.
+    }
+  ], # Optional. An array of entity headers that partially updated.
+}
+</code>
+
+</remarks>
+    </member>
+    <member name="CreateOrUpdate(String,RequestContent,RequestContext)">
+<example>
+This sample shows how to call CreateOrUpdate with required parameters and parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var client = new CollectionClient("<https://my-service.azure.com>", credential);
+
+var data = new {};
+
+Response response = client.CreateOrUpdate("<collection>", RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code>
+This sample shows how to call CreateOrUpdate with all parameters and request content, and how to parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var client = new CollectionClient("<https://my-service.azure.com>", credential);
+
+var data = new {
+    entity = new {
+        businessAttributes = new {
+            key = new {},
+        },
+        classifications = new[] {
+            new {
+                entityGuid = "<entityGuid>",
+                entityStatus = "InProgress",
+                removePropagationsOnEntityDelete = true,
+                validityPeriods = new[] {
+                    new {
+                        endTime = "<endTime>",
+                        startTime = "<startTime>",
+                        timeZone = "<timeZone>",
+                    }
+                },
+                source = "<source>",
+                sourceDetails = new {
+                    key = new {},
+                },
+                attributes = new {
+                    key = new {},
+                },
+                typeName = "<typeName>",
+                lastModifiedTS = "<lastModifiedTS>",
+            }
+        },
+        createTime = 1234L,
+        createdBy = "<createdBy>",
+        customAttributes = new {
+            key = "<String>",
+        },
+        guid = "<guid>",
+        homeId = "<homeId>",
+        collectionId = "<collectionId>",
+        isIncomplete = true,
+        labels = new[] {
+            "<String>"
+        },
+        meanings = new[] {
+            new {
+                confidence = 1234,
+                createdBy = "<createdBy>",
+                description = "<description>",
+                displayText = "<displayText>",
+                expression = "<expression>",
+                relationGuid = "<relationGuid>",
+                source = "<source>",
+                status = "DISCOVERED",
+                steward = "<steward>",
+                termGuid = "<termGuid>",
+            }
+        },
+        provenanceType = 123.45f,
+        proxy = true,
+        relationshipAttributes = new {
+            key = new {},
+        },
+        status = "InProgress",
+        updateTime = 1234L,
+        updatedBy = "<updatedBy>",
+        version = 123.45f,
+        source = "<source>",
+        sourceDetails = new {
+            key = new {},
+        },
+        contacts = new {
+            key = new[] {
+                new {
+                    id = "<id>",
+                    info = "<info>",
+                }
+            },
+        },
+        attributes = new {
+            key = new {},
+        },
+        typeName = "<typeName>",
+        lastModifiedTS = "<lastModifiedTS>",
+    },
+    referredEntities = new {
+        key = new {
+            businessAttributes = new {
+                key = new {},
+            },
+            classifications = new[] {
+                new {
+                    entityGuid = "<entityGuid>",
+                    entityStatus = "InProgress",
+                    removePropagationsOnEntityDelete = true,
+                    validityPeriods = new[] {
+                        new {
+                            endTime = "<endTime>",
+                            startTime = "<startTime>",
+                            timeZone = "<timeZone>",
+                        }
+                    },
+                    source = "<source>",
+                    sourceDetails = new {
+                        key = new {},
+                    },
+                    attributes = new {
+                        key = new {},
+                    },
+                    typeName = "<typeName>",
+                    lastModifiedTS = "<lastModifiedTS>",
+                }
+            },
+            createTime = 1234L,
+            createdBy = "<createdBy>",
+            customAttributes = new {
+                key = "<String>",
+            },
+            guid = "<guid>",
+            homeId = "<homeId>",
+            collectionId = "<collectionId>",
+            isIncomplete = true,
+            labels = new[] {
+                "<String>"
+            },
+            meanings = new[] {
+                new {
+                    confidence = 1234,
+                    createdBy = "<createdBy>",
+                    description = "<description>",
+                    displayText = "<displayText>",
+                    expression = "<expression>",
+                    relationGuid = "<relationGuid>",
+                    source = "<source>",
+                    status = "DISCOVERED",
+                    steward = "<steward>",
+                    termGuid = "<termGuid>",
+                }
+            },
+            provenanceType = 123.45f,
+            proxy = true,
+            relationshipAttributes = new {
+                key = new {},
+            },
+            status = "InProgress",
+            updateTime = 1234L,
+            updatedBy = "<updatedBy>",
+            version = 123.45f,
+            source = "<source>",
+            sourceDetails = new {
+                key = new {},
+            },
+            contacts = new {
+                key = new[] {
+                    new {
+                        id = "<id>",
+                        info = "<info>",
+                    }
+                },
+            },
+            attributes = new {
+                key = new {},
+            },
+            typeName = "<typeName>",
+            lastModifiedTS = "<lastModifiedTS>",
+        },
+    },
+};
+
+Response response = client.CreateOrUpdate("<collection>", RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("guidAssignments").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classificationNames")[0].ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("source").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("sourceDetails").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("typeName").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("displayText").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("guid").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("isIncomplete").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("labels")[0].ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meaningNames")[0].ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("confidence").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("displayText").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("expression").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("source").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("steward").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("attributes").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("typeName").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("lastModifiedTS").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classificationNames")[0].ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("source").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("sourceDetails").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("typeName").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("displayText").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("guid").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("isIncomplete").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("labels")[0].ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meaningNames")[0].ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("confidence").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("displayText").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("expression").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("source").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("steward").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("attributes").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("typeName").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("lastModifiedTS").ToString());
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for the request and response payloads.
+
+Request Body:
+
+Schema for <c>AtlasEntityWithExtInfo</c>:
+<code>{
+  entity: {
+    businessAttributes: Dictionary&lt;string, AnyObject&gt;, # Optional. Business Attributes
+    classifications: [
+      {
+        entityGuid: string, # Optional. The GUID of the entity.
+        entityStatus: &quot;InProgress&quot; | &quot;Failed&quot; | &quot;Completed&quot; | &quot;NotStarted&quot; | &quot;Canceling&quot; | &quot;CancellationFailed&quot; | &quot;Canceled&quot; | &quot;Pending&quot; | &quot;Approved&quot; | &quot;Rejected&quot; | &quot;sent&quot; | &quot;received&quot; | &quot;history&quot; | &quot;ACTIVE&quot; | &quot;DELETED&quot;, # Optional.
+        removePropagationsOnEntityDelete: boolean, # Optional. Determines if propagations will be removed on entity deletion.
+        validityPeriods: [
+          {
+            endTime: string, # Optional. The end of the time boundary.
+            startTime: string, # Optional. The start of the time boundary.
+            timeZone: string, # Optional. The timezone of the time boundary.
+          }
+        ], # Optional. An array of time boundaries indicating validity periods.
+        source: string, # Optional. indicate the source who create the classification detail
+        sourceDetails: Dictionary&lt;string, AnyObject&gt;, # Optional. more detail on source information
+        attributes: Dictionary&lt;string, any&gt;, # Optional. The attributes of the struct.
+        typeName: string, # Optional. The name of the type.
+        lastModifiedTS: string, # Optional. ETag for concurrency control.
+      }
+    ], # Optional. An array of classifications.
+    createTime: number, # Optional. The created time of the record.
+    createdBy: string, # Optional. The user who created the record.
+    customAttributes: Dictionary&lt;string, string&gt;, # Optional. Custom Attribute
+    guid: string, # Optional. The GUID of the entity.
+    homeId: string, # Optional. The home ID of the entity.
+    collectionId: string, # Optional. The collection ID of the entity.
+    isIncomplete: boolean, # Optional. Whether it is a shell entity
+    labels: [string], # Optional. labels
+    meanings: [
+      {
+        confidence: number, # Optional. The confidence of the term assignment.
+        createdBy: string, # Optional. The user who created the record.
+        description: string, # Optional. The description of the term assignment.
+        displayText: string, # Optional. The display text.
+        expression: string, # Optional. The expression of the term assignment.
+        relationGuid: string, # Optional. The GUID of the relationship.
+        source: string, # Optional. The source of the term.
+        status: &quot;DISCOVERED&quot; | &quot;PROPOSED&quot; | &quot;IMPORTED&quot; | &quot;VALIDATED&quot; | &quot;DEPRECATED&quot; | &quot;OBSOLETE&quot; | &quot;OTHER&quot;, # Optional. The status of terms assignment.
+        steward: string, # Optional. The steward of the term.
+        termGuid: string, # Optional. The GUID of the term.
+      }
+    ], # Optional. An array of term assignment headers indicating the meanings of the entity.
+    provenanceType: number, # Optional. Used to record the provenance of an instance of an entity or relationship.
+    proxy: boolean, # Optional. Determines if there&apos;s a proxy.
+    relationshipAttributes: Dictionary&lt;string, any&gt;, # Optional. The attributes of relationship.
+    status: &quot;InProgress&quot; | &quot;Failed&quot; | &quot;Completed&quot; | &quot;NotStarted&quot; | &quot;Canceling&quot; | &quot;CancellationFailed&quot; | &quot;Canceled&quot; | &quot;Pending&quot; | &quot;Approved&quot; | &quot;Rejected&quot; | &quot;sent&quot; | &quot;received&quot; | &quot;history&quot; | &quot;ACTIVE&quot; | &quot;DELETED&quot;, # Optional.
+    updateTime: number, # Optional. The update time of the record.
+    updatedBy: string, # Optional. The user who updated the record.
+    version: number, # Optional. The version of the entity.
+    source: string, # Optional. indicate the source who create the classification detail
+    sourceDetails: Dictionary&lt;string, AnyObject&gt;, # Optional. more detail on source information
+    contacts: Dictionary&lt;string, ContactBasic[]&gt;, # Optional. The dictionary of contacts for entities. Key could be Expert or Owner.
+    attributes: Dictionary&lt;string, any&gt;, # Optional. The attributes of the struct.
+    typeName: string, # Optional. The name of the type.
+    lastModifiedTS: string, # Optional. ETag for concurrency control.
+  }, # Optional. An instance of an entity - like hive_table, hive_database.
+  referredEntities: Dictionary&lt;string, AtlasEntity&gt;, # Optional. The referred entities.
+}
+</code>
+
+Response Body:
+
+Schema for <c>EntityMutationResponse</c>:
+<code>{
+  guidAssignments: Dictionary&lt;string, string&gt;, # Optional. A map of GUID assignments with entities.
+  mutatedEntities: Dictionary&lt;string, AtlasEntityHeader[]&gt;, # Optional. The entity headers of mutated entities.
+  partialUpdatedEntities: [
+    {
+      classificationNames: [string], # Optional. An array of classification names.
+      classifications: [
+        {
+          entityGuid: string, # Optional. The GUID of the entity.
+          entityStatus: &quot;InProgress&quot; | &quot;Failed&quot; | &quot;Completed&quot; | &quot;NotStarted&quot; | &quot;Canceling&quot; | &quot;CancellationFailed&quot; | &quot;Canceled&quot; | &quot;Pending&quot; | &quot;Approved&quot; | &quot;Rejected&quot; | &quot;sent&quot; | &quot;received&quot; | &quot;history&quot; | &quot;ACTIVE&quot; | &quot;DELETED&quot;, # Optional.
+          removePropagationsOnEntityDelete: boolean, # Optional. Determines if propagations will be removed on entity deletion.
+          validityPeriods: [
+            {
+              endTime: string, # Optional. The end of the time boundary.
+              startTime: string, # Optional. The start of the time boundary.
+              timeZone: string, # Optional. The timezone of the time boundary.
+            }
+          ], # Optional. An array of time boundaries indicating validity periods.
+          source: string, # Optional. indicate the source who create the classification detail
+          sourceDetails: Dictionary&lt;string, AnyObject&gt;, # Optional. more detail on source information
+          attributes: Dictionary&lt;string, any&gt;, # Optional. The attributes of the struct.
+          typeName: string, # Optional. The name of the type.
+          lastModifiedTS: string, # Optional. ETag for concurrency control.
+        }
+      ], # Optional. An array of classifications.
+      displayText: string, # Optional. The display text.
+      guid: string, # Optional. The GUID of the record.
+      isIncomplete: boolean, # Optional. Whether it is a shell entity
+      labels: [string], # Optional. labels
+      meaningNames: [string], # Optional. An array of meanings.
+      meanings: [
+        {
+          confidence: number, # Optional. The confidence of the term assignment.
+          createdBy: string, # Optional. The user who created the record.
+          description: string, # Optional. The description of the term assignment.
+          displayText: string, # Optional. The display text.
+          expression: string, # Optional. The expression of the term assignment.
+          relationGuid: string, # Optional. The GUID of the relationship.
+          source: string, # Optional. The source of the term.
+          status: &quot;DISCOVERED&quot; | &quot;PROPOSED&quot; | &quot;IMPORTED&quot; | &quot;VALIDATED&quot; | &quot;DEPRECATED&quot; | &quot;OBSOLETE&quot; | &quot;OTHER&quot;, # Optional. The status of terms assignment.
+          steward: string, # Optional. The steward of the term.
+          termGuid: string, # Optional. The GUID of the term.
+        }
+      ], # Optional. An array of term assignment headers.
+      status: &quot;InProgress&quot; | &quot;Failed&quot; | &quot;Completed&quot; | &quot;NotStarted&quot; | &quot;Canceling&quot; | &quot;CancellationFailed&quot; | &quot;Canceled&quot; | &quot;Pending&quot; | &quot;Approved&quot; | &quot;Rejected&quot; | &quot;sent&quot; | &quot;received&quot; | &quot;history&quot; | &quot;ACTIVE&quot; | &quot;DELETED&quot;, # Optional.
+      attributes: Dictionary&lt;string, any&gt;, # Optional. The attributes of the struct.
+      typeName: string, # Optional. The name of the type.
+      lastModifiedTS: string, # Optional. ETag for concurrency control.
+    }
+  ], # Optional. An array of entity headers that partially updated.
+}
+</code>
+
+</remarks>
+    </member>
+    <member name="CreateOrUpdateBulkAsync(String,RequestContent,RequestContext)">
+<example>
+This sample shows how to call CreateOrUpdateBulkAsync with required parameters and parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var client = new CollectionClient("<https://my-service.azure.com>", credential);
+
+var data = new {};
+
+Response response = await client.CreateOrUpdateBulkAsync("<collection>", RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code>
+This sample shows how to call CreateOrUpdateBulkAsync with all parameters and request content, and how to parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var client = new CollectionClient("<https://my-service.azure.com>", credential);
+
+var data = new {
+    entities = new[] {
+        new {
+            businessAttributes = new {
+                key = new {},
+            },
+            classifications = new[] {
+                new {
+                    entityGuid = "<entityGuid>",
+                    entityStatus = "InProgress",
+                    removePropagationsOnEntityDelete = true,
+                    validityPeriods = new[] {
+                        new {
+                            endTime = "<endTime>",
+                            startTime = "<startTime>",
+                            timeZone = "<timeZone>",
+                        }
+                    },
+                    source = "<source>",
+                    sourceDetails = new {
+                        key = new {},
+                    },
+                    attributes = new {
+                        key = new {},
+                    },
+                    typeName = "<typeName>",
+                    lastModifiedTS = "<lastModifiedTS>",
+                }
+            },
+            createTime = 1234L,
+            createdBy = "<createdBy>",
+            customAttributes = new {
+                key = "<String>",
+            },
+            guid = "<guid>",
+            homeId = "<homeId>",
+            collectionId = "<collectionId>",
+            isIncomplete = true,
+            labels = new[] {
+                "<String>"
+            },
+            meanings = new[] {
+                new {
+                    confidence = 1234,
+                    createdBy = "<createdBy>",
+                    description = "<description>",
+                    displayText = "<displayText>",
+                    expression = "<expression>",
+                    relationGuid = "<relationGuid>",
+                    source = "<source>",
+                    status = "DISCOVERED",
+                    steward = "<steward>",
+                    termGuid = "<termGuid>",
+                }
+            },
+            provenanceType = 123.45f,
+            proxy = true,
+            relationshipAttributes = new {
+                key = new {},
+            },
+            status = "InProgress",
+            updateTime = 1234L,
+            updatedBy = "<updatedBy>",
+            version = 123.45f,
+            source = "<source>",
+            sourceDetails = new {
+                key = new {},
+            },
+            contacts = new {
+                key = new[] {
+                    new {
+                        id = "<id>",
+                        info = "<info>",
+                    }
+                },
+            },
+            attributes = new {
+                key = new {},
+            },
+            typeName = "<typeName>",
+            lastModifiedTS = "<lastModifiedTS>",
+        }
+    },
+    referredEntities = new {
+        key = new {
+            businessAttributes = new {
+                key = new {},
+            },
+            classifications = new[] {
+                new {
+                    entityGuid = "<entityGuid>",
+                    entityStatus = "InProgress",
+                    removePropagationsOnEntityDelete = true,
+                    validityPeriods = new[] {
+                        new {
+                            endTime = "<endTime>",
+                            startTime = "<startTime>",
+                            timeZone = "<timeZone>",
+                        }
+                    },
+                    source = "<source>",
+                    sourceDetails = new {
+                        key = new {},
+                    },
+                    attributes = new {
+                        key = new {},
+                    },
+                    typeName = "<typeName>",
+                    lastModifiedTS = "<lastModifiedTS>",
+                }
+            },
+            createTime = 1234L,
+            createdBy = "<createdBy>",
+            customAttributes = new {
+                key = "<String>",
+            },
+            guid = "<guid>",
+            homeId = "<homeId>",
+            collectionId = "<collectionId>",
+            isIncomplete = true,
+            labels = new[] {
+                "<String>"
+            },
+            meanings = new[] {
+                new {
+                    confidence = 1234,
+                    createdBy = "<createdBy>",
+                    description = "<description>",
+                    displayText = "<displayText>",
+                    expression = "<expression>",
+                    relationGuid = "<relationGuid>",
+                    source = "<source>",
+                    status = "DISCOVERED",
+                    steward = "<steward>",
+                    termGuid = "<termGuid>",
+                }
+            },
+            provenanceType = 123.45f,
+            proxy = true,
+            relationshipAttributes = new {
+                key = new {},
+            },
+            status = "InProgress",
+            updateTime = 1234L,
+            updatedBy = "<updatedBy>",
+            version = 123.45f,
+            source = "<source>",
+            sourceDetails = new {
+                key = new {},
+            },
+            contacts = new {
+                key = new[] {
+                    new {
+                        id = "<id>",
+                        info = "<info>",
+                    }
+                },
+            },
+            attributes = new {
+                key = new {},
+            },
+            typeName = "<typeName>",
+            lastModifiedTS = "<lastModifiedTS>",
+        },
+    },
+};
+
+Response response = await client.CreateOrUpdateBulkAsync("<collection>", RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("guidAssignments").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classificationNames")[0].ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("source").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("sourceDetails").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("typeName").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("displayText").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("guid").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("isIncomplete").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("labels")[0].ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meaningNames")[0].ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("confidence").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("displayText").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("expression").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("source").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("steward").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("attributes").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("typeName").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("lastModifiedTS").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classificationNames")[0].ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("source").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("sourceDetails").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("typeName").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("displayText").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("guid").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("isIncomplete").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("labels")[0].ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meaningNames")[0].ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("confidence").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("displayText").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("expression").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("source").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("steward").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("attributes").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("typeName").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("lastModifiedTS").ToString());
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for the request and response payloads.
+
+Request Body:
+
+Schema for <c>AtlasEntitiesWithExtInfo</c>:
+<code>{
+  entities: [
+    {
+      businessAttributes: Dictionary&lt;string, AnyObject&gt;, # Optional. Business Attributes
+      classifications: [
+        {
+          entityGuid: string, # Optional. The GUID of the entity.
+          entityStatus: &quot;InProgress&quot; | &quot;Failed&quot; | &quot;Completed&quot; | &quot;NotStarted&quot; | &quot;Canceling&quot; | &quot;CancellationFailed&quot; | &quot;Canceled&quot; | &quot;Pending&quot; | &quot;Approved&quot; | &quot;Rejected&quot; | &quot;sent&quot; | &quot;received&quot; | &quot;history&quot; | &quot;ACTIVE&quot; | &quot;DELETED&quot;, # Optional.
+          removePropagationsOnEntityDelete: boolean, # Optional. Determines if propagations will be removed on entity deletion.
+          validityPeriods: [
+            {
+              endTime: string, # Optional. The end of the time boundary.
+              startTime: string, # Optional. The start of the time boundary.
+              timeZone: string, # Optional. The timezone of the time boundary.
+            }
+          ], # Optional. An array of time boundaries indicating validity periods.
+          source: string, # Optional. indicate the source who create the classification detail
+          sourceDetails: Dictionary&lt;string, AnyObject&gt;, # Optional. more detail on source information
+          attributes: Dictionary&lt;string, any&gt;, # Optional. The attributes of the struct.
+          typeName: string, # Optional. The name of the type.
+          lastModifiedTS: string, # Optional. ETag for concurrency control.
+        }
+      ], # Optional. An array of classifications.
+      createTime: number, # Optional. The created time of the record.
+      createdBy: string, # Optional. The user who created the record.
+      customAttributes: Dictionary&lt;string, string&gt;, # Optional. Custom Attribute
+      guid: string, # Optional. The GUID of the entity.
+      homeId: string, # Optional. The home ID of the entity.
+      collectionId: string, # Optional. The collection ID of the entity.
+      isIncomplete: boolean, # Optional. Whether it is a shell entity
+      labels: [string], # Optional. labels
+      meanings: [
+        {
+          confidence: number, # Optional. The confidence of the term assignment.
+          createdBy: string, # Optional. The user who created the record.
+          description: string, # Optional. The description of the term assignment.
+          displayText: string, # Optional. The display text.
+          expression: string, # Optional. The expression of the term assignment.
+          relationGuid: string, # Optional. The GUID of the relationship.
+          source: string, # Optional. The source of the term.
+          status: &quot;DISCOVERED&quot; | &quot;PROPOSED&quot; | &quot;IMPORTED&quot; | &quot;VALIDATED&quot; | &quot;DEPRECATED&quot; | &quot;OBSOLETE&quot; | &quot;OTHER&quot;, # Optional. The status of terms assignment.
+          steward: string, # Optional. The steward of the term.
+          termGuid: string, # Optional. The GUID of the term.
+        }
+      ], # Optional. An array of term assignment headers indicating the meanings of the entity.
+      provenanceType: number, # Optional. Used to record the provenance of an instance of an entity or relationship.
+      proxy: boolean, # Optional. Determines if there&apos;s a proxy.
+      relationshipAttributes: Dictionary&lt;string, any&gt;, # Optional. The attributes of relationship.
+      status: &quot;InProgress&quot; | &quot;Failed&quot; | &quot;Completed&quot; | &quot;NotStarted&quot; | &quot;Canceling&quot; | &quot;CancellationFailed&quot; | &quot;Canceled&quot; | &quot;Pending&quot; | &quot;Approved&quot; | &quot;Rejected&quot; | &quot;sent&quot; | &quot;received&quot; | &quot;history&quot; | &quot;ACTIVE&quot; | &quot;DELETED&quot;, # Optional.
+      updateTime: number, # Optional. The update time of the record.
+      updatedBy: string, # Optional. The user who updated the record.
+      version: number, # Optional. The version of the entity.
+      source: string, # Optional. indicate the source who create the classification detail
+      sourceDetails: Dictionary&lt;string, AnyObject&gt;, # Optional. more detail on source information
+      contacts: Dictionary&lt;string, ContactBasic[]&gt;, # Optional. The dictionary of contacts for entities. Key could be Expert or Owner.
+      attributes: Dictionary&lt;string, any&gt;, # Optional. The attributes of the struct.
+      typeName: string, # Optional. The name of the type.
+      lastModifiedTS: string, # Optional. ETag for concurrency control.
+    }
+  ], # Optional. An array of entities.
+  referredEntities: Dictionary&lt;string, AtlasEntity&gt;, # Optional. The referred entities.
+}
+</code>
+
+Response Body:
+
+Schema for <c>EntityMutationResponse</c>:
+<code>{
+  guidAssignments: Dictionary&lt;string, string&gt;, # Optional. A map of GUID assignments with entities.
+  mutatedEntities: Dictionary&lt;string, AtlasEntityHeader[]&gt;, # Optional. The entity headers of mutated entities.
+  partialUpdatedEntities: [
+    {
+      classificationNames: [string], # Optional. An array of classification names.
+      classifications: [
+        {
+          entityGuid: string, # Optional. The GUID of the entity.
+          entityStatus: &quot;InProgress&quot; | &quot;Failed&quot; | &quot;Completed&quot; | &quot;NotStarted&quot; | &quot;Canceling&quot; | &quot;CancellationFailed&quot; | &quot;Canceled&quot; | &quot;Pending&quot; | &quot;Approved&quot; | &quot;Rejected&quot; | &quot;sent&quot; | &quot;received&quot; | &quot;history&quot; | &quot;ACTIVE&quot; | &quot;DELETED&quot;, # Optional.
+          removePropagationsOnEntityDelete: boolean, # Optional. Determines if propagations will be removed on entity deletion.
+          validityPeriods: [
+            {
+              endTime: string, # Optional. The end of the time boundary.
+              startTime: string, # Optional. The start of the time boundary.
+              timeZone: string, # Optional. The timezone of the time boundary.
+            }
+          ], # Optional. An array of time boundaries indicating validity periods.
+          source: string, # Optional. indicate the source who create the classification detail
+          sourceDetails: Dictionary&lt;string, AnyObject&gt;, # Optional. more detail on source information
+          attributes: Dictionary&lt;string, any&gt;, # Optional. The attributes of the struct.
+          typeName: string, # Optional. The name of the type.
+          lastModifiedTS: string, # Optional. ETag for concurrency control.
+        }
+      ], # Optional. An array of classifications.
+      displayText: string, # Optional. The display text.
+      guid: string, # Optional. The GUID of the record.
+      isIncomplete: boolean, # Optional. Whether it is a shell entity
+      labels: [string], # Optional. labels
+      meaningNames: [string], # Optional. An array of meanings.
+      meanings: [
+        {
+          confidence: number, # Optional. The confidence of the term assignment.
+          createdBy: string, # Optional. The user who created the record.
+          description: string, # Optional. The description of the term assignment.
+          displayText: string, # Optional. The display text.
+          expression: string, # Optional. The expression of the term assignment.
+          relationGuid: string, # Optional. The GUID of the relationship.
+          source: string, # Optional. The source of the term.
+          status: &quot;DISCOVERED&quot; | &quot;PROPOSED&quot; | &quot;IMPORTED&quot; | &quot;VALIDATED&quot; | &quot;DEPRECATED&quot; | &quot;OBSOLETE&quot; | &quot;OTHER&quot;, # Optional. The status of terms assignment.
+          steward: string, # Optional. The steward of the term.
+          termGuid: string, # Optional. The GUID of the term.
+        }
+      ], # Optional. An array of term assignment headers.
+      status: &quot;InProgress&quot; | &quot;Failed&quot; | &quot;Completed&quot; | &quot;NotStarted&quot; | &quot;Canceling&quot; | &quot;CancellationFailed&quot; | &quot;Canceled&quot; | &quot;Pending&quot; | &quot;Approved&quot; | &quot;Rejected&quot; | &quot;sent&quot; | &quot;received&quot; | &quot;history&quot; | &quot;ACTIVE&quot; | &quot;DELETED&quot;, # Optional.
+      attributes: Dictionary&lt;string, any&gt;, # Optional. The attributes of the struct.
+      typeName: string, # Optional. The name of the type.
+      lastModifiedTS: string, # Optional. ETag for concurrency control.
+    }
+  ], # Optional. An array of entity headers that partially updated.
+}
+</code>
+
+</remarks>
+    </member>
+    <member name="CreateOrUpdateBulk(String,RequestContent,RequestContext)">
+<example>
+This sample shows how to call CreateOrUpdateBulk with required parameters and parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var client = new CollectionClient("<https://my-service.azure.com>", credential);
+
+var data = new {};
+
+Response response = client.CreateOrUpdateBulk("<collection>", RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code>
+This sample shows how to call CreateOrUpdateBulk with all parameters and request content, and how to parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var client = new CollectionClient("<https://my-service.azure.com>", credential);
+
+var data = new {
+    entities = new[] {
+        new {
+            businessAttributes = new {
+                key = new {},
+            },
+            classifications = new[] {
+                new {
+                    entityGuid = "<entityGuid>",
+                    entityStatus = "InProgress",
+                    removePropagationsOnEntityDelete = true,
+                    validityPeriods = new[] {
+                        new {
+                            endTime = "<endTime>",
+                            startTime = "<startTime>",
+                            timeZone = "<timeZone>",
+                        }
+                    },
+                    source = "<source>",
+                    sourceDetails = new {
+                        key = new {},
+                    },
+                    attributes = new {
+                        key = new {},
+                    },
+                    typeName = "<typeName>",
+                    lastModifiedTS = "<lastModifiedTS>",
+                }
+            },
+            createTime = 1234L,
+            createdBy = "<createdBy>",
+            customAttributes = new {
+                key = "<String>",
+            },
+            guid = "<guid>",
+            homeId = "<homeId>",
+            collectionId = "<collectionId>",
+            isIncomplete = true,
+            labels = new[] {
+                "<String>"
+            },
+            meanings = new[] {
+                new {
+                    confidence = 1234,
+                    createdBy = "<createdBy>",
+                    description = "<description>",
+                    displayText = "<displayText>",
+                    expression = "<expression>",
+                    relationGuid = "<relationGuid>",
+                    source = "<source>",
+                    status = "DISCOVERED",
+                    steward = "<steward>",
+                    termGuid = "<termGuid>",
+                }
+            },
+            provenanceType = 123.45f,
+            proxy = true,
+            relationshipAttributes = new {
+                key = new {},
+            },
+            status = "InProgress",
+            updateTime = 1234L,
+            updatedBy = "<updatedBy>",
+            version = 123.45f,
+            source = "<source>",
+            sourceDetails = new {
+                key = new {},
+            },
+            contacts = new {
+                key = new[] {
+                    new {
+                        id = "<id>",
+                        info = "<info>",
+                    }
+                },
+            },
+            attributes = new {
+                key = new {},
+            },
+            typeName = "<typeName>",
+            lastModifiedTS = "<lastModifiedTS>",
+        }
+    },
+    referredEntities = new {
+        key = new {
+            businessAttributes = new {
+                key = new {},
+            },
+            classifications = new[] {
+                new {
+                    entityGuid = "<entityGuid>",
+                    entityStatus = "InProgress",
+                    removePropagationsOnEntityDelete = true,
+                    validityPeriods = new[] {
+                        new {
+                            endTime = "<endTime>",
+                            startTime = "<startTime>",
+                            timeZone = "<timeZone>",
+                        }
+                    },
+                    source = "<source>",
+                    sourceDetails = new {
+                        key = new {},
+                    },
+                    attributes = new {
+                        key = new {},
+                    },
+                    typeName = "<typeName>",
+                    lastModifiedTS = "<lastModifiedTS>",
+                }
+            },
+            createTime = 1234L,
+            createdBy = "<createdBy>",
+            customAttributes = new {
+                key = "<String>",
+            },
+            guid = "<guid>",
+            homeId = "<homeId>",
+            collectionId = "<collectionId>",
+            isIncomplete = true,
+            labels = new[] {
+                "<String>"
+            },
+            meanings = new[] {
+                new {
+                    confidence = 1234,
+                    createdBy = "<createdBy>",
+                    description = "<description>",
+                    displayText = "<displayText>",
+                    expression = "<expression>",
+                    relationGuid = "<relationGuid>",
+                    source = "<source>",
+                    status = "DISCOVERED",
+                    steward = "<steward>",
+                    termGuid = "<termGuid>",
+                }
+            },
+            provenanceType = 123.45f,
+            proxy = true,
+            relationshipAttributes = new {
+                key = new {},
+            },
+            status = "InProgress",
+            updateTime = 1234L,
+            updatedBy = "<updatedBy>",
+            version = 123.45f,
+            source = "<source>",
+            sourceDetails = new {
+                key = new {},
+            },
+            contacts = new {
+                key = new[] {
+                    new {
+                        id = "<id>",
+                        info = "<info>",
+                    }
+                },
+            },
+            attributes = new {
+                key = new {},
+            },
+            typeName = "<typeName>",
+            lastModifiedTS = "<lastModifiedTS>",
+        },
+    },
+};
+
+Response response = client.CreateOrUpdateBulk("<collection>", RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("guidAssignments").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classificationNames")[0].ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("source").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("sourceDetails").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("typeName").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("displayText").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("guid").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("isIncomplete").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("labels")[0].ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meaningNames")[0].ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("confidence").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("displayText").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("expression").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("source").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("steward").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("attributes").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("typeName").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("lastModifiedTS").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classificationNames")[0].ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("source").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("sourceDetails").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("typeName").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("displayText").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("guid").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("isIncomplete").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("labels")[0].ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meaningNames")[0].ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("confidence").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("displayText").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("expression").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("source").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("steward").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("attributes").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("typeName").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("lastModifiedTS").ToString());
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for the request and response payloads.
+
+Request Body:
+
+Schema for <c>AtlasEntitiesWithExtInfo</c>:
+<code>{
+  entities: [
+    {
+      businessAttributes: Dictionary&lt;string, AnyObject&gt;, # Optional. Business Attributes
+      classifications: [
+        {
+          entityGuid: string, # Optional. The GUID of the entity.
+          entityStatus: &quot;InProgress&quot; | &quot;Failed&quot; | &quot;Completed&quot; | &quot;NotStarted&quot; | &quot;Canceling&quot; | &quot;CancellationFailed&quot; | &quot;Canceled&quot; | &quot;Pending&quot; | &quot;Approved&quot; | &quot;Rejected&quot; | &quot;sent&quot; | &quot;received&quot; | &quot;history&quot; | &quot;ACTIVE&quot; | &quot;DELETED&quot;, # Optional.
+          removePropagationsOnEntityDelete: boolean, # Optional. Determines if propagations will be removed on entity deletion.
+          validityPeriods: [
+            {
+              endTime: string, # Optional. The end of the time boundary.
+              startTime: string, # Optional. The start of the time boundary.
+              timeZone: string, # Optional. The timezone of the time boundary.
+            }
+          ], # Optional. An array of time boundaries indicating validity periods.
+          source: string, # Optional. indicate the source who create the classification detail
+          sourceDetails: Dictionary&lt;string, AnyObject&gt;, # Optional. more detail on source information
+          attributes: Dictionary&lt;string, any&gt;, # Optional. The attributes of the struct.
+          typeName: string, # Optional. The name of the type.
+          lastModifiedTS: string, # Optional. ETag for concurrency control.
+        }
+      ], # Optional. An array of classifications.
+      createTime: number, # Optional. The created time of the record.
+      createdBy: string, # Optional. The user who created the record.
+      customAttributes: Dictionary&lt;string, string&gt;, # Optional. Custom Attribute
+      guid: string, # Optional. The GUID of the entity.
+      homeId: string, # Optional. The home ID of the entity.
+      collectionId: string, # Optional. The collection ID of the entity.
+      isIncomplete: boolean, # Optional. Whether it is a shell entity
+      labels: [string], # Optional. labels
+      meanings: [
+        {
+          confidence: number, # Optional. The confidence of the term assignment.
+          createdBy: string, # Optional. The user who created the record.
+          description: string, # Optional. The description of the term assignment.
+          displayText: string, # Optional. The display text.
+          expression: string, # Optional. The expression of the term assignment.
+          relationGuid: string, # Optional. The GUID of the relationship.
+          source: string, # Optional. The source of the term.
+          status: &quot;DISCOVERED&quot; | &quot;PROPOSED&quot; | &quot;IMPORTED&quot; | &quot;VALIDATED&quot; | &quot;DEPRECATED&quot; | &quot;OBSOLETE&quot; | &quot;OTHER&quot;, # Optional. The status of terms assignment.
+          steward: string, # Optional. The steward of the term.
+          termGuid: string, # Optional. The GUID of the term.
+        }
+      ], # Optional. An array of term assignment headers indicating the meanings of the entity.
+      provenanceType: number, # Optional. Used to record the provenance of an instance of an entity or relationship.
+      proxy: boolean, # Optional. Determines if there&apos;s a proxy.
+      relationshipAttributes: Dictionary&lt;string, any&gt;, # Optional. The attributes of relationship.
+      status: &quot;InProgress&quot; | &quot;Failed&quot; | &quot;Completed&quot; | &quot;NotStarted&quot; | &quot;Canceling&quot; | &quot;CancellationFailed&quot; | &quot;Canceled&quot; | &quot;Pending&quot; | &quot;Approved&quot; | &quot;Rejected&quot; | &quot;sent&quot; | &quot;received&quot; | &quot;history&quot; | &quot;ACTIVE&quot; | &quot;DELETED&quot;, # Optional.
+      updateTime: number, # Optional. The update time of the record.
+      updatedBy: string, # Optional. The user who updated the record.
+      version: number, # Optional. The version of the entity.
+      source: string, # Optional. indicate the source who create the classification detail
+      sourceDetails: Dictionary&lt;string, AnyObject&gt;, # Optional. more detail on source information
+      contacts: Dictionary&lt;string, ContactBasic[]&gt;, # Optional. The dictionary of contacts for entities. Key could be Expert or Owner.
+      attributes: Dictionary&lt;string, any&gt;, # Optional. The attributes of the struct.
+      typeName: string, # Optional. The name of the type.
+      lastModifiedTS: string, # Optional. ETag for concurrency control.
+    }
+  ], # Optional. An array of entities.
+  referredEntities: Dictionary&lt;string, AtlasEntity&gt;, # Optional. The referred entities.
+}
+</code>
+
+Response Body:
+
+Schema for <c>EntityMutationResponse</c>:
+<code>{
+  guidAssignments: Dictionary&lt;string, string&gt;, # Optional. A map of GUID assignments with entities.
+  mutatedEntities: Dictionary&lt;string, AtlasEntityHeader[]&gt;, # Optional. The entity headers of mutated entities.
+  partialUpdatedEntities: [
+    {
+      classificationNames: [string], # Optional. An array of classification names.
+      classifications: [
+        {
+          entityGuid: string, # Optional. The GUID of the entity.
+          entityStatus: &quot;InProgress&quot; | &quot;Failed&quot; | &quot;Completed&quot; | &quot;NotStarted&quot; | &quot;Canceling&quot; | &quot;CancellationFailed&quot; | &quot;Canceled&quot; | &quot;Pending&quot; | &quot;Approved&quot; | &quot;Rejected&quot; | &quot;sent&quot; | &quot;received&quot; | &quot;history&quot; | &quot;ACTIVE&quot; | &quot;DELETED&quot;, # Optional.
+          removePropagationsOnEntityDelete: boolean, # Optional. Determines if propagations will be removed on entity deletion.
+          validityPeriods: [
+            {
+              endTime: string, # Optional. The end of the time boundary.
+              startTime: string, # Optional. The start of the time boundary.
+              timeZone: string, # Optional. The timezone of the time boundary.
+            }
+          ], # Optional. An array of time boundaries indicating validity periods.
+          source: string, # Optional. indicate the source who create the classification detail
+          sourceDetails: Dictionary&lt;string, AnyObject&gt;, # Optional. more detail on source information
+          attributes: Dictionary&lt;string, any&gt;, # Optional. The attributes of the struct.
+          typeName: string, # Optional. The name of the type.
+          lastModifiedTS: string, # Optional. ETag for concurrency control.
+        }
+      ], # Optional. An array of classifications.
+      displayText: string, # Optional. The display text.
+      guid: string, # Optional. The GUID of the record.
+      isIncomplete: boolean, # Optional. Whether it is a shell entity
+      labels: [string], # Optional. labels
+      meaningNames: [string], # Optional. An array of meanings.
+      meanings: [
+        {
+          confidence: number, # Optional. The confidence of the term assignment.
+          createdBy: string, # Optional. The user who created the record.
+          description: string, # Optional. The description of the term assignment.
+          displayText: string, # Optional. The display text.
+          expression: string, # Optional. The expression of the term assignment.
+          relationGuid: string, # Optional. The GUID of the relationship.
+          source: string, # Optional. The source of the term.
+          status: &quot;DISCOVERED&quot; | &quot;PROPOSED&quot; | &quot;IMPORTED&quot; | &quot;VALIDATED&quot; | &quot;DEPRECATED&quot; | &quot;OBSOLETE&quot; | &quot;OTHER&quot;, # Optional. The status of terms assignment.
+          steward: string, # Optional. The steward of the term.
+          termGuid: string, # Optional. The GUID of the term.
+        }
+      ], # Optional. An array of term assignment headers.
+      status: &quot;InProgress&quot; | &quot;Failed&quot; | &quot;Completed&quot; | &quot;NotStarted&quot; | &quot;Canceling&quot; | &quot;CancellationFailed&quot; | &quot;Canceled&quot; | &quot;Pending&quot; | &quot;Approved&quot; | &quot;Rejected&quot; | &quot;sent&quot; | &quot;received&quot; | &quot;history&quot; | &quot;ACTIVE&quot; | &quot;DELETED&quot;, # Optional.
+      attributes: Dictionary&lt;string, any&gt;, # Optional. The attributes of the struct.
+      typeName: string, # Optional. The name of the type.
+      lastModifiedTS: string, # Optional. ETag for concurrency control.
+    }
+  ], # Optional. An array of entity headers that partially updated.
+}
+</code>
+
+</remarks>
+    </member>
+    <member name="MoveEntitiesToCollectionAsync(String,RequestContent,RequestContext)">
+<example>
+This sample shows how to call MoveEntitiesToCollectionAsync with required parameters and parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var client = new CollectionClient("<https://my-service.azure.com>", credential);
+
+var data = new {};
+
+Response response = await client.MoveEntitiesToCollectionAsync("<collection>", RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code>
+This sample shows how to call MoveEntitiesToCollectionAsync with all parameters and request content, and how to parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var client = new CollectionClient("<https://my-service.azure.com>", credential);
+
+var data = new {
+    entityGuids = new[] {
+        "<String>"
+    },
+};
+
+Response response = await client.MoveEntitiesToCollectionAsync("<collection>", RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("guidAssignments").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classificationNames")[0].ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("source").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("sourceDetails").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("typeName").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("displayText").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("guid").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("isIncomplete").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("labels")[0].ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meaningNames")[0].ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("confidence").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("displayText").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("expression").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("source").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("steward").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("attributes").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("typeName").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("lastModifiedTS").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classificationNames")[0].ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("source").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("sourceDetails").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("typeName").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("displayText").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("guid").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("isIncomplete").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("labels")[0].ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meaningNames")[0].ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("confidence").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("displayText").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("expression").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("source").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("steward").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("attributes").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("typeName").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("lastModifiedTS").ToString());
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for the request and response payloads.
+
+Request Body:
+
+Schema for <c>MoveEntitiesRequest</c>:
+<code>{
+  entityGuids: [string], # Optional. An array of entity guids to be moved to target collection.
+}
+</code>
+
+Response Body:
+
+Schema for <c>EntityMutationResponse</c>:
+<code>{
+  guidAssignments: Dictionary&lt;string, string&gt;, # Optional. A map of GUID assignments with entities.
+  mutatedEntities: Dictionary&lt;string, AtlasEntityHeader[]&gt;, # Optional. The entity headers of mutated entities.
+  partialUpdatedEntities: [
+    {
+      classificationNames: [string], # Optional. An array of classification names.
+      classifications: [
+        {
+          entityGuid: string, # Optional. The GUID of the entity.
+          entityStatus: &quot;InProgress&quot; | &quot;Failed&quot; | &quot;Completed&quot; | &quot;NotStarted&quot; | &quot;Canceling&quot; | &quot;CancellationFailed&quot; | &quot;Canceled&quot; | &quot;Pending&quot; | &quot;Approved&quot; | &quot;Rejected&quot; | &quot;sent&quot; | &quot;received&quot; | &quot;history&quot; | &quot;ACTIVE&quot; | &quot;DELETED&quot;, # Optional.
+          removePropagationsOnEntityDelete: boolean, # Optional. Determines if propagations will be removed on entity deletion.
+          validityPeriods: [
+            {
+              endTime: string, # Optional. The end of the time boundary.
+              startTime: string, # Optional. The start of the time boundary.
+              timeZone: string, # Optional. The timezone of the time boundary.
+            }
+          ], # Optional. An array of time boundaries indicating validity periods.
+          source: string, # Optional. indicate the source who create the classification detail
+          sourceDetails: Dictionary&lt;string, AnyObject&gt;, # Optional. more detail on source information
+          attributes: Dictionary&lt;string, any&gt;, # Optional. The attributes of the struct.
+          typeName: string, # Optional. The name of the type.
+          lastModifiedTS: string, # Optional. ETag for concurrency control.
+        }
+      ], # Optional. An array of classifications.
+      displayText: string, # Optional. The display text.
+      guid: string, # Optional. The GUID of the record.
+      isIncomplete: boolean, # Optional. Whether it is a shell entity
+      labels: [string], # Optional. labels
+      meaningNames: [string], # Optional. An array of meanings.
+      meanings: [
+        {
+          confidence: number, # Optional. The confidence of the term assignment.
+          createdBy: string, # Optional. The user who created the record.
+          description: string, # Optional. The description of the term assignment.
+          displayText: string, # Optional. The display text.
+          expression: string, # Optional. The expression of the term assignment.
+          relationGuid: string, # Optional. The GUID of the relationship.
+          source: string, # Optional. The source of the term.
+          status: &quot;DISCOVERED&quot; | &quot;PROPOSED&quot; | &quot;IMPORTED&quot; | &quot;VALIDATED&quot; | &quot;DEPRECATED&quot; | &quot;OBSOLETE&quot; | &quot;OTHER&quot;, # Optional. The status of terms assignment.
+          steward: string, # Optional. The steward of the term.
+          termGuid: string, # Optional. The GUID of the term.
+        }
+      ], # Optional. An array of term assignment headers.
+      status: &quot;InProgress&quot; | &quot;Failed&quot; | &quot;Completed&quot; | &quot;NotStarted&quot; | &quot;Canceling&quot; | &quot;CancellationFailed&quot; | &quot;Canceled&quot; | &quot;Pending&quot; | &quot;Approved&quot; | &quot;Rejected&quot; | &quot;sent&quot; | &quot;received&quot; | &quot;history&quot; | &quot;ACTIVE&quot; | &quot;DELETED&quot;, # Optional.
+      attributes: Dictionary&lt;string, any&gt;, # Optional. The attributes of the struct.
+      typeName: string, # Optional. The name of the type.
+      lastModifiedTS: string, # Optional. ETag for concurrency control.
+    }
+  ], # Optional. An array of entity headers that partially updated.
+}
+</code>
+
+</remarks>
+    </member>
+    <member name="MoveEntitiesToCollection(String,RequestContent,RequestContext)">
+<example>
+This sample shows how to call MoveEntitiesToCollection with required parameters and parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var client = new CollectionClient("<https://my-service.azure.com>", credential);
+
+var data = new {};
+
+Response response = client.MoveEntitiesToCollection("<collection>", RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code>
+This sample shows how to call MoveEntitiesToCollection with all parameters and request content, and how to parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var client = new CollectionClient("<https://my-service.azure.com>", credential);
+
+var data = new {
+    entityGuids = new[] {
+        "<String>"
+    },
+};
+
+Response response = client.MoveEntitiesToCollection("<collection>", RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("guidAssignments").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classificationNames")[0].ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("source").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("sourceDetails").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("typeName").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("displayText").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("guid").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("isIncomplete").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("labels")[0].ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meaningNames")[0].ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("confidence").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("displayText").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("expression").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("source").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("steward").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("attributes").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("typeName").ToString());
+Console.WriteLine(result.GetProperty("mutatedEntities").GetProperty("<test>")[0].GetProperty("lastModifiedTS").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classificationNames")[0].ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("entityGuid").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("entityStatus").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("removePropagationsOnEntityDelete").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("endTime").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("startTime").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("validityPeriods")[0].GetProperty("timeZone").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("source").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("sourceDetails").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("attributes").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("typeName").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("classifications")[0].GetProperty("lastModifiedTS").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("displayText").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("guid").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("isIncomplete").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("labels")[0].ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meaningNames")[0].ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("confidence").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("createdBy").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("description").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("displayText").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("expression").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("relationGuid").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("source").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("steward").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("meanings")[0].GetProperty("termGuid").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("attributes").GetProperty("<test>").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("typeName").ToString());
+Console.WriteLine(result.GetProperty("partialUpdatedEntities")[0].GetProperty("lastModifiedTS").ToString());
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for the request and response payloads.
+
+Request Body:
+
+Schema for <c>MoveEntitiesRequest</c>:
+<code>{
+  entityGuids: [string], # Optional. An array of entity guids to be moved to target collection.
+}
+</code>
+
+Response Body:
+
+Schema for <c>EntityMutationResponse</c>:
+<code>{
+  guidAssignments: Dictionary&lt;string, string&gt;, # Optional. A map of GUID assignments with entities.
+  mutatedEntities: Dictionary&lt;string, AtlasEntityHeader[]&gt;, # Optional. The entity headers of mutated entities.
+  partialUpdatedEntities: [
+    {
+      classificationNames: [string], # Optional. An array of classification names.
+      classifications: [
+        {
+          entityGuid: string, # Optional. The GUID of the entity.
+          entityStatus: &quot;InProgress&quot; | &quot;Failed&quot; | &quot;Completed&quot; | &quot;NotStarted&quot; | &quot;Canceling&quot; | &quot;CancellationFailed&quot; | &quot;Canceled&quot; | &quot;Pending&quot; | &quot;Approved&quot; | &quot;Rejected&quot; | &quot;sent&quot; | &quot;received&quot; | &quot;history&quot; | &quot;ACTIVE&quot; | &quot;DELETED&quot;, # Optional.
+          removePropagationsOnEntityDelete: boolean, # Optional. Determines if propagations will be removed on entity deletion.
+          validityPeriods: [
+            {
+              endTime: string, # Optional. The end of the time boundary.
+              startTime: string, # Optional. The start of the time boundary.
+              timeZone: string, # Optional. The timezone of the time boundary.
+            }
+          ], # Optional. An array of time boundaries indicating validity periods.
+          source: string, # Optional. indicate the source who create the classification detail
+          sourceDetails: Dictionary&lt;string, AnyObject&gt;, # Optional. more detail on source information
+          attributes: Dictionary&lt;string, any&gt;, # Optional. The attributes of the struct.
+          typeName: string, # Optional. The name of the type.
+          lastModifiedTS: string, # Optional. ETag for concurrency control.
+        }
+      ], # Optional. An array of classifications.
+      displayText: string, # Optional. The display text.
+      guid: string, # Optional. The GUID of the record.
+      isIncomplete: boolean, # Optional. Whether it is a shell entity
+      labels: [string], # Optional. labels
+      meaningNames: [string], # Optional. An array of meanings.
+      meanings: [
+        {
+          confidence: number, # Optional. The confidence of the term assignment.
+          createdBy: string, # Optional. The user who created the record.
+          description: string, # Optional. The description of the term assignment.
+          displayText: string, # Optional. The display text.
+          expression: string, # Optional. The expression of the term assignment.
+          relationGuid: string, # Optional. The GUID of the relationship.
+          source: string, # Optional. The source of the term.
+          status: &quot;DISCOVERED&quot; | &quot;PROPOSED&quot; | &quot;IMPORTED&quot; | &quot;VALIDATED&quot; | &quot;DEPRECATED&quot; | &quot;OBSOLETE&quot; | &quot;OTHER&quot;, # Optional. The status of terms assignment.
+          steward: string, # Optional. The steward of the term.
+          termGuid: string, # Optional. The GUID of the term.
+        }
+      ], # Optional. An array of term assignment headers.
+      status: &quot;InProgress&quot; | &quot;Failed&quot; | &quot;Completed&quot; | &quot;NotStarted&quot; | &quot;Canceling&quot; | &quot;CancellationFailed&quot; | &quot;Canceled&quot; | &quot;Pending&quot; | &quot;Approved&quot; | &quot;Rejected&quot; | &quot;sent&quot; | &quot;received&quot; | &quot;history&quot; | &quot;ACTIVE&quot; | &quot;DELETED&quot;, # Optional.
+      attributes: Dictionary&lt;string, any&gt;, # Optional. The attributes of the struct.
+      typeName: string, # Optional. The name of the type.
+      lastModifiedTS: string, # Optional. ETag for concurrency control.
+    }
+  ], # Optional. An array of entity headers that partially updated.
+}
+</code>
+
+</remarks>
+    </member>
+  </members>
+</doc>
