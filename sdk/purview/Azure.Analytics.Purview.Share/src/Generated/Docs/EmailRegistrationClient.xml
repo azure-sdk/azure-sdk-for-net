@@ -6,7 +6,8 @@
 This sample shows how to call ActivateAsync with required parameters and parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
-var client = new EmailRegistrationClient("<https://my-service.azure.com>", credential);
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new EmailRegistrationClient(endpoint, credential);
 
 var data = new {};
 
@@ -18,7 +19,8 @@ Console.WriteLine(result.ToString());
 This sample shows how to call ActivateAsync with all parameters and request content, and how to parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
-var client = new EmailRegistrationClient("<https://my-service.azure.com>", credential);
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new EmailRegistrationClient(endpoint, credential);
 
 var data = new {
     properties = new {
@@ -85,7 +87,8 @@ Schema for <c>TenantEmailRegistration</c>:
 This sample shows how to call Activate with required parameters and parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
-var client = new EmailRegistrationClient("<https://my-service.azure.com>", credential);
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new EmailRegistrationClient(endpoint, credential);
 
 var data = new {};
 
@@ -97,7 +100,8 @@ Console.WriteLine(result.ToString());
 This sample shows how to call Activate with all parameters and request content, and how to parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
-var client = new EmailRegistrationClient("<https://my-service.azure.com>", credential);
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new EmailRegistrationClient(endpoint, credential);
 
 var data = new {
     properties = new {
@@ -164,7 +168,8 @@ Schema for <c>TenantEmailRegistration</c>:
 This sample shows how to call RegisterAsync and parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
-var client = new EmailRegistrationClient("<https://my-service.azure.com>", credential);
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new EmailRegistrationClient(endpoint, credential);
 
 Response response = await client.RegisterAsync();
 
@@ -174,7 +179,8 @@ Console.WriteLine(result.ToString());
 This sample shows how to call RegisterAsync with all parameters, and how to parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
-var client = new EmailRegistrationClient("<https://my-service.azure.com>", credential);
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new EmailRegistrationClient(endpoint, credential);
 
 Response response = await client.RegisterAsync("<repeatabilityRequestId>");
 
@@ -218,7 +224,8 @@ Schema for <c>TenantEmailRegistration</c>:
 This sample shows how to call Register and parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
-var client = new EmailRegistrationClient("<https://my-service.azure.com>", credential);
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new EmailRegistrationClient(endpoint, credential);
 
 Response response = client.Register();
 
@@ -228,7 +235,8 @@ Console.WriteLine(result.ToString());
 This sample shows how to call Register with all parameters, and how to parse the result.
 <code><![CDATA[
 var credential = new DefaultAzureCredential();
-var client = new EmailRegistrationClient("<https://my-service.azure.com>", credential);
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new EmailRegistrationClient(endpoint, credential);
 
 Response response = client.Register("<repeatabilityRequestId>");
 

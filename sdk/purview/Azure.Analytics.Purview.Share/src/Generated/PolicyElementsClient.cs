@@ -13,8 +13,8 @@ using Azure.Core.Pipeline;
 namespace Azure.Analytics.Purview.Share
 {
     // Data plane generated client.
-    /// <summary> The ReceivedAssets service client. </summary>
-    public partial class ReceivedAssetsClient
+    /// <summary> The PolicyElements service client. </summary>
+    public partial class PolicyElementsClient
     {
         private static readonly string[] AuthorizationScopes = new string[] { "https://purview.azure.net/.default" };
         private readonly TokenCredential _tokenCredential;
@@ -27,25 +27,25 @@ namespace Azure.Analytics.Purview.Share
         /// <summary> The HTTP pipeline for sending and receiving REST requests and responses. </summary>
         public virtual HttpPipeline Pipeline => _pipeline;
 
-        /// <summary> Initializes a new instance of ReceivedAssetsClient for mocking. </summary>
-        protected ReceivedAssetsClient()
+        /// <summary> Initializes a new instance of PolicyElementsClient for mocking. </summary>
+        protected PolicyElementsClient()
         {
         }
 
-        /// <summary> Initializes a new instance of ReceivedAssetsClient. </summary>
+        /// <summary> Initializes a new instance of PolicyElementsClient. </summary>
         /// <param name="endpoint"> The account endpoint of your Purview account. Example: https://{accountName}.purview.azure.com/. </param>
         /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> or <paramref name="credential"/> is null. </exception>
-        public ReceivedAssetsClient(Uri endpoint, TokenCredential credential) : this(endpoint, credential, new PurviewPDSClientOptions())
+        public PolicyElementsClient(Uri endpoint, TokenCredential credential) : this(endpoint, credential, new PurviewPDSClientOptions())
         {
         }
 
-        /// <summary> Initializes a new instance of ReceivedAssetsClient. </summary>
+        /// <summary> Initializes a new instance of PolicyElementsClient. </summary>
         /// <param name="endpoint"> The account endpoint of your Purview account. Example: https://{accountName}.purview.azure.com/. </param>
         /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
         /// <param name="options"> The options for configuring the client. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> or <paramref name="credential"/> is null. </exception>
-        public ReceivedAssetsClient(Uri endpoint, TokenCredential credential, PurviewPDSClientOptions options)
+        public PolicyElementsClient(Uri endpoint, TokenCredential credential, PurviewPDSClientOptions options)
         {
             Argument.AssertNotNull(endpoint, nameof(endpoint));
             Argument.AssertNotNull(credential, nameof(credential));
@@ -57,69 +57,68 @@ namespace Azure.Analytics.Purview.Share
             _endpoint = endpoint;
         }
 
-        /// <summary> List source asset of a received share. </summary>
-        /// <param name="receivedShareName"> The name of the received share. </param>
-        /// <param name="skipToken"> The continuation token to list the next page. </param>
+        /// <summary> Get policies for given scope. </summary>
+        /// <param name="scope"> Scope. </param>
+        /// <param name="filter"> Optional value to filter policies based on hierarchy of resources. It is of type enum with possible values: AtScope, ChildrenScope, None, All. </param>
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="receivedShareName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="receivedShareName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="scope"/> is null. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="AsyncPageable{T}"/> from the service containing a list of <see cref="BinaryData"/> objects. Details of the body schema for each item in the collection are in the Remarks section below. </returns>
-        /// <include file="Docs/ReceivedAssetsClient.xml" path="doc/members/member[@name='GetReceivedAssetsAsync(String,String,RequestContext)']/*" />
-        public virtual AsyncPageable<BinaryData> GetReceivedAssetsAsync(string receivedShareName, string skipToken = null, RequestContext context = null)
+        /// <include file="Docs/PolicyElementsClient.xml" path="doc/members/member[@name='GetPolicyElementsAsync(String,String,RequestContext)']/*" />
+        public virtual AsyncPageable<BinaryData> GetPolicyElementsAsync(string scope, string filter = null, RequestContext context = null)
         {
-            Argument.AssertNotNullOrEmpty(receivedShareName, nameof(receivedShareName));
+            Argument.AssertNotNull(scope, nameof(scope));
 
-            HttpMessage FirstPageRequest(int? pageSizeHint) => CreateGetReceivedAssetsRequest(receivedShareName, skipToken, context);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => CreateGetReceivedAssetsNextPageRequest(nextLink, receivedShareName, skipToken, context);
-            return PageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => BinaryData.FromString(e.GetRawText()), ClientDiagnostics, _pipeline, "ReceivedAssetsClient.GetReceivedAssets", "value", "nextLink", context);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => CreateGetPolicyElementsRequest(scope, filter, context);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => CreateGetPolicyElementsNextPageRequest(nextLink, scope, filter, context);
+            return PageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => BinaryData.FromString(e.GetRawText()), ClientDiagnostics, _pipeline, "PolicyElementsClient.GetPolicyElements", "elements", "nextLink", context);
         }
 
-        /// <summary> List source asset of a received share. </summary>
-        /// <param name="receivedShareName"> The name of the received share. </param>
-        /// <param name="skipToken"> The continuation token to list the next page. </param>
+        /// <summary> Get policies for given scope. </summary>
+        /// <param name="scope"> Scope. </param>
+        /// <param name="filter"> Optional value to filter policies based on hierarchy of resources. It is of type enum with possible values: AtScope, ChildrenScope, None, All. </param>
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="receivedShareName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="receivedShareName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="scope"/> is null. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Pageable{T}"/> from the service containing a list of <see cref="BinaryData"/> objects. Details of the body schema for each item in the collection are in the Remarks section below. </returns>
-        /// <include file="Docs/ReceivedAssetsClient.xml" path="doc/members/member[@name='GetReceivedAssets(String,String,RequestContext)']/*" />
-        public virtual Pageable<BinaryData> GetReceivedAssets(string receivedShareName, string skipToken = null, RequestContext context = null)
+        /// <include file="Docs/PolicyElementsClient.xml" path="doc/members/member[@name='GetPolicyElements(String,String,RequestContext)']/*" />
+        public virtual Pageable<BinaryData> GetPolicyElements(string scope, string filter = null, RequestContext context = null)
         {
-            Argument.AssertNotNullOrEmpty(receivedShareName, nameof(receivedShareName));
+            Argument.AssertNotNull(scope, nameof(scope));
 
-            HttpMessage FirstPageRequest(int? pageSizeHint) => CreateGetReceivedAssetsRequest(receivedShareName, skipToken, context);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => CreateGetReceivedAssetsNextPageRequest(nextLink, receivedShareName, skipToken, context);
-            return PageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => BinaryData.FromString(e.GetRawText()), ClientDiagnostics, _pipeline, "ReceivedAssetsClient.GetReceivedAssets", "value", "nextLink", context);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => CreateGetPolicyElementsRequest(scope, filter, context);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => CreateGetPolicyElementsNextPageRequest(nextLink, scope, filter, context);
+            return PageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => BinaryData.FromString(e.GetRawText()), ClientDiagnostics, _pipeline, "PolicyElementsClient.GetPolicyElements", "elements", "nextLink", context);
         }
 
-        internal HttpMessage CreateGetReceivedAssetsRequest(string receivedShareName, string skipToken, RequestContext context)
+        internal HttpMessage CreateGetPolicyElementsRequest(string scope, string filter, RequestContext context)
         {
             var message = _pipeline.CreateMessage(context, ResponseClassifier200);
             var request = message.Request;
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendPath("/receivedShares/", false);
-            uri.AppendPath(receivedShareName, true);
-            uri.AppendPath("/receivedAssets", false);
-            uri.AppendQuery("api-version", "2021-09-01-preview", true);
-            if (skipToken != null)
+            uri.AppendRaw("/pds", false);
+            uri.AppendPath("/policy-elements", false);
+            uri.AppendQuery("scope", scope, true);
+            uri.AppendQuery("api-version", "2022-11-01-preview", true);
+            if (filter != null)
             {
-                uri.AppendQuery("skipToken", skipToken, true);
+                uri.AppendQuery("filter", filter, true);
             }
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
             return message;
         }
 
-        internal HttpMessage CreateGetReceivedAssetsNextPageRequest(string nextLink, string receivedShareName, string skipToken, RequestContext context)
+        internal HttpMessage CreateGetPolicyElementsNextPageRequest(string nextLink, string scope, string filter, RequestContext context)
         {
             var message = _pipeline.CreateMessage(context, ResponseClassifier200);
             var request = message.Request;
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
+            uri.AppendRaw("/pds", false);
             uri.AppendRawNextLink(nextLink, false);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
