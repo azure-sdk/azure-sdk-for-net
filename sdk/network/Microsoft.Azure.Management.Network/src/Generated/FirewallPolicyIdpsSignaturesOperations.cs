@@ -92,6 +92,21 @@ namespace Microsoft.Azure.Management.Network
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "firewallPolicyName");
             }
+            if (firewallPolicyName != null)
+            {
+                if (firewallPolicyName.Length > 80)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "firewallPolicyName", 80);
+                }
+                if (firewallPolicyName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "firewallPolicyName", 1);
+                }
+                if (!System.Text.RegularExpressions.Regex.IsMatch(firewallPolicyName, "^[a-zA-Z0-9]*$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "firewallPolicyName", "^[a-zA-Z0-9]*$");
+                }
+            }
             if (Client.SubscriptionId == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.SubscriptionId");
@@ -104,7 +119,7 @@ namespace Microsoft.Azure.Management.Network
             {
                 parameters.Validate();
             }
-            string apiVersion = "2022-07-01";
+            string apiVersion = "2022-09-01";
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
             string _invocationId = null;
