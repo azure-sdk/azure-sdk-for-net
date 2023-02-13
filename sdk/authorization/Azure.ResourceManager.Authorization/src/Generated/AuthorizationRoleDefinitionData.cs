@@ -5,6 +5,7 @@
 
 #nullable disable
 
+using System;
 using System.Collections.Generic;
 using Azure.Core;
 using Azure.ResourceManager.Authorization.Models;
@@ -32,13 +33,21 @@ namespace Azure.ResourceManager.Authorization
         /// <param name="roleType"> The role type. </param>
         /// <param name="permissions"> Role definition permissions. </param>
         /// <param name="assignableScopes"> Role definition assignable scopes. </param>
-        internal AuthorizationRoleDefinitionData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string roleName, string description, AuthorizationRoleType? roleType, IList<RoleDefinitionPermission> permissions, IList<string> assignableScopes) : base(id, name, resourceType, systemData)
+        /// <param name="createdOn"> Time it was created. </param>
+        /// <param name="updatedOn"> Time it was updated. </param>
+        /// <param name="createdBy"> Id of the user who created the assignment. </param>
+        /// <param name="updatedBy"> Id of the user who updated the assignment. </param>
+        internal AuthorizationRoleDefinitionData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string roleName, string description, AuthorizationRoleType? roleType, IList<RoleDefinitionPermission> permissions, IList<string> assignableScopes, DateTimeOffset? createdOn, DateTimeOffset? updatedOn, string createdBy, string updatedBy) : base(id, name, resourceType, systemData)
         {
             RoleName = roleName;
             Description = description;
             RoleType = roleType;
             Permissions = permissions;
             AssignableScopes = assignableScopes;
+            CreatedOn = createdOn;
+            UpdatedOn = updatedOn;
+            CreatedBy = createdBy;
+            UpdatedBy = updatedBy;
         }
 
         /// <summary> The role name. </summary>
@@ -51,5 +60,13 @@ namespace Azure.ResourceManager.Authorization
         public IList<RoleDefinitionPermission> Permissions { get; }
         /// <summary> Role definition assignable scopes. </summary>
         public IList<string> AssignableScopes { get; }
+        /// <summary> Time it was created. </summary>
+        public DateTimeOffset? CreatedOn { get; }
+        /// <summary> Time it was updated. </summary>
+        public DateTimeOffset? UpdatedOn { get; }
+        /// <summary> Id of the user who created the assignment. </summary>
+        public string CreatedBy { get; }
+        /// <summary> Id of the user who updated the assignment. </summary>
+        public string UpdatedBy { get; }
     }
 }
