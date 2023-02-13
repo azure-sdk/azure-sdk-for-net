@@ -80,8 +80,8 @@ namespace Azure.ResourceManager.ContainerRegistry
             scope.Start();
             try
             {
-                var response = await _exportPipelineRestClient.CreateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, exportPipelineName, data, cancellationToken).ConfigureAwait(false);
-                var operation = new ContainerRegistryArmOperation<ExportPipelineResource>(new ExportPipelineOperationSource(Client), _exportPipelineClientDiagnostics, Pipeline, _exportPipelineRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, exportPipelineName, data).Request, response, OperationFinalStateVia.Location);
+                var response = await _exportPipelineRestClient.CreateAsync(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, exportPipelineName, data, cancellationToken).ConfigureAwait(false);
+                var operation = new ContainerRegistryArmOperation<ExportPipelineResource>(new ExportPipelineOperationSource(Client), _exportPipelineClientDiagnostics, Pipeline, _exportPipelineRestClient.CreateCreateRequest(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, exportPipelineName, data).Request, response, OperationFinalStateVia.AzureAsyncOperation);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -121,8 +121,8 @@ namespace Azure.ResourceManager.ContainerRegistry
             scope.Start();
             try
             {
-                var response = _exportPipelineRestClient.Create(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, exportPipelineName, data, cancellationToken);
-                var operation = new ContainerRegistryArmOperation<ExportPipelineResource>(new ExportPipelineOperationSource(Client), _exportPipelineClientDiagnostics, Pipeline, _exportPipelineRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, exportPipelineName, data).Request, response, OperationFinalStateVia.Location);
+                var response = _exportPipelineRestClient.Create(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, exportPipelineName, data, cancellationToken);
+                var operation = new ContainerRegistryArmOperation<ExportPipelineResource>(new ExportPipelineOperationSource(Client), _exportPipelineClientDiagnostics, Pipeline, _exportPipelineRestClient.CreateCreateRequest(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, exportPipelineName, data).Request, response, OperationFinalStateVia.AzureAsyncOperation);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -159,7 +159,7 @@ namespace Azure.ResourceManager.ContainerRegistry
             scope.Start();
             try
             {
-                var response = await _exportPipelineRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, exportPipelineName, cancellationToken).ConfigureAwait(false);
+                var response = await _exportPipelineRestClient.GetAsync(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, exportPipelineName, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ExportPipelineResource(Client, response.Value), response.GetRawResponse());
@@ -196,7 +196,7 @@ namespace Azure.ResourceManager.ContainerRegistry
             scope.Start();
             try
             {
-                var response = _exportPipelineRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, exportPipelineName, cancellationToken);
+                var response = _exportPipelineRestClient.Get(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, exportPipelineName, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ExportPipelineResource(Client, response.Value), response.GetRawResponse());
@@ -225,8 +225,8 @@ namespace Azure.ResourceManager.ContainerRegistry
         /// <returns> An async collection of <see cref="ExportPipelineResource" /> that may take multiple service requests to iterate over. </returns>
         public virtual AsyncPageable<ExportPipelineResource> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _exportPipelineRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _exportPipelineRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _exportPipelineRestClient.CreateListRequest(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _exportPipelineRestClient.CreateListNextPageRequest(nextLink, Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name);
             return PageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new ExportPipelineResource(Client, ExportPipelineData.DeserializeExportPipelineData(e)), _exportPipelineClientDiagnostics, Pipeline, "ExportPipelineCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
@@ -247,8 +247,8 @@ namespace Azure.ResourceManager.ContainerRegistry
         /// <returns> A collection of <see cref="ExportPipelineResource" /> that may take multiple service requests to iterate over. </returns>
         public virtual Pageable<ExportPipelineResource> GetAll(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _exportPipelineRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _exportPipelineRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _exportPipelineRestClient.CreateListRequest(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _exportPipelineRestClient.CreateListNextPageRequest(nextLink, Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name);
             return PageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new ExportPipelineResource(Client, ExportPipelineData.DeserializeExportPipelineData(e)), _exportPipelineClientDiagnostics, Pipeline, "ExportPipelineCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
@@ -277,7 +277,7 @@ namespace Azure.ResourceManager.ContainerRegistry
             scope.Start();
             try
             {
-                var response = await _exportPipelineRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, exportPipelineName, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var response = await _exportPipelineRestClient.GetAsync(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, exportPipelineName, cancellationToken: cancellationToken).ConfigureAwait(false);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -312,7 +312,7 @@ namespace Azure.ResourceManager.ContainerRegistry
             scope.Start();
             try
             {
-                var response = _exportPipelineRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, exportPipelineName, cancellationToken: cancellationToken);
+                var response = _exportPipelineRestClient.Get(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, exportPipelineName, cancellationToken: cancellationToken);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
