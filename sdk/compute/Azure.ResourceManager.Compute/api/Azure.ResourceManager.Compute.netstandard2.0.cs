@@ -3924,6 +3924,7 @@ namespace Azure.ResourceManager.Compute.Models
         public ImageStorageAccountType(string value) { throw null; }
         public static Azure.ResourceManager.Compute.Models.ImageStorageAccountType PremiumLrs { get { throw null; } }
         public static Azure.ResourceManager.Compute.Models.ImageStorageAccountType StandardLrs { get { throw null; } }
+        public static Azure.ResourceManager.Compute.Models.ImageStorageAccountType StandardSsdLrs { get { throw null; } }
         public static Azure.ResourceManager.Compute.Models.ImageStorageAccountType StandardZrs { get { throw null; } }
         public bool Equals(Azure.ResourceManager.Compute.Models.ImageStorageAccountType other) { throw null; }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
