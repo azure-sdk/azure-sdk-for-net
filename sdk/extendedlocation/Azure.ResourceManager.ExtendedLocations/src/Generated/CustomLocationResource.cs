@@ -89,6 +89,59 @@ namespace Azure.ResourceManager.ExtendedLocations
                 throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, ResourceType), nameof(id));
         }
 
+        /// <summary> Gets a collection of ResourceSyncRuleResources in the CustomLocation. </summary>
+        /// <returns> An object representing collection of ResourceSyncRuleResources and their operations over a ResourceSyncRuleResource. </returns>
+        public virtual ResourceSyncRuleCollection GetResourceSyncRules()
+        {
+            return GetCachedClient(Client => new ResourceSyncRuleCollection(Client, Id));
+        }
+
+        /// <summary>
+        /// Gets the details of the resourceSyncRule with a specified resource group, subscription id Custom Location resource name and Resource Sync Rule name.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ExtendedLocation/customLocations/{resourceName}/resourceSyncRules/{childResourceName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>ResourceSyncRules_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="childResourceName"> Resource Sync Rule name. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="childResourceName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="childResourceName"/> is null. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<ResourceSyncRuleResource>> GetResourceSyncRuleAsync(string childResourceName, CancellationToken cancellationToken = default)
+        {
+            return await GetResourceSyncRules().GetAsync(childResourceName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets the details of the resourceSyncRule with a specified resource group, subscription id Custom Location resource name and Resource Sync Rule name.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ExtendedLocation/customLocations/{resourceName}/resourceSyncRules/{childResourceName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>ResourceSyncRules_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="childResourceName"> Resource Sync Rule name. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="childResourceName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="childResourceName"/> is null. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<ResourceSyncRuleResource> GetResourceSyncRule(string childResourceName, CancellationToken cancellationToken = default)
+        {
+            return GetResourceSyncRules().Get(childResourceName, cancellationToken);
+        }
+
         /// <summary>
         /// Gets the details of the customLocation with a specified resource group and name.
         /// <list type="bullet">
@@ -331,6 +384,74 @@ namespace Azure.ResourceManager.ExtendedLocations
             HttpMessage FirstPageRequest(int? pageSizeHint) => _customLocationRestClient.CreateListEnabledResourceTypesRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
             HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _customLocationRestClient.CreateListEnabledResourceTypesNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
             return PageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, CustomLocationEnabledResourceType.DeserializeCustomLocationEnabledResourceType, _customLocationClientDiagnostics, Pipeline, "CustomLocationResource.GetEnabledResourceTypes", "value", "nextLink", cancellationToken);
+        }
+
+        /// <summary>
+        /// Returns the target resource group associated with the resource sync rules of the Custom Location that match the rules passed in with the Find Target Resource Group Request.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ExtendedLocation/customLocations/{resourceName}/findTargetResourceGroup</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>CustomLocations_FindTargetResourceGroup</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="customLocationFindTargetResourceGroupProperties"> Parameters of the find target resource group request. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="customLocationFindTargetResourceGroupProperties"/> is null. </exception>
+        public virtual async Task<Response<CustomLocationFindTargetResourceGroupResult>> FindTargetResourceGroupAsync(CustomLocationFindTargetResourceGroupProperties customLocationFindTargetResourceGroupProperties, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(customLocationFindTargetResourceGroupProperties, nameof(customLocationFindTargetResourceGroupProperties));
+
+            using var scope = _customLocationClientDiagnostics.CreateScope("CustomLocationResource.FindTargetResourceGroup");
+            scope.Start();
+            try
+            {
+                var response = await _customLocationRestClient.FindTargetResourceGroupAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, customLocationFindTargetResourceGroupProperties, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Returns the target resource group associated with the resource sync rules of the Custom Location that match the rules passed in with the Find Target Resource Group Request.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ExtendedLocation/customLocations/{resourceName}/findTargetResourceGroup</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>CustomLocations_FindTargetResourceGroup</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="customLocationFindTargetResourceGroupProperties"> Parameters of the find target resource group request. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="customLocationFindTargetResourceGroupProperties"/> is null. </exception>
+        public virtual Response<CustomLocationFindTargetResourceGroupResult> FindTargetResourceGroup(CustomLocationFindTargetResourceGroupProperties customLocationFindTargetResourceGroupProperties, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(customLocationFindTargetResourceGroupProperties, nameof(customLocationFindTargetResourceGroupProperties));
+
+            using var scope = _customLocationClientDiagnostics.CreateScope("CustomLocationResource.FindTargetResourceGroup");
+            scope.Start();
+            try
+            {
+                var response = _customLocationRestClient.FindTargetResourceGroup(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, customLocationFindTargetResourceGroupProperties, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
