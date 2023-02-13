@@ -24,7 +24,7 @@ namespace Azure.ResourceManager.AppService.Models
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
         /// <param name="isPushEnabled"> Gets or sets a flag indicating whether the Push endpoint is enabled. </param>
-        /// <param name="tagWhitelistJson"> Gets or sets a JSON string containing a list of tags that are whitelisted for use by the push registration endpoint. </param>
+        /// <param name="tagWhitelistJson"> Gets or sets a JSON string containing a list of tags that are in the allowed list for use by the push registration endpoint. </param>
         /// <param name="tagsRequiringAuth">
         /// Gets or sets a JSON string containing a list of tags that require user authentication to be used in the push registration endpoint.
         /// Tags can consist of alphanumeric characters and the following:
@@ -44,7 +44,7 @@ namespace Azure.ResourceManager.AppService.Models
 
         /// <summary> Gets or sets a flag indicating whether the Push endpoint is enabled. </summary>
         public bool? IsPushEnabled { get; set; }
-        /// <summary> Gets or sets a JSON string containing a list of tags that are whitelisted for use by the push registration endpoint. </summary>
+        /// <summary> Gets or sets a JSON string containing a list of tags that are in the allowed list for use by the push registration endpoint. </summary>
         public string TagWhitelistJson { get; set; }
         /// <summary>
         /// Gets or sets a JSON string containing a list of tags that require user authentication to be used in the push registration endpoint.

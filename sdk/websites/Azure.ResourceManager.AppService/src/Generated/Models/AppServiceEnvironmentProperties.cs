@@ -8,6 +8,7 @@
 using System;
 using System.Collections.Generic;
 using Azure.Core;
+using Azure.ResourceManager.AppService;
 
 namespace Azure.ResourceManager.AppService.Models
 {
@@ -42,11 +43,15 @@ namespace Azure.ResourceManager.AppService.Models
         ///  (most likely because NSG blocked the incoming traffic).
         /// </param>
         /// <param name="clusterSettings"> Custom settings for changing the behavior of the App Service Environment. </param>
-        /// <param name="userWhitelistedIPRanges"> User added ip ranges to whitelist on ASE db. </param>
+        /// <param name="userWhitelistedIPRanges"> User added list of IP Ranges allowed on ASE db. </param>
         /// <param name="hasLinuxWorkers"> Flag that displays whether an ASE has linux workers or not. </param>
+        /// <param name="upgradePreference"> Upgrade Preference. </param>
         /// <param name="dedicatedHostCount"> Dedicated Host Count. </param>
         /// <param name="isZoneRedundant"> Whether or not this App Service Environment is zone-redundant. </param>
-        internal AppServiceEnvironmentProperties(ProvisioningState? provisioningState, HostingEnvironmentStatus? status, AppServiceVirtualNetworkProfile virtualNetwork, LoadBalancingMode? internalLoadBalancingMode, string multiSize, int? multiRoleCount, int? ipSslAddressCount, string dnsSuffix, int? maximumNumberOfMachines, int? frontEndScaleFactor, bool? isSuspended, IList<AppServiceNameValuePair> clusterSettings, IList<string> userWhitelistedIPRanges, bool? hasLinuxWorkers, int? dedicatedHostCount, bool? isZoneRedundant)
+        /// <param name="customDnsSuffixConfiguration"> Full view of the custom domain suffix configuration for ASEv3. </param>
+        /// <param name="networkingConfiguration"> Full view of networking configuration for an ASE. </param>
+        /// <param name="upgradeAvailability"> Whether an upgrade is available for this App Service Environment. </param>
+        internal AppServiceEnvironmentProperties(ProvisioningState? provisioningState, HostingEnvironmentStatus? status, AppServiceVirtualNetworkProfile virtualNetwork, LoadBalancingMode? internalLoadBalancingMode, string multiSize, int? multiRoleCount, int? ipSslAddressCount, string dnsSuffix, int? maximumNumberOfMachines, int? frontEndScaleFactor, bool? isSuspended, IList<AppServiceNameValuePair> clusterSettings, IList<string> userWhitelistedIPRanges, bool? hasLinuxWorkers, UpgradePreference? upgradePreference, int? dedicatedHostCount, bool? isZoneRedundant, CustomDnsSuffixConfigurationData customDnsSuffixConfiguration, AseV3NetworkingConfigurationData networkingConfiguration, UpgradeAvailability? upgradeAvailability)
         {
             ProvisioningState = provisioningState;
             Status = status;
@@ -62,8 +67,12 @@ namespace Azure.ResourceManager.AppService.Models
             ClusterSettings = clusterSettings;
             UserWhitelistedIPRanges = userWhitelistedIPRanges;
             HasLinuxWorkers = hasLinuxWorkers;
+            UpgradePreference = upgradePreference;
             DedicatedHostCount = dedicatedHostCount;
             IsZoneRedundant = isZoneRedundant;
+            CustomDnsSuffixConfiguration = customDnsSuffixConfiguration;
+            NetworkingConfiguration = networkingConfiguration;
+            UpgradeAvailability = upgradeAvailability;
         }
 
         /// <summary> Provisioning state of the App Service Environment. </summary>
@@ -93,13 +102,21 @@ namespace Azure.ResourceManager.AppService.Models
         public bool? IsSuspended { get; }
         /// <summary> Custom settings for changing the behavior of the App Service Environment. </summary>
         public IList<AppServiceNameValuePair> ClusterSettings { get; }
-        /// <summary> User added ip ranges to whitelist on ASE db. </summary>
+        /// <summary> User added list of IP Ranges allowed on ASE db. </summary>
         public IList<string> UserWhitelistedIPRanges { get; }
         /// <summary> Flag that displays whether an ASE has linux workers or not. </summary>
         public bool? HasLinuxWorkers { get; }
+        /// <summary> Upgrade Preference. </summary>
+        public UpgradePreference? UpgradePreference { get; set; }
         /// <summary> Dedicated Host Count. </summary>
         public int? DedicatedHostCount { get; set; }
         /// <summary> Whether or not this App Service Environment is zone-redundant. </summary>
         public bool? IsZoneRedundant { get; set; }
+        /// <summary> Full view of the custom domain suffix configuration for ASEv3. </summary>
+        public CustomDnsSuffixConfigurationData CustomDnsSuffixConfiguration { get; set; }
+        /// <summary> Full view of networking configuration for an ASE. </summary>
+        public AseV3NetworkingConfigurationData NetworkingConfiguration { get; set; }
+        /// <summary> Whether an upgrade is available for this App Service Environment. </summary>
+        public UpgradeAvailability? UpgradeAvailability { get; }
     }
 }

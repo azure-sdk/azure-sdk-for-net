@@ -35,6 +35,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="isInternalLoadBalancerEnabled"> Only visible within Vnet/Subnet. </param>
         /// <param name="defaultDomain"> Default Domain Name for the cluster. </param>
         /// <param name="staticIP"> Static IP of the KubeEnvironment. </param>
+        /// <param name="environmentType"> Type of Kubernetes Environment. Only supported for Container App Environments with value as Managed. </param>
         /// <param name="arcConfiguration">
         /// Cluster configuration which determines the ARC cluster
         /// components types. Eg: Choosing between BuildService kind,
@@ -45,9 +46,10 @@ namespace Azure.ResourceManager.AppService
         /// app logs to a destination. Currently only &quot;log-analytics&quot; is
         /// supported
         /// </param>
+        /// <param name="containerAppsConfiguration"> Cluster configuration for Container Apps Environments to configure Dapr Instrumentation Key and VNET Configuration. </param>
         /// <param name="aksResourceId"></param>
         /// <param name="kind"> Kind of resource. </param>
-        internal KubeEnvironmentData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ExtendedLocation extendedLocation, KubeEnvironmentProvisioningState? provisioningState, string deploymentErrors, bool? isInternalLoadBalancerEnabled, string defaultDomain, string staticIP, ArcConfiguration arcConfiguration, AppLogsConfiguration appLogsConfiguration, ResourceIdentifier aksResourceId, string kind) : base(id, name, resourceType, systemData, tags, location)
+        internal KubeEnvironmentData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ExtendedLocation extendedLocation, KubeEnvironmentProvisioningState? provisioningState, string deploymentErrors, bool? isInternalLoadBalancerEnabled, string defaultDomain, string staticIP, string environmentType, ArcConfiguration arcConfiguration, AppLogsConfiguration appLogsConfiguration, ContainerAppsConfiguration containerAppsConfiguration, ResourceIdentifier aksResourceId, string kind) : base(id, name, resourceType, systemData, tags, location)
         {
             ExtendedLocation = extendedLocation;
             ProvisioningState = provisioningState;
@@ -55,8 +57,10 @@ namespace Azure.ResourceManager.AppService
             IsInternalLoadBalancerEnabled = isInternalLoadBalancerEnabled;
             DefaultDomain = defaultDomain;
             StaticIP = staticIP;
+            EnvironmentType = environmentType;
             ArcConfiguration = arcConfiguration;
             AppLogsConfiguration = appLogsConfiguration;
+            ContainerAppsConfiguration = containerAppsConfiguration;
             AksResourceId = aksResourceId;
             Kind = kind;
         }
@@ -73,6 +77,8 @@ namespace Azure.ResourceManager.AppService
         public string DefaultDomain { get; }
         /// <summary> Static IP of the KubeEnvironment. </summary>
         public string StaticIP { get; set; }
+        /// <summary> Type of Kubernetes Environment. Only supported for Container App Environments with value as Managed. </summary>
+        public string EnvironmentType { get; set; }
         /// <summary>
         /// Cluster configuration which determines the ARC cluster
         /// components types. Eg: Choosing between BuildService kind,
@@ -85,6 +91,8 @@ namespace Azure.ResourceManager.AppService
         /// supported
         /// </summary>
         public AppLogsConfiguration AppLogsConfiguration { get; set; }
+        /// <summary> Cluster configuration for Container Apps Environments to configure Dapr Instrumentation Key and VNET Configuration. </summary>
+        public ContainerAppsConfiguration ContainerAppsConfiguration { get; set; }
         /// <summary> Gets or sets the aks resource id. </summary>
         public ResourceIdentifier AksResourceId { get; set; }
         /// <summary> Kind of resource. </summary>
