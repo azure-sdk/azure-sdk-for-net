@@ -11,9 +11,9 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.ServiceLinker.Models
 {
-    public partial class SourceConfigurationResult
+    public partial class ConfigurationResult
     {
-        internal static SourceConfigurationResult DeserializeSourceConfigurationResult(JsonElement element)
+        internal static ConfigurationResult DeserializeConfigurationResult(JsonElement element)
         {
             Optional<IReadOnlyList<SourceConfiguration>> configurations = default;
             foreach (var property in element.EnumerateObject())
@@ -34,7 +34,7 @@ namespace Azure.ResourceManager.ServiceLinker.Models
                     continue;
                 }
             }
-            return new SourceConfigurationResult(Optional.ToList(configurations));
+            return new ConfigurationResult(Optional.ToList(configurations));
         }
     }
 }

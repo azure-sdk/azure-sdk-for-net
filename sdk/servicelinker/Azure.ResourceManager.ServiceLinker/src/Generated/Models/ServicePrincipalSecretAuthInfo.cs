@@ -6,6 +6,7 @@
 #nullable disable
 
 using System;
+using System.Collections.Generic;
 using Azure.Core;
 
 namespace Azure.ResourceManager.ServiceLinker.Models
@@ -26,6 +27,7 @@ namespace Azure.ResourceManager.ServiceLinker.Models
             ClientId = clientId;
             PrincipalId = principalId;
             Secret = secret;
+            Roles = new ChangeTrackingList<string>();
             AuthType = LinkerAuthType.ServicePrincipalSecret;
         }
 
@@ -34,11 +36,17 @@ namespace Azure.ResourceManager.ServiceLinker.Models
         /// <param name="clientId"> ServicePrincipal application clientId for servicePrincipal auth. </param>
         /// <param name="principalId"> Principal Id for servicePrincipal auth. </param>
         /// <param name="secret"> Secret for servicePrincipal auth. </param>
-        internal ServicePrincipalSecretAuthInfo(LinkerAuthType authType, string clientId, Guid principalId, string secret) : base(authType)
+        /// <param name="deleteOrUpdateBehavior"> Indicates whether to clean up previous operation when Linker is updating or deleting. </param>
+        /// <param name="roles"> Optional, this value specifies the Azure roles to be assigned. Automatically. </param>
+        /// <param name="userName"> Username created in the database which is mapped to a user in AAD. </param>
+        internal ServicePrincipalSecretAuthInfo(LinkerAuthType authType, string clientId, Guid principalId, string secret, DeleteOrUpdateBehavior? deleteOrUpdateBehavior, IList<string> roles, string userName) : base(authType)
         {
             ClientId = clientId;
             PrincipalId = principalId;
             Secret = secret;
+            DeleteOrUpdateBehavior = deleteOrUpdateBehavior;
+            Roles = roles;
+            UserName = userName;
             AuthType = authType;
         }
 
@@ -48,5 +56,11 @@ namespace Azure.ResourceManager.ServiceLinker.Models
         public Guid PrincipalId { get; set; }
         /// <summary> Secret for servicePrincipal auth. </summary>
         public string Secret { get; set; }
+        /// <summary> Indicates whether to clean up previous operation when Linker is updating or deleting. </summary>
+        public DeleteOrUpdateBehavior? DeleteOrUpdateBehavior { get; set; }
+        /// <summary> Optional, this value specifies the Azure roles to be assigned. Automatically. </summary>
+        public IList<string> Roles { get; }
+        /// <summary> Username created in the database which is mapped to a user in AAD. </summary>
+        public string UserName { get; set; }
     }
 }

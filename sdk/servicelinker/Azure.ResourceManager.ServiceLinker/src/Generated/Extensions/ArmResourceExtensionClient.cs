@@ -31,11 +31,18 @@ namespace Azure.ResourceManager.ServiceLinker
             return apiVersion;
         }
 
+        /// <summary> Gets a collection of DryrunResources in the ArmResource. </summary>
+        /// <returns> An object representing collection of DryrunResources and their operations over a DryrunResource. </returns>
+        public virtual DryrunCollection GetDryruns()
+        {
+            return GetCachedClient(Client => new DryrunCollection(Client, Id));
+        }
+
         /// <summary> Gets a collection of LinkerResources in the ArmResource. </summary>
         /// <returns> An object representing collection of LinkerResources and their operations over a LinkerResource. </returns>
-        public virtual LinkerResourceCollection GetLinkerResources()
+        public virtual LinkerCollection GetLinkers()
         {
-            return GetCachedClient(Client => new LinkerResourceCollection(Client, Id));
+            return GetCachedClient(Client => new LinkerCollection(Client, Id));
         }
     }
 }
