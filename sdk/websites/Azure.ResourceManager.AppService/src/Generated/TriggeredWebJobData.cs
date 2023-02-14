@@ -36,9 +36,11 @@ namespace Azure.ResourceManager.AppService
         /// <param name="webJobType"> Job type. </param>
         /// <param name="error"> Error information. </param>
         /// <param name="isUsingSdk"> Using SDK?. </param>
+        /// <param name="publicNetworkAccess"> Property to allow or block all public traffic. Allowed Values: &apos;Enabled&apos;, &apos;Disabled&apos; or an empty string. </param>
+        /// <param name="storageAccountRequired"> Checks if Customer provided storage account is required. </param>
         /// <param name="settings"> Job settings. </param>
         /// <param name="kind"> Kind of resource. </param>
-        internal TriggeredWebJobData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, TriggeredJobRun latestRun, Uri historyUri, Uri schedulerLogsUri, string runCommand, Uri uri, Uri extraInfoUri, WebJobType? webJobType, string error, bool? isUsingSdk, IDictionary<string, BinaryData> settings, string kind) : base(id, name, resourceType, systemData)
+        internal TriggeredWebJobData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, TriggeredJobRun latestRun, Uri historyUri, Uri schedulerLogsUri, string runCommand, Uri uri, Uri extraInfoUri, WebJobType? webJobType, string error, bool? isUsingSdk, string publicNetworkAccess, bool? storageAccountRequired, IDictionary<string, BinaryData> settings, string kind) : base(id, name, resourceType, systemData)
         {
             LatestRun = latestRun;
             HistoryUri = historyUri;
@@ -49,6 +51,8 @@ namespace Azure.ResourceManager.AppService
             WebJobType = webJobType;
             Error = error;
             IsUsingSdk = isUsingSdk;
+            PublicNetworkAccess = publicNetworkAccess;
+            StorageAccountRequired = storageAccountRequired;
             Settings = settings;
             Kind = kind;
         }
@@ -71,6 +75,10 @@ namespace Azure.ResourceManager.AppService
         public string Error { get; set; }
         /// <summary> Using SDK?. </summary>
         public bool? IsUsingSdk { get; set; }
+        /// <summary> Property to allow or block all public traffic. Allowed Values: &apos;Enabled&apos;, &apos;Disabled&apos; or an empty string. </summary>
+        public string PublicNetworkAccess { get; set; }
+        /// <summary> Checks if Customer provided storage account is required. </summary>
+        public bool? StorageAccountRequired { get; set; }
         /// <summary>
         /// Job settings.
         /// <para>
