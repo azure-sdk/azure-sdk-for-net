@@ -36,7 +36,7 @@ namespace Azure.ResourceManager.ContainerRegistry
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
-        internal HttpMessage CreateScheduleRunRequest(string subscriptionId, string resourceGroupName, string registryName, ContainerRegistryRunContent content)
+        internal HttpMessage CreateScheduleRunRequest(Guid subscriptionId, string resourceGroupName, string registryName, ContainerRegistryRunContent content)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -62,16 +62,15 @@ namespace Azure.ResourceManager.ContainerRegistry
         }
 
         /// <summary> Schedules a new run based on the request parameters and add it to the run queue. </summary>
-        /// <param name="subscriptionId"> The Microsoft Azure subscription ID. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group to which the container registry belongs. </param>
         /// <param name="registryName"> The name of the container registry. </param>
         /// <param name="content"> The parameters of a run that needs to scheduled. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="registryName"/> or <paramref name="content"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="registryName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response> ScheduleRunAsync(string subscriptionId, string resourceGroupName, string registryName, ContainerRegistryRunContent content, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="registryName"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/> or <paramref name="registryName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response> ScheduleRunAsync(Guid subscriptionId, string resourceGroupName, string registryName, ContainerRegistryRunContent content, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(registryName, nameof(registryName));
             Argument.AssertNotNull(content, nameof(content));
@@ -89,16 +88,15 @@ namespace Azure.ResourceManager.ContainerRegistry
         }
 
         /// <summary> Schedules a new run based on the request parameters and add it to the run queue. </summary>
-        /// <param name="subscriptionId"> The Microsoft Azure subscription ID. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group to which the container registry belongs. </param>
         /// <param name="registryName"> The name of the container registry. </param>
         /// <param name="content"> The parameters of a run that needs to scheduled. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="registryName"/> or <paramref name="content"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="registryName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response ScheduleRun(string subscriptionId, string resourceGroupName, string registryName, ContainerRegistryRunContent content, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="registryName"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/> or <paramref name="registryName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response ScheduleRun(Guid subscriptionId, string resourceGroupName, string registryName, ContainerRegistryRunContent content, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(registryName, nameof(registryName));
             Argument.AssertNotNull(content, nameof(content));
