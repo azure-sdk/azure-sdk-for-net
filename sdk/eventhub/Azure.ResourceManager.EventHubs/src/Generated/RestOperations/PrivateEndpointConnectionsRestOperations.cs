@@ -234,7 +234,7 @@ namespace Azure.ResourceManager.EventHubs
             return message;
         }
 
-        /// <summary> Deletes an existing namespace. This operation also removes all associated resources under the namespace. </summary>
+        /// <summary> Deletes a Private Endpoint Connection. </summary>
         /// <param name="subscriptionId"> Subscription credentials that uniquely identify a Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
         /// <param name="resourceGroupName"> Name of the resource group within the azure subscription. </param>
         /// <param name="namespaceName"> The Namespace name. </param>
@@ -262,7 +262,7 @@ namespace Azure.ResourceManager.EventHubs
             }
         }
 
-        /// <summary> Deletes an existing namespace. This operation also removes all associated resources under the namespace. </summary>
+        /// <summary> Deletes a Private Endpoint Connection. </summary>
         /// <param name="subscriptionId"> Subscription credentials that uniquely identify a Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
         /// <param name="resourceGroupName"> Name of the resource group within the azure subscription. </param>
         /// <param name="namespaceName"> The Namespace name. </param>
