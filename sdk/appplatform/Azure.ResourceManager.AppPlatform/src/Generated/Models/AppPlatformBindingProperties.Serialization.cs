@@ -34,11 +34,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
                 foreach (var item in BindingParameters)
                 {
                     writer.WritePropertyName(item.Key);
-#if NET6_0_OR_GREATER
-				writer.WriteRawValue(item.Value);
-#else
-                    JsonSerializer.Serialize(writer, JsonDocument.Parse(item.Value.ToString()).RootElement);
-#endif
+                    writer.WriteStringValue(item.Value);
                 }
                 writer.WriteEndObject();
             }
@@ -51,7 +47,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
             Optional<string> resourceType = default;
             Optional<ResourceIdentifier> resourceId = default;
             Optional<string> key = default;
-            Optional<IDictionary<string, BinaryData>> bindingParameters = default;
+            Optional<IDictionary<string, string>> bindingParameters = default;
             Optional<string> generatedProperties = default;
             Optional<DateTimeOffset> createdAt = default;
             Optional<DateTimeOffset> updatedAt = default;
@@ -89,10 +85,10 @@ namespace Azure.ResourceManager.AppPlatform.Models
                         property.ThrowNonNullablePropertyIsNull();
                         continue;
                     }
-                    Dictionary<string, BinaryData> dictionary = new Dictionary<string, BinaryData>();
+                    Dictionary<string, string> dictionary = new Dictionary<string, string>();
                     foreach (var property0 in property.Value.EnumerateObject())
                     {
-                        dictionary.Add(property0.Name, BinaryData.FromString(property0.Value.GetRawText()));
+                        dictionary.Add(property0.Name, property0.Value.GetString());
                     }
                     bindingParameters = dictionary;
                     continue;

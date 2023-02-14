@@ -25,6 +25,11 @@ namespace Azure.ResourceManager.AppPlatform.Models
                 writer.WritePropertyName("readOnly"u8);
                 writer.WriteBooleanValue(IsReadOnly.Value);
             }
+            if (Optional.IsDefined(EnableSubPath))
+            {
+                writer.WritePropertyName("enableSubPath"u8);
+                writer.WriteBooleanValue(EnableSubPath.Value);
+            }
             if (Optional.IsCollectionDefined(MountOptions))
             {
                 writer.WritePropertyName("mountOptions"u8);
@@ -43,6 +48,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
             UnderlyingResourceType type = "Unknown";
             string mountPath = default;
             Optional<bool> readOnly = default;
+            Optional<bool> enableSubPath = default;
             Optional<IList<string>> mountOptions = default;
             foreach (var property in element.EnumerateObject())
             {
@@ -66,6 +72,16 @@ namespace Azure.ResourceManager.AppPlatform.Models
                     readOnly = property.Value.GetBoolean();
                     continue;
                 }
+                if (property.NameEquals("enableSubPath"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        property.ThrowNonNullablePropertyIsNull();
+                        continue;
+                    }
+                    enableSubPath = property.Value.GetBoolean();
+                    continue;
+                }
                 if (property.NameEquals("mountOptions"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -82,7 +98,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
                     continue;
                 }
             }
-            return new UnknownCustomPersistentDiskProperties(type, mountPath, Optional.ToNullable(readOnly), Optional.ToList(mountOptions));
+            return new UnknownCustomPersistentDiskProperties(type, mountPath, Optional.ToNullable(readOnly), Optional.ToNullable(enableSubPath), Optional.ToList(mountOptions));
         }
     }
 }

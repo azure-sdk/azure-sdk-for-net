@@ -40,17 +40,11 @@ namespace Azure.ResourceManager.AppPlatform.Models
                 foreach (var item in AddonConfigs)
                 {
                     writer.WritePropertyName(item.Key);
-                    writer.WriteStartObject();
-                    foreach (var item0 in item.Value)
-                    {
-                        writer.WritePropertyName(item0.Key);
 #if NET6_0_OR_GREATER
-				writer.WriteRawValue(item0.Value);
+				writer.WriteRawValue(item.Value);
 #else
-                        JsonSerializer.Serialize(writer, JsonDocument.Parse(item0.Value.ToString()).RootElement);
+                    JsonSerializer.Serialize(writer, JsonDocument.Parse(item.Value.ToString()).RootElement);
 #endif
-                    }
-                    writer.WriteEndObject();
                 }
                 writer.WriteEndObject();
             }
@@ -74,6 +68,11 @@ namespace Azure.ResourceManager.AppPlatform.Models
                 writer.WritePropertyName("terminationGracePeriodSeconds"u8);
                 writer.WriteNumberValue(TerminationGracePeriodInSeconds.Value);
             }
+            if (Optional.IsDefined(Scale))
+            {
+                writer.WritePropertyName("scale"u8);
+                writer.WriteObjectValue(Scale);
+            }
             if (Optional.IsDefined(ContainerProbeSettings))
             {
                 writer.WritePropertyName("containerProbeSettings"u8);
@@ -86,11 +85,12 @@ namespace Azure.ResourceManager.AppPlatform.Models
         {
             Optional<AppPlatformDeploymentResourceRequirements> resourceRequests = default;
             Optional<IDictionary<string, string>> environmentVariables = default;
-            Optional<IDictionary<string, IDictionary<string, BinaryData>>> addonConfigs = default;
+            Optional<IDictionary<string, BinaryData>> addonConfigs = default;
             Optional<AppInstanceProbe> livenessProbe = default;
             Optional<AppInstanceProbe> readinessProbe = default;
             Optional<AppInstanceProbe> startupProbe = default;
             Optional<int> terminationGracePeriodSeconds = default;
+            Optional<Scale> scale = default;
             Optional<ContainerProbeSettings> containerProbeSettings = default;
             foreach (var property in element.EnumerateObject())
             {
@@ -126,15 +126,10 @@ namespace Azure.ResourceManager.AppPlatform.Models
                         property.ThrowNonNullablePropertyIsNull();
                         continue;
                     }
-                    Dictionary<string, IDictionary<string, BinaryData>> dictionary = new Dictionary<string, IDictionary<string, BinaryData>>();
+                    Dictionary<string, BinaryData> dictionary = new Dictionary<string, BinaryData>();
                     foreach (var property0 in property.Value.EnumerateObject())
                     {
-                        Dictionary<string, BinaryData> dictionary0 = new Dictionary<string, BinaryData>();
-                        foreach (var property1 in property0.Value.EnumerateObject())
-                        {
-                            dictionary0.Add(property1.Name, BinaryData.FromString(property1.Value.GetRawText()));
-                        }
-                        dictionary.Add(property0.Name, dictionary0);
+                        dictionary.Add(property0.Name, BinaryData.FromString(property0.Value.GetRawText()));
                     }
                     addonConfigs = dictionary;
                     continue;
@@ -179,6 +174,16 @@ namespace Azure.ResourceManager.AppPlatform.Models
                     terminationGracePeriodSeconds = property.Value.GetInt32();
                     continue;
                 }
+                if (property.NameEquals("scale"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        property.ThrowNonNullablePropertyIsNull();
+                        continue;
+                    }
+                    scale = Scale.DeserializeScale(property.Value);
+                    continue;
+                }
                 if (property.NameEquals("containerProbeSettings"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -190,7 +195,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
                     continue;
                 }
             }
-            return new AppPlatformDeploymentSettings(resourceRequests.Value, Optional.ToDictionary(environmentVariables), Optional.ToDictionary(addonConfigs), livenessProbe.Value, readinessProbe.Value, startupProbe.Value, Optional.ToNullable(terminationGracePeriodSeconds), containerProbeSettings.Value);
+            return new AppPlatformDeploymentSettings(resourceRequests.Value, Optional.ToDictionary(environmentVariables), Optional.ToDictionary(addonConfigs), livenessProbe.Value, readinessProbe.Value, startupProbe.Value, Optional.ToNullable(terminationGracePeriodSeconds), scale.Value, containerProbeSettings.Value);
         }
     }
 }

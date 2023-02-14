@@ -16,8 +16,9 @@ namespace Azure.ResourceManager.AppPlatform.Models
         /// <param name="underlyingResourceType"> The type of the underlying resource to mount as a persistent disk. </param>
         /// <param name="mountPath"> The mount path of the persistent disk. </param>
         /// <param name="isReadOnly"> Indicates whether the persistent disk is a readOnly one. </param>
+        /// <param name="enableSubPath"> If set to true, it will create and mount a dedicated directory for every individual app instance. </param>
         /// <param name="mountOptions"> These are the mount options for a persistent disk. </param>
-        internal UnknownCustomPersistentDiskProperties(UnderlyingResourceType underlyingResourceType, string mountPath, bool? isReadOnly, IList<string> mountOptions) : base(underlyingResourceType, mountPath, isReadOnly, mountOptions)
+        internal UnknownCustomPersistentDiskProperties(UnderlyingResourceType underlyingResourceType, string mountPath, bool? isReadOnly, bool? enableSubPath, IList<string> mountOptions) : base(underlyingResourceType, mountPath, isReadOnly, enableSubPath, mountOptions)
         {
             UnderlyingResourceType = underlyingResourceType;
         }
