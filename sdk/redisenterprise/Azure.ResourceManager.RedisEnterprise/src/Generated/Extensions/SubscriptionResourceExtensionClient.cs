@@ -60,8 +60,8 @@ namespace Azure.ResourceManager.RedisEnterprise
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="location"> The region the operation is in. </param>
-        /// <param name="operationId"> The operation&apos;s unique identifier. </param>
+        /// <param name="location"> The name of Azure region. </param>
+        /// <param name="operationId"> The ID of an ongoing async operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual async Task<Response<RedisEnterpriseOperationStatus>> GetRedisEnterpriseOperationsStatusAsync(AzureLocation location, string operationId, CancellationToken cancellationToken = default)
         {
@@ -92,8 +92,8 @@ namespace Azure.ResourceManager.RedisEnterprise
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="location"> The region the operation is in. </param>
-        /// <param name="operationId"> The operation&apos;s unique identifier. </param>
+        /// <param name="location"> The name of Azure region. </param>
+        /// <param name="operationId"> The ID of an ongoing async operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual Response<RedisEnterpriseOperationStatus> GetRedisEnterpriseOperationsStatus(AzureLocation location, string operationId, CancellationToken cancellationToken = default)
         {
