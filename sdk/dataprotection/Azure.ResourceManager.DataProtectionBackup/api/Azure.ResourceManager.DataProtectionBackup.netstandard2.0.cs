@@ -700,6 +700,7 @@ namespace Azure.ResourceManager.DataProtectionBackup.Models
     public partial class BackupVaultSecuritySettings
     {
         public BackupVaultSecuritySettings() { }
+        public Azure.ResourceManager.DataProtectionBackup.Models.EncryptionSettings EncryptionSettings { get { throw null; } set { } }
         public Azure.ResourceManager.DataProtectionBackup.Models.BackupVaultImmutabilityState? ImmutabilityState { get { throw null; } set { } }
         public Azure.ResourceManager.DataProtectionBackup.Models.BackupVaultSoftDeleteSettings SoftDeleteSettings { get { throw null; } set { } }
     }
@@ -732,6 +733,12 @@ namespace Azure.ResourceManager.DataProtectionBackup.Models
     {
         public BlobBackupDataSourceSettings(System.Collections.Generic.IEnumerable<string> containersList) { }
         public System.Collections.Generic.IList<string> ContainersList { get { throw null; } }
+    }
+    public partial class CmkKekIdentity
+    {
+        public CmkKekIdentity() { }
+        public string IdentityId { get { throw null; } set { } }
+        public Azure.ResourceManager.DataProtectionBackup.Models.IdentityType? IdentityType { get { throw null; } set { } }
     }
     public partial class CopyOnExpirySetting : Azure.ResourceManager.DataProtectionBackup.Models.DataProtectionBackupCopySetting
     {
@@ -1153,6 +1160,33 @@ namespace Azure.ResourceManager.DataProtectionBackup.Models
         public DeletedDataProtectionBackupInstanceProperties(Azure.ResourceManager.DataProtectionBackup.Models.DataSourceInfo dataSourceInfo, Azure.ResourceManager.DataProtectionBackup.Models.BackupInstancePolicyInfo policyInfo, string objectType) : base (default(Azure.ResourceManager.DataProtectionBackup.Models.DataSourceInfo), default(Azure.ResourceManager.DataProtectionBackup.Models.BackupInstancePolicyInfo), default(string)) { }
         public Azure.ResourceManager.DataProtectionBackup.Models.BackupInstanceDeletionInfo DeletionInfo { get { throw null; } }
     }
+    public partial class EncryptionSettings
+    {
+        public EncryptionSettings() { }
+        public Azure.ResourceManager.DataProtectionBackup.Models.InfrastructureEncryptionState? InfrastructureEncryption { get { throw null; } set { } }
+        public Azure.ResourceManager.DataProtectionBackup.Models.CmkKekIdentity KekIdentity { get { throw null; } set { } }
+        public System.Uri KeyUri { get { throw null; } set { } }
+        public Azure.ResourceManager.DataProtectionBackup.Models.EncryptionState? State { get { throw null; } set { } }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct EncryptionState : System.IEquatable<Azure.ResourceManager.DataProtectionBackup.Models.EncryptionState>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public EncryptionState(string value) { throw null; }
+        public static Azure.ResourceManager.DataProtectionBackup.Models.EncryptionState Disabled { get { throw null; } }
+        public static Azure.ResourceManager.DataProtectionBackup.Models.EncryptionState Enabled { get { throw null; } }
+        public static Azure.ResourceManager.DataProtectionBackup.Models.EncryptionState Inconsistent { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.DataProtectionBackup.Models.EncryptionState other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.DataProtectionBackup.Models.EncryptionState left, Azure.ResourceManager.DataProtectionBackup.Models.EncryptionState right) { throw null; }
+        public static implicit operator Azure.ResourceManager.DataProtectionBackup.Models.EncryptionState (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.DataProtectionBackup.Models.EncryptionState left, Azure.ResourceManager.DataProtectionBackup.Models.EncryptionState right) { throw null; }
+        public override string ToString() { throw null; }
+    }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct FeatureSupportStatus : System.IEquatable<Azure.ResourceManager.DataProtectionBackup.Models.FeatureSupportStatus>
     {
@@ -1175,9 +1209,45 @@ namespace Azure.ResourceManager.DataProtectionBackup.Models
         public static bool operator !=(Azure.ResourceManager.DataProtectionBackup.Models.FeatureSupportStatus left, Azure.ResourceManager.DataProtectionBackup.Models.FeatureSupportStatus right) { throw null; }
         public override string ToString() { throw null; }
     }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct IdentityType : System.IEquatable<Azure.ResourceManager.DataProtectionBackup.Models.IdentityType>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public IdentityType(string value) { throw null; }
+        public static Azure.ResourceManager.DataProtectionBackup.Models.IdentityType SystemAssigned { get { throw null; } }
+        public static Azure.ResourceManager.DataProtectionBackup.Models.IdentityType UserAssigned { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.DataProtectionBackup.Models.IdentityType other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.DataProtectionBackup.Models.IdentityType left, Azure.ResourceManager.DataProtectionBackup.Models.IdentityType right) { throw null; }
+        public static implicit operator Azure.ResourceManager.DataProtectionBackup.Models.IdentityType (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.DataProtectionBackup.Models.IdentityType left, Azure.ResourceManager.DataProtectionBackup.Models.IdentityType right) { throw null; }
+        public override string ToString() { throw null; }
+    }
     public partial class ImmediateCopySetting : Azure.ResourceManager.DataProtectionBackup.Models.DataProtectionBackupCopySetting
     {
         public ImmediateCopySetting() { }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct InfrastructureEncryptionState : System.IEquatable<Azure.ResourceManager.DataProtectionBackup.Models.InfrastructureEncryptionState>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public InfrastructureEncryptionState(string value) { throw null; }
+        public static Azure.ResourceManager.DataProtectionBackup.Models.InfrastructureEncryptionState Disabled { get { throw null; } }
+        public static Azure.ResourceManager.DataProtectionBackup.Models.InfrastructureEncryptionState Enabled { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.DataProtectionBackup.Models.InfrastructureEncryptionState other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.DataProtectionBackup.Models.InfrastructureEncryptionState left, Azure.ResourceManager.DataProtectionBackup.Models.InfrastructureEncryptionState right) { throw null; }
+        public static implicit operator Azure.ResourceManager.DataProtectionBackup.Models.InfrastructureEncryptionState (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.DataProtectionBackup.Models.InfrastructureEncryptionState left, Azure.ResourceManager.DataProtectionBackup.Models.InfrastructureEncryptionState right) { throw null; }
+        public override string ToString() { throw null; }
     }
     public abstract partial class ItemLevelRestoreCriteria
     {
