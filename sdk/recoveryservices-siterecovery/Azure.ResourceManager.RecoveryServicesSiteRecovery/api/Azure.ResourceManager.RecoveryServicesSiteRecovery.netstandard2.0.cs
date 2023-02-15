@@ -4980,6 +4980,25 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
         public string Output { get { throw null; } }
         public string Path { get { throw null; } }
     }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct SecurityType : System.IEquatable<Azure.ResourceManager.RecoveryServicesSiteRecovery.Models.SecurityType>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public SecurityType(string value) { throw null; }
+        public static Azure.ResourceManager.RecoveryServicesSiteRecovery.Models.SecurityType ConfidentialVm { get { throw null; } }
+        public static Azure.ResourceManager.RecoveryServicesSiteRecovery.Models.SecurityType None { get { throw null; } }
+        public static Azure.ResourceManager.RecoveryServicesSiteRecovery.Models.SecurityType TrustedLaunch { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.RecoveryServicesSiteRecovery.Models.SecurityType other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.RecoveryServicesSiteRecovery.Models.SecurityType left, Azure.ResourceManager.RecoveryServicesSiteRecovery.Models.SecurityType right) { throw null; }
+        public static implicit operator Azure.ResourceManager.RecoveryServicesSiteRecovery.Models.SecurityType (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.RecoveryServicesSiteRecovery.Models.SecurityType left, Azure.ResourceManager.RecoveryServicesSiteRecovery.Models.SecurityType right) { throw null; }
+        public override string ToString() { throw null; }
+    }
     public partial class ServiceError
     {
         internal ServiceError() { }
@@ -5537,6 +5556,7 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
     public partial class VMwareCbtEnableMigrationInput : Azure.ResourceManager.RecoveryServicesSiteRecovery.Models.EnableMigrationProviderSpecificInput
     {
         public VMwareCbtEnableMigrationInput(string vmwareMachineId, System.Collections.Generic.IEnumerable<Azure.ResourceManager.RecoveryServicesSiteRecovery.Models.VMwareCbtDiskInput> disksToInclude, string dataMoverRunAsAccountId, string snapshotRunAsAccountId, string targetResourceGroupId, string targetNetworkId) { }
+        public string ConfidentialVmKeyVaultId { get { throw null; } set { } }
         public string DataMoverRunAsAccountId { get { throw null; } }
         public System.Collections.Generic.IList<Azure.ResourceManager.RecoveryServicesSiteRecovery.Models.VMwareCbtDiskInput> DisksToInclude { get { throw null; } }
         public Azure.ResourceManager.RecoveryServicesSiteRecovery.Models.LicenseType? LicenseType { get { throw null; } set { } }
@@ -5555,6 +5575,7 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
         public string TargetResourceGroupId { get { throw null; } }
         public string TargetSubnetName { get { throw null; } set { } }
         public string TargetVmName { get { throw null; } set { } }
+        public Azure.ResourceManager.RecoveryServicesSiteRecovery.Models.VMwareCbtSecurityProfileProperties TargetVmSecurityProfile { get { throw null; } set { } }
         public string TargetVmSize { get { throw null; } set { } }
         public System.Collections.Generic.IDictionary<string, string> TargetVmTags { get { throw null; } }
         public string TestNetworkId { get { throw null; } set { } }
@@ -5569,11 +5590,13 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
     public partial class VMwareCbtMigrateInput : Azure.ResourceManager.RecoveryServicesSiteRecovery.Models.MigrateProviderSpecificInput
     {
         public VMwareCbtMigrateInput(string performShutdown) { }
+        public string OSUpgradeVersion { get { throw null; } set { } }
         public string PerformShutdown { get { throw null; } }
     }
     public partial class VMwareCbtMigrationDetails : Azure.ResourceManager.RecoveryServicesSiteRecovery.Models.MigrationProviderSpecificSettings
     {
         internal VMwareCbtMigrationDetails() { }
+        public string ConfidentialVmKeyVaultId { get { throw null; } }
         public string DataMoverRunAsAccountId { get { throw null; } }
         public string FirmwareType { get { throw null; } }
         public int? InitialSeedingProgressPercentage { get { throw null; } }
@@ -5583,6 +5606,7 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
         public string LicenseType { get { throw null; } }
         public int? MigrationProgressPercentage { get { throw null; } }
         public string MigrationRecoveryPointId { get { throw null; } }
+        public string OSName { get { throw null; } }
         public string OSType { get { throw null; } }
         public string PerformAutoResync { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.RecoveryServicesSiteRecovery.Models.VMwareCbtProtectedDiskDetails> ProtectedDisks { get { throw null; } }
@@ -5596,6 +5620,7 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
         public string SnapshotRunAsAccountId { get { throw null; } }
         public string SqlServerLicenseType { get { throw null; } }
         public string StorageAccountId { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyList<string> SupportedOSVersions { get { throw null; } }
         public string TargetAvailabilitySetId { get { throw null; } }
         public string TargetAvailabilityZone { get { throw null; } }
         public string TargetBootDiagnosticsStorageAccountId { get { throw null; } }
@@ -5607,6 +5632,7 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
         public string TargetProximityPlacementGroupId { get { throw null; } }
         public string TargetResourceGroupId { get { throw null; } }
         public string TargetVmName { get { throw null; } }
+        public Azure.ResourceManager.RecoveryServicesSiteRecovery.Models.VMwareCbtSecurityProfileProperties TargetVmSecurityProfile { get { throw null; } }
         public string TargetVmSize { get { throw null; } }
         public System.Collections.Generic.IReadOnlyDictionary<string, string> TargetVmTags { get { throw null; } }
         public string TestNetworkId { get { throw null; } }
@@ -5678,6 +5704,7 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
     public partial class VMwareCbtProtectionContainerMappingDetails : Azure.ResourceManager.RecoveryServicesSiteRecovery.Models.ProtectionContainerMappingProviderSpecificDetails
     {
         internal VMwareCbtProtectionContainerMappingDetails() { }
+        public System.Collections.Generic.IReadOnlyList<string> ExcludedSkus { get { throw null; } }
         public string KeyVaultId { get { throw null; } }
         public System.Uri KeyVaultUri { get { throw null; } }
         public System.Collections.Generic.IReadOnlyDictionary<string, int> RoleSizeToNicCountMap { get { throw null; } }
@@ -5696,10 +5723,20 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
         public VMwareCbtResyncInput(string skipCbtReset) { }
         public string SkipCbtReset { get { throw null; } }
     }
+    public partial class VMwareCbtSecurityProfileProperties
+    {
+        public VMwareCbtSecurityProfileProperties() { }
+        public string IsTargetVmConfidentialEncryptionEnabled { get { throw null; } set { } }
+        public string IsTargetVmIntegrityMonitoringEnabled { get { throw null; } set { } }
+        public string IsTargetVmSecureBootEnabled { get { throw null; } set { } }
+        public string IsTargetVmTpmEnabled { get { throw null; } set { } }
+        public Azure.ResourceManager.RecoveryServicesSiteRecovery.Models.SecurityType? TargetVmSecurityType { get { throw null; } set { } }
+    }
     public partial class VMwareCbtTestMigrateInput : Azure.ResourceManager.RecoveryServicesSiteRecovery.Models.TestMigrateProviderSpecificInput
     {
         public VMwareCbtTestMigrateInput(string recoveryPointId, string networkId) { }
         public string NetworkId { get { throw null; } }
+        public string OSUpgradeVersion { get { throw null; } set { } }
         public string RecoveryPointId { get { throw null; } }
         public System.Collections.Generic.IList<Azure.ResourceManager.RecoveryServicesSiteRecovery.Models.VMwareCbtNicInput> VmNics { get { throw null; } }
     }
