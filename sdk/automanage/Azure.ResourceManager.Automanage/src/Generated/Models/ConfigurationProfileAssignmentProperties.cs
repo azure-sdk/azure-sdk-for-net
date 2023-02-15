@@ -17,20 +17,24 @@ namespace Azure.ResourceManager.Automanage.Models
 
         /// <summary> Initializes a new instance of ConfigurationProfileAssignmentProperties. </summary>
         /// <param name="configurationProfile"> The Automanage configurationProfile ARM Resource URI. </param>
-        /// <param name="targetId"> The target VM resource URI. </param>
+        /// <param name="mode"> The mode in which to apply the assigned configuration profile. </param>
         /// <param name="status"> The status of onboarding, which only appears in the response. </param>
-        internal ConfigurationProfileAssignmentProperties(string configurationProfile, string targetId, string status)
+        /// <param name="targetId"> The target VM resource URI. </param>
+        internal ConfigurationProfileAssignmentProperties(string configurationProfile, AssignmentMode? mode, string status, string targetId)
         {
             ConfigurationProfile = configurationProfile;
-            TargetId = targetId;
+            Mode = mode;
             Status = status;
+            TargetId = targetId;
         }
 
         /// <summary> The Automanage configurationProfile ARM Resource URI. </summary>
         public string ConfigurationProfile { get; set; }
-        /// <summary> The target VM resource URI. </summary>
-        public string TargetId { get; }
+        /// <summary> The mode in which to apply the assigned configuration profile. </summary>
+        public AssignmentMode? Mode { get; set; }
         /// <summary> The status of onboarding, which only appears in the response. </summary>
         public string Status { get; }
+        /// <summary> The target VM resource URI. </summary>
+        public string TargetId { get; }
     }
 }

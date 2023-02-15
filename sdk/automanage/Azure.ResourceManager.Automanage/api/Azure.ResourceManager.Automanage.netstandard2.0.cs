@@ -9,16 +9,7 @@ namespace Azure.ResourceManager.Automanage
     public partial class AutomanageConfigurationProfileAssignmentReportData : Azure.ResourceManager.Models.ResourceData
     {
         public AutomanageConfigurationProfileAssignmentReportData() { }
-        public string ConfigurationProfile { get { throw null; } }
-        public System.TimeSpan? Duration { get { throw null; } }
-        public string EndTime { get { throw null; } set { } }
-        public Azure.ResponseError Error { get { throw null; } }
-        public string LastModifiedTime { get { throw null; } }
-        public string ReportFormatVersion { get { throw null; } }
-        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Automanage.Models.ReportResource> Resources { get { throw null; } }
-        public string StartTime { get { throw null; } set { } }
-        public string Status { get { throw null; } }
-        public string TypePropertiesType { get { throw null; } }
+        public Azure.ResourceManager.Automanage.Models.AssignmentReportProperties Properties { get { throw null; } set { } }
     }
     public static partial class AutomanageExtensions
     {
@@ -325,8 +316,7 @@ namespace Azure.ResourceManager.Automanage
     public partial class ServicePrincipalData : Azure.ResourceManager.Models.ResourceData
     {
         public ServicePrincipalData() { }
-        public bool? AuthorizationSet { get { throw null; } }
-        public string ServicePrincipalId { get { throw null; } }
+        public Azure.ResourceManager.Automanage.Models.ServicePrincipalProperties Properties { get { throw null; } set { } }
     }
     public partial class ServicePrincipalResource : Azure.ResourceManager.ArmResource
     {
@@ -341,10 +331,30 @@ namespace Azure.ResourceManager.Automanage
 }
 namespace Azure.ResourceManager.Automanage.Models
 {
+    public enum AssignmentMode
+    {
+        AuditOnly = 0,
+        Remediate = 1,
+    }
+    public partial class AssignmentReportProperties
+    {
+        public AssignmentReportProperties() { }
+        public string AssignmentReportPropertiesType { get { throw null; } }
+        public string ConfigurationProfile { get { throw null; } }
+        public System.TimeSpan? Duration { get { throw null; } }
+        public string EndTime { get { throw null; } set { } }
+        public Azure.ResponseError Error { get { throw null; } }
+        public string LastModifiedTime { get { throw null; } }
+        public string ReportFormatVersion { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Automanage.Models.ReportResource> Resources { get { throw null; } }
+        public string StartTime { get { throw null; } set { } }
+        public string Status { get { throw null; } }
+    }
     public partial class ConfigurationProfileAssignmentProperties
     {
         public ConfigurationProfileAssignmentProperties() { }
         public string ConfigurationProfile { get { throw null; } set { } }
+        public Azure.ResourceManager.Automanage.Models.AssignmentMode? Mode { get { throw null; } set { } }
         public string Status { get { throw null; } }
         public string TargetId { get { throw null; } }
     }
@@ -358,6 +368,12 @@ namespace Azure.ResourceManager.Automanage.Models
         internal ReportResource() { }
         public Azure.ResponseError Error { get { throw null; } }
         public string Status { get { throw null; } }
+    }
+    public partial class ServicePrincipalProperties
+    {
+        public ServicePrincipalProperties() { }
+        public bool? AuthorizationSet { get { throw null; } }
+        public string ServicePrincipalId { get { throw null; } }
     }
     public partial class UpdateResource
     {

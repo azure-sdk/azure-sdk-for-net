@@ -7,6 +7,7 @@
 
 using System.Text.Json;
 using Azure.Core;
+using Azure.ResourceManager.Automanage.Models;
 using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.Automanage
@@ -16,22 +17,33 @@ namespace Azure.ResourceManager.Automanage
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
-            writer.WritePropertyName("properties"u8);
-            writer.WriteStartObject();
-            writer.WriteEndObject();
+            if (Optional.IsDefined(Properties))
+            {
+                writer.WritePropertyName("properties"u8);
+                writer.WriteObjectValue(Properties);
+            }
             writer.WriteEndObject();
         }
 
         internal static ServicePrincipalData DeserializeServicePrincipalData(JsonElement element)
         {
+            Optional<ServicePrincipalProperties> properties = default;
             ResourceIdentifier id = default;
             string name = default;
             ResourceType type = default;
             Optional<SystemData> systemData = default;
-            Optional<string> servicePrincipalId = default;
-            Optional<bool> authorizationSet = default;
             foreach (var property in element.EnumerateObject())
             {
+                if (property.NameEquals("properties"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        property.ThrowNonNullablePropertyIsNull();
+                        continue;
+                    }
+                    properties = ServicePrincipalProperties.DeserializeServicePrincipalProperties(property.Value);
+                    continue;
+                }
                 if (property.NameEquals("id"u8))
                 {
                     id = new ResourceIdentifier(property.Value.GetString());
@@ -57,35 +69,8 @@ namespace Azure.ResourceManager.Automanage
                     systemData = JsonSerializer.Deserialize<SystemData>(property.Value.GetRawText());
                     continue;
                 }
-                if (property.NameEquals("properties"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
-                    foreach (var property0 in property.Value.EnumerateObject())
-                    {
-                        if (property0.NameEquals("servicePrincipalId"u8))
-                        {
-                            servicePrincipalId = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("authorizationSet"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                property0.ThrowNonNullablePropertyIsNull();
-                                continue;
-                            }
-                            authorizationSet = property0.Value.GetBoolean();
-                            continue;
-                        }
-                    }
-                    continue;
-                }
             }
-            return new ServicePrincipalData(id, name, type, systemData.Value, servicePrincipalId.Value, Optional.ToNullable(authorizationSet));
+            return new ServicePrincipalData(id, name, type, systemData.Value, properties.Value);
         }
     }
 }

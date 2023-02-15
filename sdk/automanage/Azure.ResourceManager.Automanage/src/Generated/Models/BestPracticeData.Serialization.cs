@@ -5,9 +5,9 @@
 
 #nullable disable
 
-using System;
 using System.Text.Json;
 using Azure.Core;
+using Azure.ResourceManager.Automanage.Models;
 using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.Automanage
@@ -16,13 +16,23 @@ namespace Azure.ResourceManager.Automanage
     {
         internal static BestPracticeData DeserializeBestPracticeData(JsonElement element)
         {
+            Optional<ConfigurationProfileProperties> properties = default;
             ResourceIdentifier id = default;
             string name = default;
             ResourceType type = default;
             Optional<SystemData> systemData = default;
-            Optional<BinaryData> configuration = default;
             foreach (var property in element.EnumerateObject())
             {
+                if (property.NameEquals("properties"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        property.ThrowNonNullablePropertyIsNull();
+                        continue;
+                    }
+                    properties = ConfigurationProfileProperties.DeserializeConfigurationProfileProperties(property.Value);
+                    continue;
+                }
                 if (property.NameEquals("id"u8))
                 {
                     id = new ResourceIdentifier(property.Value.GetString());
@@ -48,30 +58,8 @@ namespace Azure.ResourceManager.Automanage
                     systemData = JsonSerializer.Deserialize<SystemData>(property.Value.GetRawText());
                     continue;
                 }
-                if (property.NameEquals("properties"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
-                    foreach (var property0 in property.Value.EnumerateObject())
-                    {
-                        if (property0.NameEquals("configuration"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                property0.ThrowNonNullablePropertyIsNull();
-                                continue;
-                            }
-                            configuration = BinaryData.FromString(property0.Value.GetRawText());
-                            continue;
-                        }
-                    }
-                    continue;
-                }
             }
-            return new BestPracticeData(id, name, type, systemData.Value, configuration.Value);
+            return new BestPracticeData(id, name, type, systemData.Value, properties.Value);
         }
     }
 }

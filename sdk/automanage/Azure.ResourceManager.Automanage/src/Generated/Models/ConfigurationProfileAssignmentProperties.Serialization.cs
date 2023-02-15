@@ -20,14 +20,20 @@ namespace Azure.ResourceManager.Automanage.Models
                 writer.WritePropertyName("configurationProfile"u8);
                 writer.WriteStringValue(ConfigurationProfile);
             }
+            if (Optional.IsDefined(Mode))
+            {
+                writer.WritePropertyName("mode"u8);
+                writer.WriteStringValue(Mode.Value.ToSerialString());
+            }
             writer.WriteEndObject();
         }
 
         internal static ConfigurationProfileAssignmentProperties DeserializeConfigurationProfileAssignmentProperties(JsonElement element)
         {
             Optional<string> configurationProfile = default;
-            Optional<string> targetId = default;
+            Optional<AssignmentMode> mode = default;
             Optional<string> status = default;
+            Optional<string> targetId = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("configurationProfile"u8))
@@ -35,9 +41,14 @@ namespace Azure.ResourceManager.Automanage.Models
                     configurationProfile = property.Value.GetString();
                     continue;
                 }
-                if (property.NameEquals("targetId"u8))
+                if (property.NameEquals("mode"u8))
                 {
-                    targetId = property.Value.GetString();
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        property.ThrowNonNullablePropertyIsNull();
+                        continue;
+                    }
+                    mode = property.Value.GetString().ToAssignmentMode();
                     continue;
                 }
                 if (property.NameEquals("status"u8))
@@ -45,8 +56,13 @@ namespace Azure.ResourceManager.Automanage.Models
                     status = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("targetId"u8))
+                {
+                    targetId = property.Value.GetString();
+                    continue;
+                }
             }
-            return new ConfigurationProfileAssignmentProperties(configurationProfile.Value, targetId.Value, status.Value);
+            return new ConfigurationProfileAssignmentProperties(configurationProfile.Value, Optional.ToNullable(mode), status.Value, targetId.Value);
         }
     }
 }

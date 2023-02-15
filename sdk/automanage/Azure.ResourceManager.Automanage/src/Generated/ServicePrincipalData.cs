@@ -6,6 +6,7 @@
 #nullable disable
 
 using Azure.Core;
+using Azure.ResourceManager.Automanage.Models;
 using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.Automanage
@@ -23,17 +24,13 @@ namespace Azure.ResourceManager.Automanage
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="servicePrincipalId"> The Service Principal Id for the subscription. </param>
-        /// <param name="authorizationSet"> Returns the contributor RBAC Role exist or not for the Service Principal Id. </param>
-        internal ServicePrincipalData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string servicePrincipalId, bool? authorizationSet) : base(id, name, resourceType, systemData)
+        /// <param name="properties"> The Service Principal properties for the subscription. </param>
+        internal ServicePrincipalData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, ServicePrincipalProperties properties) : base(id, name, resourceType, systemData)
         {
-            ServicePrincipalId = servicePrincipalId;
-            AuthorizationSet = authorizationSet;
+            Properties = properties;
         }
 
-        /// <summary> The Service Principal Id for the subscription. </summary>
-        public string ServicePrincipalId { get; }
-        /// <summary> Returns the contributor RBAC Role exist or not for the Service Principal Id. </summary>
-        public bool? AuthorizationSet { get; }
+        /// <summary> The Service Principal properties for the subscription. </summary>
+        public ServicePrincipalProperties Properties { get; set; }
     }
 }

@@ -7,6 +7,7 @@
 
 using System;
 using Azure.Core;
+using Azure.ResourceManager.Automanage.Models;
 using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.Automanage
@@ -24,12 +25,14 @@ namespace Azure.ResourceManager.Automanage
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="configuration"> configuration dictionary of the configuration profile. </param>
-        internal BestPracticeData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, BinaryData configuration) : base(id, name, resourceType, systemData)
+        /// <param name="properties"> Properties of the best practice. </param>
+        internal BestPracticeData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, ConfigurationProfileProperties properties) : base(id, name, resourceType, systemData)
         {
-            Configuration = configuration;
+            Properties = properties;
         }
 
+        /// <summary> Properties of the best practice. </summary>
+        internal ConfigurationProfileProperties Properties { get; }
         /// <summary>
         /// configuration dictionary of the configuration profile.
         /// <para>
@@ -60,6 +63,9 @@ namespace Azure.ResourceManager.Automanage
         /// </list>
         /// </para>
         /// </summary>
-        public BinaryData Configuration { get; }
+        public BinaryData Configuration
+        {
+            get => Properties?.Configuration;
+        }
     }
 }
