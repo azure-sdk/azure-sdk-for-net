@@ -10,7 +10,7 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.StreamAnalytics.Models
 {
-    internal partial class StreamAnalyticsSku : IUtf8JsonSerializable
+    public partial class StreamAnalyticsSku : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
@@ -20,12 +20,18 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
                 writer.WritePropertyName("name"u8);
                 writer.WriteStringValue(Name.Value.ToString());
             }
+            if (Optional.IsDefined(Capacity))
+            {
+                writer.WritePropertyName("capacity"u8);
+                writer.WriteNumberValue(Capacity.Value);
+            }
             writer.WriteEndObject();
         }
 
         internal static StreamAnalyticsSku DeserializeStreamAnalyticsSku(JsonElement element)
         {
             Optional<StreamAnalyticsSkuName> name = default;
+            Optional<int> capacity = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("name"u8))
@@ -38,8 +44,18 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
                     name = new StreamAnalyticsSkuName(property.Value.GetString());
                     continue;
                 }
+                if (property.NameEquals("capacity"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        property.ThrowNonNullablePropertyIsNull();
+                        continue;
+                    }
+                    capacity = property.Value.GetInt32();
+                    continue;
+                }
             }
-            return new StreamAnalyticsSku(Optional.ToNullable(name));
+            return new StreamAnalyticsSku(Optional.ToNullable(name), Optional.ToNullable(capacity));
         }
     }
 }

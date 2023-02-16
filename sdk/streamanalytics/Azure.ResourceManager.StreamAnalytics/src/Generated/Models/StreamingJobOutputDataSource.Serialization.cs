@@ -27,6 +27,7 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
                 switch (discriminator.GetString())
                 {
                     case "GatewayMessageBus": return GatewayMessageBusOutputDataSource.DeserializeGatewayMessageBusOutputDataSource(element);
+                    case "LakeHouse": return LakeHouseOutputDataSource.DeserializeLakeHouseOutputDataSource(element);
                     case "Microsoft.AzureFunction": return FunctionOutputDataSource.DeserializeFunctionOutputDataSource(element);
                     case "Microsoft.DBForPostgreSQL/servers/databases": return PostgreSQLOutputDataSource.DeserializePostgreSQLOutputDataSource(element);
                     case "Microsoft.DataLake/Accounts": return DataLakeStoreOutputDataSource.DeserializeDataLakeStoreOutputDataSource(element);

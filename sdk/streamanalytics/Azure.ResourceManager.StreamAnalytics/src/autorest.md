@@ -9,7 +9,7 @@ generate-model-factory: false
 csharp: true
 library-name: StreamAnalytics
 namespace: Azure.ResourceManager.StreamAnalytics
-require: https://github.com/Azure/azure-rest-api-specs/blob/692cb8b5eb71505afa267cfbbee322d520eb15ff/specification/streamanalytics/resource-manager/readme.md
+require: /mnt/vss/_work/1/s/azure-rest-api-specs/specification/streamanalytics/resource-manager/readme.md
 tag: package-2021-10-preview
 output-folder: $(this-folder)/Generated
 clear-output-folder: true

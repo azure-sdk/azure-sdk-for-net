@@ -66,7 +66,7 @@ namespace Azure.ResourceManager.StreamAnalytics
         }
 
         /// <summary> Gets the resource type for the operations. </summary>
-        public static readonly ResourceType ResourceType = "Microsoft.StreamAnalytics/clusters";
+        public static readonly Core.ResourceType ResourceType = "Microsoft.StreamAnalytics/clusters";
 
         /// <summary> Gets whether or not the current instance has data. </summary>
         public virtual bool HasData { get; }

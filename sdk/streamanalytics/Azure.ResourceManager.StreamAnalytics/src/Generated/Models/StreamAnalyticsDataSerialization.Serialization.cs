@@ -29,6 +29,7 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
                     case "Avro": return AvroFormatSerialization.DeserializeAvroFormatSerialization(element);
                     case "Csv": return CsvFormatSerialization.DeserializeCsvFormatSerialization(element);
                     case "CustomClr": return CustomClrFormatSerialization.DeserializeCustomClrFormatSerialization(element);
+                    case "Delta": return DeltaSerialization.DeserializeDeltaSerialization(element);
                     case "Json": return JsonFormatSerialization.DeserializeJsonFormatSerialization(element);
                     case "Parquet": return ParquetFormatSerialization.DeserializeParquetFormatSerialization(element);
                 }

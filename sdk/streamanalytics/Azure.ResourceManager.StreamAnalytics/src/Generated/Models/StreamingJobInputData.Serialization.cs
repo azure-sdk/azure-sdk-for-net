@@ -34,7 +34,7 @@ namespace Azure.ResourceManager.StreamAnalytics
             Optional<StreamingJobInputProperties> properties = default;
             Optional<ResourceIdentifier> id = default;
             Optional<string> name = default;
-            Optional<ResourceType> type = default;
+            Optional<Core.ResourceType> type = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("properties"u8))
@@ -69,7 +69,7 @@ namespace Azure.ResourceManager.StreamAnalytics
                         property.ThrowNonNullablePropertyIsNull();
                         continue;
                     }
-                    type = new ResourceType(property.Value.GetString());
+                    type = new Core.ResourceType(property.Value.GetString());
                     continue;
                 }
             }

@@ -27,7 +27,7 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
         {
             Optional<ResourceIdentifier> id = default;
             Optional<string> name = default;
-            Optional<ResourceType> type = default;
+            Optional<Core.ResourceType> type = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("id"u8))
@@ -52,7 +52,7 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
                         property.ThrowNonNullablePropertyIsNull();
                         continue;
                     }
-                    type = new ResourceType(property.Value.GetString());
+                    type = new Core.ResourceType(property.Value.GetString());
                     continue;
                 }
             }
