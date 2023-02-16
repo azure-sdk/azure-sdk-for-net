@@ -449,6 +449,370 @@ namespace Azure.ResourceManager.Communication
         }
 
         /// <summary>
+        /// Get a list of valid sender user names.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Communication/emailServices/{emailServiceName}/domains/{domainName}/listValidSenderUsernames</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Domains_ListValidSenderUsernames</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> An async collection of <see cref="ValidSenderUsername" /> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<ValidSenderUsername> GetValidSenderUsernamesAsync(CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _communicationDomainResourceDomainsRestClient.CreateListValidSenderUsernamesRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name);
+            return PageableHelpers.CreateAsyncPageable(FirstPageRequest, null, ValidSenderUsername.DeserializeValidSenderUsername, _communicationDomainResourceDomainsClientDiagnostics, Pipeline, "CommunicationDomainResource.GetValidSenderUsernames", "value", null, cancellationToken);
+        }
+
+        /// <summary>
+        /// Get a list of valid sender user names.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Communication/emailServices/{emailServiceName}/domains/{domainName}/listValidSenderUsernames</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Domains_ListValidSenderUsernames</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="ValidSenderUsername" /> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<ValidSenderUsername> GetValidSenderUsernames(CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _communicationDomainResourceDomainsRestClient.CreateListValidSenderUsernamesRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name);
+            return PageableHelpers.CreatePageable(FirstPageRequest, null, ValidSenderUsername.DeserializeValidSenderUsername, _communicationDomainResourceDomainsClientDiagnostics, Pipeline, "CommunicationDomainResource.GetValidSenderUsernames", "value", null, cancellationToken);
+        }
+
+        /// <summary>
+        /// Add to the list of valid sender user names.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Communication/emailServices/{emailServiceName}/domains/{domainName}/addValidSenderUsernames</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Domains_AddValidSenderUsernames</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="validSenderCollection"> Collection of valid sender user names. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="validSenderCollection"/> is null. </exception>
+        public virtual async Task<Response> AddValidSenderUsernamesAsync(ValidSenderUsernameCollection validSenderCollection, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(validSenderCollection, nameof(validSenderCollection));
+
+            using var scope = _communicationDomainResourceDomainsClientDiagnostics.CreateScope("CommunicationDomainResource.AddValidSenderUsernames");
+            scope.Start();
+            try
+            {
+                var response = await _communicationDomainResourceDomainsRestClient.AddValidSenderUsernamesAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, validSenderCollection, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Add to the list of valid sender user names.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Communication/emailServices/{emailServiceName}/domains/{domainName}/addValidSenderUsernames</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Domains_AddValidSenderUsernames</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="validSenderCollection"> Collection of valid sender user names. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="validSenderCollection"/> is null. </exception>
+        public virtual Response AddValidSenderUsernames(ValidSenderUsernameCollection validSenderCollection, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(validSenderCollection, nameof(validSenderCollection));
+
+            using var scope = _communicationDomainResourceDomainsClientDiagnostics.CreateScope("CommunicationDomainResource.AddValidSenderUsernames");
+            scope.Start();
+            try
+            {
+                var response = _communicationDomainResourceDomainsRestClient.AddValidSenderUsernames(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, validSenderCollection, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Remove from the list of valid sender user names.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Communication/emailServices/{emailServiceName}/domains/{domainName}/removeValidSenderUsernames</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Domains_RemoveValidSenderUsernames</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="content"> Input parameters to remove valid sender user name. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
+        public virtual async Task<Response> RemoveValidSenderUsernamesAsync(RemoveValidSenderUsernameContent content, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var scope = _communicationDomainResourceDomainsClientDiagnostics.CreateScope("CommunicationDomainResource.RemoveValidSenderUsernames");
+            scope.Start();
+            try
+            {
+                var response = await _communicationDomainResourceDomainsRestClient.RemoveValidSenderUsernamesAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, content, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Remove from the list of valid sender user names.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Communication/emailServices/{emailServiceName}/domains/{domainName}/removeValidSenderUsernames</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Domains_RemoveValidSenderUsernames</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="content"> Input parameters to remove valid sender user name. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
+        public virtual Response RemoveValidSenderUsernames(RemoveValidSenderUsernameContent content, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var scope = _communicationDomainResourceDomainsClientDiagnostics.CreateScope("CommunicationDomainResource.RemoveValidSenderUsernames");
+            scope.Start();
+            try
+            {
+                var response = _communicationDomainResourceDomainsRestClient.RemoveValidSenderUsernames(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, content, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get a list of suppressed email addresses.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Communication/emailServices/{emailServiceName}/domains/{domainName}/listSuppressedEmailAddresses</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Domains_ListSuppressedEmailAddresses</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="content"> Optional parameter to fetch suppression list associated with a valid sender user name. When this parameter is not present, by default the domain level suppression list will be returned. </param>
+        /// <param name="top"> The maximum number of records to include in a single response. This value is honored if the specified value is smaller than server&apos;s default page size. </param>
+        /// <param name="skipToken"> SkipToken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element, the value of the nextLink element will include a skipToken parameter that specifies a starting point for subsequent calls. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> An async collection of <see cref="SuppressionListRecordDto" /> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<SuppressionListRecordDto> GetSuppressedEmailAddressesAsync(SuppressionListContent content = null, int? top = null, string skipToken = null, CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _communicationDomainResourceDomainsRestClient.CreateListSuppressedEmailAddressesRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, content, top, skipToken);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _communicationDomainResourceDomainsRestClient.CreateListSuppressedEmailAddressesNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, content, top, skipToken);
+            return PageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, SuppressionListRecordDto.DeserializeSuppressionListRecordDto, _communicationDomainResourceDomainsClientDiagnostics, Pipeline, "CommunicationDomainResource.GetSuppressedEmailAddresses", "value", "nextLink", cancellationToken);
+        }
+
+        /// <summary>
+        /// Get a list of suppressed email addresses.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Communication/emailServices/{emailServiceName}/domains/{domainName}/listSuppressedEmailAddresses</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Domains_ListSuppressedEmailAddresses</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="content"> Optional parameter to fetch suppression list associated with a valid sender user name. When this parameter is not present, by default the domain level suppression list will be returned. </param>
+        /// <param name="top"> The maximum number of records to include in a single response. This value is honored if the specified value is smaller than server&apos;s default page size. </param>
+        /// <param name="skipToken"> SkipToken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element, the value of the nextLink element will include a skipToken parameter that specifies a starting point for subsequent calls. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="SuppressionListRecordDto" /> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<SuppressionListRecordDto> GetSuppressedEmailAddresses(SuppressionListContent content = null, int? top = null, string skipToken = null, CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _communicationDomainResourceDomainsRestClient.CreateListSuppressedEmailAddressesRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, content, top, skipToken);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _communicationDomainResourceDomainsRestClient.CreateListSuppressedEmailAddressesNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, content, top, skipToken);
+            return PageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, SuppressionListRecordDto.DeserializeSuppressionListRecordDto, _communicationDomainResourceDomainsClientDiagnostics, Pipeline, "CommunicationDomainResource.GetSuppressedEmailAddresses", "value", "nextLink", cancellationToken);
+        }
+
+        /// <summary>
+        /// Add email addresses to the suppression list.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Communication/emailServices/{emailServiceName}/domains/{domainName}/addSuppressedEmailAddresses</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Domains_AddSuppressedEmailAddresses</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="content"> Input parameters for adding email addresses to a suppression list. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
+        public virtual async Task<Response> AddSuppressedEmailAddressesAsync(SuppressionListAddContent content, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var scope = _communicationDomainResourceDomainsClientDiagnostics.CreateScope("CommunicationDomainResource.AddSuppressedEmailAddresses");
+            scope.Start();
+            try
+            {
+                var response = await _communicationDomainResourceDomainsRestClient.AddSuppressedEmailAddressesAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, content, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Add email addresses to the suppression list.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Communication/emailServices/{emailServiceName}/domains/{domainName}/addSuppressedEmailAddresses</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Domains_AddSuppressedEmailAddresses</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="content"> Input parameters for adding email addresses to a suppression list. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
+        public virtual Response AddSuppressedEmailAddresses(SuppressionListAddContent content, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var scope = _communicationDomainResourceDomainsClientDiagnostics.CreateScope("CommunicationDomainResource.AddSuppressedEmailAddresses");
+            scope.Start();
+            try
+            {
+                var response = _communicationDomainResourceDomainsRestClient.AddSuppressedEmailAddresses(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, content, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Remove email addresses from the suppression list.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Communication/emailServices/{emailServiceName}/domains/{domainName}/removeSuppressedEmailAddresses</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Domains_RemoveSuppressedEmailAddresses</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="content"> Input parameters for removing email addresses from a suppression list. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
+        public virtual async Task<Response> RemoveSuppressedEmailAddressesAsync(SuppressionListRemoveContent content, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var scope = _communicationDomainResourceDomainsClientDiagnostics.CreateScope("CommunicationDomainResource.RemoveSuppressedEmailAddresses");
+            scope.Start();
+            try
+            {
+                var response = await _communicationDomainResourceDomainsRestClient.RemoveSuppressedEmailAddressesAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, content, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Remove email addresses from the suppression list.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Communication/emailServices/{emailServiceName}/domains/{domainName}/removeSuppressedEmailAddresses</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Domains_RemoveSuppressedEmailAddresses</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="content"> Input parameters for removing email addresses from a suppression list. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
+        public virtual Response RemoveSuppressedEmailAddresses(SuppressionListRemoveContent content, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var scope = _communicationDomainResourceDomainsClientDiagnostics.CreateScope("CommunicationDomainResource.RemoveSuppressedEmailAddresses");
+            scope.Start();
+            try
+            {
+                var response = _communicationDomainResourceDomainsRestClient.RemoveSuppressedEmailAddresses(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, content, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
         /// Add a tag to the current resource.
         /// <list type="bullet">
         /// <item>

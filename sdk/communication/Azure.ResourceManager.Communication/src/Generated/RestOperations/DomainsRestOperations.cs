@@ -33,7 +33,7 @@ namespace Azure.ResourceManager.Communication
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2021-10-01-preview";
+            _apiVersion = apiVersion ?? "2022-10-01-preview";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
@@ -616,6 +616,529 @@ namespace Azure.ResourceManager.Communication
             }
         }
 
+        internal HttpMessage CreateListValidSenderUsernamesRequest(string subscriptionId, string resourceGroupName, string emailServiceName, string domainName)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Post;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/subscriptions/", false);
+            uri.AppendPath(subscriptionId, true);
+            uri.AppendPath("/resourceGroups/", false);
+            uri.AppendPath(resourceGroupName, true);
+            uri.AppendPath("/providers/Microsoft.Communication/emailServices/", false);
+            uri.AppendPath(emailServiceName, true);
+            uri.AppendPath("/domains/", false);
+            uri.AppendPath(domainName, true);
+            uri.AppendPath("/listValidSenderUsernames", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> Get a list of valid sender user names. </summary>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="emailServiceName"> The name of the EmailService resource. </param>
+        /// <param name="domainName"> The name of the Domains resource. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="emailServiceName"/> or <paramref name="domainName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="emailServiceName"/> or <paramref name="domainName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<ValidSenderUsernameCollection>> ListValidSenderUsernamesAsync(string subscriptionId, string resourceGroupName, string emailServiceName, string domainName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(emailServiceName, nameof(emailServiceName));
+            Argument.AssertNotNullOrEmpty(domainName, nameof(domainName));
+
+            using var message = CreateListValidSenderUsernamesRequest(subscriptionId, resourceGroupName, emailServiceName, domainName);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        ValidSenderUsernameCollection value = default;
+                        using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+                        value = ValidSenderUsernameCollection.DeserializeValidSenderUsernameCollection(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> Get a list of valid sender user names. </summary>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="emailServiceName"> The name of the EmailService resource. </param>
+        /// <param name="domainName"> The name of the Domains resource. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="emailServiceName"/> or <paramref name="domainName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="emailServiceName"/> or <paramref name="domainName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<ValidSenderUsernameCollection> ListValidSenderUsernames(string subscriptionId, string resourceGroupName, string emailServiceName, string domainName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(emailServiceName, nameof(emailServiceName));
+            Argument.AssertNotNullOrEmpty(domainName, nameof(domainName));
+
+            using var message = CreateListValidSenderUsernamesRequest(subscriptionId, resourceGroupName, emailServiceName, domainName);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        ValidSenderUsernameCollection value = default;
+                        using var document = JsonDocument.Parse(message.Response.ContentStream);
+                        value = ValidSenderUsernameCollection.DeserializeValidSenderUsernameCollection(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        internal HttpMessage CreateAddValidSenderUsernamesRequest(string subscriptionId, string resourceGroupName, string emailServiceName, string domainName, ValidSenderUsernameCollection validSenderCollection)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Post;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/subscriptions/", false);
+            uri.AppendPath(subscriptionId, true);
+            uri.AppendPath("/resourceGroups/", false);
+            uri.AppendPath(resourceGroupName, true);
+            uri.AppendPath("/providers/Microsoft.Communication/emailServices/", false);
+            uri.AppendPath(emailServiceName, true);
+            uri.AppendPath("/domains/", false);
+            uri.AppendPath(domainName, true);
+            uri.AppendPath("/addValidSenderUsernames", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            request.Headers.Add("Content-Type", "application/json");
+            var content = new Utf8JsonRequestContent();
+            content.JsonWriter.WriteObjectValue(validSenderCollection);
+            request.Content = content;
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> Add to the list of valid sender user names. </summary>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="emailServiceName"> The name of the EmailService resource. </param>
+        /// <param name="domainName"> The name of the Domains resource. </param>
+        /// <param name="validSenderCollection"> Collection of valid sender user names. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="emailServiceName"/>, <paramref name="domainName"/> or <paramref name="validSenderCollection"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="emailServiceName"/> or <paramref name="domainName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response> AddValidSenderUsernamesAsync(string subscriptionId, string resourceGroupName, string emailServiceName, string domainName, ValidSenderUsernameCollection validSenderCollection, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(emailServiceName, nameof(emailServiceName));
+            Argument.AssertNotNullOrEmpty(domainName, nameof(domainName));
+            Argument.AssertNotNull(validSenderCollection, nameof(validSenderCollection));
+
+            using var message = CreateAddValidSenderUsernamesRequest(subscriptionId, resourceGroupName, emailServiceName, domainName, validSenderCollection);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    return message.Response;
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> Add to the list of valid sender user names. </summary>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="emailServiceName"> The name of the EmailService resource. </param>
+        /// <param name="domainName"> The name of the Domains resource. </param>
+        /// <param name="validSenderCollection"> Collection of valid sender user names. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="emailServiceName"/>, <paramref name="domainName"/> or <paramref name="validSenderCollection"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="emailServiceName"/> or <paramref name="domainName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response AddValidSenderUsernames(string subscriptionId, string resourceGroupName, string emailServiceName, string domainName, ValidSenderUsernameCollection validSenderCollection, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(emailServiceName, nameof(emailServiceName));
+            Argument.AssertNotNullOrEmpty(domainName, nameof(domainName));
+            Argument.AssertNotNull(validSenderCollection, nameof(validSenderCollection));
+
+            using var message = CreateAddValidSenderUsernamesRequest(subscriptionId, resourceGroupName, emailServiceName, domainName, validSenderCollection);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    return message.Response;
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        internal HttpMessage CreateRemoveValidSenderUsernamesRequest(string subscriptionId, string resourceGroupName, string emailServiceName, string domainName, RemoveValidSenderUsernameContent content)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Post;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/subscriptions/", false);
+            uri.AppendPath(subscriptionId, true);
+            uri.AppendPath("/resourceGroups/", false);
+            uri.AppendPath(resourceGroupName, true);
+            uri.AppendPath("/providers/Microsoft.Communication/emailServices/", false);
+            uri.AppendPath(emailServiceName, true);
+            uri.AppendPath("/domains/", false);
+            uri.AppendPath(domainName, true);
+            uri.AppendPath("/removeValidSenderUsernames", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            request.Headers.Add("Content-Type", "application/json");
+            var content0 = new Utf8JsonRequestContent();
+            content0.JsonWriter.WriteObjectValue(content);
+            request.Content = content0;
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> Remove from the list of valid sender user names. </summary>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="emailServiceName"> The name of the EmailService resource. </param>
+        /// <param name="domainName"> The name of the Domains resource. </param>
+        /// <param name="content"> Input parameters to remove valid sender user name. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="emailServiceName"/>, <paramref name="domainName"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="emailServiceName"/> or <paramref name="domainName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response> RemoveValidSenderUsernamesAsync(string subscriptionId, string resourceGroupName, string emailServiceName, string domainName, RemoveValidSenderUsernameContent content, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(emailServiceName, nameof(emailServiceName));
+            Argument.AssertNotNullOrEmpty(domainName, nameof(domainName));
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var message = CreateRemoveValidSenderUsernamesRequest(subscriptionId, resourceGroupName, emailServiceName, domainName, content);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    return message.Response;
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> Remove from the list of valid sender user names. </summary>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="emailServiceName"> The name of the EmailService resource. </param>
+        /// <param name="domainName"> The name of the Domains resource. </param>
+        /// <param name="content"> Input parameters to remove valid sender user name. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="emailServiceName"/>, <paramref name="domainName"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="emailServiceName"/> or <paramref name="domainName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response RemoveValidSenderUsernames(string subscriptionId, string resourceGroupName, string emailServiceName, string domainName, RemoveValidSenderUsernameContent content, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(emailServiceName, nameof(emailServiceName));
+            Argument.AssertNotNullOrEmpty(domainName, nameof(domainName));
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var message = CreateRemoveValidSenderUsernamesRequest(subscriptionId, resourceGroupName, emailServiceName, domainName, content);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    return message.Response;
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        internal HttpMessage CreateListSuppressedEmailAddressesRequest(string subscriptionId, string resourceGroupName, string emailServiceName, string domainName, SuppressionListContent content, int? top, string skipToken)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Post;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/subscriptions/", false);
+            uri.AppendPath(subscriptionId, true);
+            uri.AppendPath("/resourceGroups/", false);
+            uri.AppendPath(resourceGroupName, true);
+            uri.AppendPath("/providers/Microsoft.Communication/emailServices/", false);
+            uri.AppendPath(emailServiceName, true);
+            uri.AppendPath("/domains/", false);
+            uri.AppendPath(domainName, true);
+            uri.AppendPath("/listSuppressedEmailAddresses", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            if (top != null)
+            {
+                uri.AppendQuery("$top", top.Value, true);
+            }
+            if (skipToken != null)
+            {
+                uri.AppendQuery("$skipToken", skipToken, true);
+            }
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            if (content != null)
+            {
+                request.Headers.Add("Content-Type", "application/json");
+                var content0 = new Utf8JsonRequestContent();
+                content0.JsonWriter.WriteObjectValue(content);
+                request.Content = content0;
+            }
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> Get a list of suppressed email addresses. </summary>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="emailServiceName"> The name of the EmailService resource. </param>
+        /// <param name="domainName"> The name of the Domains resource. </param>
+        /// <param name="content"> Optional parameter to fetch suppression list associated with a valid sender user name. When this parameter is not present, by default the domain level suppression list will be returned. </param>
+        /// <param name="top"> The maximum number of records to include in a single response. This value is honored if the specified value is smaller than server&apos;s default page size. </param>
+        /// <param name="skipToken"> SkipToken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element, the value of the nextLink element will include a skipToken parameter that specifies a starting point for subsequent calls. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="emailServiceName"/> or <paramref name="domainName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="emailServiceName"/> or <paramref name="domainName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<SuppressionListResponse>> ListSuppressedEmailAddressesAsync(string subscriptionId, string resourceGroupName, string emailServiceName, string domainName, SuppressionListContent content = null, int? top = null, string skipToken = null, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(emailServiceName, nameof(emailServiceName));
+            Argument.AssertNotNullOrEmpty(domainName, nameof(domainName));
+
+            using var message = CreateListSuppressedEmailAddressesRequest(subscriptionId, resourceGroupName, emailServiceName, domainName, content, top, skipToken);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        SuppressionListResponse value = default;
+                        using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+                        value = SuppressionListResponse.DeserializeSuppressionListResponse(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> Get a list of suppressed email addresses. </summary>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="emailServiceName"> The name of the EmailService resource. </param>
+        /// <param name="domainName"> The name of the Domains resource. </param>
+        /// <param name="content"> Optional parameter to fetch suppression list associated with a valid sender user name. When this parameter is not present, by default the domain level suppression list will be returned. </param>
+        /// <param name="top"> The maximum number of records to include in a single response. This value is honored if the specified value is smaller than server&apos;s default page size. </param>
+        /// <param name="skipToken"> SkipToken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element, the value of the nextLink element will include a skipToken parameter that specifies a starting point for subsequent calls. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="emailServiceName"/> or <paramref name="domainName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="emailServiceName"/> or <paramref name="domainName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<SuppressionListResponse> ListSuppressedEmailAddresses(string subscriptionId, string resourceGroupName, string emailServiceName, string domainName, SuppressionListContent content = null, int? top = null, string skipToken = null, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(emailServiceName, nameof(emailServiceName));
+            Argument.AssertNotNullOrEmpty(domainName, nameof(domainName));
+
+            using var message = CreateListSuppressedEmailAddressesRequest(subscriptionId, resourceGroupName, emailServiceName, domainName, content, top, skipToken);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        SuppressionListResponse value = default;
+                        using var document = JsonDocument.Parse(message.Response.ContentStream);
+                        value = SuppressionListResponse.DeserializeSuppressionListResponse(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        internal HttpMessage CreateAddSuppressedEmailAddressesRequest(string subscriptionId, string resourceGroupName, string emailServiceName, string domainName, SuppressionListAddContent content)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Post;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/subscriptions/", false);
+            uri.AppendPath(subscriptionId, true);
+            uri.AppendPath("/resourceGroups/", false);
+            uri.AppendPath(resourceGroupName, true);
+            uri.AppendPath("/providers/Microsoft.Communication/emailServices/", false);
+            uri.AppendPath(emailServiceName, true);
+            uri.AppendPath("/domains/", false);
+            uri.AppendPath(domainName, true);
+            uri.AppendPath("/addSuppressedEmailAddresses", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            request.Headers.Add("Content-Type", "application/json");
+            var content0 = new Utf8JsonRequestContent();
+            content0.JsonWriter.WriteObjectValue(content);
+            request.Content = content0;
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> Add email addresses to the suppression list. </summary>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="emailServiceName"> The name of the EmailService resource. </param>
+        /// <param name="domainName"> The name of the Domains resource. </param>
+        /// <param name="content"> Input parameters for adding email addresses to a suppression list. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="emailServiceName"/>, <paramref name="domainName"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="emailServiceName"/> or <paramref name="domainName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response> AddSuppressedEmailAddressesAsync(string subscriptionId, string resourceGroupName, string emailServiceName, string domainName, SuppressionListAddContent content, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(emailServiceName, nameof(emailServiceName));
+            Argument.AssertNotNullOrEmpty(domainName, nameof(domainName));
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var message = CreateAddSuppressedEmailAddressesRequest(subscriptionId, resourceGroupName, emailServiceName, domainName, content);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    return message.Response;
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> Add email addresses to the suppression list. </summary>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="emailServiceName"> The name of the EmailService resource. </param>
+        /// <param name="domainName"> The name of the Domains resource. </param>
+        /// <param name="content"> Input parameters for adding email addresses to a suppression list. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="emailServiceName"/>, <paramref name="domainName"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="emailServiceName"/> or <paramref name="domainName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response AddSuppressedEmailAddresses(string subscriptionId, string resourceGroupName, string emailServiceName, string domainName, SuppressionListAddContent content, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(emailServiceName, nameof(emailServiceName));
+            Argument.AssertNotNullOrEmpty(domainName, nameof(domainName));
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var message = CreateAddSuppressedEmailAddressesRequest(subscriptionId, resourceGroupName, emailServiceName, domainName, content);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    return message.Response;
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        internal HttpMessage CreateRemoveSuppressedEmailAddressesRequest(string subscriptionId, string resourceGroupName, string emailServiceName, string domainName, SuppressionListRemoveContent content)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Post;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/subscriptions/", false);
+            uri.AppendPath(subscriptionId, true);
+            uri.AppendPath("/resourceGroups/", false);
+            uri.AppendPath(resourceGroupName, true);
+            uri.AppendPath("/providers/Microsoft.Communication/emailServices/", false);
+            uri.AppendPath(emailServiceName, true);
+            uri.AppendPath("/domains/", false);
+            uri.AppendPath(domainName, true);
+            uri.AppendPath("/removeSuppressedEmailAddresses", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            request.Headers.Add("Content-Type", "application/json");
+            var content0 = new Utf8JsonRequestContent();
+            content0.JsonWriter.WriteObjectValue(content);
+            request.Content = content0;
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> Remove email addresses from the suppression list. </summary>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="emailServiceName"> The name of the EmailService resource. </param>
+        /// <param name="domainName"> The name of the Domains resource. </param>
+        /// <param name="content"> Input parameters for removing email addresses from a suppression list. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="emailServiceName"/>, <paramref name="domainName"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="emailServiceName"/> or <paramref name="domainName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response> RemoveSuppressedEmailAddressesAsync(string subscriptionId, string resourceGroupName, string emailServiceName, string domainName, SuppressionListRemoveContent content, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(emailServiceName, nameof(emailServiceName));
+            Argument.AssertNotNullOrEmpty(domainName, nameof(domainName));
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var message = CreateRemoveSuppressedEmailAddressesRequest(subscriptionId, resourceGroupName, emailServiceName, domainName, content);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    return message.Response;
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> Remove email addresses from the suppression list. </summary>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="emailServiceName"> The name of the EmailService resource. </param>
+        /// <param name="domainName"> The name of the Domains resource. </param>
+        /// <param name="content"> Input parameters for removing email addresses from a suppression list. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="emailServiceName"/>, <paramref name="domainName"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="emailServiceName"/> or <paramref name="domainName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response RemoveSuppressedEmailAddresses(string subscriptionId, string resourceGroupName, string emailServiceName, string domainName, SuppressionListRemoveContent content, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(emailServiceName, nameof(emailServiceName));
+            Argument.AssertNotNullOrEmpty(domainName, nameof(domainName));
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var message = CreateRemoveSuppressedEmailAddressesRequest(subscriptionId, resourceGroupName, emailServiceName, domainName, content);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    return message.Response;
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
         internal HttpMessage CreateListByEmailServiceResourceNextPageRequest(string nextLink, string subscriptionId, string resourceGroupName, string emailServiceName)
         {
             var message = _pipeline.CreateMessage();
@@ -685,6 +1208,92 @@ namespace Azure.ResourceManager.Communication
                         DomainResourceList value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
                         value = DomainResourceList.DeserializeDomainResourceList(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        internal HttpMessage CreateListSuppressedEmailAddressesNextPageRequest(string nextLink, string subscriptionId, string resourceGroupName, string emailServiceName, string domainName, SuppressionListContent content, int? top, string skipToken)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Get;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendRawNextLink(nextLink, false);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> Get a list of suppressed email addresses. </summary>
+        /// <param name="nextLink"> The URL to the next page of results. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="emailServiceName"> The name of the EmailService resource. </param>
+        /// <param name="domainName"> The name of the Domains resource. </param>
+        /// <param name="content"> Optional parameter to fetch suppression list associated with a valid sender user name. When this parameter is not present, by default the domain level suppression list will be returned. </param>
+        /// <param name="top"> The maximum number of records to include in a single response. This value is honored if the specified value is smaller than server&apos;s default page size. </param>
+        /// <param name="skipToken"> SkipToken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element, the value of the nextLink element will include a skipToken parameter that specifies a starting point for subsequent calls. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="emailServiceName"/> or <paramref name="domainName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="emailServiceName"/> or <paramref name="domainName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<SuppressionListResponse>> ListSuppressedEmailAddressesNextPageAsync(string nextLink, string subscriptionId, string resourceGroupName, string emailServiceName, string domainName, SuppressionListContent content = null, int? top = null, string skipToken = null, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(nextLink, nameof(nextLink));
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(emailServiceName, nameof(emailServiceName));
+            Argument.AssertNotNullOrEmpty(domainName, nameof(domainName));
+
+            using var message = CreateListSuppressedEmailAddressesNextPageRequest(nextLink, subscriptionId, resourceGroupName, emailServiceName, domainName, content, top, skipToken);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        SuppressionListResponse value = default;
+                        using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+                        value = SuppressionListResponse.DeserializeSuppressionListResponse(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> Get a list of suppressed email addresses. </summary>
+        /// <param name="nextLink"> The URL to the next page of results. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="emailServiceName"> The name of the EmailService resource. </param>
+        /// <param name="domainName"> The name of the Domains resource. </param>
+        /// <param name="content"> Optional parameter to fetch suppression list associated with a valid sender user name. When this parameter is not present, by default the domain level suppression list will be returned. </param>
+        /// <param name="top"> The maximum number of records to include in a single response. This value is honored if the specified value is smaller than server&apos;s default page size. </param>
+        /// <param name="skipToken"> SkipToken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element, the value of the nextLink element will include a skipToken parameter that specifies a starting point for subsequent calls. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="emailServiceName"/> or <paramref name="domainName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="emailServiceName"/> or <paramref name="domainName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<SuppressionListResponse> ListSuppressedEmailAddressesNextPage(string nextLink, string subscriptionId, string resourceGroupName, string emailServiceName, string domainName, SuppressionListContent content = null, int? top = null, string skipToken = null, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(nextLink, nameof(nextLink));
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(emailServiceName, nameof(emailServiceName));
+            Argument.AssertNotNullOrEmpty(domainName, nameof(domainName));
+
+            using var message = CreateListSuppressedEmailAddressesNextPageRequest(nextLink, subscriptionId, resourceGroupName, emailServiceName, domainName, content, top, skipToken);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        SuppressionListResponse value = default;
+                        using var document = JsonDocument.Parse(message.Response.ContentStream);
+                        value = SuppressionListResponse.DeserializeSuppressionListResponse(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:

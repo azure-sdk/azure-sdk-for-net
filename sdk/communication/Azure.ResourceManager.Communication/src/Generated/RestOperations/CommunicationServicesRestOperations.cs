@@ -33,7 +33,7 @@ namespace Azure.ResourceManager.Communication
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2021-10-01-preview";
+            _apiVersion = apiVersion ?? "2022-10-01-preview";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
@@ -774,7 +774,6 @@ namespace Azure.ResourceManager.Communication
             switch (message.Response.Status)
             {
                 case 200:
-                case 201:
                     return message.Response;
                 default:
                     throw new RequestFailedException(message.Response);
@@ -801,7 +800,6 @@ namespace Azure.ResourceManager.Communication
             switch (message.Response.Status)
             {
                 case 200:
-                case 201:
                     return message.Response;
                 default:
                     throw new RequestFailedException(message.Response);

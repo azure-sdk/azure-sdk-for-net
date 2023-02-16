@@ -6,8 +6,12 @@ namespace Azure.ResourceManager.Communication
         protected CommunicationDomainResource() { }
         public virtual Azure.ResourceManager.Communication.CommunicationDomainResourceData Data { get { throw null; } }
         public virtual bool HasData { get { throw null; } }
+        public virtual Azure.Response AddSuppressedEmailAddresses(Azure.ResourceManager.Communication.Models.SuppressionListAddContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response> AddSuppressedEmailAddressesAsync(Azure.ResourceManager.Communication.Models.SuppressionListAddContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.Communication.CommunicationDomainResource> AddTag(string key, string value, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Communication.CommunicationDomainResource>> AddTagAsync(string key, string value, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response AddValidSenderUsernames(Azure.ResourceManager.Communication.Models.ValidSenderUsernameCollection validSenderCollection, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response> AddValidSenderUsernamesAsync(Azure.ResourceManager.Communication.Models.ValidSenderUsernameCollection validSenderCollection, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.ResourceManager.ArmOperation CancelVerification(Azure.WaitUntil waitUntil, Azure.ResourceManager.Communication.Models.DomainsRecordVerificationContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation> CancelVerificationAsync(Azure.WaitUntil waitUntil, Azure.ResourceManager.Communication.Models.DomainsRecordVerificationContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static Azure.Core.ResourceIdentifier CreateResourceIdentifier(string subscriptionId, string resourceGroupName, string emailServiceName, string domainName) { throw null; }
@@ -15,10 +19,18 @@ namespace Azure.ResourceManager.Communication
         public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation> DeleteAsync(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.Communication.CommunicationDomainResource> Get(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Communication.CommunicationDomainResource>> GetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Pageable<Azure.ResourceManager.Communication.Models.SuppressionListRecordDto> GetSuppressedEmailAddresses(Azure.ResourceManager.Communication.Models.SuppressionListContent content = null, int? top = default(int?), string skipToken = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.AsyncPageable<Azure.ResourceManager.Communication.Models.SuppressionListRecordDto> GetSuppressedEmailAddressesAsync(Azure.ResourceManager.Communication.Models.SuppressionListContent content = null, int? top = default(int?), string skipToken = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Pageable<Azure.ResourceManager.Communication.Models.ValidSenderUsername> GetValidSenderUsernames(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.AsyncPageable<Azure.ResourceManager.Communication.Models.ValidSenderUsername> GetValidSenderUsernamesAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.ResourceManager.ArmOperation InitiateVerification(Azure.WaitUntil waitUntil, Azure.ResourceManager.Communication.Models.DomainsRecordVerificationContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation> InitiateVerificationAsync(Azure.WaitUntil waitUntil, Azure.ResourceManager.Communication.Models.DomainsRecordVerificationContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response RemoveSuppressedEmailAddresses(Azure.ResourceManager.Communication.Models.SuppressionListRemoveContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response> RemoveSuppressedEmailAddressesAsync(Azure.ResourceManager.Communication.Models.SuppressionListRemoveContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.Communication.CommunicationDomainResource> RemoveTag(string key, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Communication.CommunicationDomainResource>> RemoveTagAsync(string key, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response RemoveValidSenderUsernames(Azure.ResourceManager.Communication.Models.RemoveValidSenderUsernameContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response> RemoveValidSenderUsernamesAsync(Azure.ResourceManager.Communication.Models.RemoveValidSenderUsernameContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.Communication.CommunicationDomainResource> SetTags(System.Collections.Generic.IDictionary<string, string> tags, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Communication.CommunicationDomainResource>> SetTagsAsync(System.Collections.Generic.IDictionary<string, string> tags, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Communication.CommunicationDomainResource> Update(Azure.WaitUntil waitUntil, Azure.ResourceManager.Communication.Models.CommunicationDomainResourcePatch patch, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
@@ -48,7 +60,6 @@ namespace Azure.ResourceManager.Communication
         public string MailFromSenderDomain { get { throw null; } }
         public Azure.ResourceManager.Communication.Models.DomainProvisioningState? ProvisioningState { get { throw null; } }
         public Azure.ResourceManager.Communication.Models.UserEngagementTracking? UserEngagementTracking { get { throw null; } set { } }
-        public System.Collections.Generic.IDictionary<string, string> ValidSenderUsernames { get { throw null; } }
         public Azure.ResourceManager.Communication.Models.DomainPropertiesVerificationRecords VerificationRecords { get { throw null; } }
         public Azure.ResourceManager.Communication.Models.DomainPropertiesVerificationStates VerificationStates { get { throw null; } }
     }
@@ -180,7 +191,6 @@ namespace Azure.ResourceManager.Communication.Models
     {
         public CommunicationDomainResourcePatch() { }
         public Azure.ResourceManager.Communication.Models.UserEngagementTracking? UserEngagementTracking { get { throw null; } set { } }
-        public System.Collections.Generic.IDictionary<string, string> ValidSenderUsernames { get { throw null; } }
     }
     public partial class CommunicationNameAvailabilityContent
     {
@@ -421,6 +431,46 @@ namespace Azure.ResourceManager.Communication.Models
         public RegenerateCommunicationServiceKeyContent() { }
         public Azure.ResourceManager.Communication.Models.CommunicationServiceKeyType? KeyType { get { throw null; } set { } }
     }
+    public partial class RemoveValidSenderUsernameContent
+    {
+        public RemoveValidSenderUsernameContent(System.Collections.Generic.IEnumerable<string> validSenderUsernameList) { }
+        public System.Collections.Generic.IList<string> ValidSenderUsernameList { get { throw null; } }
+    }
+    public partial class SuppressionListAddContent
+    {
+        public SuppressionListAddContent(System.Collections.Generic.IEnumerable<Azure.ResourceManager.Communication.Models.SuppressionListAddressInfo> addressInfoList) { }
+        public System.Collections.Generic.IList<Azure.ResourceManager.Communication.Models.SuppressionListAddressInfo> AddressInfoList { get { throw null; } }
+        public string ValidSenderUsername { get { throw null; } set { } }
+    }
+    public partial class SuppressionListAddressInfo
+    {
+        public SuppressionListAddressInfo(string email) { }
+        public string Email { get { throw null; } }
+        public string FirstName { get { throw null; } set { } }
+        public string LastName { get { throw null; } set { } }
+        public string Notes { get { throw null; } set { } }
+    }
+    public partial class SuppressionListContent
+    {
+        public SuppressionListContent(string validSenderUsername) { }
+        public string ValidSenderUsername { get { throw null; } }
+    }
+    public partial class SuppressionListRecordDto
+    {
+        internal SuppressionListRecordDto() { }
+        public string Email { get { throw null; } }
+        public string FirstName { get { throw null; } }
+        public string LastName { get { throw null; } }
+        public string LastUpdated { get { throw null; } }
+        public string ListId { get { throw null; } }
+        public string Notes { get { throw null; } }
+    }
+    public partial class SuppressionListRemoveContent
+    {
+        public SuppressionListRemoveContent(System.Collections.Generic.IEnumerable<string> addresses) { }
+        public System.Collections.Generic.IList<string> Addresses { get { throw null; } }
+        public string ValidSenderUsername { get { throw null; } set { } }
+    }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct UserEngagementTracking : System.IEquatable<Azure.ResourceManager.Communication.Models.UserEngagementTracking>
     {
@@ -438,6 +488,17 @@ namespace Azure.ResourceManager.Communication.Models
         public static implicit operator Azure.ResourceManager.Communication.Models.UserEngagementTracking (string value) { throw null; }
         public static bool operator !=(Azure.ResourceManager.Communication.Models.UserEngagementTracking left, Azure.ResourceManager.Communication.Models.UserEngagementTracking right) { throw null; }
         public override string ToString() { throw null; }
+    }
+    public partial class ValidSenderUsername
+    {
+        public ValidSenderUsername(string name, string displayName) { }
+        public string DisplayName { get { throw null; } set { } }
+        public string Name { get { throw null; } set { } }
+    }
+    public partial class ValidSenderUsernameCollection
+    {
+        public ValidSenderUsernameCollection(System.Collections.Generic.IEnumerable<Azure.ResourceManager.Communication.Models.ValidSenderUsername> value) { }
+        public System.Collections.Generic.IList<Azure.ResourceManager.Communication.Models.ValidSenderUsername> Value { get { throw null; } }
     }
     public partial class VerificationDnsRecord
     {
