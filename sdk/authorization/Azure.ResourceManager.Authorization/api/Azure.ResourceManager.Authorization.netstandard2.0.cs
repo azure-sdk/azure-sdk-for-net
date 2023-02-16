@@ -141,10 +141,14 @@ namespace Azure.ResourceManager.Authorization
     {
         public AuthorizationRoleDefinitionData() { }
         public System.Collections.Generic.IList<string> AssignableScopes { get { throw null; } }
+        public string CreatedBy { get { throw null; } }
+        public System.DateTimeOffset? CreatedOn { get { throw null; } }
         public string Description { get { throw null; } set { } }
         public System.Collections.Generic.IList<Azure.ResourceManager.Authorization.Models.RoleDefinitionPermission> Permissions { get { throw null; } }
         public string RoleName { get { throw null; } set { } }
         public Azure.ResourceManager.Authorization.Models.AuthorizationRoleType? RoleType { get { throw null; } set { } }
+        public string UpdatedBy { get { throw null; } }
+        public System.DateTimeOffset? UpdatedOn { get { throw null; } }
     }
     public partial class AuthorizationRoleDefinitionResource : Azure.ResourceManager.ArmResource
     {
@@ -176,6 +180,10 @@ namespace Azure.ResourceManager.Authorization
     public partial class DenyAssignmentData : Azure.ResourceManager.Models.ResourceData
     {
         internal DenyAssignmentData() { }
+        public string Condition { get { throw null; } }
+        public string ConditionVersion { get { throw null; } }
+        public string CreatedBy { get { throw null; } }
+        public System.DateTimeOffset? CreatedOn { get { throw null; } }
         public string DenyAssignmentName { get { throw null; } }
         public string Description { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Authorization.Models.RoleManagementPrincipal> ExcludePrincipals { get { throw null; } }
@@ -184,6 +192,8 @@ namespace Azure.ResourceManager.Authorization
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Authorization.Models.DenyAssignmentPermission> Permissions { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Authorization.Models.RoleManagementPrincipal> Principals { get { throw null; } }
         public string Scope { get { throw null; } }
+        public string UpdatedBy { get { throw null; } }
+        public System.DateTimeOffset? UpdatedOn { get { throw null; } }
     }
     public partial class DenyAssignmentResource : Azure.ResourceManager.ArmResource
     {
