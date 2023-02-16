@@ -11,7 +11,7 @@ namespace Azure.ResourceManager.SecurityCenter.Models
     public partial class BenchmarkReference
     {
         /// <summary> Initializes a new instance of BenchmarkReference. </summary>
-        public BenchmarkReference()
+        internal BenchmarkReference()
         {
         }
 
@@ -25,8 +25,8 @@ namespace Azure.ResourceManager.SecurityCenter.Models
         }
 
         /// <summary> The benchmark name. </summary>
-        public string Benchmark { get; set; }
+        public string Benchmark { get; }
         /// <summary> The benchmark reference. </summary>
-        public string Reference { get; set; }
+        public string Reference { get; }
     }
 }

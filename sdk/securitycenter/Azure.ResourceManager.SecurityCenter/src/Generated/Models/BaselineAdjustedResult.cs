@@ -14,7 +14,7 @@ namespace Azure.ResourceManager.SecurityCenter.Models
     public partial class BaselineAdjustedResult
     {
         /// <summary> Initializes a new instance of BaselineAdjustedResult. </summary>
-        public BaselineAdjustedResult()
+        internal BaselineAdjustedResult()
         {
             ResultsNotInBaseline = new ChangeTrackingList<IList<string>>();
             ResultsOnlyInBaseline = new ChangeTrackingList<IList<string>>();
@@ -25,7 +25,7 @@ namespace Azure.ResourceManager.SecurityCenter.Models
         /// <param name="status"> The rule result status. </param>
         /// <param name="resultsNotInBaseline"> Results the are not in baseline. </param>
         /// <param name="resultsOnlyInBaseline"> Results the are in baseline. </param>
-        internal BaselineAdjustedResult(SqlVulnerabilityAssessmentBaseline baseline, SqlVulnerabilityAssessmentScanResultRuleStatus? status, IList<IList<string>> resultsNotInBaseline, IList<IList<string>> resultsOnlyInBaseline)
+        internal BaselineAdjustedResult(SqlVulnerabilityAssessmentBaseline baseline, SqlVulnerabilityAssessmentScanResultRuleStatus? status, IReadOnlyList<IList<string>> resultsNotInBaseline, IReadOnlyList<IList<string>> resultsOnlyInBaseline)
         {
             Baseline = baseline;
             Status = status;
@@ -34,12 +34,12 @@ namespace Azure.ResourceManager.SecurityCenter.Models
         }
 
         /// <summary> Baseline details. </summary>
-        public SqlVulnerabilityAssessmentBaseline Baseline { get; set; }
+        public SqlVulnerabilityAssessmentBaseline Baseline { get; }
         /// <summary> The rule result status. </summary>
-        public SqlVulnerabilityAssessmentScanResultRuleStatus? Status { get; set; }
+        public SqlVulnerabilityAssessmentScanResultRuleStatus? Status { get; }
         /// <summary> Results the are not in baseline. </summary>
-        public IList<IList<string>> ResultsNotInBaseline { get; }
+        public IReadOnlyList<IList<string>> ResultsNotInBaseline { get; }
         /// <summary> Results the are in baseline. </summary>
-        public IList<IList<string>> ResultsOnlyInBaseline { get; }
+        public IReadOnlyList<IList<string>> ResultsOnlyInBaseline { get; }
     }
 }
