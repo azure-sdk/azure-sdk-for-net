@@ -66,7 +66,7 @@ namespace Microsoft.Azure.Management.Network
         Task<AzureOperationResponse<IPage<WebApplicationFirewallPolicy>>> ListAllWithHttpMessagesAsync(Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Retrieve protection policy with specified name within a resource
-        /// group.
+        /// group. test
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group.

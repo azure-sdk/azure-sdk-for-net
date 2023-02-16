@@ -85,6 +85,7 @@ namespace Microsoft.Azure.Management.Network
 
             /// <summary>
             /// Retrieve protection policy with specified name within a resource group.
+            /// test
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -102,6 +103,7 @@ namespace Microsoft.Azure.Management.Network
 
             /// <summary>
             /// Retrieve protection policy with specified name within a resource group.
+            /// test
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
