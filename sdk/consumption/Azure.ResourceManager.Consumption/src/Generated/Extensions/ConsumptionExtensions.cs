@@ -29,6 +29,48 @@ namespace Azure.ResourceManager.Consumption
             );
         }
 
+        /// <summary>
+        /// Lists all of the available consumption REST API operations.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/providers/Microsoft.Consumption/operations</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>OperationsResult_List</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> An async collection of <see cref="OperationV2" /> that may take multiple service requests to iterate over. </returns>
+        public static AsyncPageable<OperationV2> GetOperationsResultsAsync(this TenantResource tenantResource, CancellationToken cancellationToken = default)
+        {
+            return GetExtensionClient(tenantResource).GetOperationsResultsAsync(cancellationToken);
+        }
+
+        /// <summary>
+        /// Lists all of the available consumption REST API operations.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/providers/Microsoft.Consumption/operations</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>OperationsResult_List</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="OperationV2" /> that may take multiple service requests to iterate over. </returns>
+        public static Pageable<OperationV2> GetOperationsResults(this TenantResource tenantResource, CancellationToken cancellationToken = default)
+        {
+            return GetExtensionClient(tenantResource).GetOperationsResults(cancellationToken);
+        }
+
         private static SubscriptionResourceExtensionClient GetExtensionClient(SubscriptionResource subscriptionResource)
         {
             return subscriptionResource.GetCachedClient((client) =>
@@ -82,6 +124,108 @@ namespace Azure.ResourceManager.Consumption
         public static Response<PriceSheetResult> GetPriceSheet(this SubscriptionResource subscriptionResource, string expand = null, string skipToken = null, int? top = null, CancellationToken cancellationToken = default)
         {
             return GetExtensionClient(subscriptionResource).GetPriceSheet(expand, skipToken, top, cancellationToken);
+        }
+
+        /// <summary>
+        /// List the price sheet for a subscription. Price sheet is available via this API only for May 1, 2014 or later.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Consumption/pricesheets/default</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>PriceSheets_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
+        /// <param name="expand"> May be used to expand the properties/meterDetails within a price sheet. By default, these fields are not included when returning price sheet. </param>
+        /// <param name="skiptoken"> Skiptoken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element, the value of the nextLink element will include a skiptoken parameter that specifies a starting point to use for subsequent calls. </param>
+        /// <param name="top"> May be used to limit the number of results to the top N results. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public static async Task<Response<PriceSheetResultV2>> GetPriceSheetAsync(this SubscriptionResource subscriptionResource, string expand = null, string skiptoken = null, int? top = null, CancellationToken cancellationToken = default)
+        {
+            return await GetExtensionClient(subscriptionResource).GetPriceSheetAsync(expand, skiptoken, top, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// List the price sheet for a subscription. Price sheet is available via this API only for May 1, 2014 or later.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Consumption/pricesheets/default</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>PriceSheets_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
+        /// <param name="expand"> May be used to expand the properties/meterDetails within a price sheet. By default, these fields are not included when returning price sheet. </param>
+        /// <param name="skiptoken"> Skiptoken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element, the value of the nextLink element will include a skiptoken parameter that specifies a starting point to use for subsequent calls. </param>
+        /// <param name="top"> May be used to limit the number of results to the top N results. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public static Response<PriceSheetResultV2> GetPriceSheet(this SubscriptionResource subscriptionResource, string expand = null, string skiptoken = null, int? top = null, CancellationToken cancellationToken = default)
+        {
+            return GetExtensionClient(subscriptionResource).GetPriceSheet(expand, skiptoken, top, cancellationToken);
+        }
+
+        /// <summary>
+        /// Get the price sheet for a scope by subscriptionId and billing period. Price sheet is available via this API only for May 1, 2014 or later.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Billing/billingPeriods/{billingPeriodName}/providers/Microsoft.Consumption/pricesheets/default</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>PriceSheets_GetByBillingPeriod</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
+        /// <param name="billingPeriodName"> Billing Period Name. </param>
+        /// <param name="expand"> May be used to expand the properties/meterDetails within a price sheet. By default, these fields are not included when returning price sheet. </param>
+        /// <param name="skiptoken"> Skiptoken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element, the value of the nextLink element will include a skiptoken parameter that specifies a starting point to use for subsequent calls. </param>
+        /// <param name="top"> May be used to limit the number of results to the top N results. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="billingPeriodName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="billingPeriodName"/> is null. </exception>
+        public static async Task<Response<PriceSheetResultV2>> GetByBillingPeriodPriceSheetAsync(this SubscriptionResource subscriptionResource, string billingPeriodName, string expand = null, string skiptoken = null, int? top = null, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(billingPeriodName, nameof(billingPeriodName));
+
+            return await GetExtensionClient(subscriptionResource).GetByBillingPeriodPriceSheetAsync(billingPeriodName, expand, skiptoken, top, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Get the price sheet for a scope by subscriptionId and billing period. Price sheet is available via this API only for May 1, 2014 or later.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Billing/billingPeriods/{billingPeriodName}/providers/Microsoft.Consumption/pricesheets/default</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>PriceSheets_GetByBillingPeriod</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
+        /// <param name="billingPeriodName"> Billing Period Name. </param>
+        /// <param name="expand"> May be used to expand the properties/meterDetails within a price sheet. By default, these fields are not included when returning price sheet. </param>
+        /// <param name="skiptoken"> Skiptoken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element, the value of the nextLink element will include a skiptoken parameter that specifies a starting point to use for subsequent calls. </param>
+        /// <param name="top"> May be used to limit the number of results to the top N results. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="billingPeriodName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="billingPeriodName"/> is null. </exception>
+        public static Response<PriceSheetResultV2> GetByBillingPeriodPriceSheet(this SubscriptionResource subscriptionResource, string billingPeriodName, string expand = null, string skiptoken = null, int? top = null, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(billingPeriodName, nameof(billingPeriodName));
+
+            return GetExtensionClient(subscriptionResource).GetByBillingPeriodPriceSheet(billingPeriodName, expand, skiptoken, top, cancellationToken);
         }
 
         private static ManagementGroupResourceExtensionClient GetExtensionClient(ManagementGroupResource managementGroupResource)
