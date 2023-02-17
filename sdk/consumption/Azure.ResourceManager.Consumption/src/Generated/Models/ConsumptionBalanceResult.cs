@@ -38,6 +38,7 @@ namespace Azure.ResourceManager.Consumption.Models
         /// <param name="chargesBilledSeparately"> Charges Billed separately. </param>
         /// <param name="totalOverage"> serviceOverage + chargesBilledSeparately. </param>
         /// <param name="totalUsage"> Azure service commitment + total Overage. </param>
+        /// <param name="refundedOverageCredits"> Refunded Overage Credits. </param>
         /// <param name="azureMarketplaceServiceCharges"> Total charges for Azure Marketplace. </param>
         /// <param name="billingFrequency"> The billing frequency. </param>
         /// <param name="isPriceHidden"> Price is hidden or not. </param>
@@ -45,7 +46,7 @@ namespace Azure.ResourceManager.Consumption.Models
         /// <param name="adjustmentDetails"> List of Adjustments (Promo credit, SIE credit etc.). </param>
         /// <param name="etag"> The etag for the resource. </param>
         /// <param name="tags"> Resource tags. </param>
-        internal ConsumptionBalanceResult(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string currency, decimal? beginningBalance, decimal? endingBalance, decimal? newPurchases, decimal? adjustments, decimal? utilized, decimal? serviceOverage, decimal? chargesBilledSeparately, decimal? totalOverage, decimal? totalUsage, decimal? azureMarketplaceServiceCharges, ConsumptionBillingFrequency? billingFrequency, bool? isPriceHidden, IReadOnlyList<ConsumptionBalanceNewPurchasesDetail> newPurchasesDetails, IReadOnlyList<ConsumptionBalanceAdjustmentDetail> adjustmentDetails, ETag? etag, IReadOnlyDictionary<string, string> tags) : base(id, name, resourceType, systemData)
+        internal ConsumptionBalanceResult(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string currency, decimal? beginningBalance, decimal? endingBalance, decimal? newPurchases, decimal? adjustments, decimal? utilized, decimal? serviceOverage, decimal? chargesBilledSeparately, decimal? totalOverage, decimal? totalUsage, decimal? refundedOverageCredits, decimal? azureMarketplaceServiceCharges, ConsumptionBillingFrequency? billingFrequency, bool? isPriceHidden, IReadOnlyList<ConsumptionBalanceNewPurchasesDetail> newPurchasesDetails, IReadOnlyList<ConsumptionBalanceAdjustmentDetail> adjustmentDetails, ETag? etag, IReadOnlyDictionary<string, string> tags) : base(id, name, resourceType, systemData)
         {
             Currency = currency;
             BeginningBalance = beginningBalance;
@@ -57,6 +58,7 @@ namespace Azure.ResourceManager.Consumption.Models
             ChargesBilledSeparately = chargesBilledSeparately;
             TotalOverage = totalOverage;
             TotalUsage = totalUsage;
+            RefundedOverageCredits = refundedOverageCredits;
             AzureMarketplaceServiceCharges = azureMarketplaceServiceCharges;
             BillingFrequency = billingFrequency;
             IsPriceHidden = isPriceHidden;
@@ -86,6 +88,8 @@ namespace Azure.ResourceManager.Consumption.Models
         public decimal? TotalOverage { get; }
         /// <summary> Azure service commitment + total Overage. </summary>
         public decimal? TotalUsage { get; }
+        /// <summary> Refunded Overage Credits. </summary>
+        public decimal? RefundedOverageCredits { get; }
         /// <summary> Total charges for Azure Marketplace. </summary>
         public decimal? AzureMarketplaceServiceCharges { get; }
         /// <summary> The billing frequency. </summary>
