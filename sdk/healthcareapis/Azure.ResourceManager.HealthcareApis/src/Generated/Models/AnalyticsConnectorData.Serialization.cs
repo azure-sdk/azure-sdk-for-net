@@ -5,7 +5,6 @@
 
 #nullable disable
 
-using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure;
@@ -15,7 +14,7 @@ using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.HealthcareApis
 {
-    public partial class DicomServiceData : IUtf8JsonSerializable
+    public partial class AnalyticsConnectorData : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
@@ -46,26 +45,31 @@ namespace Azure.ResourceManager.HealthcareApis
             writer.WriteStringValue(Location);
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
-            if (Optional.IsDefined(AuthenticationConfiguration))
+            if (Optional.IsDefined(DataSourceConfiguration))
             {
-                writer.WritePropertyName("authenticationConfiguration"u8);
-                writer.WriteObjectValue(AuthenticationConfiguration);
+                writer.WritePropertyName("dataSourceConfiguration"u8);
+                writer.WriteObjectValue(DataSourceConfiguration);
             }
-            if (Optional.IsDefined(CorsConfiguration))
+            if (Optional.IsDefined(DataMappingConfiguration))
             {
-                writer.WritePropertyName("corsConfiguration"u8);
-                writer.WriteObjectValue(CorsConfiguration);
+                writer.WritePropertyName("dataMappingConfiguration"u8);
+                writer.WriteObjectValue(DataMappingConfiguration);
             }
-            if (Optional.IsDefined(PublicNetworkAccess))
+            if (Optional.IsDefined(DataDestinationConfiguration))
             {
-                writer.WritePropertyName("publicNetworkAccess"u8);
-                writer.WriteStringValue(PublicNetworkAccess.Value.ToString());
+                writer.WritePropertyName("dataDestinationConfiguration"u8);
+                writer.WriteObjectValue(DataDestinationConfiguration);
+            }
+            if (Optional.IsDefined(SchedulerCronExpression))
+            {
+                writer.WritePropertyName("schedulerCronExpression"u8);
+                writer.WriteStringValue(SchedulerCronExpression);
             }
             writer.WriteEndObject();
             writer.WriteEndObject();
         }
 
-        internal static DicomServiceData DeserializeDicomServiceData(JsonElement element)
+        internal static AnalyticsConnectorData DeserializeAnalyticsConnectorData(JsonElement element)
         {
             Optional<ManagedServiceIdentity> identity = default;
             Optional<ETag> etag = default;
@@ -76,12 +80,10 @@ namespace Azure.ResourceManager.HealthcareApis
             ResourceType type = default;
             Optional<SystemData> systemData = default;
             Optional<HealthcareApisProvisioningState> provisioningState = default;
-            Optional<DicomServiceAuthenticationConfiguration> authenticationConfiguration = default;
-            Optional<DicomServiceCorsConfiguration> corsConfiguration = default;
-            Optional<Uri> serviceUrl = default;
-            Optional<IReadOnlyList<HealthcareApisPrivateEndpointConnectionData>> privateEndpointConnections = default;
-            Optional<HealthcareApisPublicNetworkAccess> publicNetworkAccess = default;
-            Optional<FhirServiceEventState> eventState = default;
+            Optional<AnalyticsConnectorDataSource> dataSourceConfiguration = default;
+            Optional<AnalyticsConnectorMapping> dataMappingConfiguration = default;
+            Optional<AnalyticsConnectorDataDestination> dataDestinationConfiguration = default;
+            Optional<string> schedulerCronExpression = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("identity"u8))
@@ -169,76 +171,46 @@ namespace Azure.ResourceManager.HealthcareApis
                             provisioningState = new HealthcareApisProvisioningState(property0.Value.GetString());
                             continue;
                         }
-                        if (property0.NameEquals("authenticationConfiguration"u8))
+                        if (property0.NameEquals("dataSourceConfiguration"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
                                 property0.ThrowNonNullablePropertyIsNull();
                                 continue;
                             }
-                            authenticationConfiguration = DicomServiceAuthenticationConfiguration.DeserializeDicomServiceAuthenticationConfiguration(property0.Value);
+                            dataSourceConfiguration = AnalyticsConnectorDataSource.DeserializeAnalyticsConnectorDataSource(property0.Value);
                             continue;
                         }
-                        if (property0.NameEquals("corsConfiguration"u8))
+                        if (property0.NameEquals("dataMappingConfiguration"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
                                 property0.ThrowNonNullablePropertyIsNull();
                                 continue;
                             }
-                            corsConfiguration = DicomServiceCorsConfiguration.DeserializeDicomServiceCorsConfiguration(property0.Value);
+                            dataMappingConfiguration = AnalyticsConnectorMapping.DeserializeAnalyticsConnectorMapping(property0.Value);
                             continue;
                         }
-                        if (property0.NameEquals("serviceUrl"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                serviceUrl = null;
-                                continue;
-                            }
-                            serviceUrl = new Uri(property0.Value.GetString());
-                            continue;
-                        }
-                        if (property0.NameEquals("privateEndpointConnections"u8))
+                        if (property0.NameEquals("dataDestinationConfiguration"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
                                 property0.ThrowNonNullablePropertyIsNull();
                                 continue;
                             }
-                            List<HealthcareApisPrivateEndpointConnectionData> array = new List<HealthcareApisPrivateEndpointConnectionData>();
-                            foreach (var item in property0.Value.EnumerateArray())
-                            {
-                                array.Add(HealthcareApisPrivateEndpointConnectionData.DeserializeHealthcareApisPrivateEndpointConnectionData(item));
-                            }
-                            privateEndpointConnections = array;
+                            dataDestinationConfiguration = AnalyticsConnectorDataDestination.DeserializeAnalyticsConnectorDataDestination(property0.Value);
                             continue;
                         }
-                        if (property0.NameEquals("publicNetworkAccess"u8))
+                        if (property0.NameEquals("schedulerCronExpression"u8))
                         {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                property0.ThrowNonNullablePropertyIsNull();
-                                continue;
-                            }
-                            publicNetworkAccess = new HealthcareApisPublicNetworkAccess(property0.Value.GetString());
-                            continue;
-                        }
-                        if (property0.NameEquals("eventState"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                property0.ThrowNonNullablePropertyIsNull();
-                                continue;
-                            }
-                            eventState = new FhirServiceEventState(property0.Value.GetString());
+                            schedulerCronExpression = property0.Value.GetString();
                             continue;
                         }
                     }
                     continue;
                 }
             }
-            return new DicomServiceData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, Optional.ToNullable(provisioningState), authenticationConfiguration.Value, corsConfiguration.Value, serviceUrl.Value, Optional.ToList(privateEndpointConnections), Optional.ToNullable(publicNetworkAccess), Optional.ToNullable(eventState), identity, Optional.ToNullable(etag));
+            return new AnalyticsConnectorData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, Optional.ToNullable(provisioningState), dataSourceConfiguration.Value, dataMappingConfiguration.Value, dataDestinationConfiguration.Value, schedulerCronExpression.Value, identity, Optional.ToNullable(etag));
         }
     }
 }
