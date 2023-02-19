@@ -8,14 +8,15 @@
 using System.Text.Json;
 using Azure.Core;
 using Azure.ResourceManager.Models;
+using Azure.ResourceManager.SecurityCenter.Models;
 
-namespace Azure.ResourceManager.SecurityCenter.Models
+namespace Azure.ResourceManager.SecurityCenter
 {
-    public partial class SqlVulnerabilityAssessmentScanResult
+    public partial class ScanV2Data
     {
-        internal static SqlVulnerabilityAssessmentScanResult DeserializeSqlVulnerabilityAssessmentScanResult(JsonElement element)
+        internal static ScanV2Data DeserializeScanV2Data(JsonElement element)
         {
-            Optional<SqlVulnerabilityAssessmentScanResultProperties> properties = default;
+            Optional<ScanPropertiesV2> properties = default;
             ResourceIdentifier id = default;
             string name = default;
             ResourceType type = default;
@@ -29,7 +30,7 @@ namespace Azure.ResourceManager.SecurityCenter.Models
                         property.ThrowNonNullablePropertyIsNull();
                         continue;
                     }
-                    properties = SqlVulnerabilityAssessmentScanResultProperties.DeserializeSqlVulnerabilityAssessmentScanResultProperties(property.Value);
+                    properties = ScanPropertiesV2.DeserializeScanPropertiesV2(property.Value);
                     continue;
                 }
                 if (property.NameEquals("id"u8))
@@ -58,7 +59,7 @@ namespace Azure.ResourceManager.SecurityCenter.Models
                     continue;
                 }
             }
-            return new SqlVulnerabilityAssessmentScanResult(id, name, type, systemData.Value, properties.Value);
+            return new ScanV2Data(id, name, type, systemData.Value, properties.Value);
         }
     }
 }

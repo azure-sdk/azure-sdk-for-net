@@ -8,38 +8,34 @@
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
+using Azure.ResourceManager.SecurityCenter;
 
 namespace Azure.ResourceManager.SecurityCenter.Models
 {
-    internal partial class RuleResultsProperties
+    internal partial class ScansV2
     {
-        internal static RuleResultsProperties DeserializeRuleResultsProperties(JsonElement element)
+        internal static ScansV2 DeserializeScansV2(JsonElement element)
         {
-            Optional<IReadOnlyList<IList<string>>> results = default;
+            Optional<IReadOnlyList<ScanV2Data>> value = default;
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("results"u8))
+                if (property.NameEquals("value"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
                         property.ThrowNonNullablePropertyIsNull();
                         continue;
                     }
-                    List<IList<string>> array = new List<IList<string>>();
+                    List<ScanV2Data> array = new List<ScanV2Data>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        List<string> array0 = new List<string>();
-                        foreach (var item0 in item.EnumerateArray())
-                        {
-                            array0.Add(item0.GetString());
-                        }
-                        array.Add(array0);
+                        array.Add(ScanV2Data.DeserializeScanV2Data(item));
                     }
-                    results = array;
+                    value = array;
                     continue;
                 }
             }
-            return new RuleResultsProperties(Optional.ToList(results));
+            return new ScansV2(Optional.ToList(value));
         }
     }
 }

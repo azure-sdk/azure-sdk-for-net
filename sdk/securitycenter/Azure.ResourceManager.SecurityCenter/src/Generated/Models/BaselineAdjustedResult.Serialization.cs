@@ -11,60 +11,14 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.SecurityCenter.Models
 {
-    public partial class BaselineAdjustedResult : IUtf8JsonSerializable
+    public partial class BaselineAdjustedResult
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
-        {
-            writer.WriteStartObject();
-            if (Optional.IsDefined(Baseline))
-            {
-                writer.WritePropertyName("baseline"u8);
-                writer.WriteObjectValue(Baseline);
-            }
-            if (Optional.IsDefined(Status))
-            {
-                writer.WritePropertyName("status"u8);
-                writer.WriteStringValue(Status.Value.ToString());
-            }
-            if (Optional.IsCollectionDefined(ResultsNotInBaseline))
-            {
-                writer.WritePropertyName("resultsNotInBaseline"u8);
-                writer.WriteStartArray();
-                foreach (var item in ResultsNotInBaseline)
-                {
-                    writer.WriteStartArray();
-                    foreach (var item0 in item)
-                    {
-                        writer.WriteStringValue(item0);
-                    }
-                    writer.WriteEndArray();
-                }
-                writer.WriteEndArray();
-            }
-            if (Optional.IsCollectionDefined(ResultsOnlyInBaseline))
-            {
-                writer.WritePropertyName("resultsOnlyInBaseline"u8);
-                writer.WriteStartArray();
-                foreach (var item in ResultsOnlyInBaseline)
-                {
-                    writer.WriteStartArray();
-                    foreach (var item0 in item)
-                    {
-                        writer.WriteStringValue(item0);
-                    }
-                    writer.WriteEndArray();
-                }
-                writer.WriteEndArray();
-            }
-            writer.WriteEndObject();
-        }
-
         internal static BaselineAdjustedResult DeserializeBaselineAdjustedResult(JsonElement element)
         {
             Optional<SqlVulnerabilityAssessmentBaseline> baseline = default;
             Optional<SqlVulnerabilityAssessmentScanResultRuleStatus> status = default;
-            Optional<IList<IList<string>>> resultsNotInBaseline = default;
-            Optional<IList<IList<string>>> resultsOnlyInBaseline = default;
+            Optional<IReadOnlyList<IList<string>>> resultsNotInBaseline = default;
+            Optional<IReadOnlyList<IList<string>>> resultsOnlyInBaseline = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("baseline"u8))

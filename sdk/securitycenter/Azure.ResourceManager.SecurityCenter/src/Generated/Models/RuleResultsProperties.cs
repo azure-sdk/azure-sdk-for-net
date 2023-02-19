@@ -14,19 +14,19 @@ namespace Azure.ResourceManager.SecurityCenter.Models
     internal partial class RuleResultsProperties
     {
         /// <summary> Initializes a new instance of RuleResultsProperties. </summary>
-        public RuleResultsProperties()
+        internal RuleResultsProperties()
         {
             Results = new ChangeTrackingList<IList<string>>();
         }
 
         /// <summary> Initializes a new instance of RuleResultsProperties. </summary>
         /// <param name="results"> Expected results in the baseline. </param>
-        internal RuleResultsProperties(IList<IList<string>> results)
+        internal RuleResultsProperties(IReadOnlyList<IList<string>> results)
         {
             Results = results;
         }
 
         /// <summary> Expected results in the baseline. </summary>
-        public IList<IList<string>> Results { get; }
+        public IReadOnlyList<IList<string>> Results { get; }
     }
 }

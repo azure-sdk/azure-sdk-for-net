@@ -10,24 +10,8 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.SecurityCenter.Models
 {
-    public partial class BenchmarkReference : IUtf8JsonSerializable
+    public partial class BenchmarkReference
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
-        {
-            writer.WriteStartObject();
-            if (Optional.IsDefined(Benchmark))
-            {
-                writer.WritePropertyName("benchmark"u8);
-                writer.WriteStringValue(Benchmark);
-            }
-            if (Optional.IsDefined(Reference))
-            {
-                writer.WritePropertyName("reference"u8);
-                writer.WriteStringValue(Reference);
-            }
-            writer.WriteEndObject();
-        }
-
         internal static BenchmarkReference DeserializeBenchmarkReference(JsonElement element)
         {
             Optional<string> benchmark = default;
