@@ -13,16 +13,11 @@ using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.ConfidentialLedger
 {
-    public partial class ConfidentialLedgerData : IUtf8JsonSerializable
+    public partial class ManagedCCFData : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
-            if (Optional.IsDefined(RunningState))
-            {
-                writer.WritePropertyName("runningState"u8);
-                writer.WriteStringValue(RunningState.Value.ToString());
-            }
             if (Optional.IsDefined(Properties))
             {
                 writer.WritePropertyName("properties"u8);
@@ -44,10 +39,9 @@ namespace Azure.ResourceManager.ConfidentialLedger
             writer.WriteEndObject();
         }
 
-        internal static ConfidentialLedgerData DeserializeConfidentialLedgerData(JsonElement element)
+        internal static ManagedCCFData DeserializeManagedCCFData(JsonElement element)
         {
-            Optional<RunningState> runningState = default;
-            Optional<ConfidentialLedgerProperties> properties = default;
+            Optional<ManagedCCFProperties> properties = default;
             Optional<IDictionary<string, string>> tags = default;
             AzureLocation location = default;
             ResourceIdentifier id = default;
@@ -56,16 +50,6 @@ namespace Azure.ResourceManager.ConfidentialLedger
             Optional<SystemData> systemData = default;
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("runningState"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
-                    runningState = new RunningState(property.Value.GetString());
-                    continue;
-                }
                 if (property.NameEquals("properties"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -73,7 +57,7 @@ namespace Azure.ResourceManager.ConfidentialLedger
                         property.ThrowNonNullablePropertyIsNull();
                         continue;
                     }
-                    properties = ConfidentialLedgerProperties.DeserializeConfidentialLedgerProperties(property.Value);
+                    properties = ManagedCCFProperties.DeserializeManagedCCFProperties(property.Value);
                     continue;
                 }
                 if (property.NameEquals("tags"u8))
@@ -122,7 +106,7 @@ namespace Azure.ResourceManager.ConfidentialLedger
                     continue;
                 }
             }
-            return new ConfidentialLedgerData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, Optional.ToNullable(runningState), properties.Value);
+            return new ManagedCCFData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, properties.Value);
         }
     }
 }
