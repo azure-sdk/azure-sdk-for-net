@@ -38,9 +38,9 @@ namespace Microsoft.Azure.Management.Analysis
             /// The name of the Analysis Services server. It must be a minimum of 3
             /// characters, and a maximum of 63.
             /// </param>
-            public static AnalysisServicesServer GetDetails(this IServersOperations operations, string resourceGroupName, string serverName)
+            public static AnalysisServicesServer GetDetais(this IServersOperations operations, string resourceGroupName, string serverName)
             {
-                return operations.GetDetailsAsync(resourceGroupName, serverName).GetAwaiter().GetResult();
+                return operations.GetDetaisAsync(resourceGroupName, serverName).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -61,9 +61,9 @@ namespace Microsoft.Azure.Management.Analysis
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<AnalysisServicesServer> GetDetailsAsync(this IServersOperations operations, string resourceGroupName, string serverName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<AnalysisServicesServer> GetDetaisAsync(this IServersOperations operations, string resourceGroupName, string serverName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.GetDetailsWithHttpMessagesAsync(resourceGroupName, serverName, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.GetDetaisWithHttpMessagesAsync(resourceGroupName, serverName, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
@@ -219,7 +219,7 @@ namespace Microsoft.Azure.Management.Analysis
             }
 
             /// <summary>
-            /// Supends operation of the specified Analysis Services server instance.
+            /// Suspends operation of the specified Analysis Services server instance.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -239,7 +239,7 @@ namespace Microsoft.Azure.Management.Analysis
             }
 
             /// <summary>
-            /// Supends operation of the specified Analysis Services server instance.
+            /// Suspends operation of the specified Analysis Services server instance.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -800,7 +800,7 @@ namespace Microsoft.Azure.Management.Analysis
             }
 
             /// <summary>
-            /// Supends operation of the specified Analysis Services server instance.
+            /// Suspends operation of the specified Analysis Services server instance.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -820,7 +820,7 @@ namespace Microsoft.Azure.Management.Analysis
             }
 
             /// <summary>
-            /// Supends operation of the specified Analysis Services server instance.
+            /// Suspends operation of the specified Analysis Services server instance.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
