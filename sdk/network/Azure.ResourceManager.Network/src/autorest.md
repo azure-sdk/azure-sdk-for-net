@@ -7,7 +7,7 @@ azure-arm: true
 generate-model-factory: false
 library-name: Network
 namespace: Azure.ResourceManager.Network
-require: https://github.com/Azure/azure-rest-api-specs/blob/7384176da46425e7899708f263e0598b851358c2/specification/network/resource-manager/readme.md
+require: /mnt/vss/_work/1/s/azure-rest-api-specs/specification/network/resource-manager/readme.md
 tag: package-track2-preview
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
