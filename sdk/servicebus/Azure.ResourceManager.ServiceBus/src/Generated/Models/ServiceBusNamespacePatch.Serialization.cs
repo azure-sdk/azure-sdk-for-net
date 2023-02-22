@@ -49,16 +49,6 @@ namespace Azure.ResourceManager.ServiceBus.Models
                 writer.WritePropertyName("encryption"u8);
                 writer.WriteObjectValue(Encryption);
             }
-            if (Optional.IsCollectionDefined(PrivateEndpointConnections))
-            {
-                writer.WritePropertyName("privateEndpointConnections"u8);
-                writer.WriteStartArray();
-                foreach (var item in PrivateEndpointConnections)
-                {
-                    writer.WriteObjectValue(item);
-                }
-                writer.WriteEndArray();
-            }
             if (Optional.IsDefined(DisableLocalAuth))
             {
                 writer.WritePropertyName("disableLocalAuth"u8);
@@ -90,7 +80,7 @@ namespace Azure.ResourceManager.ServiceBus.Models
             Optional<string> serviceBusEndpoint = default;
             Optional<string> metricId = default;
             Optional<ServiceBusEncryption> encryption = default;
-            Optional<IList<ServiceBusPrivateEndpointConnectionData>> privateEndpointConnections = default;
+            Optional<IReadOnlyList<ServiceBusPrivateEndpointConnectionData>> privateEndpointConnections = default;
             Optional<bool> disableLocalAuth = default;
             Optional<string> alternateName = default;
             foreach (var property in element.EnumerateObject())
