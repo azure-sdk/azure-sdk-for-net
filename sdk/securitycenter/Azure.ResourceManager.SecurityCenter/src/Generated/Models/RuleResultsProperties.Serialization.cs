@@ -11,32 +11,11 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.SecurityCenter.Models
 {
-    internal partial class RuleResultsProperties : IUtf8JsonSerializable
+    internal partial class RuleResultsProperties
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
-        {
-            writer.WriteStartObject();
-            if (Optional.IsCollectionDefined(Results))
-            {
-                writer.WritePropertyName("results"u8);
-                writer.WriteStartArray();
-                foreach (var item in Results)
-                {
-                    writer.WriteStartArray();
-                    foreach (var item0 in item)
-                    {
-                        writer.WriteStringValue(item0);
-                    }
-                    writer.WriteEndArray();
-                }
-                writer.WriteEndArray();
-            }
-            writer.WriteEndObject();
-        }
-
         internal static RuleResultsProperties DeserializeRuleResultsProperties(JsonElement element)
         {
-            Optional<IList<IList<string>>> results = default;
+            Optional<IReadOnlyList<IList<string>>> results = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("results"u8))
