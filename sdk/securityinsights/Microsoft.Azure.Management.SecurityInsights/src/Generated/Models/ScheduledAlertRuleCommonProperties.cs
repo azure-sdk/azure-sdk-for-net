@@ -55,7 +55,9 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
         /// alert rule</param>
         /// <param name="alertDetailsOverride">The alert details override
         /// settings</param>
-        public ScheduledAlertRuleCommonProperties(string query = default(string), System.TimeSpan? queryFrequency = default(System.TimeSpan?), System.TimeSpan? queryPeriod = default(System.TimeSpan?), string severity = default(string), TriggerOperator? triggerOperator = default(TriggerOperator?), int? triggerThreshold = default(int?), EventGroupingSettings eventGroupingSettings = default(EventGroupingSettings), IDictionary<string, string> customDetails = default(IDictionary<string, string>), IList<EntityMapping> entityMappings = default(IList<EntityMapping>), AlertDetailsOverride alertDetailsOverride = default(AlertDetailsOverride))
+        /// <param name="sentinelEntitiesMappings">Array of the sentinel entity
+        /// mappings of the alert rule</param>
+        public ScheduledAlertRuleCommonProperties(string query = default(string), System.TimeSpan? queryFrequency = default(System.TimeSpan?), System.TimeSpan? queryPeriod = default(System.TimeSpan?), string severity = default(string), TriggerOperator? triggerOperator = default(TriggerOperator?), int? triggerThreshold = default(int?), EventGroupingSettings eventGroupingSettings = default(EventGroupingSettings), IDictionary<string, string> customDetails = default(IDictionary<string, string>), IList<EntityMapping> entityMappings = default(IList<EntityMapping>), AlertDetailsOverride alertDetailsOverride = default(AlertDetailsOverride), IList<SentinelEntityMapping> sentinelEntitiesMappings = default(IList<SentinelEntityMapping>))
         {
             Query = query;
             QueryFrequency = queryFrequency;
@@ -67,6 +69,7 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
             CustomDetails = customDetails;
             EntityMappings = entityMappings;
             AlertDetailsOverride = alertDetailsOverride;
+            SentinelEntitiesMappings = sentinelEntitiesMappings;
             CustomInit();
         }
 
@@ -140,6 +143,13 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
         /// </summary>
         [JsonProperty(PropertyName = "alertDetailsOverride")]
         public AlertDetailsOverride AlertDetailsOverride { get; set; }
+
+        /// <summary>
+        /// Gets or sets array of the sentinel entity mappings of the alert
+        /// rule
+        /// </summary>
+        [JsonProperty(PropertyName = "sentinelEntitiesMappings")]
+        public IList<SentinelEntityMapping> SentinelEntitiesMappings { get; set; }
 
     }
 }

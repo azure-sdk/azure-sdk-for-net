@@ -59,7 +59,11 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
         /// alert rule</param>
         /// <param name="alertDetailsOverride">The alert details override
         /// settings</param>
-        public NrtAlertRuleTemplate(string query, string severity, string version, string id = default(string), string name = default(string), string type = default(string), SystemData systemData = default(SystemData), IList<string> tactics = default(IList<string>), IList<string> techniques = default(IList<string>), IDictionary<string, string> customDetails = default(IDictionary<string, string>), IList<EntityMapping> entityMappings = default(IList<EntityMapping>), AlertDetailsOverride alertDetailsOverride = default(AlertDetailsOverride))
+        /// <param name="eventGroupingSettings">The event grouping
+        /// settings.</param>
+        /// <param name="sentinelEntitiesMappings">Array of the sentinel entity
+        /// mappings of the alert rule</param>
+        public NrtAlertRuleTemplate(string query, string severity, string version, string id = default(string), string name = default(string), string type = default(string), SystemData systemData = default(SystemData), IList<string> tactics = default(IList<string>), IList<string> techniques = default(IList<string>), IDictionary<string, string> customDetails = default(IDictionary<string, string>), IList<EntityMapping> entityMappings = default(IList<EntityMapping>), AlertDetailsOverride alertDetailsOverride = default(AlertDetailsOverride), EventGroupingSettings eventGroupingSettings = default(EventGroupingSettings), IList<SentinelEntityMapping> sentinelEntitiesMappings = default(IList<SentinelEntityMapping>))
             : base(id, name, type, systemData)
         {
             Tactics = tactics;
@@ -70,6 +74,8 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
             CustomDetails = customDetails;
             EntityMappings = entityMappings;
             AlertDetailsOverride = alertDetailsOverride;
+            EventGroupingSettings = eventGroupingSettings;
+            SentinelEntitiesMappings = sentinelEntitiesMappings;
             CustomInit();
         }
 
@@ -129,6 +135,19 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
         /// </summary>
         [JsonProperty(PropertyName = "properties.alertDetailsOverride")]
         public AlertDetailsOverride AlertDetailsOverride { get; set; }
+
+        /// <summary>
+        /// Gets or sets the event grouping settings.
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.eventGroupingSettings")]
+        public EventGroupingSettings EventGroupingSettings { get; set; }
+
+        /// <summary>
+        /// Gets or sets array of the sentinel entity mappings of the alert
+        /// rule
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.sentinelEntitiesMappings")]
+        public IList<SentinelEntityMapping> SentinelEntitiesMappings { get; set; }
 
         /// <summary>
         /// Validate the object.

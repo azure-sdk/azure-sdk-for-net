@@ -25,7 +25,7 @@ namespace Microsoft.Azure.Management.SecurityInsights
     /// <summary>
     /// Operations operations.
     /// </summary>
-    internal partial class Operations : IServiceOperations<SecurityInsights>, IOperations
+    internal partial class Operations : IServiceOperations<SecurityInsightsClient>, IOperations
     {
         /// <summary>
         /// Initializes a new instance of the Operations class.
@@ -36,7 +36,7 @@ namespace Microsoft.Azure.Management.SecurityInsights
         /// <exception cref="System.ArgumentNullException">
         /// Thrown when a required parameter is null
         /// </exception>
-        internal Operations(SecurityInsights client)
+        internal Operations(SecurityInsightsClient client)
         {
             if (client == null)
             {
@@ -46,9 +46,9 @@ namespace Microsoft.Azure.Management.SecurityInsights
         }
 
         /// <summary>
-        /// Gets a reference to the SecurityInsights
+        /// Gets a reference to the SecurityInsightsClient
         /// </summary>
-        public SecurityInsights Client { get; private set; }
+        public SecurityInsightsClient Client { get; private set; }
 
         /// <summary>
         /// Lists all operations available Azure Security Insights Resource Provider.

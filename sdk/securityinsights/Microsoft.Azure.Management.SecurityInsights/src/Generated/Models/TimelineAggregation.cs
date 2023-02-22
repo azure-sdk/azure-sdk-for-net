@@ -32,7 +32,7 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
         /// </summary>
         /// <param name="count">the total items found for a kind</param>
         /// <param name="kind">the query kind. Possible values include:
-        /// 'Activity', 'Bookmark', 'SecurityAlert'</param>
+        /// 'Activity', 'Bookmark', 'SecurityAlert', 'Anomaly'</param>
         public TimelineAggregation(int count, string kind)
         {
             Count = count;
@@ -53,7 +53,7 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
 
         /// <summary>
         /// Gets or sets the query kind. Possible values include: 'Activity',
-        /// 'Bookmark', 'SecurityAlert'
+        /// 'Bookmark', 'SecurityAlert', 'Anomaly'
         /// </summary>
         [JsonProperty(PropertyName = "kind")]
         public string Kind { get; set; }

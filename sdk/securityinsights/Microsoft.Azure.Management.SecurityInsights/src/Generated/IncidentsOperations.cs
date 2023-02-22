@@ -25,7 +25,7 @@ namespace Microsoft.Azure.Management.SecurityInsights
     /// <summary>
     /// IncidentsOperations operations.
     /// </summary>
-    internal partial class IncidentsOperations : IServiceOperations<SecurityInsights>, IIncidentsOperations
+    internal partial class IncidentsOperations : IServiceOperations<SecurityInsightsClient>, IIncidentsOperations
     {
         /// <summary>
         /// Initializes a new instance of the IncidentsOperations class.
@@ -36,7 +36,7 @@ namespace Microsoft.Azure.Management.SecurityInsights
         /// <exception cref="System.ArgumentNullException">
         /// Thrown when a required parameter is null
         /// </exception>
-        internal IncidentsOperations(SecurityInsights client)
+        internal IncidentsOperations(SecurityInsightsClient client)
         {
             if (client == null)
             {
@@ -46,9 +46,9 @@ namespace Microsoft.Azure.Management.SecurityInsights
         }
 
         /// <summary>
-        /// Gets a reference to the SecurityInsights
+        /// Gets a reference to the SecurityInsightsClient
         /// </summary>
-        public SecurityInsights Client { get; private set; }
+        public SecurityInsightsClient Client { get; private set; }
 
         /// <summary>
         /// Triggers playbook on a specific incident
@@ -61,9 +61,9 @@ namespace Microsoft.Azure.Management.SecurityInsights
         /// </param>
         /// <param name='incidentIdentifier'>
         /// </param>
-        /// <param name='tenantId'>
-        /// </param>
         /// <param name='logicAppsResourceId'>
+        /// </param>
+        /// <param name='tenantId'>
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -86,7 +86,7 @@ namespace Microsoft.Azure.Management.SecurityInsights
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<AzureOperationResponse<object>> RunPlaybookWithHttpMessagesAsync(string resourceGroupName, string workspaceName, string incidentIdentifier, System.Guid? tenantId = default(System.Guid?), string logicAppsResourceId = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<AzureOperationResponse<object>> RunPlaybookWithHttpMessagesAsync(string resourceGroupName, string workspaceName, string incidentIdentifier, string logicAppsResourceId, System.Guid? tenantId = default(System.Guid?), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (Client.ApiVersion == null)
             {
@@ -143,6 +143,10 @@ namespace Microsoft.Azure.Management.SecurityInsights
             if (incidentIdentifier == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "incidentIdentifier");
+            }
+            if (logicAppsResourceId == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "logicAppsResourceId");
             }
             ManualTriggerRequestBody requestBody = default(ManualTriggerRequestBody);
             if (tenantId != null || logicAppsResourceId != null)

@@ -40,7 +40,8 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
         /// 'AzureResource', 'CloudApplication', 'DnsResolution', 'FileHash',
         /// 'Ip', 'Malware', 'Process', 'RegistryKey', 'RegistryValue',
         /// 'SecurityGroup', 'Url', 'IoTDevice', 'SecurityAlert', 'Bookmark',
-        /// 'MailCluster', 'MailMessage', 'Mailbox', 'SubmissionMail'</param>
+        /// 'MailCluster', 'MailMessage', 'Mailbox', 'SubmissionMail',
+        /// 'Nic'</param>
         public IncidentEntitiesResultsMetadata(int count, string entityKind)
         {
             Count = count;
@@ -66,7 +67,7 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
         /// 'CloudApplication', 'DnsResolution', 'FileHash', 'Ip', 'Malware',
         /// 'Process', 'RegistryKey', 'RegistryValue', 'SecurityGroup', 'Url',
         /// 'IoTDevice', 'SecurityAlert', 'Bookmark', 'MailCluster',
-        /// 'MailMessage', 'Mailbox', 'SubmissionMail'
+        /// 'MailMessage', 'Mailbox', 'SubmissionMail', 'Nic'
         /// </summary>
         [JsonProperty(PropertyName = "entityKind")]
         public string EntityKind { get; set; }

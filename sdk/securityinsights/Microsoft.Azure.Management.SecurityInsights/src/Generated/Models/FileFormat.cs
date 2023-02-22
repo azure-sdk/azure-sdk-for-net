@@ -12,11 +12,21 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
 {
 
     /// <summary>
-    /// Defines values for SkuKind.
+    /// Defines values for FileFormat.
     /// </summary>
-    public static class SkuKind
+    public static class FileFormat
     {
-        public const string PerGB = "PerGB";
-        public const string CapacityReservation = "CapacityReservation";
+        /// <summary>
+        /// A CSV file.
+        /// </summary>
+        public const string CSV = "CSV";
+        /// <summary>
+        /// A JSON file.
+        /// </summary>
+        public const string JSON = "JSON";
+        /// <summary>
+        /// A file of other format.
+        /// </summary>
+        public const string Unspecified = "Unspecified";
     }
 }

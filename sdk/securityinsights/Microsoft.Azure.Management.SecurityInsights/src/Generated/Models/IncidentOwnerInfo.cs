@@ -81,11 +81,11 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
         public string UserPrincipalName { get; set; }
 
         /// <summary>
-        /// Gets the type of the owner the incident is assigned to. Possible
-        /// values include: 'Unknown', 'User', 'Group'
+        /// Gets or sets the type of the owner the incident is assigned to.
+        /// Possible values include: 'Unknown', 'User', 'Group'
         /// </summary>
         [JsonProperty(PropertyName = "ownerType")]
-        public string OwnerType { get; private set; }
+        public string OwnerType { get; set; }
 
     }
 }

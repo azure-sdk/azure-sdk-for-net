@@ -75,6 +75,8 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
         /// alert rule</param>
         /// <param name="alertDetailsOverride">The alert details override
         /// settings</param>
+        /// <param name="sentinelEntitiesMappings">Array of the sentinel entity
+        /// mappings of the alert rule</param>
         /// <param name="alertRuleTemplateName">The Name of the alert rule
         /// template used to create this rule.</param>
         /// <param name="templateVersion">The version of the alert rule
@@ -88,7 +90,7 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
         /// <param name="techniques">The techniques of the alert rule</param>
         /// <param name="incidentConfiguration">The settings of the incidents
         /// that created from alerts triggered by this analytics rule</param>
-        public ScheduledAlertRule(string displayName, bool enabled, System.TimeSpan suppressionDuration, bool suppressionEnabled, string id = default(string), string name = default(string), string type = default(string), SystemData systemData = default(SystemData), string etag = default(string), string query = default(string), System.TimeSpan? queryFrequency = default(System.TimeSpan?), System.TimeSpan? queryPeriod = default(System.TimeSpan?), string severity = default(string), TriggerOperator? triggerOperator = default(TriggerOperator?), int? triggerThreshold = default(int?), EventGroupingSettings eventGroupingSettings = default(EventGroupingSettings), IDictionary<string, string> customDetails = default(IDictionary<string, string>), IList<EntityMapping> entityMappings = default(IList<EntityMapping>), AlertDetailsOverride alertDetailsOverride = default(AlertDetailsOverride), string alertRuleTemplateName = default(string), string templateVersion = default(string), string description = default(string), System.DateTime? lastModifiedUtc = default(System.DateTime?), IList<string> tactics = default(IList<string>), IList<string> techniques = default(IList<string>), IncidentConfiguration incidentConfiguration = default(IncidentConfiguration))
+        public ScheduledAlertRule(string displayName, bool enabled, System.TimeSpan suppressionDuration, bool suppressionEnabled, string id = default(string), string name = default(string), string type = default(string), SystemData systemData = default(SystemData), string etag = default(string), string query = default(string), System.TimeSpan? queryFrequency = default(System.TimeSpan?), System.TimeSpan? queryPeriod = default(System.TimeSpan?), string severity = default(string), TriggerOperator? triggerOperator = default(TriggerOperator?), int? triggerThreshold = default(int?), EventGroupingSettings eventGroupingSettings = default(EventGroupingSettings), IDictionary<string, string> customDetails = default(IDictionary<string, string>), IList<EntityMapping> entityMappings = default(IList<EntityMapping>), AlertDetailsOverride alertDetailsOverride = default(AlertDetailsOverride), IList<SentinelEntityMapping> sentinelEntitiesMappings = default(IList<SentinelEntityMapping>), string alertRuleTemplateName = default(string), string templateVersion = default(string), string description = default(string), System.DateTime? lastModifiedUtc = default(System.DateTime?), IList<string> tactics = default(IList<string>), IList<string> techniques = default(IList<string>), IncidentConfiguration incidentConfiguration = default(IncidentConfiguration))
             : base(id, name, type, systemData, etag)
         {
             Query = query;
@@ -101,6 +103,7 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
             CustomDetails = customDetails;
             EntityMappings = entityMappings;
             AlertDetailsOverride = alertDetailsOverride;
+            SentinelEntitiesMappings = sentinelEntitiesMappings;
             AlertRuleTemplateName = alertRuleTemplateName;
             TemplateVersion = templateVersion;
             Description = description;
@@ -185,6 +188,13 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
         /// </summary>
         [JsonProperty(PropertyName = "properties.alertDetailsOverride")]
         public AlertDetailsOverride AlertDetailsOverride { get; set; }
+
+        /// <summary>
+        /// Gets or sets array of the sentinel entity mappings of the alert
+        /// rule
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.sentinelEntitiesMappings")]
+        public IList<SentinelEntityMapping> SentinelEntitiesMappings { get; set; }
 
         /// <summary>
         /// Gets or sets the Name of the alert rule template used to create

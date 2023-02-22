@@ -13,7 +13,7 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
     using System.Linq;
 
     /// <summary>
-    /// Describes an automation rule condition
+    /// Describes an automation rule condition.
     /// </summary>
     public partial class AutomationRuleCondition
     {

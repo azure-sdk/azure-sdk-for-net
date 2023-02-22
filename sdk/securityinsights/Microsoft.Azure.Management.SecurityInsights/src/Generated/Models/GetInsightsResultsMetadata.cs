@@ -34,7 +34,7 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
         /// <param name="totalCount">the total items found for the insights
         /// request</param>
         /// <param name="errors">information about the failed queries</param>
-        public GetInsightsResultsMetadata(int totalCount, IList<GetInsightsError> errors = default(IList<GetInsightsError>))
+        public GetInsightsResultsMetadata(int totalCount, IList<GetInsightsErrorKind> errors = default(IList<GetInsightsErrorKind>))
         {
             TotalCount = totalCount;
             Errors = errors;
@@ -56,7 +56,7 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
         /// Gets or sets information about the failed queries
         /// </summary>
         [JsonProperty(PropertyName = "errors")]
-        public IList<GetInsightsError> Errors { get; set; }
+        public IList<GetInsightsErrorKind> Errors { get; set; }
 
         /// <summary>
         /// Validate the object.

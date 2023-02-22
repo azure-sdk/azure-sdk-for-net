@@ -10,6 +10,7 @@
 
 namespace Microsoft.Azure.Management.SecurityInsights.Models
 {
+    using Microsoft.Rest;
     using Newtonsoft.Json;
     using System.Linq;
 
@@ -26,7 +27,7 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
         /// <summary>
         /// Initializes a new instance of the ManualTriggerRequestBody class.
         /// </summary>
-        public ManualTriggerRequestBody(System.Guid? tenantId = default(System.Guid?), string logicAppsResourceId = default(string))
+        public ManualTriggerRequestBody(string logicAppsResourceId, System.Guid? tenantId = default(System.Guid?))
         {
             TenantId = tenantId;
             LogicAppsResourceId = logicAppsResourceId;
@@ -48,5 +49,18 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
         [JsonProperty(PropertyName = "logicAppsResourceId")]
         public string LogicAppsResourceId { get; set; }
 
+        /// <summary>
+        /// Validate the object.
+        /// </summary>
+        /// <exception cref="ValidationException">
+        /// Thrown if validation fails
+        /// </exception>
+        public virtual void Validate()
+        {
+            if (LogicAppsResourceId == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "LogicAppsResourceId");
+            }
+        }
     }
 }

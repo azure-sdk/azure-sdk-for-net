@@ -25,7 +25,6 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
         /// </summary>
         public AutomationRule()
         {
-            TriggeringLogic = new AutomationRuleTriggeringLogic();
             CustomInit();
         }
 
@@ -33,11 +32,11 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
         /// Initializes a new instance of the AutomationRule class.
         /// </summary>
         /// <param name="displayName">The display name of the automation
-        /// rule</param>
+        /// rule.</param>
         /// <param name="order">The order of execution of the automation
-        /// rule</param>
+        /// rule.</param>
         /// <param name="actions">The actions to execute when the automation
-        /// rule is triggered</param>
+        /// rule is triggered.</param>
         /// <param name="id">Fully qualified resource ID for the resource. Ex -
         /// /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}</param>
         /// <param name="name">The name of the resource</param>
@@ -48,9 +47,9 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
         /// createdBy and modifiedBy information.</param>
         /// <param name="etag">Etag of the azure resource</param>
         /// <param name="lastModifiedTimeUtc">The last time the automation rule
-        /// was updated</param>
+        /// was updated.</param>
         /// <param name="createdTimeUtc">The time the automation rule was
-        /// created</param>
+        /// created.</param>
         public AutomationRule(string displayName, int order, AutomationRuleTriggeringLogic triggeringLogic, IList<AutomationRuleAction> actions, string id = default(string), string name = default(string), string type = default(string), SystemData systemData = default(SystemData), string etag = default(string), System.DateTime? lastModifiedTimeUtc = default(System.DateTime?), System.DateTime? createdTimeUtc = default(System.DateTime?), ClientInfo lastModifiedBy = default(ClientInfo), ClientInfo createdBy = default(ClientInfo))
             : base(id, name, type, systemData, etag)
         {
@@ -71,13 +70,13 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
         partial void CustomInit();
 
         /// <summary>
-        /// Gets or sets the display name of the automation rule
+        /// Gets or sets the display name of the automation rule.
         /// </summary>
         [JsonProperty(PropertyName = "properties.displayName")]
         public string DisplayName { get; set; }
 
         /// <summary>
-        /// Gets or sets the order of execution of the automation rule
+        /// Gets or sets the order of execution of the automation rule.
         /// </summary>
         [JsonProperty(PropertyName = "properties.order")]
         public int Order { get; set; }
@@ -89,19 +88,19 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
 
         /// <summary>
         /// Gets or sets the actions to execute when the automation rule is
-        /// triggered
+        /// triggered.
         /// </summary>
         [JsonProperty(PropertyName = "properties.actions")]
         public IList<AutomationRuleAction> Actions { get; set; }
 
         /// <summary>
-        /// Gets the last time the automation rule was updated
+        /// Gets the last time the automation rule was updated.
         /// </summary>
         [JsonProperty(PropertyName = "properties.lastModifiedTimeUtc")]
         public System.DateTime? LastModifiedTimeUtc { get; private set; }
 
         /// <summary>
-        /// Gets the time the automation rule was created
+        /// Gets the time the automation rule was created.
         /// </summary>
         [JsonProperty(PropertyName = "properties.createdTimeUtc")]
         public System.DateTime? CreatedTimeUtc { get; private set; }

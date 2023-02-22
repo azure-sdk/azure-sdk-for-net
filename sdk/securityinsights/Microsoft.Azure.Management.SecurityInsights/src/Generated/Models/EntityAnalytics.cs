@@ -13,6 +13,8 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
     using Microsoft.Rest;
     using Microsoft.Rest.Serialization;
     using Newtonsoft.Json;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.Linq;
 
     /// <summary>
@@ -41,12 +43,12 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
         /// <param name="systemData">Azure Resource Manager metadata containing
         /// createdBy and modifiedBy information.</param>
         /// <param name="etag">Etag of the azure resource</param>
-        /// <param name="isEnabled">Determines whether the setting is enable or
-        /// disabled.</param>
-        public EntityAnalytics(string id = default(string), string name = default(string), string type = default(string), SystemData systemData = default(SystemData), string etag = default(string), bool? isEnabled = default(bool?))
+        /// <param name="entityProviders">The relevant entity providers that
+        /// are synced</param>
+        public EntityAnalytics(string id = default(string), string name = default(string), string type = default(string), SystemData systemData = default(SystemData), string etag = default(string), IList<string> entityProviders = default(IList<string>))
             : base(id, name, type, systemData, etag)
         {
-            IsEnabled = isEnabled;
+            EntityProviders = entityProviders;
             CustomInit();
         }
 
@@ -56,10 +58,10 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
         partial void CustomInit();
 
         /// <summary>
-        /// Gets determines whether the setting is enable or disabled.
+        /// Gets or sets the relevant entity providers that are synced
         /// </summary>
-        [JsonProperty(PropertyName = "properties.isEnabled")]
-        public bool? IsEnabled { get; private set; }
+        [JsonProperty(PropertyName = "properties.entityProviders")]
+        public IList<string> EntityProviders { get; set; }
 
     }
 }

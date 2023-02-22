@@ -31,7 +31,7 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
         /// Initializes a new instance of the TimelineError class.
         /// </summary>
         /// <param name="kind">the query kind. Possible values include:
-        /// 'Activity', 'Bookmark', 'SecurityAlert'</param>
+        /// 'Activity', 'Bookmark', 'SecurityAlert', 'Anomaly'</param>
         /// <param name="errorMessage">the error message</param>
         /// <param name="queryId">the query id</param>
         public TimelineError(string kind, string errorMessage, string queryId = default(string))
@@ -49,7 +49,7 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
 
         /// <summary>
         /// Gets or sets the query kind. Possible values include: 'Activity',
-        /// 'Bookmark', 'SecurityAlert'
+        /// 'Bookmark', 'SecurityAlert', 'Anomaly'
         /// </summary>
         [JsonProperty(PropertyName = "kind")]
         public string Kind { get; set; }

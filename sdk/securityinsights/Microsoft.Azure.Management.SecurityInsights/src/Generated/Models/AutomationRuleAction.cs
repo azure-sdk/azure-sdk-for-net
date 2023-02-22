@@ -14,7 +14,7 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
     using System.Linq;
 
     /// <summary>
-    /// Describes an automation rule action
+    /// Describes an automation rule action.
     /// </summary>
     public partial class AutomationRuleAction
     {

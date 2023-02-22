@@ -17,7 +17,7 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
     using System.Linq;
 
     /// <summary>
-    /// Describes automation rule triggering logic
+    /// Describes automation rule triggering logic.
     /// </summary>
     public partial class AutomationRuleTriggeringLogic
     {
@@ -35,25 +35,23 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
         /// class.
         /// </summary>
         /// <param name="isEnabled">Determines whether the automation rule is
-        /// enabled or disabled</param>
+        /// enabled or disabled.</param>
+        /// <param name="triggersOn">Possible values include: 'Incidents',
+        /// 'Alerts'</param>
+        /// <param name="triggersWhen">Possible values include: 'Created',
+        /// 'Updated'</param>
         /// <param name="expirationTimeUtc">Determines when the automation rule
         /// should automatically expire and be disabled.</param>
         /// <param name="conditions">The conditions to evaluate to determine if
-        /// the automation rule should be triggered on a given object</param>
-        public AutomationRuleTriggeringLogic(bool isEnabled, System.DateTime? expirationTimeUtc = default(System.DateTime?), IList<AutomationRuleCondition> conditions = default(IList<AutomationRuleCondition>))
+        /// the automation rule should be triggered on a given object.</param>
+        public AutomationRuleTriggeringLogic(bool isEnabled, string triggersOn, string triggersWhen, System.DateTime? expirationTimeUtc = default(System.DateTime?), IList<AutomationRuleCondition> conditions = default(IList<AutomationRuleCondition>))
         {
             IsEnabled = isEnabled;
             ExpirationTimeUtc = expirationTimeUtc;
+            TriggersOn = triggersOn;
+            TriggersWhen = triggersWhen;
             Conditions = conditions;
             CustomInit();
-        }
-        /// <summary>
-        /// Static constructor for AutomationRuleTriggeringLogic class.
-        /// </summary>
-        static AutomationRuleTriggeringLogic()
-        {
-            TriggersOn = "Incidents";
-            TriggersWhen = "Created";
         }
 
         /// <summary>
@@ -63,7 +61,7 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
 
         /// <summary>
         /// Gets or sets determines whether the automation rule is enabled or
-        /// disabled
+        /// disabled.
         /// </summary>
         [JsonProperty(PropertyName = "isEnabled")]
         public bool IsEnabled { get; set; }
@@ -76,21 +74,23 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
         public System.DateTime? ExpirationTimeUtc { get; set; }
 
         /// <summary>
+        /// Gets or sets possible values include: 'Incidents', 'Alerts'
+        /// </summary>
+        [JsonProperty(PropertyName = "triggersOn")]
+        public string TriggersOn { get; set; }
+
+        /// <summary>
+        /// Gets or sets possible values include: 'Created', 'Updated'
+        /// </summary>
+        [JsonProperty(PropertyName = "triggersWhen")]
+        public string TriggersWhen { get; set; }
+
+        /// <summary>
         /// Gets or sets the conditions to evaluate to determine if the
-        /// automation rule should be triggered on a given object
+        /// automation rule should be triggered on a given object.
         /// </summary>
         [JsonProperty(PropertyName = "conditions")]
         public IList<AutomationRuleCondition> Conditions { get; set; }
-
-        /// <summary>
-        /// </summary>
-        [JsonProperty(PropertyName = "triggersOn")]
-        public static string TriggersOn { get; private set; }
-
-        /// <summary>
-        /// </summary>
-        [JsonProperty(PropertyName = "triggersWhen")]
-        public static string TriggersWhen { get; private set; }
 
         /// <summary>
         /// Validate the object.
@@ -100,6 +100,14 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
         /// </exception>
         public virtual void Validate()
         {
+            if (TriggersOn == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "TriggersOn");
+            }
+            if (TriggersWhen == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "TriggersWhen");
+            }
             if (Conditions != null)
             {
                 if (Conditions.Count > 50)

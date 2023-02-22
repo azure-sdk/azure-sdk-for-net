@@ -37,7 +37,8 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
         /// 'AzureResource', 'CloudApplication', 'DnsResolution', 'FileHash',
         /// 'Ip', 'Malware', 'Process', 'RegistryKey', 'RegistryValue',
         /// 'SecurityGroup', 'Url', 'IoTDevice', 'SecurityAlert', 'Bookmark',
-        /// 'MailCluster', 'MailMessage', 'Mailbox', 'SubmissionMail'</param>
+        /// 'MailCluster', 'MailMessage', 'Mailbox', 'SubmissionMail',
+        /// 'Nic'</param>
         /// <param name="aggregationType">The common type of the aggregation.
         /// (for e.g. entity field name)</param>
         /// <param name="displayName">The display name of the aggregation by
@@ -82,7 +83,7 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
         /// 'CloudApplication', 'DnsResolution', 'FileHash', 'Ip', 'Malware',
         /// 'Process', 'RegistryKey', 'RegistryValue', 'SecurityGroup', 'Url',
         /// 'IoTDevice', 'SecurityAlert', 'Bookmark', 'MailCluster',
-        /// 'MailMessage', 'Mailbox', 'SubmissionMail'
+        /// 'MailMessage', 'Mailbox', 'SubmissionMail', 'Nic'
         /// </summary>
         [JsonProperty(PropertyName = "entityKind")]
         public string EntityKind { get; set; }

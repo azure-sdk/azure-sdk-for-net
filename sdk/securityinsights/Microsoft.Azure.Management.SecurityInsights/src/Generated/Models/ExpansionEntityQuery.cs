@@ -53,7 +53,7 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
         /// 'Malware', 'Process', 'RegistryKey', 'RegistryValue',
         /// 'SecurityGroup', 'URL', 'IoTDevice', 'SecurityAlert',
         /// 'HuntingBookmark', 'MailCluster', 'MailMessage', 'Mailbox',
-        /// 'SubmissionMail'</param>
+        /// 'SubmissionMail', 'Nic'</param>
         /// <param name="inputFields">List of the fields of the source entity
         /// that are required to run the query</param>
         /// <param name="outputEntityTypes">List of the desired output types to
@@ -96,7 +96,7 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
         /// 'CloudApplication', 'DNS', 'FileHash', 'IP', 'Malware', 'Process',
         /// 'RegistryKey', 'RegistryValue', 'SecurityGroup', 'URL',
         /// 'IoTDevice', 'SecurityAlert', 'HuntingBookmark', 'MailCluster',
-        /// 'MailMessage', 'Mailbox', 'SubmissionMail'
+        /// 'MailMessage', 'Mailbox', 'SubmissionMail', 'Nic'
         /// </summary>
         [JsonProperty(PropertyName = "properties.inputEntityType")]
         public string InputEntityType { get; set; }

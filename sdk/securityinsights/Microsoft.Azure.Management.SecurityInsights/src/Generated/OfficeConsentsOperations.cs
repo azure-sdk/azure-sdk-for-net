@@ -25,7 +25,7 @@ namespace Microsoft.Azure.Management.SecurityInsights
     /// <summary>
     /// OfficeConsentsOperations operations.
     /// </summary>
-    internal partial class OfficeConsentsOperations : IServiceOperations<SecurityInsights>, IOfficeConsentsOperations
+    internal partial class OfficeConsentsOperations : IServiceOperations<SecurityInsightsClient>, IOfficeConsentsOperations
     {
         /// <summary>
         /// Initializes a new instance of the OfficeConsentsOperations class.
@@ -36,7 +36,7 @@ namespace Microsoft.Azure.Management.SecurityInsights
         /// <exception cref="System.ArgumentNullException">
         /// Thrown when a required parameter is null
         /// </exception>
-        internal OfficeConsentsOperations(SecurityInsights client)
+        internal OfficeConsentsOperations(SecurityInsightsClient client)
         {
             if (client == null)
             {
@@ -46,9 +46,9 @@ namespace Microsoft.Azure.Management.SecurityInsights
         }
 
         /// <summary>
-        /// Gets a reference to the SecurityInsights
+        /// Gets a reference to the SecurityInsightsClient
         /// </summary>
-        public SecurityInsights Client { get; private set; }
+        public SecurityInsightsClient Client { get; private set; }
 
         /// <summary>
         /// Gets all office365 consents.

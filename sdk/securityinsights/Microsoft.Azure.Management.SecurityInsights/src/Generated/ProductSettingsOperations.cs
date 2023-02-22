@@ -25,7 +25,7 @@ namespace Microsoft.Azure.Management.SecurityInsights
     /// <summary>
     /// ProductSettingsOperations operations.
     /// </summary>
-    internal partial class ProductSettingsOperations : IServiceOperations<SecurityInsights>, IProductSettingsOperations
+    internal partial class ProductSettingsOperations : IServiceOperations<SecurityInsightsClient>, IProductSettingsOperations
     {
         /// <summary>
         /// Initializes a new instance of the ProductSettingsOperations class.
@@ -36,7 +36,7 @@ namespace Microsoft.Azure.Management.SecurityInsights
         /// <exception cref="System.ArgumentNullException">
         /// Thrown when a required parameter is null
         /// </exception>
-        internal ProductSettingsOperations(SecurityInsights client)
+        internal ProductSettingsOperations(SecurityInsightsClient client)
         {
             if (client == null)
             {
@@ -46,9 +46,9 @@ namespace Microsoft.Azure.Management.SecurityInsights
         }
 
         /// <summary>
-        /// Gets a reference to the SecurityInsights
+        /// Gets a reference to the SecurityInsightsClient
         /// </summary>
-        public SecurityInsights Client { get; private set; }
+        public SecurityInsightsClient Client { get; private set; }
 
         /// <summary>
         /// List of all the settings

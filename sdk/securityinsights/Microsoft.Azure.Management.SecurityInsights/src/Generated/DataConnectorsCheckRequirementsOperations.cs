@@ -25,7 +25,7 @@ namespace Microsoft.Azure.Management.SecurityInsights
     /// <summary>
     /// DataConnectorsCheckRequirementsOperations operations.
     /// </summary>
-    internal partial class DataConnectorsCheckRequirementsOperations : IServiceOperations<SecurityInsights>, IDataConnectorsCheckRequirementsOperations
+    internal partial class DataConnectorsCheckRequirementsOperations : IServiceOperations<SecurityInsightsClient>, IDataConnectorsCheckRequirementsOperations
     {
         /// <summary>
         /// Initializes a new instance of the DataConnectorsCheckRequirementsOperations class.
@@ -36,7 +36,7 @@ namespace Microsoft.Azure.Management.SecurityInsights
         /// <exception cref="System.ArgumentNullException">
         /// Thrown when a required parameter is null
         /// </exception>
-        internal DataConnectorsCheckRequirementsOperations(SecurityInsights client)
+        internal DataConnectorsCheckRequirementsOperations(SecurityInsightsClient client)
         {
             if (client == null)
             {
@@ -46,9 +46,9 @@ namespace Microsoft.Azure.Management.SecurityInsights
         }
 
         /// <summary>
-        /// Gets a reference to the SecurityInsights
+        /// Gets a reference to the SecurityInsightsClient
         /// </summary>
-        public SecurityInsights Client { get; private set; }
+        public SecurityInsightsClient Client { get; private set; }
 
         /// <summary>
         /// Get requirements state for a data connector type.

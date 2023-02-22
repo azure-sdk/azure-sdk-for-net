@@ -39,8 +39,8 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
         /// 'SuspiciousActivity', 'SuspiciousButExpected',
         /// 'IncorrectAlertLogic', 'InaccurateData'</param>
         /// <param name="classificationComment">Describes the reason the
-        /// incident was closed</param>
-        /// <param name="labels">List of labels to add to the incident</param>
+        /// incident was closed.</param>
+        /// <param name="labels">List of labels to add to the incident.</param>
         public IncidentPropertiesAction(string severity = default(string), string status = default(string), string classification = default(string), string classificationReason = default(string), string classificationComment = default(string), IncidentOwnerInfo owner = default(IncidentOwnerInfo), IList<IncidentLabel> labels = default(IList<IncidentLabel>))
         {
             Severity = severity;
@@ -86,7 +86,7 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
         public string ClassificationReason { get; set; }
 
         /// <summary>
-        /// Gets or sets describes the reason the incident was closed
+        /// Gets or sets describes the reason the incident was closed.
         /// </summary>
         [JsonProperty(PropertyName = "classificationComment")]
         public string ClassificationComment { get; set; }
@@ -97,7 +97,7 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
         public IncidentOwnerInfo Owner { get; set; }
 
         /// <summary>
-        /// Gets or sets list of labels to add to the incident
+        /// Gets or sets list of labels to add to the incident.
         /// </summary>
         [JsonProperty(PropertyName = "labels")]
         public IList<IncidentLabel> Labels { get; set; }

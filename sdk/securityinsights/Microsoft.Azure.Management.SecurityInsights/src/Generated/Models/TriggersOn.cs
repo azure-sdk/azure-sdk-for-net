@@ -20,5 +20,9 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
         /// Trigger on Incidents
         /// </summary>
         public const string Incidents = "Incidents";
+        /// <summary>
+        /// Trigger on Alerts
+        /// </summary>
+        public const string Alerts = "Alerts";
     }
 }

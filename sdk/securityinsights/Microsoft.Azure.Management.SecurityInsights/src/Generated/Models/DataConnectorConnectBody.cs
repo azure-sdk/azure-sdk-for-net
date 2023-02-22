@@ -34,6 +34,15 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
         /// <param name="kind">The authentication kind used to poll the data.
         /// Possible values include: 'Basic', 'OAuth2', 'APIKey'</param>
         /// <param name="apiKey">The API key of the audit server.</param>
+        /// <param name="dataCollectionEndpoint">Used in v2 logs connector.
+        /// Represents the data collection ingestion endpoint in log
+        /// analytics.</param>
+        /// <param name="dataCollectionRuleImmutableId">Used in v2 logs
+        /// connector. The data collection rule immutable id, the rule defines
+        /// the transformation and data destination.</param>
+        /// <param name="outputStream">Used in v2 logs connector. The stream we
+        /// are sending the data to, this is the name of the streamDeclarations
+        /// defined in the DCR.</param>
         /// <param name="clientSecret">The client secret of the OAuth 2.0
         /// application.</param>
         /// <param name="clientId">The client id of the OAuth 2.0
@@ -44,10 +53,13 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
         /// server.</param>
         /// <param name="password">The user password in the audit log
         /// server.</param>
-        public DataConnectorConnectBody(string kind = default(string), string apiKey = default(string), string clientSecret = default(string), string clientId = default(string), string authorizationCode = default(string), string userName = default(string), string password = default(string), IList<object> requestConfigUserInputValues = default(IList<object>))
+        public DataConnectorConnectBody(string kind = default(string), string apiKey = default(string), string dataCollectionEndpoint = default(string), string dataCollectionRuleImmutableId = default(string), string outputStream = default(string), string clientSecret = default(string), string clientId = default(string), string authorizationCode = default(string), string userName = default(string), string password = default(string), IList<object> requestConfigUserInputValues = default(IList<object>))
         {
             Kind = kind;
             ApiKey = apiKey;
+            DataCollectionEndpoint = dataCollectionEndpoint;
+            DataCollectionRuleImmutableId = dataCollectionRuleImmutableId;
+            OutputStream = outputStream;
             ClientSecret = clientSecret;
             ClientId = clientId;
             AuthorizationCode = authorizationCode;
@@ -74,6 +86,29 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
         /// </summary>
         [JsonProperty(PropertyName = "apiKey")]
         public string ApiKey { get; set; }
+
+        /// <summary>
+        /// Gets or sets used in v2 logs connector. Represents the data
+        /// collection ingestion endpoint in log analytics.
+        /// </summary>
+        [JsonProperty(PropertyName = "dataCollectionEndpoint")]
+        public string DataCollectionEndpoint { get; set; }
+
+        /// <summary>
+        /// Gets or sets used in v2 logs connector. The data collection rule
+        /// immutable id, the rule defines the transformation and data
+        /// destination.
+        /// </summary>
+        [JsonProperty(PropertyName = "dataCollectionRuleImmutableId")]
+        public string DataCollectionRuleImmutableId { get; set; }
+
+        /// <summary>
+        /// Gets or sets used in v2 logs connector. The stream we are sending
+        /// the data to, this is the name of the streamDeclarations defined in
+        /// the DCR.
+        /// </summary>
+        [JsonProperty(PropertyName = "outputStream")]
+        public string OutputStream { get; set; }
 
         /// <summary>
         /// Gets or sets the client secret of the OAuth 2.0 application.

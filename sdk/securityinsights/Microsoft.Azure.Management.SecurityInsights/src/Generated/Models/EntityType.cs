@@ -100,5 +100,9 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
         /// Entity represents submission mail in the system.
         /// </summary>
         public const string SubmissionMail = "SubmissionMail";
+        /// <summary>
+        /// Entity represents network interface in the system.
+        /// </summary>
+        public const string Nic = "Nic";
     }
 }

@@ -37,7 +37,7 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
         /// 'CloudApplication', 'DNS', 'FileHash', 'IP', 'Malware', 'Process',
         /// 'RegistryKey', 'RegistryValue', 'SecurityGroup', 'URL',
         /// 'IoTDevice', 'SecurityAlert', 'HuntingBookmark', 'MailCluster',
-        /// 'MailMessage', 'Mailbox', 'SubmissionMail'</param>
+        /// 'MailMessage', 'Mailbox', 'SubmissionMail', 'Nic'</param>
         /// <param name="requiredInputFieldsSets">Data types for
         /// template</param>
         /// <param name="entitiesFilter">The query applied only to entities
@@ -68,7 +68,7 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
         /// 'DNS', 'FileHash', 'IP', 'Malware', 'Process', 'RegistryKey',
         /// 'RegistryValue', 'SecurityGroup', 'URL', 'IoTDevice',
         /// 'SecurityAlert', 'HuntingBookmark', 'MailCluster', 'MailMessage',
-        /// 'Mailbox', 'SubmissionMail'
+        /// 'Mailbox', 'SubmissionMail', 'Nic'
         /// </summary>
         [JsonProperty(PropertyName = "inputEntityType")]
         public string InputEntityType { get; set; }

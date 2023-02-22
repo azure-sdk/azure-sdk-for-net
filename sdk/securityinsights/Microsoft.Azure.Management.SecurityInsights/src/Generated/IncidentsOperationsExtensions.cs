@@ -35,13 +35,13 @@ namespace Microsoft.Azure.Management.SecurityInsights
             /// </param>
             /// <param name='incidentIdentifier'>
             /// </param>
-            /// <param name='tenantId'>
-            /// </param>
             /// <param name='logicAppsResourceId'>
             /// </param>
-            public static object RunPlaybook(this IIncidentsOperations operations, string resourceGroupName, string workspaceName, string incidentIdentifier, System.Guid? tenantId = default(System.Guid?), string logicAppsResourceId = default(string))
+            /// <param name='tenantId'>
+            /// </param>
+            public static object RunPlaybook(this IIncidentsOperations operations, string resourceGroupName, string workspaceName, string incidentIdentifier, string logicAppsResourceId, System.Guid? tenantId = default(System.Guid?))
             {
-                return operations.RunPlaybookAsync(resourceGroupName, workspaceName, incidentIdentifier, tenantId, logicAppsResourceId).GetAwaiter().GetResult();
+                return operations.RunPlaybookAsync(resourceGroupName, workspaceName, incidentIdentifier, logicAppsResourceId, tenantId).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -58,16 +58,16 @@ namespace Microsoft.Azure.Management.SecurityInsights
             /// </param>
             /// <param name='incidentIdentifier'>
             /// </param>
-            /// <param name='tenantId'>
-            /// </param>
             /// <param name='logicAppsResourceId'>
+            /// </param>
+            /// <param name='tenantId'>
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<object> RunPlaybookAsync(this IIncidentsOperations operations, string resourceGroupName, string workspaceName, string incidentIdentifier, System.Guid? tenantId = default(System.Guid?), string logicAppsResourceId = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<object> RunPlaybookAsync(this IIncidentsOperations operations, string resourceGroupName, string workspaceName, string incidentIdentifier, string logicAppsResourceId, System.Guid? tenantId = default(System.Guid?), CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.RunPlaybookWithHttpMessagesAsync(resourceGroupName, workspaceName, incidentIdentifier, tenantId, logicAppsResourceId, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.RunPlaybookWithHttpMessagesAsync(resourceGroupName, workspaceName, incidentIdentifier, logicAppsResourceId, tenantId, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }

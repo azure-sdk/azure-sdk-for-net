@@ -25,7 +25,7 @@ namespace Microsoft.Azure.Management.SecurityInsights
     /// <summary>
     /// SourceControlsOperations operations.
     /// </summary>
-    internal partial class SourceControlsOperations : IServiceOperations<SecurityInsights>, ISourceControlsOperations
+    internal partial class SourceControlsOperations : IServiceOperations<SecurityInsightsClient>, ISourceControlsOperations
     {
         /// <summary>
         /// Initializes a new instance of the SourceControlsOperations class.
@@ -36,7 +36,7 @@ namespace Microsoft.Azure.Management.SecurityInsights
         /// <exception cref="System.ArgumentNullException">
         /// Thrown when a required parameter is null
         /// </exception>
-        internal SourceControlsOperations(SecurityInsights client)
+        internal SourceControlsOperations(SecurityInsightsClient client)
         {
             if (client == null)
             {
@@ -46,9 +46,9 @@ namespace Microsoft.Azure.Management.SecurityInsights
         }
 
         /// <summary>
-        /// Gets a reference to the SecurityInsights
+        /// Gets a reference to the SecurityInsightsClient
         /// </summary>
-        public SecurityInsights Client { get; private set; }
+        public SecurityInsightsClient Client { get; private set; }
 
         /// <summary>
         /// Gets all source controls, without source control items.

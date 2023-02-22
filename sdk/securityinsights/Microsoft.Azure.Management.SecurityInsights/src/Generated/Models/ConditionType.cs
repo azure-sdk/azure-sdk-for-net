@@ -20,5 +20,21 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
         /// Evaluate an object property value
         /// </summary>
         public const string Property = "Property";
+        /// <summary>
+        /// Evaluate an object array property value
+        /// </summary>
+        public const string PropertyArray = "PropertyArray";
+        /// <summary>
+        /// Evaluate an object property changed value
+        /// </summary>
+        public const string PropertyChanged = "PropertyChanged";
+        /// <summary>
+        /// Evaluate an object array property changed value
+        /// </summary>
+        public const string PropertyArrayChanged = "PropertyArrayChanged";
+        /// <summary>
+        /// Apply a boolean operator (e.g AND, OR) to conditions
+        /// </summary>
+        public const string Boolean = "Boolean";
     }
 }

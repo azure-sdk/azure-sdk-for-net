@@ -11,6 +11,8 @@
 namespace Microsoft.Azure.Management.SecurityInsights.Models
 {
     using Newtonsoft.Json;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.Linq;
 
     /// <summary>
@@ -37,12 +39,15 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
         /// alert tactics from</param>
         /// <param name="alertSeverityColumnName">the column name to take the
         /// alert severity from</param>
-        public AlertDetailsOverride(string alertDisplayNameFormat = default(string), string alertDescriptionFormat = default(string), string alertTacticsColumnName = default(string), string alertSeverityColumnName = default(string))
+        /// <param name="alertDynamicProperties">List of additional dynamic
+        /// properties to override</param>
+        public AlertDetailsOverride(string alertDisplayNameFormat = default(string), string alertDescriptionFormat = default(string), string alertTacticsColumnName = default(string), string alertSeverityColumnName = default(string), IList<AlertPropertyMapping> alertDynamicProperties = default(IList<AlertPropertyMapping>))
         {
             AlertDisplayNameFormat = alertDisplayNameFormat;
             AlertDescriptionFormat = alertDescriptionFormat;
             AlertTacticsColumnName = alertTacticsColumnName;
             AlertSeverityColumnName = alertSeverityColumnName;
+            AlertDynamicProperties = alertDynamicProperties;
             CustomInit();
         }
 
@@ -76,6 +81,12 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
         /// </summary>
         [JsonProperty(PropertyName = "alertSeverityColumnName")]
         public string AlertSeverityColumnName { get; set; }
+
+        /// <summary>
+        /// Gets or sets list of additional dynamic properties to override
+        /// </summary>
+        [JsonProperty(PropertyName = "alertDynamicProperties")]
+        public IList<AlertPropertyMapping> AlertDynamicProperties { get; set; }
 
     }
 }

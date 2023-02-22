@@ -12,6 +12,8 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
 {
     using Microsoft.Rest;
     using Newtonsoft.Json;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.Linq;
 
     /// <summary>
@@ -41,7 +43,13 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
         /// <param name="alertType">The name of the alert type.</param>
         /// <param name="productName">The alert product name.</param>
         /// <param name="description">The alert description.</param>
-        public SecurityAlertTimelineItem(string azureResourceId, string displayName, string severity, System.DateTime endTimeUtc, System.DateTime startTimeUtc, System.DateTime timeGenerated, string alertType, string productName = default(string), string description = default(string))
+        /// <param name="intent">The intent of the alert. Possible values
+        /// include: 'Unknown', 'Probing', 'Exploitation', 'Persistence',
+        /// 'PrivilegeEscalation', 'DefenseEvasion', 'CredentialAccess',
+        /// 'Discovery', 'LateralMovement', 'Execution', 'Collection',
+        /// 'Exfiltration', 'CommandAndControl', 'Impact'</param>
+        /// <param name="techniques">The techniques of the alert.</param>
+        public SecurityAlertTimelineItem(string azureResourceId, string displayName, string severity, System.DateTime endTimeUtc, System.DateTime startTimeUtc, System.DateTime timeGenerated, string alertType, string productName = default(string), string description = default(string), string intent = default(string), IList<string> techniques = default(IList<string>))
         {
             AzureResourceId = azureResourceId;
             ProductName = productName;
@@ -52,6 +60,8 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
             StartTimeUtc = startTimeUtc;
             TimeGenerated = timeGenerated;
             AlertType = alertType;
+            Intent = intent;
+            Techniques = techniques;
             CustomInit();
         }
 
@@ -114,6 +124,22 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
         /// </summary>
         [JsonProperty(PropertyName = "alertType")]
         public string AlertType { get; set; }
+
+        /// <summary>
+        /// Gets the intent of the alert. Possible values include: 'Unknown',
+        /// 'Probing', 'Exploitation', 'Persistence', 'PrivilegeEscalation',
+        /// 'DefenseEvasion', 'CredentialAccess', 'Discovery',
+        /// 'LateralMovement', 'Execution', 'Collection', 'Exfiltration',
+        /// 'CommandAndControl', 'Impact'
+        /// </summary>
+        [JsonProperty(PropertyName = "intent")]
+        public string Intent { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the techniques of the alert.
+        /// </summary>
+        [JsonProperty(PropertyName = "techniques")]
+        public IList<string> Techniques { get; set; }
 
         /// <summary>
         /// Validate the object.

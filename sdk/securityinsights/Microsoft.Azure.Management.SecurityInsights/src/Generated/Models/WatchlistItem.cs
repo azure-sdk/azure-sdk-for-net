@@ -13,6 +13,8 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
     using Microsoft.Rest;
     using Microsoft.Rest.Serialization;
     using Newtonsoft.Json;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.Linq;
 
     /// <summary>
@@ -61,7 +63,7 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
         /// item</param>
         /// <param name="entityMapping">key-value pairs for a watchlist item
         /// entity mapping</param>
-        public WatchlistItem(object itemsKeyValue, string id = default(string), string name = default(string), string type = default(string), SystemData systemData = default(SystemData), string etag = default(string), string watchlistItemType = default(string), string watchlistItemId = default(string), string tenantId = default(string), bool? isDeleted = default(bool?), System.DateTime? created = default(System.DateTime?), System.DateTime? updated = default(System.DateTime?), UserInfo createdBy = default(UserInfo), UserInfo updatedBy = default(UserInfo), object entityMapping = default(object))
+        public WatchlistItem(IDictionary<string, object> itemsKeyValue, string id = default(string), string name = default(string), string type = default(string), SystemData systemData = default(SystemData), string etag = default(string), string watchlistItemType = default(string), string watchlistItemId = default(string), string tenantId = default(string), bool? isDeleted = default(bool?), System.DateTime? created = default(System.DateTime?), System.DateTime? updated = default(System.DateTime?), UserInfo createdBy = default(UserInfo), UserInfo updatedBy = default(UserInfo), IDictionary<string, object> entityMapping = default(IDictionary<string, object>))
             : base(id, name, type, systemData, etag)
         {
             WatchlistItemType = watchlistItemType;
@@ -135,13 +137,13 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
         /// Gets or sets key-value pairs for a watchlist item
         /// </summary>
         [JsonProperty(PropertyName = "properties.itemsKeyValue")]
-        public object ItemsKeyValue { get; set; }
+        public IDictionary<string, object> ItemsKeyValue { get; set; }
 
         /// <summary>
         /// Gets or sets key-value pairs for a watchlist item entity mapping
         /// </summary>
         [JsonProperty(PropertyName = "properties.entityMapping")]
-        public object EntityMapping { get; set; }
+        public IDictionary<string, object> EntityMapping { get; set; }
 
         /// <summary>
         /// Validate the object.

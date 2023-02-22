@@ -20,5 +20,9 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
         /// Trigger on created objects
         /// </summary>
         public const string Created = "Created";
+        /// <summary>
+        /// Trigger on updated objects
+        /// </summary>
+        public const string Updated = "Updated";
     }
 }

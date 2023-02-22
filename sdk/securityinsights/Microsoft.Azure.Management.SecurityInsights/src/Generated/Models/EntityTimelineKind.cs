@@ -28,5 +28,9 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
         /// security alerts
         /// </summary>
         public const string SecurityAlert = "SecurityAlert";
+        /// <summary>
+        /// anomaly
+        /// </summary>
+        public const string Anomaly = "Anomaly";
     }
 }

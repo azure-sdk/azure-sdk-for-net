@@ -74,7 +74,27 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
         /// the IoTDevice entity.</param>
         /// <param name="protocols">A list of protocols of the IoTDevice
         /// entity.</param>
-        public IoTDeviceEntity(string id = default(string), string name = default(string), string type = default(string), SystemData systemData = default(SystemData), IDictionary<string, object> additionalData = default(IDictionary<string, object>), string friendlyName = default(string), string deviceId = default(string), string deviceName = default(string), string source = default(string), System.Guid? iotSecurityAgentId = default(System.Guid?), string deviceType = default(string), string vendor = default(string), string edgeId = default(string), string macAddress = default(string), string model = default(string), string serialNumber = default(string), string firmwareVersion = default(string), string operatingSystem = default(string), string iotHubEntityId = default(string), string hostEntityId = default(string), string ipAddressEntityId = default(string), IList<ThreatIntelligence> threatIntelligence = default(IList<ThreatIntelligence>), IList<string> protocols = default(IList<string>))
+        /// <param name="owners">A list of owners of the IoTDevice
+        /// entity.</param>
+        /// <param name="nicEntityIds">A list of Nic entity ids of the
+        /// IoTDevice entity.</param>
+        /// <param name="site">The site of the device</param>
+        /// <param name="zone">The zone location of the device within a
+        /// site</param>
+        /// <param name="sensor">The sensor the device is monitored by</param>
+        /// <param name="deviceSubType">The subType of the device ('PLC',
+        /// 'HMI', 'EWS', etc.)</param>
+        /// <param name="importance">Device importance, determines if the
+        /// device classified as 'crown jewel'. Possible values include:
+        /// 'Unknown', 'Low', 'Normal', 'High'</param>
+        /// <param name="purdueLayer">The Purdue Layer of the device</param>
+        /// <param name="isAuthorized">Determines whether the device classified
+        /// as authorized device</param>
+        /// <param name="isProgramming">Determines whether the device
+        /// classified as programming device</param>
+        /// <param name="isScanner">Is the device classified as a scanner
+        /// device</param>
+        public IoTDeviceEntity(string id = default(string), string name = default(string), string type = default(string), SystemData systemData = default(SystemData), IDictionary<string, object> additionalData = default(IDictionary<string, object>), string friendlyName = default(string), string deviceId = default(string), string deviceName = default(string), string source = default(string), System.Guid? iotSecurityAgentId = default(System.Guid?), string deviceType = default(string), string vendor = default(string), string edgeId = default(string), string macAddress = default(string), string model = default(string), string serialNumber = default(string), string firmwareVersion = default(string), string operatingSystem = default(string), string iotHubEntityId = default(string), string hostEntityId = default(string), string ipAddressEntityId = default(string), IList<ThreatIntelligence> threatIntelligence = default(IList<ThreatIntelligence>), IList<string> protocols = default(IList<string>), IList<string> owners = default(IList<string>), IList<string> nicEntityIds = default(IList<string>), string site = default(string), string zone = default(string), string sensor = default(string), string deviceSubType = default(string), string importance = default(string), string purdueLayer = default(string), bool? isAuthorized = default(bool?), bool? isProgramming = default(bool?), bool? isScanner = default(bool?))
             : base(id, name, type, systemData)
         {
             AdditionalData = additionalData;
@@ -96,6 +116,17 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
             IpAddressEntityId = ipAddressEntityId;
             ThreatIntelligence = threatIntelligence;
             Protocols = protocols;
+            Owners = owners;
+            NicEntityIds = nicEntityIds;
+            Site = site;
+            Zone = zone;
+            Sensor = sensor;
+            DeviceSubType = deviceSubType;
+            Importance = importance;
+            PurdueLayer = purdueLayer;
+            IsAuthorized = isAuthorized;
+            IsProgramming = isProgramming;
+            IsScanner = isScanner;
             CustomInit();
         }
 
@@ -220,6 +251,74 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
         /// </summary>
         [JsonProperty(PropertyName = "properties.protocols")]
         public IList<string> Protocols { get; private set; }
+
+        /// <summary>
+        /// Gets a list of owners of the IoTDevice entity.
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.owners")]
+        public IList<string> Owners { get; private set; }
+
+        /// <summary>
+        /// Gets a list of Nic entity ids of the IoTDevice entity.
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.nicEntityIds")]
+        public IList<string> NicEntityIds { get; private set; }
+
+        /// <summary>
+        /// Gets the site of the device
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.site")]
+        public string Site { get; private set; }
+
+        /// <summary>
+        /// Gets the zone location of the device within a site
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.zone")]
+        public string Zone { get; private set; }
+
+        /// <summary>
+        /// Gets the sensor the device is monitored by
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.sensor")]
+        public string Sensor { get; private set; }
+
+        /// <summary>
+        /// Gets the subType of the device ('PLC', 'HMI', 'EWS', etc.)
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.deviceSubType")]
+        public string DeviceSubType { get; private set; }
+
+        /// <summary>
+        /// Gets or sets device importance, determines if the device classified
+        /// as 'crown jewel'. Possible values include: 'Unknown', 'Low',
+        /// 'Normal', 'High'
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.importance")]
+        public string Importance { get; set; }
+
+        /// <summary>
+        /// Gets the Purdue Layer of the device
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.purdueLayer")]
+        public string PurdueLayer { get; private set; }
+
+        /// <summary>
+        /// Gets determines whether the device classified as authorized device
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.isAuthorized")]
+        public bool? IsAuthorized { get; private set; }
+
+        /// <summary>
+        /// Gets determines whether the device classified as programming device
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.isProgramming")]
+        public bool? IsProgramming { get; private set; }
+
+        /// <summary>
+        /// Gets is the device classified as a scanner device
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.isScanner")]
+        public bool? IsScanner { get; private set; }
 
     }
 }

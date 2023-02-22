@@ -17,31 +17,31 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
     /// <summary>
     /// GetInsights Query Errors.
     /// </summary>
-    public partial class GetInsightsError
+    public partial class GetInsightsErrorKind
     {
         /// <summary>
-        /// Initializes a new instance of the GetInsightsError class.
+        /// Initializes a new instance of the GetInsightsErrorKind class.
         /// </summary>
-        public GetInsightsError()
+        public GetInsightsErrorKind()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the GetInsightsError class.
+        /// Initializes a new instance of the GetInsightsErrorKind class.
         /// </summary>
         /// <param name="errorMessage">the error message</param>
         /// <param name="queryId">the query id</param>
-        public GetInsightsError(string errorMessage, string queryId = default(string))
+        public GetInsightsErrorKind(string errorMessage, string queryId = default(string))
         {
             QueryId = queryId;
             ErrorMessage = errorMessage;
             CustomInit();
         }
         /// <summary>
-        /// Static constructor for GetInsightsError class.
+        /// Static constructor for GetInsightsErrorKind class.
         /// </summary>
-        static GetInsightsError()
+        static GetInsightsErrorKind()
         {
             Kind = "Insight";
         }

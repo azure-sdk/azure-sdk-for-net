@@ -25,7 +25,7 @@ namespace Microsoft.Azure.Management.SecurityInsights
     /// <summary>
     /// ThreatIntelligenceIndicatorOperations operations.
     /// </summary>
-    internal partial class ThreatIntelligenceIndicatorOperations : IServiceOperations<SecurityInsights>, IThreatIntelligenceIndicatorOperations
+    internal partial class ThreatIntelligenceIndicatorOperations : IServiceOperations<SecurityInsightsClient>, IThreatIntelligenceIndicatorOperations
     {
         /// <summary>
         /// Initializes a new instance of the ThreatIntelligenceIndicatorOperations class.
@@ -36,7 +36,7 @@ namespace Microsoft.Azure.Management.SecurityInsights
         /// <exception cref="System.ArgumentNullException">
         /// Thrown when a required parameter is null
         /// </exception>
-        internal ThreatIntelligenceIndicatorOperations(SecurityInsights client)
+        internal ThreatIntelligenceIndicatorOperations(SecurityInsightsClient client)
         {
             if (client == null)
             {
@@ -46,9 +46,9 @@ namespace Microsoft.Azure.Management.SecurityInsights
         }
 
         /// <summary>
-        /// Gets a reference to the SecurityInsights
+        /// Gets a reference to the SecurityInsightsClient
         /// </summary>
-        public SecurityInsights Client { get; private set; }
+        public SecurityInsightsClient Client { get; private set; }
 
         /// <summary>
         /// Create a new threat intelligence indicator.

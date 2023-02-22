@@ -25,7 +25,7 @@ namespace Microsoft.Azure.Management.SecurityInsights
     /// <summary>
     /// WatchlistsOperations operations.
     /// </summary>
-    internal partial class WatchlistsOperations : IServiceOperations<SecurityInsights>, IWatchlistsOperations
+    internal partial class WatchlistsOperations : IServiceOperations<SecurityInsightsClient>, IWatchlistsOperations
     {
         /// <summary>
         /// Initializes a new instance of the WatchlistsOperations class.
@@ -36,7 +36,7 @@ namespace Microsoft.Azure.Management.SecurityInsights
         /// <exception cref="System.ArgumentNullException">
         /// Thrown when a required parameter is null
         /// </exception>
-        internal WatchlistsOperations(SecurityInsights client)
+        internal WatchlistsOperations(SecurityInsightsClient client)
         {
             if (client == null)
             {
@@ -46,9 +46,9 @@ namespace Microsoft.Azure.Management.SecurityInsights
         }
 
         /// <summary>
-        /// Gets a reference to the SecurityInsights
+        /// Gets a reference to the SecurityInsightsClient
         /// </summary>
-        public SecurityInsights Client { get; private set; }
+        public SecurityInsightsClient Client { get; private set; }
 
         /// <summary>
         /// Gets all watchlists, without watchlist items.

@@ -34,9 +34,9 @@ namespace Microsoft.Azure.Management.SecurityInsights
         /// </param>
         /// <param name='incidentIdentifier'>
         /// </param>
-        /// <param name='tenantId'>
-        /// </param>
         /// <param name='logicAppsResourceId'>
+        /// </param>
+        /// <param name='tenantId'>
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -53,7 +53,7 @@ namespace Microsoft.Azure.Management.SecurityInsights
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<object>> RunPlaybookWithHttpMessagesAsync(string resourceGroupName, string workspaceName, string incidentIdentifier, System.Guid? tenantId = default(System.Guid?), string logicAppsResourceId = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<object>> RunPlaybookWithHttpMessagesAsync(string resourceGroupName, string workspaceName, string incidentIdentifier, string logicAppsResourceId, System.Guid? tenantId = default(System.Guid?), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Gets all incidents.
         /// </summary>

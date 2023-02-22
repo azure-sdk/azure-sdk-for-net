@@ -25,7 +25,7 @@ namespace Microsoft.Azure.Management.SecurityInsights
     /// <summary>
     /// EntitiesOperations operations.
     /// </summary>
-    internal partial class EntitiesOperations : IServiceOperations<SecurityInsights>, IEntitiesOperations
+    internal partial class EntitiesOperations : IServiceOperations<SecurityInsightsClient>, IEntitiesOperations
     {
         /// <summary>
         /// Initializes a new instance of the EntitiesOperations class.
@@ -36,7 +36,7 @@ namespace Microsoft.Azure.Management.SecurityInsights
         /// <exception cref="System.ArgumentNullException">
         /// Thrown when a required parameter is null
         /// </exception>
-        internal EntitiesOperations(SecurityInsights client)
+        internal EntitiesOperations(SecurityInsightsClient client)
         {
             if (client == null)
             {
@@ -46,9 +46,9 @@ namespace Microsoft.Azure.Management.SecurityInsights
         }
 
         /// <summary>
-        /// Gets a reference to the SecurityInsights
+        /// Gets a reference to the SecurityInsightsClient
         /// </summary>
-        public SecurityInsights Client { get; private set; }
+        public SecurityInsightsClient Client { get; private set; }
 
         /// <summary>
         /// Gets all entities.

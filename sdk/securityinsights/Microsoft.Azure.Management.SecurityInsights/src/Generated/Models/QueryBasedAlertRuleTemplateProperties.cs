@@ -47,7 +47,11 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
         /// alert rule</param>
         /// <param name="alertDetailsOverride">The alert details override
         /// settings</param>
-        public QueryBasedAlertRuleTemplateProperties(string query = default(string), string severity = default(string), string version = default(string), IDictionary<string, string> customDetails = default(IDictionary<string, string>), IList<EntityMapping> entityMappings = default(IList<EntityMapping>), AlertDetailsOverride alertDetailsOverride = default(AlertDetailsOverride))
+        /// <param name="eventGroupingSettings">The event grouping
+        /// settings.</param>
+        /// <param name="sentinelEntitiesMappings">Array of the sentinel entity
+        /// mappings of the alert rule</param>
+        public QueryBasedAlertRuleTemplateProperties(string query = default(string), string severity = default(string), string version = default(string), IDictionary<string, string> customDetails = default(IDictionary<string, string>), IList<EntityMapping> entityMappings = default(IList<EntityMapping>), AlertDetailsOverride alertDetailsOverride = default(AlertDetailsOverride), EventGroupingSettings eventGroupingSettings = default(EventGroupingSettings), IList<SentinelEntityMapping> sentinelEntitiesMappings = default(IList<SentinelEntityMapping>))
         {
             Query = query;
             Severity = severity;
@@ -55,6 +59,8 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
             CustomDetails = customDetails;
             EntityMappings = entityMappings;
             AlertDetailsOverride = alertDetailsOverride;
+            EventGroupingSettings = eventGroupingSettings;
+            SentinelEntitiesMappings = sentinelEntitiesMappings;
             CustomInit();
         }
 
@@ -102,6 +108,19 @@ namespace Microsoft.Azure.Management.SecurityInsights.Models
         /// </summary>
         [JsonProperty(PropertyName = "alertDetailsOverride")]
         public AlertDetailsOverride AlertDetailsOverride { get; set; }
+
+        /// <summary>
+        /// Gets or sets the event grouping settings.
+        /// </summary>
+        [JsonProperty(PropertyName = "eventGroupingSettings")]
+        public EventGroupingSettings EventGroupingSettings { get; set; }
+
+        /// <summary>
+        /// Gets or sets array of the sentinel entity mappings of the alert
+        /// rule
+        /// </summary>
+        [JsonProperty(PropertyName = "sentinelEntitiesMappings")]
+        public IList<SentinelEntityMapping> SentinelEntitiesMappings { get; set; }
 
     }
 }

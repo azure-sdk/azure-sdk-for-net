@@ -25,7 +25,7 @@ namespace Microsoft.Azure.Management.SecurityInsights
     /// <summary>
     /// AutomationRulesOperations operations.
     /// </summary>
-    internal partial class AutomationRulesOperations : IServiceOperations<SecurityInsights>, IAutomationRulesOperations
+    internal partial class AutomationRulesOperations : IServiceOperations<SecurityInsightsClient>, IAutomationRulesOperations
     {
         /// <summary>
         /// Initializes a new instance of the AutomationRulesOperations class.
@@ -36,7 +36,7 @@ namespace Microsoft.Azure.Management.SecurityInsights
         /// <exception cref="System.ArgumentNullException">
         /// Thrown when a required parameter is null
         /// </exception>
-        internal AutomationRulesOperations(SecurityInsights client)
+        internal AutomationRulesOperations(SecurityInsightsClient client)
         {
             if (client == null)
             {
@@ -46,9 +46,9 @@ namespace Microsoft.Azure.Management.SecurityInsights
         }
 
         /// <summary>
-        /// Gets a reference to the SecurityInsights
+        /// Gets a reference to the SecurityInsightsClient
         /// </summary>
-        public SecurityInsights Client { get; private set; }
+        public SecurityInsightsClient Client { get; private set; }
 
         /// <summary>
         /// Gets the automation rule.
