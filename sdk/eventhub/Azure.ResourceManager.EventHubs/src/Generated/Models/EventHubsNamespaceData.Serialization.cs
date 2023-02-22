@@ -84,16 +84,6 @@ namespace Azure.ResourceManager.EventHubs
                 writer.WritePropertyName("encryption"u8);
                 writer.WriteObjectValue(Encryption);
             }
-            if (Optional.IsCollectionDefined(PrivateEndpointConnections))
-            {
-                writer.WritePropertyName("privateEndpointConnections"u8);
-                writer.WriteStartArray();
-                foreach (var item in PrivateEndpointConnections)
-                {
-                    writer.WriteObjectValue(item);
-                }
-                writer.WriteEndArray();
-            }
             if (Optional.IsDefined(DisableLocalAuth))
             {
                 writer.WritePropertyName("disableLocalAuth"u8);
@@ -132,7 +122,7 @@ namespace Azure.ResourceManager.EventHubs
             Optional<bool> kafkaEnabled = default;
             Optional<bool> zoneRedundant = default;
             Optional<EventHubsEncryption> encryption = default;
-            Optional<IList<EventHubsPrivateEndpointConnectionData>> privateEndpointConnections = default;
+            Optional<IReadOnlyList<EventHubsPrivateEndpointConnectionData>> privateEndpointConnections = default;
             Optional<bool> disableLocalAuth = default;
             Optional<string> alternateName = default;
             foreach (var property in element.EnumerateObject())

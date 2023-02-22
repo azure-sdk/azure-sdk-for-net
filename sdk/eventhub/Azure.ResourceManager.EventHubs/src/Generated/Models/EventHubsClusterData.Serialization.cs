@@ -61,6 +61,7 @@ namespace Azure.ResourceManager.EventHubs
             Optional<DateTimeOffset> updatedAt = default;
             Optional<string> metricId = default;
             Optional<string> status = default;
+            Optional<string> provisioningState = default;
             Optional<bool> supportsScaling = default;
             foreach (var property in element.EnumerateObject())
             {
@@ -158,6 +159,11 @@ namespace Azure.ResourceManager.EventHubs
                             status = property0.Value.GetString();
                             continue;
                         }
+                        if (property0.NameEquals("provisioningState"u8))
+                        {
+                            provisioningState = property0.Value.GetString();
+                            continue;
+                        }
                         if (property0.NameEquals("supportsScaling"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -172,7 +178,7 @@ namespace Azure.ResourceManager.EventHubs
                     continue;
                 }
             }
-            return new EventHubsClusterData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, sku.Value, Optional.ToNullable(createdAt), Optional.ToNullable(updatedAt), metricId.Value, status.Value, Optional.ToNullable(supportsScaling));
+            return new EventHubsClusterData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, sku.Value, Optional.ToNullable(createdAt), Optional.ToNullable(updatedAt), metricId.Value, status.Value, provisioningState.Value, Optional.ToNullable(supportsScaling));
         }
     }
 }
