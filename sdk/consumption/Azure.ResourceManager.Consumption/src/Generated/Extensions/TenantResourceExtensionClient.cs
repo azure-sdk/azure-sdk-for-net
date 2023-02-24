@@ -33,6 +33,8 @@ namespace Azure.ResourceManager.Consumption
         private LotsRestOperations _lotsRestClient;
         private ClientDiagnostics _creditsClientDiagnostics;
         private CreditsRestOperations _creditsRestClient;
+        private ClientDiagnostics _operationsResultClientDiagnostics;
+        private OperationsResultRestOperations _operationsResultRestClient;
 
         /// <summary> Initializes a new instance of the <see cref="TenantResourceExtensionClient"/> class for mocking. </summary>
         protected TenantResourceExtensionClient()
@@ -60,11 +62,57 @@ namespace Azure.ResourceManager.Consumption
         private LotsRestOperations LotsRestClient => _lotsRestClient ??= new LotsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
         private ClientDiagnostics CreditsClientDiagnostics => _creditsClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.Consumption", ProviderConstants.DefaultProviderNamespace, Diagnostics);
         private CreditsRestOperations CreditsRestClient => _creditsRestClient ??= new CreditsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
+        private ClientDiagnostics OperationsResultClientDiagnostics => _operationsResultClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.Consumption", ProviderConstants.DefaultProviderNamespace, Diagnostics);
+        private OperationsResultRestOperations OperationsResultRestClient => _operationsResultRestClient ??= new OperationsResultRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
 
         private string GetApiVersionOrNull(ResourceType resourceType)
         {
             TryGetApiVersion(resourceType, out string apiVersion);
             return apiVersion;
+        }
+
+        /// <summary>
+        /// Lists all of the available consumption REST API operations.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/providers/Microsoft.Consumption/operations</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>OperationsResult_List</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> An async collection of <see cref="OperationV2" /> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<OperationV2> GetOperationsResultsAsync(CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => OperationsResultRestClient.CreateListRequest();
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => OperationsResultRestClient.CreateListNextPageRequest(nextLink);
+            return PageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, OperationV2.DeserializeOperationV2, OperationsResultClientDiagnostics, Pipeline, "TenantResourceExtensionClient.GetOperationsResults", "value", "nextLink", cancellationToken);
+        }
+
+        /// <summary>
+        /// Lists all of the available consumption REST API operations.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/providers/Microsoft.Consumption/operations</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>OperationsResult_List</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="OperationV2" /> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<OperationV2> GetOperationsResults(CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => OperationsResultRestClient.CreateListRequest();
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => OperationsResultRestClient.CreateListNextPageRequest(nextLink);
+            return PageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, OperationV2.DeserializeOperationV2, OperationsResultClientDiagnostics, Pipeline, "TenantResourceExtensionClient.GetOperationsResults", "value", "nextLink", cancellationToken);
         }
     }
 }

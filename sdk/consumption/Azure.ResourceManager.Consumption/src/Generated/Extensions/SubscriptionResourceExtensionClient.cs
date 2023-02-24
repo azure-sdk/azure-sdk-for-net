@@ -21,6 +21,8 @@ namespace Azure.ResourceManager.Consumption
     {
         private ClientDiagnostics _priceSheetClientDiagnostics;
         private PriceSheetRestOperations _priceSheetRestClient;
+        private ClientDiagnostics _priceSheetsClientDiagnostics;
+        private PriceSheetsRestOperations _priceSheetsRestClient;
 
         /// <summary> Initializes a new instance of the <see cref="SubscriptionResourceExtensionClient"/> class for mocking. </summary>
         protected SubscriptionResourceExtensionClient()
@@ -36,6 +38,8 @@ namespace Azure.ResourceManager.Consumption
 
         private ClientDiagnostics PriceSheetClientDiagnostics => _priceSheetClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.Consumption", ProviderConstants.DefaultProviderNamespace, Diagnostics);
         private PriceSheetRestOperations PriceSheetRestClient => _priceSheetRestClient ??= new PriceSheetRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
+        private ClientDiagnostics PriceSheetsClientDiagnostics => _priceSheetsClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.Consumption", ProviderConstants.DefaultProviderNamespace, Diagnostics);
+        private PriceSheetsRestOperations PriceSheetsRestClient => _priceSheetsRestClient ??= new PriceSheetsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
 
         private string GetApiVersionOrNull(ResourceType resourceType)
         {
@@ -100,6 +104,140 @@ namespace Azure.ResourceManager.Consumption
             try
             {
                 var response = PriceSheetRestClient.Get(Id.SubscriptionId, expand, skipToken, top, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// List the price sheet for a subscription. Price sheet is available via this API only for May 1, 2014 or later.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Consumption/pricesheets/default</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>PriceSheets_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="expand"> May be used to expand the properties/meterDetails within a price sheet. By default, these fields are not included when returning price sheet. </param>
+        /// <param name="skiptoken"> Skiptoken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element, the value of the nextLink element will include a skiptoken parameter that specifies a starting point to use for subsequent calls. </param>
+        /// <param name="top"> May be used to limit the number of results to the top N results. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual async Task<Response<PriceSheetResultV2>> GetPriceSheetAsync(string expand = null, string skiptoken = null, int? top = null, CancellationToken cancellationToken = default)
+        {
+            using var scope = PriceSheetsClientDiagnostics.CreateScope("SubscriptionResourceExtensionClient.GetPriceSheet");
+            scope.Start();
+            try
+            {
+                var response = await PriceSheetsRestClient.GetAsync(Id.SubscriptionId, expand, skiptoken, top, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// List the price sheet for a subscription. Price sheet is available via this API only for May 1, 2014 or later.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Consumption/pricesheets/default</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>PriceSheets_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="expand"> May be used to expand the properties/meterDetails within a price sheet. By default, these fields are not included when returning price sheet. </param>
+        /// <param name="skiptoken"> Skiptoken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element, the value of the nextLink element will include a skiptoken parameter that specifies a starting point to use for subsequent calls. </param>
+        /// <param name="top"> May be used to limit the number of results to the top N results. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual Response<PriceSheetResultV2> GetPriceSheet(string expand = null, string skiptoken = null, int? top = null, CancellationToken cancellationToken = default)
+        {
+            using var scope = PriceSheetsClientDiagnostics.CreateScope("SubscriptionResourceExtensionClient.GetPriceSheet");
+            scope.Start();
+            try
+            {
+                var response = PriceSheetsRestClient.Get(Id.SubscriptionId, expand, skiptoken, top, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get the price sheet for a scope by subscriptionId and billing period. Price sheet is available via this API only for May 1, 2014 or later.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Billing/billingPeriods/{billingPeriodName}/providers/Microsoft.Consumption/pricesheets/default</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>PriceSheets_GetByBillingPeriod</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="billingPeriodName"> Billing Period Name. </param>
+        /// <param name="expand"> May be used to expand the properties/meterDetails within a price sheet. By default, these fields are not included when returning price sheet. </param>
+        /// <param name="skiptoken"> Skiptoken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element, the value of the nextLink element will include a skiptoken parameter that specifies a starting point to use for subsequent calls. </param>
+        /// <param name="top"> May be used to limit the number of results to the top N results. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual async Task<Response<PriceSheetResultV2>> GetByBillingPeriodPriceSheetAsync(string billingPeriodName, string expand = null, string skiptoken = null, int? top = null, CancellationToken cancellationToken = default)
+        {
+            using var scope = PriceSheetsClientDiagnostics.CreateScope("SubscriptionResourceExtensionClient.GetByBillingPeriodPriceSheet");
+            scope.Start();
+            try
+            {
+                var response = await PriceSheetsRestClient.GetByBillingPeriodAsync(Id.SubscriptionId, billingPeriodName, expand, skiptoken, top, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get the price sheet for a scope by subscriptionId and billing period. Price sheet is available via this API only for May 1, 2014 or later.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Billing/billingPeriods/{billingPeriodName}/providers/Microsoft.Consumption/pricesheets/default</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>PriceSheets_GetByBillingPeriod</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="billingPeriodName"> Billing Period Name. </param>
+        /// <param name="expand"> May be used to expand the properties/meterDetails within a price sheet. By default, these fields are not included when returning price sheet. </param>
+        /// <param name="skiptoken"> Skiptoken is only used if a previous operation returned a partial result. If a previous response contains a nextLink element, the value of the nextLink element will include a skiptoken parameter that specifies a starting point to use for subsequent calls. </param>
+        /// <param name="top"> May be used to limit the number of results to the top N results. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual Response<PriceSheetResultV2> GetByBillingPeriodPriceSheet(string billingPeriodName, string expand = null, string skiptoken = null, int? top = null, CancellationToken cancellationToken = default)
+        {
+            using var scope = PriceSheetsClientDiagnostics.CreateScope("SubscriptionResourceExtensionClient.GetByBillingPeriodPriceSheet");
+            scope.Start();
+            try
+            {
+                var response = PriceSheetsRestClient.GetByBillingPeriod(Id.SubscriptionId, billingPeriodName, expand, skiptoken, top, cancellationToken);
                 return response;
             }
             catch (Exception e)
