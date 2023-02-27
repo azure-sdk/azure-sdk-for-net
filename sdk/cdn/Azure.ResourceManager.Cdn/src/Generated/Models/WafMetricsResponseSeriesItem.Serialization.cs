@@ -16,7 +16,7 @@ namespace Azure.ResourceManager.Cdn.Models
         internal static WafMetricsResponseSeriesItem DeserializeWafMetricsResponseSeriesItem(JsonElement element)
         {
             Optional<string> metric = default;
-            Optional<WafMetricsResponseSeriesItemUnit> unit = default;
+            Optional<WafMetricsSeriesUnit> unit = default;
             Optional<IReadOnlyList<WafMetricsResponseSeriesPropertiesItemsItem>> groups = default;
             Optional<IReadOnlyList<Components18OrqelSchemasWafmetricsresponsePropertiesSeriesItemsPropertiesDataItems>> data = default;
             foreach (var property in element.EnumerateObject())
@@ -33,7 +33,7 @@ namespace Azure.ResourceManager.Cdn.Models
                         property.ThrowNonNullablePropertyIsNull();
                         continue;
                     }
-                    unit = new WafMetricsResponseSeriesItemUnit(property.Value.GetString());
+                    unit = new WafMetricsSeriesUnit(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("groups"u8))

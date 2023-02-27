@@ -18,7 +18,7 @@ namespace Azure.ResourceManager.Cdn.Models
         {
             Optional<DateTimeOffset> dateTimeBegin = default;
             Optional<DateTimeOffset> dateTimeEnd = default;
-            Optional<MetricsResponseGranularity> granularity = default;
+            Optional<MetricsGranularity> granularity = default;
             Optional<IReadOnlyList<MetricsResponseSeriesItem>> series = default;
             foreach (var property in element.EnumerateObject())
             {
@@ -49,7 +49,7 @@ namespace Azure.ResourceManager.Cdn.Models
                         property.ThrowNonNullablePropertyIsNull();
                         continue;
                     }
-                    granularity = new MetricsResponseGranularity(property.Value.GetString());
+                    granularity = new MetricsGranularity(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("series"u8))

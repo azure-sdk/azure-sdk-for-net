@@ -18,7 +18,7 @@ namespace Azure.ResourceManager.Cdn.Models
         {
             Optional<DateTimeOffset> dateTimeBegin = default;
             Optional<DateTimeOffset> dateTimeEnd = default;
-            Optional<WafMetricsResponseGranularity> granularity = default;
+            Optional<WafMetricsGranularity> granularity = default;
             Optional<IReadOnlyList<WafMetricsResponseSeriesItem>> series = default;
             foreach (var property in element.EnumerateObject())
             {
@@ -49,7 +49,7 @@ namespace Azure.ResourceManager.Cdn.Models
                         property.ThrowNonNullablePropertyIsNull();
                         continue;
                     }
-                    granularity = new WafMetricsResponseGranularity(property.Value.GetString());
+                    granularity = new WafMetricsGranularity(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("series"u8))

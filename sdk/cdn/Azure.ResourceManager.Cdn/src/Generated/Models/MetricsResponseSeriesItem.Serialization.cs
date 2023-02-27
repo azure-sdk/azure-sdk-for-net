@@ -16,7 +16,7 @@ namespace Azure.ResourceManager.Cdn.Models
         internal static MetricsResponseSeriesItem DeserializeMetricsResponseSeriesItem(JsonElement element)
         {
             Optional<string> metric = default;
-            Optional<MetricsResponseSeriesItemUnit> unit = default;
+            Optional<MetricsSeriesUnit> unit = default;
             Optional<IReadOnlyList<MetricsResponseSeriesPropertiesItemsItem>> groups = default;
             Optional<IReadOnlyList<Components1Gs0LlpSchemasMetricsresponsePropertiesSeriesItemsPropertiesDataItems>> data = default;
             foreach (var property in element.EnumerateObject())
@@ -33,7 +33,7 @@ namespace Azure.ResourceManager.Cdn.Models
                         property.ThrowNonNullablePropertyIsNull();
                         continue;
                     }
-                    unit = new MetricsResponseSeriesItemUnit(property.Value.GetString());
+                    unit = new MetricsSeriesUnit(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("groups"u8))
