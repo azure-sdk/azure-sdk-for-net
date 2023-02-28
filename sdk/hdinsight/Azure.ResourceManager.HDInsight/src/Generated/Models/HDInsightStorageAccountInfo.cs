@@ -27,7 +27,8 @@ namespace Azure.ResourceManager.HDInsight.Models
         /// <param name="msiResourceId"> The managed identity (MSI) that is allowed to access the storage account, only to be specified for Azure Data Lake Storage Gen 2. </param>
         /// <param name="sasKey"> The shared access signature key. </param>
         /// <param name="fileshare"> The file share name. </param>
-        internal HDInsightStorageAccountInfo(string name, bool? isDefault, string container, string fileSystem, string key, ResourceIdentifier resourceId, ResourceIdentifier msiResourceId, string sasKey, string fileshare)
+        /// <param name="enableSecureChannel"> Customer specify use secure channel or not. Only work when IsDefault is true. It will impact the setting of FS.defaultFS for ambari and could be null. </param>
+        internal HDInsightStorageAccountInfo(string name, bool? isDefault, string container, string fileSystem, string key, ResourceIdentifier resourceId, ResourceIdentifier msiResourceId, string sasKey, string fileshare, bool? enableSecureChannel)
         {
             Name = name;
             IsDefault = isDefault;
@@ -38,6 +39,7 @@ namespace Azure.ResourceManager.HDInsight.Models
             MsiResourceId = msiResourceId;
             SasKey = sasKey;
             Fileshare = fileshare;
+            EnableSecureChannel = enableSecureChannel;
         }
 
         /// <summary> The name of the storage account. </summary>
@@ -58,5 +60,7 @@ namespace Azure.ResourceManager.HDInsight.Models
         public string SasKey { get; set; }
         /// <summary> The file share name. </summary>
         public string Fileshare { get; set; }
+        /// <summary> Customer specify use secure channel or not. Only work when IsDefault is true. It will impact the setting of FS.defaultFS for ambari and could be null. </summary>
+        public bool? EnableSecureChannel { get; set; }
     }
 }
