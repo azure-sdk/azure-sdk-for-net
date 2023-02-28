@@ -3427,6 +3427,26 @@ namespace Azure.ResourceManager.Compute.Models
         public static bool operator !=(Azure.ResourceManager.Compute.Models.DiskStorageAccountType left, Azure.ResourceManager.Compute.Models.DiskStorageAccountType right) { throw null; }
         public override string ToString() { throw null; }
     }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct EdgeZoneStorageAccountType : System.IEquatable<Azure.ResourceManager.Compute.Models.EdgeZoneStorageAccountType>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public EdgeZoneStorageAccountType(string value) { throw null; }
+        public static Azure.ResourceManager.Compute.Models.EdgeZoneStorageAccountType PremiumLrs { get { throw null; } }
+        public static Azure.ResourceManager.Compute.Models.EdgeZoneStorageAccountType StandardLrs { get { throw null; } }
+        public static Azure.ResourceManager.Compute.Models.EdgeZoneStorageAccountType StandardSsdLrs { get { throw null; } }
+        public static Azure.ResourceManager.Compute.Models.EdgeZoneStorageAccountType StandardZrs { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.Compute.Models.EdgeZoneStorageAccountType other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.Compute.Models.EdgeZoneStorageAccountType left, Azure.ResourceManager.Compute.Models.EdgeZoneStorageAccountType right) { throw null; }
+        public static implicit operator Azure.ResourceManager.Compute.Models.EdgeZoneStorageAccountType (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.Compute.Models.EdgeZoneStorageAccountType left, Azure.ResourceManager.Compute.Models.EdgeZoneStorageAccountType right) { throw null; }
+        public override string ToString() { throw null; }
+    }
     public partial class EncryptionImages
     {
         public EncryptionImages() { }
@@ -3784,7 +3804,7 @@ namespace Azure.ResourceManager.Compute.Models
         public Azure.ResourceManager.Compute.Models.GalleryExtendedLocation ExtendedLocation { get { throw null; } set { } }
         public int? ExtendedLocationReplicaCount { get { throw null; } set { } }
         public string Name { get { throw null; } set { } }
-        public Azure.ResourceManager.Compute.Models.ImageStorageAccountType? StorageAccountType { get { throw null; } set { } }
+        public Azure.ResourceManager.Compute.Models.EdgeZoneStorageAccountType? StorageAccountType { get { throw null; } set { } }
     }
     public partial class GrantAccessData
     {
@@ -6078,9 +6098,13 @@ namespace Azure.ResourceManager.Compute.Models
         internal VirtualMachineScaleSetVmInstanceView() { }
         public Azure.Core.ResourceIdentifier AssignedHost { get { throw null; } }
         public Azure.ResourceManager.Compute.Models.BootDiagnosticsInstanceView BootDiagnostics { get { throw null; } }
+        public string ComputerName { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Compute.Models.DiskInstanceView> Disks { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Compute.Models.VirtualMachineExtensionInstanceView> Extensions { get { throw null; } }
+        public Azure.ResourceManager.Compute.Models.HyperVGeneration? HyperVGeneration { get { throw null; } }
         public Azure.ResourceManager.Compute.Models.MaintenanceRedeployStatus MaintenanceRedeployStatus { get { throw null; } }
+        public string OSName { get { throw null; } }
+        public string OSVersion { get { throw null; } }
         public string PlacementGroupId { get { throw null; } }
         public int? PlatformFaultDomain { get { throw null; } }
         public int? PlatformUpdateDomain { get { throw null; } }
