@@ -3924,6 +3924,7 @@ namespace Azure.ResourceManager.Compute.Models
         public ImageStorageAccountType(string value) { throw null; }
         public static Azure.ResourceManager.Compute.Models.ImageStorageAccountType PremiumLrs { get { throw null; } }
         public static Azure.ResourceManager.Compute.Models.ImageStorageAccountType StandardLrs { get { throw null; } }
+        public static Azure.ResourceManager.Compute.Models.ImageStorageAccountType StandardSsdLrs { get { throw null; } }
         public static Azure.ResourceManager.Compute.Models.ImageStorageAccountType StandardZrs { get { throw null; } }
         public bool Equals(Azure.ResourceManager.Compute.Models.ImageStorageAccountType other) { throw null; }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
@@ -5776,7 +5777,7 @@ namespace Azure.ResourceManager.Compute.Models
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Compute.Models.InstanceViewStatus> Statuses { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Compute.Models.VirtualMachineStatusCodeCount> VirtualMachineStatusesSummary { get { throw null; } }
     }
-    public partial class VirtualMachineScaleSetIPConfiguration : Azure.ResourceManager.Compute.Models.ComputeWriteableSubResourceData
+    public partial class VirtualMachineScaleSetIPConfiguration
     {
         public VirtualMachineScaleSetIPConfiguration(string name) { }
         public System.Collections.Generic.IList<Azure.ResourceManager.Resources.Models.WritableSubResource> ApplicationGatewayBackendAddressPools { get { throw null; } }
@@ -5802,7 +5803,7 @@ namespace Azure.ResourceManager.Compute.Models
         public Azure.ResourceManager.Compute.Models.VirtualMachineDiskSecurityProfile SecurityProfile { get { throw null; } set { } }
         public Azure.ResourceManager.Compute.Models.StorageAccountType? StorageAccountType { get { throw null; } set { } }
     }
-    public partial class VirtualMachineScaleSetNetworkConfiguration : Azure.ResourceManager.Compute.Models.ComputeWriteableSubResourceData
+    public partial class VirtualMachineScaleSetNetworkConfiguration
     {
         public VirtualMachineScaleSetNetworkConfiguration(string name) { }
         public Azure.ResourceManager.Compute.Models.ComputeDeleteOption? DeleteOption { get { throw null; } set { } }
@@ -5860,10 +5861,12 @@ namespace Azure.ResourceManager.Compute.Models
         public Azure.ResourceManager.Models.ManagedServiceIdentity Identity { get { throw null; } set { } }
         public bool? Overprovision { get { throw null; } set { } }
         public Azure.ResourceManager.Compute.Models.ComputePlan Plan { get { throw null; } set { } }
+        public Azure.ResourceManager.Compute.Models.VirtualMachineScaleSetPriorityMixPolicy PriorityMixPolicy { get { throw null; } set { } }
         public Azure.Core.ResourceIdentifier ProximityPlacementGroupId { get { throw null; } set { } }
         public Azure.ResourceManager.Compute.Models.ScaleInPolicy ScaleInPolicy { get { throw null; } set { } }
         public bool? SinglePlacementGroup { get { throw null; } set { } }
         public Azure.ResourceManager.Compute.Models.ComputeSku Sku { get { throw null; } set { } }
+        public Azure.ResourceManager.Compute.Models.SpotRestorePolicy SpotRestorePolicy { get { throw null; } set { } }
         public Azure.ResourceManager.Compute.Models.VirtualMachineScaleSetUpgradePolicy UpgradePolicy { get { throw null; } set { } }
         public Azure.ResourceManager.Compute.Models.VirtualMachineScaleSetUpdateVmProfile VirtualMachineProfile { get { throw null; } set { } }
     }
@@ -6074,9 +6077,13 @@ namespace Azure.ResourceManager.Compute.Models
         internal VirtualMachineScaleSetVmInstanceView() { }
         public Azure.Core.ResourceIdentifier AssignedHost { get { throw null; } }
         public Azure.ResourceManager.Compute.Models.BootDiagnosticsInstanceView BootDiagnostics { get { throw null; } }
+        public string ComputerName { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Compute.Models.DiskInstanceView> Disks { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Compute.Models.VirtualMachineExtensionInstanceView> Extensions { get { throw null; } }
+        public Azure.ResourceManager.Compute.Models.HyperVGeneration? HyperVGeneration { get { throw null; } }
         public Azure.ResourceManager.Compute.Models.MaintenanceRedeployStatus MaintenanceRedeployStatus { get { throw null; } }
+        public string OSName { get { throw null; } }
+        public string OSVersion { get { throw null; } }
         public string PlacementGroupId { get { throw null; } }
         public int? PlatformFaultDomain { get { throw null; } }
         public int? PlatformUpdateDomain { get { throw null; } }
