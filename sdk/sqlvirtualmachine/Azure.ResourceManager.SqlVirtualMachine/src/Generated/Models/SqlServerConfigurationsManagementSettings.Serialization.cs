@@ -40,6 +40,11 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
                 writer.WritePropertyName("sqlInstanceSettings"u8);
                 writer.WriteObjectValue(SqlInstanceSettings);
             }
+            if (Optional.IsDefined(AzureAdAuthenticationSettings))
+            {
+                writer.WritePropertyName("azureAdAuthenticationSettings"u8);
+                writer.WriteObjectValue(AzureAdAuthenticationSettings);
+            }
             writer.WriteEndObject();
         }
 
@@ -50,6 +55,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
             Optional<SqlStorageUpdateSettings> sqlStorageUpdateSettings = default;
             Optional<AdditionalFeaturesServerConfigurations> additionalFeaturesServerConfigurations = default;
             Optional<SqlInstanceSettings> sqlInstanceSettings = default;
+            Optional<AADAuthenticationSettings> azureAdAuthenticationSettings = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("sqlConnectivityUpdateSettings"u8))
@@ -102,8 +108,18 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
                     sqlInstanceSettings = SqlInstanceSettings.DeserializeSqlInstanceSettings(property.Value);
                     continue;
                 }
+                if (property.NameEquals("azureAdAuthenticationSettings"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        property.ThrowNonNullablePropertyIsNull();
+                        continue;
+                    }
+                    azureAdAuthenticationSettings = AADAuthenticationSettings.DeserializeAADAuthenticationSettings(property.Value);
+                    continue;
+                }
             }
-            return new SqlServerConfigurationsManagementSettings(sqlConnectivityUpdateSettings.Value, sqlWorkloadTypeUpdateSettings.Value, sqlStorageUpdateSettings.Value, additionalFeaturesServerConfigurations.Value, sqlInstanceSettings.Value);
+            return new SqlServerConfigurationsManagementSettings(sqlConnectivityUpdateSettings.Value, sqlWorkloadTypeUpdateSettings.Value, sqlStorageUpdateSettings.Value, additionalFeaturesServerConfigurations.Value, sqlInstanceSettings.Value, azureAdAuthenticationSettings.Value);
         }
     }
 }

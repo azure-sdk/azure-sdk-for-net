@@ -10,7 +10,7 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.SqlVirtualMachine.Models
 {
-    /// <summary> The SqlTempDBSettings. </summary>
+    /// <summary> Set tempDb storage settings for SQL Server. </summary>
     public partial class SqlTempDBSettings
     {
         /// <summary> Initializes a new instance of SqlTempDBSettings. </summary>

@@ -33,7 +33,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2022-02-01";
+            _apiVersion = apiVersion ?? "2022-08-01-preview";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
@@ -364,6 +364,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine
             uri.AppendPath(sqlVmName, true);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
             _userAgent.Apply(message);
             return message;
         }
@@ -569,76 +570,6 @@ namespace Azure.ResourceManager.SqlVirtualMachine
             }
         }
 
-        internal HttpMessage CreateRedeployRequest(string subscriptionId, string resourceGroupName, string sqlVmName)
-        {
-            var message = _pipeline.CreateMessage();
-            var request = message.Request;
-            request.Method = RequestMethod.Post;
-            var uri = new RawRequestUriBuilder();
-            uri.Reset(_endpoint);
-            uri.AppendPath("/subscriptions/", false);
-            uri.AppendPath(subscriptionId, true);
-            uri.AppendPath("/resourceGroups/", false);
-            uri.AppendPath(resourceGroupName, true);
-            uri.AppendPath("/providers/Microsoft.SqlVirtualMachine/sqlVirtualMachines/", false);
-            uri.AppendPath(sqlVmName, true);
-            uri.AppendPath("/redeploy", false);
-            uri.AppendQuery("api-version", _apiVersion, true);
-            request.Uri = uri;
-            _userAgent.Apply(message);
-            return message;
-        }
-
-        /// <summary> Uninstalls and reinstalls the SQL Iaas Extension. </summary>
-        /// <param name="subscriptionId"> Subscription ID that identifies an Azure subscription. </param>
-        /// <param name="resourceGroupName"> Name of the resource group that contains the resource. You can obtain this value from the Azure Resource Manager API or the portal. </param>
-        /// <param name="sqlVmName"> Name of the SQL virtual machine. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="sqlVmName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="sqlVmName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response> RedeployAsync(string subscriptionId, string resourceGroupName, string sqlVmName, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(sqlVmName, nameof(sqlVmName));
-
-            using var message = CreateRedeployRequest(subscriptionId, resourceGroupName, sqlVmName);
-            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
-            switch (message.Response.Status)
-            {
-                case 200:
-                case 202:
-                    return message.Response;
-                default:
-                    throw new RequestFailedException(message.Response);
-            }
-        }
-
-        /// <summary> Uninstalls and reinstalls the SQL Iaas Extension. </summary>
-        /// <param name="subscriptionId"> Subscription ID that identifies an Azure subscription. </param>
-        /// <param name="resourceGroupName"> Name of the resource group that contains the resource. You can obtain this value from the Azure Resource Manager API or the portal. </param>
-        /// <param name="sqlVmName"> Name of the SQL virtual machine. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="sqlVmName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="sqlVmName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response Redeploy(string subscriptionId, string resourceGroupName, string sqlVmName, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(sqlVmName, nameof(sqlVmName));
-
-            using var message = CreateRedeployRequest(subscriptionId, resourceGroupName, sqlVmName);
-            _pipeline.Send(message, cancellationToken);
-            switch (message.Response.Status)
-            {
-                case 200:
-                case 202:
-                    return message.Response;
-                default:
-                    throw new RequestFailedException(message.Response);
-            }
-        }
-
         internal HttpMessage CreateStartAssessmentRequest(string subscriptionId, string resourceGroupName, string sqlVmName)
         {
             var message = _pipeline.CreateMessage();
@@ -655,11 +586,12 @@ namespace Azure.ResourceManager.SqlVirtualMachine
             uri.AppendPath("/startAssessment", false);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
             _userAgent.Apply(message);
             return message;
         }
 
-        /// <summary> Starts Assessment on SQL virtual machine. </summary>
+        /// <summary> Starts SQL best practices Assessment on SQL virtual machine. </summary>
         /// <param name="subscriptionId"> Subscription ID that identifies an Azure subscription. </param>
         /// <param name="resourceGroupName"> Name of the resource group that contains the resource. You can obtain this value from the Azure Resource Manager API or the portal. </param>
         /// <param name="sqlVmName"> Name of the SQL virtual machine. </param>
@@ -684,7 +616,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine
             }
         }
 
-        /// <summary> Starts Assessment on SQL virtual machine. </summary>
+        /// <summary> Starts SQL best practices Assessment on SQL virtual machine. </summary>
         /// <param name="subscriptionId"> Subscription ID that identifies an Azure subscription. </param>
         /// <param name="resourceGroupName"> Name of the resource group that contains the resource. You can obtain this value from the Azure Resource Manager API or the portal. </param>
         /// <param name="sqlVmName"> Name of the SQL virtual machine. </param>
@@ -698,6 +630,77 @@ namespace Azure.ResourceManager.SqlVirtualMachine
             Argument.AssertNotNullOrEmpty(sqlVmName, nameof(sqlVmName));
 
             using var message = CreateStartAssessmentRequest(subscriptionId, resourceGroupName, sqlVmName);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 200:
+                case 202:
+                    return message.Response;
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        internal HttpMessage CreateRedeployRequest(string subscriptionId, string resourceGroupName, string sqlVmName)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Post;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/subscriptions/", false);
+            uri.AppendPath(subscriptionId, true);
+            uri.AppendPath("/resourceGroups/", false);
+            uri.AppendPath(resourceGroupName, true);
+            uri.AppendPath("/providers/Microsoft.SqlVirtualMachine/sqlVirtualMachines/", false);
+            uri.AppendPath(sqlVmName, true);
+            uri.AppendPath("/redeploy", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> Uninstalls and reinstalls the SQL IaaS Extension. </summary>
+        /// <param name="subscriptionId"> Subscription ID that identifies an Azure subscription. </param>
+        /// <param name="resourceGroupName"> Name of the resource group that contains the resource. You can obtain this value from the Azure Resource Manager API or the portal. </param>
+        /// <param name="sqlVmName"> Name of the SQL virtual machine. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="sqlVmName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="sqlVmName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response> RedeployAsync(string subscriptionId, string resourceGroupName, string sqlVmName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(sqlVmName, nameof(sqlVmName));
+
+            using var message = CreateRedeployRequest(subscriptionId, resourceGroupName, sqlVmName);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 200:
+                case 202:
+                    return message.Response;
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> Uninstalls and reinstalls the SQL IaaS Extension. </summary>
+        /// <param name="subscriptionId"> Subscription ID that identifies an Azure subscription. </param>
+        /// <param name="resourceGroupName"> Name of the resource group that contains the resource. You can obtain this value from the Azure Resource Manager API or the portal. </param>
+        /// <param name="sqlVmName"> Name of the SQL virtual machine. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="sqlVmName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="sqlVmName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response Redeploy(string subscriptionId, string resourceGroupName, string sqlVmName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(sqlVmName, nameof(sqlVmName));
+
+            using var message = CreateRedeployRequest(subscriptionId, resourceGroupName, sqlVmName);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
