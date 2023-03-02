@@ -27,7 +27,8 @@ namespace Azure.ResourceManager.Compute.Models
         /// <param name="securityProfile"> Gets the security profile. </param>
         /// <param name="location"> Location of the VM from which the restore point was created. </param>
         /// <param name="userData"> UserData associated with the source VM for which restore point is captured, which is a base-64 encoded value. </param>
-        internal RestorePointSourceMetadata(VirtualMachineHardwareProfile hardwareProfile, RestorePointSourceVmStorageProfile storageProfile, VirtualMachineOSProfile osProfile, DiagnosticsProfile diagnosticsProfile, string licenseType, string vmId, SecurityProfile securityProfile, AzureLocation? location, string userData)
+        /// <param name="hyperVGeneration"> HyperVGeneration of the source VM for which restore point is captured. </param>
+        internal RestorePointSourceMetadata(VirtualMachineHardwareProfile hardwareProfile, RestorePointSourceVmStorageProfile storageProfile, VirtualMachineOSProfile osProfile, DiagnosticsProfile diagnosticsProfile, string licenseType, string vmId, SecurityProfile securityProfile, AzureLocation? location, string userData, HyperVGeneration? hyperVGeneration)
         {
             HardwareProfile = hardwareProfile;
             StorageProfile = storageProfile;
@@ -38,6 +39,7 @@ namespace Azure.ResourceManager.Compute.Models
             SecurityProfile = securityProfile;
             Location = location;
             UserData = userData;
+            HyperVGeneration = hyperVGeneration;
         }
 
         /// <summary> Gets the hardware profile. </summary>
@@ -64,5 +66,7 @@ namespace Azure.ResourceManager.Compute.Models
         public AzureLocation? Location { get; }
         /// <summary> UserData associated with the source VM for which restore point is captured, which is a base-64 encoded value. </summary>
         public string UserData { get; }
+        /// <summary> HyperVGeneration of the source VM for which restore point is captured. </summary>
+        public HyperVGeneration? HyperVGeneration { get; }
     }
 }

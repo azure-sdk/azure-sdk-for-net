@@ -4703,6 +4703,7 @@ namespace Azure.ResourceManager.Compute.Models
         internal RestorePointSourceMetadata() { }
         public Azure.ResourceManager.Compute.Models.BootDiagnostics BootDiagnostics { get { throw null; } }
         public Azure.ResourceManager.Compute.Models.VirtualMachineHardwareProfile HardwareProfile { get { throw null; } }
+        public Azure.ResourceManager.Compute.Models.HyperVGeneration? HyperVGeneration { get { throw null; } }
         public string LicenseType { get { throw null; } }
         public Azure.Core.AzureLocation? Location { get { throw null; } }
         public Azure.ResourceManager.Compute.Models.VirtualMachineOSProfile OSProfile { get { throw null; } }
@@ -4720,6 +4721,7 @@ namespace Azure.ResourceManager.Compute.Models
         public int? Lun { get { throw null; } }
         public Azure.ResourceManager.Compute.Models.VirtualMachineManagedDisk ManagedDisk { get { throw null; } }
         public string Name { get { throw null; } }
+        public bool? WriteAcceleratorEnabled { get { throw null; } }
     }
     public partial class RestorePointSourceVmOSDisk
     {
@@ -4731,6 +4733,7 @@ namespace Azure.ResourceManager.Compute.Models
         public Azure.ResourceManager.Compute.Models.VirtualMachineManagedDisk ManagedDisk { get { throw null; } }
         public string Name { get { throw null; } }
         public Azure.ResourceManager.Compute.Models.OperatingSystemType? OSType { get { throw null; } }
+        public bool? WriteAcceleratorEnabled { get { throw null; } }
     }
     public partial class RestorePointSourceVmStorageProfile
     {

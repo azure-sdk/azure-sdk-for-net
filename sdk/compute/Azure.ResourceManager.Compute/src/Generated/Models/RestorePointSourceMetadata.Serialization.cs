@@ -23,6 +23,7 @@ namespace Azure.ResourceManager.Compute.Models
             Optional<SecurityProfile> securityProfile = default;
             Optional<AzureLocation> location = default;
             Optional<string> userData = default;
+            Optional<HyperVGeneration> hyperVGeneration = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("hardwareProfile"u8))
@@ -100,8 +101,18 @@ namespace Azure.ResourceManager.Compute.Models
                     userData = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("hyperVGeneration"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        property.ThrowNonNullablePropertyIsNull();
+                        continue;
+                    }
+                    hyperVGeneration = new HyperVGeneration(property.Value.GetString());
+                    continue;
+                }
             }
-            return new RestorePointSourceMetadata(hardwareProfile.Value, storageProfile.Value, osProfile.Value, diagnosticsProfile.Value, licenseType.Value, vmId.Value, securityProfile.Value, Optional.ToNullable(location), userData.Value);
+            return new RestorePointSourceMetadata(hardwareProfile.Value, storageProfile.Value, osProfile.Value, diagnosticsProfile.Value, licenseType.Value, vmId.Value, securityProfile.Value, Optional.ToNullable(location), userData.Value, Optional.ToNullable(hyperVGeneration));
         }
     }
 }
