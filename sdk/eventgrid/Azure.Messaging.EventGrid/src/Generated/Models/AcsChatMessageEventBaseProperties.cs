@@ -6,35 +6,16 @@
 #nullable disable
 
 using System;
+using Azure.Messaging.EventGrid.SystemEvents;
 
-namespace Azure.Messaging.EventGrid.SystemEvents
+namespace Azure.Messaging.EventGrid.Models
 {
     /// <summary> Schema of common properties of all chat message events. </summary>
-    public partial class AcsChatMessageEventBaseProperties : AcsChatEventBaseProperties
+    internal partial class AcsChatMessageEventBaseProperties : AcsChatEventBaseProperties
     {
         /// <summary> Initializes a new instance of AcsChatMessageEventBaseProperties. </summary>
         internal AcsChatMessageEventBaseProperties()
         {
-        }
-
-        /// <summary> Initializes a new instance of AcsChatMessageEventBaseProperties. </summary>
-        /// <param name="recipientCommunicationIdentifier"> The communication identifier of the target user. </param>
-        /// <param name="transactionId"> The transaction id will be used as co-relation vector. </param>
-        /// <param name="threadId"> The chat thread id. </param>
-        /// <param name="messageId"> The chat message id. </param>
-        /// <param name="senderCommunicationIdentifier"> The communication identifier of the sender. </param>
-        /// <param name="senderDisplayName"> The display name of the sender. </param>
-        /// <param name="composeTime"> The original compose time of the message. </param>
-        /// <param name="type"> The type of the message. </param>
-        /// <param name="version"> The version of the message. </param>
-        internal AcsChatMessageEventBaseProperties(CommunicationIdentifierModel recipientCommunicationIdentifier, string transactionId, string threadId, string messageId, CommunicationIdentifierModel senderCommunicationIdentifier, string senderDisplayName, DateTimeOffset? composeTime, string type, long? version) : base(recipientCommunicationIdentifier, transactionId, threadId)
-        {
-            MessageId = messageId;
-            SenderCommunicationIdentifier = senderCommunicationIdentifier;
-            SenderDisplayName = senderDisplayName;
-            ComposeTime = composeTime;
-            Type = type;
-            Version = version;
         }
 
         /// <summary> The chat message id. </summary>

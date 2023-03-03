@@ -7,26 +7,14 @@
 
 using System;
 
-namespace Azure.Messaging.EventGrid.SystemEvents
+namespace Azure.Messaging.EventGrid.Models
 {
     /// <summary> Schema of common properties of all chat thread events. </summary>
-    public partial class AcsChatThreadEventBaseProperties : AcsChatEventBaseProperties
+    internal partial class AcsChatThreadEventBaseProperties : AcsChatEventBaseProperties
     {
         /// <summary> Initializes a new instance of AcsChatThreadEventBaseProperties. </summary>
         internal AcsChatThreadEventBaseProperties()
         {
-        }
-
-        /// <summary> Initializes a new instance of AcsChatThreadEventBaseProperties. </summary>
-        /// <param name="recipientCommunicationIdentifier"> The communication identifier of the target user. </param>
-        /// <param name="transactionId"> The transaction id will be used as co-relation vector. </param>
-        /// <param name="threadId"> The chat thread id. </param>
-        /// <param name="createTime"> The original creation time of the thread. </param>
-        /// <param name="version"> The version of the thread. </param>
-        internal AcsChatThreadEventBaseProperties(CommunicationIdentifierModel recipientCommunicationIdentifier, string transactionId, string threadId, DateTimeOffset? createTime, long? version) : base(recipientCommunicationIdentifier, transactionId, threadId)
-        {
-            CreateTime = createTime;
-            Version = version;
         }
 
         /// <summary> The original creation time of the thread. </summary>

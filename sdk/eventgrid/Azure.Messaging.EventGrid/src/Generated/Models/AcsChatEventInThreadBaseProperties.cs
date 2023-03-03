@@ -5,23 +5,14 @@
 
 #nullable disable
 
-namespace Azure.Messaging.EventGrid.SystemEvents
+namespace Azure.Messaging.EventGrid.Models
 {
     /// <summary> Schema of common properties of all thread-level chat events. </summary>
-    public partial class AcsChatEventInThreadBaseProperties
+    internal partial class AcsChatEventInThreadBaseProperties
     {
         /// <summary> Initializes a new instance of AcsChatEventInThreadBaseProperties. </summary>
         internal AcsChatEventInThreadBaseProperties()
         {
-        }
-
-        /// <summary> Initializes a new instance of AcsChatEventInThreadBaseProperties. </summary>
-        /// <param name="transactionId"> The transaction id will be used as co-relation vector. </param>
-        /// <param name="threadId"> The chat thread id. </param>
-        internal AcsChatEventInThreadBaseProperties(string transactionId, string threadId)
-        {
-            TransactionId = transactionId;
-            ThreadId = threadId;
         }
 
         /// <summary> The transaction id will be used as co-relation vector. </summary>

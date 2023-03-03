@@ -8,22 +8,15 @@
 using System.Collections.Generic;
 using Azure.Core;
 
-namespace Azure.Messaging.EventGrid.SystemEvents
+namespace Azure.Messaging.EventGrid.Models
 {
     /// <summary> Schema for all properties of Recording Storage Information. </summary>
-    public partial class AcsRecordingStorageInfoProperties
+    internal partial class AcsRecordingStorageInfoProperties
     {
         /// <summary> Initializes a new instance of AcsRecordingStorageInfoProperties. </summary>
         internal AcsRecordingStorageInfoProperties()
         {
             RecordingChunks = new ChangeTrackingList<AcsRecordingChunkInfoProperties>();
-        }
-
-        /// <summary> Initializes a new instance of AcsRecordingStorageInfoProperties. </summary>
-        /// <param name="recordingChunks"> List of details of recording chunks information. </param>
-        internal AcsRecordingStorageInfoProperties(IReadOnlyList<AcsRecordingChunkInfoProperties> recordingChunks)
-        {
-            RecordingChunks = recordingChunks;
         }
 
         /// <summary> List of details of recording chunks information. </summary>

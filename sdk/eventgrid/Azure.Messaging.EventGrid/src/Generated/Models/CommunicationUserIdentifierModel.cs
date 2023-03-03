@@ -11,7 +11,7 @@ using Azure.Core;
 namespace Azure.Messaging.EventGrid.SystemEvents
 {
     /// <summary> A user that got created with an Azure Communication Services resource. </summary>
-    public partial class CommunicationUserIdentifierModel
+    internal partial class CommunicationUserIdentifierModel
     {
         /// <summary> Initializes a new instance of CommunicationUserIdentifierModel. </summary>
         /// <param name="id"> The Id of the communication user. </param>

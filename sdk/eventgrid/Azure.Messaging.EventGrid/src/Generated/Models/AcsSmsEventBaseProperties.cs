@@ -5,25 +5,14 @@
 
 #nullable disable
 
-namespace Azure.Messaging.EventGrid.SystemEvents
+namespace Azure.Messaging.EventGrid.Models
 {
     /// <summary> Schema of common properties of all SMS events. </summary>
-    public partial class AcsSmsEventBaseProperties
+    internal partial class AcsSmsEventBaseProperties
     {
         /// <summary> Initializes a new instance of AcsSmsEventBaseProperties. </summary>
         internal AcsSmsEventBaseProperties()
         {
-        }
-
-        /// <summary> Initializes a new instance of AcsSmsEventBaseProperties. </summary>
-        /// <param name="messageId"> The identity of the SMS message. </param>
-        /// <param name="from"> The identity of SMS message sender. </param>
-        /// <param name="to"> The identity of SMS message receiver. </param>
-        internal AcsSmsEventBaseProperties(string messageId, string @from, string to)
-        {
-            MessageId = messageId;
-            From = @from;
-            To = to;
         }
 
         /// <summary> The identity of the SMS message. </summary>

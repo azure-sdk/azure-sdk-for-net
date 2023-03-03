@@ -6,34 +6,16 @@
 #nullable disable
 
 using System;
+using Azure.Messaging.EventGrid.SystemEvents;
 
-namespace Azure.Messaging.EventGrid.SystemEvents
+namespace Azure.Messaging.EventGrid.Models
 {
     /// <summary> Schema of common properties of all thread-level chat message events. </summary>
-    public partial class AcsChatMessageEventInThreadBaseProperties : AcsChatEventInThreadBaseProperties
+    internal partial class AcsChatMessageEventInThreadBaseProperties : AcsChatEventInThreadBaseProperties
     {
         /// <summary> Initializes a new instance of AcsChatMessageEventInThreadBaseProperties. </summary>
         internal AcsChatMessageEventInThreadBaseProperties()
         {
-        }
-
-        /// <summary> Initializes a new instance of AcsChatMessageEventInThreadBaseProperties. </summary>
-        /// <param name="transactionId"> The transaction id will be used as co-relation vector. </param>
-        /// <param name="threadId"> The chat thread id. </param>
-        /// <param name="messageId"> The chat message id. </param>
-        /// <param name="senderCommunicationIdentifier"> The communication identifier of the sender. </param>
-        /// <param name="senderDisplayName"> The display name of the sender. </param>
-        /// <param name="composeTime"> The original compose time of the message. </param>
-        /// <param name="type"> The type of the message. </param>
-        /// <param name="version"> The version of the message. </param>
-        internal AcsChatMessageEventInThreadBaseProperties(string transactionId, string threadId, string messageId, CommunicationIdentifierModel senderCommunicationIdentifier, string senderDisplayName, DateTimeOffset? composeTime, string type, long? version) : base(transactionId, threadId)
-        {
-            MessageId = messageId;
-            SenderCommunicationIdentifier = senderCommunicationIdentifier;
-            SenderDisplayName = senderDisplayName;
-            ComposeTime = composeTime;
-            Type = type;
-            Version = version;
         }
 
         /// <summary> The chat message id. </summary>

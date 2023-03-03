@@ -6,31 +6,16 @@
 #nullable disable
 
 using System;
+using Azure.Messaging.EventGrid.SystemEvents;
 
-namespace Azure.Messaging.EventGrid.SystemEvents
+namespace Azure.Messaging.EventGrid.Models
 {
     /// <summary> Schema of the Data property of an EventGridEvent for a Microsoft.Communication.ChatParticipantAddedToThreadWithUser event. </summary>
-    public partial class AcsChatParticipantAddedToThreadWithUserEventData : AcsChatThreadEventBaseProperties
+    internal partial class AcsChatParticipantAddedToThreadWithUserEventData : AcsChatThreadEventBaseProperties
     {
         /// <summary> Initializes a new instance of AcsChatParticipantAddedToThreadWithUserEventData. </summary>
         internal AcsChatParticipantAddedToThreadWithUserEventData()
         {
-        }
-
-        /// <summary> Initializes a new instance of AcsChatParticipantAddedToThreadWithUserEventData. </summary>
-        /// <param name="recipientCommunicationIdentifier"> The communication identifier of the target user. </param>
-        /// <param name="transactionId"> The transaction id will be used as co-relation vector. </param>
-        /// <param name="threadId"> The chat thread id. </param>
-        /// <param name="createTime"> The original creation time of the thread. </param>
-        /// <param name="version"> The version of the thread. </param>
-        /// <param name="time"> The time at which the user was added to the thread. </param>
-        /// <param name="addedByCommunicationIdentifier"> The communication identifier of the user who added the user. </param>
-        /// <param name="participantAdded"> The details of the user who was added. </param>
-        internal AcsChatParticipantAddedToThreadWithUserEventData(CommunicationIdentifierModel recipientCommunicationIdentifier, string transactionId, string threadId, DateTimeOffset? createTime, long? version, DateTimeOffset? time, CommunicationIdentifierModel addedByCommunicationIdentifier, AcsChatThreadParticipantProperties participantAdded) : base(recipientCommunicationIdentifier, transactionId, threadId, createTime, version)
-        {
-            Time = time;
-            AddedByCommunicationIdentifier = addedByCommunicationIdentifier;
-            ParticipantAdded = participantAdded;
         }
 
         /// <summary> The time at which the user was added to the thread. </summary>

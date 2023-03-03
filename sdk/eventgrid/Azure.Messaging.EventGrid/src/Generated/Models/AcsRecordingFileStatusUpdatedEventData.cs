@@ -7,33 +7,14 @@
 
 using System;
 
-namespace Azure.Messaging.EventGrid.SystemEvents
+namespace Azure.Messaging.EventGrid.Models
 {
     /// <summary> Schema of the Data property of an EventGridEvent for a Microsoft.Communication.RecordingFileStatusUpdated event. </summary>
-    public partial class AcsRecordingFileStatusUpdatedEventData
+    internal partial class AcsRecordingFileStatusUpdatedEventData
     {
         /// <summary> Initializes a new instance of AcsRecordingFileStatusUpdatedEventData. </summary>
         internal AcsRecordingFileStatusUpdatedEventData()
         {
-        }
-
-        /// <summary> Initializes a new instance of AcsRecordingFileStatusUpdatedEventData. </summary>
-        /// <param name="recordingStorageInfo"> The details of recording storage information. </param>
-        /// <param name="recordingStartTime"> The time at which the recording started. </param>
-        /// <param name="recordingDurationMs"> The recording duration in milliseconds. </param>
-        /// <param name="contentType"> The recording content type- AudioVideo, or Audio. </param>
-        /// <param name="channelType"> The recording  channel type - Mixed, Unmixed. </param>
-        /// <param name="formatType"> The recording format type - Mp4, Mp3, Wav. </param>
-        /// <param name="sessionEndReason"> The reason for ending recording session. </param>
-        internal AcsRecordingFileStatusUpdatedEventData(AcsRecordingStorageInfoProperties recordingStorageInfo, DateTimeOffset? recordingStartTime, long? recordingDurationMs, AcsRecordingContentType? contentType, AcsRecordingChannelType? channelType, AcsRecordingFormatType? formatType, string sessionEndReason)
-        {
-            RecordingStorageInfo = recordingStorageInfo;
-            RecordingStartTime = recordingStartTime;
-            RecordingDurationMs = recordingDurationMs;
-            ContentType = contentType;
-            ChannelType = channelType;
-            FormatType = formatType;
-            SessionEndReason = sessionEndReason;
         }
 
         /// <summary> The details of recording storage information. </summary>
@@ -42,12 +23,6 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         public DateTimeOffset? RecordingStartTime { get; }
         /// <summary> The recording duration in milliseconds. </summary>
         public long? RecordingDurationMs { get; }
-        /// <summary> The recording content type- AudioVideo, or Audio. </summary>
-        public AcsRecordingContentType? ContentType { get; }
-        /// <summary> The recording  channel type - Mixed, Unmixed. </summary>
-        public AcsRecordingChannelType? ChannelType { get; }
-        /// <summary> The recording format type - Mp4, Mp3, Wav. </summary>
-        public AcsRecordingFormatType? FormatType { get; }
         /// <summary> The reason for ending recording session. </summary>
         public string SessionEndReason { get; }
     }

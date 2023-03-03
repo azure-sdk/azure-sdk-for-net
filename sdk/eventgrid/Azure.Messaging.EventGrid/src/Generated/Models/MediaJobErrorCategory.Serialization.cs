@@ -18,7 +18,6 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             MediaJobErrorCategory.Upload => "Upload",
             MediaJobErrorCategory.Configuration => "Configuration",
             MediaJobErrorCategory.Content => "Content",
-            MediaJobErrorCategory.Account => "Account",
             _ => throw new ArgumentOutOfRangeException(nameof(value), value, "Unknown MediaJobErrorCategory value.")
         };
     }

@@ -6,30 +6,16 @@
 #nullable disable
 
 using System;
+using Azure.Messaging.EventGrid.SystemEvents;
 
-namespace Azure.Messaging.EventGrid.SystemEvents
+namespace Azure.Messaging.EventGrid.Models
 {
     /// <summary> Schema of the Data property of an EventGridEvent for a Microsoft.Communication.ChatThreadParticipantRemoved event. </summary>
-    public partial class AcsChatParticipantRemovedFromThreadEventData : AcsChatEventInThreadBaseProperties
+    internal partial class AcsChatParticipantRemovedFromThreadEventData : AcsChatEventInThreadBaseProperties
     {
         /// <summary> Initializes a new instance of AcsChatParticipantRemovedFromThreadEventData. </summary>
         internal AcsChatParticipantRemovedFromThreadEventData()
         {
-        }
-
-        /// <summary> Initializes a new instance of AcsChatParticipantRemovedFromThreadEventData. </summary>
-        /// <param name="transactionId"> The transaction id will be used as co-relation vector. </param>
-        /// <param name="threadId"> The chat thread id. </param>
-        /// <param name="time"> The time at which the user was removed to the thread. </param>
-        /// <param name="removedByCommunicationIdentifier"> The communication identifier of the user who removed the user. </param>
-        /// <param name="participantRemoved"> The details of the user who was removed. </param>
-        /// <param name="version"> The version of the thread. </param>
-        internal AcsChatParticipantRemovedFromThreadEventData(string transactionId, string threadId, DateTimeOffset? time, CommunicationIdentifierModel removedByCommunicationIdentifier, AcsChatThreadParticipantProperties participantRemoved, long? version) : base(transactionId, threadId)
-        {
-            Time = time;
-            RemovedByCommunicationIdentifier = removedByCommunicationIdentifier;
-            ParticipantRemoved = participantRemoved;
-            Version = version;
         }
 
         /// <summary> The time at which the user was removed to the thread. </summary>

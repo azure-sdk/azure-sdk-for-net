@@ -11,7 +11,7 @@ using Azure.Core;
 namespace Azure.Messaging.EventGrid.SystemEvents
 {
     /// <summary> A Microsoft Teams user. </summary>
-    public partial class MicrosoftTeamsUserIdentifierModel
+    internal partial class MicrosoftTeamsUserIdentifierModel
     {
         /// <summary> Initializes a new instance of MicrosoftTeamsUserIdentifierModel. </summary>
         /// <param name="userId"> The Id of the Microsoft Teams user. If not anonymous, this is the AAD object Id of the user. </param>
@@ -21,17 +21,6 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             Argument.AssertNotNull(userId, nameof(userId));
 
             UserId = userId;
-        }
-
-        /// <summary> Initializes a new instance of MicrosoftTeamsUserIdentifierModel. </summary>
-        /// <param name="userId"> The Id of the Microsoft Teams user. If not anonymous, this is the AAD object Id of the user. </param>
-        /// <param name="isAnonymous"> True if the Microsoft Teams user is anonymous. By default false if missing. </param>
-        /// <param name="cloud"> The cloud that the Microsoft Teams user belongs to. By default &apos;public&apos; if missing. </param>
-        internal MicrosoftTeamsUserIdentifierModel(string userId, bool? isAnonymous, CommunicationCloudEnvironmentModel? cloud)
-        {
-            UserId = userId;
-            IsAnonymous = isAnonymous;
-            Cloud = cloud;
         }
 
         /// <summary> The Id of the Microsoft Teams user. If not anonymous, this is the AAD object Id of the user. </summary>

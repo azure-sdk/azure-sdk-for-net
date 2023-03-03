@@ -22,7 +22,6 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             MediaJobErrorCode.ConfigurationUnsupported => "ConfigurationUnsupported",
             MediaJobErrorCode.ContentMalformed => "ContentMalformed",
             MediaJobErrorCode.ContentUnsupported => "ContentUnsupported",
-            MediaJobErrorCode.IdentityUnsupported => "IdentityUnsupported",
             _ => throw new ArgumentOutOfRangeException(nameof(value), value, "Unknown MediaJobErrorCode value.")
         };
     }

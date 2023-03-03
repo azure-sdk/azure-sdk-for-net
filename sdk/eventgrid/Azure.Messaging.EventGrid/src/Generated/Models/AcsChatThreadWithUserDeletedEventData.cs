@@ -6,29 +6,16 @@
 #nullable disable
 
 using System;
+using Azure.Messaging.EventGrid.SystemEvents;
 
-namespace Azure.Messaging.EventGrid.SystemEvents
+namespace Azure.Messaging.EventGrid.Models
 {
     /// <summary> Schema of the Data property of an EventGridEvent for a Microsoft.Communication.ChatThreadWithUserDeleted event. </summary>
-    public partial class AcsChatThreadWithUserDeletedEventData : AcsChatThreadEventBaseProperties
+    internal partial class AcsChatThreadWithUserDeletedEventData : AcsChatThreadEventBaseProperties
     {
         /// <summary> Initializes a new instance of AcsChatThreadWithUserDeletedEventData. </summary>
         internal AcsChatThreadWithUserDeletedEventData()
         {
-        }
-
-        /// <summary> Initializes a new instance of AcsChatThreadWithUserDeletedEventData. </summary>
-        /// <param name="recipientCommunicationIdentifier"> The communication identifier of the target user. </param>
-        /// <param name="transactionId"> The transaction id will be used as co-relation vector. </param>
-        /// <param name="threadId"> The chat thread id. </param>
-        /// <param name="createTime"> The original creation time of the thread. </param>
-        /// <param name="version"> The version of the thread. </param>
-        /// <param name="deletedByCommunicationIdentifier"> The communication identifier of the user who deleted the thread. </param>
-        /// <param name="deleteTime"> The deletion time of the thread. </param>
-        internal AcsChatThreadWithUserDeletedEventData(CommunicationIdentifierModel recipientCommunicationIdentifier, string transactionId, string threadId, DateTimeOffset? createTime, long? version, CommunicationIdentifierModel deletedByCommunicationIdentifier, DateTimeOffset? deleteTime) : base(recipientCommunicationIdentifier, transactionId, threadId, createTime, version)
-        {
-            DeletedByCommunicationIdentifier = deletedByCommunicationIdentifier;
-            DeleteTime = deleteTime;
         }
 
         /// <summary> The communication identifier of the user who deleted the thread. </summary>

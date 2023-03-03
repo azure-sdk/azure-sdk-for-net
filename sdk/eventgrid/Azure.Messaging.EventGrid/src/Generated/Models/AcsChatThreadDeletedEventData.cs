@@ -6,28 +6,16 @@
 #nullable disable
 
 using System;
+using Azure.Messaging.EventGrid.SystemEvents;
 
-namespace Azure.Messaging.EventGrid.SystemEvents
+namespace Azure.Messaging.EventGrid.Models
 {
     /// <summary> Schema of the Data property of an EventGridEvent for a Microsoft.Communication.ChatThreadDeleted event. </summary>
-    public partial class AcsChatThreadDeletedEventData : AcsChatThreadEventInThreadBaseProperties
+    internal partial class AcsChatThreadDeletedEventData : AcsChatThreadEventInThreadBaseProperties
     {
         /// <summary> Initializes a new instance of AcsChatThreadDeletedEventData. </summary>
         internal AcsChatThreadDeletedEventData()
         {
-        }
-
-        /// <summary> Initializes a new instance of AcsChatThreadDeletedEventData. </summary>
-        /// <param name="transactionId"> The transaction id will be used as co-relation vector. </param>
-        /// <param name="threadId"> The chat thread id. </param>
-        /// <param name="createTime"> The original creation time of the thread. </param>
-        /// <param name="version"> The version of the thread. </param>
-        /// <param name="deletedByCommunicationIdentifier"> The communication identifier of the user who deleted the thread. </param>
-        /// <param name="deleteTime"> The deletion time of the thread. </param>
-        internal AcsChatThreadDeletedEventData(string transactionId, string threadId, DateTimeOffset? createTime, long? version, CommunicationIdentifierModel deletedByCommunicationIdentifier, DateTimeOffset? deleteTime) : base(transactionId, threadId, createTime, version)
-        {
-            DeletedByCommunicationIdentifier = deletedByCommunicationIdentifier;
-            DeleteTime = deleteTime;
         }
 
         /// <summary> The communication identifier of the user who deleted the thread. </summary>
