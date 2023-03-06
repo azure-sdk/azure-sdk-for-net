@@ -7,7 +7,7 @@ azure-arm: true
 generate-model-factory: false
 csharp: true
 namespace: Azure.ResourceManager.Storage
-require: https://github.com/Azure/azure-rest-api-specs/blob/da0cfefaa0e6c237e1e3819f1cb2e11d7606878d/specification/storage/resource-manager/readme.md
+require: /mnt/vss/_work/1/s/azure-rest-api-specs/specification/storage/resource-manager/readme.md
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
 skip-csproj: true
