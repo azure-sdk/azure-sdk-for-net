@@ -38,6 +38,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine
         /// <param name="sqlImageOffer"> SQL image offer. Examples include SQL2016-WS2016, SQL2017-WS2016. </param>
         /// <param name="sqlServerLicenseType"> SQL Server license type. </param>
         /// <param name="sqlManagement"> SQL Server Management type. </param>
+        /// <param name="leastPrivilegeMode"> SQL IaaS Agent least privilege mode. </param>
         /// <param name="sqlImageSku"> SQL Server edition type. </param>
         /// <param name="sqlVmGroupResourceId"> ARM resource id of the SQL virtual machine group this SQL virtual machine is or will be part of. </param>
         /// <param name="windowsServerFailoverClusterDomainCredentials"> Domain credentials for setting up Windows Server Failover Cluster for SQL availability group. </param>
@@ -47,8 +48,10 @@ namespace Azure.ResourceManager.SqlVirtualMachine
         /// <param name="keyVaultCredentialSettings"> Key vault credential settings. </param>
         /// <param name="serverConfigurationsManagementSettings"> SQL Server configuration management settings. </param>
         /// <param name="storageConfigurationSettings"> Storage Configuration Settings. </param>
-        /// <param name="assessmentSettings"> Assessment Settings. </param>
-        internal SqlVmData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ManagedServiceIdentity identity, ResourceIdentifier virtualMachineResourceId, string provisioningState, string sqlImageOffer, SqlServerLicenseType? sqlServerLicenseType, SqlManagementMode? sqlManagement, SqlImageSku? sqlImageSku, ResourceIdentifier sqlVmGroupResourceId, WindowsServerFailoverClusterDomainCredentials windowsServerFailoverClusterDomainCredentials, IPAddress windowsServerFailoverClusterStaticIP, SqlVmAutoPatchingSettings autoPatchingSettings, SqlVmAutoBackupSettings autoBackupSettings, SqlVmKeyVaultCredentialSettings keyVaultCredentialSettings, SqlServerConfigurationsManagementSettings serverConfigurationsManagementSettings, SqlVmStorageConfigurationSettings storageConfigurationSettings, SqlVmAssessmentSettings assessmentSettings) : base(id, name, resourceType, systemData, tags, location)
+        /// <param name="troubleshootingStatus"> Troubleshooting status. </param>
+        /// <param name="assessmentSettings"> SQL best practices Assessment Settings. </param>
+        /// <param name="enableAutomaticUpgrade"> Enable automatic upgrade of Sql IaaS extension Agent. </param>
+        internal SqlVmData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ManagedServiceIdentity identity, ResourceIdentifier virtualMachineResourceId, string provisioningState, string sqlImageOffer, SqlServerLicenseType? sqlServerLicenseType, SqlManagementMode? sqlManagement, LeastPrivilegeMode? leastPrivilegeMode, SqlImageSku? sqlImageSku, ResourceIdentifier sqlVmGroupResourceId, WindowsServerFailoverClusterDomainCredentials windowsServerFailoverClusterDomainCredentials, IPAddress windowsServerFailoverClusterStaticIP, SqlVmAutoPatchingSettings autoPatchingSettings, SqlVmAutoBackupSettings autoBackupSettings, SqlVmKeyVaultCredentialSettings keyVaultCredentialSettings, SqlServerConfigurationsManagementSettings serverConfigurationsManagementSettings, SqlVmStorageConfigurationSettings storageConfigurationSettings, TroubleshootingStatus troubleshootingStatus, SqlVmAssessmentSettings assessmentSettings, bool? enableAutomaticUpgrade) : base(id, name, resourceType, systemData, tags, location)
         {
             Identity = identity;
             VirtualMachineResourceId = virtualMachineResourceId;
@@ -56,6 +59,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine
             SqlImageOffer = sqlImageOffer;
             SqlServerLicenseType = sqlServerLicenseType;
             SqlManagement = sqlManagement;
+            LeastPrivilegeMode = leastPrivilegeMode;
             SqlImageSku = sqlImageSku;
             SqlVmGroupResourceId = sqlVmGroupResourceId;
             WindowsServerFailoverClusterDomainCredentials = windowsServerFailoverClusterDomainCredentials;
@@ -65,7 +69,9 @@ namespace Azure.ResourceManager.SqlVirtualMachine
             KeyVaultCredentialSettings = keyVaultCredentialSettings;
             ServerConfigurationsManagementSettings = serverConfigurationsManagementSettings;
             StorageConfigurationSettings = storageConfigurationSettings;
+            TroubleshootingStatus = troubleshootingStatus;
             AssessmentSettings = assessmentSettings;
+            EnableAutomaticUpgrade = enableAutomaticUpgrade;
         }
 
         /// <summary> Azure Active Directory identity of the server. Current supported identity types: None, SystemAssigned. </summary>
@@ -80,6 +86,8 @@ namespace Azure.ResourceManager.SqlVirtualMachine
         public SqlServerLicenseType? SqlServerLicenseType { get; set; }
         /// <summary> SQL Server Management type. </summary>
         public SqlManagementMode? SqlManagement { get; set; }
+        /// <summary> SQL IaaS Agent least privilege mode. </summary>
+        public LeastPrivilegeMode? LeastPrivilegeMode { get; set; }
         /// <summary> SQL Server edition type. </summary>
         public SqlImageSku? SqlImageSku { get; set; }
         /// <summary> ARM resource id of the SQL virtual machine group this SQL virtual machine is or will be part of. </summary>
@@ -98,7 +106,11 @@ namespace Azure.ResourceManager.SqlVirtualMachine
         public SqlServerConfigurationsManagementSettings ServerConfigurationsManagementSettings { get; set; }
         /// <summary> Storage Configuration Settings. </summary>
         public SqlVmStorageConfigurationSettings StorageConfigurationSettings { get; set; }
-        /// <summary> Assessment Settings. </summary>
+        /// <summary> Troubleshooting status. </summary>
+        public TroubleshootingStatus TroubleshootingStatus { get; }
+        /// <summary> SQL best practices Assessment Settings. </summary>
         public SqlVmAssessmentSettings AssessmentSettings { get; set; }
+        /// <summary> Enable automatic upgrade of Sql IaaS extension Agent. </summary>
+        public bool? EnableAutomaticUpgrade { get; set; }
     }
 }
