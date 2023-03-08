@@ -21,19 +21,15 @@ namespace Azure.ResourceManager.Synapse.Models
 
         /// <summary> Initializes a new instance of SynapseManagedVirtualNetworkSettings. </summary>
         /// <param name="preventDataExfiltration"> Prevent Data Exfiltration. </param>
-        /// <param name="enableLinkedAccessCheckOnTargetResource"> Linked Access Check On Target Resource. </param>
         /// <param name="allowedAadTenantIdsForLinking"> Allowed Aad Tenant Ids For Linking. </param>
-        internal SynapseManagedVirtualNetworkSettings(bool? preventDataExfiltration, bool? enableLinkedAccessCheckOnTargetResource, IList<string> allowedAadTenantIdsForLinking)
+        internal SynapseManagedVirtualNetworkSettings(bool? preventDataExfiltration, IList<string> allowedAadTenantIdsForLinking)
         {
             PreventDataExfiltration = preventDataExfiltration;
-            EnableLinkedAccessCheckOnTargetResource = enableLinkedAccessCheckOnTargetResource;
             AllowedAadTenantIdsForLinking = allowedAadTenantIdsForLinking;
         }
 
         /// <summary> Prevent Data Exfiltration. </summary>
         public bool? PreventDataExfiltration { get; set; }
-        /// <summary> Linked Access Check On Target Resource. </summary>
-        public bool? EnableLinkedAccessCheckOnTargetResource { get; set; }
         /// <summary> Allowed Aad Tenant Ids For Linking. </summary>
         public IList<string> AllowedAadTenantIdsForLinking { get; }
     }

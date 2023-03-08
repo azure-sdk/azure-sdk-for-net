@@ -21,11 +21,6 @@ namespace Azure.ResourceManager.Synapse.Models
                 writer.WritePropertyName("preventDataExfiltration"u8);
                 writer.WriteBooleanValue(PreventDataExfiltration.Value);
             }
-            if (Optional.IsDefined(EnableLinkedAccessCheckOnTargetResource))
-            {
-                writer.WritePropertyName("linkedAccessCheckOnTargetResource"u8);
-                writer.WriteBooleanValue(EnableLinkedAccessCheckOnTargetResource.Value);
-            }
             if (Optional.IsCollectionDefined(AllowedAadTenantIdsForLinking))
             {
                 writer.WritePropertyName("allowedAadTenantIdsForLinking"u8);
@@ -46,7 +41,6 @@ namespace Azure.ResourceManager.Synapse.Models
                 return null;
             }
             Optional<bool> preventDataExfiltration = default;
-            Optional<bool> linkedAccessCheckOnTargetResource = default;
             Optional<IList<string>> allowedAadTenantIdsForLinking = default;
             foreach (var property in element.EnumerateObject())
             {
@@ -58,16 +52,6 @@ namespace Azure.ResourceManager.Synapse.Models
                         continue;
                     }
                     preventDataExfiltration = property.Value.GetBoolean();
-                    continue;
-                }
-                if (property.NameEquals("linkedAccessCheckOnTargetResource"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
-                    linkedAccessCheckOnTargetResource = property.Value.GetBoolean();
                     continue;
                 }
                 if (property.NameEquals("allowedAadTenantIdsForLinking"u8))
@@ -86,7 +70,7 @@ namespace Azure.ResourceManager.Synapse.Models
                     continue;
                 }
             }
-            return new SynapseManagedVirtualNetworkSettings(Optional.ToNullable(preventDataExfiltration), Optional.ToNullable(linkedAccessCheckOnTargetResource), Optional.ToList(allowedAadTenantIdsForLinking));
+            return new SynapseManagedVirtualNetworkSettings(Optional.ToNullable(preventDataExfiltration), Optional.ToList(allowedAadTenantIdsForLinking));
         }
     }
 }

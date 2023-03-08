@@ -32,6 +32,7 @@ namespace Azure.ResourceManager.Synapse
         /// <param name="systemData"> The systemData. </param>
         /// <param name="tags"> The tags. </param>
         /// <param name="location"> The location. </param>
+        /// <param name="kind"> kind. </param>
         /// <param name="sku"> SQL pool SKU. </param>
         /// <param name="maxSizeBytes"> Maximum size in bytes. </param>
         /// <param name="collation"> Collation mode. </param>
@@ -54,8 +55,12 @@ namespace Azure.ResourceManager.Synapse
         /// <param name="createdOn"> Date the SQL pool was created. </param>
         /// <param name="storageAccountType"> The storage account type used to store backups for this sql pool. </param>
         /// <param name="sourceDatabaseDeletionOn"> Specifies the time that the sql pool was deleted. </param>
-        internal SynapseSqlPoolData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, SynapseSku sku, long? maxSizeBytes, string collation, string sourceDatabaseId, string recoverableDatabaseId, string provisioningState, string status, DateTimeOffset? restorePointInTime, SqlPoolCreateMode? createMode, DateTimeOffset? createdOn, SqlPoolStorageAccountType? storageAccountType, DateTimeOffset? sourceDatabaseDeletionOn) : base(id, name, resourceType, systemData, tags, location)
+        /// <param name="currentServiceObjectiveName"> currentServiceObjectiveName. </param>
+        /// <param name="defaultSecondaryLocation"> defaultSecondaryLocation. </param>
+        /// <param name="catalogCollation"> catalogCollation. </param>
+        internal SynapseSqlPoolData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, string kind, SynapseSku sku, long? maxSizeBytes, string collation, string sourceDatabaseId, string recoverableDatabaseId, string provisioningState, string status, DateTimeOffset? restorePointInTime, SqlPoolCreateMode? createMode, DateTimeOffset? createdOn, SqlPoolStorageAccountType? storageAccountType, DateTimeOffset? sourceDatabaseDeletionOn, string currentServiceObjectiveName, string defaultSecondaryLocation, string catalogCollation) : base(id, name, resourceType, systemData, tags, location)
         {
+            Kind = kind;
             Sku = sku;
             MaxSizeBytes = maxSizeBytes;
             Collation = collation;
@@ -68,8 +73,13 @@ namespace Azure.ResourceManager.Synapse
             CreatedOn = createdOn;
             StorageAccountType = storageAccountType;
             SourceDatabaseDeletionOn = sourceDatabaseDeletionOn;
+            CurrentServiceObjectiveName = currentServiceObjectiveName;
+            DefaultSecondaryLocation = defaultSecondaryLocation;
+            CatalogCollation = catalogCollation;
         }
 
+        /// <summary> kind. </summary>
+        public string Kind { get; set; }
         /// <summary> SQL pool SKU. </summary>
         public SynapseSku Sku { get; set; }
         /// <summary> Maximum size in bytes. </summary>
@@ -104,5 +114,11 @@ namespace Azure.ResourceManager.Synapse
         public SqlPoolStorageAccountType? StorageAccountType { get; set; }
         /// <summary> Specifies the time that the sql pool was deleted. </summary>
         public DateTimeOffset? SourceDatabaseDeletionOn { get; set; }
+        /// <summary> currentServiceObjectiveName. </summary>
+        public string CurrentServiceObjectiveName { get; set; }
+        /// <summary> defaultSecondaryLocation. </summary>
+        public string DefaultSecondaryLocation { get; set; }
+        /// <summary> catalogCollation. </summary>
+        public string CatalogCollation { get; set; }
     }
 }

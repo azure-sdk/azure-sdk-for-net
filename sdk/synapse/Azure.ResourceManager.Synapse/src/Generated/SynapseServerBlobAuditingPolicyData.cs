@@ -101,7 +101,6 @@ namespace Azure.ResourceManager.Synapse
         /// For more information, see [Database-Level Audit Actions](https://docs.microsoft.com/en-us/sql/relational-databases/security/auditing/sql-server-audit-action-groups-and-actions#database-level-audit-actions)
         /// </param>
         /// <param name="storageAccountSubscriptionId"> Specifies the blob storage subscription Id. </param>
-        /// <param name="isStorageSecondaryKeyInUse"> Specifies whether storageAccountAccessKey value is the storage&apos;s secondary key. </param>
         /// <param name="isAzureMonitorTargetEnabled">
         /// Specifies whether audit events are sent to Azure Monitor. 
         /// In order to send the events to Azure Monitor, specify &apos;state&apos; as &apos;Enabled&apos; and &apos;isAzureMonitorTargetEnabled&apos; as true.
@@ -133,7 +132,7 @@ namespace Azure.ResourceManager.Synapse
         /// or [Diagnostic Settings PowerShell](https://go.microsoft.com/fwlink/?linkid=2033043)
         /// 
         /// </param>
-        internal SynapseServerBlobAuditingPolicyData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, SynapseBlobAuditingPolicyState? state, string storageEndpoint, string storageAccountAccessKey, int? retentionDays, IList<string> auditActionsAndGroups, Guid? storageAccountSubscriptionId, bool? isStorageSecondaryKeyInUse, bool? isAzureMonitorTargetEnabled, int? queueDelayMs, bool? isDevopsAuditEnabled) : base(id, name, resourceType, systemData)
+        internal SynapseServerBlobAuditingPolicyData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, SynapseBlobAuditingPolicyState? state, string storageEndpoint, string storageAccountAccessKey, int? retentionDays, IList<string> auditActionsAndGroups, Guid? storageAccountSubscriptionId, bool? isAzureMonitorTargetEnabled, int? queueDelayMs, bool? isDevopsAuditEnabled) : base(id, name, resourceType, systemData)
         {
             State = state;
             StorageEndpoint = storageEndpoint;
@@ -141,7 +140,6 @@ namespace Azure.ResourceManager.Synapse
             RetentionDays = retentionDays;
             AuditActionsAndGroups = auditActionsAndGroups;
             StorageAccountSubscriptionId = storageAccountSubscriptionId;
-            IsStorageSecondaryKeyInUse = isStorageSecondaryKeyInUse;
             IsAzureMonitorTargetEnabled = isAzureMonitorTargetEnabled;
             QueueDelayMs = queueDelayMs;
             IsDevopsAuditEnabled = isDevopsAuditEnabled;
@@ -224,8 +222,6 @@ namespace Azure.ResourceManager.Synapse
         public IList<string> AuditActionsAndGroups { get; }
         /// <summary> Specifies the blob storage subscription Id. </summary>
         public Guid? StorageAccountSubscriptionId { get; set; }
-        /// <summary> Specifies whether storageAccountAccessKey value is the storage&apos;s secondary key. </summary>
-        public bool? IsStorageSecondaryKeyInUse { get; set; }
         /// <summary>
         /// Specifies whether audit events are sent to Azure Monitor. 
         /// In order to send the events to Azure Monitor, specify &apos;state&apos; as &apos;Enabled&apos; and &apos;isAzureMonitorTargetEnabled&apos; as true.

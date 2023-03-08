@@ -29,7 +29,8 @@ namespace Azure.ResourceManager.Synapse.Models
         /// <param name="id"> The id of the managed virtual network. </param>
         /// <param name="computeProperties"> The compute resource for managed integration runtime. </param>
         /// <param name="ssisProperties"> SSIS properties for managed integration runtime. </param>
-        internal SynapseManagedIntegrationRuntime(IntegrationRuntimeType integrationRuntimeType, string description, IDictionary<string, BinaryData> additionalProperties, SynapseIntegrationRuntimeState? state, string referenceName, string typeManagedVirtualNetworkType, string id, SynapseIntegrationRuntimeComputeProperties computeProperties, SynapseIntegrationRuntimeSsisProperties ssisProperties) : base(integrationRuntimeType, description, additionalProperties)
+        /// <param name="provisioningState"> provisioningState. </param>
+        internal SynapseManagedIntegrationRuntime(IntegrationRuntimeType integrationRuntimeType, string description, IDictionary<string, BinaryData> additionalProperties, SynapseIntegrationRuntimeState? state, string referenceName, string typeManagedVirtualNetworkType, string id, SynapseIntegrationRuntimeComputeProperties computeProperties, SynapseIntegrationRuntimeSsisProperties ssisProperties, string provisioningState) : base(integrationRuntimeType, description, additionalProperties)
         {
             State = state;
             ReferenceName = referenceName;
@@ -37,6 +38,7 @@ namespace Azure.ResourceManager.Synapse.Models
             Id = id;
             ComputeProperties = computeProperties;
             SsisProperties = ssisProperties;
+            ProvisioningState = provisioningState;
             IntegrationRuntimeType = integrationRuntimeType;
         }
 
@@ -52,5 +54,7 @@ namespace Azure.ResourceManager.Synapse.Models
         public SynapseIntegrationRuntimeComputeProperties ComputeProperties { get; set; }
         /// <summary> SSIS properties for managed integration runtime. </summary>
         public SynapseIntegrationRuntimeSsisProperties SsisProperties { get; set; }
+        /// <summary> provisioningState. </summary>
+        public string ProvisioningState { get; set; }
     }
 }

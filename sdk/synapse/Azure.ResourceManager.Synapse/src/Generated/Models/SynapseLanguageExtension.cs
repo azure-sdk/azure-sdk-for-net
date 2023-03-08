@@ -17,12 +17,16 @@ namespace Azure.ResourceManager.Synapse.Models
 
         /// <summary> Initializes a new instance of SynapseLanguageExtension. </summary>
         /// <param name="languageExtensionName"> The language extension name. </param>
-        internal SynapseLanguageExtension(SynapseLanguageExtensionName? languageExtensionName)
+        /// <param name="languageExtensionImageName"> languageExtensionImageName. </param>
+        internal SynapseLanguageExtension(SynapseLanguageExtensionName? languageExtensionName, string languageExtensionImageName)
         {
             LanguageExtensionName = languageExtensionName;
+            LanguageExtensionImageName = languageExtensionImageName;
         }
 
         /// <summary> The language extension name. </summary>
         public SynapseLanguageExtensionName? LanguageExtensionName { get; set; }
+        /// <summary> languageExtensionImageName. </summary>
+        public string LanguageExtensionImageName { get; set; }
     }
 }

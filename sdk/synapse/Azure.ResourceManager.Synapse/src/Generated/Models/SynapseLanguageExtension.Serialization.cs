@@ -20,6 +20,11 @@ namespace Azure.ResourceManager.Synapse.Models
                 writer.WritePropertyName("languageExtensionName"u8);
                 writer.WriteStringValue(LanguageExtensionName.Value.ToString());
             }
+            if (Optional.IsDefined(LanguageExtensionImageName))
+            {
+                writer.WritePropertyName("languageExtensionImageName"u8);
+                writer.WriteStringValue(LanguageExtensionImageName);
+            }
             writer.WriteEndObject();
         }
 
@@ -30,6 +35,7 @@ namespace Azure.ResourceManager.Synapse.Models
                 return null;
             }
             Optional<SynapseLanguageExtensionName> languageExtensionName = default;
+            Optional<string> languageExtensionImageName = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("languageExtensionName"u8))
@@ -42,8 +48,13 @@ namespace Azure.ResourceManager.Synapse.Models
                     languageExtensionName = new SynapseLanguageExtensionName(property.Value.GetString());
                     continue;
                 }
+                if (property.NameEquals("languageExtensionImageName"u8))
+                {
+                    languageExtensionImageName = property.Value.GetString();
+                    continue;
+                }
             }
-            return new SynapseLanguageExtension(Optional.ToNullable(languageExtensionName));
+            return new SynapseLanguageExtension(Optional.ToNullable(languageExtensionName), languageExtensionImageName.Value);
         }
     }
 }

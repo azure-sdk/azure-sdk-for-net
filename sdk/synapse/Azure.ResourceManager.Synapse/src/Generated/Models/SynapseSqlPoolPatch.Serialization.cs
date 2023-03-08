@@ -83,6 +83,21 @@ namespace Azure.ResourceManager.Synapse.Models
                 writer.WritePropertyName("sourceDatabaseDeletionDate"u8);
                 writer.WriteStringValue(SourceDatabaseDeletionOn.Value, "O");
             }
+            if (Optional.IsDefined(CurrentServiceObjectiveName))
+            {
+                writer.WritePropertyName("currentServiceObjectiveName"u8);
+                writer.WriteStringValue(CurrentServiceObjectiveName);
+            }
+            if (Optional.IsDefined(DefaultSecondaryLocation))
+            {
+                writer.WritePropertyName("defaultSecondaryLocation"u8);
+                writer.WriteStringValue(DefaultSecondaryLocation);
+            }
+            if (Optional.IsDefined(CatalogCollation))
+            {
+                writer.WritePropertyName("catalogCollation"u8);
+                writer.WriteStringValue(CatalogCollation);
+            }
             writer.WriteEndObject();
             writer.WriteEndObject();
         }

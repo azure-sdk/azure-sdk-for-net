@@ -56,11 +56,6 @@ namespace Azure.ResourceManager.Synapse
                 writer.WritePropertyName("storageAccountSubscriptionId"u8);
                 writer.WriteStringValue(StorageAccountSubscriptionId.Value);
             }
-            if (Optional.IsDefined(IsStorageSecondaryKeyInUse))
-            {
-                writer.WritePropertyName("isStorageSecondaryKeyInUse"u8);
-                writer.WriteBooleanValue(IsStorageSecondaryKeyInUse.Value);
-            }
             if (Optional.IsDefined(IsAzureMonitorTargetEnabled))
             {
                 writer.WritePropertyName("isAzureMonitorTargetEnabled"u8);
@@ -96,7 +91,6 @@ namespace Azure.ResourceManager.Synapse
             Optional<int> retentionDays = default;
             Optional<IList<string>> auditActionsAndGroups = default;
             Optional<Guid> storageAccountSubscriptionId = default;
-            Optional<bool> isStorageSecondaryKeyInUse = default;
             Optional<bool> isAzureMonitorTargetEnabled = default;
             Optional<int> queueDelayMs = default;
             Optional<bool> isDevopsAuditEnabled = default;
@@ -191,16 +185,6 @@ namespace Azure.ResourceManager.Synapse
                             storageAccountSubscriptionId = property0.Value.GetGuid();
                             continue;
                         }
-                        if (property0.NameEquals("isStorageSecondaryKeyInUse"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                property0.ThrowNonNullablePropertyIsNull();
-                                continue;
-                            }
-                            isStorageSecondaryKeyInUse = property0.Value.GetBoolean();
-                            continue;
-                        }
                         if (property0.NameEquals("isAzureMonitorTargetEnabled"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -235,7 +219,7 @@ namespace Azure.ResourceManager.Synapse
                     continue;
                 }
             }
-            return new SynapseServerBlobAuditingPolicyData(id, name, type, systemData.Value, Optional.ToNullable(state), storageEndpoint.Value, storageAccountAccessKey.Value, Optional.ToNullable(retentionDays), Optional.ToList(auditActionsAndGroups), Optional.ToNullable(storageAccountSubscriptionId), Optional.ToNullable(isStorageSecondaryKeyInUse), Optional.ToNullable(isAzureMonitorTargetEnabled), Optional.ToNullable(queueDelayMs), Optional.ToNullable(isDevopsAuditEnabled));
+            return new SynapseServerBlobAuditingPolicyData(id, name, type, systemData.Value, Optional.ToNullable(state), storageEndpoint.Value, storageAccountAccessKey.Value, Optional.ToNullable(retentionDays), Optional.ToList(auditActionsAndGroups), Optional.ToNullable(storageAccountSubscriptionId), Optional.ToNullable(isAzureMonitorTargetEnabled), Optional.ToNullable(queueDelayMs), Optional.ToNullable(isDevopsAuditEnabled));
         }
     }
 }

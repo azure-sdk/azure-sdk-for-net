@@ -54,6 +54,11 @@ namespace Azure.ResourceManager.Synapse.Models
                 writer.WritePropertyName("ssisProperties"u8);
                 writer.WriteObjectValue(SsisProperties);
             }
+            if (Optional.IsDefined(ProvisioningState))
+            {
+                writer.WritePropertyName("provisioningState"u8);
+                writer.WriteStringValue(ProvisioningState);
+            }
             writer.WriteEndObject();
             foreach (var item in AdditionalProperties)
             {
@@ -81,6 +86,7 @@ namespace Azure.ResourceManager.Synapse.Models
             Optional<string> id = default;
             Optional<SynapseIntegrationRuntimeComputeProperties> computeProperties = default;
             Optional<SynapseIntegrationRuntimeSsisProperties> ssisProperties = default;
+            Optional<string> provisioningState = default;
             IDictionary<string, BinaryData> additionalProperties = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -161,13 +167,18 @@ namespace Azure.ResourceManager.Synapse.Models
                             ssisProperties = SynapseIntegrationRuntimeSsisProperties.DeserializeSynapseIntegrationRuntimeSsisProperties(property0.Value);
                             continue;
                         }
+                        if (property0.NameEquals("provisioningState"u8))
+                        {
+                            provisioningState = property0.Value.GetString();
+                            continue;
+                        }
                     }
                     continue;
                 }
                 additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
             }
             additionalProperties = additionalPropertiesDictionary;
-            return new SynapseManagedIntegrationRuntime(type, description.Value, additionalProperties, Optional.ToNullable(state), referenceName.Value, type0.Value, id.Value, computeProperties.Value, ssisProperties.Value);
+            return new SynapseManagedIntegrationRuntime(type, description.Value, additionalProperties, Optional.ToNullable(state), referenceName.Value, type0.Value, id.Value, computeProperties.Value, ssisProperties.Value, provisioningState.Value);
         }
     }
 }

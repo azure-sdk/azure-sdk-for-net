@@ -12,10 +12,11 @@ using Azure.ResourceManager.Models;
 namespace Azure.ResourceManager.Synapse.Models
 {
     /// <summary> Class representing a Private Link Resources. </summary>
-    public partial class SynapseKustoPoolPrivateLinkData : ResourceData
+    public partial class SynapseKustoPoolPrivateLinkData : TrackedResourceData
     {
         /// <summary> Initializes a new instance of SynapseKustoPoolPrivateLinkData. </summary>
-        public SynapseKustoPoolPrivateLinkData()
+        /// <param name="location"> The location. </param>
+        public SynapseKustoPoolPrivateLinkData(AzureLocation location) : base(location)
         {
             RequiredMembers = new ChangeTrackingList<string>();
             RequiredZoneNames = new ChangeTrackingList<string>();
@@ -26,11 +27,13 @@ namespace Azure.ResourceManager.Synapse.Models
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
+        /// <param name="tags"> The tags. </param>
+        /// <param name="location"> The location. </param>
         /// <param name="groupId"> The Private link resources GroupId. </param>
         /// <param name="requiredMembers"> The private link resource required member names. </param>
         /// <param name="requiredZoneNames"> The private link resource required zone names. </param>
         /// <param name="provisioningState"> The provisioned state of the resource. </param>
-        internal SynapseKustoPoolPrivateLinkData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string groupId, IReadOnlyList<string> requiredMembers, IReadOnlyList<string> requiredZoneNames, ResourceProvisioningState? provisioningState) : base(id, name, resourceType, systemData)
+        internal SynapseKustoPoolPrivateLinkData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, string groupId, IReadOnlyList<string> requiredMembers, IReadOnlyList<string> requiredZoneNames, ResourceProvisioningState? provisioningState) : base(id, name, resourceType, systemData, tags, location)
         {
             GroupId = groupId;
             RequiredMembers = requiredMembers;

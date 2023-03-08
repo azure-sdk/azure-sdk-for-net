@@ -19,6 +19,11 @@ namespace Azure.ResourceManager.Synapse
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
+            if (Optional.IsDefined(Kind))
+            {
+                writer.WritePropertyName("kind"u8);
+                writer.WriteStringValue(Kind);
+            }
             if (Optional.IsDefined(Sku))
             {
                 writer.WritePropertyName("sku"u8);
@@ -84,6 +89,21 @@ namespace Azure.ResourceManager.Synapse
                 writer.WritePropertyName("sourceDatabaseDeletionDate"u8);
                 writer.WriteStringValue(SourceDatabaseDeletionOn.Value, "O");
             }
+            if (Optional.IsDefined(CurrentServiceObjectiveName))
+            {
+                writer.WritePropertyName("currentServiceObjectiveName"u8);
+                writer.WriteStringValue(CurrentServiceObjectiveName);
+            }
+            if (Optional.IsDefined(DefaultSecondaryLocation))
+            {
+                writer.WritePropertyName("defaultSecondaryLocation"u8);
+                writer.WriteStringValue(DefaultSecondaryLocation);
+            }
+            if (Optional.IsDefined(CatalogCollation))
+            {
+                writer.WritePropertyName("catalogCollation"u8);
+                writer.WriteStringValue(CatalogCollation);
+            }
             writer.WriteEndObject();
             writer.WriteEndObject();
         }
@@ -94,6 +114,7 @@ namespace Azure.ResourceManager.Synapse
             {
                 return null;
             }
+            Optional<string> kind = default;
             Optional<SynapseSku> sku = default;
             Optional<IDictionary<string, string>> tags = default;
             AzureLocation location = default;
@@ -112,8 +133,16 @@ namespace Azure.ResourceManager.Synapse
             Optional<DateTimeOffset> creationDate = default;
             Optional<SqlPoolStorageAccountType> storageAccountType = default;
             Optional<DateTimeOffset> sourceDatabaseDeletionDate = default;
+            Optional<string> currentServiceObjectiveName = default;
+            Optional<string> defaultSecondaryLocation = default;
+            Optional<string> catalogCollation = default;
             foreach (var property in element.EnumerateObject())
             {
+                if (property.NameEquals("kind"u8))
+                {
+                    kind = property.Value.GetString();
+                    continue;
+                }
                 if (property.NameEquals("sku"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -263,11 +292,26 @@ namespace Azure.ResourceManager.Synapse
                             sourceDatabaseDeletionDate = property0.Value.GetDateTimeOffset("O");
                             continue;
                         }
+                        if (property0.NameEquals("currentServiceObjectiveName"u8))
+                        {
+                            currentServiceObjectiveName = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("defaultSecondaryLocation"u8))
+                        {
+                            defaultSecondaryLocation = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("catalogCollation"u8))
+                        {
+                            catalogCollation = property0.Value.GetString();
+                            continue;
+                        }
                     }
                     continue;
                 }
             }
-            return new SynapseSqlPoolData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, sku.Value, Optional.ToNullable(maxSizeBytes), collation.Value, sourceDatabaseId.Value, recoverableDatabaseId.Value, provisioningState.Value, status.Value, Optional.ToNullable(restorePointInTime), Optional.ToNullable(createMode), Optional.ToNullable(creationDate), Optional.ToNullable(storageAccountType), Optional.ToNullable(sourceDatabaseDeletionDate));
+            return new SynapseSqlPoolData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, kind.Value, sku.Value, Optional.ToNullable(maxSizeBytes), collation.Value, sourceDatabaseId.Value, recoverableDatabaseId.Value, provisioningState.Value, status.Value, Optional.ToNullable(restorePointInTime), Optional.ToNullable(createMode), Optional.ToNullable(creationDate), Optional.ToNullable(storageAccountType), Optional.ToNullable(sourceDatabaseDeletionDate), currentServiceObjectiveName.Value, defaultSecondaryLocation.Value, catalogCollation.Value);
         }
     }
 }

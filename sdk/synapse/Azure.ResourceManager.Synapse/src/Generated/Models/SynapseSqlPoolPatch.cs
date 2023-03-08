@@ -58,5 +58,11 @@ namespace Azure.ResourceManager.Synapse.Models
         public SqlPoolStorageAccountType? StorageAccountType { get; set; }
         /// <summary> Specifies the time that the sql pool was deleted. </summary>
         public DateTimeOffset? SourceDatabaseDeletionOn { get; set; }
+        /// <summary> currentServiceObjectiveName. </summary>
+        public string CurrentServiceObjectiveName { get; set; }
+        /// <summary> defaultSecondaryLocation. </summary>
+        public string DefaultSecondaryLocation { get; set; }
+        /// <summary> catalogCollation. </summary>
+        public string CatalogCollation { get; set; }
     }
 }
