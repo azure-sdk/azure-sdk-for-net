@@ -5,27 +5,33 @@
 
 #nullable disable
 
+using System;
 using System.Collections.Generic;
 using Azure.Core;
-using Azure.ResourceManager.ElasticSan.Models;
 using Azure.ResourceManager.Models;
 
-namespace Azure.ResourceManager.ElasticSan
+namespace Azure.ResourceManager.ElasticSan.Models
 {
-    /// <summary>
-    /// A class representing the ElasticSan data model.
-    /// Response for ElasticSan request.
-    /// </summary>
-    public partial class ElasticSanData : TrackedResourceData
+    /// <summary> Response for ElasticSan request. </summary>
+    public partial class ElasticSanCreateOrUpdateContent : TrackedResourceData
     {
-        /// <summary> Initializes a new instance of ElasticSanData. </summary>
+        /// <summary> Initializes a new instance of ElasticSanCreateOrUpdateContent. </summary>
         /// <param name="location"> The location. </param>
-        public ElasticSanData(AzureLocation location) : base(location)
+        /// <param name="sku"> resource sku. </param>
+        /// <param name="baseSizeTiB"> Base size of the Elastic San appliance in TiB. </param>
+        /// <param name="extendedCapacitySizeTiB"> Extended size of the Elastic San appliance in TiB. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="sku"/> is null. </exception>
+        public ElasticSanCreateOrUpdateContent(AzureLocation location, ElasticSanSku sku, long baseSizeTiB, long extendedCapacitySizeTiB) : base(location)
         {
+            Argument.AssertNotNull(sku, nameof(sku));
+
+            Sku = sku;
             AvailabilityZones = new ChangeTrackingList<string>();
+            BaseSizeTiB = baseSizeTiB;
+            ExtendedCapacitySizeTiB = extendedCapacitySizeTiB;
         }
 
-        /// <summary> Initializes a new instance of ElasticSanData. </summary>
+        /// <summary> Initializes a new instance of ElasticSanCreateOrUpdateContent. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
@@ -42,7 +48,7 @@ namespace Azure.ResourceManager.ElasticSan
         /// <param name="totalIops"> Total Provisioned IOPS of the Elastic San appliance. </param>
         /// <param name="totalMbps"> Total Provisioned MBps Elastic San appliance. </param>
         /// <param name="totalSizeTiB"> Total size of the Elastic San appliance in TB. </param>
-        internal ElasticSanData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ElasticSanSku sku, IList<string> availabilityZones, ElasticSanProvisioningState? provisioningState, long? baseSizeTiB, long? extendedCapacitySizeTiB, long? totalVolumeSizeGiB, long? volumeGroupCount, long? totalIops, long? totalMbps, long? totalSizeTiB) : base(id, name, resourceType, systemData, tags, location)
+        internal ElasticSanCreateOrUpdateContent(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ElasticSanSku sku, IList<string> availabilityZones, ElasticSanProvisioningState? provisioningState, long baseSizeTiB, long extendedCapacitySizeTiB, long? totalVolumeSizeGiB, long? volumeGroupCount, long? totalIops, long? totalMbps, long? totalSizeTiB) : base(id, name, resourceType, systemData, tags, location)
         {
             Sku = sku;
             AvailabilityZones = availabilityZones;
@@ -63,9 +69,9 @@ namespace Azure.ResourceManager.ElasticSan
         /// <summary> State of the operation on the resource. </summary>
         public ElasticSanProvisioningState? ProvisioningState { get; }
         /// <summary> Base size of the Elastic San appliance in TiB. </summary>
-        public long? BaseSizeTiB { get; set; }
+        public long BaseSizeTiB { get; set; }
         /// <summary> Extended size of the Elastic San appliance in TiB. </summary>
-        public long? ExtendedCapacitySizeTiB { get; set; }
+        public long ExtendedCapacitySizeTiB { get; set; }
         /// <summary> Total size of the provisioned Volumes in GiB. </summary>
         public long? TotalVolumeSizeGiB { get; }
         /// <summary> Total number of volume groups in this Elastic San appliance. </summary>

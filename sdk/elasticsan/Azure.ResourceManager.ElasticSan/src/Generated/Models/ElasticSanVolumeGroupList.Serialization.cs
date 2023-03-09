@@ -20,12 +20,17 @@ namespace Azure.ResourceManager.ElasticSan.Models
             {
                 return null;
             }
-            IReadOnlyList<ElasticSanVolumeGroupData> value = default;
+            Optional<IReadOnlyList<ElasticSanVolumeGroupData>> value = default;
             Optional<string> nextLink = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("value"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        property.ThrowNonNullablePropertyIsNull();
+                        continue;
+                    }
                     List<ElasticSanVolumeGroupData> array = new List<ElasticSanVolumeGroupData>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
@@ -40,7 +45,7 @@ namespace Azure.ResourceManager.ElasticSan.Models
                     continue;
                 }
             }
-            return new ElasticSanVolumeGroupList(value, nextLink.Value);
+            return new ElasticSanVolumeGroupList(Optional.ToList(value), nextLink.Value);
         }
     }
 }

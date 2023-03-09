@@ -19,7 +19,7 @@ namespace Azure.ResourceManager.ElasticSan.Models
             if (Optional.IsDefined(CreateSource))
             {
                 writer.WritePropertyName("createSource"u8);
-                writer.WriteStringValue(CreateSource.Value.ToString());
+                writer.WriteStringValue(CreateSource.Value.ToSerialString());
             }
             if (Optional.IsDefined(SourceUri))
             {
@@ -46,7 +46,7 @@ namespace Azure.ResourceManager.ElasticSan.Models
                         property.ThrowNonNullablePropertyIsNull();
                         continue;
                     }
-                    createSource = new ElasticSanVolumeCreateOption(property.Value.GetString());
+                    createSource = property.Value.GetString().ToElasticSanVolumeCreateOption();
                     continue;
                 }
                 if (property.NameEquals("sourceUri"u8))

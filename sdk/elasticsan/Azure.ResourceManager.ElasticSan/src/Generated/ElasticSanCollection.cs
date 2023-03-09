@@ -15,6 +15,7 @@ using Azure;
 using Azure.Core;
 using Azure.Core.Pipeline;
 using Azure.ResourceManager;
+using Azure.ResourceManager.ElasticSan.Models;
 using Azure.ResourceManager.Resources;
 
 namespace Azure.ResourceManager.ElasticSan
@@ -68,21 +69,21 @@ namespace Azure.ResourceManager.ElasticSan
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="elasticSanName"> The name of the ElasticSan. </param>
-        /// <param name="data"> Elastic San object. </param>
+        /// <param name="content"> Elastic San object. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="elasticSanName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="elasticSanName"/> or <paramref name="data"/> is null. </exception>
-        public virtual async Task<ArmOperation<ElasticSanResource>> CreateOrUpdateAsync(WaitUntil waitUntil, string elasticSanName, ElasticSanData data, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="elasticSanName"/> or <paramref name="content"/> is null. </exception>
+        public virtual async Task<ArmOperation<ElasticSanResource>> CreateOrUpdateAsync(WaitUntil waitUntil, string elasticSanName, ElasticSanCreateOrUpdateContent content, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(elasticSanName, nameof(elasticSanName));
-            Argument.AssertNotNull(data, nameof(data));
+            Argument.AssertNotNull(content, nameof(content));
 
             using var scope = _elasticSanClientDiagnostics.CreateScope("ElasticSanCollection.CreateOrUpdate");
             scope.Start();
             try
             {
-                var response = await _elasticSanRestClient.CreateAsync(Id.SubscriptionId, Id.ResourceGroupName, elasticSanName, data, cancellationToken).ConfigureAwait(false);
-                var operation = new ElasticSanArmOperation<ElasticSanResource>(new ElasticSanOperationSource(Client), _elasticSanClientDiagnostics, Pipeline, _elasticSanRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, elasticSanName, data).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                var response = await _elasticSanRestClient.CreateAsync(Id.SubscriptionId, Id.ResourceGroupName, elasticSanName, content, cancellationToken).ConfigureAwait(false);
+                var operation = new ElasticSanArmOperation<ElasticSanResource>(new ElasticSanOperationSource(Client), _elasticSanClientDiagnostics, Pipeline, _elasticSanRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, elasticSanName, content).Request, response, OperationFinalStateVia.AzureAsyncOperation);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -109,21 +110,21 @@ namespace Azure.ResourceManager.ElasticSan
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="elasticSanName"> The name of the ElasticSan. </param>
-        /// <param name="data"> Elastic San object. </param>
+        /// <param name="content"> Elastic San object. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="elasticSanName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="elasticSanName"/> or <paramref name="data"/> is null. </exception>
-        public virtual ArmOperation<ElasticSanResource> CreateOrUpdate(WaitUntil waitUntil, string elasticSanName, ElasticSanData data, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="elasticSanName"/> or <paramref name="content"/> is null. </exception>
+        public virtual ArmOperation<ElasticSanResource> CreateOrUpdate(WaitUntil waitUntil, string elasticSanName, ElasticSanCreateOrUpdateContent content, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(elasticSanName, nameof(elasticSanName));
-            Argument.AssertNotNull(data, nameof(data));
+            Argument.AssertNotNull(content, nameof(content));
 
             using var scope = _elasticSanClientDiagnostics.CreateScope("ElasticSanCollection.CreateOrUpdate");
             scope.Start();
             try
             {
-                var response = _elasticSanRestClient.Create(Id.SubscriptionId, Id.ResourceGroupName, elasticSanName, data, cancellationToken);
-                var operation = new ElasticSanArmOperation<ElasticSanResource>(new ElasticSanOperationSource(Client), _elasticSanClientDiagnostics, Pipeline, _elasticSanRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, elasticSanName, data).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                var response = _elasticSanRestClient.Create(Id.SubscriptionId, Id.ResourceGroupName, elasticSanName, content, cancellationToken);
+                var operation = new ElasticSanArmOperation<ElasticSanResource>(new ElasticSanOperationSource(Client), _elasticSanClientDiagnostics, Pipeline, _elasticSanRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, elasticSanName, content).Request, response, OperationFinalStateVia.AzureAsyncOperation);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
