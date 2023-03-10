@@ -17,8 +17,6 @@ namespace Azure.ResourceManager.DataFactory.Models
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
-            writer.WritePropertyName("type"u8);
-            writer.WriteStringValue(ReferenceType.ToString());
             writer.WritePropertyName("referenceName"u8);
             writer.WriteStringValue(ReferenceName);
             if (Optional.IsCollectionDefined(Parameters))
@@ -41,6 +39,8 @@ namespace Azure.ResourceManager.DataFactory.Models
                 }
                 writer.WriteEndObject();
             }
+            writer.WritePropertyName("type"u8);
+            writer.WriteStringValue(ReferenceType);
             writer.WriteEndObject();
         }
 
@@ -50,16 +50,11 @@ namespace Azure.ResourceManager.DataFactory.Models
             {
                 return null;
             }
-            IntegrationRuntimeReferenceType type = default;
             string referenceName = default;
             Optional<IDictionary<string, BinaryData>> parameters = default;
+            string type = default;
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("type"u8))
-                {
-                    type = new IntegrationRuntimeReferenceType(property.Value.GetString());
-                    continue;
-                }
                 if (property.NameEquals("referenceName"u8))
                 {
                     referenceName = property.Value.GetString();
@@ -85,6 +80,11 @@ namespace Azure.ResourceManager.DataFactory.Models
                         }
                     }
                     parameters = dictionary;
+                    continue;
+                }
+                if (property.NameEquals("type"u8))
+                {
+                    type = property.Value.GetString();
                     continue;
                 }
             }

@@ -145,6 +145,20 @@ namespace Azure.ResourceManager.DataFactory.Models
                 writer.WritePropertyName("credential"u8);
                 writer.WriteObjectValue(Credential);
             }
+            if (Optional.IsDefined(AuthenticationType))
+            {
+                writer.WritePropertyName("authenticationType"u8);
+                writer.WriteStringValue(AuthenticationType.Value.ToString());
+            }
+            if (Optional.IsDefined(ContainerUri))
+            {
+                writer.WritePropertyName("containerUri"u8);
+#if NET6_0_OR_GREATER
+				writer.WriteRawValue(ContainerUri);
+#else
+                JsonSerializer.Serialize(writer, JsonDocument.Parse(ContainerUri.ToString()).RootElement);
+#endif
+            }
             writer.WriteEndObject();
             foreach (var item in AdditionalProperties)
             {
@@ -181,6 +195,8 @@ namespace Azure.ResourceManager.DataFactory.Models
             Optional<string> accountKind = default;
             Optional<BinaryData> encryptedCredential = default;
             Optional<FactoryCredentialReference> credential = default;
+            Optional<AzureStorageAuthenticationType> authenticationType = default;
+            Optional<BinaryData> containerUri = default;
             IDictionary<string, BinaryData> additionalProperties = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -361,13 +377,33 @@ namespace Azure.ResourceManager.DataFactory.Models
                             credential = FactoryCredentialReference.DeserializeFactoryCredentialReference(property0.Value);
                             continue;
                         }
+                        if (property0.NameEquals("authenticationType"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            authenticationType = new AzureStorageAuthenticationType(property0.Value.GetString());
+                            continue;
+                        }
+                        if (property0.NameEquals("containerUri"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            containerUri = BinaryData.FromString(property0.Value.GetRawText());
+                            continue;
+                        }
                     }
                     continue;
                 }
                 additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
             }
             additionalProperties = additionalPropertiesDictionary;
-            return new AzureBlobStorageLinkedService(type, connectVia.Value, description.Value, Optional.ToDictionary(parameters), Optional.ToList(annotations), additionalProperties, connectionString.Value, accountKey.Value, sasUri.Value, sasToken.Value, serviceEndpoint.Value, servicePrincipalId.Value, servicePrincipalKey.Value, tenant.Value, azureCloudType.Value, accountKind.Value, encryptedCredential.Value, credential.Value);
+            return new AzureBlobStorageLinkedService(type, connectVia.Value, description.Value, Optional.ToDictionary(parameters), Optional.ToList(annotations), additionalProperties, connectionString.Value, accountKey.Value, sasUri.Value, sasToken.Value, serviceEndpoint.Value, servicePrincipalId.Value, servicePrincipalKey.Value, tenant.Value, azureCloudType.Value, accountKind.Value, encryptedCredential.Value, credential.Value, Optional.ToNullable(authenticationType), containerUri.Value);
         }
     }
 }

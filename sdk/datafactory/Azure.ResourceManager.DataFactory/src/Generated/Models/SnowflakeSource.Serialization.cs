@@ -26,11 +26,8 @@ namespace Azure.ResourceManager.DataFactory.Models
                 JsonSerializer.Serialize(writer, JsonDocument.Parse(Query.ToString()).RootElement);
 #endif
             }
-            if (Optional.IsDefined(ExportSettings))
-            {
-                writer.WritePropertyName("exportSettings"u8);
-                writer.WriteObjectValue(ExportSettings);
-            }
+            writer.WritePropertyName("exportSettings"u8);
+            writer.WriteObjectValue(ExportSettings);
             writer.WritePropertyName("type"u8);
             writer.WriteStringValue(CopySourceType);
             if (Optional.IsDefined(SourceRetryCount))
@@ -88,7 +85,7 @@ namespace Azure.ResourceManager.DataFactory.Models
                 return null;
             }
             Optional<BinaryData> query = default;
-            Optional<SnowflakeExportCopyCommand> exportSettings = default;
+            SnowflakeExportCopyCommand exportSettings = default;
             string type = default;
             Optional<BinaryData> sourceRetryCount = default;
             Optional<BinaryData> sourceRetryWait = default;
@@ -110,11 +107,6 @@ namespace Azure.ResourceManager.DataFactory.Models
                 }
                 if (property.NameEquals("exportSettings"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
                     exportSettings = SnowflakeExportCopyCommand.DeserializeSnowflakeExportCopyCommand(property.Value);
                     continue;
                 }
@@ -166,7 +158,7 @@ namespace Azure.ResourceManager.DataFactory.Models
                 additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
             }
             additionalProperties = additionalPropertiesDictionary;
-            return new SnowflakeSource(type, sourceRetryCount.Value, sourceRetryWait.Value, maxConcurrentConnections.Value, disableMetricsCollection.Value, additionalProperties, query.Value, exportSettings.Value);
+            return new SnowflakeSource(type, sourceRetryCount.Value, sourceRetryWait.Value, maxConcurrentConnections.Value, disableMetricsCollection.Value, additionalProperties, query.Value, exportSettings);
         }
     }
 }

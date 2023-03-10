@@ -12,34 +12,31 @@ using Azure.Core;
 namespace Azure.ResourceManager.DataFactory.Models
 {
     /// <summary> Integration runtime reference type. </summary>
-    public partial class IntegrationRuntimeReference
+    public partial class IntegrationRuntimeReference : Reference
     {
         /// <summary> Initializes a new instance of IntegrationRuntimeReference. </summary>
-        /// <param name="referenceType"> Type of integration runtime. </param>
         /// <param name="referenceName"> Reference integration runtime name. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="referenceName"/> is null. </exception>
-        public IntegrationRuntimeReference(IntegrationRuntimeReferenceType referenceType, string referenceName)
+        public IntegrationRuntimeReference(string referenceName)
         {
             Argument.AssertNotNull(referenceName, nameof(referenceName));
 
-            ReferenceType = referenceType;
             ReferenceName = referenceName;
             Parameters = new ChangeTrackingDictionary<string, BinaryData>();
+            ReferenceType = "IntegrationRuntimeReference";
         }
 
         /// <summary> Initializes a new instance of IntegrationRuntimeReference. </summary>
-        /// <param name="referenceType"> Type of integration runtime. </param>
+        /// <param name="referenceType"> Type of reference. </param>
         /// <param name="referenceName"> Reference integration runtime name. </param>
         /// <param name="parameters"> Arguments for integration runtime. </param>
-        internal IntegrationRuntimeReference(IntegrationRuntimeReferenceType referenceType, string referenceName, IDictionary<string, BinaryData> parameters)
+        internal IntegrationRuntimeReference(string referenceType, string referenceName, IDictionary<string, BinaryData> parameters) : base(referenceType)
         {
-            ReferenceType = referenceType;
             ReferenceName = referenceName;
             Parameters = parameters;
+            ReferenceType = referenceType ?? "IntegrationRuntimeReference";
         }
 
-        /// <summary> Type of integration runtime. </summary>
-        public IntegrationRuntimeReferenceType ReferenceType { get; set; }
         /// <summary> Reference integration runtime name. </summary>
         public string ReferenceName { get; set; }
         /// <summary>

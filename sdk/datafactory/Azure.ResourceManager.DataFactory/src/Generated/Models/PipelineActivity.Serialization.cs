@@ -98,8 +98,10 @@ namespace Azure.ResourceManager.DataFactory.Models
                     case "Lookup": return LookupActivity.DeserializeLookupActivity(element);
                     case "Script": return ScriptActivity.DeserializeScriptActivity(element);
                     case "SetVariable": return SetVariableActivity.DeserializeSetVariableActivity(element);
+                    case "SparkJob": return SynapseSparkJobDefinitionActivity.DeserializeSynapseSparkJobDefinitionActivity(element);
                     case "SqlServerStoredProcedure": return SqlServerStoredProcedureActivity.DeserializeSqlServerStoredProcedureActivity(element);
                     case "Switch": return SwitchActivity.DeserializeSwitchActivity(element);
+                    case "SynapseNotebook": return SynapseNotebookActivity.DeserializeSynapseNotebookActivity(element);
                     case "Until": return UntilActivity.DeserializeUntilActivity(element);
                     case "Validation": return ValidationActivity.DeserializeValidationActivity(element);
                     case "Wait": return WaitActivity.DeserializeWaitActivity(element);

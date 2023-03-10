@@ -35,16 +35,14 @@ namespace Azure.ResourceManager.DataFactory.Models
                 JsonSerializer.Serialize(writer, JsonDocument.Parse(SqlReaderStoredProcedureName.ToString()).RootElement);
 #endif
             }
-            if (Optional.IsCollectionDefined(StoredProcedureParameters))
+            if (Optional.IsDefined(StoredProcedureParameters))
             {
                 writer.WritePropertyName("storedProcedureParameters"u8);
-                writer.WriteStartObject();
-                foreach (var item in StoredProcedureParameters)
-                {
-                    writer.WritePropertyName(item.Key);
-                    writer.WriteObjectValue(item.Value);
-                }
-                writer.WriteEndObject();
+#if NET6_0_OR_GREATER
+				writer.WriteRawValue(StoredProcedureParameters);
+#else
+                JsonSerializer.Serialize(writer, JsonDocument.Parse(StoredProcedureParameters.ToString()).RootElement);
+#endif
             }
             if (Optional.IsDefined(ProduceAdditionalTypes))
             {
@@ -145,7 +143,7 @@ namespace Azure.ResourceManager.DataFactory.Models
             }
             Optional<BinaryData> sqlReaderQuery = default;
             Optional<BinaryData> sqlReaderStoredProcedureName = default;
-            Optional<IDictionary<string, StoredProcedureParameter>> storedProcedureParameters = default;
+            Optional<BinaryData> storedProcedureParameters = default;
             Optional<BinaryData> produceAdditionalTypes = default;
             Optional<BinaryData> partitionOption = default;
             Optional<SqlPartitionSettings> partitionSettings = default;
@@ -187,12 +185,7 @@ namespace Azure.ResourceManager.DataFactory.Models
                         property.ThrowNonNullablePropertyIsNull();
                         continue;
                     }
-                    Dictionary<string, StoredProcedureParameter> dictionary = new Dictionary<string, StoredProcedureParameter>();
-                    foreach (var property0 in property.Value.EnumerateObject())
-                    {
-                        dictionary.Add(property0.Name, StoredProcedureParameter.DeserializeStoredProcedureParameter(property0.Value));
-                    }
-                    storedProcedureParameters = dictionary;
+                    storedProcedureParameters = BinaryData.FromString(property.Value.GetRawText());
                     continue;
                 }
                 if (property.NameEquals("produceAdditionalTypes"u8))
@@ -293,7 +286,7 @@ namespace Azure.ResourceManager.DataFactory.Models
                 additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
             }
             additionalProperties = additionalPropertiesDictionary;
-            return new AzureSqlSource(type, sourceRetryCount.Value, sourceRetryWait.Value, maxConcurrentConnections.Value, disableMetricsCollection.Value, additionalProperties, queryTimeout.Value, additionalColumns.Value, sqlReaderQuery.Value, sqlReaderStoredProcedureName.Value, Optional.ToDictionary(storedProcedureParameters), produceAdditionalTypes.Value, partitionOption.Value, partitionSettings.Value);
+            return new AzureSqlSource(type, sourceRetryCount.Value, sourceRetryWait.Value, maxConcurrentConnections.Value, disableMetricsCollection.Value, additionalProperties, queryTimeout.Value, additionalColumns.Value, sqlReaderQuery.Value, sqlReaderStoredProcedureName.Value, storedProcedureParameters.Value, produceAdditionalTypes.Value, partitionOption.Value, partitionSettings.Value);
         }
     }
 }

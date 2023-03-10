@@ -100,7 +100,9 @@ namespace Azure.ResourceManager.DataFactory.Models
                     case "HDInsightStreaming": return HDInsightStreamingActivity.DeserializeHDInsightStreamingActivity(element);
                     case "Lookup": return LookupActivity.DeserializeLookupActivity(element);
                     case "Script": return ScriptActivity.DeserializeScriptActivity(element);
+                    case "SparkJob": return SynapseSparkJobDefinitionActivity.DeserializeSynapseSparkJobDefinitionActivity(element);
                     case "SqlServerStoredProcedure": return SqlServerStoredProcedureActivity.DeserializeSqlServerStoredProcedureActivity(element);
+                    case "SynapseNotebook": return SynapseNotebookActivity.DeserializeSynapseNotebookActivity(element);
                     case "WebActivity": return WebActivity.DeserializeWebActivity(element);
                 }
             }

@@ -58,6 +58,15 @@ namespace Azure.ResourceManager.DataFactory.Models
             }
             writer.WritePropertyName("typeProperties"u8);
             writer.WriteStartObject();
+            if (Optional.IsDefined(ScriptBlockExecutionTimeout))
+            {
+                writer.WritePropertyName("scriptBlockExecutionTimeout"u8);
+#if NET6_0_OR_GREATER
+				writer.WriteRawValue(ScriptBlockExecutionTimeout);
+#else
+                JsonSerializer.Serialize(writer, JsonDocument.Parse(ScriptBlockExecutionTimeout.ToString()).RootElement);
+#endif
+            }
             if (Optional.IsCollectionDefined(Scripts))
             {
                 writer.WritePropertyName("scripts"u8);
@@ -99,6 +108,7 @@ namespace Azure.ResourceManager.DataFactory.Models
             Optional<string> description = default;
             Optional<IList<ActivityDependency>> dependsOn = default;
             Optional<IList<ActivityUserProperty>> userProperties = default;
+            Optional<BinaryData> scriptBlockExecutionTimeout = default;
             Optional<IList<ScriptActivityScriptBlock>> scripts = default;
             Optional<ScriptActivityTypePropertiesLogSettings> logSettings = default;
             IDictionary<string, BinaryData> additionalProperties = default;
@@ -179,6 +189,16 @@ namespace Azure.ResourceManager.DataFactory.Models
                     }
                     foreach (var property0 in property.Value.EnumerateObject())
                     {
+                        if (property0.NameEquals("scriptBlockExecutionTimeout"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            scriptBlockExecutionTimeout = BinaryData.FromString(property0.Value.GetRawText());
+                            continue;
+                        }
                         if (property0.NameEquals("scripts"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -210,7 +230,7 @@ namespace Azure.ResourceManager.DataFactory.Models
                 additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
             }
             additionalProperties = additionalPropertiesDictionary;
-            return new ScriptActivity(name, type, description.Value, Optional.ToList(dependsOn), Optional.ToList(userProperties), additionalProperties, linkedServiceName.Value, policy.Value, Optional.ToList(scripts), logSettings.Value);
+            return new ScriptActivity(name, type, description.Value, Optional.ToList(dependsOn), Optional.ToList(userProperties), additionalProperties, linkedServiceName.Value, policy.Value, scriptBlockExecutionTimeout.Value, Optional.ToList(scripts), logSettings.Value);
         }
     }
 }

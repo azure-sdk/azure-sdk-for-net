@@ -12,34 +12,31 @@ using Azure.Core;
 namespace Azure.ResourceManager.DataFactory.Models
 {
     /// <summary> Linked service reference type. </summary>
-    public partial class FactoryLinkedServiceReference
+    public partial class FactoryLinkedServiceReference : Reference
     {
         /// <summary> Initializes a new instance of FactoryLinkedServiceReference. </summary>
-        /// <param name="referenceType"> Linked service reference type. </param>
         /// <param name="referenceName"> Reference LinkedService name. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="referenceName"/> is null. </exception>
-        public FactoryLinkedServiceReference(FactoryLinkedServiceReferenceType referenceType, string referenceName)
+        public FactoryLinkedServiceReference(string referenceName)
         {
             Argument.AssertNotNull(referenceName, nameof(referenceName));
 
-            ReferenceType = referenceType;
             ReferenceName = referenceName;
             Parameters = new ChangeTrackingDictionary<string, BinaryData>();
+            ReferenceType = "LinkedServiceReference";
         }
 
         /// <summary> Initializes a new instance of FactoryLinkedServiceReference. </summary>
-        /// <param name="referenceType"> Linked service reference type. </param>
+        /// <param name="referenceType"> Type of reference. </param>
         /// <param name="referenceName"> Reference LinkedService name. </param>
         /// <param name="parameters"> Arguments for LinkedService. </param>
-        internal FactoryLinkedServiceReference(FactoryLinkedServiceReferenceType referenceType, string referenceName, IDictionary<string, BinaryData> parameters)
+        internal FactoryLinkedServiceReference(string referenceType, string referenceName, IDictionary<string, BinaryData> parameters) : base(referenceType)
         {
-            ReferenceType = referenceType;
             ReferenceName = referenceName;
             Parameters = parameters;
+            ReferenceType = referenceType ?? "LinkedServiceReference";
         }
 
-        /// <summary> Linked service reference type. </summary>
-        public FactoryLinkedServiceReferenceType ReferenceType { get; set; }
         /// <summary> Reference LinkedService name. </summary>
         public string ReferenceName { get; set; }
         /// <summary>
