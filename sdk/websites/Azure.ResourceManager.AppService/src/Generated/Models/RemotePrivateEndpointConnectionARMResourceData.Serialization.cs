@@ -70,7 +70,7 @@ namespace Azure.ResourceManager.AppService
             Optional<string> provisioningState = default;
             Optional<SubResource> privateEndpoint = default;
             Optional<PrivateLinkConnectionState> privateLinkServiceConnectionState = default;
-            Optional<IList<IPAddress>> ipAddresses = default;
+            Optional<IList<System.Net.IPAddress>> ipAddresses = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("kind"u8))
@@ -144,7 +144,7 @@ namespace Azure.ResourceManager.AppService
                                 property0.ThrowNonNullablePropertyIsNull();
                                 continue;
                             }
-                            List<IPAddress> array = new List<IPAddress>();
+                            List<System.Net.IPAddress> array = new List<System.Net.IPAddress>();
                             foreach (var item in property0.Value.EnumerateArray())
                             {
                                 if (item.ValueKind == JsonValueKind.Null)
@@ -153,7 +153,7 @@ namespace Azure.ResourceManager.AppService
                                 }
                                 else
                                 {
-                                    array.Add(IPAddress.Parse(item.GetString()));
+                                    array.Add(System.Net.IPAddress.Parse(item.GetString()));
                                 }
                             }
                             ipAddresses = array;
