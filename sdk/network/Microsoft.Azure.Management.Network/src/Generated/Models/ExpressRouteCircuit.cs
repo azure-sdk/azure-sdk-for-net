@@ -206,10 +206,10 @@ namespace Microsoft.Azure.Management.Network.Models
         public string AuthorizationKey { get; set; }
 
         /// <summary>
-        /// Gets the authorization status of the Circuit.
+        /// Gets or sets the authorization status of the Circuit.
         /// </summary>
         [JsonProperty(PropertyName = "properties.authorizationStatus")]
-        public string AuthorizationStatus { get; private set; }
+        public string AuthorizationStatus { get; set; }
 
         /// <summary>
         /// Gets a unique read-only string that changes whenever the resource
