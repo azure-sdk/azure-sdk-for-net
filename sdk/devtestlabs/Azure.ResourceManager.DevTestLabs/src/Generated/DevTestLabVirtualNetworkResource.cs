@@ -88,6 +88,59 @@ namespace Azure.ResourceManager.DevTestLabs
                 throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, ResourceType), nameof(id));
         }
 
+        /// <summary> Gets a collection of BastionHostResources in the DevTestLabVirtualNetwork. </summary>
+        /// <returns> An object representing collection of BastionHostResources and their operations over a BastionHostResource. </returns>
+        public virtual BastionHostCollection GetBastionHosts()
+        {
+            return GetCachedClient(Client => new BastionHostCollection(Client, Id));
+        }
+
+        /// <summary>
+        /// Get bastionhost.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/virtualnetworks/{virtualNetworkName}/bastionhosts/{name}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>BastionHosts_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="name"> The name of the bastionhost. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="name"/> is null. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<BastionHostResource>> GetBastionHostAsync(string name, CancellationToken cancellationToken = default)
+        {
+            return await GetBastionHosts().GetAsync(name, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Get bastionhost.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/virtualnetworks/{virtualNetworkName}/bastionhosts/{name}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>BastionHosts_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="name"> The name of the bastionhost. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="name"/> is null. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<BastionHostResource> GetBastionHost(string name, CancellationToken cancellationToken = default)
+        {
+            return GetBastionHosts().Get(name, cancellationToken);
+        }
+
         /// <summary>
         /// Get virtual network.
         /// <list type="bullet">
@@ -235,7 +288,7 @@ namespace Azure.ResourceManager.DevTestLabs
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="patch"> A virtual network. </param>
+        /// <param name="patch"> Allows modifying tags of virtual networks. All other properties will be ignored. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="patch"/> is null. </exception>
         public virtual async Task<Response<DevTestLabVirtualNetworkResource>> UpdateAsync(DevTestLabVirtualNetworkPatch patch, CancellationToken cancellationToken = default)
@@ -269,7 +322,7 @@ namespace Azure.ResourceManager.DevTestLabs
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="patch"> A virtual network. </param>
+        /// <param name="patch"> Allows modifying tags of virtual networks. All other properties will be ignored. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="patch"/> is null. </exception>
         public virtual Response<DevTestLabVirtualNetworkResource> Update(DevTestLabVirtualNetworkPatch patch, CancellationToken cancellationToken = default)

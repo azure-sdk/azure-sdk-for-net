@@ -33,7 +33,7 @@ namespace Azure.ResourceManager.DevTestLabs
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2018-09-15";
+            _apiVersion = apiVersion ?? "2021-09-01";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
@@ -82,7 +82,7 @@ namespace Azure.ResourceManager.DevTestLabs
         /// <param name="labName"> The name of the lab. </param>
         /// <param name="artifactSourceName"> The name of the artifact source. </param>
         /// <param name="expand"> Specify the $expand query. Example: &apos;properties($select=title)&apos;. </param>
-        /// <param name="filter"> The filter to apply to the operation. Example: &apos;$filter=contains(name,&apos;myName&apos;). </param>
+        /// <param name="filter"> The filter to apply to the operation. Example: &apos;$filter=contains(name,&apos;myName&apos;)&apos;. </param>
         /// <param name="top"> The maximum number of resources to return from the operation. Example: &apos;$top=10&apos;. </param>
         /// <param name="orderby"> The ordering expression for the results, using OData notation. Example: &apos;$orderby=name desc&apos;. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -117,7 +117,7 @@ namespace Azure.ResourceManager.DevTestLabs
         /// <param name="labName"> The name of the lab. </param>
         /// <param name="artifactSourceName"> The name of the artifact source. </param>
         /// <param name="expand"> Specify the $expand query. Example: &apos;properties($select=title)&apos;. </param>
-        /// <param name="filter"> The filter to apply to the operation. Example: &apos;$filter=contains(name,&apos;myName&apos;). </param>
+        /// <param name="filter"> The filter to apply to the operation. Example: &apos;$filter=contains(name,&apos;myName&apos;)&apos;. </param>
         /// <param name="top"> The maximum number of resources to return from the operation. Example: &apos;$top=10&apos;. </param>
         /// <param name="orderby"> The ordering expression for the results, using OData notation. Example: &apos;$orderby=name desc&apos;. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -366,7 +366,7 @@ namespace Azure.ResourceManager.DevTestLabs
         /// <param name="labName"> The name of the lab. </param>
         /// <param name="artifactSourceName"> The name of the artifact source. </param>
         /// <param name="expand"> Specify the $expand query. Example: &apos;properties($select=title)&apos;. </param>
-        /// <param name="filter"> The filter to apply to the operation. Example: &apos;$filter=contains(name,&apos;myName&apos;). </param>
+        /// <param name="filter"> The filter to apply to the operation. Example: &apos;$filter=contains(name,&apos;myName&apos;)&apos;. </param>
         /// <param name="top"> The maximum number of resources to return from the operation. Example: &apos;$top=10&apos;. </param>
         /// <param name="orderby"> The ordering expression for the results, using OData notation. Example: &apos;$orderby=name desc&apos;. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -403,7 +403,7 @@ namespace Azure.ResourceManager.DevTestLabs
         /// <param name="labName"> The name of the lab. </param>
         /// <param name="artifactSourceName"> The name of the artifact source. </param>
         /// <param name="expand"> Specify the $expand query. Example: &apos;properties($select=title)&apos;. </param>
-        /// <param name="filter"> The filter to apply to the operation. Example: &apos;$filter=contains(name,&apos;myName&apos;). </param>
+        /// <param name="filter"> The filter to apply to the operation. Example: &apos;$filter=contains(name,&apos;myName&apos;)&apos;. </param>
         /// <param name="top"> The maximum number of resources to return from the operation. Example: &apos;$top=10&apos;. </param>
         /// <param name="orderby"> The ordering expression for the results, using OData notation. Example: &apos;$orderby=name desc&apos;. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>

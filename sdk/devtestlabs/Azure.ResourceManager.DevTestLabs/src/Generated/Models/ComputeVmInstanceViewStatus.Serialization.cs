@@ -10,8 +10,29 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.DevTestLabs.Models
 {
-    public partial class ComputeVmInstanceViewStatus
+    public partial class ComputeVmInstanceViewStatus : IUtf8JsonSerializable
     {
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
+        {
+            writer.WriteStartObject();
+            if (Optional.IsDefined(Code))
+            {
+                writer.WritePropertyName("code"u8);
+                writer.WriteStringValue(Code);
+            }
+            if (Optional.IsDefined(DisplayStatus))
+            {
+                writer.WritePropertyName("displayStatus"u8);
+                writer.WriteStringValue(DisplayStatus);
+            }
+            if (Optional.IsDefined(Message))
+            {
+                writer.WritePropertyName("message"u8);
+                writer.WriteStringValue(Message);
+            }
+            writer.WriteEndObject();
+        }
+
         internal static ComputeVmInstanceViewStatus DeserializeComputeVmInstanceViewStatus(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)

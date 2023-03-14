@@ -7,7 +7,7 @@
 
 namespace Azure.ResourceManager.DevTestLabs.Models
 {
-    /// <summary> Profile of a lab user. </summary>
+    /// <summary> Patch. </summary>
     public partial class DevTestLabUserPatch : DevTestLabResourcePatch
     {
         /// <summary> Initializes a new instance of DevTestLabUserPatch. </summary>

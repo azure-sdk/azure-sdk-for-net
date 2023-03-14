@@ -7,7 +7,7 @@
 
 namespace Azure.ResourceManager.DevTestLabs.Models
 {
-    /// <summary> A Disk. </summary>
+    /// <summary> Patch. </summary>
     public partial class DevTestLabDiskPatch : DevTestLabResourcePatch
     {
         /// <summary> Initializes a new instance of DevTestLabDiskPatch. </summary>

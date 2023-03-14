@@ -8,98 +8,29 @@
 using System;
 using System.Collections.Generic;
 using Azure.Core;
+using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.DevTestLabs.Models
 {
     /// <summary> Properties for creating a virtual machine. </summary>
-    public partial class DevTestLabVmCreationContent
+    public partial class DevTestLabVmCreationContent : TrackedResourceData
     {
         /// <summary> Initializes a new instance of DevTestLabVmCreationContent. </summary>
-        public DevTestLabVmCreationContent()
+        /// <param name="location"> The location. </param>
+        public DevTestLabVmCreationContent(AzureLocation location) : base(location)
         {
-            Tags = new ChangeTrackingDictionary<string, string>();
             Artifacts = new ChangeTrackingList<DevTestLabArtifactInstallInfo>();
             DataDiskParameters = new ChangeTrackingList<DevTestLabDataDiskProperties>();
             ScheduleParameters = new ChangeTrackingList<DevTestLabScheduleCreationParameter>();
-        }
-
-        /// <summary> Initializes a new instance of DevTestLabVmCreationContent. </summary>
-        /// <param name="name"> The name of the virtual machine or environment. </param>
-        /// <param name="location"> The location of the new virtual machine or environment. </param>
-        /// <param name="tags"> The tags of the resource. </param>
-        /// <param name="bulkCreationParameters"> The number of virtual machine instances to create. </param>
-        /// <param name="notes"> The notes of the virtual machine. </param>
-        /// <param name="ownerObjectId"> The object identifier of the owner of the virtual machine. </param>
-        /// <param name="ownerUserPrincipalName"> The user principal name of the virtual machine owner. </param>
-        /// <param name="createdOn"> The creation date of the virtual machine. </param>
-        /// <param name="customImageId"> The custom image identifier of the virtual machine. </param>
-        /// <param name="size"> The size of the virtual machine. </param>
-        /// <param name="userName"> The user name of the virtual machine. </param>
-        /// <param name="password"> The password of the virtual machine administrator. </param>
-        /// <param name="sshKey"> The SSH key of the virtual machine administrator. </param>
-        /// <param name="isAuthenticationWithSshKey"> Indicates whether this virtual machine uses an SSH key for authentication. </param>
-        /// <param name="labSubnetName"> The lab subnet name of the virtual machine. </param>
-        /// <param name="labVirtualNetworkId"> The lab virtual network identifier of the virtual machine. </param>
-        /// <param name="disallowPublicIPAddress"> Indicates whether the virtual machine is to be created without a public IP address. </param>
-        /// <param name="artifacts"> The artifacts to be installed on the virtual machine. </param>
-        /// <param name="galleryImageReference"> The Microsoft Azure Marketplace image reference of the virtual machine. </param>
-        /// <param name="planId"> The id of the plan associated with the virtual machine image. </param>
-        /// <param name="networkInterface"> The network interface properties. </param>
-        /// <param name="expireOn"> The expiration date for VM. </param>
-        /// <param name="allowClaim"> Indicates whether another user can take ownership of the virtual machine. </param>
-        /// <param name="storageType"> Storage type to use for virtual machine (i.e. Standard, Premium). </param>
-        /// <param name="environmentId"> The resource ID of the environment that contains this virtual machine, if any. </param>
-        /// <param name="dataDiskParameters"> New or existing data disks to attach to the virtual machine after creation. </param>
-        /// <param name="scheduleParameters"> Virtual Machine schedules to be created. </param>
-        internal DevTestLabVmCreationContent(string name, AzureLocation? location, IDictionary<string, string> tags, BulkCreationParameters bulkCreationParameters, string notes, string ownerObjectId, string ownerUserPrincipalName, DateTimeOffset? createdOn, string customImageId, string size, string userName, string password, string sshKey, bool? isAuthenticationWithSshKey, string labSubnetName, ResourceIdentifier labVirtualNetworkId, bool? disallowPublicIPAddress, IList<DevTestLabArtifactInstallInfo> artifacts, DevTestLabGalleryImageReference galleryImageReference, string planId, DevTestLabNetworkInterface networkInterface, DateTimeOffset? expireOn, bool? allowClaim, string storageType, string environmentId, IList<DevTestLabDataDiskProperties> dataDiskParameters, IList<DevTestLabScheduleCreationParameter> scheduleParameters)
-        {
-            Name = name;
-            Location = location;
-            Tags = tags;
-            BulkCreationParameters = bulkCreationParameters;
-            Notes = notes;
-            OwnerObjectId = ownerObjectId;
-            OwnerUserPrincipalName = ownerUserPrincipalName;
-            CreatedOn = createdOn;
-            CustomImageId = customImageId;
-            Size = size;
-            UserName = userName;
-            Password = password;
-            SshKey = sshKey;
-            IsAuthenticationWithSshKey = isAuthenticationWithSshKey;
-            LabSubnetName = labSubnetName;
-            LabVirtualNetworkId = labVirtualNetworkId;
-            DisallowPublicIPAddress = disallowPublicIPAddress;
-            Artifacts = artifacts;
-            GalleryImageReference = galleryImageReference;
-            PlanId = planId;
-            NetworkInterface = networkInterface;
-            ExpireOn = expireOn;
-            AllowClaim = allowClaim;
-            StorageType = storageType;
-            EnvironmentId = environmentId;
-            DataDiskParameters = dataDiskParameters;
-            ScheduleParameters = scheduleParameters;
-        }
-
-        /// <summary> The name of the virtual machine or environment. </summary>
-        public string Name { get; set; }
-        /// <summary> The location of the new virtual machine or environment. </summary>
-        public AzureLocation? Location { get; set; }
-        /// <summary> The tags of the resource. </summary>
-        public IDictionary<string, string> Tags { get; }
-        /// <summary> The number of virtual machine instances to create. </summary>
-        internal BulkCreationParameters BulkCreationParameters { get; set; }
-        /// <summary> The number of virtual machine instances to create. </summary>
-        public int? BulkCreationParametersInstanceCount
-        {
-            get => BulkCreationParameters is null ? default : BulkCreationParameters.InstanceCount;
-            set
-            {
-                if (BulkCreationParameters is null)
-                    BulkCreationParameters = new BulkCreationParameters();
-                BulkCreationParameters.InstanceCount = value;
-            }
+            TagsPropertiesApplicableScheduleTags = new ChangeTrackingDictionary<string, string>();
+            TagsPropertiesApplicableSchedulePropertiesLabVmsStartupTags = new ChangeTrackingDictionary<string, string>();
+            WeekdaysPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesWeeklyRecurrenceWeekdays = new ChangeTrackingList<string>();
+            TagsPropertiesApplicableSchedulePropertiesLabVmsShutdownTags = new ChangeTrackingDictionary<string, string>();
+            WeekdaysPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesWeeklyRecurrenceWeekdays = new ChangeTrackingList<string>();
+            InboundNatRules = new ChangeTrackingList<DevTestLabInboundNatRule>();
+            Statuses = new ChangeTrackingList<ComputeVmInstanceViewStatus>();
+            DataDiskIds = new ChangeTrackingList<string>();
+            DataDisks = new ChangeTrackingList<ComputeDataDisk>();
         }
 
         /// <summary> The notes of the virtual machine. </summary>
@@ -108,10 +39,24 @@ namespace Azure.ResourceManager.DevTestLabs.Models
         public string OwnerObjectId { get; set; }
         /// <summary> The user principal name of the virtual machine owner. </summary>
         public string OwnerUserPrincipalName { get; set; }
+        /// <summary> The object identifier of the creator of the virtual machine. </summary>
+        public string CreatedByUserId { get; }
+        /// <summary> The email address of creator of the virtual machine. </summary>
+        public string CreatedByUser { get; }
         /// <summary> The creation date of the virtual machine. </summary>
-        public DateTimeOffset? CreatedOn { get; set; }
+        public DateTimeOffset? CreatedDatePropertiesCreatedOn { get; set; }
+        /// <summary> The resource identifier (Microsoft.Compute) of the virtual machine. </summary>
+        public string ComputeId { get; }
         /// <summary> The custom image identifier of the virtual machine. </summary>
         public string CustomImageId { get; set; }
+        /// <summary> The shared gallery image version resource identifier of the virtual machine. </summary>
+        public string GalleryImageVersionId { get; set; }
+        /// <summary> The shared image resource identifier of the virtual machine. </summary>
+        public string SharedImageId { get; set; }
+        /// <summary> The shared image version for the specified shared image Id. Will use latest if not specified. </summary>
+        public string SharedImageVersion { get; set; }
+        /// <summary> The OS type of the virtual machine. </summary>
+        public string OSTypePropertiesOSType { get; }
         /// <summary> The size of the virtual machine. </summary>
         public string Size { get; set; }
         /// <summary> The user name of the virtual machine. </summary>
@@ -122,6 +67,8 @@ namespace Azure.ResourceManager.DevTestLabs.Models
         public string SshKey { get; set; }
         /// <summary> Indicates whether this virtual machine uses an SSH key for authentication. </summary>
         public bool? IsAuthenticationWithSshKey { get; set; }
+        /// <summary> The fully-qualified domain name of the virtual machine. </summary>
+        public string Fqdn { get; }
         /// <summary> The lab subnet name of the virtual machine. </summary>
         public string LabSubnetName { get; set; }
         /// <summary> The lab virtual network identifier of the virtual machine. </summary>
@@ -130,23 +77,181 @@ namespace Azure.ResourceManager.DevTestLabs.Models
         public bool? DisallowPublicIPAddress { get; set; }
         /// <summary> The artifacts to be installed on the virtual machine. </summary>
         public IList<DevTestLabArtifactInstallInfo> Artifacts { get; }
-        /// <summary> The Microsoft Azure Marketplace image reference of the virtual machine. </summary>
-        public DevTestLabGalleryImageReference GalleryImageReference { get; set; }
         /// <summary> The id of the plan associated with the virtual machine image. </summary>
         public string PlanId { get; set; }
-        /// <summary> The network interface properties. </summary>
-        public DevTestLabNetworkInterface NetworkInterface { get; set; }
+        /// <summary> Specifies the size of an empty data disk in gigabytes. This element can be used to overwrite the size of the disk in a virtual machine image. </summary>
+        public int? OSDiskSizeGb { get; set; }
         /// <summary> The expiration date for VM. </summary>
         public DateTimeOffset? ExpireOn { get; set; }
         /// <summary> Indicates whether another user can take ownership of the virtual machine. </summary>
         public bool? AllowClaim { get; set; }
-        /// <summary> Storage type to use for virtual machine (i.e. Standard, Premium). </summary>
-        public string StorageType { get; set; }
+        /// <summary> Storage type to use for virtual machine (i.e. Standard, Premium, StandardSSD). </summary>
+        public DevTestLabStorageType? StorageType { get; set; }
+        /// <summary> Tells source of creation of lab virtual machine. Output property only. </summary>
+        public DevTestLabVmCreationSource? VmCreationSource { get; }
         /// <summary> The resource ID of the environment that contains this virtual machine, if any. </summary>
         public string EnvironmentId { get; set; }
         /// <summary> New or existing data disks to attach to the virtual machine after creation. </summary>
         public IList<DevTestLabDataDiskProperties> DataDiskParameters { get; }
         /// <summary> Virtual Machine schedules to be created. </summary>
         public IList<DevTestLabScheduleCreationParameter> ScheduleParameters { get; }
+        /// <summary> Last known compute power state captured in DTL. </summary>
+        public string LastKnownPowerState { get; }
+        /// <summary> Flag to determine if apply artifacts can be triggered at the time of fetching the document. </summary>
+        public bool? CanApplyArtifacts { get; }
+        /// <summary> The provisioning status of the resource. </summary>
+        public string ProvisioningStatePropertiesProvisioningState { get; }
+        /// <summary> The unique immutable identifier of a resource (Guid). </summary>
+        public string UniqueIdentifierPropertiesUniqueIdentifier { get; }
+        /// <summary> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </summary>
+        public string IdPropertiesApplicableScheduleId { get; }
+        /// <summary> The name of the resource. </summary>
+        public string NamePropertiesApplicableScheduleName { get; }
+        /// <summary> The type of the resource. E.g. &quot;Microsoft.Compute/virtualMachines&quot; or &quot;Microsoft.Storage/storageAccounts&quot;. </summary>
+        public string TypePropertiesApplicableScheduleType { get; }
+        /// <summary> Resource tags. </summary>
+        public IDictionary<string, string> TagsPropertiesApplicableScheduleTags { get; }
+        /// <summary> The geo-location where the resource lives. </summary>
+        public AzureLocation? LocationPropertiesApplicableScheduleLocation { get; set; }
+        /// <summary> The system metadata relating to this resource. </summary>
+        public SystemData SystemDataPropertiesApplicableScheduleSystemData { get; }
+        /// <summary> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </summary>
+        public string IdPropertiesApplicableSchedulePropertiesLabVmsStartupId { get; }
+        /// <summary> The name of the resource. </summary>
+        public string NamePropertiesApplicableSchedulePropertiesLabVmsStartupName { get; }
+        /// <summary> The type of the resource. E.g. &quot;Microsoft.Compute/virtualMachines&quot; or &quot;Microsoft.Storage/storageAccounts&quot;. </summary>
+        public string TypePropertiesApplicableSchedulePropertiesLabVmsStartupType { get; }
+        /// <summary> Resource tags. </summary>
+        public IDictionary<string, string> TagsPropertiesApplicableSchedulePropertiesLabVmsStartupTags { get; }
+        /// <summary> The geo-location where the resource lives. </summary>
+        public AzureLocation? LocationPropertiesApplicableSchedulePropertiesLabVmsStartupLocation { get; set; }
+        /// <summary> The system metadata relating to this resource. </summary>
+        public SystemData SystemDataPropertiesApplicableSchedulePropertiesLabVmsStartupSystemData { get; }
+        /// <summary> The status of the schedule (i.e. Enabled, Disabled). </summary>
+        public DevTestLabEnableStatus? StatusPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesStatus { get; set; }
+        /// <summary> The task type of the schedule (e.g. LabVmsShutdownTask, LabVmAutoStart). </summary>
+        public string TaskTypePropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesTaskType { get; set; }
+        /// <summary> The time zone ID (e.g. Pacific Standard time). </summary>
+        public string TimeZoneIdPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesTimeZoneId { get; set; }
+        /// <summary> The creation date of the schedule. </summary>
+        public DateTimeOffset? CreatedDatePropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesCreatedOn { get; }
+        /// <summary> The resource ID to which the schedule belongs. </summary>
+        public string TargetResourceIdPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesTargetResourceId { get; set; }
+        /// <summary> The provisioning status of the resource. </summary>
+        public string ProvisioningStatePropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesProvisioningState { get; }
+        /// <summary> The unique immutable identifier of a resource (Guid). </summary>
+        public Guid? UniqueIdentifierPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesUniqueIdentifier { get; }
+        /// <summary> If notifications are enabled for this schedule (i.e. Enabled, Disabled). </summary>
+        public DevTestLabEnableStatus? StatusPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesNotificationSettingsStatus { get; set; }
+        /// <summary> Time in minutes before event at which notification will be sent. </summary>
+        public int? TimeInMinutesPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesNotificationSettingsTimeInMinutes { get; set; }
+        /// <summary> The webhook URL to which the notification will be sent. </summary>
+        public Uri WebhookUrlPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesNotificationSettingsWebhookUri { get; set; }
+        /// <summary> The email recipient to send notifications to (can be a list of semi-colon separated email addresses). </summary>
+        public string EmailRecipientPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesNotificationSettingsEmailRecipient { get; set; }
+        /// <summary> The locale to use when sending a notification (fallback for unsupported languages is EN). </summary>
+        public string NotificationLocalePropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesNotificationSettingsNotificationLocale { get; set; }
+        /// <summary> Minutes of the hour the schedule will run. </summary>
+        public int? MinutePropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesHourlyRecurrenceMinute { get; set; }
+        /// <summary> The time of day the schedule will occur. </summary>
+        public string TimePropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesDailyRecurrenceTime { get; set; }
+        /// <summary> The days of the week for which the schedule is set (e.g. Sunday, Monday, Tuesday, etc.). </summary>
+        public IList<string> WeekdaysPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesWeeklyRecurrenceWeekdays { get; }
+        /// <summary> The time of the day the schedule will occur. </summary>
+        public string TimePropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesWeeklyRecurrenceTime { get; set; }
+        /// <summary> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </summary>
+        public string IdPropertiesApplicableSchedulePropertiesLabVmsShutdownId { get; }
+        /// <summary> The name of the resource. </summary>
+        public string NamePropertiesApplicableSchedulePropertiesLabVmsShutdownName { get; }
+        /// <summary> The type of the resource. E.g. &quot;Microsoft.Compute/virtualMachines&quot; or &quot;Microsoft.Storage/storageAccounts&quot;. </summary>
+        public string TypePropertiesApplicableSchedulePropertiesLabVmsShutdownType { get; }
+        /// <summary> Resource tags. </summary>
+        public IDictionary<string, string> TagsPropertiesApplicableSchedulePropertiesLabVmsShutdownTags { get; }
+        /// <summary> The geo-location where the resource lives. </summary>
+        public AzureLocation? LocationPropertiesApplicableSchedulePropertiesLabVmsShutdownLocation { get; set; }
+        /// <summary> The system metadata relating to this resource. </summary>
+        public SystemData SystemDataPropertiesApplicableSchedulePropertiesLabVmsShutdownSystemData { get; }
+        /// <summary> The status of the schedule (i.e. Enabled, Disabled). </summary>
+        public DevTestLabEnableStatus? StatusPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesStatus { get; set; }
+        /// <summary> The task type of the schedule (e.g. LabVmsShutdownTask, LabVmAutoStart). </summary>
+        public string TaskTypePropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesTaskType { get; set; }
+        /// <summary> The time zone ID (e.g. Pacific Standard time). </summary>
+        public string TimeZoneIdPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesTimeZoneId { get; set; }
+        /// <summary> The creation date of the schedule. </summary>
+        public DateTimeOffset? CreatedDatePropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesCreatedOn { get; }
+        /// <summary> The resource ID to which the schedule belongs. </summary>
+        public string TargetResourceIdPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesTargetResourceId { get; set; }
+        /// <summary> The provisioning status of the resource. </summary>
+        public string ProvisioningStatePropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesProvisioningState { get; }
+        /// <summary> The unique immutable identifier of a resource (Guid). </summary>
+        public Guid? UniqueIdentifierPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesUniqueIdentifier { get; }
+        /// <summary> If notifications are enabled for this schedule (i.e. Enabled, Disabled). </summary>
+        public DevTestLabEnableStatus? StatusPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesNotificationSettingsStatus { get; set; }
+        /// <summary> Time in minutes before event at which notification will be sent. </summary>
+        public int? TimeInMinutesPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesNotificationSettingsTimeInMinutes { get; set; }
+        /// <summary> The webhook URL to which the notification will be sent. </summary>
+        public Uri WebhookUrlPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesNotificationSettingsWebhookUri { get; set; }
+        /// <summary> The email recipient to send notifications to (can be a list of semi-colon separated email addresses). </summary>
+        public string EmailRecipientPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesNotificationSettingsEmailRecipient { get; set; }
+        /// <summary> The locale to use when sending a notification (fallback for unsupported languages is EN). </summary>
+        public string NotificationLocalePropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesNotificationSettingsNotificationLocale { get; set; }
+        /// <summary> Minutes of the hour the schedule will run. </summary>
+        public int? MinutePropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesHourlyRecurrenceMinute { get; set; }
+        /// <summary> The time of day the schedule will occur. </summary>
+        public string TimePropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesDailyRecurrenceTime { get; set; }
+        /// <summary> The days of the week for which the schedule is set (e.g. Sunday, Monday, Tuesday, etc.). </summary>
+        public IList<string> WeekdaysPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesWeeklyRecurrenceWeekdays { get; }
+        /// <summary> The time of the day the schedule will occur. </summary>
+        public string TimePropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesWeeklyRecurrenceTime { get; set; }
+        /// <summary> The resource ID of the virtual network. </summary>
+        public string VirtualNetworkId { get; set; }
+        /// <summary> The resource ID of the sub net. </summary>
+        public string SubnetId { get; set; }
+        /// <summary> The resource ID of the public IP address. </summary>
+        public string PublicIPAddressId { get; set; }
+        /// <summary> The public IP address. </summary>
+        public string PublicIPAddress { get; set; }
+        /// <summary> The private IP address. </summary>
+        public string PrivateIPAddress { get; set; }
+        /// <summary> The DNS name. </summary>
+        public string DnsName { get; set; }
+        /// <summary> The RdpAuthority property is a server DNS host name or IP address followed by the service port number for RDP (Remote Desktop Protocol). </summary>
+        public string RdpAuthority { get; set; }
+        /// <summary> The SshAuthority property is a server DNS host name or IP address followed by the service port number for SSH. </summary>
+        public string SshAuthority { get; set; }
+        /// <summary> The incoming NAT rules. </summary>
+        public IList<DevTestLabInboundNatRule> InboundNatRules { get; }
+        /// <summary> Gets the statuses of the virtual machine. </summary>
+        public IList<ComputeVmInstanceViewStatus> Statuses { get; }
+        /// <summary> Gets the OS type of the virtual machine. </summary>
+        public string OSTypePropertiesComputeVmOSType { get; set; }
+        /// <summary> Gets the size of the virtual machine. </summary>
+        public string VmSize { get; set; }
+        /// <summary> Gets the network interface ID of the virtual machine. </summary>
+        public string NetworkInterfaceId { get; set; }
+        /// <summary> Gets OS disk blob uri for the virtual machine. </summary>
+        public string OSDiskId { get; set; }
+        /// <summary> Gets data disks blob uri for the virtual machine. </summary>
+        public IList<string> DataDiskIds { get; }
+        /// <summary> Gets all data disks attached to the virtual machine. </summary>
+        public IList<ComputeDataDisk> DataDisks { get; }
+        /// <summary> The offer of the gallery image. </summary>
+        public string Offer { get; set; }
+        /// <summary> The publisher of the gallery image. </summary>
+        public string Publisher { get; set; }
+        /// <summary> The SKU of the gallery image. </summary>
+        public string Sku { get; set; }
+        /// <summary> The OS type of the gallery image. </summary>
+        public string OSTypePropertiesGalleryImageReferenceOSType { get; set; }
+        /// <summary> The version of the gallery image. </summary>
+        public string Version { get; set; }
+        /// <summary> The deployment status of the artifact. </summary>
+        public string DeploymentStatus { get; set; }
+        /// <summary> The total count of the artifacts that were successfully applied. </summary>
+        public int? ArtifactsApplied { get; set; }
+        /// <summary> The total count of the artifacts that were tentatively applied. </summary>
+        public int? TotalArtifacts { get; set; }
+        /// <summary> The number of virtual machine instances to create. </summary>
+        public int? InstanceCount { get; set; }
     }
 }

@@ -7,7 +7,7 @@
 
 namespace Azure.ResourceManager.DevTestLabs.Models
 {
-    /// <summary> Properties of an artifact source. </summary>
+    /// <summary> Patch. </summary>
     public partial class DevTestLabArtifactSourcePatch : DevTestLabResourcePatch
     {
         /// <summary> Initializes a new instance of DevTestLabArtifactSourcePatch. </summary>

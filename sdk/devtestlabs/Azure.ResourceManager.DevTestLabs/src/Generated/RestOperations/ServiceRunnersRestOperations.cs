@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Azure;
 using Azure.Core;
 using Azure.Core.Pipeline;
+using Azure.ResourceManager.DevTestLabs.Models;
 
 namespace Azure.ResourceManager.DevTestLabs
 {
@@ -32,8 +33,105 @@ namespace Azure.ResourceManager.DevTestLabs
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2018-09-15";
+            _apiVersion = apiVersion ?? "2021-09-01";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
+        }
+
+        internal HttpMessage CreateListRequest(string subscriptionId, string resourceGroupName, string labName, string filter, int? top, string orderby)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Get;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/subscriptions/", false);
+            uri.AppendPath(subscriptionId, true);
+            uri.AppendPath("/resourceGroups/", false);
+            uri.AppendPath(resourceGroupName, true);
+            uri.AppendPath("/providers/Microsoft.DevTestLab/labs/", false);
+            uri.AppendPath(labName, true);
+            uri.AppendPath("/servicerunners", false);
+            if (filter != null)
+            {
+                uri.AppendQuery("$filter", filter, true);
+            }
+            if (top != null)
+            {
+                uri.AppendQuery("$top", top.Value, true);
+            }
+            if (orderby != null)
+            {
+                uri.AppendQuery("$orderby", orderby, true);
+            }
+            uri.AppendQuery("api-version", _apiVersion, true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> List service runners in a given lab. </summary>
+        /// <param name="subscriptionId"> The subscription ID. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. </param>
+        /// <param name="labName"> The name of the lab. </param>
+        /// <param name="filter"> The filter to apply to the operation. Example: &apos;$filter=contains(name,&apos;myName&apos;)&apos;. </param>
+        /// <param name="top"> The maximum number of resources to return from the operation. Example: &apos;$top=10&apos;. </param>
+        /// <param name="orderby"> The ordering expression for the results, using OData notation. Example: &apos;$orderby=name desc&apos;. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="labName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="labName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<ServiceRunnerList>> ListAsync(string subscriptionId, string resourceGroupName, string labName, string filter = null, int? top = null, string orderby = null, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(labName, nameof(labName));
+
+            using var message = CreateListRequest(subscriptionId, resourceGroupName, labName, filter, top, orderby);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        ServiceRunnerList value = default;
+                        using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+                        value = ServiceRunnerList.DeserializeServiceRunnerList(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> List service runners in a given lab. </summary>
+        /// <param name="subscriptionId"> The subscription ID. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. </param>
+        /// <param name="labName"> The name of the lab. </param>
+        /// <param name="filter"> The filter to apply to the operation. Example: &apos;$filter=contains(name,&apos;myName&apos;)&apos;. </param>
+        /// <param name="top"> The maximum number of resources to return from the operation. Example: &apos;$top=10&apos;. </param>
+        /// <param name="orderby"> The ordering expression for the results, using OData notation. Example: &apos;$orderby=name desc&apos;. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="labName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="labName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<ServiceRunnerList> List(string subscriptionId, string resourceGroupName, string labName, string filter = null, int? top = null, string orderby = null, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(labName, nameof(labName));
+
+            using var message = CreateListRequest(subscriptionId, resourceGroupName, labName, filter, top, orderby);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        ServiceRunnerList value = default;
+                        using var document = JsonDocument.Parse(message.Response.ContentStream);
+                        value = ServiceRunnerList.DeserializeServiceRunnerList(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
         }
 
         internal HttpMessage CreateGetRequest(string subscriptionId, string resourceGroupName, string labName, string name)
@@ -150,7 +248,7 @@ namespace Azure.ResourceManager.DevTestLabs
             return message;
         }
 
-        /// <summary> Create or replace an existing service runner. </summary>
+        /// <summary> Create or replace an existing Service runner. This operation can take a while to complete. </summary>
         /// <param name="subscriptionId"> The subscription ID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="labName"> The name of the lab. </param>
@@ -159,7 +257,7 @@ namespace Azure.ResourceManager.DevTestLabs
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="labName"/>, <paramref name="name"/> or <paramref name="data"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="labName"/> or <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<DevTestLabServiceRunnerData>> CreateOrUpdateAsync(string subscriptionId, string resourceGroupName, string labName, string name, DevTestLabServiceRunnerData data, CancellationToken cancellationToken = default)
+        public async Task<Response> CreateOrUpdateAsync(string subscriptionId, string resourceGroupName, string labName, string name, DevTestLabServiceRunnerData data, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
@@ -173,18 +271,13 @@ namespace Azure.ResourceManager.DevTestLabs
             {
                 case 200:
                 case 201:
-                    {
-                        DevTestLabServiceRunnerData value = default;
-                        using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = DevTestLabServiceRunnerData.DeserializeDevTestLabServiceRunnerData(document.RootElement);
-                        return Response.FromValue(value, message.Response);
-                    }
+                    return message.Response;
                 default:
                     throw new RequestFailedException(message.Response);
             }
         }
 
-        /// <summary> Create or replace an existing service runner. </summary>
+        /// <summary> Create or replace an existing Service runner. This operation can take a while to complete. </summary>
         /// <param name="subscriptionId"> The subscription ID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="labName"> The name of the lab. </param>
@@ -193,7 +286,7 @@ namespace Azure.ResourceManager.DevTestLabs
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="labName"/>, <paramref name="name"/> or <paramref name="data"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="labName"/> or <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<DevTestLabServiceRunnerData> CreateOrUpdate(string subscriptionId, string resourceGroupName, string labName, string name, DevTestLabServiceRunnerData data, CancellationToken cancellationToken = default)
+        public Response CreateOrUpdate(string subscriptionId, string resourceGroupName, string labName, string name, DevTestLabServiceRunnerData data, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
@@ -207,12 +300,7 @@ namespace Azure.ResourceManager.DevTestLabs
             {
                 case 200:
                 case 201:
-                    {
-                        DevTestLabServiceRunnerData value = default;
-                        using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = DevTestLabServiceRunnerData.DeserializeDevTestLabServiceRunnerData(document.RootElement);
-                        return Response.FromValue(value, message.Response);
-                    }
+                    return message.Response;
                 default:
                     throw new RequestFailedException(message.Response);
             }
@@ -240,7 +328,7 @@ namespace Azure.ResourceManager.DevTestLabs
             return message;
         }
 
-        /// <summary> Delete service runner. </summary>
+        /// <summary> Delete service runner. This operation can take a while to complete. </summary>
         /// <param name="subscriptionId"> The subscription ID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="labName"> The name of the lab. </param>
@@ -260,6 +348,7 @@ namespace Azure.ResourceManager.DevTestLabs
             switch (message.Response.Status)
             {
                 case 200:
+                case 202:
                 case 204:
                     return message.Response;
                 default:
@@ -267,7 +356,7 @@ namespace Azure.ResourceManager.DevTestLabs
             }
         }
 
-        /// <summary> Delete service runner. </summary>
+        /// <summary> Delete service runner. This operation can take a while to complete. </summary>
         /// <param name="subscriptionId"> The subscription ID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="labName"> The name of the lab. </param>
@@ -287,8 +376,91 @@ namespace Azure.ResourceManager.DevTestLabs
             switch (message.Response.Status)
             {
                 case 200:
+                case 202:
                 case 204:
                     return message.Response;
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        internal HttpMessage CreateListNextPageRequest(string nextLink, string subscriptionId, string resourceGroupName, string labName, string filter, int? top, string orderby)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Get;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendRawNextLink(nextLink, false);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> List service runners in a given lab. </summary>
+        /// <param name="nextLink"> The URL to the next page of results. </param>
+        /// <param name="subscriptionId"> The subscription ID. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. </param>
+        /// <param name="labName"> The name of the lab. </param>
+        /// <param name="filter"> The filter to apply to the operation. Example: &apos;$filter=contains(name,&apos;myName&apos;)&apos;. </param>
+        /// <param name="top"> The maximum number of resources to return from the operation. Example: &apos;$top=10&apos;. </param>
+        /// <param name="orderby"> The ordering expression for the results, using OData notation. Example: &apos;$orderby=name desc&apos;. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="labName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="labName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<ServiceRunnerList>> ListNextPageAsync(string nextLink, string subscriptionId, string resourceGroupName, string labName, string filter = null, int? top = null, string orderby = null, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(nextLink, nameof(nextLink));
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(labName, nameof(labName));
+
+            using var message = CreateListNextPageRequest(nextLink, subscriptionId, resourceGroupName, labName, filter, top, orderby);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        ServiceRunnerList value = default;
+                        using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+                        value = ServiceRunnerList.DeserializeServiceRunnerList(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> List service runners in a given lab. </summary>
+        /// <param name="nextLink"> The URL to the next page of results. </param>
+        /// <param name="subscriptionId"> The subscription ID. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. </param>
+        /// <param name="labName"> The name of the lab. </param>
+        /// <param name="filter"> The filter to apply to the operation. Example: &apos;$filter=contains(name,&apos;myName&apos;)&apos;. </param>
+        /// <param name="top"> The maximum number of resources to return from the operation. Example: &apos;$top=10&apos;. </param>
+        /// <param name="orderby"> The ordering expression for the results, using OData notation. Example: &apos;$orderby=name desc&apos;. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="labName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="labName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<ServiceRunnerList> ListNextPage(string nextLink, string subscriptionId, string resourceGroupName, string labName, string filter = null, int? top = null, string orderby = null, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(nextLink, nameof(nextLink));
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(labName, nameof(labName));
+
+            using var message = CreateListNextPageRequest(nextLink, subscriptionId, resourceGroupName, labName, filter, top, orderby);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        ServiceRunnerList value = default;
+                        using var document = JsonDocument.Parse(message.Response.ContentStream);
+                        value = ServiceRunnerList.DeserializeServiceRunnerList(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
                 default:
                     throw new RequestFailedException(message.Response);
             }

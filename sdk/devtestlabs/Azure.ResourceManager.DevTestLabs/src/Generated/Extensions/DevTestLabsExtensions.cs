@@ -42,7 +42,7 @@ namespace Azure.ResourceManager.DevTestLabs
         /// </summary>
         /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
         /// <param name="expand"> Specify the $expand query. Example: &apos;properties($select=defaultStorageAccount)&apos;. </param>
-        /// <param name="filter"> The filter to apply to the operation. Example: &apos;$filter=contains(name,&apos;myName&apos;). </param>
+        /// <param name="filter"> The filter to apply to the operation. Example: &apos;$filter=contains(name,&apos;myName&apos;)&apos;. </param>
         /// <param name="top"> The maximum number of resources to return from the operation. Example: &apos;$top=10&apos;. </param>
         /// <param name="orderby"> The ordering expression for the results, using OData notation. Example: &apos;$orderby=name desc&apos;. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -67,7 +67,7 @@ namespace Azure.ResourceManager.DevTestLabs
         /// </summary>
         /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
         /// <param name="expand"> Specify the $expand query. Example: &apos;properties($select=defaultStorageAccount)&apos;. </param>
-        /// <param name="filter"> The filter to apply to the operation. Example: &apos;$filter=contains(name,&apos;myName&apos;). </param>
+        /// <param name="filter"> The filter to apply to the operation. Example: &apos;$filter=contains(name,&apos;myName&apos;)&apos;. </param>
         /// <param name="top"> The maximum number of resources to return from the operation. Example: &apos;$top=10&apos;. </param>
         /// <param name="orderby"> The ordering expression for the results, using OData notation. Example: &apos;$orderby=name desc&apos;. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -92,7 +92,7 @@ namespace Azure.ResourceManager.DevTestLabs
         /// </summary>
         /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
         /// <param name="expand"> Specify the $expand query. Example: &apos;properties($select=status)&apos;. </param>
-        /// <param name="filter"> The filter to apply to the operation. Example: &apos;$filter=contains(name,&apos;myName&apos;). </param>
+        /// <param name="filter"> The filter to apply to the operation. Example: &apos;$filter=contains(name,&apos;myName&apos;)&apos;. </param>
         /// <param name="top"> The maximum number of resources to return from the operation. Example: &apos;$top=10&apos;. </param>
         /// <param name="orderby"> The ordering expression for the results, using OData notation. Example: &apos;$orderby=name desc&apos;. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -117,7 +117,7 @@ namespace Azure.ResourceManager.DevTestLabs
         /// </summary>
         /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
         /// <param name="expand"> Specify the $expand query. Example: &apos;properties($select=status)&apos;. </param>
-        /// <param name="filter"> The filter to apply to the operation. Example: &apos;$filter=contains(name,&apos;myName&apos;). </param>
+        /// <param name="filter"> The filter to apply to the operation. Example: &apos;$filter=contains(name,&apos;myName&apos;)&apos;. </param>
         /// <param name="top"> The maximum number of resources to return from the operation. Example: &apos;$top=10&apos;. </param>
         /// <param name="orderby"> The ordering expression for the results, using OData notation. Example: &apos;$orderby=name desc&apos;. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -461,6 +461,25 @@ namespace Azure.ResourceManager.DevTestLabs
         }
         #endregion
 
+        #region DevTestLabGalleryImageResource
+        /// <summary>
+        /// Gets an object representing a <see cref="DevTestLabGalleryImageResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="DevTestLabGalleryImageResource.CreateResourceIdentifier" /> to create a <see cref="DevTestLabGalleryImageResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="DevTestLabGalleryImageResource" /> object. </returns>
+        public static DevTestLabGalleryImageResource GetDevTestLabGalleryImageResource(this ArmClient client, ResourceIdentifier id)
+        {
+            return client.GetResourceClient(() =>
+            {
+                DevTestLabGalleryImageResource.ValidateResourceId(id);
+                return new DevTestLabGalleryImageResource(client, id);
+            }
+            );
+        }
+        #endregion
+
         #region DevTestLabNotificationChannelResource
         /// <summary>
         /// Gets an object representing a <see cref="DevTestLabNotificationChannelResource" /> along with the instance operations that can be performed on it but with no data.
@@ -499,6 +518,25 @@ namespace Azure.ResourceManager.DevTestLabs
         }
         #endregion
 
+        #region LabSecretResource
+        /// <summary>
+        /// Gets an object representing a <see cref="LabSecretResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="LabSecretResource.CreateResourceIdentifier" /> to create a <see cref="LabSecretResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="LabSecretResource" /> object. </returns>
+        public static LabSecretResource GetLabSecretResource(this ArmClient client, ResourceIdentifier id)
+        {
+            return client.GetResourceClient(() =>
+            {
+                LabSecretResource.ValidateResourceId(id);
+                return new LabSecretResource(client, id);
+            }
+            );
+        }
+        #endregion
+
         #region DevTestLabServiceRunnerResource
         /// <summary>
         /// Gets an object representing a <see cref="DevTestLabServiceRunnerResource" /> along with the instance operations that can be performed on it but with no data.
@@ -513,6 +551,44 @@ namespace Azure.ResourceManager.DevTestLabs
             {
                 DevTestLabServiceRunnerResource.ValidateResourceId(id);
                 return new DevTestLabServiceRunnerResource(client, id);
+            }
+            );
+        }
+        #endregion
+
+        #region SharedGalleryResource
+        /// <summary>
+        /// Gets an object representing a <see cref="SharedGalleryResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="SharedGalleryResource.CreateResourceIdentifier" /> to create a <see cref="SharedGalleryResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="SharedGalleryResource" /> object. </returns>
+        public static SharedGalleryResource GetSharedGalleryResource(this ArmClient client, ResourceIdentifier id)
+        {
+            return client.GetResourceClient(() =>
+            {
+                SharedGalleryResource.ValidateResourceId(id);
+                return new SharedGalleryResource(client, id);
+            }
+            );
+        }
+        #endregion
+
+        #region SharedImageResource
+        /// <summary>
+        /// Gets an object representing a <see cref="SharedImageResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="SharedImageResource.CreateResourceIdentifier" /> to create a <see cref="SharedImageResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="SharedImageResource" /> object. </returns>
+        public static SharedImageResource GetSharedImageResource(this ArmClient client, ResourceIdentifier id)
+        {
+            return client.GetResourceClient(() =>
+            {
+                SharedImageResource.ValidateResourceId(id);
+                return new SharedImageResource(client, id);
             }
             );
         }
@@ -646,6 +722,25 @@ namespace Azure.ResourceManager.DevTestLabs
             {
                 DevTestLabVirtualNetworkResource.ValidateResourceId(id);
                 return new DevTestLabVirtualNetworkResource(client, id);
+            }
+            );
+        }
+        #endregion
+
+        #region BastionHostResource
+        /// <summary>
+        /// Gets an object representing a <see cref="BastionHostResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="BastionHostResource.CreateResourceIdentifier" /> to create a <see cref="BastionHostResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="BastionHostResource" /> object. </returns>
+        public static BastionHostResource GetBastionHostResource(this ArmClient client, ResourceIdentifier id)
+        {
+            return client.GetResourceClient(() =>
+            {
+                BastionHostResource.ValidateResourceId(id);
+                return new BastionHostResource(client, id);
             }
             );
         }

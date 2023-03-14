@@ -23,6 +23,7 @@ namespace Azure.ResourceManager.DevTestLabs
         /// <param name="location"> The location. </param>
         public DevTestLabEnvironmentData(AzureLocation location) : base(location)
         {
+            Parameters = new ChangeTrackingList<DevTestLabArmTemplateParameter>();
         }
 
         /// <summary> Initializes a new instance of DevTestLabEnvironmentData. </summary>
@@ -32,24 +33,24 @@ namespace Azure.ResourceManager.DevTestLabs
         /// <param name="systemData"> The systemData. </param>
         /// <param name="tags"> The tags. </param>
         /// <param name="location"> The location. </param>
-        /// <param name="deploymentProperties"> The deployment properties of the environment. </param>
         /// <param name="armTemplateDisplayName"> The display name of the Azure Resource Manager template that produced the environment. </param>
         /// <param name="resourceGroupId"> The identifier of the resource group containing the environment&apos;s resources. </param>
         /// <param name="createdByUser"> The creator of the environment. </param>
         /// <param name="provisioningState"> The provisioning status of the resource. </param>
         /// <param name="uniqueIdentifier"> The unique immutable identifier of a resource (Guid). </param>
-        internal DevTestLabEnvironmentData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, DevTestLabEnvironmentDeployment deploymentProperties, string armTemplateDisplayName, string resourceGroupId, string createdByUser, string provisioningState, Guid? uniqueIdentifier) : base(id, name, resourceType, systemData, tags, location)
+        /// <param name="armTemplateId"> The Azure Resource Manager template&apos;s identifier. </param>
+        /// <param name="parameters"> The parameters of the Azure Resource Manager template. </param>
+        internal DevTestLabEnvironmentData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, string armTemplateDisplayName, string resourceGroupId, string createdByUser, string provisioningState, Guid? uniqueIdentifier, string armTemplateId, IList<DevTestLabArmTemplateParameter> parameters) : base(id, name, resourceType, systemData, tags, location)
         {
-            DeploymentProperties = deploymentProperties;
             ArmTemplateDisplayName = armTemplateDisplayName;
             ResourceGroupId = resourceGroupId;
             CreatedByUser = createdByUser;
             ProvisioningState = provisioningState;
             UniqueIdentifier = uniqueIdentifier;
+            ArmTemplateId = armTemplateId;
+            Parameters = parameters;
         }
 
-        /// <summary> The deployment properties of the environment. </summary>
-        public DevTestLabEnvironmentDeployment DeploymentProperties { get; set; }
         /// <summary> The display name of the Azure Resource Manager template that produced the environment. </summary>
         public string ArmTemplateDisplayName { get; set; }
         /// <summary> The identifier of the resource group containing the environment&apos;s resources. </summary>
@@ -60,5 +61,9 @@ namespace Azure.ResourceManager.DevTestLabs
         public string ProvisioningState { get; }
         /// <summary> The unique immutable identifier of a resource (Guid). </summary>
         public Guid? UniqueIdentifier { get; }
+        /// <summary> The Azure Resource Manager template&apos;s identifier. </summary>
+        public string ArmTemplateId { get; set; }
+        /// <summary> The parameters of the Azure Resource Manager template. </summary>
+        public IList<DevTestLabArmTemplateParameter> Parameters { get; }
     }
 }

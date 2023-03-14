@@ -16,6 +16,7 @@ namespace Azure.ResourceManager.DevTestLabs.Models
         /// <summary> Initializes a new instance of DevTestLabSubnetOverride. </summary>
         public DevTestLabSubnetOverride()
         {
+            AllowedPorts = new ChangeTrackingList<DevTestLabPort>();
         }
 
         /// <summary> Initializes a new instance of DevTestLabSubnetOverride. </summary>
@@ -23,16 +24,16 @@ namespace Azure.ResourceManager.DevTestLabs.Models
         /// <param name="labSubnetName"> The name given to the subnet within the lab. </param>
         /// <param name="useInVmCreationPermission"> Indicates whether this subnet can be used during virtual machine creation (i.e. Allow, Deny). </param>
         /// <param name="usePublicIPAddressPermission"> Indicates whether public IP addresses can be assigned to virtual machines on this subnet (i.e. Allow, Deny). </param>
-        /// <param name="sharedPublicIPAddressConfiguration"> Properties that virtual machines on this subnet will share. </param>
         /// <param name="virtualNetworkPoolName"> The virtual network pool associated with this subnet. </param>
-        internal DevTestLabSubnetOverride(ResourceIdentifier resourceId, string labSubnetName, DevTestLabUsagePermissionType? useInVmCreationPermission, DevTestLabUsagePermissionType? usePublicIPAddressPermission, SubnetSharedPublicIPAddressConfiguration sharedPublicIPAddressConfiguration, string virtualNetworkPoolName)
+        /// <param name="allowedPorts"> Backend ports that virtual machines on this subnet are allowed to expose. </param>
+        internal DevTestLabSubnetOverride(ResourceIdentifier resourceId, string labSubnetName, DevTestLabUsagePermissionType? useInVmCreationPermission, DevTestLabUsagePermissionType? usePublicIPAddressPermission, string virtualNetworkPoolName, IList<DevTestLabPort> allowedPorts)
         {
             ResourceId = resourceId;
             LabSubnetName = labSubnetName;
             UseInVmCreationPermission = useInVmCreationPermission;
             UsePublicIPAddressPermission = usePublicIPAddressPermission;
-            SharedPublicIPAddressConfiguration = sharedPublicIPAddressConfiguration;
             VirtualNetworkPoolName = virtualNetworkPoolName;
+            AllowedPorts = allowedPorts;
         }
 
         /// <summary> The resource ID of the subnet. </summary>
@@ -43,20 +44,9 @@ namespace Azure.ResourceManager.DevTestLabs.Models
         public DevTestLabUsagePermissionType? UseInVmCreationPermission { get; set; }
         /// <summary> Indicates whether public IP addresses can be assigned to virtual machines on this subnet (i.e. Allow, Deny). </summary>
         public DevTestLabUsagePermissionType? UsePublicIPAddressPermission { get; set; }
-        /// <summary> Properties that virtual machines on this subnet will share. </summary>
-        internal SubnetSharedPublicIPAddressConfiguration SharedPublicIPAddressConfiguration { get; set; }
-        /// <summary> Backend ports that virtual machines on this subnet are allowed to expose. </summary>
-        public IList<DevTestLabPort> SharedPublicIPAddressAllowedPorts
-        {
-            get
-            {
-                if (SharedPublicIPAddressConfiguration is null)
-                    SharedPublicIPAddressConfiguration = new SubnetSharedPublicIPAddressConfiguration();
-                return SharedPublicIPAddressConfiguration.AllowedPorts;
-            }
-        }
-
         /// <summary> The virtual network pool associated with this subnet. </summary>
         public string VirtualNetworkPoolName { get; set; }
+        /// <summary> Backend ports that virtual machines on this subnet are allowed to expose. </summary>
+        public IList<DevTestLabPort> AllowedPorts { get; }
     }
 }

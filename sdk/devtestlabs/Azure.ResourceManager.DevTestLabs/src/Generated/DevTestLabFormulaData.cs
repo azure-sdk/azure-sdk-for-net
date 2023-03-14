@@ -23,6 +23,19 @@ namespace Azure.ResourceManager.DevTestLabs
         /// <param name="location"> The location. </param>
         public DevTestLabFormulaData(AzureLocation location) : base(location)
         {
+            TagsPropertiesFormulaContentTags = new ChangeTrackingDictionary<string, string>();
+            Artifacts = new ChangeTrackingList<DevTestLabArtifactInstallInfo>();
+            DataDiskParameters = new ChangeTrackingList<DevTestLabDataDiskProperties>();
+            ScheduleParameters = new ChangeTrackingList<DevTestLabScheduleCreationParameter>();
+            TagsPropertiesFormulaContentPropertiesApplicableScheduleTags = new ChangeTrackingDictionary<string, string>();
+            TagsPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupTags = new ChangeTrackingDictionary<string, string>();
+            WeekdaysPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesWeeklyRecurrenceWeekdays = new ChangeTrackingList<string>();
+            TagsPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownTags = new ChangeTrackingDictionary<string, string>();
+            WeekdaysPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesWeeklyRecurrenceWeekdays = new ChangeTrackingList<string>();
+            InboundNatRules = new ChangeTrackingList<DevTestLabInboundNatRule>();
+            Statuses = new ChangeTrackingList<ComputeVmInstanceViewStatus>();
+            DataDiskIds = new ChangeTrackingList<string>();
+            DataDisks = new ChangeTrackingList<ComputeDataDisk>();
         }
 
         /// <summary> Initializes a new instance of DevTestLabFormulaData. </summary>
@@ -34,22 +47,246 @@ namespace Azure.ResourceManager.DevTestLabs
         /// <param name="location"> The location. </param>
         /// <param name="description"> The description of the formula. </param>
         /// <param name="author"> The author of the formula. </param>
-        /// <param name="osType"> The OS type of the formula. </param>
+        /// <param name="osTypePropertiesOSType"> The OS type of the formula. </param>
         /// <param name="createdOn"> The creation date of the formula. </param>
-        /// <param name="formulaContent"> The content of the formula. </param>
-        /// <param name="vm"> Information about a VM from which a formula is to be created. </param>
-        /// <param name="provisioningState"> The provisioning status of the resource. </param>
-        /// <param name="uniqueIdentifier"> The unique immutable identifier of a resource (Guid). </param>
-        internal DevTestLabFormulaData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, string description, string author, string osType, DateTimeOffset? createdOn, DevTestLabVmCreationContent formulaContent, FormulaPropertiesFromVm vm, string provisioningState, Guid? uniqueIdentifier) : base(id, name, resourceType, systemData, tags, location)
+        /// <param name="provisioningStatePropertiesProvisioningState"> The provisioning status of the resource. </param>
+        /// <param name="uniqueIdentifierPropertiesUniqueIdentifier"> The unique immutable identifier of a resource (Guid). </param>
+        /// <param name="labVmId"> The identifier of the VM from which a formula is to be created. </param>
+        /// <param name="namePropertiesFormulaContentName"> The name of the virtual machine or environment. </param>
+        /// <param name="locationPropertiesFormulaContentLocation"> The location of the new virtual machine or environment. </param>
+        /// <param name="tagsPropertiesFormulaContentTags"> The tags of the resource. </param>
+        /// <param name="notes"> The notes of the virtual machine. </param>
+        /// <param name="ownerObjectId"> The object identifier of the owner of the virtual machine. </param>
+        /// <param name="ownerUserPrincipalName"> The user principal name of the virtual machine owner. </param>
+        /// <param name="createdByUserId"> The object identifier of the creator of the virtual machine. </param>
+        /// <param name="createdByUser"> The email address of creator of the virtual machine. </param>
+        /// <param name="createdDatePropertiesFormulaContentPropertiesCreatedOn"> The creation date of the virtual machine. </param>
+        /// <param name="computeId"> The resource identifier (Microsoft.Compute) of the virtual machine. </param>
+        /// <param name="customImageId"> The custom image identifier of the virtual machine. </param>
+        /// <param name="galleryImageVersionId"> The shared gallery image version resource identifier of the virtual machine. </param>
+        /// <param name="sharedImageId"> The shared image resource identifier of the virtual machine. </param>
+        /// <param name="sharedImageVersion"> The shared image version for the specified shared image Id. Will use latest if not specified. </param>
+        /// <param name="osTypePropertiesFormulaContentPropertiesOSType"> The OS type of the virtual machine. </param>
+        /// <param name="size"> The size of the virtual machine. </param>
+        /// <param name="userName"> The user name of the virtual machine. </param>
+        /// <param name="password"> The password of the virtual machine administrator. </param>
+        /// <param name="sshKey"> The SSH key of the virtual machine administrator. </param>
+        /// <param name="isAuthenticationWithSshKey"> Indicates whether this virtual machine uses an SSH key for authentication. </param>
+        /// <param name="fqdn"> The fully-qualified domain name of the virtual machine. </param>
+        /// <param name="labSubnetName"> The lab subnet name of the virtual machine. </param>
+        /// <param name="labVirtualNetworkId"> The lab virtual network identifier of the virtual machine. </param>
+        /// <param name="disallowPublicIPAddress"> Indicates whether the virtual machine is to be created without a public IP address. </param>
+        /// <param name="artifacts"> The artifacts to be installed on the virtual machine. </param>
+        /// <param name="planId"> The id of the plan associated with the virtual machine image. </param>
+        /// <param name="osDiskSizeGb"> Specifies the size of an empty data disk in gigabytes. This element can be used to overwrite the size of the disk in a virtual machine image. </param>
+        /// <param name="expireOn"> The expiration date for VM. </param>
+        /// <param name="allowClaim"> Indicates whether another user can take ownership of the virtual machine. </param>
+        /// <param name="storageType"> Storage type to use for virtual machine (i.e. Standard, Premium, StandardSSD). </param>
+        /// <param name="vmCreationSource"> Tells source of creation of lab virtual machine. Output property only. </param>
+        /// <param name="environmentId"> The resource ID of the environment that contains this virtual machine, if any. </param>
+        /// <param name="dataDiskParameters"> New or existing data disks to attach to the virtual machine after creation. </param>
+        /// <param name="scheduleParameters"> Virtual Machine schedules to be created. </param>
+        /// <param name="lastKnownPowerState"> Last known compute power state captured in DTL. </param>
+        /// <param name="canApplyArtifacts"> Flag to determine if apply artifacts can be triggered at the time of fetching the document. </param>
+        /// <param name="provisioningStatePropertiesFormulaContentPropertiesProvisioningState"> The provisioning status of the resource. </param>
+        /// <param name="uniqueIdentifierPropertiesFormulaContentPropertiesUniqueIdentifier"> The unique immutable identifier of a resource (Guid). </param>
+        /// <param name="idPropertiesFormulaContentPropertiesApplicableScheduleId"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
+        /// <param name="namePropertiesFormulaContentPropertiesApplicableScheduleName"> The name of the resource. </param>
+        /// <param name="typePropertiesFormulaContentPropertiesApplicableScheduleType"> The type of the resource. E.g. &quot;Microsoft.Compute/virtualMachines&quot; or &quot;Microsoft.Storage/storageAccounts&quot;. </param>
+        /// <param name="tagsPropertiesFormulaContentPropertiesApplicableScheduleTags"> Resource tags. </param>
+        /// <param name="locationPropertiesFormulaContentPropertiesApplicableScheduleLocation"> The geo-location where the resource lives. </param>
+        /// <param name="systemDataPropertiesFormulaContentPropertiesApplicableScheduleSystemData"> The system metadata relating to this resource. </param>
+        /// <param name="idPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupId"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
+        /// <param name="namePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupName"> The name of the resource. </param>
+        /// <param name="typePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupType"> The type of the resource. E.g. &quot;Microsoft.Compute/virtualMachines&quot; or &quot;Microsoft.Storage/storageAccounts&quot;. </param>
+        /// <param name="tagsPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupTags"> Resource tags. </param>
+        /// <param name="locationPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupLocation"> The geo-location where the resource lives. </param>
+        /// <param name="systemDataPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupSystemData"> The system metadata relating to this resource. </param>
+        /// <param name="statusPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesStatus"> The status of the schedule (i.e. Enabled, Disabled). </param>
+        /// <param name="taskTypePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesTaskType"> The task type of the schedule (e.g. LabVmsShutdownTask, LabVmAutoStart). </param>
+        /// <param name="timeZoneIdPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesTimeZoneId"> The time zone ID (e.g. Pacific Standard time). </param>
+        /// <param name="createdDatePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesCreatedOn"> The creation date of the schedule. </param>
+        /// <param name="targetResourceIdPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesTargetResourceId"> The resource ID to which the schedule belongs. </param>
+        /// <param name="provisioningStatePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesProvisioningState"> The provisioning status of the resource. </param>
+        /// <param name="uniqueIdentifierPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesUniqueIdentifier"> The unique immutable identifier of a resource (Guid). </param>
+        /// <param name="statusPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesNotificationSettingsStatus"> If notifications are enabled for this schedule (i.e. Enabled, Disabled). </param>
+        /// <param name="timeInMinutesPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesNotificationSettingsTimeInMinutes"> Time in minutes before event at which notification will be sent. </param>
+        /// <param name="webhookUrlPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesNotificationSettingsWebhookUri"> The webhook URL to which the notification will be sent. </param>
+        /// <param name="emailRecipientPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesNotificationSettingsEmailRecipient"> The email recipient to send notifications to (can be a list of semi-colon separated email addresses). </param>
+        /// <param name="notificationLocalePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesNotificationSettingsNotificationLocale"> The locale to use when sending a notification (fallback for unsupported languages is EN). </param>
+        /// <param name="minutePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesHourlyRecurrenceMinute"> Minutes of the hour the schedule will run. </param>
+        /// <param name="timePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesDailyRecurrenceTime"> The time of day the schedule will occur. </param>
+        /// <param name="weekdaysPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesWeeklyRecurrenceWeekdays"> The days of the week for which the schedule is set (e.g. Sunday, Monday, Tuesday, etc.). </param>
+        /// <param name="timePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesWeeklyRecurrenceTime"> The time of the day the schedule will occur. </param>
+        /// <param name="idPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownId"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
+        /// <param name="namePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownName"> The name of the resource. </param>
+        /// <param name="typePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownType"> The type of the resource. E.g. &quot;Microsoft.Compute/virtualMachines&quot; or &quot;Microsoft.Storage/storageAccounts&quot;. </param>
+        /// <param name="tagsPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownTags"> Resource tags. </param>
+        /// <param name="locationPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownLocation"> The geo-location where the resource lives. </param>
+        /// <param name="systemDataPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownSystemData"> The system metadata relating to this resource. </param>
+        /// <param name="statusPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesStatus"> The status of the schedule (i.e. Enabled, Disabled). </param>
+        /// <param name="taskTypePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesTaskType"> The task type of the schedule (e.g. LabVmsShutdownTask, LabVmAutoStart). </param>
+        /// <param name="timeZoneIdPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesTimeZoneId"> The time zone ID (e.g. Pacific Standard time). </param>
+        /// <param name="createdDatePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesCreatedOn"> The creation date of the schedule. </param>
+        /// <param name="targetResourceIdPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesTargetResourceId"> The resource ID to which the schedule belongs. </param>
+        /// <param name="provisioningStatePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesProvisioningState"> The provisioning status of the resource. </param>
+        /// <param name="uniqueIdentifierPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesUniqueIdentifier"> The unique immutable identifier of a resource (Guid). </param>
+        /// <param name="statusPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesNotificationSettingsStatus"> If notifications are enabled for this schedule (i.e. Enabled, Disabled). </param>
+        /// <param name="timeInMinutesPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesNotificationSettingsTimeInMinutes"> Time in minutes before event at which notification will be sent. </param>
+        /// <param name="webhookUrlPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesNotificationSettingsWebhookUri"> The webhook URL to which the notification will be sent. </param>
+        /// <param name="emailRecipientPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesNotificationSettingsEmailRecipient"> The email recipient to send notifications to (can be a list of semi-colon separated email addresses). </param>
+        /// <param name="notificationLocalePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesNotificationSettingsNotificationLocale"> The locale to use when sending a notification (fallback for unsupported languages is EN). </param>
+        /// <param name="minutePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesHourlyRecurrenceMinute"> Minutes of the hour the schedule will run. </param>
+        /// <param name="timePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesDailyRecurrenceTime"> The time of day the schedule will occur. </param>
+        /// <param name="weekdaysPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesWeeklyRecurrenceWeekdays"> The days of the week for which the schedule is set (e.g. Sunday, Monday, Tuesday, etc.). </param>
+        /// <param name="timePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesWeeklyRecurrenceTime"> The time of the day the schedule will occur. </param>
+        /// <param name="virtualNetworkId"> The resource ID of the virtual network. </param>
+        /// <param name="subnetId"> The resource ID of the sub net. </param>
+        /// <param name="publicIPAddressId"> The resource ID of the public IP address. </param>
+        /// <param name="publicIPAddress"> The public IP address. </param>
+        /// <param name="privateIPAddress"> The private IP address. </param>
+        /// <param name="dnsName"> The DNS name. </param>
+        /// <param name="rdpAuthority"> The RdpAuthority property is a server DNS host name or IP address followed by the service port number for RDP (Remote Desktop Protocol). </param>
+        /// <param name="sshAuthority"> The SshAuthority property is a server DNS host name or IP address followed by the service port number for SSH. </param>
+        /// <param name="inboundNatRules"> The incoming NAT rules. </param>
+        /// <param name="statuses"> Gets the statuses of the virtual machine. </param>
+        /// <param name="osTypePropertiesFormulaContentPropertiesComputeVmOSType"> Gets the OS type of the virtual machine. </param>
+        /// <param name="vmSize"> Gets the size of the virtual machine. </param>
+        /// <param name="networkInterfaceId"> Gets the network interface ID of the virtual machine. </param>
+        /// <param name="osDiskId"> Gets OS disk blob uri for the virtual machine. </param>
+        /// <param name="dataDiskIds"> Gets data disks blob uri for the virtual machine. </param>
+        /// <param name="dataDisks"> Gets all data disks attached to the virtual machine. </param>
+        /// <param name="offer"> The offer of the gallery image. </param>
+        /// <param name="publisher"> The publisher of the gallery image. </param>
+        /// <param name="sku"> The SKU of the gallery image. </param>
+        /// <param name="osTypePropertiesFormulaContentPropertiesGalleryImageReferenceOSType"> The OS type of the gallery image. </param>
+        /// <param name="version"> The version of the gallery image. </param>
+        /// <param name="deploymentStatus"> The deployment status of the artifact. </param>
+        /// <param name="artifactsApplied"> The total count of the artifacts that were successfully applied. </param>
+        /// <param name="totalArtifacts"> The total count of the artifacts that were tentatively applied. </param>
+        /// <param name="instanceCount"> The number of virtual machine instances to create. </param>
+        internal DevTestLabFormulaData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, string description, string author, string osTypePropertiesOSType, DateTimeOffset? createdOn, string provisioningStatePropertiesProvisioningState, string uniqueIdentifierPropertiesUniqueIdentifier, string labVmId, string namePropertiesFormulaContentName, string locationPropertiesFormulaContentLocation, IDictionary<string, string> tagsPropertiesFormulaContentTags, string notes, string ownerObjectId, string ownerUserPrincipalName, string createdByUserId, string createdByUser, DateTimeOffset? createdDatePropertiesFormulaContentPropertiesCreatedOn, string computeId, string customImageId, string galleryImageVersionId, string sharedImageId, string sharedImageVersion, string osTypePropertiesFormulaContentPropertiesOSType, string size, string userName, string password, string sshKey, bool? isAuthenticationWithSshKey, string fqdn, string labSubnetName, ResourceIdentifier labVirtualNetworkId, bool? disallowPublicIPAddress, IList<DevTestLabArtifactInstallInfo> artifacts, string planId, int? osDiskSizeGb, DateTimeOffset? expireOn, bool? allowClaim, DevTestLabStorageType? storageType, DevTestLabVmCreationSource? vmCreationSource, string environmentId, IList<DevTestLabDataDiskProperties> dataDiskParameters, IList<DevTestLabScheduleCreationParameter> scheduleParameters, string lastKnownPowerState, bool? canApplyArtifacts, string provisioningStatePropertiesFormulaContentPropertiesProvisioningState, string uniqueIdentifierPropertiesFormulaContentPropertiesUniqueIdentifier, string idPropertiesFormulaContentPropertiesApplicableScheduleId, string namePropertiesFormulaContentPropertiesApplicableScheduleName, string typePropertiesFormulaContentPropertiesApplicableScheduleType, IDictionary<string, string> tagsPropertiesFormulaContentPropertiesApplicableScheduleTags, AzureLocation? locationPropertiesFormulaContentPropertiesApplicableScheduleLocation, SystemData systemDataPropertiesFormulaContentPropertiesApplicableScheduleSystemData, string idPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupId, string namePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupName, string typePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupType, IDictionary<string, string> tagsPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupTags, AzureLocation? locationPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupLocation, SystemData systemDataPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupSystemData, DevTestLabEnableStatus? statusPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesStatus, string taskTypePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesTaskType, string timeZoneIdPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesTimeZoneId, DateTimeOffset? createdDatePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesCreatedOn, string targetResourceIdPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesTargetResourceId, string provisioningStatePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesProvisioningState, Guid? uniqueIdentifierPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesUniqueIdentifier, DevTestLabEnableStatus? statusPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesNotificationSettingsStatus, int? timeInMinutesPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesNotificationSettingsTimeInMinutes, Uri webhookUrlPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesNotificationSettingsWebhookUri, string emailRecipientPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesNotificationSettingsEmailRecipient, string notificationLocalePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesNotificationSettingsNotificationLocale, int? minutePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesHourlyRecurrenceMinute, string timePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesDailyRecurrenceTime, IList<string> weekdaysPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesWeeklyRecurrenceWeekdays, string timePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesWeeklyRecurrenceTime, string idPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownId, string namePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownName, string typePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownType, IDictionary<string, string> tagsPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownTags, AzureLocation? locationPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownLocation, SystemData systemDataPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownSystemData, DevTestLabEnableStatus? statusPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesStatus, string taskTypePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesTaskType, string timeZoneIdPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesTimeZoneId, DateTimeOffset? createdDatePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesCreatedOn, string targetResourceIdPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesTargetResourceId, string provisioningStatePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesProvisioningState, Guid? uniqueIdentifierPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesUniqueIdentifier, DevTestLabEnableStatus? statusPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesNotificationSettingsStatus, int? timeInMinutesPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesNotificationSettingsTimeInMinutes, Uri webhookUrlPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesNotificationSettingsWebhookUri, string emailRecipientPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesNotificationSettingsEmailRecipient, string notificationLocalePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesNotificationSettingsNotificationLocale, int? minutePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesHourlyRecurrenceMinute, string timePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesDailyRecurrenceTime, IList<string> weekdaysPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesWeeklyRecurrenceWeekdays, string timePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesWeeklyRecurrenceTime, string virtualNetworkId, string subnetId, string publicIPAddressId, string publicIPAddress, string privateIPAddress, string dnsName, string rdpAuthority, string sshAuthority, IList<DevTestLabInboundNatRule> inboundNatRules, IList<ComputeVmInstanceViewStatus> statuses, string osTypePropertiesFormulaContentPropertiesComputeVmOSType, string vmSize, string networkInterfaceId, string osDiskId, IList<string> dataDiskIds, IList<ComputeDataDisk> dataDisks, string offer, string publisher, string sku, string osTypePropertiesFormulaContentPropertiesGalleryImageReferenceOSType, string version, string deploymentStatus, int? artifactsApplied, int? totalArtifacts, int? instanceCount) : base(id, name, resourceType, systemData, tags, location)
         {
             Description = description;
             Author = author;
-            OSType = osType;
+            OSTypePropertiesOSType = osTypePropertiesOSType;
             CreatedOn = createdOn;
-            FormulaContent = formulaContent;
-            Vm = vm;
-            ProvisioningState = provisioningState;
-            UniqueIdentifier = uniqueIdentifier;
+            ProvisioningStatePropertiesProvisioningState = provisioningStatePropertiesProvisioningState;
+            UniqueIdentifierPropertiesUniqueIdentifier = uniqueIdentifierPropertiesUniqueIdentifier;
+            LabVmId = labVmId;
+            NamePropertiesFormulaContentName = namePropertiesFormulaContentName;
+            LocationPropertiesFormulaContentLocation = locationPropertiesFormulaContentLocation;
+            TagsPropertiesFormulaContentTags = tagsPropertiesFormulaContentTags;
+            Notes = notes;
+            OwnerObjectId = ownerObjectId;
+            OwnerUserPrincipalName = ownerUserPrincipalName;
+            CreatedByUserId = createdByUserId;
+            CreatedByUser = createdByUser;
+            CreatedDatePropertiesFormulaContentPropertiesCreatedOn = createdDatePropertiesFormulaContentPropertiesCreatedOn;
+            ComputeId = computeId;
+            CustomImageId = customImageId;
+            GalleryImageVersionId = galleryImageVersionId;
+            SharedImageId = sharedImageId;
+            SharedImageVersion = sharedImageVersion;
+            OSTypePropertiesFormulaContentPropertiesOSType = osTypePropertiesFormulaContentPropertiesOSType;
+            Size = size;
+            UserName = userName;
+            Password = password;
+            SshKey = sshKey;
+            IsAuthenticationWithSshKey = isAuthenticationWithSshKey;
+            Fqdn = fqdn;
+            LabSubnetName = labSubnetName;
+            LabVirtualNetworkId = labVirtualNetworkId;
+            DisallowPublicIPAddress = disallowPublicIPAddress;
+            Artifacts = artifacts;
+            PlanId = planId;
+            OSDiskSizeGb = osDiskSizeGb;
+            ExpireOn = expireOn;
+            AllowClaim = allowClaim;
+            StorageType = storageType;
+            VmCreationSource = vmCreationSource;
+            EnvironmentId = environmentId;
+            DataDiskParameters = dataDiskParameters;
+            ScheduleParameters = scheduleParameters;
+            LastKnownPowerState = lastKnownPowerState;
+            CanApplyArtifacts = canApplyArtifacts;
+            ProvisioningStatePropertiesFormulaContentPropertiesProvisioningState = provisioningStatePropertiesFormulaContentPropertiesProvisioningState;
+            UniqueIdentifierPropertiesFormulaContentPropertiesUniqueIdentifier = uniqueIdentifierPropertiesFormulaContentPropertiesUniqueIdentifier;
+            IdPropertiesFormulaContentPropertiesApplicableScheduleId = idPropertiesFormulaContentPropertiesApplicableScheduleId;
+            NamePropertiesFormulaContentPropertiesApplicableScheduleName = namePropertiesFormulaContentPropertiesApplicableScheduleName;
+            TypePropertiesFormulaContentPropertiesApplicableScheduleType = typePropertiesFormulaContentPropertiesApplicableScheduleType;
+            TagsPropertiesFormulaContentPropertiesApplicableScheduleTags = tagsPropertiesFormulaContentPropertiesApplicableScheduleTags;
+            LocationPropertiesFormulaContentPropertiesApplicableScheduleLocation = locationPropertiesFormulaContentPropertiesApplicableScheduleLocation;
+            SystemDataPropertiesFormulaContentPropertiesApplicableScheduleSystemData = systemDataPropertiesFormulaContentPropertiesApplicableScheduleSystemData;
+            IdPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupId = idPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupId;
+            NamePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupName = namePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupName;
+            TypePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupType = typePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupType;
+            TagsPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupTags = tagsPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupTags;
+            LocationPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupLocation = locationPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupLocation;
+            SystemDataPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupSystemData = systemDataPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupSystemData;
+            StatusPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesStatus = statusPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesStatus;
+            TaskTypePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesTaskType = taskTypePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesTaskType;
+            TimeZoneIdPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesTimeZoneId = timeZoneIdPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesTimeZoneId;
+            CreatedDatePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesCreatedOn = createdDatePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesCreatedOn;
+            TargetResourceIdPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesTargetResourceId = targetResourceIdPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesTargetResourceId;
+            ProvisioningStatePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesProvisioningState = provisioningStatePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesProvisioningState;
+            UniqueIdentifierPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesUniqueIdentifier = uniqueIdentifierPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesUniqueIdentifier;
+            StatusPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesNotificationSettingsStatus = statusPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesNotificationSettingsStatus;
+            TimeInMinutesPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesNotificationSettingsTimeInMinutes = timeInMinutesPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesNotificationSettingsTimeInMinutes;
+            WebhookUrlPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesNotificationSettingsWebhookUri = webhookUrlPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesNotificationSettingsWebhookUri;
+            EmailRecipientPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesNotificationSettingsEmailRecipient = emailRecipientPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesNotificationSettingsEmailRecipient;
+            NotificationLocalePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesNotificationSettingsNotificationLocale = notificationLocalePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesNotificationSettingsNotificationLocale;
+            MinutePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesHourlyRecurrenceMinute = minutePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesHourlyRecurrenceMinute;
+            TimePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesDailyRecurrenceTime = timePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesDailyRecurrenceTime;
+            WeekdaysPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesWeeklyRecurrenceWeekdays = weekdaysPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesWeeklyRecurrenceWeekdays;
+            TimePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesWeeklyRecurrenceTime = timePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesWeeklyRecurrenceTime;
+            IdPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownId = idPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownId;
+            NamePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownName = namePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownName;
+            TypePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownType = typePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownType;
+            TagsPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownTags = tagsPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownTags;
+            LocationPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownLocation = locationPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownLocation;
+            SystemDataPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownSystemData = systemDataPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownSystemData;
+            StatusPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesStatus = statusPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesStatus;
+            TaskTypePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesTaskType = taskTypePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesTaskType;
+            TimeZoneIdPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesTimeZoneId = timeZoneIdPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesTimeZoneId;
+            CreatedDatePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesCreatedOn = createdDatePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesCreatedOn;
+            TargetResourceIdPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesTargetResourceId = targetResourceIdPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesTargetResourceId;
+            ProvisioningStatePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesProvisioningState = provisioningStatePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesProvisioningState;
+            UniqueIdentifierPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesUniqueIdentifier = uniqueIdentifierPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesUniqueIdentifier;
+            StatusPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesNotificationSettingsStatus = statusPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesNotificationSettingsStatus;
+            TimeInMinutesPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesNotificationSettingsTimeInMinutes = timeInMinutesPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesNotificationSettingsTimeInMinutes;
+            WebhookUrlPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesNotificationSettingsWebhookUri = webhookUrlPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesNotificationSettingsWebhookUri;
+            EmailRecipientPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesNotificationSettingsEmailRecipient = emailRecipientPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesNotificationSettingsEmailRecipient;
+            NotificationLocalePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesNotificationSettingsNotificationLocale = notificationLocalePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesNotificationSettingsNotificationLocale;
+            MinutePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesHourlyRecurrenceMinute = minutePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesHourlyRecurrenceMinute;
+            TimePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesDailyRecurrenceTime = timePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesDailyRecurrenceTime;
+            WeekdaysPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesWeeklyRecurrenceWeekdays = weekdaysPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesWeeklyRecurrenceWeekdays;
+            TimePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesWeeklyRecurrenceTime = timePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesWeeklyRecurrenceTime;
+            VirtualNetworkId = virtualNetworkId;
+            SubnetId = subnetId;
+            PublicIPAddressId = publicIPAddressId;
+            PublicIPAddress = publicIPAddress;
+            PrivateIPAddress = privateIPAddress;
+            DnsName = dnsName;
+            RdpAuthority = rdpAuthority;
+            SshAuthority = sshAuthority;
+            InboundNatRules = inboundNatRules;
+            Statuses = statuses;
+            OSTypePropertiesFormulaContentPropertiesComputeVmOSType = osTypePropertiesFormulaContentPropertiesComputeVmOSType;
+            VmSize = vmSize;
+            NetworkInterfaceId = networkInterfaceId;
+            OSDiskId = osDiskId;
+            DataDiskIds = dataDiskIds;
+            DataDisks = dataDisks;
+            Offer = offer;
+            Publisher = publisher;
+            Sku = sku;
+            OSTypePropertiesFormulaContentPropertiesGalleryImageReferenceOSType = osTypePropertiesFormulaContentPropertiesGalleryImageReferenceOSType;
+            Version = version;
+            DeploymentStatus = deploymentStatus;
+            ArtifactsApplied = artifactsApplied;
+            TotalArtifacts = totalArtifacts;
+            InstanceCount = instanceCount;
         }
 
         /// <summary> The description of the formula. </summary>
@@ -57,28 +294,240 @@ namespace Azure.ResourceManager.DevTestLabs
         /// <summary> The author of the formula. </summary>
         public string Author { get; }
         /// <summary> The OS type of the formula. </summary>
-        public string OSType { get; set; }
+        public string OSTypePropertiesOSType { get; set; }
         /// <summary> The creation date of the formula. </summary>
         public DateTimeOffset? CreatedOn { get; }
-        /// <summary> The content of the formula. </summary>
-        public DevTestLabVmCreationContent FormulaContent { get; set; }
-        /// <summary> Information about a VM from which a formula is to be created. </summary>
-        internal FormulaPropertiesFromVm Vm { get; set; }
-        /// <summary> The identifier of the VM from which a formula is to be created. </summary>
-        public string LabVmId
-        {
-            get => Vm is null ? default : Vm.LabVmId;
-            set
-            {
-                if (Vm is null)
-                    Vm = new FormulaPropertiesFromVm();
-                Vm.LabVmId = value;
-            }
-        }
-
         /// <summary> The provisioning status of the resource. </summary>
-        public string ProvisioningState { get; }
+        public string ProvisioningStatePropertiesProvisioningState { get; }
         /// <summary> The unique immutable identifier of a resource (Guid). </summary>
-        public Guid? UniqueIdentifier { get; }
+        public string UniqueIdentifierPropertiesUniqueIdentifier { get; }
+        /// <summary> The identifier of the VM from which a formula is to be created. </summary>
+        public string LabVmId { get; set; }
+        /// <summary> The name of the virtual machine or environment. </summary>
+        public string NamePropertiesFormulaContentName { get; set; }
+        /// <summary> The location of the new virtual machine or environment. </summary>
+        public string LocationPropertiesFormulaContentLocation { get; set; }
+        /// <summary> The tags of the resource. </summary>
+        public IDictionary<string, string> TagsPropertiesFormulaContentTags { get; }
+        /// <summary> The notes of the virtual machine. </summary>
+        public string Notes { get; set; }
+        /// <summary> The object identifier of the owner of the virtual machine. </summary>
+        public string OwnerObjectId { get; set; }
+        /// <summary> The user principal name of the virtual machine owner. </summary>
+        public string OwnerUserPrincipalName { get; set; }
+        /// <summary> The object identifier of the creator of the virtual machine. </summary>
+        public string CreatedByUserId { get; }
+        /// <summary> The email address of creator of the virtual machine. </summary>
+        public string CreatedByUser { get; }
+        /// <summary> The creation date of the virtual machine. </summary>
+        public DateTimeOffset? CreatedDatePropertiesFormulaContentPropertiesCreatedOn { get; set; }
+        /// <summary> The resource identifier (Microsoft.Compute) of the virtual machine. </summary>
+        public string ComputeId { get; }
+        /// <summary> The custom image identifier of the virtual machine. </summary>
+        public string CustomImageId { get; set; }
+        /// <summary> The shared gallery image version resource identifier of the virtual machine. </summary>
+        public string GalleryImageVersionId { get; set; }
+        /// <summary> The shared image resource identifier of the virtual machine. </summary>
+        public string SharedImageId { get; set; }
+        /// <summary> The shared image version for the specified shared image Id. Will use latest if not specified. </summary>
+        public string SharedImageVersion { get; set; }
+        /// <summary> The OS type of the virtual machine. </summary>
+        public string OSTypePropertiesFormulaContentPropertiesOSType { get; }
+        /// <summary> The size of the virtual machine. </summary>
+        public string Size { get; set; }
+        /// <summary> The user name of the virtual machine. </summary>
+        public string UserName { get; set; }
+        /// <summary> The password of the virtual machine administrator. </summary>
+        public string Password { get; set; }
+        /// <summary> The SSH key of the virtual machine administrator. </summary>
+        public string SshKey { get; set; }
+        /// <summary> Indicates whether this virtual machine uses an SSH key for authentication. </summary>
+        public bool? IsAuthenticationWithSshKey { get; set; }
+        /// <summary> The fully-qualified domain name of the virtual machine. </summary>
+        public string Fqdn { get; }
+        /// <summary> The lab subnet name of the virtual machine. </summary>
+        public string LabSubnetName { get; set; }
+        /// <summary> The lab virtual network identifier of the virtual machine. </summary>
+        public ResourceIdentifier LabVirtualNetworkId { get; set; }
+        /// <summary> Indicates whether the virtual machine is to be created without a public IP address. </summary>
+        public bool? DisallowPublicIPAddress { get; set; }
+        /// <summary> The artifacts to be installed on the virtual machine. </summary>
+        public IList<DevTestLabArtifactInstallInfo> Artifacts { get; }
+        /// <summary> The id of the plan associated with the virtual machine image. </summary>
+        public string PlanId { get; set; }
+        /// <summary> Specifies the size of an empty data disk in gigabytes. This element can be used to overwrite the size of the disk in a virtual machine image. </summary>
+        public int? OSDiskSizeGb { get; set; }
+        /// <summary> The expiration date for VM. </summary>
+        public DateTimeOffset? ExpireOn { get; set; }
+        /// <summary> Indicates whether another user can take ownership of the virtual machine. </summary>
+        public bool? AllowClaim { get; set; }
+        /// <summary> Storage type to use for virtual machine (i.e. Standard, Premium, StandardSSD). </summary>
+        public DevTestLabStorageType? StorageType { get; set; }
+        /// <summary> Tells source of creation of lab virtual machine. Output property only. </summary>
+        public DevTestLabVmCreationSource? VmCreationSource { get; }
+        /// <summary> The resource ID of the environment that contains this virtual machine, if any. </summary>
+        public string EnvironmentId { get; set; }
+        /// <summary> New or existing data disks to attach to the virtual machine after creation. </summary>
+        public IList<DevTestLabDataDiskProperties> DataDiskParameters { get; }
+        /// <summary> Virtual Machine schedules to be created. </summary>
+        public IList<DevTestLabScheduleCreationParameter> ScheduleParameters { get; }
+        /// <summary> Last known compute power state captured in DTL. </summary>
+        public string LastKnownPowerState { get; }
+        /// <summary> Flag to determine if apply artifacts can be triggered at the time of fetching the document. </summary>
+        public bool? CanApplyArtifacts { get; }
+        /// <summary> The provisioning status of the resource. </summary>
+        public string ProvisioningStatePropertiesFormulaContentPropertiesProvisioningState { get; }
+        /// <summary> The unique immutable identifier of a resource (Guid). </summary>
+        public string UniqueIdentifierPropertiesFormulaContentPropertiesUniqueIdentifier { get; }
+        /// <summary> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </summary>
+        public string IdPropertiesFormulaContentPropertiesApplicableScheduleId { get; }
+        /// <summary> The name of the resource. </summary>
+        public string NamePropertiesFormulaContentPropertiesApplicableScheduleName { get; }
+        /// <summary> The type of the resource. E.g. &quot;Microsoft.Compute/virtualMachines&quot; or &quot;Microsoft.Storage/storageAccounts&quot;. </summary>
+        public string TypePropertiesFormulaContentPropertiesApplicableScheduleType { get; }
+        /// <summary> Resource tags. </summary>
+        public IDictionary<string, string> TagsPropertiesFormulaContentPropertiesApplicableScheduleTags { get; }
+        /// <summary> The geo-location where the resource lives. </summary>
+        public AzureLocation? LocationPropertiesFormulaContentPropertiesApplicableScheduleLocation { get; set; }
+        /// <summary> The system metadata relating to this resource. </summary>
+        public SystemData SystemDataPropertiesFormulaContentPropertiesApplicableScheduleSystemData { get; }
+        /// <summary> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </summary>
+        public string IdPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupId { get; }
+        /// <summary> The name of the resource. </summary>
+        public string NamePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupName { get; }
+        /// <summary> The type of the resource. E.g. &quot;Microsoft.Compute/virtualMachines&quot; or &quot;Microsoft.Storage/storageAccounts&quot;. </summary>
+        public string TypePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupType { get; }
+        /// <summary> Resource tags. </summary>
+        public IDictionary<string, string> TagsPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupTags { get; }
+        /// <summary> The geo-location where the resource lives. </summary>
+        public AzureLocation? LocationPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupLocation { get; set; }
+        /// <summary> The system metadata relating to this resource. </summary>
+        public SystemData SystemDataPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupSystemData { get; }
+        /// <summary> The status of the schedule (i.e. Enabled, Disabled). </summary>
+        public DevTestLabEnableStatus? StatusPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesStatus { get; set; }
+        /// <summary> The task type of the schedule (e.g. LabVmsShutdownTask, LabVmAutoStart). </summary>
+        public string TaskTypePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesTaskType { get; set; }
+        /// <summary> The time zone ID (e.g. Pacific Standard time). </summary>
+        public string TimeZoneIdPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesTimeZoneId { get; set; }
+        /// <summary> The creation date of the schedule. </summary>
+        public DateTimeOffset? CreatedDatePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesCreatedOn { get; }
+        /// <summary> The resource ID to which the schedule belongs. </summary>
+        public string TargetResourceIdPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesTargetResourceId { get; set; }
+        /// <summary> The provisioning status of the resource. </summary>
+        public string ProvisioningStatePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesProvisioningState { get; }
+        /// <summary> The unique immutable identifier of a resource (Guid). </summary>
+        public Guid? UniqueIdentifierPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesUniqueIdentifier { get; }
+        /// <summary> If notifications are enabled for this schedule (i.e. Enabled, Disabled). </summary>
+        public DevTestLabEnableStatus? StatusPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesNotificationSettingsStatus { get; set; }
+        /// <summary> Time in minutes before event at which notification will be sent. </summary>
+        public int? TimeInMinutesPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesNotificationSettingsTimeInMinutes { get; set; }
+        /// <summary> The webhook URL to which the notification will be sent. </summary>
+        public Uri WebhookUrlPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesNotificationSettingsWebhookUri { get; set; }
+        /// <summary> The email recipient to send notifications to (can be a list of semi-colon separated email addresses). </summary>
+        public string EmailRecipientPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesNotificationSettingsEmailRecipient { get; set; }
+        /// <summary> The locale to use when sending a notification (fallback for unsupported languages is EN). </summary>
+        public string NotificationLocalePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesNotificationSettingsNotificationLocale { get; set; }
+        /// <summary> Minutes of the hour the schedule will run. </summary>
+        public int? MinutePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesHourlyRecurrenceMinute { get; set; }
+        /// <summary> The time of day the schedule will occur. </summary>
+        public string TimePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesDailyRecurrenceTime { get; set; }
+        /// <summary> The days of the week for which the schedule is set (e.g. Sunday, Monday, Tuesday, etc.). </summary>
+        public IList<string> WeekdaysPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesWeeklyRecurrenceWeekdays { get; }
+        /// <summary> The time of the day the schedule will occur. </summary>
+        public string TimePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesWeeklyRecurrenceTime { get; set; }
+        /// <summary> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </summary>
+        public string IdPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownId { get; }
+        /// <summary> The name of the resource. </summary>
+        public string NamePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownName { get; }
+        /// <summary> The type of the resource. E.g. &quot;Microsoft.Compute/virtualMachines&quot; or &quot;Microsoft.Storage/storageAccounts&quot;. </summary>
+        public string TypePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownType { get; }
+        /// <summary> Resource tags. </summary>
+        public IDictionary<string, string> TagsPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownTags { get; }
+        /// <summary> The geo-location where the resource lives. </summary>
+        public AzureLocation? LocationPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownLocation { get; set; }
+        /// <summary> The system metadata relating to this resource. </summary>
+        public SystemData SystemDataPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownSystemData { get; }
+        /// <summary> The status of the schedule (i.e. Enabled, Disabled). </summary>
+        public DevTestLabEnableStatus? StatusPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesStatus { get; set; }
+        /// <summary> The task type of the schedule (e.g. LabVmsShutdownTask, LabVmAutoStart). </summary>
+        public string TaskTypePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesTaskType { get; set; }
+        /// <summary> The time zone ID (e.g. Pacific Standard time). </summary>
+        public string TimeZoneIdPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesTimeZoneId { get; set; }
+        /// <summary> The creation date of the schedule. </summary>
+        public DateTimeOffset? CreatedDatePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesCreatedOn { get; }
+        /// <summary> The resource ID to which the schedule belongs. </summary>
+        public string TargetResourceIdPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesTargetResourceId { get; set; }
+        /// <summary> The provisioning status of the resource. </summary>
+        public string ProvisioningStatePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesProvisioningState { get; }
+        /// <summary> The unique immutable identifier of a resource (Guid). </summary>
+        public Guid? UniqueIdentifierPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesUniqueIdentifier { get; }
+        /// <summary> If notifications are enabled for this schedule (i.e. Enabled, Disabled). </summary>
+        public DevTestLabEnableStatus? StatusPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesNotificationSettingsStatus { get; set; }
+        /// <summary> Time in minutes before event at which notification will be sent. </summary>
+        public int? TimeInMinutesPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesNotificationSettingsTimeInMinutes { get; set; }
+        /// <summary> The webhook URL to which the notification will be sent. </summary>
+        public Uri WebhookUrlPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesNotificationSettingsWebhookUri { get; set; }
+        /// <summary> The email recipient to send notifications to (can be a list of semi-colon separated email addresses). </summary>
+        public string EmailRecipientPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesNotificationSettingsEmailRecipient { get; set; }
+        /// <summary> The locale to use when sending a notification (fallback for unsupported languages is EN). </summary>
+        public string NotificationLocalePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesNotificationSettingsNotificationLocale { get; set; }
+        /// <summary> Minutes of the hour the schedule will run. </summary>
+        public int? MinutePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesHourlyRecurrenceMinute { get; set; }
+        /// <summary> The time of day the schedule will occur. </summary>
+        public string TimePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesDailyRecurrenceTime { get; set; }
+        /// <summary> The days of the week for which the schedule is set (e.g. Sunday, Monday, Tuesday, etc.). </summary>
+        public IList<string> WeekdaysPropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesWeeklyRecurrenceWeekdays { get; }
+        /// <summary> The time of the day the schedule will occur. </summary>
+        public string TimePropertiesFormulaContentPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesWeeklyRecurrenceTime { get; set; }
+        /// <summary> The resource ID of the virtual network. </summary>
+        public string VirtualNetworkId { get; set; }
+        /// <summary> The resource ID of the sub net. </summary>
+        public string SubnetId { get; set; }
+        /// <summary> The resource ID of the public IP address. </summary>
+        public string PublicIPAddressId { get; set; }
+        /// <summary> The public IP address. </summary>
+        public string PublicIPAddress { get; set; }
+        /// <summary> The private IP address. </summary>
+        public string PrivateIPAddress { get; set; }
+        /// <summary> The DNS name. </summary>
+        public string DnsName { get; set; }
+        /// <summary> The RdpAuthority property is a server DNS host name or IP address followed by the service port number for RDP (Remote Desktop Protocol). </summary>
+        public string RdpAuthority { get; set; }
+        /// <summary> The SshAuthority property is a server DNS host name or IP address followed by the service port number for SSH. </summary>
+        public string SshAuthority { get; set; }
+        /// <summary> The incoming NAT rules. </summary>
+        public IList<DevTestLabInboundNatRule> InboundNatRules { get; }
+        /// <summary> Gets the statuses of the virtual machine. </summary>
+        public IList<ComputeVmInstanceViewStatus> Statuses { get; }
+        /// <summary> Gets the OS type of the virtual machine. </summary>
+        public string OSTypePropertiesFormulaContentPropertiesComputeVmOSType { get; set; }
+        /// <summary> Gets the size of the virtual machine. </summary>
+        public string VmSize { get; set; }
+        /// <summary> Gets the network interface ID of the virtual machine. </summary>
+        public string NetworkInterfaceId { get; set; }
+        /// <summary> Gets OS disk blob uri for the virtual machine. </summary>
+        public string OSDiskId { get; set; }
+        /// <summary> Gets data disks blob uri for the virtual machine. </summary>
+        public IList<string> DataDiskIds { get; }
+        /// <summary> Gets all data disks attached to the virtual machine. </summary>
+        public IList<ComputeDataDisk> DataDisks { get; }
+        /// <summary> The offer of the gallery image. </summary>
+        public string Offer { get; set; }
+        /// <summary> The publisher of the gallery image. </summary>
+        public string Publisher { get; set; }
+        /// <summary> The SKU of the gallery image. </summary>
+        public string Sku { get; set; }
+        /// <summary> The OS type of the gallery image. </summary>
+        public string OSTypePropertiesFormulaContentPropertiesGalleryImageReferenceOSType { get; set; }
+        /// <summary> The version of the gallery image. </summary>
+        public string Version { get; set; }
+        /// <summary> The deployment status of the artifact. </summary>
+        public string DeploymentStatus { get; set; }
+        /// <summary> The total count of the artifacts that were successfully applied. </summary>
+        public int? ArtifactsApplied { get; set; }
+        /// <summary> The total count of the artifacts that were tentatively applied. </summary>
+        public int? TotalArtifacts { get; set; }
+        /// <summary> The number of virtual machine instances to create. </summary>
+        public int? InstanceCount { get; set; }
     }
 }

@@ -15,11 +15,6 @@ namespace Azure.ResourceManager.DevTestLabs.Models
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
-            if (Optional.IsDefined(AttachNewDataDiskOptions))
-            {
-                writer.WritePropertyName("attachNewDataDiskOptions"u8);
-                writer.WriteObjectValue(AttachNewDataDiskOptions);
-            }
             if (Optional.IsDefined(ExistingLabDiskId))
             {
                 writer.WritePropertyName("existingLabDiskId"u8);
@@ -30,6 +25,24 @@ namespace Azure.ResourceManager.DevTestLabs.Models
                 writer.WritePropertyName("hostCaching"u8);
                 writer.WriteStringValue(HostCaching.Value.ToString());
             }
+            writer.WritePropertyName("attachNewDataDiskOptions"u8);
+            writer.WriteStartObject();
+            if (Optional.IsDefined(DiskSizeGiB))
+            {
+                writer.WritePropertyName("diskSizeGiB"u8);
+                writer.WriteNumberValue(DiskSizeGiB.Value);
+            }
+            if (Optional.IsDefined(DiskName))
+            {
+                writer.WritePropertyName("diskName"u8);
+                writer.WriteStringValue(DiskName);
+            }
+            if (Optional.IsDefined(DiskType))
+            {
+                writer.WritePropertyName("diskType"u8);
+                writer.WriteStringValue(DiskType.Value.ToString());
+            }
+            writer.WriteEndObject();
             writer.WriteEndObject();
         }
 
@@ -39,21 +52,13 @@ namespace Azure.ResourceManager.DevTestLabs.Models
             {
                 return null;
             }
-            Optional<AttachNewDataDiskDetails> attachNewDataDiskOptions = default;
             Optional<ResourceIdentifier> existingLabDiskId = default;
             Optional<DevTestLabHostCachingOption> hostCaching = default;
+            Optional<int> diskSizeGiB = default;
+            Optional<string> diskName = default;
+            Optional<DevTestLabStorageType> diskType = default;
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("attachNewDataDiskOptions"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
-                    attachNewDataDiskOptions = AttachNewDataDiskDetails.DeserializeAttachNewDataDiskDetails(property.Value);
-                    continue;
-                }
                 if (property.NameEquals("existingLabDiskId"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -74,8 +79,45 @@ namespace Azure.ResourceManager.DevTestLabs.Models
                     hostCaching = new DevTestLabHostCachingOption(property.Value.GetString());
                     continue;
                 }
+                if (property.NameEquals("attachNewDataDiskOptions"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        property.ThrowNonNullablePropertyIsNull();
+                        continue;
+                    }
+                    foreach (var property0 in property.Value.EnumerateObject())
+                    {
+                        if (property0.NameEquals("diskSizeGiB"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            diskSizeGiB = property0.Value.GetInt32();
+                            continue;
+                        }
+                        if (property0.NameEquals("diskName"u8))
+                        {
+                            diskName = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("diskType"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            diskType = new DevTestLabStorageType(property0.Value.GetString());
+                            continue;
+                        }
+                    }
+                    continue;
+                }
             }
-            return new DevTestLabDataDiskProperties(attachNewDataDiskOptions.Value, existingLabDiskId.Value, Optional.ToNullable(hostCaching));
+            return new DevTestLabDataDiskProperties(existingLabDiskId.Value, Optional.ToNullable(hostCaching), Optional.ToNullable(diskSizeGiB), diskName.Value, Optional.ToNullable(diskType));
         }
     }
 }

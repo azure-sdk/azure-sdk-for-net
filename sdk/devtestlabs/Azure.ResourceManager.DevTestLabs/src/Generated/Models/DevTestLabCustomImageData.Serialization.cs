@@ -34,16 +34,6 @@ namespace Azure.ResourceManager.DevTestLabs
             writer.WriteStringValue(Location);
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
-            if (Optional.IsDefined(Vm))
-            {
-                writer.WritePropertyName("vm"u8);
-                writer.WriteObjectValue(Vm);
-            }
-            if (Optional.IsDefined(Vhd))
-            {
-                writer.WritePropertyName("vhd"u8);
-                writer.WriteObjectValue(Vhd);
-            }
             if (Optional.IsDefined(Description))
             {
                 writer.WritePropertyName("description"u8);
@@ -74,16 +64,71 @@ namespace Azure.ResourceManager.DevTestLabs
                 }
                 writer.WriteEndArray();
             }
-            if (Optional.IsDefined(CustomImagePlan))
-            {
-                writer.WritePropertyName("customImagePlan"u8);
-                writer.WriteObjectValue(CustomImagePlan);
-            }
             if (Optional.IsDefined(IsPlanAuthorized))
             {
                 writer.WritePropertyName("isPlanAuthorized"u8);
                 writer.WriteBooleanValue(IsPlanAuthorized.Value);
             }
+            writer.WritePropertyName("customImagePlan"u8);
+            writer.WriteStartObject();
+            if (Optional.IsDefined(IdPropertiesCustomImagePlanId))
+            {
+                writer.WritePropertyName("id"u8);
+                writer.WriteStringValue(IdPropertiesCustomImagePlanId);
+            }
+            if (Optional.IsDefined(Publisher))
+            {
+                writer.WritePropertyName("publisher"u8);
+                writer.WriteStringValue(Publisher);
+            }
+            if (Optional.IsDefined(Offer))
+            {
+                writer.WritePropertyName("offer"u8);
+                writer.WriteStringValue(Offer);
+            }
+            writer.WriteEndObject();
+            writer.WritePropertyName("vhd"u8);
+            writer.WriteStartObject();
+            if (Optional.IsDefined(ImageName))
+            {
+                writer.WritePropertyName("imageName"u8);
+                writer.WriteStringValue(ImageName);
+            }
+            if (Optional.IsDefined(SysPrep))
+            {
+                writer.WritePropertyName("sysPrep"u8);
+                writer.WriteBooleanValue(SysPrep.Value);
+            }
+            if (Optional.IsDefined(OSType))
+            {
+                writer.WritePropertyName("osType"u8);
+                writer.WriteStringValue(OSType.Value.ToString());
+            }
+            writer.WriteEndObject();
+            writer.WritePropertyName("vm"u8);
+            writer.WriteStartObject();
+            if (Optional.IsDefined(SourceVmId))
+            {
+                writer.WritePropertyName("sourceVmId"u8);
+                writer.WriteStringValue(SourceVmId);
+            }
+            writer.WritePropertyName("linuxOsInfo"u8);
+            writer.WriteStartObject();
+            if (Optional.IsDefined(LinuxOSState))
+            {
+                writer.WritePropertyName("linuxOsState"u8);
+                writer.WriteStringValue(LinuxOSState.Value.ToString());
+            }
+            writer.WriteEndObject();
+            writer.WritePropertyName("windowsOsInfo"u8);
+            writer.WriteStartObject();
+            if (Optional.IsDefined(WindowsOSState))
+            {
+                writer.WritePropertyName("windowsOsState"u8);
+                writer.WriteStringValue(WindowsOSState.Value.ToString());
+            }
+            writer.WriteEndObject();
+            writer.WriteEndObject();
             writer.WriteEndObject();
             writer.WriteEndObject();
         }
@@ -100,18 +145,24 @@ namespace Azure.ResourceManager.DevTestLabs
             string name = default;
             ResourceType type = default;
             Optional<SystemData> systemData = default;
-            Optional<DevTestLabCustomImageVm> vm = default;
-            Optional<DevTestLabCustomImageVhd> vhd = default;
             Optional<string> description = default;
             Optional<string> author = default;
             Optional<DateTimeOffset> creationDate = default;
             Optional<string> managedImageId = default;
             Optional<string> managedSnapshotId = default;
             Optional<IList<DevTestLabDataDiskStorageTypeInfo>> dataDiskStorageInfo = default;
-            Optional<DevTestLabCustomImagePlan> customImagePlan = default;
             Optional<bool> isPlanAuthorized = default;
             Optional<string> provisioningState = default;
             Optional<Guid> uniqueIdentifier = default;
+            Optional<string> id0 = default;
+            Optional<string> publisher = default;
+            Optional<string> offer = default;
+            Optional<string> imageName = default;
+            Optional<bool> sysPrep = default;
+            Optional<DevTestLabCustomImageOSType> osType = default;
+            Optional<string> sourceVmId = default;
+            Optional<DevTestLabLinuxOSState> linuxOSState = default;
+            Optional<WindowsOSState> windowsOSState = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("tags"u8))
@@ -168,26 +219,6 @@ namespace Azure.ResourceManager.DevTestLabs
                     }
                     foreach (var property0 in property.Value.EnumerateObject())
                     {
-                        if (property0.NameEquals("vm"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                property0.ThrowNonNullablePropertyIsNull();
-                                continue;
-                            }
-                            vm = DevTestLabCustomImageVm.DeserializeDevTestLabCustomImageVm(property0.Value);
-                            continue;
-                        }
-                        if (property0.NameEquals("vhd"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                property0.ThrowNonNullablePropertyIsNull();
-                                continue;
-                            }
-                            vhd = DevTestLabCustomImageVhd.DeserializeDevTestLabCustomImageVhd(property0.Value);
-                            continue;
-                        }
                         if (property0.NameEquals("description"u8))
                         {
                             description = property0.Value.GetString();
@@ -233,16 +264,6 @@ namespace Azure.ResourceManager.DevTestLabs
                             dataDiskStorageInfo = array;
                             continue;
                         }
-                        if (property0.NameEquals("customImagePlan"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                property0.ThrowNonNullablePropertyIsNull();
-                                continue;
-                            }
-                            customImagePlan = DevTestLabCustomImagePlan.DeserializeDevTestLabCustomImagePlan(property0.Value);
-                            continue;
-                        }
                         if (property0.NameEquals("isPlanAuthorized"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -268,11 +289,136 @@ namespace Azure.ResourceManager.DevTestLabs
                             uniqueIdentifier = property0.Value.GetGuid();
                             continue;
                         }
+                        if (property0.NameEquals("customImagePlan"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            foreach (var property1 in property0.Value.EnumerateObject())
+                            {
+                                if (property1.NameEquals("id"u8))
+                                {
+                                    id0 = property1.Value.GetString();
+                                    continue;
+                                }
+                                if (property1.NameEquals("publisher"u8))
+                                {
+                                    publisher = property1.Value.GetString();
+                                    continue;
+                                }
+                                if (property1.NameEquals("offer"u8))
+                                {
+                                    offer = property1.Value.GetString();
+                                    continue;
+                                }
+                            }
+                            continue;
+                        }
+                        if (property0.NameEquals("vhd"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            foreach (var property1 in property0.Value.EnumerateObject())
+                            {
+                                if (property1.NameEquals("imageName"u8))
+                                {
+                                    imageName = property1.Value.GetString();
+                                    continue;
+                                }
+                                if (property1.NameEquals("sysPrep"u8))
+                                {
+                                    if (property1.Value.ValueKind == JsonValueKind.Null)
+                                    {
+                                        property1.ThrowNonNullablePropertyIsNull();
+                                        continue;
+                                    }
+                                    sysPrep = property1.Value.GetBoolean();
+                                    continue;
+                                }
+                                if (property1.NameEquals("osType"u8))
+                                {
+                                    if (property1.Value.ValueKind == JsonValueKind.Null)
+                                    {
+                                        property1.ThrowNonNullablePropertyIsNull();
+                                        continue;
+                                    }
+                                    osType = new DevTestLabCustomImageOSType(property1.Value.GetString());
+                                    continue;
+                                }
+                            }
+                            continue;
+                        }
+                        if (property0.NameEquals("vm"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            foreach (var property1 in property0.Value.EnumerateObject())
+                            {
+                                if (property1.NameEquals("sourceVmId"u8))
+                                {
+                                    sourceVmId = property1.Value.GetString();
+                                    continue;
+                                }
+                                if (property1.NameEquals("linuxOsInfo"u8))
+                                {
+                                    if (property1.Value.ValueKind == JsonValueKind.Null)
+                                    {
+                                        property1.ThrowNonNullablePropertyIsNull();
+                                        continue;
+                                    }
+                                    foreach (var property2 in property1.Value.EnumerateObject())
+                                    {
+                                        if (property2.NameEquals("linuxOsState"u8))
+                                        {
+                                            if (property2.Value.ValueKind == JsonValueKind.Null)
+                                            {
+                                                property2.ThrowNonNullablePropertyIsNull();
+                                                continue;
+                                            }
+                                            linuxOSState = new DevTestLabLinuxOSState(property2.Value.GetString());
+                                            continue;
+                                        }
+                                    }
+                                    continue;
+                                }
+                                if (property1.NameEquals("windowsOsInfo"u8))
+                                {
+                                    if (property1.Value.ValueKind == JsonValueKind.Null)
+                                    {
+                                        property1.ThrowNonNullablePropertyIsNull();
+                                        continue;
+                                    }
+                                    foreach (var property2 in property1.Value.EnumerateObject())
+                                    {
+                                        if (property2.NameEquals("windowsOsState"u8))
+                                        {
+                                            if (property2.Value.ValueKind == JsonValueKind.Null)
+                                            {
+                                                property2.ThrowNonNullablePropertyIsNull();
+                                                continue;
+                                            }
+                                            windowsOSState = new WindowsOSState(property2.Value.GetString());
+                                            continue;
+                                        }
+                                    }
+                                    continue;
+                                }
+                            }
+                            continue;
+                        }
                     }
                     continue;
                 }
             }
-            return new DevTestLabCustomImageData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, vm.Value, vhd.Value, description.Value, author.Value, Optional.ToNullable(creationDate), managedImageId.Value, managedSnapshotId.Value, Optional.ToList(dataDiskStorageInfo), customImagePlan.Value, Optional.ToNullable(isPlanAuthorized), provisioningState.Value, Optional.ToNullable(uniqueIdentifier));
+            return new DevTestLabCustomImageData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, description.Value, author.Value, Optional.ToNullable(creationDate), managedImageId.Value, managedSnapshotId.Value, Optional.ToList(dataDiskStorageInfo), Optional.ToNullable(isPlanAuthorized), provisioningState.Value, Optional.ToNullable(uniqueIdentifier), id0.Value, publisher.Value, offer.Value, imageName.Value, Optional.ToNullable(sysPrep), Optional.ToNullable(osType), sourceVmId.Value, Optional.ToNullable(linuxOSState), Optional.ToNullable(windowsOSState));
         }
     }
 }

@@ -345,7 +345,7 @@ namespace Azure.ResourceManager.DevTestLabs
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="patch"> Properties of an artifact source. </param>
+        /// <param name="patch"> Allows modifying tags of artifact sources. All other properties will be ignored. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="patch"/> is null. </exception>
         public virtual async Task<Response<DevTestLabArtifactSourceResource>> UpdateAsync(DevTestLabArtifactSourcePatch patch, CancellationToken cancellationToken = default)
@@ -379,7 +379,7 @@ namespace Azure.ResourceManager.DevTestLabs
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="patch"> Properties of an artifact source. </param>
+        /// <param name="patch"> Allows modifying tags of artifact sources. All other properties will be ignored. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="patch"/> is null. </exception>
         public virtual Response<DevTestLabArtifactSourceResource> Update(DevTestLabArtifactSourcePatch patch, CancellationToken cancellationToken = default)

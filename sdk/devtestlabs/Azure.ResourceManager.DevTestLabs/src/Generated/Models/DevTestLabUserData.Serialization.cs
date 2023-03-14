@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
-using Azure.ResourceManager.DevTestLabs.Models;
 using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.DevTestLabs
@@ -34,16 +33,47 @@ namespace Azure.ResourceManager.DevTestLabs
             writer.WriteStringValue(Location);
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
-            if (Optional.IsDefined(Identity))
+            writer.WritePropertyName("secretStore"u8);
+            writer.WriteStartObject();
+            if (Optional.IsDefined(KeyVaultUri))
             {
-                writer.WritePropertyName("identity"u8);
-                writer.WriteObjectValue(Identity);
+                writer.WritePropertyName("keyVaultUri"u8);
+                writer.WriteStringValue(KeyVaultUri.AbsoluteUri);
             }
-            if (Optional.IsDefined(SecretStore))
+            if (Optional.IsDefined(KeyVaultId))
             {
-                writer.WritePropertyName("secretStore"u8);
-                writer.WriteObjectValue(SecretStore);
+                writer.WritePropertyName("keyVaultId"u8);
+                writer.WriteStringValue(KeyVaultId);
             }
+            writer.WriteEndObject();
+            writer.WritePropertyName("identity"u8);
+            writer.WriteStartObject();
+            if (Optional.IsDefined(PrincipalName))
+            {
+                writer.WritePropertyName("principalName"u8);
+                writer.WriteStringValue(PrincipalName);
+            }
+            if (Optional.IsDefined(PrincipalId))
+            {
+                writer.WritePropertyName("principalId"u8);
+                writer.WriteStringValue(PrincipalId);
+            }
+            if (Optional.IsDefined(TenantId))
+            {
+                writer.WritePropertyName("tenantId"u8);
+                writer.WriteStringValue(TenantId.Value);
+            }
+            if (Optional.IsDefined(ObjectId))
+            {
+                writer.WritePropertyName("objectId"u8);
+                writer.WriteStringValue(ObjectId);
+            }
+            if (Optional.IsDefined(AppId))
+            {
+                writer.WritePropertyName("appId"u8);
+                writer.WriteStringValue(AppId);
+            }
+            writer.WriteEndObject();
             writer.WriteEndObject();
             writer.WriteEndObject();
         }
@@ -60,11 +90,16 @@ namespace Azure.ResourceManager.DevTestLabs
             string name = default;
             ResourceType type = default;
             Optional<SystemData> systemData = default;
-            Optional<DevTestLabUserIdentity> identity = default;
-            Optional<DevTestLabUserSecretStore> secretStore = default;
             Optional<DateTimeOffset> createdDate = default;
             Optional<string> provisioningState = default;
             Optional<Guid> uniqueIdentifier = default;
+            Optional<Uri> keyVaultUri = default;
+            Optional<string> keyVaultId = default;
+            Optional<string> principalName = default;
+            Optional<string> principalId = default;
+            Optional<Guid> tenantId = default;
+            Optional<string> objectId = default;
+            Optional<string> appId = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("tags"u8))
@@ -121,26 +156,6 @@ namespace Azure.ResourceManager.DevTestLabs
                     }
                     foreach (var property0 in property.Value.EnumerateObject())
                     {
-                        if (property0.NameEquals("identity"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                property0.ThrowNonNullablePropertyIsNull();
-                                continue;
-                            }
-                            identity = DevTestLabUserIdentity.DeserializeDevTestLabUserIdentity(property0.Value);
-                            continue;
-                        }
-                        if (property0.NameEquals("secretStore"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                property0.ThrowNonNullablePropertyIsNull();
-                                continue;
-                            }
-                            secretStore = DevTestLabUserSecretStore.DeserializeDevTestLabUserSecretStore(property0.Value);
-                            continue;
-                        }
                         if (property0.NameEquals("createdDate"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -166,11 +181,80 @@ namespace Azure.ResourceManager.DevTestLabs
                             uniqueIdentifier = property0.Value.GetGuid();
                             continue;
                         }
+                        if (property0.NameEquals("secretStore"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            foreach (var property1 in property0.Value.EnumerateObject())
+                            {
+                                if (property1.NameEquals("keyVaultUri"u8))
+                                {
+                                    if (property1.Value.ValueKind == JsonValueKind.Null)
+                                    {
+                                        keyVaultUri = null;
+                                        continue;
+                                    }
+                                    keyVaultUri = new Uri(property1.Value.GetString());
+                                    continue;
+                                }
+                                if (property1.NameEquals("keyVaultId"u8))
+                                {
+                                    keyVaultId = property1.Value.GetString();
+                                    continue;
+                                }
+                            }
+                            continue;
+                        }
+                        if (property0.NameEquals("identity"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            foreach (var property1 in property0.Value.EnumerateObject())
+                            {
+                                if (property1.NameEquals("principalName"u8))
+                                {
+                                    principalName = property1.Value.GetString();
+                                    continue;
+                                }
+                                if (property1.NameEquals("principalId"u8))
+                                {
+                                    principalId = property1.Value.GetString();
+                                    continue;
+                                }
+                                if (property1.NameEquals("tenantId"u8))
+                                {
+                                    if (property1.Value.ValueKind == JsonValueKind.Null)
+                                    {
+                                        property1.ThrowNonNullablePropertyIsNull();
+                                        continue;
+                                    }
+                                    tenantId = property1.Value.GetGuid();
+                                    continue;
+                                }
+                                if (property1.NameEquals("objectId"u8))
+                                {
+                                    objectId = property1.Value.GetString();
+                                    continue;
+                                }
+                                if (property1.NameEquals("appId"u8))
+                                {
+                                    appId = property1.Value.GetString();
+                                    continue;
+                                }
+                            }
+                            continue;
+                        }
                     }
                     continue;
                 }
             }
-            return new DevTestLabUserData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, identity.Value, secretStore.Value, Optional.ToNullable(createdDate), provisioningState.Value, Optional.ToNullable(uniqueIdentifier));
+            return new DevTestLabUserData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, Optional.ToNullable(createdDate), provisioningState.Value, Optional.ToNullable(uniqueIdentifier), keyVaultUri.Value, keyVaultId.Value, principalName.Value, principalId.Value, Optional.ToNullable(tenantId), objectId.Value, appId.Value);
         }
     }
 }

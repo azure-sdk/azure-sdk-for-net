@@ -53,7 +53,7 @@ namespace Azure.ResourceManager.DevTestLabs
         }
 
         /// <summary>
-        /// Create or replace an existing notification channel.
+        /// Create or replace an existing Notification Channel.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -94,7 +94,7 @@ namespace Azure.ResourceManager.DevTestLabs
         }
 
         /// <summary>
-        /// Create or replace an existing notification channel.
+        /// Create or replace an existing Notification Channel.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -224,7 +224,7 @@ namespace Azure.ResourceManager.DevTestLabs
         /// </list>
         /// </summary>
         /// <param name="expand"> Specify the $expand query. Example: &apos;properties($select=webHookUrl)&apos;. </param>
-        /// <param name="filter"> The filter to apply to the operation. Example: &apos;$filter=contains(name,&apos;myName&apos;). </param>
+        /// <param name="filter"> The filter to apply to the operation. Example: &apos;$filter=contains(name,&apos;myName&apos;)&apos;. </param>
         /// <param name="top"> The maximum number of resources to return from the operation. Example: &apos;$top=10&apos;. </param>
         /// <param name="orderby"> The ordering expression for the results, using OData notation. Example: &apos;$orderby=name desc&apos;. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -250,7 +250,7 @@ namespace Azure.ResourceManager.DevTestLabs
         /// </list>
         /// </summary>
         /// <param name="expand"> Specify the $expand query. Example: &apos;properties($select=webHookUrl)&apos;. </param>
-        /// <param name="filter"> The filter to apply to the operation. Example: &apos;$filter=contains(name,&apos;myName&apos;). </param>
+        /// <param name="filter"> The filter to apply to the operation. Example: &apos;$filter=contains(name,&apos;myName&apos;)&apos;. </param>
         /// <param name="top"> The maximum number of resources to return from the operation. Example: &apos;$top=10&apos;. </param>
         /// <param name="orderby"> The ordering expression for the results, using OData notation. Example: &apos;$orderby=name desc&apos;. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>

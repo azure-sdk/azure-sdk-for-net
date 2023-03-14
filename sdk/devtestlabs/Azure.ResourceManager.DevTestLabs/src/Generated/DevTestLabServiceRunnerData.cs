@@ -5,6 +5,7 @@
 
 #nullable disable
 
+using System;
 using System.Collections.Generic;
 using Azure.Core;
 using Azure.ResourceManager.DevTestLabs.Models;
@@ -22,6 +23,7 @@ namespace Azure.ResourceManager.DevTestLabs
         /// <param name="location"> The location. </param>
         public DevTestLabServiceRunnerData(AzureLocation location) : base(location)
         {
+            UserAssignedIdentities = new ChangeTrackingDictionary<string, BinaryData>();
         }
 
         /// <summary> Initializes a new instance of DevTestLabServiceRunnerData. </summary>
@@ -31,13 +33,70 @@ namespace Azure.ResourceManager.DevTestLabs
         /// <param name="systemData"> The systemData. </param>
         /// <param name="tags"> The tags. </param>
         /// <param name="location"> The location. </param>
-        /// <param name="identity"> The identity of the resource. </param>
-        internal DevTestLabServiceRunnerData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, DevTestLabManagedIdentity identity) : base(id, name, resourceType, systemData, tags, location)
+        /// <param name="typeIdentityType"> Type of identity (SystemAssigned, UserAssigned, None). </param>
+        /// <param name="principalId"> The principal id of resource identity. </param>
+        /// <param name="tenantId"> The tenant identifier of resource. </param>
+        /// <param name="clientSecretUri"> The client secret URL of the identity. </param>
+        /// <param name="userAssignedIdentities"> If Type is &apos;UserAssigned&apos;: List of user assigned identities. </param>
+        /// <param name="identityUsageType"> The purpose of bringing the identity to the lab. Ex: To use during Environment creation or to deploy on the VMs. </param>
+        /// <param name="provisioningState"> The provisioning status of the resource. </param>
+        /// <param name="uniqueIdentifier"> The unique immutable identifier of a resource (Guid). </param>
+        internal DevTestLabServiceRunnerData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ManagedIdentityType? typeIdentityType, string principalId, Guid? tenantId, Uri clientSecretUri, IDictionary<string, BinaryData> userAssignedIdentities, string identityUsageType, string provisioningState, Guid? uniqueIdentifier) : base(id, name, resourceType, systemData, tags, location)
         {
-            Identity = identity;
+            TypeIdentityType = typeIdentityType;
+            PrincipalId = principalId;
+            TenantId = tenantId;
+            ClientSecretUri = clientSecretUri;
+            UserAssignedIdentities = userAssignedIdentities;
+            IdentityUsageType = identityUsageType;
+            ProvisioningState = provisioningState;
+            UniqueIdentifier = uniqueIdentifier;
         }
 
-        /// <summary> The identity of the resource. </summary>
-        public DevTestLabManagedIdentity Identity { get; set; }
+        /// <summary> Type of identity (SystemAssigned, UserAssigned, None). </summary>
+        public ManagedIdentityType? TypeIdentityType { get; set; }
+        /// <summary> The principal id of resource identity. </summary>
+        public string PrincipalId { get; set; }
+        /// <summary> The tenant identifier of resource. </summary>
+        public Guid? TenantId { get; set; }
+        /// <summary> The client secret URL of the identity. </summary>
+        public Uri ClientSecretUri { get; set; }
+        /// <summary>
+        /// If Type is &apos;UserAssigned&apos;: List of user assigned identities.
+        /// <para>
+        /// To assign an object to the value of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
+        /// </para>
+        /// <para>
+        /// To assign an already formated json string to this property use <see cref="BinaryData.FromString(string)"/>.
+        /// </para>
+        /// <para>
+        /// Examples:
+        /// <list type="bullet">
+        /// <item>
+        /// <term>BinaryData.FromObjectAsJson("foo")</term>
+        /// <description>Creates a payload of "foo".</description>
+        /// </item>
+        /// <item>
+        /// <term>BinaryData.FromString("\"foo\"")</term>
+        /// <description>Creates a payload of "foo".</description>
+        /// </item>
+        /// <item>
+        /// <term>BinaryData.FromObjectAsJson(new { key = "value" })</term>
+        /// <description>Creates a payload of { "key": "value" }.</description>
+        /// </item>
+        /// <item>
+        /// <term>BinaryData.FromString("{\"key\": \"value\"}")</term>
+        /// <description>Creates a payload of { "key": "value" }.</description>
+        /// </item>
+        /// </list>
+        /// </para>
+        /// </summary>
+        public IDictionary<string, BinaryData> UserAssignedIdentities { get; }
+        /// <summary> The purpose of bringing the identity to the lab. Ex: To use during Environment creation or to deploy on the VMs. </summary>
+        public string IdentityUsageType { get; set; }
+        /// <summary> The provisioning status of the resource. </summary>
+        public string ProvisioningState { get; }
+        /// <summary> The unique immutable identifier of a resource (Guid). </summary>
+        public Guid? UniqueIdentifier { get; }
     }
 }

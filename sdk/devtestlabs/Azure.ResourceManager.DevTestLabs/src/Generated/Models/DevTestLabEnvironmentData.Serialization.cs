@@ -34,16 +34,29 @@ namespace Azure.ResourceManager.DevTestLabs
             writer.WriteStringValue(Location);
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
-            if (Optional.IsDefined(DeploymentProperties))
-            {
-                writer.WritePropertyName("deploymentProperties"u8);
-                writer.WriteObjectValue(DeploymentProperties);
-            }
             if (Optional.IsDefined(ArmTemplateDisplayName))
             {
                 writer.WritePropertyName("armTemplateDisplayName"u8);
                 writer.WriteStringValue(ArmTemplateDisplayName);
             }
+            writer.WritePropertyName("deploymentProperties"u8);
+            writer.WriteStartObject();
+            if (Optional.IsDefined(ArmTemplateId))
+            {
+                writer.WritePropertyName("armTemplateId"u8);
+                writer.WriteStringValue(ArmTemplateId);
+            }
+            if (Optional.IsCollectionDefined(Parameters))
+            {
+                writer.WritePropertyName("parameters"u8);
+                writer.WriteStartArray();
+                foreach (var item in Parameters)
+                {
+                    writer.WriteObjectValue(item);
+                }
+                writer.WriteEndArray();
+            }
+            writer.WriteEndObject();
             writer.WriteEndObject();
             writer.WriteEndObject();
         }
@@ -60,12 +73,13 @@ namespace Azure.ResourceManager.DevTestLabs
             string name = default;
             ResourceType type = default;
             Optional<SystemData> systemData = default;
-            Optional<DevTestLabEnvironmentDeployment> deploymentProperties = default;
             Optional<string> armTemplateDisplayName = default;
             Optional<string> resourceGroupId = default;
             Optional<string> createdByUser = default;
             Optional<string> provisioningState = default;
             Optional<Guid> uniqueIdentifier = default;
+            Optional<string> armTemplateId = default;
+            Optional<IList<DevTestLabArmTemplateParameter>> parameters = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("tags"u8))
@@ -122,16 +136,6 @@ namespace Azure.ResourceManager.DevTestLabs
                     }
                     foreach (var property0 in property.Value.EnumerateObject())
                     {
-                        if (property0.NameEquals("deploymentProperties"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                property0.ThrowNonNullablePropertyIsNull();
-                                continue;
-                            }
-                            deploymentProperties = DevTestLabEnvironmentDeployment.DeserializeDevTestLabEnvironmentDeployment(property0.Value);
-                            continue;
-                        }
                         if (property0.NameEquals("armTemplateDisplayName"u8))
                         {
                             armTemplateDisplayName = property0.Value.GetString();
@@ -162,11 +166,43 @@ namespace Azure.ResourceManager.DevTestLabs
                             uniqueIdentifier = property0.Value.GetGuid();
                             continue;
                         }
+                        if (property0.NameEquals("deploymentProperties"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            foreach (var property1 in property0.Value.EnumerateObject())
+                            {
+                                if (property1.NameEquals("armTemplateId"u8))
+                                {
+                                    armTemplateId = property1.Value.GetString();
+                                    continue;
+                                }
+                                if (property1.NameEquals("parameters"u8))
+                                {
+                                    if (property1.Value.ValueKind == JsonValueKind.Null)
+                                    {
+                                        property1.ThrowNonNullablePropertyIsNull();
+                                        continue;
+                                    }
+                                    List<DevTestLabArmTemplateParameter> array = new List<DevTestLabArmTemplateParameter>();
+                                    foreach (var item in property1.Value.EnumerateArray())
+                                    {
+                                        array.Add(DevTestLabArmTemplateParameter.DeserializeDevTestLabArmTemplateParameter(item));
+                                    }
+                                    parameters = array;
+                                    continue;
+                                }
+                            }
+                            continue;
+                        }
                     }
                     continue;
                 }
             }
-            return new DevTestLabEnvironmentData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, deploymentProperties.Value, armTemplateDisplayName.Value, resourceGroupId.Value, createdByUser.Value, provisioningState.Value, Optional.ToNullable(uniqueIdentifier));
+            return new DevTestLabEnvironmentData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, armTemplateDisplayName.Value, resourceGroupId.Value, createdByUser.Value, provisioningState.Value, Optional.ToNullable(uniqueIdentifier), armTemplateId.Value, Optional.ToList(parameters));
         }
     }
 }

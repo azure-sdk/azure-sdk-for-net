@@ -11,7 +11,7 @@ using Azure.ResourceManager.DevTestLabs;
 
 namespace Azure.ResourceManager.DevTestLabs.Models
 {
-    /// <summary> The response of a list operation. </summary>
+    /// <summary> Contains a list of customImages and their properties. </summary>
     internal partial class CustomImageList
     {
         /// <summary> Initializes a new instance of CustomImageList. </summary>
@@ -21,17 +21,17 @@ namespace Azure.ResourceManager.DevTestLabs.Models
         }
 
         /// <summary> Initializes a new instance of CustomImageList. </summary>
-        /// <param name="value"> Results of the list operation. </param>
-        /// <param name="nextLink"> Link for next set of results. </param>
+        /// <param name="value"> List of customImages and their properties. </param>
+        /// <param name="nextLink"> URL to get the next set of operation list results if there are any. </param>
         internal CustomImageList(IReadOnlyList<DevTestLabCustomImageData> value, string nextLink)
         {
             Value = value;
             NextLink = nextLink;
         }
 
-        /// <summary> Results of the list operation. </summary>
+        /// <summary> List of customImages and their properties. </summary>
         public IReadOnlyList<DevTestLabCustomImageData> Value { get; }
-        /// <summary> Link for next set of results. </summary>
+        /// <summary> URL to get the next set of operation list results if there are any. </summary>
         public string NextLink { get; }
     }
 }

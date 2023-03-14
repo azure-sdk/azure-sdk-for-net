@@ -13,7 +13,7 @@ namespace Azure.ResourceManager.DevTestLabs.Models
     public partial class ComputeDataDisk
     {
         /// <summary> Initializes a new instance of ComputeDataDisk. </summary>
-        internal ComputeDataDisk()
+        public ComputeDataDisk()
         {
         }
 
@@ -31,12 +31,12 @@ namespace Azure.ResourceManager.DevTestLabs.Models
         }
 
         /// <summary> Gets data disk name. </summary>
-        public string Name { get; }
+        public string Name { get; set; }
         /// <summary> When backed by a blob, the URI of underlying blob. </summary>
-        public Uri DiskUri { get; }
+        public Uri DiskUri { get; set; }
         /// <summary> When backed by managed disk, this is the ID of the compute disk resource. </summary>
-        public string ManagedDiskId { get; }
+        public string ManagedDiskId { get; set; }
         /// <summary> Gets data disk size in GiB. </summary>
-        public int? DiskSizeGiB { get; }
+        public int? DiskSizeGiB { get; set; }
     }
 }

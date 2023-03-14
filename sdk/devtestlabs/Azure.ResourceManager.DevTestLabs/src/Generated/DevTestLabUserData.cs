@@ -8,7 +8,6 @@
 using System;
 using System.Collections.Generic;
 using Azure.Core;
-using Azure.ResourceManager.DevTestLabs.Models;
 using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.DevTestLabs
@@ -32,29 +31,49 @@ namespace Azure.ResourceManager.DevTestLabs
         /// <param name="systemData"> The systemData. </param>
         /// <param name="tags"> The tags. </param>
         /// <param name="location"> The location. </param>
-        /// <param name="identity"> The identity of the user. </param>
-        /// <param name="secretStore"> The secret store of the user. </param>
         /// <param name="createdOn"> The creation date of the user profile. </param>
         /// <param name="provisioningState"> The provisioning status of the resource. </param>
         /// <param name="uniqueIdentifier"> The unique immutable identifier of a resource (Guid). </param>
-        internal DevTestLabUserData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, DevTestLabUserIdentity identity, DevTestLabUserSecretStore secretStore, DateTimeOffset? createdOn, string provisioningState, Guid? uniqueIdentifier) : base(id, name, resourceType, systemData, tags, location)
+        /// <param name="keyVaultUri"> The URI of the user&apos;s Key vault. </param>
+        /// <param name="keyVaultId"> The ID of the user&apos;s Key vault. </param>
+        /// <param name="principalName"> Set to the principal name / UPN of the client JWT making the request. </param>
+        /// <param name="principalId"> Set to the principal Id of the client JWT making the request. Service principal will not have the principal Id. </param>
+        /// <param name="tenantId"> Set to the tenant ID of the client JWT making the request. </param>
+        /// <param name="objectId"> Set to the object Id of the client JWT making the request. Not all users have object Id. For CSP (reseller) scenarios for example, object Id is not available. </param>
+        /// <param name="appId"> Set to the app Id of the client JWT making the request. </param>
+        internal DevTestLabUserData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, DateTimeOffset? createdOn, string provisioningState, Guid? uniqueIdentifier, Uri keyVaultUri, string keyVaultId, string principalName, string principalId, Guid? tenantId, string objectId, string appId) : base(id, name, resourceType, systemData, tags, location)
         {
-            Identity = identity;
-            SecretStore = secretStore;
             CreatedOn = createdOn;
             ProvisioningState = provisioningState;
             UniqueIdentifier = uniqueIdentifier;
+            KeyVaultUri = keyVaultUri;
+            KeyVaultId = keyVaultId;
+            PrincipalName = principalName;
+            PrincipalId = principalId;
+            TenantId = tenantId;
+            ObjectId = objectId;
+            AppId = appId;
         }
 
-        /// <summary> The identity of the user. </summary>
-        public DevTestLabUserIdentity Identity { get; set; }
-        /// <summary> The secret store of the user. </summary>
-        public DevTestLabUserSecretStore SecretStore { get; set; }
         /// <summary> The creation date of the user profile. </summary>
         public DateTimeOffset? CreatedOn { get; }
         /// <summary> The provisioning status of the resource. </summary>
         public string ProvisioningState { get; }
         /// <summary> The unique immutable identifier of a resource (Guid). </summary>
         public Guid? UniqueIdentifier { get; }
+        /// <summary> The URI of the user&apos;s Key vault. </summary>
+        public Uri KeyVaultUri { get; set; }
+        /// <summary> The ID of the user&apos;s Key vault. </summary>
+        public string KeyVaultId { get; set; }
+        /// <summary> Set to the principal name / UPN of the client JWT making the request. </summary>
+        public string PrincipalName { get; set; }
+        /// <summary> Set to the principal Id of the client JWT making the request. Service principal will not have the principal Id. </summary>
+        public string PrincipalId { get; set; }
+        /// <summary> Set to the tenant ID of the client JWT making the request. </summary>
+        public Guid? TenantId { get; set; }
+        /// <summary> Set to the object Id of the client JWT making the request. Not all users have object Id. For CSP (reseller) scenarios for example, object Id is not available. </summary>
+        public string ObjectId { get; set; }
+        /// <summary> Set to the app Id of the client JWT making the request. </summary>
+        public string AppId { get; set; }
     }
 }

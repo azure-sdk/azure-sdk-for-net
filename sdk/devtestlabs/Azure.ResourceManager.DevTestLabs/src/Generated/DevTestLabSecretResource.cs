@@ -235,18 +235,18 @@ namespace Azure.ResourceManager.DevTestLabs
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="patch"> A secret. </param>
+        /// <param name="secret"> Allows modifying tags of secrets. All other properties will be ignored. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="patch"/> is null. </exception>
-        public virtual async Task<Response<DevTestLabSecretResource>> UpdateAsync(DevTestLabSecretPatch patch, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="secret"/> is null. </exception>
+        public virtual async Task<Response<DevTestLabSecretResource>> UpdateAsync(SecretFragment secret, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNull(patch, nameof(patch));
+            Argument.AssertNotNull(secret, nameof(secret));
 
             using var scope = _devTestLabSecretSecretsClientDiagnostics.CreateScope("DevTestLabSecretResource.Update");
             scope.Start();
             try
             {
-                var response = await _devTestLabSecretSecretsRestClient.UpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, patch, cancellationToken).ConfigureAwait(false);
+                var response = await _devTestLabSecretSecretsRestClient.UpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, secret, cancellationToken).ConfigureAwait(false);
                 return Response.FromValue(new DevTestLabSecretResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
@@ -269,18 +269,18 @@ namespace Azure.ResourceManager.DevTestLabs
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="patch"> A secret. </param>
+        /// <param name="secret"> Allows modifying tags of secrets. All other properties will be ignored. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="patch"/> is null. </exception>
-        public virtual Response<DevTestLabSecretResource> Update(DevTestLabSecretPatch patch, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="secret"/> is null. </exception>
+        public virtual Response<DevTestLabSecretResource> Update(SecretFragment secret, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNull(patch, nameof(patch));
+            Argument.AssertNotNull(secret, nameof(secret));
 
             using var scope = _devTestLabSecretSecretsClientDiagnostics.CreateScope("DevTestLabSecretResource.Update");
             scope.Start();
             try
             {
-                var response = _devTestLabSecretSecretsRestClient.Update(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, patch, cancellationToken);
+                var response = _devTestLabSecretSecretsRestClient.Update(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, secret, cancellationToken);
                 return Response.FromValue(new DevTestLabSecretResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
@@ -327,7 +327,7 @@ namespace Azure.ResourceManager.DevTestLabs
                 else
                 {
                     var current = (await GetAsync(cancellationToken: cancellationToken).ConfigureAwait(false)).Value.Data;
-                    var patch = new DevTestLabSecretPatch();
+                    var patch = new SecretFragment();
                     foreach (var tag in current.Tags)
                     {
                         patch.Tags.Add(tag);
@@ -381,7 +381,7 @@ namespace Azure.ResourceManager.DevTestLabs
                 else
                 {
                     var current = Get(cancellationToken: cancellationToken).Value.Data;
-                    var patch = new DevTestLabSecretPatch();
+                    var patch = new SecretFragment();
                     foreach (var tag in current.Tags)
                     {
                         patch.Tags.Add(tag);
@@ -434,7 +434,7 @@ namespace Azure.ResourceManager.DevTestLabs
                 else
                 {
                     var current = (await GetAsync(cancellationToken: cancellationToken).ConfigureAwait(false)).Value.Data;
-                    var patch = new DevTestLabSecretPatch();
+                    var patch = new SecretFragment();
                     patch.Tags.ReplaceWith(tags);
                     var result = await UpdateAsync(patch, cancellationToken: cancellationToken).ConfigureAwait(false);
                     return result;
@@ -483,7 +483,7 @@ namespace Azure.ResourceManager.DevTestLabs
                 else
                 {
                     var current = Get(cancellationToken: cancellationToken).Value.Data;
-                    var patch = new DevTestLabSecretPatch();
+                    var patch = new SecretFragment();
                     patch.Tags.ReplaceWith(tags);
                     var result = Update(patch, cancellationToken: cancellationToken);
                     return result;
@@ -531,7 +531,7 @@ namespace Azure.ResourceManager.DevTestLabs
                 else
                 {
                     var current = (await GetAsync(cancellationToken: cancellationToken).ConfigureAwait(false)).Value.Data;
-                    var patch = new DevTestLabSecretPatch();
+                    var patch = new SecretFragment();
                     foreach (var tag in current.Tags)
                     {
                         patch.Tags.Add(tag);
@@ -583,7 +583,7 @@ namespace Azure.ResourceManager.DevTestLabs
                 else
                 {
                     var current = Get(cancellationToken: cancellationToken).Value.Data;
-                    var patch = new DevTestLabSecretPatch();
+                    var patch = new SecretFragment();
                     foreach (var tag in current.Tags)
                     {
                         patch.Tags.Add(tag);

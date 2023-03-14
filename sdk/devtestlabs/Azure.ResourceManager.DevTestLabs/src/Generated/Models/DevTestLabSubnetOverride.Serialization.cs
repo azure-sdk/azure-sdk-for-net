@@ -5,6 +5,7 @@
 
 #nullable disable
 
+using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
 
@@ -35,16 +36,24 @@ namespace Azure.ResourceManager.DevTestLabs.Models
                 writer.WritePropertyName("usePublicIpAddressPermission"u8);
                 writer.WriteStringValue(UsePublicIPAddressPermission.Value.ToString());
             }
-            if (Optional.IsDefined(SharedPublicIPAddressConfiguration))
-            {
-                writer.WritePropertyName("sharedPublicIpAddressConfiguration"u8);
-                writer.WriteObjectValue(SharedPublicIPAddressConfiguration);
-            }
             if (Optional.IsDefined(VirtualNetworkPoolName))
             {
                 writer.WritePropertyName("virtualNetworkPoolName"u8);
                 writer.WriteStringValue(VirtualNetworkPoolName);
             }
+            writer.WritePropertyName("sharedPublicIpAddressConfiguration"u8);
+            writer.WriteStartObject();
+            if (Optional.IsCollectionDefined(AllowedPorts))
+            {
+                writer.WritePropertyName("allowedPorts"u8);
+                writer.WriteStartArray();
+                foreach (var item in AllowedPorts)
+                {
+                    writer.WriteObjectValue(item);
+                }
+                writer.WriteEndArray();
+            }
+            writer.WriteEndObject();
             writer.WriteEndObject();
         }
 
@@ -58,8 +67,8 @@ namespace Azure.ResourceManager.DevTestLabs.Models
             Optional<string> labSubnetName = default;
             Optional<DevTestLabUsagePermissionType> useInVmCreationPermission = default;
             Optional<DevTestLabUsagePermissionType> usePublicIPAddressPermission = default;
-            Optional<SubnetSharedPublicIPAddressConfiguration> sharedPublicIPAddressConfiguration = default;
             Optional<string> virtualNetworkPoolName = default;
+            Optional<IList<DevTestLabPort>> allowedPorts = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("resourceId"u8))
@@ -97,6 +106,11 @@ namespace Azure.ResourceManager.DevTestLabs.Models
                     usePublicIPAddressPermission = new DevTestLabUsagePermissionType(property.Value.GetString());
                     continue;
                 }
+                if (property.NameEquals("virtualNetworkPoolName"u8))
+                {
+                    virtualNetworkPoolName = property.Value.GetString();
+                    continue;
+                }
                 if (property.NameEquals("sharedPublicIpAddressConfiguration"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -104,16 +118,28 @@ namespace Azure.ResourceManager.DevTestLabs.Models
                         property.ThrowNonNullablePropertyIsNull();
                         continue;
                     }
-                    sharedPublicIPAddressConfiguration = SubnetSharedPublicIPAddressConfiguration.DeserializeSubnetSharedPublicIPAddressConfiguration(property.Value);
-                    continue;
-                }
-                if (property.NameEquals("virtualNetworkPoolName"u8))
-                {
-                    virtualNetworkPoolName = property.Value.GetString();
+                    foreach (var property0 in property.Value.EnumerateObject())
+                    {
+                        if (property0.NameEquals("allowedPorts"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            List<DevTestLabPort> array = new List<DevTestLabPort>();
+                            foreach (var item in property0.Value.EnumerateArray())
+                            {
+                                array.Add(DevTestLabPort.DeserializeDevTestLabPort(item));
+                            }
+                            allowedPorts = array;
+                            continue;
+                        }
+                    }
                     continue;
                 }
             }
-            return new DevTestLabSubnetOverride(resourceId.Value, labSubnetName.Value, Optional.ToNullable(useInVmCreationPermission), Optional.ToNullable(usePublicIPAddressPermission), sharedPublicIPAddressConfiguration.Value, virtualNetworkPoolName.Value);
+            return new DevTestLabSubnetOverride(resourceId.Value, labSubnetName.Value, Optional.ToNullable(useInVmCreationPermission), Optional.ToNullable(usePublicIPAddressPermission), virtualNetworkPoolName.Value, Optional.ToList(allowedPorts));
         }
     }
 }

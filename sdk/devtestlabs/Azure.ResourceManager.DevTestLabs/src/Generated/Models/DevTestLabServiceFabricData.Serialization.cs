@@ -44,6 +44,236 @@ namespace Azure.ResourceManager.DevTestLabs
                 writer.WritePropertyName("environmentId"u8);
                 writer.WriteStringValue(EnvironmentId);
             }
+            writer.WritePropertyName("applicableSchedule"u8);
+            writer.WriteStartObject();
+            if (Optional.IsCollectionDefined(TagsPropertiesApplicableScheduleTags))
+            {
+                writer.WritePropertyName("tags"u8);
+                writer.WriteStartObject();
+                foreach (var item in TagsPropertiesApplicableScheduleTags)
+                {
+                    writer.WritePropertyName(item.Key);
+                    writer.WriteStringValue(item.Value);
+                }
+                writer.WriteEndObject();
+            }
+            if (Optional.IsDefined(LocationPropertiesApplicableScheduleLocation))
+            {
+                writer.WritePropertyName("location"u8);
+                writer.WriteStringValue(LocationPropertiesApplicableScheduleLocation.Value);
+            }
+            writer.WritePropertyName("properties"u8);
+            writer.WriteStartObject();
+            writer.WritePropertyName("labVmsStartup"u8);
+            writer.WriteStartObject();
+            if (Optional.IsCollectionDefined(TagsPropertiesApplicableSchedulePropertiesLabVmsStartupTags))
+            {
+                writer.WritePropertyName("tags"u8);
+                writer.WriteStartObject();
+                foreach (var item in TagsPropertiesApplicableSchedulePropertiesLabVmsStartupTags)
+                {
+                    writer.WritePropertyName(item.Key);
+                    writer.WriteStringValue(item.Value);
+                }
+                writer.WriteEndObject();
+            }
+            if (Optional.IsDefined(LocationPropertiesApplicableSchedulePropertiesLabVmsStartupLocation))
+            {
+                writer.WritePropertyName("location"u8);
+                writer.WriteStringValue(LocationPropertiesApplicableSchedulePropertiesLabVmsStartupLocation.Value);
+            }
+            writer.WritePropertyName("properties"u8);
+            writer.WriteStartObject();
+            if (Optional.IsDefined(StatusPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesStatus))
+            {
+                writer.WritePropertyName("status"u8);
+                writer.WriteStringValue(StatusPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesStatus.Value.ToString());
+            }
+            if (Optional.IsDefined(TaskTypePropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesTaskType))
+            {
+                writer.WritePropertyName("taskType"u8);
+                writer.WriteStringValue(TaskTypePropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesTaskType);
+            }
+            if (Optional.IsDefined(TimeZoneIdPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesTimeZoneId))
+            {
+                writer.WritePropertyName("timeZoneId"u8);
+                writer.WriteStringValue(TimeZoneIdPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesTimeZoneId);
+            }
+            if (Optional.IsDefined(TargetResourceIdPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesTargetResourceId))
+            {
+                writer.WritePropertyName("targetResourceId"u8);
+                writer.WriteStringValue(TargetResourceIdPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesTargetResourceId);
+            }
+            writer.WritePropertyName("notificationSettings"u8);
+            writer.WriteStartObject();
+            if (Optional.IsDefined(StatusPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesNotificationSettingsStatus))
+            {
+                writer.WritePropertyName("status"u8);
+                writer.WriteStringValue(StatusPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesNotificationSettingsStatus.Value.ToString());
+            }
+            if (Optional.IsDefined(TimeInMinutesPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesNotificationSettingsTimeInMinutes))
+            {
+                writer.WritePropertyName("timeInMinutes"u8);
+                writer.WriteNumberValue(TimeInMinutesPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesNotificationSettingsTimeInMinutes.Value);
+            }
+            if (Optional.IsDefined(WebhookUrlPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesNotificationSettingsWebhookUri))
+            {
+                writer.WritePropertyName("webhookUrl"u8);
+                writer.WriteStringValue(WebhookUrlPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesNotificationSettingsWebhookUri.AbsoluteUri);
+            }
+            if (Optional.IsDefined(EmailRecipientPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesNotificationSettingsEmailRecipient))
+            {
+                writer.WritePropertyName("emailRecipient"u8);
+                writer.WriteStringValue(EmailRecipientPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesNotificationSettingsEmailRecipient);
+            }
+            if (Optional.IsDefined(NotificationLocalePropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesNotificationSettingsNotificationLocale))
+            {
+                writer.WritePropertyName("notificationLocale"u8);
+                writer.WriteStringValue(NotificationLocalePropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesNotificationSettingsNotificationLocale);
+            }
+            writer.WriteEndObject();
+            writer.WritePropertyName("hourlyRecurrence"u8);
+            writer.WriteStartObject();
+            if (Optional.IsDefined(MinutePropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesHourlyRecurrenceMinute))
+            {
+                writer.WritePropertyName("minute"u8);
+                writer.WriteNumberValue(MinutePropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesHourlyRecurrenceMinute.Value);
+            }
+            writer.WriteEndObject();
+            writer.WritePropertyName("dailyRecurrence"u8);
+            writer.WriteStartObject();
+            if (Optional.IsDefined(TimePropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesDailyRecurrenceTime))
+            {
+                writer.WritePropertyName("time"u8);
+                writer.WriteStringValue(TimePropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesDailyRecurrenceTime);
+            }
+            writer.WriteEndObject();
+            writer.WritePropertyName("weeklyRecurrence"u8);
+            writer.WriteStartObject();
+            if (Optional.IsCollectionDefined(WeekdaysPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesWeeklyRecurrenceWeekdays))
+            {
+                writer.WritePropertyName("weekdays"u8);
+                writer.WriteStartArray();
+                foreach (var item in WeekdaysPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesWeeklyRecurrenceWeekdays)
+                {
+                    writer.WriteStringValue(item);
+                }
+                writer.WriteEndArray();
+            }
+            if (Optional.IsDefined(TimePropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesWeeklyRecurrenceTime))
+            {
+                writer.WritePropertyName("time"u8);
+                writer.WriteStringValue(TimePropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesWeeklyRecurrenceTime);
+            }
+            writer.WriteEndObject();
+            writer.WriteEndObject();
+            writer.WriteEndObject();
+            writer.WritePropertyName("labVmsShutdown"u8);
+            writer.WriteStartObject();
+            if (Optional.IsCollectionDefined(TagsPropertiesApplicableSchedulePropertiesLabVmsShutdownTags))
+            {
+                writer.WritePropertyName("tags"u8);
+                writer.WriteStartObject();
+                foreach (var item in TagsPropertiesApplicableSchedulePropertiesLabVmsShutdownTags)
+                {
+                    writer.WritePropertyName(item.Key);
+                    writer.WriteStringValue(item.Value);
+                }
+                writer.WriteEndObject();
+            }
+            if (Optional.IsDefined(LocationPropertiesApplicableSchedulePropertiesLabVmsShutdownLocation))
+            {
+                writer.WritePropertyName("location"u8);
+                writer.WriteStringValue(LocationPropertiesApplicableSchedulePropertiesLabVmsShutdownLocation.Value);
+            }
+            writer.WritePropertyName("properties"u8);
+            writer.WriteStartObject();
+            if (Optional.IsDefined(StatusPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesStatus))
+            {
+                writer.WritePropertyName("status"u8);
+                writer.WriteStringValue(StatusPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesStatus.Value.ToString());
+            }
+            if (Optional.IsDefined(TaskTypePropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesTaskType))
+            {
+                writer.WritePropertyName("taskType"u8);
+                writer.WriteStringValue(TaskTypePropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesTaskType);
+            }
+            if (Optional.IsDefined(TimeZoneIdPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesTimeZoneId))
+            {
+                writer.WritePropertyName("timeZoneId"u8);
+                writer.WriteStringValue(TimeZoneIdPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesTimeZoneId);
+            }
+            if (Optional.IsDefined(TargetResourceIdPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesTargetResourceId))
+            {
+                writer.WritePropertyName("targetResourceId"u8);
+                writer.WriteStringValue(TargetResourceIdPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesTargetResourceId);
+            }
+            writer.WritePropertyName("notificationSettings"u8);
+            writer.WriteStartObject();
+            if (Optional.IsDefined(StatusPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesNotificationSettingsStatus))
+            {
+                writer.WritePropertyName("status"u8);
+                writer.WriteStringValue(StatusPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesNotificationSettingsStatus.Value.ToString());
+            }
+            if (Optional.IsDefined(TimeInMinutesPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesNotificationSettingsTimeInMinutes))
+            {
+                writer.WritePropertyName("timeInMinutes"u8);
+                writer.WriteNumberValue(TimeInMinutesPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesNotificationSettingsTimeInMinutes.Value);
+            }
+            if (Optional.IsDefined(WebhookUrlPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesNotificationSettingsWebhookUri))
+            {
+                writer.WritePropertyName("webhookUrl"u8);
+                writer.WriteStringValue(WebhookUrlPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesNotificationSettingsWebhookUri.AbsoluteUri);
+            }
+            if (Optional.IsDefined(EmailRecipientPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesNotificationSettingsEmailRecipient))
+            {
+                writer.WritePropertyName("emailRecipient"u8);
+                writer.WriteStringValue(EmailRecipientPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesNotificationSettingsEmailRecipient);
+            }
+            if (Optional.IsDefined(NotificationLocalePropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesNotificationSettingsNotificationLocale))
+            {
+                writer.WritePropertyName("notificationLocale"u8);
+                writer.WriteStringValue(NotificationLocalePropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesNotificationSettingsNotificationLocale);
+            }
+            writer.WriteEndObject();
+            writer.WritePropertyName("hourlyRecurrence"u8);
+            writer.WriteStartObject();
+            if (Optional.IsDefined(MinutePropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesHourlyRecurrenceMinute))
+            {
+                writer.WritePropertyName("minute"u8);
+                writer.WriteNumberValue(MinutePropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesHourlyRecurrenceMinute.Value);
+            }
+            writer.WriteEndObject();
+            writer.WritePropertyName("dailyRecurrence"u8);
+            writer.WriteStartObject();
+            if (Optional.IsDefined(TimePropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesDailyRecurrenceTime))
+            {
+                writer.WritePropertyName("time"u8);
+                writer.WriteStringValue(TimePropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesDailyRecurrenceTime);
+            }
+            writer.WriteEndObject();
+            writer.WritePropertyName("weeklyRecurrence"u8);
+            writer.WriteStartObject();
+            if (Optional.IsCollectionDefined(WeekdaysPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesWeeklyRecurrenceWeekdays))
+            {
+                writer.WritePropertyName("weekdays"u8);
+                writer.WriteStartArray();
+                foreach (var item in WeekdaysPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesWeeklyRecurrenceWeekdays)
+                {
+                    writer.WriteStringValue(item);
+                }
+                writer.WriteEndArray();
+            }
+            if (Optional.IsDefined(TimePropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesWeeklyRecurrenceTime))
+            {
+                writer.WritePropertyName("time"u8);
+                writer.WriteStringValue(TimePropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesWeeklyRecurrenceTime);
+            }
+            writer.WriteEndObject();
+            writer.WriteEndObject();
+            writer.WriteEndObject();
+            writer.WriteEndObject();
+            writer.WriteEndObject();
             writer.WriteEndObject();
             writer.WriteEndObject();
         }
@@ -62,9 +292,58 @@ namespace Azure.ResourceManager.DevTestLabs
             Optional<SystemData> systemData = default;
             Optional<string> externalServiceFabricId = default;
             Optional<string> environmentId = default;
-            Optional<DevTestLabApplicableSchedule> applicableSchedule = default;
             Optional<string> provisioningState = default;
-            Optional<Guid> uniqueIdentifier = default;
+            Optional<string> uniqueIdentifier = default;
+            Optional<string> id0 = default;
+            Optional<string> name0 = default;
+            Optional<string> type0 = default;
+            Optional<IDictionary<string, string>> tags0 = default;
+            Optional<AzureLocation> location0 = default;
+            Optional<SystemData> systemData0 = default;
+            Optional<string> id1 = default;
+            Optional<string> name1 = default;
+            Optional<string> type1 = default;
+            Optional<IDictionary<string, string>> tags1 = default;
+            Optional<AzureLocation> location1 = default;
+            Optional<SystemData> systemData1 = default;
+            Optional<DevTestLabEnableStatus> status = default;
+            Optional<string> taskType = default;
+            Optional<string> timeZoneId = default;
+            Optional<DateTimeOffset> createdDate = default;
+            Optional<string> targetResourceId = default;
+            Optional<string> provisioningState0 = default;
+            Optional<Guid> uniqueIdentifier0 = default;
+            Optional<DevTestLabEnableStatus> status0 = default;
+            Optional<int> timeInMinutes = default;
+            Optional<Uri> webhookUrl = default;
+            Optional<string> emailRecipient = default;
+            Optional<string> notificationLocale = default;
+            Optional<int> minute = default;
+            Optional<string> time = default;
+            Optional<IList<string>> weekdays = default;
+            Optional<string> time0 = default;
+            Optional<string> id2 = default;
+            Optional<string> name2 = default;
+            Optional<string> type2 = default;
+            Optional<IDictionary<string, string>> tags2 = default;
+            Optional<AzureLocation> location2 = default;
+            Optional<SystemData> systemData2 = default;
+            Optional<DevTestLabEnableStatus> status1 = default;
+            Optional<string> taskType0 = default;
+            Optional<string> timeZoneId0 = default;
+            Optional<DateTimeOffset> createdDate0 = default;
+            Optional<string> targetResourceId0 = default;
+            Optional<string> provisioningState1 = default;
+            Optional<Guid> uniqueIdentifier1 = default;
+            Optional<DevTestLabEnableStatus> status2 = default;
+            Optional<int> timeInMinutes0 = default;
+            Optional<Uri> webhookUrl0 = default;
+            Optional<string> emailRecipient0 = default;
+            Optional<string> notificationLocale0 = default;
+            Optional<int> minute0 = default;
+            Optional<string> time1 = default;
+            Optional<IList<string>> weekdays0 = default;
+            Optional<string> time2 = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("tags"u8))
@@ -131,16 +410,6 @@ namespace Azure.ResourceManager.DevTestLabs
                             environmentId = property0.Value.GetString();
                             continue;
                         }
-                        if (property0.NameEquals("applicableSchedule"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                property0.ThrowNonNullablePropertyIsNull();
-                                continue;
-                            }
-                            applicableSchedule = DevTestLabApplicableSchedule.DeserializeDevTestLabApplicableSchedule(property0.Value);
-                            continue;
-                        }
                         if (property0.NameEquals("provisioningState"u8))
                         {
                             provisioningState = property0.Value.GetString();
@@ -148,19 +417,582 @@ namespace Azure.ResourceManager.DevTestLabs
                         }
                         if (property0.NameEquals("uniqueIdentifier"u8))
                         {
+                            uniqueIdentifier = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("applicableSchedule"u8))
+                        {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
                                 property0.ThrowNonNullablePropertyIsNull();
                                 continue;
                             }
-                            uniqueIdentifier = property0.Value.GetGuid();
+                            foreach (var property1 in property0.Value.EnumerateObject())
+                            {
+                                if (property1.NameEquals("id"u8))
+                                {
+                                    id0 = property1.Value.GetString();
+                                    continue;
+                                }
+                                if (property1.NameEquals("name"u8))
+                                {
+                                    name0 = property1.Value.GetString();
+                                    continue;
+                                }
+                                if (property1.NameEquals("type"u8))
+                                {
+                                    type0 = property1.Value.GetString();
+                                    continue;
+                                }
+                                if (property1.NameEquals("tags"u8))
+                                {
+                                    if (property1.Value.ValueKind == JsonValueKind.Null)
+                                    {
+                                        property1.ThrowNonNullablePropertyIsNull();
+                                        continue;
+                                    }
+                                    Dictionary<string, string> dictionary = new Dictionary<string, string>();
+                                    foreach (var property2 in property1.Value.EnumerateObject())
+                                    {
+                                        dictionary.Add(property2.Name, property2.Value.GetString());
+                                    }
+                                    tags0 = dictionary;
+                                    continue;
+                                }
+                                if (property1.NameEquals("location"u8))
+                                {
+                                    if (property1.Value.ValueKind == JsonValueKind.Null)
+                                    {
+                                        property1.ThrowNonNullablePropertyIsNull();
+                                        continue;
+                                    }
+                                    location0 = new AzureLocation(property1.Value.GetString());
+                                    continue;
+                                }
+                                if (property1.NameEquals("systemData"u8))
+                                {
+                                    if (property1.Value.ValueKind == JsonValueKind.Null)
+                                    {
+                                        property1.ThrowNonNullablePropertyIsNull();
+                                        continue;
+                                    }
+                                    systemData0 = JsonSerializer.Deserialize<SystemData>(property1.Value.GetRawText());
+                                    continue;
+                                }
+                                if (property1.NameEquals("properties"u8))
+                                {
+                                    if (property1.Value.ValueKind == JsonValueKind.Null)
+                                    {
+                                        property1.ThrowNonNullablePropertyIsNull();
+                                        continue;
+                                    }
+                                    foreach (var property2 in property1.Value.EnumerateObject())
+                                    {
+                                        if (property2.NameEquals("labVmsStartup"u8))
+                                        {
+                                            if (property2.Value.ValueKind == JsonValueKind.Null)
+                                            {
+                                                property2.ThrowNonNullablePropertyIsNull();
+                                                continue;
+                                            }
+                                            foreach (var property3 in property2.Value.EnumerateObject())
+                                            {
+                                                if (property3.NameEquals("id"u8))
+                                                {
+                                                    id1 = property3.Value.GetString();
+                                                    continue;
+                                                }
+                                                if (property3.NameEquals("name"u8))
+                                                {
+                                                    name1 = property3.Value.GetString();
+                                                    continue;
+                                                }
+                                                if (property3.NameEquals("type"u8))
+                                                {
+                                                    type1 = property3.Value.GetString();
+                                                    continue;
+                                                }
+                                                if (property3.NameEquals("tags"u8))
+                                                {
+                                                    if (property3.Value.ValueKind == JsonValueKind.Null)
+                                                    {
+                                                        property3.ThrowNonNullablePropertyIsNull();
+                                                        continue;
+                                                    }
+                                                    Dictionary<string, string> dictionary = new Dictionary<string, string>();
+                                                    foreach (var property4 in property3.Value.EnumerateObject())
+                                                    {
+                                                        dictionary.Add(property4.Name, property4.Value.GetString());
+                                                    }
+                                                    tags1 = dictionary;
+                                                    continue;
+                                                }
+                                                if (property3.NameEquals("location"u8))
+                                                {
+                                                    if (property3.Value.ValueKind == JsonValueKind.Null)
+                                                    {
+                                                        property3.ThrowNonNullablePropertyIsNull();
+                                                        continue;
+                                                    }
+                                                    location1 = new AzureLocation(property3.Value.GetString());
+                                                    continue;
+                                                }
+                                                if (property3.NameEquals("systemData"u8))
+                                                {
+                                                    if (property3.Value.ValueKind == JsonValueKind.Null)
+                                                    {
+                                                        property3.ThrowNonNullablePropertyIsNull();
+                                                        continue;
+                                                    }
+                                                    systemData1 = JsonSerializer.Deserialize<SystemData>(property3.Value.GetRawText());
+                                                    continue;
+                                                }
+                                                if (property3.NameEquals("properties"u8))
+                                                {
+                                                    if (property3.Value.ValueKind == JsonValueKind.Null)
+                                                    {
+                                                        property3.ThrowNonNullablePropertyIsNull();
+                                                        continue;
+                                                    }
+                                                    foreach (var property4 in property3.Value.EnumerateObject())
+                                                    {
+                                                        if (property4.NameEquals("status"u8))
+                                                        {
+                                                            if (property4.Value.ValueKind == JsonValueKind.Null)
+                                                            {
+                                                                property4.ThrowNonNullablePropertyIsNull();
+                                                                continue;
+                                                            }
+                                                            status = new DevTestLabEnableStatus(property4.Value.GetString());
+                                                            continue;
+                                                        }
+                                                        if (property4.NameEquals("taskType"u8))
+                                                        {
+                                                            taskType = property4.Value.GetString();
+                                                            continue;
+                                                        }
+                                                        if (property4.NameEquals("timeZoneId"u8))
+                                                        {
+                                                            timeZoneId = property4.Value.GetString();
+                                                            continue;
+                                                        }
+                                                        if (property4.NameEquals("createdDate"u8))
+                                                        {
+                                                            if (property4.Value.ValueKind == JsonValueKind.Null)
+                                                            {
+                                                                property4.ThrowNonNullablePropertyIsNull();
+                                                                continue;
+                                                            }
+                                                            createdDate = property4.Value.GetDateTimeOffset("O");
+                                                            continue;
+                                                        }
+                                                        if (property4.NameEquals("targetResourceId"u8))
+                                                        {
+                                                            targetResourceId = property4.Value.GetString();
+                                                            continue;
+                                                        }
+                                                        if (property4.NameEquals("provisioningState"u8))
+                                                        {
+                                                            provisioningState0 = property4.Value.GetString();
+                                                            continue;
+                                                        }
+                                                        if (property4.NameEquals("uniqueIdentifier"u8))
+                                                        {
+                                                            if (property4.Value.ValueKind == JsonValueKind.Null)
+                                                            {
+                                                                property4.ThrowNonNullablePropertyIsNull();
+                                                                continue;
+                                                            }
+                                                            uniqueIdentifier0 = property4.Value.GetGuid();
+                                                            continue;
+                                                        }
+                                                        if (property4.NameEquals("notificationSettings"u8))
+                                                        {
+                                                            if (property4.Value.ValueKind == JsonValueKind.Null)
+                                                            {
+                                                                property4.ThrowNonNullablePropertyIsNull();
+                                                                continue;
+                                                            }
+                                                            foreach (var property5 in property4.Value.EnumerateObject())
+                                                            {
+                                                                if (property5.NameEquals("status"u8))
+                                                                {
+                                                                    if (property5.Value.ValueKind == JsonValueKind.Null)
+                                                                    {
+                                                                        property5.ThrowNonNullablePropertyIsNull();
+                                                                        continue;
+                                                                    }
+                                                                    status0 = new DevTestLabEnableStatus(property5.Value.GetString());
+                                                                    continue;
+                                                                }
+                                                                if (property5.NameEquals("timeInMinutes"u8))
+                                                                {
+                                                                    if (property5.Value.ValueKind == JsonValueKind.Null)
+                                                                    {
+                                                                        property5.ThrowNonNullablePropertyIsNull();
+                                                                        continue;
+                                                                    }
+                                                                    timeInMinutes = property5.Value.GetInt32();
+                                                                    continue;
+                                                                }
+                                                                if (property5.NameEquals("webhookUrl"u8))
+                                                                {
+                                                                    if (property5.Value.ValueKind == JsonValueKind.Null)
+                                                                    {
+                                                                        webhookUrl = null;
+                                                                        continue;
+                                                                    }
+                                                                    webhookUrl = new Uri(property5.Value.GetString());
+                                                                    continue;
+                                                                }
+                                                                if (property5.NameEquals("emailRecipient"u8))
+                                                                {
+                                                                    emailRecipient = property5.Value.GetString();
+                                                                    continue;
+                                                                }
+                                                                if (property5.NameEquals("notificationLocale"u8))
+                                                                {
+                                                                    notificationLocale = property5.Value.GetString();
+                                                                    continue;
+                                                                }
+                                                            }
+                                                            continue;
+                                                        }
+                                                        if (property4.NameEquals("hourlyRecurrence"u8))
+                                                        {
+                                                            if (property4.Value.ValueKind == JsonValueKind.Null)
+                                                            {
+                                                                property4.ThrowNonNullablePropertyIsNull();
+                                                                continue;
+                                                            }
+                                                            foreach (var property5 in property4.Value.EnumerateObject())
+                                                            {
+                                                                if (property5.NameEquals("minute"u8))
+                                                                {
+                                                                    if (property5.Value.ValueKind == JsonValueKind.Null)
+                                                                    {
+                                                                        property5.ThrowNonNullablePropertyIsNull();
+                                                                        continue;
+                                                                    }
+                                                                    minute = property5.Value.GetInt32();
+                                                                    continue;
+                                                                }
+                                                            }
+                                                            continue;
+                                                        }
+                                                        if (property4.NameEquals("dailyRecurrence"u8))
+                                                        {
+                                                            if (property4.Value.ValueKind == JsonValueKind.Null)
+                                                            {
+                                                                property4.ThrowNonNullablePropertyIsNull();
+                                                                continue;
+                                                            }
+                                                            foreach (var property5 in property4.Value.EnumerateObject())
+                                                            {
+                                                                if (property5.NameEquals("time"u8))
+                                                                {
+                                                                    time = property5.Value.GetString();
+                                                                    continue;
+                                                                }
+                                                            }
+                                                            continue;
+                                                        }
+                                                        if (property4.NameEquals("weeklyRecurrence"u8))
+                                                        {
+                                                            if (property4.Value.ValueKind == JsonValueKind.Null)
+                                                            {
+                                                                property4.ThrowNonNullablePropertyIsNull();
+                                                                continue;
+                                                            }
+                                                            foreach (var property5 in property4.Value.EnumerateObject())
+                                                            {
+                                                                if (property5.NameEquals("weekdays"u8))
+                                                                {
+                                                                    if (property5.Value.ValueKind == JsonValueKind.Null)
+                                                                    {
+                                                                        property5.ThrowNonNullablePropertyIsNull();
+                                                                        continue;
+                                                                    }
+                                                                    List<string> array = new List<string>();
+                                                                    foreach (var item in property5.Value.EnumerateArray())
+                                                                    {
+                                                                        array.Add(item.GetString());
+                                                                    }
+                                                                    weekdays = array;
+                                                                    continue;
+                                                                }
+                                                                if (property5.NameEquals("time"u8))
+                                                                {
+                                                                    time0 = property5.Value.GetString();
+                                                                    continue;
+                                                                }
+                                                            }
+                                                            continue;
+                                                        }
+                                                    }
+                                                    continue;
+                                                }
+                                            }
+                                            continue;
+                                        }
+                                        if (property2.NameEquals("labVmsShutdown"u8))
+                                        {
+                                            if (property2.Value.ValueKind == JsonValueKind.Null)
+                                            {
+                                                property2.ThrowNonNullablePropertyIsNull();
+                                                continue;
+                                            }
+                                            foreach (var property3 in property2.Value.EnumerateObject())
+                                            {
+                                                if (property3.NameEquals("id"u8))
+                                                {
+                                                    id2 = property3.Value.GetString();
+                                                    continue;
+                                                }
+                                                if (property3.NameEquals("name"u8))
+                                                {
+                                                    name2 = property3.Value.GetString();
+                                                    continue;
+                                                }
+                                                if (property3.NameEquals("type"u8))
+                                                {
+                                                    type2 = property3.Value.GetString();
+                                                    continue;
+                                                }
+                                                if (property3.NameEquals("tags"u8))
+                                                {
+                                                    if (property3.Value.ValueKind == JsonValueKind.Null)
+                                                    {
+                                                        property3.ThrowNonNullablePropertyIsNull();
+                                                        continue;
+                                                    }
+                                                    Dictionary<string, string> dictionary = new Dictionary<string, string>();
+                                                    foreach (var property4 in property3.Value.EnumerateObject())
+                                                    {
+                                                        dictionary.Add(property4.Name, property4.Value.GetString());
+                                                    }
+                                                    tags2 = dictionary;
+                                                    continue;
+                                                }
+                                                if (property3.NameEquals("location"u8))
+                                                {
+                                                    if (property3.Value.ValueKind == JsonValueKind.Null)
+                                                    {
+                                                        property3.ThrowNonNullablePropertyIsNull();
+                                                        continue;
+                                                    }
+                                                    location2 = new AzureLocation(property3.Value.GetString());
+                                                    continue;
+                                                }
+                                                if (property3.NameEquals("systemData"u8))
+                                                {
+                                                    if (property3.Value.ValueKind == JsonValueKind.Null)
+                                                    {
+                                                        property3.ThrowNonNullablePropertyIsNull();
+                                                        continue;
+                                                    }
+                                                    systemData2 = JsonSerializer.Deserialize<SystemData>(property3.Value.GetRawText());
+                                                    continue;
+                                                }
+                                                if (property3.NameEquals("properties"u8))
+                                                {
+                                                    if (property3.Value.ValueKind == JsonValueKind.Null)
+                                                    {
+                                                        property3.ThrowNonNullablePropertyIsNull();
+                                                        continue;
+                                                    }
+                                                    foreach (var property4 in property3.Value.EnumerateObject())
+                                                    {
+                                                        if (property4.NameEquals("status"u8))
+                                                        {
+                                                            if (property4.Value.ValueKind == JsonValueKind.Null)
+                                                            {
+                                                                property4.ThrowNonNullablePropertyIsNull();
+                                                                continue;
+                                                            }
+                                                            status1 = new DevTestLabEnableStatus(property4.Value.GetString());
+                                                            continue;
+                                                        }
+                                                        if (property4.NameEquals("taskType"u8))
+                                                        {
+                                                            taskType0 = property4.Value.GetString();
+                                                            continue;
+                                                        }
+                                                        if (property4.NameEquals("timeZoneId"u8))
+                                                        {
+                                                            timeZoneId0 = property4.Value.GetString();
+                                                            continue;
+                                                        }
+                                                        if (property4.NameEquals("createdDate"u8))
+                                                        {
+                                                            if (property4.Value.ValueKind == JsonValueKind.Null)
+                                                            {
+                                                                property4.ThrowNonNullablePropertyIsNull();
+                                                                continue;
+                                                            }
+                                                            createdDate0 = property4.Value.GetDateTimeOffset("O");
+                                                            continue;
+                                                        }
+                                                        if (property4.NameEquals("targetResourceId"u8))
+                                                        {
+                                                            targetResourceId0 = property4.Value.GetString();
+                                                            continue;
+                                                        }
+                                                        if (property4.NameEquals("provisioningState"u8))
+                                                        {
+                                                            provisioningState1 = property4.Value.GetString();
+                                                            continue;
+                                                        }
+                                                        if (property4.NameEquals("uniqueIdentifier"u8))
+                                                        {
+                                                            if (property4.Value.ValueKind == JsonValueKind.Null)
+                                                            {
+                                                                property4.ThrowNonNullablePropertyIsNull();
+                                                                continue;
+                                                            }
+                                                            uniqueIdentifier1 = property4.Value.GetGuid();
+                                                            continue;
+                                                        }
+                                                        if (property4.NameEquals("notificationSettings"u8))
+                                                        {
+                                                            if (property4.Value.ValueKind == JsonValueKind.Null)
+                                                            {
+                                                                property4.ThrowNonNullablePropertyIsNull();
+                                                                continue;
+                                                            }
+                                                            foreach (var property5 in property4.Value.EnumerateObject())
+                                                            {
+                                                                if (property5.NameEquals("status"u8))
+                                                                {
+                                                                    if (property5.Value.ValueKind == JsonValueKind.Null)
+                                                                    {
+                                                                        property5.ThrowNonNullablePropertyIsNull();
+                                                                        continue;
+                                                                    }
+                                                                    status2 = new DevTestLabEnableStatus(property5.Value.GetString());
+                                                                    continue;
+                                                                }
+                                                                if (property5.NameEquals("timeInMinutes"u8))
+                                                                {
+                                                                    if (property5.Value.ValueKind == JsonValueKind.Null)
+                                                                    {
+                                                                        property5.ThrowNonNullablePropertyIsNull();
+                                                                        continue;
+                                                                    }
+                                                                    timeInMinutes0 = property5.Value.GetInt32();
+                                                                    continue;
+                                                                }
+                                                                if (property5.NameEquals("webhookUrl"u8))
+                                                                {
+                                                                    if (property5.Value.ValueKind == JsonValueKind.Null)
+                                                                    {
+                                                                        webhookUrl0 = null;
+                                                                        continue;
+                                                                    }
+                                                                    webhookUrl0 = new Uri(property5.Value.GetString());
+                                                                    continue;
+                                                                }
+                                                                if (property5.NameEquals("emailRecipient"u8))
+                                                                {
+                                                                    emailRecipient0 = property5.Value.GetString();
+                                                                    continue;
+                                                                }
+                                                                if (property5.NameEquals("notificationLocale"u8))
+                                                                {
+                                                                    notificationLocale0 = property5.Value.GetString();
+                                                                    continue;
+                                                                }
+                                                            }
+                                                            continue;
+                                                        }
+                                                        if (property4.NameEquals("hourlyRecurrence"u8))
+                                                        {
+                                                            if (property4.Value.ValueKind == JsonValueKind.Null)
+                                                            {
+                                                                property4.ThrowNonNullablePropertyIsNull();
+                                                                continue;
+                                                            }
+                                                            foreach (var property5 in property4.Value.EnumerateObject())
+                                                            {
+                                                                if (property5.NameEquals("minute"u8))
+                                                                {
+                                                                    if (property5.Value.ValueKind == JsonValueKind.Null)
+                                                                    {
+                                                                        property5.ThrowNonNullablePropertyIsNull();
+                                                                        continue;
+                                                                    }
+                                                                    minute0 = property5.Value.GetInt32();
+                                                                    continue;
+                                                                }
+                                                            }
+                                                            continue;
+                                                        }
+                                                        if (property4.NameEquals("dailyRecurrence"u8))
+                                                        {
+                                                            if (property4.Value.ValueKind == JsonValueKind.Null)
+                                                            {
+                                                                property4.ThrowNonNullablePropertyIsNull();
+                                                                continue;
+                                                            }
+                                                            foreach (var property5 in property4.Value.EnumerateObject())
+                                                            {
+                                                                if (property5.NameEquals("time"u8))
+                                                                {
+                                                                    time1 = property5.Value.GetString();
+                                                                    continue;
+                                                                }
+                                                            }
+                                                            continue;
+                                                        }
+                                                        if (property4.NameEquals("weeklyRecurrence"u8))
+                                                        {
+                                                            if (property4.Value.ValueKind == JsonValueKind.Null)
+                                                            {
+                                                                property4.ThrowNonNullablePropertyIsNull();
+                                                                continue;
+                                                            }
+                                                            foreach (var property5 in property4.Value.EnumerateObject())
+                                                            {
+                                                                if (property5.NameEquals("weekdays"u8))
+                                                                {
+                                                                    if (property5.Value.ValueKind == JsonValueKind.Null)
+                                                                    {
+                                                                        property5.ThrowNonNullablePropertyIsNull();
+                                                                        continue;
+                                                                    }
+                                                                    List<string> array = new List<string>();
+                                                                    foreach (var item in property5.Value.EnumerateArray())
+                                                                    {
+                                                                        array.Add(item.GetString());
+                                                                    }
+                                                                    weekdays0 = array;
+                                                                    continue;
+                                                                }
+                                                                if (property5.NameEquals("time"u8))
+                                                                {
+                                                                    time2 = property5.Value.GetString();
+                                                                    continue;
+                                                                }
+                                                            }
+                                                            continue;
+                                                        }
+                                                    }
+                                                    continue;
+                                                }
+                                            }
+                                            continue;
+                                        }
+                                    }
+                                    continue;
+                                }
+                            }
                             continue;
                         }
                     }
                     continue;
                 }
             }
-            return new DevTestLabServiceFabricData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, externalServiceFabricId.Value, environmentId.Value, applicableSchedule.Value, provisioningState.Value, Optional.ToNullable(uniqueIdentifier));
+            return new DevTestLabServiceFabricData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, externalServiceFabricId.Value, environmentId.Value, provisioningState.Value, uniqueIdentifier.Value, id0.Value, name0.Value, type0.Value, Optional.ToDictionary(tags0), Optional.ToNullable(location0), systemData0, id1.Value, name1.Value, type1.Value, Optional.ToDictionary(tags1), Optional.ToNullable(location1), systemData1, Optional.ToNullable(status), taskType.Value, timeZoneId.Value, Optional.ToNullable(createdDate), targetResourceId.Value, provisioningState0.Value, Optional.ToNullable(uniqueIdentifier0), Optional.ToNullable(status0), Optional.ToNullable(timeInMinutes), webhookUrl.Value, emailRecipient.Value, notificationLocale.Value, Optional.ToNullable(minute), time.Value, Optional.ToList(weekdays), time0.Value, id2.Value, name2.Value, type2.Value, Optional.ToDictionary(tags2), Optional.ToNullable(location2), systemData2, Optional.ToNullable(status1), taskType0.Value, timeZoneId0.Value, Optional.ToNullable(createdDate0), targetResourceId0.Value, provisioningState1.Value, Optional.ToNullable(uniqueIdentifier1), Optional.ToNullable(status2), Optional.ToNullable(timeInMinutes0), webhookUrl0.Value, emailRecipient0.Value, notificationLocale0.Value, Optional.ToNullable(minute0), time1.Value, Optional.ToList(weekdays0), time2.Value);
         }
     }
 }

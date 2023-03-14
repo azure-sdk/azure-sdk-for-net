@@ -7,7 +7,7 @@
 
 namespace Azure.ResourceManager.DevTestLabs.Models
 {
-    /// <summary> A schedule. </summary>
+    /// <summary> Patch. </summary>
     public partial class DevTestLabSchedulePatch : DevTestLabResourcePatch
     {
         /// <summary> Initializes a new instance of DevTestLabSchedulePatch. </summary>

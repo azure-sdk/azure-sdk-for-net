@@ -235,7 +235,7 @@ namespace Azure.ResourceManager.DevTestLabs
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="patch"> A custom image. </param>
+        /// <param name="patch"> Allows modifying tags of custom images. All other properties will be ignored. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="patch"/> is null. </exception>
         public virtual async Task<Response<DevTestLabCustomImageResource>> UpdateAsync(DevTestLabCustomImagePatch patch, CancellationToken cancellationToken = default)
@@ -269,7 +269,7 @@ namespace Azure.ResourceManager.DevTestLabs
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="patch"> A custom image. </param>
+        /// <param name="patch"> Allows modifying tags of custom images. All other properties will be ignored. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="patch"/> is null. </exception>
         public virtual Response<DevTestLabCustomImageResource> Update(DevTestLabCustomImagePatch patch, CancellationToken cancellationToken = default)

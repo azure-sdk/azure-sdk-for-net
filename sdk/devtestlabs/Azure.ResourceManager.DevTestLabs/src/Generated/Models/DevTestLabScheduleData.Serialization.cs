@@ -34,46 +34,88 @@ namespace Azure.ResourceManager.DevTestLabs
             writer.WriteStringValue(Location);
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
-            if (Optional.IsDefined(Status))
+            if (Optional.IsDefined(StatusPropertiesStatus))
             {
                 writer.WritePropertyName("status"u8);
-                writer.WriteStringValue(Status.Value.ToString());
+                writer.WriteStringValue(StatusPropertiesStatus.Value.ToString());
             }
             if (Optional.IsDefined(TaskType))
             {
                 writer.WritePropertyName("taskType"u8);
                 writer.WriteStringValue(TaskType);
             }
-            if (Optional.IsDefined(WeeklyRecurrence))
-            {
-                writer.WritePropertyName("weeklyRecurrence"u8);
-                writer.WriteObjectValue(WeeklyRecurrence);
-            }
-            if (Optional.IsDefined(DailyRecurrence))
-            {
-                writer.WritePropertyName("dailyRecurrence"u8);
-                writer.WriteObjectValue(DailyRecurrence);
-            }
-            if (Optional.IsDefined(HourlyRecurrence))
-            {
-                writer.WritePropertyName("hourlyRecurrence"u8);
-                writer.WriteObjectValue(HourlyRecurrence);
-            }
             if (Optional.IsDefined(TimeZoneId))
             {
                 writer.WritePropertyName("timeZoneId"u8);
                 writer.WriteStringValue(TimeZoneId);
-            }
-            if (Optional.IsDefined(NotificationSettings))
-            {
-                writer.WritePropertyName("notificationSettings"u8);
-                writer.WriteObjectValue(NotificationSettings);
             }
             if (Optional.IsDefined(TargetResourceId))
             {
                 writer.WritePropertyName("targetResourceId"u8);
                 writer.WriteStringValue(TargetResourceId);
             }
+            writer.WritePropertyName("notificationSettings"u8);
+            writer.WriteStartObject();
+            if (Optional.IsDefined(StatusPropertiesNotificationSettingsStatus))
+            {
+                writer.WritePropertyName("status"u8);
+                writer.WriteStringValue(StatusPropertiesNotificationSettingsStatus.Value.ToString());
+            }
+            if (Optional.IsDefined(TimeInMinutes))
+            {
+                writer.WritePropertyName("timeInMinutes"u8);
+                writer.WriteNumberValue(TimeInMinutes.Value);
+            }
+            if (Optional.IsDefined(WebhookUri))
+            {
+                writer.WritePropertyName("webhookUrl"u8);
+                writer.WriteStringValue(WebhookUri.AbsoluteUri);
+            }
+            if (Optional.IsDefined(EmailRecipient))
+            {
+                writer.WritePropertyName("emailRecipient"u8);
+                writer.WriteStringValue(EmailRecipient);
+            }
+            if (Optional.IsDefined(NotificationLocale))
+            {
+                writer.WritePropertyName("notificationLocale"u8);
+                writer.WriteStringValue(NotificationLocale);
+            }
+            writer.WriteEndObject();
+            writer.WritePropertyName("hourlyRecurrence"u8);
+            writer.WriteStartObject();
+            if (Optional.IsDefined(Minute))
+            {
+                writer.WritePropertyName("minute"u8);
+                writer.WriteNumberValue(Minute.Value);
+            }
+            writer.WriteEndObject();
+            writer.WritePropertyName("dailyRecurrence"u8);
+            writer.WriteStartObject();
+            if (Optional.IsDefined(TimePropertiesDailyRecurrenceTime))
+            {
+                writer.WritePropertyName("time"u8);
+                writer.WriteStringValue(TimePropertiesDailyRecurrenceTime);
+            }
+            writer.WriteEndObject();
+            writer.WritePropertyName("weeklyRecurrence"u8);
+            writer.WriteStartObject();
+            if (Optional.IsCollectionDefined(Weekdays))
+            {
+                writer.WritePropertyName("weekdays"u8);
+                writer.WriteStartArray();
+                foreach (var item in Weekdays)
+                {
+                    writer.WriteStringValue(item);
+                }
+                writer.WriteEndArray();
+            }
+            if (Optional.IsDefined(TimePropertiesWeeklyRecurrenceTime))
+            {
+                writer.WritePropertyName("time"u8);
+                writer.WriteStringValue(TimePropertiesWeeklyRecurrenceTime);
+            }
+            writer.WriteEndObject();
             writer.WriteEndObject();
             writer.WriteEndObject();
         }
@@ -92,15 +134,20 @@ namespace Azure.ResourceManager.DevTestLabs
             Optional<SystemData> systemData = default;
             Optional<DevTestLabEnableStatus> status = default;
             Optional<string> taskType = default;
-            Optional<DevTestLabWeekDetails> weeklyRecurrence = default;
-            Optional<DayDetails> dailyRecurrence = default;
-            Optional<HourDetails> hourlyRecurrence = default;
             Optional<string> timeZoneId = default;
-            Optional<DevTestLabNotificationSettings> notificationSettings = default;
             Optional<DateTimeOffset> createdDate = default;
             Optional<string> targetResourceId = default;
             Optional<string> provisioningState = default;
             Optional<Guid> uniqueIdentifier = default;
+            Optional<DevTestLabEnableStatus> status0 = default;
+            Optional<int> timeInMinutes = default;
+            Optional<Uri> webhookUrl = default;
+            Optional<string> emailRecipient = default;
+            Optional<string> notificationLocale = default;
+            Optional<int> minute = default;
+            Optional<string> time = default;
+            Optional<IList<string>> weekdays = default;
+            Optional<string> time0 = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("tags"u8))
@@ -172,49 +219,9 @@ namespace Azure.ResourceManager.DevTestLabs
                             taskType = property0.Value.GetString();
                             continue;
                         }
-                        if (property0.NameEquals("weeklyRecurrence"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                property0.ThrowNonNullablePropertyIsNull();
-                                continue;
-                            }
-                            weeklyRecurrence = DevTestLabWeekDetails.DeserializeDevTestLabWeekDetails(property0.Value);
-                            continue;
-                        }
-                        if (property0.NameEquals("dailyRecurrence"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                property0.ThrowNonNullablePropertyIsNull();
-                                continue;
-                            }
-                            dailyRecurrence = DayDetails.DeserializeDayDetails(property0.Value);
-                            continue;
-                        }
-                        if (property0.NameEquals("hourlyRecurrence"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                property0.ThrowNonNullablePropertyIsNull();
-                                continue;
-                            }
-                            hourlyRecurrence = HourDetails.DeserializeHourDetails(property0.Value);
-                            continue;
-                        }
                         if (property0.NameEquals("timeZoneId"u8))
                         {
                             timeZoneId = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("notificationSettings"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                property0.ThrowNonNullablePropertyIsNull();
-                                continue;
-                            }
-                            notificationSettings = DevTestLabNotificationSettings.DeserializeDevTestLabNotificationSettings(property0.Value);
                             continue;
                         }
                         if (property0.NameEquals("createdDate"u8))
@@ -247,11 +254,134 @@ namespace Azure.ResourceManager.DevTestLabs
                             uniqueIdentifier = property0.Value.GetGuid();
                             continue;
                         }
+                        if (property0.NameEquals("notificationSettings"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            foreach (var property1 in property0.Value.EnumerateObject())
+                            {
+                                if (property1.NameEquals("status"u8))
+                                {
+                                    if (property1.Value.ValueKind == JsonValueKind.Null)
+                                    {
+                                        property1.ThrowNonNullablePropertyIsNull();
+                                        continue;
+                                    }
+                                    status0 = new DevTestLabEnableStatus(property1.Value.GetString());
+                                    continue;
+                                }
+                                if (property1.NameEquals("timeInMinutes"u8))
+                                {
+                                    if (property1.Value.ValueKind == JsonValueKind.Null)
+                                    {
+                                        property1.ThrowNonNullablePropertyIsNull();
+                                        continue;
+                                    }
+                                    timeInMinutes = property1.Value.GetInt32();
+                                    continue;
+                                }
+                                if (property1.NameEquals("webhookUrl"u8))
+                                {
+                                    if (property1.Value.ValueKind == JsonValueKind.Null)
+                                    {
+                                        webhookUrl = null;
+                                        continue;
+                                    }
+                                    webhookUrl = new Uri(property1.Value.GetString());
+                                    continue;
+                                }
+                                if (property1.NameEquals("emailRecipient"u8))
+                                {
+                                    emailRecipient = property1.Value.GetString();
+                                    continue;
+                                }
+                                if (property1.NameEquals("notificationLocale"u8))
+                                {
+                                    notificationLocale = property1.Value.GetString();
+                                    continue;
+                                }
+                            }
+                            continue;
+                        }
+                        if (property0.NameEquals("hourlyRecurrence"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            foreach (var property1 in property0.Value.EnumerateObject())
+                            {
+                                if (property1.NameEquals("minute"u8))
+                                {
+                                    if (property1.Value.ValueKind == JsonValueKind.Null)
+                                    {
+                                        property1.ThrowNonNullablePropertyIsNull();
+                                        continue;
+                                    }
+                                    minute = property1.Value.GetInt32();
+                                    continue;
+                                }
+                            }
+                            continue;
+                        }
+                        if (property0.NameEquals("dailyRecurrence"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            foreach (var property1 in property0.Value.EnumerateObject())
+                            {
+                                if (property1.NameEquals("time"u8))
+                                {
+                                    time = property1.Value.GetString();
+                                    continue;
+                                }
+                            }
+                            continue;
+                        }
+                        if (property0.NameEquals("weeklyRecurrence"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            foreach (var property1 in property0.Value.EnumerateObject())
+                            {
+                                if (property1.NameEquals("weekdays"u8))
+                                {
+                                    if (property1.Value.ValueKind == JsonValueKind.Null)
+                                    {
+                                        property1.ThrowNonNullablePropertyIsNull();
+                                        continue;
+                                    }
+                                    List<string> array = new List<string>();
+                                    foreach (var item in property1.Value.EnumerateArray())
+                                    {
+                                        array.Add(item.GetString());
+                                    }
+                                    weekdays = array;
+                                    continue;
+                                }
+                                if (property1.NameEquals("time"u8))
+                                {
+                                    time0 = property1.Value.GetString();
+                                    continue;
+                                }
+                            }
+                            continue;
+                        }
                     }
                     continue;
                 }
             }
-            return new DevTestLabScheduleData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, Optional.ToNullable(status), taskType.Value, weeklyRecurrence.Value, dailyRecurrence.Value, hourlyRecurrence.Value, timeZoneId.Value, notificationSettings.Value, Optional.ToNullable(createdDate), targetResourceId.Value, provisioningState.Value, Optional.ToNullable(uniqueIdentifier));
+            return new DevTestLabScheduleData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, Optional.ToNullable(status), taskType.Value, timeZoneId.Value, Optional.ToNullable(createdDate), targetResourceId.Value, provisioningState.Value, Optional.ToNullable(uniqueIdentifier), Optional.ToNullable(status0), Optional.ToNullable(timeInMinutes), webhookUrl.Value, emailRecipient.Value, notificationLocale.Value, Optional.ToNullable(minute), time.Value, Optional.ToList(weekdays), time0.Value);
         }
     }
 }

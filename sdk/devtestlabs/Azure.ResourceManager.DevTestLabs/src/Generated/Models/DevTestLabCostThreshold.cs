@@ -17,40 +17,28 @@ namespace Azure.ResourceManager.DevTestLabs.Models
 
         /// <summary> Initializes a new instance of DevTestLabCostThreshold. </summary>
         /// <param name="thresholdId"> The ID of the cost threshold item. </param>
-        /// <param name="percentageThreshold"> The value of the percentage cost threshold. </param>
         /// <param name="displayOnChart"> Indicates whether this threshold will be displayed on cost charts. </param>
         /// <param name="sendNotificationWhenExceeded"> Indicates whether notifications will be sent when this threshold is exceeded. </param>
         /// <param name="notificationSent"> Indicates the datetime when notifications were last sent for this threshold. </param>
-        internal DevTestLabCostThreshold(string thresholdId, PercentageCostThresholdProperties percentageThreshold, DevTestLabCostThresholdStatus? displayOnChart, DevTestLabCostThresholdStatus? sendNotificationWhenExceeded, string notificationSent)
+        /// <param name="thresholdValue"> The cost threshold value. </param>
+        internal DevTestLabCostThreshold(string thresholdId, DevTestLabCostThresholdStatus? displayOnChart, DevTestLabCostThresholdStatus? sendNotificationWhenExceeded, string notificationSent, double? thresholdValue)
         {
             ThresholdId = thresholdId;
-            PercentageThreshold = percentageThreshold;
             DisplayOnChart = displayOnChart;
             SendNotificationWhenExceeded = sendNotificationWhenExceeded;
             NotificationSent = notificationSent;
+            ThresholdValue = thresholdValue;
         }
 
         /// <summary> The ID of the cost threshold item. </summary>
         public string ThresholdId { get; set; }
-        /// <summary> The value of the percentage cost threshold. </summary>
-        internal PercentageCostThresholdProperties PercentageThreshold { get; set; }
-        /// <summary> The cost threshold value. </summary>
-        public double? ThresholdValue
-        {
-            get => PercentageThreshold is null ? default : PercentageThreshold.ThresholdValue;
-            set
-            {
-                if (PercentageThreshold is null)
-                    PercentageThreshold = new PercentageCostThresholdProperties();
-                PercentageThreshold.ThresholdValue = value;
-            }
-        }
-
         /// <summary> Indicates whether this threshold will be displayed on cost charts. </summary>
         public DevTestLabCostThresholdStatus? DisplayOnChart { get; set; }
         /// <summary> Indicates whether notifications will be sent when this threshold is exceeded. </summary>
         public DevTestLabCostThresholdStatus? SendNotificationWhenExceeded { get; set; }
         /// <summary> Indicates the datetime when notifications were last sent for this threshold. </summary>
         public string NotificationSent { get; set; }
+        /// <summary> The cost threshold value. </summary>
+        public double? ThresholdValue { get; set; }
     }
 }

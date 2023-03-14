@@ -32,7 +32,7 @@ namespace Azure.ResourceManager.DevTestLabs
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2018-09-15";
+            _apiVersion = apiVersion ?? "2021-09-01";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 

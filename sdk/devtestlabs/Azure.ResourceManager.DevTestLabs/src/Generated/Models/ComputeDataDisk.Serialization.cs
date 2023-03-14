@@ -11,8 +11,34 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.DevTestLabs.Models
 {
-    public partial class ComputeDataDisk
+    public partial class ComputeDataDisk : IUtf8JsonSerializable
     {
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
+        {
+            writer.WriteStartObject();
+            if (Optional.IsDefined(Name))
+            {
+                writer.WritePropertyName("name"u8);
+                writer.WriteStringValue(Name);
+            }
+            if (Optional.IsDefined(DiskUri))
+            {
+                writer.WritePropertyName("diskUri"u8);
+                writer.WriteStringValue(DiskUri.AbsoluteUri);
+            }
+            if (Optional.IsDefined(ManagedDiskId))
+            {
+                writer.WritePropertyName("managedDiskId"u8);
+                writer.WriteStringValue(ManagedDiskId);
+            }
+            if (Optional.IsDefined(DiskSizeGiB))
+            {
+                writer.WritePropertyName("diskSizeGiB"u8);
+                writer.WriteNumberValue(DiskSizeGiB.Value);
+            }
+            writer.WriteEndObject();
+        }
+
         internal static ComputeDataDisk DeserializeComputeDataDisk(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)

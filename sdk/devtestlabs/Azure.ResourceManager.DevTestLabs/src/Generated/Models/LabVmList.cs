@@ -11,7 +11,7 @@ using Azure.ResourceManager.DevTestLabs;
 
 namespace Azure.ResourceManager.DevTestLabs.Models
 {
-    /// <summary> The response of a list operation. </summary>
+    /// <summary> Contains a list of virtualMachines and their properties. </summary>
     internal partial class LabVmList
     {
         /// <summary> Initializes a new instance of LabVmList. </summary>
@@ -21,17 +21,17 @@ namespace Azure.ResourceManager.DevTestLabs.Models
         }
 
         /// <summary> Initializes a new instance of LabVmList. </summary>
-        /// <param name="value"> Results of the list operation. </param>
-        /// <param name="nextLink"> Link for next set of results. </param>
+        /// <param name="value"> List of virtualMachines and their properties. </param>
+        /// <param name="nextLink"> URL to get the next set of operation list results if there are any. </param>
         internal LabVmList(IReadOnlyList<DevTestLabVmData> value, string nextLink)
         {
             Value = value;
             NextLink = nextLink;
         }
 
-        /// <summary> Results of the list operation. </summary>
+        /// <summary> List of virtualMachines and their properties. </summary>
         public IReadOnlyList<DevTestLabVmData> Value { get; }
-        /// <summary> Link for next set of results. </summary>
+        /// <summary> URL to get the next set of operation list results if there are any. </summary>
         public string NextLink { get; }
     }
 }

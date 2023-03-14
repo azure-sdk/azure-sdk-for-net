@@ -18,21 +18,29 @@ namespace Azure.ResourceManager.DevTestLabs.Models
         }
 
         /// <summary> Initializes a new instance of DevTestLabDataDiskProperties. </summary>
-        /// <param name="attachNewDataDiskOptions"> Specifies options to attach a new disk to the virtual machine. </param>
         /// <param name="existingLabDiskId"> Specifies the existing lab disk id to attach to virtual machine. </param>
         /// <param name="hostCaching"> Caching option for a data disk (i.e. None, ReadOnly, ReadWrite). </param>
-        internal DevTestLabDataDiskProperties(AttachNewDataDiskDetails attachNewDataDiskOptions, ResourceIdentifier existingLabDiskId, DevTestLabHostCachingOption? hostCaching)
+        /// <param name="diskSizeGiB"> Size of the disk to be attached in Gibibytes. </param>
+        /// <param name="diskName"> The name of the disk to be attached. </param>
+        /// <param name="diskType"> The storage type for the disk (i.e. Standard, Premium). </param>
+        internal DevTestLabDataDiskProperties(ResourceIdentifier existingLabDiskId, DevTestLabHostCachingOption? hostCaching, int? diskSizeGiB, string diskName, DevTestLabStorageType? diskType)
         {
-            AttachNewDataDiskOptions = attachNewDataDiskOptions;
             ExistingLabDiskId = existingLabDiskId;
             HostCaching = hostCaching;
+            DiskSizeGiB = diskSizeGiB;
+            DiskName = diskName;
+            DiskType = diskType;
         }
 
-        /// <summary> Specifies options to attach a new disk to the virtual machine. </summary>
-        public AttachNewDataDiskDetails AttachNewDataDiskOptions { get; set; }
         /// <summary> Specifies the existing lab disk id to attach to virtual machine. </summary>
         public ResourceIdentifier ExistingLabDiskId { get; set; }
         /// <summary> Caching option for a data disk (i.e. None, ReadOnly, ReadWrite). </summary>
         public DevTestLabHostCachingOption? HostCaching { get; set; }
+        /// <summary> Size of the disk to be attached in Gibibytes. </summary>
+        public int? DiskSizeGiB { get; set; }
+        /// <summary> The name of the disk to be attached. </summary>
+        public string DiskName { get; set; }
+        /// <summary> The storage type for the disk (i.e. Standard, Premium). </summary>
+        public DevTestLabStorageType? DiskType { get; set; }
     }
 }

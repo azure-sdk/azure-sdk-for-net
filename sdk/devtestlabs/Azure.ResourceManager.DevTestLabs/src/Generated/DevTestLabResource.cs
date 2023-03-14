@@ -38,8 +38,6 @@ namespace Azure.ResourceManager.DevTestLabs
 
         private readonly ClientDiagnostics _devTestLabLabsClientDiagnostics;
         private readonly LabsRestOperations _devTestLabLabsRestClient;
-        private readonly ClientDiagnostics _galleryImagesClientDiagnostics;
-        private readonly GalleryImagesRestOperations _galleryImagesRestClient;
         private readonly ClientDiagnostics _policySetsClientDiagnostics;
         private readonly PolicySetsRestOperations _policySetsRestClient;
         private readonly DevTestLabData _data;
@@ -66,8 +64,6 @@ namespace Azure.ResourceManager.DevTestLabs
             _devTestLabLabsClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.DevTestLabs", ResourceType.Namespace, Diagnostics);
             TryGetApiVersion(ResourceType, out string devTestLabLabsApiVersion);
             _devTestLabLabsRestClient = new LabsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, devTestLabLabsApiVersion);
-            _galleryImagesClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.DevTestLabs", ProviderConstants.DefaultProviderNamespace, Diagnostics);
-            _galleryImagesRestClient = new GalleryImagesRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
             _policySetsClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.DevTestLabs", ProviderConstants.DefaultProviderNamespace, Diagnostics);
             _policySetsRestClient = new PolicySetsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
 #if DEBUG
@@ -374,6 +370,59 @@ namespace Azure.ResourceManager.DevTestLabs
             return GetDevTestLabFormulas().Get(name, expand, cancellationToken);
         }
 
+        /// <summary> Gets a collection of DevTestLabGalleryImageResources in the DevTestLab. </summary>
+        /// <returns> An object representing collection of DevTestLabGalleryImageResources and their operations over a DevTestLabGalleryImageResource. </returns>
+        public virtual DevTestLabGalleryImageCollection GetDevTestLabGalleryImages()
+        {
+            return GetCachedClient(Client => new DevTestLabGalleryImageCollection(Client, Id));
+        }
+
+        /// <summary>
+        /// Get gallery image.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/galleryimages/{name}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>GalleryImages_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="name"> The name of the gallery image. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="name"/> is null. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<DevTestLabGalleryImageResource>> GetDevTestLabGalleryImageAsync(string name, CancellationToken cancellationToken = default)
+        {
+            return await GetDevTestLabGalleryImages().GetAsync(name, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Get gallery image.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/galleryimages/{name}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>GalleryImages_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="name"> The name of the gallery image. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="name"/> is null. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<DevTestLabGalleryImageResource> GetDevTestLabGalleryImage(string name, CancellationToken cancellationToken = default)
+        {
+            return GetDevTestLabGalleryImages().Get(name, cancellationToken);
+        }
+
         /// <summary> Gets a collection of DevTestLabNotificationChannelResources in the DevTestLab. </summary>
         /// <returns> An object representing collection of DevTestLabNotificationChannelResources and their operations over a DevTestLabNotificationChannelResource. </returns>
         public virtual DevTestLabNotificationChannelCollection GetDevTestLabNotificationChannels()
@@ -491,6 +540,59 @@ namespace Azure.ResourceManager.DevTestLabs
             return GetDevTestLabPolicies(policySetName).Get(name, expand, cancellationToken);
         }
 
+        /// <summary> Gets a collection of LabSecretResources in the DevTestLab. </summary>
+        /// <returns> An object representing collection of LabSecretResources and their operations over a LabSecretResource. </returns>
+        public virtual LabSecretCollection GetLabSecrets()
+        {
+            return GetCachedClient(Client => new LabSecretCollection(Client, Id));
+        }
+
+        /// <summary>
+        /// Get lab secret.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/secrets/{name}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>LabSecrets_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="name"> The name of the lab secret. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="name"/> is null. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<LabSecretResource>> GetLabSecretAsync(string name, CancellationToken cancellationToken = default)
+        {
+            return await GetLabSecrets().GetAsync(name, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Get lab secret.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/secrets/{name}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>LabSecrets_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="name"> The name of the lab secret. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="name"/> is null. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<LabSecretResource> GetLabSecret(string name, CancellationToken cancellationToken = default)
+        {
+            return GetLabSecrets().Get(name, cancellationToken);
+        }
+
         /// <summary> Gets a collection of DevTestLabServiceRunnerResources in the DevTestLab. </summary>
         /// <returns> An object representing collection of DevTestLabServiceRunnerResources and their operations over a DevTestLabServiceRunnerResource. </returns>
         public virtual DevTestLabServiceRunnerCollection GetDevTestLabServiceRunners()
@@ -542,6 +644,61 @@ namespace Azure.ResourceManager.DevTestLabs
         public virtual Response<DevTestLabServiceRunnerResource> GetDevTestLabServiceRunner(string name, CancellationToken cancellationToken = default)
         {
             return GetDevTestLabServiceRunners().Get(name, cancellationToken);
+        }
+
+        /// <summary> Gets a collection of SharedGalleryResources in the DevTestLab. </summary>
+        /// <returns> An object representing collection of SharedGalleryResources and their operations over a SharedGalleryResource. </returns>
+        public virtual SharedGalleryCollection GetSharedGalleries()
+        {
+            return GetCachedClient(Client => new SharedGalleryCollection(Client, Id));
+        }
+
+        /// <summary>
+        /// Get shared gallery.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/sharedgalleries/{name}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>SharedGalleries_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="name"> The name of the shared gallery. </param>
+        /// <param name="expand"> Specify the $expand query. Example: &apos;properties($select=identity)&apos;. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="name"/> is null. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<SharedGalleryResource>> GetSharedGalleryAsync(string name, string expand = null, CancellationToken cancellationToken = default)
+        {
+            return await GetSharedGalleries().GetAsync(name, expand, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Get shared gallery.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/sharedgalleries/{name}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>SharedGalleries_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="name"> The name of the shared gallery. </param>
+        /// <param name="expand"> Specify the $expand query. Example: &apos;properties($select=identity)&apos;. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="name"/> is null. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<SharedGalleryResource> GetSharedGallery(string name, string expand = null, CancellationToken cancellationToken = default)
+        {
+            return GetSharedGalleries().Get(name, expand, cancellationToken);
         }
 
         /// <summary> Gets a collection of DevTestLabUserResources in the DevTestLab. </summary>
@@ -856,7 +1013,7 @@ namespace Azure.ResourceManager.DevTestLabs
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="patch"> A lab. </param>
+        /// <param name="patch"> Allows modifying tags of labs. All other properties will be ignored. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="patch"/> is null. </exception>
         public virtual async Task<Response<DevTestLabResource>> UpdateAsync(DevTestLabPatch patch, CancellationToken cancellationToken = default)
@@ -890,7 +1047,7 @@ namespace Azure.ResourceManager.DevTestLabs
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="patch"> A lab. </param>
+        /// <param name="patch"> Allows modifying tags of labs. All other properties will be ignored. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="patch"/> is null. </exception>
         public virtual Response<DevTestLabResource> Update(DevTestLabPatch patch, CancellationToken cancellationToken = default)
@@ -1047,6 +1204,66 @@ namespace Azure.ResourceManager.DevTestLabs
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletionResponse(cancellationToken);
                 return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Ensure the current user has a valid profile in the lab.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{name}/ensureCurrentUserProfile</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Labs_EnsureCurrentUserProfile</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual async Task<Response> EnsureCurrentUserProfileAsync(CancellationToken cancellationToken = default)
+        {
+            using var scope = _devTestLabLabsClientDiagnostics.CreateScope("DevTestLabResource.EnsureCurrentUserProfile");
+            scope.Start();
+            try
+            {
+                var response = await _devTestLabLabsRestClient.EnsureCurrentUserProfileAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Ensure the current user has a valid profile in the lab.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{name}/ensureCurrentUserProfile</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Labs_EnsureCurrentUserProfile</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual Response EnsureCurrentUserProfile(CancellationToken cancellationToken = default)
+        {
+            using var scope = _devTestLabLabsClientDiagnostics.CreateScope("DevTestLabResource.EnsureCurrentUserProfile");
+            scope.Start();
+            try
+            {
+                var response = _devTestLabLabsRestClient.EnsureCurrentUserProfile(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
+                return response;
             }
             catch (Exception e)
             {
@@ -1320,55 +1537,53 @@ namespace Azure.ResourceManager.DevTestLabs
         }
 
         /// <summary>
-        /// List gallery images in a given lab.
+        /// List policy sets in a given lab.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/galleryimages</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/policysets</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>GalleryImages_List</description>
+        /// <description>PolicySets_List</description>
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="expand"> Specify the $expand query. Example: &apos;properties($select=author)&apos;. </param>
-        /// <param name="filter"> The filter to apply to the operation. Example: &apos;$filter=contains(name,&apos;myName&apos;). </param>
+        /// <param name="filter"> The filter to apply to the operation. Example: &apos;$filter=contains(name,&apos;myName&apos;)&apos;. </param>
         /// <param name="top"> The maximum number of resources to return from the operation. Example: &apos;$top=10&apos;. </param>
         /// <param name="orderby"> The ordering expression for the results, using OData notation. Example: &apos;$orderby=name desc&apos;. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> An async collection of <see cref="DevTestLabGalleryImage" /> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<DevTestLabGalleryImage> GetGalleryImagesAsync(string expand = null, string filter = null, int? top = null, string orderby = null, CancellationToken cancellationToken = default)
+        /// <returns> An async collection of <see cref="PolicySet" /> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<PolicySet> GetPolicySetsAsync(string filter = null, int? top = null, string orderby = null, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _galleryImagesRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, expand, filter, top, orderby);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _galleryImagesRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, expand, filter, top, orderby);
-            return PageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, DevTestLabGalleryImage.DeserializeDevTestLabGalleryImage, _galleryImagesClientDiagnostics, Pipeline, "DevTestLabResource.GetGalleryImages", "value", "nextLink", cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _policySetsRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, filter, top, orderby);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _policySetsRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, filter, top, orderby);
+            return PageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, PolicySet.DeserializePolicySet, _policySetsClientDiagnostics, Pipeline, "DevTestLabResource.GetPolicySets", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
-        /// List gallery images in a given lab.
+        /// List policy sets in a given lab.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/galleryimages</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/policysets</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>GalleryImages_List</description>
+        /// <description>PolicySets_List</description>
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="expand"> Specify the $expand query. Example: &apos;properties($select=author)&apos;. </param>
-        /// <param name="filter"> The filter to apply to the operation. Example: &apos;$filter=contains(name,&apos;myName&apos;). </param>
+        /// <param name="filter"> The filter to apply to the operation. Example: &apos;$filter=contains(name,&apos;myName&apos;)&apos;. </param>
         /// <param name="top"> The maximum number of resources to return from the operation. Example: &apos;$top=10&apos;. </param>
         /// <param name="orderby"> The ordering expression for the results, using OData notation. Example: &apos;$orderby=name desc&apos;. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="DevTestLabGalleryImage" /> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<DevTestLabGalleryImage> GetGalleryImages(string expand = null, string filter = null, int? top = null, string orderby = null, CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="PolicySet" /> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<PolicySet> GetPolicySets(string filter = null, int? top = null, string orderby = null, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _galleryImagesRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, expand, filter, top, orderby);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _galleryImagesRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, expand, filter, top, orderby);
-            return PageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, DevTestLabGalleryImage.DeserializeDevTestLabGalleryImage, _galleryImagesClientDiagnostics, Pipeline, "DevTestLabResource.GetGalleryImages", "value", "nextLink", cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _policySetsRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, filter, top, orderby);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _policySetsRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, filter, top, orderby);
+            return PageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, PolicySet.DeserializePolicySet, _policySetsClientDiagnostics, Pipeline, "DevTestLabResource.GetPolicySets", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>

@@ -235,7 +235,7 @@ namespace Azure.ResourceManager.DevTestLabs
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="patch"> A notification. </param>
+        /// <param name="patch"> Allows modifying tags of notification channels. All other properties will be ignored. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="patch"/> is null. </exception>
         public virtual async Task<Response<DevTestLabNotificationChannelResource>> UpdateAsync(DevTestLabNotificationChannelPatch patch, CancellationToken cancellationToken = default)
@@ -269,7 +269,7 @@ namespace Azure.ResourceManager.DevTestLabs
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="patch"> A notification. </param>
+        /// <param name="patch"> Allows modifying tags of notification channels. All other properties will be ignored. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="patch"/> is null. </exception>
         public virtual Response<DevTestLabNotificationChannelResource> Update(DevTestLabNotificationChannelPatch patch, CancellationToken cancellationToken = default)

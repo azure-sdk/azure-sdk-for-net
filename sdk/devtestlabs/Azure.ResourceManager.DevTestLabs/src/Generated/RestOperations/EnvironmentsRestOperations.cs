@@ -33,7 +33,7 @@ namespace Azure.ResourceManager.DevTestLabs
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2018-09-15";
+            _apiVersion = apiVersion ?? "2021-09-01";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
@@ -82,7 +82,7 @@ namespace Azure.ResourceManager.DevTestLabs
         /// <param name="labName"> The name of the lab. </param>
         /// <param name="userName"> The name of the user profile. </param>
         /// <param name="expand"> Specify the $expand query. Example: &apos;properties($select=deploymentProperties)&apos;. </param>
-        /// <param name="filter"> The filter to apply to the operation. Example: &apos;$filter=contains(name,&apos;myName&apos;). </param>
+        /// <param name="filter"> The filter to apply to the operation. Example: &apos;$filter=contains(name,&apos;myName&apos;)&apos;. </param>
         /// <param name="top"> The maximum number of resources to return from the operation. Example: &apos;$top=10&apos;. </param>
         /// <param name="orderby"> The ordering expression for the results, using OData notation. Example: &apos;$orderby=name desc&apos;. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -117,7 +117,7 @@ namespace Azure.ResourceManager.DevTestLabs
         /// <param name="labName"> The name of the lab. </param>
         /// <param name="userName"> The name of the user profile. </param>
         /// <param name="expand"> Specify the $expand query. Example: &apos;properties($select=deploymentProperties)&apos;. </param>
-        /// <param name="filter"> The filter to apply to the operation. Example: &apos;$filter=contains(name,&apos;myName&apos;). </param>
+        /// <param name="filter"> The filter to apply to the operation. Example: &apos;$filter=contains(name,&apos;myName&apos;)&apos;. </param>
         /// <param name="top"> The maximum number of resources to return from the operation. Example: &apos;$top=10&apos;. </param>
         /// <param name="orderby"> The ordering expression for the results, using OData notation. Example: &apos;$orderby=name desc&apos;. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -454,7 +454,7 @@ namespace Azure.ResourceManager.DevTestLabs
         /// <param name="labName"> The name of the lab. </param>
         /// <param name="userName"> The name of the user profile. </param>
         /// <param name="name"> The name of the environment. </param>
-        /// <param name="patch"> An environment, which is essentially an ARM template deployment. </param>
+        /// <param name="patch"> Allows modifying tags of environments. All other properties will be ignored. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="labName"/>, <paramref name="userName"/>, <paramref name="name"/> or <paramref name="patch"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="labName"/>, <paramref name="userName"/> or <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
@@ -489,7 +489,7 @@ namespace Azure.ResourceManager.DevTestLabs
         /// <param name="labName"> The name of the lab. </param>
         /// <param name="userName"> The name of the user profile. </param>
         /// <param name="name"> The name of the environment. </param>
-        /// <param name="patch"> An environment, which is essentially an ARM template deployment. </param>
+        /// <param name="patch"> Allows modifying tags of environments. All other properties will be ignored. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="labName"/>, <paramref name="userName"/>, <paramref name="name"/> or <paramref name="patch"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="labName"/>, <paramref name="userName"/> or <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
@@ -539,7 +539,7 @@ namespace Azure.ResourceManager.DevTestLabs
         /// <param name="labName"> The name of the lab. </param>
         /// <param name="userName"> The name of the user profile. </param>
         /// <param name="expand"> Specify the $expand query. Example: &apos;properties($select=deploymentProperties)&apos;. </param>
-        /// <param name="filter"> The filter to apply to the operation. Example: &apos;$filter=contains(name,&apos;myName&apos;). </param>
+        /// <param name="filter"> The filter to apply to the operation. Example: &apos;$filter=contains(name,&apos;myName&apos;)&apos;. </param>
         /// <param name="top"> The maximum number of resources to return from the operation. Example: &apos;$top=10&apos;. </param>
         /// <param name="orderby"> The ordering expression for the results, using OData notation. Example: &apos;$orderby=name desc&apos;. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -576,7 +576,7 @@ namespace Azure.ResourceManager.DevTestLabs
         /// <param name="labName"> The name of the lab. </param>
         /// <param name="userName"> The name of the user profile. </param>
         /// <param name="expand"> Specify the $expand query. Example: &apos;properties($select=deploymentProperties)&apos;. </param>
-        /// <param name="filter"> The filter to apply to the operation. Example: &apos;$filter=contains(name,&apos;myName&apos;). </param>
+        /// <param name="filter"> The filter to apply to the operation. Example: &apos;$filter=contains(name,&apos;myName&apos;)&apos;. </param>
         /// <param name="top"> The maximum number of resources to return from the operation. Example: &apos;$top=10&apos;. </param>
         /// <param name="orderby"> The ordering expression for the results, using OData notation. Example: &apos;$orderby=name desc&apos;. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>

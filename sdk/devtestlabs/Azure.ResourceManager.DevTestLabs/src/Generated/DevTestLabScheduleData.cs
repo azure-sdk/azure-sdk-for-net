@@ -23,6 +23,7 @@ namespace Azure.ResourceManager.DevTestLabs
         /// <param name="location"> The location. </param>
         public DevTestLabScheduleData(AzureLocation location) : base(location)
         {
+            Weekdays = new ChangeTrackingList<string>();
         }
 
         /// <summary> Initializes a new instance of DevTestLabScheduleData. </summary>
@@ -32,70 +33,48 @@ namespace Azure.ResourceManager.DevTestLabs
         /// <param name="systemData"> The systemData. </param>
         /// <param name="tags"> The tags. </param>
         /// <param name="location"> The location. </param>
-        /// <param name="status"> The status of the schedule (i.e. Enabled, Disabled). </param>
+        /// <param name="statusPropertiesStatus"> The status of the schedule (i.e. Enabled, Disabled). </param>
         /// <param name="taskType"> The task type of the schedule (e.g. LabVmsShutdownTask, LabVmAutoStart). </param>
-        /// <param name="weeklyRecurrence"> If the schedule will occur only some days of the week, specify the weekly recurrence. </param>
-        /// <param name="dailyRecurrence"> If the schedule will occur once each day of the week, specify the daily recurrence. </param>
-        /// <param name="hourlyRecurrence"> If the schedule will occur multiple times a day, specify the hourly recurrence. </param>
         /// <param name="timeZoneId"> The time zone ID (e.g. Pacific Standard time). </param>
-        /// <param name="notificationSettings"> Notification settings. </param>
         /// <param name="createdOn"> The creation date of the schedule. </param>
         /// <param name="targetResourceId"> The resource ID to which the schedule belongs. </param>
         /// <param name="provisioningState"> The provisioning status of the resource. </param>
         /// <param name="uniqueIdentifier"> The unique immutable identifier of a resource (Guid). </param>
-        internal DevTestLabScheduleData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, DevTestLabEnableStatus? status, string taskType, DevTestLabWeekDetails weeklyRecurrence, DayDetails dailyRecurrence, HourDetails hourlyRecurrence, string timeZoneId, DevTestLabNotificationSettings notificationSettings, DateTimeOffset? createdOn, string targetResourceId, string provisioningState, Guid? uniqueIdentifier) : base(id, name, resourceType, systemData, tags, location)
+        /// <param name="statusPropertiesNotificationSettingsStatus"> If notifications are enabled for this schedule (i.e. Enabled, Disabled). </param>
+        /// <param name="timeInMinutes"> Time in minutes before event at which notification will be sent. </param>
+        /// <param name="webhookUri"> The webhook URL to which the notification will be sent. </param>
+        /// <param name="emailRecipient"> The email recipient to send notifications to (can be a list of semi-colon separated email addresses). </param>
+        /// <param name="notificationLocale"> The locale to use when sending a notification (fallback for unsupported languages is EN). </param>
+        /// <param name="minute"> Minutes of the hour the schedule will run. </param>
+        /// <param name="timePropertiesDailyRecurrenceTime"> The time of day the schedule will occur. </param>
+        /// <param name="weekdays"> The days of the week for which the schedule is set (e.g. Sunday, Monday, Tuesday, etc.). </param>
+        /// <param name="timePropertiesWeeklyRecurrenceTime"> The time of the day the schedule will occur. </param>
+        internal DevTestLabScheduleData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, DevTestLabEnableStatus? statusPropertiesStatus, string taskType, string timeZoneId, DateTimeOffset? createdOn, string targetResourceId, string provisioningState, Guid? uniqueIdentifier, DevTestLabEnableStatus? statusPropertiesNotificationSettingsStatus, int? timeInMinutes, Uri webhookUri, string emailRecipient, string notificationLocale, int? minute, string timePropertiesDailyRecurrenceTime, IList<string> weekdays, string timePropertiesWeeklyRecurrenceTime) : base(id, name, resourceType, systemData, tags, location)
         {
-            Status = status;
+            StatusPropertiesStatus = statusPropertiesStatus;
             TaskType = taskType;
-            WeeklyRecurrence = weeklyRecurrence;
-            DailyRecurrence = dailyRecurrence;
-            HourlyRecurrence = hourlyRecurrence;
             TimeZoneId = timeZoneId;
-            NotificationSettings = notificationSettings;
             CreatedOn = createdOn;
             TargetResourceId = targetResourceId;
             ProvisioningState = provisioningState;
             UniqueIdentifier = uniqueIdentifier;
+            StatusPropertiesNotificationSettingsStatus = statusPropertiesNotificationSettingsStatus;
+            TimeInMinutes = timeInMinutes;
+            WebhookUri = webhookUri;
+            EmailRecipient = emailRecipient;
+            NotificationLocale = notificationLocale;
+            Minute = minute;
+            TimePropertiesDailyRecurrenceTime = timePropertiesDailyRecurrenceTime;
+            Weekdays = weekdays;
+            TimePropertiesWeeklyRecurrenceTime = timePropertiesWeeklyRecurrenceTime;
         }
 
         /// <summary> The status of the schedule (i.e. Enabled, Disabled). </summary>
-        public DevTestLabEnableStatus? Status { get; set; }
+        public DevTestLabEnableStatus? StatusPropertiesStatus { get; set; }
         /// <summary> The task type of the schedule (e.g. LabVmsShutdownTask, LabVmAutoStart). </summary>
         public string TaskType { get; set; }
-        /// <summary> If the schedule will occur only some days of the week, specify the weekly recurrence. </summary>
-        public DevTestLabWeekDetails WeeklyRecurrence { get; set; }
-        /// <summary> If the schedule will occur once each day of the week, specify the daily recurrence. </summary>
-        internal DayDetails DailyRecurrence { get; set; }
-        /// <summary> The time of day the schedule will occur. </summary>
-        public string DailyRecurrenceTime
-        {
-            get => DailyRecurrence is null ? default : DailyRecurrence.Time;
-            set
-            {
-                if (DailyRecurrence is null)
-                    DailyRecurrence = new DayDetails();
-                DailyRecurrence.Time = value;
-            }
-        }
-
-        /// <summary> If the schedule will occur multiple times a day, specify the hourly recurrence. </summary>
-        internal HourDetails HourlyRecurrence { get; set; }
-        /// <summary> Minutes of the hour the schedule will run. </summary>
-        public int? HourlyRecurrenceMinute
-        {
-            get => HourlyRecurrence is null ? default : HourlyRecurrence.Minute;
-            set
-            {
-                if (HourlyRecurrence is null)
-                    HourlyRecurrence = new HourDetails();
-                HourlyRecurrence.Minute = value;
-            }
-        }
-
         /// <summary> The time zone ID (e.g. Pacific Standard time). </summary>
         public string TimeZoneId { get; set; }
-        /// <summary> Notification settings. </summary>
-        public DevTestLabNotificationSettings NotificationSettings { get; set; }
         /// <summary> The creation date of the schedule. </summary>
         public DateTimeOffset? CreatedOn { get; }
         /// <summary> The resource ID to which the schedule belongs. </summary>
@@ -104,5 +83,23 @@ namespace Azure.ResourceManager.DevTestLabs
         public string ProvisioningState { get; }
         /// <summary> The unique immutable identifier of a resource (Guid). </summary>
         public Guid? UniqueIdentifier { get; }
+        /// <summary> If notifications are enabled for this schedule (i.e. Enabled, Disabled). </summary>
+        public DevTestLabEnableStatus? StatusPropertiesNotificationSettingsStatus { get; set; }
+        /// <summary> Time in minutes before event at which notification will be sent. </summary>
+        public int? TimeInMinutes { get; set; }
+        /// <summary> The webhook URL to which the notification will be sent. </summary>
+        public Uri WebhookUri { get; set; }
+        /// <summary> The email recipient to send notifications to (can be a list of semi-colon separated email addresses). </summary>
+        public string EmailRecipient { get; set; }
+        /// <summary> The locale to use when sending a notification (fallback for unsupported languages is EN). </summary>
+        public string NotificationLocale { get; set; }
+        /// <summary> Minutes of the hour the schedule will run. </summary>
+        public int? Minute { get; set; }
+        /// <summary> The time of day the schedule will occur. </summary>
+        public string TimePropertiesDailyRecurrenceTime { get; set; }
+        /// <summary> The days of the week for which the schedule is set (e.g. Sunday, Monday, Tuesday, etc.). </summary>
+        public IList<string> Weekdays { get; }
+        /// <summary> The time of the day the schedule will occur. </summary>
+        public string TimePropertiesWeeklyRecurrenceTime { get; set; }
     }
 }

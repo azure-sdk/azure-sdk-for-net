@@ -5,9 +5,9 @@
 
 #nullable disable
 
+using System;
 using System.Collections.Generic;
 using Azure.Core;
-using Azure.ResourceManager.DevTestLabs;
 using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.DevTestLabs.Models
@@ -19,6 +19,10 @@ namespace Azure.ResourceManager.DevTestLabs.Models
         /// <param name="location"> The location. </param>
         public DevTestLabApplicableSchedule(AzureLocation location) : base(location)
         {
+            TagsPropertiesLabVmsStartupTags = new ChangeTrackingDictionary<string, string>();
+            WeekdaysPropertiesLabVmsStartupPropertiesWeeklyRecurrenceWeekdays = new ChangeTrackingList<string>();
+            TagsPropertiesLabVmsShutdownTags = new ChangeTrackingDictionary<string, string>();
+            WeekdaysPropertiesLabVmsShutdownPropertiesWeeklyRecurrenceWeekdays = new ChangeTrackingList<string>();
         }
 
         /// <summary> Initializes a new instance of DevTestLabApplicableSchedule. </summary>
@@ -28,17 +32,185 @@ namespace Azure.ResourceManager.DevTestLabs.Models
         /// <param name="systemData"> The systemData. </param>
         /// <param name="tags"> The tags. </param>
         /// <param name="location"> The location. </param>
-        /// <param name="labVmsShutdown"> The auto-shutdown schedule, if one has been set at the lab or lab resource level. </param>
-        /// <param name="labVmsStartup"> The auto-startup schedule, if one has been set at the lab or lab resource level. </param>
-        internal DevTestLabApplicableSchedule(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, DevTestLabScheduleData labVmsShutdown, DevTestLabScheduleData labVmsStartup) : base(id, name, resourceType, systemData, tags, location)
+        /// <param name="idPropertiesLabVmsStartupId"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
+        /// <param name="namePropertiesLabVmsStartupName"> The name of the resource. </param>
+        /// <param name="typePropertiesLabVmsStartupType"> The type of the resource. E.g. &quot;Microsoft.Compute/virtualMachines&quot; or &quot;Microsoft.Storage/storageAccounts&quot;. </param>
+        /// <param name="tagsPropertiesLabVmsStartupTags"> Resource tags. </param>
+        /// <param name="locationPropertiesLabVmsStartupLocation"> The geo-location where the resource lives. </param>
+        /// <param name="systemDataPropertiesLabVmsStartupSystemData"> The system metadata relating to this resource. </param>
+        /// <param name="statusPropertiesLabVmsStartupPropertiesStatus"> The status of the schedule (i.e. Enabled, Disabled). </param>
+        /// <param name="taskTypePropertiesLabVmsStartupPropertiesTaskType"> The task type of the schedule (e.g. LabVmsShutdownTask, LabVmAutoStart). </param>
+        /// <param name="timeZoneIdPropertiesLabVmsStartupPropertiesTimeZoneId"> The time zone ID (e.g. Pacific Standard time). </param>
+        /// <param name="createdDatePropertiesLabVmsStartupPropertiesCreatedOn"> The creation date of the schedule. </param>
+        /// <param name="targetResourceIdPropertiesLabVmsStartupPropertiesTargetResourceId"> The resource ID to which the schedule belongs. </param>
+        /// <param name="provisioningStatePropertiesLabVmsStartupPropertiesProvisioningState"> The provisioning status of the resource. </param>
+        /// <param name="uniqueIdentifierPropertiesLabVmsStartupPropertiesUniqueIdentifier"> The unique immutable identifier of a resource (Guid). </param>
+        /// <param name="statusPropertiesLabVmsStartupPropertiesNotificationSettingsStatus"> If notifications are enabled for this schedule (i.e. Enabled, Disabled). </param>
+        /// <param name="timeInMinutesPropertiesLabVmsStartupPropertiesNotificationSettingsTimeInMinutes"> Time in minutes before event at which notification will be sent. </param>
+        /// <param name="webhookUrlPropertiesLabVmsStartupPropertiesNotificationSettingsWebhookUri"> The webhook URL to which the notification will be sent. </param>
+        /// <param name="emailRecipientPropertiesLabVmsStartupPropertiesNotificationSettingsEmailRecipient"> The email recipient to send notifications to (can be a list of semi-colon separated email addresses). </param>
+        /// <param name="notificationLocalePropertiesLabVmsStartupPropertiesNotificationSettingsNotificationLocale"> The locale to use when sending a notification (fallback for unsupported languages is EN). </param>
+        /// <param name="minutePropertiesLabVmsStartupPropertiesHourlyRecurrenceMinute"> Minutes of the hour the schedule will run. </param>
+        /// <param name="timePropertiesLabVmsStartupPropertiesDailyRecurrenceTime"> The time of day the schedule will occur. </param>
+        /// <param name="weekdaysPropertiesLabVmsStartupPropertiesWeeklyRecurrenceWeekdays"> The days of the week for which the schedule is set (e.g. Sunday, Monday, Tuesday, etc.). </param>
+        /// <param name="timePropertiesLabVmsStartupPropertiesWeeklyRecurrenceTime"> The time of the day the schedule will occur. </param>
+        /// <param name="idPropertiesLabVmsShutdownId"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
+        /// <param name="namePropertiesLabVmsShutdownName"> The name of the resource. </param>
+        /// <param name="typePropertiesLabVmsShutdownType"> The type of the resource. E.g. &quot;Microsoft.Compute/virtualMachines&quot; or &quot;Microsoft.Storage/storageAccounts&quot;. </param>
+        /// <param name="tagsPropertiesLabVmsShutdownTags"> Resource tags. </param>
+        /// <param name="locationPropertiesLabVmsShutdownLocation"> The geo-location where the resource lives. </param>
+        /// <param name="systemDataPropertiesLabVmsShutdownSystemData"> The system metadata relating to this resource. </param>
+        /// <param name="statusPropertiesLabVmsShutdownPropertiesStatus"> The status of the schedule (i.e. Enabled, Disabled). </param>
+        /// <param name="taskTypePropertiesLabVmsShutdownPropertiesTaskType"> The task type of the schedule (e.g. LabVmsShutdownTask, LabVmAutoStart). </param>
+        /// <param name="timeZoneIdPropertiesLabVmsShutdownPropertiesTimeZoneId"> The time zone ID (e.g. Pacific Standard time). </param>
+        /// <param name="createdDatePropertiesLabVmsShutdownPropertiesCreatedOn"> The creation date of the schedule. </param>
+        /// <param name="targetResourceIdPropertiesLabVmsShutdownPropertiesTargetResourceId"> The resource ID to which the schedule belongs. </param>
+        /// <param name="provisioningStatePropertiesLabVmsShutdownPropertiesProvisioningState"> The provisioning status of the resource. </param>
+        /// <param name="uniqueIdentifierPropertiesLabVmsShutdownPropertiesUniqueIdentifier"> The unique immutable identifier of a resource (Guid). </param>
+        /// <param name="statusPropertiesLabVmsShutdownPropertiesNotificationSettingsStatus"> If notifications are enabled for this schedule (i.e. Enabled, Disabled). </param>
+        /// <param name="timeInMinutesPropertiesLabVmsShutdownPropertiesNotificationSettingsTimeInMinutes"> Time in minutes before event at which notification will be sent. </param>
+        /// <param name="webhookUrlPropertiesLabVmsShutdownPropertiesNotificationSettingsWebhookUri"> The webhook URL to which the notification will be sent. </param>
+        /// <param name="emailRecipientPropertiesLabVmsShutdownPropertiesNotificationSettingsEmailRecipient"> The email recipient to send notifications to (can be a list of semi-colon separated email addresses). </param>
+        /// <param name="notificationLocalePropertiesLabVmsShutdownPropertiesNotificationSettingsNotificationLocale"> The locale to use when sending a notification (fallback for unsupported languages is EN). </param>
+        /// <param name="minutePropertiesLabVmsShutdownPropertiesHourlyRecurrenceMinute"> Minutes of the hour the schedule will run. </param>
+        /// <param name="timePropertiesLabVmsShutdownPropertiesDailyRecurrenceTime"> The time of day the schedule will occur. </param>
+        /// <param name="weekdaysPropertiesLabVmsShutdownPropertiesWeeklyRecurrenceWeekdays"> The days of the week for which the schedule is set (e.g. Sunday, Monday, Tuesday, etc.). </param>
+        /// <param name="timePropertiesLabVmsShutdownPropertiesWeeklyRecurrenceTime"> The time of the day the schedule will occur. </param>
+        internal DevTestLabApplicableSchedule(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, string idPropertiesLabVmsStartupId, string namePropertiesLabVmsStartupName, string typePropertiesLabVmsStartupType, IDictionary<string, string> tagsPropertiesLabVmsStartupTags, AzureLocation? locationPropertiesLabVmsStartupLocation, SystemData systemDataPropertiesLabVmsStartupSystemData, DevTestLabEnableStatus? statusPropertiesLabVmsStartupPropertiesStatus, string taskTypePropertiesLabVmsStartupPropertiesTaskType, string timeZoneIdPropertiesLabVmsStartupPropertiesTimeZoneId, DateTimeOffset? createdDatePropertiesLabVmsStartupPropertiesCreatedOn, string targetResourceIdPropertiesLabVmsStartupPropertiesTargetResourceId, string provisioningStatePropertiesLabVmsStartupPropertiesProvisioningState, Guid? uniqueIdentifierPropertiesLabVmsStartupPropertiesUniqueIdentifier, DevTestLabEnableStatus? statusPropertiesLabVmsStartupPropertiesNotificationSettingsStatus, int? timeInMinutesPropertiesLabVmsStartupPropertiesNotificationSettingsTimeInMinutes, Uri webhookUrlPropertiesLabVmsStartupPropertiesNotificationSettingsWebhookUri, string emailRecipientPropertiesLabVmsStartupPropertiesNotificationSettingsEmailRecipient, string notificationLocalePropertiesLabVmsStartupPropertiesNotificationSettingsNotificationLocale, int? minutePropertiesLabVmsStartupPropertiesHourlyRecurrenceMinute, string timePropertiesLabVmsStartupPropertiesDailyRecurrenceTime, IList<string> weekdaysPropertiesLabVmsStartupPropertiesWeeklyRecurrenceWeekdays, string timePropertiesLabVmsStartupPropertiesWeeklyRecurrenceTime, string idPropertiesLabVmsShutdownId, string namePropertiesLabVmsShutdownName, string typePropertiesLabVmsShutdownType, IDictionary<string, string> tagsPropertiesLabVmsShutdownTags, AzureLocation? locationPropertiesLabVmsShutdownLocation, SystemData systemDataPropertiesLabVmsShutdownSystemData, DevTestLabEnableStatus? statusPropertiesLabVmsShutdownPropertiesStatus, string taskTypePropertiesLabVmsShutdownPropertiesTaskType, string timeZoneIdPropertiesLabVmsShutdownPropertiesTimeZoneId, DateTimeOffset? createdDatePropertiesLabVmsShutdownPropertiesCreatedOn, string targetResourceIdPropertiesLabVmsShutdownPropertiesTargetResourceId, string provisioningStatePropertiesLabVmsShutdownPropertiesProvisioningState, Guid? uniqueIdentifierPropertiesLabVmsShutdownPropertiesUniqueIdentifier, DevTestLabEnableStatus? statusPropertiesLabVmsShutdownPropertiesNotificationSettingsStatus, int? timeInMinutesPropertiesLabVmsShutdownPropertiesNotificationSettingsTimeInMinutes, Uri webhookUrlPropertiesLabVmsShutdownPropertiesNotificationSettingsWebhookUri, string emailRecipientPropertiesLabVmsShutdownPropertiesNotificationSettingsEmailRecipient, string notificationLocalePropertiesLabVmsShutdownPropertiesNotificationSettingsNotificationLocale, int? minutePropertiesLabVmsShutdownPropertiesHourlyRecurrenceMinute, string timePropertiesLabVmsShutdownPropertiesDailyRecurrenceTime, IList<string> weekdaysPropertiesLabVmsShutdownPropertiesWeeklyRecurrenceWeekdays, string timePropertiesLabVmsShutdownPropertiesWeeklyRecurrenceTime) : base(id, name, resourceType, systemData, tags, location)
         {
-            LabVmsShutdown = labVmsShutdown;
-            LabVmsStartup = labVmsStartup;
+            IdPropertiesLabVmsStartupId = idPropertiesLabVmsStartupId;
+            NamePropertiesLabVmsStartupName = namePropertiesLabVmsStartupName;
+            TypePropertiesLabVmsStartupType = typePropertiesLabVmsStartupType;
+            TagsPropertiesLabVmsStartupTags = tagsPropertiesLabVmsStartupTags;
+            LocationPropertiesLabVmsStartupLocation = locationPropertiesLabVmsStartupLocation;
+            SystemDataPropertiesLabVmsStartupSystemData = systemDataPropertiesLabVmsStartupSystemData;
+            StatusPropertiesLabVmsStartupPropertiesStatus = statusPropertiesLabVmsStartupPropertiesStatus;
+            TaskTypePropertiesLabVmsStartupPropertiesTaskType = taskTypePropertiesLabVmsStartupPropertiesTaskType;
+            TimeZoneIdPropertiesLabVmsStartupPropertiesTimeZoneId = timeZoneIdPropertiesLabVmsStartupPropertiesTimeZoneId;
+            CreatedDatePropertiesLabVmsStartupPropertiesCreatedOn = createdDatePropertiesLabVmsStartupPropertiesCreatedOn;
+            TargetResourceIdPropertiesLabVmsStartupPropertiesTargetResourceId = targetResourceIdPropertiesLabVmsStartupPropertiesTargetResourceId;
+            ProvisioningStatePropertiesLabVmsStartupPropertiesProvisioningState = provisioningStatePropertiesLabVmsStartupPropertiesProvisioningState;
+            UniqueIdentifierPropertiesLabVmsStartupPropertiesUniqueIdentifier = uniqueIdentifierPropertiesLabVmsStartupPropertiesUniqueIdentifier;
+            StatusPropertiesLabVmsStartupPropertiesNotificationSettingsStatus = statusPropertiesLabVmsStartupPropertiesNotificationSettingsStatus;
+            TimeInMinutesPropertiesLabVmsStartupPropertiesNotificationSettingsTimeInMinutes = timeInMinutesPropertiesLabVmsStartupPropertiesNotificationSettingsTimeInMinutes;
+            WebhookUrlPropertiesLabVmsStartupPropertiesNotificationSettingsWebhookUri = webhookUrlPropertiesLabVmsStartupPropertiesNotificationSettingsWebhookUri;
+            EmailRecipientPropertiesLabVmsStartupPropertiesNotificationSettingsEmailRecipient = emailRecipientPropertiesLabVmsStartupPropertiesNotificationSettingsEmailRecipient;
+            NotificationLocalePropertiesLabVmsStartupPropertiesNotificationSettingsNotificationLocale = notificationLocalePropertiesLabVmsStartupPropertiesNotificationSettingsNotificationLocale;
+            MinutePropertiesLabVmsStartupPropertiesHourlyRecurrenceMinute = minutePropertiesLabVmsStartupPropertiesHourlyRecurrenceMinute;
+            TimePropertiesLabVmsStartupPropertiesDailyRecurrenceTime = timePropertiesLabVmsStartupPropertiesDailyRecurrenceTime;
+            WeekdaysPropertiesLabVmsStartupPropertiesWeeklyRecurrenceWeekdays = weekdaysPropertiesLabVmsStartupPropertiesWeeklyRecurrenceWeekdays;
+            TimePropertiesLabVmsStartupPropertiesWeeklyRecurrenceTime = timePropertiesLabVmsStartupPropertiesWeeklyRecurrenceTime;
+            IdPropertiesLabVmsShutdownId = idPropertiesLabVmsShutdownId;
+            NamePropertiesLabVmsShutdownName = namePropertiesLabVmsShutdownName;
+            TypePropertiesLabVmsShutdownType = typePropertiesLabVmsShutdownType;
+            TagsPropertiesLabVmsShutdownTags = tagsPropertiesLabVmsShutdownTags;
+            LocationPropertiesLabVmsShutdownLocation = locationPropertiesLabVmsShutdownLocation;
+            SystemDataPropertiesLabVmsShutdownSystemData = systemDataPropertiesLabVmsShutdownSystemData;
+            StatusPropertiesLabVmsShutdownPropertiesStatus = statusPropertiesLabVmsShutdownPropertiesStatus;
+            TaskTypePropertiesLabVmsShutdownPropertiesTaskType = taskTypePropertiesLabVmsShutdownPropertiesTaskType;
+            TimeZoneIdPropertiesLabVmsShutdownPropertiesTimeZoneId = timeZoneIdPropertiesLabVmsShutdownPropertiesTimeZoneId;
+            CreatedDatePropertiesLabVmsShutdownPropertiesCreatedOn = createdDatePropertiesLabVmsShutdownPropertiesCreatedOn;
+            TargetResourceIdPropertiesLabVmsShutdownPropertiesTargetResourceId = targetResourceIdPropertiesLabVmsShutdownPropertiesTargetResourceId;
+            ProvisioningStatePropertiesLabVmsShutdownPropertiesProvisioningState = provisioningStatePropertiesLabVmsShutdownPropertiesProvisioningState;
+            UniqueIdentifierPropertiesLabVmsShutdownPropertiesUniqueIdentifier = uniqueIdentifierPropertiesLabVmsShutdownPropertiesUniqueIdentifier;
+            StatusPropertiesLabVmsShutdownPropertiesNotificationSettingsStatus = statusPropertiesLabVmsShutdownPropertiesNotificationSettingsStatus;
+            TimeInMinutesPropertiesLabVmsShutdownPropertiesNotificationSettingsTimeInMinutes = timeInMinutesPropertiesLabVmsShutdownPropertiesNotificationSettingsTimeInMinutes;
+            WebhookUrlPropertiesLabVmsShutdownPropertiesNotificationSettingsWebhookUri = webhookUrlPropertiesLabVmsShutdownPropertiesNotificationSettingsWebhookUri;
+            EmailRecipientPropertiesLabVmsShutdownPropertiesNotificationSettingsEmailRecipient = emailRecipientPropertiesLabVmsShutdownPropertiesNotificationSettingsEmailRecipient;
+            NotificationLocalePropertiesLabVmsShutdownPropertiesNotificationSettingsNotificationLocale = notificationLocalePropertiesLabVmsShutdownPropertiesNotificationSettingsNotificationLocale;
+            MinutePropertiesLabVmsShutdownPropertiesHourlyRecurrenceMinute = minutePropertiesLabVmsShutdownPropertiesHourlyRecurrenceMinute;
+            TimePropertiesLabVmsShutdownPropertiesDailyRecurrenceTime = timePropertiesLabVmsShutdownPropertiesDailyRecurrenceTime;
+            WeekdaysPropertiesLabVmsShutdownPropertiesWeeklyRecurrenceWeekdays = weekdaysPropertiesLabVmsShutdownPropertiesWeeklyRecurrenceWeekdays;
+            TimePropertiesLabVmsShutdownPropertiesWeeklyRecurrenceTime = timePropertiesLabVmsShutdownPropertiesWeeklyRecurrenceTime;
         }
 
-        /// <summary> The auto-shutdown schedule, if one has been set at the lab or lab resource level. </summary>
-        public DevTestLabScheduleData LabVmsShutdown { get; set; }
-        /// <summary> The auto-startup schedule, if one has been set at the lab or lab resource level. </summary>
-        public DevTestLabScheduleData LabVmsStartup { get; set; }
+        /// <summary> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </summary>
+        public string IdPropertiesLabVmsStartupId { get; }
+        /// <summary> The name of the resource. </summary>
+        public string NamePropertiesLabVmsStartupName { get; }
+        /// <summary> The type of the resource. E.g. &quot;Microsoft.Compute/virtualMachines&quot; or &quot;Microsoft.Storage/storageAccounts&quot;. </summary>
+        public string TypePropertiesLabVmsStartupType { get; }
+        /// <summary> Resource tags. </summary>
+        public IDictionary<string, string> TagsPropertiesLabVmsStartupTags { get; }
+        /// <summary> The geo-location where the resource lives. </summary>
+        public AzureLocation? LocationPropertiesLabVmsStartupLocation { get; set; }
+        /// <summary> The system metadata relating to this resource. </summary>
+        public SystemData SystemDataPropertiesLabVmsStartupSystemData { get; }
+        /// <summary> The status of the schedule (i.e. Enabled, Disabled). </summary>
+        public DevTestLabEnableStatus? StatusPropertiesLabVmsStartupPropertiesStatus { get; set; }
+        /// <summary> The task type of the schedule (e.g. LabVmsShutdownTask, LabVmAutoStart). </summary>
+        public string TaskTypePropertiesLabVmsStartupPropertiesTaskType { get; set; }
+        /// <summary> The time zone ID (e.g. Pacific Standard time). </summary>
+        public string TimeZoneIdPropertiesLabVmsStartupPropertiesTimeZoneId { get; set; }
+        /// <summary> The creation date of the schedule. </summary>
+        public DateTimeOffset? CreatedDatePropertiesLabVmsStartupPropertiesCreatedOn { get; }
+        /// <summary> The resource ID to which the schedule belongs. </summary>
+        public string TargetResourceIdPropertiesLabVmsStartupPropertiesTargetResourceId { get; set; }
+        /// <summary> The provisioning status of the resource. </summary>
+        public string ProvisioningStatePropertiesLabVmsStartupPropertiesProvisioningState { get; }
+        /// <summary> The unique immutable identifier of a resource (Guid). </summary>
+        public Guid? UniqueIdentifierPropertiesLabVmsStartupPropertiesUniqueIdentifier { get; }
+        /// <summary> If notifications are enabled for this schedule (i.e. Enabled, Disabled). </summary>
+        public DevTestLabEnableStatus? StatusPropertiesLabVmsStartupPropertiesNotificationSettingsStatus { get; set; }
+        /// <summary> Time in minutes before event at which notification will be sent. </summary>
+        public int? TimeInMinutesPropertiesLabVmsStartupPropertiesNotificationSettingsTimeInMinutes { get; set; }
+        /// <summary> The webhook URL to which the notification will be sent. </summary>
+        public Uri WebhookUrlPropertiesLabVmsStartupPropertiesNotificationSettingsWebhookUri { get; set; }
+        /// <summary> The email recipient to send notifications to (can be a list of semi-colon separated email addresses). </summary>
+        public string EmailRecipientPropertiesLabVmsStartupPropertiesNotificationSettingsEmailRecipient { get; set; }
+        /// <summary> The locale to use when sending a notification (fallback for unsupported languages is EN). </summary>
+        public string NotificationLocalePropertiesLabVmsStartupPropertiesNotificationSettingsNotificationLocale { get; set; }
+        /// <summary> Minutes of the hour the schedule will run. </summary>
+        public int? MinutePropertiesLabVmsStartupPropertiesHourlyRecurrenceMinute { get; set; }
+        /// <summary> The time of day the schedule will occur. </summary>
+        public string TimePropertiesLabVmsStartupPropertiesDailyRecurrenceTime { get; set; }
+        /// <summary> The days of the week for which the schedule is set (e.g. Sunday, Monday, Tuesday, etc.). </summary>
+        public IList<string> WeekdaysPropertiesLabVmsStartupPropertiesWeeklyRecurrenceWeekdays { get; }
+        /// <summary> The time of the day the schedule will occur. </summary>
+        public string TimePropertiesLabVmsStartupPropertiesWeeklyRecurrenceTime { get; set; }
+        /// <summary> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </summary>
+        public string IdPropertiesLabVmsShutdownId { get; }
+        /// <summary> The name of the resource. </summary>
+        public string NamePropertiesLabVmsShutdownName { get; }
+        /// <summary> The type of the resource. E.g. &quot;Microsoft.Compute/virtualMachines&quot; or &quot;Microsoft.Storage/storageAccounts&quot;. </summary>
+        public string TypePropertiesLabVmsShutdownType { get; }
+        /// <summary> Resource tags. </summary>
+        public IDictionary<string, string> TagsPropertiesLabVmsShutdownTags { get; }
+        /// <summary> The geo-location where the resource lives. </summary>
+        public AzureLocation? LocationPropertiesLabVmsShutdownLocation { get; set; }
+        /// <summary> The system metadata relating to this resource. </summary>
+        public SystemData SystemDataPropertiesLabVmsShutdownSystemData { get; }
+        /// <summary> The status of the schedule (i.e. Enabled, Disabled). </summary>
+        public DevTestLabEnableStatus? StatusPropertiesLabVmsShutdownPropertiesStatus { get; set; }
+        /// <summary> The task type of the schedule (e.g. LabVmsShutdownTask, LabVmAutoStart). </summary>
+        public string TaskTypePropertiesLabVmsShutdownPropertiesTaskType { get; set; }
+        /// <summary> The time zone ID (e.g. Pacific Standard time). </summary>
+        public string TimeZoneIdPropertiesLabVmsShutdownPropertiesTimeZoneId { get; set; }
+        /// <summary> The creation date of the schedule. </summary>
+        public DateTimeOffset? CreatedDatePropertiesLabVmsShutdownPropertiesCreatedOn { get; }
+        /// <summary> The resource ID to which the schedule belongs. </summary>
+        public string TargetResourceIdPropertiesLabVmsShutdownPropertiesTargetResourceId { get; set; }
+        /// <summary> The provisioning status of the resource. </summary>
+        public string ProvisioningStatePropertiesLabVmsShutdownPropertiesProvisioningState { get; }
+        /// <summary> The unique immutable identifier of a resource (Guid). </summary>
+        public Guid? UniqueIdentifierPropertiesLabVmsShutdownPropertiesUniqueIdentifier { get; }
+        /// <summary> If notifications are enabled for this schedule (i.e. Enabled, Disabled). </summary>
+        public DevTestLabEnableStatus? StatusPropertiesLabVmsShutdownPropertiesNotificationSettingsStatus { get; set; }
+        /// <summary> Time in minutes before event at which notification will be sent. </summary>
+        public int? TimeInMinutesPropertiesLabVmsShutdownPropertiesNotificationSettingsTimeInMinutes { get; set; }
+        /// <summary> The webhook URL to which the notification will be sent. </summary>
+        public Uri WebhookUrlPropertiesLabVmsShutdownPropertiesNotificationSettingsWebhookUri { get; set; }
+        /// <summary> The email recipient to send notifications to (can be a list of semi-colon separated email addresses). </summary>
+        public string EmailRecipientPropertiesLabVmsShutdownPropertiesNotificationSettingsEmailRecipient { get; set; }
+        /// <summary> The locale to use when sending a notification (fallback for unsupported languages is EN). </summary>
+        public string NotificationLocalePropertiesLabVmsShutdownPropertiesNotificationSettingsNotificationLocale { get; set; }
+        /// <summary> Minutes of the hour the schedule will run. </summary>
+        public int? MinutePropertiesLabVmsShutdownPropertiesHourlyRecurrenceMinute { get; set; }
+        /// <summary> The time of day the schedule will occur. </summary>
+        public string TimePropertiesLabVmsShutdownPropertiesDailyRecurrenceTime { get; set; }
+        /// <summary> The days of the week for which the schedule is set (e.g. Sunday, Monday, Tuesday, etc.). </summary>
+        public IList<string> WeekdaysPropertiesLabVmsShutdownPropertiesWeeklyRecurrenceWeekdays { get; }
+        /// <summary> The time of the day the schedule will occur. </summary>
+        public string TimePropertiesLabVmsShutdownPropertiesWeeklyRecurrenceTime { get; set; }
     }
 }

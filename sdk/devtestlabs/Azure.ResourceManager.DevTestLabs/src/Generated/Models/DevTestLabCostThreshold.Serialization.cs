@@ -20,11 +20,6 @@ namespace Azure.ResourceManager.DevTestLabs.Models
                 writer.WritePropertyName("thresholdId"u8);
                 writer.WriteStringValue(ThresholdId);
             }
-            if (Optional.IsDefined(PercentageThreshold))
-            {
-                writer.WritePropertyName("percentageThreshold"u8);
-                writer.WriteObjectValue(PercentageThreshold);
-            }
             if (Optional.IsDefined(DisplayOnChart))
             {
                 writer.WritePropertyName("displayOnChart"u8);
@@ -40,6 +35,14 @@ namespace Azure.ResourceManager.DevTestLabs.Models
                 writer.WritePropertyName("notificationSent"u8);
                 writer.WriteStringValue(NotificationSent);
             }
+            writer.WritePropertyName("percentageThreshold"u8);
+            writer.WriteStartObject();
+            if (Optional.IsDefined(ThresholdValue))
+            {
+                writer.WritePropertyName("thresholdValue"u8);
+                writer.WriteNumberValue(ThresholdValue.Value);
+            }
+            writer.WriteEndObject();
             writer.WriteEndObject();
         }
 
@@ -50,25 +53,15 @@ namespace Azure.ResourceManager.DevTestLabs.Models
                 return null;
             }
             Optional<string> thresholdId = default;
-            Optional<PercentageCostThresholdProperties> percentageThreshold = default;
             Optional<DevTestLabCostThresholdStatus> displayOnChart = default;
             Optional<DevTestLabCostThresholdStatus> sendNotificationWhenExceeded = default;
             Optional<string> notificationSent = default;
+            Optional<double> thresholdValue = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("thresholdId"u8))
                 {
                     thresholdId = property.Value.GetString();
-                    continue;
-                }
-                if (property.NameEquals("percentageThreshold"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
-                    percentageThreshold = PercentageCostThresholdProperties.DeserializePercentageCostThresholdProperties(property.Value);
                     continue;
                 }
                 if (property.NameEquals("displayOnChart"u8))
@@ -96,8 +89,30 @@ namespace Azure.ResourceManager.DevTestLabs.Models
                     notificationSent = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("percentageThreshold"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        property.ThrowNonNullablePropertyIsNull();
+                        continue;
+                    }
+                    foreach (var property0 in property.Value.EnumerateObject())
+                    {
+                        if (property0.NameEquals("thresholdValue"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            thresholdValue = property0.Value.GetDouble();
+                            continue;
+                        }
+                    }
+                    continue;
+                }
             }
-            return new DevTestLabCostThreshold(thresholdId.Value, percentageThreshold.Value, Optional.ToNullable(displayOnChart), Optional.ToNullable(sendNotificationWhenExceeded), notificationSent.Value);
+            return new DevTestLabCostThreshold(thresholdId.Value, Optional.ToNullable(displayOnChart), Optional.ToNullable(sendNotificationWhenExceeded), notificationSent.Value, Optional.ToNullable(thresholdValue));
         }
     }
 }

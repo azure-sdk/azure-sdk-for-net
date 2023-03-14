@@ -8,6 +8,7 @@
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
+using Azure.ResourceManager.DevTestLabs;
 
 namespace Azure.ResourceManager.DevTestLabs.Models
 {
@@ -19,7 +20,7 @@ namespace Azure.ResourceManager.DevTestLabs.Models
             {
                 return null;
             }
-            Optional<IReadOnlyList<DevTestLabGalleryImage>> value = default;
+            Optional<IReadOnlyList<DevTestLabGalleryImageData>> value = default;
             Optional<string> nextLink = default;
             foreach (var property in element.EnumerateObject())
             {
@@ -30,10 +31,10 @@ namespace Azure.ResourceManager.DevTestLabs.Models
                         property.ThrowNonNullablePropertyIsNull();
                         continue;
                     }
-                    List<DevTestLabGalleryImage> array = new List<DevTestLabGalleryImage>();
+                    List<DevTestLabGalleryImageData> array = new List<DevTestLabGalleryImageData>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(DevTestLabGalleryImage.DeserializeDevTestLabGalleryImage(item));
+                        array.Add(DevTestLabGalleryImageData.DeserializeDevTestLabGalleryImageData(item));
                     }
                     value = array;
                     continue;

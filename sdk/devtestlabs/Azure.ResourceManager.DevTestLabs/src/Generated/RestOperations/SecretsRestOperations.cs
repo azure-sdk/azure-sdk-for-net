@@ -33,7 +33,7 @@ namespace Azure.ResourceManager.DevTestLabs
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2018-09-15";
+            _apiVersion = apiVersion ?? "2021-09-01";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
@@ -82,7 +82,7 @@ namespace Azure.ResourceManager.DevTestLabs
         /// <param name="labName"> The name of the lab. </param>
         /// <param name="userName"> The name of the user profile. </param>
         /// <param name="expand"> Specify the $expand query. Example: &apos;properties($select=value)&apos;. </param>
-        /// <param name="filter"> The filter to apply to the operation. Example: &apos;$filter=contains(name,&apos;myName&apos;). </param>
+        /// <param name="filter"> The filter to apply to the operation. Example: &apos;$filter=contains(name,&apos;myName&apos;)&apos;. </param>
         /// <param name="top"> The maximum number of resources to return from the operation. Example: &apos;$top=10&apos;. </param>
         /// <param name="orderby"> The ordering expression for the results, using OData notation. Example: &apos;$orderby=name desc&apos;. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -117,7 +117,7 @@ namespace Azure.ResourceManager.DevTestLabs
         /// <param name="labName"> The name of the lab. </param>
         /// <param name="userName"> The name of the user profile. </param>
         /// <param name="expand"> Specify the $expand query. Example: &apos;properties($select=value)&apos;. </param>
-        /// <param name="filter"> The filter to apply to the operation. Example: &apos;$filter=contains(name,&apos;myName&apos;). </param>
+        /// <param name="filter"> The filter to apply to the operation. Example: &apos;$filter=contains(name,&apos;myName&apos;)&apos;. </param>
         /// <param name="top"> The maximum number of resources to return from the operation. Example: &apos;$top=10&apos;. </param>
         /// <param name="orderby"> The ordering expression for the results, using OData notation. Example: &apos;$orderby=name desc&apos;. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -418,7 +418,7 @@ namespace Azure.ResourceManager.DevTestLabs
             }
         }
 
-        internal HttpMessage CreateUpdateRequest(string subscriptionId, string resourceGroupName, string labName, string userName, string name, DevTestLabSecretPatch patch)
+        internal HttpMessage CreateUpdateRequest(string subscriptionId, string resourceGroupName, string labName, string userName, string name, SecretFragment secret)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -440,7 +440,7 @@ namespace Azure.ResourceManager.DevTestLabs
             request.Headers.Add("Accept", "application/json");
             request.Headers.Add("Content-Type", "application/json");
             var content = new Utf8JsonRequestContent();
-            content.JsonWriter.WriteObjectValue(patch);
+            content.JsonWriter.WriteObjectValue(secret);
             request.Content = content;
             _userAgent.Apply(message);
             return message;
@@ -452,20 +452,20 @@ namespace Azure.ResourceManager.DevTestLabs
         /// <param name="labName"> The name of the lab. </param>
         /// <param name="userName"> The name of the user profile. </param>
         /// <param name="name"> The name of the secret. </param>
-        /// <param name="patch"> A secret. </param>
+        /// <param name="secret"> Allows modifying tags of secrets. All other properties will be ignored. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="labName"/>, <paramref name="userName"/>, <paramref name="name"/> or <paramref name="patch"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="labName"/>, <paramref name="userName"/>, <paramref name="name"/> or <paramref name="secret"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="labName"/>, <paramref name="userName"/> or <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<DevTestLabSecretData>> UpdateAsync(string subscriptionId, string resourceGroupName, string labName, string userName, string name, DevTestLabSecretPatch patch, CancellationToken cancellationToken = default)
+        public async Task<Response<DevTestLabSecretData>> UpdateAsync(string subscriptionId, string resourceGroupName, string labName, string userName, string name, SecretFragment secret, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(labName, nameof(labName));
             Argument.AssertNotNullOrEmpty(userName, nameof(userName));
             Argument.AssertNotNullOrEmpty(name, nameof(name));
-            Argument.AssertNotNull(patch, nameof(patch));
+            Argument.AssertNotNull(secret, nameof(secret));
 
-            using var message = CreateUpdateRequest(subscriptionId, resourceGroupName, labName, userName, name, patch);
+            using var message = CreateUpdateRequest(subscriptionId, resourceGroupName, labName, userName, name, secret);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
@@ -487,20 +487,20 @@ namespace Azure.ResourceManager.DevTestLabs
         /// <param name="labName"> The name of the lab. </param>
         /// <param name="userName"> The name of the user profile. </param>
         /// <param name="name"> The name of the secret. </param>
-        /// <param name="patch"> A secret. </param>
+        /// <param name="secret"> Allows modifying tags of secrets. All other properties will be ignored. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="labName"/>, <paramref name="userName"/>, <paramref name="name"/> or <paramref name="patch"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="labName"/>, <paramref name="userName"/>, <paramref name="name"/> or <paramref name="secret"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="labName"/>, <paramref name="userName"/> or <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<DevTestLabSecretData> Update(string subscriptionId, string resourceGroupName, string labName, string userName, string name, DevTestLabSecretPatch patch, CancellationToken cancellationToken = default)
+        public Response<DevTestLabSecretData> Update(string subscriptionId, string resourceGroupName, string labName, string userName, string name, SecretFragment secret, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(labName, nameof(labName));
             Argument.AssertNotNullOrEmpty(userName, nameof(userName));
             Argument.AssertNotNullOrEmpty(name, nameof(name));
-            Argument.AssertNotNull(patch, nameof(patch));
+            Argument.AssertNotNull(secret, nameof(secret));
 
-            using var message = CreateUpdateRequest(subscriptionId, resourceGroupName, labName, userName, name, patch);
+            using var message = CreateUpdateRequest(subscriptionId, resourceGroupName, labName, userName, name, secret);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
@@ -537,7 +537,7 @@ namespace Azure.ResourceManager.DevTestLabs
         /// <param name="labName"> The name of the lab. </param>
         /// <param name="userName"> The name of the user profile. </param>
         /// <param name="expand"> Specify the $expand query. Example: &apos;properties($select=value)&apos;. </param>
-        /// <param name="filter"> The filter to apply to the operation. Example: &apos;$filter=contains(name,&apos;myName&apos;). </param>
+        /// <param name="filter"> The filter to apply to the operation. Example: &apos;$filter=contains(name,&apos;myName&apos;)&apos;. </param>
         /// <param name="top"> The maximum number of resources to return from the operation. Example: &apos;$top=10&apos;. </param>
         /// <param name="orderby"> The ordering expression for the results, using OData notation. Example: &apos;$orderby=name desc&apos;. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -574,7 +574,7 @@ namespace Azure.ResourceManager.DevTestLabs
         /// <param name="labName"> The name of the lab. </param>
         /// <param name="userName"> The name of the user profile. </param>
         /// <param name="expand"> Specify the $expand query. Example: &apos;properties($select=value)&apos;. </param>
-        /// <param name="filter"> The filter to apply to the operation. Example: &apos;$filter=contains(name,&apos;myName&apos;). </param>
+        /// <param name="filter"> The filter to apply to the operation. Example: &apos;$filter=contains(name,&apos;myName&apos;)&apos;. </param>
         /// <param name="top"> The maximum number of resources to return from the operation. Example: &apos;$top=10&apos;. </param>
         /// <param name="orderby"> The ordering expression for the results, using OData notation. Example: &apos;$orderby=name desc&apos;. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>

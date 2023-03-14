@@ -34,11 +34,6 @@ namespace Azure.ResourceManager.DevTestLabs
             writer.WriteStringValue(Location);
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
-            if (Optional.IsDefined(TargetCost))
-            {
-                writer.WritePropertyName("targetCost"u8);
-                writer.WriteObjectValue(TargetCost);
-            }
             if (Optional.IsDefined(CurrencyCode))
             {
                 writer.WritePropertyName("currencyCode"u8);
@@ -59,6 +54,52 @@ namespace Azure.ResourceManager.DevTestLabs
                 writer.WritePropertyName("createdDate"u8);
                 writer.WriteStringValue(CreatedOn.Value, "O");
             }
+            writer.WritePropertyName("labCostSummary"u8);
+            writer.WriteStartObject();
+            if (Optional.IsDefined(EstimatedLabCost))
+            {
+                writer.WritePropertyName("estimatedLabCost"u8);
+                writer.WriteNumberValue(EstimatedLabCost.Value);
+            }
+            writer.WriteEndObject();
+            writer.WritePropertyName("targetCost"u8);
+            writer.WriteStartObject();
+            if (Optional.IsDefined(Status))
+            {
+                writer.WritePropertyName("status"u8);
+                writer.WriteStringValue(Status.Value.ToString());
+            }
+            if (Optional.IsDefined(Target))
+            {
+                writer.WritePropertyName("target"u8);
+                writer.WriteNumberValue(Target.Value);
+            }
+            if (Optional.IsCollectionDefined(CostThresholds))
+            {
+                writer.WritePropertyName("costThresholds"u8);
+                writer.WriteStartArray();
+                foreach (var item in CostThresholds)
+                {
+                    writer.WriteObjectValue(item);
+                }
+                writer.WriteEndArray();
+            }
+            if (Optional.IsDefined(CycleStartOn))
+            {
+                writer.WritePropertyName("cycleStartDateTime"u8);
+                writer.WriteStringValue(CycleStartOn.Value, "O");
+            }
+            if (Optional.IsDefined(CycleEndOn))
+            {
+                writer.WritePropertyName("cycleEndDateTime"u8);
+                writer.WriteStringValue(CycleEndOn.Value, "O");
+            }
+            if (Optional.IsDefined(CycleType))
+            {
+                writer.WritePropertyName("cycleType"u8);
+                writer.WriteStringValue(CycleType.Value.ToString());
+            }
+            writer.WriteEndObject();
             writer.WriteEndObject();
             writer.WriteEndObject();
         }
@@ -75,8 +116,6 @@ namespace Azure.ResourceManager.DevTestLabs
             string name = default;
             ResourceType type = default;
             Optional<SystemData> systemData = default;
-            Optional<DevTestLabTargetCost> targetCost = default;
-            Optional<LabCostSummaryProperties> labCostSummary = default;
             Optional<IReadOnlyList<DevTestLabCostDetails>> labCostDetails = default;
             Optional<IReadOnlyList<DevTestLabResourceCost>> resourceCosts = default;
             Optional<string> currencyCode = default;
@@ -85,6 +124,13 @@ namespace Azure.ResourceManager.DevTestLabs
             Optional<DateTimeOffset> createdDate = default;
             Optional<string> provisioningState = default;
             Optional<Guid> uniqueIdentifier = default;
+            Optional<double> estimatedLabCost = default;
+            Optional<DevTestLabTargetCostStatus> status = default;
+            Optional<int> target = default;
+            Optional<IList<DevTestLabCostThreshold>> costThresholds = default;
+            Optional<DateTimeOffset> cycleStartDateTime = default;
+            Optional<DateTimeOffset> cycleEndDateTime = default;
+            Optional<DevTestLabReportingCycleType> cycleType = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("tags"u8))
@@ -141,26 +187,6 @@ namespace Azure.ResourceManager.DevTestLabs
                     }
                     foreach (var property0 in property.Value.EnumerateObject())
                     {
-                        if (property0.NameEquals("targetCost"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                property0.ThrowNonNullablePropertyIsNull();
-                                continue;
-                            }
-                            targetCost = DevTestLabTargetCost.DeserializeDevTestLabTargetCost(property0.Value);
-                            continue;
-                        }
-                        if (property0.NameEquals("labCostSummary"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                property0.ThrowNonNullablePropertyIsNull();
-                                continue;
-                            }
-                            labCostSummary = LabCostSummaryProperties.DeserializeLabCostSummaryProperties(property0.Value);
-                            continue;
-                        }
                         if (property0.NameEquals("labCostDetails"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -241,11 +267,110 @@ namespace Azure.ResourceManager.DevTestLabs
                             uniqueIdentifier = property0.Value.GetGuid();
                             continue;
                         }
+                        if (property0.NameEquals("labCostSummary"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            foreach (var property1 in property0.Value.EnumerateObject())
+                            {
+                                if (property1.NameEquals("estimatedLabCost"u8))
+                                {
+                                    if (property1.Value.ValueKind == JsonValueKind.Null)
+                                    {
+                                        property1.ThrowNonNullablePropertyIsNull();
+                                        continue;
+                                    }
+                                    estimatedLabCost = property1.Value.GetDouble();
+                                    continue;
+                                }
+                            }
+                            continue;
+                        }
+                        if (property0.NameEquals("targetCost"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            foreach (var property1 in property0.Value.EnumerateObject())
+                            {
+                                if (property1.NameEquals("status"u8))
+                                {
+                                    if (property1.Value.ValueKind == JsonValueKind.Null)
+                                    {
+                                        property1.ThrowNonNullablePropertyIsNull();
+                                        continue;
+                                    }
+                                    status = new DevTestLabTargetCostStatus(property1.Value.GetString());
+                                    continue;
+                                }
+                                if (property1.NameEquals("target"u8))
+                                {
+                                    if (property1.Value.ValueKind == JsonValueKind.Null)
+                                    {
+                                        property1.ThrowNonNullablePropertyIsNull();
+                                        continue;
+                                    }
+                                    target = property1.Value.GetInt32();
+                                    continue;
+                                }
+                                if (property1.NameEquals("costThresholds"u8))
+                                {
+                                    if (property1.Value.ValueKind == JsonValueKind.Null)
+                                    {
+                                        property1.ThrowNonNullablePropertyIsNull();
+                                        continue;
+                                    }
+                                    List<DevTestLabCostThreshold> array = new List<DevTestLabCostThreshold>();
+                                    foreach (var item in property1.Value.EnumerateArray())
+                                    {
+                                        array.Add(DevTestLabCostThreshold.DeserializeDevTestLabCostThreshold(item));
+                                    }
+                                    costThresholds = array;
+                                    continue;
+                                }
+                                if (property1.NameEquals("cycleStartDateTime"u8))
+                                {
+                                    if (property1.Value.ValueKind == JsonValueKind.Null)
+                                    {
+                                        property1.ThrowNonNullablePropertyIsNull();
+                                        continue;
+                                    }
+                                    cycleStartDateTime = property1.Value.GetDateTimeOffset("O");
+                                    continue;
+                                }
+                                if (property1.NameEquals("cycleEndDateTime"u8))
+                                {
+                                    if (property1.Value.ValueKind == JsonValueKind.Null)
+                                    {
+                                        property1.ThrowNonNullablePropertyIsNull();
+                                        continue;
+                                    }
+                                    cycleEndDateTime = property1.Value.GetDateTimeOffset("O");
+                                    continue;
+                                }
+                                if (property1.NameEquals("cycleType"u8))
+                                {
+                                    if (property1.Value.ValueKind == JsonValueKind.Null)
+                                    {
+                                        property1.ThrowNonNullablePropertyIsNull();
+                                        continue;
+                                    }
+                                    cycleType = new DevTestLabReportingCycleType(property1.Value.GetString());
+                                    continue;
+                                }
+                            }
+                            continue;
+                        }
                     }
                     continue;
                 }
             }
-            return new DevTestLabCostData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, targetCost.Value, labCostSummary.Value, Optional.ToList(labCostDetails), Optional.ToList(resourceCosts), currencyCode.Value, Optional.ToNullable(startDateTime), Optional.ToNullable(endDateTime), Optional.ToNullable(createdDate), provisioningState.Value, Optional.ToNullable(uniqueIdentifier));
+            return new DevTestLabCostData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, Optional.ToList(labCostDetails), Optional.ToList(resourceCosts), currencyCode.Value, Optional.ToNullable(startDateTime), Optional.ToNullable(endDateTime), Optional.ToNullable(createdDate), provisioningState.Value, Optional.ToNullable(uniqueIdentifier), Optional.ToNullable(estimatedLabCost), Optional.ToNullable(status), Optional.ToNullable(target), Optional.ToList(costThresholds), Optional.ToNullable(cycleStartDateTime), Optional.ToNullable(cycleEndDateTime), Optional.ToNullable(cycleType));
         }
     }
 }

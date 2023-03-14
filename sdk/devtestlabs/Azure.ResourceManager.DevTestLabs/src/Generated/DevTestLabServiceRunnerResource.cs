@@ -152,7 +152,7 @@ namespace Azure.ResourceManager.DevTestLabs
         }
 
         /// <summary>
-        /// Delete service runner.
+        /// Delete service runner. This operation can take a while to complete.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -173,7 +173,7 @@ namespace Azure.ResourceManager.DevTestLabs
             try
             {
                 var response = await _devTestLabServiceRunnerServiceRunnersRestClient.DeleteAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
-                var operation = new DevTestLabsArmOperation(response);
+                var operation = new DevTestLabsArmOperation(_devTestLabServiceRunnerServiceRunnersClientDiagnostics, Pipeline, _devTestLabServiceRunnerServiceRunnersRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -186,7 +186,7 @@ namespace Azure.ResourceManager.DevTestLabs
         }
 
         /// <summary>
-        /// Delete service runner.
+        /// Delete service runner. This operation can take a while to complete.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -207,7 +207,7 @@ namespace Azure.ResourceManager.DevTestLabs
             try
             {
                 var response = _devTestLabServiceRunnerServiceRunnersRestClient.Delete(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken);
-                var operation = new DevTestLabsArmOperation(response);
+                var operation = new DevTestLabsArmOperation(_devTestLabServiceRunnerServiceRunnersClientDiagnostics, Pipeline, _devTestLabServiceRunnerServiceRunnersRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletionResponse(cancellationToken);
                 return operation;
@@ -220,7 +220,7 @@ namespace Azure.ResourceManager.DevTestLabs
         }
 
         /// <summary>
-        /// Create or replace an existing service runner.
+        /// Create or replace an existing Service runner. This operation can take a while to complete.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -245,7 +245,7 @@ namespace Azure.ResourceManager.DevTestLabs
             try
             {
                 var response = await _devTestLabServiceRunnerServiceRunnersRestClient.CreateOrUpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, data, cancellationToken).ConfigureAwait(false);
-                var operation = new DevTestLabsArmOperation<DevTestLabServiceRunnerResource>(Response.FromValue(new DevTestLabServiceRunnerResource(Client, response), response.GetRawResponse()));
+                var operation = new DevTestLabsArmOperation<DevTestLabServiceRunnerResource>(new DevTestLabServiceRunnerOperationSource(Client), _devTestLabServiceRunnerServiceRunnersClientDiagnostics, Pipeline, _devTestLabServiceRunnerServiceRunnersRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, data).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -258,7 +258,7 @@ namespace Azure.ResourceManager.DevTestLabs
         }
 
         /// <summary>
-        /// Create or replace an existing service runner.
+        /// Create or replace an existing Service runner. This operation can take a while to complete.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -283,7 +283,7 @@ namespace Azure.ResourceManager.DevTestLabs
             try
             {
                 var response = _devTestLabServiceRunnerServiceRunnersRestClient.CreateOrUpdate(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, data, cancellationToken);
-                var operation = new DevTestLabsArmOperation<DevTestLabServiceRunnerResource>(Response.FromValue(new DevTestLabServiceRunnerResource(Client, response), response.GetRawResponse()));
+                var operation = new DevTestLabsArmOperation<DevTestLabServiceRunnerResource>(new DevTestLabServiceRunnerOperationSource(Client), _devTestLabServiceRunnerServiceRunnersClientDiagnostics, Pipeline, _devTestLabServiceRunnerServiceRunnersRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, data).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;

@@ -32,6 +32,49 @@ namespace Azure.ResourceManager.DevTestLabs
             }
             writer.WritePropertyName("location"u8);
             writer.WriteStringValue(Location);
+            writer.WritePropertyName("identity"u8);
+            writer.WriteStartObject();
+            if (Optional.IsDefined(TypeIdentityType))
+            {
+                writer.WritePropertyName("type"u8);
+                writer.WriteStringValue(TypeIdentityType.Value.ToString());
+            }
+            if (Optional.IsDefined(PrincipalId))
+            {
+                writer.WritePropertyName("principalId"u8);
+                writer.WriteStringValue(PrincipalId);
+            }
+            if (Optional.IsDefined(TenantId))
+            {
+                writer.WritePropertyName("tenantId"u8);
+                writer.WriteStringValue(TenantId.Value);
+            }
+            if (Optional.IsDefined(ClientSecretUri))
+            {
+                writer.WritePropertyName("clientSecretUrl"u8);
+                writer.WriteStringValue(ClientSecretUri.AbsoluteUri);
+            }
+            if (Optional.IsCollectionDefined(UserAssignedIdentities))
+            {
+                writer.WritePropertyName("userAssignedIdentities"u8);
+                writer.WriteStartObject();
+                foreach (var item in UserAssignedIdentities)
+                {
+                    writer.WritePropertyName(item.Key);
+                    if (item.Value == null)
+                    {
+                        writer.WriteNullValue();
+                        continue;
+                    }
+#if NET6_0_OR_GREATER
+				writer.WriteRawValue(item.Value);
+#else
+                    JsonSerializer.Serialize(writer, JsonDocument.Parse(item.Value.ToString()).RootElement);
+#endif
+                }
+                writer.WriteEndObject();
+            }
+            writer.WriteEndObject();
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
             if (Optional.IsDefined(LabStorageType))
@@ -69,16 +112,6 @@ namespace Azure.ResourceManager.DevTestLabs
                 writer.WritePropertyName("environmentPermission"u8);
                 writer.WriteStringValue(EnvironmentPermission.Value.ToString());
             }
-            if (Optional.IsDefined(Announcement))
-            {
-                writer.WritePropertyName("announcement"u8);
-                writer.WriteObjectValue(Announcement);
-            }
-            if (Optional.IsDefined(Support))
-            {
-                writer.WritePropertyName("support"u8);
-                writer.WriteObjectValue(Support);
-            }
             if (Optional.IsCollectionDefined(ExtendedProperties))
             {
                 writer.WritePropertyName("extendedProperties"u8);
@@ -90,6 +123,100 @@ namespace Azure.ResourceManager.DevTestLabs
                 }
                 writer.WriteEndObject();
             }
+            if (Optional.IsDefined(BrowserConnect))
+            {
+                writer.WritePropertyName("browserConnect"u8);
+                writer.WriteStringValue(BrowserConnect.Value.ToString());
+            }
+            if (Optional.IsDefined(DisableAutoUpgradeCseMinorVersion))
+            {
+                writer.WritePropertyName("disableAutoUpgradeCseMinorVersion"u8);
+                writer.WriteBooleanValue(DisableAutoUpgradeCseMinorVersion.Value);
+            }
+            if (Optional.IsCollectionDefined(ManagementIdentities))
+            {
+                writer.WritePropertyName("managementIdentities"u8);
+                writer.WriteStartObject();
+                foreach (var item in ManagementIdentities)
+                {
+                    writer.WritePropertyName(item.Key);
+                    if (item.Value == null)
+                    {
+                        writer.WriteNullValue();
+                        continue;
+                    }
+#if NET6_0_OR_GREATER
+				writer.WriteRawValue(item.Value);
+#else
+                    JsonSerializer.Serialize(writer, JsonDocument.Parse(item.Value.ToString()).RootElement);
+#endif
+                }
+                writer.WriteEndObject();
+            }
+            if (Optional.IsDefined(IsolateLabResources))
+            {
+                writer.WritePropertyName("isolateLabResources"u8);
+                writer.WriteStringValue(IsolateLabResources.Value.ToString());
+            }
+            if (Optional.IsDefined(DefaultSecretName))
+            {
+                writer.WritePropertyName("defaultSecretName"u8);
+                writer.WriteStringValue(DefaultSecretName);
+            }
+            writer.WritePropertyName("encryption"u8);
+            writer.WriteStartObject();
+            if (Optional.IsDefined(DiskEncryptionSetId))
+            {
+                writer.WritePropertyName("diskEncryptionSetId"u8);
+                writer.WriteStringValue(DiskEncryptionSetId);
+            }
+            if (Optional.IsDefined(TypePropertiesEncryptionType))
+            {
+                writer.WritePropertyName("type"u8);
+                writer.WriteStringValue(TypePropertiesEncryptionType.Value.ToString());
+            }
+            writer.WriteEndObject();
+            writer.WritePropertyName("support"u8);
+            writer.WriteStartObject();
+            if (Optional.IsDefined(EnabledPropertiesSupportEnabled))
+            {
+                writer.WritePropertyName("enabled"u8);
+                writer.WriteStringValue(EnabledPropertiesSupportEnabled.Value.ToString());
+            }
+            if (Optional.IsDefined(MarkdownPropertiesSupportMarkdown))
+            {
+                writer.WritePropertyName("markdown"u8);
+                writer.WriteStringValue(MarkdownPropertiesSupportMarkdown);
+            }
+            writer.WriteEndObject();
+            writer.WritePropertyName("announcement"u8);
+            writer.WriteStartObject();
+            if (Optional.IsDefined(Title))
+            {
+                writer.WritePropertyName("title"u8);
+                writer.WriteStringValue(Title);
+            }
+            if (Optional.IsDefined(MarkdownPropertiesAnnouncementMarkdown))
+            {
+                writer.WritePropertyName("markdown"u8);
+                writer.WriteStringValue(MarkdownPropertiesAnnouncementMarkdown);
+            }
+            if (Optional.IsDefined(EnabledPropertiesAnnouncementEnabled))
+            {
+                writer.WritePropertyName("enabled"u8);
+                writer.WriteStringValue(EnabledPropertiesAnnouncementEnabled.Value.ToString());
+            }
+            if (Optional.IsDefined(ExpireOn))
+            {
+                writer.WritePropertyName("expirationDate"u8);
+                writer.WriteStringValue(ExpireOn.Value, "O");
+            }
+            if (Optional.IsDefined(Expired))
+            {
+                writer.WritePropertyName("expired"u8);
+                writer.WriteBooleanValue(Expired.Value);
+            }
+            writer.WriteEndObject();
             writer.WriteEndObject();
             writer.WriteEndObject();
         }
@@ -106,6 +233,11 @@ namespace Azure.ResourceManager.DevTestLabs
             string name = default;
             ResourceType type = default;
             Optional<SystemData> systemData = default;
+            Optional<ManagedIdentityType> type0 = default;
+            Optional<string> principalId = default;
+            Optional<Guid> tenantId = default;
+            Optional<Uri> clientSecretUrl = default;
+            Optional<IDictionary<string, BinaryData>> userAssignedIdentities = default;
             Optional<string> defaultStorageAccount = default;
             Optional<string> defaultPremiumStorageAccount = default;
             Optional<string> artifactsStorageAccount = default;
@@ -117,15 +249,29 @@ namespace Azure.ResourceManager.DevTestLabs
             Optional<DateTimeOffset> createdDate = default;
             Optional<DevTestLabPremiumDataDisk> premiumDataDisks = default;
             Optional<DevTestLabEnvironmentPermission> environmentPermission = default;
-            Optional<DevTestLabAnnouncement> announcement = default;
-            Optional<DevTestLabSupport> support = default;
             Optional<string> vmCreationResourceGroup = default;
             Optional<string> publicIPId = default;
             Optional<string> loadBalancerId = default;
             Optional<string> networkSecurityGroupId = default;
             Optional<IDictionary<string, string>> extendedProperties = default;
+            Optional<DevTestLabEnableStatus> browserConnect = default;
+            Optional<bool> disableAutoUpgradeCseMinorVersion = default;
+            Optional<IDictionary<string, BinaryData>> managementIdentities = default;
+            Optional<DevTestLabEnableStatus> isolateLabResources = default;
+            Optional<string> defaultSecretName = default;
             Optional<string> provisioningState = default;
-            Optional<Guid> uniqueIdentifier = default;
+            Optional<string> uniqueIdentifier = default;
+            Optional<string> diskEncryptionSetId = default;
+            Optional<EncryptionType> type1 = default;
+            Optional<DevTestLabEnableStatus> enabled = default;
+            Optional<string> markdown = default;
+            Optional<string> title = default;
+            Optional<string> markdown0 = default;
+            Optional<DevTestLabEnableStatus> enabled0 = default;
+            Optional<DateTimeOffset> expirationDate = default;
+            Optional<bool> expired = default;
+            Optional<string> provisioningState0 = default;
+            Optional<string> uniqueIdentifier0 = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("tags"u8))
@@ -171,6 +317,75 @@ namespace Azure.ResourceManager.DevTestLabs
                         continue;
                     }
                     systemData = JsonSerializer.Deserialize<SystemData>(property.Value.GetRawText());
+                    continue;
+                }
+                if (property.NameEquals("identity"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        property.ThrowNonNullablePropertyIsNull();
+                        continue;
+                    }
+                    foreach (var property0 in property.Value.EnumerateObject())
+                    {
+                        if (property0.NameEquals("type"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            type0 = new ManagedIdentityType(property0.Value.GetString());
+                            continue;
+                        }
+                        if (property0.NameEquals("principalId"u8))
+                        {
+                            principalId = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("tenantId"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            tenantId = property0.Value.GetGuid();
+                            continue;
+                        }
+                        if (property0.NameEquals("clientSecretUrl"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                clientSecretUrl = null;
+                                continue;
+                            }
+                            clientSecretUrl = new Uri(property0.Value.GetString());
+                            continue;
+                        }
+                        if (property0.NameEquals("userAssignedIdentities"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            Dictionary<string, BinaryData> dictionary = new Dictionary<string, BinaryData>();
+                            foreach (var property1 in property0.Value.EnumerateObject())
+                            {
+                                if (property1.Value.ValueKind == JsonValueKind.Null)
+                                {
+                                    dictionary.Add(property1.Name, null);
+                                }
+                                else
+                                {
+                                    dictionary.Add(property1.Name, BinaryData.FromString(property1.Value.GetRawText()));
+                                }
+                            }
+                            userAssignedIdentities = dictionary;
+                            continue;
+                        }
+                    }
                     continue;
                 }
                 if (property.NameEquals("properties"u8))
@@ -277,26 +492,6 @@ namespace Azure.ResourceManager.DevTestLabs
                             environmentPermission = new DevTestLabEnvironmentPermission(property0.Value.GetString());
                             continue;
                         }
-                        if (property0.NameEquals("announcement"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                property0.ThrowNonNullablePropertyIsNull();
-                                continue;
-                            }
-                            announcement = DevTestLabAnnouncement.DeserializeDevTestLabAnnouncement(property0.Value);
-                            continue;
-                        }
-                        if (property0.NameEquals("support"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                property0.ThrowNonNullablePropertyIsNull();
-                                continue;
-                            }
-                            support = DevTestLabSupport.DeserializeDevTestLabSupport(property0.Value);
-                            continue;
-                        }
                         if (property0.NameEquals("vmCreationResourceGroup"u8))
                         {
                             vmCreationResourceGroup = property0.Value.GetString();
@@ -332,6 +527,63 @@ namespace Azure.ResourceManager.DevTestLabs
                             extendedProperties = dictionary;
                             continue;
                         }
+                        if (property0.NameEquals("browserConnect"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            browserConnect = new DevTestLabEnableStatus(property0.Value.GetString());
+                            continue;
+                        }
+                        if (property0.NameEquals("disableAutoUpgradeCseMinorVersion"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            disableAutoUpgradeCseMinorVersion = property0.Value.GetBoolean();
+                            continue;
+                        }
+                        if (property0.NameEquals("managementIdentities"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            Dictionary<string, BinaryData> dictionary = new Dictionary<string, BinaryData>();
+                            foreach (var property1 in property0.Value.EnumerateObject())
+                            {
+                                if (property1.Value.ValueKind == JsonValueKind.Null)
+                                {
+                                    dictionary.Add(property1.Name, null);
+                                }
+                                else
+                                {
+                                    dictionary.Add(property1.Name, BinaryData.FromString(property1.Value.GetRawText()));
+                                }
+                            }
+                            managementIdentities = dictionary;
+                            continue;
+                        }
+                        if (property0.NameEquals("isolateLabResources"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            isolateLabResources = new DevTestLabEnableStatus(property0.Value.GetString());
+                            continue;
+                        }
+                        if (property0.NameEquals("defaultSecretName"u8))
+                        {
+                            defaultSecretName = property0.Value.GetString();
+                            continue;
+                        }
                         if (property0.NameEquals("provisioningState"u8))
                         {
                             provisioningState = property0.Value.GetString();
@@ -339,19 +591,130 @@ namespace Azure.ResourceManager.DevTestLabs
                         }
                         if (property0.NameEquals("uniqueIdentifier"u8))
                         {
+                            uniqueIdentifier = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("encryption"u8))
+                        {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
                                 property0.ThrowNonNullablePropertyIsNull();
                                 continue;
                             }
-                            uniqueIdentifier = property0.Value.GetGuid();
+                            foreach (var property1 in property0.Value.EnumerateObject())
+                            {
+                                if (property1.NameEquals("diskEncryptionSetId"u8))
+                                {
+                                    diskEncryptionSetId = property1.Value.GetString();
+                                    continue;
+                                }
+                                if (property1.NameEquals("type"u8))
+                                {
+                                    if (property1.Value.ValueKind == JsonValueKind.Null)
+                                    {
+                                        property1.ThrowNonNullablePropertyIsNull();
+                                        continue;
+                                    }
+                                    type1 = new EncryptionType(property1.Value.GetString());
+                                    continue;
+                                }
+                            }
+                            continue;
+                        }
+                        if (property0.NameEquals("support"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            foreach (var property1 in property0.Value.EnumerateObject())
+                            {
+                                if (property1.NameEquals("enabled"u8))
+                                {
+                                    if (property1.Value.ValueKind == JsonValueKind.Null)
+                                    {
+                                        property1.ThrowNonNullablePropertyIsNull();
+                                        continue;
+                                    }
+                                    enabled = new DevTestLabEnableStatus(property1.Value.GetString());
+                                    continue;
+                                }
+                                if (property1.NameEquals("markdown"u8))
+                                {
+                                    markdown = property1.Value.GetString();
+                                    continue;
+                                }
+                            }
+                            continue;
+                        }
+                        if (property0.NameEquals("announcement"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            foreach (var property1 in property0.Value.EnumerateObject())
+                            {
+                                if (property1.NameEquals("title"u8))
+                                {
+                                    title = property1.Value.GetString();
+                                    continue;
+                                }
+                                if (property1.NameEquals("markdown"u8))
+                                {
+                                    markdown0 = property1.Value.GetString();
+                                    continue;
+                                }
+                                if (property1.NameEquals("enabled"u8))
+                                {
+                                    if (property1.Value.ValueKind == JsonValueKind.Null)
+                                    {
+                                        property1.ThrowNonNullablePropertyIsNull();
+                                        continue;
+                                    }
+                                    enabled0 = new DevTestLabEnableStatus(property1.Value.GetString());
+                                    continue;
+                                }
+                                if (property1.NameEquals("expirationDate"u8))
+                                {
+                                    if (property1.Value.ValueKind == JsonValueKind.Null)
+                                    {
+                                        property1.ThrowNonNullablePropertyIsNull();
+                                        continue;
+                                    }
+                                    expirationDate = property1.Value.GetDateTimeOffset("O");
+                                    continue;
+                                }
+                                if (property1.NameEquals("expired"u8))
+                                {
+                                    if (property1.Value.ValueKind == JsonValueKind.Null)
+                                    {
+                                        property1.ThrowNonNullablePropertyIsNull();
+                                        continue;
+                                    }
+                                    expired = property1.Value.GetBoolean();
+                                    continue;
+                                }
+                                if (property1.NameEquals("provisioningState"u8))
+                                {
+                                    provisioningState0 = property1.Value.GetString();
+                                    continue;
+                                }
+                                if (property1.NameEquals("uniqueIdentifier"u8))
+                                {
+                                    uniqueIdentifier0 = property1.Value.GetString();
+                                    continue;
+                                }
+                            }
                             continue;
                         }
                     }
                     continue;
                 }
             }
-            return new DevTestLabData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, defaultStorageAccount.Value, defaultPremiumStorageAccount.Value, artifactsStorageAccount.Value, premiumDataDiskStorageAccount.Value, vaultName.Value, Optional.ToNullable(labStorageType), Optional.ToList(mandatoryArtifactsResourceIdsLinux), Optional.ToList(mandatoryArtifactsResourceIdsWindows), Optional.ToNullable(createdDate), Optional.ToNullable(premiumDataDisks), Optional.ToNullable(environmentPermission), announcement.Value, support.Value, vmCreationResourceGroup.Value, publicIPId.Value, loadBalancerId.Value, networkSecurityGroupId.Value, Optional.ToDictionary(extendedProperties), provisioningState.Value, Optional.ToNullable(uniqueIdentifier));
+            return new DevTestLabData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, Optional.ToNullable(type0), principalId.Value, Optional.ToNullable(tenantId), clientSecretUrl.Value, Optional.ToDictionary(userAssignedIdentities), defaultStorageAccount.Value, defaultPremiumStorageAccount.Value, artifactsStorageAccount.Value, premiumDataDiskStorageAccount.Value, vaultName.Value, Optional.ToNullable(labStorageType), Optional.ToList(mandatoryArtifactsResourceIdsLinux), Optional.ToList(mandatoryArtifactsResourceIdsWindows), Optional.ToNullable(createdDate), Optional.ToNullable(premiumDataDisks), Optional.ToNullable(environmentPermission), vmCreationResourceGroup.Value, publicIPId.Value, loadBalancerId.Value, networkSecurityGroupId.Value, Optional.ToDictionary(extendedProperties), Optional.ToNullable(browserConnect), Optional.ToNullable(disableAutoUpgradeCseMinorVersion), Optional.ToDictionary(managementIdentities), Optional.ToNullable(isolateLabResources), defaultSecretName.Value, provisioningState.Value, uniqueIdentifier.Value, diskEncryptionSetId.Value, Optional.ToNullable(type1), Optional.ToNullable(enabled), markdown.Value, title.Value, markdown0.Value, Optional.ToNullable(enabled0), Optional.ToNullable(expirationDate), Optional.ToNullable(expired), provisioningState0.Value, uniqueIdentifier0.Value);
         }
     }
 }

@@ -25,6 +25,7 @@ namespace Azure.ResourceManager.DevTestLabs
         {
             LabCostDetails = new ChangeTrackingList<DevTestLabCostDetails>();
             ResourceCosts = new ChangeTrackingList<DevTestLabResourceCost>();
+            CostThresholds = new ChangeTrackingList<DevTestLabCostThreshold>();
         }
 
         /// <summary> Initializes a new instance of DevTestLabCostData. </summary>
@@ -34,8 +35,6 @@ namespace Azure.ResourceManager.DevTestLabs
         /// <param name="systemData"> The systemData. </param>
         /// <param name="tags"> The tags. </param>
         /// <param name="location"> The location. </param>
-        /// <param name="targetCost"> The target cost properties. </param>
-        /// <param name="labCostSummary"> The lab cost summary component of the cost data. </param>
         /// <param name="labCostDetails"> The lab cost details component of the cost data. </param>
         /// <param name="resourceCosts"> The resource cost component of the cost data. </param>
         /// <param name="currencyCode"> The currency code of the cost. </param>
@@ -44,10 +43,15 @@ namespace Azure.ResourceManager.DevTestLabs
         /// <param name="createdOn"> The creation date of the cost. </param>
         /// <param name="provisioningState"> The provisioning status of the resource. </param>
         /// <param name="uniqueIdentifier"> The unique immutable identifier of a resource (Guid). </param>
-        internal DevTestLabCostData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, DevTestLabTargetCost targetCost, LabCostSummaryProperties labCostSummary, IReadOnlyList<DevTestLabCostDetails> labCostDetails, IReadOnlyList<DevTestLabResourceCost> resourceCosts, string currencyCode, DateTimeOffset? startOn, DateTimeOffset? endOn, DateTimeOffset? createdOn, string provisioningState, Guid? uniqueIdentifier) : base(id, name, resourceType, systemData, tags, location)
+        /// <param name="estimatedLabCost"> The cost component of the cost item. </param>
+        /// <param name="status"> Target cost status. </param>
+        /// <param name="target"> Lab target cost. </param>
+        /// <param name="costThresholds"> Cost thresholds. </param>
+        /// <param name="cycleStartOn"> Reporting cycle start date. </param>
+        /// <param name="cycleEndOn"> Reporting cycle end date. </param>
+        /// <param name="cycleType"> Reporting cycle type. </param>
+        internal DevTestLabCostData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, IReadOnlyList<DevTestLabCostDetails> labCostDetails, IReadOnlyList<DevTestLabResourceCost> resourceCosts, string currencyCode, DateTimeOffset? startOn, DateTimeOffset? endOn, DateTimeOffset? createdOn, string provisioningState, Guid? uniqueIdentifier, double? estimatedLabCost, DevTestLabTargetCostStatus? status, int? target, IList<DevTestLabCostThreshold> costThresholds, DateTimeOffset? cycleStartOn, DateTimeOffset? cycleEndOn, DevTestLabReportingCycleType? cycleType) : base(id, name, resourceType, systemData, tags, location)
         {
-            TargetCost = targetCost;
-            LabCostSummary = labCostSummary;
             LabCostDetails = labCostDetails;
             ResourceCosts = resourceCosts;
             CurrencyCode = currencyCode;
@@ -56,16 +60,13 @@ namespace Azure.ResourceManager.DevTestLabs
             CreatedOn = createdOn;
             ProvisioningState = provisioningState;
             UniqueIdentifier = uniqueIdentifier;
-        }
-
-        /// <summary> The target cost properties. </summary>
-        public DevTestLabTargetCost TargetCost { get; set; }
-        /// <summary> The lab cost summary component of the cost data. </summary>
-        internal LabCostSummaryProperties LabCostSummary { get; }
-        /// <summary> The cost component of the cost item. </summary>
-        public double? EstimatedLabCost
-        {
-            get => LabCostSummary?.EstimatedLabCost;
+            EstimatedLabCost = estimatedLabCost;
+            Status = status;
+            Target = target;
+            CostThresholds = costThresholds;
+            CycleStartOn = cycleStartOn;
+            CycleEndOn = cycleEndOn;
+            CycleType = cycleType;
         }
 
         /// <summary> The lab cost details component of the cost data. </summary>
@@ -84,5 +85,19 @@ namespace Azure.ResourceManager.DevTestLabs
         public string ProvisioningState { get; }
         /// <summary> The unique immutable identifier of a resource (Guid). </summary>
         public Guid? UniqueIdentifier { get; }
+        /// <summary> The cost component of the cost item. </summary>
+        public double? EstimatedLabCost { get; set; }
+        /// <summary> Target cost status. </summary>
+        public DevTestLabTargetCostStatus? Status { get; set; }
+        /// <summary> Lab target cost. </summary>
+        public int? Target { get; set; }
+        /// <summary> Cost thresholds. </summary>
+        public IList<DevTestLabCostThreshold> CostThresholds { get; }
+        /// <summary> Reporting cycle start date. </summary>
+        public DateTimeOffset? CycleStartOn { get; set; }
+        /// <summary> Reporting cycle end date. </summary>
+        public DateTimeOffset? CycleEndOn { get; set; }
+        /// <summary> Reporting cycle type. </summary>
+        public DevTestLabReportingCycleType? CycleType { get; set; }
     }
 }

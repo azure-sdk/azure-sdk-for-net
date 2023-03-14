@@ -290,7 +290,7 @@ namespace Azure.ResourceManager.DevTestLabs
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="patch"> A virtual machine. </param>
+        /// <param name="patch"> Allows modifying tags of virtual machines. All other properties will be ignored. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="patch"/> is null. </exception>
         public virtual async Task<Response<DevTestLabVmResource>> UpdateAsync(DevTestLabVmPatch patch, CancellationToken cancellationToken = default)
@@ -324,7 +324,7 @@ namespace Azure.ResourceManager.DevTestLabs
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="patch"> A virtual machine. </param>
+        /// <param name="patch"> Allows modifying tags of virtual machines. All other properties will be ignored. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="patch"/> is null. </exception>
         public virtual Response<DevTestLabVmResource> Update(DevTestLabVmPatch patch, CancellationToken cancellationToken = default)
@@ -557,6 +557,66 @@ namespace Azure.ResourceManager.DevTestLabs
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletionResponse(cancellationToken);
                 return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Clears the artifact results of the virtual machine.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/virtualmachines/{name}/clearArtifactResults</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>VirtualMachines_ClearArtifactResults</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual async Task<Response> ClearArtifactResultsAsync(CancellationToken cancellationToken = default)
+        {
+            using var scope = _devTestLabVmVirtualMachinesClientDiagnostics.CreateScope("DevTestLabVmResource.ClearArtifactResults");
+            scope.Start();
+            try
+            {
+                var response = await _devTestLabVmVirtualMachinesRestClient.ClearArtifactResultsAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Clears the artifact results of the virtual machine.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/virtualmachines/{name}/clearArtifactResults</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>VirtualMachines_ClearArtifactResults</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual Response ClearArtifactResults(CancellationToken cancellationToken = default)
+        {
+            using var scope = _devTestLabVmVirtualMachinesClientDiagnostics.CreateScope("DevTestLabVmResource.ClearArtifactResults");
+            scope.Start();
+            try
+            {
+                var response = _devTestLabVmVirtualMachinesRestClient.ClearArtifactResults(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken);
+                return response;
             }
             catch (Exception e)
             {

@@ -6,6 +6,8 @@
 #nullable disable
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
@@ -21,7 +23,7 @@ namespace Azure.ResourceManager.DevTestLabs
     /// Each <see cref="DevTestLabServiceRunnerResource" /> in the collection will belong to the same instance of <see cref="DevTestLabResource" />.
     /// To get a <see cref="DevTestLabServiceRunnerCollection" /> instance call the GetDevTestLabServiceRunners method from an instance of <see cref="DevTestLabResource" />.
     /// </summary>
-    public partial class DevTestLabServiceRunnerCollection : ArmCollection
+    public partial class DevTestLabServiceRunnerCollection : ArmCollection, IEnumerable<DevTestLabServiceRunnerResource>, IAsyncEnumerable<DevTestLabServiceRunnerResource>
     {
         private readonly ClientDiagnostics _devTestLabServiceRunnerServiceRunnersClientDiagnostics;
         private readonly ServiceRunnersRestOperations _devTestLabServiceRunnerServiceRunnersRestClient;
@@ -51,7 +53,7 @@ namespace Azure.ResourceManager.DevTestLabs
         }
 
         /// <summary>
-        /// Create or replace an existing service runner.
+        /// Create or replace an existing Service runner. This operation can take a while to complete.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -79,7 +81,7 @@ namespace Azure.ResourceManager.DevTestLabs
             try
             {
                 var response = await _devTestLabServiceRunnerServiceRunnersRestClient.CreateOrUpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, name, data, cancellationToken).ConfigureAwait(false);
-                var operation = new DevTestLabsArmOperation<DevTestLabServiceRunnerResource>(Response.FromValue(new DevTestLabServiceRunnerResource(Client, response), response.GetRawResponse()));
+                var operation = new DevTestLabsArmOperation<DevTestLabServiceRunnerResource>(new DevTestLabServiceRunnerOperationSource(Client), _devTestLabServiceRunnerServiceRunnersClientDiagnostics, Pipeline, _devTestLabServiceRunnerServiceRunnersRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, name, data).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -92,7 +94,7 @@ namespace Azure.ResourceManager.DevTestLabs
         }
 
         /// <summary>
-        /// Create or replace an existing service runner.
+        /// Create or replace an existing Service runner. This operation can take a while to complete.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -120,7 +122,7 @@ namespace Azure.ResourceManager.DevTestLabs
             try
             {
                 var response = _devTestLabServiceRunnerServiceRunnersRestClient.CreateOrUpdate(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, name, data, cancellationToken);
-                var operation = new DevTestLabsArmOperation<DevTestLabServiceRunnerResource>(Response.FromValue(new DevTestLabServiceRunnerResource(Client, response), response.GetRawResponse()));
+                var operation = new DevTestLabsArmOperation<DevTestLabServiceRunnerResource>(new DevTestLabServiceRunnerOperationSource(Client), _devTestLabServiceRunnerServiceRunnersClientDiagnostics, Pipeline, _devTestLabServiceRunnerServiceRunnersRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, name, data).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -207,6 +209,56 @@ namespace Azure.ResourceManager.DevTestLabs
         }
 
         /// <summary>
+        /// List service runners in a given lab.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/servicerunners</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>ServiceRunners_List</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="filter"> The filter to apply to the operation. Example: &apos;$filter=contains(name,&apos;myName&apos;)&apos;. </param>
+        /// <param name="top"> The maximum number of resources to return from the operation. Example: &apos;$top=10&apos;. </param>
+        /// <param name="orderby"> The ordering expression for the results, using OData notation. Example: &apos;$orderby=name desc&apos;. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> An async collection of <see cref="DevTestLabServiceRunnerResource" /> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<DevTestLabServiceRunnerResource> GetAllAsync(string filter = null, int? top = null, string orderby = null, CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _devTestLabServiceRunnerServiceRunnersRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, filter, top, orderby);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _devTestLabServiceRunnerServiceRunnersRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, filter, top, orderby);
+            return PageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new DevTestLabServiceRunnerResource(Client, DevTestLabServiceRunnerData.DeserializeDevTestLabServiceRunnerData(e)), _devTestLabServiceRunnerServiceRunnersClientDiagnostics, Pipeline, "DevTestLabServiceRunnerCollection.GetAll", "value", "nextLink", cancellationToken);
+        }
+
+        /// <summary>
+        /// List service runners in a given lab.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/servicerunners</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>ServiceRunners_List</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="filter"> The filter to apply to the operation. Example: &apos;$filter=contains(name,&apos;myName&apos;)&apos;. </param>
+        /// <param name="top"> The maximum number of resources to return from the operation. Example: &apos;$top=10&apos;. </param>
+        /// <param name="orderby"> The ordering expression for the results, using OData notation. Example: &apos;$orderby=name desc&apos;. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="DevTestLabServiceRunnerResource" /> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<DevTestLabServiceRunnerResource> GetAll(string filter = null, int? top = null, string orderby = null, CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _devTestLabServiceRunnerServiceRunnersRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, filter, top, orderby);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _devTestLabServiceRunnerServiceRunnersRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, filter, top, orderby);
+            return PageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new DevTestLabServiceRunnerResource(Client, DevTestLabServiceRunnerData.DeserializeDevTestLabServiceRunnerData(e)), _devTestLabServiceRunnerServiceRunnersClientDiagnostics, Pipeline, "DevTestLabServiceRunnerCollection.GetAll", "value", "nextLink", cancellationToken);
+        }
+
+        /// <summary>
         /// Checks to see if the resource exists in azure.
         /// <list type="bullet">
         /// <item>
@@ -274,6 +326,21 @@ namespace Azure.ResourceManager.DevTestLabs
                 scope.Failed(e);
                 throw;
             }
+        }
+
+        IEnumerator<DevTestLabServiceRunnerResource> IEnumerable<DevTestLabServiceRunnerResource>.GetEnumerator()
+        {
+            return GetAll().GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetAll().GetEnumerator();
+        }
+
+        IAsyncEnumerator<DevTestLabServiceRunnerResource> IAsyncEnumerable<DevTestLabServiceRunnerResource>.GetAsyncEnumerator(CancellationToken cancellationToken)
+        {
+            return GetAllAsync(cancellationToken: cancellationToken).GetAsyncEnumerator(cancellationToken);
         }
     }
 }

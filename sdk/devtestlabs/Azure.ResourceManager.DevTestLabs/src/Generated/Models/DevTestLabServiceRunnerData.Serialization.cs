@@ -5,6 +5,7 @@
 
 #nullable disable
 
+using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
@@ -18,11 +19,6 @@ namespace Azure.ResourceManager.DevTestLabs
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
-            if (Optional.IsDefined(Identity))
-            {
-                writer.WritePropertyName("identity"u8);
-                writer.WriteObjectValue(Identity);
-            }
             if (Optional.IsCollectionDefined(Tags))
             {
                 writer.WritePropertyName("tags"u8);
@@ -36,6 +32,57 @@ namespace Azure.ResourceManager.DevTestLabs
             }
             writer.WritePropertyName("location"u8);
             writer.WriteStringValue(Location);
+            writer.WritePropertyName("identity"u8);
+            writer.WriteStartObject();
+            if (Optional.IsDefined(TypeIdentityType))
+            {
+                writer.WritePropertyName("type"u8);
+                writer.WriteStringValue(TypeIdentityType.Value.ToString());
+            }
+            if (Optional.IsDefined(PrincipalId))
+            {
+                writer.WritePropertyName("principalId"u8);
+                writer.WriteStringValue(PrincipalId);
+            }
+            if (Optional.IsDefined(TenantId))
+            {
+                writer.WritePropertyName("tenantId"u8);
+                writer.WriteStringValue(TenantId.Value);
+            }
+            if (Optional.IsDefined(ClientSecretUri))
+            {
+                writer.WritePropertyName("clientSecretUrl"u8);
+                writer.WriteStringValue(ClientSecretUri.AbsoluteUri);
+            }
+            if (Optional.IsCollectionDefined(UserAssignedIdentities))
+            {
+                writer.WritePropertyName("userAssignedIdentities"u8);
+                writer.WriteStartObject();
+                foreach (var item in UserAssignedIdentities)
+                {
+                    writer.WritePropertyName(item.Key);
+                    if (item.Value == null)
+                    {
+                        writer.WriteNullValue();
+                        continue;
+                    }
+#if NET6_0_OR_GREATER
+				writer.WriteRawValue(item.Value);
+#else
+                    JsonSerializer.Serialize(writer, JsonDocument.Parse(item.Value.ToString()).RootElement);
+#endif
+                }
+                writer.WriteEndObject();
+            }
+            writer.WriteEndObject();
+            writer.WritePropertyName("properties"u8);
+            writer.WriteStartObject();
+            if (Optional.IsDefined(IdentityUsageType))
+            {
+                writer.WritePropertyName("identityUsageType"u8);
+                writer.WriteStringValue(IdentityUsageType);
+            }
+            writer.WriteEndObject();
             writer.WriteEndObject();
         }
 
@@ -45,25 +92,22 @@ namespace Azure.ResourceManager.DevTestLabs
             {
                 return null;
             }
-            Optional<DevTestLabManagedIdentity> identity = default;
             Optional<IDictionary<string, string>> tags = default;
             AzureLocation location = default;
             ResourceIdentifier id = default;
             string name = default;
             ResourceType type = default;
             Optional<SystemData> systemData = default;
+            Optional<ManagedIdentityType> type0 = default;
+            Optional<string> principalId = default;
+            Optional<Guid> tenantId = default;
+            Optional<Uri> clientSecretUrl = default;
+            Optional<IDictionary<string, BinaryData>> userAssignedIdentities = default;
+            Optional<string> identityUsageType = default;
+            Optional<string> provisioningState = default;
+            Optional<Guid> uniqueIdentifier = default;
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("identity"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
-                    identity = DevTestLabManagedIdentity.DeserializeDevTestLabManagedIdentity(property.Value);
-                    continue;
-                }
                 if (property.NameEquals("tags"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -109,8 +153,109 @@ namespace Azure.ResourceManager.DevTestLabs
                     systemData = JsonSerializer.Deserialize<SystemData>(property.Value.GetRawText());
                     continue;
                 }
+                if (property.NameEquals("identity"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        property.ThrowNonNullablePropertyIsNull();
+                        continue;
+                    }
+                    foreach (var property0 in property.Value.EnumerateObject())
+                    {
+                        if (property0.NameEquals("type"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            type0 = new ManagedIdentityType(property0.Value.GetString());
+                            continue;
+                        }
+                        if (property0.NameEquals("principalId"u8))
+                        {
+                            principalId = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("tenantId"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            tenantId = property0.Value.GetGuid();
+                            continue;
+                        }
+                        if (property0.NameEquals("clientSecretUrl"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                clientSecretUrl = null;
+                                continue;
+                            }
+                            clientSecretUrl = new Uri(property0.Value.GetString());
+                            continue;
+                        }
+                        if (property0.NameEquals("userAssignedIdentities"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            Dictionary<string, BinaryData> dictionary = new Dictionary<string, BinaryData>();
+                            foreach (var property1 in property0.Value.EnumerateObject())
+                            {
+                                if (property1.Value.ValueKind == JsonValueKind.Null)
+                                {
+                                    dictionary.Add(property1.Name, null);
+                                }
+                                else
+                                {
+                                    dictionary.Add(property1.Name, BinaryData.FromString(property1.Value.GetRawText()));
+                                }
+                            }
+                            userAssignedIdentities = dictionary;
+                            continue;
+                        }
+                    }
+                    continue;
+                }
+                if (property.NameEquals("properties"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        property.ThrowNonNullablePropertyIsNull();
+                        continue;
+                    }
+                    foreach (var property0 in property.Value.EnumerateObject())
+                    {
+                        if (property0.NameEquals("identityUsageType"u8))
+                        {
+                            identityUsageType = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("provisioningState"u8))
+                        {
+                            provisioningState = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("uniqueIdentifier"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            uniqueIdentifier = property0.Value.GetGuid();
+                            continue;
+                        }
+                    }
+                    continue;
+                }
             }
-            return new DevTestLabServiceRunnerData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, identity.Value);
+            return new DevTestLabServiceRunnerData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, Optional.ToNullable(type0), principalId.Value, Optional.ToNullable(tenantId), clientSecretUrl.Value, Optional.ToDictionary(userAssignedIdentities), identityUsageType.Value, provisioningState.Value, Optional.ToNullable(uniqueIdentifier));
         }
     }
 }

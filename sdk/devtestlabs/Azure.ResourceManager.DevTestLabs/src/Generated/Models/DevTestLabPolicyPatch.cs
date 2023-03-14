@@ -7,7 +7,7 @@
 
 namespace Azure.ResourceManager.DevTestLabs.Models
 {
-    /// <summary> A Policy. </summary>
+    /// <summary> Patch. </summary>
     public partial class DevTestLabPolicyPatch : DevTestLabResourcePatch
     {
         /// <summary> Initializes a new instance of DevTestLabPolicyPatch. </summary>

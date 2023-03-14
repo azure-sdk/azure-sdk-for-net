@@ -33,38 +33,46 @@ namespace Azure.ResourceManager.DevTestLabs
         /// <param name="systemData"> The systemData. </param>
         /// <param name="tags"> The tags. </param>
         /// <param name="location"> The location. </param>
-        /// <param name="vm"> The virtual machine from which the image is to be created. </param>
-        /// <param name="vhd"> The VHD from which the image is to be created. </param>
         /// <param name="description"> The description of the custom image. </param>
         /// <param name="author"> The author of the custom image. </param>
         /// <param name="createdOn"> The creation date of the custom image. </param>
         /// <param name="managedImageId"> The Managed Image Id backing the custom image. </param>
         /// <param name="managedSnapshotId"> The Managed Snapshot Id backing the custom image. </param>
         /// <param name="dataDiskStorageInfo"> Storage information about the data disks present in the custom image. </param>
-        /// <param name="customImagePlan"> Storage information about the plan related to this custom image. </param>
         /// <param name="isPlanAuthorized"> Whether or not the custom images underlying offer/plan has been enabled for programmatic deployment. </param>
         /// <param name="provisioningState"> The provisioning status of the resource. </param>
         /// <param name="uniqueIdentifier"> The unique immutable identifier of a resource (Guid). </param>
-        internal DevTestLabCustomImageData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, DevTestLabCustomImageVm vm, DevTestLabCustomImageVhd vhd, string description, string author, DateTimeOffset? createdOn, string managedImageId, string managedSnapshotId, IList<DevTestLabDataDiskStorageTypeInfo> dataDiskStorageInfo, DevTestLabCustomImagePlan customImagePlan, bool? isPlanAuthorized, string provisioningState, Guid? uniqueIdentifier) : base(id, name, resourceType, systemData, tags, location)
+        /// <param name="idPropertiesCustomImagePlanId"> The id of the plan, equivalent to name of the plan. </param>
+        /// <param name="publisher"> The publisher for the plan from the marketplace image the custom image is derived from. </param>
+        /// <param name="offer"> The offer for the plan from the marketplace image the custom image is derived from. </param>
+        /// <param name="imageName"> The image name. </param>
+        /// <param name="sysPrep"> Indicates whether sysprep has been run on the VHD. </param>
+        /// <param name="osType"> The OS type of the custom image (i.e. Windows, Linux). </param>
+        /// <param name="sourceVmId"> The source vm identifier. </param>
+        /// <param name="linuxOSState"> The state of the Linux OS (i.e. NonDeprovisioned, DeprovisionRequested, DeprovisionApplied). </param>
+        /// <param name="windowsOSState"> The state of the Windows OS (i.e. NonSysprepped, SysprepRequested, SysprepApplied). </param>
+        internal DevTestLabCustomImageData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, string description, string author, DateTimeOffset? createdOn, string managedImageId, string managedSnapshotId, IList<DevTestLabDataDiskStorageTypeInfo> dataDiskStorageInfo, bool? isPlanAuthorized, string provisioningState, Guid? uniqueIdentifier, string idPropertiesCustomImagePlanId, string publisher, string offer, string imageName, bool? sysPrep, DevTestLabCustomImageOSType? osType, string sourceVmId, DevTestLabLinuxOSState? linuxOSState, WindowsOSState? windowsOSState) : base(id, name, resourceType, systemData, tags, location)
         {
-            Vm = vm;
-            Vhd = vhd;
             Description = description;
             Author = author;
             CreatedOn = createdOn;
             ManagedImageId = managedImageId;
             ManagedSnapshotId = managedSnapshotId;
             DataDiskStorageInfo = dataDiskStorageInfo;
-            CustomImagePlan = customImagePlan;
             IsPlanAuthorized = isPlanAuthorized;
             ProvisioningState = provisioningState;
             UniqueIdentifier = uniqueIdentifier;
+            IdPropertiesCustomImagePlanId = idPropertiesCustomImagePlanId;
+            Publisher = publisher;
+            Offer = offer;
+            ImageName = imageName;
+            SysPrep = sysPrep;
+            OSType = osType;
+            SourceVmId = sourceVmId;
+            LinuxOSState = linuxOSState;
+            WindowsOSState = windowsOSState;
         }
 
-        /// <summary> The virtual machine from which the image is to be created. </summary>
-        public DevTestLabCustomImageVm Vm { get; set; }
-        /// <summary> The VHD from which the image is to be created. </summary>
-        public DevTestLabCustomImageVhd Vhd { get; set; }
         /// <summary> The description of the custom image. </summary>
         public string Description { get; set; }
         /// <summary> The author of the custom image. </summary>
@@ -77,13 +85,29 @@ namespace Azure.ResourceManager.DevTestLabs
         public string ManagedSnapshotId { get; set; }
         /// <summary> Storage information about the data disks present in the custom image. </summary>
         public IList<DevTestLabDataDiskStorageTypeInfo> DataDiskStorageInfo { get; }
-        /// <summary> Storage information about the plan related to this custom image. </summary>
-        public DevTestLabCustomImagePlan CustomImagePlan { get; set; }
         /// <summary> Whether or not the custom images underlying offer/plan has been enabled for programmatic deployment. </summary>
         public bool? IsPlanAuthorized { get; set; }
         /// <summary> The provisioning status of the resource. </summary>
         public string ProvisioningState { get; }
         /// <summary> The unique immutable identifier of a resource (Guid). </summary>
         public Guid? UniqueIdentifier { get; }
+        /// <summary> The id of the plan, equivalent to name of the plan. </summary>
+        public string IdPropertiesCustomImagePlanId { get; set; }
+        /// <summary> The publisher for the plan from the marketplace image the custom image is derived from. </summary>
+        public string Publisher { get; set; }
+        /// <summary> The offer for the plan from the marketplace image the custom image is derived from. </summary>
+        public string Offer { get; set; }
+        /// <summary> The image name. </summary>
+        public string ImageName { get; set; }
+        /// <summary> Indicates whether sysprep has been run on the VHD. </summary>
+        public bool? SysPrep { get; set; }
+        /// <summary> The OS type of the custom image (i.e. Windows, Linux). </summary>
+        public DevTestLabCustomImageOSType? OSType { get; set; }
+        /// <summary> The source vm identifier. </summary>
+        public string SourceVmId { get; set; }
+        /// <summary> The state of the Linux OS (i.e. NonDeprovisioned, DeprovisionRequested, DeprovisionApplied). </summary>
+        public DevTestLabLinuxOSState? LinuxOSState { get; set; }
+        /// <summary> The state of the Windows OS (i.e. NonSysprepped, SysprepRequested, SysprepApplied). </summary>
+        public WindowsOSState? WindowsOSState { get; set; }
     }
 }

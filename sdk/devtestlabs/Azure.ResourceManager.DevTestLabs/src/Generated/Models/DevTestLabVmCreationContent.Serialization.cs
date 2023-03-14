@@ -5,8 +5,6 @@
 
 #nullable disable
 
-using System;
-using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
 
@@ -17,16 +15,6 @@ namespace Azure.ResourceManager.DevTestLabs.Models
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
-            if (Optional.IsDefined(Name))
-            {
-                writer.WritePropertyName("name"u8);
-                writer.WriteStringValue(Name);
-            }
-            if (Optional.IsDefined(Location))
-            {
-                writer.WritePropertyName("location"u8);
-                writer.WriteStringValue(Location.Value);
-            }
             if (Optional.IsCollectionDefined(Tags))
             {
                 writer.WritePropertyName("tags"u8);
@@ -38,13 +26,10 @@ namespace Azure.ResourceManager.DevTestLabs.Models
                 }
                 writer.WriteEndObject();
             }
+            writer.WritePropertyName("location"u8);
+            writer.WriteStringValue(Location);
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
-            if (Optional.IsDefined(BulkCreationParameters))
-            {
-                writer.WritePropertyName("bulkCreationParameters"u8);
-                writer.WriteObjectValue(BulkCreationParameters);
-            }
             if (Optional.IsDefined(Notes))
             {
                 writer.WritePropertyName("notes"u8);
@@ -60,15 +45,30 @@ namespace Azure.ResourceManager.DevTestLabs.Models
                 writer.WritePropertyName("ownerUserPrincipalName"u8);
                 writer.WriteStringValue(OwnerUserPrincipalName);
             }
-            if (Optional.IsDefined(CreatedOn))
+            if (Optional.IsDefined(CreatedDatePropertiesCreatedOn))
             {
                 writer.WritePropertyName("createdDate"u8);
-                writer.WriteStringValue(CreatedOn.Value, "O");
+                writer.WriteStringValue(CreatedDatePropertiesCreatedOn.Value, "O");
             }
             if (Optional.IsDefined(CustomImageId))
             {
                 writer.WritePropertyName("customImageId"u8);
                 writer.WriteStringValue(CustomImageId);
+            }
+            if (Optional.IsDefined(GalleryImageVersionId))
+            {
+                writer.WritePropertyName("galleryImageVersionId"u8);
+                writer.WriteStringValue(GalleryImageVersionId);
+            }
+            if (Optional.IsDefined(SharedImageId))
+            {
+                writer.WritePropertyName("sharedImageId"u8);
+                writer.WriteStringValue(SharedImageId);
+            }
+            if (Optional.IsDefined(SharedImageVersion))
+            {
+                writer.WritePropertyName("sharedImageVersion"u8);
+                writer.WriteStringValue(SharedImageVersion);
             }
             if (Optional.IsDefined(Size))
             {
@@ -120,20 +120,15 @@ namespace Azure.ResourceManager.DevTestLabs.Models
                 }
                 writer.WriteEndArray();
             }
-            if (Optional.IsDefined(GalleryImageReference))
-            {
-                writer.WritePropertyName("galleryImageReference"u8);
-                writer.WriteObjectValue(GalleryImageReference);
-            }
             if (Optional.IsDefined(PlanId))
             {
                 writer.WritePropertyName("planId"u8);
                 writer.WriteStringValue(PlanId);
             }
-            if (Optional.IsDefined(NetworkInterface))
+            if (Optional.IsDefined(OSDiskSizeGb))
             {
-                writer.WritePropertyName("networkInterface"u8);
-                writer.WriteObjectValue(NetworkInterface);
+                writer.WritePropertyName("osDiskSizeGb"u8);
+                writer.WriteNumberValue(OSDiskSizeGb.Value);
             }
             if (Optional.IsDefined(ExpireOn))
             {
@@ -148,7 +143,7 @@ namespace Azure.ResourceManager.DevTestLabs.Models
             if (Optional.IsDefined(StorageType))
             {
                 writer.WritePropertyName("storageType"u8);
-                writer.WriteStringValue(StorageType);
+                writer.WriteStringValue(StorageType.Value.ToString());
             }
             if (Optional.IsDefined(EnvironmentId))
             {
@@ -175,284 +170,401 @@ namespace Azure.ResourceManager.DevTestLabs.Models
                 }
                 writer.WriteEndArray();
             }
+            writer.WritePropertyName("applicableSchedule"u8);
+            writer.WriteStartObject();
+            if (Optional.IsCollectionDefined(TagsPropertiesApplicableScheduleTags))
+            {
+                writer.WritePropertyName("tags"u8);
+                writer.WriteStartObject();
+                foreach (var item in TagsPropertiesApplicableScheduleTags)
+                {
+                    writer.WritePropertyName(item.Key);
+                    writer.WriteStringValue(item.Value);
+                }
+                writer.WriteEndObject();
+            }
+            if (Optional.IsDefined(LocationPropertiesApplicableScheduleLocation))
+            {
+                writer.WritePropertyName("location"u8);
+                writer.WriteStringValue(LocationPropertiesApplicableScheduleLocation.Value);
+            }
+            writer.WritePropertyName("properties"u8);
+            writer.WriteStartObject();
+            writer.WritePropertyName("labVmsStartup"u8);
+            writer.WriteStartObject();
+            if (Optional.IsCollectionDefined(TagsPropertiesApplicableSchedulePropertiesLabVmsStartupTags))
+            {
+                writer.WritePropertyName("tags"u8);
+                writer.WriteStartObject();
+                foreach (var item in TagsPropertiesApplicableSchedulePropertiesLabVmsStartupTags)
+                {
+                    writer.WritePropertyName(item.Key);
+                    writer.WriteStringValue(item.Value);
+                }
+                writer.WriteEndObject();
+            }
+            if (Optional.IsDefined(LocationPropertiesApplicableSchedulePropertiesLabVmsStartupLocation))
+            {
+                writer.WritePropertyName("location"u8);
+                writer.WriteStringValue(LocationPropertiesApplicableSchedulePropertiesLabVmsStartupLocation.Value);
+            }
+            writer.WritePropertyName("properties"u8);
+            writer.WriteStartObject();
+            if (Optional.IsDefined(StatusPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesStatus))
+            {
+                writer.WritePropertyName("status"u8);
+                writer.WriteStringValue(StatusPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesStatus.Value.ToString());
+            }
+            if (Optional.IsDefined(TaskTypePropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesTaskType))
+            {
+                writer.WritePropertyName("taskType"u8);
+                writer.WriteStringValue(TaskTypePropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesTaskType);
+            }
+            if (Optional.IsDefined(TimeZoneIdPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesTimeZoneId))
+            {
+                writer.WritePropertyName("timeZoneId"u8);
+                writer.WriteStringValue(TimeZoneIdPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesTimeZoneId);
+            }
+            if (Optional.IsDefined(TargetResourceIdPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesTargetResourceId))
+            {
+                writer.WritePropertyName("targetResourceId"u8);
+                writer.WriteStringValue(TargetResourceIdPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesTargetResourceId);
+            }
+            writer.WritePropertyName("notificationSettings"u8);
+            writer.WriteStartObject();
+            if (Optional.IsDefined(StatusPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesNotificationSettingsStatus))
+            {
+                writer.WritePropertyName("status"u8);
+                writer.WriteStringValue(StatusPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesNotificationSettingsStatus.Value.ToString());
+            }
+            if (Optional.IsDefined(TimeInMinutesPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesNotificationSettingsTimeInMinutes))
+            {
+                writer.WritePropertyName("timeInMinutes"u8);
+                writer.WriteNumberValue(TimeInMinutesPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesNotificationSettingsTimeInMinutes.Value);
+            }
+            if (Optional.IsDefined(WebhookUrlPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesNotificationSettingsWebhookUri))
+            {
+                writer.WritePropertyName("webhookUrl"u8);
+                writer.WriteStringValue(WebhookUrlPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesNotificationSettingsWebhookUri.AbsoluteUri);
+            }
+            if (Optional.IsDefined(EmailRecipientPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesNotificationSettingsEmailRecipient))
+            {
+                writer.WritePropertyName("emailRecipient"u8);
+                writer.WriteStringValue(EmailRecipientPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesNotificationSettingsEmailRecipient);
+            }
+            if (Optional.IsDefined(NotificationLocalePropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesNotificationSettingsNotificationLocale))
+            {
+                writer.WritePropertyName("notificationLocale"u8);
+                writer.WriteStringValue(NotificationLocalePropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesNotificationSettingsNotificationLocale);
+            }
+            writer.WriteEndObject();
+            writer.WritePropertyName("hourlyRecurrence"u8);
+            writer.WriteStartObject();
+            if (Optional.IsDefined(MinutePropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesHourlyRecurrenceMinute))
+            {
+                writer.WritePropertyName("minute"u8);
+                writer.WriteNumberValue(MinutePropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesHourlyRecurrenceMinute.Value);
+            }
+            writer.WriteEndObject();
+            writer.WritePropertyName("dailyRecurrence"u8);
+            writer.WriteStartObject();
+            if (Optional.IsDefined(TimePropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesDailyRecurrenceTime))
+            {
+                writer.WritePropertyName("time"u8);
+                writer.WriteStringValue(TimePropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesDailyRecurrenceTime);
+            }
+            writer.WriteEndObject();
+            writer.WritePropertyName("weeklyRecurrence"u8);
+            writer.WriteStartObject();
+            if (Optional.IsCollectionDefined(WeekdaysPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesWeeklyRecurrenceWeekdays))
+            {
+                writer.WritePropertyName("weekdays"u8);
+                writer.WriteStartArray();
+                foreach (var item in WeekdaysPropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesWeeklyRecurrenceWeekdays)
+                {
+                    writer.WriteStringValue(item);
+                }
+                writer.WriteEndArray();
+            }
+            if (Optional.IsDefined(TimePropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesWeeklyRecurrenceTime))
+            {
+                writer.WritePropertyName("time"u8);
+                writer.WriteStringValue(TimePropertiesApplicableSchedulePropertiesLabVmsStartupPropertiesWeeklyRecurrenceTime);
+            }
             writer.WriteEndObject();
             writer.WriteEndObject();
-        }
-
-        internal static DevTestLabVmCreationContent DeserializeDevTestLabVmCreationContent(JsonElement element)
-        {
-            if (element.ValueKind == JsonValueKind.Null)
+            writer.WriteEndObject();
+            writer.WritePropertyName("labVmsShutdown"u8);
+            writer.WriteStartObject();
+            if (Optional.IsCollectionDefined(TagsPropertiesApplicableSchedulePropertiesLabVmsShutdownTags))
             {
-                return null;
+                writer.WritePropertyName("tags"u8);
+                writer.WriteStartObject();
+                foreach (var item in TagsPropertiesApplicableSchedulePropertiesLabVmsShutdownTags)
+                {
+                    writer.WritePropertyName(item.Key);
+                    writer.WriteStringValue(item.Value);
+                }
+                writer.WriteEndObject();
             }
-            Optional<string> name = default;
-            Optional<AzureLocation> location = default;
-            Optional<IDictionary<string, string>> tags = default;
-            Optional<BulkCreationParameters> bulkCreationParameters = default;
-            Optional<string> notes = default;
-            Optional<string> ownerObjectId = default;
-            Optional<string> ownerUserPrincipalName = default;
-            Optional<DateTimeOffset> createdDate = default;
-            Optional<string> customImageId = default;
-            Optional<string> size = default;
-            Optional<string> userName = default;
-            Optional<string> password = default;
-            Optional<string> sshKey = default;
-            Optional<bool> isAuthenticationWithSshKey = default;
-            Optional<string> labSubnetName = default;
-            Optional<ResourceIdentifier> labVirtualNetworkId = default;
-            Optional<bool> disallowPublicIPAddress = default;
-            Optional<IList<DevTestLabArtifactInstallInfo>> artifacts = default;
-            Optional<DevTestLabGalleryImageReference> galleryImageReference = default;
-            Optional<string> planId = default;
-            Optional<DevTestLabNetworkInterface> networkInterface = default;
-            Optional<DateTimeOffset> expirationDate = default;
-            Optional<bool> allowClaim = default;
-            Optional<string> storageType = default;
-            Optional<string> environmentId = default;
-            Optional<IList<DevTestLabDataDiskProperties>> dataDiskParameters = default;
-            Optional<IList<DevTestLabScheduleCreationParameter>> scheduleParameters = default;
-            foreach (var property in element.EnumerateObject())
+            if (Optional.IsDefined(LocationPropertiesApplicableSchedulePropertiesLabVmsShutdownLocation))
             {
-                if (property.NameEquals("name"u8))
-                {
-                    name = property.Value.GetString();
-                    continue;
-                }
-                if (property.NameEquals("location"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
-                    location = new AzureLocation(property.Value.GetString());
-                    continue;
-                }
-                if (property.NameEquals("tags"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
-                    Dictionary<string, string> dictionary = new Dictionary<string, string>();
-                    foreach (var property0 in property.Value.EnumerateObject())
-                    {
-                        dictionary.Add(property0.Name, property0.Value.GetString());
-                    }
-                    tags = dictionary;
-                    continue;
-                }
-                if (property.NameEquals("properties"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
-                    foreach (var property0 in property.Value.EnumerateObject())
-                    {
-                        if (property0.NameEquals("bulkCreationParameters"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                property0.ThrowNonNullablePropertyIsNull();
-                                continue;
-                            }
-                            bulkCreationParameters = BulkCreationParameters.DeserializeBulkCreationParameters(property0.Value);
-                            continue;
-                        }
-                        if (property0.NameEquals("notes"u8))
-                        {
-                            notes = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("ownerObjectId"u8))
-                        {
-                            ownerObjectId = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("ownerUserPrincipalName"u8))
-                        {
-                            ownerUserPrincipalName = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("createdDate"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                property0.ThrowNonNullablePropertyIsNull();
-                                continue;
-                            }
-                            createdDate = property0.Value.GetDateTimeOffset("O");
-                            continue;
-                        }
-                        if (property0.NameEquals("customImageId"u8))
-                        {
-                            customImageId = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("size"u8))
-                        {
-                            size = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("userName"u8))
-                        {
-                            userName = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("password"u8))
-                        {
-                            password = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("sshKey"u8))
-                        {
-                            sshKey = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("isAuthenticationWithSshKey"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                property0.ThrowNonNullablePropertyIsNull();
-                                continue;
-                            }
-                            isAuthenticationWithSshKey = property0.Value.GetBoolean();
-                            continue;
-                        }
-                        if (property0.NameEquals("labSubnetName"u8))
-                        {
-                            labSubnetName = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("labVirtualNetworkId"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                property0.ThrowNonNullablePropertyIsNull();
-                                continue;
-                            }
-                            labVirtualNetworkId = new ResourceIdentifier(property0.Value.GetString());
-                            continue;
-                        }
-                        if (property0.NameEquals("disallowPublicIpAddress"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                property0.ThrowNonNullablePropertyIsNull();
-                                continue;
-                            }
-                            disallowPublicIPAddress = property0.Value.GetBoolean();
-                            continue;
-                        }
-                        if (property0.NameEquals("artifacts"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                property0.ThrowNonNullablePropertyIsNull();
-                                continue;
-                            }
-                            List<DevTestLabArtifactInstallInfo> array = new List<DevTestLabArtifactInstallInfo>();
-                            foreach (var item in property0.Value.EnumerateArray())
-                            {
-                                array.Add(DevTestLabArtifactInstallInfo.DeserializeDevTestLabArtifactInstallInfo(item));
-                            }
-                            artifacts = array;
-                            continue;
-                        }
-                        if (property0.NameEquals("galleryImageReference"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                property0.ThrowNonNullablePropertyIsNull();
-                                continue;
-                            }
-                            galleryImageReference = DevTestLabGalleryImageReference.DeserializeDevTestLabGalleryImageReference(property0.Value);
-                            continue;
-                        }
-                        if (property0.NameEquals("planId"u8))
-                        {
-                            planId = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("networkInterface"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                property0.ThrowNonNullablePropertyIsNull();
-                                continue;
-                            }
-                            networkInterface = DevTestLabNetworkInterface.DeserializeDevTestLabNetworkInterface(property0.Value);
-                            continue;
-                        }
-                        if (property0.NameEquals("expirationDate"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                property0.ThrowNonNullablePropertyIsNull();
-                                continue;
-                            }
-                            expirationDate = property0.Value.GetDateTimeOffset("O");
-                            continue;
-                        }
-                        if (property0.NameEquals("allowClaim"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                property0.ThrowNonNullablePropertyIsNull();
-                                continue;
-                            }
-                            allowClaim = property0.Value.GetBoolean();
-                            continue;
-                        }
-                        if (property0.NameEquals("storageType"u8))
-                        {
-                            storageType = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("environmentId"u8))
-                        {
-                            environmentId = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("dataDiskParameters"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                property0.ThrowNonNullablePropertyIsNull();
-                                continue;
-                            }
-                            List<DevTestLabDataDiskProperties> array = new List<DevTestLabDataDiskProperties>();
-                            foreach (var item in property0.Value.EnumerateArray())
-                            {
-                                array.Add(DevTestLabDataDiskProperties.DeserializeDevTestLabDataDiskProperties(item));
-                            }
-                            dataDiskParameters = array;
-                            continue;
-                        }
-                        if (property0.NameEquals("scheduleParameters"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                property0.ThrowNonNullablePropertyIsNull();
-                                continue;
-                            }
-                            List<DevTestLabScheduleCreationParameter> array = new List<DevTestLabScheduleCreationParameter>();
-                            foreach (var item in property0.Value.EnumerateArray())
-                            {
-                                array.Add(DevTestLabScheduleCreationParameter.DeserializeDevTestLabScheduleCreationParameter(item));
-                            }
-                            scheduleParameters = array;
-                            continue;
-                        }
-                    }
-                    continue;
-                }
+                writer.WritePropertyName("location"u8);
+                writer.WriteStringValue(LocationPropertiesApplicableSchedulePropertiesLabVmsShutdownLocation.Value);
             }
-            return new DevTestLabVmCreationContent(name.Value, Optional.ToNullable(location), Optional.ToDictionary(tags), bulkCreationParameters.Value, notes.Value, ownerObjectId.Value, ownerUserPrincipalName.Value, Optional.ToNullable(createdDate), customImageId.Value, size.Value, userName.Value, password.Value, sshKey.Value, Optional.ToNullable(isAuthenticationWithSshKey), labSubnetName.Value, labVirtualNetworkId.Value, Optional.ToNullable(disallowPublicIPAddress), Optional.ToList(artifacts), galleryImageReference.Value, planId.Value, networkInterface.Value, Optional.ToNullable(expirationDate), Optional.ToNullable(allowClaim), storageType.Value, environmentId.Value, Optional.ToList(dataDiskParameters), Optional.ToList(scheduleParameters));
+            writer.WritePropertyName("properties"u8);
+            writer.WriteStartObject();
+            if (Optional.IsDefined(StatusPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesStatus))
+            {
+                writer.WritePropertyName("status"u8);
+                writer.WriteStringValue(StatusPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesStatus.Value.ToString());
+            }
+            if (Optional.IsDefined(TaskTypePropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesTaskType))
+            {
+                writer.WritePropertyName("taskType"u8);
+                writer.WriteStringValue(TaskTypePropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesTaskType);
+            }
+            if (Optional.IsDefined(TimeZoneIdPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesTimeZoneId))
+            {
+                writer.WritePropertyName("timeZoneId"u8);
+                writer.WriteStringValue(TimeZoneIdPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesTimeZoneId);
+            }
+            if (Optional.IsDefined(TargetResourceIdPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesTargetResourceId))
+            {
+                writer.WritePropertyName("targetResourceId"u8);
+                writer.WriteStringValue(TargetResourceIdPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesTargetResourceId);
+            }
+            writer.WritePropertyName("notificationSettings"u8);
+            writer.WriteStartObject();
+            if (Optional.IsDefined(StatusPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesNotificationSettingsStatus))
+            {
+                writer.WritePropertyName("status"u8);
+                writer.WriteStringValue(StatusPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesNotificationSettingsStatus.Value.ToString());
+            }
+            if (Optional.IsDefined(TimeInMinutesPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesNotificationSettingsTimeInMinutes))
+            {
+                writer.WritePropertyName("timeInMinutes"u8);
+                writer.WriteNumberValue(TimeInMinutesPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesNotificationSettingsTimeInMinutes.Value);
+            }
+            if (Optional.IsDefined(WebhookUrlPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesNotificationSettingsWebhookUri))
+            {
+                writer.WritePropertyName("webhookUrl"u8);
+                writer.WriteStringValue(WebhookUrlPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesNotificationSettingsWebhookUri.AbsoluteUri);
+            }
+            if (Optional.IsDefined(EmailRecipientPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesNotificationSettingsEmailRecipient))
+            {
+                writer.WritePropertyName("emailRecipient"u8);
+                writer.WriteStringValue(EmailRecipientPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesNotificationSettingsEmailRecipient);
+            }
+            if (Optional.IsDefined(NotificationLocalePropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesNotificationSettingsNotificationLocale))
+            {
+                writer.WritePropertyName("notificationLocale"u8);
+                writer.WriteStringValue(NotificationLocalePropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesNotificationSettingsNotificationLocale);
+            }
+            writer.WriteEndObject();
+            writer.WritePropertyName("hourlyRecurrence"u8);
+            writer.WriteStartObject();
+            if (Optional.IsDefined(MinutePropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesHourlyRecurrenceMinute))
+            {
+                writer.WritePropertyName("minute"u8);
+                writer.WriteNumberValue(MinutePropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesHourlyRecurrenceMinute.Value);
+            }
+            writer.WriteEndObject();
+            writer.WritePropertyName("dailyRecurrence"u8);
+            writer.WriteStartObject();
+            if (Optional.IsDefined(TimePropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesDailyRecurrenceTime))
+            {
+                writer.WritePropertyName("time"u8);
+                writer.WriteStringValue(TimePropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesDailyRecurrenceTime);
+            }
+            writer.WriteEndObject();
+            writer.WritePropertyName("weeklyRecurrence"u8);
+            writer.WriteStartObject();
+            if (Optional.IsCollectionDefined(WeekdaysPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesWeeklyRecurrenceWeekdays))
+            {
+                writer.WritePropertyName("weekdays"u8);
+                writer.WriteStartArray();
+                foreach (var item in WeekdaysPropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesWeeklyRecurrenceWeekdays)
+                {
+                    writer.WriteStringValue(item);
+                }
+                writer.WriteEndArray();
+            }
+            if (Optional.IsDefined(TimePropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesWeeklyRecurrenceTime))
+            {
+                writer.WritePropertyName("time"u8);
+                writer.WriteStringValue(TimePropertiesApplicableSchedulePropertiesLabVmsShutdownPropertiesWeeklyRecurrenceTime);
+            }
+            writer.WriteEndObject();
+            writer.WriteEndObject();
+            writer.WriteEndObject();
+            writer.WriteEndObject();
+            writer.WriteEndObject();
+            writer.WritePropertyName("networkInterface"u8);
+            writer.WriteStartObject();
+            if (Optional.IsDefined(VirtualNetworkId))
+            {
+                writer.WritePropertyName("virtualNetworkId"u8);
+                writer.WriteStringValue(VirtualNetworkId);
+            }
+            if (Optional.IsDefined(SubnetId))
+            {
+                writer.WritePropertyName("subnetId"u8);
+                writer.WriteStringValue(SubnetId);
+            }
+            if (Optional.IsDefined(PublicIPAddressId))
+            {
+                writer.WritePropertyName("publicIpAddressId"u8);
+                writer.WriteStringValue(PublicIPAddressId);
+            }
+            if (Optional.IsDefined(PublicIPAddress))
+            {
+                writer.WritePropertyName("publicIpAddress"u8);
+                writer.WriteStringValue(PublicIPAddress);
+            }
+            if (Optional.IsDefined(PrivateIPAddress))
+            {
+                writer.WritePropertyName("privateIpAddress"u8);
+                writer.WriteStringValue(PrivateIPAddress);
+            }
+            if (Optional.IsDefined(DnsName))
+            {
+                writer.WritePropertyName("dnsName"u8);
+                writer.WriteStringValue(DnsName);
+            }
+            if (Optional.IsDefined(RdpAuthority))
+            {
+                writer.WritePropertyName("rdpAuthority"u8);
+                writer.WriteStringValue(RdpAuthority);
+            }
+            if (Optional.IsDefined(SshAuthority))
+            {
+                writer.WritePropertyName("sshAuthority"u8);
+                writer.WriteStringValue(SshAuthority);
+            }
+            writer.WritePropertyName("sharedPublicIpAddressConfiguration"u8);
+            writer.WriteStartObject();
+            if (Optional.IsCollectionDefined(InboundNatRules))
+            {
+                writer.WritePropertyName("inboundNatRules"u8);
+                writer.WriteStartArray();
+                foreach (var item in InboundNatRules)
+                {
+                    writer.WriteObjectValue(item);
+                }
+                writer.WriteEndArray();
+            }
+            writer.WriteEndObject();
+            writer.WriteEndObject();
+            writer.WritePropertyName("computeVm"u8);
+            writer.WriteStartObject();
+            if (Optional.IsCollectionDefined(Statuses))
+            {
+                writer.WritePropertyName("statuses"u8);
+                writer.WriteStartArray();
+                foreach (var item in Statuses)
+                {
+                    writer.WriteObjectValue(item);
+                }
+                writer.WriteEndArray();
+            }
+            if (Optional.IsDefined(OSTypePropertiesComputeVmOSType))
+            {
+                writer.WritePropertyName("osType"u8);
+                writer.WriteStringValue(OSTypePropertiesComputeVmOSType);
+            }
+            if (Optional.IsDefined(VmSize))
+            {
+                writer.WritePropertyName("vmSize"u8);
+                writer.WriteStringValue(VmSize);
+            }
+            if (Optional.IsDefined(NetworkInterfaceId))
+            {
+                writer.WritePropertyName("networkInterfaceId"u8);
+                writer.WriteStringValue(NetworkInterfaceId);
+            }
+            if (Optional.IsDefined(OSDiskId))
+            {
+                writer.WritePropertyName("osDiskId"u8);
+                writer.WriteStringValue(OSDiskId);
+            }
+            if (Optional.IsCollectionDefined(DataDiskIds))
+            {
+                writer.WritePropertyName("dataDiskIds"u8);
+                writer.WriteStartArray();
+                foreach (var item in DataDiskIds)
+                {
+                    writer.WriteStringValue(item);
+                }
+                writer.WriteEndArray();
+            }
+            if (Optional.IsCollectionDefined(DataDisks))
+            {
+                writer.WritePropertyName("dataDisks"u8);
+                writer.WriteStartArray();
+                foreach (var item in DataDisks)
+                {
+                    writer.WriteObjectValue(item);
+                }
+                writer.WriteEndArray();
+            }
+            writer.WriteEndObject();
+            writer.WritePropertyName("galleryImageReference"u8);
+            writer.WriteStartObject();
+            if (Optional.IsDefined(Offer))
+            {
+                writer.WritePropertyName("offer"u8);
+                writer.WriteStringValue(Offer);
+            }
+            if (Optional.IsDefined(Publisher))
+            {
+                writer.WritePropertyName("publisher"u8);
+                writer.WriteStringValue(Publisher);
+            }
+            if (Optional.IsDefined(Sku))
+            {
+                writer.WritePropertyName("sku"u8);
+                writer.WriteStringValue(Sku);
+            }
+            if (Optional.IsDefined(OSTypePropertiesGalleryImageReferenceOSType))
+            {
+                writer.WritePropertyName("osType"u8);
+                writer.WriteStringValue(OSTypePropertiesGalleryImageReferenceOSType);
+            }
+            if (Optional.IsDefined(Version))
+            {
+                writer.WritePropertyName("version"u8);
+                writer.WriteStringValue(Version);
+            }
+            writer.WriteEndObject();
+            writer.WritePropertyName("artifactDeploymentStatus"u8);
+            writer.WriteStartObject();
+            if (Optional.IsDefined(DeploymentStatus))
+            {
+                writer.WritePropertyName("deploymentStatus"u8);
+                writer.WriteStringValue(DeploymentStatus);
+            }
+            if (Optional.IsDefined(ArtifactsApplied))
+            {
+                writer.WritePropertyName("artifactsApplied"u8);
+                writer.WriteNumberValue(ArtifactsApplied.Value);
+            }
+            if (Optional.IsDefined(TotalArtifacts))
+            {
+                writer.WritePropertyName("totalArtifacts"u8);
+                writer.WriteNumberValue(TotalArtifacts.Value);
+            }
+            writer.WriteEndObject();
+            writer.WritePropertyName("bulkCreationParameters"u8);
+            writer.WriteStartObject();
+            if (Optional.IsDefined(InstanceCount))
+            {
+                writer.WritePropertyName("instanceCount"u8);
+                writer.WriteNumberValue(InstanceCount.Value);
+            }
+            writer.WriteEndObject();
+            writer.WriteEndObject();
+            writer.WriteEndObject();
         }
     }
 }

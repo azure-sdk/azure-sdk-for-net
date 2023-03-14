@@ -7,30 +7,31 @@
 
 using System.Collections.Generic;
 using Azure.Core;
+using Azure.ResourceManager.DevTestLabs;
 
 namespace Azure.ResourceManager.DevTestLabs.Models
 {
-    /// <summary> The response of a list operation. </summary>
+    /// <summary> Contains a list of galleryImages and their properties. </summary>
     internal partial class GalleryImageList
     {
         /// <summary> Initializes a new instance of GalleryImageList. </summary>
         internal GalleryImageList()
         {
-            Value = new ChangeTrackingList<DevTestLabGalleryImage>();
+            Value = new ChangeTrackingList<DevTestLabGalleryImageData>();
         }
 
         /// <summary> Initializes a new instance of GalleryImageList. </summary>
-        /// <param name="value"> Results of the list operation. </param>
-        /// <param name="nextLink"> Link for next set of results. </param>
-        internal GalleryImageList(IReadOnlyList<DevTestLabGalleryImage> value, string nextLink)
+        /// <param name="value"> List of galleryImages and their properties. </param>
+        /// <param name="nextLink"> URL to get the next set of operation list results if there are any. </param>
+        internal GalleryImageList(IReadOnlyList<DevTestLabGalleryImageData> value, string nextLink)
         {
             Value = value;
             NextLink = nextLink;
         }
 
-        /// <summary> Results of the list operation. </summary>
-        public IReadOnlyList<DevTestLabGalleryImage> Value { get; }
-        /// <summary> Link for next set of results. </summary>
+        /// <summary> List of galleryImages and their properties. </summary>
+        public IReadOnlyList<DevTestLabGalleryImageData> Value { get; }
+        /// <summary> URL to get the next set of operation list results if there are any. </summary>
         public string NextLink { get; }
     }
 }

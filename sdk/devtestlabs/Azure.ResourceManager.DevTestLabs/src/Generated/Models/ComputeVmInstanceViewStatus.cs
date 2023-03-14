@@ -11,7 +11,7 @@ namespace Azure.ResourceManager.DevTestLabs.Models
     public partial class ComputeVmInstanceViewStatus
     {
         /// <summary> Initializes a new instance of ComputeVmInstanceViewStatus. </summary>
-        internal ComputeVmInstanceViewStatus()
+        public ComputeVmInstanceViewStatus()
         {
         }
 
@@ -27,10 +27,10 @@ namespace Azure.ResourceManager.DevTestLabs.Models
         }
 
         /// <summary> Gets the status Code. </summary>
-        public string Code { get; }
+        public string Code { get; set; }
         /// <summary> Gets the short localizable label for the status. </summary>
-        public string DisplayStatus { get; }
+        public string DisplayStatus { get; set; }
         /// <summary> Gets the message associated with the status. </summary>
-        public string Message { get; }
+        public string Message { get; set; }
     }
 }

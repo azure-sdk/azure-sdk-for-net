@@ -290,7 +290,7 @@ namespace Azure.ResourceManager.DevTestLabs
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="patch"> A Service Fabric. </param>
+        /// <param name="patch"> Allows modifying tags of service fabrics. All other properties will be ignored. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="patch"/> is null. </exception>
         public virtual async Task<Response<DevTestLabServiceFabricResource>> UpdateAsync(DevTestLabServiceFabricPatch patch, CancellationToken cancellationToken = default)
@@ -324,7 +324,7 @@ namespace Azure.ResourceManager.DevTestLabs
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="patch"> A Service Fabric. </param>
+        /// <param name="patch"> Allows modifying tags of service fabrics. All other properties will be ignored. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="patch"/> is null. </exception>
         public virtual Response<DevTestLabServiceFabricResource> Update(DevTestLabServiceFabricPatch patch, CancellationToken cancellationToken = default)
