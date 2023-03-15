@@ -12,12 +12,12 @@ namespace Microsoft.Azure.Management.Network.Models
 {
 
     /// <summary>
-    /// Defines values for WebApplicationFirewallRuleType.
+    /// Defines values for ApplicationGatewayFirewallUserSessionVariable.
     /// </summary>
-    public static class WebApplicationFirewallRuleType
+    public static class ApplicationGatewayFirewallUserSessionVariable
     {
-        public const string MatchRule = "MatchRule";
-        public const string RateLimitRule = "RateLimitRule";
-        public const string Invalid = "Invalid";
+        public const string ClientAddr = "ClientAddr";
+        public const string GeoLocation = "GeoLocation";
+        public const string None = "None";
     }
 }
