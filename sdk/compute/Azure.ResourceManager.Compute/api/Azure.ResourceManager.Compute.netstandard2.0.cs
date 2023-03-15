@@ -4864,6 +4864,12 @@ namespace Azure.ResourceManager.Compute.Models
         public static bool operator !=(Azure.ResourceManager.Compute.Models.SecurityEncryptionType left, Azure.ResourceManager.Compute.Models.SecurityEncryptionType right) { throw null; }
         public override string ToString() { throw null; }
     }
+    public partial class SecurityPostureReference
+    {
+        public SecurityPostureReference() { }
+        public System.Collections.Generic.IList<Azure.ResourceManager.Compute.VirtualMachineExtensionData> ExcludeExtensions { get { throw null; } }
+        public string Id { get { throw null; } set { } }
+    }
     public partial class SecurityProfile
     {
         public SecurityProfile() { }
@@ -6111,6 +6117,7 @@ namespace Azure.ResourceManager.Compute.Models
         public Azure.ResourceManager.Compute.Models.ComputeScheduledEventsProfile ScheduledEventsProfile { get { throw null; } set { } }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public Azure.ResourceManager.Compute.Models.TerminateNotificationProfile ScheduledEventsTerminateNotificationProfile { get { throw null; } set { } }
+        public Azure.ResourceManager.Compute.Models.SecurityPostureReference SecurityPostureReference { get { throw null; } set { } }
         public Azure.ResourceManager.Compute.Models.SecurityProfile SecurityProfile { get { throw null; } set { } }
         public Azure.Core.ResourceIdentifier ServiceArtifactReferenceId { get { throw null; } set { } }
         public Azure.ResourceManager.Compute.Models.VirtualMachineScaleSetStorageProfile StorageProfile { get { throw null; } set { } }

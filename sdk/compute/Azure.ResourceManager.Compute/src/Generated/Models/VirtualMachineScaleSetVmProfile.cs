@@ -36,7 +36,8 @@ namespace Azure.ResourceManager.Compute.Models
         /// <param name="applicationProfile"> Specifies the gallery applications that should be made available to the VM/VMSS. </param>
         /// <param name="hardwareProfile"> Specifies the hardware profile related details of a scale set. &lt;br&gt;&lt;br&gt;Minimum api-version: 2021-11-01. </param>
         /// <param name="serviceArtifactReference"> Specifies the service artifact reference id used to set same image version for all virtual machines in the scale set when using &apos;latest&apos; image version. Minimum api-version: 2022-11-01. </param>
-        internal VirtualMachineScaleSetVmProfile(VirtualMachineScaleSetOSProfile osProfile, VirtualMachineScaleSetStorageProfile storageProfile, VirtualMachineScaleSetNetworkProfile networkProfile, SecurityProfile securityProfile, DiagnosticsProfile diagnosticsProfile, VirtualMachineScaleSetExtensionProfile extensionProfile, string licenseType, VirtualMachinePriorityType? priority, VirtualMachineEvictionPolicyType? evictionPolicy, BillingProfile billingProfile, ComputeScheduledEventsProfile scheduledEventsProfile, string userData, CapacityReservationProfile capacityReservation, ApplicationProfile applicationProfile, VirtualMachineScaleSetHardwareProfile hardwareProfile, WritableSubResource serviceArtifactReference)
+        /// <param name="securityPostureReference"> Specifies the security posture to be used for all virtual machines in the scale set. Minimum api-version: 2023-03-01. </param>
+        internal VirtualMachineScaleSetVmProfile(VirtualMachineScaleSetOSProfile osProfile, VirtualMachineScaleSetStorageProfile storageProfile, VirtualMachineScaleSetNetworkProfile networkProfile, SecurityProfile securityProfile, DiagnosticsProfile diagnosticsProfile, VirtualMachineScaleSetExtensionProfile extensionProfile, string licenseType, VirtualMachinePriorityType? priority, VirtualMachineEvictionPolicyType? evictionPolicy, BillingProfile billingProfile, ComputeScheduledEventsProfile scheduledEventsProfile, string userData, CapacityReservationProfile capacityReservation, ApplicationProfile applicationProfile, VirtualMachineScaleSetHardwareProfile hardwareProfile, WritableSubResource serviceArtifactReference, SecurityPostureReference securityPostureReference)
         {
             OSProfile = osProfile;
             StorageProfile = storageProfile;
@@ -54,6 +55,7 @@ namespace Azure.ResourceManager.Compute.Models
             ApplicationProfile = applicationProfile;
             HardwareProfile = hardwareProfile;
             ServiceArtifactReference = serviceArtifactReference;
+            SecurityPostureReference = securityPostureReference;
         }
 
         /// <summary> Specifies the operating system settings for the virtual machines in the scale set. </summary>
@@ -158,5 +160,8 @@ namespace Azure.ResourceManager.Compute.Models
                 ServiceArtifactReference.Id = value;
             }
         }
+
+        /// <summary> Specifies the security posture to be used for all virtual machines in the scale set. Minimum api-version: 2023-03-01. </summary>
+        public SecurityPostureReference SecurityPostureReference { get; set; }
     }
 }
