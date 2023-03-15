@@ -13,23 +13,24 @@ using Azure.ResourceManager.Models;
 namespace Azure.ResourceManager.HybridConnectivity
 {
     /// <summary>
-    /// A class representing the EndpointResource data model.
-    /// The endpoint for the target resource.
+    /// A class representing the ServiceConfigurationResource data model.
+    /// The service configuration details associated with the target resource.
     /// </summary>
-    public partial class EndpointResourceData : ResourceData
+    public partial class ServiceConfigurationResourceData : ResourceData
     {
-        /// <summary> Initializes a new instance of EndpointResourceData. </summary>
-        public EndpointResourceData()
+        /// <summary> Initializes a new instance of ServiceConfigurationResourceData. </summary>
+        public ServiceConfigurationResourceData()
         {
         }
 
-        /// <summary> Initializes a new instance of EndpointResourceData. </summary>
+        /// <summary> Initializes a new instance of ServiceConfigurationResourceData. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="endpointType"> The type of endpoint. </param>
+        /// <param name="serviceName"> Name of the service. </param>
         /// <param name="resourceId"> The resource Id of the connectivity endpoint (optional). </param>
+        /// <param name="port"> The port on which service is enabled. </param>
         /// <param name="provisioningState"> The resource provisioning state. </param>
         /// <param name="createdBy"> The identity that created the resource. </param>
         /// <param name="createdByType"> The type of identity that created the resource. </param>
@@ -37,10 +38,11 @@ namespace Azure.ResourceManager.HybridConnectivity
         /// <param name="lastModifiedBy"> The identity that last modified the resource. </param>
         /// <param name="lastModifiedByType"> The type of identity that last modified the resource. </param>
         /// <param name="lastModifiedOn"> The timestamp of resource last modification (UTC). </param>
-        internal EndpointResourceData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, EndpointType? endpointType, string resourceId, string provisioningState, string createdBy, Models.CreatedByType? createdByType, DateTimeOffset? createdOn, string lastModifiedBy, Models.CreatedByType? lastModifiedByType, DateTimeOffset? lastModifiedOn) : base(id, name, resourceType, systemData)
+        internal ServiceConfigurationResourceData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, ServiceName? serviceName, string resourceId, string port, Result? provisioningState, string createdBy, Models.CreatedByType? createdByType, DateTimeOffset? createdOn, string lastModifiedBy, Models.CreatedByType? lastModifiedByType, DateTimeOffset? lastModifiedOn) : base(id, name, resourceType, systemData)
         {
-            EndpointType = endpointType;
+            ServiceName = serviceName;
             ResourceId = resourceId;
+            Port = port;
             ProvisioningState = provisioningState;
             CreatedBy = createdBy;
             CreatedByType = createdByType;
@@ -50,12 +52,14 @@ namespace Azure.ResourceManager.HybridConnectivity
             LastModifiedOn = lastModifiedOn;
         }
 
-        /// <summary> The type of endpoint. </summary>
-        public EndpointType? EndpointType { get; set; }
+        /// <summary> Name of the service. </summary>
+        public ServiceName? ServiceName { get; set; }
         /// <summary> The resource Id of the connectivity endpoint (optional). </summary>
         public string ResourceId { get; set; }
+        /// <summary> The port on which service is enabled. </summary>
+        public string Port { get; set; }
         /// <summary> The resource provisioning state. </summary>
-        public string ProvisioningState { get; }
+        public Result? ProvisioningState { get; }
         /// <summary> The identity that created the resource. </summary>
         public string CreatedBy { get; set; }
         /// <summary> The type of identity that created the resource. </summary>
