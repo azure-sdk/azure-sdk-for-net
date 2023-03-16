@@ -44,7 +44,19 @@ namespace Microsoft.Azure.Management.Network.Models
         /// milliseconds.</param>
         /// <param name="probesSent">Total number of probes sent.</param>
         /// <param name="probesFailed">Number of failed probes.</param>
-        public ConnectivityInformation(IList<ConnectivityHop> hops = default(IList<ConnectivityHop>), string connectionStatus = default(string), int? avgLatencyInMs = default(int?), int? minLatencyInMs = default(int?), int? maxLatencyInMs = default(int?), int? probesSent = default(int?), int? probesFailed = default(int?))
+        /// <param name="nextHopAnalysis">The NextHop Details from the
+        /// source.</param>
+        /// <param name="sourceSecurityRuleAnalysis">SecurityAnalysis results
+        /// at the source endpoint.</param>
+        /// <param name="destinationSecurityRuleAnalysis">SecurityAnalysis
+        /// results at the destination endpoint.</param>
+        /// <param name="sourcePortStatus">Port Status at the Source. Possible
+        /// values include: 'Unknown', 'Reachable', 'Unstable', 'NoConnection',
+        /// 'Timeout'</param>
+        /// <param name="destinationPortStatus">Port Status at the Destination.
+        /// Possible values include: 'Unknown', 'Reachable', 'Unstable',
+        /// 'NoConnection', 'Timeout'</param>
+        public ConnectivityInformation(IList<ConnectivityHop> hops = default(IList<ConnectivityHop>), string connectionStatus = default(string), int? avgLatencyInMs = default(int?), int? minLatencyInMs = default(int?), int? maxLatencyInMs = default(int?), int? probesSent = default(int?), int? probesFailed = default(int?), NextHopResult nextHopAnalysis = default(NextHopResult), NetworkConfigurationDiagnosticResponse sourceSecurityRuleAnalysis = default(NetworkConfigurationDiagnosticResponse), NetworkConfigurationDiagnosticResponse destinationSecurityRuleAnalysis = default(NetworkConfigurationDiagnosticResponse), string sourcePortStatus = default(string), string destinationPortStatus = default(string))
         {
             Hops = hops;
             ConnectionStatus = connectionStatus;
@@ -53,6 +65,11 @@ namespace Microsoft.Azure.Management.Network.Models
             MaxLatencyInMs = maxLatencyInMs;
             ProbesSent = probesSent;
             ProbesFailed = probesFailed;
+            NextHopAnalysis = nextHopAnalysis;
+            SourceSecurityRuleAnalysis = sourceSecurityRuleAnalysis;
+            DestinationSecurityRuleAnalysis = destinationSecurityRuleAnalysis;
+            SourcePortStatus = sourcePortStatus;
+            DestinationPortStatus = destinationPortStatus;
             CustomInit();
         }
 
@@ -103,6 +120,39 @@ namespace Microsoft.Azure.Management.Network.Models
         /// </summary>
         [JsonProperty(PropertyName = "probesFailed")]
         public int? ProbesFailed { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the NextHop Details from the source.
+        /// </summary>
+        [JsonProperty(PropertyName = "nextHopAnalysis")]
+        public NextHopResult NextHopAnalysis { get; set; }
+
+        /// <summary>
+        /// Gets or sets securityAnalysis results at the source endpoint.
+        /// </summary>
+        [JsonProperty(PropertyName = "sourceSecurityRuleAnalysis")]
+        public NetworkConfigurationDiagnosticResponse SourceSecurityRuleAnalysis { get; set; }
+
+        /// <summary>
+        /// Gets or sets securityAnalysis results at the destination endpoint.
+        /// </summary>
+        [JsonProperty(PropertyName = "destinationSecurityRuleAnalysis")]
+        public NetworkConfigurationDiagnosticResponse DestinationSecurityRuleAnalysis { get; set; }
+
+        /// <summary>
+        /// Gets or sets port Status at the Source. Possible values include:
+        /// 'Unknown', 'Reachable', 'Unstable', 'NoConnection', 'Timeout'
+        /// </summary>
+        [JsonProperty(PropertyName = "sourcePortStatus")]
+        public string SourcePortStatus { get; set; }
+
+        /// <summary>
+        /// Gets or sets port Status at the Destination. Possible values
+        /// include: 'Unknown', 'Reachable', 'Unstable', 'NoConnection',
+        /// 'Timeout'
+        /// </summary>
+        [JsonProperty(PropertyName = "destinationPortStatus")]
+        public string DestinationPortStatus { get; set; }
 
     }
 }
