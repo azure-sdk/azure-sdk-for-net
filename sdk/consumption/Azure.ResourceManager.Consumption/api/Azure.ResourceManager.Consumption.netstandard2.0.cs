@@ -290,6 +290,7 @@ namespace Azure.ResourceManager.Consumption.Models
         public bool? IsPriceHidden { get { throw null; } }
         public decimal? NewPurchases { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Consumption.Models.ConsumptionBalanceNewPurchasesDetail> NewPurchasesDetails { get { throw null; } }
+        public decimal? OverageRefund { get { throw null; } }
         public decimal? ServiceOverage { get { throw null; } }
         public System.Collections.Generic.IReadOnlyDictionary<string, string> Tags { get { throw null; } }
         public decimal? TotalOverage { get { throw null; } }
