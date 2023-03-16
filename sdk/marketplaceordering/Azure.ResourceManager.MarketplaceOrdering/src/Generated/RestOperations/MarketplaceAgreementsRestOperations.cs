@@ -6,7 +6,6 @@
 #nullable disable
 
 using System;
-using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -259,7 +258,7 @@ namespace Azure.ResourceManager.MarketplaceOrdering
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="publisherId"/>, <paramref name="offerId"/> or <paramref name="planId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="publisherId"/>, <paramref name="offerId"/> or <paramref name="planId"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<MarketplaceAgreementTermData>> SignAsync(string subscriptionId, string publisherId, string offerId, string planId, CancellationToken cancellationToken = default)
+        public async Task<Response<OldAgreementTermData>> SignAsync(string subscriptionId, string publisherId, string offerId, string planId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(publisherId, nameof(publisherId));
@@ -272,9 +271,9 @@ namespace Azure.ResourceManager.MarketplaceOrdering
             {
                 case 200:
                     {
-                        MarketplaceAgreementTermData value = default;
+                        OldAgreementTermData value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = MarketplaceAgreementTermData.DeserializeMarketplaceAgreementTermData(document.RootElement);
+                        value = OldAgreementTermData.DeserializeOldAgreementTermData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -290,7 +289,7 @@ namespace Azure.ResourceManager.MarketplaceOrdering
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="publisherId"/>, <paramref name="offerId"/> or <paramref name="planId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="publisherId"/>, <paramref name="offerId"/> or <paramref name="planId"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<MarketplaceAgreementTermData> Sign(string subscriptionId, string publisherId, string offerId, string planId, CancellationToken cancellationToken = default)
+        public Response<OldAgreementTermData> Sign(string subscriptionId, string publisherId, string offerId, string planId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(publisherId, nameof(publisherId));
@@ -303,9 +302,9 @@ namespace Azure.ResourceManager.MarketplaceOrdering
             {
                 case 200:
                     {
-                        MarketplaceAgreementTermData value = default;
+                        OldAgreementTermData value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = MarketplaceAgreementTermData.DeserializeMarketplaceAgreementTermData(document.RootElement);
+                        value = OldAgreementTermData.DeserializeOldAgreementTermData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -344,7 +343,7 @@ namespace Azure.ResourceManager.MarketplaceOrdering
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="publisherId"/>, <paramref name="offerId"/> or <paramref name="planId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="publisherId"/>, <paramref name="offerId"/> or <paramref name="planId"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<MarketplaceAgreementTermData>> CancelAsync(string subscriptionId, string publisherId, string offerId, string planId, CancellationToken cancellationToken = default)
+        public async Task<Response<OldAgreementTermData>> CancelAsync(string subscriptionId, string publisherId, string offerId, string planId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(publisherId, nameof(publisherId));
@@ -357,9 +356,9 @@ namespace Azure.ResourceManager.MarketplaceOrdering
             {
                 case 200:
                     {
-                        MarketplaceAgreementTermData value = default;
+                        OldAgreementTermData value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = MarketplaceAgreementTermData.DeserializeMarketplaceAgreementTermData(document.RootElement);
+                        value = OldAgreementTermData.DeserializeOldAgreementTermData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -375,7 +374,7 @@ namespace Azure.ResourceManager.MarketplaceOrdering
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="publisherId"/>, <paramref name="offerId"/> or <paramref name="planId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="publisherId"/>, <paramref name="offerId"/> or <paramref name="planId"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<MarketplaceAgreementTermData> Cancel(string subscriptionId, string publisherId, string offerId, string planId, CancellationToken cancellationToken = default)
+        public Response<OldAgreementTermData> Cancel(string subscriptionId, string publisherId, string offerId, string planId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(publisherId, nameof(publisherId));
@@ -388,9 +387,9 @@ namespace Azure.ResourceManager.MarketplaceOrdering
             {
                 case 200:
                     {
-                        MarketplaceAgreementTermData value = default;
+                        OldAgreementTermData value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = MarketplaceAgreementTermData.DeserializeMarketplaceAgreementTermData(document.RootElement);
+                        value = OldAgreementTermData.DeserializeOldAgreementTermData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -428,7 +427,7 @@ namespace Azure.ResourceManager.MarketplaceOrdering
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="publisherId"/>, <paramref name="offerId"/> or <paramref name="planId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="publisherId"/>, <paramref name="offerId"/> or <paramref name="planId"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<MarketplaceAgreementTermData>> GetAgreementAsync(string subscriptionId, string publisherId, string offerId, string planId, CancellationToken cancellationToken = default)
+        public async Task<Response<OldAgreementTermData>> GetAgreementAsync(string subscriptionId, string publisherId, string offerId, string planId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(publisherId, nameof(publisherId));
@@ -441,13 +440,13 @@ namespace Azure.ResourceManager.MarketplaceOrdering
             {
                 case 200:
                     {
-                        MarketplaceAgreementTermData value = default;
+                        OldAgreementTermData value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = MarketplaceAgreementTermData.DeserializeMarketplaceAgreementTermData(document.RootElement);
+                        value = OldAgreementTermData.DeserializeOldAgreementTermData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 case 404:
-                    return Response.FromValue((MarketplaceAgreementTermData)null, message.Response);
+                    return Response.FromValue((OldAgreementTermData)null, message.Response);
                 default:
                     throw new RequestFailedException(message.Response);
             }
@@ -461,7 +460,7 @@ namespace Azure.ResourceManager.MarketplaceOrdering
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="publisherId"/>, <paramref name="offerId"/> or <paramref name="planId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="publisherId"/>, <paramref name="offerId"/> or <paramref name="planId"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<MarketplaceAgreementTermData> GetAgreement(string subscriptionId, string publisherId, string offerId, string planId, CancellationToken cancellationToken = default)
+        public Response<OldAgreementTermData> GetAgreement(string subscriptionId, string publisherId, string offerId, string planId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(publisherId, nameof(publisherId));
@@ -474,13 +473,13 @@ namespace Azure.ResourceManager.MarketplaceOrdering
             {
                 case 200:
                     {
-                        MarketplaceAgreementTermData value = default;
+                        OldAgreementTermData value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = MarketplaceAgreementTermData.DeserializeMarketplaceAgreementTermData(document.RootElement);
+                        value = OldAgreementTermData.DeserializeOldAgreementTermData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 case 404:
-                    return Response.FromValue((MarketplaceAgreementTermData)null, message.Response);
+                    return Response.FromValue((OldAgreementTermData)null, message.Response);
                 default:
                     throw new RequestFailedException(message.Response);
             }
@@ -508,7 +507,7 @@ namespace Azure.ResourceManager.MarketplaceOrdering
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<IReadOnlyList<MarketplaceAgreementTermData>>> ListAsync(string subscriptionId, CancellationToken cancellationToken = default)
+        public async Task<Response<OldAgreementTermsList>> ListAsync(string subscriptionId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
 
@@ -518,14 +517,9 @@ namespace Azure.ResourceManager.MarketplaceOrdering
             {
                 case 200:
                     {
-                        IReadOnlyList<MarketplaceAgreementTermData> value = default;
+                        OldAgreementTermsList value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        List<MarketplaceAgreementTermData> array = new List<MarketplaceAgreementTermData>();
-                        foreach (var item in document.RootElement.EnumerateArray())
-                        {
-                            array.Add(MarketplaceAgreementTermData.DeserializeMarketplaceAgreementTermData(item));
-                        }
-                        value = array;
+                        value = OldAgreementTermsList.DeserializeOldAgreementTermsList(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -538,7 +532,7 @@ namespace Azure.ResourceManager.MarketplaceOrdering
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<IReadOnlyList<MarketplaceAgreementTermData>> List(string subscriptionId, CancellationToken cancellationToken = default)
+        public Response<OldAgreementTermsList> List(string subscriptionId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
 
@@ -548,14 +542,9 @@ namespace Azure.ResourceManager.MarketplaceOrdering
             {
                 case 200:
                     {
-                        IReadOnlyList<MarketplaceAgreementTermData> value = default;
+                        OldAgreementTermsList value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        List<MarketplaceAgreementTermData> array = new List<MarketplaceAgreementTermData>();
-                        foreach (var item in document.RootElement.EnumerateArray())
-                        {
-                            array.Add(MarketplaceAgreementTermData.DeserializeMarketplaceAgreementTermData(item));
-                        }
-                        value = array;
+                        value = OldAgreementTermsList.DeserializeOldAgreementTermsList(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
