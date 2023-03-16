@@ -22,7 +22,7 @@ namespace Azure.ResourceManager.AppService.Models
         /// <param name="port"> The port an endpoint is connected to. </param>
         /// <param name="latency"> The time in milliseconds it takes for a TCP connection to be created from the App Service Environment to this IpAddress at this Port. </param>
         /// <param name="isAccessible"> Whether it is possible to create a TCP connection from the App Service Environment to this IpAddress at this Port. </param>
-        internal AppServiceEndpointDetail(IPAddress ipAddress, int? port, double? latency, bool? isAccessible)
+        internal AppServiceEndpointDetail(System.Net.IPAddress ipAddress, int? port, double? latency, bool? isAccessible)
         {
             IPAddress = ipAddress;
             Port = port;
@@ -31,7 +31,7 @@ namespace Azure.ResourceManager.AppService.Models
         }
 
         /// <summary> An IP Address that Domain Name currently resolves to. </summary>
-        public IPAddress IPAddress { get; }
+        public System.Net.IPAddress IPAddress { get; }
         /// <summary> The port an endpoint is connected to. </summary>
         public int? Port { get; }
         /// <summary> The time in milliseconds it takes for a TCP connection to be created from the App Service Environment to this IpAddress at this Port. </summary>
