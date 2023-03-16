@@ -34,15 +34,18 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <param name="destination">The destination of connection.</param>
         /// <param name="protocol">Network protocol. Possible values include:
         /// 'Tcp', 'Http', 'Https', 'Icmp'</param>
+        /// <param name="analysisModes">Analysis Modes. Possible values
+        /// include: 'NextHop', 'NCD', 'PortScan', 'Default'</param>
         /// <param name="protocolConfiguration">Configuration of the
         /// protocol.</param>
         /// <param name="preferredIPVersion">Preferred IP version of the
         /// connection. Possible values include: 'IPv4', 'IPv6'</param>
-        public ConnectivityParameters(ConnectivitySource source, ConnectivityDestination destination, string protocol = default(string), ProtocolConfiguration protocolConfiguration = default(ProtocolConfiguration), string preferredIPVersion = default(string))
+        public ConnectivityParameters(ConnectivitySource source, ConnectivityDestination destination, string protocol = default(string), string analysisModes = default(string), ProtocolConfiguration protocolConfiguration = default(ProtocolConfiguration), string preferredIPVersion = default(string))
         {
             Source = source;
             Destination = destination;
             Protocol = protocol;
+            AnalysisModes = analysisModes;
             ProtocolConfiguration = protocolConfiguration;
             PreferredIPVersion = preferredIPVersion;
             CustomInit();
@@ -71,6 +74,13 @@ namespace Microsoft.Azure.Management.Network.Models
         /// </summary>
         [JsonProperty(PropertyName = "protocol")]
         public string Protocol { get; set; }
+
+        /// <summary>
+        /// Gets or sets analysis Modes. Possible values include: 'NextHop',
+        /// 'NCD', 'PortScan', 'Default'
+        /// </summary>
+        [JsonProperty(PropertyName = "analysisModes")]
+        public string AnalysisModes { get; set; }
 
         /// <summary>
         /// Gets or sets configuration of the protocol.
