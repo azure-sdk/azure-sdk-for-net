@@ -38,9 +38,10 @@ namespace Azure.ResourceManager.AppService.Models
         /// app logs to a destination. Currently only &quot;log-analytics&quot; is
         /// supported
         /// </param>
+        /// <param name="containerAppsConfiguration"> Cluster configuration for Container Apps Environments to configure Dapr Instrumentation Key and VNET Configuration. </param>
         /// <param name="aksResourceId"></param>
         /// <param name="kind"> Kind of resource. </param>
-        internal KubeEnvironmentPatch(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, KubeEnvironmentProvisioningState? provisioningState, string deploymentErrors, bool? isInternalLoadBalancerEnabled, string defaultDomain, string staticIP, ArcConfiguration arcConfiguration, AppLogsConfiguration appLogsConfiguration, ResourceIdentifier aksResourceId, string kind) : base(id, name, resourceType, systemData)
+        internal KubeEnvironmentPatch(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, KubeEnvironmentProvisioningState? provisioningState, string deploymentErrors, bool? isInternalLoadBalancerEnabled, string defaultDomain, string staticIP, ArcConfiguration arcConfiguration, AppLogsConfiguration appLogsConfiguration, ContainerAppsConfiguration containerAppsConfiguration, ResourceIdentifier aksResourceId, string kind) : base(id, name, resourceType, systemData)
         {
             ProvisioningState = provisioningState;
             DeploymentErrors = deploymentErrors;
@@ -49,6 +50,7 @@ namespace Azure.ResourceManager.AppService.Models
             StaticIP = staticIP;
             ArcConfiguration = arcConfiguration;
             AppLogsConfiguration = appLogsConfiguration;
+            ContainerAppsConfiguration = containerAppsConfiguration;
             AksResourceId = aksResourceId;
             Kind = kind;
         }
@@ -75,6 +77,8 @@ namespace Azure.ResourceManager.AppService.Models
         /// supported
         /// </summary>
         public AppLogsConfiguration AppLogsConfiguration { get; set; }
+        /// <summary> Cluster configuration for Container Apps Environments to configure Dapr Instrumentation Key and VNET Configuration. </summary>
+        public ContainerAppsConfiguration ContainerAppsConfiguration { get; set; }
         /// <summary> Gets or sets the aks resource id. </summary>
         public ResourceIdentifier AksResourceId { get; set; }
         /// <summary> Kind of resource. </summary>

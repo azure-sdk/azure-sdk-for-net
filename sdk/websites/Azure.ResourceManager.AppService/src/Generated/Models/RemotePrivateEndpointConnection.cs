@@ -19,7 +19,7 @@ namespace Azure.ResourceManager.AppService.Models
         /// <summary> Initializes a new instance of RemotePrivateEndpointConnection. </summary>
         public RemotePrivateEndpointConnection()
         {
-            IPAddresses = new ChangeTrackingList<IPAddress>();
+            IPAddresses = new ChangeTrackingList<System.Net.IPAddress>();
         }
 
         /// <summary> Initializes a new instance of RemotePrivateEndpointConnection. </summary>
@@ -32,7 +32,7 @@ namespace Azure.ResourceManager.AppService.Models
         /// <param name="privateLinkServiceConnectionState"> The state of a private link connection. </param>
         /// <param name="ipAddresses"> Private IPAddresses mapped to the remote private endpoint. </param>
         /// <param name="kind"> Kind of resource. </param>
-        internal RemotePrivateEndpointConnection(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string provisioningState, SubResource privateEndpoint, PrivateLinkConnectionState privateLinkServiceConnectionState, IList<IPAddress> ipAddresses, string kind) : base(id, name, resourceType, systemData)
+        internal RemotePrivateEndpointConnection(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string provisioningState, SubResource privateEndpoint, PrivateLinkConnectionState privateLinkServiceConnectionState, IList<System.Net.IPAddress> ipAddresses, string kind) : base(id, name, resourceType, systemData)
         {
             ProvisioningState = provisioningState;
             PrivateEndpoint = privateEndpoint;
@@ -54,7 +54,7 @@ namespace Azure.ResourceManager.AppService.Models
         /// <summary> The state of a private link connection. </summary>
         public PrivateLinkConnectionState PrivateLinkServiceConnectionState { get; set; }
         /// <summary> Private IPAddresses mapped to the remote private endpoint. </summary>
-        public IList<IPAddress> IPAddresses { get; }
+        public IList<System.Net.IPAddress> IPAddresses { get; }
         /// <summary> Kind of resource. </summary>
         public string Kind { get; set; }
     }
