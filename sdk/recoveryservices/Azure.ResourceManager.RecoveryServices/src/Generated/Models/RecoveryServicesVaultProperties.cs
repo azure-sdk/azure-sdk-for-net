@@ -31,9 +31,10 @@ namespace Azure.ResourceManager.RecoveryServices.Models
         /// <param name="backupStorageVersion"> Backup storage version. </param>
         /// <param name="publicNetworkAccess"> property to enable or disable resource provider inbound network traffic from public clients. </param>
         /// <param name="monitoringSettings"> Monitoring Settings of the vault. </param>
+        /// <param name="restoreSettings"> Restore Settings of the vault. </param>
         /// <param name="redundancySettings"> The redundancy Settings of a Vault. </param>
         /// <param name="securitySettings"> Security Settings of the vault. </param>
-        internal RecoveryServicesVaultProperties(string provisioningState, VaultUpgradeDetails upgradeDetails, IReadOnlyList<RecoveryServicesPrivateEndpointConnectionVaultProperties> privateEndpointConnections, VaultPrivateEndpointState? privateEndpointStateForBackup, VaultPrivateEndpointState? privateEndpointStateForSiteRecovery, VaultPropertiesEncryption encryption, VaultPropertiesMoveDetails moveDetails, ResourceMoveState? moveState, BackupStorageVersion? backupStorageVersion, VaultPublicNetworkAccess? publicNetworkAccess, VaultMonitoringSettings monitoringSettings, VaultPropertiesRedundancySettings redundancySettings, SecuritySettings securitySettings)
+        internal RecoveryServicesVaultProperties(string provisioningState, VaultUpgradeDetails upgradeDetails, IReadOnlyList<RecoveryServicesPrivateEndpointConnectionVaultProperties> privateEndpointConnections, VaultPrivateEndpointState? privateEndpointStateForBackup, VaultPrivateEndpointState? privateEndpointStateForSiteRecovery, VaultPropertiesEncryption encryption, VaultPropertiesMoveDetails moveDetails, ResourceMoveState? moveState, BackupStorageVersion? backupStorageVersion, VaultPublicNetworkAccess? publicNetworkAccess, VaultMonitoringSettings monitoringSettings, RestoreSettings restoreSettings, VaultPropertiesRedundancySettings redundancySettings, SecuritySettings securitySettings)
         {
             ProvisioningState = provisioningState;
             UpgradeDetails = upgradeDetails;
@@ -46,6 +47,7 @@ namespace Azure.ResourceManager.RecoveryServices.Models
             BackupStorageVersion = backupStorageVersion;
             PublicNetworkAccess = publicNetworkAccess;
             MonitoringSettings = monitoringSettings;
+            RestoreSettings = restoreSettings;
             RedundancySettings = redundancySettings;
             SecuritySettings = securitySettings;
         }
@@ -72,6 +74,20 @@ namespace Azure.ResourceManager.RecoveryServices.Models
         public VaultPublicNetworkAccess? PublicNetworkAccess { get; set; }
         /// <summary> Monitoring Settings of the vault. </summary>
         public VaultMonitoringSettings MonitoringSettings { get; set; }
+        /// <summary> Restore Settings of the vault. </summary>
+        internal RestoreSettings RestoreSettings { get; set; }
+        /// <summary> Gets or sets the cross subscription restore state. </summary>
+        public CrossSubscriptionRestoreState? CrossSubscriptionRestoreState
+        {
+            get => RestoreSettings is null ? default : RestoreSettings.CrossSubscriptionRestoreState;
+            set
+            {
+                if (RestoreSettings is null)
+                    RestoreSettings = new RestoreSettings();
+                RestoreSettings.CrossSubscriptionRestoreState = value;
+            }
+        }
+
         /// <summary> The redundancy Settings of a Vault. </summary>
         public VaultPropertiesRedundancySettings RedundancySettings { get; set; }
         /// <summary> Security Settings of the vault. </summary>
