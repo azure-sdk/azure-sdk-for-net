@@ -16,13 +16,13 @@ namespace Azure.ResourceManager.SignalR.Models
         }
 
         /// <summary> Initializes a new instance of SignalRTlsSettings. </summary>
-        /// <param name="isClientCertEnabled"> Request client certificate during TLS handshake if enabled. </param>
+        /// <param name="isClientCertEnabled"> Request client certificate during TLS handshake if enabled. Not supported for free tier. Any input will be ignored for free tier. </param>
         internal SignalRTlsSettings(bool? isClientCertEnabled)
         {
             IsClientCertEnabled = isClientCertEnabled;
         }
 
-        /// <summary> Request client certificate during TLS handshake if enabled. </summary>
+        /// <summary> Request client certificate during TLS handshake if enabled. Not supported for free tier. Any input will be ignored for free tier. </summary>
         public bool? IsClientCertEnabled { get; set; }
     }
 }

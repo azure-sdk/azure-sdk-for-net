@@ -21,13 +21,15 @@ namespace Azure.ResourceManager.SignalR
 {
     /// <summary>
     /// A class representing a collection of <see cref="SignalRResource" /> and their operations.
-    /// Each <see cref="SignalRResource" /> in the collection will belong to the same instance of <see cref="ResourceGroupResource" />.
-    /// To get a <see cref="SignalRCollection" /> instance call the GetSignalRs method from an instance of <see cref="ResourceGroupResource" />.
+    /// Each <see cref="SignalRResource" /> in the collection will belong to the same instance of <see cref="TenantResource" />.
+    /// To get a <see cref="SignalRCollection" /> instance call the GetSignalRs method from an instance of <see cref="TenantResource" />.
     /// </summary>
     public partial class SignalRCollection : ArmCollection, IEnumerable<SignalRResource>, IAsyncEnumerable<SignalRResource>
     {
         private readonly ClientDiagnostics _signalRClientDiagnostics;
         private readonly SignalRRestOperations _signalRRestClient;
+        private readonly Guid _subscriptionId;
+        private readonly string _resourceGroupName;
 
         /// <summary> Initializes a new instance of the <see cref="SignalRCollection"/> class for mocking. </summary>
         protected SignalRCollection()
@@ -37,8 +39,14 @@ namespace Azure.ResourceManager.SignalR
         /// <summary> Initializes a new instance of the <see cref="SignalRCollection"/> class. </summary>
         /// <param name="client"> The client parameters to use in these operations. </param>
         /// <param name="id"> The identifier of the parent resource that is the target of operations. </param>
-        internal SignalRCollection(ArmClient client, ResourceIdentifier id) : base(client, id)
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/> is an empty string, and was expected to be non-empty. </exception>
+        internal SignalRCollection(ArmClient client, ResourceIdentifier id, Guid subscriptionId, string resourceGroupName) : base(client, id)
         {
+            _subscriptionId = subscriptionId;
+            _resourceGroupName = resourceGroupName;
             _signalRClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.SignalR", SignalRResource.ResourceType.Namespace, Diagnostics);
             TryGetApiVersion(SignalRResource.ResourceType, out string signalRApiVersion);
             _signalRRestClient = new SignalRRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, signalRApiVersion);
@@ -49,8 +57,8 @@ namespace Azure.ResourceManager.SignalR
 
         internal static void ValidateResourceId(ResourceIdentifier id)
         {
-            if (id.ResourceType != ResourceGroupResource.ResourceType)
-                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, ResourceGroupResource.ResourceType), nameof(id));
+            if (id.ResourceType != TenantResource.ResourceType)
+                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, TenantResource.ResourceType), nameof(id));
         }
 
         /// <summary>
@@ -81,8 +89,8 @@ namespace Azure.ResourceManager.SignalR
             scope.Start();
             try
             {
-                var response = await _signalRRestClient.CreateOrUpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, resourceName, data, cancellationToken).ConfigureAwait(false);
-                var operation = new SignalRArmOperation<SignalRResource>(new SignalROperationSource(Client), _signalRClientDiagnostics, Pipeline, _signalRRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, resourceName, data).Request, response, OperationFinalStateVia.Location);
+                var response = await _signalRRestClient.CreateOrUpdateAsync(Guid.Parse(_subscriptionId), _resourceGroupName, resourceName, data, cancellationToken).ConfigureAwait(false);
+                var operation = new SignalRArmOperation<SignalRResource>(new SignalROperationSource(Client), _signalRClientDiagnostics, Pipeline, _signalRRestClient.CreateCreateOrUpdateRequest(Guid.Parse(_subscriptionId), _resourceGroupName, resourceName, data).Request, response, OperationFinalStateVia.AzureAsyncOperation);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -122,8 +130,8 @@ namespace Azure.ResourceManager.SignalR
             scope.Start();
             try
             {
-                var response = _signalRRestClient.CreateOrUpdate(Id.SubscriptionId, Id.ResourceGroupName, resourceName, data, cancellationToken);
-                var operation = new SignalRArmOperation<SignalRResource>(new SignalROperationSource(Client), _signalRClientDiagnostics, Pipeline, _signalRRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, resourceName, data).Request, response, OperationFinalStateVia.Location);
+                var response = _signalRRestClient.CreateOrUpdate(Guid.Parse(_subscriptionId), _resourceGroupName, resourceName, data, cancellationToken);
+                var operation = new SignalRArmOperation<SignalRResource>(new SignalROperationSource(Client), _signalRClientDiagnostics, Pipeline, _signalRRestClient.CreateCreateOrUpdateRequest(Guid.Parse(_subscriptionId), _resourceGroupName, resourceName, data).Request, response, OperationFinalStateVia.AzureAsyncOperation);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -160,7 +168,7 @@ namespace Azure.ResourceManager.SignalR
             scope.Start();
             try
             {
-                var response = await _signalRRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, resourceName, cancellationToken).ConfigureAwait(false);
+                var response = await _signalRRestClient.GetAsync(Guid.Parse(_subscriptionId), _resourceGroupName, resourceName, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new SignalRResource(Client, response.Value), response.GetRawResponse());
@@ -197,7 +205,7 @@ namespace Azure.ResourceManager.SignalR
             scope.Start();
             try
             {
-                var response = _signalRRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, resourceName, cancellationToken);
+                var response = _signalRRestClient.Get(Guid.Parse(_subscriptionId), _resourceGroupName, resourceName, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new SignalRResource(Client, response.Value), response.GetRawResponse());
@@ -226,8 +234,8 @@ namespace Azure.ResourceManager.SignalR
         /// <returns> An async collection of <see cref="SignalRResource" /> that may take multiple service requests to iterate over. </returns>
         public virtual AsyncPageable<SignalRResource> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _signalRRestClient.CreateListByResourceGroupRequest(Id.SubscriptionId, Id.ResourceGroupName);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _signalRRestClient.CreateListByResourceGroupNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _signalRRestClient.CreateListByResourceGroupRequest(Guid.Parse(_subscriptionId), _resourceGroupName);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _signalRRestClient.CreateListByResourceGroupNextPageRequest(nextLink, Guid.Parse(_subscriptionId), _resourceGroupName);
             return PageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new SignalRResource(Client, SignalRData.DeserializeSignalRData(e)), _signalRClientDiagnostics, Pipeline, "SignalRCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
@@ -248,8 +256,8 @@ namespace Azure.ResourceManager.SignalR
         /// <returns> A collection of <see cref="SignalRResource" /> that may take multiple service requests to iterate over. </returns>
         public virtual Pageable<SignalRResource> GetAll(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _signalRRestClient.CreateListByResourceGroupRequest(Id.SubscriptionId, Id.ResourceGroupName);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _signalRRestClient.CreateListByResourceGroupNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _signalRRestClient.CreateListByResourceGroupRequest(Guid.Parse(_subscriptionId), _resourceGroupName);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _signalRRestClient.CreateListByResourceGroupNextPageRequest(nextLink, Guid.Parse(_subscriptionId), _resourceGroupName);
             return PageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new SignalRResource(Client, SignalRData.DeserializeSignalRData(e)), _signalRClientDiagnostics, Pipeline, "SignalRCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
@@ -278,7 +286,7 @@ namespace Azure.ResourceManager.SignalR
             scope.Start();
             try
             {
-                var response = await _signalRRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, resourceName, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var response = await _signalRRestClient.GetAsync(Guid.Parse(_subscriptionId), _resourceGroupName, resourceName, cancellationToken: cancellationToken).ConfigureAwait(false);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -313,7 +321,7 @@ namespace Azure.ResourceManager.SignalR
             scope.Start();
             try
             {
-                var response = _signalRRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, resourceName, cancellationToken: cancellationToken);
+                var response = _signalRRestClient.Get(Guid.Parse(_subscriptionId), _resourceGroupName, resourceName, cancellationToken: cancellationToken);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
