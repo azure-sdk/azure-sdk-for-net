@@ -8,12 +8,11 @@
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
-using Azure.ResourceManager.ElasticSan.Models;
 using Azure.ResourceManager.Models;
 
-namespace Azure.ResourceManager.ElasticSan
+namespace Azure.ResourceManager.ElasticSan.Models
 {
-    public partial class ElasticSanData : IUtf8JsonSerializable
+    public partial class ElasticSanCreateOrUpdateContent : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
@@ -62,7 +61,7 @@ namespace Azure.ResourceManager.ElasticSan
             writer.WriteEndObject();
         }
 
-        internal static ElasticSanData DeserializeElasticSanData(JsonElement element)
+        internal static ElasticSanCreateOrUpdateContent DeserializeElasticSanCreateOrUpdateContent(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
@@ -249,7 +248,7 @@ namespace Azure.ResourceManager.ElasticSan
                     continue;
                 }
             }
-            return new ElasticSanData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, sku.Value, Optional.ToList(availabilityZones), Optional.ToNullable(provisioningState), Optional.ToNullable(baseSizeTiB), Optional.ToNullable(extendedCapacitySizeTiB), Optional.ToNullable(totalVolumeSizeGiB), Optional.ToNullable(volumeGroupCount), Optional.ToNullable(totalIops), Optional.ToNullable(totalMbps), Optional.ToNullable(totalSizeTiB));
+            return new ElasticSanCreateOrUpdateContent(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, sku.Value, Optional.ToList(availabilityZones), Optional.ToNullable(provisioningState), Optional.ToNullable(baseSizeTiB), Optional.ToNullable(extendedCapacitySizeTiB), Optional.ToNullable(totalVolumeSizeGiB), Optional.ToNullable(volumeGroupCount), Optional.ToNullable(totalIops), Optional.ToNullable(totalMbps), Optional.ToNullable(totalSizeTiB));
         }
     }
 }

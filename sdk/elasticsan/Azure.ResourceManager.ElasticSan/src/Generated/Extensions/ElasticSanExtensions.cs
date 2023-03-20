@@ -19,13 +19,79 @@ namespace Azure.ResourceManager.ElasticSan
     /// <summary> A class to add extension methods to Azure.ResourceManager.ElasticSan. </summary>
     public static partial class ElasticSanExtensions
     {
-        private static SubscriptionResourceExtensionClient GetExtensionClient(SubscriptionResource subscriptionResource)
+        private static TenantResourceExtensionClient GetExtensionClient(TenantResource tenantResource)
         {
-            return subscriptionResource.GetCachedClient((client) =>
+            return tenantResource.GetCachedClient((client) =>
             {
-                return new SubscriptionResourceExtensionClient(client, subscriptionResource.Id);
+                return new TenantResourceExtensionClient(client, tenantResource.Id);
             }
             );
+        }
+
+        /// <summary> Gets a collection of ElasticSanResources in the TenantResource. </summary>
+        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> is null. </exception>
+        /// <returns> An object representing collection of ElasticSanResources and their operations over a ElasticSanResource. </returns>
+        public static ElasticSanCollection GetElasticSans(this TenantResource tenantResource, Guid subscriptionId, string resourceGroupName)
+        {
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+
+            return GetExtensionClient(tenantResource).GetElasticSans(subscriptionId, resourceGroupName);
+        }
+
+        /// <summary>
+        /// Get a ElasticSan.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ElasticSan/elasticSans/{elasticSanName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>ElasticSans_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="elasticSanName"> The name of the ElasticSan. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/> or <paramref name="elasticSanName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="elasticSanName"/> is null. </exception>
+        [ForwardsClientCalls]
+        public static async Task<Response<ElasticSanResource>> GetElasticSanAsync(this TenantResource tenantResource, Guid subscriptionId, string resourceGroupName, string elasticSanName, CancellationToken cancellationToken = default)
+        {
+            return await tenantResource.GetElasticSans(subscriptionId, resourceGroupName).GetAsync(elasticSanName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Get a ElasticSan.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ElasticSan/elasticSans/{elasticSanName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>ElasticSans_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="elasticSanName"> The name of the ElasticSan. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/> or <paramref name="elasticSanName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="elasticSanName"/> is null. </exception>
+        [ForwardsClientCalls]
+        public static Response<ElasticSanResource> GetElasticSan(this TenantResource tenantResource, Guid subscriptionId, string resourceGroupName, string elasticSanName, CancellationToken cancellationToken = default)
+        {
+            return tenantResource.GetElasticSans(subscriptionId, resourceGroupName).Get(elasticSanName, cancellationToken);
         }
 
         /// <summary>
@@ -41,13 +107,14 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
+        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="filter"> Specify $filter=&apos;location eq &lt;location&gt;&apos; to filter on location. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> An async collection of <see cref="ElasticSanSkuInformation" /> that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<ElasticSanSkuInformation> GetSkusAsync(this SubscriptionResource subscriptionResource, string filter = null, CancellationToken cancellationToken = default)
+        public static AsyncPageable<ElasticSanSkuInformation> GetSkusAsync(this TenantResource tenantResource, Guid subscriptionId, string filter = null, CancellationToken cancellationToken = default)
         {
-            return GetExtensionClient(subscriptionResource).GetSkusAsync(filter, cancellationToken);
+            return GetExtensionClient(tenantResource).GetSkusAsync(subscriptionId, filter, cancellationToken);
         }
 
         /// <summary>
@@ -63,13 +130,14 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
+        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="filter"> Specify $filter=&apos;location eq &lt;location&gt;&apos; to filter on location. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> A collection of <see cref="ElasticSanSkuInformation" /> that may take multiple service requests to iterate over. </returns>
-        public static Pageable<ElasticSanSkuInformation> GetSkus(this SubscriptionResource subscriptionResource, string filter = null, CancellationToken cancellationToken = default)
+        public static Pageable<ElasticSanSkuInformation> GetSkus(this TenantResource tenantResource, Guid subscriptionId, string filter = null, CancellationToken cancellationToken = default)
         {
-            return GetExtensionClient(subscriptionResource).GetSkus(filter, cancellationToken);
+            return GetExtensionClient(tenantResource).GetSkus(subscriptionId, filter, cancellationToken);
         }
 
         /// <summary>
@@ -85,12 +153,12 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
+        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> An async collection of <see cref="ElasticSanResource" /> that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<ElasticSanResource> GetElasticSansAsync(this SubscriptionResource subscriptionResource, CancellationToken cancellationToken = default)
+        public static AsyncPageable<ElasticSanResource> GetElasticSansAsync(this TenantResource tenantResource, CancellationToken cancellationToken = default)
         {
-            return GetExtensionClient(subscriptionResource).GetElasticSansAsync(cancellationToken);
+            return GetExtensionClient(tenantResource).GetElasticSansAsync(cancellationToken);
         }
 
         /// <summary>
@@ -106,77 +174,12 @@ namespace Azure.ResourceManager.ElasticSan
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
+        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> A collection of <see cref="ElasticSanResource" /> that may take multiple service requests to iterate over. </returns>
-        public static Pageable<ElasticSanResource> GetElasticSans(this SubscriptionResource subscriptionResource, CancellationToken cancellationToken = default)
+        public static Pageable<ElasticSanResource> GetElasticSans(this TenantResource tenantResource, CancellationToken cancellationToken = default)
         {
-            return GetExtensionClient(subscriptionResource).GetElasticSans(cancellationToken);
-        }
-
-        private static ResourceGroupResourceExtensionClient GetExtensionClient(ResourceGroupResource resourceGroupResource)
-        {
-            return resourceGroupResource.GetCachedClient((client) =>
-            {
-                return new ResourceGroupResourceExtensionClient(client, resourceGroupResource.Id);
-            }
-            );
-        }
-
-        /// <summary> Gets a collection of ElasticSanResources in the ResourceGroupResource. </summary>
-        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
-        /// <returns> An object representing collection of ElasticSanResources and their operations over a ElasticSanResource. </returns>
-        public static ElasticSanCollection GetElasticSans(this ResourceGroupResource resourceGroupResource)
-        {
-            return GetExtensionClient(resourceGroupResource).GetElasticSans();
-        }
-
-        /// <summary>
-        /// Get a ElasticSan.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ElasticSan/elasticSans/{elasticSanName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>ElasticSans_Get</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
-        /// <param name="elasticSanName"> The name of the ElasticSan. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="elasticSanName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="elasticSanName"/> is null. </exception>
-        [ForwardsClientCalls]
-        public static async Task<Response<ElasticSanResource>> GetElasticSanAsync(this ResourceGroupResource resourceGroupResource, string elasticSanName, CancellationToken cancellationToken = default)
-        {
-            return await resourceGroupResource.GetElasticSans().GetAsync(elasticSanName, cancellationToken).ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// Get a ElasticSan.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ElasticSan/elasticSans/{elasticSanName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>ElasticSans_Get</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
-        /// <param name="elasticSanName"> The name of the ElasticSan. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="elasticSanName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="elasticSanName"/> is null. </exception>
-        [ForwardsClientCalls]
-        public static Response<ElasticSanResource> GetElasticSan(this ResourceGroupResource resourceGroupResource, string elasticSanName, CancellationToken cancellationToken = default)
-        {
-            return resourceGroupResource.GetElasticSans().Get(elasticSanName, cancellationToken);
+            return GetExtensionClient(tenantResource).GetElasticSans(cancellationToken);
         }
 
         #region ElasticSanResource
@@ -231,6 +234,25 @@ namespace Azure.ResourceManager.ElasticSan
             {
                 ElasticSanVolumeResource.ValidateResourceId(id);
                 return new ElasticSanVolumeResource(client, id);
+            }
+            );
+        }
+        #endregion
+
+        #region SnapshotResource
+        /// <summary>
+        /// Gets an object representing a <see cref="SnapshotResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="SnapshotResource.CreateResourceIdentifier" /> to create a <see cref="SnapshotResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="SnapshotResource" /> object. </returns>
+        public static SnapshotResource GetSnapshotResource(this ArmClient client, ResourceIdentifier id)
+        {
+            return client.GetResourceClient(() =>
+            {
+                SnapshotResource.ValidateResourceId(id);
+                return new SnapshotResource(client, id);
             }
             );
         }

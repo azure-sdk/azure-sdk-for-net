@@ -23,12 +23,12 @@ namespace Azure.ResourceManager.ElasticSan
     /// A Class representing an ElasticSan along with the instance operations that can be performed on it.
     /// If you have a <see cref="ResourceIdentifier" /> you can construct an <see cref="ElasticSanResource" />
     /// from an instance of <see cref="ArmClient" /> using the GetElasticSanResource method.
-    /// Otherwise you can get one from its parent resource <see cref="ResourceGroupResource" /> using the GetElasticSan method.
+    /// Otherwise you can get one from its parent resource <see cref="TenantResource" /> using the GetElasticSan method.
     /// </summary>
     public partial class ElasticSanResource : ArmResource
     {
         /// <summary> Generate the resource identifier of a <see cref="ElasticSanResource"/> instance. </summary>
-        public static ResourceIdentifier CreateResourceIdentifier(string subscriptionId, string resourceGroupName, string elasticSanName)
+        public static ResourceIdentifier CreateResourceIdentifier(Guid subscriptionId, string resourceGroupName, string elasticSanName)
         {
             var resourceId = $"/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ElasticSan/elasticSans/{elasticSanName}";
             return new ResourceIdentifier(resourceId);
@@ -162,7 +162,7 @@ namespace Azure.ResourceManager.ElasticSan
             scope.Start();
             try
             {
-                var response = await _elasticSanRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
+                var response = await _elasticSanRestClient.GetAsync(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ElasticSanResource(Client, response.Value), response.GetRawResponse());
@@ -194,7 +194,7 @@ namespace Azure.ResourceManager.ElasticSan
             scope.Start();
             try
             {
-                var response = _elasticSanRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
+                var response = _elasticSanRestClient.Get(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ElasticSanResource(Client, response.Value), response.GetRawResponse());
@@ -227,8 +227,8 @@ namespace Azure.ResourceManager.ElasticSan
             scope.Start();
             try
             {
-                var response = await _elasticSanRestClient.DeleteAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
-                var operation = new ElasticSanArmOperation(_elasticSanClientDiagnostics, Pipeline, _elasticSanRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                var response = await _elasticSanRestClient.DeleteAsync(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
+                var operation = new ElasticSanArmOperation(_elasticSanClientDiagnostics, Pipeline, _elasticSanRestClient.CreateDeleteRequest(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -261,8 +261,8 @@ namespace Azure.ResourceManager.ElasticSan
             scope.Start();
             try
             {
-                var response = _elasticSanRestClient.Delete(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
-                var operation = new ElasticSanArmOperation(_elasticSanClientDiagnostics, Pipeline, _elasticSanRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                var response = _elasticSanRestClient.Delete(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, cancellationToken);
+                var operation = new ElasticSanArmOperation(_elasticSanClientDiagnostics, Pipeline, _elasticSanRestClient.CreateDeleteRequest(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletionResponse(cancellationToken);
                 return operation;
@@ -299,8 +299,8 @@ namespace Azure.ResourceManager.ElasticSan
             scope.Start();
             try
             {
-                var response = await _elasticSanRestClient.UpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, patch, cancellationToken).ConfigureAwait(false);
-                var operation = new ElasticSanArmOperation<ElasticSanResource>(new ElasticSanOperationSource(Client), _elasticSanClientDiagnostics, Pipeline, _elasticSanRestClient.CreateUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, patch).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                var response = await _elasticSanRestClient.UpdateAsync(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, patch, cancellationToken).ConfigureAwait(false);
+                var operation = new ElasticSanArmOperation<ElasticSanResource>(new ElasticSanOperationSource(Client), _elasticSanClientDiagnostics, Pipeline, _elasticSanRestClient.CreateUpdateRequest(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, patch).Request, response, OperationFinalStateVia.AzureAsyncOperation);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -337,8 +337,8 @@ namespace Azure.ResourceManager.ElasticSan
             scope.Start();
             try
             {
-                var response = _elasticSanRestClient.Update(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, patch, cancellationToken);
-                var operation = new ElasticSanArmOperation<ElasticSanResource>(new ElasticSanOperationSource(Client), _elasticSanClientDiagnostics, Pipeline, _elasticSanRestClient.CreateUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, patch).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                var response = _elasticSanRestClient.Update(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, patch, cancellationToken);
+                var operation = new ElasticSanArmOperation<ElasticSanResource>(new ElasticSanOperationSource(Client), _elasticSanClientDiagnostics, Pipeline, _elasticSanRestClient.CreateUpdateRequest(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, patch).Request, response, OperationFinalStateVia.AzureAsyncOperation);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -381,7 +381,7 @@ namespace Azure.ResourceManager.ElasticSan
                     var originalTags = await GetTagResource().GetAsync(cancellationToken).ConfigureAwait(false);
                     originalTags.Value.Data.TagValues[key] = value;
                     await GetTagResource().CreateOrUpdateAsync(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken).ConfigureAwait(false);
-                    var originalResponse = await _elasticSanRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
+                    var originalResponse = await _elasticSanRestClient.GetAsync(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
                     return Response.FromValue(new ElasticSanResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else
@@ -435,7 +435,7 @@ namespace Azure.ResourceManager.ElasticSan
                     var originalTags = GetTagResource().Get(cancellationToken);
                     originalTags.Value.Data.TagValues[key] = value;
                     GetTagResource().CreateOrUpdate(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken);
-                    var originalResponse = _elasticSanRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
+                    var originalResponse = _elasticSanRestClient.Get(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, cancellationToken);
                     return Response.FromValue(new ElasticSanResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else
@@ -488,7 +488,7 @@ namespace Azure.ResourceManager.ElasticSan
                     var originalTags = await GetTagResource().GetAsync(cancellationToken).ConfigureAwait(false);
                     originalTags.Value.Data.TagValues.ReplaceWith(tags);
                     await GetTagResource().CreateOrUpdateAsync(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken).ConfigureAwait(false);
-                    var originalResponse = await _elasticSanRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
+                    var originalResponse = await _elasticSanRestClient.GetAsync(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
                     return Response.FromValue(new ElasticSanResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else
@@ -537,7 +537,7 @@ namespace Azure.ResourceManager.ElasticSan
                     var originalTags = GetTagResource().Get(cancellationToken);
                     originalTags.Value.Data.TagValues.ReplaceWith(tags);
                     GetTagResource().CreateOrUpdate(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken);
-                    var originalResponse = _elasticSanRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
+                    var originalResponse = _elasticSanRestClient.Get(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, cancellationToken);
                     return Response.FromValue(new ElasticSanResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else
@@ -585,7 +585,7 @@ namespace Azure.ResourceManager.ElasticSan
                     var originalTags = await GetTagResource().GetAsync(cancellationToken).ConfigureAwait(false);
                     originalTags.Value.Data.TagValues.Remove(key);
                     await GetTagResource().CreateOrUpdateAsync(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken).ConfigureAwait(false);
-                    var originalResponse = await _elasticSanRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
+                    var originalResponse = await _elasticSanRestClient.GetAsync(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
                     return Response.FromValue(new ElasticSanResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else
@@ -637,7 +637,7 @@ namespace Azure.ResourceManager.ElasticSan
                     var originalTags = GetTagResource().Get(cancellationToken);
                     originalTags.Value.Data.TagValues.Remove(key);
                     GetTagResource().CreateOrUpdate(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken);
-                    var originalResponse = _elasticSanRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
+                    var originalResponse = _elasticSanRestClient.Get(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, cancellationToken);
                     return Response.FromValue(new ElasticSanResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else

@@ -33,11 +33,11 @@ namespace Azure.ResourceManager.ElasticSan
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2021-11-20-preview";
+            _apiVersion = apiVersion ?? "2023-01-01";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
-        internal HttpMessage CreateListRequest(string subscriptionId, string filter)
+        internal HttpMessage CreateListRequest(Guid subscriptionId, string filter)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -59,15 +59,11 @@ namespace Azure.ResourceManager.ElasticSan
         }
 
         /// <summary> List all the available Skus in the region and information related to them. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="filter"> Specify $filter=&apos;location eq &lt;location&gt;&apos; to filter on location. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<ElasticSanSkuInformationList>> ListAsync(string subscriptionId, string filter = null, CancellationToken cancellationToken = default)
+        public async Task<Response<ElasticSanSkuInformationList>> ListAsync(Guid subscriptionId, string filter = null, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
-
             using var message = CreateListRequest(subscriptionId, filter);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
@@ -85,15 +81,11 @@ namespace Azure.ResourceManager.ElasticSan
         }
 
         /// <summary> List all the available Skus in the region and information related to them. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="filter"> Specify $filter=&apos;location eq &lt;location&gt;&apos; to filter on location. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<ElasticSanSkuInformationList> List(string subscriptionId, string filter = null, CancellationToken cancellationToken = default)
+        public Response<ElasticSanSkuInformationList> List(Guid subscriptionId, string filter = null, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
-
             using var message = CreateListRequest(subscriptionId, filter);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)

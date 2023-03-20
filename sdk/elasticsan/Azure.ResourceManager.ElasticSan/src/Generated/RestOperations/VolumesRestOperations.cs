@@ -33,11 +33,11 @@ namespace Azure.ResourceManager.ElasticSan
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2021-11-20-preview";
+            _apiVersion = apiVersion ?? "2023-01-01";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
-        internal HttpMessage CreateCreateRequest(string subscriptionId, string resourceGroupName, string elasticSanName, string volumeGroupName, string volumeName, ElasticSanVolumeData data)
+        internal HttpMessage CreateCreateRequest(Guid subscriptionId, string resourceGroupName, string elasticSanName, string volumeGroupName, string volumeName, ElasticSanVolumeCreateOrUpdateContent content)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -58,38 +58,37 @@ namespace Azure.ResourceManager.ElasticSan
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
             request.Headers.Add("Content-Type", "application/json");
-            var content = new Utf8JsonRequestContent();
-            content.JsonWriter.WriteObjectValue(data);
-            request.Content = content;
+            var content0 = new Utf8JsonRequestContent();
+            content0.JsonWriter.WriteObjectValue(content);
+            request.Content = content0;
             _userAgent.Apply(message);
             return message;
         }
 
         /// <summary> Create a Volume. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="elasticSanName"> The name of the ElasticSan. </param>
         /// <param name="volumeGroupName"> The name of the VolumeGroup. </param>
         /// <param name="volumeName"> The name of the Volume. </param>
-        /// <param name="data"> Volume object. </param>
+        /// <param name="content"> Volume object. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="elasticSanName"/>, <paramref name="volumeGroupName"/>, <paramref name="volumeName"/> or <paramref name="data"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="elasticSanName"/>, <paramref name="volumeGroupName"/> or <paramref name="volumeName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response> CreateAsync(string subscriptionId, string resourceGroupName, string elasticSanName, string volumeGroupName, string volumeName, ElasticSanVolumeData data, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="elasticSanName"/>, <paramref name="volumeGroupName"/>, <paramref name="volumeName"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="elasticSanName"/>, <paramref name="volumeGroupName"/> or <paramref name="volumeName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response> CreateAsync(Guid subscriptionId, string resourceGroupName, string elasticSanName, string volumeGroupName, string volumeName, ElasticSanVolumeCreateOrUpdateContent content, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(elasticSanName, nameof(elasticSanName));
             Argument.AssertNotNullOrEmpty(volumeGroupName, nameof(volumeGroupName));
             Argument.AssertNotNullOrEmpty(volumeName, nameof(volumeName));
-            Argument.AssertNotNull(data, nameof(data));
+            Argument.AssertNotNull(content, nameof(content));
 
-            using var message = CreateCreateRequest(subscriptionId, resourceGroupName, elasticSanName, volumeGroupName, volumeName, data);
+            using var message = CreateCreateRequest(subscriptionId, resourceGroupName, elasticSanName, volumeGroupName, volumeName, content);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
                 case 200:
-                case 202:
+                case 201:
                     return message.Response;
                 default:
                     throw new RequestFailedException(message.Response);
@@ -97,37 +96,36 @@ namespace Azure.ResourceManager.ElasticSan
         }
 
         /// <summary> Create a Volume. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="elasticSanName"> The name of the ElasticSan. </param>
         /// <param name="volumeGroupName"> The name of the VolumeGroup. </param>
         /// <param name="volumeName"> The name of the Volume. </param>
-        /// <param name="data"> Volume object. </param>
+        /// <param name="content"> Volume object. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="elasticSanName"/>, <paramref name="volumeGroupName"/>, <paramref name="volumeName"/> or <paramref name="data"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="elasticSanName"/>, <paramref name="volumeGroupName"/> or <paramref name="volumeName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response Create(string subscriptionId, string resourceGroupName, string elasticSanName, string volumeGroupName, string volumeName, ElasticSanVolumeData data, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="elasticSanName"/>, <paramref name="volumeGroupName"/>, <paramref name="volumeName"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="elasticSanName"/>, <paramref name="volumeGroupName"/> or <paramref name="volumeName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response Create(Guid subscriptionId, string resourceGroupName, string elasticSanName, string volumeGroupName, string volumeName, ElasticSanVolumeCreateOrUpdateContent content, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(elasticSanName, nameof(elasticSanName));
             Argument.AssertNotNullOrEmpty(volumeGroupName, nameof(volumeGroupName));
             Argument.AssertNotNullOrEmpty(volumeName, nameof(volumeName));
-            Argument.AssertNotNull(data, nameof(data));
+            Argument.AssertNotNull(content, nameof(content));
 
-            using var message = CreateCreateRequest(subscriptionId, resourceGroupName, elasticSanName, volumeGroupName, volumeName, data);
+            using var message = CreateCreateRequest(subscriptionId, resourceGroupName, elasticSanName, volumeGroupName, volumeName, content);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
                 case 200:
-                case 202:
+                case 201:
                     return message.Response;
                 default:
                     throw new RequestFailedException(message.Response);
             }
         }
 
-        internal HttpMessage CreateUpdateRequest(string subscriptionId, string resourceGroupName, string elasticSanName, string volumeGroupName, string volumeName, ElasticSanVolumePatch patch)
+        internal HttpMessage CreateUpdateRequest(Guid subscriptionId, string resourceGroupName, string elasticSanName, string volumeGroupName, string volumeName, ElasticSanVolumePatch patch)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -156,18 +154,17 @@ namespace Azure.ResourceManager.ElasticSan
         }
 
         /// <summary> Update an Volume. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="elasticSanName"> The name of the ElasticSan. </param>
         /// <param name="volumeGroupName"> The name of the VolumeGroup. </param>
         /// <param name="volumeName"> The name of the Volume. </param>
         /// <param name="patch"> Volume object. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="elasticSanName"/>, <paramref name="volumeGroupName"/>, <paramref name="volumeName"/> or <paramref name="patch"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="elasticSanName"/>, <paramref name="volumeGroupName"/> or <paramref name="volumeName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response> UpdateAsync(string subscriptionId, string resourceGroupName, string elasticSanName, string volumeGroupName, string volumeName, ElasticSanVolumePatch patch, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="elasticSanName"/>, <paramref name="volumeGroupName"/>, <paramref name="volumeName"/> or <paramref name="patch"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="elasticSanName"/>, <paramref name="volumeGroupName"/> or <paramref name="volumeName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response> UpdateAsync(Guid subscriptionId, string resourceGroupName, string elasticSanName, string volumeGroupName, string volumeName, ElasticSanVolumePatch patch, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(elasticSanName, nameof(elasticSanName));
             Argument.AssertNotNullOrEmpty(volumeGroupName, nameof(volumeGroupName));
@@ -187,18 +184,17 @@ namespace Azure.ResourceManager.ElasticSan
         }
 
         /// <summary> Update an Volume. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="elasticSanName"> The name of the ElasticSan. </param>
         /// <param name="volumeGroupName"> The name of the VolumeGroup. </param>
         /// <param name="volumeName"> The name of the Volume. </param>
         /// <param name="patch"> Volume object. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="elasticSanName"/>, <paramref name="volumeGroupName"/>, <paramref name="volumeName"/> or <paramref name="patch"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="elasticSanName"/>, <paramref name="volumeGroupName"/> or <paramref name="volumeName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response Update(string subscriptionId, string resourceGroupName, string elasticSanName, string volumeGroupName, string volumeName, ElasticSanVolumePatch patch, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="elasticSanName"/>, <paramref name="volumeGroupName"/>, <paramref name="volumeName"/> or <paramref name="patch"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="elasticSanName"/>, <paramref name="volumeGroupName"/> or <paramref name="volumeName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response Update(Guid subscriptionId, string resourceGroupName, string elasticSanName, string volumeGroupName, string volumeName, ElasticSanVolumePatch patch, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(elasticSanName, nameof(elasticSanName));
             Argument.AssertNotNullOrEmpty(volumeGroupName, nameof(volumeGroupName));
@@ -217,7 +213,7 @@ namespace Azure.ResourceManager.ElasticSan
             }
         }
 
-        internal HttpMessage CreateDeleteRequest(string subscriptionId, string resourceGroupName, string elasticSanName, string volumeGroupName, string volumeName)
+        internal HttpMessage CreateDeleteRequest(Guid subscriptionId, string resourceGroupName, string elasticSanName, string volumeGroupName, string volumeName)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -242,17 +238,16 @@ namespace Azure.ResourceManager.ElasticSan
         }
 
         /// <summary> Delete an Volume. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="elasticSanName"> The name of the ElasticSan. </param>
         /// <param name="volumeGroupName"> The name of the VolumeGroup. </param>
         /// <param name="volumeName"> The name of the Volume. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="elasticSanName"/>, <paramref name="volumeGroupName"/> or <paramref name="volumeName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="elasticSanName"/>, <paramref name="volumeGroupName"/> or <paramref name="volumeName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response> DeleteAsync(string subscriptionId, string resourceGroupName, string elasticSanName, string volumeGroupName, string volumeName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="elasticSanName"/>, <paramref name="volumeGroupName"/> or <paramref name="volumeName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="elasticSanName"/>, <paramref name="volumeGroupName"/> or <paramref name="volumeName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response> DeleteAsync(Guid subscriptionId, string resourceGroupName, string elasticSanName, string volumeGroupName, string volumeName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(elasticSanName, nameof(elasticSanName));
             Argument.AssertNotNullOrEmpty(volumeGroupName, nameof(volumeGroupName));
@@ -272,17 +267,16 @@ namespace Azure.ResourceManager.ElasticSan
         }
 
         /// <summary> Delete an Volume. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="elasticSanName"> The name of the ElasticSan. </param>
         /// <param name="volumeGroupName"> The name of the VolumeGroup. </param>
         /// <param name="volumeName"> The name of the Volume. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="elasticSanName"/>, <paramref name="volumeGroupName"/> or <paramref name="volumeName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="elasticSanName"/>, <paramref name="volumeGroupName"/> or <paramref name="volumeName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response Delete(string subscriptionId, string resourceGroupName, string elasticSanName, string volumeGroupName, string volumeName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="elasticSanName"/>, <paramref name="volumeGroupName"/> or <paramref name="volumeName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="elasticSanName"/>, <paramref name="volumeGroupName"/> or <paramref name="volumeName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response Delete(Guid subscriptionId, string resourceGroupName, string elasticSanName, string volumeGroupName, string volumeName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(elasticSanName, nameof(elasticSanName));
             Argument.AssertNotNullOrEmpty(volumeGroupName, nameof(volumeGroupName));
@@ -301,7 +295,7 @@ namespace Azure.ResourceManager.ElasticSan
             }
         }
 
-        internal HttpMessage CreateGetRequest(string subscriptionId, string resourceGroupName, string elasticSanName, string volumeGroupName, string volumeName)
+        internal HttpMessage CreateGetRequest(Guid subscriptionId, string resourceGroupName, string elasticSanName, string volumeGroupName, string volumeName)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -326,17 +320,16 @@ namespace Azure.ResourceManager.ElasticSan
         }
 
         /// <summary> Get an Volume. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="elasticSanName"> The name of the ElasticSan. </param>
         /// <param name="volumeGroupName"> The name of the VolumeGroup. </param>
         /// <param name="volumeName"> The name of the Volume. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="elasticSanName"/>, <paramref name="volumeGroupName"/> or <paramref name="volumeName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="elasticSanName"/>, <paramref name="volumeGroupName"/> or <paramref name="volumeName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<ElasticSanVolumeData>> GetAsync(string subscriptionId, string resourceGroupName, string elasticSanName, string volumeGroupName, string volumeName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="elasticSanName"/>, <paramref name="volumeGroupName"/> or <paramref name="volumeName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="elasticSanName"/>, <paramref name="volumeGroupName"/> or <paramref name="volumeName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<ElasticSanVolumeData>> GetAsync(Guid subscriptionId, string resourceGroupName, string elasticSanName, string volumeGroupName, string volumeName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(elasticSanName, nameof(elasticSanName));
             Argument.AssertNotNullOrEmpty(volumeGroupName, nameof(volumeGroupName));
@@ -361,17 +354,16 @@ namespace Azure.ResourceManager.ElasticSan
         }
 
         /// <summary> Get an Volume. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="elasticSanName"> The name of the ElasticSan. </param>
         /// <param name="volumeGroupName"> The name of the VolumeGroup. </param>
         /// <param name="volumeName"> The name of the Volume. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="elasticSanName"/>, <paramref name="volumeGroupName"/> or <paramref name="volumeName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="elasticSanName"/>, <paramref name="volumeGroupName"/> or <paramref name="volumeName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<ElasticSanVolumeData> Get(string subscriptionId, string resourceGroupName, string elasticSanName, string volumeGroupName, string volumeName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="elasticSanName"/>, <paramref name="volumeGroupName"/> or <paramref name="volumeName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="elasticSanName"/>, <paramref name="volumeGroupName"/> or <paramref name="volumeName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<ElasticSanVolumeData> Get(Guid subscriptionId, string resourceGroupName, string elasticSanName, string volumeGroupName, string volumeName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(elasticSanName, nameof(elasticSanName));
             Argument.AssertNotNullOrEmpty(volumeGroupName, nameof(volumeGroupName));
@@ -395,7 +387,7 @@ namespace Azure.ResourceManager.ElasticSan
             }
         }
 
-        internal HttpMessage CreateListByVolumeGroupRequest(string subscriptionId, string resourceGroupName, string elasticSanName, string volumeGroupName)
+        internal HttpMessage CreateListByVolumeGroupRequest(Guid subscriptionId, string resourceGroupName, string elasticSanName, string volumeGroupName)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -419,16 +411,15 @@ namespace Azure.ResourceManager.ElasticSan
         }
 
         /// <summary> List Volumes in a VolumeGroup. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="elasticSanName"> The name of the ElasticSan. </param>
         /// <param name="volumeGroupName"> The name of the VolumeGroup. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="elasticSanName"/> or <paramref name="volumeGroupName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="elasticSanName"/> or <paramref name="volumeGroupName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<ElasticSanVolumeList>> ListByVolumeGroupAsync(string subscriptionId, string resourceGroupName, string elasticSanName, string volumeGroupName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="elasticSanName"/> or <paramref name="volumeGroupName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="elasticSanName"/> or <paramref name="volumeGroupName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<ElasticSanVolumeList>> ListByVolumeGroupAsync(Guid subscriptionId, string resourceGroupName, string elasticSanName, string volumeGroupName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(elasticSanName, nameof(elasticSanName));
             Argument.AssertNotNullOrEmpty(volumeGroupName, nameof(volumeGroupName));
@@ -450,16 +441,15 @@ namespace Azure.ResourceManager.ElasticSan
         }
 
         /// <summary> List Volumes in a VolumeGroup. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="elasticSanName"> The name of the ElasticSan. </param>
         /// <param name="volumeGroupName"> The name of the VolumeGroup. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="elasticSanName"/> or <paramref name="volumeGroupName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="elasticSanName"/> or <paramref name="volumeGroupName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<ElasticSanVolumeList> ListByVolumeGroup(string subscriptionId, string resourceGroupName, string elasticSanName, string volumeGroupName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="elasticSanName"/> or <paramref name="volumeGroupName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="elasticSanName"/> or <paramref name="volumeGroupName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<ElasticSanVolumeList> ListByVolumeGroup(Guid subscriptionId, string resourceGroupName, string elasticSanName, string volumeGroupName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(elasticSanName, nameof(elasticSanName));
             Argument.AssertNotNullOrEmpty(volumeGroupName, nameof(volumeGroupName));
@@ -480,7 +470,7 @@ namespace Azure.ResourceManager.ElasticSan
             }
         }
 
-        internal HttpMessage CreateListByVolumeGroupNextPageRequest(string nextLink, string subscriptionId, string resourceGroupName, string elasticSanName, string volumeGroupName)
+        internal HttpMessage CreateListByVolumeGroupNextPageRequest(string nextLink, Guid subscriptionId, string resourceGroupName, string elasticSanName, string volumeGroupName)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -496,17 +486,16 @@ namespace Azure.ResourceManager.ElasticSan
 
         /// <summary> List Volumes in a VolumeGroup. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="elasticSanName"> The name of the ElasticSan. </param>
         /// <param name="volumeGroupName"> The name of the VolumeGroup. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="elasticSanName"/> or <paramref name="volumeGroupName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="elasticSanName"/> or <paramref name="volumeGroupName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<ElasticSanVolumeList>> ListByVolumeGroupNextPageAsync(string nextLink, string subscriptionId, string resourceGroupName, string elasticSanName, string volumeGroupName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="resourceGroupName"/>, <paramref name="elasticSanName"/> or <paramref name="volumeGroupName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="elasticSanName"/> or <paramref name="volumeGroupName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<ElasticSanVolumeList>> ListByVolumeGroupNextPageAsync(string nextLink, Guid subscriptionId, string resourceGroupName, string elasticSanName, string volumeGroupName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(nextLink, nameof(nextLink));
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(elasticSanName, nameof(elasticSanName));
             Argument.AssertNotNullOrEmpty(volumeGroupName, nameof(volumeGroupName));
@@ -529,17 +518,16 @@ namespace Azure.ResourceManager.ElasticSan
 
         /// <summary> List Volumes in a VolumeGroup. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="elasticSanName"> The name of the ElasticSan. </param>
         /// <param name="volumeGroupName"> The name of the VolumeGroup. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="elasticSanName"/> or <paramref name="volumeGroupName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="elasticSanName"/> or <paramref name="volumeGroupName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<ElasticSanVolumeList> ListByVolumeGroupNextPage(string nextLink, string subscriptionId, string resourceGroupName, string elasticSanName, string volumeGroupName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="resourceGroupName"/>, <paramref name="elasticSanName"/> or <paramref name="volumeGroupName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="elasticSanName"/> or <paramref name="volumeGroupName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<ElasticSanVolumeList> ListByVolumeGroupNextPage(string nextLink, Guid subscriptionId, string resourceGroupName, string elasticSanName, string volumeGroupName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(nextLink, nameof(nextLink));
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(elasticSanName, nameof(elasticSanName));
             Argument.AssertNotNullOrEmpty(volumeGroupName, nameof(volumeGroupName));

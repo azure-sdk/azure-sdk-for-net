@@ -15,19 +15,22 @@ using Azure;
 using Azure.Core;
 using Azure.Core.Pipeline;
 using Azure.ResourceManager;
+using Azure.ResourceManager.ElasticSan.Models;
 using Azure.ResourceManager.Resources;
 
 namespace Azure.ResourceManager.ElasticSan
 {
     /// <summary>
     /// A class representing a collection of <see cref="ElasticSanResource" /> and their operations.
-    /// Each <see cref="ElasticSanResource" /> in the collection will belong to the same instance of <see cref="ResourceGroupResource" />.
-    /// To get an <see cref="ElasticSanCollection" /> instance call the GetElasticSans method from an instance of <see cref="ResourceGroupResource" />.
+    /// Each <see cref="ElasticSanResource" /> in the collection will belong to the same instance of <see cref="TenantResource" />.
+    /// To get an <see cref="ElasticSanCollection" /> instance call the GetElasticSans method from an instance of <see cref="TenantResource" />.
     /// </summary>
     public partial class ElasticSanCollection : ArmCollection, IEnumerable<ElasticSanResource>, IAsyncEnumerable<ElasticSanResource>
     {
         private readonly ClientDiagnostics _elasticSanClientDiagnostics;
         private readonly ElasticSansRestOperations _elasticSanRestClient;
+        private readonly Guid _subscriptionId;
+        private readonly string _resourceGroupName;
 
         /// <summary> Initializes a new instance of the <see cref="ElasticSanCollection"/> class for mocking. </summary>
         protected ElasticSanCollection()
@@ -37,8 +40,14 @@ namespace Azure.ResourceManager.ElasticSan
         /// <summary> Initializes a new instance of the <see cref="ElasticSanCollection"/> class. </summary>
         /// <param name="client"> The client parameters to use in these operations. </param>
         /// <param name="id"> The identifier of the parent resource that is the target of operations. </param>
-        internal ElasticSanCollection(ArmClient client, ResourceIdentifier id) : base(client, id)
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/> is an empty string, and was expected to be non-empty. </exception>
+        internal ElasticSanCollection(ArmClient client, ResourceIdentifier id, Guid subscriptionId, string resourceGroupName) : base(client, id)
         {
+            _subscriptionId = subscriptionId;
+            _resourceGroupName = resourceGroupName;
             _elasticSanClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.ElasticSan", ElasticSanResource.ResourceType.Namespace, Diagnostics);
             TryGetApiVersion(ElasticSanResource.ResourceType, out string elasticSanApiVersion);
             _elasticSanRestClient = new ElasticSansRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, elasticSanApiVersion);
@@ -49,8 +58,8 @@ namespace Azure.ResourceManager.ElasticSan
 
         internal static void ValidateResourceId(ResourceIdentifier id)
         {
-            if (id.ResourceType != ResourceGroupResource.ResourceType)
-                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, ResourceGroupResource.ResourceType), nameof(id));
+            if (id.ResourceType != TenantResource.ResourceType)
+                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, TenantResource.ResourceType), nameof(id));
         }
 
         /// <summary>
@@ -68,21 +77,21 @@ namespace Azure.ResourceManager.ElasticSan
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="elasticSanName"> The name of the ElasticSan. </param>
-        /// <param name="data"> Elastic San object. </param>
+        /// <param name="content"> Elastic San object. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="elasticSanName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="elasticSanName"/> or <paramref name="data"/> is null. </exception>
-        public virtual async Task<ArmOperation<ElasticSanResource>> CreateOrUpdateAsync(WaitUntil waitUntil, string elasticSanName, ElasticSanData data, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="elasticSanName"/> or <paramref name="content"/> is null. </exception>
+        public virtual async Task<ArmOperation<ElasticSanResource>> CreateOrUpdateAsync(WaitUntil waitUntil, string elasticSanName, ElasticSanCreateOrUpdateContent content, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(elasticSanName, nameof(elasticSanName));
-            Argument.AssertNotNull(data, nameof(data));
+            Argument.AssertNotNull(content, nameof(content));
 
             using var scope = _elasticSanClientDiagnostics.CreateScope("ElasticSanCollection.CreateOrUpdate");
             scope.Start();
             try
             {
-                var response = await _elasticSanRestClient.CreateAsync(Id.SubscriptionId, Id.ResourceGroupName, elasticSanName, data, cancellationToken).ConfigureAwait(false);
-                var operation = new ElasticSanArmOperation<ElasticSanResource>(new ElasticSanOperationSource(Client), _elasticSanClientDiagnostics, Pipeline, _elasticSanRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, elasticSanName, data).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                var response = await _elasticSanRestClient.CreateAsync(Guid.Parse(_subscriptionId), _resourceGroupName, elasticSanName, content, cancellationToken).ConfigureAwait(false);
+                var operation = new ElasticSanArmOperation<ElasticSanResource>(new ElasticSanOperationSource(Client), _elasticSanClientDiagnostics, Pipeline, _elasticSanRestClient.CreateCreateRequest(Guid.Parse(_subscriptionId), _resourceGroupName, elasticSanName, content).Request, response, OperationFinalStateVia.AzureAsyncOperation);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -109,21 +118,21 @@ namespace Azure.ResourceManager.ElasticSan
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="elasticSanName"> The name of the ElasticSan. </param>
-        /// <param name="data"> Elastic San object. </param>
+        /// <param name="content"> Elastic San object. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="elasticSanName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="elasticSanName"/> or <paramref name="data"/> is null. </exception>
-        public virtual ArmOperation<ElasticSanResource> CreateOrUpdate(WaitUntil waitUntil, string elasticSanName, ElasticSanData data, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="elasticSanName"/> or <paramref name="content"/> is null. </exception>
+        public virtual ArmOperation<ElasticSanResource> CreateOrUpdate(WaitUntil waitUntil, string elasticSanName, ElasticSanCreateOrUpdateContent content, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(elasticSanName, nameof(elasticSanName));
-            Argument.AssertNotNull(data, nameof(data));
+            Argument.AssertNotNull(content, nameof(content));
 
             using var scope = _elasticSanClientDiagnostics.CreateScope("ElasticSanCollection.CreateOrUpdate");
             scope.Start();
             try
             {
-                var response = _elasticSanRestClient.Create(Id.SubscriptionId, Id.ResourceGroupName, elasticSanName, data, cancellationToken);
-                var operation = new ElasticSanArmOperation<ElasticSanResource>(new ElasticSanOperationSource(Client), _elasticSanClientDiagnostics, Pipeline, _elasticSanRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, elasticSanName, data).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                var response = _elasticSanRestClient.Create(Guid.Parse(_subscriptionId), _resourceGroupName, elasticSanName, content, cancellationToken);
+                var operation = new ElasticSanArmOperation<ElasticSanResource>(new ElasticSanOperationSource(Client), _elasticSanClientDiagnostics, Pipeline, _elasticSanRestClient.CreateCreateRequest(Guid.Parse(_subscriptionId), _resourceGroupName, elasticSanName, content).Request, response, OperationFinalStateVia.AzureAsyncOperation);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -160,7 +169,7 @@ namespace Azure.ResourceManager.ElasticSan
             scope.Start();
             try
             {
-                var response = await _elasticSanRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, elasticSanName, cancellationToken).ConfigureAwait(false);
+                var response = await _elasticSanRestClient.GetAsync(Guid.Parse(_subscriptionId), _resourceGroupName, elasticSanName, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ElasticSanResource(Client, response.Value), response.GetRawResponse());
@@ -197,7 +206,7 @@ namespace Azure.ResourceManager.ElasticSan
             scope.Start();
             try
             {
-                var response = _elasticSanRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, elasticSanName, cancellationToken);
+                var response = _elasticSanRestClient.Get(Guid.Parse(_subscriptionId), _resourceGroupName, elasticSanName, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ElasticSanResource(Client, response.Value), response.GetRawResponse());
@@ -226,8 +235,8 @@ namespace Azure.ResourceManager.ElasticSan
         /// <returns> An async collection of <see cref="ElasticSanResource" /> that may take multiple service requests to iterate over. </returns>
         public virtual AsyncPageable<ElasticSanResource> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _elasticSanRestClient.CreateListByResourceGroupRequest(Id.SubscriptionId, Id.ResourceGroupName);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _elasticSanRestClient.CreateListByResourceGroupNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _elasticSanRestClient.CreateListByResourceGroupRequest(Guid.Parse(_subscriptionId), _resourceGroupName);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _elasticSanRestClient.CreateListByResourceGroupNextPageRequest(nextLink, Guid.Parse(_subscriptionId), _resourceGroupName);
             return PageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new ElasticSanResource(Client, ElasticSanData.DeserializeElasticSanData(e)), _elasticSanClientDiagnostics, Pipeline, "ElasticSanCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
@@ -248,8 +257,8 @@ namespace Azure.ResourceManager.ElasticSan
         /// <returns> A collection of <see cref="ElasticSanResource" /> that may take multiple service requests to iterate over. </returns>
         public virtual Pageable<ElasticSanResource> GetAll(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _elasticSanRestClient.CreateListByResourceGroupRequest(Id.SubscriptionId, Id.ResourceGroupName);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _elasticSanRestClient.CreateListByResourceGroupNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _elasticSanRestClient.CreateListByResourceGroupRequest(Guid.Parse(_subscriptionId), _resourceGroupName);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _elasticSanRestClient.CreateListByResourceGroupNextPageRequest(nextLink, Guid.Parse(_subscriptionId), _resourceGroupName);
             return PageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new ElasticSanResource(Client, ElasticSanData.DeserializeElasticSanData(e)), _elasticSanClientDiagnostics, Pipeline, "ElasticSanCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
@@ -278,7 +287,7 @@ namespace Azure.ResourceManager.ElasticSan
             scope.Start();
             try
             {
-                var response = await _elasticSanRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, elasticSanName, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var response = await _elasticSanRestClient.GetAsync(Guid.Parse(_subscriptionId), _resourceGroupName, elasticSanName, cancellationToken: cancellationToken).ConfigureAwait(false);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -313,7 +322,7 @@ namespace Azure.ResourceManager.ElasticSan
             scope.Start();
             try
             {
-                var response = _elasticSanRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, elasticSanName, cancellationToken: cancellationToken);
+                var response = _elasticSanRestClient.Get(Guid.Parse(_subscriptionId), _resourceGroupName, elasticSanName, cancellationToken: cancellationToken);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)

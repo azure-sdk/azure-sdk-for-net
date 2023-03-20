@@ -7,25 +7,21 @@
 
 using System.Collections.Generic;
 using Azure.Core;
-using Azure.ResourceManager.ElasticSan.Models;
 using Azure.ResourceManager.Models;
 
-namespace Azure.ResourceManager.ElasticSan
+namespace Azure.ResourceManager.ElasticSan.Models
 {
-    /// <summary>
-    /// A class representing the ElasticSan data model.
-    /// Response for ElasticSan request.
-    /// </summary>
-    public partial class ElasticSanData : TrackedResourceData
+    /// <summary> Response for ElasticSan request. </summary>
+    public partial class ElasticSanCreateOrUpdateContent : TrackedResourceData
     {
-        /// <summary> Initializes a new instance of ElasticSanData. </summary>
+        /// <summary> Initializes a new instance of ElasticSanCreateOrUpdateContent. </summary>
         /// <param name="location"> The location. </param>
-        public ElasticSanData(AzureLocation location) : base(location)
+        public ElasticSanCreateOrUpdateContent(AzureLocation location) : base(location)
         {
             AvailabilityZones = new ChangeTrackingList<string>();
         }
 
-        /// <summary> Initializes a new instance of ElasticSanData. </summary>
+        /// <summary> Initializes a new instance of ElasticSanCreateOrUpdateContent. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
@@ -42,7 +38,7 @@ namespace Azure.ResourceManager.ElasticSan
         /// <param name="totalIops"> Total Provisioned IOPS of the Elastic San appliance. </param>
         /// <param name="totalMbps"> Total Provisioned MBps Elastic San appliance. </param>
         /// <param name="totalSizeTiB"> Total size of the Elastic San appliance in TB. </param>
-        internal ElasticSanData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ElasticSanSku sku, IList<string> availabilityZones, ElasticSanProvisioningState? provisioningState, long? baseSizeTiB, long? extendedCapacitySizeTiB, long? totalVolumeSizeGiB, long? volumeGroupCount, long? totalIops, long? totalMbps, long? totalSizeTiB) : base(id, name, resourceType, systemData, tags, location)
+        internal ElasticSanCreateOrUpdateContent(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ElasticSanSku sku, IList<string> availabilityZones, ElasticSanProvisioningState? provisioningState, long? baseSizeTiB, long? extendedCapacitySizeTiB, long? totalVolumeSizeGiB, long? volumeGroupCount, long? totalIops, long? totalMbps, long? totalSizeTiB) : base(id, name, resourceType, systemData, tags, location)
         {
             Sku = sku;
             AvailabilityZones = availabilityZones;
