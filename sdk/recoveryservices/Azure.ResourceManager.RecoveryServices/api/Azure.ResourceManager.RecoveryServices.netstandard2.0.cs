@@ -174,6 +174,25 @@ namespace Azure.ResourceManager.RecoveryServices.Models
         public static bool operator !=(Azure.ResourceManager.RecoveryServices.Models.CrossRegionRestore left, Azure.ResourceManager.RecoveryServices.Models.CrossRegionRestore right) { throw null; }
         public override string ToString() { throw null; }
     }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct CrossSubscriptionRestoreState : System.IEquatable<Azure.ResourceManager.RecoveryServices.Models.CrossSubscriptionRestoreState>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public CrossSubscriptionRestoreState(string value) { throw null; }
+        public static Azure.ResourceManager.RecoveryServices.Models.CrossSubscriptionRestoreState Disabled { get { throw null; } }
+        public static Azure.ResourceManager.RecoveryServices.Models.CrossSubscriptionRestoreState Enabled { get { throw null; } }
+        public static Azure.ResourceManager.RecoveryServices.Models.CrossSubscriptionRestoreState PermanentlyDisabled { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.RecoveryServices.Models.CrossSubscriptionRestoreState other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.RecoveryServices.Models.CrossSubscriptionRestoreState left, Azure.ResourceManager.RecoveryServices.Models.CrossSubscriptionRestoreState right) { throw null; }
+        public static implicit operator Azure.ResourceManager.RecoveryServices.Models.CrossSubscriptionRestoreState (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.RecoveryServices.Models.CrossSubscriptionRestoreState left, Azure.ResourceManager.RecoveryServices.Models.CrossSubscriptionRestoreState right) { throw null; }
+        public override string ToString() { throw null; }
+    }
     public partial class DnsZone
     {
         public DnsZone() { }
@@ -384,6 +403,7 @@ namespace Azure.ResourceManager.RecoveryServices.Models
     {
         public RecoveryServicesVaultProperties() { }
         public Azure.ResourceManager.RecoveryServices.Models.BackupStorageVersion? BackupStorageVersion { get { throw null; } }
+        public Azure.ResourceManager.RecoveryServices.Models.CrossSubscriptionRestoreState? CrossSubscriptionRestoreState { get { throw null; } set { } }
         public Azure.ResourceManager.RecoveryServices.Models.VaultPropertiesEncryption Encryption { get { throw null; } set { } }
         public Azure.ResourceManager.RecoveryServices.Models.ImmutabilityState? ImmutabilityState { get { throw null; } set { } }
         public Azure.ResourceManager.RecoveryServices.Models.VaultMonitoringSettings MonitoringSettings { get { throw null; } set { } }
