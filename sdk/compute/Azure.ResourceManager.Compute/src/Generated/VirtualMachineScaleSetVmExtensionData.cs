@@ -6,6 +6,7 @@
 #nullable disable
 
 using System;
+using System.Collections.Generic;
 using Azure.Core;
 using Azure.ResourceManager.Compute.Models;
 using Azure.ResourceManager.Models;
@@ -21,6 +22,7 @@ namespace Azure.ResourceManager.Compute
         /// <summary> Initializes a new instance of VirtualMachineScaleSetVmExtensionData. </summary>
         public VirtualMachineScaleSetVmExtensionData()
         {
+            ProvisionAfterExtensions = new ChangeTrackingList<string>();
         }
 
         /// <summary> Initializes a new instance of VirtualMachineScaleSetVmExtensionData. </summary>
@@ -40,7 +42,8 @@ namespace Azure.ResourceManager.Compute
         /// <param name="instanceView"> The virtual machine extension instance view. </param>
         /// <param name="suppressFailures"> Indicates whether failures stemming from the extension will be suppressed (Operational failures such as not connecting to the VM will not be suppressed regardless of this value). The default is false. </param>
         /// <param name="keyVaultProtectedSettings"> The extensions protected settings that are passed by reference, and consumed from key vault. </param>
-        internal VirtualMachineScaleSetVmExtensionData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string forceUpdateTag, string publisher, string extensionType, string typeHandlerVersion, bool? autoUpgradeMinorVersion, bool? enableAutomaticUpgrade, BinaryData settings, BinaryData protectedSettings, string provisioningState, VirtualMachineExtensionInstanceView instanceView, bool? suppressFailures, KeyVaultSecretReference keyVaultProtectedSettings) : base(id, name, resourceType, systemData)
+        /// <param name="provisionAfterExtensions"> The list of extension names after the extension needs to be provisioned. </param>
+        internal VirtualMachineScaleSetVmExtensionData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string forceUpdateTag, string publisher, string extensionType, string typeHandlerVersion, bool? autoUpgradeMinorVersion, bool? enableAutomaticUpgrade, BinaryData settings, BinaryData protectedSettings, string provisioningState, VirtualMachineExtensionInstanceView instanceView, bool? suppressFailures, KeyVaultSecretReference keyVaultProtectedSettings, IList<string> provisionAfterExtensions) : base(id, name, resourceType, systemData)
         {
             ForceUpdateTag = forceUpdateTag;
             Publisher = publisher;
@@ -54,6 +57,7 @@ namespace Azure.ResourceManager.Compute
             InstanceView = instanceView;
             SuppressFailures = suppressFailures;
             KeyVaultProtectedSettings = keyVaultProtectedSettings;
+            ProvisionAfterExtensions = provisionAfterExtensions;
         }
 
         /// <summary> How the extension handler should be forced to update even if the extension configuration has not changed. </summary>
@@ -138,5 +142,7 @@ namespace Azure.ResourceManager.Compute
         public bool? SuppressFailures { get; set; }
         /// <summary> The extensions protected settings that are passed by reference, and consumed from key vault. </summary>
         public KeyVaultSecretReference KeyVaultProtectedSettings { get; set; }
+        /// <summary> The list of extension names after the extension needs to be provisioned. </summary>
+        public IList<string> ProvisionAfterExtensions { get; }
     }
 }
