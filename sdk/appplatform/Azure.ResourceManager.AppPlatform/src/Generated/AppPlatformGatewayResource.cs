@@ -6,6 +6,7 @@
 #nullable disable
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
@@ -326,7 +327,7 @@ namespace Azure.ResourceManager.AppPlatform
         }
 
         /// <summary>
-        /// Create the default Spring Cloud Gateway or update the existing Spring Cloud Gateway.
+        /// Operation to update an exiting Spring Cloud Gateway capacity.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -334,24 +335,24 @@ namespace Azure.ResourceManager.AppPlatform
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Gateways_CreateOrUpdate</description>
+        /// <description>Gateways_UpdateCapacity</description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
-        /// <param name="data"> The gateway for the create or update operation. </param>
+        /// <param name="patch"> The gateway capacity for the update operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="data"/> is null. </exception>
-        public virtual async Task<ArmOperation<AppPlatformGatewayResource>> UpdateAsync(WaitUntil waitUntil, AppPlatformGatewayData data, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="patch"/> is null. </exception>
+        public virtual async Task<ArmOperation<AppPlatformGatewayResource>> UpdateAsync(WaitUntil waitUntil, AppPlatformGatewayPatch patch, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNull(data, nameof(data));
+            Argument.AssertNotNull(patch, nameof(patch));
 
             using var scope = _appPlatformGatewayGatewaysClientDiagnostics.CreateScope("AppPlatformGatewayResource.Update");
             scope.Start();
             try
             {
-                var response = await _appPlatformGatewayGatewaysRestClient.CreateOrUpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, data, cancellationToken).ConfigureAwait(false);
-                var operation = new AppPlatformArmOperation<AppPlatformGatewayResource>(new AppPlatformGatewayOperationSource(Client), _appPlatformGatewayGatewaysClientDiagnostics, Pipeline, _appPlatformGatewayGatewaysRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, data).Request, response, OperationFinalStateVia.Location);
+                var response = await _appPlatformGatewayGatewaysRestClient.UpdateCapacityAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, patch, cancellationToken).ConfigureAwait(false);
+                var operation = new AppPlatformArmOperation<AppPlatformGatewayResource>(new AppPlatformGatewayOperationSource(Client), _appPlatformGatewayGatewaysClientDiagnostics, Pipeline, _appPlatformGatewayGatewaysRestClient.CreateUpdateCapacityRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, patch).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -364,7 +365,7 @@ namespace Azure.ResourceManager.AppPlatform
         }
 
         /// <summary>
-        /// Create the default Spring Cloud Gateway or update the existing Spring Cloud Gateway.
+        /// Operation to update an exiting Spring Cloud Gateway capacity.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -372,26 +373,154 @@ namespace Azure.ResourceManager.AppPlatform
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Gateways_CreateOrUpdate</description>
+        /// <description>Gateways_UpdateCapacity</description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
-        /// <param name="data"> The gateway for the create or update operation. </param>
+        /// <param name="patch"> The gateway capacity for the update operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="data"/> is null. </exception>
-        public virtual ArmOperation<AppPlatformGatewayResource> Update(WaitUntil waitUntil, AppPlatformGatewayData data, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="patch"/> is null. </exception>
+        public virtual ArmOperation<AppPlatformGatewayResource> Update(WaitUntil waitUntil, AppPlatformGatewayPatch patch, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNull(data, nameof(data));
+            Argument.AssertNotNull(patch, nameof(patch));
 
             using var scope = _appPlatformGatewayGatewaysClientDiagnostics.CreateScope("AppPlatformGatewayResource.Update");
             scope.Start();
             try
             {
-                var response = _appPlatformGatewayGatewaysRestClient.CreateOrUpdate(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, data, cancellationToken);
-                var operation = new AppPlatformArmOperation<AppPlatformGatewayResource>(new AppPlatformGatewayOperationSource(Client), _appPlatformGatewayGatewaysClientDiagnostics, Pipeline, _appPlatformGatewayGatewaysRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, data).Request, response, OperationFinalStateVia.Location);
+                var response = _appPlatformGatewayGatewaysRestClient.UpdateCapacity(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, patch, cancellationToken);
+                var operation = new AppPlatformArmOperation<AppPlatformGatewayResource>(new AppPlatformGatewayOperationSource(Client), _appPlatformGatewayGatewaysClientDiagnostics, Pipeline, _appPlatformGatewayGatewaysRestClient.CreateUpdateCapacityRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, patch).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// List sensitive environment variables of Spring Cloud Gateway.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/gateways/{gatewayName}/listEnvSecrets</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Gateways_ListEnvSecrets</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual async Task<Response<IReadOnlyDictionary<string, string>>> GetEnvSecretsAsync(CancellationToken cancellationToken = default)
+        {
+            using var scope = _appPlatformGatewayGatewaysClientDiagnostics.CreateScope("AppPlatformGatewayResource.GetEnvSecrets");
+            scope.Start();
+            try
+            {
+                var response = await _appPlatformGatewayGatewaysRestClient.ListEnvSecretsAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// List sensitive environment variables of Spring Cloud Gateway.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/gateways/{gatewayName}/listEnvSecrets</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Gateways_ListEnvSecrets</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual Response<IReadOnlyDictionary<string, string>> GetEnvSecrets(CancellationToken cancellationToken = default)
+        {
+            using var scope = _appPlatformGatewayGatewaysClientDiagnostics.CreateScope("AppPlatformGatewayResource.GetEnvSecrets");
+            scope.Start();
+            try
+            {
+                var response = _appPlatformGatewayGatewaysRestClient.ListEnvSecrets(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Restart the Spring Cloud Gateway.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/gateways/{gatewayName}/restart</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Gateways_Restart</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual async Task<ArmOperation> RestartAsync(WaitUntil waitUntil, CancellationToken cancellationToken = default)
+        {
+            using var scope = _appPlatformGatewayGatewaysClientDiagnostics.CreateScope("AppPlatformGatewayResource.Restart");
+            scope.Start();
+            try
+            {
+                var response = await _appPlatformGatewayGatewaysRestClient.RestartAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
+                var operation = new AppPlatformArmOperation(_appPlatformGatewayGatewaysClientDiagnostics, Pipeline, _appPlatformGatewayGatewaysRestClient.CreateRestartRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Restart the Spring Cloud Gateway.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/gateways/{gatewayName}/restart</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Gateways_Restart</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual ArmOperation Restart(WaitUntil waitUntil, CancellationToken cancellationToken = default)
+        {
+            using var scope = _appPlatformGatewayGatewaysClientDiagnostics.CreateScope("AppPlatformGatewayResource.Restart");
+            scope.Start();
+            try
+            {
+                var response = _appPlatformGatewayGatewaysRestClient.Restart(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken);
+                var operation = new AppPlatformArmOperation(_appPlatformGatewayGatewaysClientDiagnostics, Pipeline, _appPlatformGatewayGatewaysRestClient.CreateRestartRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletionResponse(cancellationToken);
                 return operation;
             }
             catch (Exception e)
