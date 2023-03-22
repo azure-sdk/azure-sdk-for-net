@@ -11,18 +11,5 @@ namespace Azure.ResourceManager.CosmosDB.Models
 {
     internal static partial class MongoDBRoleDefinitionTypeExtensions
     {
-        public static string ToSerialString(this MongoDBRoleDefinitionType value) => value switch
-        {
-            MongoDBRoleDefinitionType.BuiltInRole => "BuiltInRole",
-            MongoDBRoleDefinitionType.CustomRole => "CustomRole",
-            _ => throw new ArgumentOutOfRangeException(nameof(value), value, "Unknown MongoDBRoleDefinitionType value.")
-        };
-
-        public static MongoDBRoleDefinitionType ToMongoDBRoleDefinitionType(this string value)
-        {
-            if (StringComparer.OrdinalIgnoreCase.Equals(value, "BuiltInRole")) return MongoDBRoleDefinitionType.BuiltInRole;
-            if (StringComparer.OrdinalIgnoreCase.Equals(value, "CustomRole")) return MongoDBRoleDefinitionType.CustomRole;
-            throw new ArgumentOutOfRangeException(nameof(value), value, "Unknown MongoDBRoleDefinitionType value.");
-        }
     }
 }
