@@ -34,7 +34,7 @@ namespace Azure.ResourceManager.MarketplaceOrdering
 
         private readonly ClientDiagnostics _marketplaceAgreementClientDiagnostics;
         private readonly MarketplaceAgreementsRestOperations _marketplaceAgreementRestClient;
-        private readonly MarketplaceAgreementTermData _data;
+        private readonly OldAgreementTermData _data;
 
         /// <summary> Initializes a new instance of the <see cref="MarketplaceAgreementResource"/> class for mocking. </summary>
         protected MarketplaceAgreementResource()
@@ -44,7 +44,7 @@ namespace Azure.ResourceManager.MarketplaceOrdering
         /// <summary> Initializes a new instance of the <see cref = "MarketplaceAgreementResource"/> class. </summary>
         /// <param name="client"> The client parameters to use in these operations. </param>
         /// <param name="data"> The resource that is the target of operations. </param>
-        internal MarketplaceAgreementResource(ArmClient client, MarketplaceAgreementTermData data) : this(client, data.Id)
+        internal MarketplaceAgreementResource(ArmClient client, OldAgreementTermData data) : this(client, data.Id)
         {
             HasData = true;
             _data = data;
@@ -71,7 +71,7 @@ namespace Azure.ResourceManager.MarketplaceOrdering
 
         /// <summary> Gets the data representing this Feature. </summary>
         /// <exception cref="InvalidOperationException"> Throws if there is no data loaded in the current instance. </exception>
-        public virtual MarketplaceAgreementTermData Data
+        public virtual OldAgreementTermData Data
         {
             get
             {
