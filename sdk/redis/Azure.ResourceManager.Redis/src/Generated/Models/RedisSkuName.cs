@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace Azure.ResourceManager.Redis.Models
 {
-    /// <summary> The type of Redis cache to deploy. Valid values: (Basic, Standard, Premium). </summary>
+    /// <summary> The type of Redis cache to deploy. Valid values: (Basic, Standard, Premium, General Purpose, Memory Optimized). </summary>
     public readonly partial struct RedisSkuName : IEquatable<RedisSkuName>
     {
         private readonly string _value;
@@ -25,6 +25,8 @@ namespace Azure.ResourceManager.Redis.Models
         private const string BasicValue = "Basic";
         private const string StandardValue = "Standard";
         private const string PremiumValue = "Premium";
+        private const string GeneralPurposeValue = "GeneralPurpose";
+        private const string MemoryOptimizedValue = "MemoryOptimized";
 
         /// <summary> Basic. </summary>
         public static RedisSkuName Basic { get; } = new RedisSkuName(BasicValue);
@@ -32,6 +34,10 @@ namespace Azure.ResourceManager.Redis.Models
         public static RedisSkuName Standard { get; } = new RedisSkuName(StandardValue);
         /// <summary> Premium. </summary>
         public static RedisSkuName Premium { get; } = new RedisSkuName(PremiumValue);
+        /// <summary> GeneralPurpose. </summary>
+        public static RedisSkuName GeneralPurpose { get; } = new RedisSkuName(GeneralPurposeValue);
+        /// <summary> MemoryOptimized. </summary>
+        public static RedisSkuName MemoryOptimized { get; } = new RedisSkuName(MemoryOptimizedValue);
         /// <summary> Determines if two <see cref="RedisSkuName"/> values are the same. </summary>
         public static bool operator ==(RedisSkuName left, RedisSkuName right) => left.Equals(right);
         /// <summary> Determines if two <see cref="RedisSkuName"/> values are not the same. </summary>

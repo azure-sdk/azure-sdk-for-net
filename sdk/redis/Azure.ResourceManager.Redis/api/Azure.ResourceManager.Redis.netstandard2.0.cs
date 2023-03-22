@@ -561,6 +561,8 @@ namespace Azure.ResourceManager.Redis.Models
         private readonly int _dummyPrimitive;
         public RedisSkuFamily(string value) { throw null; }
         public static Azure.ResourceManager.Redis.Models.RedisSkuFamily BasicOrStandard { get { throw null; } }
+        public static Azure.ResourceManager.Redis.Models.RedisSkuFamily G { get { throw null; } }
+        public static Azure.ResourceManager.Redis.Models.RedisSkuFamily M { get { throw null; } }
         public static Azure.ResourceManager.Redis.Models.RedisSkuFamily Premium { get { throw null; } }
         public bool Equals(Azure.ResourceManager.Redis.Models.RedisSkuFamily other) { throw null; }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
@@ -579,6 +581,8 @@ namespace Azure.ResourceManager.Redis.Models
         private readonly int _dummyPrimitive;
         public RedisSkuName(string value) { throw null; }
         public static Azure.ResourceManager.Redis.Models.RedisSkuName Basic { get { throw null; } }
+        public static Azure.ResourceManager.Redis.Models.RedisSkuName GeneralPurpose { get { throw null; } }
+        public static Azure.ResourceManager.Redis.Models.RedisSkuName MemoryOptimized { get { throw null; } }
         public static Azure.ResourceManager.Redis.Models.RedisSkuName Premium { get { throw null; } }
         public static Azure.ResourceManager.Redis.Models.RedisSkuName Standard { get { throw null; } }
         public bool Equals(Azure.ResourceManager.Redis.Models.RedisSkuName other) { throw null; }

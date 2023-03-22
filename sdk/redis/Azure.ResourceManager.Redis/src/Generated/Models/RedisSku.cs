@@ -11,8 +11,8 @@ namespace Azure.ResourceManager.Redis.Models
     public partial class RedisSku
     {
         /// <summary> Initializes a new instance of RedisSku. </summary>
-        /// <param name="name"> The type of Redis cache to deploy. Valid values: (Basic, Standard, Premium). </param>
-        /// <param name="family"> The SKU family to use. Valid values: (C, P). (C = Basic/Standard, P = Premium). </param>
+        /// <param name="name"> The type of Redis cache to deploy. Valid values: (Basic, Standard, Premium, General Purpose, Memory Optimized). </param>
+        /// <param name="family"> The SKU family to use. Valid values: (C, P). (C = Basic/Standard, P = Premium, G = General Purpose, M = Memory Optimized). </param>
         /// <param name="capacity"> The size of the Redis cache to deploy. Valid values: for C (Basic/Standard) family (0, 1, 2, 3, 4, 5, 6), for P (Premium) family (1, 2, 3, 4). </param>
         public RedisSku(RedisSkuName name, RedisSkuFamily family, int capacity)
         {
@@ -21,9 +21,9 @@ namespace Azure.ResourceManager.Redis.Models
             Capacity = capacity;
         }
 
-        /// <summary> The type of Redis cache to deploy. Valid values: (Basic, Standard, Premium). </summary>
+        /// <summary> The type of Redis cache to deploy. Valid values: (Basic, Standard, Premium, General Purpose, Memory Optimized). </summary>
         public RedisSkuName Name { get; set; }
-        /// <summary> The SKU family to use. Valid values: (C, P). (C = Basic/Standard, P = Premium). </summary>
+        /// <summary> The SKU family to use. Valid values: (C, P). (C = Basic/Standard, P = Premium, G = General Purpose, M = Memory Optimized). </summary>
         public RedisSkuFamily Family { get; set; }
         /// <summary> The size of the Redis cache to deploy. Valid values: for C (Basic/Standard) family (0, 1, 2, 3, 4, 5, 6), for P (Premium) family (1, 2, 3, 4). </summary>
         public int Capacity { get; set; }

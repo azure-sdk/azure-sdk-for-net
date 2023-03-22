@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace Azure.ResourceManager.Redis.Models
 {
-    /// <summary> The SKU family to use. Valid values: (C, P). (C = Basic/Standard, P = Premium). </summary>
+    /// <summary> The SKU family to use. Valid values: (C, P). (C = Basic/Standard, P = Premium, G = General Purpose, M = Memory Optimized). </summary>
     public readonly partial struct RedisSkuFamily : IEquatable<RedisSkuFamily>
     {
         private readonly string _value;
@@ -24,11 +24,17 @@ namespace Azure.ResourceManager.Redis.Models
 
         private const string BasicOrStandardValue = "C";
         private const string PremiumValue = "P";
+        private const string GValue = "G";
+        private const string MValue = "M";
 
         /// <summary> C. </summary>
         public static RedisSkuFamily BasicOrStandard { get; } = new RedisSkuFamily(BasicOrStandardValue);
         /// <summary> P. </summary>
         public static RedisSkuFamily Premium { get; } = new RedisSkuFamily(PremiumValue);
+        /// <summary> G. </summary>
+        public static RedisSkuFamily G { get; } = new RedisSkuFamily(GValue);
+        /// <summary> M. </summary>
+        public static RedisSkuFamily M { get; } = new RedisSkuFamily(MValue);
         /// <summary> Determines if two <see cref="RedisSkuFamily"/> values are the same. </summary>
         public static bool operator ==(RedisSkuFamily left, RedisSkuFamily right) => left.Equals(right);
         /// <summary> Determines if two <see cref="RedisSkuFamily"/> values are not the same. </summary>
