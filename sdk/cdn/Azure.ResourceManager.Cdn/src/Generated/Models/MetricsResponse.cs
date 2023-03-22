@@ -25,7 +25,7 @@ namespace Azure.ResourceManager.Cdn.Models
         /// <param name="dateTimeEnd"></param>
         /// <param name="granularity"></param>
         /// <param name="series"></param>
-        internal MetricsResponse(DateTimeOffset? dateTimeBegin, DateTimeOffset? dateTimeEnd, MetricsResponseGranularity? granularity, IReadOnlyList<MetricsResponseSeriesItem> series)
+        internal MetricsResponse(DateTimeOffset? dateTimeBegin, DateTimeOffset? dateTimeEnd, MetricsGranularity? granularity, IReadOnlyList<MetricsResponseSeriesItem> series)
         {
             DateTimeBegin = dateTimeBegin;
             DateTimeEnd = dateTimeEnd;
@@ -38,7 +38,7 @@ namespace Azure.ResourceManager.Cdn.Models
         /// <summary> Gets the date time end. </summary>
         public DateTimeOffset? DateTimeEnd { get; }
         /// <summary> Gets the granularity. </summary>
-        public MetricsResponseGranularity? Granularity { get; }
+        public MetricsGranularity? Granularity { get; }
         /// <summary> Gets the series. </summary>
         public IReadOnlyList<MetricsResponseSeriesItem> Series { get; }
     }

@@ -21,6 +21,11 @@ namespace Azure.ResourceManager.Cdn
             writer.WriteStartObject();
             writer.WritePropertyName("sku"u8);
             writer.WriteObjectValue(Sku);
+            if (Optional.IsDefined(Identity))
+            {
+                writer.WritePropertyName("identity"u8);
+                JsonSerializer.Serialize(writer, Identity);
+            }
             if (Optional.IsCollectionDefined(Tags))
             {
                 writer.WritePropertyName("tags"u8);
@@ -36,6 +41,17 @@ namespace Azure.ResourceManager.Cdn
             writer.WriteStringValue(Location);
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
+            if (Optional.IsCollectionDefined(ExtendedProperties))
+            {
+                writer.WritePropertyName("extendedProperties"u8);
+                writer.WriteStartObject();
+                foreach (var item in ExtendedProperties)
+                {
+                    writer.WritePropertyName(item.Key);
+                    writer.WriteStringValue(item.Value);
+                }
+                writer.WriteEndObject();
+            }
             if (Optional.IsDefined(OriginResponseTimeoutSeconds))
             {
                 if (OriginResponseTimeoutSeconds != null)
@@ -60,6 +76,7 @@ namespace Azure.ResourceManager.Cdn
             }
             CdnSku sku = default;
             Optional<string> kind = default;
+            Optional<ManagedServiceIdentity> identity = default;
             Optional<IDictionary<string, string>> tags = default;
             AzureLocation location = default;
             ResourceIdentifier id = default;
@@ -68,6 +85,7 @@ namespace Azure.ResourceManager.Cdn
             Optional<SystemData> systemData = default;
             Optional<ProfileResourceState> resourceState = default;
             Optional<ProfileProvisioningState> provisioningState = default;
+            Optional<IDictionary<string, string>> extendedProperties = default;
             Optional<Guid> frontDoorId = default;
             Optional<int?> originResponseTimeoutSeconds = default;
             foreach (var property in element.EnumerateObject())
@@ -80,6 +98,16 @@ namespace Azure.ResourceManager.Cdn
                 if (property.NameEquals("kind"u8))
                 {
                     kind = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("identity"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        property.ThrowNonNullablePropertyIsNull();
+                        continue;
+                    }
+                    identity = JsonSerializer.Deserialize<ManagedServiceIdentity>(property.Value.GetRawText());
                     continue;
                 }
                 if (property.NameEquals("tags"u8))
@@ -156,6 +184,21 @@ namespace Azure.ResourceManager.Cdn
                             provisioningState = new ProfileProvisioningState(property0.Value.GetString());
                             continue;
                         }
+                        if (property0.NameEquals("extendedProperties"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            Dictionary<string, string> dictionary = new Dictionary<string, string>();
+                            foreach (var property1 in property0.Value.EnumerateObject())
+                            {
+                                dictionary.Add(property1.Name, property1.Value.GetString());
+                            }
+                            extendedProperties = dictionary;
+                            continue;
+                        }
                         if (property0.NameEquals("frontDoorId"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -180,7 +223,7 @@ namespace Azure.ResourceManager.Cdn
                     continue;
                 }
             }
-            return new ProfileData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, sku, kind.Value, Optional.ToNullable(resourceState), Optional.ToNullable(provisioningState), Optional.ToNullable(frontDoorId), Optional.ToNullable(originResponseTimeoutSeconds));
+            return new ProfileData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, sku, kind.Value, identity, Optional.ToNullable(resourceState), Optional.ToNullable(provisioningState), Optional.ToDictionary(extendedProperties), Optional.ToNullable(frontDoorId), Optional.ToNullable(originResponseTimeoutSeconds));
         }
     }
 }

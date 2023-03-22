@@ -63,7 +63,7 @@ namespace Azure.ResourceManager.Cdn
     {
         public CdnEndpointData(Azure.Core.AzureLocation location) : base (default(Azure.Core.AzureLocation)) { }
         public System.Collections.Generic.IList<string> ContentTypesToCompress { get { throw null; } }
-        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Cdn.CdnCustomDomainData> CustomDomains { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Cdn.Models.DeepCreatedCustomDomain> CustomDomains { get { throw null; } }
         public Azure.Core.ResourceIdentifier DefaultOriginGroupId { get { throw null; } set { } }
         public Azure.ResourceManager.Cdn.Models.EndpointDeliveryPolicy DeliveryPolicy { get { throw null; } set { } }
         public System.Collections.Generic.IList<Azure.ResourceManager.Cdn.Models.GeoFilter> GeoFilters { get { throw null; } }
@@ -126,6 +126,8 @@ namespace Azure.ResourceManager.Cdn
     }
     public static partial class CdnExtensions
     {
+        public static Azure.Response<Azure.ResourceManager.Cdn.Models.CanMigrateResult> CanMigrateProfile(this Azure.ResourceManager.Resources.ResourceGroupResource resourceGroupResource, Azure.ResourceManager.Cdn.Models.CanMigrateContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public static System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Cdn.Models.CanMigrateResult>> CanMigrateProfileAsync(this Azure.ResourceManager.Resources.ResourceGroupResource resourceGroupResource, Azure.ResourceManager.Cdn.Models.CanMigrateContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static Azure.Response<Azure.ResourceManager.Cdn.Models.CdnNameAvailabilityResult> CheckCdnNameAvailability(this Azure.ResourceManager.Resources.TenantResource tenantResource, Azure.ResourceManager.Cdn.Models.CdnNameAvailabilityContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Cdn.Models.CdnNameAvailabilityResult>> CheckCdnNameAvailabilityAsync(this Azure.ResourceManager.Resources.TenantResource tenantResource, Azure.ResourceManager.Cdn.Models.CdnNameAvailabilityContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static Azure.Response<Azure.ResourceManager.Cdn.Models.CdnNameAvailabilityResult> CheckCdnNameAvailabilityWithSubscription(this Azure.ResourceManager.Resources.SubscriptionResource subscriptionResource, Azure.ResourceManager.Cdn.Models.CdnNameAvailabilityContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
@@ -161,6 +163,8 @@ namespace Azure.ResourceManager.Cdn
         public static Azure.AsyncPageable<Azure.ResourceManager.Cdn.ProfileResource> GetProfilesAsync(this Azure.ResourceManager.Resources.SubscriptionResource subscriptionResource, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static Azure.Pageable<Azure.ResourceManager.Cdn.Models.CdnUsage> GetResourceUsages(this Azure.ResourceManager.Resources.SubscriptionResource subscriptionResource, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static Azure.AsyncPageable<Azure.ResourceManager.Cdn.Models.CdnUsage> GetResourceUsagesAsync(this Azure.ResourceManager.Resources.SubscriptionResource subscriptionResource, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public static Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Cdn.Models.MigrateResult> MigrateProfile(this Azure.ResourceManager.Resources.ResourceGroupResource resourceGroupResource, Azure.WaitUntil waitUntil, Azure.ResourceManager.Cdn.Models.MigrationContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public static System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Cdn.Models.MigrateResult>> MigrateProfileAsync(this Azure.ResourceManager.Resources.ResourceGroupResource resourceGroupResource, Azure.WaitUntil waitUntil, Azure.ResourceManager.Cdn.Models.MigrationContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static Azure.Response<Azure.ResourceManager.Cdn.Models.ValidateProbeResult> ValidateProbe(this Azure.ResourceManager.Resources.SubscriptionResource subscriptionResource, Azure.ResourceManager.Cdn.Models.ValidateProbeContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Cdn.Models.ValidateProbeResult>> ValidateProbeAsync(this Azure.ResourceManager.Resources.SubscriptionResource subscriptionResource, Azure.ResourceManager.Cdn.Models.ValidateProbeContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
     }
@@ -271,6 +275,7 @@ namespace Azure.ResourceManager.Cdn
         public System.Collections.Generic.IList<Azure.ResourceManager.Cdn.Models.CustomRule> CustomRules { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Resources.Models.SubResource> EndpointLinks { get { throw null; } }
         public Azure.ETag? ETag { get { throw null; } set { } }
+        public System.Collections.Generic.IDictionary<string, string> ExtendedProperties { get { throw null; } }
         public System.Collections.Generic.IList<Azure.ResourceManager.Cdn.Models.WafPolicyManagedRuleSet> ManagedRuleSets { get { throw null; } }
         public Azure.ResourceManager.Cdn.Models.WafPolicySettings PolicySettings { get { throw null; } set { } }
         public Azure.ResourceManager.Cdn.Models.WebApplicationFirewallPolicyProvisioningState? ProvisioningState { get { throw null; } }
@@ -319,10 +324,12 @@ namespace Azure.ResourceManager.Cdn
         public Azure.ResourceManager.Cdn.Models.FrontDoorDeploymentStatus? DeploymentStatus { get { throw null; } }
         public Azure.Core.ResourceIdentifier DnsZoneId { get { throw null; } set { } }
         public Azure.ResourceManager.Cdn.Models.DomainValidationState? DomainValidationState { get { throw null; } }
+        public System.Collections.Generic.IDictionary<string, string> ExtendedProperties { get { throw null; } }
         public string HostName { get { throw null; } set { } }
         public Azure.Core.ResourceIdentifier PreValidatedCustomDomainResourceId { get { throw null; } set { } }
         public string ProfileName { get { throw null; } }
         public Azure.ResourceManager.Cdn.Models.FrontDoorProvisioningState? ProvisioningState { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Cdn.Models.FrontDoorCustomDomainReferencedRoutePath> ReferencedRoutePaths { get { throw null; } }
         public Azure.ResourceManager.Cdn.Models.FrontDoorCustomDomainHttpsContent TlsSettings { get { throw null; } set { } }
         public Azure.ResourceManager.Cdn.Models.DomainValidationProperties ValidationProperties { get { throw null; } }
     }
@@ -707,7 +714,9 @@ namespace Azure.ResourceManager.Cdn
     public partial class ProfileData : Azure.ResourceManager.Models.TrackedResourceData
     {
         public ProfileData(Azure.Core.AzureLocation location, Azure.ResourceManager.Cdn.Models.CdnSku sku) : base (default(Azure.Core.AzureLocation)) { }
+        public System.Collections.Generic.IDictionary<string, string> ExtendedProperties { get { throw null; } }
         public System.Guid? FrontDoorId { get { throw null; } }
+        public Azure.ResourceManager.Models.ManagedServiceIdentity Identity { get { throw null; } set { } }
         public string Kind { get { throw null; } }
         public int? OriginResponseTimeoutSeconds { get { throw null; } set { } }
         public Azure.ResourceManager.Cdn.Models.ProfileProvisioningState? ProvisioningState { get { throw null; } }
@@ -722,6 +731,8 @@ namespace Azure.ResourceManager.Cdn
         public virtual bool HasData { get { throw null; } }
         public virtual Azure.Response<Azure.ResourceManager.Cdn.ProfileResource> AddTag(string key, string value, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Cdn.ProfileResource>> AddTagAsync(string key, string value, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.Cdn.Models.EndpointNameAvailabilityResult> CheckEndpointNameAvailabilityFrontDoorProfile(Azure.ResourceManager.Cdn.Models.EndpointNameAvailabilityContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Cdn.Models.EndpointNameAvailabilityResult>> CheckEndpointNameAvailabilityFrontDoorProfileAsync(Azure.ResourceManager.Cdn.Models.EndpointNameAvailabilityContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.Cdn.Models.CdnNameAvailabilityResult> CheckFrontDoorProfileHostNameAvailability(Azure.ResourceManager.Cdn.Models.HostNameAvailabilityContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Cdn.Models.CdnNameAvailabilityResult>> CheckFrontDoorProfileHostNameAvailabilityAsync(Azure.ResourceManager.Cdn.Models.HostNameAvailabilityContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static Azure.Core.ResourceIdentifier CreateResourceIdentifier(string subscriptionId, string resourceGroupName, string profileName) { throw null; }
@@ -778,12 +789,18 @@ namespace Azure.ResourceManager.Cdn
         public virtual Azure.Response<Azure.ResourceManager.Cdn.Models.WafRankingsResponse> GetWafLogAnalyticsRankings(System.Collections.Generic.IEnumerable<Azure.ResourceManager.Cdn.Models.WafMetric> metrics, System.DateTimeOffset dateTimeBegin, System.DateTimeOffset dateTimeEnd, int maxRanking, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Cdn.Models.WafRankingType> rankings, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Cdn.Models.WafAction> actions = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Cdn.Models.WafRuleType> ruleTypes = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Cdn.Models.WafRankingsResponse>> GetWafLogAnalyticsRankingsAsync(Azure.ResourceManager.Cdn.Models.ProfileResourceGetWafLogAnalyticsRankingsOptions options, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Cdn.Models.WafRankingsResponse>> GetWafLogAnalyticsRankingsAsync(System.Collections.Generic.IEnumerable<Azure.ResourceManager.Cdn.Models.WafMetric> metrics, System.DateTimeOffset dateTimeBegin, System.DateTimeOffset dateTimeEnd, int maxRanking, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Cdn.Models.WafRankingType> rankings, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Cdn.Models.WafAction> actions = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Cdn.Models.WafRuleType> ruleTypes = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.ResourceManager.ArmOperation MigrationCommit(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation> MigrationCommitAsync(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.Cdn.ProfileResource> RemoveTag(string key, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Cdn.ProfileResource>> RemoveTagAsync(string key, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.Cdn.ProfileResource> SetTags(System.Collections.Generic.IDictionary<string, string> tags, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Cdn.ProfileResource>> SetTagsAsync(System.Collections.Generic.IDictionary<string, string> tags, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Cdn.ProfileResource> Update(Azure.WaitUntil waitUntil, Azure.ResourceManager.Cdn.Models.ProfilePatch patch, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Cdn.ProfileResource>> UpdateAsync(Azure.WaitUntil waitUntil, Azure.ResourceManager.Cdn.Models.ProfilePatch patch, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Cdn.ProfileResource> UpgradeFrontDoorProfile(Azure.WaitUntil waitUntil, Azure.ResourceManager.Cdn.Models.ProfileUpgradeContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Cdn.ProfileResource>> UpgradeFrontDoorProfileAsync(Azure.WaitUntil waitUntil, Azure.ResourceManager.Cdn.Models.ProfileUpgradeContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.Cdn.Models.ValidateSecretResult> ValidateSecretFrontDoorProfile(Azure.ResourceManager.Cdn.Models.ValidateSecretContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Cdn.Models.ValidateSecretResult>> ValidateSecretFrontDoorProfileAsync(Azure.ResourceManager.Cdn.Models.ValidateSecretContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
     }
 }
 namespace Azure.ResourceManager.Cdn.Models
@@ -868,6 +885,36 @@ namespace Azure.ResourceManager.Cdn.Models
         public static implicit operator Azure.ResourceManager.Cdn.Models.CacheKeyQueryStringActionType (string value) { throw null; }
         public static bool operator !=(Azure.ResourceManager.Cdn.Models.CacheKeyQueryStringActionType left, Azure.ResourceManager.Cdn.Models.CacheKeyQueryStringActionType right) { throw null; }
         public override string ToString() { throw null; }
+    }
+    public partial class CanMigrateContent
+    {
+        public CanMigrateContent(Azure.ResourceManager.Resources.Models.WritableSubResource classicResourceReference) { }
+        public Azure.Core.ResourceIdentifier ClassicResourceReferenceId { get { throw null; } }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct CanMigrateDefaultSku : System.IEquatable<Azure.ResourceManager.Cdn.Models.CanMigrateDefaultSku>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public CanMigrateDefaultSku(string value) { throw null; }
+        public static Azure.ResourceManager.Cdn.Models.CanMigrateDefaultSku PremiumAzureFrontDoor { get { throw null; } }
+        public static Azure.ResourceManager.Cdn.Models.CanMigrateDefaultSku StandardAzureFrontDoor { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.Cdn.Models.CanMigrateDefaultSku other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.Cdn.Models.CanMigrateDefaultSku left, Azure.ResourceManager.Cdn.Models.CanMigrateDefaultSku right) { throw null; }
+        public static implicit operator Azure.ResourceManager.Cdn.Models.CanMigrateDefaultSku (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.Cdn.Models.CanMigrateDefaultSku left, Azure.ResourceManager.Cdn.Models.CanMigrateDefaultSku right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    public partial class CanMigrateResult
+    {
+        internal CanMigrateResult() { }
+        public bool? CanMigrate { get { throw null; } }
+        public Azure.ResourceManager.Cdn.Models.CanMigrateDefaultSku? DefaultSku { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Cdn.Models.MigrationErrorType> Errors { get { throw null; } }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct CdnCacheLevel : System.IEquatable<Azure.ResourceManager.Cdn.Models.CdnCacheLevel>
@@ -1403,6 +1450,13 @@ namespace Azure.ResourceManager.Cdn.Models
         public string Selector { get { throw null; } set { } }
         public System.Collections.Generic.IList<Azure.ResourceManager.Cdn.Models.TransformType> Transforms { get { throw null; } }
     }
+    public partial class DeepCreatedCustomDomain
+    {
+        internal DeepCreatedCustomDomain() { }
+        public string HostName { get { throw null; } }
+        public string Name { get { throw null; } }
+        public string ValidationData { get { throw null; } }
+    }
     public partial class DeepCreatedOrigin
     {
         public DeepCreatedOrigin(string name) { }
@@ -1787,6 +1841,12 @@ namespace Azure.ResourceManager.Cdn.Models
         public Azure.Core.ResourceIdentifier PreValidatedCustomDomainResourceId { get { throw null; } set { } }
         public string ProfileName { get { throw null; } }
         public Azure.ResourceManager.Cdn.Models.FrontDoorCustomDomainHttpsContent TlsSettings { get { throw null; } set { } }
+    }
+    public partial class FrontDoorCustomDomainReferencedRoutePath
+    {
+        internal FrontDoorCustomDomainReferencedRoutePath() { }
+        public System.Collections.Generic.IReadOnlyList<string> Paths { get { throw null; } }
+        public Azure.Core.ResourceIdentifier RouteIdId { get { throw null; } }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct FrontDoorDeploymentStatus : System.IEquatable<Azure.ResourceManager.Cdn.Models.FrontDoorDeploymentStatus>
@@ -2546,32 +2606,32 @@ namespace Azure.ResourceManager.Cdn.Models
         public static bool operator !=(Azure.ResourceManager.Cdn.Models.MatchProcessingBehavior left, Azure.ResourceManager.Cdn.Models.MatchProcessingBehavior right) { throw null; }
         public override string ToString() { throw null; }
     }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct MetricsGranularity : System.IEquatable<Azure.ResourceManager.Cdn.Models.MetricsGranularity>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public MetricsGranularity(string value) { throw null; }
+        public static Azure.ResourceManager.Cdn.Models.MetricsGranularity P1D { get { throw null; } }
+        public static Azure.ResourceManager.Cdn.Models.MetricsGranularity PT1H { get { throw null; } }
+        public static Azure.ResourceManager.Cdn.Models.MetricsGranularity PT5M { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.Cdn.Models.MetricsGranularity other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.Cdn.Models.MetricsGranularity left, Azure.ResourceManager.Cdn.Models.MetricsGranularity right) { throw null; }
+        public static implicit operator Azure.ResourceManager.Cdn.Models.MetricsGranularity (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.Cdn.Models.MetricsGranularity left, Azure.ResourceManager.Cdn.Models.MetricsGranularity right) { throw null; }
+        public override string ToString() { throw null; }
+    }
     public partial class MetricsResponse
     {
         internal MetricsResponse() { }
         public System.DateTimeOffset? DateTimeBegin { get { throw null; } }
         public System.DateTimeOffset? DateTimeEnd { get { throw null; } }
-        public Azure.ResourceManager.Cdn.Models.MetricsResponseGranularity? Granularity { get { throw null; } }
+        public Azure.ResourceManager.Cdn.Models.MetricsGranularity? Granularity { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Cdn.Models.MetricsResponseSeriesItem> Series { get { throw null; } }
-    }
-    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
-    public readonly partial struct MetricsResponseGranularity : System.IEquatable<Azure.ResourceManager.Cdn.Models.MetricsResponseGranularity>
-    {
-        private readonly object _dummy;
-        private readonly int _dummyPrimitive;
-        public MetricsResponseGranularity(string value) { throw null; }
-        public static Azure.ResourceManager.Cdn.Models.MetricsResponseGranularity P1D { get { throw null; } }
-        public static Azure.ResourceManager.Cdn.Models.MetricsResponseGranularity PT1H { get { throw null; } }
-        public static Azure.ResourceManager.Cdn.Models.MetricsResponseGranularity PT5M { get { throw null; } }
-        public bool Equals(Azure.ResourceManager.Cdn.Models.MetricsResponseGranularity other) { throw null; }
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
-        public override bool Equals(object obj) { throw null; }
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
-        public override int GetHashCode() { throw null; }
-        public static bool operator ==(Azure.ResourceManager.Cdn.Models.MetricsResponseGranularity left, Azure.ResourceManager.Cdn.Models.MetricsResponseGranularity right) { throw null; }
-        public static implicit operator Azure.ResourceManager.Cdn.Models.MetricsResponseGranularity (string value) { throw null; }
-        public static bool operator !=(Azure.ResourceManager.Cdn.Models.MetricsResponseGranularity left, Azure.ResourceManager.Cdn.Models.MetricsResponseGranularity right) { throw null; }
-        public override string ToString() { throw null; }
     }
     public partial class MetricsResponseSeriesItem
     {
@@ -2579,33 +2639,61 @@ namespace Azure.ResourceManager.Cdn.Models
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Cdn.Models.Components1Gs0LlpSchemasMetricsresponsePropertiesSeriesItemsPropertiesDataItems> Data { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Cdn.Models.MetricsResponseSeriesPropertiesItemsItem> Groups { get { throw null; } }
         public string Metric { get { throw null; } }
-        public Azure.ResourceManager.Cdn.Models.MetricsResponseSeriesItemUnit? Unit { get { throw null; } }
-    }
-    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
-    public readonly partial struct MetricsResponseSeriesItemUnit : System.IEquatable<Azure.ResourceManager.Cdn.Models.MetricsResponseSeriesItemUnit>
-    {
-        private readonly object _dummy;
-        private readonly int _dummyPrimitive;
-        public MetricsResponseSeriesItemUnit(string value) { throw null; }
-        public static Azure.ResourceManager.Cdn.Models.MetricsResponseSeriesItemUnit BitsPerSecond { get { throw null; } }
-        public static Azure.ResourceManager.Cdn.Models.MetricsResponseSeriesItemUnit Bytes { get { throw null; } }
-        public static Azure.ResourceManager.Cdn.Models.MetricsResponseSeriesItemUnit Count { get { throw null; } }
-        public static Azure.ResourceManager.Cdn.Models.MetricsResponseSeriesItemUnit MilliSeconds { get { throw null; } }
-        public bool Equals(Azure.ResourceManager.Cdn.Models.MetricsResponseSeriesItemUnit other) { throw null; }
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
-        public override bool Equals(object obj) { throw null; }
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
-        public override int GetHashCode() { throw null; }
-        public static bool operator ==(Azure.ResourceManager.Cdn.Models.MetricsResponseSeriesItemUnit left, Azure.ResourceManager.Cdn.Models.MetricsResponseSeriesItemUnit right) { throw null; }
-        public static implicit operator Azure.ResourceManager.Cdn.Models.MetricsResponseSeriesItemUnit (string value) { throw null; }
-        public static bool operator !=(Azure.ResourceManager.Cdn.Models.MetricsResponseSeriesItemUnit left, Azure.ResourceManager.Cdn.Models.MetricsResponseSeriesItemUnit right) { throw null; }
-        public override string ToString() { throw null; }
+        public Azure.ResourceManager.Cdn.Models.MetricsSeriesUnit? Unit { get { throw null; } }
     }
     public partial class MetricsResponseSeriesPropertiesItemsItem
     {
         internal MetricsResponseSeriesPropertiesItemsItem() { }
         public string Name { get { throw null; } }
         public string Value { get { throw null; } }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct MetricsSeriesUnit : System.IEquatable<Azure.ResourceManager.Cdn.Models.MetricsSeriesUnit>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public MetricsSeriesUnit(string value) { throw null; }
+        public static Azure.ResourceManager.Cdn.Models.MetricsSeriesUnit BitsPerSecond { get { throw null; } }
+        public static Azure.ResourceManager.Cdn.Models.MetricsSeriesUnit Bytes { get { throw null; } }
+        public static Azure.ResourceManager.Cdn.Models.MetricsSeriesUnit Count { get { throw null; } }
+        public static Azure.ResourceManager.Cdn.Models.MetricsSeriesUnit MilliSeconds { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.Cdn.Models.MetricsSeriesUnit other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.Cdn.Models.MetricsSeriesUnit left, Azure.ResourceManager.Cdn.Models.MetricsSeriesUnit right) { throw null; }
+        public static implicit operator Azure.ResourceManager.Cdn.Models.MetricsSeriesUnit (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.Cdn.Models.MetricsSeriesUnit left, Azure.ResourceManager.Cdn.Models.MetricsSeriesUnit right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    public partial class MigrateResult
+    {
+        internal MigrateResult() { }
+        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Cdn.Models.MigrationErrorType> Errors { get { throw null; } }
+        public Azure.Core.ResourceIdentifier MigratedProfileResourceIdId { get { throw null; } }
+    }
+    public partial class MigrationContent
+    {
+        public MigrationContent(Azure.ResourceManager.Cdn.Models.CdnSku sku, Azure.ResourceManager.Resources.Models.WritableSubResource classicResourceReference, string profileName) { }
+        public Azure.Core.ResourceIdentifier ClassicResourceReferenceId { get { throw null; } }
+        public System.Collections.Generic.IList<Azure.ResourceManager.Cdn.Models.MigrationWebApplicationFirewallMapping> MigrationWebApplicationFirewallMappings { get { throw null; } }
+        public string ProfileName { get { throw null; } }
+        public Azure.ResourceManager.Cdn.Models.CdnSkuName? SkuName { get { throw null; } }
+    }
+    public partial class MigrationErrorType
+    {
+        internal MigrationErrorType() { }
+        public string Code { get { throw null; } }
+        public string ErrorMessage { get { throw null; } }
+        public string NextSteps { get { throw null; } }
+        public string ResourceName { get { throw null; } }
+    }
+    public partial class MigrationWebApplicationFirewallMapping
+    {
+        public MigrationWebApplicationFirewallMapping() { }
+        public Azure.Core.ResourceIdentifier MigratedFromId { get { throw null; } set { } }
+        public Azure.Core.ResourceIdentifier MigratedToId { get { throw null; } set { } }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct OptimizationType : System.IEquatable<Azure.ResourceManager.Cdn.Models.OptimizationType>
@@ -2955,9 +3043,16 @@ namespace Azure.ResourceManager.Cdn.Models
         public static bool operator !=(Azure.ResourceManager.Cdn.Models.PrivateEndpointStatus left, Azure.ResourceManager.Cdn.Models.PrivateEndpointStatus right) { throw null; }
         public override string ToString() { throw null; }
     }
+    public partial class ProfileChangeSkuWafMapping
+    {
+        public ProfileChangeSkuWafMapping(string securityPolicyName, Azure.ResourceManager.Resources.Models.WritableSubResource changeToWafPolicy) { }
+        public Azure.Core.ResourceIdentifier ChangeToWafPolicyId { get { throw null; } }
+        public string SecurityPolicyName { get { throw null; } }
+    }
     public partial class ProfilePatch
     {
         public ProfilePatch() { }
+        public Azure.ResourceManager.Models.ManagedServiceIdentity Identity { get { throw null; } set { } }
         public int? OriginResponseTimeoutSeconds { get { throw null; } set { } }
         public System.Collections.Generic.IDictionary<string, string> Tags { get { throw null; } }
     }
@@ -3033,10 +3128,15 @@ namespace Azure.ResourceManager.Cdn.Models
         private readonly object _dummy;
         private readonly int _dummyPrimitive;
         public ProfileResourceState(string value) { throw null; }
+        public static Azure.ResourceManager.Cdn.Models.ProfileResourceState AbortingMigration { get { throw null; } }
         public static Azure.ResourceManager.Cdn.Models.ProfileResourceState Active { get { throw null; } }
+        public static Azure.ResourceManager.Cdn.Models.ProfileResourceState CommittingMigration { get { throw null; } }
         public static Azure.ResourceManager.Cdn.Models.ProfileResourceState Creating { get { throw null; } }
         public static Azure.ResourceManager.Cdn.Models.ProfileResourceState Deleting { get { throw null; } }
         public static Azure.ResourceManager.Cdn.Models.ProfileResourceState Disabled { get { throw null; } }
+        public static Azure.ResourceManager.Cdn.Models.ProfileResourceState Migrated { get { throw null; } }
+        public static Azure.ResourceManager.Cdn.Models.ProfileResourceState Migrating { get { throw null; } }
+        public static Azure.ResourceManager.Cdn.Models.ProfileResourceState PendingMigrationCommit { get { throw null; } }
         public bool Equals(Azure.ResourceManager.Cdn.Models.ProfileResourceState other) { throw null; }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public override bool Equals(object obj) { throw null; }
@@ -3046,6 +3146,11 @@ namespace Azure.ResourceManager.Cdn.Models
         public static implicit operator Azure.ResourceManager.Cdn.Models.ProfileResourceState (string value) { throw null; }
         public static bool operator !=(Azure.ResourceManager.Cdn.Models.ProfileResourceState left, Azure.ResourceManager.Cdn.Models.ProfileResourceState right) { throw null; }
         public override string ToString() { throw null; }
+    }
+    public partial class ProfileUpgradeContent
+    {
+        public ProfileUpgradeContent(System.Collections.Generic.IEnumerable<Azure.ResourceManager.Cdn.Models.ProfileChangeSkuWafMapping> wafMappingList) { }
+        public System.Collections.Generic.IList<Azure.ResourceManager.Cdn.Models.ProfileChangeSkuWafMapping> WafMappingList { get { throw null; } }
     }
     public partial class PurgeContent
     {
@@ -3643,6 +3748,26 @@ namespace Azure.ResourceManager.Cdn.Models
         public override string ToString() { throw null; }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct SecretType : System.IEquatable<Azure.ResourceManager.Cdn.Models.SecretType>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public SecretType(string value) { throw null; }
+        public static Azure.ResourceManager.Cdn.Models.SecretType AzureFirstPartyManagedCertificate { get { throw null; } }
+        public static Azure.ResourceManager.Cdn.Models.SecretType CustomerCertificate { get { throw null; } }
+        public static Azure.ResourceManager.Cdn.Models.SecretType ManagedCertificate { get { throw null; } }
+        public static Azure.ResourceManager.Cdn.Models.SecretType UriSigningKey { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.Cdn.Models.SecretType other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.Cdn.Models.SecretType left, Azure.ResourceManager.Cdn.Models.SecretType right) { throw null; }
+        public static implicit operator Azure.ResourceManager.Cdn.Models.SecretType (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.Cdn.Models.SecretType left, Azure.ResourceManager.Cdn.Models.SecretType right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct SecureDeliveryProtocolType : System.IEquatable<Azure.ResourceManager.Cdn.Models.SecureDeliveryProtocolType>
     {
         private readonly object _dummy;
@@ -4169,6 +4294,39 @@ namespace Azure.ResourceManager.Cdn.Models
         public bool? IsValid { get { throw null; } }
         public string Message { get { throw null; } }
     }
+    public partial class ValidateSecretContent
+    {
+        public ValidateSecretContent(Azure.ResourceManager.Cdn.Models.SecretType secretType, Azure.ResourceManager.Resources.Models.WritableSubResource secretSource) { }
+        public Azure.Core.ResourceIdentifier SecretSourceId { get { throw null; } }
+        public Azure.ResourceManager.Cdn.Models.SecretType SecretType { get { throw null; } }
+        public string SecretVersion { get { throw null; } set { } }
+    }
+    public partial class ValidateSecretResult
+    {
+        internal ValidateSecretResult() { }
+        public string Message { get { throw null; } }
+        public Azure.ResourceManager.Cdn.Models.ValidationStatus? Status { get { throw null; } }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct ValidationStatus : System.IEquatable<Azure.ResourceManager.Cdn.Models.ValidationStatus>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public ValidationStatus(string value) { throw null; }
+        public static Azure.ResourceManager.Cdn.Models.ValidationStatus AccessDenied { get { throw null; } }
+        public static Azure.ResourceManager.Cdn.Models.ValidationStatus CertificateExpired { get { throw null; } }
+        public static Azure.ResourceManager.Cdn.Models.ValidationStatus Invalid { get { throw null; } }
+        public static Azure.ResourceManager.Cdn.Models.ValidationStatus Valid { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.Cdn.Models.ValidationStatus other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.Cdn.Models.ValidationStatus left, Azure.ResourceManager.Cdn.Models.ValidationStatus right) { throw null; }
+        public static implicit operator Azure.ResourceManager.Cdn.Models.ValidationStatus (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.Cdn.Models.ValidationStatus left, Azure.ResourceManager.Cdn.Models.ValidationStatus right) { throw null; }
+        public override string ToString() { throw null; }
+    }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct WafAction : System.IEquatable<Azure.ResourceManager.Cdn.Models.WafAction>
     {
@@ -4250,32 +4408,32 @@ namespace Azure.ResourceManager.Cdn.Models
         public static bool operator !=(Azure.ResourceManager.Cdn.Models.WafMetric left, Azure.ResourceManager.Cdn.Models.WafMetric right) { throw null; }
         public override string ToString() { throw null; }
     }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct WafMetricsGranularity : System.IEquatable<Azure.ResourceManager.Cdn.Models.WafMetricsGranularity>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public WafMetricsGranularity(string value) { throw null; }
+        public static Azure.ResourceManager.Cdn.Models.WafMetricsGranularity P1D { get { throw null; } }
+        public static Azure.ResourceManager.Cdn.Models.WafMetricsGranularity PT1H { get { throw null; } }
+        public static Azure.ResourceManager.Cdn.Models.WafMetricsGranularity PT5M { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.Cdn.Models.WafMetricsGranularity other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.Cdn.Models.WafMetricsGranularity left, Azure.ResourceManager.Cdn.Models.WafMetricsGranularity right) { throw null; }
+        public static implicit operator Azure.ResourceManager.Cdn.Models.WafMetricsGranularity (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.Cdn.Models.WafMetricsGranularity left, Azure.ResourceManager.Cdn.Models.WafMetricsGranularity right) { throw null; }
+        public override string ToString() { throw null; }
+    }
     public partial class WafMetricsResponse
     {
         internal WafMetricsResponse() { }
         public System.DateTimeOffset? DateTimeBegin { get { throw null; } }
         public System.DateTimeOffset? DateTimeEnd { get { throw null; } }
-        public Azure.ResourceManager.Cdn.Models.WafMetricsResponseGranularity? Granularity { get { throw null; } }
+        public Azure.ResourceManager.Cdn.Models.WafMetricsGranularity? Granularity { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Cdn.Models.WafMetricsResponseSeriesItem> Series { get { throw null; } }
-    }
-    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
-    public readonly partial struct WafMetricsResponseGranularity : System.IEquatable<Azure.ResourceManager.Cdn.Models.WafMetricsResponseGranularity>
-    {
-        private readonly object _dummy;
-        private readonly int _dummyPrimitive;
-        public WafMetricsResponseGranularity(string value) { throw null; }
-        public static Azure.ResourceManager.Cdn.Models.WafMetricsResponseGranularity P1D { get { throw null; } }
-        public static Azure.ResourceManager.Cdn.Models.WafMetricsResponseGranularity PT1H { get { throw null; } }
-        public static Azure.ResourceManager.Cdn.Models.WafMetricsResponseGranularity PT5M { get { throw null; } }
-        public bool Equals(Azure.ResourceManager.Cdn.Models.WafMetricsResponseGranularity other) { throw null; }
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
-        public override bool Equals(object obj) { throw null; }
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
-        public override int GetHashCode() { throw null; }
-        public static bool operator ==(Azure.ResourceManager.Cdn.Models.WafMetricsResponseGranularity left, Azure.ResourceManager.Cdn.Models.WafMetricsResponseGranularity right) { throw null; }
-        public static implicit operator Azure.ResourceManager.Cdn.Models.WafMetricsResponseGranularity (string value) { throw null; }
-        public static bool operator !=(Azure.ResourceManager.Cdn.Models.WafMetricsResponseGranularity left, Azure.ResourceManager.Cdn.Models.WafMetricsResponseGranularity right) { throw null; }
-        public override string ToString() { throw null; }
     }
     public partial class WafMetricsResponseSeriesItem
     {
@@ -4283,30 +4441,30 @@ namespace Azure.ResourceManager.Cdn.Models
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Cdn.Models.Components18OrqelSchemasWafmetricsresponsePropertiesSeriesItemsPropertiesDataItems> Data { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Cdn.Models.WafMetricsResponseSeriesPropertiesItemsItem> Groups { get { throw null; } }
         public string Metric { get { throw null; } }
-        public Azure.ResourceManager.Cdn.Models.WafMetricsResponseSeriesItemUnit? Unit { get { throw null; } }
-    }
-    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
-    public readonly partial struct WafMetricsResponseSeriesItemUnit : System.IEquatable<Azure.ResourceManager.Cdn.Models.WafMetricsResponseSeriesItemUnit>
-    {
-        private readonly object _dummy;
-        private readonly int _dummyPrimitive;
-        public WafMetricsResponseSeriesItemUnit(string value) { throw null; }
-        public static Azure.ResourceManager.Cdn.Models.WafMetricsResponseSeriesItemUnit Count { get { throw null; } }
-        public bool Equals(Azure.ResourceManager.Cdn.Models.WafMetricsResponseSeriesItemUnit other) { throw null; }
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
-        public override bool Equals(object obj) { throw null; }
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
-        public override int GetHashCode() { throw null; }
-        public static bool operator ==(Azure.ResourceManager.Cdn.Models.WafMetricsResponseSeriesItemUnit left, Azure.ResourceManager.Cdn.Models.WafMetricsResponseSeriesItemUnit right) { throw null; }
-        public static implicit operator Azure.ResourceManager.Cdn.Models.WafMetricsResponseSeriesItemUnit (string value) { throw null; }
-        public static bool operator !=(Azure.ResourceManager.Cdn.Models.WafMetricsResponseSeriesItemUnit left, Azure.ResourceManager.Cdn.Models.WafMetricsResponseSeriesItemUnit right) { throw null; }
-        public override string ToString() { throw null; }
+        public Azure.ResourceManager.Cdn.Models.WafMetricsSeriesUnit? Unit { get { throw null; } }
     }
     public partial class WafMetricsResponseSeriesPropertiesItemsItem
     {
         internal WafMetricsResponseSeriesPropertiesItemsItem() { }
         public string Name { get { throw null; } }
         public string Value { get { throw null; } }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct WafMetricsSeriesUnit : System.IEquatable<Azure.ResourceManager.Cdn.Models.WafMetricsSeriesUnit>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public WafMetricsSeriesUnit(string value) { throw null; }
+        public static Azure.ResourceManager.Cdn.Models.WafMetricsSeriesUnit Count { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.Cdn.Models.WafMetricsSeriesUnit other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.Cdn.Models.WafMetricsSeriesUnit left, Azure.ResourceManager.Cdn.Models.WafMetricsSeriesUnit right) { throw null; }
+        public static implicit operator Azure.ResourceManager.Cdn.Models.WafMetricsSeriesUnit (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.Cdn.Models.WafMetricsSeriesUnit left, Azure.ResourceManager.Cdn.Models.WafMetricsSeriesUnit right) { throw null; }
+        public override string ToString() { throw null; }
     }
     public partial class WafPolicyManagedRuleSet
     {

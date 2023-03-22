@@ -5,6 +5,7 @@
 
 #nullable disable
 
+using System.Collections.Generic;
 using Azure.Core;
 using Azure.ResourceManager.Cdn.Models;
 using Azure.ResourceManager.Models;
@@ -21,6 +22,8 @@ namespace Azure.ResourceManager.Cdn
         /// <summary> Initializes a new instance of FrontDoorCustomDomainData. </summary>
         public FrontDoorCustomDomainData()
         {
+            ExtendedProperties = new ChangeTrackingDictionary<string, string>();
+            ReferencedRoutePaths = new ChangeTrackingList<FrontDoorCustomDomainReferencedRoutePath>();
         }
 
         /// <summary> Initializes a new instance of FrontDoorCustomDomainData. </summary>
@@ -36,8 +39,10 @@ namespace Azure.ResourceManager.Cdn
         /// <param name="deploymentStatus"></param>
         /// <param name="domainValidationState"> Provisioning substate shows the progress of custom HTTPS enabling/disabling process step by step. DCV stands for DomainControlValidation. </param>
         /// <param name="hostName"> The host name of the domain. Must be a domain name. </param>
+        /// <param name="extendedProperties"> Key-Value pair representing migration properties for domains. </param>
         /// <param name="validationProperties"> Values the customer needs to validate domain ownership. </param>
-        internal FrontDoorCustomDomainData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string profileName, FrontDoorCustomDomainHttpsContent tlsSettings, WritableSubResource dnsZone, FrontDoorCustomDomainUpdatePropertiesParametersPreValidatedCustomDomainResourceId preValidatedCustomDomainResource, FrontDoorProvisioningState? provisioningState, FrontDoorDeploymentStatus? deploymentStatus, DomainValidationState? domainValidationState, string hostName, DomainValidationProperties validationProperties) : base(id, name, resourceType, systemData)
+        /// <param name="referencedRoutePaths"> The JSON object list that contains the overall picture of how routes are used for the shared custom domain across different profiles. </param>
+        internal FrontDoorCustomDomainData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string profileName, FrontDoorCustomDomainHttpsContent tlsSettings, WritableSubResource dnsZone, FrontDoorCustomDomainUpdatePropertiesParametersPreValidatedCustomDomainResourceId preValidatedCustomDomainResource, FrontDoorProvisioningState? provisioningState, FrontDoorDeploymentStatus? deploymentStatus, DomainValidationState? domainValidationState, string hostName, IDictionary<string, string> extendedProperties, DomainValidationProperties validationProperties, IReadOnlyList<FrontDoorCustomDomainReferencedRoutePath> referencedRoutePaths) : base(id, name, resourceType, systemData)
         {
             ProfileName = profileName;
             TlsSettings = tlsSettings;
@@ -47,7 +52,9 @@ namespace Azure.ResourceManager.Cdn
             DeploymentStatus = deploymentStatus;
             DomainValidationState = domainValidationState;
             HostName = hostName;
+            ExtendedProperties = extendedProperties;
             ValidationProperties = validationProperties;
+            ReferencedRoutePaths = referencedRoutePaths;
         }
 
         /// <summary> The name of the profile which holds the domain. </summary>
@@ -90,7 +97,11 @@ namespace Azure.ResourceManager.Cdn
         public DomainValidationState? DomainValidationState { get; }
         /// <summary> The host name of the domain. Must be a domain name. </summary>
         public string HostName { get; set; }
+        /// <summary> Key-Value pair representing migration properties for domains. </summary>
+        public IDictionary<string, string> ExtendedProperties { get; }
         /// <summary> Values the customer needs to validate domain ownership. </summary>
         public DomainValidationProperties ValidationProperties { get; }
+        /// <summary> The JSON object list that contains the overall picture of how routes are used for the shared custom domain across different profiles. </summary>
+        public IReadOnlyList<FrontDoorCustomDomainReferencedRoutePath> ReferencedRoutePaths { get; }
     }
 }
