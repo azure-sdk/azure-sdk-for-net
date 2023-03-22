@@ -33,7 +33,7 @@ namespace Azure.ResourceManager.HybridConnectivity
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2021-10-06-preview";
+            _apiVersion = apiVersion ?? "2023-03-15";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
@@ -394,7 +394,7 @@ namespace Azure.ResourceManager.HybridConnectivity
             }
         }
 
-        internal HttpMessage CreateListCredentialsRequest(string scope, string endpointName, long? expiresin)
+        internal HttpMessage CreateListCredentialsRequest(string scope, string endpointName, ListCredentialsContent content, long? expiresin)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -413,6 +413,13 @@ namespace Azure.ResourceManager.HybridConnectivity
             }
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
+            if (content != null)
+            {
+                request.Headers.Add("Content-Type", "application/json");
+                var content0 = new Utf8JsonRequestContent();
+                content0.JsonWriter.WriteObjectValue(content);
+                request.Content = content0;
+            }
             _userAgent.Apply(message);
             return message;
         }
@@ -420,15 +427,16 @@ namespace Azure.ResourceManager.HybridConnectivity
         /// <summary> Gets the endpoint access credentials to the resource. </summary>
         /// <param name="scope"> The fully qualified Azure Resource manager identifier of the resource to be connected. </param>
         /// <param name="endpointName"> The endpoint name. </param>
+        /// <param name="content"> Object of type ListCredentialsRequest. </param>
         /// <param name="expiresin"> The is how long the endpoint access token is valid (in seconds). </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="scope"/> or <paramref name="endpointName"/> is null. </exception>
-        public async Task<Response<TargetResourceEndpointAccess>> ListCredentialsAsync(string scope, string endpointName, long? expiresin = null, CancellationToken cancellationToken = default)
+        public async Task<Response<TargetResourceEndpointAccess>> ListCredentialsAsync(string scope, string endpointName, ListCredentialsContent content = null, long? expiresin = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(scope, nameof(scope));
             Argument.AssertNotNull(endpointName, nameof(endpointName));
 
-            using var message = CreateListCredentialsRequest(scope, endpointName, expiresin);
+            using var message = CreateListCredentialsRequest(scope, endpointName, content, expiresin);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
@@ -447,15 +455,16 @@ namespace Azure.ResourceManager.HybridConnectivity
         /// <summary> Gets the endpoint access credentials to the resource. </summary>
         /// <param name="scope"> The fully qualified Azure Resource manager identifier of the resource to be connected. </param>
         /// <param name="endpointName"> The endpoint name. </param>
+        /// <param name="content"> Object of type ListCredentialsRequest. </param>
         /// <param name="expiresin"> The is how long the endpoint access token is valid (in seconds). </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="scope"/> or <paramref name="endpointName"/> is null. </exception>
-        public Response<TargetResourceEndpointAccess> ListCredentials(string scope, string endpointName, long? expiresin = null, CancellationToken cancellationToken = default)
+        public Response<TargetResourceEndpointAccess> ListCredentials(string scope, string endpointName, ListCredentialsContent content = null, long? expiresin = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(scope, nameof(scope));
             Argument.AssertNotNull(endpointName, nameof(endpointName));
 
-            using var message = CreateListCredentialsRequest(scope, endpointName, expiresin);
+            using var message = CreateListCredentialsRequest(scope, endpointName, content, expiresin);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
@@ -464,6 +473,162 @@ namespace Azure.ResourceManager.HybridConnectivity
                         TargetResourceEndpointAccess value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
                         value = TargetResourceEndpointAccess.DeserializeTargetResourceEndpointAccess(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        internal HttpMessage CreateListIngressGatewayCredentialsRequest(string scope, string endpointName, long? expiresin)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Post;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/", false);
+            uri.AppendPath(scope, false);
+            uri.AppendPath("/providers/Microsoft.HybridConnectivity/endpoints/", false);
+            uri.AppendPath(endpointName, false);
+            uri.AppendPath("/listIngressGatewayCredentials", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            if (expiresin != null)
+            {
+                uri.AppendQuery("expiresin", expiresin.Value, true);
+            }
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> Gets the ingress gateway endpoint credentials. </summary>
+        /// <param name="scope"> The fully qualified Azure Resource manager identifier of the resource to be connected. </param>
+        /// <param name="endpointName"> The endpoint name. </param>
+        /// <param name="expiresin"> The is how long the endpoint access token is valid (in seconds). </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="scope"/> or <paramref name="endpointName"/> is null. </exception>
+        public async Task<Response<IngressGatewayResource>> ListIngressGatewayCredentialsAsync(string scope, string endpointName, long? expiresin = null, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(scope, nameof(scope));
+            Argument.AssertNotNull(endpointName, nameof(endpointName));
+
+            using var message = CreateListIngressGatewayCredentialsRequest(scope, endpointName, expiresin);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        IngressGatewayResource value = default;
+                        using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+                        value = IngressGatewayResource.DeserializeIngressGatewayResource(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> Gets the ingress gateway endpoint credentials. </summary>
+        /// <param name="scope"> The fully qualified Azure Resource manager identifier of the resource to be connected. </param>
+        /// <param name="endpointName"> The endpoint name. </param>
+        /// <param name="expiresin"> The is how long the endpoint access token is valid (in seconds). </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="scope"/> or <paramref name="endpointName"/> is null. </exception>
+        public Response<IngressGatewayResource> ListIngressGatewayCredentials(string scope, string endpointName, long? expiresin = null, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(scope, nameof(scope));
+            Argument.AssertNotNull(endpointName, nameof(endpointName));
+
+            using var message = CreateListIngressGatewayCredentialsRequest(scope, endpointName, expiresin);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        IngressGatewayResource value = default;
+                        using var document = JsonDocument.Parse(message.Response.ContentStream);
+                        value = IngressGatewayResource.DeserializeIngressGatewayResource(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        internal HttpMessage CreateListManagedProxyDetailsRequest(string scope, string endpointName, ManagedProxyContent content)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Post;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/", false);
+            uri.AppendPath(scope, false);
+            uri.AppendPath("/providers/Microsoft.HybridConnectivity/endpoints/", false);
+            uri.AppendPath(endpointName, false);
+            uri.AppendPath("/listManagedProxyDetails", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            request.Headers.Add("Content-Type", "application/json");
+            var content0 = new Utf8JsonRequestContent();
+            content0.JsonWriter.WriteObjectValue(content);
+            request.Content = content0;
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> Fetches the managed proxy details. </summary>
+        /// <param name="scope"> The fully qualified Azure Resource manager identifier of the resource to be connected. </param>
+        /// <param name="endpointName"> The endpoint name. </param>
+        /// <param name="content"> Object of type ManagedProxyRequest. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="scope"/>, <paramref name="endpointName"/> or <paramref name="content"/> is null. </exception>
+        public async Task<Response<ManagedProxyResource>> ListManagedProxyDetailsAsync(string scope, string endpointName, ManagedProxyContent content, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(scope, nameof(scope));
+            Argument.AssertNotNull(endpointName, nameof(endpointName));
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var message = CreateListManagedProxyDetailsRequest(scope, endpointName, content);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        ManagedProxyResource value = default;
+                        using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+                        value = ManagedProxyResource.DeserializeManagedProxyResource(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> Fetches the managed proxy details. </summary>
+        /// <param name="scope"> The fully qualified Azure Resource manager identifier of the resource to be connected. </param>
+        /// <param name="endpointName"> The endpoint name. </param>
+        /// <param name="content"> Object of type ManagedProxyRequest. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="scope"/>, <paramref name="endpointName"/> or <paramref name="content"/> is null. </exception>
+        public Response<ManagedProxyResource> ListManagedProxyDetails(string scope, string endpointName, ManagedProxyContent content, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(scope, nameof(scope));
+            Argument.AssertNotNull(endpointName, nameof(endpointName));
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var message = CreateListManagedProxyDetailsRequest(scope, endpointName, content);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        ManagedProxyResource value = default;
+                        using var document = JsonDocument.Parse(message.Response.ContentStream);
+                        value = ManagedProxyResource.DeserializeManagedProxyResource(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
