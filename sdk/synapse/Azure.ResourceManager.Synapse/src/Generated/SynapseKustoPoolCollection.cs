@@ -213,7 +213,7 @@ namespace Azure.ResourceManager.Synapse
         }
 
         /// <summary>
-        /// List all Kusto pools
+        /// List all Kusto pools 1
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -234,7 +234,7 @@ namespace Azure.ResourceManager.Synapse
         }
 
         /// <summary>
-        /// List all Kusto pools
+        /// List all Kusto pools 1
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
