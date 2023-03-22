@@ -25,7 +25,7 @@ namespace Azure.ResourceManager.Cdn.Models
         /// <param name="dateTimeEnd"></param>
         /// <param name="granularity"></param>
         /// <param name="series"></param>
-        internal WafMetricsResponse(DateTimeOffset? dateTimeBegin, DateTimeOffset? dateTimeEnd, WafMetricsResponseGranularity? granularity, IReadOnlyList<WafMetricsResponseSeriesItem> series)
+        internal WafMetricsResponse(DateTimeOffset? dateTimeBegin, DateTimeOffset? dateTimeEnd, WafMetricsGranularity? granularity, IReadOnlyList<WafMetricsResponseSeriesItem> series)
         {
             DateTimeBegin = dateTimeBegin;
             DateTimeEnd = dateTimeEnd;
@@ -38,7 +38,7 @@ namespace Azure.ResourceManager.Cdn.Models
         /// <summary> Gets the date time end. </summary>
         public DateTimeOffset? DateTimeEnd { get; }
         /// <summary> Gets the granularity. </summary>
-        public WafMetricsResponseGranularity? Granularity { get; }
+        public WafMetricsGranularity? Granularity { get; }
         /// <summary> Gets the series. </summary>
         public IReadOnlyList<WafMetricsResponseSeriesItem> Series { get; }
     }

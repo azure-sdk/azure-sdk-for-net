@@ -19,11 +19,13 @@ namespace Azure.ResourceManager.Cdn.Models
         /// <param name="sampleSize"> The number of samples to consider for load balancing decisions. </param>
         /// <param name="successfulSamplesRequired"> The number of samples within the sample period that must succeed. </param>
         /// <param name="additionalLatencyInMilliseconds"> The additional latency in milliseconds for probes to fall into the lowest latency bucket. </param>
-        internal LoadBalancingSettings(int? sampleSize, int? successfulSamplesRequired, int? additionalLatencyInMilliseconds)
+        /// <param name="capacityConsciousThreshold"> The threshold at which additional backends are added for capacity based load balancing. </param>
+        internal LoadBalancingSettings(int? sampleSize, int? successfulSamplesRequired, int? additionalLatencyInMilliseconds, int? capacityConsciousThreshold)
         {
             SampleSize = sampleSize;
             SuccessfulSamplesRequired = successfulSamplesRequired;
             AdditionalLatencyInMilliseconds = additionalLatencyInMilliseconds;
+            CapacityConsciousThreshold = capacityConsciousThreshold;
         }
 
         /// <summary> The number of samples to consider for load balancing decisions. </summary>
@@ -32,5 +34,7 @@ namespace Azure.ResourceManager.Cdn.Models
         public int? SuccessfulSamplesRequired { get; set; }
         /// <summary> The additional latency in milliseconds for probes to fall into the lowest latency bucket. </summary>
         public int? AdditionalLatencyInMilliseconds { get; set; }
+        /// <summary> The threshold at which additional backends are added for capacity based load balancing. </summary>
+        public int? CapacityConsciousThreshold { get; set; }
     }
 }
