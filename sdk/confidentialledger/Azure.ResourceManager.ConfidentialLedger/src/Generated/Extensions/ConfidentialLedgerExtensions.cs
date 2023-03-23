@@ -120,6 +120,50 @@ namespace Azure.ResourceManager.ConfidentialLedger
             return GetExtensionClient(subscriptionResource).GetConfidentialLedgers(filter, cancellationToken);
         }
 
+        /// <summary>
+        /// Retrieves the properties of all Managed CCF.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.ConfidentialLedger/managedCCFs</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>ManagedCCF_ListBySubscription</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
+        /// <param name="filter"> The filter to apply on the list operation. eg. $filter=ledgerType eq &apos;Public&apos;. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> An async collection of <see cref="ManagedCCFResource" /> that may take multiple service requests to iterate over. </returns>
+        public static AsyncPageable<ManagedCCFResource> GetManagedCCFsAsync(this SubscriptionResource subscriptionResource, string filter = null, CancellationToken cancellationToken = default)
+        {
+            return GetExtensionClient(subscriptionResource).GetManagedCCFsAsync(filter, cancellationToken);
+        }
+
+        /// <summary>
+        /// Retrieves the properties of all Managed CCF.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.ConfidentialLedger/managedCCFs</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>ManagedCCF_ListBySubscription</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
+        /// <param name="filter"> The filter to apply on the list operation. eg. $filter=ledgerType eq &apos;Public&apos;. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="ManagedCCFResource" /> that may take multiple service requests to iterate over. </returns>
+        public static Pageable<ManagedCCFResource> GetManagedCCFs(this SubscriptionResource subscriptionResource, string filter = null, CancellationToken cancellationToken = default)
+        {
+            return GetExtensionClient(subscriptionResource).GetManagedCCFs(filter, cancellationToken);
+        }
+
         private static ResourceGroupResourceExtensionClient GetExtensionClient(ResourceGroupResource resourceGroupResource)
         {
             return resourceGroupResource.GetCachedClient((client) =>
@@ -185,6 +229,62 @@ namespace Azure.ResourceManager.ConfidentialLedger
             return resourceGroupResource.GetConfidentialLedgers().Get(ledgerName, cancellationToken);
         }
 
+        /// <summary> Gets a collection of ManagedCCFResources in the ResourceGroupResource. </summary>
+        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
+        /// <returns> An object representing collection of ManagedCCFResources and their operations over a ManagedCCFResource. </returns>
+        public static ManagedCCFCollection GetManagedCCFs(this ResourceGroupResource resourceGroupResource)
+        {
+            return GetExtensionClient(resourceGroupResource).GetManagedCCFs();
+        }
+
+        /// <summary>
+        /// Retrieves the properties of a Managed CCF app.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ConfidentialLedger/managedCCFs/{appName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>ManagedCCF_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
+        /// <param name="appName"> Name of the Managed CCF. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="appName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="appName"/> is null. </exception>
+        [ForwardsClientCalls]
+        public static async Task<Response<ManagedCCFResource>> GetManagedCCFAsync(this ResourceGroupResource resourceGroupResource, string appName, CancellationToken cancellationToken = default)
+        {
+            return await resourceGroupResource.GetManagedCCFs().GetAsync(appName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Retrieves the properties of a Managed CCF app.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ConfidentialLedger/managedCCFs/{appName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>ManagedCCF_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
+        /// <param name="appName"> Name of the Managed CCF. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="appName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="appName"/> is null. </exception>
+        [ForwardsClientCalls]
+        public static Response<ManagedCCFResource> GetManagedCCF(this ResourceGroupResource resourceGroupResource, string appName, CancellationToken cancellationToken = default)
+        {
+            return resourceGroupResource.GetManagedCCFs().Get(appName, cancellationToken);
+        }
+
         #region ConfidentialLedgerResource
         /// <summary>
         /// Gets an object representing a <see cref="ConfidentialLedgerResource" /> along with the instance operations that can be performed on it but with no data.
@@ -199,6 +299,25 @@ namespace Azure.ResourceManager.ConfidentialLedger
             {
                 ConfidentialLedgerResource.ValidateResourceId(id);
                 return new ConfidentialLedgerResource(client, id);
+            }
+            );
+        }
+        #endregion
+
+        #region ManagedCCFResource
+        /// <summary>
+        /// Gets an object representing a <see cref="ManagedCCFResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="ManagedCCFResource.CreateResourceIdentifier" /> to create a <see cref="ManagedCCFResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="ManagedCCFResource" /> object. </returns>
+        public static ManagedCCFResource GetManagedCCFResource(this ArmClient client, ResourceIdentifier id)
+        {
+            return client.GetResourceClient(() =>
+            {
+                ManagedCCFResource.ValidateResourceId(id);
+                return new ManagedCCFResource(client, id);
             }
             );
         }
