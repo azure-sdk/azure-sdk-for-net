@@ -41,6 +41,11 @@ namespace Azure.ResourceManager.RecoveryServices.Models
                 writer.WritePropertyName("monitoringSettings"u8);
                 writer.WriteObjectValue(MonitoringSettings);
             }
+            if (Optional.IsDefined(RestoreSettings))
+            {
+                writer.WritePropertyName("restoreSettings"u8);
+                writer.WriteObjectValue(RestoreSettings);
+            }
             if (Optional.IsDefined(RedundancySettings))
             {
                 writer.WritePropertyName("redundancySettings"u8);
@@ -71,6 +76,7 @@ namespace Azure.ResourceManager.RecoveryServices.Models
             Optional<BackupStorageVersion> backupStorageVersion = default;
             Optional<VaultPublicNetworkAccess> publicNetworkAccess = default;
             Optional<VaultMonitoringSettings> monitoringSettings = default;
+            Optional<RestoreSettings> restoreSettings = default;
             Optional<VaultPropertiesRedundancySettings> redundancySettings = default;
             Optional<SecuritySettings> securitySettings = default;
             foreach (var property in element.EnumerateObject())
@@ -185,6 +191,16 @@ namespace Azure.ResourceManager.RecoveryServices.Models
                     monitoringSettings = VaultMonitoringSettings.DeserializeVaultMonitoringSettings(property.Value);
                     continue;
                 }
+                if (property.NameEquals("restoreSettings"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        property.ThrowNonNullablePropertyIsNull();
+                        continue;
+                    }
+                    restoreSettings = RestoreSettings.DeserializeRestoreSettings(property.Value);
+                    continue;
+                }
                 if (property.NameEquals("redundancySettings"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -206,7 +222,7 @@ namespace Azure.ResourceManager.RecoveryServices.Models
                     continue;
                 }
             }
-            return new RecoveryServicesVaultProperties(provisioningState.Value, upgradeDetails.Value, Optional.ToList(privateEndpointConnections), Optional.ToNullable(privateEndpointStateForBackup), Optional.ToNullable(privateEndpointStateForSiteRecovery), encryption.Value, moveDetails.Value, Optional.ToNullable(moveState), Optional.ToNullable(backupStorageVersion), Optional.ToNullable(publicNetworkAccess), monitoringSettings.Value, redundancySettings.Value, securitySettings.Value);
+            return new RecoveryServicesVaultProperties(provisioningState.Value, upgradeDetails.Value, Optional.ToList(privateEndpointConnections), Optional.ToNullable(privateEndpointStateForBackup), Optional.ToNullable(privateEndpointStateForSiteRecovery), encryption.Value, moveDetails.Value, Optional.ToNullable(moveState), Optional.ToNullable(backupStorageVersion), Optional.ToNullable(publicNetworkAccess), monitoringSettings.Value, restoreSettings.Value, redundancySettings.Value, securitySettings.Value);
         }
     }
 }
