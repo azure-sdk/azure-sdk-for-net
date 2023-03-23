@@ -5,13 +5,15 @@
 
 #nullable disable
 
+using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
+using Azure.ResourceManager.AppService.Models;
 using Azure.ResourceManager.Models;
 
-namespace Azure.ResourceManager.AppService.Models
+namespace Azure.ResourceManager.AppService
 {
-    public partial class SiteAuthSettingsV2 : IUtf8JsonSerializable
+    public partial class DatabaseConnectionData : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
@@ -23,36 +25,31 @@ namespace Azure.ResourceManager.AppService.Models
             }
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
-            if (Optional.IsDefined(Platform))
+            if (Optional.IsDefined(ResourceId))
             {
-                writer.WritePropertyName("platform"u8);
-                writer.WriteObjectValue(Platform);
+                writer.WritePropertyName("resourceId"u8);
+                writer.WriteStringValue(ResourceId);
             }
-            if (Optional.IsDefined(GlobalValidation))
+            if (Optional.IsDefined(ConnectionIdentity))
             {
-                writer.WritePropertyName("globalValidation"u8);
-                writer.WriteObjectValue(GlobalValidation);
+                writer.WritePropertyName("connectionIdentity"u8);
+                writer.WriteStringValue(ConnectionIdentity);
             }
-            if (Optional.IsDefined(IdentityProviders))
+            if (Optional.IsDefined(ConnectionString))
             {
-                writer.WritePropertyName("identityProviders"u8);
-                writer.WriteObjectValue(IdentityProviders);
+                writer.WritePropertyName("connectionString"u8);
+                writer.WriteStringValue(ConnectionString);
             }
-            if (Optional.IsDefined(Login))
+            if (Optional.IsDefined(Region))
             {
-                writer.WritePropertyName("login"u8);
-                writer.WriteObjectValue(Login);
-            }
-            if (Optional.IsDefined(HttpSettings))
-            {
-                writer.WritePropertyName("httpSettings"u8);
-                writer.WriteObjectValue(HttpSettings);
+                writer.WritePropertyName("region"u8);
+                writer.WriteStringValue(Region);
             }
             writer.WriteEndObject();
             writer.WriteEndObject();
         }
 
-        internal static SiteAuthSettingsV2 DeserializeSiteAuthSettingsV2(JsonElement element)
+        internal static DatabaseConnectionData DeserializeDatabaseConnectionData(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
@@ -63,11 +60,11 @@ namespace Azure.ResourceManager.AppService.Models
             string name = default;
             ResourceType type = default;
             Optional<SystemData> systemData = default;
-            Optional<AuthPlatform> platform = default;
-            Optional<GlobalValidation> globalValidation = default;
-            Optional<AppServiceIdentityProviders> identityProviders = default;
-            Optional<WebAppLoginInfo> login = default;
-            Optional<AppServiceHttpSettings> httpSettings = default;
+            Optional<string> resourceId = default;
+            Optional<string> connectionIdentity = default;
+            Optional<string> connectionString = default;
+            Optional<string> region = default;
+            Optional<IReadOnlyList<StaticSiteDatabaseConnectionConfigurationFileOverview>> configurationFiles = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("kind"u8))
@@ -109,61 +106,46 @@ namespace Azure.ResourceManager.AppService.Models
                     }
                     foreach (var property0 in property.Value.EnumerateObject())
                     {
-                        if (property0.NameEquals("platform"u8))
+                        if (property0.NameEquals("resourceId"u8))
                         {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                property0.ThrowNonNullablePropertyIsNull();
-                                continue;
-                            }
-                            platform = AuthPlatform.DeserializeAuthPlatform(property0.Value);
+                            resourceId = property0.Value.GetString();
                             continue;
                         }
-                        if (property0.NameEquals("globalValidation"u8))
+                        if (property0.NameEquals("connectionIdentity"u8))
                         {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                property0.ThrowNonNullablePropertyIsNull();
-                                continue;
-                            }
-                            globalValidation = GlobalValidation.DeserializeGlobalValidation(property0.Value);
+                            connectionIdentity = property0.Value.GetString();
                             continue;
                         }
-                        if (property0.NameEquals("identityProviders"u8))
+                        if (property0.NameEquals("connectionString"u8))
                         {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                property0.ThrowNonNullablePropertyIsNull();
-                                continue;
-                            }
-                            identityProviders = AppServiceIdentityProviders.DeserializeAppServiceIdentityProviders(property0.Value);
+                            connectionString = property0.Value.GetString();
                             continue;
                         }
-                        if (property0.NameEquals("login"u8))
+                        if (property0.NameEquals("region"u8))
                         {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                property0.ThrowNonNullablePropertyIsNull();
-                                continue;
-                            }
-                            login = WebAppLoginInfo.DeserializeWebAppLoginInfo(property0.Value);
+                            region = property0.Value.GetString();
                             continue;
                         }
-                        if (property0.NameEquals("httpSettings"u8))
+                        if (property0.NameEquals("configurationFiles"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
                                 property0.ThrowNonNullablePropertyIsNull();
                                 continue;
                             }
-                            httpSettings = AppServiceHttpSettings.DeserializeAppServiceHttpSettings(property0.Value);
+                            List<StaticSiteDatabaseConnectionConfigurationFileOverview> array = new List<StaticSiteDatabaseConnectionConfigurationFileOverview>();
+                            foreach (var item in property0.Value.EnumerateArray())
+                            {
+                                array.Add(StaticSiteDatabaseConnectionConfigurationFileOverview.DeserializeStaticSiteDatabaseConnectionConfigurationFileOverview(item));
+                            }
+                            configurationFiles = array;
                             continue;
                         }
                     }
                     continue;
                 }
             }
-            return new SiteAuthSettingsV2(id, name, type, systemData.Value, platform.Value, globalValidation.Value, identityProviders.Value, login.Value, httpSettings.Value, kind.Value);
+            return new DatabaseConnectionData(id, name, type, systemData.Value, resourceId.Value, connectionIdentity.Value, connectionString.Value, region.Value, Optional.ToList(configurationFiles), kind.Value);
         }
     }
 }
