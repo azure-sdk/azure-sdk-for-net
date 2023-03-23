@@ -73,8 +73,8 @@ namespace Azure.ResourceManager.OperationalInsights
             Optional<string> lastPlanModifiedDate = default;
             Optional<OperationalInsightsSchema> schema = default;
             Optional<OperationalInsightsTableProvisioningState> provisioningState = default;
-            Optional<RetentionInDaysAsDefaultState> retentionInDaysAsDefault = default;
-            Optional<TotalRetentionInDaysAsDefaultState> totalRetentionInDaysAsDefault = default;
+            Optional<bool> retentionInDaysAsDefault = default;
+            Optional<bool> totalRetentionInDaysAsDefault = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("id"u8))
@@ -213,7 +213,7 @@ namespace Azure.ResourceManager.OperationalInsights
                                 property0.ThrowNonNullablePropertyIsNull();
                                 continue;
                             }
-                            retentionInDaysAsDefault = new RetentionInDaysAsDefaultState(property0.Value.GetString());
+                            retentionInDaysAsDefault = property0.Value.GetBoolean();
                             continue;
                         }
                         if (property0.NameEquals("totalRetentionInDaysAsDefault"u8))
@@ -223,7 +223,7 @@ namespace Azure.ResourceManager.OperationalInsights
                                 property0.ThrowNonNullablePropertyIsNull();
                                 continue;
                             }
-                            totalRetentionInDaysAsDefault = new TotalRetentionInDaysAsDefaultState(property0.Value.GetString());
+                            totalRetentionInDaysAsDefault = property0.Value.GetBoolean();
                             continue;
                         }
                     }
