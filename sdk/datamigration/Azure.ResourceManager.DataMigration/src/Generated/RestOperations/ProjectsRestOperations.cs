@@ -142,7 +142,7 @@ namespace Azure.ResourceManager.DataMigration
             return message;
         }
 
-        /// <summary> The project resource is a nested resource representing a stored migration project. The PUT method creates a new project or updates an existing one. </summary>
+        /// <summary> The project resource is a nested resource representing a stored migration project. The PUT method creates a new project or updates an existing one. Database Migration Service (classic) - SQL scenarios are on a deprecation path and will be retired on 15 March 2026 for all customers. Please migrate to Azure SQL database services by using the latest Azure Database Migration Service version which is available as an extension in Azure Data Studio, or by using Azure PowerShell and Azure CLI. </summary>
         /// <param name="subscriptionId"> Subscription ID that identifies an Azure subscription. </param>
         /// <param name="groupName"> Name of the resource group. </param>
         /// <param name="serviceName"> Name of the service. </param>
@@ -176,7 +176,7 @@ namespace Azure.ResourceManager.DataMigration
             }
         }
 
-        /// <summary> The project resource is a nested resource representing a stored migration project. The PUT method creates a new project or updates an existing one. </summary>
+        /// <summary> The project resource is a nested resource representing a stored migration project. The PUT method creates a new project or updates an existing one. Database Migration Service (classic) - SQL scenarios are on a deprecation path and will be retired on 15 March 2026 for all customers. Please migrate to Azure SQL database services by using the latest Azure Database Migration Service version which is available as an extension in Azure Data Studio, or by using Azure PowerShell and Azure CLI. </summary>
         /// <param name="subscriptionId"> Subscription ID that identifies an Azure subscription. </param>
         /// <param name="groupName"> Name of the resource group. </param>
         /// <param name="serviceName"> Name of the service. </param>
@@ -406,7 +406,7 @@ namespace Azure.ResourceManager.DataMigration
             return message;
         }
 
-        /// <summary> The project resource is a nested resource representing a stored migration project. The PATCH method updates an existing project. </summary>
+        /// <summary> The project resource is a nested resource representing a stored migration project. The PATCH method updates an existing project. Database Migration Service (classic) - SQL scenarios are on a deprecation path and will be retired on 15 March 2026 for all customers. Please migrate to Azure SQL database services by using the latest Azure Database Migration Service version which is available as an extension in Azure Data Studio, or by using Azure PowerShell and Azure CLI. </summary>
         /// <param name="subscriptionId"> Subscription ID that identifies an Azure subscription. </param>
         /// <param name="groupName"> Name of the resource group. </param>
         /// <param name="serviceName"> Name of the service. </param>
@@ -439,7 +439,7 @@ namespace Azure.ResourceManager.DataMigration
             }
         }
 
-        /// <summary> The project resource is a nested resource representing a stored migration project. The PATCH method updates an existing project. </summary>
+        /// <summary> The project resource is a nested resource representing a stored migration project. The PATCH method updates an existing project. Database Migration Service (classic) - SQL scenarios are on a deprecation path and will be retired on 15 March 2026 for all customers. Please migrate to Azure SQL database services by using the latest Azure Database Migration Service version which is available as an extension in Azure Data Studio, or by using Azure PowerShell and Azure CLI. </summary>
         /// <param name="subscriptionId"> Subscription ID that identifies an Azure subscription. </param>
         /// <param name="groupName"> Name of the resource group. </param>
         /// <param name="serviceName"> Name of the service. </param>

@@ -95,7 +95,7 @@ namespace Azure.ResourceManager.DataMigration
         }
 
         /// <summary>
-        /// The tasks resource is a nested, proxy-only resource representing work performed by a DMS instance. The GET method retrieves information about a task.
+        /// The tasks resource is a nested, proxy-only resource representing work performed by a DMS (classic) instance. The GET method retrieves information about a task.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -119,7 +119,7 @@ namespace Azure.ResourceManager.DataMigration
         }
 
         /// <summary>
-        /// The tasks resource is a nested, proxy-only resource representing work performed by a DMS instance. The GET method retrieves information about a task.
+        /// The tasks resource is a nested, proxy-only resource representing work performed by a DMS (classic) instance. The GET method retrieves information about a task.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -330,7 +330,7 @@ namespace Azure.ResourceManager.DataMigration
         }
 
         /// <summary>
-        /// The project resource is a nested resource representing a stored migration project. The PATCH method updates an existing project.
+        /// The project resource is a nested resource representing a stored migration project. The PATCH method updates an existing project. Database Migration Service (classic) - SQL scenarios are on a deprecation path and will be retired on 15 March 2026 for all customers. Please migrate to Azure SQL database services by using the latest Azure Database Migration Service version which is available as an extension in Azure Data Studio, or by using Azure PowerShell and Azure CLI.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -364,7 +364,7 @@ namespace Azure.ResourceManager.DataMigration
         }
 
         /// <summary>
-        /// The project resource is a nested resource representing a stored migration project. The PATCH method updates an existing project.
+        /// The project resource is a nested resource representing a stored migration project. The PATCH method updates an existing project. Database Migration Service (classic) - SQL scenarios are on a deprecation path and will be retired on 15 March 2026 for all customers. Please migrate to Azure SQL database services by using the latest Azure Database Migration Service version which is available as an extension in Azure Data Studio, or by using Azure PowerShell and Azure CLI.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>

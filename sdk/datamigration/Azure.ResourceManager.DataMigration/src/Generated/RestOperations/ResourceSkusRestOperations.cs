@@ -54,7 +54,7 @@ namespace Azure.ResourceManager.DataMigration
             return message;
         }
 
-        /// <summary> The skus action returns the list of SKUs that DMS supports. </summary>
+        /// <summary> The skus action returns the list of SKUs that DMS (classic) supports. </summary>
         /// <param name="subscriptionId"> Subscription ID that identifies an Azure subscription. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> is null. </exception>
@@ -79,7 +79,7 @@ namespace Azure.ResourceManager.DataMigration
             }
         }
 
-        /// <summary> The skus action returns the list of SKUs that DMS supports. </summary>
+        /// <summary> The skus action returns the list of SKUs that DMS (classic) supports. </summary>
         /// <param name="subscriptionId"> Subscription ID that identifies an Azure subscription. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> is null. </exception>
@@ -118,7 +118,7 @@ namespace Azure.ResourceManager.DataMigration
             return message;
         }
 
-        /// <summary> The skus action returns the list of SKUs that DMS supports. </summary>
+        /// <summary> The skus action returns the list of SKUs that DMS (classic) supports. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
         /// <param name="subscriptionId"> Subscription ID that identifies an Azure subscription. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -145,7 +145,7 @@ namespace Azure.ResourceManager.DataMigration
             }
         }
 
-        /// <summary> The skus action returns the list of SKUs that DMS supports. </summary>
+        /// <summary> The skus action returns the list of SKUs that DMS (classic) supports. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
         /// <param name="subscriptionId"> Subscription ID that identifies an Azure subscription. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>

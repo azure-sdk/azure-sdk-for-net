@@ -53,7 +53,7 @@ namespace Azure.ResourceManager.DataMigration
         }
 
         /// <summary>
-        /// The service tasks resource is a nested, proxy-only resource representing work performed by a DMS instance. The PUT method creates a new service task or updates an existing one, although since service tasks have no mutable custom properties, there is little reason to update an existing one.
+        /// The service tasks resource is a nested, proxy-only resource representing work performed by a DMS (classic) instance. The PUT method creates a new service task or updates an existing one, although since service tasks have no mutable custom properties, there is little reason to update an existing one. Database Migration Service (classic) - SQL scenarios are on a deprecation path and will be retired on 15 March 2026 for all customers. Please migrate to Azure SQL database services by using the latest Azure Database Migration Service version which is available as an extension in Azure Data Studio, or by using Azure PowerShell and Azure CLI.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -94,7 +94,7 @@ namespace Azure.ResourceManager.DataMigration
         }
 
         /// <summary>
-        /// The service tasks resource is a nested, proxy-only resource representing work performed by a DMS instance. The PUT method creates a new service task or updates an existing one, although since service tasks have no mutable custom properties, there is little reason to update an existing one.
+        /// The service tasks resource is a nested, proxy-only resource representing work performed by a DMS (classic) instance. The PUT method creates a new service task or updates an existing one, although since service tasks have no mutable custom properties, there is little reason to update an existing one. Database Migration Service (classic) - SQL scenarios are on a deprecation path and will be retired on 15 March 2026 for all customers. Please migrate to Azure SQL database services by using the latest Azure Database Migration Service version which is available as an extension in Azure Data Studio, or by using Azure PowerShell and Azure CLI.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -135,7 +135,7 @@ namespace Azure.ResourceManager.DataMigration
         }
 
         /// <summary>
-        /// The service tasks resource is a nested, proxy-only resource representing work performed by a DMS instance. The GET method retrieves information about a service task.
+        /// The service tasks resource is a nested, proxy-only resource representing work performed by a DMS (classic) instance. The GET method retrieves information about a service task.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -173,7 +173,7 @@ namespace Azure.ResourceManager.DataMigration
         }
 
         /// <summary>
-        /// The service tasks resource is a nested, proxy-only resource representing work performed by a DMS instance. The GET method retrieves information about a service task.
+        /// The service tasks resource is a nested, proxy-only resource representing work performed by a DMS (classic) instance. The GET method retrieves information about a service task.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -211,7 +211,7 @@ namespace Azure.ResourceManager.DataMigration
         }
 
         /// <summary>
-        /// The services resource is the top-level resource that represents the Database Migration Service. This method returns a list of service level tasks owned by a service resource. Some tasks may have a status of Unknown, which indicates that an error occurred while querying the status of that task.
+        /// The services resource is the top-level resource that represents the Azure Database Migration Service (classic). This method returns a list of service level tasks owned by a service resource. Some tasks may have a status of Unknown, which indicates that an error occurred while querying the status of that task.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -234,7 +234,7 @@ namespace Azure.ResourceManager.DataMigration
         }
 
         /// <summary>
-        /// The services resource is the top-level resource that represents the Database Migration Service. This method returns a list of service level tasks owned by a service resource. Some tasks may have a status of Unknown, which indicates that an error occurred while querying the status of that task.
+        /// The services resource is the top-level resource that represents the Azure Database Migration Service (classic). This method returns a list of service level tasks owned by a service resource. Some tasks may have a status of Unknown, which indicates that an error occurred while querying the status of that task.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>

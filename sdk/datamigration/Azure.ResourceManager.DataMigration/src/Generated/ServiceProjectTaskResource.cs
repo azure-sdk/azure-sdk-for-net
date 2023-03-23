@@ -88,7 +88,7 @@ namespace Azure.ResourceManager.DataMigration
         }
 
         /// <summary>
-        /// The tasks resource is a nested, proxy-only resource representing work performed by a DMS instance. The GET method retrieves information about a task.
+        /// The tasks resource is a nested, proxy-only resource representing work performed by a DMS (classic) instance. The GET method retrieves information about a task.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -121,7 +121,7 @@ namespace Azure.ResourceManager.DataMigration
         }
 
         /// <summary>
-        /// The tasks resource is a nested, proxy-only resource representing work performed by a DMS instance. The GET method retrieves information about a task.
+        /// The tasks resource is a nested, proxy-only resource representing work performed by a DMS (classic) instance. The GET method retrieves information about a task.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -154,7 +154,7 @@ namespace Azure.ResourceManager.DataMigration
         }
 
         /// <summary>
-        /// The tasks resource is a nested, proxy-only resource representing work performed by a DMS instance. The DELETE method deletes a task, canceling it first if it&apos;s running.
+        /// The tasks resource is a nested, proxy-only resource representing work performed by a DMS (classic) instance. The DELETE method deletes a task, canceling it first if it&apos;s running.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -189,7 +189,7 @@ namespace Azure.ResourceManager.DataMigration
         }
 
         /// <summary>
-        /// The tasks resource is a nested, proxy-only resource representing work performed by a DMS instance. The DELETE method deletes a task, canceling it first if it&apos;s running.
+        /// The tasks resource is a nested, proxy-only resource representing work performed by a DMS (classic) instance. The DELETE method deletes a task, canceling it first if it&apos;s running.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -224,7 +224,7 @@ namespace Azure.ResourceManager.DataMigration
         }
 
         /// <summary>
-        /// The tasks resource is a nested, proxy-only resource representing work performed by a DMS instance. The PATCH method updates an existing task, but since tasks have no mutable custom properties, there is little reason to do so.
+        /// The tasks resource is a nested, proxy-only resource representing work performed by a DMS (classic) instance. The PATCH method updates an existing task, but since tasks have no mutable custom properties, there is little reason to do so. Database Migration Service (classic) - SQL scenarios are on a deprecation path and will be retired on 15 March 2026 for all customers. Please migrate to Azure SQL database services by using the latest Azure Database Migration Service version which is available as an extension in Azure Data Studio, or by using Azure PowerShell and Azure CLI.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -258,7 +258,7 @@ namespace Azure.ResourceManager.DataMigration
         }
 
         /// <summary>
-        /// The tasks resource is a nested, proxy-only resource representing work performed by a DMS instance. The PATCH method updates an existing task, but since tasks have no mutable custom properties, there is little reason to do so.
+        /// The tasks resource is a nested, proxy-only resource representing work performed by a DMS (classic) instance. The PATCH method updates an existing task, but since tasks have no mutable custom properties, there is little reason to do so. Database Migration Service (classic) - SQL scenarios are on a deprecation path and will be retired on 15 March 2026 for all customers. Please migrate to Azure SQL database services by using the latest Azure Database Migration Service version which is available as an extension in Azure Data Studio, or by using Azure PowerShell and Azure CLI.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -292,7 +292,7 @@ namespace Azure.ResourceManager.DataMigration
         }
 
         /// <summary>
-        /// The tasks resource is a nested, proxy-only resource representing work performed by a DMS instance. This method cancels a task if it&apos;s currently queued or running.
+        /// The tasks resource is a nested, proxy-only resource representing work performed by a DMS (classic) instance. This method cancels a task if it&apos;s currently queued or running.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -322,7 +322,7 @@ namespace Azure.ResourceManager.DataMigration
         }
 
         /// <summary>
-        /// The tasks resource is a nested, proxy-only resource representing work performed by a DMS instance. This method cancels a task if it&apos;s currently queued or running.
+        /// The tasks resource is a nested, proxy-only resource representing work performed by a DMS (classic) instance. This method cancels a task if it&apos;s currently queued or running.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -352,7 +352,7 @@ namespace Azure.ResourceManager.DataMigration
         }
 
         /// <summary>
-        /// The tasks resource is a nested, proxy-only resource representing work performed by a DMS instance. This method executes a command on a running task.
+        /// The tasks resource is a nested, proxy-only resource representing work performed by a DMS (classic) instance. This method executes a command on a running task.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -386,7 +386,7 @@ namespace Azure.ResourceManager.DataMigration
         }
 
         /// <summary>
-        /// The tasks resource is a nested, proxy-only resource representing work performed by a DMS instance. This method executes a command on a running task.
+        /// The tasks resource is a nested, proxy-only resource representing work performed by a DMS (classic) instance. This method executes a command on a running task.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
