@@ -27,6 +27,8 @@ namespace Azure.ResourceManager.PolicyInsights
         private PolicyStatesRestOperations _policyStatesRestClient;
         private ClientDiagnostics _policyRestrictionsClientDiagnostics;
         private PolicyRestrictionsRestOperations _policyRestrictionsRestClient;
+        private ClientDiagnostics _componentPolicyStatesClientDiagnostics;
+        private ComponentPolicyStatesRestOperations _componentPolicyStatesRestClient;
 
         /// <summary> Initializes a new instance of the <see cref="ResourceGroupResourceExtensionClient"/> class for mocking. </summary>
         protected ResourceGroupResourceExtensionClient()
@@ -48,6 +50,8 @@ namespace Azure.ResourceManager.PolicyInsights
         private PolicyStatesRestOperations PolicyStatesRestClient => _policyStatesRestClient ??= new PolicyStatesRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
         private ClientDiagnostics PolicyRestrictionsClientDiagnostics => _policyRestrictionsClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.PolicyInsights", ProviderConstants.DefaultProviderNamespace, Diagnostics);
         private PolicyRestrictionsRestOperations PolicyRestrictionsRestClient => _policyRestrictionsRestClient ??= new PolicyRestrictionsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
+        private ClientDiagnostics ComponentPolicyStatesClientDiagnostics => _componentPolicyStatesClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.PolicyInsights", ProviderConstants.DefaultProviderNamespace, Diagnostics);
+        private ComponentPolicyStatesRestOperations ComponentPolicyStatesRestClient => _componentPolicyStatesRestClient ??= new ComponentPolicyStatesRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
 
         private string GetApiVersionOrNull(ResourceType resourceType)
         {
@@ -373,6 +377,94 @@ namespace Azure.ResourceManager.PolicyInsights
                 scope.Failed(e);
                 throw;
             }
+        }
+
+        /// <summary>
+        /// Queries component policy states under resource group scope.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.PolicyInsights/componentPolicyStates/{componentPolicyStatesResource}/queryResults</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>ComponentPolicyStates_ListQueryResultsForResourceGroup</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="options"> A property bag which contains all the parameters of this method except the LRO qualifier and request context parameter. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> An async collection of <see cref="ComponentPolicyState" /> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<ComponentPolicyState> GetQueryResultsForResourceGroupComponentPolicyStatesAsync(ResourceGroupResourceGetQueryResultsForResourceGroupComponentPolicyStatesOptions options, CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => ComponentPolicyStatesRestClient.CreateListQueryResultsForResourceGroupRequest(Id.SubscriptionId, Id.ResourceGroupName, options.ComponentPolicyStatesResource, options.Top, options.OrderBy, options.Select, options.From, options.To, options.Filter, options.Apply);
+            return PageableHelpers.CreateAsyncPageable(FirstPageRequest, null, ComponentPolicyState.DeserializeComponentPolicyState, ComponentPolicyStatesClientDiagnostics, Pipeline, "ResourceGroupResourceExtensionClient.GetQueryResultsForResourceGroupComponentPolicyStates", "value", null, cancellationToken);
+        }
+
+        /// <summary>
+        /// Queries component policy states under resource group scope.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.PolicyInsights/componentPolicyStates/{componentPolicyStatesResource}/queryResults</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>ComponentPolicyStates_ListQueryResultsForResourceGroup</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="options"> A property bag which contains all the parameters of this method except the LRO qualifier and request context parameter. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="ComponentPolicyState" /> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<ComponentPolicyState> GetQueryResultsForResourceGroupComponentPolicyStates(ResourceGroupResourceGetQueryResultsForResourceGroupComponentPolicyStatesOptions options, CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => ComponentPolicyStatesRestClient.CreateListQueryResultsForResourceGroupRequest(Id.SubscriptionId, Id.ResourceGroupName, options.ComponentPolicyStatesResource, options.Top, options.OrderBy, options.Select, options.From, options.To, options.Filter, options.Apply);
+            return PageableHelpers.CreatePageable(FirstPageRequest, null, ComponentPolicyState.DeserializeComponentPolicyState, ComponentPolicyStatesClientDiagnostics, Pipeline, "ResourceGroupResourceExtensionClient.GetQueryResultsForResourceGroupComponentPolicyStates", "value", null, cancellationToken);
+        }
+
+        /// <summary>
+        /// Queries component policy states for the resource group level policy assignment.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{authorizationNamespace}/policyAssignments/{policyAssignmentName}/providers/Microsoft.PolicyInsights/componentPolicyStates/{componentPolicyStatesResource}/queryResults</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>ComponentPolicyStates_ListQueryResultsForResourceGroupLevelPolicyAssignment</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="options"> A property bag which contains all the parameters of this method except the LRO qualifier and request context parameter. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> An async collection of <see cref="ComponentPolicyState" /> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<ComponentPolicyState> GetQueryResultsForResourceGroupLevelPolicyAssignmentComponentPolicyStatesAsync(ResourceGroupResourceGetQueryResultsForResourceGroupLevelPolicyAssignmentComponentPolicyStatesOptions options, CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => ComponentPolicyStatesRestClient.CreateListQueryResultsForResourceGroupLevelPolicyAssignmentRequest(Id.SubscriptionId, Id.ResourceGroupName, options.PolicyAssignmentName, options.ComponentPolicyStatesResource, options.Top, options.OrderBy, options.Select, options.From, options.To, options.Filter, options.Apply);
+            return PageableHelpers.CreateAsyncPageable(FirstPageRequest, null, ComponentPolicyState.DeserializeComponentPolicyState, ComponentPolicyStatesClientDiagnostics, Pipeline, "ResourceGroupResourceExtensionClient.GetQueryResultsForResourceGroupLevelPolicyAssignmentComponentPolicyStates", "value", null, cancellationToken);
+        }
+
+        /// <summary>
+        /// Queries component policy states for the resource group level policy assignment.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{authorizationNamespace}/policyAssignments/{policyAssignmentName}/providers/Microsoft.PolicyInsights/componentPolicyStates/{componentPolicyStatesResource}/queryResults</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>ComponentPolicyStates_ListQueryResultsForResourceGroupLevelPolicyAssignment</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="options"> A property bag which contains all the parameters of this method except the LRO qualifier and request context parameter. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="ComponentPolicyState" /> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<ComponentPolicyState> GetQueryResultsForResourceGroupLevelPolicyAssignmentComponentPolicyStates(ResourceGroupResourceGetQueryResultsForResourceGroupLevelPolicyAssignmentComponentPolicyStatesOptions options, CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => ComponentPolicyStatesRestClient.CreateListQueryResultsForResourceGroupLevelPolicyAssignmentRequest(Id.SubscriptionId, Id.ResourceGroupName, options.PolicyAssignmentName, options.ComponentPolicyStatesResource, options.Top, options.OrderBy, options.Select, options.From, options.To, options.Filter, options.Apply);
+            return PageableHelpers.CreatePageable(FirstPageRequest, null, ComponentPolicyState.DeserializeComponentPolicyState, ComponentPolicyStatesClientDiagnostics, Pipeline, "ResourceGroupResourceExtensionClient.GetQueryResultsForResourceGroupLevelPolicyAssignmentComponentPolicyStates", "value", null, cancellationToken);
         }
     }
 }
