@@ -47,8 +47,9 @@ namespace Azure.ResourceManager.Consumption.Models
         /// <param name="adjustmentsInBillingCurrency"> The amount of balance adjustment in billing currency. </param>
         /// <param name="chargesInBillingCurrency"> The amount of charges for events of type SettleCharges and PendingEligibleCharges in billing currency. </param>
         /// <param name="closedBalanceInBillingCurrency"> The balance in billing currency after the event. </param>
+        /// <param name="isEstimatedBalance"> If true, the listed details are based on an estimation and it will be subjected to change. </param>
         /// <param name="etag"> eTag of the resource. To handle concurrent update scenario, this field will be used to determine whether the user is updating the latest version or not. </param>
-        internal ConsumptionEventSummary(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, DateTimeOffset? transactOn, string description, ConsumptionAmount newCredit, ConsumptionAmount adjustments, ConsumptionAmount creditExpired, ConsumptionAmount charges, ConsumptionAmount closedBalance, ConsumptionEventType? eventType, string invoiceNumber, ResourceIdentifier billingProfileId, string billingProfileDisplayName, ResourceIdentifier lotId, string lotSource, ConsumptionAmount canceledCredit, string creditCurrency, string billingCurrency, ConsumptionReseller reseller, ConsumptionAmountWithExchangeRate creditExpiredInBillingCurrency, ConsumptionAmountWithExchangeRate newCreditInBillingCurrency, ConsumptionAmountWithExchangeRate adjustmentsInBillingCurrency, ConsumptionAmountWithExchangeRate chargesInBillingCurrency, ConsumptionAmountWithExchangeRate closedBalanceInBillingCurrency, ETag? etag) : base(id, name, resourceType, systemData)
+        internal ConsumptionEventSummary(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, DateTimeOffset? transactOn, string description, ConsumptionAmount newCredit, ConsumptionAmount adjustments, ConsumptionAmount creditExpired, ConsumptionAmount charges, ConsumptionAmount closedBalance, ConsumptionEventType? eventType, string invoiceNumber, ResourceIdentifier billingProfileId, string billingProfileDisplayName, ResourceIdentifier lotId, string lotSource, ConsumptionAmount canceledCredit, string creditCurrency, string billingCurrency, ConsumptionReseller reseller, ConsumptionAmountWithExchangeRate creditExpiredInBillingCurrency, ConsumptionAmountWithExchangeRate newCreditInBillingCurrency, ConsumptionAmountWithExchangeRate adjustmentsInBillingCurrency, ConsumptionAmountWithExchangeRate chargesInBillingCurrency, ConsumptionAmountWithExchangeRate closedBalanceInBillingCurrency, bool? isEstimatedBalance, ETag? etag) : base(id, name, resourceType, systemData)
         {
             TransactOn = transactOn;
             Description = description;
@@ -72,6 +73,7 @@ namespace Azure.ResourceManager.Consumption.Models
             AdjustmentsInBillingCurrency = adjustmentsInBillingCurrency;
             ChargesInBillingCurrency = chargesInBillingCurrency;
             ClosedBalanceInBillingCurrency = closedBalanceInBillingCurrency;
+            IsEstimatedBalance = isEstimatedBalance;
             ETag = etag;
         }
 
@@ -119,6 +121,8 @@ namespace Azure.ResourceManager.Consumption.Models
         public ConsumptionAmountWithExchangeRate ChargesInBillingCurrency { get; }
         /// <summary> The balance in billing currency after the event. </summary>
         public ConsumptionAmountWithExchangeRate ClosedBalanceInBillingCurrency { get; }
+        /// <summary> If true, the listed details are based on an estimation and it will be subjected to change. </summary>
+        public bool? IsEstimatedBalance { get; }
         /// <summary> eTag of the resource. To handle concurrent update scenario, this field will be used to determine whether the user is updating the latest version or not. </summary>
         public ETag? ETag { get; set; }
     }

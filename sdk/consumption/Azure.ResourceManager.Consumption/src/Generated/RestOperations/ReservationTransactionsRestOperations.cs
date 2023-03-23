@@ -33,11 +33,11 @@ namespace Azure.ResourceManager.Consumption
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2021-10-01";
+            _apiVersion = apiVersion ?? "2023-03-01";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
-        internal HttpMessage CreateListRequest(string billingAccountId, string filter)
+        internal HttpMessage CreateListRequest(string billingAccountId, string filter, bool? useMarkupIfPartner, decimal? previewMarkupPercentage)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -52,23 +52,33 @@ namespace Azure.ResourceManager.Consumption
                 uri.AppendQuery("$filter", filter, true);
             }
             uri.AppendQuery("api-version", _apiVersion, true);
+            if (useMarkupIfPartner != null)
+            {
+                uri.AppendQuery("useMarkupIfPartner", useMarkupIfPartner.Value, true);
+            }
+            if (previewMarkupPercentage != null)
+            {
+                uri.AppendQuery("previewMarkupPercentage", previewMarkupPercentage.Value, true);
+            }
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
             _userAgent.Apply(message);
             return message;
         }
 
-        /// <summary> List of transactions for reserved instances on billing account scope. Note: The refund transactions are posted along with its purchase transaction (i.e. in the purchase billing month). For example, The refund is requested in May 2021. This refund transaction will have event date as May 2021 but the billing month as April 2020 when the reservation purchase was made. </summary>
+        /// <summary> List of transactions for reserved instances on billing account scope. Note: The refund transactions are posted along with its purchase transaction (i.e. in the purchase billing month). For example, The refund is requested in May 2021. This refund transaction will have event date as May 2021 but the billing month as April 2020 when the reservation purchase was made. Note: ARM has a payload size limit of 12MB, so currently callers get 400 when the response size exceeds the ARM limit. In such cases, API call should be made with smaller date ranges. </summary>
         /// <param name="billingAccountId"> BillingAccount ID. </param>
         /// <param name="filter"> Filter reservation transactions by date range. The properties/EventDate for start date and end date. The filter supports &apos;le&apos; and  &apos;ge&apos;. Note: API returns data for the entire start date&apos;s and end date&apos;s billing month. For example, filter properties/eventDate+ge+2020-01-01+AND+properties/eventDate+le+2020-12-29 will include data for the entire December 2020 month (i.e. will contain records for dates December 30 and 31). </param>
+        /// <param name="useMarkupIfPartner"> Applies mark up to the transactions if the caller is a partner. </param>
+        /// <param name="previewMarkupPercentage"> Preview markup percentage to be applied. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="billingAccountId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="billingAccountId"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<ReservationTransactionsListResult>> ListAsync(string billingAccountId, string filter = null, CancellationToken cancellationToken = default)
+        public async Task<Response<ReservationTransactionsListResult>> ListAsync(string billingAccountId, string filter = null, bool? useMarkupIfPartner = null, decimal? previewMarkupPercentage = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(billingAccountId, nameof(billingAccountId));
 
-            using var message = CreateListRequest(billingAccountId, filter);
+            using var message = CreateListRequest(billingAccountId, filter, useMarkupIfPartner, previewMarkupPercentage);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
@@ -84,17 +94,19 @@ namespace Azure.ResourceManager.Consumption
             }
         }
 
-        /// <summary> List of transactions for reserved instances on billing account scope. Note: The refund transactions are posted along with its purchase transaction (i.e. in the purchase billing month). For example, The refund is requested in May 2021. This refund transaction will have event date as May 2021 but the billing month as April 2020 when the reservation purchase was made. </summary>
+        /// <summary> List of transactions for reserved instances on billing account scope. Note: The refund transactions are posted along with its purchase transaction (i.e. in the purchase billing month). For example, The refund is requested in May 2021. This refund transaction will have event date as May 2021 but the billing month as April 2020 when the reservation purchase was made. Note: ARM has a payload size limit of 12MB, so currently callers get 400 when the response size exceeds the ARM limit. In such cases, API call should be made with smaller date ranges. </summary>
         /// <param name="billingAccountId"> BillingAccount ID. </param>
         /// <param name="filter"> Filter reservation transactions by date range. The properties/EventDate for start date and end date. The filter supports &apos;le&apos; and  &apos;ge&apos;. Note: API returns data for the entire start date&apos;s and end date&apos;s billing month. For example, filter properties/eventDate+ge+2020-01-01+AND+properties/eventDate+le+2020-12-29 will include data for the entire December 2020 month (i.e. will contain records for dates December 30 and 31). </param>
+        /// <param name="useMarkupIfPartner"> Applies mark up to the transactions if the caller is a partner. </param>
+        /// <param name="previewMarkupPercentage"> Preview markup percentage to be applied. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="billingAccountId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="billingAccountId"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<ReservationTransactionsListResult> List(string billingAccountId, string filter = null, CancellationToken cancellationToken = default)
+        public Response<ReservationTransactionsListResult> List(string billingAccountId, string filter = null, bool? useMarkupIfPartner = null, decimal? previewMarkupPercentage = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(billingAccountId, nameof(billingAccountId));
 
-            using var message = CreateListRequest(billingAccountId, filter);
+            using var message = CreateListRequest(billingAccountId, filter, useMarkupIfPartner, previewMarkupPercentage);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
@@ -133,7 +145,7 @@ namespace Azure.ResourceManager.Consumption
             return message;
         }
 
-        /// <summary> List of transactions for reserved instances on billing profile scope. The refund transactions are posted along with its purchase transaction (i.e. in the purchase billing month). For example, The refund is requested in May 2021. This refund transaction will have event date as May 2021 but the billing month as April 2020 when the reservation purchase was made. </summary>
+        /// <summary> List of transactions for reserved instances on billing profile scope. The refund transactions are posted along with its purchase transaction (i.e. in the purchase billing month). For example, The refund is requested in May 2021. This refund transaction will have event date as May 2021 but the billing month as April 2020 when the reservation purchase was made. Note: ARM has a payload size limit of 12MB, so currently callers get 400 when the response size exceeds the ARM limit. In such cases, API call should be made with smaller date ranges. </summary>
         /// <param name="billingAccountId"> BillingAccount ID. </param>
         /// <param name="billingProfileId"> Azure Billing Profile ID. </param>
         /// <param name="filter"> Filter reservation transactions by date range. The properties/EventDate for start date and end date. The filter supports &apos;le&apos; and  &apos;ge&apos;. Note: API returns data for the entire start date&apos;s and end date&apos;s billing month. For example, filter properties/eventDate+ge+2020-01-01+AND+properties/eventDate+le+2020-12-29 will include data for entire December 2020 month (i.e. will contain records for dates December 30 and 31). </param>
@@ -161,7 +173,7 @@ namespace Azure.ResourceManager.Consumption
             }
         }
 
-        /// <summary> List of transactions for reserved instances on billing profile scope. The refund transactions are posted along with its purchase transaction (i.e. in the purchase billing month). For example, The refund is requested in May 2021. This refund transaction will have event date as May 2021 but the billing month as April 2020 when the reservation purchase was made. </summary>
+        /// <summary> List of transactions for reserved instances on billing profile scope. The refund transactions are posted along with its purchase transaction (i.e. in the purchase billing month). For example, The refund is requested in May 2021. This refund transaction will have event date as May 2021 but the billing month as April 2020 when the reservation purchase was made. Note: ARM has a payload size limit of 12MB, so currently callers get 400 when the response size exceeds the ARM limit. In such cases, API call should be made with smaller date ranges. </summary>
         /// <param name="billingAccountId"> BillingAccount ID. </param>
         /// <param name="billingProfileId"> Azure Billing Profile ID. </param>
         /// <param name="filter"> Filter reservation transactions by date range. The properties/EventDate for start date and end date. The filter supports &apos;le&apos; and  &apos;ge&apos;. Note: API returns data for the entire start date&apos;s and end date&apos;s billing month. For example, filter properties/eventDate+ge+2020-01-01+AND+properties/eventDate+le+2020-12-29 will include data for entire December 2020 month (i.e. will contain records for dates December 30 and 31). </param>
@@ -189,7 +201,7 @@ namespace Azure.ResourceManager.Consumption
             }
         }
 
-        internal HttpMessage CreateListNextPageRequest(string nextLink, string billingAccountId, string filter)
+        internal HttpMessage CreateListNextPageRequest(string nextLink, string billingAccountId, string filter, bool? useMarkupIfPartner, decimal? previewMarkupPercentage)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -203,19 +215,21 @@ namespace Azure.ResourceManager.Consumption
             return message;
         }
 
-        /// <summary> List of transactions for reserved instances on billing account scope. Note: The refund transactions are posted along with its purchase transaction (i.e. in the purchase billing month). For example, The refund is requested in May 2021. This refund transaction will have event date as May 2021 but the billing month as April 2020 when the reservation purchase was made. </summary>
+        /// <summary> List of transactions for reserved instances on billing account scope. Note: The refund transactions are posted along with its purchase transaction (i.e. in the purchase billing month). For example, The refund is requested in May 2021. This refund transaction will have event date as May 2021 but the billing month as April 2020 when the reservation purchase was made. Note: ARM has a payload size limit of 12MB, so currently callers get 400 when the response size exceeds the ARM limit. In such cases, API call should be made with smaller date ranges. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
         /// <param name="billingAccountId"> BillingAccount ID. </param>
         /// <param name="filter"> Filter reservation transactions by date range. The properties/EventDate for start date and end date. The filter supports &apos;le&apos; and  &apos;ge&apos;. Note: API returns data for the entire start date&apos;s and end date&apos;s billing month. For example, filter properties/eventDate+ge+2020-01-01+AND+properties/eventDate+le+2020-12-29 will include data for the entire December 2020 month (i.e. will contain records for dates December 30 and 31). </param>
+        /// <param name="useMarkupIfPartner"> Applies mark up to the transactions if the caller is a partner. </param>
+        /// <param name="previewMarkupPercentage"> Preview markup percentage to be applied. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/> or <paramref name="billingAccountId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="billingAccountId"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<ReservationTransactionsListResult>> ListNextPageAsync(string nextLink, string billingAccountId, string filter = null, CancellationToken cancellationToken = default)
+        public async Task<Response<ReservationTransactionsListResult>> ListNextPageAsync(string nextLink, string billingAccountId, string filter = null, bool? useMarkupIfPartner = null, decimal? previewMarkupPercentage = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(nextLink, nameof(nextLink));
             Argument.AssertNotNullOrEmpty(billingAccountId, nameof(billingAccountId));
 
-            using var message = CreateListNextPageRequest(nextLink, billingAccountId, filter);
+            using var message = CreateListNextPageRequest(nextLink, billingAccountId, filter, useMarkupIfPartner, previewMarkupPercentage);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
@@ -231,19 +245,21 @@ namespace Azure.ResourceManager.Consumption
             }
         }
 
-        /// <summary> List of transactions for reserved instances on billing account scope. Note: The refund transactions are posted along with its purchase transaction (i.e. in the purchase billing month). For example, The refund is requested in May 2021. This refund transaction will have event date as May 2021 but the billing month as April 2020 when the reservation purchase was made. </summary>
+        /// <summary> List of transactions for reserved instances on billing account scope. Note: The refund transactions are posted along with its purchase transaction (i.e. in the purchase billing month). For example, The refund is requested in May 2021. This refund transaction will have event date as May 2021 but the billing month as April 2020 when the reservation purchase was made. Note: ARM has a payload size limit of 12MB, so currently callers get 400 when the response size exceeds the ARM limit. In such cases, API call should be made with smaller date ranges. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
         /// <param name="billingAccountId"> BillingAccount ID. </param>
         /// <param name="filter"> Filter reservation transactions by date range. The properties/EventDate for start date and end date. The filter supports &apos;le&apos; and  &apos;ge&apos;. Note: API returns data for the entire start date&apos;s and end date&apos;s billing month. For example, filter properties/eventDate+ge+2020-01-01+AND+properties/eventDate+le+2020-12-29 will include data for the entire December 2020 month (i.e. will contain records for dates December 30 and 31). </param>
+        /// <param name="useMarkupIfPartner"> Applies mark up to the transactions if the caller is a partner. </param>
+        /// <param name="previewMarkupPercentage"> Preview markup percentage to be applied. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/> or <paramref name="billingAccountId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="billingAccountId"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<ReservationTransactionsListResult> ListNextPage(string nextLink, string billingAccountId, string filter = null, CancellationToken cancellationToken = default)
+        public Response<ReservationTransactionsListResult> ListNextPage(string nextLink, string billingAccountId, string filter = null, bool? useMarkupIfPartner = null, decimal? previewMarkupPercentage = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(nextLink, nameof(nextLink));
             Argument.AssertNotNullOrEmpty(billingAccountId, nameof(billingAccountId));
 
-            using var message = CreateListNextPageRequest(nextLink, billingAccountId, filter);
+            using var message = CreateListNextPageRequest(nextLink, billingAccountId, filter, useMarkupIfPartner, previewMarkupPercentage);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
@@ -273,7 +289,7 @@ namespace Azure.ResourceManager.Consumption
             return message;
         }
 
-        /// <summary> List of transactions for reserved instances on billing profile scope. The refund transactions are posted along with its purchase transaction (i.e. in the purchase billing month). For example, The refund is requested in May 2021. This refund transaction will have event date as May 2021 but the billing month as April 2020 when the reservation purchase was made. </summary>
+        /// <summary> List of transactions for reserved instances on billing profile scope. The refund transactions are posted along with its purchase transaction (i.e. in the purchase billing month). For example, The refund is requested in May 2021. This refund transaction will have event date as May 2021 but the billing month as April 2020 when the reservation purchase was made. Note: ARM has a payload size limit of 12MB, so currently callers get 400 when the response size exceeds the ARM limit. In such cases, API call should be made with smaller date ranges. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
         /// <param name="billingAccountId"> BillingAccount ID. </param>
         /// <param name="billingProfileId"> Azure Billing Profile ID. </param>
@@ -303,7 +319,7 @@ namespace Azure.ResourceManager.Consumption
             }
         }
 
-        /// <summary> List of transactions for reserved instances on billing profile scope. The refund transactions are posted along with its purchase transaction (i.e. in the purchase billing month). For example, The refund is requested in May 2021. This refund transaction will have event date as May 2021 but the billing month as April 2020 when the reservation purchase was made. </summary>
+        /// <summary> List of transactions for reserved instances on billing profile scope. The refund transactions are posted along with its purchase transaction (i.e. in the purchase billing month). For example, The refund is requested in May 2021. This refund transaction will have event date as May 2021 but the billing month as April 2020 when the reservation purchase was made. Note: ARM has a payload size limit of 12MB, so currently callers get 400 when the response size exceeds the ARM limit. In such cases, API call should be made with smaller date ranges. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
         /// <param name="billingAccountId"> BillingAccount ID. </param>
         /// <param name="billingProfileId"> Azure Billing Profile ID. </param>
