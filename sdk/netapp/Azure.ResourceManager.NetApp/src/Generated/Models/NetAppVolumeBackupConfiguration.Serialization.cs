@@ -25,11 +25,6 @@ namespace Azure.ResourceManager.NetApp.Models
                 writer.WritePropertyName("policyEnforced"u8);
                 writer.WriteBooleanValue(IsPolicyEnforced.Value);
             }
-            if (Optional.IsDefined(VaultId))
-            {
-                writer.WritePropertyName("vaultId"u8);
-                writer.WriteStringValue(VaultId);
-            }
             if (Optional.IsDefined(IsBackupEnabled))
             {
                 writer.WritePropertyName("backupEnabled"u8);
@@ -46,7 +41,6 @@ namespace Azure.ResourceManager.NetApp.Models
             }
             Optional<ResourceIdentifier> backupPolicyId = default;
             Optional<bool> policyEnforced = default;
-            Optional<ResourceIdentifier> vaultId = default;
             Optional<bool> backupEnabled = default;
             foreach (var property in element.EnumerateObject())
             {
@@ -70,16 +64,6 @@ namespace Azure.ResourceManager.NetApp.Models
                     policyEnforced = property.Value.GetBoolean();
                     continue;
                 }
-                if (property.NameEquals("vaultId"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
-                    vaultId = new ResourceIdentifier(property.Value.GetString());
-                    continue;
-                }
                 if (property.NameEquals("backupEnabled"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -91,7 +75,7 @@ namespace Azure.ResourceManager.NetApp.Models
                     continue;
                 }
             }
-            return new NetAppVolumeBackupConfiguration(backupPolicyId.Value, Optional.ToNullable(policyEnforced), vaultId.Value, Optional.ToNullable(backupEnabled));
+            return new NetAppVolumeBackupConfiguration(backupPolicyId.Value, Optional.ToNullable(policyEnforced), Optional.ToNullable(backupEnabled));
         }
     }
 }
