@@ -63,7 +63,7 @@ namespace Azure.ResourceManager.Consumption
         }
 
         /// <summary>
-        /// Lists the reservations summaries for daily or monthly grain.
+        /// Lists the reservations summaries for daily or monthly grain. Note: ARM has a payload size limit of 12MB, so currently callers get 400 when the response size exceeds the ARM limit. In such cases, API call should be made with smaller date ranges.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -87,7 +87,7 @@ namespace Azure.ResourceManager.Consumption
         }
 
         /// <summary>
-        /// Lists the reservations summaries for daily or monthly grain.
+        /// Lists the reservations summaries for daily or monthly grain. Note: ARM has a payload size limit of 12MB, so currently callers get 400 when the response size exceeds the ARM limit. In such cases, API call should be made with smaller date ranges.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -111,7 +111,7 @@ namespace Azure.ResourceManager.Consumption
         }
 
         /// <summary>
-        /// Lists the reservations details for provided date range. Note: ARM has a payload size limit of 12MB, so currently callers get 502 when the response size exceeds the ARM limit. In such cases, API call should be made with smaller date ranges.
+        /// Lists the reservations details for provided date range. Note: ARM has a payload size limit of 12MB, so currently callers get 400 when the response size exceeds the ARM limit. If the data size is too large, customers may also get 504 as the API timed out preparing the data. In such cases, API call should be made with smaller date ranges or a call to Generate Reservation Details Report API should be made as it is asynchronous and will not run into response size time outs.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -137,7 +137,7 @@ namespace Azure.ResourceManager.Consumption
         }
 
         /// <summary>
-        /// Lists the reservations details for provided date range. Note: ARM has a payload size limit of 12MB, so currently callers get 502 when the response size exceeds the ARM limit. In such cases, API call should be made with smaller date ranges.
+        /// Lists the reservations details for provided date range. Note: ARM has a payload size limit of 12MB, so currently callers get 400 when the response size exceeds the ARM limit. If the data size is too large, customers may also get 504 as the API timed out preparing the data. In such cases, API call should be made with smaller date ranges or a call to Generate Reservation Details Report API should be made as it is asynchronous and will not run into response size time outs.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
