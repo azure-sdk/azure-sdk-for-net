@@ -153,7 +153,8 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// </exception>
         Task<AzureOperationResponse> DeleteWithHttpMessagesAsync(string resourceGroupName, string labName, string policySetName, string name, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Modify properties of policies.
+        /// Allows modifying tags of policies. All other properties will be
+        /// ignored.
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group.
@@ -168,7 +169,8 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// The name of the policy.
         /// </param>
         /// <param name='policy'>
-        /// A Policy.
+        /// Allows modifying tags of policies. All other properties will be
+        /// ignored.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.

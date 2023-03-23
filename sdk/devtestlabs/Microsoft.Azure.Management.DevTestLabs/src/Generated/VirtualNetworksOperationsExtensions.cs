@@ -189,9 +189,9 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='name'>
             /// The name of the virtual network.
             /// </param>
-            public static void Delete(this IVirtualNetworksOperations operations, string resourceGroupName, string labName, string name)
+            public static VirtualNetworksDeleteHeaders Delete(this IVirtualNetworksOperations operations, string resourceGroupName, string labName, string name)
             {
-                operations.DeleteAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
+                return operations.DeleteAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -212,13 +212,17 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task DeleteAsync(this IVirtualNetworksOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<VirtualNetworksDeleteHeaders> DeleteAsync(this IVirtualNetworksOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.DeleteWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.DeleteWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
-            /// Modify properties of virtual networks.
+            /// Allows modifying tags of virtual networks. All other properties will be
+            /// ignored.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -233,7 +237,8 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the virtual network.
             /// </param>
             /// <param name='virtualNetwork'>
-            /// A virtual network.
+            /// Allows modifying tags of virtual networks. All other properties will be
+            /// ignored.
             /// </param>
             public static VirtualNetwork Update(this IVirtualNetworksOperations operations, string resourceGroupName, string labName, string name, VirtualNetworkFragment virtualNetwork)
             {
@@ -241,7 +246,8 @@ namespace Microsoft.Azure.Management.DevTestLabs
             }
 
             /// <summary>
-            /// Modify properties of virtual networks.
+            /// Allows modifying tags of virtual networks. All other properties will be
+            /// ignored.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -256,7 +262,8 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the virtual network.
             /// </param>
             /// <param name='virtualNetwork'>
-            /// A virtual network.
+            /// Allows modifying tags of virtual networks. All other properties will be
+            /// ignored.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -338,9 +345,9 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='name'>
             /// The name of the virtual network.
             /// </param>
-            public static void BeginDelete(this IVirtualNetworksOperations operations, string resourceGroupName, string labName, string name)
+            public static VirtualNetworksDeleteHeaders BeginDelete(this IVirtualNetworksOperations operations, string resourceGroupName, string labName, string name)
             {
-                operations.BeginDeleteAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
+                return operations.BeginDeleteAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -361,9 +368,12 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginDeleteAsync(this IVirtualNetworksOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<VirtualNetworksDeleteHeaders> BeginDeleteAsync(this IVirtualNetworksOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>

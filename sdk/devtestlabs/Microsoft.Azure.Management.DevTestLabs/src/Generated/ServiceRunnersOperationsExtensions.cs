@@ -115,7 +115,8 @@ namespace Microsoft.Azure.Management.DevTestLabs
             }
 
             /// <summary>
-            /// Create or replace an existing Service runner.
+            /// Create or replace an existing Service runner. This operation can take a
+            /// while to complete.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -138,7 +139,8 @@ namespace Microsoft.Azure.Management.DevTestLabs
             }
 
             /// <summary>
-            /// Create or replace an existing Service runner.
+            /// Create or replace an existing Service runner. This operation can take a
+            /// while to complete.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -167,7 +169,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             }
 
             /// <summary>
-            /// Delete service runner.
+            /// Delete service runner. This operation can take a while to complete.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -181,13 +183,13 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='name'>
             /// The name of the service runner.
             /// </param>
-            public static void Delete(this IServiceRunnersOperations operations, string resourceGroupName, string labName, string name)
+            public static ServiceRunnersDeleteHeaders Delete(this IServiceRunnersOperations operations, string resourceGroupName, string labName, string name)
             {
-                operations.DeleteAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
+                return operations.DeleteAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
             }
 
             /// <summary>
-            /// Delete service runner.
+            /// Delete service runner. This operation can take a while to complete.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -204,9 +206,112 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task DeleteAsync(this IServiceRunnersOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ServiceRunnersDeleteHeaders> DeleteAsync(this IServiceRunnersOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.DeleteWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.DeleteWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
+            }
+
+            /// <summary>
+            /// Create or replace an existing Service runner. This operation can take a
+            /// while to complete.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group.
+            /// </param>
+            /// <param name='labName'>
+            /// The name of the lab.
+            /// </param>
+            /// <param name='name'>
+            /// The name of the service runner.
+            /// </param>
+            /// <param name='serviceRunner'>
+            /// A container for a managed identity to execute DevTest lab services.
+            /// </param>
+            public static ServiceRunner BeginCreateOrUpdate(this IServiceRunnersOperations operations, string resourceGroupName, string labName, string name, ServiceRunner serviceRunner)
+            {
+                return operations.BeginCreateOrUpdateAsync(resourceGroupName, labName, name, serviceRunner).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Create or replace an existing Service runner. This operation can take a
+            /// while to complete.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group.
+            /// </param>
+            /// <param name='labName'>
+            /// The name of the lab.
+            /// </param>
+            /// <param name='name'>
+            /// The name of the service runner.
+            /// </param>
+            /// <param name='serviceRunner'>
+            /// A container for a managed identity to execute DevTest lab services.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<ServiceRunner> BeginCreateOrUpdateAsync(this IServiceRunnersOperations operations, string resourceGroupName, string labName, string name, ServiceRunner serviceRunner, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.BeginCreateOrUpdateWithHttpMessagesAsync(resourceGroupName, labName, name, serviceRunner, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Delete service runner. This operation can take a while to complete.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group.
+            /// </param>
+            /// <param name='labName'>
+            /// The name of the lab.
+            /// </param>
+            /// <param name='name'>
+            /// The name of the service runner.
+            /// </param>
+            public static ServiceRunnersDeleteHeaders BeginDelete(this IServiceRunnersOperations operations, string resourceGroupName, string labName, string name)
+            {
+                return operations.BeginDeleteAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Delete service runner. This operation can take a while to complete.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group.
+            /// </param>
+            /// <param name='labName'>
+            /// The name of the lab.
+            /// </param>
+            /// <param name='name'>
+            /// The name of the service runner.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<ServiceRunnersDeleteHeaders> BeginDeleteAsync(this IServiceRunnersOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>

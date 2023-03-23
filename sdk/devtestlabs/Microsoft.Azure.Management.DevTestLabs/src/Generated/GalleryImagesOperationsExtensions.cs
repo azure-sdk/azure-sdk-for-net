@@ -69,6 +69,52 @@ namespace Microsoft.Azure.Management.DevTestLabs
             }
 
             /// <summary>
+            /// Get gallery image.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group.
+            /// </param>
+            /// <param name='labName'>
+            /// The name of the lab.
+            /// </param>
+            /// <param name='name'>
+            /// The name of the gallery image.
+            /// </param>
+            public static GalleryImage Get(this IGalleryImagesOperations operations, string resourceGroupName, string labName, string name)
+            {
+                return operations.GetAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Get gallery image.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group.
+            /// </param>
+            /// <param name='labName'>
+            /// The name of the lab.
+            /// </param>
+            /// <param name='name'>
+            /// The name of the gallery image.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<GalleryImage> GetAsync(this IGalleryImagesOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.GetWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
             /// List gallery images in a given lab.
             /// </summary>
             /// <param name='operations'>

@@ -11,6 +11,8 @@
 namespace Microsoft.Azure.Management.DevTestLabs.Models
 {
     using Newtonsoft.Json;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.Linq;
 
     /// <summary>
@@ -29,18 +31,23 @@ namespace Microsoft.Azure.Management.DevTestLabs.Models
         /// <summary>
         /// Initializes a new instance of the IdentityProperties class.
         /// </summary>
-        /// <param name="type">Managed identity.</param>
+        /// <param name="type">Type of identity (SystemAssigned, UserAssigned,
+        /// None). Possible values include: 'None', 'SystemAssigned',
+        /// 'UserAssigned', 'SystemAssigned,UserAssigned'</param>
         /// <param name="principalId">The principal id of resource
         /// identity.</param>
         /// <param name="tenantId">The tenant identifier of resource.</param>
         /// <param name="clientSecretUrl">The client secret URL of the
         /// identity.</param>
-        public IdentityProperties(string type = default(string), string principalId = default(string), string tenantId = default(string), string clientSecretUrl = default(string))
+        /// <param name="userAssignedIdentities">If Type is 'UserAssigned':
+        /// List of user assigned identities.</param>
+        public IdentityProperties(string type = default(string), string principalId = default(string), string tenantId = default(string), string clientSecretUrl = default(string), IDictionary<string, object> userAssignedIdentities = default(IDictionary<string, object>))
         {
             Type = type;
             PrincipalId = principalId;
             TenantId = tenantId;
             ClientSecretUrl = clientSecretUrl;
+            UserAssignedIdentities = userAssignedIdentities;
             CustomInit();
         }
 
@@ -50,7 +57,9 @@ namespace Microsoft.Azure.Management.DevTestLabs.Models
         partial void CustomInit();
 
         /// <summary>
-        /// Gets or sets managed identity.
+        /// Gets or sets type of identity (SystemAssigned, UserAssigned, None).
+        /// Possible values include: 'None', 'SystemAssigned', 'UserAssigned',
+        /// 'SystemAssigned,UserAssigned'
         /// </summary>
         [JsonProperty(PropertyName = "type")]
         public string Type { get; set; }
@@ -72,6 +81,13 @@ namespace Microsoft.Azure.Management.DevTestLabs.Models
         /// </summary>
         [JsonProperty(PropertyName = "clientSecretUrl")]
         public string ClientSecretUrl { get; set; }
+
+        /// <summary>
+        /// Gets or sets if Type is 'UserAssigned': List of user assigned
+        /// identities.
+        /// </summary>
+        [JsonProperty(PropertyName = "userAssignedIdentities")]
+        public IDictionary<string, object> UserAssignedIdentities { get; set; }
 
     }
 }

@@ -34,15 +34,21 @@ namespace Microsoft.Azure.Management.DevTestLabs.Models
         /// <summary>
         /// Initializes a new instance of the NotificationChannel class.
         /// </summary>
-        /// <param name="id">The identifier of the resource.</param>
-        /// <param name="name">The name of the resource.</param>
-        /// <param name="type">The type of the resource.</param>
-        /// <param name="location">The location of the resource.</param>
-        /// <param name="tags">The tags of the resource.</param>
+        /// <param name="location">The geo-location where the resource
+        /// lives</param>
+        /// <param name="id">Fully qualified resource ID for the resource. E.g.
+        /// "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"</param>
+        /// <param name="name">The name of the resource</param>
+        /// <param name="type">The type of the resource. E.g.
+        /// "Microsoft.Compute/virtualMachines" or
+        /// "Microsoft.Storage/storageAccounts"</param>
+        /// <param name="tags">Resource tags.</param>
+        /// <param name="systemData">Azure Resource Manager metadata containing
+        /// createdBy and modifiedBy information.</param>
         /// <param name="webHookUrl">The webhook URL to send notifications
         /// to.</param>
         /// <param name="emailRecipient">The email recipient to send
-        /// notifications to (can be a list of semi-colon seperated email
+        /// notifications to (can be a list of semi-colon separated email
         /// addresses).</param>
         /// <param name="notificationLocale">The locale to use when sending a
         /// notification (fallback for unsupported languages is EN).</param>
@@ -55,8 +61,8 @@ namespace Microsoft.Azure.Management.DevTestLabs.Models
         /// resource.</param>
         /// <param name="uniqueIdentifier">The unique immutable identifier of a
         /// resource (Guid).</param>
-        public NotificationChannel(string id = default(string), string name = default(string), string type = default(string), string location = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), string webHookUrl = default(string), string emailRecipient = default(string), string notificationLocale = default(string), string description = default(string), IList<EventModel> events = default(IList<EventModel>), System.DateTime? createdDate = default(System.DateTime?), string provisioningState = default(string), string uniqueIdentifier = default(string))
-            : base(id, name, type, location, tags)
+        public NotificationChannel(string location, string id = default(string), string name = default(string), string type = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), SystemData systemData = default(SystemData), string webHookUrl = default(string), string emailRecipient = default(string), string notificationLocale = default(string), string description = default(string), IList<EventModel> events = default(IList<EventModel>), System.DateTime? createdDate = default(System.DateTime?), string provisioningState = default(string), string uniqueIdentifier = default(string))
+            : base(location, id, name, type, tags, systemData)
         {
             WebHookUrl = webHookUrl;
             EmailRecipient = emailRecipient;
@@ -82,7 +88,7 @@ namespace Microsoft.Azure.Management.DevTestLabs.Models
 
         /// <summary>
         /// Gets or sets the email recipient to send notifications to (can be a
-        /// list of semi-colon seperated email addresses).
+        /// list of semi-colon separated email addresses).
         /// </summary>
         [JsonProperty(PropertyName = "properties.emailRecipient")]
         public string EmailRecipient { get; set; }
@@ -125,5 +131,15 @@ namespace Microsoft.Azure.Management.DevTestLabs.Models
         [JsonProperty(PropertyName = "properties.uniqueIdentifier")]
         public string UniqueIdentifier { get; private set; }
 
+        /// <summary>
+        /// Validate the object.
+        /// </summary>
+        /// <exception cref="ValidationException">
+        /// Thrown if validation fails
+        /// </exception>
+        public override void Validate()
+        {
+            base.Validate();
+        }
     }
 }

@@ -52,7 +52,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         public DevTestLabsClient Client { get; private set; }
 
         /// <summary>
-        /// List notificationchannels in a given lab.
+        /// List notification channels in a given lab.
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group.
@@ -97,6 +97,21 @@ namespace Microsoft.Azure.Management.DevTestLabs
             if (labName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "labName");
+            }
+            if (labName != null)
+            {
+                if (labName.Length > 50)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "labName", 50);
+                }
+                if (labName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "labName", 1);
+                }
+                if (!System.Text.RegularExpressions.Regex.IsMatch(labName, "^[a-zA-Z0-9_\\-]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "labName", "^[a-zA-Z0-9_\\-]+$");
+                }
             }
             if (Client.ApiVersion == null)
             {
@@ -260,7 +275,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         }
 
         /// <summary>
-        /// Get notificationchannel.
+        /// Get notification channel.
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group.
@@ -269,7 +284,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// The name of the lab.
         /// </param>
         /// <param name='name'>
-        /// The name of the notificationChannel.
+        /// The name of the notification channel.
         /// </param>
         /// <param name='expand'>
         /// Specify the $expand query. Example: 'properties($select=webHookUrl)'
@@ -308,6 +323,21 @@ namespace Microsoft.Azure.Management.DevTestLabs
             if (labName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "labName");
+            }
+            if (labName != null)
+            {
+                if (labName.Length > 50)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "labName", 50);
+                }
+                if (labName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "labName", 1);
+                }
+                if (!System.Text.RegularExpressions.Regex.IsMatch(labName, "^[a-zA-Z0-9_\\-]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "labName", "^[a-zA-Z0-9_\\-]+$");
+                }
             }
             if (name == null)
             {
@@ -473,7 +503,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         }
 
         /// <summary>
-        /// Create or replace an existing notificationChannel.
+        /// Create or replace an existing Notification Channel.
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group.
@@ -482,7 +512,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// The name of the lab.
         /// </param>
         /// <param name='name'>
-        /// The name of the notificationChannel.
+        /// The name of the notification channel.
         /// </param>
         /// <param name='notificationChannel'>
         /// A notification.
@@ -522,6 +552,21 @@ namespace Microsoft.Azure.Management.DevTestLabs
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "labName");
             }
+            if (labName != null)
+            {
+                if (labName.Length > 50)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "labName", 50);
+                }
+                if (labName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "labName", 1);
+                }
+                if (!System.Text.RegularExpressions.Regex.IsMatch(labName, "^[a-zA-Z0-9_\\-]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "labName", "^[a-zA-Z0-9_\\-]+$");
+                }
+            }
             if (name == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "name");
@@ -529,6 +574,10 @@ namespace Microsoft.Azure.Management.DevTestLabs
             if (notificationChannel == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "notificationChannel");
+            }
+            if (notificationChannel != null)
+            {
+                notificationChannel.Validate();
             }
             if (Client.ApiVersion == null)
             {
@@ -710,7 +759,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         }
 
         /// <summary>
-        /// Delete notificationchannel.
+        /// Delete notification channel.
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group.
@@ -719,7 +768,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// The name of the lab.
         /// </param>
         /// <param name='name'>
-        /// The name of the notificationChannel.
+        /// The name of the notification channel.
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -752,6 +801,21 @@ namespace Microsoft.Azure.Management.DevTestLabs
             if (labName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "labName");
+            }
+            if (labName != null)
+            {
+                if (labName.Length > 50)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "labName", 50);
+                }
+                if (labName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "labName", 1);
+                }
+                if (!System.Text.RegularExpressions.Regex.IsMatch(labName, "^[a-zA-Z0-9_\\-]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "labName", "^[a-zA-Z0-9_\\-]+$");
+                }
             }
             if (name == null)
             {
@@ -894,7 +958,8 @@ namespace Microsoft.Azure.Management.DevTestLabs
         }
 
         /// <summary>
-        /// Modify properties of notificationchannels.
+        /// Allows modifying tags of notification channels. All other properties will
+        /// be ignored.
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group.
@@ -903,10 +968,11 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// The name of the lab.
         /// </param>
         /// <param name='name'>
-        /// The name of the notificationChannel.
+        /// The name of the notification channel.
         /// </param>
         /// <param name='notificationChannel'>
-        /// A notification.
+        /// Allows modifying tags of notification channels. All other properties will
+        /// be ignored.
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -942,6 +1008,21 @@ namespace Microsoft.Azure.Management.DevTestLabs
             if (labName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "labName");
+            }
+            if (labName != null)
+            {
+                if (labName.Length > 50)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "labName", 50);
+                }
+                if (labName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "labName", 1);
+                }
+                if (!System.Text.RegularExpressions.Regex.IsMatch(labName, "^[a-zA-Z0-9_\\-]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "labName", "^[a-zA-Z0-9_\\-]+$");
+                }
             }
             if (name == null)
             {
@@ -1122,7 +1203,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// The name of the lab.
         /// </param>
         /// <param name='name'>
-        /// The name of the notificationChannel.
+        /// The name of the notification channel.
         /// </param>
         /// <param name='notifyParameters'>
         /// Properties for generating a Notification.
@@ -1158,6 +1239,21 @@ namespace Microsoft.Azure.Management.DevTestLabs
             if (labName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "labName");
+            }
+            if (labName != null)
+            {
+                if (labName.Length > 50)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "labName", 50);
+                }
+                if (labName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "labName", 1);
+                }
+                if (!System.Text.RegularExpressions.Regex.IsMatch(labName, "^[a-zA-Z0-9_\\-]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "labName", "^[a-zA-Z0-9_\\-]+$");
+                }
             }
             if (name == null)
             {
@@ -1311,7 +1407,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         }
 
         /// <summary>
-        /// List notificationchannels in a given lab.
+        /// List notification channels in a given lab.
         /// </summary>
         /// <param name='nextPageLink'>
         /// The NextLink from the previous successful call to List operation.

@@ -90,7 +90,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the user profile.
             /// </param>
             /// <param name='name'>
-            /// The name of the service Fabric.
+            /// The name of the service fabric.
             /// </param>
             /// <param name='expand'>
             /// Specify the $expand query. Example:
@@ -117,7 +117,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the user profile.
             /// </param>
             /// <param name='name'>
-            /// The name of the service Fabric.
+            /// The name of the service fabric.
             /// </param>
             /// <param name='expand'>
             /// Specify the $expand query. Example:
@@ -151,7 +151,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the user profile.
             /// </param>
             /// <param name='name'>
-            /// The name of the service Fabric.
+            /// The name of the service fabric.
             /// </param>
             /// <param name='serviceFabric'>
             /// A Service Fabric.
@@ -178,7 +178,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the user profile.
             /// </param>
             /// <param name='name'>
-            /// The name of the service Fabric.
+            /// The name of the service fabric.
             /// </param>
             /// <param name='serviceFabric'>
             /// A Service Fabric.
@@ -210,11 +210,11 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the user profile.
             /// </param>
             /// <param name='name'>
-            /// The name of the service Fabric.
+            /// The name of the service fabric.
             /// </param>
-            public static void Delete(this IServiceFabricsOperations operations, string resourceGroupName, string labName, string userName, string name)
+            public static ServiceFabricsDeleteHeaders Delete(this IServiceFabricsOperations operations, string resourceGroupName, string labName, string userName, string name)
             {
-                operations.DeleteAsync(resourceGroupName, labName, userName, name).GetAwaiter().GetResult();
+                return operations.DeleteAsync(resourceGroupName, labName, userName, name).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -233,18 +233,22 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the user profile.
             /// </param>
             /// <param name='name'>
-            /// The name of the service Fabric.
+            /// The name of the service fabric.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task DeleteAsync(this IServiceFabricsOperations operations, string resourceGroupName, string labName, string userName, string name, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ServiceFabricsDeleteHeaders> DeleteAsync(this IServiceFabricsOperations operations, string resourceGroupName, string labName, string userName, string name, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.DeleteWithHttpMessagesAsync(resourceGroupName, labName, userName, name, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.DeleteWithHttpMessagesAsync(resourceGroupName, labName, userName, name, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
-            /// Modify properties of service fabrics.
+            /// Allows modifying tags of service fabrics. All other properties will be
+            /// ignored.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -259,10 +263,11 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the user profile.
             /// </param>
             /// <param name='name'>
-            /// The name of the service Fabric.
+            /// The name of the service fabric.
             /// </param>
             /// <param name='serviceFabric'>
-            /// A Service Fabric.
+            /// Allows modifying tags of service fabrics. All other properties will be
+            /// ignored.
             /// </param>
             public static ServiceFabric Update(this IServiceFabricsOperations operations, string resourceGroupName, string labName, string userName, string name, ServiceFabricFragment serviceFabric)
             {
@@ -270,7 +275,8 @@ namespace Microsoft.Azure.Management.DevTestLabs
             }
 
             /// <summary>
-            /// Modify properties of service fabrics.
+            /// Allows modifying tags of service fabrics. All other properties will be
+            /// ignored.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -285,10 +291,11 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the user profile.
             /// </param>
             /// <param name='name'>
-            /// The name of the service Fabric.
+            /// The name of the service fabric.
             /// </param>
             /// <param name='serviceFabric'>
-            /// A Service Fabric.
+            /// Allows modifying tags of service fabrics. All other properties will be
+            /// ignored.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -317,7 +324,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the user profile.
             /// </param>
             /// <param name='name'>
-            /// The name of the service Fabric.
+            /// The name of the service fabric.
             /// </param>
             public static ApplicableSchedule ListApplicableSchedules(this IServiceFabricsOperations operations, string resourceGroupName, string labName, string userName, string name)
             {
@@ -340,7 +347,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the user profile.
             /// </param>
             /// <param name='name'>
-            /// The name of the service Fabric.
+            /// The name of the service fabric.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -369,11 +376,11 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the user profile.
             /// </param>
             /// <param name='name'>
-            /// The name of the service Fabric.
+            /// The name of the service fabric.
             /// </param>
-            public static void Start(this IServiceFabricsOperations operations, string resourceGroupName, string labName, string userName, string name)
+            public static ServiceFabricsStartHeaders Start(this IServiceFabricsOperations operations, string resourceGroupName, string labName, string userName, string name)
             {
-                operations.StartAsync(resourceGroupName, labName, userName, name).GetAwaiter().GetResult();
+                return operations.StartAsync(resourceGroupName, labName, userName, name).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -392,14 +399,17 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the user profile.
             /// </param>
             /// <param name='name'>
-            /// The name of the service Fabric.
+            /// The name of the service fabric.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task StartAsync(this IServiceFabricsOperations operations, string resourceGroupName, string labName, string userName, string name, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ServiceFabricsStartHeaders> StartAsync(this IServiceFabricsOperations operations, string resourceGroupName, string labName, string userName, string name, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.StartWithHttpMessagesAsync(resourceGroupName, labName, userName, name, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.StartWithHttpMessagesAsync(resourceGroupName, labName, userName, name, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -418,11 +428,11 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the user profile.
             /// </param>
             /// <param name='name'>
-            /// The name of the service Fabric.
+            /// The name of the service fabric.
             /// </param>
-            public static void Stop(this IServiceFabricsOperations operations, string resourceGroupName, string labName, string userName, string name)
+            public static ServiceFabricsStopHeaders Stop(this IServiceFabricsOperations operations, string resourceGroupName, string labName, string userName, string name)
             {
-                operations.StopAsync(resourceGroupName, labName, userName, name).GetAwaiter().GetResult();
+                return operations.StopAsync(resourceGroupName, labName, userName, name).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -441,14 +451,17 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the user profile.
             /// </param>
             /// <param name='name'>
-            /// The name of the service Fabric.
+            /// The name of the service fabric.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task StopAsync(this IServiceFabricsOperations operations, string resourceGroupName, string labName, string userName, string name, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ServiceFabricsStopHeaders> StopAsync(this IServiceFabricsOperations operations, string resourceGroupName, string labName, string userName, string name, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.StopWithHttpMessagesAsync(resourceGroupName, labName, userName, name, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.StopWithHttpMessagesAsync(resourceGroupName, labName, userName, name, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -468,7 +481,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the user profile.
             /// </param>
             /// <param name='name'>
-            /// The name of the service Fabric.
+            /// The name of the service fabric.
             /// </param>
             /// <param name='serviceFabric'>
             /// A Service Fabric.
@@ -495,7 +508,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the user profile.
             /// </param>
             /// <param name='name'>
-            /// The name of the service Fabric.
+            /// The name of the service fabric.
             /// </param>
             /// <param name='serviceFabric'>
             /// A Service Fabric.
@@ -527,11 +540,11 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the user profile.
             /// </param>
             /// <param name='name'>
-            /// The name of the service Fabric.
+            /// The name of the service fabric.
             /// </param>
-            public static void BeginDelete(this IServiceFabricsOperations operations, string resourceGroupName, string labName, string userName, string name)
+            public static ServiceFabricsDeleteHeaders BeginDelete(this IServiceFabricsOperations operations, string resourceGroupName, string labName, string userName, string name)
             {
-                operations.BeginDeleteAsync(resourceGroupName, labName, userName, name).GetAwaiter().GetResult();
+                return operations.BeginDeleteAsync(resourceGroupName, labName, userName, name).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -550,14 +563,17 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the user profile.
             /// </param>
             /// <param name='name'>
-            /// The name of the service Fabric.
+            /// The name of the service fabric.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginDeleteAsync(this IServiceFabricsOperations operations, string resourceGroupName, string labName, string userName, string name, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ServiceFabricsDeleteHeaders> BeginDeleteAsync(this IServiceFabricsOperations operations, string resourceGroupName, string labName, string userName, string name, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, labName, userName, name, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, labName, userName, name, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -576,11 +592,11 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the user profile.
             /// </param>
             /// <param name='name'>
-            /// The name of the service Fabric.
+            /// The name of the service fabric.
             /// </param>
-            public static void BeginStart(this IServiceFabricsOperations operations, string resourceGroupName, string labName, string userName, string name)
+            public static ServiceFabricsStartHeaders BeginStart(this IServiceFabricsOperations operations, string resourceGroupName, string labName, string userName, string name)
             {
-                operations.BeginStartAsync(resourceGroupName, labName, userName, name).GetAwaiter().GetResult();
+                return operations.BeginStartAsync(resourceGroupName, labName, userName, name).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -599,14 +615,17 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the user profile.
             /// </param>
             /// <param name='name'>
-            /// The name of the service Fabric.
+            /// The name of the service fabric.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginStartAsync(this IServiceFabricsOperations operations, string resourceGroupName, string labName, string userName, string name, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ServiceFabricsStartHeaders> BeginStartAsync(this IServiceFabricsOperations operations, string resourceGroupName, string labName, string userName, string name, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginStartWithHttpMessagesAsync(resourceGroupName, labName, userName, name, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginStartWithHttpMessagesAsync(resourceGroupName, labName, userName, name, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -625,11 +644,11 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the user profile.
             /// </param>
             /// <param name='name'>
-            /// The name of the service Fabric.
+            /// The name of the service fabric.
             /// </param>
-            public static void BeginStop(this IServiceFabricsOperations operations, string resourceGroupName, string labName, string userName, string name)
+            public static ServiceFabricsStopHeaders BeginStop(this IServiceFabricsOperations operations, string resourceGroupName, string labName, string userName, string name)
             {
-                operations.BeginStopAsync(resourceGroupName, labName, userName, name).GetAwaiter().GetResult();
+                return operations.BeginStopAsync(resourceGroupName, labName, userName, name).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -648,14 +667,17 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the user profile.
             /// </param>
             /// <param name='name'>
-            /// The name of the service Fabric.
+            /// The name of the service fabric.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginStopAsync(this IServiceFabricsOperations operations, string resourceGroupName, string labName, string userName, string name, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ServiceFabricsStopHeaders> BeginStopAsync(this IServiceFabricsOperations operations, string resourceGroupName, string labName, string userName, string name, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginStopWithHttpMessagesAsync(resourceGroupName, labName, userName, name, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginStopWithHttpMessagesAsync(resourceGroupName, labName, userName, name, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>

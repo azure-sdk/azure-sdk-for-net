@@ -210,9 +210,9 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='name'>
             /// The name of the disk.
             /// </param>
-            public static void Delete(this IDisksOperations operations, string resourceGroupName, string labName, string userName, string name)
+            public static DisksDeleteHeaders Delete(this IDisksOperations operations, string resourceGroupName, string labName, string userName, string name)
             {
-                operations.DeleteAsync(resourceGroupName, labName, userName, name).GetAwaiter().GetResult();
+                return operations.DeleteAsync(resourceGroupName, labName, userName, name).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -236,13 +236,16 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task DeleteAsync(this IDisksOperations operations, string resourceGroupName, string labName, string userName, string name, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<DisksDeleteHeaders> DeleteAsync(this IDisksOperations operations, string resourceGroupName, string labName, string userName, string name, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.DeleteWithHttpMessagesAsync(resourceGroupName, labName, userName, name, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.DeleteWithHttpMessagesAsync(resourceGroupName, labName, userName, name, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
-            /// Modify properties of disks.
+            /// Allows modifying tags of disks. All other properties will be ignored.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -260,7 +263,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the disk.
             /// </param>
             /// <param name='disk'>
-            /// A Disk.
+            /// Allows modifying tags of disks. All other properties will be ignored.
             /// </param>
             public static Disk Update(this IDisksOperations operations, string resourceGroupName, string labName, string userName, string name, DiskFragment disk)
             {
@@ -268,7 +271,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             }
 
             /// <summary>
-            /// Modify properties of disks.
+            /// Allows modifying tags of disks. All other properties will be ignored.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -286,7 +289,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the disk.
             /// </param>
             /// <param name='disk'>
-            /// A Disk.
+            /// Allows modifying tags of disks. All other properties will be ignored.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -321,9 +324,9 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='attachDiskProperties'>
             /// Properties of the disk to attach.
             /// </param>
-            public static void Attach(this IDisksOperations operations, string resourceGroupName, string labName, string userName, string name, AttachDiskProperties attachDiskProperties)
+            public static DisksAttachHeaders Attach(this IDisksOperations operations, string resourceGroupName, string labName, string userName, string name, AttachDiskProperties attachDiskProperties)
             {
-                operations.AttachAsync(resourceGroupName, labName, userName, name, attachDiskProperties).GetAwaiter().GetResult();
+                return operations.AttachAsync(resourceGroupName, labName, userName, name, attachDiskProperties).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -351,9 +354,12 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task AttachAsync(this IDisksOperations operations, string resourceGroupName, string labName, string userName, string name, AttachDiskProperties attachDiskProperties, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<DisksAttachHeaders> AttachAsync(this IDisksOperations operations, string resourceGroupName, string labName, string userName, string name, AttachDiskProperties attachDiskProperties, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.AttachWithHttpMessagesAsync(resourceGroupName, labName, userName, name, attachDiskProperties, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.AttachWithHttpMessagesAsync(resourceGroupName, labName, userName, name, attachDiskProperties, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -378,9 +384,9 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='detachDiskProperties'>
             /// Properties of the disk to detach.
             /// </param>
-            public static void Detach(this IDisksOperations operations, string resourceGroupName, string labName, string userName, string name, DetachDiskProperties detachDiskProperties)
+            public static DisksDetachHeaders Detach(this IDisksOperations operations, string resourceGroupName, string labName, string userName, string name, DetachDiskProperties detachDiskProperties)
             {
-                operations.DetachAsync(resourceGroupName, labName, userName, name, detachDiskProperties).GetAwaiter().GetResult();
+                return operations.DetachAsync(resourceGroupName, labName, userName, name, detachDiskProperties).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -408,9 +414,12 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task DetachAsync(this IDisksOperations operations, string resourceGroupName, string labName, string userName, string name, DetachDiskProperties detachDiskProperties, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<DisksDetachHeaders> DetachAsync(this IDisksOperations operations, string resourceGroupName, string labName, string userName, string name, DetachDiskProperties detachDiskProperties, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.DetachWithHttpMessagesAsync(resourceGroupName, labName, userName, name, detachDiskProperties, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.DetachWithHttpMessagesAsync(resourceGroupName, labName, userName, name, detachDiskProperties, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -491,9 +500,9 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='name'>
             /// The name of the disk.
             /// </param>
-            public static void BeginDelete(this IDisksOperations operations, string resourceGroupName, string labName, string userName, string name)
+            public static DisksDeleteHeaders BeginDelete(this IDisksOperations operations, string resourceGroupName, string labName, string userName, string name)
             {
-                operations.BeginDeleteAsync(resourceGroupName, labName, userName, name).GetAwaiter().GetResult();
+                return operations.BeginDeleteAsync(resourceGroupName, labName, userName, name).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -517,9 +526,12 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginDeleteAsync(this IDisksOperations operations, string resourceGroupName, string labName, string userName, string name, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<DisksDeleteHeaders> BeginDeleteAsync(this IDisksOperations operations, string resourceGroupName, string labName, string userName, string name, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, labName, userName, name, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, labName, userName, name, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -544,9 +556,9 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='attachDiskProperties'>
             /// Properties of the disk to attach.
             /// </param>
-            public static void BeginAttach(this IDisksOperations operations, string resourceGroupName, string labName, string userName, string name, AttachDiskProperties attachDiskProperties)
+            public static DisksAttachHeaders BeginAttach(this IDisksOperations operations, string resourceGroupName, string labName, string userName, string name, AttachDiskProperties attachDiskProperties)
             {
-                operations.BeginAttachAsync(resourceGroupName, labName, userName, name, attachDiskProperties).GetAwaiter().GetResult();
+                return operations.BeginAttachAsync(resourceGroupName, labName, userName, name, attachDiskProperties).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -574,9 +586,12 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginAttachAsync(this IDisksOperations operations, string resourceGroupName, string labName, string userName, string name, AttachDiskProperties attachDiskProperties, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<DisksAttachHeaders> BeginAttachAsync(this IDisksOperations operations, string resourceGroupName, string labName, string userName, string name, AttachDiskProperties attachDiskProperties, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginAttachWithHttpMessagesAsync(resourceGroupName, labName, userName, name, attachDiskProperties, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginAttachWithHttpMessagesAsync(resourceGroupName, labName, userName, name, attachDiskProperties, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -601,9 +616,9 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='detachDiskProperties'>
             /// Properties of the disk to detach.
             /// </param>
-            public static void BeginDetach(this IDisksOperations operations, string resourceGroupName, string labName, string userName, string name, DetachDiskProperties detachDiskProperties)
+            public static DisksDetachHeaders BeginDetach(this IDisksOperations operations, string resourceGroupName, string labName, string userName, string name, DetachDiskProperties detachDiskProperties)
             {
-                operations.BeginDetachAsync(resourceGroupName, labName, userName, name, detachDiskProperties).GetAwaiter().GetResult();
+                return operations.BeginDetachAsync(resourceGroupName, labName, userName, name, detachDiskProperties).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -631,9 +646,12 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginDetachAsync(this IDisksOperations operations, string resourceGroupName, string labName, string userName, string name, DetachDiskProperties detachDiskProperties, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<DisksDetachHeaders> BeginDetachAsync(this IDisksOperations operations, string resourceGroupName, string labName, string userName, string name, DetachDiskProperties detachDiskProperties, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginDetachWithHttpMessagesAsync(resourceGroupName, labName, userName, name, detachDiskProperties, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginDetachWithHttpMessagesAsync(resourceGroupName, labName, userName, name, detachDiskProperties, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>

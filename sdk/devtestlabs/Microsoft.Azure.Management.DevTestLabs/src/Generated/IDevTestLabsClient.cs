@@ -145,9 +145,24 @@ namespace Microsoft.Azure.Management.DevTestLabs
         ISchedulesOperations Schedules { get; }
 
         /// <summary>
+        /// Gets the ILabSecretsOperations.
+        /// </summary>
+        ILabSecretsOperations LabSecrets { get; }
+
+        /// <summary>
         /// Gets the IServiceRunnersOperations.
         /// </summary>
         IServiceRunnersOperations ServiceRunners { get; }
+
+        /// <summary>
+        /// Gets the ISharedGalleriesOperations.
+        /// </summary>
+        ISharedGalleriesOperations SharedGalleries { get; }
+
+        /// <summary>
+        /// Gets the ISharedImagesOperations.
+        /// </summary>
+        ISharedImagesOperations SharedImages { get; }
 
         /// <summary>
         /// Gets the IUsersOperations.
@@ -193,6 +208,11 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// Gets the IVirtualNetworksOperations.
         /// </summary>
         IVirtualNetworksOperations VirtualNetworks { get; }
+
+        /// <summary>
+        /// Gets the IBastionHostsOperations.
+        /// </summary>
+        IBastionHostsOperations BastionHosts { get; }
 
     }
 }

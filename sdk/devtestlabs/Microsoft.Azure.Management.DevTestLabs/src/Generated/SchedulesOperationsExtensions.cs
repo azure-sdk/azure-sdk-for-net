@@ -216,7 +216,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             }
 
             /// <summary>
-            /// Modify properties of schedules.
+            /// Allows modifying tags of schedules. All other properties will be ignored.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -231,7 +231,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the schedule.
             /// </param>
             /// <param name='schedule'>
-            /// A schedule.
+            /// Allows modifying tags of schedules. All other properties will be ignored.
             /// </param>
             public static Schedule Update(this ISchedulesOperations operations, string resourceGroupName, string labName, string name, ScheduleFragment schedule)
             {
@@ -239,7 +239,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             }
 
             /// <summary>
-            /// Modify properties of schedules.
+            /// Allows modifying tags of schedules. All other properties will be ignored.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -254,7 +254,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the schedule.
             /// </param>
             /// <param name='schedule'>
-            /// A schedule.
+            /// Allows modifying tags of schedules. All other properties will be ignored.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -282,9 +282,9 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='name'>
             /// The name of the schedule.
             /// </param>
-            public static void Execute(this ISchedulesOperations operations, string resourceGroupName, string labName, string name)
+            public static SchedulesExecuteHeaders Execute(this ISchedulesOperations operations, string resourceGroupName, string labName, string name)
             {
-                operations.ExecuteAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
+                return operations.ExecuteAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -305,9 +305,12 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task ExecuteAsync(this ISchedulesOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<SchedulesExecuteHeaders> ExecuteAsync(this ISchedulesOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.ExecuteWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.ExecuteWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -371,9 +374,9 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='name'>
             /// The name of the schedule.
             /// </param>
-            public static void BeginExecute(this ISchedulesOperations operations, string resourceGroupName, string labName, string name)
+            public static SchedulesExecuteHeaders BeginExecute(this ISchedulesOperations operations, string resourceGroupName, string labName, string name)
             {
-                operations.BeginExecuteAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
+                return operations.BeginExecuteAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -394,9 +397,12 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginExecuteAsync(this ISchedulesOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<SchedulesExecuteHeaders> BeginExecuteAsync(this ISchedulesOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginExecuteWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginExecuteWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>

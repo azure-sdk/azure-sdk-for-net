@@ -189,9 +189,9 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='name'>
             /// The name of the custom image.
             /// </param>
-            public static void Delete(this ICustomImagesOperations operations, string resourceGroupName, string labName, string name)
+            public static CustomImagesDeleteHeaders Delete(this ICustomImagesOperations operations, string resourceGroupName, string labName, string name)
             {
-                operations.DeleteAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
+                return operations.DeleteAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -212,13 +212,17 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task DeleteAsync(this ICustomImagesOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<CustomImagesDeleteHeaders> DeleteAsync(this ICustomImagesOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.DeleteWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.DeleteWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
-            /// Modify properties of custom images.
+            /// Allows modifying tags of custom images. All other properties will be
+            /// ignored.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -233,7 +237,8 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the custom image.
             /// </param>
             /// <param name='customImage'>
-            /// A custom image.
+            /// Allows modifying tags of custom images. All other properties will be
+            /// ignored.
             /// </param>
             public static CustomImage Update(this ICustomImagesOperations operations, string resourceGroupName, string labName, string name, CustomImageFragment customImage)
             {
@@ -241,7 +246,8 @@ namespace Microsoft.Azure.Management.DevTestLabs
             }
 
             /// <summary>
-            /// Modify properties of custom images.
+            /// Allows modifying tags of custom images. All other properties will be
+            /// ignored.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -256,7 +262,8 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the custom image.
             /// </param>
             /// <param name='customImage'>
-            /// A custom image.
+            /// Allows modifying tags of custom images. All other properties will be
+            /// ignored.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -338,9 +345,9 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='name'>
             /// The name of the custom image.
             /// </param>
-            public static void BeginDelete(this ICustomImagesOperations operations, string resourceGroupName, string labName, string name)
+            public static CustomImagesDeleteHeaders BeginDelete(this ICustomImagesOperations operations, string resourceGroupName, string labName, string name)
             {
-                operations.BeginDeleteAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
+                return operations.BeginDeleteAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -361,9 +368,12 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginDeleteAsync(this ICustomImagesOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<CustomImagesDeleteHeaders> BeginDeleteAsync(this ICustomImagesOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>

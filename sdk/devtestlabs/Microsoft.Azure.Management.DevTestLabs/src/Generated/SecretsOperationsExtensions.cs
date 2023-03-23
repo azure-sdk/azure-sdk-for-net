@@ -242,7 +242,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             }
 
             /// <summary>
-            /// Modify properties of secrets.
+            /// Allows modifying tags of secrets. All other properties will be ignored.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -260,7 +260,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the secret.
             /// </param>
             /// <param name='secret'>
-            /// A secret.
+            /// Allows modifying tags of secrets. All other properties will be ignored.
             /// </param>
             public static Secret Update(this ISecretsOperations operations, string resourceGroupName, string labName, string userName, string name, SecretFragment secret)
             {
@@ -268,7 +268,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             }
 
             /// <summary>
-            /// Modify properties of secrets.
+            /// Allows modifying tags of secrets. All other properties will be ignored.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -286,7 +286,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the secret.
             /// </param>
             /// <param name='secret'>
-            /// A secret.
+            /// Allows modifying tags of secrets. All other properties will be ignored.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.

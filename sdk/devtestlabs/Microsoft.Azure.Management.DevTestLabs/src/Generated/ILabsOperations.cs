@@ -150,9 +150,10 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse> DeleteWithHttpMessagesAsync(string resourceGroupName, string name, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationHeaderResponse<LabsDeleteHeaders>> DeleteWithHttpMessagesAsync(string resourceGroupName, string name, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Modify properties of labs.
+        /// Allows modifying tags of labs. All other properties will be
+        /// ignored.
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group.
@@ -161,7 +162,8 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// The name of the lab.
         /// </param>
         /// <param name='lab'>
-        /// A lab.
+        /// Allows modifying tags of labs. All other properties will be
+        /// ignored.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -201,7 +203,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse> ClaimAnyVmWithHttpMessagesAsync(string resourceGroupName, string name, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationHeaderResponse<LabsClaimAnyVmHeaders>> ClaimAnyVmWithHttpMessagesAsync(string resourceGroupName, string name, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Create virtual machines in a lab. This operation can take a while
         /// to complete.
@@ -227,7 +229,29 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse> CreateEnvironmentWithHttpMessagesAsync(string resourceGroupName, string name, LabVirtualMachineCreationParameter labVirtualMachineCreationParameter, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationHeaderResponse<LabsCreateEnvironmentHeaders>> CreateEnvironmentWithHttpMessagesAsync(string resourceGroupName, string name, LabVirtualMachineCreationParameter labVirtualMachineCreationParameter, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
+        /// Ensure the current user has a valid profile in the lab.
+        /// </summary>
+        /// <param name='resourceGroupName'>
+        /// The name of the resource group.
+        /// </param>
+        /// <param name='name'>
+        /// The name of the lab.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<AzureOperationResponse> EnsureCurrentUserProfileWithHttpMessagesAsync(string resourceGroupName, string name, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Exports the lab resource usage into a storage account This
         /// operation can take a while to complete.
@@ -253,7 +277,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse> ExportResourceUsageWithHttpMessagesAsync(string resourceGroupName, string name, ExportResourceUsageParameters exportResourceUsageParameters, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationHeaderResponse<LabsExportResourceUsageHeaders>> ExportResourceUsageWithHttpMessagesAsync(string resourceGroupName, string name, ExportResourceUsageParameters exportResourceUsageParameters, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Generate a URI for uploading custom disk images to a Lab.
         /// </summary>
@@ -308,7 +332,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse> ImportVirtualMachineWithHttpMessagesAsync(string resourceGroupName, string name, ImportLabVirtualMachineRequest importLabVirtualMachineRequest, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationHeaderResponse<LabsImportVirtualMachineHeaders>> ImportVirtualMachineWithHttpMessagesAsync(string resourceGroupName, string name, ImportLabVirtualMachineRequest importLabVirtualMachineRequest, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// List disk images available for custom image creation.
         /// </summary>
@@ -384,7 +408,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse> BeginDeleteWithHttpMessagesAsync(string resourceGroupName, string name, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationHeaderResponse<LabsDeleteHeaders>> BeginDeleteWithHttpMessagesAsync(string resourceGroupName, string name, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Claim a random claimable virtual machine in the lab. This operation
         /// can take a while to complete.
@@ -407,7 +431,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse> BeginClaimAnyVmWithHttpMessagesAsync(string resourceGroupName, string name, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationHeaderResponse<LabsClaimAnyVmHeaders>> BeginClaimAnyVmWithHttpMessagesAsync(string resourceGroupName, string name, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Create virtual machines in a lab. This operation can take a while
         /// to complete.
@@ -433,7 +457,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse> BeginCreateEnvironmentWithHttpMessagesAsync(string resourceGroupName, string name, LabVirtualMachineCreationParameter labVirtualMachineCreationParameter, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationHeaderResponse<LabsCreateEnvironmentHeaders>> BeginCreateEnvironmentWithHttpMessagesAsync(string resourceGroupName, string name, LabVirtualMachineCreationParameter labVirtualMachineCreationParameter, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Exports the lab resource usage into a storage account This
         /// operation can take a while to complete.
@@ -459,7 +483,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse> BeginExportResourceUsageWithHttpMessagesAsync(string resourceGroupName, string name, ExportResourceUsageParameters exportResourceUsageParameters, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationHeaderResponse<LabsExportResourceUsageHeaders>> BeginExportResourceUsageWithHttpMessagesAsync(string resourceGroupName, string name, ExportResourceUsageParameters exportResourceUsageParameters, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Import a virtual machine into a different lab. This operation can
         /// take a while to complete.
@@ -486,7 +510,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse> BeginImportVirtualMachineWithHttpMessagesAsync(string resourceGroupName, string name, ImportLabVirtualMachineRequest importLabVirtualMachineRequest, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationHeaderResponse<LabsImportVirtualMachineHeaders>> BeginImportVirtualMachineWithHttpMessagesAsync(string resourceGroupName, string name, ImportLabVirtualMachineRequest importLabVirtualMachineRequest, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// List labs in a subscription.
         /// </summary>

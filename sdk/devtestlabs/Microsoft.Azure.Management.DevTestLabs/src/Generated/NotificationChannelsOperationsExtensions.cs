@@ -23,7 +23,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
     public static partial class NotificationChannelsOperationsExtensions
     {
             /// <summary>
-            /// List notificationchannels in a given lab.
+            /// List notification channels in a given lab.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -43,7 +43,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             }
 
             /// <summary>
-            /// List notificationchannels in a given lab.
+            /// List notification channels in a given lab.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -69,7 +69,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             }
 
             /// <summary>
-            /// Get notificationchannel.
+            /// Get notification channel.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -81,7 +81,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the lab.
             /// </param>
             /// <param name='name'>
-            /// The name of the notificationChannel.
+            /// The name of the notification channel.
             /// </param>
             /// <param name='expand'>
             /// Specify the $expand query. Example: 'properties($select=webHookUrl)'
@@ -92,7 +92,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             }
 
             /// <summary>
-            /// Get notificationchannel.
+            /// Get notification channel.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -104,7 +104,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the lab.
             /// </param>
             /// <param name='name'>
-            /// The name of the notificationChannel.
+            /// The name of the notification channel.
             /// </param>
             /// <param name='expand'>
             /// Specify the $expand query. Example: 'properties($select=webHookUrl)'
@@ -121,7 +121,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             }
 
             /// <summary>
-            /// Create or replace an existing notificationChannel.
+            /// Create or replace an existing Notification Channel.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -133,7 +133,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the lab.
             /// </param>
             /// <param name='name'>
-            /// The name of the notificationChannel.
+            /// The name of the notification channel.
             /// </param>
             /// <param name='notificationChannel'>
             /// A notification.
@@ -144,7 +144,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             }
 
             /// <summary>
-            /// Create or replace an existing notificationChannel.
+            /// Create or replace an existing Notification Channel.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -156,7 +156,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the lab.
             /// </param>
             /// <param name='name'>
-            /// The name of the notificationChannel.
+            /// The name of the notification channel.
             /// </param>
             /// <param name='notificationChannel'>
             /// A notification.
@@ -173,7 +173,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             }
 
             /// <summary>
-            /// Delete notificationchannel.
+            /// Delete notification channel.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -185,7 +185,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the lab.
             /// </param>
             /// <param name='name'>
-            /// The name of the notificationChannel.
+            /// The name of the notification channel.
             /// </param>
             public static void Delete(this INotificationChannelsOperations operations, string resourceGroupName, string labName, string name)
             {
@@ -193,7 +193,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             }
 
             /// <summary>
-            /// Delete notificationchannel.
+            /// Delete notification channel.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -205,7 +205,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the lab.
             /// </param>
             /// <param name='name'>
-            /// The name of the notificationChannel.
+            /// The name of the notification channel.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -216,7 +216,8 @@ namespace Microsoft.Azure.Management.DevTestLabs
             }
 
             /// <summary>
-            /// Modify properties of notificationchannels.
+            /// Allows modifying tags of notification channels. All other properties will
+            /// be ignored.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -228,10 +229,11 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the lab.
             /// </param>
             /// <param name='name'>
-            /// The name of the notificationChannel.
+            /// The name of the notification channel.
             /// </param>
             /// <param name='notificationChannel'>
-            /// A notification.
+            /// Allows modifying tags of notification channels. All other properties will
+            /// be ignored.
             /// </param>
             public static NotificationChannel Update(this INotificationChannelsOperations operations, string resourceGroupName, string labName, string name, NotificationChannelFragment notificationChannel)
             {
@@ -239,7 +241,8 @@ namespace Microsoft.Azure.Management.DevTestLabs
             }
 
             /// <summary>
-            /// Modify properties of notificationchannels.
+            /// Allows modifying tags of notification channels. All other properties will
+            /// be ignored.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -251,10 +254,11 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the lab.
             /// </param>
             /// <param name='name'>
-            /// The name of the notificationChannel.
+            /// The name of the notification channel.
             /// </param>
             /// <param name='notificationChannel'>
-            /// A notification.
+            /// Allows modifying tags of notification channels. All other properties will
+            /// be ignored.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -280,7 +284,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the lab.
             /// </param>
             /// <param name='name'>
-            /// The name of the notificationChannel.
+            /// The name of the notification channel.
             /// </param>
             /// <param name='notifyParameters'>
             /// Properties for generating a Notification.
@@ -303,7 +307,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the lab.
             /// </param>
             /// <param name='name'>
-            /// The name of the notificationChannel.
+            /// The name of the notification channel.
             /// </param>
             /// <param name='notifyParameters'>
             /// Properties for generating a Notification.
@@ -317,7 +321,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             }
 
             /// <summary>
-            /// List notificationchannels in a given lab.
+            /// List notification channels in a given lab.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -331,7 +335,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             }
 
             /// <summary>
-            /// List notificationchannels in a given lab.
+            /// List notification channels in a given lab.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.

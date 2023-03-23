@@ -218,7 +218,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             }
 
             /// <summary>
-            /// Modify properties of formulas.
+            /// Allows modifying tags of formulas. All other properties will be ignored.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -233,7 +233,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the formula.
             /// </param>
             /// <param name='formula'>
-            /// A formula for creating a VM, specifying an image base and other parameters
+            /// Allows modifying tags of formulas. All other properties will be ignored.
             /// </param>
             public static Formula Update(this IFormulasOperations operations, string resourceGroupName, string labName, string name, FormulaFragment formula)
             {
@@ -241,7 +241,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             }
 
             /// <summary>
-            /// Modify properties of formulas.
+            /// Allows modifying tags of formulas. All other properties will be ignored.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -256,7 +256,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the formula.
             /// </param>
             /// <param name='formula'>
-            /// A formula for creating a VM, specifying an image base and other parameters
+            /// Allows modifying tags of formulas. All other properties will be ignored.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
