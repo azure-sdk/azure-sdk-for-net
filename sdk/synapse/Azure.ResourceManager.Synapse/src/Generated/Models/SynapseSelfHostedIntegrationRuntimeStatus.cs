@@ -49,7 +49,9 @@ namespace Azure.ResourceManager.Synapse.Models
         /// <param name="autoUpdateEta"> The estimated time when the self-hosted integration runtime will be updated. </param>
         /// <param name="serviceRegion"> The service region of the integration runtime. </param>
         /// <param name="newerVersions"> The newer versions on download center. </param>
-        internal SynapseSelfHostedIntegrationRuntimeStatus(IntegrationRuntimeType runtimeType, string dataFactoryName, SynapseIntegrationRuntimeState? state, IReadOnlyDictionary<string, BinaryData> additionalProperties, DateTimeOffset? createOn, string taskQueueId, string nodeCommunicationChannelEncryptionMode, SynapseIntegrationRuntimeInternalChannelEncryptionMode? internalChannelEncryption, string version, IReadOnlyList<SynapseSelfHostedIntegrationRuntimeNode> nodes, DateTimeOffset? scheduledUpdateOn, string updateDelayOffset, string localTimeZoneOffset, IReadOnlyDictionary<string, string> capabilities, IReadOnlyList<string> serviceUrls, SynapseIntegrationRuntimeAutoUpdate? autoUpdate, string versionStatus, IReadOnlyList<SynapseLinkedIntegrationRuntime> links, string pushedVersion, string latestVersion, DateTimeOffset? autoUpdateEta, string serviceRegion, IReadOnlyList<string> newerVersions) : base(runtimeType, dataFactoryName, state, additionalProperties)
+        /// <param name="osType"></param>
+        /// <param name="targetFramework"></param>
+        internal SynapseSelfHostedIntegrationRuntimeStatus(IntegrationRuntimeType runtimeType, string dataFactoryName, SynapseIntegrationRuntimeState? state, IReadOnlyDictionary<string, BinaryData> additionalProperties, DateTimeOffset? createOn, string taskQueueId, string nodeCommunicationChannelEncryptionMode, SynapseIntegrationRuntimeInternalChannelEncryptionMode? internalChannelEncryption, string version, IReadOnlyList<SynapseSelfHostedIntegrationRuntimeNode> nodes, DateTimeOffset? scheduledUpdateOn, string updateDelayOffset, string localTimeZoneOffset, IReadOnlyDictionary<string, string> capabilities, IReadOnlyList<string> serviceUrls, SynapseIntegrationRuntimeAutoUpdate? autoUpdate, string versionStatus, IReadOnlyList<SynapseLinkedIntegrationRuntime> links, string pushedVersion, string latestVersion, DateTimeOffset? autoUpdateEta, string serviceRegion, IReadOnlyList<string> newerVersions, int? osType, int? targetFramework) : base(runtimeType, dataFactoryName, state, additionalProperties)
         {
             CreateOn = createOn;
             TaskQueueId = taskQueueId;
@@ -70,6 +72,8 @@ namespace Azure.ResourceManager.Synapse.Models
             AutoUpdateEta = autoUpdateEta;
             ServiceRegion = serviceRegion;
             NewerVersions = newerVersions;
+            OSType = osType;
+            TargetFramework = targetFramework;
             RuntimeType = runtimeType;
         }
 
@@ -111,5 +115,9 @@ namespace Azure.ResourceManager.Synapse.Models
         public string ServiceRegion { get; }
         /// <summary> The newer versions on download center. </summary>
         public IReadOnlyList<string> NewerVersions { get; }
+        /// <summary> Gets the os type. </summary>
+        public int? OSType { get; }
+        /// <summary> Gets the target framework. </summary>
+        public int? TargetFramework { get; }
     }
 }
