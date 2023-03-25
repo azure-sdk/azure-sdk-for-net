@@ -10,7 +10,7 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.EdgeOrder.Models
 {
-    public partial class ConfigurationFilters : IUtf8JsonSerializable
+    public partial class ConfigurationFilter : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
@@ -26,6 +26,11 @@ namespace Azure.ResourceManager.EdgeOrder.Models
                     writer.WriteObjectValue(item);
                 }
                 writer.WriteEndArray();
+            }
+            if (Optional.IsDefined(ChildConfigurationFilter))
+            {
+                writer.WritePropertyName("childConfigurationFilter"u8);
+                writer.WriteObjectValue(ChildConfigurationFilter);
             }
             writer.WriteEndObject();
         }

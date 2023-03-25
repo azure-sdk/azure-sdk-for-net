@@ -37,6 +37,7 @@ namespace Azure.ResourceManager.EdgeOrder
             Optional<IReadOnlyList<ResourceIdentifier>> orderItemIds = default;
             Optional<EdgeOrderStageDetails> currentStage = default;
             Optional<IReadOnlyList<EdgeOrderStageDetails>> orderStageHistory = default;
+            Optional<OrderMode> orderMode = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("id"u8))
@@ -120,11 +121,21 @@ namespace Azure.ResourceManager.EdgeOrder
                             orderStageHistory = array;
                             continue;
                         }
+                        if (property0.NameEquals("orderMode"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            orderMode = new OrderMode(property0.Value.GetString());
+                            continue;
+                        }
                     }
                     continue;
                 }
             }
-            return new EdgeOrderData(id, name, type, systemData.Value, Optional.ToList(orderItemIds), currentStage.Value, Optional.ToList(orderStageHistory));
+            return new EdgeOrderData(id, name, type, systemData.Value, Optional.ToList(orderItemIds), currentStage.Value, Optional.ToList(orderStageHistory), Optional.ToNullable(orderMode));
         }
     }
 }
