@@ -46,7 +46,7 @@ namespace Microsoft.Azure.Management.Network.Models
         /// applies to.</param>
         /// <param name="exclusionManagedRuleSets">The managed rule sets that
         /// are associated with the exclusion.</param>
-        public OwaspCrsExclusionEntry(string matchVariable, string selectorMatchOperator, string selector, IList<ExclusionManagedRuleSet> exclusionManagedRuleSets = default(IList<ExclusionManagedRuleSet>))
+        public OwaspCrsExclusionEntry(string matchVariable, string selectorMatchOperator = default(string), string selector = default(string), IList<ExclusionManagedRuleSet> exclusionManagedRuleSets = default(IList<ExclusionManagedRuleSet>))
         {
             MatchVariable = matchVariable;
             SelectorMatchOperator = selectorMatchOperator;
@@ -103,14 +103,6 @@ namespace Microsoft.Azure.Management.Network.Models
             if (MatchVariable == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "MatchVariable");
-            }
-            if (SelectorMatchOperator == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "SelectorMatchOperator");
-            }
-            if (Selector == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "Selector");
             }
             if (ExclusionManagedRuleSets != null)
             {

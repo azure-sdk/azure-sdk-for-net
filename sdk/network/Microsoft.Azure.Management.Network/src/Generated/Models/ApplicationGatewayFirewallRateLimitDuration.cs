@@ -12,12 +12,11 @@ namespace Microsoft.Azure.Management.Network.Models
 {
 
     /// <summary>
-    /// Defines values for WebApplicationFirewallRuleType.
+    /// Defines values for ApplicationGatewayFirewallRateLimitDuration.
     /// </summary>
-    public static class WebApplicationFirewallRuleType
+    public static class ApplicationGatewayFirewallRateLimitDuration
     {
-        public const string MatchRule = "MatchRule";
-        public const string RateLimitRule = "RateLimitRule";
-        public const string Invalid = "Invalid";
+        public const string OneMin = "OneMin";
+        public const string FiveMins = "FiveMins";
     }
 }
