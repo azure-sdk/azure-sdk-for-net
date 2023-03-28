@@ -1739,6 +1739,7 @@ namespace Azure.ResourceManager.Compute
         public System.BinaryData ProtectedSettings { get { throw null; } set { } }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public System.BinaryData ProtectedSettingsFromKeyVault { get { throw null; } set { } }
+        public System.Collections.Generic.IList<string> ProvisionAfterExtensions { get { throw null; } }
         public string ProvisioningState { get { throw null; } }
         public string Publisher { get { throw null; } set { } }
         public System.BinaryData Settings { get { throw null; } set { } }
@@ -2187,9 +2188,11 @@ namespace Azure.ResourceManager.Compute
         public string ForceUpdateTag { get { throw null; } set { } }
         public Azure.ResourceManager.Compute.Models.VirtualMachineExtensionInstanceView InstanceView { get { throw null; } set { } }
         public Azure.ResourceManager.Compute.Models.KeyVaultSecretReference KeyVaultProtectedSettings { get { throw null; } set { } }
+        public Azure.Core.AzureLocation? Location { get { throw null; } set { } }
         public System.BinaryData ProtectedSettings { get { throw null; } set { } }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public System.BinaryData ProtectedSettingsFromKeyVault { get { throw null; } set { } }
+        public System.Collections.Generic.IList<string> ProvisionAfterExtensions { get { throw null; } }
         public string ProvisioningState { get { throw null; } }
         public string Publisher { get { throw null; } set { } }
         public System.BinaryData Settings { get { throw null; } set { } }
