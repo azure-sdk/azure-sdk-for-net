@@ -2113,6 +2113,24 @@ namespace Azure.Messaging.EventGrid
             return new ContainerServiceNewKubernetesVersionAvailableEventData(latestSupportedKubernetesVersion, latestStableKubernetesVersion, lowestMinorKubernetesVersion, latestPreviewKubernetesVersion);
         }
 
+        /// <summary> Initializes a new instance of ContainerServiceClusterOutOfSupportEventData. </summary>
+        /// <param name="kubernetesVersion"> The Kubernetes version of the ManagedCluster resource. </param>
+        /// <param name="outOfSupport"> Indicates if the Kubernetes version of the ManagedCluster resource is out of support. </param>
+        /// <returns> A new <see cref="SystemEvents.ContainerServiceClusterOutOfSupportEventData"/> instance for mocking. </returns>
+        public static ContainerServiceClusterOutOfSupportEventData ContainerServiceClusterOutOfSupportEventData(string kubernetesVersion = null, bool? outOfSupport = null)
+        {
+            return new ContainerServiceClusterOutOfSupportEventData(kubernetesVersion, outOfSupport);
+        }
+
+        /// <summary> Initializes a new instance of ContainerServiceNodePoolRollingProgressEventData. </summary>
+        /// <param name="nodePoolName"> The name of the node pool. </param>
+        /// <param name="progressState"> The state of the rolling of the above node pool. Possible values are: &quot;Started&quot;, &quot;Succeeded&quot;, &quot;Failed&quot;. </param>
+        /// <returns> A new <see cref="SystemEvents.ContainerServiceNodePoolRollingProgressEventData"/> instance for mocking. </returns>
+        public static ContainerServiceNodePoolRollingProgressEventData ContainerServiceNodePoolRollingProgressEventData(string nodePoolName = null, string progressState = null)
+        {
+            return new ContainerServiceNodePoolRollingProgressEventData(nodePoolName, progressState);
+        }
+
         /// <summary> Initializes a new instance of ApiManagementUserCreatedEventData. </summary>
         /// <param name="resourceUri"> The fully qualified ID of the resource that the compliance state change is for, including the resource name and resource type. Uses the format, `/subscriptions/&lt;SubscriptionID&gt;/resourceGroups/&lt;ResourceGroup&gt;/Microsoft.ApiManagement/service/&lt;ServiceName&gt;/&lt;ResourceType&gt;/&lt;ResourceName&gt;`. </param>
         /// <returns> A new <see cref="SystemEvents.ApiManagementUserCreatedEventData"/> instance for mocking. </returns>
