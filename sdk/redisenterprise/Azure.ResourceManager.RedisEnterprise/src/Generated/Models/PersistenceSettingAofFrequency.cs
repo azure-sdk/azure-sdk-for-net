@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace Azure.ResourceManager.RedisEnterprise.Models
 {
-    /// <summary> Sets the frequency at which data is written to disk. </summary>
+    /// <summary> The PersistenceSettingAofFrequency. </summary>
     public readonly partial struct PersistenceSettingAofFrequency : IEquatable<PersistenceSettingAofFrequency>
     {
         private readonly string _value;

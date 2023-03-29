@@ -15,16 +15,18 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
-            if (Optional.IsCollectionDefined(Ids))
+            writer.WritePropertyName("ids"u8);
+            writer.WriteStartArray();
+            foreach (var item in Ids)
             {
-                writer.WritePropertyName("ids"u8);
-                writer.WriteStartArray();
-                foreach (var item in Ids)
+                if (item == null)
                 {
-                    writer.WriteStringValue(item);
+                    writer.WriteNullValue();
+                    continue;
                 }
-                writer.WriteEndArray();
+                writer.WriteStringValue(item);
             }
+            writer.WriteEndArray();
             writer.WriteEndObject();
         }
     }

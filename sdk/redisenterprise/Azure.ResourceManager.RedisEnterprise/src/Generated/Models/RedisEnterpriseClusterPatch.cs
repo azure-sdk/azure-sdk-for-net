@@ -7,52 +7,26 @@
 
 using System.Collections.Generic;
 using Azure.Core;
-using Azure.ResourceManager.Models;
-using Azure.ResourceManager.RedisEnterprise;
 
 namespace Azure.ResourceManager.RedisEnterprise.Models
 {
-    /// <summary> A partial update to the RedisEnterprise cluster. </summary>
+    /// <summary> The type used for update operations of the Cluster. </summary>
     public partial class RedisEnterpriseClusterPatch
     {
         /// <summary> Initializes a new instance of RedisEnterpriseClusterPatch. </summary>
         public RedisEnterpriseClusterPatch()
         {
             Tags = new ChangeTrackingDictionary<string, string>();
-            PrivateEndpointConnections = new ChangeTrackingList<RedisEnterprisePrivateEndpointConnectionData>();
+            TagsPropertiesTags = new ChangeTrackingDictionary<string, string>();
         }
 
         /// <summary> The SKU to create, which affects price, performance, and features. </summary>
-        public RedisEnterpriseSku Sku { get; set; }
-        /// <summary> The identity of the resource. </summary>
-        public ManagedServiceIdentity Identity { get; set; }
+        public SkuUpdate Sku { get; set; }
         /// <summary> Resource tags. </summary>
         public IDictionary<string, string> Tags { get; }
-        /// <summary> The minimum TLS version for the cluster to support, e.g. &apos;1.2&apos;. </summary>
-        public RedisEnterpriseTlsVersion? MinimumTlsVersion { get; set; }
-        /// <summary> Encryption-at-rest configuration for the cluster. </summary>
-        internal ClusterPropertiesEncryption Encryption { get; set; }
-        /// <summary> All Customer-managed key encryption properties for the resource. Set this to an empty object to use Microsoft-managed key encryption. </summary>
-        public RedisEnterpriseCustomerManagedKeyEncryption CustomerManagedKeyEncryption
-        {
-            get => Encryption is null ? default : Encryption.CustomerManagedKeyEncryption;
-            set
-            {
-                if (Encryption is null)
-                    Encryption = new ClusterPropertiesEncryption();
-                Encryption.CustomerManagedKeyEncryption = value;
-            }
-        }
-
-        /// <summary> DNS name of the cluster endpoint. </summary>
-        public string HostName { get; }
-        /// <summary> Current provisioning status of the cluster. </summary>
-        public RedisEnterpriseProvisioningStatus? ProvisioningState { get; }
-        /// <summary> Current resource status of the cluster. </summary>
-        public RedisEnterpriseClusterResourceState? ResourceState { get; }
-        /// <summary> Version of redis the cluster supports, e.g. &apos;6&apos;. </summary>
-        public string RedisVersion { get; }
-        /// <summary> List of private endpoint connections associated with the specified RedisEnterprise cluster. </summary>
-        public IReadOnlyList<RedisEnterprisePrivateEndpointConnectionData> PrivateEndpointConnections { get; }
+        /// <summary> The SKU to create, which affects price, performance, and features. </summary>
+        public SkuUpdate SkuPropertiesSku { get; set; }
+        /// <summary> Resource tags. </summary>
+        public IDictionary<string, string> TagsPropertiesTags { get; }
     }
 }

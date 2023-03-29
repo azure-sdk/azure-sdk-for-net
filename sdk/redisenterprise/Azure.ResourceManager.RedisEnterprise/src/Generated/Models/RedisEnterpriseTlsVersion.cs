@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace Azure.ResourceManager.RedisEnterprise.Models
 {
-    /// <summary> The minimum TLS version for the cluster to support, e.g. &apos;1.2&apos;. </summary>
+    /// <summary> The RedisEnterpriseTlsVersion. </summary>
     public readonly partial struct RedisEnterpriseTlsVersion : IEquatable<RedisEnterpriseTlsVersion>
     {
         private readonly string _value;
@@ -22,9 +22,16 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
             _value = value ?? throw new ArgumentNullException(nameof(value));
         }
 
-        private const string Tls1_0Value = "1.0";
-        private const string Tls1_1Value = "1.1";
-        private const string Tls1_2Value = "1.2";
+        private const string OnePointZeroValue = "1.0";
+        private const string OnePointOneValue = "1.1";
+        private const string OnePointTwoValue = "1.2";
+
+        /// <summary> 1.0. </summary>
+        public static RedisEnterpriseTlsVersion OnePointZero { get; } = new RedisEnterpriseTlsVersion(OnePointZeroValue);
+        /// <summary> 1.1. </summary>
+        public static RedisEnterpriseTlsVersion OnePointOne { get; } = new RedisEnterpriseTlsVersion(OnePointOneValue);
+        /// <summary> 1.2. </summary>
+        public static RedisEnterpriseTlsVersion OnePointTwo { get; } = new RedisEnterpriseTlsVersion(OnePointTwoValue);
         /// <summary> Determines if two <see cref="RedisEnterpriseTlsVersion"/> values are the same. </summary>
         public static bool operator ==(RedisEnterpriseTlsVersion left, RedisEnterpriseTlsVersion right) => left.Equals(right);
         /// <summary> Determines if two <see cref="RedisEnterpriseTlsVersion"/> values are not the same. </summary>

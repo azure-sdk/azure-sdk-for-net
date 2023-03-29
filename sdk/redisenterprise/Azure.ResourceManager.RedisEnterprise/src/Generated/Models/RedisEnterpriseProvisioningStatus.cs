@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace Azure.ResourceManager.RedisEnterprise.Models
 {
-    /// <summary> Current provisioning status. </summary>
+    /// <summary> The RedisEnterpriseProvisioningStatus. </summary>
     public readonly partial struct RedisEnterpriseProvisioningStatus : IEquatable<RedisEnterpriseProvisioningStatus>
     {
         private readonly string _value;
@@ -25,9 +25,10 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
         private const string SucceededValue = "Succeeded";
         private const string FailedValue = "Failed";
         private const string CanceledValue = "Canceled";
-        private const string CreatingValue = "Creating";
+        private const string ProvisioningValue = "Provisioning";
         private const string UpdatingValue = "Updating";
         private const string DeletingValue = "Deleting";
+        private const string AcceptedValue = "Accepted";
 
         /// <summary> Succeeded. </summary>
         public static RedisEnterpriseProvisioningStatus Succeeded { get; } = new RedisEnterpriseProvisioningStatus(SucceededValue);
@@ -35,12 +36,14 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
         public static RedisEnterpriseProvisioningStatus Failed { get; } = new RedisEnterpriseProvisioningStatus(FailedValue);
         /// <summary> Canceled. </summary>
         public static RedisEnterpriseProvisioningStatus Canceled { get; } = new RedisEnterpriseProvisioningStatus(CanceledValue);
-        /// <summary> Creating. </summary>
-        public static RedisEnterpriseProvisioningStatus Creating { get; } = new RedisEnterpriseProvisioningStatus(CreatingValue);
+        /// <summary> Provisioning. </summary>
+        public static RedisEnterpriseProvisioningStatus Provisioning { get; } = new RedisEnterpriseProvisioningStatus(ProvisioningValue);
         /// <summary> Updating. </summary>
         public static RedisEnterpriseProvisioningStatus Updating { get; } = new RedisEnterpriseProvisioningStatus(UpdatingValue);
         /// <summary> Deleting. </summary>
         public static RedisEnterpriseProvisioningStatus Deleting { get; } = new RedisEnterpriseProvisioningStatus(DeletingValue);
+        /// <summary> Accepted. </summary>
+        public static RedisEnterpriseProvisioningStatus Accepted { get; } = new RedisEnterpriseProvisioningStatus(AcceptedValue);
         /// <summary> Determines if two <see cref="RedisEnterpriseProvisioningStatus"/> values are the same. </summary>
         public static bool operator ==(RedisEnterpriseProvisioningStatus left, RedisEnterpriseProvisioningStatus right) => left.Equals(right);
         /// <summary> Determines if two <see cref="RedisEnterpriseProvisioningStatus"/> values are not the same. </summary>

@@ -18,8 +18,8 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
             {
                 return null;
             }
-            Optional<string> primaryKey = default;
-            Optional<string> secondaryKey = default;
+            string primaryKey = default;
+            string secondaryKey = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("primaryKey"u8))
@@ -33,7 +33,7 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
                     continue;
                 }
             }
-            return new RedisEnterpriseDataAccessKeys(primaryKey.Value, secondaryKey.Value);
+            return new RedisEnterpriseDataAccessKeys(primaryKey, secondaryKey);
         }
     }
 }

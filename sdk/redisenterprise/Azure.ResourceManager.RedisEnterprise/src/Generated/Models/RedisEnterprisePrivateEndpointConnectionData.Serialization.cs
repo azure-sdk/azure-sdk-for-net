@@ -44,7 +44,7 @@ namespace Azure.ResourceManager.RedisEnterprise
             string name = default;
             ResourceType type = default;
             Optional<SystemData> systemData = default;
-            Optional<SubResource> privateEndpoint = default;
+            Optional<WritableSubResource> privateEndpoint = default;
             Optional<RedisEnterprisePrivateLinkServiceConnectionState> privateLinkServiceConnectionState = default;
             Optional<RedisEnterprisePrivateEndpointConnectionProvisioningState> provisioningState = default;
             foreach (var property in element.EnumerateObject())
@@ -90,7 +90,7 @@ namespace Azure.ResourceManager.RedisEnterprise
                                 property0.ThrowNonNullablePropertyIsNull();
                                 continue;
                             }
-                            privateEndpoint = JsonSerializer.Deserialize<SubResource>(property0.Value.GetRawText());
+                            privateEndpoint = JsonSerializer.Deserialize<WritableSubResource>(property0.Value.GetRawText());
                             continue;
                         }
                         if (property0.NameEquals("privateLinkServiceConnectionState"u8))

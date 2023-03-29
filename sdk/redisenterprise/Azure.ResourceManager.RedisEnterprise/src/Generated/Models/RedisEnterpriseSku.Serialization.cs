@@ -17,11 +17,8 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
             writer.WriteStartObject();
             writer.WritePropertyName("name"u8);
             writer.WriteStringValue(Name.ToString());
-            if (Optional.IsDefined(Capacity))
-            {
-                writer.WritePropertyName("capacity"u8);
-                writer.WriteNumberValue(Capacity.Value);
-            }
+            writer.WritePropertyName("capacity"u8);
+            writer.WriteNumberValue(Capacity);
             writer.WriteEndObject();
         }
 
@@ -32,7 +29,7 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
                 return null;
             }
             RedisEnterpriseSkuName name = default;
-            Optional<int> capacity = default;
+            int capacity = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("name"u8))
@@ -42,16 +39,11 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
                 }
                 if (property.NameEquals("capacity"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
                     capacity = property.Value.GetInt32();
                     continue;
                 }
             }
-            return new RedisEnterpriseSku(name, Optional.ToNullable(capacity));
+            return new RedisEnterpriseSku(name, capacity);
         }
     }
 }

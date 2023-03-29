@@ -5,29 +5,39 @@
 
 #nullable disable
 
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Azure.Core;
 using Azure.ResourceManager.RedisEnterprise;
 
 namespace Azure.ResourceManager.RedisEnterprise.Models
 {
-    /// <summary> List of private endpoint connection associated with the specified storage account. </summary>
+    /// <summary> The response of a PrivateEndpointConnection list operation. </summary>
     internal partial class RedisEnterprisePrivateEndpointConnectionListResult
     {
         /// <summary> Initializes a new instance of RedisEnterprisePrivateEndpointConnectionListResult. </summary>
-        internal RedisEnterprisePrivateEndpointConnectionListResult()
+        /// <param name="value"> The PrivateEndpointConnection items on this page. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
+        internal RedisEnterprisePrivateEndpointConnectionListResult(IEnumerable<RedisEnterprisePrivateEndpointConnectionData> value)
         {
-            Value = new ChangeTrackingList<RedisEnterprisePrivateEndpointConnectionData>();
+            Argument.AssertNotNull(value, nameof(value));
+
+            Value = value.ToList();
         }
 
         /// <summary> Initializes a new instance of RedisEnterprisePrivateEndpointConnectionListResult. </summary>
-        /// <param name="value"> Array of private endpoint connections. </param>
-        internal RedisEnterprisePrivateEndpointConnectionListResult(IReadOnlyList<RedisEnterprisePrivateEndpointConnectionData> value)
+        /// <param name="value"> The PrivateEndpointConnection items on this page. </param>
+        /// <param name="nextLink"> The link to the next page of items. </param>
+        internal RedisEnterprisePrivateEndpointConnectionListResult(IReadOnlyList<RedisEnterprisePrivateEndpointConnectionData> value, Uri nextLink)
         {
             Value = value;
+            NextLink = nextLink;
         }
 
-        /// <summary> Array of private endpoint connections. </summary>
+        /// <summary> The PrivateEndpointConnection items on this page. </summary>
         public IReadOnlyList<RedisEnterprisePrivateEndpointConnectionData> Value { get; }
+        /// <summary> The link to the next page of items. </summary>
+        public Uri NextLink { get; }
     }
 }

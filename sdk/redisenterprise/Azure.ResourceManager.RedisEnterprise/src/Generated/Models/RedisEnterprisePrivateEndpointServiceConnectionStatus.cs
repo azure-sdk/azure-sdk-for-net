@@ -22,14 +22,14 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
             _value = value ?? throw new ArgumentNullException(nameof(value));
         }
 
-        private const string PendingValue = "Pending";
         private const string ApprovedValue = "Approved";
+        private const string PendingValue = "Pending";
         private const string RejectedValue = "Rejected";
 
-        /// <summary> Pending. </summary>
-        public static RedisEnterprisePrivateEndpointServiceConnectionStatus Pending { get; } = new RedisEnterprisePrivateEndpointServiceConnectionStatus(PendingValue);
         /// <summary> Approved. </summary>
         public static RedisEnterprisePrivateEndpointServiceConnectionStatus Approved { get; } = new RedisEnterprisePrivateEndpointServiceConnectionStatus(ApprovedValue);
+        /// <summary> Pending. </summary>
+        public static RedisEnterprisePrivateEndpointServiceConnectionStatus Pending { get; } = new RedisEnterprisePrivateEndpointServiceConnectionStatus(PendingValue);
         /// <summary> Rejected. </summary>
         public static RedisEnterprisePrivateEndpointServiceConnectionStatus Rejected { get; } = new RedisEnterprisePrivateEndpointServiceConnectionStatus(RejectedValue);
         /// <summary> Determines if two <see cref="RedisEnterprisePrivateEndpointServiceConnectionStatus"/> values are the same. </summary>

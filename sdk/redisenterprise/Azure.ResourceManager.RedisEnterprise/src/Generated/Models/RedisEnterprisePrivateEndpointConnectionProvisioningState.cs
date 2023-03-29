@@ -23,18 +23,21 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
         }
 
         private const string SucceededValue = "Succeeded";
+        private const string FailedValue = "Failed";
+        private const string CanceledValue = "Canceled";
         private const string CreatingValue = "Creating";
         private const string DeletingValue = "Deleting";
-        private const string FailedValue = "Failed";
 
         /// <summary> Succeeded. </summary>
         public static RedisEnterprisePrivateEndpointConnectionProvisioningState Succeeded { get; } = new RedisEnterprisePrivateEndpointConnectionProvisioningState(SucceededValue);
+        /// <summary> Failed. </summary>
+        public static RedisEnterprisePrivateEndpointConnectionProvisioningState Failed { get; } = new RedisEnterprisePrivateEndpointConnectionProvisioningState(FailedValue);
+        /// <summary> Canceled. </summary>
+        public static RedisEnterprisePrivateEndpointConnectionProvisioningState Canceled { get; } = new RedisEnterprisePrivateEndpointConnectionProvisioningState(CanceledValue);
         /// <summary> Creating. </summary>
         public static RedisEnterprisePrivateEndpointConnectionProvisioningState Creating { get; } = new RedisEnterprisePrivateEndpointConnectionProvisioningState(CreatingValue);
         /// <summary> Deleting. </summary>
         public static RedisEnterprisePrivateEndpointConnectionProvisioningState Deleting { get; } = new RedisEnterprisePrivateEndpointConnectionProvisioningState(DeletingValue);
-        /// <summary> Failed. </summary>
-        public static RedisEnterprisePrivateEndpointConnectionProvisioningState Failed { get; } = new RedisEnterprisePrivateEndpointConnectionProvisioningState(FailedValue);
         /// <summary> Determines if two <see cref="RedisEnterprisePrivateEndpointConnectionProvisioningState"/> values are the same. </summary>
         public static bool operator ==(RedisEnterprisePrivateEndpointConnectionProvisioningState left, RedisEnterprisePrivateEndpointConnectionProvisioningState right) => left.Equals(right);
         /// <summary> Determines if two <see cref="RedisEnterprisePrivateEndpointConnectionProvisioningState"/> values are not the same. </summary>

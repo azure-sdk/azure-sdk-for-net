@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace Azure.ResourceManager.RedisEnterprise.Models
 {
-    /// <summary> Redis eviction policy - default is VolatileLRU. </summary>
+    /// <summary> The RedisEnterpriseEvictionPolicy. </summary>
     public readonly partial struct RedisEnterpriseEvictionPolicy : IEquatable<RedisEnterpriseEvictionPolicy>
     {
         private readonly string _value;

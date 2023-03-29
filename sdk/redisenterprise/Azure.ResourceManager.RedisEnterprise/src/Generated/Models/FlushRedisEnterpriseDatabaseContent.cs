@@ -5,21 +5,27 @@
 
 #nullable disable
 
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Azure.Core;
 
 namespace Azure.ResourceManager.RedisEnterprise.Models
 {
-    /// <summary> Parameters for a Redis Enterprise active geo-replication flush operation. </summary>
+    /// <summary> Parameters for a Redis Enterprise Active Geo Replication Flush operation. </summary>
     public partial class FlushRedisEnterpriseDatabaseContent
     {
         /// <summary> Initializes a new instance of FlushRedisEnterpriseDatabaseContent. </summary>
-        public FlushRedisEnterpriseDatabaseContent()
+        /// <param name="ids"> The resource IDs of the database resources to be flushed. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="ids"/> is null. </exception>
+        public FlushRedisEnterpriseDatabaseContent(IEnumerable<ResourceIdentifier> ids)
         {
-            Ids = new ChangeTrackingList<string>();
+            Argument.AssertNotNull(ids, nameof(ids));
+
+            Ids = ids.ToList();
         }
 
-        /// <summary> The resource identifiers of all the other database resources in the georeplication group to be flushed. </summary>
-        public IList<string> Ids { get; }
+        /// <summary> The resource IDs of the database resources to be flushed. </summary>
+        public IList<ResourceIdentifier> Ids { get; }
     }
 }

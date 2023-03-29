@@ -15,21 +15,12 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
-            if (Optional.IsDefined(Status))
-            {
-                writer.WritePropertyName("status"u8);
-                writer.WriteStringValue(Status.Value.ToString());
-            }
-            if (Optional.IsDefined(Description))
-            {
-                writer.WritePropertyName("description"u8);
-                writer.WriteStringValue(Description);
-            }
-            if (Optional.IsDefined(ActionsRequired))
-            {
-                writer.WritePropertyName("actionsRequired"u8);
-                writer.WriteStringValue(ActionsRequired);
-            }
+            writer.WritePropertyName("actionsRequired"u8);
+            writer.WriteStringValue(ActionsRequired);
+            writer.WritePropertyName("description"u8);
+            writer.WriteStringValue(Description);
+            writer.WritePropertyName("status"u8);
+            writer.WriteStringValue(Status.ToString());
             writer.WriteEndObject();
         }
 
@@ -39,19 +30,14 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
             {
                 return null;
             }
-            Optional<RedisEnterprisePrivateEndpointServiceConnectionStatus> status = default;
-            Optional<string> description = default;
-            Optional<string> actionsRequired = default;
+            string actionsRequired = default;
+            string description = default;
+            RedisEnterprisePrivateEndpointServiceConnectionStatus status = default;
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("status"u8))
+                if (property.NameEquals("actionsRequired"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
-                    status = new RedisEnterprisePrivateEndpointServiceConnectionStatus(property.Value.GetString());
+                    actionsRequired = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("description"u8))
@@ -59,13 +45,13 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
                     description = property.Value.GetString();
                     continue;
                 }
-                if (property.NameEquals("actionsRequired"u8))
+                if (property.NameEquals("status"u8))
                 {
-                    actionsRequired = property.Value.GetString();
+                    status = new RedisEnterprisePrivateEndpointServiceConnectionStatus(property.Value.GetString());
                     continue;
                 }
             }
-            return new RedisEnterprisePrivateLinkServiceConnectionState(Optional.ToNullable(status), description.Value, actionsRequired.Value);
+            return new RedisEnterprisePrivateLinkServiceConnectionState(actionsRequired, description, status);
         }
     }
 }

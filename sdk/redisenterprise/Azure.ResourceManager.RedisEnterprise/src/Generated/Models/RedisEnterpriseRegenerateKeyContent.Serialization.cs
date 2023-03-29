@@ -16,7 +16,7 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
         {
             writer.WriteStartObject();
             writer.WritePropertyName("keyType"u8);
-            writer.WriteStringValue(KeyType.ToSerialString());
+            writer.WriteStringValue(KeyType.ToString());
             writer.WriteEndObject();
         }
     }

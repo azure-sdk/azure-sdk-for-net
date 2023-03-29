@@ -12,15 +12,8 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
     {
         /// <summary> Initializes a new instance of RedisEnterpriseSku. </summary>
         /// <param name="name"> The type of RedisEnterprise cluster to deploy. Possible values: (Enterprise_E10, EnterpriseFlash_F300 etc.). </param>
-        public RedisEnterpriseSku(RedisEnterpriseSkuName name)
-        {
-            Name = name;
-        }
-
-        /// <summary> Initializes a new instance of RedisEnterpriseSku. </summary>
-        /// <param name="name"> The type of RedisEnterprise cluster to deploy. Possible values: (Enterprise_E10, EnterpriseFlash_F300 etc.). </param>
         /// <param name="capacity"> The size of the RedisEnterprise cluster. Defaults to 2 or 3 depending on SKU. Valid values are (2, 4, 6, ...) for Enterprise SKUs and (3, 9, 15, ...) for Flash SKUs. </param>
-        internal RedisEnterpriseSku(RedisEnterpriseSkuName name, int? capacity)
+        public RedisEnterpriseSku(RedisEnterpriseSkuName name, int capacity)
         {
             Name = name;
             Capacity = capacity;
@@ -29,6 +22,6 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
         /// <summary> The type of RedisEnterprise cluster to deploy. Possible values: (Enterprise_E10, EnterpriseFlash_F300 etc.). </summary>
         public RedisEnterpriseSkuName Name { get; set; }
         /// <summary> The size of the RedisEnterprise cluster. Defaults to 2 or 3 depending on SKU. Valid values are (2, 4, 6, ...) for Enterprise SKUs and (3, 9, 15, ...) for Flash SKUs. </summary>
-        public int? Capacity { get; set; }
+        public int Capacity { get; set; }
     }
 }

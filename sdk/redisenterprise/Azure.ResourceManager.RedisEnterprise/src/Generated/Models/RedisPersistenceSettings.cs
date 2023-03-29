@@ -11,16 +11,20 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
     public partial class RedisPersistenceSettings
     {
         /// <summary> Initializes a new instance of RedisPersistenceSettings. </summary>
-        public RedisPersistenceSettings()
+        /// <param name="isAofEnabled"> Sets whether AOF is enabled. Defaults to false. </param>
+        /// <param name="isRdbEnabled"> Sets whether RDB is enabled. Defaults to false. </param>
+        public RedisPersistenceSettings(bool isAofEnabled, bool isRdbEnabled)
         {
+            IsAofEnabled = isAofEnabled;
+            IsRdbEnabled = isRdbEnabled;
         }
 
         /// <summary> Initializes a new instance of RedisPersistenceSettings. </summary>
-        /// <param name="isAofEnabled"> Sets whether AOF is enabled. </param>
-        /// <param name="isRdbEnabled"> Sets whether RDB is enabled. </param>
+        /// <param name="isAofEnabled"> Sets whether AOF is enabled. Defaults to false. </param>
+        /// <param name="isRdbEnabled"> Sets whether RDB is enabled. Defaults to false. </param>
         /// <param name="aofFrequency"> Sets the frequency at which data is written to disk. </param>
         /// <param name="rdbFrequency"> Sets the frequency at which a snapshot of the database is created. </param>
-        internal RedisPersistenceSettings(bool? isAofEnabled, bool? isRdbEnabled, PersistenceSettingAofFrequency? aofFrequency, PersistenceSettingRdbFrequency? rdbFrequency)
+        internal RedisPersistenceSettings(bool isAofEnabled, bool isRdbEnabled, PersistenceSettingAofFrequency? aofFrequency, PersistenceSettingRdbFrequency? rdbFrequency)
         {
             IsAofEnabled = isAofEnabled;
             IsRdbEnabled = isRdbEnabled;
@@ -28,10 +32,10 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
             RdbFrequency = rdbFrequency;
         }
 
-        /// <summary> Sets whether AOF is enabled. </summary>
-        public bool? IsAofEnabled { get; set; }
-        /// <summary> Sets whether RDB is enabled. </summary>
-        public bool? IsRdbEnabled { get; set; }
+        /// <summary> Sets whether AOF is enabled. Defaults to false. </summary>
+        public bool IsAofEnabled { get; set; }
+        /// <summary> Sets whether RDB is enabled. Defaults to false. </summary>
+        public bool IsRdbEnabled { get; set; }
         /// <summary> Sets the frequency at which data is written to disk. </summary>
         public PersistenceSettingAofFrequency? AofFrequency { get; set; }
         /// <summary> Sets the frequency at which a snapshot of the database is created. </summary>

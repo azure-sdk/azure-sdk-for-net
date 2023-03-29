@@ -44,11 +44,11 @@ namespace Azure.ResourceManager.RedisEnterprise
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendPath("/subscriptions/", false);
+            uri.AppendPath("/Subscriptions/", false);
             uri.AppendPath(subscriptionId, true);
             uri.AppendPath("/providers/Microsoft.Cache/locations/", false);
             uri.AppendPath(location, true);
-            uri.AppendPath("/operationsStatus/", false);
+            uri.AppendPath("/OperationStatuses/", false);
             uri.AppendPath(operationId, true);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
@@ -57,14 +57,14 @@ namespace Azure.ResourceManager.RedisEnterprise
             return message;
         }
 
-        /// <summary> Gets the status of operation. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
-        /// <param name="location"> The name of Azure region. </param>
-        /// <param name="operationId"> The ID of an ongoing async operation. </param>
+        /// <summary> Gets information about a database in a RedisEnterprise cluster. </summary>
+        /// <param name="subscriptionId"> ID of the subscription. </param>
+        /// <param name="location"> Location of the long-running operation result. </param>
+        /// <param name="operationId"> Unique ID of the long-running operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> or <paramref name="operationId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> or <paramref name="operationId"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<RedisEnterpriseOperationStatus>> GetAsync(string subscriptionId, AzureLocation location, string operationId, CancellationToken cancellationToken = default)
+        public async Task<Response<OperationStatusResult>> GetAsync(string subscriptionId, AzureLocation location, string operationId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(operationId, nameof(operationId));
@@ -75,9 +75,9 @@ namespace Azure.ResourceManager.RedisEnterprise
             {
                 case 200:
                     {
-                        RedisEnterpriseOperationStatus value = default;
+                        OperationStatusResult value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = RedisEnterpriseOperationStatus.DeserializeRedisEnterpriseOperationStatus(document.RootElement);
+                        value = OperationStatusResult.DeserializeOperationStatusResult(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -85,14 +85,14 @@ namespace Azure.ResourceManager.RedisEnterprise
             }
         }
 
-        /// <summary> Gets the status of operation. </summary>
-        /// <param name="subscriptionId"> The ID of the target subscription. </param>
-        /// <param name="location"> The name of Azure region. </param>
-        /// <param name="operationId"> The ID of an ongoing async operation. </param>
+        /// <summary> Gets information about a database in a RedisEnterprise cluster. </summary>
+        /// <param name="subscriptionId"> ID of the subscription. </param>
+        /// <param name="location"> Location of the long-running operation result. </param>
+        /// <param name="operationId"> Unique ID of the long-running operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> or <paramref name="operationId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> or <paramref name="operationId"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<RedisEnterpriseOperationStatus> Get(string subscriptionId, AzureLocation location, string operationId, CancellationToken cancellationToken = default)
+        public Response<OperationStatusResult> Get(string subscriptionId, AzureLocation location, string operationId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(operationId, nameof(operationId));
@@ -103,9 +103,9 @@ namespace Azure.ResourceManager.RedisEnterprise
             {
                 case 200:
                     {
-                        RedisEnterpriseOperationStatus value = default;
+                        OperationStatusResult value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = RedisEnterpriseOperationStatus.DeserializeRedisEnterpriseOperationStatus(document.RootElement);
+                        value = OperationStatusResult.DeserializeOperationStatusResult(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:

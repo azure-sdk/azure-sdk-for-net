@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace Azure.ResourceManager.RedisEnterprise.Models
 {
-    /// <summary> Current resource status. </summary>
+    /// <summary> The RedisEnterpriseClusterResourceState. </summary>
     public readonly partial struct RedisEnterpriseClusterResourceState : IEquatable<RedisEnterpriseClusterResourceState>
     {
         private readonly string _value;

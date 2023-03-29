@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace Azure.ResourceManager.RedisEnterprise.Models
 {
-    /// <summary> Sets the frequency at which a snapshot of the database is created. </summary>
+    /// <summary> The PersistenceSettingRdbFrequency. </summary>
     public readonly partial struct PersistenceSettingRdbFrequency : IEquatable<PersistenceSettingRdbFrequency>
     {
         private readonly string _value;

@@ -14,7 +14,7 @@ namespace Azure.ResourceManager.RedisEnterprise
 {
     /// <summary>
     /// A class representing the RedisEnterprisePrivateEndpointConnection data model.
-    /// The Private Endpoint Connection resource.
+    /// Describes a private endpoint connection to a RedisEnterprise cluster
     /// </summary>
     public partial class RedisEnterprisePrivateEndpointConnectionData : ResourceData
     {
@@ -28,22 +28,28 @@ namespace Azure.ResourceManager.RedisEnterprise
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="privateEndpoint"> The resource of private end point. </param>
+        /// <param name="privateEndpoint"> The private endpoint that is connected. </param>
         /// <param name="connectionState"> A collection of information about the state of the connection between service consumer and provider. </param>
         /// <param name="provisioningState"> The provisioning state of the private endpoint connection resource. </param>
-        internal RedisEnterprisePrivateEndpointConnectionData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, SubResource privateEndpoint, RedisEnterprisePrivateLinkServiceConnectionState connectionState, RedisEnterprisePrivateEndpointConnectionProvisioningState? provisioningState) : base(id, name, resourceType, systemData)
+        internal RedisEnterprisePrivateEndpointConnectionData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, WritableSubResource privateEndpoint, RedisEnterprisePrivateLinkServiceConnectionState connectionState, RedisEnterprisePrivateEndpointConnectionProvisioningState? provisioningState) : base(id, name, resourceType, systemData)
         {
             PrivateEndpoint = privateEndpoint;
             ConnectionState = connectionState;
             ProvisioningState = provisioningState;
         }
 
-        /// <summary> The resource of private end point. </summary>
-        internal SubResource PrivateEndpoint { get; set; }
-        /// <summary> Gets Id. </summary>
+        /// <summary> The private endpoint that is connected. </summary>
+        internal WritableSubResource PrivateEndpoint { get; set; }
+        /// <summary> Gets or sets Id. </summary>
         public ResourceIdentifier PrivateEndpointId
         {
             get => PrivateEndpoint is null ? default : PrivateEndpoint.Id;
+            set
+            {
+                if (PrivateEndpoint is null)
+                    PrivateEndpoint = new WritableSubResource();
+                PrivateEndpoint.Id = value;
+            }
         }
 
         /// <summary> A collection of information about the state of the connection between service consumer and provider. </summary>

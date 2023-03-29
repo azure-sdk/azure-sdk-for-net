@@ -5,32 +5,34 @@
 
 #nullable disable
 
+using System;
+using Azure.Core;
+
 namespace Azure.ResourceManager.RedisEnterprise.Models
 {
     /// <summary> A collection of information about the state of the connection between service consumer and provider. </summary>
     public partial class RedisEnterprisePrivateLinkServiceConnectionState
     {
         /// <summary> Initializes a new instance of RedisEnterprisePrivateLinkServiceConnectionState. </summary>
-        public RedisEnterprisePrivateLinkServiceConnectionState()
-        {
-        }
-
-        /// <summary> Initializes a new instance of RedisEnterprisePrivateLinkServiceConnectionState. </summary>
-        /// <param name="status"> Indicates whether the connection has been Approved/Rejected/Removed by the owner of the service. </param>
-        /// <param name="description"> The reason for approval/rejection of the connection. </param>
         /// <param name="actionsRequired"> A message indicating if changes on the service provider require any updates on the consumer. </param>
-        internal RedisEnterprisePrivateLinkServiceConnectionState(RedisEnterprisePrivateEndpointServiceConnectionStatus? status, string description, string actionsRequired)
+        /// <param name="description"> The reason for approval/rejection of the connection. </param>
+        /// <param name="status"> Indicates whether the connection has been Approved/Rejected/Removed by the owner of the service. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="actionsRequired"/> or <paramref name="description"/> is null. </exception>
+        public RedisEnterprisePrivateLinkServiceConnectionState(string actionsRequired, string description, RedisEnterprisePrivateEndpointServiceConnectionStatus status)
         {
-            Status = status;
-            Description = description;
+            Argument.AssertNotNull(actionsRequired, nameof(actionsRequired));
+            Argument.AssertNotNull(description, nameof(description));
+
             ActionsRequired = actionsRequired;
+            Description = description;
+            Status = status;
         }
 
-        /// <summary> Indicates whether the connection has been Approved/Rejected/Removed by the owner of the service. </summary>
-        public RedisEnterprisePrivateEndpointServiceConnectionStatus? Status { get; set; }
-        /// <summary> The reason for approval/rejection of the connection. </summary>
-        public string Description { get; set; }
         /// <summary> A message indicating if changes on the service provider require any updates on the consumer. </summary>
         public string ActionsRequired { get; set; }
+        /// <summary> The reason for approval/rejection of the connection. </summary>
+        public string Description { get; set; }
+        /// <summary> Indicates whether the connection has been Approved/Rejected/Removed by the owner of the service. </summary>
+        public RedisEnterprisePrivateEndpointServiceConnectionStatus Status { get; set; }
     }
 }

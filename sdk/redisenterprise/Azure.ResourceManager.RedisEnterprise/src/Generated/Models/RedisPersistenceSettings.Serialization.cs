@@ -15,16 +15,10 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
-            if (Optional.IsDefined(IsAofEnabled))
-            {
-                writer.WritePropertyName("aofEnabled"u8);
-                writer.WriteBooleanValue(IsAofEnabled.Value);
-            }
-            if (Optional.IsDefined(IsRdbEnabled))
-            {
-                writer.WritePropertyName("rdbEnabled"u8);
-                writer.WriteBooleanValue(IsRdbEnabled.Value);
-            }
+            writer.WritePropertyName("aofEnabled"u8);
+            writer.WriteBooleanValue(IsAofEnabled);
+            writer.WritePropertyName("rdbEnabled"u8);
+            writer.WriteBooleanValue(IsRdbEnabled);
             if (Optional.IsDefined(AofFrequency))
             {
                 writer.WritePropertyName("aofFrequency"u8);
@@ -44,29 +38,19 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
             {
                 return null;
             }
-            Optional<bool> aofEnabled = default;
-            Optional<bool> rdbEnabled = default;
+            bool aofEnabled = default;
+            bool rdbEnabled = default;
             Optional<PersistenceSettingAofFrequency> aofFrequency = default;
             Optional<PersistenceSettingRdbFrequency> rdbFrequency = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("aofEnabled"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
                     aofEnabled = property.Value.GetBoolean();
                     continue;
                 }
                 if (property.NameEquals("rdbEnabled"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
                     rdbEnabled = property.Value.GetBoolean();
                     continue;
                 }
@@ -91,7 +75,7 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
                     continue;
                 }
             }
-            return new RedisPersistenceSettings(Optional.ToNullable(aofEnabled), Optional.ToNullable(rdbEnabled), Optional.ToNullable(aofFrequency), Optional.ToNullable(rdbFrequency));
+            return new RedisPersistenceSettings(aofEnabled, rdbEnabled, Optional.ToNullable(aofFrequency), Optional.ToNullable(rdbFrequency));
         }
     }
 }

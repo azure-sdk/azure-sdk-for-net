@@ -5,21 +5,23 @@
 
 #nullable disable
 
+using System;
+using Azure.Core;
+
 namespace Azure.ResourceManager.RedisEnterprise.Models
 {
-    /// <summary> The secret access keys used for authenticating connections to redis. </summary>
+    /// <summary> Redis Enterprise access keys response. </summary>
     public partial class RedisEnterpriseDataAccessKeys
     {
         /// <summary> Initializes a new instance of RedisEnterpriseDataAccessKeys. </summary>
-        internal RedisEnterpriseDataAccessKeys()
-        {
-        }
-
-        /// <summary> Initializes a new instance of RedisEnterpriseDataAccessKeys. </summary>
         /// <param name="primaryKey"> The current primary key that clients can use to authenticate. </param>
         /// <param name="secondaryKey"> The current secondary key that clients can use to authenticate. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="primaryKey"/> or <paramref name="secondaryKey"/> is null. </exception>
         internal RedisEnterpriseDataAccessKeys(string primaryKey, string secondaryKey)
         {
+            Argument.AssertNotNull(primaryKey, nameof(primaryKey));
+            Argument.AssertNotNull(secondaryKey, nameof(secondaryKey));
+
             PrimaryKey = primaryKey;
             SecondaryKey = secondaryKey;
         }
