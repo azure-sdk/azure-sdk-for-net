@@ -641,8 +641,8 @@ namespace Azure.ResourceManager.Compute
         public static Azure.Pageable<Azure.ResourceManager.Compute.Models.RunCommandDocumentBase> GetVirtualMachineRunCommands(this Azure.ResourceManager.Resources.SubscriptionResource subscriptionResource, Azure.Core.AzureLocation location, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static Azure.AsyncPageable<Azure.ResourceManager.Compute.Models.RunCommandDocumentBase> GetVirtualMachineRunCommandsAsync(this Azure.ResourceManager.Resources.SubscriptionResource subscriptionResource, Azure.Core.AzureLocation location, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static Azure.ResourceManager.Compute.VirtualMachineCollection GetVirtualMachines(this Azure.ResourceManager.Resources.ResourceGroupResource resourceGroupResource) { throw null; }
-        public static Azure.Pageable<Azure.ResourceManager.Compute.VirtualMachineResource> GetVirtualMachines(this Azure.ResourceManager.Resources.SubscriptionResource subscriptionResource, string statusOnly = null, string filter = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public static Azure.AsyncPageable<Azure.ResourceManager.Compute.VirtualMachineResource> GetVirtualMachinesAsync(this Azure.ResourceManager.Resources.SubscriptionResource subscriptionResource, string statusOnly = null, string filter = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public static Azure.Pageable<Azure.ResourceManager.Compute.VirtualMachineResource> GetVirtualMachines(this Azure.ResourceManager.Resources.SubscriptionResource subscriptionResource, string statusOnly = null, string filter = null, Azure.ResourceManager.Compute.Models.ExpandTypesForListVm? expand = default(Azure.ResourceManager.Compute.Models.ExpandTypesForListVm?), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public static Azure.AsyncPageable<Azure.ResourceManager.Compute.VirtualMachineResource> GetVirtualMachinesAsync(this Azure.ResourceManager.Resources.SubscriptionResource subscriptionResource, string statusOnly = null, string filter = null, Azure.ResourceManager.Compute.Models.ExpandTypesForListVm? expand = default(Azure.ResourceManager.Compute.Models.ExpandTypesForListVm?), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static Azure.Pageable<Azure.ResourceManager.Compute.VirtualMachineResource> GetVirtualMachinesByLocation(this Azure.ResourceManager.Resources.SubscriptionResource subscriptionResource, Azure.Core.AzureLocation location, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static Azure.AsyncPageable<Azure.ResourceManager.Compute.VirtualMachineResource> GetVirtualMachinesByLocationAsync(this Azure.ResourceManager.Resources.SubscriptionResource subscriptionResource, Azure.Core.AzureLocation location, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static Azure.Response<Azure.ResourceManager.Compute.VirtualMachineScaleSetResource> GetVirtualMachineScaleSet(this Azure.ResourceManager.Resources.ResourceGroupResource resourceGroupResource, string virtualMachineScaleSetName, Azure.ResourceManager.Compute.Models.VirtualMachineScaleSetGetExpand? expand = default(Azure.ResourceManager.Compute.Models.VirtualMachineScaleSetGetExpand?), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
@@ -1668,8 +1668,8 @@ namespace Azure.ResourceManager.Compute
         public virtual Azure.Response<bool> Exists(string vmName, Azure.ResourceManager.Compute.Models.InstanceViewType? expand = default(Azure.ResourceManager.Compute.Models.InstanceViewType?), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<bool>> ExistsAsync(string vmName, Azure.ResourceManager.Compute.Models.InstanceViewType? expand = default(Azure.ResourceManager.Compute.Models.InstanceViewType?), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.Compute.VirtualMachineResource> Get(string vmName, Azure.ResourceManager.Compute.Models.InstanceViewType? expand = default(Azure.ResourceManager.Compute.Models.InstanceViewType?), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.Pageable<Azure.ResourceManager.Compute.VirtualMachineResource> GetAll(string filter = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.AsyncPageable<Azure.ResourceManager.Compute.VirtualMachineResource> GetAllAsync(string filter = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Pageable<Azure.ResourceManager.Compute.VirtualMachineResource> GetAll(string filter = null, Azure.ResourceManager.Compute.Models.ExpandTypeForListVm? expand = default(Azure.ResourceManager.Compute.Models.ExpandTypeForListVm?), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.AsyncPageable<Azure.ResourceManager.Compute.VirtualMachineResource> GetAllAsync(string filter = null, Azure.ResourceManager.Compute.Models.ExpandTypeForListVm? expand = default(Azure.ResourceManager.Compute.Models.ExpandTypeForListVm?), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Compute.VirtualMachineResource>> GetAsync(string vmName, Azure.ResourceManager.Compute.Models.InstanceViewType? expand = default(Azure.ResourceManager.Compute.Models.InstanceViewType?), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         System.Collections.Generic.IAsyncEnumerator<Azure.ResourceManager.Compute.VirtualMachineResource> System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.Compute.VirtualMachineResource>.GetAsyncEnumerator(System.Threading.CancellationToken cancellationToken) { throw null; }
         System.Collections.Generic.IEnumerator<Azure.ResourceManager.Compute.VirtualMachineResource> System.Collections.Generic.IEnumerable<Azure.ResourceManager.Compute.VirtualMachineResource>.GetEnumerator() { throw null; }
@@ -3467,6 +3467,40 @@ namespace Azure.ResourceManager.Compute.Models
         public static bool operator ==(Azure.ResourceManager.Compute.Models.ExecutionState left, Azure.ResourceManager.Compute.Models.ExecutionState right) { throw null; }
         public static implicit operator Azure.ResourceManager.Compute.Models.ExecutionState (string value) { throw null; }
         public static bool operator !=(Azure.ResourceManager.Compute.Models.ExecutionState left, Azure.ResourceManager.Compute.Models.ExecutionState right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct ExpandTypeForListVm : System.IEquatable<Azure.ResourceManager.Compute.Models.ExpandTypeForListVm>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public ExpandTypeForListVm(string value) { throw null; }
+        public static Azure.ResourceManager.Compute.Models.ExpandTypeForListVm InstanceView { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.Compute.Models.ExpandTypeForListVm other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.Compute.Models.ExpandTypeForListVm left, Azure.ResourceManager.Compute.Models.ExpandTypeForListVm right) { throw null; }
+        public static implicit operator Azure.ResourceManager.Compute.Models.ExpandTypeForListVm (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.Compute.Models.ExpandTypeForListVm left, Azure.ResourceManager.Compute.Models.ExpandTypeForListVm right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct ExpandTypesForListVm : System.IEquatable<Azure.ResourceManager.Compute.Models.ExpandTypesForListVm>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public ExpandTypesForListVm(string value) { throw null; }
+        public static Azure.ResourceManager.Compute.Models.ExpandTypesForListVm InstanceView { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.Compute.Models.ExpandTypesForListVm other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.Compute.Models.ExpandTypesForListVm left, Azure.ResourceManager.Compute.Models.ExpandTypesForListVm right) { throw null; }
+        public static implicit operator Azure.ResourceManager.Compute.Models.ExpandTypesForListVm (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.Compute.Models.ExpandTypesForListVm left, Azure.ResourceManager.Compute.Models.ExpandTypesForListVm right) { throw null; }
         public override string ToString() { throw null; }
     }
     public partial class GalleryApplicationCustomAction
