@@ -21,6 +21,8 @@ namespace Azure.ResourceManager.Compute.Models
             VirtualMachines = new ChangeTrackingList<SubResource>();
         }
 
+        /// <summary> [List all available dedicated host sizes for resizing] (https://docs.microsoft.com/rest/api/compute/dedicated-hosts/listavailablesizes). Resizing can be only used to scale up DedicatedHost. Only name is required to be set. </summary>
+        public ComputeSku Sku { get; set; }
         /// <summary> Fault domain of the dedicated host within a dedicated host group. </summary>
         public int? PlatformFaultDomain { get; set; }
         /// <summary> Specifies whether the dedicated host should be replaced automatically in case of a failure. The value is defaulted to &apos;true&apos; when not provided. </summary>
