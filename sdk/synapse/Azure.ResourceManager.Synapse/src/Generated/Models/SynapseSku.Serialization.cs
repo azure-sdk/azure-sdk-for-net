@@ -25,11 +25,6 @@ namespace Azure.ResourceManager.Synapse.Models
                 writer.WritePropertyName("name"u8);
                 writer.WriteStringValue(Name);
             }
-            if (Optional.IsDefined(Capacity))
-            {
-                writer.WritePropertyName("capacity"u8);
-                writer.WriteNumberValue(Capacity.Value);
-            }
             writer.WriteEndObject();
         }
 
