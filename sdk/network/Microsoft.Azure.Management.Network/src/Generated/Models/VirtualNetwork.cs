@@ -62,7 +62,9 @@ namespace Microsoft.Azure.Management.Network.Models
         /// requires a DDoS protection plan associated with the
         /// resource.</param>
         /// <param name="enableVmProtection">Indicates if VM protection is
-        /// enabled for all the subnets in the virtual network.</param>
+        /// enabled for all the subnets in the virtual network. The
+        /// enableVmProtection property is deprecated. You can leverage the
+        /// enableDdoSProtection property.</param>
         /// <param name="ddosProtectionPlan">The DDoS protection plan
         /// associated with the virtual network.</param>
         /// <param name="bgpCommunities">Bgp Communities sent over ExpressRoute
@@ -166,7 +168,8 @@ namespace Microsoft.Azure.Management.Network.Models
 
         /// <summary>
         /// Gets or sets indicates if VM protection is enabled for all the
-        /// subnets in the virtual network.
+        /// subnets in the virtual network. The enableVmProtection property is
+        /// deprecated. You can leverage the enableDdoSProtection property.
         /// </summary>
         [JsonProperty(PropertyName = "properties.enableVmProtection")]
         public bool? EnableVmProtection { get; set; }
