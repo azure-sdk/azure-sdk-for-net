@@ -5,6 +5,7 @@
 
 #nullable disable
 
+using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
 using Azure.ResourceManager.Cdn.Models;
@@ -47,6 +48,17 @@ namespace Azure.ResourceManager.Cdn
                 writer.WritePropertyName("hostName"u8);
                 writer.WriteStringValue(HostName);
             }
+            if (Optional.IsCollectionDefined(ExtendedProperties))
+            {
+                writer.WritePropertyName("extendedProperties"u8);
+                writer.WriteStartObject();
+                foreach (var item in ExtendedProperties)
+                {
+                    writer.WritePropertyName(item.Key);
+                    writer.WriteStringValue(item.Value);
+                }
+                writer.WriteEndObject();
+            }
             writer.WriteEndObject();
             writer.WriteEndObject();
         }
@@ -69,7 +81,9 @@ namespace Azure.ResourceManager.Cdn
             Optional<FrontDoorDeploymentStatus> deploymentStatus = default;
             Optional<DomainValidationState> domainValidationState = default;
             Optional<string> hostName = default;
+            Optional<IDictionary<string, string>> extendedProperties = default;
             Optional<DomainValidationProperties> validationProperties = default;
+            Optional<IReadOnlyList<FrontDoorCustomDomainReferencedRoutePath>> referencedRoutePaths = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("id"u8))
@@ -176,6 +190,21 @@ namespace Azure.ResourceManager.Cdn
                             hostName = property0.Value.GetString();
                             continue;
                         }
+                        if (property0.NameEquals("extendedProperties"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            Dictionary<string, string> dictionary = new Dictionary<string, string>();
+                            foreach (var property1 in property0.Value.EnumerateObject())
+                            {
+                                dictionary.Add(property1.Name, property1.Value.GetString());
+                            }
+                            extendedProperties = dictionary;
+                            continue;
+                        }
                         if (property0.NameEquals("validationProperties"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -186,11 +215,26 @@ namespace Azure.ResourceManager.Cdn
                             validationProperties = DomainValidationProperties.DeserializeDomainValidationProperties(property0.Value);
                             continue;
                         }
+                        if (property0.NameEquals("referencedRoutePaths"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            List<FrontDoorCustomDomainReferencedRoutePath> array = new List<FrontDoorCustomDomainReferencedRoutePath>();
+                            foreach (var item in property0.Value.EnumerateArray())
+                            {
+                                array.Add(FrontDoorCustomDomainReferencedRoutePath.DeserializeFrontDoorCustomDomainReferencedRoutePath(item));
+                            }
+                            referencedRoutePaths = array;
+                            continue;
+                        }
                     }
                     continue;
                 }
             }
-            return new FrontDoorCustomDomainData(id, name, type, systemData.Value, profileName.Value, tlsSettings.Value, azureDnsZone, preValidatedCustomDomainResourceId.Value, Optional.ToNullable(provisioningState), Optional.ToNullable(deploymentStatus), Optional.ToNullable(domainValidationState), hostName.Value, validationProperties.Value);
+            return new FrontDoorCustomDomainData(id, name, type, systemData.Value, profileName.Value, tlsSettings.Value, azureDnsZone, preValidatedCustomDomainResourceId.Value, Optional.ToNullable(provisioningState), Optional.ToNullable(deploymentStatus), Optional.ToNullable(domainValidationState), hostName.Value, Optional.ToDictionary(extendedProperties), validationProperties.Value, Optional.ToList(referencedRoutePaths));
         }
     }
 }

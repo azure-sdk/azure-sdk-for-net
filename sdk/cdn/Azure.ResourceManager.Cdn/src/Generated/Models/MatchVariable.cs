@@ -41,6 +41,7 @@ namespace Azure.ResourceManager.Cdn.Models
         private const string ServerPortValue = "ServerPort";
         private const string HostNameValue = "HostName";
         private const string SslProtocolValue = "SslProtocol";
+        private const string ResponseStatusCodeValue = "ResponseStatusCode";
 
         /// <summary> RemoteAddress. </summary>
         public static MatchVariable RemoteAddress { get; } = new MatchVariable(RemoteAddressValue);
@@ -80,6 +81,8 @@ namespace Azure.ResourceManager.Cdn.Models
         public static MatchVariable HostName { get; } = new MatchVariable(HostNameValue);
         /// <summary> SslProtocol. </summary>
         public static MatchVariable SslProtocol { get; } = new MatchVariable(SslProtocolValue);
+        /// <summary> ResponseStatusCode. </summary>
+        public static MatchVariable ResponseStatusCode { get; } = new MatchVariable(ResponseStatusCodeValue);
         /// <summary> Determines if two <see cref="MatchVariable"/> values are the same. </summary>
         public static bool operator ==(MatchVariable left, MatchVariable right) => left.Equals(right);
         /// <summary> Determines if two <see cref="MatchVariable"/> values are not the same. </summary>

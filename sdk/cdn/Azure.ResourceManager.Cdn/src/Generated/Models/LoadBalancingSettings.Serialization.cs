@@ -30,6 +30,11 @@ namespace Azure.ResourceManager.Cdn.Models
                 writer.WritePropertyName("additionalLatencyInMilliseconds"u8);
                 writer.WriteNumberValue(AdditionalLatencyInMilliseconds.Value);
             }
+            if (Optional.IsDefined(CapacityConsciousThreshold))
+            {
+                writer.WritePropertyName("capacityConsciousThreshold"u8);
+                writer.WriteNumberValue(CapacityConsciousThreshold.Value);
+            }
             writer.WriteEndObject();
         }
 
@@ -42,6 +47,7 @@ namespace Azure.ResourceManager.Cdn.Models
             Optional<int> sampleSize = default;
             Optional<int> successfulSamplesRequired = default;
             Optional<int> additionalLatencyInMilliseconds = default;
+            Optional<int> capacityConsciousThreshold = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("sampleSize"u8))
@@ -74,8 +80,18 @@ namespace Azure.ResourceManager.Cdn.Models
                     additionalLatencyInMilliseconds = property.Value.GetInt32();
                     continue;
                 }
+                if (property.NameEquals("capacityConsciousThreshold"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        property.ThrowNonNullablePropertyIsNull();
+                        continue;
+                    }
+                    capacityConsciousThreshold = property.Value.GetInt32();
+                    continue;
+                }
             }
-            return new LoadBalancingSettings(Optional.ToNullable(sampleSize), Optional.ToNullable(successfulSamplesRequired), Optional.ToNullable(additionalLatencyInMilliseconds));
+            return new LoadBalancingSettings(Optional.ToNullable(sampleSize), Optional.ToNullable(successfulSamplesRequired), Optional.ToNullable(additionalLatencyInMilliseconds), Optional.ToNullable(capacityConsciousThreshold));
         }
     }
 }

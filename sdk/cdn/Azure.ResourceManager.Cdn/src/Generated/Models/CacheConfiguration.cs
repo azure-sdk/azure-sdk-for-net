@@ -21,13 +21,15 @@ namespace Azure.ResourceManager.Cdn.Models
         /// <param name="queryStringCachingBehavior"> Defines how Frontdoor caches requests that include query strings. You can ignore any query strings when caching, ignore specific query strings, cache every request with a unique URL, or cache specific query strings. </param>
         /// <param name="queryParameters"> query parameters to include or exclude (comma separated). </param>
         /// <param name="isCompressionEnabled"> Indicates whether content compression is enabled. If compression is enabled, content will be served as compressed if user requests for a compressed version. Content won&apos;t be compressed on AzureFrontDoor when requested content is smaller than 1 byte or larger than 1 MB. </param>
+        /// <param name="isNegativeCachingEnabled"> Indicates whether negative caching is enabled. </param>
         /// <param name="cacheBehavior"> Caching behavior for the requests. </param>
         /// <param name="cacheDuration"> The duration for which the content needs to be cached. Allowed format is [d.]hh:mm:ss. </param>
-        internal CacheConfiguration(RuleQueryStringCachingBehavior? queryStringCachingBehavior, string queryParameters, RuleIsCompressionEnabled? isCompressionEnabled, RuleCacheBehavior? cacheBehavior, TimeSpan? cacheDuration)
+        internal CacheConfiguration(RuleQueryStringCachingBehavior? queryStringCachingBehavior, string queryParameters, RuleIsCompressionEnabled? isCompressionEnabled, RuleIsNegativeCachingEnabled? isNegativeCachingEnabled, RuleCacheBehavior? cacheBehavior, TimeSpan? cacheDuration)
         {
             QueryStringCachingBehavior = queryStringCachingBehavior;
             QueryParameters = queryParameters;
             IsCompressionEnabled = isCompressionEnabled;
+            IsNegativeCachingEnabled = isNegativeCachingEnabled;
             CacheBehavior = cacheBehavior;
             CacheDuration = cacheDuration;
         }
@@ -38,6 +40,8 @@ namespace Azure.ResourceManager.Cdn.Models
         public string QueryParameters { get; set; }
         /// <summary> Indicates whether content compression is enabled. If compression is enabled, content will be served as compressed if user requests for a compressed version. Content won&apos;t be compressed on AzureFrontDoor when requested content is smaller than 1 byte or larger than 1 MB. </summary>
         public RuleIsCompressionEnabled? IsCompressionEnabled { get; set; }
+        /// <summary> Indicates whether negative caching is enabled. </summary>
+        public RuleIsNegativeCachingEnabled? IsNegativeCachingEnabled { get; set; }
         /// <summary> Caching behavior for the requests. </summary>
         public RuleCacheBehavior? CacheBehavior { get; set; }
         /// <summary> The duration for which the content needs to be cached. Allowed format is [d.]hh:mm:ss. </summary>

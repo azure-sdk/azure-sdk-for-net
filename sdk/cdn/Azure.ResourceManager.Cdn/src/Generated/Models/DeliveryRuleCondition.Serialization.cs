@@ -43,6 +43,7 @@ namespace Azure.ResourceManager.Cdn.Models
                     case "RequestMethod": return DeliveryRuleRequestMethodCondition.DeserializeDeliveryRuleRequestMethodCondition(element);
                     case "RequestScheme": return DeliveryRuleRequestSchemeCondition.DeserializeDeliveryRuleRequestSchemeCondition(element);
                     case "RequestUri": return DeliveryRuleRequestUriCondition.DeserializeDeliveryRuleRequestUriCondition(element);
+                    case "ResponseStatusCode": return DeliveryRuleResponseStatusCodeCondition.DeserializeDeliveryRuleResponseStatusCodeCondition(element);
                     case "ServerPort": return DeliveryRuleServerPortCondition.DeserializeDeliveryRuleServerPortCondition(element);
                     case "SocketAddr": return DeliveryRuleSocketAddressCondition.DeserializeDeliveryRuleSocketAddressCondition(element);
                     case "SslProtocol": return DeliveryRuleSslProtocolCondition.DeserializeDeliveryRuleSslProtocolCondition(element);
