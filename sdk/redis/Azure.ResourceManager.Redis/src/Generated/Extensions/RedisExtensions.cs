@@ -329,5 +329,43 @@ namespace Azure.ResourceManager.Redis
             );
         }
         #endregion
+
+        #region RedisCacheAccessPolicyResource
+        /// <summary>
+        /// Gets an object representing a <see cref="RedisCacheAccessPolicyResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="RedisCacheAccessPolicyResource.CreateResourceIdentifier" /> to create a <see cref="RedisCacheAccessPolicyResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="RedisCacheAccessPolicyResource" /> object. </returns>
+        public static RedisCacheAccessPolicyResource GetRedisCacheAccessPolicyResource(this ArmClient client, ResourceIdentifier id)
+        {
+            return client.GetResourceClient(() =>
+            {
+                RedisCacheAccessPolicyResource.ValidateResourceId(id);
+                return new RedisCacheAccessPolicyResource(client, id);
+            }
+            );
+        }
+        #endregion
+
+        #region RedisCacheAccessPolicyAssignmentSetResource
+        /// <summary>
+        /// Gets an object representing a <see cref="RedisCacheAccessPolicyAssignmentSetResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="RedisCacheAccessPolicyAssignmentSetResource.CreateResourceIdentifier" /> to create a <see cref="RedisCacheAccessPolicyAssignmentSetResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="RedisCacheAccessPolicyAssignmentSetResource" /> object. </returns>
+        public static RedisCacheAccessPolicyAssignmentSetResource GetRedisCacheAccessPolicyAssignmentSetResource(this ArmClient client, ResourceIdentifier id)
+        {
+            return client.GetResourceClient(() =>
+            {
+                RedisCacheAccessPolicyAssignmentSetResource.ValidateResourceId(id);
+                return new RedisCacheAccessPolicyAssignmentSetResource(client, id);
+            }
+            );
+        }
+        #endregion
     }
 }
