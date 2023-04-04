@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="GetWidgetAsync(String,RequestContext)">
+<example>
+This sample shows how to call GetWidgetAsync with required parameters and parse the result.
+<code><![CDATA[
+var client = new WidgetManagerClient();
+
+Response response = await client.GetWidgetAsync("<widgetName>");
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("manufacturerId").ToString());
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for the response payload.
+
+Response Body:
+
+Schema for <c>Widget</c>:
+<code>{
+  name: string, # Required. The widget name.
+  manufacturerId: string, # Required. The ID of the widget&apos;s manufacturer.
+}
+</code>
+
+</remarks>
+    </member>
+    <member name="GetWidget(String,RequestContext)">
+<example>
+This sample shows how to call GetWidget with required parameters and parse the result.
+<code><![CDATA[
+var client = new WidgetManagerClient();
+
+Response response = client.GetWidget("<widgetName>");
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("manufacturerId").ToString());
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for the response payload.
+
+Response Body:
+
+Schema for <c>Widget</c>:
+<code>{
+  name: string, # Required. The widget name.
+  manufacturerId: string, # Required. The ID of the widget&apos;s manufacturer.
+}
+</code>
+
+</remarks>
+    </member>
+    <member name="GetWidgetsAsync(RequestContext)">
+<example>
+This sample shows how to call GetWidgetsAsync and parse the result.
+<code><![CDATA[
+var client = new WidgetManagerClient();
+
+await foreach (var data in client.GetWidgetsAsync())
+{
+    JsonElement result = JsonDocument.Parse(data.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("manufacturerId").ToString());
+}
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for one item in the pageable response.
+
+Response Body:
+
+Schema for <c>Array</c>:
+<code>{
+  name: string, # Required. The widget name.
+  manufacturerId: string, # Required. The ID of the widget&apos;s manufacturer.
+}
+</code>
+
+</remarks>
+    </member>
+    <member name="GetWidgets(RequestContext)">
+<example>
+This sample shows how to call GetWidgets and parse the result.
+<code><![CDATA[
+var client = new WidgetManagerClient();
+
+foreach (var data in client.GetWidgets())
+{
+    JsonElement result = JsonDocument.Parse(data.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("manufacturerId").ToString());
+}
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for one item in the pageable response.
+
+Response Body:
+
+Schema for <c>Array</c>:
+<code>{
+  name: string, # Required. The widget name.
+  manufacturerId: string, # Required. The ID of the widget&apos;s manufacturer.
+}
+</code>
+
+</remarks>
+    </member>
+    <member name="CreateOrUpdateWidgetAsync(WaitUntil,String,RequestContent,RequestContext)">
+<example>
+This sample shows how to call CreateOrUpdateWidgetAsync with required parameters and request content and parse the result.
+<code><![CDATA[
+var client = new WidgetManagerClient();
+
+var data = new {
+    manufacturerId = "<manufacturerId>",
+};
+
+var operation = await client.CreateOrUpdateWidgetAsync(WaitUntil.Completed, "<widgetName>", RequestContent.Create(data));
+
+BinaryData data = operation.Value;
+JsonElement result = JsonDocument.Parse(data.ToStream()).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("manufacturerId").ToString());
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for the request and response payloads.
+
+Request Body:
+
+Schema for <c>Widget</c>:
+<code>{
+  name: string, # Required. The widget name.
+  manufacturerId: string, # Required. The ID of the widget&apos;s manufacturer.
+}
+</code>
+
+Response Body:
+
+Schema for <c>Widget</c>:
+<code>{
+  name: string, # Required. The widget name.
+  manufacturerId: string, # Required. The ID of the widget&apos;s manufacturer.
+}
+</code>
+
+</remarks>
+    </member>
+    <member name="CreateOrUpdateWidget(WaitUntil,String,RequestContent,RequestContext)">
+<example>
+This sample shows how to call CreateOrUpdateWidget with required parameters and request content and parse the result.
+<code><![CDATA[
+var client = new WidgetManagerClient();
+
+var data = new {
+    manufacturerId = "<manufacturerId>",
+};
+
+var operation = client.CreateOrUpdateWidget(WaitUntil.Completed, "<widgetName>", RequestContent.Create(data));
+
+BinaryData data = operation.Value;
+JsonElement result = JsonDocument.Parse(data.ToStream()).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("manufacturerId").ToString());
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for the request and response payloads.
+
+Request Body:
+
+Schema for <c>Widget</c>:
+<code>{
+  name: string, # Required. The widget name.
+  manufacturerId: string, # Required. The ID of the widget&apos;s manufacturer.
+}
+</code>
+
+Response Body:
+
+Schema for <c>Widget</c>:
+<code>{
+  name: string, # Required. The widget name.
+  manufacturerId: string, # Required. The ID of the widget&apos;s manufacturer.
+}
+</code>
+
+</remarks>
+    </member>
+    <member name="DeleteWidgetAsync(WaitUntil,String,RequestContext)">
+<example>
+This sample shows how to call DeleteWidgetAsync with required parameters and parse the result.
+<code><![CDATA[
+var client = new WidgetManagerClient();
+
+var operation = await client.DeleteWidgetAsync(WaitUntil.Completed, "<widgetName>");
+
+BinaryData data = operation.Value;
+JsonElement result = JsonDocument.Parse(data.ToStream()).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("manufacturerId").ToString());
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for the response payload.
+
+Response Body:
+
+Schema for <c>Widget</c>:
+<code>{
+  name: string, # Required. The widget name.
+  manufacturerId: string, # Required. The ID of the widget&apos;s manufacturer.
+}
+</code>
+
+</remarks>
+    </member>
+    <member name="DeleteWidget(WaitUntil,String,RequestContext)">
+<example>
+This sample shows how to call DeleteWidget with required parameters and parse the result.
+<code><![CDATA[
+var client = new WidgetManagerClient();
+
+var operation = client.DeleteWidget(WaitUntil.Completed, "<widgetName>");
+
+BinaryData data = operation.Value;
+JsonElement result = JsonDocument.Parse(data.ToStream()).RootElement;
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("manufacturerId").ToString());
+]]></code>
+</example>
+<remarks>
+Below is the JSON schema for the response payload.
+
+Response Body:
+
+Schema for <c>Widget</c>:
+<code>{
+  name: string, # Required. The widget name.
+  manufacturerId: string, # Required. The ID of the widget&apos;s manufacturer.
+}
+</code>
+
+</remarks>
+    </member>
+  </members>
+</doc>
