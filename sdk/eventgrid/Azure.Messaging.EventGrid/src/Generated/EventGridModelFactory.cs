@@ -8,6 +8,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Azure;
 using Azure.Messaging.EventGrid.SystemEvents;
 
 namespace Azure.Messaging.EventGrid
@@ -162,6 +163,27 @@ namespace Azure.Messaging.EventGrid
         public static StorageBlobInventoryPolicyCompletedEventData StorageBlobInventoryPolicyCompletedEventData(DateTimeOffset? scheduleDateTime = null, string accountName = null, string ruleName = null, string policyRunStatus = null, string policyRunStatusMessage = null, string policyRunId = null, string manifestBlobUrl = null)
         {
             return new StorageBlobInventoryPolicyCompletedEventData(scheduleDateTime, accountName, ruleName, policyRunStatus, policyRunStatusMessage, policyRunId, manifestBlobUrl);
+        }
+
+        /// <summary> Initializes a new instance of StorageTaskQueuedEventData. </summary>
+        /// <param name="queuedDateTime"> The time at which a storage task was queued. </param>
+        /// <param name="taskExecutionId"> The execution id for a storage task. </param>
+        /// <returns> A new <see cref="SystemEvents.StorageTaskQueuedEventData"/> instance for mocking. </returns>
+        public static StorageTaskQueuedEventData StorageTaskQueuedEventData(DateTimeOffset? queuedDateTime = null, string taskExecutionId = null)
+        {
+            return new StorageTaskQueuedEventData(queuedDateTime, taskExecutionId);
+        }
+
+        /// <summary> Initializes a new instance of StorageTaskCompletedEventData. </summary>
+        /// <param name="status"> The status for a storage task. </param>
+        /// <param name="completedDateTime"> The time at which a storage task was completed. </param>
+        /// <param name="taskExecutionId"> The execution id for a storage task. </param>
+        /// <param name="taskName"> The task name for a storage task. </param>
+        /// <param name="summaryReportBlobUrl"> The summary report blob url for a storage task. </param>
+        /// <returns> A new <see cref="SystemEvents.StorageTaskCompletedEventData"/> instance for mocking. </returns>
+        public static StorageTaskCompletedEventData StorageTaskCompletedEventData(string status = null, DateTimeOffset? completedDateTime = null, string taskExecutionId = null, string taskName = null, string summaryReportBlobUrl = null)
+        {
+            return new StorageTaskCompletedEventData(status, completedDateTime, taskExecutionId, taskName, summaryReportBlobUrl);
         }
 
         /// <summary> Initializes a new instance of EventHubCaptureFileCreatedEventData. </summary>
@@ -2376,6 +2398,811 @@ namespace Azure.Messaging.EventGrid
         public static HealthcareDicomImageDeletedEventData HealthcareDicomImageDeletedEventData(string imageStudyInstanceUid = null, string imageSeriesInstanceUid = null, string imageSopInstanceUid = null, string serviceHostName = null, long? sequenceNumber = null)
         {
             return new HealthcareDicomImageDeletedEventData(imageStudyInstanceUid, imageSeriesInstanceUid, imageSopInstanceUid, serviceHostName, sequenceNumber);
+        }
+
+        /// <summary> Initializes a new instance of DataManagerForAgriApplicationDataChangedV2EventData. </summary>
+        /// <param name="actionType"> Action occurred on a resource. </param>
+        /// <param name="partyId"> Id of the party it belongs to. </param>
+        /// <param name="status"> Status of the resource. </param>
+        /// <param name="source"> Source of the farm operation data. </param>
+        /// <param name="modifiedDateTime"> Date-time when resource was last modified, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <param name="properties">
+        /// A list of key value pairs that describe the resource.
+        /// Only string and numeral values are supported.
+        /// </param>
+        /// <param name="eTag"> The ETag value to implement optimistic concurrency. </param>
+        /// <param name="id"> Unique id of resource. </param>
+        /// <param name="name"> Name to identify resource. </param>
+        /// <param name="description"> Textual description of resource. </param>
+        /// <param name="createdDateTime"> Date-time when resource was created, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <returns> A new <see cref="SystemEvents.DataManagerForAgriApplicationDataChangedV2EventData"/> instance for mocking. </returns>
+        public static DataManagerForAgriApplicationDataChangedV2EventData DataManagerForAgriApplicationDataChangedV2EventData(ResourceActionType? actionType = null, string partyId = null, string status = null, string source = null, DateTimeOffset? modifiedDateTime = null, IReadOnlyDictionary<string, object> properties = null, ETag? eTag = null, string id = null, string name = null, string description = null, DateTimeOffset? createdDateTime = null)
+        {
+            properties ??= new Dictionary<string, object>();
+
+            return new DataManagerForAgriApplicationDataChangedV2EventData(actionType, partyId, status, source, modifiedDateTime, properties, eTag, id, name, description, createdDateTime);
+        }
+
+        /// <summary> Initializes a new instance of DataManagerForAgriAttachmentChangedV2EventData. </summary>
+        /// <param name="resourceId"> Associated resource id for the attachment. </param>
+        /// <param name="resourceType"> Attachment resource type. </param>
+        /// <param name="partyId"> Id of the party it belongs to. </param>
+        /// <param name="actionType"> Action occurred on a resource. </param>
+        /// <param name="status"> Status of the resource. </param>
+        /// <param name="modifiedDateTime"> Date-time when resource was last modified, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <param name="eTag"> The ETag value to implement optimistic concurrency. </param>
+        /// <param name="id"> Unique id of resource. </param>
+        /// <param name="name"> Name to identify resource. </param>
+        /// <param name="description"> Textual description of resource. </param>
+        /// <param name="createdDateTime"> Date-time when resource was created, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <returns> A new <see cref="SystemEvents.DataManagerForAgriAttachmentChangedV2EventData"/> instance for mocking. </returns>
+        public static DataManagerForAgriAttachmentChangedV2EventData DataManagerForAgriAttachmentChangedV2EventData(string resourceId = null, AttachmentResourceType? resourceType = null, string partyId = null, ResourceActionType? actionType = null, string status = null, DateTimeOffset? modifiedDateTime = null, ETag? eTag = null, string id = null, string name = null, string description = null, DateTimeOffset? createdDateTime = null)
+        {
+            return new DataManagerForAgriAttachmentChangedV2EventData(resourceId, resourceType, partyId, actionType, status, modifiedDateTime, eTag, id, name, description, createdDateTime);
+        }
+
+        /// <summary> Initializes a new instance of DataManagerForAgriBiomassModelJobStatusChangedV2EventData. </summary>
+        /// <param name="partyId"> Party id for which job was created. </param>
+        /// <param name="message"> Status message to capture more details of the job. </param>
+        /// <param name="status"> Various states a job can be in. </param>
+        /// <param name="lastActionDateTime"> Date-time when last action was taken on job, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <param name="isCancellationRequested"> Flag that gets set when job cancellation is requested. </param>
+        /// <param name="properties">
+        /// A list of key value pairs that describe the resource.
+        /// Only string and numeral values are supported.
+        /// </param>
+        /// <param name="id"> Unique id of resource. </param>
+        /// <param name="name"> Name to identify resource. </param>
+        /// <param name="description"> Textual description of resource. </param>
+        /// <param name="createdDateTime"> Date-time when resource was created, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <returns> A new <see cref="SystemEvents.DataManagerForAgriBiomassModelJobStatusChangedV2EventData"/> instance for mocking. </returns>
+        public static DataManagerForAgriBiomassModelJobStatusChangedV2EventData DataManagerForAgriBiomassModelJobStatusChangedV2EventData(string partyId = null, string message = null, JobStatus? status = null, DateTimeOffset? lastActionDateTime = null, bool? isCancellationRequested = null, IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, DateTimeOffset? createdDateTime = null)
+        {
+            properties ??= new Dictionary<string, object>();
+
+            return new DataManagerForAgriBiomassModelJobStatusChangedV2EventData(partyId, message, status, lastActionDateTime, isCancellationRequested, properties, id, name, description, createdDateTime);
+        }
+
+        /// <summary> Initializes a new instance of DataManagerForAgriBoundaryChangedV2EventData. </summary>
+        /// <param name="parentId"> Id of the parent it belongs to. </param>
+        /// <param name="parentType"> Boundary parent type enum. </param>
+        /// <param name="partyId"> Id of the party it belongs to. </param>
+        /// <param name="actionType"> Action occurred on a resource. </param>
+        /// <param name="status"> Status of the resource. </param>
+        /// <param name="modifiedDateTime"> Date-time when resource was last modified, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <param name="eTag"> The ETag value to implement optimistic concurrency. </param>
+        /// <param name="properties">
+        /// A list of key value pairs that describe the resource.
+        /// Only string and numeral values are supported.
+        /// </param>
+        /// <param name="id"> Unique id of resource. </param>
+        /// <param name="name"> Name to identify resource. </param>
+        /// <param name="description"> Textual description of resource. </param>
+        /// <param name="createdDateTime"> Date-time when resource was created, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <returns> A new <see cref="SystemEvents.DataManagerForAgriBoundaryChangedV2EventData"/> instance for mocking. </returns>
+        public static DataManagerForAgriBoundaryChangedV2EventData DataManagerForAgriBoundaryChangedV2EventData(string parentId = null, BoundaryParentType? parentType = null, string partyId = null, ResourceActionType? actionType = null, string status = null, DateTimeOffset? modifiedDateTime = null, ETag? eTag = null, IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, DateTimeOffset? createdDateTime = null)
+        {
+            properties ??= new Dictionary<string, object>();
+
+            return new DataManagerForAgriBoundaryChangedV2EventData(parentId, parentType, partyId, actionType, status, modifiedDateTime, eTag, properties, id, name, description, createdDateTime);
+        }
+
+        /// <summary> Initializes a new instance of DataManagerForAgriCropChangedEventData. </summary>
+        /// <param name="actionType"> Action occurred on a resource. </param>
+        /// <param name="status"> Status of the resource. </param>
+        /// <param name="modifiedDateTime"> Date-time when resource was last modified, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <param name="eTag"> The ETag value to implement optimistic concurrency. </param>
+        /// <param name="properties">
+        /// A list of key value pairs that describe the resource.
+        /// Only string and numeral values are supported.
+        /// </param>
+        /// <param name="id"> Unique id of resource. </param>
+        /// <param name="name"> Name to identify resource. </param>
+        /// <param name="description"> Textual description of resource. </param>
+        /// <param name="createdDateTime"> Date-time when resource was created, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <returns> A new <see cref="SystemEvents.DataManagerForAgriCropChangedEventData"/> instance for mocking. </returns>
+        public static DataManagerForAgriCropChangedEventData DataManagerForAgriCropChangedEventData(ResourceActionType? actionType = null, string status = null, DateTimeOffset? modifiedDateTime = null, ETag? eTag = null, IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, DateTimeOffset? createdDateTime = null)
+        {
+            properties ??= new Dictionary<string, object>();
+
+            return new DataManagerForAgriCropChangedEventData(actionType, status, modifiedDateTime, eTag, properties, id, name, description, createdDateTime);
+        }
+
+        /// <summary> Initializes a new instance of DataManagerForAgriCropProductChangedEventData. </summary>
+        /// <param name="actionType"> Action occurred on a resource. </param>
+        /// <param name="status"> Status of the resource. </param>
+        /// <param name="modifiedDateTime"> Date-time when resource was last modified, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <param name="eTag"> The ETag value to implement optimistic concurrency. </param>
+        /// <param name="properties">
+        /// A list of key value pairs that describe the resource.
+        /// Only string and numeral values are supported.
+        /// </param>
+        /// <param name="id"> Unique id of resource. </param>
+        /// <param name="name"> Name to identify resource. </param>
+        /// <param name="description"> Textual description of resource. </param>
+        /// <param name="createdDateTime"> Date-time when resource was created, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <returns> A new <see cref="SystemEvents.DataManagerForAgriCropProductChangedEventData"/> instance for mocking. </returns>
+        public static DataManagerForAgriCropProductChangedEventData DataManagerForAgriCropProductChangedEventData(ResourceActionType? actionType = null, string status = null, DateTimeOffset? modifiedDateTime = null, ETag? eTag = null, IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, DateTimeOffset? createdDateTime = null)
+        {
+            properties ??= new Dictionary<string, object>();
+
+            return new DataManagerForAgriCropProductChangedEventData(actionType, status, modifiedDateTime, eTag, properties, id, name, description, createdDateTime);
+        }
+
+        /// <summary> Initializes a new instance of DataManagerForAgriDeviceChangedEventData. </summary>
+        /// <param name="deviceDataModelId"> Id associated with the deviceDataModel. </param>
+        /// <param name="integrationId"> Id associated with the integration. </param>
+        /// <param name="sensorPartnerId"> Id associated with the sensorPartner. </param>
+        /// <param name="actionType"> Action occurred on a resource. </param>
+        /// <param name="status"> Status of the resource. </param>
+        /// <param name="modifiedDateTime"> Date-time when resource was last modified, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <param name="eTag"> The ETag value to implement optimistic concurrency. </param>
+        /// <param name="properties">
+        /// A list of key value pairs that describe the resource.
+        /// Only string and numeral values are supported.
+        /// </param>
+        /// <param name="id"> Unique id of resource. </param>
+        /// <param name="name"> Name to identify resource. </param>
+        /// <param name="description"> Textual description of resource. </param>
+        /// <param name="createdDateTime"> Date-time when resource was created, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <returns> A new <see cref="SystemEvents.DataManagerForAgriDeviceChangedEventData"/> instance for mocking. </returns>
+        public static DataManagerForAgriDeviceChangedEventData DataManagerForAgriDeviceChangedEventData(string deviceDataModelId = null, string integrationId = null, string sensorPartnerId = null, ResourceActionType? actionType = null, string status = null, DateTimeOffset? modifiedDateTime = null, ETag? eTag = null, IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, DateTimeOffset? createdDateTime = null)
+        {
+            properties ??= new Dictionary<string, object>();
+
+            return new DataManagerForAgriDeviceChangedEventData(deviceDataModelId, integrationId, sensorPartnerId, actionType, status, modifiedDateTime, eTag, properties, id, name, description, createdDateTime);
+        }
+
+        /// <summary> Initializes a new instance of DataManagerForAgriDeviceDataModelChangedEventData. </summary>
+        /// <param name="sensorPartnerId"> Id associated with the sensorPartner. </param>
+        /// <param name="actionType"> Action occurred on a resource. </param>
+        /// <param name="status"> Status of the resource. </param>
+        /// <param name="modifiedDateTime"> Date-time when resource was last modified, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <param name="eTag"> The ETag value to implement optimistic concurrency. </param>
+        /// <param name="properties">
+        /// A list of key value pairs that describe the resource.
+        /// Only string and numeral values are supported.
+        /// </param>
+        /// <param name="id"> Unique id of resource. </param>
+        /// <param name="name"> Name to identify resource. </param>
+        /// <param name="description"> Textual description of resource. </param>
+        /// <param name="createdDateTime"> Date-time when resource was created, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <returns> A new <see cref="SystemEvents.DataManagerForAgriDeviceDataModelChangedEventData"/> instance for mocking. </returns>
+        public static DataManagerForAgriDeviceDataModelChangedEventData DataManagerForAgriDeviceDataModelChangedEventData(string sensorPartnerId = null, ResourceActionType? actionType = null, string status = null, DateTimeOffset? modifiedDateTime = null, ETag? eTag = null, IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, DateTimeOffset? createdDateTime = null)
+        {
+            properties ??= new Dictionary<string, object>();
+
+            return new DataManagerForAgriDeviceDataModelChangedEventData(sensorPartnerId, actionType, status, modifiedDateTime, eTag, properties, id, name, description, createdDateTime);
+        }
+
+        /// <summary> Initializes a new instance of DataManagerForAgriFarmChangedV2EventData. </summary>
+        /// <param name="partyId"> Id of the party it belongs to. </param>
+        /// <param name="actionType"> Action occurred on a resource. </param>
+        /// <param name="status"> Status of the resource. </param>
+        /// <param name="modifiedDateTime"> Date-time when resource was last modified, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <param name="eTag"> The ETag value to implement optimistic concurrency. </param>
+        /// <param name="properties">
+        /// A list of key value pairs that describe the resource.
+        /// Only string and numeral values are supported.
+        /// </param>
+        /// <param name="id"> Unique id of resource. </param>
+        /// <param name="name"> Name to identify resource. </param>
+        /// <param name="description"> Textual description of resource. </param>
+        /// <param name="createdDateTime"> Date-time when resource was created, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <returns> A new <see cref="SystemEvents.DataManagerForAgriFarmChangedV2EventData"/> instance for mocking. </returns>
+        public static DataManagerForAgriFarmChangedV2EventData DataManagerForAgriFarmChangedV2EventData(string partyId = null, ResourceActionType? actionType = null, string status = null, DateTimeOffset? modifiedDateTime = null, ETag? eTag = null, IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, DateTimeOffset? createdDateTime = null)
+        {
+            properties ??= new Dictionary<string, object>();
+
+            return new DataManagerForAgriFarmChangedV2EventData(partyId, actionType, status, modifiedDateTime, eTag, properties, id, name, description, createdDateTime);
+        }
+
+        /// <summary> Initializes a new instance of DataManagerForAgriFarmOperationDataIngestionJobStatusChangedV2EventData. </summary>
+        /// <param name="partyId"> Party id for which job was created. </param>
+        /// <param name="message"> Status message to capture more details of the job. </param>
+        /// <param name="status"> Various states a job can be in. </param>
+        /// <param name="lastActionDateTime"> Date-time when last action was taken on job, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <param name="isCancellationRequested"> Flag that gets set when job cancellation is requested. </param>
+        /// <param name="properties">
+        /// A list of key value pairs that describe the resource.
+        /// Only string and numeral values are supported.
+        /// </param>
+        /// <param name="id"> Unique id of resource. </param>
+        /// <param name="name"> Name to identify resource. </param>
+        /// <param name="description"> Textual description of resource. </param>
+        /// <param name="createdDateTime"> Date-time when resource was created, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <returns> A new <see cref="SystemEvents.DataManagerForAgriFarmOperationDataIngestionJobStatusChangedV2EventData"/> instance for mocking. </returns>
+        public static DataManagerForAgriFarmOperationDataIngestionJobStatusChangedV2EventData DataManagerForAgriFarmOperationDataIngestionJobStatusChangedV2EventData(string partyId = null, string message = null, JobStatus? status = null, DateTimeOffset? lastActionDateTime = null, bool? isCancellationRequested = null, IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, DateTimeOffset? createdDateTime = null)
+        {
+            properties ??= new Dictionary<string, object>();
+
+            return new DataManagerForAgriFarmOperationDataIngestionJobStatusChangedV2EventData(partyId, message, status, lastActionDateTime, isCancellationRequested, properties, id, name, description, createdDateTime);
+        }
+
+        /// <summary> Initializes a new instance of DataManagerForAgriFieldChangedV2EventData. </summary>
+        /// <param name="farmId"> Id of the associated Farm. </param>
+        /// <param name="partyId"> Id of the party it belongs to. </param>
+        /// <param name="actionType"> Action occurred on a resource. </param>
+        /// <param name="status"> Status of the resource. </param>
+        /// <param name="modifiedDateTime"> Date-time when resource was last modified, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <param name="eTag"> The ETag value to implement optimistic concurrency. </param>
+        /// <param name="properties">
+        /// A list of key value pairs that describe the resource.
+        /// Only string and numeral values are supported.
+        /// </param>
+        /// <param name="id"> Unique id of resource. </param>
+        /// <param name="name"> Name to identify resource. </param>
+        /// <param name="description"> Textual description of resource. </param>
+        /// <param name="createdDateTime"> Date-time when resource was created, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <returns> A new <see cref="SystemEvents.DataManagerForAgriFieldChangedV2EventData"/> instance for mocking. </returns>
+        public static DataManagerForAgriFieldChangedV2EventData DataManagerForAgriFieldChangedV2EventData(string farmId = null, string partyId = null, ResourceActionType? actionType = null, string status = null, DateTimeOffset? modifiedDateTime = null, ETag? eTag = null, IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, DateTimeOffset? createdDateTime = null)
+        {
+            properties ??= new Dictionary<string, object>();
+
+            return new DataManagerForAgriFieldChangedV2EventData(farmId, partyId, actionType, status, modifiedDateTime, eTag, properties, id, name, description, createdDateTime);
+        }
+
+        /// <summary> Initializes a new instance of DataManagerForAgriHarvestDataChangedV2EventData. </summary>
+        /// <param name="actionType"> Action occurred on a resource. </param>
+        /// <param name="partyId"> Id of the party it belongs to. </param>
+        /// <param name="status"> Status of the resource. </param>
+        /// <param name="source"> Source of the farm operation data. </param>
+        /// <param name="modifiedDateTime"> Date-time when resource was last modified, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <param name="properties">
+        /// A list of key value pairs that describe the resource.
+        /// Only string and numeral values are supported.
+        /// </param>
+        /// <param name="eTag"> The ETag value to implement optimistic concurrency. </param>
+        /// <param name="id"> Unique id of resource. </param>
+        /// <param name="name"> Name to identify resource. </param>
+        /// <param name="description"> Textual description of resource. </param>
+        /// <param name="createdDateTime"> Date-time when resource was created, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <returns> A new <see cref="SystemEvents.DataManagerForAgriHarvestDataChangedV2EventData"/> instance for mocking. </returns>
+        public static DataManagerForAgriHarvestDataChangedV2EventData DataManagerForAgriHarvestDataChangedV2EventData(ResourceActionType? actionType = null, string partyId = null, string status = null, string source = null, DateTimeOffset? modifiedDateTime = null, IReadOnlyDictionary<string, object> properties = null, ETag? eTag = null, string id = null, string name = null, string description = null, DateTimeOffset? createdDateTime = null)
+        {
+            properties ??= new Dictionary<string, object>();
+
+            return new DataManagerForAgriHarvestDataChangedV2EventData(actionType, partyId, status, source, modifiedDateTime, properties, eTag, id, name, description, createdDateTime);
+        }
+
+        /// <summary> Initializes a new instance of DataManagerForAgriImageProcessingRasterizeJobStatusChangedV2EventData. </summary>
+        /// <param name="shapefileAttachmentId"> Attachment id of the shapefile for which job was created. </param>
+        /// <param name="partyId"> Party id for which job was created. </param>
+        /// <param name="message"> Status message to capture more details of the job. </param>
+        /// <param name="status"> Various states a job can be in. </param>
+        /// <param name="lastActionDateTime"> Date-time when last action was taken on job, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <param name="isCancellationRequested"> Flag that gets set when job cancellation is requested. </param>
+        /// <param name="properties">
+        /// A list of key value pairs that describe the resource.
+        /// Only string and numeral values are supported.
+        /// </param>
+        /// <param name="id"> Unique id of resource. </param>
+        /// <param name="name"> Name to identify resource. </param>
+        /// <param name="description"> Textual description of resource. </param>
+        /// <param name="createdDateTime"> Date-time when resource was created, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <returns> A new <see cref="SystemEvents.DataManagerForAgriImageProcessingRasterizeJobStatusChangedV2EventData"/> instance for mocking. </returns>
+        public static DataManagerForAgriImageProcessingRasterizeJobStatusChangedV2EventData DataManagerForAgriImageProcessingRasterizeJobStatusChangedV2EventData(string shapefileAttachmentId = null, string partyId = null, string message = null, JobStatus? status = null, DateTimeOffset? lastActionDateTime = null, bool? isCancellationRequested = null, IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, DateTimeOffset? createdDateTime = null)
+        {
+            properties ??= new Dictionary<string, object>();
+
+            return new DataManagerForAgriImageProcessingRasterizeJobStatusChangedV2EventData(shapefileAttachmentId, partyId, message, status, lastActionDateTime, isCancellationRequested, properties, id, name, description, createdDateTime);
+        }
+
+        /// <summary> Initializes a new instance of DataManagerForAgriInsightAttachmentChangedV2EventData. </summary>
+        /// <param name="insightId"> Id associated with the insight resource. </param>
+        /// <param name="modelId"> Id of the associated model. </param>
+        /// <param name="resourceType"> Farm hierarchy resource type. </param>
+        /// <param name="resourceId"> Id of the associated resource. </param>
+        /// <param name="partyId"> Id of the party it belongs to. </param>
+        /// <param name="actionType"> Action occurred on a resource. </param>
+        /// <param name="status"> Status of the resource. </param>
+        /// <param name="modifiedDateTime"> Date-time when resource was last modified, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <param name="eTag"> The ETag value to implement optimistic concurrency. </param>
+        /// <param name="properties">
+        /// A list of key value pairs that describe the resource.
+        /// Only string and numeral values are supported.
+        /// </param>
+        /// <param name="id"> Unique id of resource. </param>
+        /// <param name="name"> Name to identify resource. </param>
+        /// <param name="description"> Textual description of resource. </param>
+        /// <param name="createdDateTime"> Date-time when resource was created, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <returns> A new <see cref="SystemEvents.DataManagerForAgriInsightAttachmentChangedV2EventData"/> instance for mocking. </returns>
+        public static DataManagerForAgriInsightAttachmentChangedV2EventData DataManagerForAgriInsightAttachmentChangedV2EventData(string insightId = null, string modelId = null, FarmHierarchyResourceType? resourceType = null, string resourceId = null, string partyId = null, ResourceActionType? actionType = null, string status = null, DateTimeOffset? modifiedDateTime = null, ETag? eTag = null, IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, DateTimeOffset? createdDateTime = null)
+        {
+            properties ??= new Dictionary<string, object>();
+
+            return new DataManagerForAgriInsightAttachmentChangedV2EventData(insightId, modelId, resourceType, resourceId, partyId, actionType, status, modifiedDateTime, eTag, properties, id, name, description, createdDateTime);
+        }
+
+        /// <summary> Initializes a new instance of DataManagerForAgriInsightChangedV2EventData. </summary>
+        /// <param name="modelId"> Id of the associated model. </param>
+        /// <param name="resourceType"> Farm hierarchy resource type. </param>
+        /// <param name="resourceId"> Id of the associated resource. </param>
+        /// <param name="modelVersion"> Version of the associated model. </param>
+        /// <param name="partyId"> Id of the party it belongs to. </param>
+        /// <param name="actionType"> Action occurred on a resource. </param>
+        /// <param name="status"> Status of the resource. </param>
+        /// <param name="modifiedDateTime"> Date-time when resource was last modified, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <param name="eTag"> The ETag value to implement optimistic concurrency. </param>
+        /// <param name="properties">
+        /// A list of key value pairs that describe the resource.
+        /// Only string and numeral values are supported.
+        /// </param>
+        /// <param name="id"> Unique id of resource. </param>
+        /// <param name="name"> Name to identify resource. </param>
+        /// <param name="description"> Textual description of resource. </param>
+        /// <param name="createdDateTime"> Date-time when resource was created, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <returns> A new <see cref="SystemEvents.DataManagerForAgriInsightChangedV2EventData"/> instance for mocking. </returns>
+        public static DataManagerForAgriInsightChangedV2EventData DataManagerForAgriInsightChangedV2EventData(string modelId = null, FarmHierarchyResourceType? resourceType = null, string resourceId = null, string modelVersion = null, string partyId = null, ResourceActionType? actionType = null, string status = null, DateTimeOffset? modifiedDateTime = null, ETag? eTag = null, IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, DateTimeOffset? createdDateTime = null)
+        {
+            properties ??= new Dictionary<string, object>();
+
+            return new DataManagerForAgriInsightChangedV2EventData(modelId, resourceType, resourceId, modelVersion, partyId, actionType, status, modifiedDateTime, eTag, properties, id, name, description, createdDateTime);
+        }
+
+        /// <summary> Initializes a new instance of DataManagerForAgriManagementZoneChangedV2EventData. </summary>
+        /// <param name="seasonId"> Season Id associated with the management zone. </param>
+        /// <param name="cropId"> Crop Id associated with the management zone. </param>
+        /// <param name="fieldId"> Field Id associated with the management zone. </param>
+        /// <param name="partyId"> Id of the party it belongs to. </param>
+        /// <param name="actionType"> Action occurred on a resource. </param>
+        /// <param name="status"> Status of the resource. </param>
+        /// <param name="modifiedDateTime"> Date-time when resource was last modified, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <param name="eTag"> The ETag value to implement optimistic concurrency. </param>
+        /// <param name="properties">
+        /// A list of key value pairs that describe the resource.
+        /// Only string and numeral values are supported.
+        /// </param>
+        /// <param name="id"> Unique id of resource. </param>
+        /// <param name="name"> Name to identify resource. </param>
+        /// <param name="description"> Textual description of resource. </param>
+        /// <param name="createdDateTime"> Date-time when resource was created, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <returns> A new <see cref="SystemEvents.DataManagerForAgriManagementZoneChangedV2EventData"/> instance for mocking. </returns>
+        public static DataManagerForAgriManagementZoneChangedV2EventData DataManagerForAgriManagementZoneChangedV2EventData(string seasonId = null, string cropId = null, string fieldId = null, string partyId = null, ResourceActionType? actionType = null, string status = null, DateTimeOffset? modifiedDateTime = null, ETag? eTag = null, IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, DateTimeOffset? createdDateTime = null)
+        {
+            properties ??= new Dictionary<string, object>();
+
+            return new DataManagerForAgriManagementZoneChangedV2EventData(seasonId, cropId, fieldId, partyId, actionType, status, modifiedDateTime, eTag, properties, id, name, description, createdDateTime);
+        }
+
+        /// <summary> Initializes a new instance of DataManagerForAgriNutrientAnalysisChangedV2EventData. </summary>
+        /// <param name="parentId"> Id of the parent it belongs to. </param>
+        /// <param name="parentType"> Nutrient analysis parent type. </param>
+        /// <param name="partyId"> Id of the party it belongs to. </param>
+        /// <param name="actionType"> Action occurred on a resource. </param>
+        /// <param name="status"> Status of the resource. </param>
+        /// <param name="modifiedDateTime"> Date-time when resource was last modified, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <param name="eTag"> The ETag value to implement optimistic concurrency. </param>
+        /// <param name="properties">
+        /// A list of key value pairs that describe the resource.
+        /// Only string and numeral values are supported.
+        /// </param>
+        /// <param name="id"> Unique id of resource. </param>
+        /// <param name="name"> Name to identify resource. </param>
+        /// <param name="description"> Textual description of resource. </param>
+        /// <param name="createdDateTime"> Date-time when resource was created, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <returns> A new <see cref="SystemEvents.DataManagerForAgriNutrientAnalysisChangedV2EventData"/> instance for mocking. </returns>
+        public static DataManagerForAgriNutrientAnalysisChangedV2EventData DataManagerForAgriNutrientAnalysisChangedV2EventData(string parentId = null, NutrientAnalysisParentType? parentType = null, string partyId = null, ResourceActionType? actionType = null, string status = null, DateTimeOffset? modifiedDateTime = null, ETag? eTag = null, IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, DateTimeOffset? createdDateTime = null)
+        {
+            properties ??= new Dictionary<string, object>();
+
+            return new DataManagerForAgriNutrientAnalysisChangedV2EventData(parentId, parentType, partyId, actionType, status, modifiedDateTime, eTag, properties, id, name, description, createdDateTime);
+        }
+
+        /// <summary> Initializes a new instance of DataManagerForAgriPartyChangedEventData. </summary>
+        /// <param name="actionType"> Action occurred on a resource. </param>
+        /// <param name="status"> Status of the resource. </param>
+        /// <param name="modifiedDateTime"> Date-time when resource was last modified, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <param name="eTag"> The ETag value to implement optimistic concurrency. </param>
+        /// <param name="properties">
+        /// A list of key value pairs that describe the resource.
+        /// Only string and numeral values are supported.
+        /// </param>
+        /// <param name="id"> Unique id of resource. </param>
+        /// <param name="name"> Name to identify resource. </param>
+        /// <param name="description"> Textual description of resource. </param>
+        /// <param name="createdDateTime"> Date-time when resource was created, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <returns> A new <see cref="SystemEvents.DataManagerForAgriPartyChangedEventData"/> instance for mocking. </returns>
+        public static DataManagerForAgriPartyChangedEventData DataManagerForAgriPartyChangedEventData(ResourceActionType? actionType = null, string status = null, DateTimeOffset? modifiedDateTime = null, ETag? eTag = null, IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, DateTimeOffset? createdDateTime = null)
+        {
+            properties ??= new Dictionary<string, object>();
+
+            return new DataManagerForAgriPartyChangedEventData(actionType, status, modifiedDateTime, eTag, properties, id, name, description, createdDateTime);
+        }
+
+        /// <summary> Initializes a new instance of DataManagerForAgriPlantTissueAnalysisChangedV2EventData. </summary>
+        /// <param name="fieldId"> Field Id associated with the plant tissue analysis. </param>
+        /// <param name="cropId"> Crop Id associated with the plant tissue analysis. </param>
+        /// <param name="cropProductId"> Crop Product Id associated with the plant tissue analysis. </param>
+        /// <param name="seasonId"> Season Id associated with the plant tissue analysis. </param>
+        /// <param name="partyId"> Id of the party it belongs to. </param>
+        /// <param name="actionType"> Action occurred on a resource. </param>
+        /// <param name="status"> Status of the resource. </param>
+        /// <param name="modifiedDateTime"> Date-time when resource was last modified, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <param name="eTag"> The ETag value to implement optimistic concurrency. </param>
+        /// <param name="properties">
+        /// A list of key value pairs that describe the resource.
+        /// Only string and numeral values are supported.
+        /// </param>
+        /// <param name="id"> Unique id of resource. </param>
+        /// <param name="name"> Name to identify resource. </param>
+        /// <param name="description"> Textual description of resource. </param>
+        /// <param name="createdDateTime"> Date-time when resource was created, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <returns> A new <see cref="SystemEvents.DataManagerForAgriPlantTissueAnalysisChangedV2EventData"/> instance for mocking. </returns>
+        public static DataManagerForAgriPlantTissueAnalysisChangedV2EventData DataManagerForAgriPlantTissueAnalysisChangedV2EventData(string fieldId = null, string cropId = null, string cropProductId = null, string seasonId = null, string partyId = null, ResourceActionType? actionType = null, string status = null, DateTimeOffset? modifiedDateTime = null, ETag? eTag = null, IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, DateTimeOffset? createdDateTime = null)
+        {
+            properties ??= new Dictionary<string, object>();
+
+            return new DataManagerForAgriPlantTissueAnalysisChangedV2EventData(fieldId, cropId, cropProductId, seasonId, partyId, actionType, status, modifiedDateTime, eTag, properties, id, name, description, createdDateTime);
+        }
+
+        /// <summary> Initializes a new instance of DataManagerForAgriPlantingDataChangedV2EventData. </summary>
+        /// <param name="actionType"> Action occurred on a resource. </param>
+        /// <param name="partyId"> Id of the party it belongs to. </param>
+        /// <param name="status"> Status of the resource. </param>
+        /// <param name="source"> Source of the farm operation data. </param>
+        /// <param name="modifiedDateTime"> Date-time when resource was last modified, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <param name="properties">
+        /// A list of key value pairs that describe the resource.
+        /// Only string and numeral values are supported.
+        /// </param>
+        /// <param name="eTag"> The ETag value to implement optimistic concurrency. </param>
+        /// <param name="id"> Unique id of resource. </param>
+        /// <param name="name"> Name to identify resource. </param>
+        /// <param name="description"> Textual description of resource. </param>
+        /// <param name="createdDateTime"> Date-time when resource was created, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <returns> A new <see cref="SystemEvents.DataManagerForAgriPlantingDataChangedV2EventData"/> instance for mocking. </returns>
+        public static DataManagerForAgriPlantingDataChangedV2EventData DataManagerForAgriPlantingDataChangedV2EventData(ResourceActionType? actionType = null, string partyId = null, string status = null, string source = null, DateTimeOffset? modifiedDateTime = null, IReadOnlyDictionary<string, object> properties = null, ETag? eTag = null, string id = null, string name = null, string description = null, DateTimeOffset? createdDateTime = null)
+        {
+            properties ??= new Dictionary<string, object>();
+
+            return new DataManagerForAgriPlantingDataChangedV2EventData(actionType, partyId, status, source, modifiedDateTime, properties, eTag, id, name, description, createdDateTime);
+        }
+
+        /// <summary> Initializes a new instance of DataManagerForAgriPrescriptionChangedV2EventData. </summary>
+        /// <param name="prescriptionMapId"> Associated prescription map Id. </param>
+        /// <param name="partyId"> Id of the party it belongs to. </param>
+        /// <param name="actionType"> Action occurred on a resource. </param>
+        /// <param name="status"> Status of the resource. </param>
+        /// <param name="modifiedDateTime"> Date-time when resource was last modified, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <param name="eTag"> The ETag value to implement optimistic concurrency. </param>
+        /// <param name="properties">
+        /// A list of key value pairs that describe the resource.
+        /// Only string and numeral values are supported.
+        /// </param>
+        /// <param name="id"> Unique id of resource. </param>
+        /// <param name="name"> Name to identify resource. </param>
+        /// <param name="description"> Textual description of resource. </param>
+        /// <param name="createdDateTime"> Date-time when resource was created, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <returns> A new <see cref="SystemEvents.DataManagerForAgriPrescriptionChangedV2EventData"/> instance for mocking. </returns>
+        public static DataManagerForAgriPrescriptionChangedV2EventData DataManagerForAgriPrescriptionChangedV2EventData(string prescriptionMapId = null, string partyId = null, ResourceActionType? actionType = null, string status = null, DateTimeOffset? modifiedDateTime = null, ETag? eTag = null, IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, DateTimeOffset? createdDateTime = null)
+        {
+            properties ??= new Dictionary<string, object>();
+
+            return new DataManagerForAgriPrescriptionChangedV2EventData(prescriptionMapId, partyId, actionType, status, modifiedDateTime, eTag, properties, id, name, description, createdDateTime);
+        }
+
+        /// <summary> Initializes a new instance of DataManagerForAgriPrescriptionMapChangedV2EventData. </summary>
+        /// <param name="seasonId"> Season Id associated with the prescription map. </param>
+        /// <param name="cropId"> Crop Id associated with the prescription map. </param>
+        /// <param name="fieldId"> Field Id associated with the prescription map. </param>
+        /// <param name="partyId"> Id of the party it belongs to. </param>
+        /// <param name="actionType"> Action occurred on a resource. </param>
+        /// <param name="status"> Status of the resource. </param>
+        /// <param name="modifiedDateTime"> Date-time when resource was last modified, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <param name="eTag"> The ETag value to implement optimistic concurrency. </param>
+        /// <param name="properties">
+        /// A list of key value pairs that describe the resource.
+        /// Only string and numeral values are supported.
+        /// </param>
+        /// <param name="id"> Unique id of resource. </param>
+        /// <param name="name"> Name to identify resource. </param>
+        /// <param name="description"> Textual description of resource. </param>
+        /// <param name="createdDateTime"> Date-time when resource was created, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <returns> A new <see cref="SystemEvents.DataManagerForAgriPrescriptionMapChangedV2EventData"/> instance for mocking. </returns>
+        public static DataManagerForAgriPrescriptionMapChangedV2EventData DataManagerForAgriPrescriptionMapChangedV2EventData(string seasonId = null, string cropId = null, string fieldId = null, string partyId = null, ResourceActionType? actionType = null, string status = null, DateTimeOffset? modifiedDateTime = null, ETag? eTag = null, IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, DateTimeOffset? createdDateTime = null)
+        {
+            properties ??= new Dictionary<string, object>();
+
+            return new DataManagerForAgriPrescriptionMapChangedV2EventData(seasonId, cropId, fieldId, partyId, actionType, status, modifiedDateTime, eTag, properties, id, name, description, createdDateTime);
+        }
+
+        /// <summary> Initializes a new instance of DataManagerForAgriSatelliteDataIngestionJobStatusChangedV2EventData. </summary>
+        /// <param name="partyId"> Party id for which job was created. </param>
+        /// <param name="message"> Status message to capture more details of the job. </param>
+        /// <param name="status"> Various states a job can be in. </param>
+        /// <param name="lastActionDateTime"> Date-time when last action was taken on job, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <param name="isCancellationRequested"> Flag that gets set when job cancellation is requested. </param>
+        /// <param name="properties">
+        /// A list of key value pairs that describe the resource.
+        /// Only string and numeral values are supported.
+        /// </param>
+        /// <param name="id"> Unique id of resource. </param>
+        /// <param name="name"> Name to identify resource. </param>
+        /// <param name="description"> Textual description of resource. </param>
+        /// <param name="createdDateTime"> Date-time when resource was created, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <returns> A new <see cref="SystemEvents.DataManagerForAgriSatelliteDataIngestionJobStatusChangedV2EventData"/> instance for mocking. </returns>
+        public static DataManagerForAgriSatelliteDataIngestionJobStatusChangedV2EventData DataManagerForAgriSatelliteDataIngestionJobStatusChangedV2EventData(string partyId = null, string message = null, JobStatus? status = null, DateTimeOffset? lastActionDateTime = null, bool? isCancellationRequested = null, IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, DateTimeOffset? createdDateTime = null)
+        {
+            properties ??= new Dictionary<string, object>();
+
+            return new DataManagerForAgriSatelliteDataIngestionJobStatusChangedV2EventData(partyId, message, status, lastActionDateTime, isCancellationRequested, properties, id, name, description, createdDateTime);
+        }
+
+        /// <summary> Initializes a new instance of DataManagerForAgriSeasonChangedEventData. </summary>
+        /// <param name="actionType"> Action occurred on a resource. </param>
+        /// <param name="status"> Status of the resource. </param>
+        /// <param name="modifiedDateTime"> Date-time when resource was last modified, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <param name="eTag"> The ETag value to implement optimistic concurrency. </param>
+        /// <param name="properties">
+        /// A list of key value pairs that describe the resource.
+        /// Only string and numeral values are supported.
+        /// </param>
+        /// <param name="id"> Unique id of resource. </param>
+        /// <param name="name"> Name to identify resource. </param>
+        /// <param name="description"> Textual description of resource. </param>
+        /// <param name="createdDateTime"> Date-time when resource was created, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <returns> A new <see cref="SystemEvents.DataManagerForAgriSeasonChangedEventData"/> instance for mocking. </returns>
+        public static DataManagerForAgriSeasonChangedEventData DataManagerForAgriSeasonChangedEventData(ResourceActionType? actionType = null, string status = null, DateTimeOffset? modifiedDateTime = null, ETag? eTag = null, IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, DateTimeOffset? createdDateTime = null)
+        {
+            properties ??= new Dictionary<string, object>();
+
+            return new DataManagerForAgriSeasonChangedEventData(actionType, status, modifiedDateTime, eTag, properties, id, name, description, createdDateTime);
+        }
+
+        /// <summary> Initializes a new instance of DataManagerForAgriSeasonalFieldChangedV2EventData. </summary>
+        /// <param name="seasonId"> Id of the season it belongs to. </param>
+        /// <param name="fieldId"> Id of the field it belongs to. </param>
+        /// <param name="farmId"> Id of the associated Farm. </param>
+        /// <param name="partyId"> Id of the party it belongs to. </param>
+        /// <param name="actionType"> Action occurred on a resource. </param>
+        /// <param name="status"> Status of the resource. </param>
+        /// <param name="modifiedDateTime"> Date-time when resource was last modified, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <param name="eTag"> The ETag value to implement optimistic concurrency. </param>
+        /// <param name="properties">
+        /// A list of key value pairs that describe the resource.
+        /// Only string and numeral values are supported.
+        /// </param>
+        /// <param name="id"> Unique id of resource. </param>
+        /// <param name="name"> Name to identify resource. </param>
+        /// <param name="description"> Textual description of resource. </param>
+        /// <param name="createdDateTime"> Date-time when resource was created, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <returns> A new <see cref="SystemEvents.DataManagerForAgriSeasonalFieldChangedV2EventData"/> instance for mocking. </returns>
+        public static DataManagerForAgriSeasonalFieldChangedV2EventData DataManagerForAgriSeasonalFieldChangedV2EventData(string seasonId = null, string fieldId = null, string farmId = null, string partyId = null, ResourceActionType? actionType = null, string status = null, DateTimeOffset? modifiedDateTime = null, ETag? eTag = null, IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, DateTimeOffset? createdDateTime = null)
+        {
+            properties ??= new Dictionary<string, object>();
+
+            return new DataManagerForAgriSeasonalFieldChangedV2EventData(seasonId, fieldId, farmId, partyId, actionType, status, modifiedDateTime, eTag, properties, id, name, description, createdDateTime);
+        }
+
+        /// <summary> Initializes a new instance of DataManagerForAgriSensorChangedEventData. </summary>
+        /// <param name="sensorDataModelId"> Id associated with the sensorDataModel. </param>
+        /// <param name="integrationId"> Id associated with the integration. </param>
+        /// <param name="deviceId"> Id associated with the device. </param>
+        /// <param name="sensorPartnerId"> Id associated with the sensorPartner. </param>
+        /// <param name="actionType"> Action occurred on a resource. </param>
+        /// <param name="status"> Status of the resource. </param>
+        /// <param name="modifiedDateTime"> Date-time when resource was last modified, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <param name="eTag"> The ETag value to implement optimistic concurrency. </param>
+        /// <param name="properties">
+        /// A list of key value pairs that describe the resource.
+        /// Only string and numeral values are supported.
+        /// </param>
+        /// <param name="id"> Unique id of resource. </param>
+        /// <param name="name"> Name to identify resource. </param>
+        /// <param name="description"> Textual description of resource. </param>
+        /// <param name="createdDateTime"> Date-time when resource was created, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <returns> A new <see cref="SystemEvents.DataManagerForAgriSensorChangedEventData"/> instance for mocking. </returns>
+        public static DataManagerForAgriSensorChangedEventData DataManagerForAgriSensorChangedEventData(string sensorDataModelId = null, string integrationId = null, string deviceId = null, string sensorPartnerId = null, ResourceActionType? actionType = null, string status = null, DateTimeOffset? modifiedDateTime = null, ETag? eTag = null, IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, DateTimeOffset? createdDateTime = null)
+        {
+            properties ??= new Dictionary<string, object>();
+
+            return new DataManagerForAgriSensorChangedEventData(sensorDataModelId, integrationId, deviceId, sensorPartnerId, actionType, status, modifiedDateTime, eTag, properties, id, name, description, createdDateTime);
+        }
+
+        /// <summary> Initializes a new instance of DataManagerForAgriSensorDataModelChangedEventData. </summary>
+        /// <param name="sensorPartnerId"> Id associated with the sensorPartner. </param>
+        /// <param name="actionType"> Action occurred on a resource. </param>
+        /// <param name="status"> Status of the resource. </param>
+        /// <param name="modifiedDateTime"> Date-time when resource was last modified, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <param name="eTag"> The ETag value to implement optimistic concurrency. </param>
+        /// <param name="properties">
+        /// A list of key value pairs that describe the resource.
+        /// Only string and numeral values are supported.
+        /// </param>
+        /// <param name="id"> Unique id of resource. </param>
+        /// <param name="name"> Name to identify resource. </param>
+        /// <param name="description"> Textual description of resource. </param>
+        /// <param name="createdDateTime"> Date-time when resource was created, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <returns> A new <see cref="SystemEvents.DataManagerForAgriSensorDataModelChangedEventData"/> instance for mocking. </returns>
+        public static DataManagerForAgriSensorDataModelChangedEventData DataManagerForAgriSensorDataModelChangedEventData(string sensorPartnerId = null, ResourceActionType? actionType = null, string status = null, DateTimeOffset? modifiedDateTime = null, ETag? eTag = null, IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, DateTimeOffset? createdDateTime = null)
+        {
+            properties ??= new Dictionary<string, object>();
+
+            return new DataManagerForAgriSensorDataModelChangedEventData(sensorPartnerId, actionType, status, modifiedDateTime, eTag, properties, id, name, description, createdDateTime);
+        }
+
+        /// <summary> Initializes a new instance of DataManagerForAgriSensorMappingChangedV2EventData. </summary>
+        /// <param name="sensorId"> Id associated with the sensor. </param>
+        /// <param name="partyId"> Id associated with the party. </param>
+        /// <param name="boundaryId"> Id associated with the boundary. </param>
+        /// <param name="sensorPartnerId"> Id associated with the sensorPartner. </param>
+        /// <param name="actionType"> Action occurred on a resource. </param>
+        /// <param name="status"> Status of the resource. </param>
+        /// <param name="modifiedDateTime"> Date-time when resource was last modified, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <param name="eTag"> The ETag value to implement optimistic concurrency. </param>
+        /// <param name="properties">
+        /// A list of key value pairs that describe the resource.
+        /// Only string and numeral values are supported.
+        /// </param>
+        /// <param name="id"> Unique id of resource. </param>
+        /// <param name="name"> Name to identify resource. </param>
+        /// <param name="description"> Textual description of resource. </param>
+        /// <param name="createdDateTime"> Date-time when resource was created, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <returns> A new <see cref="SystemEvents.DataManagerForAgriSensorMappingChangedV2EventData"/> instance for mocking. </returns>
+        public static DataManagerForAgriSensorMappingChangedV2EventData DataManagerForAgriSensorMappingChangedV2EventData(string sensorId = null, string partyId = null, string boundaryId = null, string sensorPartnerId = null, ResourceActionType? actionType = null, string status = null, DateTimeOffset? modifiedDateTime = null, ETag? eTag = null, IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, DateTimeOffset? createdDateTime = null)
+        {
+            properties ??= new Dictionary<string, object>();
+
+            return new DataManagerForAgriSensorMappingChangedV2EventData(sensorId, partyId, boundaryId, sensorPartnerId, actionType, status, modifiedDateTime, eTag, properties, id, name, description, createdDateTime);
+        }
+
+        /// <summary> Initializes a new instance of DataManagerForAgriSensorPartnerIntegrationChangedV2EventData. </summary>
+        /// <param name="integrationId"> Id of the integration. </param>
+        /// <param name="partyId"> Id of the party. </param>
+        /// <param name="sensorPartnerId"> Id associated with the sensorPartner. </param>
+        /// <param name="actionType"> Action occurred on a resource. </param>
+        /// <param name="status"> Status of the resource. </param>
+        /// <param name="modifiedDateTime"> Date-time when resource was last modified, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <param name="eTag"> The ETag value to implement optimistic concurrency. </param>
+        /// <param name="properties">
+        /// A list of key value pairs that describe the resource.
+        /// Only string and numeral values are supported.
+        /// </param>
+        /// <param name="id"> Unique id of resource. </param>
+        /// <param name="name"> Name to identify resource. </param>
+        /// <param name="description"> Textual description of resource. </param>
+        /// <param name="createdDateTime"> Date-time when resource was created, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <returns> A new <see cref="SystemEvents.DataManagerForAgriSensorPartnerIntegrationChangedV2EventData"/> instance for mocking. </returns>
+        public static DataManagerForAgriSensorPartnerIntegrationChangedV2EventData DataManagerForAgriSensorPartnerIntegrationChangedV2EventData(string integrationId = null, string partyId = null, string sensorPartnerId = null, ResourceActionType? actionType = null, string status = null, DateTimeOffset? modifiedDateTime = null, ETag? eTag = null, IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, DateTimeOffset? createdDateTime = null)
+        {
+            properties ??= new Dictionary<string, object>();
+
+            return new DataManagerForAgriSensorPartnerIntegrationChangedV2EventData(integrationId, partyId, sensorPartnerId, actionType, status, modifiedDateTime, eTag, properties, id, name, description, createdDateTime);
+        }
+
+        /// <summary> Initializes a new instance of DataManagerForAgriSensorPlacementModelJobStatusChangedV2EventData. </summary>
+        /// <param name="partyId"> Party id for which job was created. </param>
+        /// <param name="message"> Status message to capture more details of the job. </param>
+        /// <param name="status"> Various states a job can be in. </param>
+        /// <param name="lastActionDateTime"> Date-time when last action was taken on job, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <param name="isCancellationRequested"> Flag that gets set when job cancellation is requested. </param>
+        /// <param name="properties">
+        /// A list of key value pairs that describe the resource.
+        /// Only string and numeral values are supported.
+        /// </param>
+        /// <param name="id"> Unique id of resource. </param>
+        /// <param name="name"> Name to identify resource. </param>
+        /// <param name="description"> Textual description of resource. </param>
+        /// <param name="createdDateTime"> Date-time when resource was created, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <returns> A new <see cref="SystemEvents.DataManagerForAgriSensorPlacementModelJobStatusChangedV2EventData"/> instance for mocking. </returns>
+        public static DataManagerForAgriSensorPlacementModelJobStatusChangedV2EventData DataManagerForAgriSensorPlacementModelJobStatusChangedV2EventData(string partyId = null, string message = null, JobStatus? status = null, DateTimeOffset? lastActionDateTime = null, bool? isCancellationRequested = null, IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, DateTimeOffset? createdDateTime = null)
+        {
+            properties ??= new Dictionary<string, object>();
+
+            return new DataManagerForAgriSensorPlacementModelJobStatusChangedV2EventData(partyId, message, status, lastActionDateTime, isCancellationRequested, properties, id, name, description, createdDateTime);
+        }
+
+        /// <summary> Initializes a new instance of DataManagerForAgriSoilMoistureModelJobStatusChangedV2EventData. </summary>
+        /// <param name="partyId"> Party id for which job was created. </param>
+        /// <param name="message"> Status message to capture more details of the job. </param>
+        /// <param name="status"> Various states a job can be in. </param>
+        /// <param name="lastActionDateTime"> Date-time when last action was taken on job, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <param name="isCancellationRequested"> Flag that gets set when job cancellation is requested. </param>
+        /// <param name="properties">
+        /// A list of key value pairs that describe the resource.
+        /// Only string and numeral values are supported.
+        /// </param>
+        /// <param name="id"> Unique id of resource. </param>
+        /// <param name="name"> Name to identify resource. </param>
+        /// <param name="description"> Textual description of resource. </param>
+        /// <param name="createdDateTime"> Date-time when resource was created, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <returns> A new <see cref="SystemEvents.DataManagerForAgriSoilMoistureModelJobStatusChangedV2EventData"/> instance for mocking. </returns>
+        public static DataManagerForAgriSoilMoistureModelJobStatusChangedV2EventData DataManagerForAgriSoilMoistureModelJobStatusChangedV2EventData(string partyId = null, string message = null, JobStatus? status = null, DateTimeOffset? lastActionDateTime = null, bool? isCancellationRequested = null, IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, DateTimeOffset? createdDateTime = null)
+        {
+            properties ??= new Dictionary<string, object>();
+
+            return new DataManagerForAgriSoilMoistureModelJobStatusChangedV2EventData(partyId, message, status, lastActionDateTime, isCancellationRequested, properties, id, name, description, createdDateTime);
+        }
+
+        /// <summary> Initializes a new instance of DataManagerForAgriTillageDataChangedV2EventData. </summary>
+        /// <param name="actionType"> Action occurred on a resource. </param>
+        /// <param name="partyId"> Id of the party it belongs to. </param>
+        /// <param name="status"> Status of the resource. </param>
+        /// <param name="source"> Source of the farm operation data. </param>
+        /// <param name="modifiedDateTime"> Date-time when resource was last modified, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <param name="properties">
+        /// A list of key value pairs that describe the resource.
+        /// Only string and numeral values are supported.
+        /// </param>
+        /// <param name="eTag"> The ETag value to implement optimistic concurrency. </param>
+        /// <param name="id"> Unique id of resource. </param>
+        /// <param name="name"> Name to identify resource. </param>
+        /// <param name="description"> Textual description of resource. </param>
+        /// <param name="createdDateTime"> Date-time when resource was created, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <returns> A new <see cref="SystemEvents.DataManagerForAgriTillageDataChangedV2EventData"/> instance for mocking. </returns>
+        public static DataManagerForAgriTillageDataChangedV2EventData DataManagerForAgriTillageDataChangedV2EventData(ResourceActionType? actionType = null, string partyId = null, string status = null, string source = null, DateTimeOffset? modifiedDateTime = null, IReadOnlyDictionary<string, object> properties = null, ETag? eTag = null, string id = null, string name = null, string description = null, DateTimeOffset? createdDateTime = null)
+        {
+            properties ??= new Dictionary<string, object>();
+
+            return new DataManagerForAgriTillageDataChangedV2EventData(actionType, partyId, status, source, modifiedDateTime, properties, eTag, id, name, description, createdDateTime);
+        }
+
+        /// <summary> Initializes a new instance of DataManagerForAgriWeatherDataIngestionJobStatusChangedV2EventData. </summary>
+        /// <param name="partyId"> Party id for which job was created. </param>
+        /// <param name="message"> Status message to capture more details of the job. </param>
+        /// <param name="status"> Various states a job can be in. </param>
+        /// <param name="lastActionDateTime"> Date-time when last action was taken on job, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <param name="isCancellationRequested"> Flag that gets set when job cancellation is requested. </param>
+        /// <param name="properties">
+        /// A list of key value pairs that describe the resource.
+        /// Only string and numeral values are supported.
+        /// </param>
+        /// <param name="id"> Unique id of resource. </param>
+        /// <param name="name"> Name to identify resource. </param>
+        /// <param name="description"> Textual description of resource. </param>
+        /// <param name="createdDateTime"> Date-time when resource was created, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <returns> A new <see cref="SystemEvents.DataManagerForAgriWeatherDataIngestionJobStatusChangedV2EventData"/> instance for mocking. </returns>
+        public static DataManagerForAgriWeatherDataIngestionJobStatusChangedV2EventData DataManagerForAgriWeatherDataIngestionJobStatusChangedV2EventData(string partyId = null, string message = null, JobStatus? status = null, DateTimeOffset? lastActionDateTime = null, bool? isCancellationRequested = null, IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, DateTimeOffset? createdDateTime = null)
+        {
+            properties ??= new Dictionary<string, object>();
+
+            return new DataManagerForAgriWeatherDataIngestionJobStatusChangedV2EventData(partyId, message, status, lastActionDateTime, isCancellationRequested, properties, id, name, description, createdDateTime);
+        }
+
+        /// <summary> Initializes a new instance of DataManagerForAgriWeatherDataRefresherJobStatusChangedV2EventData. </summary>
+        /// <param name="partyId"> Party id for which job was created. </param>
+        /// <param name="message"> Status message to capture more details of the job. </param>
+        /// <param name="status"> Various states a job can be in. </param>
+        /// <param name="lastActionDateTime"> Date-time when last action was taken on job, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <param name="isCancellationRequested"> Flag that gets set when job cancellation is requested. </param>
+        /// <param name="properties">
+        /// A list of key value pairs that describe the resource.
+        /// Only string and numeral values are supported.
+        /// </param>
+        /// <param name="id"> Unique id of resource. </param>
+        /// <param name="name"> Name to identify resource. </param>
+        /// <param name="description"> Textual description of resource. </param>
+        /// <param name="createdDateTime"> Date-time when resource was created, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <returns> A new <see cref="SystemEvents.DataManagerForAgriWeatherDataRefresherJobStatusChangedV2EventData"/> instance for mocking. </returns>
+        public static DataManagerForAgriWeatherDataRefresherJobStatusChangedV2EventData DataManagerForAgriWeatherDataRefresherJobStatusChangedV2EventData(string partyId = null, string message = null, JobStatus? status = null, DateTimeOffset? lastActionDateTime = null, bool? isCancellationRequested = null, IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, DateTimeOffset? createdDateTime = null)
+        {
+            properties ??= new Dictionary<string, object>();
+
+            return new DataManagerForAgriWeatherDataRefresherJobStatusChangedV2EventData(partyId, message, status, lastActionDateTime, isCancellationRequested, properties, id, name, description, createdDateTime);
+        }
+
+        /// <summary> Initializes a new instance of DataManagerForAgriZoneChangedV2EventData. </summary>
+        /// <param name="managementZoneId"> Management Zone Id associated with the zone. </param>
+        /// <param name="partyId"> Id of the party it belongs to. </param>
+        /// <param name="actionType"> Action occurred on a resource. </param>
+        /// <param name="status"> Status of the resource. </param>
+        /// <param name="modifiedDateTime"> Date-time when resource was last modified, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <param name="eTag"> The ETag value to implement optimistic concurrency. </param>
+        /// <param name="properties">
+        /// A list of key value pairs that describe the resource.
+        /// Only string and numeral values are supported.
+        /// </param>
+        /// <param name="id"> Unique id of resource. </param>
+        /// <param name="name"> Name to identify resource. </param>
+        /// <param name="description"> Textual description of resource. </param>
+        /// <param name="createdDateTime"> Date-time when resource was created, sample format: yyyy-MM-ddTHH:mm:ssZ. </param>
+        /// <returns> A new <see cref="SystemEvents.DataManagerForAgriZoneChangedV2EventData"/> instance for mocking. </returns>
+        public static DataManagerForAgriZoneChangedV2EventData DataManagerForAgriZoneChangedV2EventData(string managementZoneId = null, string partyId = null, ResourceActionType? actionType = null, string status = null, DateTimeOffset? modifiedDateTime = null, ETag? eTag = null, IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, DateTimeOffset? createdDateTime = null)
+        {
+            properties ??= new Dictionary<string, object>();
+
+            return new DataManagerForAgriZoneChangedV2EventData(managementZoneId, partyId, actionType, status, modifiedDateTime, eTag, properties, id, name, description, createdDateTime);
         }
     }
 }
