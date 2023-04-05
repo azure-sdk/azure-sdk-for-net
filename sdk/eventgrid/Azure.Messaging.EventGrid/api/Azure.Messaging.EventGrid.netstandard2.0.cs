@@ -130,6 +130,41 @@ namespace Azure.Messaging.EventGrid
         public static Azure.Messaging.EventGrid.SystemEvents.DataBoxCopyCompletedEventData DataBoxCopyCompletedEventData(string serialNumber = null, Azure.Messaging.EventGrid.SystemEvents.DataBoxStageName? stageName = default(Azure.Messaging.EventGrid.SystemEvents.DataBoxStageName?), System.DateTimeOffset? stageTime = default(System.DateTimeOffset?)) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.DataBoxCopyStartedEventData DataBoxCopyStartedEventData(string serialNumber = null, Azure.Messaging.EventGrid.SystemEvents.DataBoxStageName? stageName = default(Azure.Messaging.EventGrid.SystemEvents.DataBoxStageName?), System.DateTimeOffset? stageTime = default(System.DateTimeOffset?)) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.DataBoxOrderCompletedEventData DataBoxOrderCompletedEventData(string serialNumber = null, Azure.Messaging.EventGrid.SystemEvents.DataBoxStageName? stageName = default(Azure.Messaging.EventGrid.SystemEvents.DataBoxStageName?), System.DateTimeOffset? stageTime = default(System.DateTimeOffset?)) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriApplicationDataChangedV2EventData DataManagerForAgriApplicationDataChangedV2EventData(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? actionType = default(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType?), string partyId = null, string status = null, string source = null, System.DateTimeOffset? modifiedDateTime = default(System.DateTimeOffset?), System.Collections.Generic.IReadOnlyDictionary<string, object> properties = null, Azure.ETag? eTag = default(Azure.ETag?), string id = null, string name = null, string description = null, System.DateTimeOffset? createdDateTime = default(System.DateTimeOffset?)) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriAttachmentChangedV2EventData DataManagerForAgriAttachmentChangedV2EventData(string resourceId = null, Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriAttachmentResourceType? resourceType = default(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriAttachmentResourceType?), string partyId = null, Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? actionType = default(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType?), string status = null, System.DateTimeOffset? modifiedDateTime = default(System.DateTimeOffset?), Azure.ETag? eTag = default(Azure.ETag?), string id = null, string name = null, string description = null, System.DateTimeOffset? createdDateTime = default(System.DateTimeOffset?)) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriBiomassModelJobStatusChangedV2EventData DataManagerForAgriBiomassModelJobStatusChangedV2EventData(string partyId = null, string message = null, Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriJobStatus? status = default(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriJobStatus?), System.DateTimeOffset? lastActionDateTime = default(System.DateTimeOffset?), bool? isCancellationRequested = default(bool?), System.Collections.Generic.IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, System.DateTimeOffset? createdDateTime = default(System.DateTimeOffset?)) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriBoundaryChangedV2EventData DataManagerForAgriBoundaryChangedV2EventData(string parentId = null, Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriBoundaryParentType? parentType = default(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriBoundaryParentType?), string partyId = null, Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? actionType = default(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType?), string status = null, System.DateTimeOffset? modifiedDateTime = default(System.DateTimeOffset?), Azure.ETag? eTag = default(Azure.ETag?), System.Collections.Generic.IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, System.DateTimeOffset? createdDateTime = default(System.DateTimeOffset?)) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriCropChangedEventData DataManagerForAgriCropChangedEventData(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? actionType = default(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType?), string status = null, System.DateTimeOffset? modifiedDateTime = default(System.DateTimeOffset?), Azure.ETag? eTag = default(Azure.ETag?), System.Collections.Generic.IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, System.DateTimeOffset? createdDateTime = default(System.DateTimeOffset?)) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriCropProductChangedEventData DataManagerForAgriCropProductChangedEventData(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? actionType = default(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType?), string status = null, System.DateTimeOffset? modifiedDateTime = default(System.DateTimeOffset?), Azure.ETag? eTag = default(Azure.ETag?), System.Collections.Generic.IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, System.DateTimeOffset? createdDateTime = default(System.DateTimeOffset?)) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriDeviceChangedEventData DataManagerForAgriDeviceChangedEventData(string deviceDataModelId = null, string integrationId = null, string sensorPartnerId = null, Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? actionType = default(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType?), string status = null, System.DateTimeOffset? modifiedDateTime = default(System.DateTimeOffset?), Azure.ETag? eTag = default(Azure.ETag?), System.Collections.Generic.IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, System.DateTimeOffset? createdDateTime = default(System.DateTimeOffset?)) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriDeviceDataModelChangedEventData DataManagerForAgriDeviceDataModelChangedEventData(string sensorPartnerId = null, Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? actionType = default(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType?), string status = null, System.DateTimeOffset? modifiedDateTime = default(System.DateTimeOffset?), Azure.ETag? eTag = default(Azure.ETag?), System.Collections.Generic.IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, System.DateTimeOffset? createdDateTime = default(System.DateTimeOffset?)) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriFarmChangedV2EventData DataManagerForAgriFarmChangedV2EventData(string partyId = null, Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? actionType = default(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType?), string status = null, System.DateTimeOffset? modifiedDateTime = default(System.DateTimeOffset?), Azure.ETag? eTag = default(Azure.ETag?), System.Collections.Generic.IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, System.DateTimeOffset? createdDateTime = default(System.DateTimeOffset?)) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriFarmOperationDataIngestionJobStatusChangedV2EventData DataManagerForAgriFarmOperationDataIngestionJobStatusChangedV2EventData(string partyId = null, string message = null, Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriJobStatus? status = default(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriJobStatus?), System.DateTimeOffset? lastActionDateTime = default(System.DateTimeOffset?), bool? isCancellationRequested = default(bool?), System.Collections.Generic.IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, System.DateTimeOffset? createdDateTime = default(System.DateTimeOffset?)) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriFieldChangedV2EventData DataManagerForAgriFieldChangedV2EventData(string farmId = null, string partyId = null, Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? actionType = default(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType?), string status = null, System.DateTimeOffset? modifiedDateTime = default(System.DateTimeOffset?), Azure.ETag? eTag = default(Azure.ETag?), System.Collections.Generic.IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, System.DateTimeOffset? createdDateTime = default(System.DateTimeOffset?)) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriHarvestDataChangedV2EventData DataManagerForAgriHarvestDataChangedV2EventData(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? actionType = default(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType?), string partyId = null, string status = null, string source = null, System.DateTimeOffset? modifiedDateTime = default(System.DateTimeOffset?), System.Collections.Generic.IReadOnlyDictionary<string, object> properties = null, Azure.ETag? eTag = default(Azure.ETag?), string id = null, string name = null, string description = null, System.DateTimeOffset? createdDateTime = default(System.DateTimeOffset?)) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriImageProcessingRasterizeJobStatusChangedV2EventData DataManagerForAgriImageProcessingRasterizeJobStatusChangedV2EventData(string shapefileAttachmentId = null, string partyId = null, string message = null, Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriJobStatus? status = default(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriJobStatus?), System.DateTimeOffset? lastActionDateTime = default(System.DateTimeOffset?), bool? isCancellationRequested = default(bool?), System.Collections.Generic.IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, System.DateTimeOffset? createdDateTime = default(System.DateTimeOffset?)) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriInsightAttachmentChangedV2EventData DataManagerForAgriInsightAttachmentChangedV2EventData(string insightId = null, string modelId = null, Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriFarmHierarchyResourceType? resourceType = default(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriFarmHierarchyResourceType?), string resourceId = null, string partyId = null, Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? actionType = default(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType?), string status = null, System.DateTimeOffset? modifiedDateTime = default(System.DateTimeOffset?), Azure.ETag? eTag = default(Azure.ETag?), System.Collections.Generic.IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, System.DateTimeOffset? createdDateTime = default(System.DateTimeOffset?)) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriInsightChangedV2EventData DataManagerForAgriInsightChangedV2EventData(string modelId = null, Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriFarmHierarchyResourceType? resourceType = default(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriFarmHierarchyResourceType?), string resourceId = null, string modelVersion = null, string partyId = null, Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? actionType = default(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType?), string status = null, System.DateTimeOffset? modifiedDateTime = default(System.DateTimeOffset?), Azure.ETag? eTag = default(Azure.ETag?), System.Collections.Generic.IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, System.DateTimeOffset? createdDateTime = default(System.DateTimeOffset?)) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriManagementZoneChangedV2EventData DataManagerForAgriManagementZoneChangedV2EventData(string seasonId = null, string cropId = null, string fieldId = null, string partyId = null, Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? actionType = default(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType?), string status = null, System.DateTimeOffset? modifiedDateTime = default(System.DateTimeOffset?), Azure.ETag? eTag = default(Azure.ETag?), System.Collections.Generic.IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, System.DateTimeOffset? createdDateTime = default(System.DateTimeOffset?)) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriNutrientAnalysisChangedV2EventData DataManagerForAgriNutrientAnalysisChangedV2EventData(string parentId = null, Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriNutrientAnalysisParentType? parentType = default(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriNutrientAnalysisParentType?), string partyId = null, Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? actionType = default(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType?), string status = null, System.DateTimeOffset? modifiedDateTime = default(System.DateTimeOffset?), Azure.ETag? eTag = default(Azure.ETag?), System.Collections.Generic.IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, System.DateTimeOffset? createdDateTime = default(System.DateTimeOffset?)) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriPartyChangedEventData DataManagerForAgriPartyChangedEventData(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? actionType = default(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType?), string status = null, System.DateTimeOffset? modifiedDateTime = default(System.DateTimeOffset?), Azure.ETag? eTag = default(Azure.ETag?), System.Collections.Generic.IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, System.DateTimeOffset? createdDateTime = default(System.DateTimeOffset?)) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriPlantingDataChangedV2EventData DataManagerForAgriPlantingDataChangedV2EventData(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? actionType = default(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType?), string partyId = null, string status = null, string source = null, System.DateTimeOffset? modifiedDateTime = default(System.DateTimeOffset?), System.Collections.Generic.IReadOnlyDictionary<string, object> properties = null, Azure.ETag? eTag = default(Azure.ETag?), string id = null, string name = null, string description = null, System.DateTimeOffset? createdDateTime = default(System.DateTimeOffset?)) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriPlantTissueAnalysisChangedV2EventData DataManagerForAgriPlantTissueAnalysisChangedV2EventData(string fieldId = null, string cropId = null, string cropProductId = null, string seasonId = null, string partyId = null, Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? actionType = default(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType?), string status = null, System.DateTimeOffset? modifiedDateTime = default(System.DateTimeOffset?), Azure.ETag? eTag = default(Azure.ETag?), System.Collections.Generic.IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, System.DateTimeOffset? createdDateTime = default(System.DateTimeOffset?)) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriPrescriptionChangedV2EventData DataManagerForAgriPrescriptionChangedV2EventData(string prescriptionMapId = null, string partyId = null, Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? actionType = default(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType?), string status = null, System.DateTimeOffset? modifiedDateTime = default(System.DateTimeOffset?), Azure.ETag? eTag = default(Azure.ETag?), System.Collections.Generic.IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, System.DateTimeOffset? createdDateTime = default(System.DateTimeOffset?)) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriPrescriptionMapChangedV2EventData DataManagerForAgriPrescriptionMapChangedV2EventData(string seasonId = null, string cropId = null, string fieldId = null, string partyId = null, Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? actionType = default(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType?), string status = null, System.DateTimeOffset? modifiedDateTime = default(System.DateTimeOffset?), Azure.ETag? eTag = default(Azure.ETag?), System.Collections.Generic.IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, System.DateTimeOffset? createdDateTime = default(System.DateTimeOffset?)) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriSatelliteDataIngestionJobStatusChangedV2EventData DataManagerForAgriSatelliteDataIngestionJobStatusChangedV2EventData(string partyId = null, string message = null, Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriJobStatus? status = default(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriJobStatus?), System.DateTimeOffset? lastActionDateTime = default(System.DateTimeOffset?), bool? isCancellationRequested = default(bool?), System.Collections.Generic.IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, System.DateTimeOffset? createdDateTime = default(System.DateTimeOffset?)) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriSeasonalFieldChangedV2EventData DataManagerForAgriSeasonalFieldChangedV2EventData(string seasonId = null, string fieldId = null, string farmId = null, string partyId = null, Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? actionType = default(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType?), string status = null, System.DateTimeOffset? modifiedDateTime = default(System.DateTimeOffset?), Azure.ETag? eTag = default(Azure.ETag?), System.Collections.Generic.IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, System.DateTimeOffset? createdDateTime = default(System.DateTimeOffset?)) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriSeasonChangedEventData DataManagerForAgriSeasonChangedEventData(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? actionType = default(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType?), string status = null, System.DateTimeOffset? modifiedDateTime = default(System.DateTimeOffset?), Azure.ETag? eTag = default(Azure.ETag?), System.Collections.Generic.IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, System.DateTimeOffset? createdDateTime = default(System.DateTimeOffset?)) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriSensorChangedEventData DataManagerForAgriSensorChangedEventData(string sensorDataModelId = null, string integrationId = null, string deviceId = null, string sensorPartnerId = null, Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? actionType = default(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType?), string status = null, System.DateTimeOffset? modifiedDateTime = default(System.DateTimeOffset?), Azure.ETag? eTag = default(Azure.ETag?), System.Collections.Generic.IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, System.DateTimeOffset? createdDateTime = default(System.DateTimeOffset?)) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriSensorDataModelChangedEventData DataManagerForAgriSensorDataModelChangedEventData(string sensorPartnerId = null, Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? actionType = default(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType?), string status = null, System.DateTimeOffset? modifiedDateTime = default(System.DateTimeOffset?), Azure.ETag? eTag = default(Azure.ETag?), System.Collections.Generic.IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, System.DateTimeOffset? createdDateTime = default(System.DateTimeOffset?)) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriSensorMappingChangedV2EventData DataManagerForAgriSensorMappingChangedV2EventData(string sensorId = null, string partyId = null, string boundaryId = null, string sensorPartnerId = null, Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? actionType = default(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType?), string status = null, System.DateTimeOffset? modifiedDateTime = default(System.DateTimeOffset?), Azure.ETag? eTag = default(Azure.ETag?), System.Collections.Generic.IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, System.DateTimeOffset? createdDateTime = default(System.DateTimeOffset?)) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriSensorPartnerIntegrationChangedV2EventData DataManagerForAgriSensorPartnerIntegrationChangedV2EventData(string integrationId = null, string partyId = null, string sensorPartnerId = null, Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? actionType = default(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType?), string status = null, System.DateTimeOffset? modifiedDateTime = default(System.DateTimeOffset?), Azure.ETag? eTag = default(Azure.ETag?), System.Collections.Generic.IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, System.DateTimeOffset? createdDateTime = default(System.DateTimeOffset?)) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriSensorPlacementModelJobStatusChangedV2EventData DataManagerForAgriSensorPlacementModelJobStatusChangedV2EventData(string partyId = null, string message = null, Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriJobStatus? status = default(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriJobStatus?), System.DateTimeOffset? lastActionDateTime = default(System.DateTimeOffset?), bool? isCancellationRequested = default(bool?), System.Collections.Generic.IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, System.DateTimeOffset? createdDateTime = default(System.DateTimeOffset?)) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriSoilMoistureModelJobStatusChangedV2EventData DataManagerForAgriSoilMoistureModelJobStatusChangedV2EventData(string partyId = null, string message = null, Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriJobStatus? status = default(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriJobStatus?), System.DateTimeOffset? lastActionDateTime = default(System.DateTimeOffset?), bool? isCancellationRequested = default(bool?), System.Collections.Generic.IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, System.DateTimeOffset? createdDateTime = default(System.DateTimeOffset?)) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriTillageDataChangedV2EventData DataManagerForAgriTillageDataChangedV2EventData(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? actionType = default(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType?), string partyId = null, string status = null, string source = null, System.DateTimeOffset? modifiedDateTime = default(System.DateTimeOffset?), System.Collections.Generic.IReadOnlyDictionary<string, object> properties = null, Azure.ETag? eTag = default(Azure.ETag?), string id = null, string name = null, string description = null, System.DateTimeOffset? createdDateTime = default(System.DateTimeOffset?)) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriWeatherDataIngestionJobStatusChangedV2EventData DataManagerForAgriWeatherDataIngestionJobStatusChangedV2EventData(string partyId = null, string message = null, Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriJobStatus? status = default(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriJobStatus?), System.DateTimeOffset? lastActionDateTime = default(System.DateTimeOffset?), bool? isCancellationRequested = default(bool?), System.Collections.Generic.IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, System.DateTimeOffset? createdDateTime = default(System.DateTimeOffset?)) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriWeatherDataRefresherJobStatusChangedV2EventData DataManagerForAgriWeatherDataRefresherJobStatusChangedV2EventData(string partyId = null, string message = null, Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriJobStatus? status = default(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriJobStatus?), System.DateTimeOffset? lastActionDateTime = default(System.DateTimeOffset?), bool? isCancellationRequested = default(bool?), System.Collections.Generic.IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, System.DateTimeOffset? createdDateTime = default(System.DateTimeOffset?)) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriZoneChangedV2EventData DataManagerForAgriZoneChangedV2EventData(string managementZoneId = null, string partyId = null, Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? actionType = default(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType?), string status = null, System.DateTimeOffset? modifiedDateTime = default(System.DateTimeOffset?), Azure.ETag? eTag = default(Azure.ETag?), System.Collections.Generic.IReadOnlyDictionary<string, object> properties = null, string id = null, string name = null, string description = null, System.DateTimeOffset? createdDateTime = default(System.DateTimeOffset?)) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.DeviceConnectionStateEventInfo DeviceConnectionStateEventInfo(string sequenceNumber = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.DeviceConnectionStateEventProperties DeviceConnectionStateEventProperties(string deviceId = null, string moduleId = null, string hubName = null, Azure.Messaging.EventGrid.SystemEvents.DeviceConnectionStateEventInfo deviceConnectionStateEventInfo = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.DeviceLifeCycleEventProperties DeviceLifeCycleEventProperties(string deviceId = null, string hubName = null, Azure.Messaging.EventGrid.SystemEvents.DeviceTwinInfo twin = null) { throw null; }
@@ -371,6 +406,41 @@ namespace Azure.Messaging.EventGrid
         public const string DataBoxCopyCompleted = "Microsoft.DataBox.CopyCompleted";
         public const string DataBoxCopyStarted = "Microsoft.DataBox.CopyStarted";
         public const string DataBoxOrderCompleted = "Microsoft.DataBox.OrderCompleted";
+        public const string DataManagerForAgriApplicationDataChangedV2 = "Microsoft.AgFoodPlatform.ApplicationDataChanged";
+        public const string DataManagerForAgriAttachmentChangedV2 = "Microsoft.AgFoodPlatform.AttachmentChanged";
+        public const string DataManagerForAgriBiomassModelJobStatusChangedV2 = "Microsoft.AgFoodPlatform.BiomassModelJobStatusChanged";
+        public const string DataManagerForAgriBoundaryChangedV2 = "Microsoft.AgFoodPlatform.BoundaryChanged";
+        public const string DataManagerForAgriCropChanged = "Microsoft.AgFoodPlatform.CropChanged";
+        public const string DataManagerForAgriCropProductChanged = "Microsoft.AgFoodPlatform.CropProductChanged";
+        public const string DataManagerForAgriDeviceChanged = "Microsoft.AgFoodPlatform.DeviceChanged";
+        public const string DataManagerForAgriDeviceDataModelChanged = "Microsoft.AgFoodPlatform.DeviceDataModelChanged";
+        public const string DataManagerForAgriFarmChangedV2 = "Microsoft.AgFoodPlatform.FarmChanged";
+        public const string DataManagerForAgriFarmOperationDataIngestionJobStatusChangedV2 = "Microsoft.AgFoodPlatform.FarmOperationDataIngestionJobStatusChanged";
+        public const string DataManagerForAgriFieldChangedV2 = "Microsoft.AgFoodPlatform.FieldChanged";
+        public const string DataManagerForAgriHarvestDataChangedV2 = "Microsoft.AgFoodPlatform.HarvestDataChanged";
+        public const string DataManagerForAgriImageProcessingRasterizeJobStatusChangedV2 = "Microsoft.AgFoodPlatform.ImageProcessingRasterizeJobStatusChanged";
+        public const string DataManagerForAgriInsightAttachmentChangedV2 = "Microsoft.AgFoodPlatform.InsightAttachmentChanged";
+        public const string DataManagerForAgriInsightChangedV2 = "Microsoft.AgFoodPlatform.InsightChanged";
+        public const string DataManagerForAgriManagementZoneChangedV2 = "Microsoft.AgFoodPlatform.ManagementZoneChanged";
+        public const string DataManagerForAgriNutrientAnalysisChangedV2 = "Microsoft.AgFoodPlatform.NutrientAnalysisChanged";
+        public const string DataManagerForAgriPartyChanged = "Microsoft.AgFoodPlatform.PartyChanged";
+        public const string DataManagerForAgriPlantingDataChangedV2 = "Microsoft.AgFoodPlatform.PlantingDataChanged";
+        public const string DataManagerForAgriPlantTissueAnalysisChangedV2 = "Microsoft.AgFoodPlatform.PlantTissueAnalysisChanged";
+        public const string DataManagerForAgriPrescriptionChangedV2 = "Microsoft.AgFoodPlatform.PrescriptionChanged";
+        public const string DataManagerForAgriPrescriptionMapChangedV2 = "Microsoft.AgFoodPlatform.PrescriptionMapChanged";
+        public const string DataManagerForAgriSatelliteDataIngestionJobStatusChangedV2 = "Microsoft.AgFoodPlatform.SatelliteDataIngestionJobStatusChanged";
+        public const string DataManagerForAgriSeasonalFieldChangedV2 = "Microsoft.AgFoodPlatform.SeasonalFieldChanged";
+        public const string DataManagerForAgriSeasonChanged = "Microsoft.AgFoodPlatform.SeasonChanged";
+        public const string DataManagerForAgriSensorChanged = "Microsoft.AgFoodPlatform.SensorChanged";
+        public const string DataManagerForAgriSensorDataModelChanged = "Microsoft.AgFoodPlatform.SensorDataModelChanged";
+        public const string DataManagerForAgriSensorMappingChangedV2 = "Microsoft.AgFoodPlatform.SensorMappingChanged";
+        public const string DataManagerForAgriSensorPartnerIntegrationChangedV2 = "Microsoft.AgFoodPlatform.SensorPartnerIntegrationChanged";
+        public const string DataManagerForAgriSensorPlacementModelJobStatusChangedV2 = "Microsoft.AgFoodPlatform.SensorPlacementModelJobStatusChanged";
+        public const string DataManagerForAgriSoilMoistureModelJobStatusChangedV2 = "Microsoft.AgFoodPlatform.SoilMoistureModelJobStatusChanged";
+        public const string DataManagerForAgriTillageDataChangedV2 = "Microsoft.AgFoodPlatform.TillageDataChanged";
+        public const string DataManagerForAgriWeatherDataIngestionJobStatusChangedV2 = "Microsoft.AgFoodPlatform.WeatherDataIngestionJobStatusChanged";
+        public const string DataManagerForAgriWeatherDataRefresherJobStatusChangedV2 = "Microsoft.AgFoodPlatform.WeatherDataRefresherJobStatusChanged";
+        public const string DataManagerForAgriZoneChangedV2 = "Microsoft.AgFoodPlatform.ZoneChanged";
         public const string EventGridSubscriptionDeleted = "Microsoft.EventGrid.SubscriptionDeletedEvent";
         public const string EventGridSubscriptionValidation = "Microsoft.EventGrid.SubscriptionValidationEvent";
         public const string EventHubCaptureFileCreated = "Microsoft.EventHub.CaptureFileCreated";
@@ -1253,6 +1323,665 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         public static implicit operator Azure.Messaging.EventGrid.SystemEvents.DataBoxStageName (string value) { throw null; }
         public static bool operator !=(Azure.Messaging.EventGrid.SystemEvents.DataBoxStageName left, Azure.Messaging.EventGrid.SystemEvents.DataBoxStageName right) { throw null; }
         public override string ToString() { throw null; }
+    }
+    public partial class DataManagerForAgriApplicationDataChangedV2EventData
+    {
+        internal DataManagerForAgriApplicationDataChangedV2EventData() { }
+        public Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? ActionType { get { throw null; } }
+        public System.DateTimeOffset? CreatedDateTime { get { throw null; } }
+        public string Description { get { throw null; } }
+        public Azure.ETag? ETag { get { throw null; } }
+        public string Id { get { throw null; } }
+        public System.DateTimeOffset? ModifiedDateTime { get { throw null; } }
+        public string Name { get { throw null; } }
+        public string PartyId { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, object> Properties { get { throw null; } }
+        public string Source { get { throw null; } }
+        public string Status { get { throw null; } }
+    }
+    public partial class DataManagerForAgriAttachmentChangedV2EventData
+    {
+        internal DataManagerForAgriAttachmentChangedV2EventData() { }
+        public Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? ActionType { get { throw null; } }
+        public System.DateTimeOffset? CreatedDateTime { get { throw null; } }
+        public string Description { get { throw null; } }
+        public Azure.ETag? ETag { get { throw null; } }
+        public string Id { get { throw null; } }
+        public System.DateTimeOffset? ModifiedDateTime { get { throw null; } }
+        public string Name { get { throw null; } }
+        public string PartyId { get { throw null; } }
+        public string ResourceId { get { throw null; } }
+        public Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriAttachmentResourceType? ResourceType { get { throw null; } }
+        public string Status { get { throw null; } }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct DataManagerForAgriAttachmentResourceType : System.IEquatable<Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriAttachmentResourceType>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public DataManagerForAgriAttachmentResourceType(string value) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriAttachmentResourceType ApplicationData { get { throw null; } }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriAttachmentResourceType Boundary { get { throw null; } }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriAttachmentResourceType Farm { get { throw null; } }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriAttachmentResourceType Field { get { throw null; } }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriAttachmentResourceType HarvestData { get { throw null; } }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriAttachmentResourceType Party { get { throw null; } }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriAttachmentResourceType PlantingData { get { throw null; } }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriAttachmentResourceType PlantTissueAnalysis { get { throw null; } }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriAttachmentResourceType SeasonalField { get { throw null; } }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriAttachmentResourceType TillageData { get { throw null; } }
+        public bool Equals(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriAttachmentResourceType other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriAttachmentResourceType left, Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriAttachmentResourceType right) { throw null; }
+        public static implicit operator Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriAttachmentResourceType (string value) { throw null; }
+        public static bool operator !=(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriAttachmentResourceType left, Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriAttachmentResourceType right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    public partial class DataManagerForAgriBiomassModelJobStatusChangedV2EventData
+    {
+        internal DataManagerForAgriBiomassModelJobStatusChangedV2EventData() { }
+        public System.DateTimeOffset? CreatedDateTime { get { throw null; } }
+        public string Description { get { throw null; } }
+        public string Id { get { throw null; } }
+        public bool? IsCancellationRequested { get { throw null; } }
+        public System.DateTimeOffset? LastActionDateTime { get { throw null; } }
+        public string Message { get { throw null; } }
+        public string Name { get { throw null; } }
+        public string PartyId { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, object> Properties { get { throw null; } }
+        public Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriJobStatus? Status { get { throw null; } }
+    }
+    public partial class DataManagerForAgriBoundaryChangedV2EventData
+    {
+        internal DataManagerForAgriBoundaryChangedV2EventData() { }
+        public Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? ActionType { get { throw null; } }
+        public System.DateTimeOffset? CreatedDateTime { get { throw null; } }
+        public string Description { get { throw null; } }
+        public Azure.ETag? ETag { get { throw null; } }
+        public string Id { get { throw null; } }
+        public System.DateTimeOffset? ModifiedDateTime { get { throw null; } }
+        public string Name { get { throw null; } }
+        public string ParentId { get { throw null; } }
+        public Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriBoundaryParentType? ParentType { get { throw null; } }
+        public string PartyId { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, object> Properties { get { throw null; } }
+        public string Status { get { throw null; } }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct DataManagerForAgriBoundaryParentType : System.IEquatable<Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriBoundaryParentType>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public DataManagerForAgriBoundaryParentType(string value) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriBoundaryParentType ApplicationData { get { throw null; } }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriBoundaryParentType Field { get { throw null; } }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriBoundaryParentType HarvestData { get { throw null; } }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriBoundaryParentType PlantingData { get { throw null; } }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriBoundaryParentType PlantTissueAnalysis { get { throw null; } }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriBoundaryParentType Prescription { get { throw null; } }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriBoundaryParentType SeasonalField { get { throw null; } }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriBoundaryParentType TillageData { get { throw null; } }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriBoundaryParentType Zone { get { throw null; } }
+        public bool Equals(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriBoundaryParentType other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriBoundaryParentType left, Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriBoundaryParentType right) { throw null; }
+        public static implicit operator Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriBoundaryParentType (string value) { throw null; }
+        public static bool operator !=(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriBoundaryParentType left, Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriBoundaryParentType right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    public partial class DataManagerForAgriCropChangedEventData
+    {
+        internal DataManagerForAgriCropChangedEventData() { }
+        public Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? ActionType { get { throw null; } }
+        public System.DateTimeOffset? CreatedDateTime { get { throw null; } }
+        public string Description { get { throw null; } }
+        public Azure.ETag? ETag { get { throw null; } }
+        public string Id { get { throw null; } }
+        public System.DateTimeOffset? ModifiedDateTime { get { throw null; } }
+        public string Name { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, object> Properties { get { throw null; } }
+        public string Status { get { throw null; } }
+    }
+    public partial class DataManagerForAgriCropProductChangedEventData
+    {
+        internal DataManagerForAgriCropProductChangedEventData() { }
+        public Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? ActionType { get { throw null; } }
+        public System.DateTimeOffset? CreatedDateTime { get { throw null; } }
+        public string Description { get { throw null; } }
+        public Azure.ETag? ETag { get { throw null; } }
+        public string Id { get { throw null; } }
+        public System.DateTimeOffset? ModifiedDateTime { get { throw null; } }
+        public string Name { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, object> Properties { get { throw null; } }
+        public string Status { get { throw null; } }
+    }
+    public partial class DataManagerForAgriDeviceChangedEventData
+    {
+        internal DataManagerForAgriDeviceChangedEventData() { }
+        public Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? ActionType { get { throw null; } }
+        public System.DateTimeOffset? CreatedDateTime { get { throw null; } }
+        public string Description { get { throw null; } }
+        public string DeviceDataModelId { get { throw null; } }
+        public Azure.ETag? ETag { get { throw null; } }
+        public string Id { get { throw null; } }
+        public string IntegrationId { get { throw null; } }
+        public System.DateTimeOffset? ModifiedDateTime { get { throw null; } }
+        public string Name { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, object> Properties { get { throw null; } }
+        public string SensorPartnerId { get { throw null; } }
+        public string Status { get { throw null; } }
+    }
+    public partial class DataManagerForAgriDeviceDataModelChangedEventData
+    {
+        internal DataManagerForAgriDeviceDataModelChangedEventData() { }
+        public Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? ActionType { get { throw null; } }
+        public System.DateTimeOffset? CreatedDateTime { get { throw null; } }
+        public string Description { get { throw null; } }
+        public Azure.ETag? ETag { get { throw null; } }
+        public string Id { get { throw null; } }
+        public System.DateTimeOffset? ModifiedDateTime { get { throw null; } }
+        public string Name { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, object> Properties { get { throw null; } }
+        public string SensorPartnerId { get { throw null; } }
+        public string Status { get { throw null; } }
+    }
+    public partial class DataManagerForAgriFarmChangedV2EventData
+    {
+        internal DataManagerForAgriFarmChangedV2EventData() { }
+        public Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? ActionType { get { throw null; } }
+        public System.DateTimeOffset? CreatedDateTime { get { throw null; } }
+        public string Description { get { throw null; } }
+        public Azure.ETag? ETag { get { throw null; } }
+        public string Id { get { throw null; } }
+        public System.DateTimeOffset? ModifiedDateTime { get { throw null; } }
+        public string Name { get { throw null; } }
+        public string PartyId { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, object> Properties { get { throw null; } }
+        public string Status { get { throw null; } }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct DataManagerForAgriFarmHierarchyResourceType : System.IEquatable<Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriFarmHierarchyResourceType>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public DataManagerForAgriFarmHierarchyResourceType(string value) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriFarmHierarchyResourceType Boundary { get { throw null; } }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriFarmHierarchyResourceType Farm { get { throw null; } }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriFarmHierarchyResourceType Field { get { throw null; } }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriFarmHierarchyResourceType Party { get { throw null; } }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriFarmHierarchyResourceType SeasonalField { get { throw null; } }
+        public bool Equals(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriFarmHierarchyResourceType other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriFarmHierarchyResourceType left, Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriFarmHierarchyResourceType right) { throw null; }
+        public static implicit operator Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriFarmHierarchyResourceType (string value) { throw null; }
+        public static bool operator !=(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriFarmHierarchyResourceType left, Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriFarmHierarchyResourceType right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    public partial class DataManagerForAgriFarmOperationDataIngestionJobStatusChangedV2EventData
+    {
+        internal DataManagerForAgriFarmOperationDataIngestionJobStatusChangedV2EventData() { }
+        public System.DateTimeOffset? CreatedDateTime { get { throw null; } }
+        public string Description { get { throw null; } }
+        public string Id { get { throw null; } }
+        public bool? IsCancellationRequested { get { throw null; } }
+        public System.DateTimeOffset? LastActionDateTime { get { throw null; } }
+        public string Message { get { throw null; } }
+        public string Name { get { throw null; } }
+        public string PartyId { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, object> Properties { get { throw null; } }
+        public Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriJobStatus? Status { get { throw null; } }
+    }
+    public partial class DataManagerForAgriFieldChangedV2EventData
+    {
+        internal DataManagerForAgriFieldChangedV2EventData() { }
+        public Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? ActionType { get { throw null; } }
+        public System.DateTimeOffset? CreatedDateTime { get { throw null; } }
+        public string Description { get { throw null; } }
+        public Azure.ETag? ETag { get { throw null; } }
+        public string FarmId { get { throw null; } }
+        public string Id { get { throw null; } }
+        public System.DateTimeOffset? ModifiedDateTime { get { throw null; } }
+        public string Name { get { throw null; } }
+        public string PartyId { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, object> Properties { get { throw null; } }
+        public string Status { get { throw null; } }
+    }
+    public partial class DataManagerForAgriHarvestDataChangedV2EventData
+    {
+        internal DataManagerForAgriHarvestDataChangedV2EventData() { }
+        public Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? ActionType { get { throw null; } }
+        public System.DateTimeOffset? CreatedDateTime { get { throw null; } }
+        public string Description { get { throw null; } }
+        public Azure.ETag? ETag { get { throw null; } }
+        public string Id { get { throw null; } }
+        public System.DateTimeOffset? ModifiedDateTime { get { throw null; } }
+        public string Name { get { throw null; } }
+        public string PartyId { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, object> Properties { get { throw null; } }
+        public string Source { get { throw null; } }
+        public string Status { get { throw null; } }
+    }
+    public partial class DataManagerForAgriImageProcessingRasterizeJobStatusChangedV2EventData
+    {
+        internal DataManagerForAgriImageProcessingRasterizeJobStatusChangedV2EventData() { }
+        public System.DateTimeOffset? CreatedDateTime { get { throw null; } }
+        public string Description { get { throw null; } }
+        public string Id { get { throw null; } }
+        public bool? IsCancellationRequested { get { throw null; } }
+        public System.DateTimeOffset? LastActionDateTime { get { throw null; } }
+        public string Message { get { throw null; } }
+        public string Name { get { throw null; } }
+        public string PartyId { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, object> Properties { get { throw null; } }
+        public string ShapefileAttachmentId { get { throw null; } }
+        public Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriJobStatus? Status { get { throw null; } }
+    }
+    public partial class DataManagerForAgriInsightAttachmentChangedV2EventData
+    {
+        internal DataManagerForAgriInsightAttachmentChangedV2EventData() { }
+        public Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? ActionType { get { throw null; } }
+        public System.DateTimeOffset? CreatedDateTime { get { throw null; } }
+        public string Description { get { throw null; } }
+        public Azure.ETag? ETag { get { throw null; } }
+        public string Id { get { throw null; } }
+        public string InsightId { get { throw null; } }
+        public string ModelId { get { throw null; } }
+        public System.DateTimeOffset? ModifiedDateTime { get { throw null; } }
+        public string Name { get { throw null; } }
+        public string PartyId { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, object> Properties { get { throw null; } }
+        public string ResourceId { get { throw null; } }
+        public Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriFarmHierarchyResourceType? ResourceType { get { throw null; } }
+        public string Status { get { throw null; } }
+    }
+    public partial class DataManagerForAgriInsightChangedV2EventData
+    {
+        internal DataManagerForAgriInsightChangedV2EventData() { }
+        public Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? ActionType { get { throw null; } }
+        public System.DateTimeOffset? CreatedDateTime { get { throw null; } }
+        public string Description { get { throw null; } }
+        public Azure.ETag? ETag { get { throw null; } }
+        public string Id { get { throw null; } }
+        public string ModelId { get { throw null; } }
+        public string ModelVersion { get { throw null; } }
+        public System.DateTimeOffset? ModifiedDateTime { get { throw null; } }
+        public string Name { get { throw null; } }
+        public string PartyId { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, object> Properties { get { throw null; } }
+        public string ResourceId { get { throw null; } }
+        public Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriFarmHierarchyResourceType? ResourceType { get { throw null; } }
+        public string Status { get { throw null; } }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct DataManagerForAgriJobStatus : System.IEquatable<Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriJobStatus>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public DataManagerForAgriJobStatus(string value) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriJobStatus Cancelled { get { throw null; } }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriJobStatus Failed { get { throw null; } }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriJobStatus Running { get { throw null; } }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriJobStatus Succeeded { get { throw null; } }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriJobStatus Waiting { get { throw null; } }
+        public bool Equals(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriJobStatus other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriJobStatus left, Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriJobStatus right) { throw null; }
+        public static implicit operator Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriJobStatus (string value) { throw null; }
+        public static bool operator !=(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriJobStatus left, Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriJobStatus right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    public partial class DataManagerForAgriManagementZoneChangedV2EventData
+    {
+        internal DataManagerForAgriManagementZoneChangedV2EventData() { }
+        public Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? ActionType { get { throw null; } }
+        public System.DateTimeOffset? CreatedDateTime { get { throw null; } }
+        public string CropId { get { throw null; } }
+        public string Description { get { throw null; } }
+        public Azure.ETag? ETag { get { throw null; } }
+        public string FieldId { get { throw null; } }
+        public string Id { get { throw null; } }
+        public System.DateTimeOffset? ModifiedDateTime { get { throw null; } }
+        public string Name { get { throw null; } }
+        public string PartyId { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, object> Properties { get { throw null; } }
+        public string SeasonId { get { throw null; } }
+        public string Status { get { throw null; } }
+    }
+    public partial class DataManagerForAgriNutrientAnalysisChangedV2EventData
+    {
+        internal DataManagerForAgriNutrientAnalysisChangedV2EventData() { }
+        public Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? ActionType { get { throw null; } }
+        public System.DateTimeOffset? CreatedDateTime { get { throw null; } }
+        public string Description { get { throw null; } }
+        public Azure.ETag? ETag { get { throw null; } }
+        public string Id { get { throw null; } }
+        public System.DateTimeOffset? ModifiedDateTime { get { throw null; } }
+        public string Name { get { throw null; } }
+        public string ParentId { get { throw null; } }
+        public Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriNutrientAnalysisParentType? ParentType { get { throw null; } }
+        public string PartyId { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, object> Properties { get { throw null; } }
+        public string Status { get { throw null; } }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct DataManagerForAgriNutrientAnalysisParentType : System.IEquatable<Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriNutrientAnalysisParentType>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public DataManagerForAgriNutrientAnalysisParentType(string value) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriNutrientAnalysisParentType PlantTissueAnalysis { get { throw null; } }
+        public bool Equals(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriNutrientAnalysisParentType other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriNutrientAnalysisParentType left, Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriNutrientAnalysisParentType right) { throw null; }
+        public static implicit operator Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriNutrientAnalysisParentType (string value) { throw null; }
+        public static bool operator !=(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriNutrientAnalysisParentType left, Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriNutrientAnalysisParentType right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    public partial class DataManagerForAgriPartyChangedEventData
+    {
+        internal DataManagerForAgriPartyChangedEventData() { }
+        public Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? ActionType { get { throw null; } }
+        public System.DateTimeOffset? CreatedDateTime { get { throw null; } }
+        public string Description { get { throw null; } }
+        public Azure.ETag? ETag { get { throw null; } }
+        public string Id { get { throw null; } }
+        public System.DateTimeOffset? ModifiedDateTime { get { throw null; } }
+        public string Name { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, object> Properties { get { throw null; } }
+        public string Status { get { throw null; } }
+    }
+    public partial class DataManagerForAgriPlantingDataChangedV2EventData
+    {
+        internal DataManagerForAgriPlantingDataChangedV2EventData() { }
+        public Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? ActionType { get { throw null; } }
+        public System.DateTimeOffset? CreatedDateTime { get { throw null; } }
+        public string Description { get { throw null; } }
+        public Azure.ETag? ETag { get { throw null; } }
+        public string Id { get { throw null; } }
+        public System.DateTimeOffset? ModifiedDateTime { get { throw null; } }
+        public string Name { get { throw null; } }
+        public string PartyId { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, object> Properties { get { throw null; } }
+        public string Source { get { throw null; } }
+        public string Status { get { throw null; } }
+    }
+    public partial class DataManagerForAgriPlantTissueAnalysisChangedV2EventData
+    {
+        internal DataManagerForAgriPlantTissueAnalysisChangedV2EventData() { }
+        public Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? ActionType { get { throw null; } }
+        public System.DateTimeOffset? CreatedDateTime { get { throw null; } }
+        public string CropId { get { throw null; } }
+        public string CropProductId { get { throw null; } }
+        public string Description { get { throw null; } }
+        public Azure.ETag? ETag { get { throw null; } }
+        public string FieldId { get { throw null; } }
+        public string Id { get { throw null; } }
+        public System.DateTimeOffset? ModifiedDateTime { get { throw null; } }
+        public string Name { get { throw null; } }
+        public string PartyId { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, object> Properties { get { throw null; } }
+        public string SeasonId { get { throw null; } }
+        public string Status { get { throw null; } }
+    }
+    public partial class DataManagerForAgriPrescriptionChangedV2EventData
+    {
+        internal DataManagerForAgriPrescriptionChangedV2EventData() { }
+        public Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? ActionType { get { throw null; } }
+        public System.DateTimeOffset? CreatedDateTime { get { throw null; } }
+        public string Description { get { throw null; } }
+        public Azure.ETag? ETag { get { throw null; } }
+        public string Id { get { throw null; } }
+        public System.DateTimeOffset? ModifiedDateTime { get { throw null; } }
+        public string Name { get { throw null; } }
+        public string PartyId { get { throw null; } }
+        public string PrescriptionMapId { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, object> Properties { get { throw null; } }
+        public string Status { get { throw null; } }
+    }
+    public partial class DataManagerForAgriPrescriptionMapChangedV2EventData
+    {
+        internal DataManagerForAgriPrescriptionMapChangedV2EventData() { }
+        public Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? ActionType { get { throw null; } }
+        public System.DateTimeOffset? CreatedDateTime { get { throw null; } }
+        public string CropId { get { throw null; } }
+        public string Description { get { throw null; } }
+        public Azure.ETag? ETag { get { throw null; } }
+        public string FieldId { get { throw null; } }
+        public string Id { get { throw null; } }
+        public System.DateTimeOffset? ModifiedDateTime { get { throw null; } }
+        public string Name { get { throw null; } }
+        public string PartyId { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, object> Properties { get { throw null; } }
+        public string SeasonId { get { throw null; } }
+        public string Status { get { throw null; } }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct DataManagerForAgriResourceActionType : System.IEquatable<Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public DataManagerForAgriResourceActionType(string value) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType Created { get { throw null; } }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType Deleted { get { throw null; } }
+        public static Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType Updated { get { throw null; } }
+        public bool Equals(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType left, Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType right) { throw null; }
+        public static implicit operator Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType (string value) { throw null; }
+        public static bool operator !=(Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType left, Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    public partial class DataManagerForAgriSatelliteDataIngestionJobStatusChangedV2EventData
+    {
+        internal DataManagerForAgriSatelliteDataIngestionJobStatusChangedV2EventData() { }
+        public System.DateTimeOffset? CreatedDateTime { get { throw null; } }
+        public string Description { get { throw null; } }
+        public string Id { get { throw null; } }
+        public bool? IsCancellationRequested { get { throw null; } }
+        public System.DateTimeOffset? LastActionDateTime { get { throw null; } }
+        public string Message { get { throw null; } }
+        public string Name { get { throw null; } }
+        public string PartyId { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, object> Properties { get { throw null; } }
+        public Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriJobStatus? Status { get { throw null; } }
+    }
+    public partial class DataManagerForAgriSeasonalFieldChangedV2EventData
+    {
+        internal DataManagerForAgriSeasonalFieldChangedV2EventData() { }
+        public Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? ActionType { get { throw null; } }
+        public System.DateTimeOffset? CreatedDateTime { get { throw null; } }
+        public string Description { get { throw null; } }
+        public Azure.ETag? ETag { get { throw null; } }
+        public string FarmId { get { throw null; } }
+        public string FieldId { get { throw null; } }
+        public string Id { get { throw null; } }
+        public System.DateTimeOffset? ModifiedDateTime { get { throw null; } }
+        public string Name { get { throw null; } }
+        public string PartyId { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, object> Properties { get { throw null; } }
+        public string SeasonId { get { throw null; } }
+        public string Status { get { throw null; } }
+    }
+    public partial class DataManagerForAgriSeasonChangedEventData
+    {
+        internal DataManagerForAgriSeasonChangedEventData() { }
+        public Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? ActionType { get { throw null; } }
+        public System.DateTimeOffset? CreatedDateTime { get { throw null; } }
+        public string Description { get { throw null; } }
+        public Azure.ETag? ETag { get { throw null; } }
+        public string Id { get { throw null; } }
+        public System.DateTimeOffset? ModifiedDateTime { get { throw null; } }
+        public string Name { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, object> Properties { get { throw null; } }
+        public string Status { get { throw null; } }
+    }
+    public partial class DataManagerForAgriSensorChangedEventData
+    {
+        internal DataManagerForAgriSensorChangedEventData() { }
+        public Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? ActionType { get { throw null; } }
+        public System.DateTimeOffset? CreatedDateTime { get { throw null; } }
+        public string Description { get { throw null; } }
+        public string DeviceId { get { throw null; } }
+        public Azure.ETag? ETag { get { throw null; } }
+        public string Id { get { throw null; } }
+        public string IntegrationId { get { throw null; } }
+        public System.DateTimeOffset? ModifiedDateTime { get { throw null; } }
+        public string Name { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, object> Properties { get { throw null; } }
+        public string SensorDataModelId { get { throw null; } }
+        public string SensorPartnerId { get { throw null; } }
+        public string Status { get { throw null; } }
+    }
+    public partial class DataManagerForAgriSensorDataModelChangedEventData
+    {
+        internal DataManagerForAgriSensorDataModelChangedEventData() { }
+        public Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? ActionType { get { throw null; } }
+        public System.DateTimeOffset? CreatedDateTime { get { throw null; } }
+        public string Description { get { throw null; } }
+        public Azure.ETag? ETag { get { throw null; } }
+        public string Id { get { throw null; } }
+        public System.DateTimeOffset? ModifiedDateTime { get { throw null; } }
+        public string Name { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, object> Properties { get { throw null; } }
+        public string SensorPartnerId { get { throw null; } }
+        public string Status { get { throw null; } }
+    }
+    public partial class DataManagerForAgriSensorMappingChangedV2EventData
+    {
+        internal DataManagerForAgriSensorMappingChangedV2EventData() { }
+        public Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? ActionType { get { throw null; } }
+        public string BoundaryId { get { throw null; } }
+        public System.DateTimeOffset? CreatedDateTime { get { throw null; } }
+        public string Description { get { throw null; } }
+        public Azure.ETag? ETag { get { throw null; } }
+        public string Id { get { throw null; } }
+        public System.DateTimeOffset? ModifiedDateTime { get { throw null; } }
+        public string Name { get { throw null; } }
+        public string PartyId { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, object> Properties { get { throw null; } }
+        public string SensorId { get { throw null; } }
+        public string SensorPartnerId { get { throw null; } }
+        public string Status { get { throw null; } }
+    }
+    public partial class DataManagerForAgriSensorPartnerIntegrationChangedV2EventData
+    {
+        internal DataManagerForAgriSensorPartnerIntegrationChangedV2EventData() { }
+        public Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? ActionType { get { throw null; } }
+        public System.DateTimeOffset? CreatedDateTime { get { throw null; } }
+        public string Description { get { throw null; } }
+        public Azure.ETag? ETag { get { throw null; } }
+        public string Id { get { throw null; } }
+        public string IntegrationId { get { throw null; } }
+        public System.DateTimeOffset? ModifiedDateTime { get { throw null; } }
+        public string Name { get { throw null; } }
+        public string PartyId { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, object> Properties { get { throw null; } }
+        public string SensorPartnerId { get { throw null; } }
+        public string Status { get { throw null; } }
+    }
+    public partial class DataManagerForAgriSensorPlacementModelJobStatusChangedV2EventData
+    {
+        internal DataManagerForAgriSensorPlacementModelJobStatusChangedV2EventData() { }
+        public System.DateTimeOffset? CreatedDateTime { get { throw null; } }
+        public string Description { get { throw null; } }
+        public string Id { get { throw null; } }
+        public bool? IsCancellationRequested { get { throw null; } }
+        public System.DateTimeOffset? LastActionDateTime { get { throw null; } }
+        public string Message { get { throw null; } }
+        public string Name { get { throw null; } }
+        public string PartyId { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, object> Properties { get { throw null; } }
+        public Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriJobStatus? Status { get { throw null; } }
+    }
+    public partial class DataManagerForAgriSoilMoistureModelJobStatusChangedV2EventData
+    {
+        internal DataManagerForAgriSoilMoistureModelJobStatusChangedV2EventData() { }
+        public System.DateTimeOffset? CreatedDateTime { get { throw null; } }
+        public string Description { get { throw null; } }
+        public string Id { get { throw null; } }
+        public bool? IsCancellationRequested { get { throw null; } }
+        public System.DateTimeOffset? LastActionDateTime { get { throw null; } }
+        public string Message { get { throw null; } }
+        public string Name { get { throw null; } }
+        public string PartyId { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, object> Properties { get { throw null; } }
+        public Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriJobStatus? Status { get { throw null; } }
+    }
+    public partial class DataManagerForAgriTillageDataChangedV2EventData
+    {
+        internal DataManagerForAgriTillageDataChangedV2EventData() { }
+        public Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? ActionType { get { throw null; } }
+        public System.DateTimeOffset? CreatedDateTime { get { throw null; } }
+        public string Description { get { throw null; } }
+        public Azure.ETag? ETag { get { throw null; } }
+        public string Id { get { throw null; } }
+        public System.DateTimeOffset? ModifiedDateTime { get { throw null; } }
+        public string Name { get { throw null; } }
+        public string PartyId { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, object> Properties { get { throw null; } }
+        public string Source { get { throw null; } }
+        public string Status { get { throw null; } }
+    }
+    public partial class DataManagerForAgriWeatherDataIngestionJobStatusChangedV2EventData
+    {
+        internal DataManagerForAgriWeatherDataIngestionJobStatusChangedV2EventData() { }
+        public System.DateTimeOffset? CreatedDateTime { get { throw null; } }
+        public string Description { get { throw null; } }
+        public string Id { get { throw null; } }
+        public bool? IsCancellationRequested { get { throw null; } }
+        public System.DateTimeOffset? LastActionDateTime { get { throw null; } }
+        public string Message { get { throw null; } }
+        public string Name { get { throw null; } }
+        public string PartyId { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, object> Properties { get { throw null; } }
+        public Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriJobStatus? Status { get { throw null; } }
+    }
+    public partial class DataManagerForAgriWeatherDataRefresherJobStatusChangedV2EventData
+    {
+        internal DataManagerForAgriWeatherDataRefresherJobStatusChangedV2EventData() { }
+        public System.DateTimeOffset? CreatedDateTime { get { throw null; } }
+        public string Description { get { throw null; } }
+        public string Id { get { throw null; } }
+        public bool? IsCancellationRequested { get { throw null; } }
+        public System.DateTimeOffset? LastActionDateTime { get { throw null; } }
+        public string Message { get { throw null; } }
+        public string Name { get { throw null; } }
+        public string PartyId { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, object> Properties { get { throw null; } }
+        public Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriJobStatus? Status { get { throw null; } }
+    }
+    public partial class DataManagerForAgriZoneChangedV2EventData
+    {
+        internal DataManagerForAgriZoneChangedV2EventData() { }
+        public Azure.Messaging.EventGrid.SystemEvents.DataManagerForAgriResourceActionType? ActionType { get { throw null; } }
+        public System.DateTimeOffset? CreatedDateTime { get { throw null; } }
+        public string Description { get { throw null; } }
+        public Azure.ETag? ETag { get { throw null; } }
+        public string Id { get { throw null; } }
+        public string ManagementZoneId { get { throw null; } }
+        public System.DateTimeOffset? ModifiedDateTime { get { throw null; } }
+        public string Name { get { throw null; } }
+        public string PartyId { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, object> Properties { get { throw null; } }
+        public string Status { get { throw null; } }
     }
     public partial class DeviceConnectionStateEventInfo
     {
