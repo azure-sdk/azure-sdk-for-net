@@ -25,7 +25,8 @@ namespace Azure.ResourceManager.Compute.Models
         /// <param name="diskSizeGB"> Gets the initial disk size in GB for blank data disks, and the new desired size for existing OS and Data disks. </param>
         /// <param name="managedDisk"> Gets the managed disk details. </param>
         /// <param name="diskRestorePoint"> Gets the disk restore point Id. </param>
-        internal RestorePointSourceVmDataDisk(int? lun, string name, CachingType? caching, int? diskSizeGB, VirtualMachineManagedDisk managedDisk, WritableSubResource diskRestorePoint)
+        /// <param name="writeAcceleratorEnabled"> Shows true if the disk is write-accelerator enabled. </param>
+        internal RestorePointSourceVmDataDisk(int? lun, string name, CachingType? caching, int? diskSizeGB, VirtualMachineManagedDisk managedDisk, WritableSubResource diskRestorePoint, bool? writeAcceleratorEnabled)
         {
             Lun = lun;
             Name = name;
@@ -33,6 +34,7 @@ namespace Azure.ResourceManager.Compute.Models
             DiskSizeGB = diskSizeGB;
             ManagedDisk = managedDisk;
             DiskRestorePoint = diskRestorePoint;
+            WriteAcceleratorEnabled = writeAcceleratorEnabled;
         }
 
         /// <summary> Gets the logical unit number. </summary>
@@ -52,5 +54,8 @@ namespace Azure.ResourceManager.Compute.Models
         {
             get => DiskRestorePoint?.Id;
         }
+
+        /// <summary> Shows true if the disk is write-accelerator enabled. </summary>
+        public bool? WriteAcceleratorEnabled { get; }
     }
 }

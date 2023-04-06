@@ -26,7 +26,8 @@ namespace Azure.ResourceManager.Compute.Models
         /// <param name="diskSizeGB"> Gets the disk size in GB. </param>
         /// <param name="managedDisk"> Gets the managed disk details. </param>
         /// <param name="diskRestorePoint"> Gets the disk restore point Id. </param>
-        internal RestorePointSourceVmOSDisk(OperatingSystemType? osType, DiskEncryptionSettings encryptionSettings, string name, CachingType? caching, int? diskSizeGB, VirtualMachineManagedDisk managedDisk, WritableSubResource diskRestorePoint)
+        /// <param name="writeAcceleratorEnabled"> Shows true if the disk is write-accelerator enabled. </param>
+        internal RestorePointSourceVmOSDisk(OperatingSystemType? osType, DiskEncryptionSettings encryptionSettings, string name, CachingType? caching, int? diskSizeGB, VirtualMachineManagedDisk managedDisk, WritableSubResource diskRestorePoint, bool? writeAcceleratorEnabled)
         {
             OSType = osType;
             EncryptionSettings = encryptionSettings;
@@ -35,6 +36,7 @@ namespace Azure.ResourceManager.Compute.Models
             DiskSizeGB = diskSizeGB;
             ManagedDisk = managedDisk;
             DiskRestorePoint = diskRestorePoint;
+            WriteAcceleratorEnabled = writeAcceleratorEnabled;
         }
 
         /// <summary> Gets the Operating System type. </summary>
@@ -56,5 +58,8 @@ namespace Azure.ResourceManager.Compute.Models
         {
             get => DiskRestorePoint?.Id;
         }
+
+        /// <summary> Shows true if the disk is write-accelerator enabled. </summary>
+        public bool? WriteAcceleratorEnabled { get; }
     }
 }

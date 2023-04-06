@@ -26,6 +26,7 @@ namespace Azure.ResourceManager.Compute.Models
             Optional<int> diskSizeGB = default;
             Optional<VirtualMachineManagedDisk> managedDisk = default;
             Optional<WritableSubResource> diskRestorePoint = default;
+            Optional<bool> writeAcceleratorEnabled = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("osType"u8))
@@ -93,8 +94,18 @@ namespace Azure.ResourceManager.Compute.Models
                     diskRestorePoint = JsonSerializer.Deserialize<WritableSubResource>(property.Value.GetRawText());
                     continue;
                 }
+                if (property.NameEquals("writeAcceleratorEnabled"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        property.ThrowNonNullablePropertyIsNull();
+                        continue;
+                    }
+                    writeAcceleratorEnabled = property.Value.GetBoolean();
+                    continue;
+                }
             }
-            return new RestorePointSourceVmOSDisk(Optional.ToNullable(osType), encryptionSettings.Value, name.Value, Optional.ToNullable(caching), Optional.ToNullable(diskSizeGB), managedDisk.Value, diskRestorePoint);
+            return new RestorePointSourceVmOSDisk(Optional.ToNullable(osType), encryptionSettings.Value, name.Value, Optional.ToNullable(caching), Optional.ToNullable(diskSizeGB), managedDisk.Value, diskRestorePoint, Optional.ToNullable(writeAcceleratorEnabled));
         }
     }
 }
