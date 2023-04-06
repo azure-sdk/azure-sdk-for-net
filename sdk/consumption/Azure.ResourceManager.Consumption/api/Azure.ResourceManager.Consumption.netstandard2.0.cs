@@ -10,8 +10,8 @@ namespace Azure.ResourceManager.Consumption
         public virtual Azure.AsyncPageable<Azure.ResourceManager.Consumption.Models.ConsumptionEventSummary> GetEventsAsync(string filter = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Pageable<Azure.ResourceManager.Consumption.Models.ConsumptionLotSummary> GetLots(string filter = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.AsyncPageable<Azure.ResourceManager.Consumption.Models.ConsumptionLotSummary> GetLotsAsync(string filter = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.Pageable<Azure.ResourceManager.Consumption.Models.ConsumptionReservationTransaction> GetReservationTransactions(string filter = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.AsyncPageable<Azure.ResourceManager.Consumption.Models.ConsumptionReservationTransaction> GetReservationTransactionsAsync(string filter = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Pageable<Azure.ResourceManager.Consumption.Models.ConsumptionReservationTransaction> GetReservationTransactions(string filter = null, bool? useMarkupIfPartner = default(bool?), decimal? previewMarkupPercentage = default(decimal?), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.AsyncPageable<Azure.ResourceManager.Consumption.Models.ConsumptionReservationTransaction> GetReservationTransactionsAsync(string filter = null, bool? useMarkupIfPartner = default(bool?), decimal? previewMarkupPercentage = default(decimal?), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
     }
     public partial class BillingCustomerConsumptionResource : Azure.ResourceManager.ArmResource
     {
@@ -290,6 +290,7 @@ namespace Azure.ResourceManager.Consumption.Models
         public bool? IsPriceHidden { get { throw null; } }
         public decimal? NewPurchases { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Consumption.Models.ConsumptionBalanceNewPurchasesDetail> NewPurchasesDetails { get { throw null; } }
+        public decimal? OverageRefund { get { throw null; } }
         public decimal? ServiceOverage { get { throw null; } }
         public System.Collections.Generic.IReadOnlyDictionary<string, string> Tags { get { throw null; } }
         public decimal? TotalOverage { get { throw null; } }
@@ -330,6 +331,7 @@ namespace Azure.ResourceManager.Consumption.Models
         public string CreditCurrency { get { throw null; } }
         public Azure.ETag? ETag { get { throw null; } set { } }
         public Azure.ResourceManager.Consumption.Models.ConsumptionAmount ExpiredCredit { get { throw null; } }
+        public bool? IsEstimatedBalance { get { throw null; } }
         public Azure.ResourceManager.Consumption.Models.ConsumptionAmount PendingCreditAdjustments { get { throw null; } }
         public Azure.ResourceManager.Consumption.Models.ConsumptionAmount PendingEligibleCharges { get { throw null; } }
         public Azure.ResourceManager.Consumption.Models.ConsumptionReseller Reseller { get { throw null; } }
@@ -354,6 +356,7 @@ namespace Azure.ResourceManager.Consumption.Models
         public Azure.ETag? ETag { get { throw null; } set { } }
         public Azure.ResourceManager.Consumption.Models.ConsumptionEventType? EventType { get { throw null; } set { } }
         public string InvoiceNumber { get { throw null; } }
+        public bool? IsEstimatedBalance { get { throw null; } }
         public Azure.Core.ResourceIdentifier LotId { get { throw null; } }
         public string LotSource { get { throw null; } }
         public Azure.ResourceManager.Consumption.Models.ConsumptionAmount NewCredit { get { throw null; } }
@@ -435,6 +438,7 @@ namespace Azure.ResourceManager.Consumption.Models
         public string CreditCurrency { get { throw null; } }
         public Azure.ETag? ETag { get { throw null; } set { } }
         public System.DateTimeOffset? ExpireOn { get { throw null; } }
+        public bool? IsEstimatedBalance { get { throw null; } }
         public Azure.ResourceManager.Consumption.Models.ConsumptionAmount OriginalAmount { get { throw null; } }
         public Azure.ResourceManager.Consumption.Models.ConsumptionAmountWithExchangeRate OriginalAmountInBillingCurrency { get { throw null; } }
         public string PoNumber { get { throw null; } }
