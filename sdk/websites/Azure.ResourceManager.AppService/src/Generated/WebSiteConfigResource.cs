@@ -303,7 +303,7 @@ namespace Azure.ResourceManager.AppService
             try
             {
                 var response = await _webSiteConfigWebAppsRestClient.CreateOrUpdateConfigurationAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, data, cancellationToken).ConfigureAwait(false);
-                var operation = new AppServiceArmOperation<WebSiteConfigResource>(Response.FromValue(new WebSiteConfigResource(Client, response), response.GetRawResponse()));
+                var operation = new AppServiceArmOperation<WebSiteConfigResource>(new WebSiteConfigOperationSource(Client), _webSiteConfigWebAppsClientDiagnostics, Pipeline, _webSiteConfigWebAppsRestClient.CreateCreateOrUpdateConfigurationRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, data).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -341,7 +341,7 @@ namespace Azure.ResourceManager.AppService
             try
             {
                 var response = _webSiteConfigWebAppsRestClient.CreateOrUpdateConfiguration(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, data, cancellationToken);
-                var operation = new AppServiceArmOperation<WebSiteConfigResource>(Response.FromValue(new WebSiteConfigResource(Client, response), response.GetRawResponse()));
+                var operation = new AppServiceArmOperation<WebSiteConfigResource>(new WebSiteConfigOperationSource(Client), _webSiteConfigWebAppsClientDiagnostics, Pipeline, _webSiteConfigWebAppsRestClient.CreateCreateOrUpdateConfigurationRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, data).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
