@@ -797,6 +797,8 @@ namespace Azure.ResourceManager.KeyVault.Models
     public partial class ManagedHsmPrivateEndpointConnectionItemData
     {
         internal ManagedHsmPrivateEndpointConnectionItemData() { }
+        public Azure.ETag? ETag { get { throw null; } }
+        public string Id { get { throw null; } }
         public Azure.Core.ResourceIdentifier PrivateEndpointId { get { throw null; } }
         public Azure.ResourceManager.KeyVault.Models.ManagedHsmPrivateLinkServiceConnectionState PrivateLinkServiceConnectionState { get { throw null; } }
         public Azure.ResourceManager.KeyVault.Models.ManagedHsmPrivateEndpointConnectionProvisioningState? ProvisioningState { get { throw null; } }
@@ -944,6 +946,7 @@ namespace Azure.ResourceManager.KeyVault.Models
     {
         StandardB1 = 0,
         CustomB32 = 1,
+        CustomB6 = 2,
     }
     public partial class ManagedHsmVirtualNetworkRule
     {
