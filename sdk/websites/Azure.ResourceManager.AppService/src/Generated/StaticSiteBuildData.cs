@@ -23,6 +23,8 @@ namespace Azure.ResourceManager.AppService
         public StaticSiteBuildData()
         {
             UserProvidedFunctionApps = new ChangeTrackingList<StaticSiteUserProvidedFunctionAppData>();
+            LinkedBackends = new ChangeTrackingList<StaticSiteLinkedBackend>();
+            DatabaseConnections = new ChangeTrackingList<DatabaseConnectionOverview>();
         }
 
         /// <summary> Initializes a new instance of StaticSiteBuildData. </summary>
@@ -38,8 +40,10 @@ namespace Azure.ResourceManager.AppService
         /// <param name="lastUpdatedOn"> When this build was updated. </param>
         /// <param name="status"> The status of the static site build. </param>
         /// <param name="userProvidedFunctionApps"> User provided function apps registered with the static site build. </param>
+        /// <param name="linkedBackends"> Backends linked to the static side build. </param>
+        /// <param name="databaseConnections"> Database connections for the static site build. </param>
         /// <param name="kind"> Kind of resource. </param>
-        internal StaticSiteBuildData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string buildId, string sourceBranch, string pullRequestTitle, string hostname, DateTimeOffset? createdOn, DateTimeOffset? lastUpdatedOn, StaticSiteBuildStatus? status, IReadOnlyList<StaticSiteUserProvidedFunctionAppData> userProvidedFunctionApps, string kind) : base(id, name, resourceType, systemData)
+        internal StaticSiteBuildData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string buildId, string sourceBranch, string pullRequestTitle, string hostname, DateTimeOffset? createdOn, DateTimeOffset? lastUpdatedOn, StaticSiteBuildStatus? status, IReadOnlyList<StaticSiteUserProvidedFunctionAppData> userProvidedFunctionApps, IReadOnlyList<StaticSiteLinkedBackend> linkedBackends, IReadOnlyList<DatabaseConnectionOverview> databaseConnections, string kind) : base(id, name, resourceType, systemData)
         {
             BuildId = buildId;
             SourceBranch = sourceBranch;
@@ -49,6 +53,8 @@ namespace Azure.ResourceManager.AppService
             LastUpdatedOn = lastUpdatedOn;
             Status = status;
             UserProvidedFunctionApps = userProvidedFunctionApps;
+            LinkedBackends = linkedBackends;
+            DatabaseConnections = databaseConnections;
             Kind = kind;
         }
 
@@ -68,6 +74,10 @@ namespace Azure.ResourceManager.AppService
         public StaticSiteBuildStatus? Status { get; }
         /// <summary> User provided function apps registered with the static site build. </summary>
         public IReadOnlyList<StaticSiteUserProvidedFunctionAppData> UserProvidedFunctionApps { get; }
+        /// <summary> Backends linked to the static side build. </summary>
+        public IReadOnlyList<StaticSiteLinkedBackend> LinkedBackends { get; }
+        /// <summary> Database connections for the static site build. </summary>
+        public IReadOnlyList<DatabaseConnectionOverview> DatabaseConnections { get; }
         /// <summary> Kind of resource. </summary>
         public string Kind { get; set; }
     }
