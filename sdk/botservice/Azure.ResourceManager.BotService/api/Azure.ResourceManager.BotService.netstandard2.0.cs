@@ -338,6 +338,8 @@ namespace Azure.ResourceManager.BotService.Models
         public BotConnectionSettingProperties() { }
         public string ClientId { get { throw null; } set { } }
         public string ClientSecret { get { throw null; } set { } }
+        public string Id { get { throw null; } set { } }
+        public string Name { get { throw null; } set { } }
         public System.Collections.Generic.IList<Azure.ResourceManager.BotService.Models.BotConnectionSettingParameter> Parameters { get { throw null; } }
         public string ProvisioningState { get { throw null; } set { } }
         public string Scopes { get { throw null; } set { } }
