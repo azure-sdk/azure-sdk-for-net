@@ -23,9 +23,12 @@ namespace Azure.ResourceManager.Compute.Models
         }
 
         private const string ReplicationStatusValue = "ReplicationStatus";
+        private const string ValidationProfileValue = "ValidationProfile";
 
         /// <summary> ReplicationStatus. </summary>
         public static ReplicationStatusType ReplicationStatus { get; } = new ReplicationStatusType(ReplicationStatusValue);
+        /// <summary> ValidationProfile. </summary>
+        public static ReplicationStatusType ValidationProfile { get; } = new ReplicationStatusType(ValidationProfileValue);
         /// <summary> Determines if two <see cref="ReplicationStatusType"/> values are the same. </summary>
         public static bool operator ==(ReplicationStatusType left, ReplicationStatusType right) => left.Equals(right);
         /// <summary> Determines if two <see cref="ReplicationStatusType"/> values are not the same. </summary>

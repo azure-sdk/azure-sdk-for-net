@@ -1183,6 +1183,7 @@ namespace Azure.ResourceManager.Compute
         public Azure.ResourceManager.Compute.Models.ReplicationStatus ReplicationStatus { get { throw null; } }
         public Azure.ResourceManager.Compute.Models.GalleryImageVersionSafetyProfile SafetyProfile { get { throw null; } set { } }
         public Azure.ResourceManager.Compute.Models.GalleryImageVersionStorageProfile StorageProfile { get { throw null; } set { } }
+        public Azure.ResourceManager.Compute.Models.ValidationsProfile ValidationsProfile { get { throw null; } set { } }
     }
     public partial class GalleryImageVersionResource : Azure.ResourceManager.ArmResource
     {
@@ -3446,6 +3447,14 @@ namespace Azure.ResourceManager.Compute.Models
         public System.Collections.Generic.IList<Azure.ResourceManager.Compute.Models.EncryptionSettingsElement> EncryptionSettings { get { throw null; } }
         public string EncryptionSettingsVersion { get { throw null; } set { } }
     }
+    public partial class ExecutedValidation
+    {
+        public ExecutedValidation() { }
+        public string ExecutedValidationType { get { throw null; } set { } }
+        public System.DateTimeOffset? ExecutionOn { get { throw null; } set { } }
+        public string Status { get { throw null; } set { } }
+        public string Version { get { throw null; } set { } }
+    }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct ExecutionState : System.IEquatable<Azure.ResourceManager.Compute.Models.ExecutionState>
     {
@@ -3657,6 +3666,7 @@ namespace Azure.ResourceManager.Compute.Models
         public Azure.ResourceManager.Compute.Models.GalleryImageVersionSafetyProfile SafetyProfile { get { throw null; } set { } }
         public Azure.ResourceManager.Compute.Models.GalleryImageVersionStorageProfile StorageProfile { get { throw null; } set { } }
         public System.Collections.Generic.IDictionary<string, string> Tags { get { throw null; } }
+        public Azure.ResourceManager.Compute.Models.ValidationsProfile ValidationsProfile { get { throw null; } set { } }
     }
     public partial class GalleryImageVersionPolicyViolation
     {
@@ -4607,6 +4617,7 @@ namespace Azure.ResourceManager.Compute.Models
         private readonly int _dummyPrimitive;
         public ReplicationStatusType(string value) { throw null; }
         public static Azure.ResourceManager.Compute.Models.ReplicationStatusType ReplicationStatus { get { throw null; } }
+        public static Azure.ResourceManager.Compute.Models.ReplicationStatusType ValidationProfile { get { throw null; } }
         public bool Equals(Azure.ResourceManager.Compute.Models.ReplicationStatusType other) { throw null; }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public override bool Equals(object obj) { throw null; }
@@ -5281,6 +5292,13 @@ namespace Azure.ResourceManager.Compute.Models
         public UserArtifactSource(string mediaLink) { }
         public string DefaultConfigurationLink { get { throw null; } set { } }
         public string MediaLink { get { throw null; } set { } }
+    }
+    public partial class ValidationsProfile
+    {
+        public ValidationsProfile() { }
+        public System.Collections.Generic.IList<Azure.ResourceManager.Compute.Models.ExecutedValidation> ExecutedValidations { get { throw null; } }
+        public System.Collections.Generic.IDictionary<string, string> PlatformAttributes { get { throw null; } }
+        public string ValidationETag { get { throw null; } set { } }
     }
     public partial class VaultCertificate
     {
