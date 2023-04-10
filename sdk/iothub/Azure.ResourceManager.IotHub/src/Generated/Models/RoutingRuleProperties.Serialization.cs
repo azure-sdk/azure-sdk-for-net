@@ -32,8 +32,11 @@ namespace Azure.ResourceManager.IotHub.Models
                 writer.WriteStringValue(item);
             }
             writer.WriteEndArray();
-            writer.WritePropertyName("isEnabled"u8);
-            writer.WriteBooleanValue(IsEnabled);
+            if (Optional.IsDefined(IsEnabled))
+            {
+                writer.WritePropertyName("isEnabled"u8);
+                writer.WriteBooleanValue(IsEnabled.Value);
+            }
             writer.WriteEndObject();
         }
 
@@ -47,7 +50,7 @@ namespace Azure.ResourceManager.IotHub.Models
             IotHubRoutingSource source = default;
             Optional<string> condition = default;
             IList<string> endpointNames = default;
-            bool isEnabled = default;
+            Optional<bool> isEnabled = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("name"u8))
@@ -77,11 +80,16 @@ namespace Azure.ResourceManager.IotHub.Models
                 }
                 if (property.NameEquals("isEnabled"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        property.ThrowNonNullablePropertyIsNull();
+                        continue;
+                    }
                     isEnabled = property.Value.GetBoolean();
                     continue;
                 }
             }
-            return new RoutingRuleProperties(name, source, condition.Value, endpointNames, isEnabled);
+            return new RoutingRuleProperties(name, source, condition.Value, endpointNames, Optional.ToNullable(isEnabled));
         }
     }
 }
