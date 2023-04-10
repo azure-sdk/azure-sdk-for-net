@@ -17,7 +17,6 @@ namespace Microsoft.Azure.Management.Network.Models
     public static class ActionType
     {
         public const string AnomalyScoring = "AnomalyScoring";
-        public const string Allow = "Allow";
         public const string Block = "Block";
         public const string Log = "Log";
     }
