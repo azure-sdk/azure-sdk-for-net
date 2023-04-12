@@ -71,7 +71,8 @@ namespace Microsoft.Azure.Management.Network.Models
         /// 'Deleting', 'Failed'</param>
         /// <param name="privateEndpointNetworkPolicies">Enable or Disable
         /// apply network policies on private end point in the subnet. Possible
-        /// values include: 'Enabled', 'Disabled'</param>
+        /// values include: 'Enabled', 'Disabled',
+        /// 'NetworkSecurityGroupEnabled', 'RouteTableEnabled'</param>
         /// <param name="privateLinkServiceNetworkPolicies">Enable or Disable
         /// apply network policies on private link service in the subnet.
         /// Possible values include: 'Enabled', 'Disabled'</param>
@@ -220,7 +221,7 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <summary>
         /// Gets or sets enable or Disable apply network policies on private
         /// end point in the subnet. Possible values include: 'Enabled',
-        /// 'Disabled'
+        /// 'Disabled', 'NetworkSecurityGroupEnabled', 'RouteTableEnabled'
         /// </summary>
         [JsonProperty(PropertyName = "properties.privateEndpointNetworkPolicies")]
         public string PrivateEndpointNetworkPolicies { get; set; }

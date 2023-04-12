@@ -36,8 +36,14 @@ namespace Microsoft.Azure.Management.Network.Models
         /// 'Prevention', 'Detection'</param>
         /// <param name="requestBodyCheck">Whether to allow WAF to check
         /// request Body.</param>
+        /// <param name="requestBodyInspectLimitInKB">Max inspection limit in
+        /// KB for request body inspection for WAF.</param>
+        /// <param name="requestBodyEnforcement">Whether allow WAF to enforce
+        /// request body limits.</param>
         /// <param name="maxRequestBodySizeInKb">Maximum request body size in
         /// Kb for WAF.</param>
+        /// <param name="fileUploadEnforcement">Whether allow WAF to enforce
+        /// file upload limits.</param>
         /// <param name="fileUploadLimitInMb">Maximum file upload size in Mb
         /// for WAF.</param>
         /// <param name="customBlockResponseStatusCode">If the action type is
@@ -45,12 +51,15 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <param name="customBlockResponseBody">If the action type is block,
         /// customer can override the response body. The body must be specified
         /// in base64 encoding.</param>
-        public PolicySettings(string state = default(string), string mode = default(string), bool? requestBodyCheck = default(bool?), int? maxRequestBodySizeInKb = default(int?), int? fileUploadLimitInMb = default(int?), int? customBlockResponseStatusCode = default(int?), string customBlockResponseBody = default(string))
+        public PolicySettings(string state = default(string), string mode = default(string), bool? requestBodyCheck = default(bool?), int? requestBodyInspectLimitInKB = default(int?), bool? requestBodyEnforcement = default(bool?), int? maxRequestBodySizeInKb = default(int?), bool? fileUploadEnforcement = default(bool?), int? fileUploadLimitInMb = default(int?), int? customBlockResponseStatusCode = default(int?), string customBlockResponseBody = default(string))
         {
             State = state;
             Mode = mode;
             RequestBodyCheck = requestBodyCheck;
+            RequestBodyInspectLimitInKB = requestBodyInspectLimitInKB;
+            RequestBodyEnforcement = requestBodyEnforcement;
             MaxRequestBodySizeInKb = maxRequestBodySizeInKb;
+            FileUploadEnforcement = fileUploadEnforcement;
             FileUploadLimitInMb = fileUploadLimitInMb;
             CustomBlockResponseStatusCode = customBlockResponseStatusCode;
             CustomBlockResponseBody = customBlockResponseBody;
@@ -83,10 +92,29 @@ namespace Microsoft.Azure.Management.Network.Models
         public bool? RequestBodyCheck { get; set; }
 
         /// <summary>
+        /// Gets or sets max inspection limit in KB for request body inspection
+        /// for WAF.
+        /// </summary>
+        [JsonProperty(PropertyName = "requestBodyInspectLimitInKB")]
+        public int? RequestBodyInspectLimitInKB { get; set; }
+
+        /// <summary>
+        /// Gets or sets whether allow WAF to enforce request body limits.
+        /// </summary>
+        [JsonProperty(PropertyName = "requestBodyEnforcement")]
+        public bool? RequestBodyEnforcement { get; set; }
+
+        /// <summary>
         /// Gets or sets maximum request body size in Kb for WAF.
         /// </summary>
         [JsonProperty(PropertyName = "maxRequestBodySizeInKb")]
         public int? MaxRequestBodySizeInKb { get; set; }
+
+        /// <summary>
+        /// Gets or sets whether allow WAF to enforce file upload limits.
+        /// </summary>
+        [JsonProperty(PropertyName = "fileUploadEnforcement")]
+        public bool? FileUploadEnforcement { get; set; }
 
         /// <summary>
         /// Gets or sets maximum file upload size in Mb for WAF.
@@ -116,6 +144,10 @@ namespace Microsoft.Azure.Management.Network.Models
         /// </exception>
         public virtual void Validate()
         {
+            if (RequestBodyInspectLimitInKB < 8)
+            {
+                throw new ValidationException(ValidationRules.InclusiveMinimum, "RequestBodyInspectLimitInKB", 8);
+            }
             if (MaxRequestBodySizeInKb < 8)
             {
                 throw new ValidationException(ValidationRules.InclusiveMinimum, "MaxRequestBodySizeInKb", 8);

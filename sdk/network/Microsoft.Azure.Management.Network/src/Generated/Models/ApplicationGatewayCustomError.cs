@@ -14,7 +14,7 @@ namespace Microsoft.Azure.Management.Network.Models
     using System.Linq;
 
     /// <summary>
-    /// Custom error of an application gateway.
+    /// Customer error of an application gateway.
     /// </summary>
     public partial class ApplicationGatewayCustomError
     {
@@ -32,12 +32,10 @@ namespace Microsoft.Azure.Management.Network.Models
         /// class.
         /// </summary>
         /// <param name="statusCode">Status code of the application gateway
-        /// custom error. Possible values include: 'HttpStatus400',
-        /// 'HttpStatus403', 'HttpStatus404', 'HttpStatus405', 'HttpStatus408',
-        /// 'HttpStatus499', 'HttpStatus500', 'HttpStatus502', 'HttpStatus503',
-        /// 'HttpStatus504'</param>
+        /// customer error. Possible values include: 'HttpStatus403',
+        /// 'HttpStatus502'</param>
         /// <param name="customErrorPageUrl">Error page URL of the application
-        /// gateway custom error.</param>
+        /// gateway customer error.</param>
         public ApplicationGatewayCustomError(string statusCode = default(string), string customErrorPageUrl = default(string))
         {
             StatusCode = statusCode;
@@ -51,16 +49,14 @@ namespace Microsoft.Azure.Management.Network.Models
         partial void CustomInit();
 
         /// <summary>
-        /// Gets or sets status code of the application gateway custom error.
-        /// Possible values include: 'HttpStatus400', 'HttpStatus403',
-        /// 'HttpStatus404', 'HttpStatus405', 'HttpStatus408', 'HttpStatus499',
-        /// 'HttpStatus500', 'HttpStatus502', 'HttpStatus503', 'HttpStatus504'
+        /// Gets or sets status code of the application gateway customer error.
+        /// Possible values include: 'HttpStatus403', 'HttpStatus502'
         /// </summary>
         [JsonProperty(PropertyName = "statusCode")]
         public string StatusCode { get; set; }
 
         /// <summary>
-        /// Gets or sets error page URL of the application gateway custom
+        /// Gets or sets error page URL of the application gateway customer
         /// error.
         /// </summary>
         [JsonProperty(PropertyName = "customErrorPageUrl")]
