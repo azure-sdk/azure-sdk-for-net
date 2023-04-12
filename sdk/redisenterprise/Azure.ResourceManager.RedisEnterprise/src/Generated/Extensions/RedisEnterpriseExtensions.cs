@@ -123,6 +123,54 @@ namespace Azure.ResourceManager.RedisEnterprise
         }
 
         /// <summary>
+        /// Checks that the Redis Enterprise cache name is valid and is not already in use.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Cache/CheckNameAvailability</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>RedisEnterprise_CheckNameAvailability</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
+        /// <param name="content"> Parameters supplied to the CheckNameAvailability Redis operation. The only supported resource type is &apos;Microsoft.Cache/redisenterprise&apos;. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
+        public static async Task<Response> CheckNameAvailabilityRedisEnterpriseAsync(this SubscriptionResource subscriptionResource, CheckNameAvailabilityContent content, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(content, nameof(content));
+
+            return await GetExtensionClient(subscriptionResource).CheckNameAvailabilityRedisEnterpriseAsync(content, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Checks that the Redis Enterprise cache name is valid and is not already in use.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Cache/CheckNameAvailability</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>RedisEnterprise_CheckNameAvailability</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
+        /// <param name="content"> Parameters supplied to the CheckNameAvailability Redis operation. The only supported resource type is &apos;Microsoft.Cache/redisenterprise&apos;. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
+        public static Response CheckNameAvailabilityRedisEnterprise(this SubscriptionResource subscriptionResource, CheckNameAvailabilityContent content, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(content, nameof(content));
+
+            return GetExtensionClient(subscriptionResource).CheckNameAvailabilityRedisEnterprise(content, cancellationToken);
+        }
+
+        /// <summary>
         /// Gets information about skus in specified location for the given subscription id
         /// <list type="bullet">
         /// <item>

@@ -113,6 +113,8 @@ namespace Azure.ResourceManager.RedisEnterprise
     }
     public static partial class RedisEnterpriseExtensions
     {
+        public static Azure.Response CheckNameAvailabilityRedisEnterprise(this Azure.ResourceManager.Resources.SubscriptionResource subscriptionResource, Azure.ResourceManager.RedisEnterprise.Models.CheckNameAvailabilityContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public static System.Threading.Tasks.Task<Azure.Response> CheckNameAvailabilityRedisEnterpriseAsync(this Azure.ResourceManager.Resources.SubscriptionResource subscriptionResource, Azure.ResourceManager.RedisEnterprise.Models.CheckNameAvailabilityContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static Azure.Response<Azure.ResourceManager.RedisEnterprise.RedisEnterpriseClusterResource> GetRedisEnterpriseCluster(this Azure.ResourceManager.Resources.ResourceGroupResource resourceGroupResource, string clusterName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.RedisEnterprise.RedisEnterpriseClusterResource>> GetRedisEnterpriseClusterAsync(this Azure.ResourceManager.Resources.ResourceGroupResource resourceGroupResource, string clusterName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static Azure.ResourceManager.RedisEnterprise.RedisEnterpriseClusterResource GetRedisEnterpriseClusterResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
@@ -165,6 +167,12 @@ namespace Azure.ResourceManager.RedisEnterprise
 }
 namespace Azure.ResourceManager.RedisEnterprise.Models
 {
+    public partial class CheckNameAvailabilityContent
+    {
+        public CheckNameAvailabilityContent(string name, string resourceType) { }
+        public string Name { get { throw null; } }
+        public string ResourceType { get { throw null; } }
+    }
     public partial class ExportRedisEnterpriseDatabaseContent
     {
         public ExportRedisEnterpriseDatabaseContent(System.Uri sasUri) { }
