@@ -248,6 +248,8 @@ namespace Azure.Messaging.EventGrid
         public static Azure.Messaging.EventGrid.SystemEvents.StorageDirectoryRenamedEventData StorageDirectoryRenamedEventData(string api = null, string clientRequestId = null, string requestId = null, string sourceUrl = null, string destinationUrl = null, string sequencer = null, string identity = null, object storageDiagnostics = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.StorageLifecyclePolicyActionSummaryDetail StorageLifecyclePolicyActionSummaryDetail(long? totalObjectsCount = default(long?), long? successCount = default(long?), string errorList = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.StorageLifecyclePolicyCompletedEventData StorageLifecyclePolicyCompletedEventData(string scheduleTime = null, Azure.Messaging.EventGrid.SystemEvents.StorageLifecyclePolicyActionSummaryDetail deleteSummary = null, Azure.Messaging.EventGrid.SystemEvents.StorageLifecyclePolicyActionSummaryDetail tierToCoolSummary = null, Azure.Messaging.EventGrid.SystemEvents.StorageLifecyclePolicyActionSummaryDetail tierToArchiveSummary = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.StorageTaskCompletedEventData StorageTaskCompletedEventData(Azure.Messaging.EventGrid.Models.StorageTaskCompletedStatus? status = default(Azure.Messaging.EventGrid.Models.StorageTaskCompletedStatus?), System.DateTimeOffset? completedDateTime = default(System.DateTimeOffset?), string taskExecutionId = null, string taskName = null, System.Uri summaryReportBlobUrl = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.StorageTaskQueuedEventData StorageTaskQueuedEventData(System.DateTimeOffset? queuedDateTime = default(System.DateTimeOffset?), string taskExecutionId = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.SubscriptionDeletedEventData SubscriptionDeletedEventData(string eventSubscriptionId = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.SubscriptionValidationEventData SubscriptionValidationEventData(string validationCode = null, string validationUrl = null) { throw null; }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
@@ -459,6 +461,8 @@ namespace Azure.Messaging.EventGrid
         public const string StorageDirectoryDeleted = "Microsoft.Storage.DirectoryDeleted";
         public const string StorageDirectoryRenamed = "Microsoft.Storage.DirectoryRenamed";
         public const string StorageLifecyclePolicyCompleted = "Microsoft.Storage.LifecyclePolicyCompleted";
+        public const string StorageTaskCompleted = "Microsoft.Storage.StorageTaskCompleted";
+        public const string StorageTaskQueued = "Microsoft.Storage.StorageTaskQueued";
         public const string WebAppServicePlanUpdated = "Microsoft.Web.AppServicePlanUpdated";
         public const string WebAppUpdated = "Microsoft.Web.AppUpdated";
         public const string WebBackupOperationCompleted = "Microsoft.Web.BackupOperationCompleted";
@@ -532,6 +536,24 @@ namespace Azure.Messaging.EventGrid.Models
         public static bool operator ==(Azure.Messaging.EventGrid.Models.RecordingFormatType left, Azure.Messaging.EventGrid.Models.RecordingFormatType right) { throw null; }
         public static implicit operator Azure.Messaging.EventGrid.Models.RecordingFormatType (string value) { throw null; }
         public static bool operator !=(Azure.Messaging.EventGrid.Models.RecordingFormatType left, Azure.Messaging.EventGrid.Models.RecordingFormatType right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct StorageTaskCompletedStatus : System.IEquatable<Azure.Messaging.EventGrid.Models.StorageTaskCompletedStatus>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public StorageTaskCompletedStatus(string value) { throw null; }
+        public static Azure.Messaging.EventGrid.Models.StorageTaskCompletedStatus Failed { get { throw null; } }
+        public static Azure.Messaging.EventGrid.Models.StorageTaskCompletedStatus Succeeded { get { throw null; } }
+        public bool Equals(Azure.Messaging.EventGrid.Models.StorageTaskCompletedStatus other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.Messaging.EventGrid.Models.StorageTaskCompletedStatus left, Azure.Messaging.EventGrid.Models.StorageTaskCompletedStatus right) { throw null; }
+        public static implicit operator Azure.Messaging.EventGrid.Models.StorageTaskCompletedStatus (string value) { throw null; }
+        public static bool operator !=(Azure.Messaging.EventGrid.Models.StorageTaskCompletedStatus left, Azure.Messaging.EventGrid.Models.StorageTaskCompletedStatus right) { throw null; }
         public override string ToString() { throw null; }
     }
 }
@@ -2486,6 +2508,21 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         public string ScheduleTime { get { throw null; } }
         public Azure.Messaging.EventGrid.SystemEvents.StorageLifecyclePolicyActionSummaryDetail TierToArchiveSummary { get { throw null; } }
         public Azure.Messaging.EventGrid.SystemEvents.StorageLifecyclePolicyActionSummaryDetail TierToCoolSummary { get { throw null; } }
+    }
+    public partial class StorageTaskCompletedEventData
+    {
+        internal StorageTaskCompletedEventData() { }
+        public System.DateTimeOffset? CompletedDateTime { get { throw null; } }
+        public Azure.Messaging.EventGrid.Models.StorageTaskCompletedStatus? Status { get { throw null; } }
+        public System.Uri SummaryReportBlobUrl { get { throw null; } }
+        public string TaskExecutionId { get { throw null; } }
+        public string TaskName { get { throw null; } }
+    }
+    public partial class StorageTaskQueuedEventData
+    {
+        internal StorageTaskQueuedEventData() { }
+        public System.DateTimeOffset? QueuedDateTime { get { throw null; } }
+        public string TaskExecutionId { get { throw null; } }
     }
     public partial class SubscriptionDeletedEventData
     {

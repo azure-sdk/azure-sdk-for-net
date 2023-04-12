@@ -8,6 +8,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Azure.Messaging.EventGrid.Models;
 using Azure.Messaging.EventGrid.SystemEvents;
 
 namespace Azure.Messaging.EventGrid
@@ -162,6 +163,27 @@ namespace Azure.Messaging.EventGrid
         public static StorageBlobInventoryPolicyCompletedEventData StorageBlobInventoryPolicyCompletedEventData(DateTimeOffset? scheduleDateTime = null, string accountName = null, string ruleName = null, string policyRunStatus = null, string policyRunStatusMessage = null, string policyRunId = null, string manifestBlobUrl = null)
         {
             return new StorageBlobInventoryPolicyCompletedEventData(scheduleDateTime, accountName, ruleName, policyRunStatus, policyRunStatusMessage, policyRunId, manifestBlobUrl);
+        }
+
+        /// <summary> Initializes a new instance of StorageTaskQueuedEventData. </summary>
+        /// <param name="queuedDateTime"> The time at which a storage task was queued. </param>
+        /// <param name="taskExecutionId"> The execution id for a storage task. </param>
+        /// <returns> A new <see cref="SystemEvents.StorageTaskQueuedEventData"/> instance for mocking. </returns>
+        public static StorageTaskQueuedEventData StorageTaskQueuedEventData(DateTimeOffset? queuedDateTime = null, string taskExecutionId = null)
+        {
+            return new StorageTaskQueuedEventData(queuedDateTime, taskExecutionId);
+        }
+
+        /// <summary> Initializes a new instance of StorageTaskCompletedEventData. </summary>
+        /// <param name="status"> The status for a storage task. </param>
+        /// <param name="completedDateTime"> The time at which a storage task was completed. </param>
+        /// <param name="taskExecutionId"> The execution id for a storage task. </param>
+        /// <param name="taskName"> The task name for a storage task. </param>
+        /// <param name="summaryReportBlobUrl"> The summary report blob url for a storage task. </param>
+        /// <returns> A new <see cref="SystemEvents.StorageTaskCompletedEventData"/> instance for mocking. </returns>
+        public static StorageTaskCompletedEventData StorageTaskCompletedEventData(StorageTaskCompletedStatus? status = null, DateTimeOffset? completedDateTime = null, string taskExecutionId = null, string taskName = null, Uri summaryReportBlobUrl = null)
+        {
+            return new StorageTaskCompletedEventData(status, completedDateTime, taskExecutionId, taskName, summaryReportBlobUrl);
         }
 
         /// <summary> Initializes a new instance of EventHubCaptureFileCreatedEventData. </summary>
