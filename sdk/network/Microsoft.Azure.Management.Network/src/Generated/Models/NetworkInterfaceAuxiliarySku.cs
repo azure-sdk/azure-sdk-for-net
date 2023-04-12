@@ -12,11 +12,14 @@ namespace Microsoft.Azure.Management.Network.Models
 {
 
     /// <summary>
-    /// Defines values for WebApplicationFirewallState.
+    /// Defines values for NetworkInterfaceAuxiliarySku.
     /// </summary>
-    public static class WebApplicationFirewallState
+    public static class NetworkInterfaceAuxiliarySku
     {
-        public const string Disabled = "Disabled";
-        public const string Enabled = "Enabled";
+        public const string None = "None";
+        public const string A1 = "A1";
+        public const string A2 = "A2";
+        public const string A4 = "A4";
+        public const string A8 = "A8";
     }
 }
