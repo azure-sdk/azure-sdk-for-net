@@ -45,7 +45,8 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <param name="customBlockResponseBody">If the action type is block,
         /// customer can override the response body. The body must be specified
         /// in base64 encoding.</param>
-        public PolicySettings(string state = default(string), string mode = default(string), bool? requestBodyCheck = default(bool?), int? maxRequestBodySizeInKb = default(int?), int? fileUploadLimitInMb = default(int?), int? customBlockResponseStatusCode = default(int?), string customBlockResponseBody = default(string))
+        /// <param name="logScrubbing">To scrub sensitive log fields</param>
+        public PolicySettings(string state = default(string), string mode = default(string), bool? requestBodyCheck = default(bool?), int? maxRequestBodySizeInKb = default(int?), int? fileUploadLimitInMb = default(int?), int? customBlockResponseStatusCode = default(int?), string customBlockResponseBody = default(string), PolicySettingsLogScrubbing logScrubbing = default(PolicySettingsLogScrubbing))
         {
             State = state;
             Mode = mode;
@@ -54,6 +55,7 @@ namespace Microsoft.Azure.Management.Network.Models
             FileUploadLimitInMb = fileUploadLimitInMb;
             CustomBlockResponseStatusCode = customBlockResponseStatusCode;
             CustomBlockResponseBody = customBlockResponseBody;
+            LogScrubbing = logScrubbing;
             CustomInit();
         }
 
@@ -107,6 +109,12 @@ namespace Microsoft.Azure.Management.Network.Models
         /// </summary>
         [JsonProperty(PropertyName = "customBlockResponseBody")]
         public string CustomBlockResponseBody { get; set; }
+
+        /// <summary>
+        /// Gets or sets to scrub sensitive log fields
+        /// </summary>
+        [JsonProperty(PropertyName = "logScrubbing")]
+        public PolicySettingsLogScrubbing LogScrubbing { get; set; }
 
         /// <summary>
         /// Validate the object.
