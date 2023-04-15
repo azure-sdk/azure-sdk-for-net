@@ -46,6 +46,7 @@ namespace Azure.ResourceManager.Consumption.Models
             Optional<string> creditCurrency = default;
             Optional<string> billingCurrency = default;
             Optional<ConsumptionReseller> reseller = default;
+            Optional<bool> isEstimatedBalance = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("eTag"u8))
@@ -145,11 +146,20 @@ namespace Azure.ResourceManager.Consumption.Models
                             reseller = ConsumptionReseller.DeserializeConsumptionReseller(property0.Value);
                             continue;
                         }
+                        if (property0.NameEquals("isEstimatedBalance"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            isEstimatedBalance = property0.Value.GetBoolean();
+                            continue;
+                        }
                     }
                     continue;
                 }
             }
-            return new ConsumptionCreditSummary(id, name, type, systemData.Value, balanceSummary.Value, pendingCreditAdjustments.Value, expiredCredit.Value, pendingEligibleCharges.Value, creditCurrency.Value, billingCurrency.Value, reseller.Value, Optional.ToNullable(eTag));
+            return new ConsumptionCreditSummary(id, name, type, systemData.Value, balanceSummary.Value, pendingCreditAdjustments.Value, expiredCredit.Value, pendingEligibleCharges.Value, creditCurrency.Value, billingCurrency.Value, reseller.Value, Optional.ToNullable(isEstimatedBalance), Optional.ToNullable(eTag));
         }
     }
 }
