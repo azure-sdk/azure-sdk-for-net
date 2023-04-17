@@ -28,8 +28,11 @@ namespace Azure.ResourceManager.Storage.Models
                 writer.WritePropertyName("forestName"u8);
                 writer.WriteStringValue(ForestName);
             }
-            writer.WritePropertyName("domainGuid"u8);
-            writer.WriteStringValue(DomainGuid);
+            if (Optional.IsDefined(DomainGuid))
+            {
+                writer.WritePropertyName("domainGuid"u8);
+                writer.WriteStringValue(DomainGuid.Value);
+            }
             if (Optional.IsDefined(DomainSid))
             {
                 writer.WritePropertyName("domainSid"u8);
@@ -62,7 +65,7 @@ namespace Azure.ResourceManager.Storage.Models
             string domainName = default;
             Optional<string> netBiosDomainName = default;
             Optional<string> forestName = default;
-            Guid domainGuid = default;
+            Optional<Guid> domainGuid = default;
             Optional<string> domainSid = default;
             Optional<string> azureStorageSid = default;
             Optional<string> samAccountName = default;
@@ -86,6 +89,10 @@ namespace Azure.ResourceManager.Storage.Models
                 }
                 if (property.NameEquals("domainGuid"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     domainGuid = property.Value.GetGuid();
                     continue;
                 }
@@ -114,7 +121,7 @@ namespace Azure.ResourceManager.Storage.Models
                     continue;
                 }
             }
-            return new StorageActiveDirectoryProperties(domainName, netBiosDomainName.Value, forestName.Value, domainGuid, domainSid.Value, azureStorageSid.Value, samAccountName.Value, Optional.ToNullable(accountType));
+            return new StorageActiveDirectoryProperties(domainName, netBiosDomainName.Value, forestName.Value, Optional.ToNullable(domainGuid), domainSid.Value, azureStorageSid.Value, samAccountName.Value, Optional.ToNullable(accountType));
         }
     }
 }

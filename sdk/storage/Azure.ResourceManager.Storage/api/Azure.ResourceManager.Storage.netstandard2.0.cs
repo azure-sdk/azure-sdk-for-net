@@ -2028,10 +2028,10 @@ namespace Azure.ResourceManager.Storage.Models
     }
     public partial class StorageActiveDirectoryProperties
     {
-        public StorageActiveDirectoryProperties(string domainName, System.Guid domainGuid) { }
+        public StorageActiveDirectoryProperties(string domainName) { }
         public Azure.ResourceManager.Storage.Models.ActiveDirectoryAccountType? AccountType { get { throw null; } set { } }
         public string AzureStorageSid { get { throw null; } set { } }
-        public System.Guid DomainGuid { get { throw null; } set { } }
+        public System.Guid? DomainGuid { get { throw null; } set { } }
         public string DomainName { get { throw null; } set { } }
         public string DomainSid { get { throw null; } set { } }
         public string ForestName { get { throw null; } set { } }

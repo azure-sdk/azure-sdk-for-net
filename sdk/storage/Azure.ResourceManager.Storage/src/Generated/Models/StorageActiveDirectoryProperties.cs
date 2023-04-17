@@ -15,14 +15,12 @@ namespace Azure.ResourceManager.Storage.Models
     {
         /// <summary> Initializes a new instance of StorageActiveDirectoryProperties. </summary>
         /// <param name="domainName"> Specifies the primary domain that the AD DNS server is authoritative for. </param>
-        /// <param name="domainGuid"> Specifies the domain GUID. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="domainName"/> is null. </exception>
-        public StorageActiveDirectoryProperties(string domainName, Guid domainGuid)
+        public StorageActiveDirectoryProperties(string domainName)
         {
             Argument.AssertNotNull(domainName, nameof(domainName));
 
             DomainName = domainName;
-            DomainGuid = domainGuid;
         }
 
         /// <summary> Initializes a new instance of StorageActiveDirectoryProperties. </summary>
@@ -34,7 +32,7 @@ namespace Azure.ResourceManager.Storage.Models
         /// <param name="azureStorageSid"> Specifies the security identifier (SID) for Azure Storage. </param>
         /// <param name="samAccountName"> Specifies the Active Directory SAMAccountName for Azure Storage. </param>
         /// <param name="accountType"> Specifies the Active Directory account type for Azure Storage. </param>
-        internal StorageActiveDirectoryProperties(string domainName, string netBiosDomainName, string forestName, Guid domainGuid, string domainSid, string azureStorageSid, string samAccountName, ActiveDirectoryAccountType? accountType)
+        internal StorageActiveDirectoryProperties(string domainName, string netBiosDomainName, string forestName, Guid? domainGuid, string domainSid, string azureStorageSid, string samAccountName, ActiveDirectoryAccountType? accountType)
         {
             DomainName = domainName;
             NetBiosDomainName = netBiosDomainName;
@@ -53,7 +51,7 @@ namespace Azure.ResourceManager.Storage.Models
         /// <summary> Specifies the Active Directory forest to get. </summary>
         public string ForestName { get; set; }
         /// <summary> Specifies the domain GUID. </summary>
-        public Guid DomainGuid { get; set; }
+        public Guid? DomainGuid { get; set; }
         /// <summary> Specifies the security identifier (SID). </summary>
         public string DomainSid { get; set; }
         /// <summary> Specifies the security identifier (SID) for Azure Storage. </summary>
