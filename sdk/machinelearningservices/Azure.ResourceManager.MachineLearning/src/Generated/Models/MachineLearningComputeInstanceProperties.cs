@@ -124,11 +124,16 @@ namespace Azure.ResourceManager.MachineLearning.Models
         /// <summary> The last operation on ComputeInstance. </summary>
         public MachineLearningComputeInstanceLastOperation LastOperation { get; }
         /// <summary> The list of schedules to be applied on the computes. </summary>
-        internal ComputeSchedules Schedules { get; }
+        internal ComputeSchedules Schedules { get; set; }
         /// <summary> The list of compute start stop schedules to be applied. </summary>
-        public IReadOnlyList<MachineLearningComputeStartStopSchedule> SchedulesComputeStartStop
+        public IList<MachineLearningComputeStartStopSchedule> SchedulesComputeStartStop
         {
-            get => Schedules?.ComputeStartStop;
+            get
+            {
+                if (Schedules is null)
+                    Schedules = new ComputeSchedules();
+                return Schedules.ComputeStartStop;
+            }
         }
 
         /// <summary> Enable or disable node public IP address provisioning. Possible values are: Possible values are: true - Indicates that the compute nodes will have public IPs provisioned. false - Indicates that the compute nodes will have a private endpoint and no public IPs. </summary>
