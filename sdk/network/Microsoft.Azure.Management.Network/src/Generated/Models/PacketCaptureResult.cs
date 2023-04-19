@@ -55,10 +55,12 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <param name="timeLimitInSeconds">Maximum duration of the capture
         /// session in seconds.</param>
         /// <param name="filters">A list of packet capture filters.</param>
+        /// <param name="queryPacketCaptureLastOperationId">The last operation
+        /// Id of querying packet capture.</param>
         /// <param name="provisioningState">The provisioning state of the
         /// packet capture session. Possible values include: 'Succeeded',
         /// 'Updating', 'Deleting', 'Failed'</param>
-        public PacketCaptureResult(string target, PacketCaptureStorageLocation storageLocation, string name = default(string), string id = default(string), string etag = default(string), PacketCaptureMachineScope scope = default(PacketCaptureMachineScope), PacketCaptureTargetType? targetType = default(PacketCaptureTargetType?), long? bytesToCapturePerPacket = default(long?), long? totalBytesPerSession = default(long?), int? timeLimitInSeconds = default(int?), IList<PacketCaptureFilter> filters = default(IList<PacketCaptureFilter>), string provisioningState = default(string))
+        public PacketCaptureResult(string target, PacketCaptureStorageLocation storageLocation, string name = default(string), string id = default(string), string etag = default(string), PacketCaptureMachineScope scope = default(PacketCaptureMachineScope), PacketCaptureTargetType? targetType = default(PacketCaptureTargetType?), long? bytesToCapturePerPacket = default(long?), long? totalBytesPerSession = default(long?), int? timeLimitInSeconds = default(int?), IList<PacketCaptureFilter> filters = default(IList<PacketCaptureFilter>), string queryPacketCaptureLastOperationId = default(string), string provisioningState = default(string))
         {
             Name = name;
             Id = id;
@@ -71,6 +73,7 @@ namespace Microsoft.Azure.Management.Network.Models
             TimeLimitInSeconds = timeLimitInSeconds;
             StorageLocation = storageLocation;
             Filters = filters;
+            QueryPacketCaptureLastOperationId = queryPacketCaptureLastOperationId;
             ProvisioningState = provisioningState;
             CustomInit();
         }
@@ -152,6 +155,12 @@ namespace Microsoft.Azure.Management.Network.Models
         /// </summary>
         [JsonProperty(PropertyName = "properties.filters")]
         public IList<PacketCaptureFilter> Filters { get; set; }
+
+        /// <summary>
+        /// Gets or sets the last operation Id of querying packet capture.
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.queryPacketCaptureLastOperationId")]
+        public string QueryPacketCaptureLastOperationId { get; set; }
 
         /// <summary>
         /// Gets the provisioning state of the packet capture session. Possible

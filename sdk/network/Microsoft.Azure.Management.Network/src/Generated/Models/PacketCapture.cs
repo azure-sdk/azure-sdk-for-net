@@ -51,7 +51,9 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <param name="timeLimitInSeconds">Maximum duration of the capture
         /// session in seconds.</param>
         /// <param name="filters">A list of packet capture filters.</param>
-        public PacketCapture(string target, PacketCaptureStorageLocation storageLocation, PacketCaptureMachineScope scope = default(PacketCaptureMachineScope), PacketCaptureTargetType? targetType = default(PacketCaptureTargetType?), long? bytesToCapturePerPacket = default(long?), long? totalBytesPerSession = default(long?), int? timeLimitInSeconds = default(int?), IList<PacketCaptureFilter> filters = default(IList<PacketCaptureFilter>))
+        /// <param name="queryPacketCaptureLastOperationId">The last operation
+        /// Id of querying packet capture.</param>
+        public PacketCapture(string target, PacketCaptureStorageLocation storageLocation, PacketCaptureMachineScope scope = default(PacketCaptureMachineScope), PacketCaptureTargetType? targetType = default(PacketCaptureTargetType?), long? bytesToCapturePerPacket = default(long?), long? totalBytesPerSession = default(long?), int? timeLimitInSeconds = default(int?), IList<PacketCaptureFilter> filters = default(IList<PacketCaptureFilter>), string queryPacketCaptureLastOperationId = default(string))
         {
             Target = target;
             Scope = scope;
@@ -61,6 +63,7 @@ namespace Microsoft.Azure.Management.Network.Models
             TimeLimitInSeconds = timeLimitInSeconds;
             StorageLocation = storageLocation;
             Filters = filters;
+            QueryPacketCaptureLastOperationId = queryPacketCaptureLastOperationId;
             CustomInit();
         }
 
@@ -122,6 +125,12 @@ namespace Microsoft.Azure.Management.Network.Models
         /// </summary>
         [JsonProperty(PropertyName = "properties.filters")]
         public IList<PacketCaptureFilter> Filters { get; set; }
+
+        /// <summary>
+        /// Gets or sets the last operation Id of querying packet capture.
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.queryPacketCaptureLastOperationId")]
+        public string QueryPacketCaptureLastOperationId { get; set; }
 
         /// <summary>
         /// Validate the object.

@@ -44,11 +44,14 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <param name="provisioningState">The provisioning state of the
         /// network watcher resource. Possible values include: 'Succeeded',
         /// 'Updating', 'Deleting', 'Failed'</param>
-        public NetworkWatcher(string id = default(string), string name = default(string), string type = default(string), string location = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), string etag = default(string), string provisioningState = default(string))
+        /// <param name="runningOperationIds">List of running operation
+        /// GUIDs.</param>
+        public NetworkWatcher(string id = default(string), string name = default(string), string type = default(string), string location = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), string etag = default(string), string provisioningState = default(string), IList<string> runningOperationIds = default(IList<string>))
             : base(id, name, type, location, tags)
         {
             Etag = etag;
             ProvisioningState = provisioningState;
+            RunningOperationIds = runningOperationIds;
             CustomInit();
         }
 
@@ -71,6 +74,12 @@ namespace Microsoft.Azure.Management.Network.Models
         /// </summary>
         [JsonProperty(PropertyName = "properties.provisioningState")]
         public string ProvisioningState { get; private set; }
+
+        /// <summary>
+        /// Gets or sets list of running operation GUIDs.
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.runningOperationIds")]
+        public IList<string> RunningOperationIds { get; set; }
 
     }
 }
