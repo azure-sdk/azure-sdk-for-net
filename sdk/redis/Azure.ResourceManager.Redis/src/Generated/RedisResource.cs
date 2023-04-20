@@ -301,6 +301,112 @@ namespace Azure.ResourceManager.Redis
             return GetRedisPrivateEndpointConnections().Get(privateEndpointConnectionName, cancellationToken);
         }
 
+        /// <summary> Gets a collection of RedisCacheAccessPolicyResources in the Redis. </summary>
+        /// <returns> An object representing collection of RedisCacheAccessPolicyResources and their operations over a RedisCacheAccessPolicyResource. </returns>
+        public virtual RedisCacheAccessPolicyCollection GetRedisCacheAccessPolicies()
+        {
+            return GetCachedClient(Client => new RedisCacheAccessPolicyCollection(Client, Id));
+        }
+
+        /// <summary>
+        /// Gets the detailed information about an access policy of a redis cache
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cache/redis/{cacheName}/accessPolicies/{accessPolicyName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>AccessPolicy_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="accessPolicyName"> The name of the access policy that is being deleted from the Redis cache. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="accessPolicyName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="accessPolicyName"/> is null. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<RedisCacheAccessPolicyResource>> GetRedisCacheAccessPolicyAsync(string accessPolicyName, CancellationToken cancellationToken = default)
+        {
+            return await GetRedisCacheAccessPolicies().GetAsync(accessPolicyName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets the detailed information about an access policy of a redis cache
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cache/redis/{cacheName}/accessPolicies/{accessPolicyName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>AccessPolicy_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="accessPolicyName"> The name of the access policy that is being deleted from the Redis cache. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="accessPolicyName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="accessPolicyName"/> is null. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<RedisCacheAccessPolicyResource> GetRedisCacheAccessPolicy(string accessPolicyName, CancellationToken cancellationToken = default)
+        {
+            return GetRedisCacheAccessPolicies().Get(accessPolicyName, cancellationToken);
+        }
+
+        /// <summary> Gets a collection of RedisCacheAccessPolicyAssignmentSetResources in the Redis. </summary>
+        /// <returns> An object representing collection of RedisCacheAccessPolicyAssignmentSetResources and their operations over a RedisCacheAccessPolicyAssignmentSetResource. </returns>
+        public virtual RedisCacheAccessPolicyAssignmentSetCollection GetRedisCacheAccessPolicyAssignmentSets()
+        {
+            return GetCachedClient(Client => new RedisCacheAccessPolicyAssignmentSetCollection(Client, Id));
+        }
+
+        /// <summary>
+        /// Gets the list of assignments for an access policy of a redis cache
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cache/redis/{cacheName}/accessPolicyAssignments/{accessPolicyName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>AccessPolicyAssignment_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="accessPolicyName"> The name of the assigned access policy. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="accessPolicyName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="accessPolicyName"/> is null. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<RedisCacheAccessPolicyAssignmentSetResource>> GetRedisCacheAccessPolicyAssignmentSetAsync(string accessPolicyName, CancellationToken cancellationToken = default)
+        {
+            return await GetRedisCacheAccessPolicyAssignmentSets().GetAsync(accessPolicyName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets the list of assignments for an access policy of a redis cache
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cache/redis/{cacheName}/accessPolicyAssignments/{accessPolicyName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>AccessPolicyAssignment_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="accessPolicyName"> The name of the assigned access policy. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="accessPolicyName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="accessPolicyName"/> is null. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<RedisCacheAccessPolicyAssignmentSetResource> GetRedisCacheAccessPolicyAssignmentSet(string accessPolicyName, CancellationToken cancellationToken = default)
+        {
+            return GetRedisCacheAccessPolicyAssignmentSets().Get(accessPolicyName, cancellationToken);
+        }
+
         /// <summary>
         /// Gets a Redis cache (resource description).
         /// <list type="bullet">
