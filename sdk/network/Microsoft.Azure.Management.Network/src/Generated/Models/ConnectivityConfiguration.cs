@@ -50,11 +50,13 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <param name="provisioningState">The provisioning state of the
         /// connectivity configuration resource. Possible values include:
         /// 'Succeeded', 'Updating', 'Deleting', 'Failed'</param>
+        /// <param name="resourceGuid">Unique identifier for this
+        /// resource.</param>
         /// <param name="deleteExistingPeering">Flag if need to remove current
         /// existing peerings. Possible values include: 'False', 'True'</param>
         /// <param name="systemData">The system metadata related to this
         /// resource.</param>
-        public ConnectivityConfiguration(string connectivityTopology, IList<ConnectivityGroupItem> appliesToGroups, string id = default(string), string name = default(string), string type = default(string), string etag = default(string), string description = default(string), IList<Hub> hubs = default(IList<Hub>), string isGlobal = default(string), string provisioningState = default(string), string deleteExistingPeering = default(string), SystemData systemData = default(SystemData))
+        public ConnectivityConfiguration(string connectivityTopology, IList<ConnectivityGroupItem> appliesToGroups, string id = default(string), string name = default(string), string type = default(string), string etag = default(string), string description = default(string), IList<Hub> hubs = default(IList<Hub>), string isGlobal = default(string), string provisioningState = default(string), string resourceGuid = default(string), string deleteExistingPeering = default(string), SystemData systemData = default(SystemData))
             : base(id, name, type, etag)
         {
             Description = description;
@@ -63,6 +65,7 @@ namespace Microsoft.Azure.Management.Network.Models
             IsGlobal = isGlobal;
             AppliesToGroups = appliesToGroups;
             ProvisioningState = provisioningState;
+            ResourceGuid = resourceGuid;
             DeleteExistingPeering = deleteExistingPeering;
             SystemData = systemData;
             CustomInit();
@@ -112,6 +115,12 @@ namespace Microsoft.Azure.Management.Network.Models
         /// </summary>
         [JsonProperty(PropertyName = "properties.provisioningState")]
         public string ProvisioningState { get; private set; }
+
+        /// <summary>
+        /// Gets unique identifier for this resource.
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.resourceGuid")]
+        public string ResourceGuid { get; private set; }
 
         /// <summary>
         /// Gets or sets flag if need to remove current existing peerings.

@@ -45,14 +45,16 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <param name="provisioningState">The provisioning state of the
         /// connectivity configuration resource. Possible values include:
         /// 'Succeeded', 'Updating', 'Deleting', 'Failed'</param>
+        /// <param name="resourceGuid">Unique identifier for this
+        /// resource.</param>
         /// <param name="deleteExistingPeering">Flag if need to remove current
         /// existing peerings. Possible values include: 'False', 'True'</param>
         /// <param name="configurationGroups">Effective configuration
         /// groups.</param>
         /// <param name="commitTime">Deployment time string.</param>
         /// <param name="region">Deployment region.</param>
-        public ActiveConnectivityConfiguration(string connectivityTopology, IList<ConnectivityGroupItem> appliesToGroups, string id = default(string), string description = default(string), IList<Hub> hubs = default(IList<Hub>), string isGlobal = default(string), string provisioningState = default(string), string deleteExistingPeering = default(string), IList<ConfigurationGroup> configurationGroups = default(IList<ConfigurationGroup>), System.DateTime? commitTime = default(System.DateTime?), string region = default(string))
-            : base(connectivityTopology, appliesToGroups, id, description, hubs, isGlobal, provisioningState, deleteExistingPeering, configurationGroups)
+        public ActiveConnectivityConfiguration(string connectivityTopology, IList<ConnectivityGroupItem> appliesToGroups, string id = default(string), string description = default(string), IList<Hub> hubs = default(IList<Hub>), string isGlobal = default(string), string provisioningState = default(string), string resourceGuid = default(string), string deleteExistingPeering = default(string), IList<ConfigurationGroup> configurationGroups = default(IList<ConfigurationGroup>), System.DateTime? commitTime = default(System.DateTime?), string region = default(string))
+            : base(connectivityTopology, appliesToGroups, id, description, hubs, isGlobal, provisioningState, resourceGuid, deleteExistingPeering, configurationGroups)
         {
             CommitTime = commitTime;
             Region = region;
