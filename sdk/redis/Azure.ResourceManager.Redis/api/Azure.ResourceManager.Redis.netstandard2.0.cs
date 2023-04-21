@@ -1,5 +1,76 @@
 namespace Azure.ResourceManager.Redis
 {
+    public partial class RedisCacheAccessPolicyAssignmentSetCollection : Azure.ResourceManager.ArmCollection, System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.Redis.RedisCacheAccessPolicyAssignmentSetResource>, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Redis.RedisCacheAccessPolicyAssignmentSetResource>, System.Collections.IEnumerable
+    {
+        protected RedisCacheAccessPolicyAssignmentSetCollection() { }
+        public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Redis.RedisCacheAccessPolicyAssignmentSetResource> CreateOrUpdate(Azure.WaitUntil waitUntil, string accessPolicyName, Azure.ResourceManager.Redis.RedisCacheAccessPolicyAssignmentSetData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Redis.RedisCacheAccessPolicyAssignmentSetResource>> CreateOrUpdateAsync(Azure.WaitUntil waitUntil, string accessPolicyName, Azure.ResourceManager.Redis.RedisCacheAccessPolicyAssignmentSetData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<bool> Exists(string accessPolicyName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<bool>> ExistsAsync(string accessPolicyName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.Redis.RedisCacheAccessPolicyAssignmentSetResource> Get(string accessPolicyName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Pageable<Azure.ResourceManager.Redis.RedisCacheAccessPolicyAssignmentSetResource> GetAll(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.AsyncPageable<Azure.ResourceManager.Redis.RedisCacheAccessPolicyAssignmentSetResource> GetAllAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Redis.RedisCacheAccessPolicyAssignmentSetResource>> GetAsync(string accessPolicyName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        System.Collections.Generic.IAsyncEnumerator<Azure.ResourceManager.Redis.RedisCacheAccessPolicyAssignmentSetResource> System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.Redis.RedisCacheAccessPolicyAssignmentSetResource>.GetAsyncEnumerator(System.Threading.CancellationToken cancellationToken) { throw null; }
+        System.Collections.Generic.IEnumerator<Azure.ResourceManager.Redis.RedisCacheAccessPolicyAssignmentSetResource> System.Collections.Generic.IEnumerable<Azure.ResourceManager.Redis.RedisCacheAccessPolicyAssignmentSetResource>.GetEnumerator() { throw null; }
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() { throw null; }
+    }
+    public partial class RedisCacheAccessPolicyAssignmentSetData : Azure.ResourceManager.Models.ResourceData
+    {
+        public RedisCacheAccessPolicyAssignmentSetData() { }
+        public System.Collections.Generic.IList<Azure.ResourceManager.Redis.Models.RedisCacheAccessPolicyAssignment> Assignments { get { throw null; } }
+        public Azure.ResourceManager.Redis.Models.AccessPolicyAssignmentProvisioningState? ProvisioningState { get { throw null; } }
+    }
+    public partial class RedisCacheAccessPolicyAssignmentSetResource : Azure.ResourceManager.ArmResource
+    {
+        public static readonly Azure.Core.ResourceType ResourceType;
+        protected RedisCacheAccessPolicyAssignmentSetResource() { }
+        public virtual Azure.ResourceManager.Redis.RedisCacheAccessPolicyAssignmentSetData Data { get { throw null; } }
+        public virtual bool HasData { get { throw null; } }
+        public static Azure.Core.ResourceIdentifier CreateResourceIdentifier(string subscriptionId, string resourceGroupName, string cacheName, string accessPolicyName) { throw null; }
+        public virtual Azure.ResourceManager.ArmOperation Delete(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation> DeleteAsync(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.Redis.RedisCacheAccessPolicyAssignmentSetResource> Get(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Redis.RedisCacheAccessPolicyAssignmentSetResource>> GetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Redis.RedisCacheAccessPolicyAssignmentSetResource> Update(Azure.WaitUntil waitUntil, Azure.ResourceManager.Redis.RedisCacheAccessPolicyAssignmentSetData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Redis.RedisCacheAccessPolicyAssignmentSetResource>> UpdateAsync(Azure.WaitUntil waitUntil, Azure.ResourceManager.Redis.RedisCacheAccessPolicyAssignmentSetData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+    }
+    public partial class RedisCacheAccessPolicyCollection : Azure.ResourceManager.ArmCollection, System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.Redis.RedisCacheAccessPolicyResource>, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Redis.RedisCacheAccessPolicyResource>, System.Collections.IEnumerable
+    {
+        protected RedisCacheAccessPolicyCollection() { }
+        public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Redis.RedisCacheAccessPolicyResource> CreateOrUpdate(Azure.WaitUntil waitUntil, string accessPolicyName, Azure.ResourceManager.Redis.RedisCacheAccessPolicyData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Redis.RedisCacheAccessPolicyResource>> CreateOrUpdateAsync(Azure.WaitUntil waitUntil, string accessPolicyName, Azure.ResourceManager.Redis.RedisCacheAccessPolicyData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<bool> Exists(string accessPolicyName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<bool>> ExistsAsync(string accessPolicyName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.Redis.RedisCacheAccessPolicyResource> Get(string accessPolicyName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Pageable<Azure.ResourceManager.Redis.RedisCacheAccessPolicyResource> GetAll(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.AsyncPageable<Azure.ResourceManager.Redis.RedisCacheAccessPolicyResource> GetAllAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Redis.RedisCacheAccessPolicyResource>> GetAsync(string accessPolicyName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        System.Collections.Generic.IAsyncEnumerator<Azure.ResourceManager.Redis.RedisCacheAccessPolicyResource> System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.Redis.RedisCacheAccessPolicyResource>.GetAsyncEnumerator(System.Threading.CancellationToken cancellationToken) { throw null; }
+        System.Collections.Generic.IEnumerator<Azure.ResourceManager.Redis.RedisCacheAccessPolicyResource> System.Collections.Generic.IEnumerable<Azure.ResourceManager.Redis.RedisCacheAccessPolicyResource>.GetEnumerator() { throw null; }
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() { throw null; }
+    }
+    public partial class RedisCacheAccessPolicyData : Azure.ResourceManager.Models.ResourceData
+    {
+        public RedisCacheAccessPolicyData() { }
+        public string Permissions { get { throw null; } set { } }
+        public Azure.ResourceManager.Redis.Models.AccessPolicyProvisioningState? ProvisioningState { get { throw null; } }
+        public Azure.ResourceManager.Redis.Models.AccessPolicyType? TypePropertiesType { get { throw null; } }
+    }
+    public partial class RedisCacheAccessPolicyResource : Azure.ResourceManager.ArmResource
+    {
+        public static readonly Azure.Core.ResourceType ResourceType;
+        protected RedisCacheAccessPolicyResource() { }
+        public virtual Azure.ResourceManager.Redis.RedisCacheAccessPolicyData Data { get { throw null; } }
+        public virtual bool HasData { get { throw null; } }
+        public static Azure.Core.ResourceIdentifier CreateResourceIdentifier(string subscriptionId, string resourceGroupName, string cacheName, string accessPolicyName) { throw null; }
+        public virtual Azure.ResourceManager.ArmOperation Delete(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation> DeleteAsync(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.Redis.RedisCacheAccessPolicyResource> Get(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Redis.RedisCacheAccessPolicyResource>> GetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Redis.RedisCacheAccessPolicyResource> Update(Azure.WaitUntil waitUntil, Azure.ResourceManager.Redis.RedisCacheAccessPolicyData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Redis.RedisCacheAccessPolicyResource>> UpdateAsync(Azure.WaitUntil waitUntil, Azure.ResourceManager.Redis.RedisCacheAccessPolicyData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+    }
     public partial class RedisCollection : Azure.ResourceManager.ArmCollection, System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.Redis.RedisResource>, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Redis.RedisResource>, System.Collections.IEnumerable
     {
         protected RedisCollection() { }
@@ -52,6 +123,8 @@ namespace Azure.ResourceManager.Redis
         public static System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Redis.Models.RedisOperationStatus>> GetAsyncOperationStatusAsync(this Azure.ResourceManager.Resources.SubscriptionResource subscriptionResource, Azure.Core.AzureLocation location, string operationId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static Azure.Response<Azure.ResourceManager.Redis.RedisResource> GetRedis(this Azure.ResourceManager.Resources.ResourceGroupResource resourceGroupResource, string name, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Redis.RedisResource>> GetRedisAsync(this Azure.ResourceManager.Resources.ResourceGroupResource resourceGroupResource, string name, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public static Azure.ResourceManager.Redis.RedisCacheAccessPolicyAssignmentSetResource GetRedisCacheAccessPolicyAssignmentSetResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
+        public static Azure.ResourceManager.Redis.RedisCacheAccessPolicyResource GetRedisCacheAccessPolicyResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
         public static Azure.ResourceManager.Redis.RedisFirewallRuleResource GetRedisFirewallRuleResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
         public static Azure.ResourceManager.Redis.RedisLinkedServerWithPropertyResource GetRedisLinkedServerWithPropertyResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
         public static Azure.ResourceManager.Redis.RedisPatchScheduleResource GetRedisPatchScheduleResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
@@ -224,6 +297,12 @@ namespace Azure.ResourceManager.Redis
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Redis.Models.RedisAccessKeys>> GetKeysAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Pageable<Azure.ResourceManager.Redis.Models.RedisPrivateLinkResource> GetPrivateLinkResourcesByRedisCache(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.AsyncPageable<Azure.ResourceManager.Redis.Models.RedisPrivateLinkResource> GetPrivateLinkResourcesByRedisCacheAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.ResourceManager.Redis.RedisCacheAccessPolicyCollection GetRedisCacheAccessPolicies() { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.Redis.RedisCacheAccessPolicyResource> GetRedisCacheAccessPolicy(string accessPolicyName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.Redis.RedisCacheAccessPolicyAssignmentSetResource> GetRedisCacheAccessPolicyAssignmentSet(string accessPolicyName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Redis.RedisCacheAccessPolicyAssignmentSetResource>> GetRedisCacheAccessPolicyAssignmentSetAsync(string accessPolicyName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.ResourceManager.Redis.RedisCacheAccessPolicyAssignmentSetCollection GetRedisCacheAccessPolicyAssignmentSets() { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Redis.RedisCacheAccessPolicyResource>> GetRedisCacheAccessPolicyAsync(string accessPolicyName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.Redis.RedisFirewallRuleResource> GetRedisFirewallRule(string ruleName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Redis.RedisFirewallRuleResource>> GetRedisFirewallRuleAsync(string ruleName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.ResourceManager.Redis.RedisFirewallRuleCollection GetRedisFirewallRules() { throw null; }
@@ -258,6 +337,68 @@ namespace Azure.ResourceManager.Redis
 }
 namespace Azure.ResourceManager.Redis.Models
 {
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct AccessPolicyAssignmentProvisioningState : System.IEquatable<Azure.ResourceManager.Redis.Models.AccessPolicyAssignmentProvisioningState>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public AccessPolicyAssignmentProvisioningState(string value) { throw null; }
+        public static Azure.ResourceManager.Redis.Models.AccessPolicyAssignmentProvisioningState Canceled { get { throw null; } }
+        public static Azure.ResourceManager.Redis.Models.AccessPolicyAssignmentProvisioningState Deleted { get { throw null; } }
+        public static Azure.ResourceManager.Redis.Models.AccessPolicyAssignmentProvisioningState Deleting { get { throw null; } }
+        public static Azure.ResourceManager.Redis.Models.AccessPolicyAssignmentProvisioningState Failed { get { throw null; } }
+        public static Azure.ResourceManager.Redis.Models.AccessPolicyAssignmentProvisioningState Succeeded { get { throw null; } }
+        public static Azure.ResourceManager.Redis.Models.AccessPolicyAssignmentProvisioningState Updating { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.Redis.Models.AccessPolicyAssignmentProvisioningState other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.Redis.Models.AccessPolicyAssignmentProvisioningState left, Azure.ResourceManager.Redis.Models.AccessPolicyAssignmentProvisioningState right) { throw null; }
+        public static implicit operator Azure.ResourceManager.Redis.Models.AccessPolicyAssignmentProvisioningState (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.Redis.Models.AccessPolicyAssignmentProvisioningState left, Azure.ResourceManager.Redis.Models.AccessPolicyAssignmentProvisioningState right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct AccessPolicyProvisioningState : System.IEquatable<Azure.ResourceManager.Redis.Models.AccessPolicyProvisioningState>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public AccessPolicyProvisioningState(string value) { throw null; }
+        public static Azure.ResourceManager.Redis.Models.AccessPolicyProvisioningState Canceled { get { throw null; } }
+        public static Azure.ResourceManager.Redis.Models.AccessPolicyProvisioningState Deleted { get { throw null; } }
+        public static Azure.ResourceManager.Redis.Models.AccessPolicyProvisioningState Deleting { get { throw null; } }
+        public static Azure.ResourceManager.Redis.Models.AccessPolicyProvisioningState Failed { get { throw null; } }
+        public static Azure.ResourceManager.Redis.Models.AccessPolicyProvisioningState Succeeded { get { throw null; } }
+        public static Azure.ResourceManager.Redis.Models.AccessPolicyProvisioningState Updating { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.Redis.Models.AccessPolicyProvisioningState other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.Redis.Models.AccessPolicyProvisioningState left, Azure.ResourceManager.Redis.Models.AccessPolicyProvisioningState right) { throw null; }
+        public static implicit operator Azure.ResourceManager.Redis.Models.AccessPolicyProvisioningState (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.Redis.Models.AccessPolicyProvisioningState left, Azure.ResourceManager.Redis.Models.AccessPolicyProvisioningState right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct AccessPolicyType : System.IEquatable<Azure.ResourceManager.Redis.Models.AccessPolicyType>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public AccessPolicyType(string value) { throw null; }
+        public static Azure.ResourceManager.Redis.Models.AccessPolicyType BuiltIn { get { throw null; } }
+        public static Azure.ResourceManager.Redis.Models.AccessPolicyType Custom { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.Redis.Models.AccessPolicyType other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.Redis.Models.AccessPolicyType left, Azure.ResourceManager.Redis.Models.AccessPolicyType right) { throw null; }
+        public static implicit operator Azure.ResourceManager.Redis.Models.AccessPolicyType (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.Redis.Models.AccessPolicyType left, Azure.ResourceManager.Redis.Models.AccessPolicyType right) { throw null; }
+        public override string ToString() { throw null; }
+    }
     public partial class ExportRdbContent
     {
         public ExportRdbContent(string prefix, string container) { }
@@ -278,6 +419,12 @@ namespace Azure.ResourceManager.Redis.Models
         internal RedisAccessKeys() { }
         public string PrimaryKey { get { throw null; } }
         public string SecondaryKey { get { throw null; } }
+    }
+    public partial class RedisCacheAccessPolicyAssignment
+    {
+        public RedisCacheAccessPolicyAssignment(string objectId, string objectIdAlias) { }
+        public string ObjectId { get { throw null; } set { } }
+        public string ObjectIdAlias { get { throw null; } set { } }
     }
     public partial class RedisCommonConfiguration
     {
