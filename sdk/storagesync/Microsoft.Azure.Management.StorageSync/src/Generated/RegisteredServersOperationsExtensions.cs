@@ -162,6 +162,58 @@ namespace Microsoft.Azure.Management.StorageSync
             }
 
             /// <summary>
+            /// Update registered server.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='storageSyncServiceName'>
+            /// Name of Storage Sync Service resource.
+            /// </param>
+            /// <param name='serverId'>
+            /// GUID identifying the on-premises server.
+            /// </param>
+            /// <param name='applicationId'>
+            /// Server ServicePrincipal Id
+            /// </param>
+            public static RegisteredServer Update(this IRegisteredServersOperations operations, string resourceGroupName, string storageSyncServiceName, string serverId, string applicationId = default(string))
+            {
+                return operations.UpdateAsync(resourceGroupName, storageSyncServiceName, serverId, applicationId).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Update registered server.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='storageSyncServiceName'>
+            /// Name of Storage Sync Service resource.
+            /// </param>
+            /// <param name='serverId'>
+            /// GUID identifying the on-premises server.
+            /// </param>
+            /// <param name='applicationId'>
+            /// Server ServicePrincipal Id
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<RegisteredServer> UpdateAsync(this IRegisteredServersOperations operations, string resourceGroupName, string storageSyncServiceName, string serverId, string applicationId = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.UpdateWithHttpMessagesAsync(resourceGroupName, storageSyncServiceName, serverId, applicationId, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
             /// Delete the given registered server.
             /// </summary>
             /// <param name='operations'>
@@ -306,6 +358,58 @@ namespace Microsoft.Azure.Management.StorageSync
             public static async Task<RegisteredServer> BeginCreateAsync(this IRegisteredServersOperations operations, string resourceGroupName, string storageSyncServiceName, string serverId, RegisteredServerCreateParameters parameters, CancellationToken cancellationToken = default(CancellationToken))
             {
                 using (var _result = await operations.BeginCreateWithHttpMessagesAsync(resourceGroupName, storageSyncServiceName, serverId, parameters, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Update registered server.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='storageSyncServiceName'>
+            /// Name of Storage Sync Service resource.
+            /// </param>
+            /// <param name='serverId'>
+            /// GUID identifying the on-premises server.
+            /// </param>
+            /// <param name='applicationId'>
+            /// Server ServicePrincipal Id
+            /// </param>
+            public static RegisteredServer BeginUpdate(this IRegisteredServersOperations operations, string resourceGroupName, string storageSyncServiceName, string serverId, string applicationId = default(string))
+            {
+                return operations.BeginUpdateAsync(resourceGroupName, storageSyncServiceName, serverId, applicationId).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Update registered server.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='storageSyncServiceName'>
+            /// Name of Storage Sync Service resource.
+            /// </param>
+            /// <param name='serverId'>
+            /// GUID identifying the on-premises server.
+            /// </param>
+            /// <param name='applicationId'>
+            /// Server ServicePrincipal Id
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<RegisteredServer> BeginUpdateAsync(this IRegisteredServersOperations operations, string resourceGroupName, string storageSyncServiceName, string serverId, string applicationId = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.BeginUpdateWithHttpMessagesAsync(resourceGroupName, storageSyncServiceName, serverId, applicationId, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }

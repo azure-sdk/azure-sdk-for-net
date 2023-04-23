@@ -45,6 +45,9 @@ namespace Microsoft.Azure.Management.StorageSync.Models
         /// <param name="systemData">Azure Resource Manager metadata containing
         /// createdBy and modifiedBy information.</param>
         /// <param name="tags">Resource tags.</param>
+        /// <param name="identity">managed identities for the Container App to
+        /// interact with other Azure services without maintaining any secrets
+        /// or credentials in code.</param>
         /// <param name="incomingTrafficPolicy">Incoming Traffic Policy.
         /// Possible values include: 'AllowAllTraffic',
         /// 'AllowVirtualNetworksOnly'</param>
@@ -54,6 +57,8 @@ namespace Microsoft.Azure.Management.StorageSync.Models
         /// Uid</param>
         /// <param name="provisioningState">StorageSyncService Provisioning
         /// State</param>
+        /// <param name="useIdentity">Use Identity authorization when customer
+        /// have finished setup RBAC permissions.</param>
         /// <param name="lastWorkflowId">StorageSyncService
         /// lastWorkflowId</param>
         /// <param name="lastOperationName">Resource Last Operation
@@ -61,13 +66,15 @@ namespace Microsoft.Azure.Management.StorageSync.Models
         /// <param name="privateEndpointConnections">List of private endpoint
         /// connection associated with the specified storage sync
         /// service</param>
-        public StorageSyncService(string location, string id = default(string), string name = default(string), string type = default(string), SystemData systemData = default(SystemData), IDictionary<string, string> tags = default(IDictionary<string, string>), string incomingTrafficPolicy = default(string), int? storageSyncServiceStatus = default(int?), string storageSyncServiceUid = default(string), string provisioningState = default(string), string lastWorkflowId = default(string), string lastOperationName = default(string), IList<PrivateEndpointConnection> privateEndpointConnections = default(IList<PrivateEndpointConnection>))
+        public StorageSyncService(string location, string id = default(string), string name = default(string), string type = default(string), SystemData systemData = default(SystemData), IDictionary<string, string> tags = default(IDictionary<string, string>), ManagedServiceIdentity identity = default(ManagedServiceIdentity), string incomingTrafficPolicy = default(string), int? storageSyncServiceStatus = default(int?), string storageSyncServiceUid = default(string), string provisioningState = default(string), bool? useIdentity = default(bool?), string lastWorkflowId = default(string), string lastOperationName = default(string), IList<PrivateEndpointConnection> privateEndpointConnections = default(IList<PrivateEndpointConnection>))
             : base(location, id, name, type, systemData, tags)
         {
+            Identity = identity;
             IncomingTrafficPolicy = incomingTrafficPolicy;
             StorageSyncServiceStatus = storageSyncServiceStatus;
             StorageSyncServiceUid = storageSyncServiceUid;
             ProvisioningState = provisioningState;
+            UseIdentity = useIdentity;
             LastWorkflowId = lastWorkflowId;
             LastOperationName = lastOperationName;
             PrivateEndpointConnections = privateEndpointConnections;
@@ -78,6 +85,14 @@ namespace Microsoft.Azure.Management.StorageSync.Models
         /// An initialization method that performs custom operations like setting defaults
         /// </summary>
         partial void CustomInit();
+
+        /// <summary>
+        /// Gets or sets managed identities for the Container App to interact
+        /// with other Azure services without maintaining any secrets or
+        /// credentials in code.
+        /// </summary>
+        [JsonProperty(PropertyName = "identity")]
+        public ManagedServiceIdentity Identity { get; set; }
 
         /// <summary>
         /// Gets or sets incoming Traffic Policy. Possible values include:
@@ -103,6 +118,13 @@ namespace Microsoft.Azure.Management.StorageSync.Models
         /// </summary>
         [JsonProperty(PropertyName = "properties.provisioningState")]
         public string ProvisioningState { get; private set; }
+
+        /// <summary>
+        /// Gets use Identity authorization when customer have finished setup
+        /// RBAC permissions.
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.UseIdentity")]
+        public bool? UseIdentity { get; private set; }
 
         /// <summary>
         /// Gets storageSyncService lastWorkflowId
@@ -132,6 +154,10 @@ namespace Microsoft.Azure.Management.StorageSync.Models
         public override void Validate()
         {
             base.Validate();
+            if (Identity != null)
+            {
+                Identity.Validate();
+            }
             if (PrivateEndpointConnections != null)
             {
                 foreach (var element in PrivateEndpointConnections)

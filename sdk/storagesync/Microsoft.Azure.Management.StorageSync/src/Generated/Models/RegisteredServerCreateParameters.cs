@@ -53,7 +53,8 @@ namespace Microsoft.Azure.Management.StorageSync.Models
         /// <param name="clusterName">Registered Server clusterName</param>
         /// <param name="serverId">Registered Server serverId</param>
         /// <param name="friendlyName">Friendly Name</param>
-        public RegisteredServerCreateParameters(string id = default(string), string name = default(string), string type = default(string), SystemData systemData = default(SystemData), string serverCertificate = default(string), string agentVersion = default(string), string serverOSVersion = default(string), string lastHeartBeat = default(string), string serverRole = default(string), string clusterId = default(string), string clusterName = default(string), string serverId = default(string), string friendlyName = default(string))
+        /// <param name="applicationId">Server ServicePrincipal Id</param>
+        public RegisteredServerCreateParameters(string id = default(string), string name = default(string), string type = default(string), SystemData systemData = default(SystemData), string serverCertificate = default(string), string agentVersion = default(string), string serverOSVersion = default(string), string lastHeartBeat = default(string), string serverRole = default(string), string clusterId = default(string), string clusterName = default(string), string serverId = default(string), string friendlyName = default(string), string applicationId = default(string))
             : base(id, name, type, systemData)
         {
             ServerCertificate = serverCertificate;
@@ -65,6 +66,7 @@ namespace Microsoft.Azure.Management.StorageSync.Models
             ClusterName = clusterName;
             ServerId = serverId;
             FriendlyName = friendlyName;
+            ApplicationId = applicationId;
             CustomInit();
         }
 
@@ -126,6 +128,12 @@ namespace Microsoft.Azure.Management.StorageSync.Models
         /// </summary>
         [JsonProperty(PropertyName = "properties.friendlyName")]
         public string FriendlyName { get; set; }
+
+        /// <summary>
+        /// Gets or sets server ServicePrincipal Id
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.ApplicationId")]
+        public string ApplicationId { get; set; }
 
     }
 }

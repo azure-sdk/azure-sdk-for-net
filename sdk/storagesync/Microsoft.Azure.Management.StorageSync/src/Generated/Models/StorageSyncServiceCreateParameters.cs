@@ -48,13 +48,17 @@ namespace Microsoft.Azure.Management.StorageSync.Models
         /// tags can be provided for a resource. Each tag must have a key with
         /// a length no greater than 128 characters and a value with a length
         /// no greater than 256 characters.</param>
+        /// <param name="identity">managed identities for the Container App to
+        /// interact with other Azure services without maintaining any secrets
+        /// or credentials in code.</param>
         /// <param name="incomingTrafficPolicy">Incoming Traffic Policy.
         /// Possible values include: 'AllowAllTraffic',
         /// 'AllowVirtualNetworksOnly'</param>
-        public StorageSyncServiceCreateParameters(string location, IDictionary<string, string> tags = default(IDictionary<string, string>), string incomingTrafficPolicy = default(string))
+        public StorageSyncServiceCreateParameters(string location, IDictionary<string, string> tags = default(IDictionary<string, string>), ManagedServiceIdentity identity = default(ManagedServiceIdentity), string incomingTrafficPolicy = default(string))
         {
             Location = location;
             Tags = tags;
+            Identity = identity;
             IncomingTrafficPolicy = incomingTrafficPolicy;
             CustomInit();
         }
@@ -86,6 +90,14 @@ namespace Microsoft.Azure.Management.StorageSync.Models
         public IDictionary<string, string> Tags { get; set; }
 
         /// <summary>
+        /// Gets or sets managed identities for the Container App to interact
+        /// with other Azure services without maintaining any secrets or
+        /// credentials in code.
+        /// </summary>
+        [JsonProperty(PropertyName = "identity")]
+        public ManagedServiceIdentity Identity { get; set; }
+
+        /// <summary>
         /// Gets or sets incoming Traffic Policy. Possible values include:
         /// 'AllowAllTraffic', 'AllowVirtualNetworksOnly'
         /// </summary>
@@ -103,6 +115,10 @@ namespace Microsoft.Azure.Management.StorageSync.Models
             if (Location == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "Location");
+            }
+            if (Identity != null)
+            {
+                Identity.Validate();
             }
         }
     }
