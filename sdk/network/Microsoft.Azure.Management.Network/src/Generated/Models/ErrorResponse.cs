@@ -30,7 +30,7 @@ namespace Microsoft.Azure.Management.Network.Models
         /// Initializes a new instance of the ErrorResponse class.
         /// </summary>
         /// <param name="error">Error</param>
-        public ErrorResponse(ErrorDetails error = default(ErrorDetails))
+        public ErrorResponse(Error error = default(Error))
         {
             Error = error;
             CustomInit();
@@ -48,7 +48,7 @@ namespace Microsoft.Azure.Management.Network.Models
         /// The error details object.
         /// </remarks>
         [JsonProperty(PropertyName = "error")]
-        public ErrorDetails Error { get; set; }
+        public Error Error { get; set; }
 
     }
 }
