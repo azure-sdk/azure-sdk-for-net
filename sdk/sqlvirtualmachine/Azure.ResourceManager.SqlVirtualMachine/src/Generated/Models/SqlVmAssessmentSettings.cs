@@ -7,7 +7,7 @@
 
 namespace Azure.ResourceManager.SqlVirtualMachine.Models
 {
-    /// <summary> Configure assessment for databases in your SQL virtual machine. </summary>
+    /// <summary> Configure SQL best practices Assessment for databases in your SQL virtual machine. </summary>
     public partial class SqlVmAssessmentSettings
     {
         /// <summary> Initializes a new instance of SqlVmAssessmentSettings. </summary>
@@ -16,9 +16,9 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
         }
 
         /// <summary> Initializes a new instance of SqlVmAssessmentSettings. </summary>
-        /// <param name="isEnabled"> Enable or disable assessment feature on SQL virtual machine. </param>
-        /// <param name="runImmediately"> Run assessment immediately on SQL virtual machine. </param>
-        /// <param name="schedule"> Schedule for Assessment. </param>
+        /// <param name="isEnabled"> Enable or disable SQL best practices Assessment feature on SQL virtual machine. </param>
+        /// <param name="runImmediately"> Run SQL best practices Assessment immediately on SQL virtual machine. </param>
+        /// <param name="schedule"> Schedule for SQL best practices Assessment. </param>
         internal SqlVmAssessmentSettings(bool? isEnabled, bool? runImmediately, SqlVmAssessmentSchedule schedule)
         {
             IsEnabled = isEnabled;
@@ -26,11 +26,11 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
             Schedule = schedule;
         }
 
-        /// <summary> Enable or disable assessment feature on SQL virtual machine. </summary>
+        /// <summary> Enable or disable SQL best practices Assessment feature on SQL virtual machine. </summary>
         public bool? IsEnabled { get; set; }
-        /// <summary> Run assessment immediately on SQL virtual machine. </summary>
+        /// <summary> Run SQL best practices Assessment immediately on SQL virtual machine. </summary>
         public bool? RunImmediately { get; set; }
-        /// <summary> Schedule for Assessment. </summary>
+        /// <summary> Schedule for SQL best practices Assessment. </summary>
         public SqlVmAssessmentSchedule Schedule { get; set; }
     }
 }

@@ -22,12 +22,12 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
             _value = value ?? throw new ArgumentNullException(nameof(value));
         }
 
-        private const string SynchronousCommitValue = "SYNCHRONOUS_COMMIT";
-        private const string AsynchronousCommitValue = "ASYNCHRONOUS_COMMIT";
+        private const string SynchronousCommitValue = "Synchronous_Commit";
+        private const string AsynchronousCommitValue = "Asynchronous_Commit";
 
-        /// <summary> SYNCHRONOUS_COMMIT. </summary>
+        /// <summary> Synchronous_Commit. </summary>
         public static AvailabilityGroupReplicaCommitMode SynchronousCommit { get; } = new AvailabilityGroupReplicaCommitMode(SynchronousCommitValue);
-        /// <summary> ASYNCHRONOUS_COMMIT. </summary>
+        /// <summary> Asynchronous_Commit. </summary>
         public static AvailabilityGroupReplicaCommitMode AsynchronousCommit { get; } = new AvailabilityGroupReplicaCommitMode(AsynchronousCommitValue);
         /// <summary> Determines if two <see cref="AvailabilityGroupReplicaCommitMode"/> values are the same. </summary>
         public static bool operator ==(AvailabilityGroupReplicaCommitMode left, AvailabilityGroupReplicaCommitMode right) => left.Equals(right);

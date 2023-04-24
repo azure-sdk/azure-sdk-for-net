@@ -22,15 +22,19 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
         /// <summary> Initializes a new instance of SqlStorageSettings. </summary>
         /// <param name="luns"> Logical Unit Numbers for the disks. </param>
         /// <param name="defaultFilePath"> SQL Server default file path. </param>
-        internal SqlStorageSettings(IList<int> luns, string defaultFilePath)
+        /// <param name="useStoragePool"> Use storage pool to build a drive if true or not provided. </param>
+        internal SqlStorageSettings(IList<int> luns, string defaultFilePath, bool? useStoragePool)
         {
             Luns = luns;
             DefaultFilePath = defaultFilePath;
+            UseStoragePool = useStoragePool;
         }
 
         /// <summary> Logical Unit Numbers for the disks. </summary>
         public IList<int> Luns { get; }
         /// <summary> SQL Server default file path. </summary>
         public string DefaultFilePath { get; set; }
+        /// <summary> Use storage pool to build a drive if true or not provided. </summary>
+        public bool? UseStoragePool { get; set; }
     }
 }

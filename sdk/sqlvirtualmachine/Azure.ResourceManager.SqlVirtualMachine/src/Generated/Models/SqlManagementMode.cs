@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace Azure.ResourceManager.SqlVirtualMachine.Models
 {
-    /// <summary> SQL Server Management type. </summary>
+    /// <summary> SQL Server Management type. NOTE: This parameter is not used anymore. API will automatically detect the Sql Management, refrain from using it. </summary>
     public readonly partial struct SqlManagementMode : IEquatable<SqlManagementMode>
     {
         private readonly string _value;
