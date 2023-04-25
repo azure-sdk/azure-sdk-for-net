@@ -521,13 +521,14 @@ namespace Azure.ResourceManager.EventHubs
             switch (message.Response.Status)
             {
                 case 200:
-                case 201:
                     {
                         EventHubsDisasterRecoveryData value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
                         value = EventHubsDisasterRecoveryData.DeserializeEventHubsDisasterRecoveryData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
+                case 201:
+                    return Response.FromValue((EventHubsDisasterRecoveryData)null, message.Response);
                 default:
                     throw new RequestFailedException(message.Response);
             }
@@ -555,13 +556,14 @@ namespace Azure.ResourceManager.EventHubs
             switch (message.Response.Status)
             {
                 case 200:
-                case 201:
                     {
                         EventHubsDisasterRecoveryData value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
                         value = EventHubsDisasterRecoveryData.DeserializeEventHubsDisasterRecoveryData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
+                case 201:
+                    return Response.FromValue((EventHubsDisasterRecoveryData)null, message.Response);
                 default:
                     throw new RequestFailedException(message.Response);
             }
