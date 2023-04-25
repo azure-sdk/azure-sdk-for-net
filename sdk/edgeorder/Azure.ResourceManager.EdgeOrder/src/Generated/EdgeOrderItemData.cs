@@ -15,7 +15,7 @@ namespace Azure.ResourceManager.EdgeOrder
 {
     /// <summary>
     /// A class representing the EdgeOrderItem data model.
-    /// Represents order item contract
+    /// Represents order item resource.
     /// </summary>
     public partial class EdgeOrderItemData : TrackedResourceData
     {

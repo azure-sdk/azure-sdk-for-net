@@ -16,7 +16,7 @@ namespace Azure.ResourceManager.EdgeOrder.Models
         }
 
         /// <summary> Initializes a new instance of EdgeOrderProductDeviceDetails. </summary>
-        /// <param name="serialNumber"> device serial number. </param>
+        /// <param name="serialNumber"> Device serial number. </param>
         /// <param name="managementResourceId"> Management Resource Id. </param>
         /// <param name="managementResourceTenantId"> Management Resource Tenant ID. </param>
         internal EdgeOrderProductDeviceDetails(string serialNumber, string managementResourceId, string managementResourceTenantId)
@@ -26,7 +26,7 @@ namespace Azure.ResourceManager.EdgeOrder.Models
             ManagementResourceTenantId = managementResourceTenantId;
         }
 
-        /// <summary> device serial number. </summary>
+        /// <summary> Device serial number. </summary>
         public string SerialNumber { get; }
         /// <summary> Management Resource Id. </summary>
         public string ManagementResourceId { get; }
