@@ -20,7 +20,9 @@ namespace Azure.ResourceManager.DeviceProvisioningServices
         public DeviceProvisioningServiceData(Azure.Core.AzureLocation location, Azure.ResourceManager.DeviceProvisioningServices.Models.DeviceProvisioningServiceProperties properties, Azure.ResourceManager.DeviceProvisioningServices.Models.DeviceProvisioningServicesSkuInfo sku) : base (default(Azure.Core.AzureLocation)) { }
         public Azure.ETag? ETag { get { throw null; } set { } }
         public Azure.ResourceManager.DeviceProvisioningServices.Models.DeviceProvisioningServiceProperties Properties { get { throw null; } set { } }
+        public string Resourcegroup { get { throw null; } set { } }
         public Azure.ResourceManager.DeviceProvisioningServices.Models.DeviceProvisioningServicesSkuInfo Sku { get { throw null; } set { } }
+        public string Subscriptionid { get { throw null; } set { } }
     }
     public partial class DeviceProvisioningServiceResource : Azure.ResourceManager.ArmResource
     {
@@ -219,6 +221,7 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Models
         public System.Collections.Generic.IList<Azure.ResourceManager.DeviceProvisioningServices.Models.IotHubDefinitionDescription> IotHubs { get { throw null; } }
         public System.Collections.Generic.IList<Azure.ResourceManager.DeviceProvisioningServices.Models.DeviceProvisioningServicesIPFilterRule> IPFilterRules { get { throw null; } }
         public bool? IsDataResidencyEnabled { get { throw null; } set { } }
+        public string PortalOperationsHostName { get { throw null; } set { } }
         public System.Collections.Generic.IList<Azure.ResourceManager.DeviceProvisioningServices.DeviceProvisioningServicesPrivateEndpointConnectionData> PrivateEndpointConnections { get { throw null; } }
         public string ProvisioningState { get { throw null; } set { } }
         public Azure.ResourceManager.DeviceProvisioningServices.Models.DeviceProvisioningServicesPublicNetworkAccess? PublicNetworkAccess { get { throw null; } set { } }
