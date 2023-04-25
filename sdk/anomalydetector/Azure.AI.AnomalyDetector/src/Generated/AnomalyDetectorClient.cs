@@ -68,44 +68,6 @@ namespace Azure.AI.AnomalyDetector
         }
 
         /// <summary> Detect anomalies for the entire series in batch. </summary>
-        /// <param name="options"> Method of univariate anomaly detection. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="options"/> is null. </exception>
-        /// <remarks>
-        /// This operation generates a model with an entire series. Each point is detected
-        /// with the same model. With this method, points before and after a certain point
-        /// are used to determine whether it&apos;s an anomaly. The entire detection can give the
-        /// user an overall status of the time series.
-        /// </remarks>
-        public virtual async Task<Response<UnivariateEntireDetectionResult>> DetectUnivariateEntireSeriesAsync(UnivariateDetectionOptions options, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNull(options, nameof(options));
-
-            RequestContext context = FromCancellationToken(cancellationToken);
-            Response response = await DetectUnivariateEntireSeriesAsync(options.ToRequestContent(), context).ConfigureAwait(false);
-            return Response.FromValue(UnivariateEntireDetectionResult.FromResponse(response), response);
-        }
-
-        /// <summary> Detect anomalies for the entire series in batch. </summary>
-        /// <param name="options"> Method of univariate anomaly detection. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="options"/> is null. </exception>
-        /// <remarks>
-        /// This operation generates a model with an entire series. Each point is detected
-        /// with the same model. With this method, points before and after a certain point
-        /// are used to determine whether it&apos;s an anomaly. The entire detection can give the
-        /// user an overall status of the time series.
-        /// </remarks>
-        public virtual Response<UnivariateEntireDetectionResult> DetectUnivariateEntireSeries(UnivariateDetectionOptions options, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNull(options, nameof(options));
-
-            RequestContext context = FromCancellationToken(cancellationToken);
-            Response response = DetectUnivariateEntireSeries(options.ToRequestContent(), context);
-            return Response.FromValue(UnivariateEntireDetectionResult.FromResponse(response), response);
-        }
-
-        /// <summary> Detect anomalies for the entire series in batch. </summary>
         /// <param name="content"> The content to send as the body of the request. Details of the request body schema are in the Remarks section below. </param>
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
