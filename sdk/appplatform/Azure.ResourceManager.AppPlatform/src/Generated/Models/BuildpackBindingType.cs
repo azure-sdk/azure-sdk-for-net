@@ -28,6 +28,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
         private const string DynatraceValue = "Dynatrace";
         private const string NewRelicValue = "NewRelic";
         private const string ElasticApmValue = "ElasticAPM";
+        private const string CACertificatesValue = "CACertificates";
 
         /// <summary> ApplicationInsights. </summary>
         public static BuildpackBindingType ApplicationInsights { get; } = new BuildpackBindingType(ApplicationInsightsValue);
@@ -41,6 +42,8 @@ namespace Azure.ResourceManager.AppPlatform.Models
         public static BuildpackBindingType NewRelic { get; } = new BuildpackBindingType(NewRelicValue);
         /// <summary> ElasticAPM. </summary>
         public static BuildpackBindingType ElasticApm { get; } = new BuildpackBindingType(ElasticApmValue);
+        /// <summary> CACertificates. </summary>
+        public static BuildpackBindingType CACertificates { get; } = new BuildpackBindingType(CACertificatesValue);
         /// <summary> Determines if two <see cref="BuildpackBindingType"/> values are the same. </summary>
         public static bool operator ==(BuildpackBindingType left, BuildpackBindingType right) => left.Equals(right);
         /// <summary> Determines if two <see cref="BuildpackBindingType"/> values are not the same. </summary>

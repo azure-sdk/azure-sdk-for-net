@@ -21,6 +21,11 @@ namespace Azure.ResourceManager.AppPlatform.Models
                 writer.WritePropertyName("name"u8);
                 writer.WriteStringValue(Name);
             }
+            if (Optional.IsDefined(Error))
+            {
+                writer.WritePropertyName("error"u8);
+                writer.WriteObjectValue(Error);
+            }
             if (Optional.IsDefined(BuildPodName))
             {
                 writer.WritePropertyName("buildPodName"u8);
@@ -37,6 +42,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
             }
             Optional<string> name = default;
             Optional<AppPlatformBuildResultProvisioningState> provisioningState = default;
+            Optional<AppPlatformErrorInfo> error = default;
             Optional<string> buildPodName = default;
             Optional<IReadOnlyList<AppPlatformBuildStageProperties>> buildStages = default;
             foreach (var property in element.EnumerateObject())
@@ -53,6 +59,15 @@ namespace Azure.ResourceManager.AppPlatform.Models
                         continue;
                     }
                     provisioningState = new AppPlatformBuildResultProvisioningState(property.Value.GetString());
+                    continue;
+                }
+                if (property.NameEquals("error"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    error = AppPlatformErrorInfo.DeserializeAppPlatformErrorInfo(property.Value);
                     continue;
                 }
                 if (property.NameEquals("buildPodName"u8))
@@ -75,7 +90,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
                     continue;
                 }
             }
-            return new AppPlatformBuildResultProperties(name.Value, Optional.ToNullable(provisioningState), buildPodName.Value, Optional.ToList(buildStages));
+            return new AppPlatformBuildResultProperties(name.Value, Optional.ToNullable(provisioningState), error.Value, buildPodName.Value, Optional.ToList(buildStages));
         }
     }
 }

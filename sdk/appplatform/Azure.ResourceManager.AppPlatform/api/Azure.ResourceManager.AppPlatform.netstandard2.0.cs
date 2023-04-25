@@ -1,5 +1,80 @@
 namespace Azure.ResourceManager.AppPlatform
 {
+    public partial class ApplicationAcceleratorResource : Azure.ResourceManager.ArmResource
+    {
+        public static readonly Azure.Core.ResourceType ResourceType;
+        protected ApplicationAcceleratorResource() { }
+        public virtual Azure.ResourceManager.AppPlatform.ApplicationAcceleratorResourceData Data { get { throw null; } }
+        public virtual bool HasData { get { throw null; } }
+        public static Azure.Core.ResourceIdentifier CreateResourceIdentifier(string subscriptionId, string resourceGroupName, string serviceName, string applicationAcceleratorName) { throw null; }
+        public virtual Azure.ResourceManager.ArmOperation Delete(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation> DeleteAsync(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.AppPlatform.ApplicationAcceleratorResource> Get(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.AppPlatform.ApplicationAcceleratorResource>> GetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.AppPlatform.CustomizedAcceleratorResource> GetCustomizedAcceleratorResource(string customizedAcceleratorName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.AppPlatform.CustomizedAcceleratorResource>> GetCustomizedAcceleratorResourceAsync(string customizedAcceleratorName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.ResourceManager.AppPlatform.CustomizedAcceleratorResourceCollection GetCustomizedAcceleratorResources() { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.AppPlatform.PredefinedAcceleratorResource> GetPredefinedAcceleratorResource(string predefinedAcceleratorName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.AppPlatform.PredefinedAcceleratorResource>> GetPredefinedAcceleratorResourceAsync(string predefinedAcceleratorName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.ResourceManager.AppPlatform.PredefinedAcceleratorResourceCollection GetPredefinedAcceleratorResources() { throw null; }
+        public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.AppPlatform.ApplicationAcceleratorResource> Update(Azure.WaitUntil waitUntil, Azure.ResourceManager.AppPlatform.ApplicationAcceleratorResourceData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.AppPlatform.ApplicationAcceleratorResource>> UpdateAsync(Azure.WaitUntil waitUntil, Azure.ResourceManager.AppPlatform.ApplicationAcceleratorResourceData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+    }
+    public partial class ApplicationAcceleratorResourceCollection : Azure.ResourceManager.ArmCollection, System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.AppPlatform.ApplicationAcceleratorResource>, System.Collections.Generic.IEnumerable<Azure.ResourceManager.AppPlatform.ApplicationAcceleratorResource>, System.Collections.IEnumerable
+    {
+        protected ApplicationAcceleratorResourceCollection() { }
+        public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.AppPlatform.ApplicationAcceleratorResource> CreateOrUpdate(Azure.WaitUntil waitUntil, string applicationAcceleratorName, Azure.ResourceManager.AppPlatform.ApplicationAcceleratorResourceData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.AppPlatform.ApplicationAcceleratorResource>> CreateOrUpdateAsync(Azure.WaitUntil waitUntil, string applicationAcceleratorName, Azure.ResourceManager.AppPlatform.ApplicationAcceleratorResourceData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<bool> Exists(string applicationAcceleratorName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<bool>> ExistsAsync(string applicationAcceleratorName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.AppPlatform.ApplicationAcceleratorResource> Get(string applicationAcceleratorName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Pageable<Azure.ResourceManager.AppPlatform.ApplicationAcceleratorResource> GetAll(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.AsyncPageable<Azure.ResourceManager.AppPlatform.ApplicationAcceleratorResource> GetAllAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.AppPlatform.ApplicationAcceleratorResource>> GetAsync(string applicationAcceleratorName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        System.Collections.Generic.IAsyncEnumerator<Azure.ResourceManager.AppPlatform.ApplicationAcceleratorResource> System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.AppPlatform.ApplicationAcceleratorResource>.GetAsyncEnumerator(System.Threading.CancellationToken cancellationToken) { throw null; }
+        System.Collections.Generic.IEnumerator<Azure.ResourceManager.AppPlatform.ApplicationAcceleratorResource> System.Collections.Generic.IEnumerable<Azure.ResourceManager.AppPlatform.ApplicationAcceleratorResource>.GetEnumerator() { throw null; }
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() { throw null; }
+    }
+    public partial class ApplicationAcceleratorResourceData : Azure.ResourceManager.Models.ResourceData
+    {
+        public ApplicationAcceleratorResourceData() { }
+        public Azure.ResourceManager.AppPlatform.Models.ApplicationAcceleratorProperties Properties { get { throw null; } set { } }
+        public Azure.ResourceManager.AppPlatform.Models.AppPlatformSku Sku { get { throw null; } set { } }
+    }
+    public partial class ApplicationLiveViewResource : Azure.ResourceManager.ArmResource
+    {
+        public static readonly Azure.Core.ResourceType ResourceType;
+        protected ApplicationLiveViewResource() { }
+        public virtual Azure.ResourceManager.AppPlatform.ApplicationLiveViewResourceData Data { get { throw null; } }
+        public virtual bool HasData { get { throw null; } }
+        public static Azure.Core.ResourceIdentifier CreateResourceIdentifier(string subscriptionId, string resourceGroupName, string serviceName, string applicationLiveViewName) { throw null; }
+        public virtual Azure.ResourceManager.ArmOperation Delete(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation> DeleteAsync(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.AppPlatform.ApplicationLiveViewResource> Get(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.AppPlatform.ApplicationLiveViewResource>> GetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.AppPlatform.ApplicationLiveViewResource> Update(Azure.WaitUntil waitUntil, Azure.ResourceManager.AppPlatform.ApplicationLiveViewResourceData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.AppPlatform.ApplicationLiveViewResource>> UpdateAsync(Azure.WaitUntil waitUntil, Azure.ResourceManager.AppPlatform.ApplicationLiveViewResourceData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+    }
+    public partial class ApplicationLiveViewResourceCollection : Azure.ResourceManager.ArmCollection, System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.AppPlatform.ApplicationLiveViewResource>, System.Collections.Generic.IEnumerable<Azure.ResourceManager.AppPlatform.ApplicationLiveViewResource>, System.Collections.IEnumerable
+    {
+        protected ApplicationLiveViewResourceCollection() { }
+        public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.AppPlatform.ApplicationLiveViewResource> CreateOrUpdate(Azure.WaitUntil waitUntil, string applicationLiveViewName, Azure.ResourceManager.AppPlatform.ApplicationLiveViewResourceData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.AppPlatform.ApplicationLiveViewResource>> CreateOrUpdateAsync(Azure.WaitUntil waitUntil, string applicationLiveViewName, Azure.ResourceManager.AppPlatform.ApplicationLiveViewResourceData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<bool> Exists(string applicationLiveViewName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<bool>> ExistsAsync(string applicationLiveViewName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.AppPlatform.ApplicationLiveViewResource> Get(string applicationLiveViewName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Pageable<Azure.ResourceManager.AppPlatform.ApplicationLiveViewResource> GetAll(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.AsyncPageable<Azure.ResourceManager.AppPlatform.ApplicationLiveViewResource> GetAllAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.AppPlatform.ApplicationLiveViewResource>> GetAsync(string applicationLiveViewName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        System.Collections.Generic.IAsyncEnumerator<Azure.ResourceManager.AppPlatform.ApplicationLiveViewResource> System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.AppPlatform.ApplicationLiveViewResource>.GetAsyncEnumerator(System.Threading.CancellationToken cancellationToken) { throw null; }
+        System.Collections.Generic.IEnumerator<Azure.ResourceManager.AppPlatform.ApplicationLiveViewResource> System.Collections.Generic.IEnumerable<Azure.ResourceManager.AppPlatform.ApplicationLiveViewResource>.GetEnumerator() { throw null; }
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() { throw null; }
+    }
+    public partial class ApplicationLiveViewResourceData : Azure.ResourceManager.Models.ResourceData
+    {
+        public ApplicationLiveViewResourceData() { }
+        public Azure.ResourceManager.AppPlatform.Models.ApplicationLiveViewProperties Properties { get { throw null; } set { } }
+    }
     public partial class AppPlatformApiPortalCollection : Azure.ResourceManager.ArmCollection, System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.AppPlatform.AppPlatformApiPortalResource>, System.Collections.Generic.IEnumerable<Azure.ResourceManager.AppPlatform.AppPlatformApiPortalResource>, System.Collections.IEnumerable
     {
         protected AppPlatformApiPortalCollection() { }
@@ -556,6 +631,8 @@ namespace Azure.ResourceManager.AppPlatform
     {
         public static Azure.Response<Azure.ResourceManager.AppPlatform.Models.AppPlatformNameAvailabilityResult> CheckAppPlatformNameAvailability(this Azure.ResourceManager.Resources.SubscriptionResource subscriptionResource, Azure.Core.AzureLocation location, Azure.ResourceManager.AppPlatform.Models.AppPlatformNameAvailabilityContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.AppPlatform.Models.AppPlatformNameAvailabilityResult>> CheckAppPlatformNameAvailabilityAsync(this Azure.ResourceManager.Resources.SubscriptionResource subscriptionResource, Azure.Core.AzureLocation location, Azure.ResourceManager.AppPlatform.Models.AppPlatformNameAvailabilityContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public static Azure.ResourceManager.AppPlatform.ApplicationAcceleratorResource GetApplicationAcceleratorResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
+        public static Azure.ResourceManager.AppPlatform.ApplicationLiveViewResource GetApplicationLiveViewResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
         public static Azure.ResourceManager.AppPlatform.AppPlatformApiPortalCustomDomainResource GetAppPlatformApiPortalCustomDomainResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
         public static Azure.ResourceManager.AppPlatform.AppPlatformApiPortalResource GetAppPlatformApiPortalResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
         public static Azure.ResourceManager.AppPlatform.AppPlatformAppResource GetAppPlatformAppResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
@@ -585,6 +662,9 @@ namespace Azure.ResourceManager.AppPlatform
         public static Azure.ResourceManager.AppPlatform.AppPlatformStorageResource GetAppPlatformStorageResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
         public static Azure.ResourceManager.AppPlatform.AppPlatformSupportedBuildpackResource GetAppPlatformSupportedBuildpackResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
         public static Azure.ResourceManager.AppPlatform.AppPlatformSupportedStackResource GetAppPlatformSupportedStackResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
+        public static Azure.ResourceManager.AppPlatform.CustomizedAcceleratorResource GetCustomizedAcceleratorResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
+        public static Azure.ResourceManager.AppPlatform.DevToolPortalResource GetDevToolPortalResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
+        public static Azure.ResourceManager.AppPlatform.PredefinedAcceleratorResource GetPredefinedAcceleratorResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
         public static Azure.Pageable<Azure.ResourceManager.AppPlatform.Models.AppPlatformSupportedRuntimeVersion> GetRuntimeVersions(this Azure.ResourceManager.Resources.TenantResource tenantResource, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static Azure.AsyncPageable<Azure.ResourceManager.AppPlatform.Models.AppPlatformSupportedRuntimeVersion> GetRuntimeVersionsAsync(this Azure.ResourceManager.Resources.TenantResource tenantResource, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static Azure.Pageable<Azure.ResourceManager.AppPlatform.Models.AvailableAppPlatformSku> GetSkus(this Azure.ResourceManager.Resources.SubscriptionResource subscriptionResource, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
@@ -662,8 +742,10 @@ namespace Azure.ResourceManager.AppPlatform
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.AppPlatform.AppPlatformGatewayRouteConfigResource>> GetAppPlatformGatewayRouteConfigAsync(string routeConfigName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.ResourceManager.AppPlatform.AppPlatformGatewayRouteConfigCollection GetAppPlatformGatewayRouteConfigs() { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.AppPlatform.AppPlatformGatewayResource>> GetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.AppPlatform.AppPlatformGatewayResource> Update(Azure.WaitUntil waitUntil, Azure.ResourceManager.AppPlatform.AppPlatformGatewayData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.AppPlatform.AppPlatformGatewayResource>> UpdateAsync(Azure.WaitUntil waitUntil, Azure.ResourceManager.AppPlatform.AppPlatformGatewayData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<System.Collections.Generic.IReadOnlyDictionary<string, string>> GetEnvSecrets(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<System.Collections.Generic.IReadOnlyDictionary<string, string>>> GetEnvSecretsAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.AppPlatform.AppPlatformGatewayResource> Update(Azure.WaitUntil waitUntil, Azure.ResourceManager.AppPlatform.Models.AppPlatformGatewayPatch patch, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.AppPlatform.AppPlatformGatewayResource>> UpdateAsync(Azure.WaitUntil waitUntil, Azure.ResourceManager.AppPlatform.Models.AppPlatformGatewayPatch patch, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.AppPlatform.Models.AppPlatformCustomDomainValidateResult> ValidateDomain(Azure.ResourceManager.AppPlatform.Models.AppPlatformCustomDomainValidateContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.AppPlatform.Models.AppPlatformCustomDomainValidateResult>> ValidateDomainAsync(Azure.ResourceManager.AppPlatform.Models.AppPlatformCustomDomainValidateContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
     }
@@ -791,6 +873,12 @@ namespace Azure.ResourceManager.AppPlatform
         public virtual Azure.Response<Azure.ResourceManager.AppPlatform.Models.AppPlatformServiceTestKeys> EnableTestEndpoint(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.AppPlatform.Models.AppPlatformServiceTestKeys>> EnableTestEndpointAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.AppPlatform.AppPlatformServiceResource> Get(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.AppPlatform.ApplicationAcceleratorResource> GetApplicationAcceleratorResource(string applicationAcceleratorName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.AppPlatform.ApplicationAcceleratorResource>> GetApplicationAcceleratorResourceAsync(string applicationAcceleratorName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.ResourceManager.AppPlatform.ApplicationAcceleratorResourceCollection GetApplicationAcceleratorResources() { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.AppPlatform.ApplicationLiveViewResource> GetApplicationLiveViewResource(string applicationLiveViewName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.AppPlatform.ApplicationLiveViewResource>> GetApplicationLiveViewResourceAsync(string applicationLiveViewName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.ResourceManager.AppPlatform.ApplicationLiveViewResourceCollection GetApplicationLiveViewResources() { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.AppPlatform.AppPlatformApiPortalResource> GetAppPlatformApiPortal(string apiPortalName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.AppPlatform.AppPlatformApiPortalResource>> GetAppPlatformApiPortalAsync(string apiPortalName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.ResourceManager.AppPlatform.AppPlatformApiPortalCollection GetAppPlatformApiPortals() { throw null; }
@@ -820,6 +908,11 @@ namespace Azure.ResourceManager.AppPlatform
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.AppPlatform.AppPlatformServiceResource>> GetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Pageable<Azure.ResourceManager.AppPlatform.AppPlatformDeploymentResource> GetDeployments(System.Collections.Generic.IEnumerable<string> version = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.AsyncPageable<Azure.ResourceManager.AppPlatform.AppPlatformDeploymentResource> GetDeploymentsAsync(System.Collections.Generic.IEnumerable<string> version = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.AppPlatform.DevToolPortalResource> GetDevToolPortalResource(string devToolPortalName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.AppPlatform.DevToolPortalResource>> GetDevToolPortalResourceAsync(string devToolPortalName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.ResourceManager.AppPlatform.DevToolPortalResourceCollection GetDevToolPortalResources() { throw null; }
+        public virtual Azure.Pageable<Azure.ResourceManager.AppPlatform.AppPlatformBuildpackBindingResource> GetForClusterBuildpackBindings(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.AsyncPageable<Azure.ResourceManager.AppPlatform.AppPlatformBuildpackBindingResource> GetForClusterBuildpackBindingsAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.AppPlatform.Models.AppPlatformServiceTestKeys> GetTestKeys(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.AppPlatform.Models.AppPlatformServiceTestKeys>> GetTestKeysAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.AppPlatform.Models.AppPlatformServiceTestKeys> RegenerateTestKey(Azure.ResourceManager.AppPlatform.Models.RegenerateAppPlatformServiceTestKeyContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
@@ -927,13 +1020,169 @@ namespace Azure.ResourceManager.AppPlatform
         public virtual Azure.Response<Azure.ResourceManager.AppPlatform.AppPlatformSupportedStackResource> Get(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.AppPlatform.AppPlatformSupportedStackResource>> GetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
     }
+    public partial class CustomizedAcceleratorResource : Azure.ResourceManager.ArmResource
+    {
+        public static readonly Azure.Core.ResourceType ResourceType;
+        protected CustomizedAcceleratorResource() { }
+        public virtual Azure.ResourceManager.AppPlatform.CustomizedAcceleratorResourceData Data { get { throw null; } }
+        public virtual bool HasData { get { throw null; } }
+        public static Azure.Core.ResourceIdentifier CreateResourceIdentifier(string subscriptionId, string resourceGroupName, string serviceName, string applicationAcceleratorName, string customizedAcceleratorName) { throw null; }
+        public virtual Azure.ResourceManager.ArmOperation Delete(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation> DeleteAsync(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.AppPlatform.CustomizedAcceleratorResource> Get(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.AppPlatform.CustomizedAcceleratorResource>> GetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.AppPlatform.CustomizedAcceleratorResource> Update(Azure.WaitUntil waitUntil, Azure.ResourceManager.AppPlatform.CustomizedAcceleratorResourceData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.AppPlatform.CustomizedAcceleratorResource>> UpdateAsync(Azure.WaitUntil waitUntil, Azure.ResourceManager.AppPlatform.CustomizedAcceleratorResourceData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.AppPlatform.Models.CustomizedAcceleratorValidateResult> Validate(Azure.ResourceManager.AppPlatform.Models.CustomizedAcceleratorProperties properties, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.AppPlatform.Models.CustomizedAcceleratorValidateResult>> ValidateAsync(Azure.ResourceManager.AppPlatform.Models.CustomizedAcceleratorProperties properties, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+    }
+    public partial class CustomizedAcceleratorResourceCollection : Azure.ResourceManager.ArmCollection, System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.AppPlatform.CustomizedAcceleratorResource>, System.Collections.Generic.IEnumerable<Azure.ResourceManager.AppPlatform.CustomizedAcceleratorResource>, System.Collections.IEnumerable
+    {
+        protected CustomizedAcceleratorResourceCollection() { }
+        public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.AppPlatform.CustomizedAcceleratorResource> CreateOrUpdate(Azure.WaitUntil waitUntil, string customizedAcceleratorName, Azure.ResourceManager.AppPlatform.CustomizedAcceleratorResourceData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.AppPlatform.CustomizedAcceleratorResource>> CreateOrUpdateAsync(Azure.WaitUntil waitUntil, string customizedAcceleratorName, Azure.ResourceManager.AppPlatform.CustomizedAcceleratorResourceData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<bool> Exists(string customizedAcceleratorName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<bool>> ExistsAsync(string customizedAcceleratorName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.AppPlatform.CustomizedAcceleratorResource> Get(string customizedAcceleratorName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Pageable<Azure.ResourceManager.AppPlatform.CustomizedAcceleratorResource> GetAll(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.AsyncPageable<Azure.ResourceManager.AppPlatform.CustomizedAcceleratorResource> GetAllAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.AppPlatform.CustomizedAcceleratorResource>> GetAsync(string customizedAcceleratorName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        System.Collections.Generic.IAsyncEnumerator<Azure.ResourceManager.AppPlatform.CustomizedAcceleratorResource> System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.AppPlatform.CustomizedAcceleratorResource>.GetAsyncEnumerator(System.Threading.CancellationToken cancellationToken) { throw null; }
+        System.Collections.Generic.IEnumerator<Azure.ResourceManager.AppPlatform.CustomizedAcceleratorResource> System.Collections.Generic.IEnumerable<Azure.ResourceManager.AppPlatform.CustomizedAcceleratorResource>.GetEnumerator() { throw null; }
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() { throw null; }
+    }
+    public partial class CustomizedAcceleratorResourceData : Azure.ResourceManager.Models.ResourceData
+    {
+        public CustomizedAcceleratorResourceData() { }
+        public Azure.ResourceManager.AppPlatform.Models.CustomizedAcceleratorProperties Properties { get { throw null; } set { } }
+        public Azure.ResourceManager.AppPlatform.Models.AppPlatformSku Sku { get { throw null; } set { } }
+    }
+    public partial class DevToolPortalResource : Azure.ResourceManager.ArmResource
+    {
+        public static readonly Azure.Core.ResourceType ResourceType;
+        protected DevToolPortalResource() { }
+        public virtual Azure.ResourceManager.AppPlatform.DevToolPortalResourceData Data { get { throw null; } }
+        public virtual bool HasData { get { throw null; } }
+        public static Azure.Core.ResourceIdentifier CreateResourceIdentifier(string subscriptionId, string resourceGroupName, string serviceName, string devToolPortalName) { throw null; }
+        public virtual Azure.ResourceManager.ArmOperation Delete(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation> DeleteAsync(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.AppPlatform.DevToolPortalResource> Get(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.AppPlatform.DevToolPortalResource>> GetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.AppPlatform.DevToolPortalResource> Update(Azure.WaitUntil waitUntil, Azure.ResourceManager.AppPlatform.DevToolPortalResourceData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.AppPlatform.DevToolPortalResource>> UpdateAsync(Azure.WaitUntil waitUntil, Azure.ResourceManager.AppPlatform.DevToolPortalResourceData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+    }
+    public partial class DevToolPortalResourceCollection : Azure.ResourceManager.ArmCollection, System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.AppPlatform.DevToolPortalResource>, System.Collections.Generic.IEnumerable<Azure.ResourceManager.AppPlatform.DevToolPortalResource>, System.Collections.IEnumerable
+    {
+        protected DevToolPortalResourceCollection() { }
+        public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.AppPlatform.DevToolPortalResource> CreateOrUpdate(Azure.WaitUntil waitUntil, string devToolPortalName, Azure.ResourceManager.AppPlatform.DevToolPortalResourceData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.AppPlatform.DevToolPortalResource>> CreateOrUpdateAsync(Azure.WaitUntil waitUntil, string devToolPortalName, Azure.ResourceManager.AppPlatform.DevToolPortalResourceData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<bool> Exists(string devToolPortalName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<bool>> ExistsAsync(string devToolPortalName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.AppPlatform.DevToolPortalResource> Get(string devToolPortalName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Pageable<Azure.ResourceManager.AppPlatform.DevToolPortalResource> GetAll(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.AsyncPageable<Azure.ResourceManager.AppPlatform.DevToolPortalResource> GetAllAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.AppPlatform.DevToolPortalResource>> GetAsync(string devToolPortalName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        System.Collections.Generic.IAsyncEnumerator<Azure.ResourceManager.AppPlatform.DevToolPortalResource> System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.AppPlatform.DevToolPortalResource>.GetAsyncEnumerator(System.Threading.CancellationToken cancellationToken) { throw null; }
+        System.Collections.Generic.IEnumerator<Azure.ResourceManager.AppPlatform.DevToolPortalResource> System.Collections.Generic.IEnumerable<Azure.ResourceManager.AppPlatform.DevToolPortalResource>.GetEnumerator() { throw null; }
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() { throw null; }
+    }
+    public partial class DevToolPortalResourceData : Azure.ResourceManager.Models.ResourceData
+    {
+        public DevToolPortalResourceData() { }
+        public Azure.ResourceManager.AppPlatform.Models.DevToolPortalProperties Properties { get { throw null; } set { } }
+    }
+    public partial class PredefinedAcceleratorResource : Azure.ResourceManager.ArmResource
+    {
+        public static readonly Azure.Core.ResourceType ResourceType;
+        protected PredefinedAcceleratorResource() { }
+        public virtual Azure.ResourceManager.AppPlatform.PredefinedAcceleratorResourceData Data { get { throw null; } }
+        public virtual bool HasData { get { throw null; } }
+        public static Azure.Core.ResourceIdentifier CreateResourceIdentifier(string subscriptionId, string resourceGroupName, string serviceName, string applicationAcceleratorName, string predefinedAcceleratorName) { throw null; }
+        public virtual Azure.ResourceManager.ArmOperation Disable(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation> DisableAsync(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.ResourceManager.ArmOperation Enable(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation> EnableAsync(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.AppPlatform.PredefinedAcceleratorResource> Get(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.AppPlatform.PredefinedAcceleratorResource>> GetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+    }
+    public partial class PredefinedAcceleratorResourceCollection : Azure.ResourceManager.ArmCollection, System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.AppPlatform.PredefinedAcceleratorResource>, System.Collections.Generic.IEnumerable<Azure.ResourceManager.AppPlatform.PredefinedAcceleratorResource>, System.Collections.IEnumerable
+    {
+        protected PredefinedAcceleratorResourceCollection() { }
+        public virtual Azure.Response<bool> Exists(string predefinedAcceleratorName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<bool>> ExistsAsync(string predefinedAcceleratorName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.AppPlatform.PredefinedAcceleratorResource> Get(string predefinedAcceleratorName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Pageable<Azure.ResourceManager.AppPlatform.PredefinedAcceleratorResource> GetAll(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.AsyncPageable<Azure.ResourceManager.AppPlatform.PredefinedAcceleratorResource> GetAllAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.AppPlatform.PredefinedAcceleratorResource>> GetAsync(string predefinedAcceleratorName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        System.Collections.Generic.IAsyncEnumerator<Azure.ResourceManager.AppPlatform.PredefinedAcceleratorResource> System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.AppPlatform.PredefinedAcceleratorResource>.GetAsyncEnumerator(System.Threading.CancellationToken cancellationToken) { throw null; }
+        System.Collections.Generic.IEnumerator<Azure.ResourceManager.AppPlatform.PredefinedAcceleratorResource> System.Collections.Generic.IEnumerable<Azure.ResourceManager.AppPlatform.PredefinedAcceleratorResource>.GetEnumerator() { throw null; }
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() { throw null; }
+    }
+    public partial class PredefinedAcceleratorResourceData : Azure.ResourceManager.Models.ResourceData
+    {
+        public PredefinedAcceleratorResourceData() { }
+        public Azure.ResourceManager.AppPlatform.Models.PredefinedAcceleratorProperties Properties { get { throw null; } set { } }
+        public Azure.ResourceManager.AppPlatform.Models.AppPlatformSku Sku { get { throw null; } set { } }
+    }
 }
 namespace Azure.ResourceManager.AppPlatform.Models
 {
+    public abstract partial class AcceleratorAuthSetting
+    {
+        protected AcceleratorAuthSetting() { }
+    }
+    public partial class AcceleratorBasicAuthSetting : Azure.ResourceManager.AppPlatform.Models.AcceleratorAuthSetting
+    {
+        public AcceleratorBasicAuthSetting(string username) { }
+        public string Password { get { throw null; } set { } }
+        public string Username { get { throw null; } set { } }
+    }
+    public partial class AcceleratorGitRepository
+    {
+        public AcceleratorGitRepository(System.Uri uri, Azure.ResourceManager.AppPlatform.Models.AcceleratorAuthSetting authSetting) { }
+        public Azure.ResourceManager.AppPlatform.Models.AcceleratorAuthSetting AuthSetting { get { throw null; } set { } }
+        public string Branch { get { throw null; } set { } }
+        public string Commit { get { throw null; } set { } }
+        public string GitTag { get { throw null; } set { } }
+        public int? IntervalInSeconds { get { throw null; } set { } }
+        public System.Uri Uri { get { throw null; } set { } }
+    }
+    public partial class AcceleratorPublicSetting : Azure.ResourceManager.AppPlatform.Models.AcceleratorAuthSetting
+    {
+        public AcceleratorPublicSetting() { }
+    }
+    public partial class AcceleratorSshSetting : Azure.ResourceManager.AppPlatform.Models.AcceleratorAuthSetting
+    {
+        public AcceleratorSshSetting() { }
+        public string HostKey { get { throw null; } set { } }
+        public string HostKeyAlgorithm { get { throw null; } set { } }
+        public string PrivateKey { get { throw null; } set { } }
+    }
     public partial class ActiveAppPlatformDeploymentsContent
     {
         public ActiveAppPlatformDeploymentsContent() { }
         public System.Collections.Generic.IList<string> ActiveDeploymentNames { get { throw null; } }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct ApmType : System.IEquatable<Azure.ResourceManager.AppPlatform.Models.ApmType>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public ApmType(string value) { throw null; }
+        public static Azure.ResourceManager.AppPlatform.Models.ApmType AppDynamics { get { throw null; } }
+        public static Azure.ResourceManager.AppPlatform.Models.ApmType ApplicationInsights { get { throw null; } }
+        public static Azure.ResourceManager.AppPlatform.Models.ApmType Dynatrace { get { throw null; } }
+        public static Azure.ResourceManager.AppPlatform.Models.ApmType ElasticApm { get { throw null; } }
+        public static Azure.ResourceManager.AppPlatform.Models.ApmType NewRelic { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.AppPlatform.Models.ApmType other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.AppPlatform.Models.ApmType left, Azure.ResourceManager.AppPlatform.Models.ApmType right) { throw null; }
+        public static implicit operator Azure.ResourceManager.AppPlatform.Models.ApmType (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.AppPlatform.Models.ApmType left, Azure.ResourceManager.AppPlatform.Models.ApmType right) { throw null; }
+        public override string ToString() { throw null; }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct AppBackendProtocol : System.IEquatable<Azure.ResourceManager.AppPlatform.Models.AppBackendProtocol>
@@ -962,6 +1211,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
     public abstract partial class AppCustomPersistentDiskProperties
     {
         protected AppCustomPersistentDiskProperties(string mountPath) { }
+        public bool? EnableSubPath { get { throw null; } set { } }
         public bool? IsReadOnly { get { throw null; } set { } }
         public System.Collections.Generic.IList<string> MountOptions { get { throw null; } }
         public string MountPath { get { throw null; } set { } }
@@ -1024,12 +1274,107 @@ namespace Azure.ResourceManager.AppPlatform.Models
     {
         public AppInstanceTcpSocketAction() { }
     }
+    public partial class ApplicationAcceleratorComponent
+    {
+        internal ApplicationAcceleratorComponent() { }
+        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.AppPlatform.Models.ApplicationAcceleratorInstance> Instances { get { throw null; } }
+        public string Name { get { throw null; } }
+        public Azure.ResourceManager.AppPlatform.Models.ApplicationAcceleratorResourceRequests ResourceRequests { get { throw null; } }
+    }
+    public partial class ApplicationAcceleratorInstance
+    {
+        internal ApplicationAcceleratorInstance() { }
+        public string Name { get { throw null; } }
+        public string Status { get { throw null; } }
+    }
+    public partial class ApplicationAcceleratorProperties
+    {
+        public ApplicationAcceleratorProperties() { }
+        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.AppPlatform.Models.ApplicationAcceleratorComponent> Components { get { throw null; } }
+        public Azure.ResourceManager.AppPlatform.Models.ApplicationAcceleratorProvisioningState? ProvisioningState { get { throw null; } }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct ApplicationAcceleratorProvisioningState : System.IEquatable<Azure.ResourceManager.AppPlatform.Models.ApplicationAcceleratorProvisioningState>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public ApplicationAcceleratorProvisioningState(string value) { throw null; }
+        public static Azure.ResourceManager.AppPlatform.Models.ApplicationAcceleratorProvisioningState Creating { get { throw null; } }
+        public static Azure.ResourceManager.AppPlatform.Models.ApplicationAcceleratorProvisioningState Deleting { get { throw null; } }
+        public static Azure.ResourceManager.AppPlatform.Models.ApplicationAcceleratorProvisioningState Failed { get { throw null; } }
+        public static Azure.ResourceManager.AppPlatform.Models.ApplicationAcceleratorProvisioningState Succeeded { get { throw null; } }
+        public static Azure.ResourceManager.AppPlatform.Models.ApplicationAcceleratorProvisioningState Updating { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.AppPlatform.Models.ApplicationAcceleratorProvisioningState other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.AppPlatform.Models.ApplicationAcceleratorProvisioningState left, Azure.ResourceManager.AppPlatform.Models.ApplicationAcceleratorProvisioningState right) { throw null; }
+        public static implicit operator Azure.ResourceManager.AppPlatform.Models.ApplicationAcceleratorProvisioningState (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.AppPlatform.Models.ApplicationAcceleratorProvisioningState left, Azure.ResourceManager.AppPlatform.Models.ApplicationAcceleratorProvisioningState right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    public partial class ApplicationAcceleratorResourceRequests
+    {
+        internal ApplicationAcceleratorResourceRequests() { }
+        public string Cpu { get { throw null; } }
+        public int? InstanceCount { get { throw null; } }
+        public string Memory { get { throw null; } }
+    }
     public partial class ApplicationDiagnosticContent
     {
         public ApplicationDiagnosticContent() { }
         public string AppInstance { get { throw null; } set { } }
         public string DurationValue { get { throw null; } set { } }
         public string FilePath { get { throw null; } set { } }
+    }
+    public partial class ApplicationLiveViewComponent
+    {
+        internal ApplicationLiveViewComponent() { }
+        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.AppPlatform.Models.ApplicationLiveViewInstance> Instances { get { throw null; } }
+        public System.BinaryData Name { get { throw null; } }
+        public Azure.ResourceManager.AppPlatform.Models.ApplicationLiveViewResourceRequests ResourceRequests { get { throw null; } }
+    }
+    public partial class ApplicationLiveViewInstance
+    {
+        internal ApplicationLiveViewInstance() { }
+        public string Name { get { throw null; } }
+        public string Status { get { throw null; } }
+    }
+    public partial class ApplicationLiveViewProperties
+    {
+        public ApplicationLiveViewProperties() { }
+        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.AppPlatform.Models.ApplicationLiveViewComponent> Components { get { throw null; } }
+        public Azure.ResourceManager.AppPlatform.Models.ApplicationLiveViewProvisioningState? ProvisioningState { get { throw null; } }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct ApplicationLiveViewProvisioningState : System.IEquatable<Azure.ResourceManager.AppPlatform.Models.ApplicationLiveViewProvisioningState>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public ApplicationLiveViewProvisioningState(string value) { throw null; }
+        public static Azure.ResourceManager.AppPlatform.Models.ApplicationLiveViewProvisioningState Canceled { get { throw null; } }
+        public static Azure.ResourceManager.AppPlatform.Models.ApplicationLiveViewProvisioningState Creating { get { throw null; } }
+        public static Azure.ResourceManager.AppPlatform.Models.ApplicationLiveViewProvisioningState Deleting { get { throw null; } }
+        public static Azure.ResourceManager.AppPlatform.Models.ApplicationLiveViewProvisioningState Failed { get { throw null; } }
+        public static Azure.ResourceManager.AppPlatform.Models.ApplicationLiveViewProvisioningState Succeeded { get { throw null; } }
+        public static Azure.ResourceManager.AppPlatform.Models.ApplicationLiveViewProvisioningState Updating { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.AppPlatform.Models.ApplicationLiveViewProvisioningState other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.AppPlatform.Models.ApplicationLiveViewProvisioningState left, Azure.ResourceManager.AppPlatform.Models.ApplicationLiveViewProvisioningState right) { throw null; }
+        public static implicit operator Azure.ResourceManager.AppPlatform.Models.ApplicationLiveViewProvisioningState (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.AppPlatform.Models.ApplicationLiveViewProvisioningState left, Azure.ResourceManager.AppPlatform.Models.ApplicationLiveViewProvisioningState right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    public partial class ApplicationLiveViewResourceRequests
+    {
+        internal ApplicationLiveViewResourceRequests() { }
+        public string Cpu { get { throw null; } }
+        public int? InstanceCount { get { throw null; } }
+        public string Memory { get { throw null; } }
     }
     public partial class ApplicationRemoteDebuggingConfig
     {
@@ -1104,7 +1449,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
     public partial class AppPlatformAppProperties
     {
         public AppPlatformAppProperties() { }
-        public System.Collections.Generic.IDictionary<string, System.Collections.Generic.IDictionary<string, System.BinaryData>> AddonConfigs { get { throw null; } }
+        public System.Collections.Generic.IDictionary<string, System.BinaryData> AddonConfigs { get { throw null; } }
         public System.Collections.Generic.IList<Azure.ResourceManager.AppPlatform.Models.AppCustomPersistentDisk> CustomPersistentDisks { get { throw null; } }
         public string Fqdn { get { throw null; } }
         public Azure.ResourceManager.AppPlatform.Models.AppIngressSettings IngressSettings { get { throw null; } set { } }
@@ -1114,6 +1459,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
         public System.Collections.Generic.IList<Azure.ResourceManager.AppPlatform.Models.AppLoadedCertificate> LoadedCertificates { get { throw null; } }
         public Azure.ResourceManager.AppPlatform.Models.AppPersistentDisk PersistentDisk { get { throw null; } set { } }
         public Azure.ResourceManager.AppPlatform.Models.AppPlatformAppProvisioningState? ProvisioningState { get { throw null; } }
+        public System.Collections.Generic.IList<Azure.ResourceManager.AppPlatform.Models.Secret> Secrets { get { throw null; } }
         public Azure.ResourceManager.AppPlatform.Models.AppTemporaryDisk TemporaryDisk { get { throw null; } set { } }
         public System.Uri Uri { get { throw null; } }
         public Azure.ResourceManager.AppPlatform.Models.AppVnetAddons VnetAddons { get { throw null; } set { } }
@@ -1141,13 +1487,13 @@ namespace Azure.ResourceManager.AppPlatform.Models
     }
     public partial class AppPlatformAzureFileVolume : Azure.ResourceManager.AppPlatform.Models.AppCustomPersistentDiskProperties
     {
-        public AppPlatformAzureFileVolume(string mountPath, string shareName) : base (default(string)) { }
+        public AppPlatformAzureFileVolume(string mountPath) : base (default(string)) { }
         public string ShareName { get { throw null; } set { } }
     }
     public partial class AppPlatformBindingProperties
     {
         public AppPlatformBindingProperties() { }
-        public System.Collections.Generic.IDictionary<string, System.BinaryData> BindingParameters { get { throw null; } }
+        public System.Collections.Generic.IDictionary<string, string> BindingParameters { get { throw null; } }
         public System.DateTimeOffset? CreatedOn { get { throw null; } }
         public string GeneratedProperties { get { throw null; } }
         public string Key { get { throw null; } set { } }
@@ -1239,6 +1585,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
         public AppPlatformBuildResultProperties() { }
         public string BuildPodName { get { throw null; } set { } }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.AppPlatform.Models.AppPlatformBuildStageProperties> BuildStages { get { throw null; } }
+        public Azure.ResourceManager.AppPlatform.Models.AppPlatformErrorInfo Error { get { throw null; } set { } }
         public string Name { get { throw null; } set { } }
         public Azure.ResourceManager.AppPlatform.Models.AppPlatformBuildResultProvisioningState? ProvisioningState { get { throw null; } }
     }
@@ -1311,7 +1658,9 @@ namespace Azure.ResourceManager.AppPlatform.Models
     public partial class AppPlatformBuildStageProperties
     {
         internal AppPlatformBuildStageProperties() { }
+        public string ExitCode { get { throw null; } }
         public string Name { get { throw null; } }
+        public string Reason { get { throw null; } }
         public Azure.ResourceManager.AppPlatform.Models.KPackBuildStageProvisioningState? Status { get { throw null; } }
     }
     public abstract partial class AppPlatformCertificateProperties
@@ -1583,12 +1932,13 @@ namespace Azure.ResourceManager.AppPlatform.Models
     public partial class AppPlatformDeploymentSettings
     {
         public AppPlatformDeploymentSettings() { }
-        public System.Collections.Generic.IDictionary<string, System.Collections.Generic.IDictionary<string, System.BinaryData>> AddonConfigs { get { throw null; } }
+        public System.Collections.Generic.IDictionary<string, System.BinaryData> AddonConfigs { get { throw null; } }
         public System.Collections.Generic.IDictionary<string, string> EnvironmentVariables { get { throw null; } }
         public bool? IsProbeDisabled { get { throw null; } set { } }
         public Azure.ResourceManager.AppPlatform.Models.AppInstanceProbe LivenessProbe { get { throw null; } set { } }
         public Azure.ResourceManager.AppPlatform.Models.AppInstanceProbe ReadinessProbe { get { throw null; } set { } }
         public Azure.ResourceManager.AppPlatform.Models.AppPlatformDeploymentResourceRequirements ResourceRequests { get { throw null; } set { } }
+        public Azure.ResourceManager.AppPlatform.Models.Scale Scale { get { throw null; } set { } }
         public Azure.ResourceManager.AppPlatform.Models.AppInstanceProbe StartupProbe { get { throw null; } set { } }
         public int? TerminationGracePeriodInSeconds { get { throw null; } set { } }
     }
@@ -1667,11 +2017,18 @@ namespace Azure.ResourceManager.AppPlatform.Models
         public int? InstanceCount { get { throw null; } }
         public string Memory { get { throw null; } }
     }
+    public partial class AppPlatformGatewayPatch
+    {
+        public AppPlatformGatewayPatch() { }
+        public Azure.ResourceManager.AppPlatform.Models.AppPlatformSku Sku { get { throw null; } set { } }
+    }
     public partial class AppPlatformGatewayProperties
     {
         public AppPlatformGatewayProperties() { }
         public Azure.ResourceManager.AppPlatform.Models.AppPlatformGatewayApiMetadataProperties ApiMetadataProperties { get { throw null; } set { } }
+        public System.Collections.Generic.IList<Azure.ResourceManager.AppPlatform.Models.ApmType> ApmTypes { get { throw null; } }
         public Azure.ResourceManager.AppPlatform.Models.AppPlatformGatewayCorsProperties CorsProperties { get { throw null; } set { } }
+        public Azure.ResourceManager.AppPlatform.Models.GatewayPropertiesEnvironmentVariables EnvironmentVariables { get { throw null; } set { } }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.AppPlatform.Models.AppPlatformGatewayInstance> Instances { get { throw null; } }
         public bool? IsHttpsOnly { get { throw null; } set { } }
         public bool? IsPublic { get { throw null; } set { } }
@@ -1712,10 +2069,13 @@ namespace Azure.ResourceManager.AppPlatform.Models
     {
         public AppPlatformGatewayRouteConfigProperties() { }
         public Azure.Core.ResourceIdentifier AppResourceId { get { throw null; } set { } }
+        public System.Collections.Generic.IList<string> Filters { get { throw null; } }
         public System.Uri OpenApiUri { get { throw null; } set { } }
+        public System.Collections.Generic.IList<string> Predicates { get { throw null; } }
         public Azure.ResourceManager.AppPlatform.Models.AppPlatformGatewayRouteConfigProtocol? Protocol { get { throw null; } set { } }
         public Azure.ResourceManager.AppPlatform.Models.AppPlatformGatewayProvisioningState? ProvisioningState { get { throw null; } }
         public System.Collections.Generic.IList<Azure.ResourceManager.AppPlatform.Models.AppPlatformGatewayApiRoute> Routes { get { throw null; } }
+        public bool? SsoEnabled { get { throw null; } set { } }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct AppPlatformGatewayRouteConfigProtocol : System.IEquatable<Azure.ResourceManager.AppPlatform.Models.AppPlatformGatewayRouteConfigProtocol>
@@ -1838,8 +2198,11 @@ namespace Azure.ResourceManager.AppPlatform.Models
     {
         public AppPlatformServiceProperties() { }
         public string Fqdn { get { throw null; } }
+        public string InfraResourceGroup { get { throw null; } set { } }
         public bool? IsLogStreamPublicEndpoint { get { throw null; } set { } }
         public bool? IsZoneRedundant { get { throw null; } set { } }
+        public string ManagedEnvironmentId { get { throw null; } set { } }
+        public Azure.ResourceManager.AppPlatform.Models.MarketplaceResource MarketplaceResource { get { throw null; } set { } }
         public Azure.ResourceManager.AppPlatform.Models.AppPlatformServiceNetworkProfile NetworkProfile { get { throw null; } set { } }
         public Azure.ResourceManager.AppPlatform.Models.AppPlatformServicePowerState? PowerState { get { throw null; } }
         public Azure.ResourceManager.AppPlatform.Models.AppPlatformServiceProvisioningState? ProvisioningState { get { throw null; } }
@@ -2230,6 +2593,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
         public static Azure.ResourceManager.AppPlatform.Models.BuildpackBindingType ApacheSkyWalking { get { throw null; } }
         public static Azure.ResourceManager.AppPlatform.Models.BuildpackBindingType AppDynamics { get { throw null; } }
         public static Azure.ResourceManager.AppPlatform.Models.BuildpackBindingType ApplicationInsights { get { throw null; } }
+        public static Azure.ResourceManager.AppPlatform.Models.BuildpackBindingType CACertificates { get { throw null; } }
         public static Azure.ResourceManager.AppPlatform.Models.BuildpackBindingType Dynatrace { get { throw null; } }
         public static Azure.ResourceManager.AppPlatform.Models.BuildpackBindingType ElasticApm { get { throw null; } }
         public static Azure.ResourceManager.AppPlatform.Models.BuildpackBindingType NewRelic { get { throw null; } }
@@ -2289,6 +2653,164 @@ namespace Azure.ResourceManager.AppPlatform.Models
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.AppPlatform.Models.ConfigServerSettingsErrorRecord> Details { get { throw null; } }
         public bool? IsValid { get { throw null; } }
     }
+    public partial class CustomizedAcceleratorProperties
+    {
+        public CustomizedAcceleratorProperties(Azure.ResourceManager.AppPlatform.Models.AcceleratorGitRepository gitRepository) { }
+        public System.Collections.Generic.IList<string> AcceleratorTags { get { throw null; } }
+        public string Description { get { throw null; } set { } }
+        public string DisplayName { get { throw null; } set { } }
+        public Azure.ResourceManager.AppPlatform.Models.AcceleratorGitRepository GitRepository { get { throw null; } set { } }
+        public System.Uri IconUri { get { throw null; } set { } }
+        public Azure.ResourceManager.AppPlatform.Models.CustomizedAcceleratorProvisioningState? ProvisioningState { get { throw null; } }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct CustomizedAcceleratorProvisioningState : System.IEquatable<Azure.ResourceManager.AppPlatform.Models.CustomizedAcceleratorProvisioningState>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public CustomizedAcceleratorProvisioningState(string value) { throw null; }
+        public static Azure.ResourceManager.AppPlatform.Models.CustomizedAcceleratorProvisioningState Creating { get { throw null; } }
+        public static Azure.ResourceManager.AppPlatform.Models.CustomizedAcceleratorProvisioningState Deleting { get { throw null; } }
+        public static Azure.ResourceManager.AppPlatform.Models.CustomizedAcceleratorProvisioningState Failed { get { throw null; } }
+        public static Azure.ResourceManager.AppPlatform.Models.CustomizedAcceleratorProvisioningState Succeeded { get { throw null; } }
+        public static Azure.ResourceManager.AppPlatform.Models.CustomizedAcceleratorProvisioningState Updating { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.AppPlatform.Models.CustomizedAcceleratorProvisioningState other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.AppPlatform.Models.CustomizedAcceleratorProvisioningState left, Azure.ResourceManager.AppPlatform.Models.CustomizedAcceleratorProvisioningState right) { throw null; }
+        public static implicit operator Azure.ResourceManager.AppPlatform.Models.CustomizedAcceleratorProvisioningState (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.AppPlatform.Models.CustomizedAcceleratorProvisioningState left, Azure.ResourceManager.AppPlatform.Models.CustomizedAcceleratorProvisioningState right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    public partial class CustomizedAcceleratorValidateResult
+    {
+        internal CustomizedAcceleratorValidateResult() { }
+        public string ErrorMessage { get { throw null; } }
+        public Azure.ResourceManager.AppPlatform.Models.CustomizedAcceleratorValidateResultState? State { get { throw null; } }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct CustomizedAcceleratorValidateResultState : System.IEquatable<Azure.ResourceManager.AppPlatform.Models.CustomizedAcceleratorValidateResultState>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public CustomizedAcceleratorValidateResultState(string value) { throw null; }
+        public static Azure.ResourceManager.AppPlatform.Models.CustomizedAcceleratorValidateResultState Invalid { get { throw null; } }
+        public static Azure.ResourceManager.AppPlatform.Models.CustomizedAcceleratorValidateResultState Valid { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.AppPlatform.Models.CustomizedAcceleratorValidateResultState other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.AppPlatform.Models.CustomizedAcceleratorValidateResultState left, Azure.ResourceManager.AppPlatform.Models.CustomizedAcceleratorValidateResultState right) { throw null; }
+        public static implicit operator Azure.ResourceManager.AppPlatform.Models.CustomizedAcceleratorValidateResultState (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.AppPlatform.Models.CustomizedAcceleratorValidateResultState left, Azure.ResourceManager.AppPlatform.Models.CustomizedAcceleratorValidateResultState right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    public partial class CustomScaleRule
+    {
+        public CustomScaleRule() { }
+        public System.Collections.Generic.IList<Azure.ResourceManager.AppPlatform.Models.ScaleRuleAuth> Auth { get { throw null; } }
+        public string CustomScaleRuleType { get { throw null; } set { } }
+        public System.Collections.Generic.IDictionary<string, string> Metadata { get { throw null; } }
+    }
+    public partial class DevToolPortalFeatureDetail
+    {
+        public DevToolPortalFeatureDetail() { }
+        public string Route { get { throw null; } }
+        public Azure.ResourceManager.AppPlatform.Models.DevToolPortalFeatureState? State { get { throw null; } set { } }
+    }
+    public partial class DevToolPortalFeatureSettings
+    {
+        public DevToolPortalFeatureSettings() { }
+        public Azure.ResourceManager.AppPlatform.Models.DevToolPortalFeatureDetail ApplicationAccelerator { get { throw null; } set { } }
+        public Azure.ResourceManager.AppPlatform.Models.DevToolPortalFeatureDetail ApplicationLiveView { get { throw null; } set { } }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct DevToolPortalFeatureState : System.IEquatable<Azure.ResourceManager.AppPlatform.Models.DevToolPortalFeatureState>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public DevToolPortalFeatureState(string value) { throw null; }
+        public static Azure.ResourceManager.AppPlatform.Models.DevToolPortalFeatureState Disabled { get { throw null; } }
+        public static Azure.ResourceManager.AppPlatform.Models.DevToolPortalFeatureState Enabled { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.AppPlatform.Models.DevToolPortalFeatureState other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.AppPlatform.Models.DevToolPortalFeatureState left, Azure.ResourceManager.AppPlatform.Models.DevToolPortalFeatureState right) { throw null; }
+        public static implicit operator Azure.ResourceManager.AppPlatform.Models.DevToolPortalFeatureState (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.AppPlatform.Models.DevToolPortalFeatureState left, Azure.ResourceManager.AppPlatform.Models.DevToolPortalFeatureState right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    public partial class DevToolPortalInstance
+    {
+        internal DevToolPortalInstance() { }
+        public string Name { get { throw null; } }
+        public string Status { get { throw null; } }
+    }
+    public partial class DevToolPortalProperties
+    {
+        public DevToolPortalProperties() { }
+        public Azure.ResourceManager.AppPlatform.Models.DevToolPortalFeatureSettings Features { get { throw null; } set { } }
+        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.AppPlatform.Models.DevToolPortalInstance> Instances { get { throw null; } }
+        public Azure.ResourceManager.AppPlatform.Models.DevToolPortalProvisioningState? ProvisioningState { get { throw null; } }
+        public bool? Public { get { throw null; } set { } }
+        public Azure.ResourceManager.AppPlatform.Models.DevToolPortalResourceRequests ResourceRequests { get { throw null; } }
+        public Azure.ResourceManager.AppPlatform.Models.DevToolPortalSsoProperties SsoProperties { get { throw null; } set { } }
+        public System.Uri Uri { get { throw null; } }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct DevToolPortalProvisioningState : System.IEquatable<Azure.ResourceManager.AppPlatform.Models.DevToolPortalProvisioningState>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public DevToolPortalProvisioningState(string value) { throw null; }
+        public static Azure.ResourceManager.AppPlatform.Models.DevToolPortalProvisioningState Canceled { get { throw null; } }
+        public static Azure.ResourceManager.AppPlatform.Models.DevToolPortalProvisioningState Creating { get { throw null; } }
+        public static Azure.ResourceManager.AppPlatform.Models.DevToolPortalProvisioningState Deleting { get { throw null; } }
+        public static Azure.ResourceManager.AppPlatform.Models.DevToolPortalProvisioningState Failed { get { throw null; } }
+        public static Azure.ResourceManager.AppPlatform.Models.DevToolPortalProvisioningState Succeeded { get { throw null; } }
+        public static Azure.ResourceManager.AppPlatform.Models.DevToolPortalProvisioningState Updating { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.AppPlatform.Models.DevToolPortalProvisioningState other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.AppPlatform.Models.DevToolPortalProvisioningState left, Azure.ResourceManager.AppPlatform.Models.DevToolPortalProvisioningState right) { throw null; }
+        public static implicit operator Azure.ResourceManager.AppPlatform.Models.DevToolPortalProvisioningState (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.AppPlatform.Models.DevToolPortalProvisioningState left, Azure.ResourceManager.AppPlatform.Models.DevToolPortalProvisioningState right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    public partial class DevToolPortalResourceRequests
+    {
+        internal DevToolPortalResourceRequests() { }
+        public string Cpu { get { throw null; } }
+        public int? InstanceCount { get { throw null; } }
+        public string Memory { get { throw null; } }
+    }
+    public partial class DevToolPortalSsoProperties
+    {
+        public DevToolPortalSsoProperties() { }
+        public string ClientId { get { throw null; } set { } }
+        public string ClientSecret { get { throw null; } set { } }
+        public System.Uri MetadataUri { get { throw null; } set { } }
+        public System.Collections.Generic.IList<string> Scopes { get { throw null; } }
+    }
+    public partial class GatewayPropertiesEnvironmentVariables
+    {
+        public GatewayPropertiesEnvironmentVariables() { }
+        public System.Collections.Generic.IDictionary<string, string> Properties { get { throw null; } }
+        public System.Collections.Generic.IDictionary<string, string> Secrets { get { throw null; } }
+    }
+    public partial class HttpScaleRule
+    {
+        public HttpScaleRule() { }
+        public System.Collections.Generic.IList<Azure.ResourceManager.AppPlatform.Models.ScaleRuleAuth> Auth { get { throw null; } }
+        public System.Collections.Generic.IDictionary<string, string> Metadata { get { throw null; } }
+    }
     public partial class JarUploadedUserSourceInfo : Azure.ResourceManager.AppPlatform.Models.AppPlatformUploadedUserSourceInfo
     {
         public JarUploadedUserSourceInfo() { }
@@ -2315,21 +2837,117 @@ namespace Azure.ResourceManager.AppPlatform.Models
         public static bool operator !=(Azure.ResourceManager.AppPlatform.Models.KPackBuildStageProvisioningState left, Azure.ResourceManager.AppPlatform.Models.KPackBuildStageProvisioningState right) { throw null; }
         public override string ToString() { throw null; }
     }
+    public partial class MarketplaceResource
+    {
+        public MarketplaceResource() { }
+        public string Plan { get { throw null; } set { } }
+        public string Product { get { throw null; } set { } }
+        public string Publisher { get { throw null; } set { } }
+    }
     public partial class NetCoreZipUploadedUserSourceInfo : Azure.ResourceManager.AppPlatform.Models.AppPlatformUploadedUserSourceInfo
     {
         public NetCoreZipUploadedUserSourceInfo() { }
         public string NetCoreMainEntryPath { get { throw null; } set { } }
         public string RuntimeVersion { get { throw null; } set { } }
     }
+    public partial class PredefinedAcceleratorProperties
+    {
+        public PredefinedAcceleratorProperties() { }
+        public System.Collections.Generic.IReadOnlyList<string> AcceleratorTags { get { throw null; } }
+        public string Description { get { throw null; } }
+        public string DisplayName { get { throw null; } }
+        public System.Uri IconUri { get { throw null; } }
+        public Azure.ResourceManager.AppPlatform.Models.PredefinedAcceleratorProvisioningState? ProvisioningState { get { throw null; } }
+        public Azure.ResourceManager.AppPlatform.Models.PredefinedAcceleratorState? State { get { throw null; } set { } }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct PredefinedAcceleratorProvisioningState : System.IEquatable<Azure.ResourceManager.AppPlatform.Models.PredefinedAcceleratorProvisioningState>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public PredefinedAcceleratorProvisioningState(string value) { throw null; }
+        public static Azure.ResourceManager.AppPlatform.Models.PredefinedAcceleratorProvisioningState Creating { get { throw null; } }
+        public static Azure.ResourceManager.AppPlatform.Models.PredefinedAcceleratorProvisioningState Failed { get { throw null; } }
+        public static Azure.ResourceManager.AppPlatform.Models.PredefinedAcceleratorProvisioningState Succeeded { get { throw null; } }
+        public static Azure.ResourceManager.AppPlatform.Models.PredefinedAcceleratorProvisioningState Updating { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.AppPlatform.Models.PredefinedAcceleratorProvisioningState other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.AppPlatform.Models.PredefinedAcceleratorProvisioningState left, Azure.ResourceManager.AppPlatform.Models.PredefinedAcceleratorProvisioningState right) { throw null; }
+        public static implicit operator Azure.ResourceManager.AppPlatform.Models.PredefinedAcceleratorProvisioningState (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.AppPlatform.Models.PredefinedAcceleratorProvisioningState left, Azure.ResourceManager.AppPlatform.Models.PredefinedAcceleratorProvisioningState right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct PredefinedAcceleratorState : System.IEquatable<Azure.ResourceManager.AppPlatform.Models.PredefinedAcceleratorState>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public PredefinedAcceleratorState(string value) { throw null; }
+        public static Azure.ResourceManager.AppPlatform.Models.PredefinedAcceleratorState Disabled { get { throw null; } }
+        public static Azure.ResourceManager.AppPlatform.Models.PredefinedAcceleratorState Enabled { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.AppPlatform.Models.PredefinedAcceleratorState other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.AppPlatform.Models.PredefinedAcceleratorState left, Azure.ResourceManager.AppPlatform.Models.PredefinedAcceleratorState right) { throw null; }
+        public static implicit operator Azure.ResourceManager.AppPlatform.Models.PredefinedAcceleratorState (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.AppPlatform.Models.PredefinedAcceleratorState left, Azure.ResourceManager.AppPlatform.Models.PredefinedAcceleratorState right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    public partial class QueueScaleRule
+    {
+        public QueueScaleRule() { }
+        public System.Collections.Generic.IList<Azure.ResourceManager.AppPlatform.Models.ScaleRuleAuth> Auth { get { throw null; } }
+        public int? QueueLength { get { throw null; } set { } }
+        public string QueueName { get { throw null; } set { } }
+    }
     public partial class RegenerateAppPlatformServiceTestKeyContent
     {
         public RegenerateAppPlatformServiceTestKeyContent(Azure.ResourceManager.AppPlatform.Models.AppPlatformServiceTestKeyType keyType) { }
         public Azure.ResourceManager.AppPlatform.Models.AppPlatformServiceTestKeyType KeyType { get { throw null; } }
+    }
+    public partial class Scale
+    {
+        public Scale() { }
+        public int? MaxReplicas { get { throw null; } set { } }
+        public int? MinReplicas { get { throw null; } set { } }
+        public System.Collections.Generic.IList<Azure.ResourceManager.AppPlatform.Models.ScaleRule> Rules { get { throw null; } }
+    }
+    public partial class ScaleRule
+    {
+        public ScaleRule() { }
+        public Azure.ResourceManager.AppPlatform.Models.QueueScaleRule AzureQueue { get { throw null; } set { } }
+        public Azure.ResourceManager.AppPlatform.Models.CustomScaleRule Custom { get { throw null; } set { } }
+        public Azure.ResourceManager.AppPlatform.Models.HttpScaleRule Http { get { throw null; } set { } }
+        public string Name { get { throw null; } set { } }
+        public Azure.ResourceManager.AppPlatform.Models.TcpScaleRule Tcp { get { throw null; } set { } }
+    }
+    public partial class ScaleRuleAuth
+    {
+        public ScaleRuleAuth() { }
+        public string SecretRef { get { throw null; } set { } }
+        public string TriggerParameter { get { throw null; } set { } }
+    }
+    public partial class Secret
+    {
+        public Secret() { }
+        public string Name { get { throw null; } set { } }
+        public string Value { get { throw null; } set { } }
     }
     public partial class SourceUploadedUserSourceInfo : Azure.ResourceManager.AppPlatform.Models.AppPlatformUploadedUserSourceInfo
     {
         public SourceUploadedUserSourceInfo() { }
         public string ArtifactSelector { get { throw null; } set { } }
         public string RuntimeVersion { get { throw null; } set { } }
+    }
+    public partial class TcpScaleRule
+    {
+        public TcpScaleRule() { }
+        public System.Collections.Generic.IList<Azure.ResourceManager.AppPlatform.Models.ScaleRuleAuth> Auth { get { throw null; } }
+        public System.Collections.Generic.IDictionary<string, string> Metadata { get { throw null; } }
     }
 }
