@@ -64,11 +64,6 @@ namespace Azure.ResourceManager.Synapse
                 writer.WritePropertyName("sessionLevelPackagesEnabled"u8);
                 writer.WriteBooleanValue(IsSessionLevelPackagesEnabled.Value);
             }
-            if (Optional.IsDefined(CacheSize))
-            {
-                writer.WritePropertyName("cacheSize"u8);
-                writer.WriteNumberValue(CacheSize.Value);
-            }
             if (Optional.IsDefined(DynamicExecutorAllocation))
             {
                 writer.WritePropertyName("dynamicExecutorAllocation"u8);

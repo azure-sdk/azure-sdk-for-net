@@ -31,6 +31,6 @@ namespace Azure.ResourceManager.Synapse.Models
         /// <summary> The SKU name. </summary>
         public string Name { get; set; }
         /// <summary> If the SKU supports scale out/in then the capacity integer should be included. If scale out/in is not possible for the resource this may be omitted. </summary>
-        public int? Capacity { get; set; }
+        public int? Capacity { get; }
     }
 }
