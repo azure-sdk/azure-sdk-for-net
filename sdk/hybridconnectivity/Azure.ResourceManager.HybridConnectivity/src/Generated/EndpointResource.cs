@@ -348,5 +348,73 @@ namespace Azure.ResourceManager.HybridConnectivity
                 throw;
             }
         }
+
+        /// <summary>
+        /// Fetches the managed proxy details 
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/{resourceUri}/providers/Microsoft.HybridConnectivity/endpoints/{endpointName}/listManagedProxyDetails</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Endpoints_ListManagedProxyDetails</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="content"> Object of type ManagedProxyRequest. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
+        public virtual async Task<Response<ManagedProxyResource>> GetManagedProxyDetailsAsync(ManagedProxyContent content, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var scope = _endpointResourceEndpointsClientDiagnostics.CreateScope("EndpointResource.GetManagedProxyDetails");
+            scope.Start();
+            try
+            {
+                var response = await _endpointResourceEndpointsRestClient.ListManagedProxyDetailsAsync(Id.Parent, Id.Name, content, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Fetches the managed proxy details 
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/{resourceUri}/providers/Microsoft.HybridConnectivity/endpoints/{endpointName}/listManagedProxyDetails</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Endpoints_ListManagedProxyDetails</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="content"> Object of type ManagedProxyRequest. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
+        public virtual Response<ManagedProxyResource> GetManagedProxyDetails(ManagedProxyContent content, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var scope = _endpointResourceEndpointsClientDiagnostics.CreateScope("EndpointResource.GetManagedProxyDetails");
+            scope.Start();
+            try
+            {
+                var response = _endpointResourceEndpointsRestClient.ListManagedProxyDetails(Id.Parent, Id.Name, content, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
     }
 }

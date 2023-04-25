@@ -30,7 +30,7 @@ namespace Azure.ResourceManager.HybridConnectivity
         /// <param name="systemData"> The systemData. </param>
         /// <param name="endpointType"> The type of endpoint. </param>
         /// <param name="resourceId"> The resource Id of the connectivity endpoint (optional). </param>
-        /// <param name="provisioningState"></param>
+        /// <param name="provisioningState"> The resource provisioning state. </param>
         /// <param name="createdBy"> The identity that created the resource. </param>
         /// <param name="createdByType"> The type of identity that created the resource. </param>
         /// <param name="createdOn"> The timestamp of resource creation (UTC). </param>
@@ -54,7 +54,7 @@ namespace Azure.ResourceManager.HybridConnectivity
         public EndpointType? EndpointType { get; set; }
         /// <summary> The resource Id of the connectivity endpoint (optional). </summary>
         public string ResourceId { get; set; }
-        /// <summary> Gets the provisioning state. </summary>
+        /// <summary> The resource provisioning state. </summary>
         public string ProvisioningState { get; }
         /// <summary> The identity that created the resource. </summary>
         public string CreatedBy { get; set; }

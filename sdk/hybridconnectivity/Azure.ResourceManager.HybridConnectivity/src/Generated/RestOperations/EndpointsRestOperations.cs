@@ -33,7 +33,7 @@ namespace Azure.ResourceManager.HybridConnectivity
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2021-10-06-preview";
+            _apiVersion = apiVersion ?? "2022-05-01-preview";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
@@ -464,6 +464,85 @@ namespace Azure.ResourceManager.HybridConnectivity
                         TargetResourceEndpointAccess value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
                         value = TargetResourceEndpointAccess.DeserializeTargetResourceEndpointAccess(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        internal HttpMessage CreateListManagedProxyDetailsRequest(string scope, string endpointName, ManagedProxyContent content)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Post;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/", false);
+            uri.AppendPath(scope, false);
+            uri.AppendPath("/providers/Microsoft.HybridConnectivity/endpoints/", false);
+            uri.AppendPath(endpointName, false);
+            uri.AppendPath("/listManagedProxyDetails", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            request.Headers.Add("Content-Type", "application/json");
+            var content0 = new Utf8JsonRequestContent();
+            content0.JsonWriter.WriteObjectValue(content);
+            request.Content = content0;
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> Fetches the managed proxy details. </summary>
+        /// <param name="scope"> The fully qualified Azure Resource manager identifier of the resource to be connected. </param>
+        /// <param name="endpointName"> The endpoint name. </param>
+        /// <param name="content"> Object of type ManagedProxyRequest. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="scope"/>, <paramref name="endpointName"/> or <paramref name="content"/> is null. </exception>
+        public async Task<Response<ManagedProxyResource>> ListManagedProxyDetailsAsync(string scope, string endpointName, ManagedProxyContent content, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(scope, nameof(scope));
+            Argument.AssertNotNull(endpointName, nameof(endpointName));
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var message = CreateListManagedProxyDetailsRequest(scope, endpointName, content);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        ManagedProxyResource value = default;
+                        using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+                        value = ManagedProxyResource.DeserializeManagedProxyResource(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> Fetches the managed proxy details. </summary>
+        /// <param name="scope"> The fully qualified Azure Resource manager identifier of the resource to be connected. </param>
+        /// <param name="endpointName"> The endpoint name. </param>
+        /// <param name="content"> Object of type ManagedProxyRequest. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="scope"/>, <paramref name="endpointName"/> or <paramref name="content"/> is null. </exception>
+        public Response<ManagedProxyResource> ListManagedProxyDetails(string scope, string endpointName, ManagedProxyContent content, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(scope, nameof(scope));
+            Argument.AssertNotNull(endpointName, nameof(endpointName));
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var message = CreateListManagedProxyDetailsRequest(scope, endpointName, content);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        ManagedProxyResource value = default;
+                        using var document = JsonDocument.Parse(message.Response.ContentStream);
+                        value = ManagedProxyResource.DeserializeManagedProxyResource(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
