@@ -54,6 +54,11 @@ namespace Azure.ResourceManager.AppService
                 writer.WritePropertyName("staticIp"u8);
                 writer.WriteStringValue(StaticIP);
             }
+            if (Optional.IsDefined(EnvironmentType))
+            {
+                writer.WritePropertyName("environmentType"u8);
+                writer.WriteStringValue(EnvironmentType);
+            }
             if (Optional.IsDefined(ArcConfiguration))
             {
                 writer.WritePropertyName("arcConfiguration"u8);
@@ -63,6 +68,11 @@ namespace Azure.ResourceManager.AppService
             {
                 writer.WritePropertyName("appLogsConfiguration"u8);
                 writer.WriteObjectValue(AppLogsConfiguration);
+            }
+            if (Optional.IsDefined(ContainerAppsConfiguration))
+            {
+                writer.WritePropertyName("containerAppsConfiguration"u8);
+                writer.WriteObjectValue(ContainerAppsConfiguration);
             }
             if (Optional.IsDefined(AksResourceId))
             {
@@ -92,8 +102,10 @@ namespace Azure.ResourceManager.AppService
             Optional<bool> internalLoadBalancerEnabled = default;
             Optional<string> defaultDomain = default;
             Optional<string> staticIP = default;
+            Optional<string> environmentType = default;
             Optional<ArcConfiguration> arcConfiguration = default;
             Optional<AppLogsConfiguration> appLogsConfiguration = default;
+            Optional<ContainerAppsConfiguration> containerAppsConfiguration = default;
             Optional<ResourceIdentifier> aksResourceId = default;
             foreach (var property in element.EnumerateObject())
             {
@@ -196,6 +208,11 @@ namespace Azure.ResourceManager.AppService
                             staticIP = property0.Value.GetString();
                             continue;
                         }
+                        if (property0.NameEquals("environmentType"u8))
+                        {
+                            environmentType = property0.Value.GetString();
+                            continue;
+                        }
                         if (property0.NameEquals("arcConfiguration"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -214,6 +231,15 @@ namespace Azure.ResourceManager.AppService
                             appLogsConfiguration = AppLogsConfiguration.DeserializeAppLogsConfiguration(property0.Value);
                             continue;
                         }
+                        if (property0.NameEquals("containerAppsConfiguration"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            containerAppsConfiguration = ContainerAppsConfiguration.DeserializeContainerAppsConfiguration(property0.Value);
+                            continue;
+                        }
                         if (property0.NameEquals("aksResourceID"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -227,7 +253,7 @@ namespace Azure.ResourceManager.AppService
                     continue;
                 }
             }
-            return new KubeEnvironmentData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, extendedLocation, Optional.ToNullable(provisioningState), deploymentErrors.Value, Optional.ToNullable(internalLoadBalancerEnabled), defaultDomain.Value, staticIP.Value, arcConfiguration.Value, appLogsConfiguration.Value, aksResourceId.Value, kind.Value);
+            return new KubeEnvironmentData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, extendedLocation, Optional.ToNullable(provisioningState), deploymentErrors.Value, Optional.ToNullable(internalLoadBalancerEnabled), defaultDomain.Value, staticIP.Value, environmentType.Value, arcConfiguration.Value, appLogsConfiguration.Value, containerAppsConfiguration.Value, aksResourceId.Value, kind.Value);
         }
     }
 }
