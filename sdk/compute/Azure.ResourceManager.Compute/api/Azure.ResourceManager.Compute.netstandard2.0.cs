@@ -388,6 +388,9 @@ namespace Azure.ResourceManager.Compute
     public partial class CommunityGalleryData : Azure.ResourceManager.Compute.Models.PirCommunityGalleryResourceData
     {
         internal CommunityGalleryData() { }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string> ArtifactTags { get { throw null; } }
+        public Azure.ResourceManager.Compute.Models.CommunityGalleryMetadata CommunityMetadata { get { throw null; } }
+        public string Disclaimer { get { throw null; } }
         public Azure.Core.ResourceIdentifier Id { get { throw null; } }
     }
     public partial class CommunityGalleryImageCollection : Azure.ResourceManager.ArmCollection, System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.Compute.CommunityGalleryImageResource>, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Compute.CommunityGalleryImageResource>, System.Collections.IEnumerable
@@ -407,7 +410,9 @@ namespace Azure.ResourceManager.Compute
     {
         internal CommunityGalleryImageData() { }
         public Azure.ResourceManager.Compute.Models.ArchitectureType? Architecture { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string> ArtifactTags { get { throw null; } }
         public System.Collections.Generic.IList<string> DisallowedDiskTypes { get { throw null; } }
+        public string Disclaimer { get { throw null; } }
         public System.DateTimeOffset? EndOfLifeOn { get { throw null; } }
         public string Eula { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Compute.Models.GalleryImageFeature> Features { get { throw null; } }
@@ -449,6 +454,8 @@ namespace Azure.ResourceManager.Compute
     public partial class CommunityGalleryImageVersionData : Azure.ResourceManager.Compute.Models.PirCommunityGalleryResourceData
     {
         internal CommunityGalleryImageVersionData() { }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string> ArtifactTags { get { throw null; } }
+        public string Disclaimer { get { throw null; } }
         public System.DateTimeOffset? EndOfLifeOn { get { throw null; } }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public bool? ExcludeFromLatest { get { throw null; } }
@@ -1457,6 +1464,7 @@ namespace Azure.ResourceManager.Compute
     public partial class SharedGalleryData : Azure.ResourceManager.Compute.Models.PirSharedGalleryResourceData
     {
         internal SharedGalleryData() { }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string> ArtifactTags { get { throw null; } }
         public Azure.Core.ResourceIdentifier Id { get { throw null; } }
     }
     public partial class SharedGalleryImageCollection : Azure.ResourceManager.ArmCollection, System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.Compute.SharedGalleryImageResource>, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Compute.SharedGalleryImageResource>, System.Collections.IEnumerable
@@ -1476,6 +1484,7 @@ namespace Azure.ResourceManager.Compute
     {
         internal SharedGalleryImageData() { }
         public Azure.ResourceManager.Compute.Models.ArchitectureType? Architecture { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string> ArtifactTags { get { throw null; } }
         public System.Collections.Generic.IList<string> DisallowedDiskTypes { get { throw null; } }
         public System.DateTimeOffset? EndOfLifeOn { get { throw null; } }
         public string Eula { get { throw null; } }
@@ -1518,6 +1527,7 @@ namespace Azure.ResourceManager.Compute
     public partial class SharedGalleryImageVersionData : Azure.ResourceManager.Compute.Models.PirSharedGalleryResourceData
     {
         internal SharedGalleryImageVersionData() { }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string> ArtifactTags { get { throw null; } }
         public System.DateTimeOffset? EndOfLifeOn { get { throw null; } }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public bool? ExcludeFromLatest { get { throw null; } }
@@ -2638,6 +2648,15 @@ namespace Azure.ResourceManager.Compute.Models
         public System.Collections.Generic.IReadOnlyList<string> PublicNames { get { throw null; } }
         public string PublisherContact { get { throw null; } set { } }
         public System.Uri PublisherUri { get { throw null; } set { } }
+    }
+    public partial class CommunityGalleryMetadata
+    {
+        internal CommunityGalleryMetadata() { }
+        public string Eula { get { throw null; } }
+        public System.Uri PrivacyStatementUri { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyList<string> PublicNames { get { throw null; } }
+        public string PublisherContact { get { throw null; } }
+        public System.Uri PublisherUri { get { throw null; } }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct ComponentName : System.IEquatable<Azure.ResourceManager.Compute.Models.ComponentName>
