@@ -55,6 +55,11 @@ namespace Azure.ResourceManager.ApiManagement
                 writer.WritePropertyName("tls"u8);
                 writer.WriteObjectValue(Tls);
             }
+            if (Optional.IsDefined(CircuitBreaker))
+            {
+                writer.WritePropertyName("circuitBreaker"u8);
+                writer.WriteObjectValue(CircuitBreaker);
+            }
             if (Optional.IsDefined(Uri))
             {
                 writer.WritePropertyName("url"u8);
@@ -86,6 +91,7 @@ namespace Azure.ResourceManager.ApiManagement
             Optional<BackendCredentialsContract> credentials = default;
             Optional<BackendProxyContract> proxy = default;
             Optional<BackendTlsProperties> tls = default;
+            Optional<BackendCircuitBreaker> circuitBreaker = default;
             Optional<Uri> uri = default;
             Optional<BackendProtocol> protocol = default;
             foreach (var property in element.EnumerateObject())
@@ -178,6 +184,15 @@ namespace Azure.ResourceManager.ApiManagement
                             tls = BackendTlsProperties.DeserializeBackendTlsProperties(property0.Value);
                             continue;
                         }
+                        if (property0.NameEquals("circuitBreaker"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            circuitBreaker = BackendCircuitBreaker.DeserializeBackendCircuitBreaker(property0.Value);
+                            continue;
+                        }
                         if (property0.NameEquals("url"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -200,7 +215,7 @@ namespace Azure.ResourceManager.ApiManagement
                     continue;
                 }
             }
-            return new ApiManagementBackendData(id, name, type, systemData.Value, title.Value, description.Value, resourceId.Value, properties.Value, credentials.Value, proxy.Value, tls.Value, uri.Value, Optional.ToNullable(protocol));
+            return new ApiManagementBackendData(id, name, type, systemData.Value, title.Value, description.Value, resourceId.Value, properties.Value, credentials.Value, proxy.Value, tls.Value, circuitBreaker.Value, uri.Value, Optional.ToNullable(protocol));
         }
     }
 }
