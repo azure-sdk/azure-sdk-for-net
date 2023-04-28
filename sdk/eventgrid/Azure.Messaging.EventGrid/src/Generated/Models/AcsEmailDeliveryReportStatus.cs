@@ -26,6 +26,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private const string DeliveredValue = "Delivered";
         private const string FilteredSpamValue = "FilteredSpam";
         private const string QuarantinedValue = "Quarantined";
+        private const string SuppressedValue = "Suppressed";
 
         /// <summary> Failed. </summary>
         public static AcsEmailDeliveryReportStatus Failed { get; } = new AcsEmailDeliveryReportStatus(FailedValue);
@@ -35,6 +36,8 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         public static AcsEmailDeliveryReportStatus FilteredSpam { get; } = new AcsEmailDeliveryReportStatus(FilteredSpamValue);
         /// <summary> Quarantined. </summary>
         public static AcsEmailDeliveryReportStatus Quarantined { get; } = new AcsEmailDeliveryReportStatus(QuarantinedValue);
+        /// <summary> Suppressed. </summary>
+        public static AcsEmailDeliveryReportStatus Suppressed { get; } = new AcsEmailDeliveryReportStatus(SuppressedValue);
         /// <summary> Determines if two <see cref="AcsEmailDeliveryReportStatus"/> values are the same. </summary>
         public static bool operator ==(AcsEmailDeliveryReportStatus left, AcsEmailDeliveryReportStatus right) => left.Equals(right);
         /// <summary> Determines if two <see cref="AcsEmailDeliveryReportStatus"/> values are not the same. </summary>
