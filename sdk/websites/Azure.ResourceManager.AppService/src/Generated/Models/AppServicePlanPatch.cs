@@ -29,6 +29,7 @@ namespace Azure.ResourceManager.AppService.Models
         /// <param name="subscription"> App Service plan subscription. </param>
         /// <param name="hostingEnvironmentProfile"> Specification for the App Service Environment to use for the App Service plan. </param>
         /// <param name="maximumNumberOfWorkers"> Maximum number of instances that can be assigned to this App Service plan. </param>
+        /// <param name="numberOfWorkers"> The number of instances that are assigned to this App Service plan. </param>
         /// <param name="geoRegion"> Geographical location for the App Service plan. </param>
         /// <param name="isPerSiteScaling">
         /// If &lt;code&gt;true&lt;/code&gt;, apps assigned to this App Service plan can be scaled independently.
@@ -53,13 +54,14 @@ namespace Azure.ResourceManager.AppService.Models
         /// If &lt;code&gt;false&lt;/code&gt;, this App Service Plan will not perform availability zone balancing.
         /// </param>
         /// <param name="kind"> Kind of resource. </param>
-        internal AppServicePlanPatch(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string workerTierName, AppServicePlanStatus? status, string subscription, HostingEnvironmentProfile hostingEnvironmentProfile, int? maximumNumberOfWorkers, string geoRegion, bool? isPerSiteScaling, bool? isElasticScaleEnabled, int? maximumElasticWorkerCount, int? numberOfSites, bool? isSpot, DateTimeOffset? spotExpirationOn, DateTimeOffset? freeOfferExpirationOn, string resourceGroup, bool? isReserved, bool? isXenon, bool? isHyperV, int? targetWorkerCount, int? targetWorkerSizeId, ProvisioningState? provisioningState, KubeEnvironmentProfile kubeEnvironmentProfile, bool? isZoneRedundant, string kind) : base(id, name, resourceType, systemData)
+        internal AppServicePlanPatch(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string workerTierName, AppServicePlanStatus? status, string subscription, HostingEnvironmentProfile hostingEnvironmentProfile, int? maximumNumberOfWorkers, int? numberOfWorkers, string geoRegion, bool? isPerSiteScaling, bool? isElasticScaleEnabled, int? maximumElasticWorkerCount, int? numberOfSites, bool? isSpot, DateTimeOffset? spotExpirationOn, DateTimeOffset? freeOfferExpirationOn, string resourceGroup, bool? isReserved, bool? isXenon, bool? isHyperV, int? targetWorkerCount, int? targetWorkerSizeId, ProvisioningState? provisioningState, KubeEnvironmentProfile kubeEnvironmentProfile, bool? isZoneRedundant, string kind) : base(id, name, resourceType, systemData)
         {
             WorkerTierName = workerTierName;
             Status = status;
             Subscription = subscription;
             HostingEnvironmentProfile = hostingEnvironmentProfile;
             MaximumNumberOfWorkers = maximumNumberOfWorkers;
+            NumberOfWorkers = numberOfWorkers;
             GeoRegion = geoRegion;
             IsPerSiteScaling = isPerSiteScaling;
             IsElasticScaleEnabled = isElasticScaleEnabled;
@@ -90,6 +92,8 @@ namespace Azure.ResourceManager.AppService.Models
         public HostingEnvironmentProfile HostingEnvironmentProfile { get; set; }
         /// <summary> Maximum number of instances that can be assigned to this App Service plan. </summary>
         public int? MaximumNumberOfWorkers { get; }
+        /// <summary> The number of instances that are assigned to this App Service plan. </summary>
+        public int? NumberOfWorkers { get; }
         /// <summary> Geographical location for the App Service plan. </summary>
         public string GeoRegion { get; }
         /// <summary>

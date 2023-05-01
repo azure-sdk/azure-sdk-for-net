@@ -7,11 +7,12 @@
 
 using System.Text.Json;
 using Azure.Core;
+using Azure.ResourceManager.AppService.Models;
 using Azure.ResourceManager.Models;
 
-namespace Azure.ResourceManager.AppService.Models
+namespace Azure.ResourceManager.AppService
 {
-    public partial class SiteAuthSettingsV2 : IUtf8JsonSerializable
+    public partial class SiteAuthSettingsV2Data : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
@@ -52,7 +53,7 @@ namespace Azure.ResourceManager.AppService.Models
             writer.WriteEndObject();
         }
 
-        internal static SiteAuthSettingsV2 DeserializeSiteAuthSettingsV2(JsonElement element)
+        internal static SiteAuthSettingsV2Data DeserializeSiteAuthSettingsV2Data(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
@@ -157,7 +158,7 @@ namespace Azure.ResourceManager.AppService.Models
                     continue;
                 }
             }
-            return new SiteAuthSettingsV2(id, name, type, systemData.Value, platform.Value, globalValidation.Value, identityProviders.Value, login.Value, httpSettings.Value, kind.Value);
+            return new SiteAuthSettingsV2Data(id, name, type, systemData.Value, platform.Value, globalValidation.Value, identityProviders.Value, login.Value, httpSettings.Value, kind.Value);
         }
     }
 }
