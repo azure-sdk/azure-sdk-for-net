@@ -12,7 +12,7 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.DataMigration.Models
 {
-    public partial class MigrateMySqlAzureDBForMySqlSyncTaskInput : IUtf8JsonSerializable
+    public partial class MigrateMySqlAzureDBForMySqlReplicateChangesTaskInput : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
@@ -54,36 +54,8 @@ namespace Azure.ResourceManager.DataMigration.Models
                 }
                 writer.WriteEndObject();
             }
-            if (Optional.IsDefined(MigrateAllViews))
-            {
-                writer.WritePropertyName("migrateAllViews"u8);
-                writer.WriteBooleanValue(MigrateAllViews.Value);
-            }
-            if (Optional.IsDefined(MigrateAllTriggers))
-            {
-                writer.WritePropertyName("migrateAllTriggers"u8);
-                writer.WriteBooleanValue(MigrateAllTriggers.Value);
-            }
-            if (Optional.IsDefined(MigrateAllEvents))
-            {
-                writer.WritePropertyName("migrateAllEvents"u8);
-                writer.WriteBooleanValue(MigrateAllEvents.Value);
-            }
-            if (Optional.IsDefined(MigrateAllRoutines))
-            {
-                writer.WritePropertyName("migrateAllRoutines"u8);
-                writer.WriteBooleanValue(MigrateAllRoutines.Value);
-            }
-            if (Optional.IsDefined(MigrateAllTablesSchema))
-            {
-                writer.WritePropertyName("migrateAllTablesSchema"u8);
-                writer.WriteBooleanValue(MigrateAllTablesSchema.Value);
-            }
-            if (Optional.IsDefined(MigrateUserSystemTables))
-            {
-                writer.WritePropertyName("migrateUserSystemTables"u8);
-                writer.WriteBooleanValue(MigrateUserSystemTables.Value);
-            }
+            writer.WritePropertyName("binLogInfo"u8);
+            writer.WriteObjectValue(BinLogInfo);
             if (Optional.IsDefined(EncryptedKeyForSecureFields))
             {
                 writer.WritePropertyName("encryptedKeyForSecureFields"u8);
@@ -92,7 +64,7 @@ namespace Azure.ResourceManager.DataMigration.Models
             writer.WriteEndObject();
         }
 
-        internal static MigrateMySqlAzureDBForMySqlSyncTaskInput DeserializeMigrateMySqlAzureDBForMySqlSyncTaskInput(JsonElement element)
+        internal static MigrateMySqlAzureDBForMySqlReplicateChangesTaskInput DeserializeMigrateMySqlAzureDBForMySqlReplicateChangesTaskInput(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
@@ -100,17 +72,12 @@ namespace Azure.ResourceManager.DataMigration.Models
             }
             MySqlConnectionInfo sourceConnectionInfo = default;
             MySqlConnectionInfo targetConnectionInfo = default;
-            IList<MigrateMySqlAzureDBForMySqlSyncDatabaseInput> selectedDatabases = default;
+            IList<MigrateMySqlAzureDBForMySqlReplicateChangesDatabaseInput> selectedDatabases = default;
             Optional<DateTimeOffset> startedOn = default;
             Optional<string> sourceServerResourceId = default;
             Optional<string> targetServerResourceId = default;
             Optional<IDictionary<string, string>> optionalAgentSettings = default;
-            Optional<bool> migrateAllViews = default;
-            Optional<bool> migrateAllTriggers = default;
-            Optional<bool> migrateAllEvents = default;
-            Optional<bool> migrateAllRoutines = default;
-            Optional<bool> migrateAllTablesSchema = default;
-            Optional<bool> migrateUserSystemTables = default;
+            MySqlBinlogPositionInput binLogInfo = default;
             Optional<string> encryptedKeyForSecureFields = default;
             foreach (var property in element.EnumerateObject())
             {
@@ -126,10 +93,10 @@ namespace Azure.ResourceManager.DataMigration.Models
                 }
                 if (property.NameEquals("selectedDatabases"u8))
                 {
-                    List<MigrateMySqlAzureDBForMySqlSyncDatabaseInput> array = new List<MigrateMySqlAzureDBForMySqlSyncDatabaseInput>();
+                    List<MigrateMySqlAzureDBForMySqlReplicateChangesDatabaseInput> array = new List<MigrateMySqlAzureDBForMySqlReplicateChangesDatabaseInput>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(MigrateMySqlAzureDBForMySqlSyncDatabaseInput.DeserializeMigrateMySqlAzureDBForMySqlSyncDatabaseInput(item));
+                        array.Add(MigrateMySqlAzureDBForMySqlReplicateChangesDatabaseInput.DeserializeMigrateMySqlAzureDBForMySqlReplicateChangesDatabaseInput(item));
                     }
                     selectedDatabases = array;
                     continue;
@@ -167,58 +134,9 @@ namespace Azure.ResourceManager.DataMigration.Models
                     optionalAgentSettings = dictionary;
                     continue;
                 }
-                if (property.NameEquals("migrateAllViews"u8))
+                if (property.NameEquals("binLogInfo"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    migrateAllViews = property.Value.GetBoolean();
-                    continue;
-                }
-                if (property.NameEquals("migrateAllTriggers"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    migrateAllTriggers = property.Value.GetBoolean();
-                    continue;
-                }
-                if (property.NameEquals("migrateAllEvents"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    migrateAllEvents = property.Value.GetBoolean();
-                    continue;
-                }
-                if (property.NameEquals("migrateAllRoutines"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    migrateAllRoutines = property.Value.GetBoolean();
-                    continue;
-                }
-                if (property.NameEquals("migrateAllTablesSchema"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    migrateAllTablesSchema = property.Value.GetBoolean();
-                    continue;
-                }
-                if (property.NameEquals("migrateUserSystemTables"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    migrateUserSystemTables = property.Value.GetBoolean();
+                    binLogInfo = MySqlBinlogPositionInput.DeserializeMySqlBinlogPositionInput(property.Value);
                     continue;
                 }
                 if (property.NameEquals("encryptedKeyForSecureFields"u8))
@@ -227,7 +145,7 @@ namespace Azure.ResourceManager.DataMigration.Models
                     continue;
                 }
             }
-            return new MigrateMySqlAzureDBForMySqlSyncTaskInput(sourceConnectionInfo, targetConnectionInfo, selectedDatabases, Optional.ToNullable(startedOn), sourceServerResourceId.Value, targetServerResourceId.Value, Optional.ToDictionary(optionalAgentSettings), Optional.ToNullable(migrateAllViews), Optional.ToNullable(migrateAllTriggers), Optional.ToNullable(migrateAllEvents), Optional.ToNullable(migrateAllRoutines), Optional.ToNullable(migrateAllTablesSchema), Optional.ToNullable(migrateUserSystemTables), encryptedKeyForSecureFields.Value);
+            return new MigrateMySqlAzureDBForMySqlReplicateChangesTaskInput(sourceConnectionInfo, targetConnectionInfo, selectedDatabases, Optional.ToNullable(startedOn), sourceServerResourceId.Value, targetServerResourceId.Value, Optional.ToDictionary(optionalAgentSettings), binLogInfo, encryptedKeyForSecureFields.Value);
         }
     }
 }

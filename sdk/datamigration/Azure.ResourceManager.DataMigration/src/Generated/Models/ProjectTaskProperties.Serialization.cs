@@ -62,6 +62,7 @@ namespace Azure.ResourceManager.DataMigration.Models
                     case "GetUserTablesPostgreSql": return GetUserTablesPostgreSqlTaskProperties.DeserializeGetUserTablesPostgreSqlTaskProperties(element);
                     case "Migrate.MongoDb": return MigrateMongoDBTaskProperties.DeserializeMigrateMongoDBTaskProperties(element);
                     case "Migrate.MySql.AzureDbForMySql": return MigrateMySqlAzureDBForMySqlOfflineTaskProperties.DeserializeMigrateMySqlAzureDBForMySqlOfflineTaskProperties(element);
+                    case "Migrate.MySql.AzureDbForMySql.ReplicateChanges": return MigrateMySqlAzureDBForMySqlReplicateChangesTaskProperties.DeserializeMigrateMySqlAzureDBForMySqlReplicateChangesTaskProperties(element);
                     case "Migrate.MySql.AzureDbForMySql.Sync": return MigrateMySqlAzureDBForMySqlSyncTaskProperties.DeserializeMigrateMySqlAzureDBForMySqlSyncTaskProperties(element);
                     case "Migrate.Oracle.AzureDbForPostgreSql.Sync": return MigrateOracleAzureDBForPostgreSqlSyncTaskProperties.DeserializeMigrateOracleAzureDBForPostgreSqlSyncTaskProperties(element);
                     case "Migrate.PostgreSql.AzureDbForPostgreSql.SyncV2": return MigratePostgreSqlAzureDBForPostgreSqlSyncTaskProperties.DeserializeMigratePostgreSqlAzureDBForPostgreSqlSyncTaskProperties(element);

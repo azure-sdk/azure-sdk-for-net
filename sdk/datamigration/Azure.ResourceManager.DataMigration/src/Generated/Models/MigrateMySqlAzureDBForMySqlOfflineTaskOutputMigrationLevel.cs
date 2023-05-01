@@ -24,6 +24,7 @@ namespace Azure.ResourceManager.DataMigration.Models
         /// <summary> Initializes a new instance of MigrateMySqlAzureDBForMySqlOfflineTaskOutputMigrationLevel. </summary>
         /// <param name="id"> Result identifier. </param>
         /// <param name="resultType"> Result type. </param>
+        /// <param name="migrationType"></param>
         /// <param name="startedOn"> Migration start time. </param>
         /// <param name="endedOn"> Migration end time. </param>
         /// <param name="durationInSeconds"> Duration of task execution in seconds. </param>
@@ -39,8 +40,10 @@ namespace Azure.ResourceManager.DataMigration.Models
         /// <param name="targetServerBrandVersion"> Target server brand version. </param>
         /// <param name="exceptionsAndWarnings"> Migration exceptions and warnings. </param>
         /// <param name="lastStorageUpdate"> Last time the storage was updated. </param>
-        internal MigrateMySqlAzureDBForMySqlOfflineTaskOutputMigrationLevel(string id, string resultType, DateTimeOffset? startedOn, DateTimeOffset? endedOn, long? durationInSeconds, MigrationStatus? status, string statusMessage, string message, string databases, string databaseSummary, MigrationReportResult migrationReportResult, string sourceServerVersion, string sourceServerBrandVersion, string targetServerVersion, string targetServerBrandVersion, IReadOnlyList<ReportableException> exceptionsAndWarnings, DateTimeOffset? lastStorageUpdate) : base(id, resultType)
+        /// <param name="sourceBinlogPosition"> The binlog position when the consistent snapshot was taken. Only returned when consistent backup is enabled in the migration inputs. </param>
+        internal MigrateMySqlAzureDBForMySqlOfflineTaskOutputMigrationLevel(string id, string resultType, MigrateMySqlAzureDBForMySqlOfflineTaskOutputMigrationLevelMigrationType? migrationType, DateTimeOffset? startedOn, DateTimeOffset? endedOn, long? durationInSeconds, MigrationStatus? status, string statusMessage, string message, string databases, string databaseSummary, MigrationReportResult migrationReportResult, string sourceServerVersion, string sourceServerBrandVersion, string targetServerVersion, string targetServerBrandVersion, IReadOnlyList<ReportableException> exceptionsAndWarnings, DateTimeOffset? lastStorageUpdate, MySqlBinlogPositionOutput sourceBinlogPosition) : base(id, resultType)
         {
+            MigrationType = migrationType;
             StartedOn = startedOn;
             EndedOn = endedOn;
             DurationInSeconds = durationInSeconds;
@@ -56,9 +59,12 @@ namespace Azure.ResourceManager.DataMigration.Models
             TargetServerBrandVersion = targetServerBrandVersion;
             ExceptionsAndWarnings = exceptionsAndWarnings;
             LastStorageUpdate = lastStorageUpdate;
+            SourceBinlogPosition = sourceBinlogPosition;
             ResultType = resultType ?? "MigrationLevelOutput";
         }
 
+        /// <summary> Gets the migration type. </summary>
+        public MigrateMySqlAzureDBForMySqlOfflineTaskOutputMigrationLevelMigrationType? MigrationType { get; }
         /// <summary> Migration start time. </summary>
         public DateTimeOffset? StartedOn { get; }
         /// <summary> Migration end time. </summary>
@@ -89,5 +95,7 @@ namespace Azure.ResourceManager.DataMigration.Models
         public IReadOnlyList<ReportableException> ExceptionsAndWarnings { get; }
         /// <summary> Last time the storage was updated. </summary>
         public DateTimeOffset? LastStorageUpdate { get; }
+        /// <summary> The binlog position when the consistent snapshot was taken. Only returned when consistent backup is enabled in the migration inputs. </summary>
+        public MySqlBinlogPositionOutput SourceBinlogPosition { get; }
     }
 }

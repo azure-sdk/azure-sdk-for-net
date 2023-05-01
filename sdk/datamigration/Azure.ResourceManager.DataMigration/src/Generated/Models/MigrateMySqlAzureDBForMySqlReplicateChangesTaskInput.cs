@@ -12,27 +12,30 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.DataMigration.Models
 {
-    /// <summary> Input for the task that migrates MySQL databases to Azure Database for MySQL for online migrations. </summary>
-    public partial class MigrateMySqlAzureDBForMySqlSyncTaskInput
+    /// <summary> Input for the task that migrates MySQL databases to Azure Database for MySQL for the replicate changes migrations. </summary>
+    public partial class MigrateMySqlAzureDBForMySqlReplicateChangesTaskInput
     {
-        /// <summary> Initializes a new instance of MigrateMySqlAzureDBForMySqlSyncTaskInput. </summary>
+        /// <summary> Initializes a new instance of MigrateMySqlAzureDBForMySqlReplicateChangesTaskInput. </summary>
         /// <param name="sourceConnectionInfo"> Connection information for source MySQL. </param>
         /// <param name="targetConnectionInfo"> Connection information for target Azure Database for MySQL. </param>
         /// <param name="selectedDatabases"> Databases to migrate. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="sourceConnectionInfo"/>, <paramref name="targetConnectionInfo"/> or <paramref name="selectedDatabases"/> is null. </exception>
-        public MigrateMySqlAzureDBForMySqlSyncTaskInput(MySqlConnectionInfo sourceConnectionInfo, MySqlConnectionInfo targetConnectionInfo, IEnumerable<MigrateMySqlAzureDBForMySqlSyncDatabaseInput> selectedDatabases)
+        /// <param name="binLogInfo"> The binlog position to start replicating the changes at. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="sourceConnectionInfo"/>, <paramref name="targetConnectionInfo"/>, <paramref name="selectedDatabases"/> or <paramref name="binLogInfo"/> is null. </exception>
+        public MigrateMySqlAzureDBForMySqlReplicateChangesTaskInput(MySqlConnectionInfo sourceConnectionInfo, MySqlConnectionInfo targetConnectionInfo, IEnumerable<MigrateMySqlAzureDBForMySqlReplicateChangesDatabaseInput> selectedDatabases, MySqlBinlogPositionInput binLogInfo)
         {
             Argument.AssertNotNull(sourceConnectionInfo, nameof(sourceConnectionInfo));
             Argument.AssertNotNull(targetConnectionInfo, nameof(targetConnectionInfo));
             Argument.AssertNotNull(selectedDatabases, nameof(selectedDatabases));
+            Argument.AssertNotNull(binLogInfo, nameof(binLogInfo));
 
             SourceConnectionInfo = sourceConnectionInfo;
             TargetConnectionInfo = targetConnectionInfo;
             SelectedDatabases = selectedDatabases.ToList();
             OptionalAgentSettings = new ChangeTrackingDictionary<string, string>();
+            BinLogInfo = binLogInfo;
         }
 
-        /// <summary> Initializes a new instance of MigrateMySqlAzureDBForMySqlSyncTaskInput. </summary>
+        /// <summary> Initializes a new instance of MigrateMySqlAzureDBForMySqlReplicateChangesTaskInput. </summary>
         /// <param name="sourceConnectionInfo"> Connection information for source MySQL. </param>
         /// <param name="targetConnectionInfo"> Connection information for target Azure Database for MySQL. </param>
         /// <param name="selectedDatabases"> Databases to migrate. </param>
@@ -40,14 +43,9 @@ namespace Azure.ResourceManager.DataMigration.Models
         /// <param name="sourceServerResourceId"> Optional resource Id of the source server if it is an azure instance. </param>
         /// <param name="targetServerResourceId"> Optional resource Id of the target server. </param>
         /// <param name="optionalAgentSettings"> Optional parameters for fine tuning the data migration. </param>
-        /// <param name="migrateAllViews"> If true, all view definitions will be migrated in the selected databases. </param>
-        /// <param name="migrateAllTriggers"> If true, all trigger definitions will be migrated in the selected databases. </param>
-        /// <param name="migrateAllEvents"> If true, all event definitions will be migrated in the selected databases. </param>
-        /// <param name="migrateAllRoutines"> If true, all routine definitions will be migrated in the selected databases. </param>
-        /// <param name="migrateAllTablesSchema"> If true, all table&apos;s schemas will be migrated. </param>
-        /// <param name="migrateUserSystemTables"> If true, all users/grants will be migrated. </param>
+        /// <param name="binLogInfo"> The binlog position to start replicating the changes at. </param>
         /// <param name="encryptedKeyForSecureFields"> encrypted key for secure fields. </param>
-        internal MigrateMySqlAzureDBForMySqlSyncTaskInput(MySqlConnectionInfo sourceConnectionInfo, MySqlConnectionInfo targetConnectionInfo, IList<MigrateMySqlAzureDBForMySqlSyncDatabaseInput> selectedDatabases, DateTimeOffset? startedOn, string sourceServerResourceId, string targetServerResourceId, IDictionary<string, string> optionalAgentSettings, bool? migrateAllViews, bool? migrateAllTriggers, bool? migrateAllEvents, bool? migrateAllRoutines, bool? migrateAllTablesSchema, bool? migrateUserSystemTables, string encryptedKeyForSecureFields)
+        internal MigrateMySqlAzureDBForMySqlReplicateChangesTaskInput(MySqlConnectionInfo sourceConnectionInfo, MySqlConnectionInfo targetConnectionInfo, IList<MigrateMySqlAzureDBForMySqlReplicateChangesDatabaseInput> selectedDatabases, DateTimeOffset? startedOn, string sourceServerResourceId, string targetServerResourceId, IDictionary<string, string> optionalAgentSettings, MySqlBinlogPositionInput binLogInfo, string encryptedKeyForSecureFields)
         {
             SourceConnectionInfo = sourceConnectionInfo;
             TargetConnectionInfo = targetConnectionInfo;
@@ -56,12 +54,7 @@ namespace Azure.ResourceManager.DataMigration.Models
             SourceServerResourceId = sourceServerResourceId;
             TargetServerResourceId = targetServerResourceId;
             OptionalAgentSettings = optionalAgentSettings;
-            MigrateAllViews = migrateAllViews;
-            MigrateAllTriggers = migrateAllTriggers;
-            MigrateAllEvents = migrateAllEvents;
-            MigrateAllRoutines = migrateAllRoutines;
-            MigrateAllTablesSchema = migrateAllTablesSchema;
-            MigrateUserSystemTables = migrateUserSystemTables;
+            BinLogInfo = binLogInfo;
             EncryptedKeyForSecureFields = encryptedKeyForSecureFields;
         }
 
@@ -70,7 +63,7 @@ namespace Azure.ResourceManager.DataMigration.Models
         /// <summary> Connection information for target Azure Database for MySQL. </summary>
         public MySqlConnectionInfo TargetConnectionInfo { get; set; }
         /// <summary> Databases to migrate. </summary>
-        public IList<MigrateMySqlAzureDBForMySqlSyncDatabaseInput> SelectedDatabases { get; }
+        public IList<MigrateMySqlAzureDBForMySqlReplicateChangesDatabaseInput> SelectedDatabases { get; }
         /// <summary> Parameter to specify when the migration started. </summary>
         public DateTimeOffset? StartedOn { get; set; }
         /// <summary> Optional resource Id of the source server if it is an azure instance. </summary>
@@ -79,18 +72,8 @@ namespace Azure.ResourceManager.DataMigration.Models
         public string TargetServerResourceId { get; set; }
         /// <summary> Optional parameters for fine tuning the data migration. </summary>
         public IDictionary<string, string> OptionalAgentSettings { get; }
-        /// <summary> If true, all view definitions will be migrated in the selected databases. </summary>
-        public bool? MigrateAllViews { get; set; }
-        /// <summary> If true, all trigger definitions will be migrated in the selected databases. </summary>
-        public bool? MigrateAllTriggers { get; set; }
-        /// <summary> If true, all event definitions will be migrated in the selected databases. </summary>
-        public bool? MigrateAllEvents { get; set; }
-        /// <summary> If true, all routine definitions will be migrated in the selected databases. </summary>
-        public bool? MigrateAllRoutines { get; set; }
-        /// <summary> If true, all table&apos;s schemas will be migrated. </summary>
-        public bool? MigrateAllTablesSchema { get; set; }
-        /// <summary> If true, all users/grants will be migrated. </summary>
-        public bool? MigrateUserSystemTables { get; set; }
+        /// <summary> The binlog position to start replicating the changes at. </summary>
+        public MySqlBinlogPositionInput BinLogInfo { get; set; }
         /// <summary> encrypted key for secure fields. </summary>
         public string EncryptedKeyForSecureFields { get; set; }
     }

@@ -21,9 +21,9 @@ namespace Azure.ResourceManager.DataMigration.Models
         /// <summary> Initializes a new instance of MigrateMySqlAzureDBForMySqlOfflineTaskOutputTableLevel. </summary>
         /// <param name="id"> Result identifier. </param>
         /// <param name="resultType"> Result type. </param>
-        /// <param name="objectName"> Name of the item. </param>
-        /// <param name="startedOn"> Migration start time. </param>
-        /// <param name="endedOn"> Migration end time. </param>
+        /// <param name="objectName"> Table name. </param>
+        /// <param name="startedOn"> Table migration start time. </param>
+        /// <param name="endedOn"> Table migration end time. </param>
         /// <param name="state"> Current state of migration. </param>
         /// <param name="statusMessage"> Status message. </param>
         /// <param name="itemsCount"> Number of items. </param>
@@ -46,11 +46,11 @@ namespace Azure.ResourceManager.DataMigration.Models
             ResultType = resultType ?? "TableLevelOutput";
         }
 
-        /// <summary> Name of the item. </summary>
+        /// <summary> Table name. </summary>
         public string ObjectName { get; }
-        /// <summary> Migration start time. </summary>
+        /// <summary> Table migration start time. </summary>
         public DateTimeOffset? StartedOn { get; }
-        /// <summary> Migration end time. </summary>
+        /// <summary> Table migration end time. </summary>
         public DateTimeOffset? EndedOn { get; }
         /// <summary> Current state of migration. </summary>
         public MigrationState? State { get; }

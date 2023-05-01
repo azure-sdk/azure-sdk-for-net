@@ -25,8 +25,8 @@ namespace Azure.ResourceManager.DataMigration.Models
         /// <param name="id"> Result identifier. </param>
         /// <param name="resultType"> Result type. </param>
         /// <param name="databaseName"> Name of the database. </param>
-        /// <param name="startedOn"> Migration start time. </param>
-        /// <param name="endedOn"> Migration end time. </param>
+        /// <param name="startedOn"> Database migration start time. </param>
+        /// <param name="endedOn"> Database migration end time. </param>
         /// <param name="state"> Current state of migration. </param>
         /// <param name="stage"> Migration stage that this database is in. </param>
         /// <param name="statusMessage"> Status message. </param>
@@ -61,9 +61,9 @@ namespace Azure.ResourceManager.DataMigration.Models
 
         /// <summary> Name of the database. </summary>
         public string DatabaseName { get; }
-        /// <summary> Migration start time. </summary>
+        /// <summary> Database migration start time. </summary>
         public DateTimeOffset? StartedOn { get; }
-        /// <summary> Migration end time. </summary>
+        /// <summary> Database migration end time. </summary>
         public DateTimeOffset? EndedOn { get; }
         /// <summary> Current state of migration. </summary>
         public MigrationState? State { get; }

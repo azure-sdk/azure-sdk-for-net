@@ -45,6 +45,7 @@ namespace Azure.ResourceManager.DataMigration.Models
         private const string MigrateSqlServerAzureSqlDBMISyncLRSValue = "Migrate.SqlServer.AzureSqlDbMI.Sync.LRS";
         private const string MigrateSqlServerSqlDBValue = "Migrate.SqlServer.SqlDb";
         private const string MigrateSqlServerAzureSqlDBSyncValue = "Migrate.SqlServer.AzureSqlDb.Sync";
+        private const string MigrateMySqlAzureDBForMySqlReplicateChangesValue = "Migrate.MySql.AzureDbForMySql.ReplicateChanges";
         private const string MigrateMySqlAzureDBForMySqlSyncValue = "Migrate.MySql.AzureDbForMySql.Sync";
         private const string MigrateMySqlAzureDBForMySqlValue = "Migrate.MySql.AzureDbForMySql";
         private const string MigratePostgreSqlAzureDBForPostgreSqlSyncV2Value = "Migrate.PostgreSql.AzureDbForPostgreSql.SyncV2";
@@ -107,6 +108,8 @@ namespace Azure.ResourceManager.DataMigration.Models
         public static TaskType MigrateSqlServerSqlDB { get; } = new TaskType(MigrateSqlServerSqlDBValue);
         /// <summary> Migrate.SqlServer.AzureSqlDb.Sync. </summary>
         public static TaskType MigrateSqlServerAzureSqlDBSync { get; } = new TaskType(MigrateSqlServerAzureSqlDBSyncValue);
+        /// <summary> Migrate.MySql.AzureDbForMySql.ReplicateChanges. </summary>
+        public static TaskType MigrateMySqlAzureDBForMySqlReplicateChanges { get; } = new TaskType(MigrateMySqlAzureDBForMySqlReplicateChangesValue);
         /// <summary> Migrate.MySql.AzureDbForMySql.Sync. </summary>
         public static TaskType MigrateMySqlAzureDBForMySqlSync { get; } = new TaskType(MigrateMySqlAzureDBForMySqlSyncValue);
         /// <summary> Migrate.MySql.AzureDbForMySql. </summary>

@@ -17,17 +17,32 @@ namespace Azure.ResourceManager.DataMigration.Models
         public MigrateMySqlAzureDBForMySqlOfflineDatabaseInput()
         {
             TableMap = new ChangeTrackingDictionary<string, string>();
+            TablesToMigrateSchema = new ChangeTrackingDictionary<string, string>();
+            SelectedViews = new ChangeTrackingList<string>();
+            SelectedTriggers = new ChangeTrackingList<string>();
+            SelectedRoutines = new ChangeTrackingList<string>();
+            SelectedEvents = new ChangeTrackingList<string>();
         }
 
         /// <summary> Initializes a new instance of MigrateMySqlAzureDBForMySqlOfflineDatabaseInput. </summary>
         /// <param name="name"> Name of the database. </param>
         /// <param name="targetDatabaseName"> Name of target database. Note: Target database will be truncated before starting migration. </param>
         /// <param name="tableMap"> Mapping of source to target tables. </param>
-        internal MigrateMySqlAzureDBForMySqlOfflineDatabaseInput(string name, string targetDatabaseName, IDictionary<string, string> tableMap)
+        /// <param name="tablesToMigrateSchema"> Mapping of source to target tables for schema migration. </param>
+        /// <param name="selectedViews"> List of views to migrate. </param>
+        /// <param name="selectedTriggers"> List of triggers to migrate. </param>
+        /// <param name="selectedRoutines"> List of routines to migrate. </param>
+        /// <param name="selectedEvents"> List of events to migrate. </param>
+        internal MigrateMySqlAzureDBForMySqlOfflineDatabaseInput(string name, string targetDatabaseName, IDictionary<string, string> tableMap, IDictionary<string, string> tablesToMigrateSchema, IList<string> selectedViews, IList<string> selectedTriggers, IList<string> selectedRoutines, IList<string> selectedEvents)
         {
             Name = name;
             TargetDatabaseName = targetDatabaseName;
             TableMap = tableMap;
+            TablesToMigrateSchema = tablesToMigrateSchema;
+            SelectedViews = selectedViews;
+            SelectedTriggers = selectedTriggers;
+            SelectedRoutines = selectedRoutines;
+            SelectedEvents = selectedEvents;
         }
 
         /// <summary> Name of the database. </summary>
@@ -36,5 +51,15 @@ namespace Azure.ResourceManager.DataMigration.Models
         public string TargetDatabaseName { get; set; }
         /// <summary> Mapping of source to target tables. </summary>
         public IDictionary<string, string> TableMap { get; }
+        /// <summary> Mapping of source to target tables for schema migration. </summary>
+        public IDictionary<string, string> TablesToMigrateSchema { get; }
+        /// <summary> List of views to migrate. </summary>
+        public IList<string> SelectedViews { get; }
+        /// <summary> List of triggers to migrate. </summary>
+        public IList<string> SelectedTriggers { get; }
+        /// <summary> List of routines to migrate. </summary>
+        public IList<string> SelectedRoutines { get; }
+        /// <summary> List of events to migrate. </summary>
+        public IList<string> SelectedEvents { get; }
     }
 }

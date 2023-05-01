@@ -8,9 +8,9 @@
 namespace Azure.ResourceManager.DataMigration.Models
 {
     /// <summary>
-    /// Output for the task that migrates MySQL databases to Azure Database for MySQL for online migrations
+    /// MySQL to Azure Database for MySQL online migration task output
     /// Please note <see cref="MigrateMySqlAzureDBForMySqlSyncTaskOutput"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-    /// The available derived classes include <see cref="MigrateMySqlAzureDBForMySqlSyncTaskOutputDatabaseError"/>, <see cref="MigrateMySqlAzureDBForMySqlSyncTaskOutputDatabaseLevel"/>, <see cref="MigrateMySqlAzureDBForMySqlSyncTaskOutputError"/>, <see cref="MigrateMySqlAzureDBForMySqlSyncTaskOutputMigrationLevel"/> and <see cref="MigrateMySqlAzureDBForMySqlSyncTaskOutputTableLevel"/>.
+    /// The available derived classes include <see cref="MigrateMySqlAzureDBForMySqlSyncTaskOutputDatabaseError"/>, <see cref="MigrateMySqlAzureDBForMySqlSyncTaskOutputDatabaseLevel"/>, <see cref="MigrateMySqlAzureDBForMySqlSyncTaskOutputError"/>, <see cref="MigrateMySqlAzureDBForMySqlSyncTaskOutputMigrationLevelV2"/> and <see cref="MigrateMySqlAzureDBForMySqlSyncTaskOutputTableLevel"/>.
     /// </summary>
     public abstract partial class MigrateMySqlAzureDBForMySqlSyncTaskOutput
     {

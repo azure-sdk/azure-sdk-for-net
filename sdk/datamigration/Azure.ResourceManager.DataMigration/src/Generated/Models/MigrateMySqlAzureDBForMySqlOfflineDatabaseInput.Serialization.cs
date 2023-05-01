@@ -37,6 +37,57 @@ namespace Azure.ResourceManager.DataMigration.Models
                 }
                 writer.WriteEndObject();
             }
+            if (Optional.IsCollectionDefined(TablesToMigrateSchema))
+            {
+                writer.WritePropertyName("tablesToMigrateSchema"u8);
+                writer.WriteStartObject();
+                foreach (var item in TablesToMigrateSchema)
+                {
+                    writer.WritePropertyName(item.Key);
+                    writer.WriteStringValue(item.Value);
+                }
+                writer.WriteEndObject();
+            }
+            if (Optional.IsCollectionDefined(SelectedViews))
+            {
+                writer.WritePropertyName("selectedViews"u8);
+                writer.WriteStartArray();
+                foreach (var item in SelectedViews)
+                {
+                    writer.WriteStringValue(item);
+                }
+                writer.WriteEndArray();
+            }
+            if (Optional.IsCollectionDefined(SelectedTriggers))
+            {
+                writer.WritePropertyName("selectedTriggers"u8);
+                writer.WriteStartArray();
+                foreach (var item in SelectedTriggers)
+                {
+                    writer.WriteStringValue(item);
+                }
+                writer.WriteEndArray();
+            }
+            if (Optional.IsCollectionDefined(SelectedRoutines))
+            {
+                writer.WritePropertyName("selectedRoutines"u8);
+                writer.WriteStartArray();
+                foreach (var item in SelectedRoutines)
+                {
+                    writer.WriteStringValue(item);
+                }
+                writer.WriteEndArray();
+            }
+            if (Optional.IsCollectionDefined(SelectedEvents))
+            {
+                writer.WritePropertyName("selectedEvents"u8);
+                writer.WriteStartArray();
+                foreach (var item in SelectedEvents)
+                {
+                    writer.WriteStringValue(item);
+                }
+                writer.WriteEndArray();
+            }
             writer.WriteEndObject();
         }
 
@@ -49,6 +100,11 @@ namespace Azure.ResourceManager.DataMigration.Models
             Optional<string> name = default;
             Optional<string> targetDatabaseName = default;
             Optional<IDictionary<string, string>> tableMap = default;
+            Optional<IDictionary<string, string>> tablesToMigrateSchema = default;
+            Optional<IList<string>> selectedViews = default;
+            Optional<IList<string>> selectedTriggers = default;
+            Optional<IList<string>> selectedRoutines = default;
+            Optional<IList<string>> selectedEvents = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("name"u8))
@@ -75,8 +131,78 @@ namespace Azure.ResourceManager.DataMigration.Models
                     tableMap = dictionary;
                     continue;
                 }
+                if (property.NameEquals("tablesToMigrateSchema"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    Dictionary<string, string> dictionary = new Dictionary<string, string>();
+                    foreach (var property0 in property.Value.EnumerateObject())
+                    {
+                        dictionary.Add(property0.Name, property0.Value.GetString());
+                    }
+                    tablesToMigrateSchema = dictionary;
+                    continue;
+                }
+                if (property.NameEquals("selectedViews"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<string> array = new List<string>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(item.GetString());
+                    }
+                    selectedViews = array;
+                    continue;
+                }
+                if (property.NameEquals("selectedTriggers"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<string> array = new List<string>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(item.GetString());
+                    }
+                    selectedTriggers = array;
+                    continue;
+                }
+                if (property.NameEquals("selectedRoutines"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<string> array = new List<string>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(item.GetString());
+                    }
+                    selectedRoutines = array;
+                    continue;
+                }
+                if (property.NameEquals("selectedEvents"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<string> array = new List<string>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(item.GetString());
+                    }
+                    selectedEvents = array;
+                    continue;
+                }
             }
-            return new MigrateMySqlAzureDBForMySqlOfflineDatabaseInput(name.Value, targetDatabaseName.Value, Optional.ToDictionary(tableMap));
+            return new MigrateMySqlAzureDBForMySqlOfflineDatabaseInput(name.Value, targetDatabaseName.Value, Optional.ToDictionary(tableMap), Optional.ToDictionary(tablesToMigrateSchema), Optional.ToList(selectedViews), Optional.ToList(selectedTriggers), Optional.ToList(selectedRoutines), Optional.ToList(selectedEvents));
         }
     }
 }

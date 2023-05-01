@@ -20,6 +20,7 @@ namespace Azure.ResourceManager.DataMigration.Models
             {
                 return null;
             }
+            Optional<MigrateMySqlAzureDBForMySqlOfflineTaskOutputMigrationLevelMigrationType> migrationType = default;
             Optional<DateTimeOffset> startedOn = default;
             Optional<DateTimeOffset> endedOn = default;
             Optional<long> durationInSeconds = default;
@@ -35,10 +36,20 @@ namespace Azure.ResourceManager.DataMigration.Models
             Optional<string> targetServerBrandVersion = default;
             Optional<IReadOnlyList<ReportableException>> exceptionsAndWarnings = default;
             Optional<DateTimeOffset> lastStorageUpdate = default;
+            Optional<MySqlBinlogPositionOutput> sourceBinlogPosition = default;
             Optional<string> id = default;
             string resultType = default;
             foreach (var property in element.EnumerateObject())
             {
+                if (property.NameEquals("migrationType"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    migrationType = new MigrateMySqlAzureDBForMySqlOfflineTaskOutputMigrationLevelMigrationType(property.Value.GetString());
+                    continue;
+                }
                 if (property.NameEquals("startedOn"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -147,6 +158,15 @@ namespace Azure.ResourceManager.DataMigration.Models
                     lastStorageUpdate = property.Value.GetDateTimeOffset("O");
                     continue;
                 }
+                if (property.NameEquals("sourceBinlogPosition"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    sourceBinlogPosition = MySqlBinlogPositionOutput.DeserializeMySqlBinlogPositionOutput(property.Value);
+                    continue;
+                }
                 if (property.NameEquals("id"u8))
                 {
                     id = property.Value.GetString();
@@ -158,7 +178,7 @@ namespace Azure.ResourceManager.DataMigration.Models
                     continue;
                 }
             }
-            return new MigrateMySqlAzureDBForMySqlOfflineTaskOutputMigrationLevel(id.Value, resultType, Optional.ToNullable(startedOn), Optional.ToNullable(endedOn), Optional.ToNullable(durationInSeconds), Optional.ToNullable(status), statusMessage.Value, message.Value, databases.Value, databaseSummary.Value, migrationReportResult.Value, sourceServerVersion.Value, sourceServerBrandVersion.Value, targetServerVersion.Value, targetServerBrandVersion.Value, Optional.ToList(exceptionsAndWarnings), Optional.ToNullable(lastStorageUpdate));
+            return new MigrateMySqlAzureDBForMySqlOfflineTaskOutputMigrationLevel(id.Value, resultType, Optional.ToNullable(migrationType), Optional.ToNullable(startedOn), Optional.ToNullable(endedOn), Optional.ToNullable(durationInSeconds), Optional.ToNullable(status), statusMessage.Value, message.Value, databases.Value, databaseSummary.Value, migrationReportResult.Value, sourceServerVersion.Value, sourceServerBrandVersion.Value, targetServerVersion.Value, targetServerBrandVersion.Value, Optional.ToList(exceptionsAndWarnings), Optional.ToNullable(lastStorageUpdate), sourceBinlogPosition.Value);
         }
     }
 }

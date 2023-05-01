@@ -29,7 +29,6 @@ namespace Azure.ResourceManager.DataMigration.Models
             SourceConnectionInfo = sourceConnectionInfo;
             TargetConnectionInfo = targetConnectionInfo;
             SelectedDatabases = selectedDatabases.ToList();
-            OptionalAgentSettings = new ChangeTrackingDictionary<string, string>();
         }
 
         /// <summary> Initializes a new instance of MigrateMySqlAzureDBForMySqlOfflineTaskInput. </summary>
@@ -38,16 +37,32 @@ namespace Azure.ResourceManager.DataMigration.Models
         /// <param name="selectedDatabases"> Databases to migrate. </param>
         /// <param name="makeSourceServerReadOnly"> Setting to set the source server read only. </param>
         /// <param name="startedOn"> Parameter to specify when the migration started. </param>
-        /// <param name="optionalAgentSettings"> Optional parameters for fine tuning the data transfer rate during migration. </param>
+        /// <param name="sourceServerResourceId"> Optional resource Id of the source server if it is an azure instance. </param>
+        /// <param name="targetServerResourceId"> Optional resource Id of the target server. </param>
+        /// <param name="optionalAgentSettings"> Optional parameters for fine tuning the data migration. </param>
+        /// <param name="migrateAllViews"> If true, all view definitions will be migrated in the selected databases. </param>
+        /// <param name="migrateAllTriggers"> If true, all trigger definitions will be migrated in the selected databases. </param>
+        /// <param name="migrateAllEvents"> If true, all event definitions will be migrated in the selected databases. </param>
+        /// <param name="migrateAllRoutines"> If true, all routine definitions will be migrated in the selected databases. </param>
+        /// <param name="migrateAllTablesSchema"> If true, all table&apos;s schemas will be migrated. </param>
+        /// <param name="migrateUserSystemTables"> If true, all users/grants will be migrated. </param>
         /// <param name="encryptedKeyForSecureFields"> encrypted key for secure fields. </param>
-        internal MigrateMySqlAzureDBForMySqlOfflineTaskInput(MySqlConnectionInfo sourceConnectionInfo, MySqlConnectionInfo targetConnectionInfo, IList<MigrateMySqlAzureDBForMySqlOfflineDatabaseInput> selectedDatabases, bool? makeSourceServerReadOnly, DateTimeOffset? startedOn, IDictionary<string, string> optionalAgentSettings, string encryptedKeyForSecureFields)
+        internal MigrateMySqlAzureDBForMySqlOfflineTaskInput(MySqlConnectionInfo sourceConnectionInfo, MySqlConnectionInfo targetConnectionInfo, IList<MigrateMySqlAzureDBForMySqlOfflineDatabaseInput> selectedDatabases, bool? makeSourceServerReadOnly, DateTimeOffset? startedOn, string sourceServerResourceId, string targetServerResourceId, MigrateMySqlAzureDBForMySqlOfflineTaskInputOptionalAgentSettings optionalAgentSettings, bool? migrateAllViews, bool? migrateAllTriggers, bool? migrateAllEvents, bool? migrateAllRoutines, bool? migrateAllTablesSchema, bool? migrateUserSystemTables, string encryptedKeyForSecureFields)
         {
             SourceConnectionInfo = sourceConnectionInfo;
             TargetConnectionInfo = targetConnectionInfo;
             SelectedDatabases = selectedDatabases;
             MakeSourceServerReadOnly = makeSourceServerReadOnly;
             StartedOn = startedOn;
+            SourceServerResourceId = sourceServerResourceId;
+            TargetServerResourceId = targetServerResourceId;
             OptionalAgentSettings = optionalAgentSettings;
+            MigrateAllViews = migrateAllViews;
+            MigrateAllTriggers = migrateAllTriggers;
+            MigrateAllEvents = migrateAllEvents;
+            MigrateAllRoutines = migrateAllRoutines;
+            MigrateAllTablesSchema = migrateAllTablesSchema;
+            MigrateUserSystemTables = migrateUserSystemTables;
             EncryptedKeyForSecureFields = encryptedKeyForSecureFields;
         }
 
@@ -61,8 +76,24 @@ namespace Azure.ResourceManager.DataMigration.Models
         public bool? MakeSourceServerReadOnly { get; set; }
         /// <summary> Parameter to specify when the migration started. </summary>
         public DateTimeOffset? StartedOn { get; set; }
-        /// <summary> Optional parameters for fine tuning the data transfer rate during migration. </summary>
-        public IDictionary<string, string> OptionalAgentSettings { get; }
+        /// <summary> Optional resource Id of the source server if it is an azure instance. </summary>
+        public string SourceServerResourceId { get; set; }
+        /// <summary> Optional resource Id of the target server. </summary>
+        public string TargetServerResourceId { get; set; }
+        /// <summary> Optional parameters for fine tuning the data migration. </summary>
+        public MigrateMySqlAzureDBForMySqlOfflineTaskInputOptionalAgentSettings OptionalAgentSettings { get; set; }
+        /// <summary> If true, all view definitions will be migrated in the selected databases. </summary>
+        public bool? MigrateAllViews { get; set; }
+        /// <summary> If true, all trigger definitions will be migrated in the selected databases. </summary>
+        public bool? MigrateAllTriggers { get; set; }
+        /// <summary> If true, all event definitions will be migrated in the selected databases. </summary>
+        public bool? MigrateAllEvents { get; set; }
+        /// <summary> If true, all routine definitions will be migrated in the selected databases. </summary>
+        public bool? MigrateAllRoutines { get; set; }
+        /// <summary> If true, all table&apos;s schemas will be migrated. </summary>
+        public bool? MigrateAllTablesSchema { get; set; }
+        /// <summary> If true, all users/grants will be migrated. </summary>
+        public bool? MigrateUserSystemTables { get; set; }
         /// <summary> encrypted key for secure fields. </summary>
         public string EncryptedKeyForSecureFields { get; set; }
     }

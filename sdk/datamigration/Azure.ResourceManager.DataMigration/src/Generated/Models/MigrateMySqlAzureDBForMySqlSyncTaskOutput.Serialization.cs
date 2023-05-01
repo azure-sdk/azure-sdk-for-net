@@ -24,7 +24,7 @@ namespace Azure.ResourceManager.DataMigration.Models
                     case "DatabaseLevelErrorOutput": return MigrateMySqlAzureDBForMySqlSyncTaskOutputDatabaseError.DeserializeMigrateMySqlAzureDBForMySqlSyncTaskOutputDatabaseError(element);
                     case "DatabaseLevelOutput": return MigrateMySqlAzureDBForMySqlSyncTaskOutputDatabaseLevel.DeserializeMigrateMySqlAzureDBForMySqlSyncTaskOutputDatabaseLevel(element);
                     case "ErrorOutput": return MigrateMySqlAzureDBForMySqlSyncTaskOutputError.DeserializeMigrateMySqlAzureDBForMySqlSyncTaskOutputError(element);
-                    case "MigrationLevelOutput": return MigrateMySqlAzureDBForMySqlSyncTaskOutputMigrationLevel.DeserializeMigrateMySqlAzureDBForMySqlSyncTaskOutputMigrationLevel(element);
+                    case "MigrationLevelOutput": return MigrateMySqlAzureDBForMySqlSyncTaskOutputMigrationLevelV2.DeserializeMigrateMySqlAzureDBForMySqlSyncTaskOutputMigrationLevelV2(element);
                     case "TableLevelOutput": return MigrateMySqlAzureDBForMySqlSyncTaskOutputTableLevel.DeserializeMigrateMySqlAzureDBForMySqlSyncTaskOutputTableLevel(element);
                 }
             }
