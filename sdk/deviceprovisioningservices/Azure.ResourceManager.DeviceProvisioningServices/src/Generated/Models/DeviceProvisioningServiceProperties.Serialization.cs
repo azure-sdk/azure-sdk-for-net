@@ -77,10 +77,20 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Models
                 }
                 writer.WriteEndArray();
             }
-            if (Optional.IsDefined(IsDataResidencyEnabled))
+            if (Optional.IsDefined(EnableCustomerInitiatedFailover))
             {
-                writer.WritePropertyName("enableDataResidency"u8);
-                writer.WriteBooleanValue(IsDataResidencyEnabled.Value);
+                writer.WritePropertyName("enableCustomerInitiatedFailover"u8);
+                writer.WriteBooleanValue(EnableCustomerInitiatedFailover.Value);
+            }
+            if (Optional.IsDefined(DpsFailoverDescription))
+            {
+                writer.WritePropertyName("dpsFailoverDescription"u8);
+                writer.WriteObjectValue(DpsFailoverDescription);
+            }
+            if (Optional.IsDefined(PortalOperationsHostName))
+            {
+                writer.WritePropertyName("portalOperationsHostName"u8);
+                writer.WriteStringValue(PortalOperationsHostName);
             }
             writer.WriteEndObject();
         }
@@ -102,7 +112,9 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Models
             Optional<string> deviceProvisioningHostName = default;
             Optional<string> idScope = default;
             Optional<IList<DeviceProvisioningServicesSharedAccessKey>> authorizationPolicies = default;
-            Optional<bool> enableDataResidency = default;
+            Optional<bool> enableCustomerInitiatedFailover = default;
+            Optional<IotDpsPropertiesDescriptionDpsFailoverDescription> dpsFailoverDescription = default;
+            Optional<string> portalOperationsHostName = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("state"u8))
@@ -208,17 +220,31 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Models
                     authorizationPolicies = array;
                     continue;
                 }
-                if (property.NameEquals("enableDataResidency"u8))
+                if (property.NameEquals("enableCustomerInitiatedFailover"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    enableDataResidency = property.Value.GetBoolean();
+                    enableCustomerInitiatedFailover = property.Value.GetBoolean();
+                    continue;
+                }
+                if (property.NameEquals("dpsFailoverDescription"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    dpsFailoverDescription = IotDpsPropertiesDescriptionDpsFailoverDescription.DeserializeIotDpsPropertiesDescriptionDpsFailoverDescription(property.Value);
+                    continue;
+                }
+                if (property.NameEquals("portalOperationsHostName"u8))
+                {
+                    portalOperationsHostName = property.Value.GetString();
                     continue;
                 }
             }
-            return new DeviceProvisioningServiceProperties(Optional.ToNullable(state), Optional.ToNullable(publicNetworkAccess), Optional.ToList(ipFilterRules), Optional.ToList(privateEndpointConnections), provisioningState.Value, Optional.ToList(iotHubs), Optional.ToNullable(allocationPolicy), serviceOperationsHostName.Value, deviceProvisioningHostName.Value, idScope.Value, Optional.ToList(authorizationPolicies), Optional.ToNullable(enableDataResidency));
+            return new DeviceProvisioningServiceProperties(Optional.ToNullable(state), Optional.ToNullable(publicNetworkAccess), Optional.ToList(ipFilterRules), Optional.ToList(privateEndpointConnections), provisioningState.Value, Optional.ToList(iotHubs), Optional.ToNullable(allocationPolicy), serviceOperationsHostName.Value, deviceProvisioningHostName.Value, idScope.Value, Optional.ToList(authorizationPolicies), Optional.ToNullable(enableCustomerInitiatedFailover), dpsFailoverDescription.Value, portalOperationsHostName.Value);
         }
     }
 }

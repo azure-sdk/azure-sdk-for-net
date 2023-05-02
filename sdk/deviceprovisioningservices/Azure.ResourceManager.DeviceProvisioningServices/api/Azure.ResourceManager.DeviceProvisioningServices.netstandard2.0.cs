@@ -19,8 +19,11 @@ namespace Azure.ResourceManager.DeviceProvisioningServices
     {
         public DeviceProvisioningServiceData(Azure.Core.AzureLocation location, Azure.ResourceManager.DeviceProvisioningServices.Models.DeviceProvisioningServiceProperties properties, Azure.ResourceManager.DeviceProvisioningServices.Models.DeviceProvisioningServicesSkuInfo sku) : base (default(Azure.Core.AzureLocation)) { }
         public Azure.ETag? ETag { get { throw null; } set { } }
+        public Azure.ResourceManager.Models.ManagedServiceIdentity Identity { get { throw null; } set { } }
         public Azure.ResourceManager.DeviceProvisioningServices.Models.DeviceProvisioningServiceProperties Properties { get { throw null; } set { } }
+        public string Resourcegroup { get { throw null; } set { } }
         public Azure.ResourceManager.DeviceProvisioningServices.Models.DeviceProvisioningServicesSkuInfo Sku { get { throw null; } set { } }
+        public string Subscriptionid { get { throw null; } set { } }
     }
     public partial class DeviceProvisioningServiceResource : Azure.ResourceManager.ArmResource
     {
@@ -33,6 +36,8 @@ namespace Azure.ResourceManager.DeviceProvisioningServices
         public static Azure.Core.ResourceIdentifier CreateResourceIdentifier(string subscriptionId, string resourceGroupName, string provisioningServiceName) { throw null; }
         public virtual Azure.ResourceManager.ArmOperation Delete(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation> DeleteAsync(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response Failover(Azure.ResourceManager.DeviceProvisioningServices.Models.CustomerInitiatedFailoverContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response> FailoverAsync(Azure.ResourceManager.DeviceProvisioningServices.Models.CustomerInitiatedFailoverContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.DeviceProvisioningServices.DeviceProvisioningServiceResource> Get(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.DeviceProvisioningServices.DeviceProvisioningServiceResource>> GetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.DeviceProvisioningServices.DeviceProvisioningServicesCertificateResource> GetDeviceProvisioningServicesCertificate(string certificateName, string ifMatch = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
@@ -204,6 +209,11 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Models
         public Azure.ETag? ETag { get { throw null; } }
         public Azure.ResourceManager.DeviceProvisioningServices.Models.CertificateVerificationCodeProperties Properties { get { throw null; } }
     }
+    public partial class CustomerInitiatedFailoverContent
+    {
+        public CustomerInitiatedFailoverContent(string failoverRegion) { }
+        public string FailoverRegion { get { throw null; } }
+    }
     public partial class DeviceProvisioningServicePatch
     {
         public DeviceProvisioningServicePatch() { }
@@ -215,10 +225,12 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Models
         public Azure.ResourceManager.DeviceProvisioningServices.Models.DeviceProvisioningServicesAllocationPolicy? AllocationPolicy { get { throw null; } set { } }
         public System.Collections.Generic.IList<Azure.ResourceManager.DeviceProvisioningServices.Models.DeviceProvisioningServicesSharedAccessKey> AuthorizationPolicies { get { throw null; } }
         public string DeviceProvisioningHostName { get { throw null; } }
+        public string DpsFailoverRegion { get { throw null; } set { } }
+        public bool? EnableCustomerInitiatedFailover { get { throw null; } set { } }
         public string IdScope { get { throw null; } }
         public System.Collections.Generic.IList<Azure.ResourceManager.DeviceProvisioningServices.Models.IotHubDefinitionDescription> IotHubs { get { throw null; } }
         public System.Collections.Generic.IList<Azure.ResourceManager.DeviceProvisioningServices.Models.DeviceProvisioningServicesIPFilterRule> IPFilterRules { get { throw null; } }
-        public bool? IsDataResidencyEnabled { get { throw null; } set { } }
+        public string PortalOperationsHostName { get { throw null; } set { } }
         public System.Collections.Generic.IList<Azure.ResourceManager.DeviceProvisioningServices.DeviceProvisioningServicesPrivateEndpointConnectionData> PrivateEndpointConnections { get { throw null; } }
         public string ProvisioningState { get { throw null; } set { } }
         public Azure.ResourceManager.DeviceProvisioningServices.Models.DeviceProvisioningServicesPublicNetworkAccess? PublicNetworkAccess { get { throw null; } set { } }

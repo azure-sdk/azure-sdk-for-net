@@ -34,7 +34,7 @@ namespace Azure.ResourceManager.DeviceProvisioningServices
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2022-02-05";
+            _apiVersion = apiVersion ?? "2023-04-13-preview";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
@@ -801,6 +801,83 @@ namespace Azure.ResourceManager.DeviceProvisioningServices
                         value = DeviceProvisioningServicesSharedAccessKey.DeserializeDeviceProvisioningServicesSharedAccessKey(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        internal HttpMessage CreateFailoverRequest(string subscriptionId, string resourceGroupName, string provisioningServiceName, CustomerInitiatedFailoverContent content)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Post;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/subscriptions/", false);
+            uri.AppendPath(subscriptionId, true);
+            uri.AppendPath("/resourceGroups/", false);
+            uri.AppendPath(resourceGroupName, true);
+            uri.AppendPath("/providers/Microsoft.Devices/provisioningServices/", false);
+            uri.AppendPath(provisioningServiceName, true);
+            uri.AppendPath("/failover", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            request.Headers.Add("Content-Type", "application/json");
+            var content0 = new Utf8JsonRequestContent();
+            content0.JsonWriter.WriteObjectValue(content);
+            request.Content = content0;
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> Start Customer Initiated Failover for the given provisioning service. </summary>
+        /// <param name="subscriptionId"> The subscription identifier. </param>
+        /// <param name="resourceGroupName"> The name of the resource group that contains the provisioning service. </param>
+        /// <param name="provisioningServiceName"> The provisioning service name to start customer initiated failover. </param>
+        /// <param name="content"> Failover description. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="provisioningServiceName"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="provisioningServiceName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response> FailoverAsync(string subscriptionId, string resourceGroupName, string provisioningServiceName, CustomerInitiatedFailoverContent content, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(provisioningServiceName, nameof(provisioningServiceName));
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var message = CreateFailoverRequest(subscriptionId, resourceGroupName, provisioningServiceName, content);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 202:
+                    return message.Response;
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> Start Customer Initiated Failover for the given provisioning service. </summary>
+        /// <param name="subscriptionId"> The subscription identifier. </param>
+        /// <param name="resourceGroupName"> The name of the resource group that contains the provisioning service. </param>
+        /// <param name="provisioningServiceName"> The provisioning service name to start customer initiated failover. </param>
+        /// <param name="content"> Failover description. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="provisioningServiceName"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="provisioningServiceName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response Failover(string subscriptionId, string resourceGroupName, string provisioningServiceName, CustomerInitiatedFailoverContent content, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(provisioningServiceName, nameof(provisioningServiceName));
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var message = CreateFailoverRequest(subscriptionId, resourceGroupName, provisioningServiceName, content);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 202:
+                    return message.Response;
                 default:
                     throw new RequestFailedException(message.Response);
             }

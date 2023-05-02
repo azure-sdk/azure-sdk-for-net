@@ -35,11 +35,10 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Models
         /// <param name="deviceProvisioningHostName"> Device endpoint for this provisioning service. </param>
         /// <param name="idScope"> Unique identifier of this provisioning service. </param>
         /// <param name="authorizationPolicies"> List of authorization keys for a provisioning service. </param>
-        /// <param name="isDataResidencyEnabled">
-        /// Optional.
-        /// Indicates if the DPS instance has Data Residency enabled, removing the cross geo-pair disaster recovery.
-        /// </param>
-        internal DeviceProvisioningServiceProperties(DeviceProvisioningServicesState? state, DeviceProvisioningServicesPublicNetworkAccess? publicNetworkAccess, IList<DeviceProvisioningServicesIPFilterRule> ipFilterRules, IList<DeviceProvisioningServicesPrivateEndpointConnectionData> privateEndpointConnections, string provisioningState, IList<IotHubDefinitionDescription> iotHubs, DeviceProvisioningServicesAllocationPolicy? allocationPolicy, string serviceOperationsHostName, string deviceProvisioningHostName, string idScope, IList<DeviceProvisioningServicesSharedAccessKey> authorizationPolicies, bool? isDataResidencyEnabled)
+        /// <param name="enableCustomerInitiatedFailover"> Indicates if the DPS instance has Customer Enabled Failover enabled. </param>
+        /// <param name="dpsFailoverDescription"> The DPS failover input. </param>
+        /// <param name="portalOperationsHostName"> Portal endpoint to enable CORS for this provisioning service. </param>
+        internal DeviceProvisioningServiceProperties(DeviceProvisioningServicesState? state, DeviceProvisioningServicesPublicNetworkAccess? publicNetworkAccess, IList<DeviceProvisioningServicesIPFilterRule> ipFilterRules, IList<DeviceProvisioningServicesPrivateEndpointConnectionData> privateEndpointConnections, string provisioningState, IList<IotHubDefinitionDescription> iotHubs, DeviceProvisioningServicesAllocationPolicy? allocationPolicy, string serviceOperationsHostName, string deviceProvisioningHostName, string idScope, IList<DeviceProvisioningServicesSharedAccessKey> authorizationPolicies, bool? enableCustomerInitiatedFailover, IotDpsPropertiesDescriptionDpsFailoverDescription dpsFailoverDescription, string portalOperationsHostName)
         {
             State = state;
             PublicNetworkAccess = publicNetworkAccess;
@@ -52,7 +51,9 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Models
             DeviceProvisioningHostName = deviceProvisioningHostName;
             IdScope = idScope;
             AuthorizationPolicies = authorizationPolicies;
-            IsDataResidencyEnabled = isDataResidencyEnabled;
+            EnableCustomerInitiatedFailover = enableCustomerInitiatedFailover;
+            DpsFailoverDescription = dpsFailoverDescription;
+            PortalOperationsHostName = portalOperationsHostName;
         }
 
         /// <summary> Current state of the provisioning service. </summary>
@@ -77,10 +78,18 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Models
         public string IdScope { get; }
         /// <summary> List of authorization keys for a provisioning service. </summary>
         public IList<DeviceProvisioningServicesSharedAccessKey> AuthorizationPolicies { get; }
-        /// <summary>
-        /// Optional.
-        /// Indicates if the DPS instance has Data Residency enabled, removing the cross geo-pair disaster recovery.
-        /// </summary>
-        public bool? IsDataResidencyEnabled { get; set; }
+        /// <summary> Indicates if the DPS instance has Customer Enabled Failover enabled. </summary>
+        public bool? EnableCustomerInitiatedFailover { get; set; }
+        /// <summary> The DPS failover input. </summary>
+        internal IotDpsPropertiesDescriptionDpsFailoverDescription DpsFailoverDescription { get; set; }
+        /// <summary> Region that failover is porting to. </summary>
+        public string DpsFailoverRegion
+        {
+            get => DpsFailoverDescription is null ? default : DpsFailoverDescription.FailoverRegion;
+            set => DpsFailoverDescription = new IotDpsPropertiesDescriptionDpsFailoverDescription(value);
+        }
+
+        /// <summary> Portal endpoint to enable CORS for this provisioning service. </summary>
+        public string PortalOperationsHostName { get; set; }
     }
 }
