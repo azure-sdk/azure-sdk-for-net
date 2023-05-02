@@ -11,7 +11,7 @@ using Azure.Core;
 namespace Azure.ResourceManager.Compute.Models
 {
     /// <summary> Describes a virtual machines network configuration&apos;s DNS settings. </summary>
-    internal partial class VirtualMachinePublicIPAddressDnsSettingsConfiguration
+    public partial class VirtualMachinePublicIPAddressDnsSettingsConfiguration
     {
         /// <summary> Initializes a new instance of VirtualMachinePublicIPAddressDnsSettingsConfiguration. </summary>
         /// <param name="domainNameLabel"> The Domain name label prefix of the PublicIPAddress resources that will be created. The generated name label is the concatenation of the domain name label and vm network profile unique ID. </param>
@@ -23,7 +23,18 @@ namespace Azure.ResourceManager.Compute.Models
             DomainNameLabel = domainNameLabel;
         }
 
+        /// <summary> Initializes a new instance of VirtualMachinePublicIPAddressDnsSettingsConfiguration. </summary>
+        /// <param name="domainNameLabel"> The Domain name label prefix of the PublicIPAddress resources that will be created. The generated name label is the concatenation of the domain name label and vm network profile unique ID. </param>
+        /// <param name="domainNameLabelScope"> The domain name label scope. If a domain name label and a domain name label scope are specified, an A DNS record is created for the public IP in the Microsoft Azure DNS system with a hashed value includes in FQDN. </param>
+        internal VirtualMachinePublicIPAddressDnsSettingsConfiguration(string domainNameLabel, PublicIPAddressDnsSettingsDomainNameLabelScope? domainNameLabelScope)
+        {
+            DomainNameLabel = domainNameLabel;
+            DomainNameLabelScope = domainNameLabelScope;
+        }
+
         /// <summary> The Domain name label prefix of the PublicIPAddress resources that will be created. The generated name label is the concatenation of the domain name label and vm network profile unique ID. </summary>
         public string DomainNameLabel { get; set; }
+        /// <summary> The domain name label scope. If a domain name label and a domain name label scope are specified, an A DNS record is created for the public IP in the Microsoft Azure DNS system with a hashed value includes in FQDN. </summary>
+        public PublicIPAddressDnsSettingsDomainNameLabelScope? DomainNameLabelScope { get; set; }
     }
 }
