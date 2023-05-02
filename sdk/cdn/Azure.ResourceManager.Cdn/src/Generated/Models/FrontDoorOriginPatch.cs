@@ -40,7 +40,7 @@ namespace Azure.ResourceManager.Cdn.Models
         public int? HttpPort { get; set; }
         /// <summary> The value of the HTTPS port. Must be between 1 and 65535. </summary>
         public int? HttpsPort { get; set; }
-        /// <summary> The host header value sent to the origin with each request. If you leave this blank, the request hostname determines this value. Azure CDN origins, such as Web Apps, Blob Storage, and Cloud Services require this host header value to match the origin hostname by default. This overrides the host header defined at Endpoint. </summary>
+        /// <summary> The host header value sent to the origin with each request. If you leave this blank, the request hostname determines this value. Azure Front Door origins, such as Web Apps, Blob Storage, and Cloud Services require this host header value to match the origin hostname by default. This overrides the host header defined at Endpoint. </summary>
         public string OriginHostHeader { get; set; }
         /// <summary> Priority of origin in given origin group for load balancing. Higher priorities will not be used for load balancing if any lower priority origin is healthy.Must be between 1 and 5. </summary>
         public int? Priority { get; set; }
