@@ -2060,12 +2060,21 @@ namespace Azure.Messaging.EventGrid
         /// <param name="sender"> The Sender Email Address. </param>
         /// <param name="recipient"> The recipient Email Address. </param>
         /// <param name="messageId"> The Id of the email been sent. </param>
-        /// <param name="status"> The status of the email. </param>
+        /// <param name="status"> The status of the email. Any value other than Delivered is considered failed. </param>
+        /// <param name="deliveryStatusDetails"> Detailed information about the status if any. </param>
         /// <param name="deliveryAttemptTimestamp"> The time at which the email delivery report received timestamp. </param>
         /// <returns> A new <see cref="SystemEvents.AcsEmailDeliveryReportReceivedEventData"/> instance for mocking. </returns>
-        public static AcsEmailDeliveryReportReceivedEventData AcsEmailDeliveryReportReceivedEventData(string sender = null, string recipient = null, string messageId = null, AcsEmailDeliveryReportStatus? status = null, DateTimeOffset? deliveryAttemptTimestamp = null)
+        public static AcsEmailDeliveryReportReceivedEventData AcsEmailDeliveryReportReceivedEventData(string sender = null, string recipient = null, string messageId = null, AcsEmailDeliveryReportStatus? status = null, AcsEmailDeliveryReportStatusDetails deliveryStatusDetails = null, DateTimeOffset? deliveryAttemptTimestamp = null)
         {
-            return new AcsEmailDeliveryReportReceivedEventData(sender, recipient, messageId, status, deliveryAttemptTimestamp);
+            return new AcsEmailDeliveryReportReceivedEventData(sender, recipient, messageId, status, deliveryStatusDetails, deliveryAttemptTimestamp);
+        }
+
+        /// <summary> Initializes a new instance of AcsEmailDeliveryReportStatusDetails. </summary>
+        /// <param name="statusMessage"> Detailed status message. </param>
+        /// <returns> A new <see cref="SystemEvents.AcsEmailDeliveryReportStatusDetails"/> instance for mocking. </returns>
+        public static AcsEmailDeliveryReportStatusDetails AcsEmailDeliveryReportStatusDetails(string statusMessage = null)
+        {
+            return new AcsEmailDeliveryReportStatusDetails(statusMessage);
         }
 
         /// <summary> Initializes a new instance of AcsEmailEngagementTrackingReportReceivedEventData. </summary>
