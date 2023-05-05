@@ -5,7 +5,6 @@
 
 #nullable disable
 
-using System;
 using System.Text.Json;
 using Azure.Core;
 using Azure.ResourceManager.HybridConnectivity.Models;
@@ -18,52 +17,11 @@ namespace Azure.ResourceManager.HybridConnectivity
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
-            writer.WritePropertyName("properties"u8);
-            writer.WriteStartObject();
-            if (Optional.IsDefined(EndpointType))
+            if (Optional.IsDefined(Properties))
             {
-                writer.WritePropertyName("type"u8);
-                writer.WriteStringValue(EndpointType.Value.ToString());
+                writer.WritePropertyName("properties"u8);
+                writer.WriteObjectValue(Properties);
             }
-            if (Optional.IsDefined(ResourceId))
-            {
-                writer.WritePropertyName("resourceId"u8);
-                writer.WriteStringValue(ResourceId);
-            }
-            writer.WriteEndObject();
-            writer.WritePropertyName("systemData"u8);
-            writer.WriteStartObject();
-            if (Optional.IsDefined(CreatedBy))
-            {
-                writer.WritePropertyName("createdBy"u8);
-                writer.WriteStringValue(CreatedBy);
-            }
-            if (Optional.IsDefined(CreatedByType))
-            {
-                writer.WritePropertyName("createdByType"u8);
-                writer.WriteStringValue(CreatedByType.Value.ToString());
-            }
-            if (Optional.IsDefined(CreatedOn))
-            {
-                writer.WritePropertyName("createdAt"u8);
-                writer.WriteStringValue(CreatedOn.Value, "O");
-            }
-            if (Optional.IsDefined(LastModifiedBy))
-            {
-                writer.WritePropertyName("lastModifiedBy"u8);
-                writer.WriteStringValue(LastModifiedBy);
-            }
-            if (Optional.IsDefined(LastModifiedByType))
-            {
-                writer.WritePropertyName("lastModifiedByType"u8);
-                writer.WriteStringValue(LastModifiedByType.Value.ToString());
-            }
-            if (Optional.IsDefined(LastModifiedOn))
-            {
-                writer.WritePropertyName("lastModifiedAt"u8);
-                writer.WriteStringValue(LastModifiedOn.Value, "O");
-            }
-            writer.WriteEndObject();
             writer.WriteEndObject();
         }
 
@@ -73,21 +31,22 @@ namespace Azure.ResourceManager.HybridConnectivity
             {
                 return null;
             }
+            Optional<EndpointProperties> properties = default;
             ResourceIdentifier id = default;
             string name = default;
             ResourceType type = default;
             Optional<SystemData> systemData = default;
-            Optional<EndpointType> type0 = default;
-            Optional<string> resourceId = default;
-            Optional<string> provisioningState = default;
-            Optional<string> createdBy = default;
-            Optional<Models.CreatedByType> createdByType = default;
-            Optional<DateTimeOffset> createdAt = default;
-            Optional<string> lastModifiedBy = default;
-            Optional<Models.CreatedByType> lastModifiedByType = default;
-            Optional<DateTimeOffset> lastModifiedAt = default;
             foreach (var property in element.EnumerateObject())
             {
+                if (property.NameEquals("properties"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    properties = EndpointProperties.DeserializeEndpointProperties(property.Value);
+                    continue;
+                }
                 if (property.NameEquals("id"u8))
                 {
                     id = new ResourceIdentifier(property.Value.GetString());
@@ -112,97 +71,8 @@ namespace Azure.ResourceManager.HybridConnectivity
                     systemData = JsonSerializer.Deserialize<SystemData>(property.Value.GetRawText());
                     continue;
                 }
-                if (property.NameEquals("properties"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
-                    foreach (var property0 in property.Value.EnumerateObject())
-                    {
-                        if (property0.NameEquals("type"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            type0 = new EndpointType(property0.Value.GetString());
-                            continue;
-                        }
-                        if (property0.NameEquals("resourceId"u8))
-                        {
-                            resourceId = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("provisioningState"u8))
-                        {
-                            provisioningState = property0.Value.GetString();
-                            continue;
-                        }
-                    }
-                    continue;
-                }
-                if (property.NameEquals("systemData"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
-                    foreach (var property0 in property.Value.EnumerateObject())
-                    {
-                        if (property0.NameEquals("createdBy"u8))
-                        {
-                            createdBy = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("createdByType"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            createdByType = new Models.CreatedByType(property0.Value.GetString());
-                            continue;
-                        }
-                        if (property0.NameEquals("createdAt"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            createdAt = property0.Value.GetDateTimeOffset("O");
-                            continue;
-                        }
-                        if (property0.NameEquals("lastModifiedBy"u8))
-                        {
-                            lastModifiedBy = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("lastModifiedByType"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            lastModifiedByType = new Models.CreatedByType(property0.Value.GetString());
-                            continue;
-                        }
-                        if (property0.NameEquals("lastModifiedAt"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            lastModifiedAt = property0.Value.GetDateTimeOffset("O");
-                            continue;
-                        }
-                    }
-                    continue;
-                }
             }
-            return new EndpointResourceData(id, name, type, systemData.Value, Optional.ToNullable(type0), resourceId.Value, provisioningState.Value, createdBy.Value, Optional.ToNullable(createdByType), Optional.ToNullable(createdAt), lastModifiedBy.Value, Optional.ToNullable(lastModifiedByType), Optional.ToNullable(lastModifiedAt));
+            return new EndpointResourceData(id, name, type, systemData.Value, properties.Value);
         }
     }
 }
