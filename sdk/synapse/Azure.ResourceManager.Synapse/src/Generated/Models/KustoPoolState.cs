@@ -31,6 +31,7 @@ namespace Azure.ResourceManager.Synapse.Models
         private const string StoppedValue = "Stopped";
         private const string StartingValue = "Starting";
         private const string UpdatingValue = "Updating";
+        private const string MigratedValue = "Migrated";
 
         /// <summary> Creating. </summary>
         public static KustoPoolState Creating { get; } = new KustoPoolState(CreatingValue);
@@ -50,6 +51,8 @@ namespace Azure.ResourceManager.Synapse.Models
         public static KustoPoolState Starting { get; } = new KustoPoolState(StartingValue);
         /// <summary> Updating. </summary>
         public static KustoPoolState Updating { get; } = new KustoPoolState(UpdatingValue);
+        /// <summary> Migrated. </summary>
+        public static KustoPoolState Migrated { get; } = new KustoPoolState(MigratedValue);
         /// <summary> Determines if two <see cref="KustoPoolState"/> values are the same. </summary>
         public static bool operator ==(KustoPoolState left, KustoPoolState right) => left.Equals(right);
         /// <summary> Determines if two <see cref="KustoPoolState"/> values are not the same. </summary>

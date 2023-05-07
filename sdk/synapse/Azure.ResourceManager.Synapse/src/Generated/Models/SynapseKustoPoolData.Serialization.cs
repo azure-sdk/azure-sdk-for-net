@@ -85,6 +85,7 @@ namespace Azure.ResourceManager.Synapse
             Optional<bool> enablePurge = default;
             Optional<SynapseLanguageExtensionsList> languageExtensions = default;
             Optional<Guid> workspaceUID = default;
+            Optional<MigrationClusterProperties> migrationCluster = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("sku"u8))
@@ -239,11 +240,20 @@ namespace Azure.ResourceManager.Synapse
                             workspaceUID = property0.Value.GetGuid();
                             continue;
                         }
+                        if (property0.NameEquals("migrationCluster"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            migrationCluster = MigrationClusterProperties.DeserializeMigrationClusterProperties(property0.Value);
+                            continue;
+                        }
                     }
                     continue;
                 }
             }
-            return new SynapseKustoPoolData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, sku, Optional.ToNullable(etag), Optional.ToNullable(state), Optional.ToNullable(provisioningState), uri.Value, dataIngestionUri.Value, stateReason.Value, optimizedAutoscale.Value, Optional.ToNullable(enableStreamingIngest), Optional.ToNullable(enablePurge), languageExtensions.Value, Optional.ToNullable(workspaceUID));
+            return new SynapseKustoPoolData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, sku, Optional.ToNullable(etag), Optional.ToNullable(state), Optional.ToNullable(provisioningState), uri.Value, dataIngestionUri.Value, stateReason.Value, optimizedAutoscale.Value, Optional.ToNullable(enableStreamingIngest), Optional.ToNullable(enablePurge), languageExtensions.Value, Optional.ToNullable(workspaceUID), migrationCluster.Value);
         }
     }
 }

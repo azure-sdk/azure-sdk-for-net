@@ -50,7 +50,8 @@ namespace Azure.ResourceManager.Synapse
         /// <param name="enablePurge"> A boolean value that indicates if the purge operations are enabled. </param>
         /// <param name="languageExtensions"> List of the Kusto Pool&apos;s language extensions. </param>
         /// <param name="workspaceUid"> The workspace unique identifier. </param>
-        internal SynapseKustoPoolData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, SynapseDataSourceSku sku, ETag? etag, KustoPoolState? state, ResourceProvisioningState? provisioningState, Uri uri, Uri dataIngestionUri, string stateReason, SynapseOptimizedAutoscale optimizedAutoscale, bool? enableStreamingIngest, bool? enablePurge, SynapseLanguageExtensionsList languageExtensions, Guid? workspaceUid) : base(id, name, resourceType, systemData, tags, location)
+        /// <param name="migrationCluster"> Properties of the peer cluster involved in a migration to/from this cluster. </param>
+        internal SynapseKustoPoolData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, SynapseDataSourceSku sku, ETag? etag, KustoPoolState? state, ResourceProvisioningState? provisioningState, Uri uri, Uri dataIngestionUri, string stateReason, SynapseOptimizedAutoscale optimizedAutoscale, bool? enableStreamingIngest, bool? enablePurge, SynapseLanguageExtensionsList languageExtensions, Guid? workspaceUid, MigrationClusterProperties migrationCluster) : base(id, name, resourceType, systemData, tags, location)
         {
             Sku = sku;
             ETag = etag;
@@ -64,6 +65,7 @@ namespace Azure.ResourceManager.Synapse
             EnablePurge = enablePurge;
             LanguageExtensions = languageExtensions;
             WorkspaceUid = workspaceUid;
+            MigrationCluster = migrationCluster;
         }
 
         /// <summary> The SKU of the kusto pool. </summary>
@@ -96,5 +98,7 @@ namespace Azure.ResourceManager.Synapse
 
         /// <summary> The workspace unique identifier. </summary>
         public Guid? WorkspaceUid { get; set; }
+        /// <summary> Properties of the peer cluster involved in a migration to/from this cluster. </summary>
+        public MigrationClusterProperties MigrationCluster { get; }
     }
 }

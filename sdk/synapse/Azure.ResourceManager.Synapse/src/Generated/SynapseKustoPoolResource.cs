@@ -607,6 +607,82 @@ namespace Azure.ResourceManager.Synapse
         }
 
         /// <summary>
+        /// Migrate data from a Kusto pool to another cluster.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Synapse/workspaces/{workspaceName}/kustoPools/{kustoPoolName}/migrate</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>KustoPools_Migrate</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="content"> The kusto pool migrate request parameters. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
+        public virtual async Task<ArmOperation> MigrateAsync(WaitUntil waitUntil, KustoPoolMigrateContent content, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var scope = _synapseKustoPoolKustoPoolsClientDiagnostics.CreateScope("SynapseKustoPoolResource.Migrate");
+            scope.Start();
+            try
+            {
+                var response = await _synapseKustoPoolKustoPoolsRestClient.MigrateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, content, cancellationToken).ConfigureAwait(false);
+                var operation = new SynapseArmOperation(_synapseKustoPoolKustoPoolsClientDiagnostics, Pipeline, _synapseKustoPoolKustoPoolsRestClient.CreateMigrateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, content).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Migrate data from a Kusto pool to another cluster.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Synapse/workspaces/{workspaceName}/kustoPools/{kustoPoolName}/migrate</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>KustoPools_Migrate</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="content"> The kusto pool migrate request parameters. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
+        public virtual ArmOperation Migrate(WaitUntil waitUntil, KustoPoolMigrateContent content, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var scope = _synapseKustoPoolKustoPoolsClientDiagnostics.CreateScope("SynapseKustoPoolResource.Migrate");
+            scope.Start();
+            try
+            {
+                var response = _synapseKustoPoolKustoPoolsRestClient.Migrate(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, content, cancellationToken);
+                var operation = new SynapseArmOperation(_synapseKustoPoolKustoPoolsClientDiagnostics, Pipeline, _synapseKustoPoolKustoPoolsRestClient.CreateMigrateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, content).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletionResponse(cancellationToken);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
         /// Returns the SKUs available for the provided resource.
         /// <list type="bullet">
         /// <item>

@@ -94,7 +94,7 @@ namespace Azure.ResourceManager.Synapse
         public SynapseBigDataPoolInfoData(Azure.Core.AzureLocation location) : base (default(Azure.Core.AzureLocation)) { }
         public Azure.ResourceManager.Synapse.Models.BigDataPoolAutoPauseProperties AutoPause { get { throw null; } set { } }
         public Azure.ResourceManager.Synapse.Models.BigDataPoolAutoScaleProperties AutoScale { get { throw null; } set { } }
-        public int? CacheSize { get { throw null; } set { } }
+        public int? CacheSize { get { throw null; } }
         public System.DateTimeOffset? CreatedOn { get { throw null; } }
         public System.Collections.Generic.IList<Azure.ResourceManager.Synapse.Models.BigDataPoolLibraryInfo> CustomLibraries { get { throw null; } }
         public string DefaultSparkLogFolder { get { throw null; } set { } }
@@ -255,6 +255,8 @@ namespace Azure.ResourceManager.Synapse
         public virtual Azure.Response<Azure.ResourceManager.Synapse.SynapseDataConnectionResource> GetSynapseDataConnection(string dataConnectionName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Synapse.SynapseDataConnectionResource>> GetSynapseDataConnectionAsync(string dataConnectionName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.ResourceManager.Synapse.SynapseDataConnectionCollection GetSynapseDataConnections() { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.Synapse.Models.DatabaseInviteFollowerResult> InviteFollowerKustoPoolDatabase(Azure.ResourceManager.Synapse.Models.DatabaseInviteFollowerContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Synapse.Models.DatabaseInviteFollowerResult>> InviteFollowerKustoPoolDatabaseAsync(Azure.ResourceManager.Synapse.Models.DatabaseInviteFollowerContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Synapse.SynapseDatabaseResource> Update(Azure.WaitUntil waitUntil, Azure.ResourceManager.Synapse.SynapseDatabaseData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Synapse.SynapseDatabaseResource>> UpdateAsync(Azure.WaitUntil waitUntil, Azure.ResourceManager.Synapse.SynapseDatabaseData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Synapse.Models.SynapseDataConnectionValidationListResult> ValidateDataConnection(Azure.WaitUntil waitUntil, Azure.ResourceManager.Synapse.Models.SynapseDataConnectionValidation synapseDataConnectionValidation, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
@@ -800,6 +802,7 @@ namespace Azure.ResourceManager.Synapse
         public bool? EnableStreamingIngest { get { throw null; } set { } }
         public Azure.ETag? ETag { get { throw null; } }
         public System.Collections.Generic.IList<Azure.ResourceManager.Synapse.Models.SynapseLanguageExtension> LanguageExtensionsValue { get { throw null; } }
+        public Azure.ResourceManager.Synapse.Models.MigrationClusterProperties MigrationCluster { get { throw null; } }
         public Azure.ResourceManager.Synapse.Models.SynapseOptimizedAutoscale OptimizedAutoscale { get { throw null; } set { } }
         public Azure.ResourceManager.Synapse.Models.ResourceProvisioningState? ProvisioningState { get { throw null; } }
         public Azure.ResourceManager.Synapse.Models.SynapseDataSourceSku Sku { get { throw null; } set { } }
@@ -846,6 +849,8 @@ namespace Azure.ResourceManager.Synapse
         public virtual Azure.Response<Azure.ResourceManager.Synapse.SynapseDatabaseResource> GetSynapseDatabase(string databaseName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Synapse.SynapseDatabaseResource>> GetSynapseDatabaseAsync(string databaseName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.ResourceManager.Synapse.SynapseDatabaseCollection GetSynapseDatabases() { throw null; }
+        public virtual Azure.ResourceManager.ArmOperation Migrate(Azure.WaitUntil waitUntil, Azure.ResourceManager.Synapse.Models.KustoPoolMigrateContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation> MigrateAsync(Azure.WaitUntil waitUntil, Azure.ResourceManager.Synapse.Models.KustoPoolMigrateContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.ResourceManager.ArmOperation RemoveLanguageExtensions(Azure.WaitUntil waitUntil, Azure.ResourceManager.Synapse.Models.SynapseLanguageExtensionsList languageExtensionsToRemove, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation> RemoveLanguageExtensionsAsync(Azure.WaitUntil waitUntil, Azure.ResourceManager.Synapse.Models.SynapseLanguageExtensionsList languageExtensionsToRemove, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.Synapse.SynapseKustoPoolResource> RemoveTag(string key, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
@@ -882,7 +887,7 @@ namespace Azure.ResourceManager.Synapse
         public string Path { get { throw null; } set { } }
         public string ProvisioningStatus { get { throw null; } }
         public string TypePropertiesType { get { throw null; } set { } }
-        public System.DateTimeOffset? UploadedOn { get { throw null; } set { } }
+        public System.DateTimeOffset? UploadedOn { get { throw null; } }
     }
     public partial class SynapseLibraryResource : Azure.ResourceManager.ArmResource
     {
@@ -1381,7 +1386,7 @@ namespace Azure.ResourceManager.Synapse
     public partial class SynapseServerVulnerabilityAssessmentData : Azure.ResourceManager.Models.ResourceData
     {
         public SynapseServerVulnerabilityAssessmentData() { }
-        public Azure.ResourceManager.Synapse.Models.SynapseVulnerabilityAssessmentRecurringScansProperties RecurringScans { get { throw null; } set { } }
+        public Azure.ResourceManager.Synapse.Models.VulnerabilityAssessmentRecurringScansPropertiesAutoGenerated RecurringScans { get { throw null; } set { } }
         public string StorageAccountAccessKey { get { throw null; } set { } }
         public string StorageContainerPath { get { throw null; } set { } }
         public string StorageContainerSasKey { get { throw null; } set { } }
@@ -2003,10 +2008,10 @@ namespace Azure.ResourceManager.Synapse
     {
         public SynapseWorkspaceData(Azure.Core.AzureLocation location) : base (default(Azure.Core.AzureLocation)) { }
         public Azure.Core.ResourceIdentifier AdlaResourceId { get { throw null; } }
-        public System.Collections.Generic.IDictionary<string, string> ConnectivityEndpoints { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string> ConnectivityEndpoints { get { throw null; } }
         public Azure.ResourceManager.Synapse.Models.SynapseDataLakeStorageAccountDetails DefaultDataLakeStorage { get { throw null; } set { } }
         public Azure.ResourceManager.Synapse.Models.SynapseEncryptionDetails Encryption { get { throw null; } set { } }
-        public System.Collections.Generic.IReadOnlyDictionary<string, System.BinaryData> ExtraProperties { get { throw null; } }
+        public System.BinaryData ExtraProperties { get { throw null; } }
         public Azure.ResourceManager.Models.ManagedServiceIdentity Identity { get { throw null; } set { } }
         public System.Guid? InitialWorkspaceAdminObjectId { get { throw null; } set { } }
         public bool? IsAadOnlyAuthenticationEnabled { get { throw null; } set { } }
@@ -2190,7 +2195,7 @@ namespace Azure.ResourceManager.Synapse.Models
         public string Name { get { throw null; } set { } }
         public string Path { get { throw null; } set { } }
         public string ProvisioningStatus { get { throw null; } }
-        public System.DateTimeOffset? UploadedOn { get { throw null; } set { } }
+        public System.DateTimeOffset? UploadedOn { get { throw null; } }
     }
     public partial class BigDataPoolLibraryRequirements
     {
@@ -2250,6 +2255,17 @@ namespace Azure.ResourceManager.Synapse.Models
         public string Filename { get { throw null; } set { } }
         public System.DateTimeOffset? UpdatedOn { get { throw null; } }
     }
+    public partial class DatabaseInviteFollowerContent
+    {
+        public DatabaseInviteFollowerContent(string inviteeEmail) { }
+        public string InviteeEmail { get { throw null; } }
+        public Azure.ResourceManager.Synapse.Models.SynapseTableLevelSharingProperties TableLevelSharingProperties { get { throw null; } set { } }
+    }
+    public partial class DatabaseInviteFollowerResult
+    {
+        internal DatabaseInviteFollowerResult() { }
+        public string GeneratedInvitation { get { throw null; } }
+    }
     public partial class IntegrationRuntimeRegenerateKeyContent
     {
         public IntegrationRuntimeRegenerateKeyContent() { }
@@ -2301,6 +2317,11 @@ namespace Azure.ResourceManager.Synapse.Models
         public KustoPoolDataConnectionNameAvailabilityContent(string name) { }
         public string Name { get { throw null; } }
         public Azure.ResourceManager.Synapse.Models.SynapseDataConnectionType ResourceType { get { throw null; } }
+    }
+    public partial class KustoPoolMigrateContent
+    {
+        public KustoPoolMigrateContent(string clusterResourceId) { }
+        public string ClusterResourceId { get { throw null; } }
     }
     public partial class KustoPoolNameAvailabilityContent
     {
@@ -2385,6 +2406,7 @@ namespace Azure.ResourceManager.Synapse.Models
         public static Azure.ResourceManager.Synapse.Models.KustoPoolState Creating { get { throw null; } }
         public static Azure.ResourceManager.Synapse.Models.KustoPoolState Deleted { get { throw null; } }
         public static Azure.ResourceManager.Synapse.Models.KustoPoolState Deleting { get { throw null; } }
+        public static Azure.ResourceManager.Synapse.Models.KustoPoolState Migrated { get { throw null; } }
         public static Azure.ResourceManager.Synapse.Models.KustoPoolState Running { get { throw null; } }
         public static Azure.ResourceManager.Synapse.Models.KustoPoolState Starting { get { throw null; } }
         public static Azure.ResourceManager.Synapse.Models.KustoPoolState Stopped { get { throw null; } }
@@ -2416,6 +2438,32 @@ namespace Azure.ResourceManager.Synapse.Models
         public static bool operator ==(Azure.ResourceManager.Synapse.Models.KustoPoolType left, Azure.ResourceManager.Synapse.Models.KustoPoolType right) { throw null; }
         public static implicit operator Azure.ResourceManager.Synapse.Models.KustoPoolType (string value) { throw null; }
         public static bool operator !=(Azure.ResourceManager.Synapse.Models.KustoPoolType left, Azure.ResourceManager.Synapse.Models.KustoPoolType right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    public partial class MigrationClusterProperties
+    {
+        internal MigrationClusterProperties() { }
+        public System.Uri DataIngestionUri { get { throw null; } }
+        public string Id { get { throw null; } }
+        public Azure.ResourceManager.Synapse.Models.MigrationClusterRole? Role { get { throw null; } }
+        public System.Uri Uri { get { throw null; } }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct MigrationClusterRole : System.IEquatable<Azure.ResourceManager.Synapse.Models.MigrationClusterRole>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public MigrationClusterRole(string value) { throw null; }
+        public static Azure.ResourceManager.Synapse.Models.MigrationClusterRole Destination { get { throw null; } }
+        public static Azure.ResourceManager.Synapse.Models.MigrationClusterRole Source { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.Synapse.Models.MigrationClusterRole other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.Synapse.Models.MigrationClusterRole left, Azure.ResourceManager.Synapse.Models.MigrationClusterRole right) { throw null; }
+        public static implicit operator Azure.ResourceManager.Synapse.Models.MigrationClusterRole (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.Synapse.Models.MigrationClusterRole left, Azure.ResourceManager.Synapse.Models.MigrationClusterRole right) { throw null; }
         public override string ToString() { throw null; }
     }
     public partial class PrivateEndpointConnectionForPrivateLinkHubBasic
@@ -3516,6 +3564,7 @@ namespace Azure.ResourceManager.Synapse.Models
         public bool? EnablePurge { get { throw null; } set { } }
         public bool? EnableStreamingIngest { get { throw null; } set { } }
         public System.Collections.Generic.IList<Azure.ResourceManager.Synapse.Models.SynapseLanguageExtension> LanguageExtensionsValue { get { throw null; } }
+        public Azure.ResourceManager.Synapse.Models.MigrationClusterProperties MigrationCluster { get { throw null; } }
         public Azure.ResourceManager.Synapse.Models.SynapseOptimizedAutoscale OptimizedAutoscale { get { throw null; } set { } }
         public Azure.ResourceManager.Synapse.Models.ResourceProvisioningState? ProvisioningState { get { throw null; } }
         public Azure.ResourceManager.Synapse.Models.SynapseDataSourceSku Sku { get { throw null; } set { } }
@@ -3930,10 +3979,12 @@ namespace Azure.ResourceManager.Synapse.Models
         public System.Collections.Generic.IReadOnlyList<string> NewerVersions { get { throw null; } }
         public string NodeCommunicationChannelEncryptionMode { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Synapse.Models.SynapseSelfHostedIntegrationRuntimeNode> Nodes { get { throw null; } }
+        public int? OSType { get { throw null; } }
         public string PushedVersion { get { throw null; } }
         public System.DateTimeOffset? ScheduledUpdateOn { get { throw null; } }
         public string ServiceRegion { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<string> ServiceUrls { get { throw null; } }
+        public int? TargetFramework { get { throw null; } }
         public string TaskQueueId { get { throw null; } }
         public string UpdateDelayOffset { get { throw null; } }
         public string Version { get { throw null; } }
@@ -4278,6 +4329,13 @@ namespace Azure.ResourceManager.Synapse.Models
     {
         public UpdateIntegrationRuntimeNodeContent() { }
         public int? ConcurrentJobsLimit { get { throw null; } set { } }
+    }
+    public partial class VulnerabilityAssessmentRecurringScansPropertiesAutoGenerated
+    {
+        public VulnerabilityAssessmentRecurringScansPropertiesAutoGenerated() { }
+        public System.Collections.Generic.IList<string> Emails { get { throw null; } }
+        public bool? EmailSubscriptionAdmins { get { throw null; } set { } }
+        public bool? IsEnabled { get { throw null; } set { } }
     }
     public partial class WorkspaceCustomerManagedKeyDetails
     {
