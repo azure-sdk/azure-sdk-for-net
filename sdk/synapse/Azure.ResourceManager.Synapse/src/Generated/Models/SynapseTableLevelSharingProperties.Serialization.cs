@@ -76,6 +76,26 @@ namespace Azure.ResourceManager.Synapse.Models
                 }
                 writer.WriteEndArray();
             }
+            if (Optional.IsCollectionDefined(FunctionsToInclude))
+            {
+                writer.WritePropertyName("functionsToInclude"u8);
+                writer.WriteStartArray();
+                foreach (var item in FunctionsToInclude)
+                {
+                    writer.WriteStringValue(item);
+                }
+                writer.WriteEndArray();
+            }
+            if (Optional.IsCollectionDefined(FunctionsToExclude))
+            {
+                writer.WritePropertyName("functionsToExclude"u8);
+                writer.WriteStartArray();
+                foreach (var item in FunctionsToExclude)
+                {
+                    writer.WriteStringValue(item);
+                }
+                writer.WriteEndArray();
+            }
             writer.WriteEndObject();
         }
 
@@ -91,6 +111,8 @@ namespace Azure.ResourceManager.Synapse.Models
             Optional<IList<string>> externalTablesToExclude = default;
             Optional<IList<string>> materializedViewsToInclude = default;
             Optional<IList<string>> materializedViewsToExclude = default;
+            Optional<IList<string>> functionsToInclude = default;
+            Optional<IList<string>> functionsToExclude = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("tablesToInclude"u8))
@@ -177,8 +199,36 @@ namespace Azure.ResourceManager.Synapse.Models
                     materializedViewsToExclude = array;
                     continue;
                 }
+                if (property.NameEquals("functionsToInclude"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<string> array = new List<string>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(item.GetString());
+                    }
+                    functionsToInclude = array;
+                    continue;
+                }
+                if (property.NameEquals("functionsToExclude"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<string> array = new List<string>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(item.GetString());
+                    }
+                    functionsToExclude = array;
+                    continue;
+                }
             }
-            return new SynapseTableLevelSharingProperties(Optional.ToList(tablesToInclude), Optional.ToList(tablesToExclude), Optional.ToList(externalTablesToInclude), Optional.ToList(externalTablesToExclude), Optional.ToList(materializedViewsToInclude), Optional.ToList(materializedViewsToExclude));
+            return new SynapseTableLevelSharingProperties(Optional.ToList(tablesToInclude), Optional.ToList(tablesToExclude), Optional.ToList(externalTablesToInclude), Optional.ToList(externalTablesToExclude), Optional.ToList(materializedViewsToInclude), Optional.ToList(materializedViewsToExclude), Optional.ToList(functionsToInclude), Optional.ToList(functionsToExclude));
         }
     }
 }

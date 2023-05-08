@@ -82,6 +82,7 @@ namespace Azure.ResourceManager.Synapse.Models
             Optional<bool> enablePurge = default;
             Optional<SynapseLanguageExtensionsList> languageExtensions = default;
             Optional<Guid> workspaceUID = default;
+            Optional<MigrationClusterProperties> migrationCluster = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("tags"u8))
@@ -226,11 +227,20 @@ namespace Azure.ResourceManager.Synapse.Models
                             workspaceUID = property0.Value.GetGuid();
                             continue;
                         }
+                        if (property0.NameEquals("migrationCluster"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            migrationCluster = MigrationClusterProperties.DeserializeMigrationClusterProperties(property0.Value);
+                            continue;
+                        }
                     }
                     continue;
                 }
             }
-            return new SynapseKustoPoolPatch(id, name, type, systemData.Value, Optional.ToDictionary(tags), sku.Value, Optional.ToNullable(state), Optional.ToNullable(provisioningState), uri.Value, dataIngestionUri.Value, stateReason.Value, optimizedAutoscale.Value, Optional.ToNullable(enableStreamingIngest), Optional.ToNullable(enablePurge), languageExtensions.Value, Optional.ToNullable(workspaceUID));
+            return new SynapseKustoPoolPatch(id, name, type, systemData.Value, Optional.ToDictionary(tags), sku.Value, Optional.ToNullable(state), Optional.ToNullable(provisioningState), uri.Value, dataIngestionUri.Value, stateReason.Value, optimizedAutoscale.Value, Optional.ToNullable(enableStreamingIngest), Optional.ToNullable(enablePurge), languageExtensions.Value, Optional.ToNullable(workspaceUID), migrationCluster.Value);
         }
     }
 }

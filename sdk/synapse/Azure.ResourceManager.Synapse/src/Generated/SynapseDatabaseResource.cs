@@ -36,6 +36,8 @@ namespace Azure.ResourceManager.Synapse
         private readonly KustoPoolDatabasesRestOperations _synapseDatabaseKustoPoolDatabasesRestClient;
         private readonly ClientDiagnostics _synapseDataConnectionKustoPoolDataConnectionsClientDiagnostics;
         private readonly KustoPoolDataConnectionsRestOperations _synapseDataConnectionKustoPoolDataConnectionsRestClient;
+        private readonly ClientDiagnostics _kustoPoolDatabaseClientDiagnostics;
+        private readonly KustoPoolDatabaseRestOperations _kustoPoolDatabaseRestClient;
         private readonly ClientDiagnostics _synapseDatabasePrincipalAssignmentKustoPoolDatabasePrincipalAssignmentsClientDiagnostics;
         private readonly KustoPoolDatabasePrincipalAssignmentsRestOperations _synapseDatabasePrincipalAssignmentKustoPoolDatabasePrincipalAssignmentsRestClient;
         private readonly SynapseDatabaseData _data;
@@ -65,6 +67,8 @@ namespace Azure.ResourceManager.Synapse
             _synapseDataConnectionKustoPoolDataConnectionsClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Synapse", SynapseDataConnectionResource.ResourceType.Namespace, Diagnostics);
             TryGetApiVersion(SynapseDataConnectionResource.ResourceType, out string synapseDataConnectionKustoPoolDataConnectionsApiVersion);
             _synapseDataConnectionKustoPoolDataConnectionsRestClient = new KustoPoolDataConnectionsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, synapseDataConnectionKustoPoolDataConnectionsApiVersion);
+            _kustoPoolDatabaseClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Synapse", ProviderConstants.DefaultProviderNamespace, Diagnostics);
+            _kustoPoolDatabaseRestClient = new KustoPoolDatabaseRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
             _synapseDatabasePrincipalAssignmentKustoPoolDatabasePrincipalAssignmentsClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Synapse", SynapseDatabasePrincipalAssignmentResource.ResourceType.Namespace, Diagnostics);
             TryGetApiVersion(SynapseDatabasePrincipalAssignmentResource.ResourceType, out string synapseDatabasePrincipalAssignmentKustoPoolDatabasePrincipalAssignmentsApiVersion);
             _synapseDatabasePrincipalAssignmentKustoPoolDatabasePrincipalAssignmentsRestClient = new KustoPoolDatabasePrincipalAssignmentsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, synapseDatabasePrincipalAssignmentKustoPoolDatabasePrincipalAssignmentsApiVersion);
@@ -547,6 +551,74 @@ namespace Azure.ResourceManager.Synapse
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Generates an invitation token that allows attaching a follower database to this database.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Synapse/workspaces/{workspaceName}/kustoPools/{kustoPoolName}/databases/{databaseName}/inviteFollower</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>KustoPoolDatabase_InviteFollower</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="content"> The follower invitation request parameters. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
+        public virtual async Task<Response<DatabaseInviteFollowerResult>> InviteFollowerKustoPoolDatabaseAsync(DatabaseInviteFollowerContent content, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var scope = _kustoPoolDatabaseClientDiagnostics.CreateScope("SynapseDatabaseResource.InviteFollowerKustoPoolDatabase");
+            scope.Start();
+            try
+            {
+                var response = await _kustoPoolDatabaseRestClient.InviteFollowerAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, content, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Generates an invitation token that allows attaching a follower database to this database.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Synapse/workspaces/{workspaceName}/kustoPools/{kustoPoolName}/databases/{databaseName}/inviteFollower</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>KustoPoolDatabase_InviteFollower</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="content"> The follower invitation request parameters. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
+        public virtual Response<DatabaseInviteFollowerResult> InviteFollowerKustoPoolDatabase(DatabaseInviteFollowerContent content, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var scope = _kustoPoolDatabaseClientDiagnostics.CreateScope("SynapseDatabaseResource.InviteFollowerKustoPoolDatabase");
+            scope.Start();
+            try
+            {
+                var response = _kustoPoolDatabaseRestClient.InviteFollower(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, content, cancellationToken);
+                return response;
             }
             catch (Exception e)
             {
