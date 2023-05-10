@@ -701,6 +701,11 @@ namespace Microsoft.Azure.Management.Network
         IExpressRouteConnectionsOperations ExpressRouteConnections { get; }
 
         /// <summary>
+        /// Gets the INetworkVirtualApplianceConnectionsOperations.
+        /// </summary>
+        INetworkVirtualApplianceConnectionsOperations NetworkVirtualApplianceConnections { get; }
+
+        /// <summary>
         /// Gets the IVirtualHubBgpConnectionOperations.
         /// </summary>
         IVirtualHubBgpConnectionOperations VirtualHubBgpConnection { get; }
