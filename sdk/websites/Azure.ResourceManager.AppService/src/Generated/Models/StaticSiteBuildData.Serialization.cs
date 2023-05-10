@@ -49,6 +49,8 @@ namespace Azure.ResourceManager.AppService
             Optional<DateTimeOffset> lastUpdatedOn = default;
             Optional<StaticSiteBuildStatus> status = default;
             Optional<IReadOnlyList<StaticSiteUserProvidedFunctionAppData>> userProvidedFunctionApps = default;
+            Optional<IReadOnlyList<StaticSiteLinkedBackend>> linkedBackends = default;
+            Optional<IReadOnlyList<DatabaseConnectionOverview>> databaseConnections = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("kind"u8))
@@ -150,11 +152,39 @@ namespace Azure.ResourceManager.AppService
                             userProvidedFunctionApps = array;
                             continue;
                         }
+                        if (property0.NameEquals("linkedBackends"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            List<StaticSiteLinkedBackend> array = new List<StaticSiteLinkedBackend>();
+                            foreach (var item in property0.Value.EnumerateArray())
+                            {
+                                array.Add(StaticSiteLinkedBackend.DeserializeStaticSiteLinkedBackend(item));
+                            }
+                            linkedBackends = array;
+                            continue;
+                        }
+                        if (property0.NameEquals("databaseConnections"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            List<DatabaseConnectionOverview> array = new List<DatabaseConnectionOverview>();
+                            foreach (var item in property0.Value.EnumerateArray())
+                            {
+                                array.Add(DatabaseConnectionOverview.DeserializeDatabaseConnectionOverview(item));
+                            }
+                            databaseConnections = array;
+                            continue;
+                        }
                     }
                     continue;
                 }
             }
-            return new StaticSiteBuildData(id, name, type, systemData.Value, buildId.Value, sourceBranch.Value, pullRequestTitle.Value, hostname.Value, Optional.ToNullable(createdTimeUtc), Optional.ToNullable(lastUpdatedOn), Optional.ToNullable(status), Optional.ToList(userProvidedFunctionApps), kind.Value);
+            return new StaticSiteBuildData(id, name, type, systemData.Value, buildId.Value, sourceBranch.Value, pullRequestTitle.Value, hostname.Value, Optional.ToNullable(createdTimeUtc), Optional.ToNullable(lastUpdatedOn), Optional.ToNullable(status), Optional.ToList(userProvidedFunctionApps), Optional.ToList(linkedBackends), Optional.ToList(databaseConnections), kind.Value);
         }
     }
 }
