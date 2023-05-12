@@ -142,6 +142,7 @@ namespace Azure.ResourceManager.Billing
         public string ConsumptionCostCenter { get { throw null; } set { } }
         public string CustomerDisplayName { get { throw null; } }
         public string CustomerId { get { throw null; } set { } }
+        public string CustomerName { get { throw null; } }
         public string DisplayName { get { throw null; } set { } }
         public string EnrollmentAccountDisplayName { get { throw null; } }
         public string EnrollmentAccountId { get { throw null; } }
@@ -208,6 +209,7 @@ namespace Azure.ResourceManager.Billing
         public string ConsumptionCostCenter { get { throw null; } set { } }
         public string CustomerDisplayName { get { throw null; } }
         public string CustomerId { get { throw null; } set { } }
+        public string CustomerName { get { throw null; } }
         public string DisplayName { get { throw null; } set { } }
         public string EnrollmentAccountDisplayName { get { throw null; } }
         public string EnrollmentAccountId { get { throw null; } }
