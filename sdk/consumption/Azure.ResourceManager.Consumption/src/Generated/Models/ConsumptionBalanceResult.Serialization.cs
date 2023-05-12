@@ -40,6 +40,7 @@ namespace Azure.ResourceManager.Consumption.Models
             Optional<decimal> azureMarketplaceServiceCharges = default;
             Optional<ConsumptionBillingFrequency> billingFrequency = default;
             Optional<bool> priceHidden = default;
+            Optional<decimal> overageRefund = default;
             Optional<IReadOnlyList<ConsumptionBalanceNewPurchasesDetail>> newPurchasesDetails = default;
             Optional<IReadOnlyList<ConsumptionBalanceAdjustmentDetail>> adjustmentDetails = default;
             foreach (var property in element.EnumerateObject())
@@ -213,6 +214,15 @@ namespace Azure.ResourceManager.Consumption.Models
                             priceHidden = property0.Value.GetBoolean();
                             continue;
                         }
+                        if (property0.NameEquals("overageRefund"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            overageRefund = property0.Value.GetDecimal();
+                            continue;
+                        }
                         if (property0.NameEquals("newPurchasesDetails"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -245,7 +255,7 @@ namespace Azure.ResourceManager.Consumption.Models
                     continue;
                 }
             }
-            return new ConsumptionBalanceResult(id, name, type, systemData.Value, currency.Value, Optional.ToNullable(beginningBalance), Optional.ToNullable(endingBalance), Optional.ToNullable(newPurchases), Optional.ToNullable(adjustments), Optional.ToNullable(utilized), Optional.ToNullable(serviceOverage), Optional.ToNullable(chargesBilledSeparately), Optional.ToNullable(totalOverage), Optional.ToNullable(totalUsage), Optional.ToNullable(azureMarketplaceServiceCharges), Optional.ToNullable(billingFrequency), Optional.ToNullable(priceHidden), Optional.ToList(newPurchasesDetails), Optional.ToList(adjustmentDetails), Optional.ToNullable(etag), Optional.ToDictionary(tags));
+            return new ConsumptionBalanceResult(id, name, type, systemData.Value, currency.Value, Optional.ToNullable(beginningBalance), Optional.ToNullable(endingBalance), Optional.ToNullable(newPurchases), Optional.ToNullable(adjustments), Optional.ToNullable(utilized), Optional.ToNullable(serviceOverage), Optional.ToNullable(chargesBilledSeparately), Optional.ToNullable(totalOverage), Optional.ToNullable(totalUsage), Optional.ToNullable(azureMarketplaceServiceCharges), Optional.ToNullable(billingFrequency), Optional.ToNullable(priceHidden), Optional.ToNullable(overageRefund), Optional.ToList(newPurchasesDetails), Optional.ToList(adjustmentDetails), Optional.ToNullable(etag), Optional.ToDictionary(tags));
         }
     }
 }

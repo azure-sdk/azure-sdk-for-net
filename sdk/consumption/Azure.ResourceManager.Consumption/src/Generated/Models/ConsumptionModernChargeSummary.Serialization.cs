@@ -53,6 +53,7 @@ namespace Azure.ResourceManager.Consumption.Models
             Optional<string> invoiceSectionId = default;
             Optional<string> customerId = default;
             Optional<bool> isInvoiced = default;
+            Optional<string> subscriptionId = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("kind"u8))
@@ -173,11 +174,16 @@ namespace Azure.ResourceManager.Consumption.Models
                             isInvoiced = property0.Value.GetBoolean();
                             continue;
                         }
+                        if (property0.NameEquals("subscriptionId"u8))
+                        {
+                            subscriptionId = property0.Value.GetString();
+                            continue;
+                        }
                     }
                     continue;
                 }
             }
-            return new ConsumptionModernChargeSummary(id, name, type, systemData.Value, kind, Optional.ToNullable(eTag), billingPeriodId.Value, usageStart.Value, usageEnd.Value, azureCharges.Value, chargesBilledSeparately.Value, marketplaceCharges.Value, billingAccountId.Value, billingProfileId.Value, invoiceSectionId.Value, customerId.Value, Optional.ToNullable(isInvoiced));
+            return new ConsumptionModernChargeSummary(id, name, type, systemData.Value, kind, Optional.ToNullable(eTag), billingPeriodId.Value, usageStart.Value, usageEnd.Value, azureCharges.Value, chargesBilledSeparately.Value, marketplaceCharges.Value, billingAccountId.Value, billingProfileId.Value, invoiceSectionId.Value, customerId.Value, Optional.ToNullable(isInvoiced), subscriptionId.Value);
         }
     }
 }

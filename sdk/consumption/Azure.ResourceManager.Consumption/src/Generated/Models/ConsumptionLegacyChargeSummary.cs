@@ -56,22 +56,22 @@ namespace Azure.ResourceManager.Consumption.Models
         /// Charges Billed separately.
         /// Serialized Name: LegacyChargeSummary.properties.chargesBilledSeparately
         /// </param>
-        /// <param name="marketplaceCharges">
+        /// <param name="azureMarketplaceCharges">
         /// Marketplace Charges.
-        /// Serialized Name: LegacyChargeSummary.properties.marketplaceCharges
+        /// Serialized Name: LegacyChargeSummary.properties.azureMarketplaceCharges
         /// </param>
         /// <param name="currency">
         /// Currency Code
         /// Serialized Name: LegacyChargeSummary.properties.currency
         /// </param>
-        internal ConsumptionLegacyChargeSummary(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, ChargeSummaryKind kind, ETag? etag, string billingPeriodId, string usageStart, string usageEnd, decimal? azureCharges, decimal? chargesBilledSeparately, decimal? marketplaceCharges, string currency) : base(id, name, resourceType, systemData, kind, etag)
+        internal ConsumptionLegacyChargeSummary(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, ChargeSummaryKind kind, ETag? etag, string billingPeriodId, string usageStart, string usageEnd, decimal? azureCharges, decimal? chargesBilledSeparately, decimal? azureMarketplaceCharges, string currency) : base(id, name, resourceType, systemData, kind, etag)
         {
             BillingPeriodId = billingPeriodId;
             UsageStart = usageStart;
             UsageEnd = usageEnd;
             AzureCharges = azureCharges;
             ChargesBilledSeparately = chargesBilledSeparately;
-            MarketplaceCharges = marketplaceCharges;
+            AzureMarketplaceCharges = azureMarketplaceCharges;
             Currency = currency;
             Kind = kind;
         }
@@ -103,9 +103,9 @@ namespace Azure.ResourceManager.Consumption.Models
         public decimal? ChargesBilledSeparately { get; }
         /// <summary>
         /// Marketplace Charges.
-        /// Serialized Name: LegacyChargeSummary.properties.marketplaceCharges
+        /// Serialized Name: LegacyChargeSummary.properties.azureMarketplaceCharges
         /// </summary>
-        public decimal? MarketplaceCharges { get; }
+        public decimal? AzureMarketplaceCharges { get; }
         /// <summary>
         /// Currency Code
         /// Serialized Name: LegacyChargeSummary.properties.currency

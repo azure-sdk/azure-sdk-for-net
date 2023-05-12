@@ -83,6 +83,10 @@ namespace Azure.ResourceManager.Consumption.Models
         /// Price is hidden or not.
         /// Serialized Name: Balance.properties.priceHidden
         /// </param>
+        /// <param name="overageRefund">
+        /// Overage Refunds
+        /// Serialized Name: Balance.properties.overageRefund
+        /// </param>
         /// <param name="newPurchasesDetails">
         /// List of new purchases.
         /// Serialized Name: Balance.properties.newPurchasesDetails
@@ -99,7 +103,7 @@ namespace Azure.ResourceManager.Consumption.Models
         /// Resource tags.
         /// Serialized Name: Resource.tags
         /// </param>
-        internal ConsumptionBalanceResult(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string currency, decimal? beginningBalance, decimal? endingBalance, decimal? newPurchases, decimal? adjustments, decimal? utilized, decimal? serviceOverage, decimal? chargesBilledSeparately, decimal? totalOverage, decimal? totalUsage, decimal? azureMarketplaceServiceCharges, ConsumptionBillingFrequency? billingFrequency, bool? isPriceHidden, IReadOnlyList<ConsumptionBalanceNewPurchasesDetail> newPurchasesDetails, IReadOnlyList<ConsumptionBalanceAdjustmentDetail> adjustmentDetails, ETag? etag, IReadOnlyDictionary<string, string> tags) : base(id, name, resourceType, systemData)
+        internal ConsumptionBalanceResult(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string currency, decimal? beginningBalance, decimal? endingBalance, decimal? newPurchases, decimal? adjustments, decimal? utilized, decimal? serviceOverage, decimal? chargesBilledSeparately, decimal? totalOverage, decimal? totalUsage, decimal? azureMarketplaceServiceCharges, ConsumptionBillingFrequency? billingFrequency, bool? isPriceHidden, decimal? overageRefund, IReadOnlyList<ConsumptionBalanceNewPurchasesDetail> newPurchasesDetails, IReadOnlyList<ConsumptionBalanceAdjustmentDetail> adjustmentDetails, ETag? etag, IReadOnlyDictionary<string, string> tags) : base(id, name, resourceType, systemData)
         {
             Currency = currency;
             BeginningBalance = beginningBalance;
@@ -114,6 +118,7 @@ namespace Azure.ResourceManager.Consumption.Models
             AzureMarketplaceServiceCharges = azureMarketplaceServiceCharges;
             BillingFrequency = billingFrequency;
             IsPriceHidden = isPriceHidden;
+            OverageRefund = overageRefund;
             NewPurchasesDetails = newPurchasesDetails;
             AdjustmentDetails = adjustmentDetails;
             ETag = etag;
@@ -185,6 +190,11 @@ namespace Azure.ResourceManager.Consumption.Models
         /// Serialized Name: Balance.properties.priceHidden
         /// </summary>
         public bool? IsPriceHidden { get; }
+        /// <summary>
+        /// Overage Refunds
+        /// Serialized Name: Balance.properties.overageRefund
+        /// </summary>
+        public decimal? OverageRefund { get; }
         /// <summary>
         /// List of new purchases.
         /// Serialized Name: Balance.properties.newPurchasesDetails

@@ -80,7 +80,11 @@ namespace Azure.ResourceManager.Consumption.Models
         /// Is charge Invoiced
         /// Serialized Name: ModernChargeSummary.properties.isInvoiced
         /// </param>
-        internal ConsumptionModernChargeSummary(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, ChargeSummaryKind kind, ETag? etag, string billingPeriodId, string usageStart, string usageEnd, ConsumptionAmount azureCharges, ConsumptionAmount chargesBilledSeparately, ConsumptionAmount marketplaceCharges, string billingAccountId, string billingProfileId, string invoiceSectionId, string customerId, bool? isInvoiced) : base(id, name, resourceType, systemData, kind, etag)
+        /// <param name="subscriptionId">
+        /// Subscription guid.
+        /// Serialized Name: ModernChargeSummary.properties.subscriptionId
+        /// </param>
+        internal ConsumptionModernChargeSummary(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, ChargeSummaryKind kind, ETag? etag, string billingPeriodId, string usageStart, string usageEnd, ConsumptionAmount azureCharges, ConsumptionAmount chargesBilledSeparately, ConsumptionAmount marketplaceCharges, string billingAccountId, string billingProfileId, string invoiceSectionId, string customerId, bool? isInvoiced, string subscriptionId) : base(id, name, resourceType, systemData, kind, etag)
         {
             BillingPeriodId = billingPeriodId;
             UsageStart = usageStart;
@@ -93,6 +97,7 @@ namespace Azure.ResourceManager.Consumption.Models
             InvoiceSectionId = invoiceSectionId;
             CustomerId = customerId;
             IsInvoiced = isInvoiced;
+            SubscriptionId = subscriptionId;
             Kind = kind;
         }
 
@@ -151,5 +156,10 @@ namespace Azure.ResourceManager.Consumption.Models
         /// Serialized Name: ModernChargeSummary.properties.isInvoiced
         /// </summary>
         public bool? IsInvoiced { get; }
+        /// <summary>
+        /// Subscription guid.
+        /// Serialized Name: ModernChargeSummary.properties.subscriptionId
+        /// </summary>
+        public string SubscriptionId { get; }
     }
 }

@@ -8,7 +8,7 @@
 namespace Azure.ResourceManager.Consumption.Models
 {
     /// <summary>
-    /// Details of estimated savings.
+    /// Details of estimated savings. The costs and savings are estimated for the term.
     /// Serialized Name: ReservationRecommendationDetailsCalculatedSavingsProperties
     /// </summary>
     public partial class ConsumptionCalculatedSavingsProperties
@@ -20,11 +20,11 @@ namespace Azure.ResourceManager.Consumption.Models
 
         /// <summary> Initializes a new instance of ConsumptionCalculatedSavingsProperties. </summary>
         /// <param name="onDemandCost">
-        /// The cost without reservation.
+        /// The cost without reservation. Includes hardware and software cost.
         /// Serialized Name: ReservationRecommendationDetailsCalculatedSavingsProperties.onDemandCost
         /// </param>
         /// <param name="overageCost">
-        /// The difference between total reservation cost and reservation cost.
+        /// Hardware and software cost of the resources not covered by the reservation.
         /// Serialized Name: ReservationRecommendationDetailsCalculatedSavingsProperties.overageCost
         /// </param>
         /// <param name="quantity">
@@ -32,11 +32,11 @@ namespace Azure.ResourceManager.Consumption.Models
         /// Serialized Name: ReservationRecommendationDetailsCalculatedSavingsProperties.quantity
         /// </param>
         /// <param name="reservationCost">
-        /// The exact cost of the estimated usage using reservation.
+        /// Hardware cost of the resources covered by the reservation.
         /// Serialized Name: ReservationRecommendationDetailsCalculatedSavingsProperties.reservationCost
         /// </param>
         /// <param name="totalReservationCost">
-        /// The cost of the suggested quantity.
+        /// Reservation cost + software cost of the resources covered by the reservation + overage cost.
         /// Serialized Name: ReservationRecommendationDetailsCalculatedSavingsProperties.totalReservationCost
         /// </param>
         /// <param name="reservedUnitCount">
@@ -44,7 +44,7 @@ namespace Azure.ResourceManager.Consumption.Models
         /// Serialized Name: ReservationRecommendationDetailsCalculatedSavingsProperties.reservedUnitCount
         /// </param>
         /// <param name="savings">
-        /// The amount saved by purchasing the recommended quantity of reservation.
+        /// The amount saved by purchasing the recommended quantity of reservation. This is equal to onDemandCost - totalReservationCost.
         /// Serialized Name: ReservationRecommendationDetailsCalculatedSavingsProperties.savings
         /// </param>
         internal ConsumptionCalculatedSavingsProperties(float? onDemandCost, float? overageCost, float? quantity, float? reservationCost, float? totalReservationCost, float? reservedUnitCount, float? savings)
@@ -59,12 +59,12 @@ namespace Azure.ResourceManager.Consumption.Models
         }
 
         /// <summary>
-        /// The cost without reservation.
+        /// The cost without reservation. Includes hardware and software cost.
         /// Serialized Name: ReservationRecommendationDetailsCalculatedSavingsProperties.onDemandCost
         /// </summary>
         public float? OnDemandCost { get; }
         /// <summary>
-        /// The difference between total reservation cost and reservation cost.
+        /// Hardware and software cost of the resources not covered by the reservation.
         /// Serialized Name: ReservationRecommendationDetailsCalculatedSavingsProperties.overageCost
         /// </summary>
         public float? OverageCost { get; }
@@ -74,12 +74,12 @@ namespace Azure.ResourceManager.Consumption.Models
         /// </summary>
         public float? Quantity { get; }
         /// <summary>
-        /// The exact cost of the estimated usage using reservation.
+        /// Hardware cost of the resources covered by the reservation.
         /// Serialized Name: ReservationRecommendationDetailsCalculatedSavingsProperties.reservationCost
         /// </summary>
         public float? ReservationCost { get; }
         /// <summary>
-        /// The cost of the suggested quantity.
+        /// Reservation cost + software cost of the resources covered by the reservation + overage cost.
         /// Serialized Name: ReservationRecommendationDetailsCalculatedSavingsProperties.totalReservationCost
         /// </summary>
         public float? TotalReservationCost { get; }
@@ -89,7 +89,7 @@ namespace Azure.ResourceManager.Consumption.Models
         /// </summary>
         public float? ReservedUnitCount { get; }
         /// <summary>
-        /// The amount saved by purchasing the recommended quantity of reservation.
+        /// The amount saved by purchasing the recommended quantity of reservation. This is equal to onDemandCost - totalReservationCost.
         /// Serialized Name: ReservationRecommendationDetailsCalculatedSavingsProperties.savings
         /// </summary>
         public float? Savings { get; }

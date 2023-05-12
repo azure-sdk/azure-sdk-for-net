@@ -28,7 +28,7 @@ namespace Azure.ResourceManager.Consumption.Models
         /// Serialized Name: ReservationRecommendationDetailsResourceProperties.appliedScopes
         /// </param>
         /// <param name="onDemandRate">
-        /// On demand rate of the resource.
+        /// Hourly on-demand rate of the resource. Includes only hardware rate i.e, software rate is not included.
         /// Serialized Name: ReservationRecommendationDetailsResourceProperties.onDemandRate
         /// </param>
         /// <param name="product">
@@ -40,7 +40,7 @@ namespace Azure.ResourceManager.Consumption.Models
         /// Serialized Name: ReservationRecommendationDetailsResourceProperties.region
         /// </param>
         /// <param name="reservationRate">
-        /// Reservation rate of the resource.
+        /// Hourly reservation rate of the resource. Varies based on the term.
         /// Serialized Name: ReservationRecommendationDetailsResourceProperties.reservationRate
         /// </param>
         /// <param name="resourceType">
@@ -63,7 +63,7 @@ namespace Azure.ResourceManager.Consumption.Models
         /// </summary>
         public IReadOnlyList<string> AppliedScopes { get; }
         /// <summary>
-        /// On demand rate of the resource.
+        /// Hourly on-demand rate of the resource. Includes only hardware rate i.e, software rate is not included.
         /// Serialized Name: ReservationRecommendationDetailsResourceProperties.onDemandRate
         /// </summary>
         public float? OnDemandRate { get; }
@@ -78,7 +78,7 @@ namespace Azure.ResourceManager.Consumption.Models
         /// </summary>
         public string Region { get; }
         /// <summary>
-        /// Reservation rate of the resource.
+        /// Hourly reservation rate of the resource. Varies based on the term.
         /// Serialized Name: ReservationRecommendationDetailsResourceProperties.reservationRate
         /// </summary>
         public float? ReservationRate { get; }

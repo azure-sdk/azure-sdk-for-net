@@ -20,8 +20,16 @@ namespace Azure.ResourceManager.Consumption.Models
     public partial class ConsumptionModernReservationRecommendation : ConsumptionReservationRecommendation
     {
         /// <summary> Initializes a new instance of ConsumptionModernReservationRecommendation. </summary>
-        internal ConsumptionModernReservationRecommendation()
+        /// <param name="scope">
+        /// Shared or single recommendation.
+        /// Serialized Name: ModernReservationRecommendation.properties.scope
+        /// </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="scope"/> is null. </exception>
+        internal ConsumptionModernReservationRecommendation(string scope)
         {
+            Argument.AssertNotNull(scope, nameof(scope));
+
+            Scope = scope;
             SkuProperties = new ChangeTrackingList<ConsumptionSkuProperty>();
             Kind = ReservationRecommendationKind.Modern;
         }
@@ -205,7 +213,7 @@ namespace Azure.ResourceManager.Consumption.Models
         /// Shared or single recommendation.
         /// Serialized Name: ModernReservationRecommendation.properties.scope
         /// </summary>
-        public string Scope { get; }
+        internal string Scope { get; set; }
         /// <summary>
         /// List of sku properties
         /// Serialized Name: ModernReservationRecommendation.properties.skuProperties

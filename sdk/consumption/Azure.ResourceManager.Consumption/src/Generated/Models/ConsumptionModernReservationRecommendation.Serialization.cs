@@ -44,7 +44,7 @@ namespace Azure.ResourceManager.Consumption.Models
             Optional<ConsumptionAmount> totalCostWithReservedInstances = default;
             Optional<ConsumptionAmount> netSavings = default;
             Optional<DateTimeOffset> firstUsageDate = default;
-            Optional<string> scope = default;
+            string scope = default;
             Optional<IReadOnlyList<ConsumptionSkuProperty>> skuProperties = default;
             Optional<string> skuName = default;
             foreach (var property in element.EnumerateObject())
@@ -253,7 +253,7 @@ namespace Azure.ResourceManager.Consumption.Models
                     continue;
                 }
             }
-            return new ConsumptionModernReservationRecommendation(id, name, type, systemData.Value, kind, Optional.ToNullable(etag), Optional.ToDictionary(tags), Optional.ToNullable(location), sku.Value, location0.Value, Optional.ToNullable(lookBackPeriod), Optional.ToNullable(instanceFlexibilityRatio), instanceFlexibilityGroup.Value, normalizedSize.Value, Optional.ToNullable(recommendedQuantityNormalized), Optional.ToNullable(meterId), term.Value, costWithNoReservedInstances.Value, Optional.ToNullable(recommendedQuantity), totalCostWithReservedInstances.Value, netSavings.Value, Optional.ToNullable(firstUsageDate), scope.Value, Optional.ToList(skuProperties), skuName.Value);
+            return new ConsumptionModernReservationRecommendation(id, name, type, systemData.Value, kind, Optional.ToNullable(etag), Optional.ToDictionary(tags), Optional.ToNullable(location), sku.Value, location0.Value, Optional.ToNullable(lookBackPeriod), Optional.ToNullable(instanceFlexibilityRatio), instanceFlexibilityGroup.Value, normalizedSize.Value, Optional.ToNullable(recommendedQuantityNormalized), Optional.ToNullable(meterId), term.Value, costWithNoReservedInstances.Value, Optional.ToNullable(recommendedQuantity), totalCostWithReservedInstances.Value, netSavings.Value, Optional.ToNullable(firstUsageDate), scope, Optional.ToList(skuProperties), skuName.Value);
         }
     }
 }

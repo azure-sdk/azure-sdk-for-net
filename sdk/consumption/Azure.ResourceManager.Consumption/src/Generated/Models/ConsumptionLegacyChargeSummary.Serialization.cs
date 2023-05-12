@@ -47,7 +47,7 @@ namespace Azure.ResourceManager.Consumption.Models
             Optional<string> usageEnd = default;
             Optional<decimal> azureCharges = default;
             Optional<decimal> chargesBilledSeparately = default;
-            Optional<decimal> marketplaceCharges = default;
+            Optional<decimal> azureMarketplaceCharges = default;
             Optional<string> currency = default;
             foreach (var property in element.EnumerateObject())
             {
@@ -131,13 +131,13 @@ namespace Azure.ResourceManager.Consumption.Models
                             chargesBilledSeparately = property0.Value.GetDecimal();
                             continue;
                         }
-                        if (property0.NameEquals("marketplaceCharges"u8))
+                        if (property0.NameEquals("azureMarketplaceCharges"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
                                 continue;
                             }
-                            marketplaceCharges = property0.Value.GetDecimal();
+                            azureMarketplaceCharges = property0.Value.GetDecimal();
                             continue;
                         }
                         if (property0.NameEquals("currency"u8))
@@ -149,7 +149,7 @@ namespace Azure.ResourceManager.Consumption.Models
                     continue;
                 }
             }
-            return new ConsumptionLegacyChargeSummary(id, name, type, systemData.Value, kind, Optional.ToNullable(eTag), billingPeriodId.Value, usageStart.Value, usageEnd.Value, Optional.ToNullable(azureCharges), Optional.ToNullable(chargesBilledSeparately), Optional.ToNullable(marketplaceCharges), currency.Value);
+            return new ConsumptionLegacyChargeSummary(id, name, type, systemData.Value, kind, Optional.ToNullable(eTag), billingPeriodId.Value, usageStart.Value, usageEnd.Value, Optional.ToNullable(azureCharges), Optional.ToNullable(chargesBilledSeparately), Optional.ToNullable(azureMarketplaceCharges), currency.Value);
         }
     }
 }

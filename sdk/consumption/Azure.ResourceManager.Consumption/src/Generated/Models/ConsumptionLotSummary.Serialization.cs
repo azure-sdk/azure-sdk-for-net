@@ -53,6 +53,7 @@ namespace Azure.ResourceManager.Consumption.Models
             Optional<ConsumptionAmountWithExchangeRate> originalAmountInBillingCurrency = default;
             Optional<ConsumptionAmountWithExchangeRate> closedBalanceInBillingCurrency = default;
             Optional<ConsumptionReseller> reseller = default;
+            Optional<bool> isEstimatedBalance = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("eTag"u8))
@@ -202,11 +203,20 @@ namespace Azure.ResourceManager.Consumption.Models
                             reseller = ConsumptionReseller.DeserializeConsumptionReseller(property0.Value);
                             continue;
                         }
+                        if (property0.NameEquals("isEstimatedBalance"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            isEstimatedBalance = property0.Value.GetBoolean();
+                            continue;
+                        }
                     }
                     continue;
                 }
             }
-            return new ConsumptionLotSummary(id, name, type, systemData.Value, originalAmount.Value, closedBalance.Value, Optional.ToNullable(source), Optional.ToNullable(startDate), Optional.ToNullable(expirationDate), poNumber.Value, Optional.ToNullable(purchasedDate), Optional.ToNullable(status), creditCurrency.Value, billingCurrency.Value, originalAmountInBillingCurrency.Value, closedBalanceInBillingCurrency.Value, reseller.Value, Optional.ToNullable(eTag));
+            return new ConsumptionLotSummary(id, name, type, systemData.Value, originalAmount.Value, closedBalance.Value, Optional.ToNullable(source), Optional.ToNullable(startDate), Optional.ToNullable(expirationDate), poNumber.Value, Optional.ToNullable(purchasedDate), Optional.ToNullable(status), creditCurrency.Value, billingCurrency.Value, originalAmountInBillingCurrency.Value, closedBalanceInBillingCurrency.Value, reseller.Value, Optional.ToNullable(isEstimatedBalance), Optional.ToNullable(eTag));
         }
     }
 }

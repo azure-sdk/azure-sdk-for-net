@@ -315,6 +315,8 @@ namespace Azure.ResourceManager.Consumption
 
         /// <summary>
         /// Lists the usage details for the defined scope. Usage details are available via this API only for May 1, 2014 or later.
+        /// 
+        /// **Note:Microsoft will be retiring the Consumption Usage Details API at some point in the future. We do not recommend that you take a new dependency on this API. Please use the Cost Details API instead. We will notify customers once a date for retirement has been determined.For Learn more,see [Generate Cost Details Report - Create Operation](https://learn.microsoft.com/en-us/rest/api/cost-management/generate-cost-details-report/create-operation?tabs=HTTP)**
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -341,6 +343,8 @@ namespace Azure.ResourceManager.Consumption
 
         /// <summary>
         /// Lists the usage details for the defined scope. Usage details are available via this API only for May 1, 2014 or later.
+        /// 
+        /// **Note:Microsoft will be retiring the Consumption Usage Details API at some point in the future. We do not recommend that you take a new dependency on this API. Please use the Cost Details API instead. We will notify customers once a date for retirement has been determined.For Learn more,see [Generate Cost Details Report - Create Operation](https://learn.microsoft.com/en-us/rest/api/cost-management/generate-cost-details-report/create-operation?tabs=HTTP)**
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -506,7 +510,7 @@ namespace Azure.ResourceManager.Consumption
         }
 
         /// <summary>
-        /// Lists the reservations summaries for the defined scope daily or monthly grain.
+        /// Lists the reservations summaries for the defined scope daily or monthly grain. Note: ARM has a payload size limit of 12MB, so currently callers get 400 when the response size exceeds the ARM limit. In such cases, API call should be made with smaller date ranges.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -531,7 +535,7 @@ namespace Azure.ResourceManager.Consumption
         }
 
         /// <summary>
-        /// Lists the reservations summaries for the defined scope daily or monthly grain.
+        /// Lists the reservations summaries for the defined scope daily or monthly grain. Note: ARM has a payload size limit of 12MB, so currently callers get 400 when the response size exceeds the ARM limit. In such cases, API call should be made with smaller date ranges.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -556,7 +560,7 @@ namespace Azure.ResourceManager.Consumption
         }
 
         /// <summary>
-        /// Lists the reservations details for the defined scope and provided date range. Note: ARM has a payload size limit of 12MB, so currently callers get 502 when the response size exceeds the ARM limit. In such cases, API call should be made with smaller date ranges.
+        /// Lists the reservations details for provided date range. Note: ARM has a payload size limit of 12MB, so currently callers get 400 when the response size exceeds the ARM limit. If the data size is too large, customers may also get 504 as the API timed out preparing the data. In such cases, API call should be made with smaller date ranges or a call to Generate Reservation Details Report API should be made as it is asynchronous and will not run into response size time outs.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -582,7 +586,7 @@ namespace Azure.ResourceManager.Consumption
         }
 
         /// <summary>
-        /// Lists the reservations details for the defined scope and provided date range. Note: ARM has a payload size limit of 12MB, so currently callers get 502 when the response size exceeds the ARM limit. In such cases, API call should be made with smaller date ranges.
+        /// Lists the reservations details for provided date range. Note: ARM has a payload size limit of 12MB, so currently callers get 400 when the response size exceeds the ARM limit. If the data size is too large, customers may also get 504 as the API timed out preparing the data. In such cases, API call should be made with smaller date ranges or a call to Generate Reservation Details Report API should be made as it is asynchronous and will not run into response size time outs.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -666,19 +670,14 @@ namespace Azure.ResourceManager.Consumption
         /// </summary>
         /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
         /// <param name="scope"> The scope that the resource will apply against. </param>
-        /// <param name="reservationScope"> Scope of the reservation. </param>
-        /// <param name="region"> Used to select the region the recommendation should be generated for. </param>
-        /// <param name="term"> Specify length of reservation recommendation term. </param>
-        /// <param name="lookBackPeriod"> Filter the time period on which reservation recommendation results are based. </param>
-        /// <param name="product"> Filter the products for which reservation recommendation results are generated. Examples: Standard_DS1_v2 (for VM), Premium_SSD_Managed_Disks_P30 (for Managed Disks). </param>
+        /// <param name="filter"> Used to filter reservation recommendation details by: properties/scope with allowed values [&apos;Single&apos;, &apos;Shared&apos;]; properties/savings/lookBackPeriod with allowed values [7, 30, 60]; properties/savings/reservationOrderTerm with allowed values [&apos;P1Y&apos;, &apos;P3Y&apos;]; properties/resource/region; properties/resource/product; and optional filter properties/subscriptionId can be specified for billing account and billing profile paths. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="region"/> or <paramref name="product"/> is null. </exception>
-        public static async Task<Response<ConsumptionReservationRecommendationDetails>> GetConsumptionReservationRecommendationDetailsAsync(this ArmClient client, ResourceIdentifier scope, ConsumptionReservationRecommendationScope reservationScope, string region, ConsumptionReservationRecommendationTerm term, ConsumptionReservationRecommendationLookBackPeriod lookBackPeriod, string product, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="filter"/> is null. </exception>
+        public static async Task<Response<ConsumptionReservationRecommendationDetails>> GetConsumptionReservationRecommendationDetailsAsync(this ArmClient client, ResourceIdentifier scope, string filter, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNull(region, nameof(region));
-            Argument.AssertNotNull(product, nameof(product));
+            Argument.AssertNotNull(filter, nameof(filter));
 
-            return await GetArmResourceExtensionClient(client, scope).GetConsumptionReservationRecommendationDetailsAsync(reservationScope, region, term, lookBackPeriod, product, cancellationToken).ConfigureAwait(false);
+            return await GetArmResourceExtensionClient(client, scope).GetConsumptionReservationRecommendationDetailsAsync(filter, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -696,19 +695,14 @@ namespace Azure.ResourceManager.Consumption
         /// </summary>
         /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
         /// <param name="scope"> The scope that the resource will apply against. </param>
-        /// <param name="reservationScope"> Scope of the reservation. </param>
-        /// <param name="region"> Used to select the region the recommendation should be generated for. </param>
-        /// <param name="term"> Specify length of reservation recommendation term. </param>
-        /// <param name="lookBackPeriod"> Filter the time period on which reservation recommendation results are based. </param>
-        /// <param name="product"> Filter the products for which reservation recommendation results are generated. Examples: Standard_DS1_v2 (for VM), Premium_SSD_Managed_Disks_P30 (for Managed Disks). </param>
+        /// <param name="filter"> Used to filter reservation recommendation details by: properties/scope with allowed values [&apos;Single&apos;, &apos;Shared&apos;]; properties/savings/lookBackPeriod with allowed values [7, 30, 60]; properties/savings/reservationOrderTerm with allowed values [&apos;P1Y&apos;, &apos;P3Y&apos;]; properties/resource/region; properties/resource/product; and optional filter properties/subscriptionId can be specified for billing account and billing profile paths. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="region"/> or <paramref name="product"/> is null. </exception>
-        public static Response<ConsumptionReservationRecommendationDetails> GetConsumptionReservationRecommendationDetails(this ArmClient client, ResourceIdentifier scope, ConsumptionReservationRecommendationScope reservationScope, string region, ConsumptionReservationRecommendationTerm term, ConsumptionReservationRecommendationLookBackPeriod lookBackPeriod, string product, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="filter"/> is null. </exception>
+        public static Response<ConsumptionReservationRecommendationDetails> GetConsumptionReservationRecommendationDetails(this ArmClient client, ResourceIdentifier scope, string filter, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNull(region, nameof(region));
-            Argument.AssertNotNull(product, nameof(product));
+            Argument.AssertNotNull(filter, nameof(filter));
 
-            return GetArmResourceExtensionClient(client, scope).GetConsumptionReservationRecommendationDetails(reservationScope, region, term, lookBackPeriod, product, cancellationToken);
+            return GetArmResourceExtensionClient(client, scope).GetConsumptionReservationRecommendationDetails(filter, cancellationToken);
         }
 
         /// <summary>

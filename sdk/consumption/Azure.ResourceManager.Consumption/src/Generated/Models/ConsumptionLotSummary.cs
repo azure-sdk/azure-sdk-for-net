@@ -80,11 +80,15 @@ namespace Azure.ResourceManager.Consumption.Models
         /// The reseller of the lot.
         /// Serialized Name: LotSummary.properties.reseller
         /// </param>
+        /// <param name="isEstimatedBalance">
+        /// If true, the listed details are based on an estimation and it will be subjected to change.
+        /// Serialized Name: LotSummary.properties.isEstimatedBalance
+        /// </param>
         /// <param name="etag">
         /// eTag of the resource. To handle concurrent update scenario, this field will be used to determine whether the user is updating the latest version or not.
         /// Serialized Name: ProxyResource.eTag
         /// </param>
-        internal ConsumptionLotSummary(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, ConsumptionAmount originalAmount, ConsumptionAmount closedBalance, ConsumptionLotSource? source, DateTimeOffset? startOn, DateTimeOffset? expireOn, string poNumber, DateTimeOffset? purchasedOn, ConsumptionLotStatus? status, string creditCurrency, string billingCurrency, ConsumptionAmountWithExchangeRate originalAmountInBillingCurrency, ConsumptionAmountWithExchangeRate closedBalanceInBillingCurrency, ConsumptionReseller reseller, ETag? etag) : base(id, name, resourceType, systemData)
+        internal ConsumptionLotSummary(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, ConsumptionAmount originalAmount, ConsumptionAmount closedBalance, ConsumptionLotSource? source, DateTimeOffset? startOn, DateTimeOffset? expireOn, string poNumber, DateTimeOffset? purchasedOn, ConsumptionLotStatus? status, string creditCurrency, string billingCurrency, ConsumptionAmountWithExchangeRate originalAmountInBillingCurrency, ConsumptionAmountWithExchangeRate closedBalanceInBillingCurrency, ConsumptionReseller reseller, bool? isEstimatedBalance, ETag? etag) : base(id, name, resourceType, systemData)
         {
             OriginalAmount = originalAmount;
             ClosedBalance = closedBalance;
@@ -99,6 +103,7 @@ namespace Azure.ResourceManager.Consumption.Models
             OriginalAmountInBillingCurrency = originalAmountInBillingCurrency;
             ClosedBalanceInBillingCurrency = closedBalanceInBillingCurrency;
             Reseller = reseller;
+            IsEstimatedBalance = isEstimatedBalance;
             ETag = etag;
         }
 
@@ -167,6 +172,11 @@ namespace Azure.ResourceManager.Consumption.Models
         /// Serialized Name: LotSummary.properties.reseller
         /// </summary>
         public ConsumptionReseller Reseller { get; }
+        /// <summary>
+        /// If true, the listed details are based on an estimation and it will be subjected to change.
+        /// Serialized Name: LotSummary.properties.isEstimatedBalance
+        /// </summary>
+        public bool? IsEstimatedBalance { get; }
         /// <summary>
         /// eTag of the resource. To handle concurrent update scenario, this field will be used to determine whether the user is updating the latest version or not.
         /// Serialized Name: ProxyResource.eTag
