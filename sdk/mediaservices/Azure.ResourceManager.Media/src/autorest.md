@@ -9,7 +9,7 @@ generate-model-factory: false
 csharp: true
 library-name: Media
 namespace: Azure.ResourceManager.Media
-require: https://github.com/Azure/azure-rest-api-specs/blob/daeb320057bd56a88379c377d934150ef48d143f/specification/mediaservices/resource-manager/readme.md
+require: /mnt/vss/_work/1/s/azure-rest-api-specs/specification/mediaservices/resource-manager/readme.md
 tag: package-2023-01
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
