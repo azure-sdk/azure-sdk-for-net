@@ -830,6 +830,11 @@ namespace Azure.Search.Documents.Indexes.Models
         public int? M { get { throw null; } set { } }
         public Azure.Search.Documents.Indexes.Models.VectorSearchAlgorithmMetric? Metric { get { throw null; } set { } }
     }
+    public partial class HnswVectorSearchAlgorithmConfiguration : Azure.Search.Documents.Indexes.Models.VectorSearchAlgorithmConfiguration
+    {
+        public HnswVectorSearchAlgorithmConfiguration(string name) : base (default(string)) { }
+        public Azure.Search.Documents.Indexes.Models.HnswParameters Parameters { get { throw null; } set { } }
+    }
     public partial class ImageAnalysisSkill : Azure.Search.Documents.Indexes.Models.SearchIndexerSkill
     {
         public ImageAnalysisSkill(System.Collections.Generic.IEnumerable<Azure.Search.Documents.Indexes.Models.InputFieldMappingEntry> inputs, System.Collections.Generic.IEnumerable<Azure.Search.Documents.Indexes.Models.OutputFieldMappingEntry> outputs) { }
@@ -2796,11 +2801,9 @@ namespace Azure.Search.Documents.Indexes.Models
         public VectorSearch() { }
         public System.Collections.Generic.IList<Azure.Search.Documents.Indexes.Models.VectorSearchAlgorithmConfiguration> AlgorithmConfigurations { get { throw null; } }
     }
-    public partial class VectorSearchAlgorithmConfiguration
+    public abstract partial class VectorSearchAlgorithmConfiguration
     {
-        public VectorSearchAlgorithmConfiguration(string name, string kind) { }
-        public Azure.Search.Documents.Indexes.Models.HnswParameters HnswParameters { get { throw null; } set { } }
-        public string Kind { get { throw null; } set { } }
+        protected VectorSearchAlgorithmConfiguration(string name) { }
         public string Name { get { throw null; } set { } }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]

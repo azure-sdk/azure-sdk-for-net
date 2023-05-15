@@ -112,8 +112,15 @@ namespace Azure.Search.Documents.Indexes.Models
             }
             if (Optional.IsDefined(VectorSearchConfiguration))
             {
-                writer.WritePropertyName("vectorSearchConfiguration"u8);
-                writer.WriteStringValue(VectorSearchConfiguration);
+                if (VectorSearchConfiguration != null)
+                {
+                    writer.WritePropertyName("vectorSearchConfiguration"u8);
+                    writer.WriteStringValue(VectorSearchConfiguration);
+                }
+                else
+                {
+                    writer.WriteNull("vectorSearchConfiguration");
+                }
             }
             if (Optional.IsCollectionDefined(SynonymMapNames))
             {
@@ -278,6 +285,11 @@ namespace Azure.Search.Documents.Indexes.Models
                 }
                 if (property.NameEquals("vectorSearchConfiguration"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        vectorSearchConfiguration = null;
+                        continue;
+                    }
                     vectorSearchConfiguration = property.Value.GetString();
                     continue;
                 }
