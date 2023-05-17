@@ -7,7 +7,7 @@ azure-arm: true
 generate-model-factory: false
 library-name: Dns
 namespace: Azure.ResourceManager.Dns
-require: https://github.com/Azure/azure-rest-api-specs/blob/48a49f06399fbdf21f17406b5042f96a5d573bf0/specification/dns/resource-manager/readme.md
+require: /mnt/vss/_work/1/s/azure-rest-api-specs/specification/dns/resource-manager/readme.md
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
 skip-csproj: true
