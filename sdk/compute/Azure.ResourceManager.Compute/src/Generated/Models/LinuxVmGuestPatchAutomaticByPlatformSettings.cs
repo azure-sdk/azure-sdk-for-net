@@ -8,7 +8,7 @@
 namespace Azure.ResourceManager.Compute.Models
 {
     /// <summary> Specifies additional settings to be applied when patch mode AutomaticByPlatform is selected in Linux patch settings. </summary>
-    public partial class LinuxVmGuestPatchAutomaticByPlatformSettings
+    internal partial class LinuxVmGuestPatchAutomaticByPlatformSettings
     {
         /// <summary> Initializes a new instance of LinuxVmGuestPatchAutomaticByPlatformSettings. </summary>
         public LinuxVmGuestPatchAutomaticByPlatformSettings()
@@ -17,16 +17,12 @@ namespace Azure.ResourceManager.Compute.Models
 
         /// <summary> Initializes a new instance of LinuxVmGuestPatchAutomaticByPlatformSettings. </summary>
         /// <param name="rebootSetting"> Specifies the reboot setting for all AutomaticByPlatform patch installation operations. </param>
-        /// <param name="bypassPlatformSafetyChecksOnUserSchedule"> Enables customer to schedule patching without accidental upgrades. </param>
-        internal LinuxVmGuestPatchAutomaticByPlatformSettings(LinuxVmGuestPatchAutomaticByPlatformRebootSetting? rebootSetting, bool? bypassPlatformSafetyChecksOnUserSchedule)
+        internal LinuxVmGuestPatchAutomaticByPlatformSettings(LinuxVmGuestPatchAutomaticByPlatformRebootSetting? rebootSetting)
         {
             RebootSetting = rebootSetting;
-            BypassPlatformSafetyChecksOnUserSchedule = bypassPlatformSafetyChecksOnUserSchedule;
         }
 
         /// <summary> Specifies the reboot setting for all AutomaticByPlatform patch installation operations. </summary>
         public LinuxVmGuestPatchAutomaticByPlatformRebootSetting? RebootSetting { get; set; }
-        /// <summary> Enables customer to schedule patching without accidental upgrades. </summary>
-        public bool? BypassPlatformSafetyChecksOnUserSchedule { get; set; }
     }
 }

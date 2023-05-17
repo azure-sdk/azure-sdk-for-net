@@ -6,7 +6,6 @@
 #nullable disable
 
 using System;
-using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
 using Azure.ResourceManager.Compute.Models;
@@ -19,11 +18,6 @@ namespace Azure.ResourceManager.Compute
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
-            if (Optional.IsDefined(Location))
-            {
-                writer.WritePropertyName("location"u8);
-                writer.WriteStringValue(Location.Value);
-            }
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
             if (Optional.IsDefined(ForceUpdateTag))
@@ -89,16 +83,6 @@ namespace Azure.ResourceManager.Compute
                 writer.WritePropertyName("protectedSettingsFromKeyVault"u8);
                 writer.WriteObjectValue(KeyVaultProtectedSettings);
             }
-            if (Optional.IsCollectionDefined(ProvisionAfterExtensions))
-            {
-                writer.WritePropertyName("provisionAfterExtensions"u8);
-                writer.WriteStartArray();
-                foreach (var item in ProvisionAfterExtensions)
-                {
-                    writer.WriteStringValue(item);
-                }
-                writer.WriteEndArray();
-            }
             writer.WriteEndObject();
             writer.WriteEndObject();
         }
@@ -109,7 +93,6 @@ namespace Azure.ResourceManager.Compute
             {
                 return null;
             }
-            Optional<AzureLocation> location = default;
             ResourceIdentifier id = default;
             string name = default;
             ResourceType type = default;
@@ -126,18 +109,8 @@ namespace Azure.ResourceManager.Compute
             Optional<VirtualMachineExtensionInstanceView> instanceView = default;
             Optional<bool> suppressFailures = default;
             Optional<KeyVaultSecretReference> protectedSettingsFromKeyVault = default;
-            Optional<IList<string>> provisionAfterExtensions = default;
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("location"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    location = new AzureLocation(property.Value.GetString());
-                    continue;
-                }
                 if (property.NameEquals("id"u8))
                 {
                     id = new ResourceIdentifier(property.Value.GetString());
@@ -259,25 +232,11 @@ namespace Azure.ResourceManager.Compute
                             protectedSettingsFromKeyVault = KeyVaultSecretReference.DeserializeKeyVaultSecretReference(property0.Value);
                             continue;
                         }
-                        if (property0.NameEquals("provisionAfterExtensions"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            List<string> array = new List<string>();
-                            foreach (var item in property0.Value.EnumerateArray())
-                            {
-                                array.Add(item.GetString());
-                            }
-                            provisionAfterExtensions = array;
-                            continue;
-                        }
                     }
                     continue;
                 }
             }
-            return new VirtualMachineScaleSetVmExtensionData(id, name, type, systemData.Value, Optional.ToNullable(location), forceUpdateTag.Value, publisher.Value, type0.Value, typeHandlerVersion.Value, Optional.ToNullable(autoUpgradeMinorVersion), Optional.ToNullable(enableAutomaticUpgrade), settings.Value, protectedSettings.Value, provisioningState.Value, instanceView.Value, Optional.ToNullable(suppressFailures), protectedSettingsFromKeyVault.Value, Optional.ToList(provisionAfterExtensions));
+            return new VirtualMachineScaleSetVmExtensionData(id, name, type, systemData.Value, forceUpdateTag.Value, publisher.Value, type0.Value, typeHandlerVersion.Value, Optional.ToNullable(autoUpgradeMinorVersion), Optional.ToNullable(enableAutomaticUpgrade), settings.Value, protectedSettings.Value, provisioningState.Value, instanceView.Value, Optional.ToNullable(suppressFailures), protectedSettingsFromKeyVault.Value);
         }
     }
 }
