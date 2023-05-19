@@ -58,10 +58,12 @@ namespace Microsoft.Azure.Management.Network.Models
         /// the Bastion Host resource.</param>
         /// <param name="enableTunneling">Enable/Disable Tunneling feature of
         /// the Bastion Host resource.</param>
+        /// <param name="enableKerberos">Enable/Disable Kerberos feature of the
+        /// Bastion Host resource.</param>
         /// <param name="etag">A unique read-only string that changes whenever
         /// the resource is updated.</param>
         /// <param name="sku">The sku of this Bastion Host.</param>
-        public BastionHost(string id = default(string), string name = default(string), string type = default(string), string location = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), IList<BastionHostIPConfiguration> ipConfigurations = default(IList<BastionHostIPConfiguration>), string dnsName = default(string), string provisioningState = default(string), int? scaleUnits = default(int?), bool? disableCopyPaste = default(bool?), bool? enableFileCopy = default(bool?), bool? enableIpConnect = default(bool?), bool? enableShareableLink = default(bool?), bool? enableTunneling = default(bool?), string etag = default(string), Sku sku = default(Sku))
+        public BastionHost(string id = default(string), string name = default(string), string type = default(string), string location = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), IList<BastionHostIPConfiguration> ipConfigurations = default(IList<BastionHostIPConfiguration>), string dnsName = default(string), string provisioningState = default(string), int? scaleUnits = default(int?), bool? disableCopyPaste = default(bool?), bool? enableFileCopy = default(bool?), bool? enableIpConnect = default(bool?), bool? enableShareableLink = default(bool?), bool? enableTunneling = default(bool?), bool? enableKerberos = default(bool?), string etag = default(string), Sku sku = default(Sku))
             : base(id, name, type, location, tags)
         {
             IpConfigurations = ipConfigurations;
@@ -73,6 +75,7 @@ namespace Microsoft.Azure.Management.Network.Models
             EnableIpConnect = enableIpConnect;
             EnableShareableLink = enableShareableLink;
             EnableTunneling = enableTunneling;
+            EnableKerberos = enableKerberos;
             Etag = etag;
             Sku = sku;
             CustomInit();
@@ -143,6 +146,13 @@ namespace Microsoft.Azure.Management.Network.Models
         /// </summary>
         [JsonProperty(PropertyName = "properties.enableTunneling")]
         public bool? EnableTunneling { get; set; }
+
+        /// <summary>
+        /// Gets or sets enable/Disable Kerberos feature of the Bastion Host
+        /// resource.
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.enableKerberos")]
+        public bool? EnableKerberos { get; set; }
 
         /// <summary>
         /// Gets a unique read-only string that changes whenever the resource

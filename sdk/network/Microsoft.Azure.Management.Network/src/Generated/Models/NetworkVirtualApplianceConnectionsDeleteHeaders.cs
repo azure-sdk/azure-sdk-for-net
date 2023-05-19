@@ -11,30 +11,31 @@
 namespace Microsoft.Azure.Management.Network.Models
 {
     using Newtonsoft.Json;
-    using System.Collections;
-    using System.Collections.Generic;
     using System.Linq;
 
     /// <summary>
-    /// List of virtual router peer routes.
+    /// Defines headers for Delete operation.
     /// </summary>
-    public partial class PeerRouteList
+    public partial class NetworkVirtualApplianceConnectionsDeleteHeaders
     {
         /// <summary>
-        /// Initializes a new instance of the PeerRouteList class.
+        /// Initializes a new instance of the
+        /// NetworkVirtualApplianceConnectionsDeleteHeaders class.
         /// </summary>
-        public PeerRouteList()
+        public NetworkVirtualApplianceConnectionsDeleteHeaders()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the PeerRouteList class.
+        /// Initializes a new instance of the
+        /// NetworkVirtualApplianceConnectionsDeleteHeaders class.
         /// </summary>
-        /// <param name="value">List of peer routes.</param>
-        public PeerRouteList(IList<PeerRoute> value = default(IList<PeerRoute>))
+        /// <param name="location">The URL of the resource used to check the
+        /// status of the asynchronous operation.</param>
+        public NetworkVirtualApplianceConnectionsDeleteHeaders(string location = default(string))
         {
-            Value = value;
+            Location = location;
             CustomInit();
         }
 
@@ -44,10 +45,11 @@ namespace Microsoft.Azure.Management.Network.Models
         partial void CustomInit();
 
         /// <summary>
-        /// Gets or sets list of peer routes.
+        /// Gets or sets the URL of the resource used to check the status of
+        /// the asynchronous operation.
         /// </summary>
-        [JsonProperty(PropertyName = "value")]
-        public IList<PeerRoute> Value { get; set; }
+        [JsonProperty(PropertyName = "location")]
+        public string Location { get; set; }
 
     }
 }
