@@ -15,10 +15,10 @@ namespace Azure.ResourceManager.AppPlatform.Models
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
-            if (Optional.IsDefined(KPackVersion))
+            if (Optional.IsDefined(ContainerRegistry))
             {
-                writer.WritePropertyName("kPackVersion"u8);
-                writer.WriteStringValue(KPackVersion);
+                writer.WritePropertyName("containerRegistry"u8);
+                writer.WriteStringValue(ContainerRegistry);
             }
             if (Optional.IsDefined(ResourceRequests))
             {
@@ -34,11 +34,17 @@ namespace Azure.ResourceManager.AppPlatform.Models
             {
                 return null;
             }
+            Optional<string> containerRegistry = default;
             Optional<string> kPackVersion = default;
             Optional<AppPlatformBuildServiceProvisioningState> provisioningState = default;
             Optional<AppPlatformBuildServiceResourceRequirements> resourceRequests = default;
             foreach (var property in element.EnumerateObject())
             {
+                if (property.NameEquals("containerRegistry"u8))
+                {
+                    containerRegistry = property.Value.GetString();
+                    continue;
+                }
                 if (property.NameEquals("kPackVersion"u8))
                 {
                     kPackVersion = property.Value.GetString();
@@ -63,7 +69,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
                     continue;
                 }
             }
-            return new AppPlatformBuildServiceProperties(kPackVersion.Value, Optional.ToNullable(provisioningState), resourceRequests.Value);
+            return new AppPlatformBuildServiceProperties(containerRegistry.Value, kPackVersion.Value, Optional.ToNullable(provisioningState), resourceRequests.Value);
         }
     }
 }

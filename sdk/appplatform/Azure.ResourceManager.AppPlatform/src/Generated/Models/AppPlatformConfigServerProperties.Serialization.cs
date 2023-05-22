@@ -20,6 +20,11 @@ namespace Azure.ResourceManager.AppPlatform.Models
                 writer.WritePropertyName("error"u8);
                 writer.WriteObjectValue(Error);
             }
+            if (Optional.IsDefined(EnabledState))
+            {
+                writer.WritePropertyName("enabledState"u8);
+                writer.WriteStringValue(EnabledState.Value.ToString());
+            }
             if (Optional.IsDefined(ConfigServer))
             {
                 writer.WritePropertyName("configServer"u8);
@@ -36,6 +41,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
             }
             Optional<AppPlatformConfigServerState> provisioningState = default;
             Optional<AppPlatformErrorInfo> error = default;
+            Optional<ConfigServerEnabledState> enabledState = default;
             Optional<ConfigServerSettings> configServer = default;
             foreach (var property in element.EnumerateObject())
             {
@@ -57,6 +63,15 @@ namespace Azure.ResourceManager.AppPlatform.Models
                     error = AppPlatformErrorInfo.DeserializeAppPlatformErrorInfo(property.Value);
                     continue;
                 }
+                if (property.NameEquals("enabledState"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    enabledState = new ConfigServerEnabledState(property.Value.GetString());
+                    continue;
+                }
                 if (property.NameEquals("configServer"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -67,7 +82,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
                     continue;
                 }
             }
-            return new AppPlatformConfigServerProperties(Optional.ToNullable(provisioningState), error.Value, configServer.Value);
+            return new AppPlatformConfigServerProperties(Optional.ToNullable(provisioningState), error.Value, Optional.ToNullable(enabledState), configServer.Value);
         }
     }
 }

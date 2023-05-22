@@ -42,10 +42,50 @@ namespace Azure.ResourceManager.AppPlatform.Models
                 writer.WritePropertyName("corsProperties"u8);
                 writer.WriteObjectValue(CorsProperties);
             }
+            if (Optional.IsDefined(ClientAuth))
+            {
+                writer.WritePropertyName("clientAuth"u8);
+                writer.WriteObjectValue(ClientAuth);
+            }
+            if (Optional.IsCollectionDefined(ApmTypes))
+            {
+                writer.WritePropertyName("apmTypes"u8);
+                writer.WriteStartArray();
+                foreach (var item in ApmTypes)
+                {
+                    writer.WriteStringValue(item.ToString());
+                }
+                writer.WriteEndArray();
+            }
+            if (Optional.IsDefined(EnvironmentVariables))
+            {
+                writer.WritePropertyName("environmentVariables"u8);
+                writer.WriteObjectValue(EnvironmentVariables);
+            }
             if (Optional.IsDefined(ResourceRequests))
             {
                 writer.WritePropertyName("resourceRequests"u8);
                 writer.WriteObjectValue(ResourceRequests);
+            }
+            if (Optional.IsCollectionDefined(AddonConfigs))
+            {
+                writer.WritePropertyName("addonConfigs"u8);
+                writer.WriteStartObject();
+                foreach (var item in AddonConfigs)
+                {
+                    writer.WritePropertyName(item.Key);
+                    if (item.Value == null)
+                    {
+                        writer.WriteNullValue();
+                        continue;
+                    }
+#if NET6_0_OR_GREATER
+				writer.WriteRawValue(item.Value);
+#else
+                    JsonSerializer.Serialize(writer, JsonDocument.Parse(item.Value.ToString()).RootElement);
+#endif
+                }
+                writer.WriteEndObject();
             }
             writer.WriteEndObject();
         }
@@ -63,7 +103,11 @@ namespace Azure.ResourceManager.AppPlatform.Models
             Optional<AppPlatformSsoProperties> ssoProperties = default;
             Optional<AppPlatformGatewayApiMetadataProperties> apiMetadataProperties = default;
             Optional<AppPlatformGatewayCorsProperties> corsProperties = default;
+            Optional<GatewayPropertiesClientAuth> clientAuth = default;
+            Optional<IList<ApmType>> apmTypes = default;
+            Optional<GatewayPropertiesEnvironmentVariables> environmentVariables = default;
             Optional<AppPlatformGatewayResourceRequirements> resourceRequests = default;
+            Optional<IDictionary<string, BinaryData>> addonConfigs = default;
             Optional<IReadOnlyList<AppPlatformGatewayInstance>> instances = default;
             Optional<AppPlatformGatewayOperatorProperties> operatorProperties = default;
             foreach (var property in element.EnumerateObject())
@@ -131,6 +175,38 @@ namespace Azure.ResourceManager.AppPlatform.Models
                     corsProperties = AppPlatformGatewayCorsProperties.DeserializeAppPlatformGatewayCorsProperties(property.Value);
                     continue;
                 }
+                if (property.NameEquals("clientAuth"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    clientAuth = GatewayPropertiesClientAuth.DeserializeGatewayPropertiesClientAuth(property.Value);
+                    continue;
+                }
+                if (property.NameEquals("apmTypes"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<ApmType> array = new List<ApmType>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(new ApmType(item.GetString()));
+                    }
+                    apmTypes = array;
+                    continue;
+                }
+                if (property.NameEquals("environmentVariables"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    environmentVariables = GatewayPropertiesEnvironmentVariables.DeserializeGatewayPropertiesEnvironmentVariables(property.Value);
+                    continue;
+                }
                 if (property.NameEquals("resourceRequests"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -138,6 +214,27 @@ namespace Azure.ResourceManager.AppPlatform.Models
                         continue;
                     }
                     resourceRequests = AppPlatformGatewayResourceRequirements.DeserializeAppPlatformGatewayResourceRequirements(property.Value);
+                    continue;
+                }
+                if (property.NameEquals("addonConfigs"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    Dictionary<string, BinaryData> dictionary = new Dictionary<string, BinaryData>();
+                    foreach (var property0 in property.Value.EnumerateObject())
+                    {
+                        if (property0.Value.ValueKind == JsonValueKind.Null)
+                        {
+                            dictionary.Add(property0.Name, null);
+                        }
+                        else
+                        {
+                            dictionary.Add(property0.Name, BinaryData.FromString(property0.Value.GetRawText()));
+                        }
+                    }
+                    addonConfigs = dictionary;
                     continue;
                 }
                 if (property.NameEquals("instances"u8))
@@ -164,7 +261,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
                     continue;
                 }
             }
-            return new AppPlatformGatewayProperties(Optional.ToNullable(provisioningState), Optional.ToNullable(@public), uri.Value, Optional.ToNullable(httpsOnly), ssoProperties.Value, apiMetadataProperties.Value, corsProperties.Value, resourceRequests.Value, Optional.ToList(instances), operatorProperties.Value);
+            return new AppPlatformGatewayProperties(Optional.ToNullable(provisioningState), Optional.ToNullable(@public), uri.Value, Optional.ToNullable(httpsOnly), ssoProperties.Value, apiMetadataProperties.Value, corsProperties.Value, clientAuth.Value, Optional.ToList(apmTypes), environmentVariables.Value, resourceRequests.Value, Optional.ToDictionary(addonConfigs), Optional.ToList(instances), operatorProperties.Value);
         }
     }
 }

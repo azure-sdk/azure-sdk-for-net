@@ -16,8 +16,11 @@ namespace Azure.ResourceManager.AppPlatform.Models
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
-            writer.WritePropertyName("shareName"u8);
-            writer.WriteStringValue(ShareName);
+            if (Optional.IsDefined(ShareName))
+            {
+                writer.WritePropertyName("shareName"u8);
+                writer.WriteStringValue(ShareName);
+            }
             writer.WritePropertyName("type"u8);
             writer.WriteStringValue(UnderlyingResourceType.ToString());
             writer.WritePropertyName("mountPath"u8);
@@ -26,6 +29,11 @@ namespace Azure.ResourceManager.AppPlatform.Models
             {
                 writer.WritePropertyName("readOnly"u8);
                 writer.WriteBooleanValue(IsReadOnly.Value);
+            }
+            if (Optional.IsDefined(EnableSubPath))
+            {
+                writer.WritePropertyName("enableSubPath"u8);
+                writer.WriteBooleanValue(EnableSubPath.Value);
             }
             if (Optional.IsCollectionDefined(MountOptions))
             {
@@ -46,10 +54,11 @@ namespace Azure.ResourceManager.AppPlatform.Models
             {
                 return null;
             }
-            string shareName = default;
+            Optional<string> shareName = default;
             UnderlyingResourceType type = default;
             string mountPath = default;
             Optional<bool> readOnly = default;
+            Optional<bool> enableSubPath = default;
             Optional<IList<string>> mountOptions = default;
             foreach (var property in element.EnumerateObject())
             {
@@ -77,6 +86,15 @@ namespace Azure.ResourceManager.AppPlatform.Models
                     readOnly = property.Value.GetBoolean();
                     continue;
                 }
+                if (property.NameEquals("enableSubPath"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    enableSubPath = property.Value.GetBoolean();
+                    continue;
+                }
                 if (property.NameEquals("mountOptions"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -92,7 +110,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
                     continue;
                 }
             }
-            return new AppPlatformAzureFileVolume(type, mountPath, Optional.ToNullable(readOnly), Optional.ToList(mountOptions), shareName);
+            return new AppPlatformAzureFileVolume(type, mountPath, Optional.ToNullable(readOnly), Optional.ToNullable(enableSubPath), Optional.ToList(mountOptions), shareName.Value);
         }
     }
 }

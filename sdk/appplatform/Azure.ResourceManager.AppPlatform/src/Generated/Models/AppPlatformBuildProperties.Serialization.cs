@@ -43,6 +43,26 @@ namespace Azure.ResourceManager.AppPlatform.Models
                 }
                 writer.WriteEndObject();
             }
+            if (Optional.IsCollectionDefined(Apms))
+            {
+                writer.WritePropertyName("apms"u8);
+                writer.WriteStartArray();
+                foreach (var item in Apms)
+                {
+                    writer.WriteObjectValue(item);
+                }
+                writer.WriteEndArray();
+            }
+            if (Optional.IsCollectionDefined(Certificates))
+            {
+                writer.WritePropertyName("certificates"u8);
+                writer.WriteStartArray();
+                foreach (var item in Certificates)
+                {
+                    writer.WriteObjectValue(item);
+                }
+                writer.WriteEndArray();
+            }
             if (Optional.IsDefined(ResourceRequests))
             {
                 writer.WritePropertyName("resourceRequests"u8);
@@ -62,6 +82,8 @@ namespace Azure.ResourceManager.AppPlatform.Models
             Optional<string> agentPool = default;
             Optional<AppPlatformBuildProvisioningState> provisioningState = default;
             Optional<IDictionary<string, string>> env = default;
+            Optional<IList<ApmReference>> apms = default;
+            Optional<IList<CertificateReference>> certificates = default;
             Optional<SubResource> triggeredBuildResult = default;
             Optional<AppPlatformBuildResourceRequirements> resourceRequests = default;
             foreach (var property in element.EnumerateObject())
@@ -104,6 +126,34 @@ namespace Azure.ResourceManager.AppPlatform.Models
                     env = dictionary;
                     continue;
                 }
+                if (property.NameEquals("apms"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<ApmReference> array = new List<ApmReference>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(ApmReference.DeserializeApmReference(item));
+                    }
+                    apms = array;
+                    continue;
+                }
+                if (property.NameEquals("certificates"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<CertificateReference> array = new List<CertificateReference>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(CertificateReference.DeserializeCertificateReference(item));
+                    }
+                    certificates = array;
+                    continue;
+                }
                 if (property.NameEquals("triggeredBuildResult"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -123,7 +173,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
                     continue;
                 }
             }
-            return new AppPlatformBuildProperties(relativePath.Value, builder.Value, agentPool.Value, Optional.ToNullable(provisioningState), Optional.ToDictionary(env), triggeredBuildResult, resourceRequests.Value);
+            return new AppPlatformBuildProperties(relativePath.Value, builder.Value, agentPool.Value, Optional.ToNullable(provisioningState), Optional.ToDictionary(env), Optional.ToList(apms), Optional.ToList(certificates), triggeredBuildResult, resourceRequests.Value);
         }
     }
 }

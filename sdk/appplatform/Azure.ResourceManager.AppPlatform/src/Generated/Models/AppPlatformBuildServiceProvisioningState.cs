@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace Azure.ResourceManager.AppPlatform.Models
 {
-    /// <summary> Provisioning state of the KPack build result. </summary>
+    /// <summary> Provisioning state of the KPack build service. </summary>
     public readonly partial struct AppPlatformBuildServiceProvisioningState : IEquatable<AppPlatformBuildServiceProvisioningState>
     {
         private readonly string _value;
