@@ -54,6 +54,11 @@ namespace Azure.ResourceManager.Attestation
                 writer.WritePropertyName("publicNetworkAccess"u8);
                 writer.WriteStringValue(PublicNetworkAccess.Value.ToString());
             }
+            if (Optional.IsDefined(TpmAttestationAuthentication))
+            {
+                writer.WritePropertyName("tpmAttestationAuthentication"u8);
+                writer.WriteStringValue(TpmAttestationAuthentication.Value.ToString());
+            }
             writer.WriteEndObject();
             writer.WriteEndObject();
         }
@@ -75,6 +80,7 @@ namespace Azure.ResourceManager.Attestation
             Optional<Uri> attestUri = default;
             Optional<PublicNetworkAccessType> publicNetworkAccess = default;
             Optional<IReadOnlyList<AttestationPrivateEndpointConnectionData>> privateEndpointConnections = default;
+            Optional<TpmAttestationAuthenticationType> tpmAttestationAuthentication = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("tags"u8))
@@ -175,11 +181,20 @@ namespace Azure.ResourceManager.Attestation
                             privateEndpointConnections = array;
                             continue;
                         }
+                        if (property0.NameEquals("tpmAttestationAuthentication"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            tpmAttestationAuthentication = new TpmAttestationAuthenticationType(property0.Value.GetString());
+                            continue;
+                        }
                     }
                     continue;
                 }
             }
-            return new AttestationProviderData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, trustModel.Value, Optional.ToNullable(status), attestUri.Value, Optional.ToNullable(publicNetworkAccess), Optional.ToList(privateEndpointConnections));
+            return new AttestationProviderData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, trustModel.Value, Optional.ToNullable(status), attestUri.Value, Optional.ToNullable(publicNetworkAccess), Optional.ToList(privateEndpointConnections), Optional.ToNullable(tpmAttestationAuthentication));
         }
     }
 }

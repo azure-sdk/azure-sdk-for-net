@@ -55,7 +55,7 @@ namespace Azure.ResourceManager.Attestation
         }
 
         /// <summary>
-        /// Creates a new Attestation Provider.
+        /// Creates or updates an Attestation Provider.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -96,7 +96,7 @@ namespace Azure.ResourceManager.Attestation
         }
 
         /// <summary>
-        /// Creates a new Attestation Provider.
+        /// Creates or updates an Attestation Provider.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
