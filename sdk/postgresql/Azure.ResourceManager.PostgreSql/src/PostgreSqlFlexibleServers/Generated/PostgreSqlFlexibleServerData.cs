@@ -44,7 +44,7 @@ namespace Azure.ResourceManager.PostgreSql.FlexibleServers
         /// <param name="authConfig"> AuthConfig properties of a server. </param>
         /// <param name="dataEncryption"> Data encryption properties of a server. </param>
         /// <param name="backup"> Backup properties of a server. </param>
-        /// <param name="network"> Network properties of a server. </param>
+        /// <param name="network"> Network properties of a server. This Network property is required to be passed only in case you want the server to be Private access server. </param>
         /// <param name="highAvailability"> High availability properties of a server. </param>
         /// <param name="maintenanceWindow"> Maintenance window properties of a server. </param>
         /// <param name="sourceServerResourceId"> The source server resource ID to restore from. It&apos;s required when &apos;createMode&apos; is &apos;PointInTimeRestore&apos; or &apos;GeoRestore&apos; or &apos;Replica&apos;. </param>
@@ -114,7 +114,7 @@ namespace Azure.ResourceManager.PostgreSql.FlexibleServers
         public PostgreSqlFlexibleServerDataEncryption DataEncryption { get; set; }
         /// <summary> Backup properties of a server. </summary>
         public PostgreSqlFlexibleServerBackupProperties Backup { get; set; }
-        /// <summary> Network properties of a server. </summary>
+        /// <summary> Network properties of a server. This Network property is required to be passed only in case you want the server to be Private access server. </summary>
         public PostgreSqlFlexibleServerNetwork Network { get; set; }
         /// <summary> High availability properties of a server. </summary>
         public PostgreSqlFlexibleServerHighAvailability HighAvailability { get; set; }
