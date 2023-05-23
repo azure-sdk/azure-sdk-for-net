@@ -72,6 +72,7 @@ namespace Azure.ResourceManager.Attestation
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Attestation.AttestationPrivateEndpointConnectionData> PrivateEndpointConnections { get { throw null; } }
         public Azure.ResourceManager.Attestation.Models.PublicNetworkAccessType? PublicNetworkAccess { get { throw null; } set { } }
         public Azure.ResourceManager.Attestation.Models.AttestationServiceStatus? Status { get { throw null; } set { } }
+        public Azure.ResourceManager.Attestation.Models.TpmAttestationAuthenticationType? TpmAttestationAuthentication { get { throw null; } set { } }
         public string TrustModel { get { throw null; } set { } }
     }
     public partial class AttestationProviderResource : Azure.ResourceManager.ArmResource
@@ -165,7 +166,7 @@ namespace Azure.ResourceManager.Attestation.Models
     public partial class AttestationProviderPatch
     {
         public AttestationProviderPatch() { }
-        public Azure.ResourceManager.Attestation.Models.PublicNetworkAccessType? AttestationServicePatchSpecificParamsPublicNetworkAccess { get { throw null; } set { } }
+        public Azure.ResourceManager.Attestation.Models.AttestationServicePatchSpecificParams Properties { get { throw null; } set { } }
         public System.Collections.Generic.IDictionary<string, string> Tags { get { throw null; } }
     }
     public partial class AttestationServiceCreationSpecificParams
@@ -173,6 +174,13 @@ namespace Azure.ResourceManager.Attestation.Models
         public AttestationServiceCreationSpecificParams() { }
         public System.Collections.Generic.IList<Azure.ResourceManager.Attestation.Models.JsonWebKey> PolicySigningCertificatesKeys { get { throw null; } }
         public Azure.ResourceManager.Attestation.Models.PublicNetworkAccessType? PublicNetworkAccess { get { throw null; } set { } }
+        public Azure.ResourceManager.Attestation.Models.TpmAttestationAuthenticationType? TpmAttestationAuthentication { get { throw null; } set { } }
+    }
+    public partial class AttestationServicePatchSpecificParams
+    {
+        public AttestationServicePatchSpecificParams() { }
+        public Azure.ResourceManager.Attestation.Models.PublicNetworkAccessType? PublicNetworkAccess { get { throw null; } set { } }
+        public Azure.ResourceManager.Attestation.Models.TpmAttestationAuthenticationType? TpmAttestationAuthentication { get { throw null; } set { } }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct AttestationServiceStatus : System.IEquatable<Azure.ResourceManager.Attestation.Models.AttestationServiceStatus>
@@ -230,6 +238,24 @@ namespace Azure.ResourceManager.Attestation.Models
         public static bool operator ==(Azure.ResourceManager.Attestation.Models.PublicNetworkAccessType left, Azure.ResourceManager.Attestation.Models.PublicNetworkAccessType right) { throw null; }
         public static implicit operator Azure.ResourceManager.Attestation.Models.PublicNetworkAccessType (string value) { throw null; }
         public static bool operator !=(Azure.ResourceManager.Attestation.Models.PublicNetworkAccessType left, Azure.ResourceManager.Attestation.Models.PublicNetworkAccessType right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct TpmAttestationAuthenticationType : System.IEquatable<Azure.ResourceManager.Attestation.Models.TpmAttestationAuthenticationType>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public TpmAttestationAuthenticationType(string value) { throw null; }
+        public static Azure.ResourceManager.Attestation.Models.TpmAttestationAuthenticationType Disabled { get { throw null; } }
+        public static Azure.ResourceManager.Attestation.Models.TpmAttestationAuthenticationType Enabled { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.Attestation.Models.TpmAttestationAuthenticationType other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.Attestation.Models.TpmAttestationAuthenticationType left, Azure.ResourceManager.Attestation.Models.TpmAttestationAuthenticationType right) { throw null; }
+        public static implicit operator Azure.ResourceManager.Attestation.Models.TpmAttestationAuthenticationType (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.Attestation.Models.TpmAttestationAuthenticationType left, Azure.ResourceManager.Attestation.Models.TpmAttestationAuthenticationType right) { throw null; }
         public override string ToString() { throw null; }
     }
 }

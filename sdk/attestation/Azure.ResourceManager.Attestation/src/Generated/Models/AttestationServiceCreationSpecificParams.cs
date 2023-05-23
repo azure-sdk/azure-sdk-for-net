@@ -37,5 +37,8 @@ namespace Azure.ResourceManager.Attestation.Models
                 return PolicySigningCertificates.Keys;
             }
         }
+
+        /// <summary> The setting that controls whether authentication is enabled or disabled for TPM Attestation REST APIs. </summary>
+        public TpmAttestationAuthenticationType? TpmAttestationAuthentication { get; set; }
     }
 }

@@ -8,7 +8,7 @@
 namespace Azure.ResourceManager.Attestation.Models
 {
     /// <summary> Client supplied parameters used to patch an existing attestation provider. </summary>
-    internal partial class AttestationServicePatchSpecificParams
+    public partial class AttestationServicePatchSpecificParams
     {
         /// <summary> Initializes a new instance of AttestationServicePatchSpecificParams. </summary>
         public AttestationServicePatchSpecificParams()
@@ -17,5 +17,7 @@ namespace Azure.ResourceManager.Attestation.Models
 
         /// <summary> Controls whether traffic from the public network is allowed to access the Attestation Provider APIs. </summary>
         public PublicNetworkAccessType? PublicNetworkAccess { get; set; }
+        /// <summary> The setting that controls whether authentication is enabled or disabled for TPM Attestation REST APIs. </summary>
+        public TpmAttestationAuthenticationType? TpmAttestationAuthentication { get; set; }
     }
 }

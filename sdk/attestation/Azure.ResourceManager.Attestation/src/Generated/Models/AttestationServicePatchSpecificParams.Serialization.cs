@@ -10,7 +10,7 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.Attestation.Models
 {
-    internal partial class AttestationServicePatchSpecificParams : IUtf8JsonSerializable
+    public partial class AttestationServicePatchSpecificParams : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
@@ -19,6 +19,11 @@ namespace Azure.ResourceManager.Attestation.Models
             {
                 writer.WritePropertyName("publicNetworkAccess"u8);
                 writer.WriteStringValue(PublicNetworkAccess.Value.ToString());
+            }
+            if (Optional.IsDefined(TpmAttestationAuthentication))
+            {
+                writer.WritePropertyName("tpmAttestationAuthentication"u8);
+                writer.WriteStringValue(TpmAttestationAuthentication.Value.ToString());
             }
             writer.WriteEndObject();
         }
