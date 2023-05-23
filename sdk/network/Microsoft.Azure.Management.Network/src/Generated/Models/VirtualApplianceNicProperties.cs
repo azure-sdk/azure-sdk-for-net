@@ -34,11 +34,14 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <param name="name">NIC name.</param>
         /// <param name="publicIpAddress">Public IP address.</param>
         /// <param name="privateIpAddress">Private IP address.</param>
-        public VirtualApplianceNicProperties(string name = default(string), string publicIpAddress = default(string), string privateIpAddress = default(string))
+        /// <param name="instanceName">Instance on which nic is
+        /// attached.</param>
+        public VirtualApplianceNicProperties(string name = default(string), string publicIpAddress = default(string), string privateIpAddress = default(string), string instanceName = default(string))
         {
             Name = name;
             PublicIpAddress = publicIpAddress;
             PrivateIpAddress = privateIpAddress;
+            InstanceName = instanceName;
             CustomInit();
         }
 
@@ -64,6 +67,12 @@ namespace Microsoft.Azure.Management.Network.Models
         /// </summary>
         [JsonProperty(PropertyName = "privateIpAddress")]
         public string PrivateIpAddress { get; private set; }
+
+        /// <summary>
+        /// Gets instance on which nic is attached.
+        /// </summary>
+        [JsonProperty(PropertyName = "instanceName")]
+        public string InstanceName { get; private set; }
 
     }
 }
