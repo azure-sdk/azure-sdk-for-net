@@ -61,6 +61,21 @@ namespace Azure.ResourceManager.AppService.Models
                 writer.WritePropertyName("templateProperties"u8);
                 writer.WriteObjectValue(TemplateProperties);
             }
+            if (Optional.IsDefined(Provider))
+            {
+                writer.WritePropertyName("provider"u8);
+                writer.WriteStringValue(Provider);
+            }
+            if (Optional.IsDefined(EnterpriseGradeCdnStatus))
+            {
+                writer.WritePropertyName("enterpriseGradeCdnStatus"u8);
+                writer.WriteStringValue(EnterpriseGradeCdnStatus.Value.ToString());
+            }
+            if (Optional.IsDefined(PublicNetworkAccess))
+            {
+                writer.WritePropertyName("publicNetworkAccess"u8);
+                writer.WriteStringValue(PublicNetworkAccess);
+            }
             writer.WriteEndObject();
             writer.WriteEndObject();
         }
@@ -89,7 +104,11 @@ namespace Azure.ResourceManager.AppService.Models
             Optional<string> contentDistributionEndpoint = default;
             Optional<string> keyVaultReferenceIdentity = default;
             Optional<IReadOnlyList<StaticSiteUserProvidedFunctionAppData>> userProvidedFunctionApps = default;
+            Optional<IReadOnlyList<StaticSiteLinkedBackend>> linkedBackends = default;
             Optional<string> provider = default;
+            Optional<EnterpriseGradeCdnStatus> enterpriseGradeCdnStatus = default;
+            Optional<string> publicNetworkAccess = default;
+            Optional<IReadOnlyList<DatabaseConnectionOverview>> databaseConnections = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("kind"u8))
@@ -242,16 +261,58 @@ namespace Azure.ResourceManager.AppService.Models
                             userProvidedFunctionApps = array;
                             continue;
                         }
+                        if (property0.NameEquals("linkedBackends"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            List<StaticSiteLinkedBackend> array = new List<StaticSiteLinkedBackend>();
+                            foreach (var item in property0.Value.EnumerateArray())
+                            {
+                                array.Add(StaticSiteLinkedBackend.DeserializeStaticSiteLinkedBackend(item));
+                            }
+                            linkedBackends = array;
+                            continue;
+                        }
                         if (property0.NameEquals("provider"u8))
                         {
                             provider = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("enterpriseGradeCdnStatus"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            enterpriseGradeCdnStatus = new EnterpriseGradeCdnStatus(property0.Value.GetString());
+                            continue;
+                        }
+                        if (property0.NameEquals("publicNetworkAccess"u8))
+                        {
+                            publicNetworkAccess = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("databaseConnections"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            List<DatabaseConnectionOverview> array = new List<DatabaseConnectionOverview>();
+                            foreach (var item in property0.Value.EnumerateArray())
+                            {
+                                array.Add(DatabaseConnectionOverview.DeserializeDatabaseConnectionOverview(item));
+                            }
+                            databaseConnections = array;
                             continue;
                         }
                     }
                     continue;
                 }
             }
-            return new StaticSitePatch(id, name, type, systemData.Value, defaultHostname.Value, repositoryUrl.Value, branch.Value, Optional.ToList(customDomains), repositoryToken.Value, buildProperties.Value, Optional.ToList(privateEndpointConnections), Optional.ToNullable(stagingEnvironmentPolicy), Optional.ToNullable(allowConfigFileUpdates), templateProperties.Value, contentDistributionEndpoint.Value, keyVaultReferenceIdentity.Value, Optional.ToList(userProvidedFunctionApps), provider.Value, kind.Value);
+            return new StaticSitePatch(id, name, type, systemData.Value, defaultHostname.Value, repositoryUrl.Value, branch.Value, Optional.ToList(customDomains), repositoryToken.Value, buildProperties.Value, Optional.ToList(privateEndpointConnections), Optional.ToNullable(stagingEnvironmentPolicy), Optional.ToNullable(allowConfigFileUpdates), templateProperties.Value, contentDistributionEndpoint.Value, keyVaultReferenceIdentity.Value, Optional.ToList(userProvidedFunctionApps), Optional.ToList(linkedBackends), provider.Value, Optional.ToNullable(enterpriseGradeCdnStatus), publicNetworkAccess.Value, Optional.ToList(databaseConnections), kind.Value);
         }
     }
 }

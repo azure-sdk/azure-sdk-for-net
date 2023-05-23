@@ -194,6 +194,59 @@ namespace Azure.ResourceManager.AppService
             return GetStaticSiteBuilds().Get(environmentName, cancellationToken);
         }
 
+        /// <summary> Gets a collection of StaticSiteDatabaseConnectionResources in the StaticSite. </summary>
+        /// <returns> An object representing collection of StaticSiteDatabaseConnectionResources and their operations over a StaticSiteDatabaseConnectionResource. </returns>
+        public virtual StaticSiteDatabaseConnectionCollection GetStaticSiteDatabaseConnections()
+        {
+            return GetCachedClient(Client => new StaticSiteDatabaseConnectionCollection(Client, Id));
+        }
+
+        /// <summary>
+        /// Returns overview of a database connection for a static site by name
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/staticSites/{name}/databaseConnections/{databaseConnectionName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>StaticSites_GetDatabaseConnection</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="databaseConnectionName"> Name of the database connection. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="databaseConnectionName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="databaseConnectionName"/> is null. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<StaticSiteDatabaseConnectionResource>> GetStaticSiteDatabaseConnectionAsync(string databaseConnectionName, CancellationToken cancellationToken = default)
+        {
+            return await GetStaticSiteDatabaseConnections().GetAsync(databaseConnectionName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Returns overview of a database connection for a static site by name
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/staticSites/{name}/databaseConnections/{databaseConnectionName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>StaticSites_GetDatabaseConnection</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="databaseConnectionName"> Name of the database connection. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="databaseConnectionName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="databaseConnectionName"/> is null. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<StaticSiteDatabaseConnectionResource> GetStaticSiteDatabaseConnection(string databaseConnectionName, CancellationToken cancellationToken = default)
+        {
+            return GetStaticSiteDatabaseConnections().Get(databaseConnectionName, cancellationToken);
+        }
+
         /// <summary> Gets a collection of StaticSiteUserProvidedFunctionAppResources in the StaticSite. </summary>
         /// <returns> An object representing collection of StaticSiteUserProvidedFunctionAppResources and their operations over a StaticSiteUserProvidedFunctionAppResource. </returns>
         public virtual StaticSiteUserProvidedFunctionAppCollection GetStaticSiteUserProvidedFunctionApps()
@@ -247,6 +300,55 @@ namespace Azure.ResourceManager.AppService
             return GetStaticSiteUserProvidedFunctionApps().Get(functionAppName, cancellationToken);
         }
 
+        /// <summary> Gets a collection of StaticSiteBasicAuthPropertiesARMResources in the StaticSite. </summary>
+        /// <returns> An object representing collection of StaticSiteBasicAuthPropertiesARMResources and their operations over a StaticSiteBasicAuthPropertiesARMResource. </returns>
+        public virtual StaticSiteBasicAuthPropertiesARMResourceCollection GetStaticSiteBasicAuthPropertiesARMResources()
+        {
+            return GetCachedClient(Client => new StaticSiteBasicAuthPropertiesARMResourceCollection(Client, Id));
+        }
+
+        /// <summary>
+        /// Description for Gets the basic auth properties for a static site.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/staticSites/{name}/basicAuth/{basicAuthName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>StaticSites_GetBasicAuth</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="basicAuthName"> name of the basic auth entry. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<StaticSiteBasicAuthPropertiesARMResource>> GetStaticSiteBasicAuthPropertiesARMResourceAsync(BasicAuthName basicAuthName, CancellationToken cancellationToken = default)
+        {
+            return await GetStaticSiteBasicAuthPropertiesARMResources().GetAsync(basicAuthName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Description for Gets the basic auth properties for a static site.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/staticSites/{name}/basicAuth/{basicAuthName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>StaticSites_GetBasicAuth</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="basicAuthName"> name of the basic auth entry. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        [ForwardsClientCalls]
+        public virtual Response<StaticSiteBasicAuthPropertiesARMResource> GetStaticSiteBasicAuthPropertiesARMResource(BasicAuthName basicAuthName, CancellationToken cancellationToken = default)
+        {
+            return GetStaticSiteBasicAuthPropertiesARMResources().Get(basicAuthName, cancellationToken);
+        }
+
         /// <summary> Gets a collection of StaticSiteCustomDomainOverviewResources in the StaticSite. </summary>
         /// <returns> An object representing collection of StaticSiteCustomDomainOverviewResources and their operations over a StaticSiteCustomDomainOverviewResource. </returns>
         public virtual StaticSiteCustomDomainOverviewCollection GetStaticSiteCustomDomainOverviews()
@@ -298,6 +400,59 @@ namespace Azure.ResourceManager.AppService
         public virtual Response<StaticSiteCustomDomainOverviewResource> GetStaticSiteCustomDomainOverview(string domainName, CancellationToken cancellationToken = default)
         {
             return GetStaticSiteCustomDomainOverviews().Get(domainName, cancellationToken);
+        }
+
+        /// <summary> Gets a collection of StaticSiteLinkedBackendResources in the StaticSite. </summary>
+        /// <returns> An object representing collection of StaticSiteLinkedBackendResources and their operations over a StaticSiteLinkedBackendResource. </returns>
+        public virtual StaticSiteLinkedBackendCollection GetStaticSiteLinkedBackends()
+        {
+            return GetCachedClient(Client => new StaticSiteLinkedBackendCollection(Client, Id));
+        }
+
+        /// <summary>
+        /// Returns the details of a linked backend linked to a static site by name
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/staticSites/{name}/linkedBackends/{linkedBackendName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>StaticSites_GetLinkedBackend</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="linkedBackendName"> Name of the linked backend that should be retrieved. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="linkedBackendName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="linkedBackendName"/> is null. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<StaticSiteLinkedBackendResource>> GetStaticSiteLinkedBackendAsync(string linkedBackendName, CancellationToken cancellationToken = default)
+        {
+            return await GetStaticSiteLinkedBackends().GetAsync(linkedBackendName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Returns the details of a linked backend linked to a static site by name
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/staticSites/{name}/linkedBackends/{linkedBackendName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>StaticSites_GetLinkedBackend</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="linkedBackendName"> Name of the linked backend that should be retrieved. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="linkedBackendName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="linkedBackendName"/> is null. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<StaticSiteLinkedBackendResource> GetStaticSiteLinkedBackend(string linkedBackendName, CancellationToken cancellationToken = default)
+        {
+            return GetStaticSiteLinkedBackends().Get(linkedBackendName, cancellationToken);
         }
 
         /// <summary>
@@ -1370,6 +1525,50 @@ namespace Azure.ResourceManager.AppService
                 scope.Failed(e);
                 throw;
             }
+        }
+
+        /// <summary>
+        /// Returns details of database connections for a static site
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/staticSites/{name}/showDatabaseConnections</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>StaticSites_GetDatabaseConnectionsWithDetails</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> An async collection of <see cref="DatabaseConnectionData" /> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<DatabaseConnectionData> GetDatabaseConnectionsWithDetailsAsync(CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _staticSiteRestClient.CreateGetDatabaseConnectionsWithDetailsRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _staticSiteRestClient.CreateGetDatabaseConnectionsWithDetailsNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            return PageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, DatabaseConnectionData.DeserializeDatabaseConnectionData, _staticSiteClientDiagnostics, Pipeline, "StaticSiteResource.GetDatabaseConnectionsWithDetails", "value", "nextLink", cancellationToken);
+        }
+
+        /// <summary>
+        /// Returns details of database connections for a static site
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/staticSites/{name}/showDatabaseConnections</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>StaticSites_GetDatabaseConnectionsWithDetails</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="DatabaseConnectionData" /> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<DatabaseConnectionData> GetDatabaseConnectionsWithDetails(CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _staticSiteRestClient.CreateGetDatabaseConnectionsWithDetailsRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _staticSiteRestClient.CreateGetDatabaseConnectionsWithDetailsNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            return PageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, DatabaseConnectionData.DeserializeDatabaseConnectionData, _staticSiteClientDiagnostics, Pipeline, "StaticSiteResource.GetDatabaseConnectionsWithDetails", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
