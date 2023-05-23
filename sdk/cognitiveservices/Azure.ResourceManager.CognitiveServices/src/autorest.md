@@ -9,7 +9,7 @@ generate-model-factory: false
 csharp: true
 library-name: CognitiveServices
 namespace: Azure.ResourceManager.CognitiveServices
-require: https://github.com/Azure/azure-rest-api-specs/blob/fd296f4cbe90e46098824e020e4a02517d56fc35/specification/cognitiveservices/resource-manager/readme.md
+require: https://github.com/Azure/azure-rest-api-specs/blob/fc53a23538c5806012dfa3481d00851d7d049943/specification/cognitiveservices/resource-manager/readme.md
 tag: package-2022-12
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
