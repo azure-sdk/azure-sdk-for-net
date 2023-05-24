@@ -25,6 +25,16 @@ namespace Azure.ResourceManager.Compute.Models
                 writer.WritePropertyName("osImageNotificationProfile"u8);
                 writer.WriteObjectValue(OSImageNotificationProfile);
             }
+            if (Optional.IsDefined(RedeployNotificationProfile))
+            {
+                writer.WritePropertyName("redeployNotificationProfile"u8);
+                writer.WriteObjectValue(RedeployNotificationProfile);
+            }
+            if (Optional.IsDefined(RebootNotificationProfile))
+            {
+                writer.WritePropertyName("rebootNotificationProfile"u8);
+                writer.WriteObjectValue(RebootNotificationProfile);
+            }
             writer.WriteEndObject();
         }
 
@@ -36,6 +46,8 @@ namespace Azure.ResourceManager.Compute.Models
             }
             Optional<TerminateNotificationProfile> terminateNotificationProfile = default;
             Optional<OSImageNotificationProfile> osImageNotificationProfile = default;
+            Optional<RedeployNotificationProfile> redeployNotificationProfile = default;
+            Optional<RebootNotificationProfile> rebootNotificationProfile = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("terminateNotificationProfile"u8))
@@ -56,8 +68,26 @@ namespace Azure.ResourceManager.Compute.Models
                     osImageNotificationProfile = OSImageNotificationProfile.DeserializeOSImageNotificationProfile(property.Value);
                     continue;
                 }
+                if (property.NameEquals("redeployNotificationProfile"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    redeployNotificationProfile = RedeployNotificationProfile.DeserializeRedeployNotificationProfile(property.Value);
+                    continue;
+                }
+                if (property.NameEquals("rebootNotificationProfile"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    rebootNotificationProfile = RebootNotificationProfile.DeserializeRebootNotificationProfile(property.Value);
+                    continue;
+                }
             }
-            return new ComputeScheduledEventsProfile(terminateNotificationProfile.Value, osImageNotificationProfile.Value);
+            return new ComputeScheduledEventsProfile(terminateNotificationProfile.Value, osImageNotificationProfile.Value, redeployNotificationProfile.Value, rebootNotificationProfile.Value);
         }
     }
 }

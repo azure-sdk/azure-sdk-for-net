@@ -18,15 +18,23 @@ namespace Azure.ResourceManager.Compute.Models
         /// <summary> Initializes a new instance of ComputeScheduledEventsProfile. </summary>
         /// <param name="terminateNotificationProfile"> Specifies Terminate Scheduled Event related configurations. </param>
         /// <param name="osImageNotificationProfile"> Specifies OS Image Scheduled Event related configurations. </param>
-        internal ComputeScheduledEventsProfile(TerminateNotificationProfile terminateNotificationProfile, OSImageNotificationProfile osImageNotificationProfile)
+        /// <param name="redeployNotificationProfile"> Specifies Redeply Scheduled Event related configurations. </param>
+        /// <param name="rebootNotificationProfile"> Specifies Reboot Scheduled Event related configurations. </param>
+        internal ComputeScheduledEventsProfile(TerminateNotificationProfile terminateNotificationProfile, OSImageNotificationProfile osImageNotificationProfile, RedeployNotificationProfile redeployNotificationProfile, RebootNotificationProfile rebootNotificationProfile)
         {
             TerminateNotificationProfile = terminateNotificationProfile;
             OSImageNotificationProfile = osImageNotificationProfile;
+            RedeployNotificationProfile = redeployNotificationProfile;
+            RebootNotificationProfile = rebootNotificationProfile;
         }
 
         /// <summary> Specifies Terminate Scheduled Event related configurations. </summary>
         public TerminateNotificationProfile TerminateNotificationProfile { get; set; }
         /// <summary> Specifies OS Image Scheduled Event related configurations. </summary>
         public OSImageNotificationProfile OSImageNotificationProfile { get; set; }
+        /// <summary> Specifies Redeply Scheduled Event related configurations. </summary>
+        public RedeployNotificationProfile RedeployNotificationProfile { get; set; }
+        /// <summary> Specifies Reboot Scheduled Event related configurations. </summary>
+        public RebootNotificationProfile RebootNotificationProfile { get; set; }
     }
 }
