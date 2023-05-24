@@ -94,7 +94,7 @@ namespace Azure.ResourceManager.Synapse
         public SynapseBigDataPoolInfoData(Azure.Core.AzureLocation location) : base (default(Azure.Core.AzureLocation)) { }
         public Azure.ResourceManager.Synapse.Models.BigDataPoolAutoPauseProperties AutoPause { get { throw null; } set { } }
         public Azure.ResourceManager.Synapse.Models.BigDataPoolAutoScaleProperties AutoScale { get { throw null; } set { } }
-        public int? CacheSize { get { throw null; } set { } }
+        public int? CacheSize { get { throw null; } }
         public System.DateTimeOffset? CreatedOn { get { throw null; } }
         public System.Collections.Generic.IList<Azure.ResourceManager.Synapse.Models.BigDataPoolLibraryInfo> CustomLibraries { get { throw null; } }
         public string DefaultSparkLogFolder { get { throw null; } set { } }
@@ -882,7 +882,7 @@ namespace Azure.ResourceManager.Synapse
         public string Path { get { throw null; } set { } }
         public string ProvisioningStatus { get { throw null; } }
         public string TypePropertiesType { get { throw null; } set { } }
-        public System.DateTimeOffset? UploadedOn { get { throw null; } set { } }
+        public System.DateTimeOffset? UploadedOn { get { throw null; } }
     }
     public partial class SynapseLibraryResource : Azure.ResourceManager.ArmResource
     {
@@ -2003,10 +2003,10 @@ namespace Azure.ResourceManager.Synapse
     {
         public SynapseWorkspaceData(Azure.Core.AzureLocation location) : base (default(Azure.Core.AzureLocation)) { }
         public Azure.Core.ResourceIdentifier AdlaResourceId { get { throw null; } }
-        public System.Collections.Generic.IDictionary<string, string> ConnectivityEndpoints { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string> ConnectivityEndpoints { get { throw null; } }
         public Azure.ResourceManager.Synapse.Models.SynapseDataLakeStorageAccountDetails DefaultDataLakeStorage { get { throw null; } set { } }
         public Azure.ResourceManager.Synapse.Models.SynapseEncryptionDetails Encryption { get { throw null; } set { } }
-        public System.Collections.Generic.IReadOnlyDictionary<string, System.BinaryData> ExtraProperties { get { throw null; } }
+        public System.BinaryData ExtraProperties { get { throw null; } }
         public Azure.ResourceManager.Models.ManagedServiceIdentity Identity { get { throw null; } set { } }
         public System.Guid? InitialWorkspaceAdminObjectId { get { throw null; } set { } }
         public bool? IsAadOnlyAuthenticationEnabled { get { throw null; } set { } }
@@ -2190,7 +2190,7 @@ namespace Azure.ResourceManager.Synapse.Models
         public string Name { get { throw null; } set { } }
         public string Path { get { throw null; } set { } }
         public string ProvisioningStatus { get { throw null; } }
-        public System.DateTimeOffset? UploadedOn { get { throw null; } set { } }
+        public System.DateTimeOffset? UploadedOn { get { throw null; } }
     }
     public partial class BigDataPoolLibraryRequirements
     {
@@ -3930,10 +3930,12 @@ namespace Azure.ResourceManager.Synapse.Models
         public System.Collections.Generic.IReadOnlyList<string> NewerVersions { get { throw null; } }
         public string NodeCommunicationChannelEncryptionMode { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Synapse.Models.SynapseSelfHostedIntegrationRuntimeNode> Nodes { get { throw null; } }
+        public int? OSType { get { throw null; } }
         public string PushedVersion { get { throw null; } }
         public System.DateTimeOffset? ScheduledUpdateOn { get { throw null; } }
         public string ServiceRegion { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<string> ServiceUrls { get { throw null; } }
+        public int? TargetFramework { get { throw null; } }
         public string TaskQueueId { get { throw null; } }
         public string UpdateDelayOffset { get { throw null; } }
         public string Version { get { throw null; } }
