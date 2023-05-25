@@ -9,7 +9,7 @@ generate-model-factory: false
 csharp: true
 library-name: TrafficManager
 namespace: Azure.ResourceManager.TrafficManager
-require: https://github.com/Azure/azure-rest-api-specs/blob/5fc05d0f0b15cbf16de942cadce464b495c66a58/specification/trafficmanager/resource-manager/readme.md
+require: /mnt/vss/_work/1/s/azure-rest-api-specs/specification/trafficmanager/resource-manager/readme.md
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
 skip-csproj: true
