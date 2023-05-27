@@ -8,11 +8,11 @@
 namespace Azure.ResourceManager.CosmosDB.Models
 {
     /// <summary> Indicates whether the Role Definition was built-in or user created. </summary>
-    public enum MongoDBRoleDefinitionType
+    public enum MongoDBRoleDefinitionType : long
     {
-        /// <summary> BuiltInRole. </summary>
-        BuiltInRole,
-        /// <summary> CustomRole. </summary>
-        CustomRole
+        /// <summary> The BuiltInRole. </summary>
+        BuiltInRole = 0L,
+        /// <summary> The CustomRole. </summary>
+        CustomRole = 1L
     }
 }
