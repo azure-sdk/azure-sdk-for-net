@@ -5,6 +5,7 @@
 
 #nullable disable
 
+using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
@@ -74,6 +75,10 @@ namespace Azure.ResourceManager.Authorization
             Optional<AuthorizationRoleType> type0 = default;
             Optional<IList<RoleDefinitionPermission>> permissions = default;
             Optional<IList<string>> assignableScopes = default;
+            Optional<DateTimeOffset> createdOn = default;
+            Optional<DateTimeOffset> updatedOn = default;
+            Optional<string> createdBy = default;
+            Optional<string> updatedBy = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("id"u8))
@@ -156,11 +161,39 @@ namespace Azure.ResourceManager.Authorization
                             assignableScopes = array;
                             continue;
                         }
+                        if (property0.NameEquals("createdOn"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            createdOn = property0.Value.GetDateTimeOffset("O");
+                            continue;
+                        }
+                        if (property0.NameEquals("updatedOn"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            updatedOn = property0.Value.GetDateTimeOffset("O");
+                            continue;
+                        }
+                        if (property0.NameEquals("createdBy"u8))
+                        {
+                            createdBy = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("updatedBy"u8))
+                        {
+                            updatedBy = property0.Value.GetString();
+                            continue;
+                        }
                     }
                     continue;
                 }
             }
-            return new AuthorizationRoleDefinitionData(id, name, type, systemData.Value, roleName.Value, description.Value, Optional.ToNullable(type0), Optional.ToList(permissions), Optional.ToList(assignableScopes));
+            return new AuthorizationRoleDefinitionData(id, name, type, systemData.Value, roleName.Value, description.Value, Optional.ToNullable(type0), Optional.ToList(permissions), Optional.ToList(assignableScopes), Optional.ToNullable(createdOn), Optional.ToNullable(updatedOn), createdBy.Value, updatedBy.Value);
         }
     }
 }
