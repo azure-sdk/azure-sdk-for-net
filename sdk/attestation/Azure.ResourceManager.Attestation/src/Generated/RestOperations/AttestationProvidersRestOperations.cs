@@ -143,7 +143,7 @@ namespace Azure.ResourceManager.Attestation
             return message;
         }
 
-        /// <summary> Creates a new Attestation Provider. </summary>
+        /// <summary> Creates or updates an Attestation Provider. </summary>
         /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="providerName"> Name of the attestation provider. </param>
@@ -175,7 +175,7 @@ namespace Azure.ResourceManager.Attestation
             }
         }
 
-        /// <summary> Creates a new Attestation Provider. </summary>
+        /// <summary> Creates or updates an Attestation Provider. </summary>
         /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="providerName"> Name of the attestation provider. </param>
