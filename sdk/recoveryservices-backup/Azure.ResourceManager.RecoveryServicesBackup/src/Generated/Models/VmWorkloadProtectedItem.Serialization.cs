@@ -78,6 +78,16 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                 }
                 writer.WriteEndObject();
             }
+            if (Optional.IsCollectionDefined(NodesList))
+            {
+                writer.WritePropertyName("nodesList"u8);
+                writer.WriteStartArray();
+                foreach (var item in NodesList)
+                {
+                    writer.WriteObjectValue(item);
+                }
+                writer.WriteEndArray();
+            }
             writer.WritePropertyName("protectedItemType"u8);
             writer.WriteStringValue(ProtectedItemType);
             if (Optional.IsDefined(ContainerName))
@@ -192,6 +202,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             Optional<VmWorkloadProtectedItemHealthStatus> protectedItemHealthStatus = default;
             Optional<VmWorkloadProtectedItemExtendedInfo> extendedInfo = default;
             Optional<IDictionary<string, KpiResourceHealthDetails>> kpisHealths = default;
+            Optional<IList<DistributedNodesInfo>> nodesList = default;
             string protectedItemType = "AzureVmWorkloadProtectedItem";
             Optional<BackupManagementType> backupManagementType = default;
             Optional<BackupDataSourceType> workloadType = default;
@@ -308,6 +319,20 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                         dictionary.Add(property0.Name, KpiResourceHealthDetails.DeserializeKpiResourceHealthDetails(property0.Value));
                     }
                     kpisHealths = dictionary;
+                    continue;
+                }
+                if (property.NameEquals("nodesList"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<DistributedNodesInfo> array = new List<DistributedNodesInfo>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(DistributedNodesInfo.DeserializeDistributedNodesInfo(item));
+                    }
+                    nodesList = array;
                     continue;
                 }
                 if (property.NameEquals("protectedItemType"u8))
@@ -458,7 +483,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                     continue;
                 }
             }
-            return new VmWorkloadProtectedItem(protectedItemType, Optional.ToNullable(backupManagementType), Optional.ToNullable(workloadType), containerName.Value, sourceResourceId.Value, policyId.Value, Optional.ToNullable(lastRecoveryPoint), backupSetName.Value, Optional.ToNullable(createMode), Optional.ToNullable(deferredDeleteTimeInUTC), Optional.ToNullable(isScheduledForDeferredDelete), deferredDeleteTimeRemaining.Value, Optional.ToNullable(isDeferredDeleteScheduleUpcoming), Optional.ToNullable(isRehydrate), Optional.ToList(resourceGuardOperationRequests), Optional.ToNullable(isArchiveEnabled), policyName.Value, Optional.ToNullable(softDeleteRetentionPeriod), friendlyName.Value, serverName.Value, parentName.Value, parentType.Value, protectionStatus.Value, Optional.ToNullable(protectionState), Optional.ToNullable(lastBackupStatus), Optional.ToNullable(lastBackupTime), lastBackupErrorDetail.Value, protectedItemDataSourceId.Value, Optional.ToNullable(protectedItemHealthStatus), extendedInfo.Value, Optional.ToDictionary(kpisHealths));
+            return new VmWorkloadProtectedItem(protectedItemType, Optional.ToNullable(backupManagementType), Optional.ToNullable(workloadType), containerName.Value, sourceResourceId.Value, policyId.Value, Optional.ToNullable(lastRecoveryPoint), backupSetName.Value, Optional.ToNullable(createMode), Optional.ToNullable(deferredDeleteTimeInUTC), Optional.ToNullable(isScheduledForDeferredDelete), deferredDeleteTimeRemaining.Value, Optional.ToNullable(isDeferredDeleteScheduleUpcoming), Optional.ToNullable(isRehydrate), Optional.ToList(resourceGuardOperationRequests), Optional.ToNullable(isArchiveEnabled), policyName.Value, Optional.ToNullable(softDeleteRetentionPeriod), friendlyName.Value, serverName.Value, parentName.Value, parentType.Value, protectionStatus.Value, Optional.ToNullable(protectionState), Optional.ToNullable(lastBackupStatus), Optional.ToNullable(lastBackupTime), lastBackupErrorDetail.Value, protectedItemDataSourceId.Value, Optional.ToNullable(protectedItemHealthStatus), extendedInfo.Value, Optional.ToDictionary(kpisHealths), Optional.ToList(nodesList));
         }
     }
 }
