@@ -41,6 +41,11 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
                 writer.WritePropertyName("sqlServiceAccount"u8);
                 writer.WriteStringValue(SqlServiceAccount);
             }
+            if (Optional.IsDefined(IsSqlServiceAccountGmsa))
+            {
+                writer.WritePropertyName("isSqlServiceAccountGmsa"u8);
+                writer.WriteBooleanValue(IsSqlServiceAccountGmsa.Value);
+            }
             if (Optional.IsDefined(FileShareWitnessPath))
             {
                 writer.WritePropertyName("fileShareWitnessPath"u8);
@@ -75,6 +80,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
             Optional<string> clusterBootstrapAccount = default;
             Optional<string> clusterOperatorAccount = default;
             Optional<string> sqlServiceAccount = default;
+            Optional<bool> isSqlServiceAccountGmsa = default;
             Optional<string> fileShareWitnessPath = default;
             Optional<Uri> storageAccountUrl = default;
             Optional<string> storageAccountPrimaryKey = default;
@@ -106,6 +112,15 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
                     sqlServiceAccount = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("isSqlServiceAccountGmsa"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    isSqlServiceAccountGmsa = property.Value.GetBoolean();
+                    continue;
+                }
                 if (property.NameEquals("fileShareWitnessPath"u8))
                 {
                     fileShareWitnessPath = property.Value.GetString();
@@ -135,7 +150,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
                     continue;
                 }
             }
-            return new WindowsServerFailoverClusterDomainProfile(domainFqdn.Value, ouPath.Value, clusterBootstrapAccount.Value, clusterOperatorAccount.Value, sqlServiceAccount.Value, fileShareWitnessPath.Value, storageAccountUrl.Value, storageAccountPrimaryKey.Value, Optional.ToNullable(clusterSubnetType));
+            return new WindowsServerFailoverClusterDomainProfile(domainFqdn.Value, ouPath.Value, clusterBootstrapAccount.Value, clusterOperatorAccount.Value, sqlServiceAccount.Value, Optional.ToNullable(isSqlServiceAccountGmsa), fileShareWitnessPath.Value, storageAccountUrl.Value, storageAccountPrimaryKey.Value, Optional.ToNullable(clusterSubnetType));
         }
     }
 }
