@@ -1343,19 +1343,9 @@ namespace Azure.ResourceManager.MachineLearning.Models
         /// <param name="cron"> Required if triggerType is Cron. </param>
         /// <param name="schedule"> [Deprecated] Not used any more. </param>
         /// <returns> A new <see cref="Models.MachineLearningComputeStartStopSchedule"/> instance for mocking. </returns>
-        public static MachineLearningComputeStartStopSchedule MachineLearningComputeStartStopSchedule(string id = null, MachineLearningComputeProvisioningStatus? provisioningStatus = null, MachineLearningScheduleStatus? status = null, MachineLearningComputePowerAction? action = null, MachineLearningTriggerType? triggerType = null, MachineLearningRecurrenceTrigger recurrence = null, CronTrigger cron = null, MachineLearningScheduleBase schedule = null)
+        public static MachineLearningComputeStartStopSchedule MachineLearningComputeStartStopSchedule(string id = null, MachineLearningComputeProvisioningStatus? provisioningStatus = null, MachineLearningScheduleStatus? status = null, MachineLearningComputePowerAction? action = null, MachineLearningTriggerType? triggerType = null, Recurrence recurrence = null, Cron cron = null, MachineLearningScheduleBase schedule = null)
         {
             return new MachineLearningComputeStartStopSchedule(id, provisioningStatus, status, action, triggerType, recurrence, cron, schedule);
-        }
-
-        /// <summary> Initializes a new instance of MachineLearningScheduleBase. </summary>
-        /// <param name="id"> A system assigned id for the schedule. </param>
-        /// <param name="provisioningStatus"> The current deployment state of schedule. </param>
-        /// <param name="status"> Is the schedule enabled or disabled?. </param>
-        /// <returns> A new <see cref="Models.MachineLearningScheduleBase"/> instance for mocking. </returns>
-        public static MachineLearningScheduleBase MachineLearningScheduleBase(string id = null, MachineLearningScheduleProvisioningState? provisioningStatus = null, MachineLearningScheduleStatus? status = null)
-        {
-            return new MachineLearningScheduleBase(id, provisioningStatus, status);
         }
 
         /// <summary> Initializes a new instance of MachineLearningComputeInstanceContainer. </summary>
