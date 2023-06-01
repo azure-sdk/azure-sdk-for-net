@@ -587,6 +587,10 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         public static Azure.ResourceManager.RecoveryServicesBackup.Models.WorkloadItemResource WorkloadItemResource(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, System.Collections.Generic.IDictionary<string, string> tags = null, Azure.Core.AzureLocation location = default(Azure.Core.AzureLocation), Azure.ResourceManager.RecoveryServicesBackup.Models.WorkloadItem properties = null, Azure.ETag? eTag = default(Azure.ETag?)) { throw null; }
         public static Azure.ResourceManager.RecoveryServicesBackup.Models.WorkloadProtectableItemResource WorkloadProtectableItemResource(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, System.Collections.Generic.IDictionary<string, string> tags = null, Azure.Core.AzureLocation location = default(Azure.Core.AzureLocation), Azure.ResourceManager.RecoveryServicesBackup.Models.WorkloadProtectableItem properties = null, Azure.ETag? eTag = default(Azure.ETag?)) { throw null; }
     }
+    public partial class AzureVmWorkloadSapHanaHSRProtectableItem : Azure.ResourceManager.RecoveryServicesBackup.Models.VmWorkloadProtectableItem
+    {
+        public AzureVmWorkloadSapHanaHSRProtectableItem() { }
+    }
     public partial class BackupCommonSettings
     {
         public BackupCommonSettings() { }
@@ -927,6 +931,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
     public partial class BackupPrivateEndpointConnectionProperties
     {
         public BackupPrivateEndpointConnectionProperties() { }
+        public System.Collections.Generic.IList<Azure.ResourceManager.RecoveryServicesBackup.Models.VaultSubResourceType> GroupIds { get { throw null; } }
         public Azure.Core.ResourceIdentifier PrivateEndpointId { get { throw null; } set { } }
         public Azure.ResourceManager.RecoveryServicesBackup.Models.RecoveryServicesBackupPrivateLinkServiceConnectionState PrivateLinkServiceConnectionState { get { throw null; } set { } }
         public Azure.ResourceManager.RecoveryServicesBackup.Models.BackupPrivateEndpointConnectionProvisioningState? ProvisioningState { get { throw null; } set { } }
@@ -1033,6 +1038,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         public bool? IsSoftDeleteFeatureStateEditable { get { throw null; } set { } }
         public System.Collections.Generic.IList<string> ResourceGuardOperationRequests { get { throw null; } }
         public Azure.ResourceManager.RecoveryServicesBackup.Models.SoftDeleteFeatureState? SoftDeleteFeatureState { get { throw null; } set { } }
+        public int? SoftDeleteRetentionPeriod { get { throw null; } set { } }
         public Azure.ResourceManager.RecoveryServicesBackup.Models.BackupStorageType? StorageModelType { get { throw null; } set { } }
         public Azure.ResourceManager.RecoveryServicesBackup.Models.BackupStorageType? StorageType { get { throw null; } set { } }
         public Azure.ResourceManager.RecoveryServicesBackup.Models.BackupStorageTypeState? StorageTypeState { get { throw null; } set { } }
@@ -2273,7 +2279,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
     public partial class RecoveryServicesBackupPrivateLinkServiceConnectionState
     {
         public RecoveryServicesBackupPrivateLinkServiceConnectionState() { }
-        public string ActionRequired { get { throw null; } set { } }
+        public string ActionsRequired { get { throw null; } set { } }
         public string Description { get { throw null; } set { } }
         public Azure.ResourceManager.RecoveryServicesBackup.Models.PrivateEndpointConnectionStatus? Status { get { throw null; } set { } }
     }
@@ -2759,6 +2765,25 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         public override string ToString() { throw null; }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct VaultSubResourceType : System.IEquatable<Azure.ResourceManager.RecoveryServicesBackup.Models.VaultSubResourceType>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public VaultSubResourceType(string value) { throw null; }
+        public static Azure.ResourceManager.RecoveryServicesBackup.Models.VaultSubResourceType AzureBackup { get { throw null; } }
+        public static Azure.ResourceManager.RecoveryServicesBackup.Models.VaultSubResourceType AzureBackupSecondary { get { throw null; } }
+        public static Azure.ResourceManager.RecoveryServicesBackup.Models.VaultSubResourceType AzureSiteRecovery { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.RecoveryServicesBackup.Models.VaultSubResourceType other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.RecoveryServicesBackup.Models.VaultSubResourceType left, Azure.ResourceManager.RecoveryServicesBackup.Models.VaultSubResourceType right) { throw null; }
+        public static implicit operator Azure.ResourceManager.RecoveryServicesBackup.Models.VaultSubResourceType (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.RecoveryServicesBackup.Models.VaultSubResourceType left, Azure.ResourceManager.RecoveryServicesBackup.Models.VaultSubResourceType right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct VaultXcoolState : System.IEquatable<Azure.ResourceManager.RecoveryServicesBackup.Models.VaultXcoolState>
     {
         private readonly object _dummy;
@@ -2939,10 +2964,6 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
     public partial class VmWorkloadSapHanaDBInstanceProtectedItem : Azure.ResourceManager.RecoveryServicesBackup.Models.VmWorkloadProtectedItem
     {
         public VmWorkloadSapHanaDBInstanceProtectedItem() { }
-    }
-    public partial class VmWorkloadSapHanaHsr : Azure.ResourceManager.RecoveryServicesBackup.Models.VmWorkloadProtectableItem
-    {
-        public VmWorkloadSapHanaHsr() { }
     }
     public partial class VmWorkloadSapHanaSystemProtectableItem : Azure.ResourceManager.RecoveryServicesBackup.Models.VmWorkloadProtectableItem
     {

@@ -7,16 +7,16 @@
 
 namespace Azure.ResourceManager.RecoveryServicesBackup.Models
 {
-    /// <summary> Azure VM workload-specific protectable item representing SAP HANA Dbinstance. </summary>
-    public partial class VmWorkloadSapHanaHsr : VmWorkloadProtectableItem
+    /// <summary> Azure VM workload-specific protectable item representing HANA HSR. </summary>
+    public partial class AzureVmWorkloadSapHanaHSRProtectableItem : VmWorkloadProtectableItem
     {
-        /// <summary> Initializes a new instance of VmWorkloadSapHanaHsr. </summary>
-        public VmWorkloadSapHanaHsr()
+        /// <summary> Initializes a new instance of AzureVmWorkloadSapHanaHSRProtectableItem. </summary>
+        public AzureVmWorkloadSapHanaHSRProtectableItem()
         {
-            ProtectableItemType = "SAPHanaHSR";
+            ProtectableItemType = "HanaHSRContainer";
         }
 
-        /// <summary> Initializes a new instance of VmWorkloadSapHanaHsr. </summary>
+        /// <summary> Initializes a new instance of AzureVmWorkloadSapHanaHSRProtectableItem. </summary>
         /// <param name="backupManagementType"> Type of backup management to backup an item. </param>
         /// <param name="workloadType"> Type of workload for the backup management. </param>
         /// <param name="protectableItemType"> Type of the backup item. </param>
@@ -33,9 +33,9 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         /// <param name="subInquiredItemCount"> For instance or AG, indicates number of DB&apos;s present. </param>
         /// <param name="subProtectableItemCount"> For instance or AG, indicates number of DB&apos;s to be protected. </param>
         /// <param name="preBackupValidation"> Pre-backup validation for protectable objects. </param>
-        internal VmWorkloadSapHanaHsr(string backupManagementType, string workloadType, string protectableItemType, string friendlyName, BackupProtectionStatus? protectionState, string parentName, string parentUniqueName, string serverName, bool? isAutoProtectable, bool? isAutoProtected, int? subInquiredItemCount, int? subProtectableItemCount, PreBackupValidation preBackupValidation) : base(backupManagementType, workloadType, protectableItemType, friendlyName, protectionState, parentName, parentUniqueName, serverName, isAutoProtectable, isAutoProtected, subInquiredItemCount, subProtectableItemCount, preBackupValidation)
+        internal AzureVmWorkloadSapHanaHSRProtectableItem(string backupManagementType, string workloadType, string protectableItemType, string friendlyName, BackupProtectionStatus? protectionState, string parentName, string parentUniqueName, string serverName, bool? isAutoProtectable, bool? isAutoProtected, int? subInquiredItemCount, int? subProtectableItemCount, PreBackupValidation preBackupValidation) : base(backupManagementType, workloadType, protectableItemType, friendlyName, protectionState, parentName, parentUniqueName, serverName, isAutoProtectable, isAutoProtected, subInquiredItemCount, subProtectableItemCount, preBackupValidation)
         {
-            ProtectableItemType = protectableItemType ?? "SAPHanaHSR";
+            ProtectableItemType = protectableItemType ?? "HanaHSRContainer";
         }
     }
 }
