@@ -23,12 +23,12 @@ namespace Azure.ResourceManager.EventHubs.Models
         }
 
         private const string DeleteValue = "Delete";
-        private const string CompactionValue = "Compaction";
+        private const string CompactValue = "Compact";
 
         /// <summary> Delete. </summary>
         public static CleanupPolicyRetentionDescription Delete { get; } = new CleanupPolicyRetentionDescription(DeleteValue);
-        /// <summary> Compaction. </summary>
-        public static CleanupPolicyRetentionDescription Compaction { get; } = new CleanupPolicyRetentionDescription(CompactionValue);
+        /// <summary> Compact. </summary>
+        public static CleanupPolicyRetentionDescription Compact { get; } = new CleanupPolicyRetentionDescription(CompactValue);
         /// <summary> Determines if two <see cref="CleanupPolicyRetentionDescription"/> values are the same. </summary>
         public static bool operator ==(CleanupPolicyRetentionDescription left, CleanupPolicyRetentionDescription right) => left.Equals(right);
         /// <summary> Determines if two <see cref="CleanupPolicyRetentionDescription"/> values are not the same. </summary>

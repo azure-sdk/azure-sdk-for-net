@@ -580,7 +580,7 @@ namespace Azure.ResourceManager.EventHubs.Models
         private readonly object _dummy;
         private readonly int _dummyPrimitive;
         public CleanupPolicyRetentionDescription(string value) { throw null; }
-        public static Azure.ResourceManager.EventHubs.Models.CleanupPolicyRetentionDescription Compaction { get { throw null; } }
+        public static Azure.ResourceManager.EventHubs.Models.CleanupPolicyRetentionDescription Compact { get { throw null; } }
         public static Azure.ResourceManager.EventHubs.Models.CleanupPolicyRetentionDescription Delete { get { throw null; } }
         public bool Equals(Azure.ResourceManager.EventHubs.Models.CleanupPolicyRetentionDescription other) { throw null; }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
