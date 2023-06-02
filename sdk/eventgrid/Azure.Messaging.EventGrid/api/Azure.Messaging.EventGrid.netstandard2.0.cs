@@ -76,6 +76,34 @@ namespace Azure.Messaging.EventGrid
         public static Azure.Messaging.EventGrid.SystemEvents.AcsRecordingStorageInfoProperties AcsRecordingStorageInfoProperties(System.Collections.Generic.IEnumerable<Azure.Messaging.EventGrid.SystemEvents.AcsRecordingChunkInfoProperties> recordingChunks = null) { throw null; }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public static Azure.Messaging.EventGrid.SystemEvents.AcsRecordingStorageInfoProperties AcsRecordingStorageInfoProperties(System.Collections.Generic.IReadOnlyList<Azure.Messaging.EventGrid.SystemEvents.AcsRecordingChunkInfoProperties> recordingChunks) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.AcsRouterChannelConfiguration AcsRouterChannelConfiguration(string channelId = null, int? capacityCostPerJob = default(int?), int? maxNumberOfJobs = default(int?)) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.AcsRouterCommunicationError AcsRouterCommunicationError(string code = null, string message = null, string target = null, Azure.Messaging.EventGrid.SystemEvents.AcsRouterCommunicationError innerError = null, System.Collections.Generic.IEnumerable<Azure.Messaging.EventGrid.SystemEvents.AcsRouterCommunicationError> details = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.AcsRouterEventBaseProperties AcsRouterEventBaseProperties(string jobId = null, string channelReference = null, string channelId = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.AcsRouterJobCancelledEventData AcsRouterJobCancelledEventData(string jobId = null, string channelReference = null, string channelId = null, string queueId = null, System.Collections.Generic.IReadOnlyDictionary<string, string> labels = null, System.Collections.Generic.IReadOnlyDictionary<string, string> tags = null, string note = null, string dispositionCode = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.AcsRouterJobClassificationFailedEventData AcsRouterJobClassificationFailedEventData(string jobId = null, string channelReference = null, string channelId = null, string queueId = null, System.Collections.Generic.IReadOnlyDictionary<string, string> labels = null, System.Collections.Generic.IReadOnlyDictionary<string, string> tags = null, string classificationPolicyId = null, System.Collections.Generic.IEnumerable<Azure.Messaging.EventGrid.SystemEvents.AcsRouterCommunicationError> errors = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.AcsRouterJobClassifiedEventData AcsRouterJobClassifiedEventData(string jobId = null, string channelReference = null, string channelId = null, string queueId = null, System.Collections.Generic.IReadOnlyDictionary<string, string> labels = null, System.Collections.Generic.IReadOnlyDictionary<string, string> tags = null, Azure.Messaging.EventGrid.SystemEvents.AcsRouterQueueInfo queueInfo = null, string classificationPolicyId = null, int? priority = default(int?), Azure.Messaging.EventGrid.SystemEvents.AcsRouterWorkerSelector attachedWorkerSelectors = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.AcsRouterJobClosedEventData AcsRouterJobClosedEventData(string jobId = null, string channelReference = null, string channelId = null, string queueId = null, System.Collections.Generic.IReadOnlyDictionary<string, string> labels = null, System.Collections.Generic.IReadOnlyDictionary<string, string> tags = null, string assignmentId = null, string workerId = null, string dispositionCode = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.AcsRouterJobCompletedEventData AcsRouterJobCompletedEventData(string jobId = null, string channelReference = null, string channelId = null, string queueId = null, System.Collections.Generic.IReadOnlyDictionary<string, string> labels = null, System.Collections.Generic.IReadOnlyDictionary<string, string> tags = null, string assignmentId = null, string workerId = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.AcsRouterJobDeletedEventData AcsRouterJobDeletedEventData(string jobId = null, string channelReference = null, string channelId = null, string queueId = null, System.Collections.Generic.IReadOnlyDictionary<string, string> labels = null, System.Collections.Generic.IReadOnlyDictionary<string, string> tags = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.AcsRouterJobEventBaseProperties AcsRouterJobEventBaseProperties(string jobId = null, string channelReference = null, string channelId = null, string queueId = null, System.Collections.Generic.IReadOnlyDictionary<string, string> labels = null, System.Collections.Generic.IReadOnlyDictionary<string, string> tags = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.AcsRouterJobExceptionTriggeredEventData AcsRouterJobExceptionTriggeredEventData(string jobId = null, string channelReference = null, string channelId = null, string queueId = null, System.Collections.Generic.IReadOnlyDictionary<string, string> labels = null, System.Collections.Generic.IReadOnlyDictionary<string, string> tags = null, string ruleKey = null, string exceptionRuleId = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.AcsRouterJobQueuedEventData AcsRouterJobQueuedEventData(string jobId = null, string channelReference = null, string channelId = null, string queueId = null, System.Collections.Generic.IReadOnlyDictionary<string, string> labels = null, System.Collections.Generic.IReadOnlyDictionary<string, string> tags = null, int? priority = default(int?), System.Collections.Generic.IEnumerable<Azure.Messaging.EventGrid.SystemEvents.AcsRouterWorkerSelector> attachedWorkerSelectors = null, System.Collections.Generic.IEnumerable<Azure.Messaging.EventGrid.SystemEvents.AcsRouterWorkerSelector> requestedWorkerSelectors = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.AcsRouterJobRecievedEventData AcsRouterJobRecievedEventData(string jobId = null, string channelReference = null, string channelId = null, string queueId = null, System.Collections.Generic.IReadOnlyDictionary<string, string> labels = null, System.Collections.Generic.IReadOnlyDictionary<string, string> tags = null, string jobStatus = null, string classificationPolicyId = null, int? priority = default(int?), System.Collections.Generic.IEnumerable<Azure.Messaging.EventGrid.SystemEvents.AcsRouterWorkerSelector> requestedWorkerSelectors = null, System.DateTimeOffset? scheduledTimeUtc = default(System.DateTimeOffset?), bool? unavailableForMatching = default(bool?)) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.AcsRouterJobSchedulingFailedEventData AcsRouterJobSchedulingFailedEventData(string jobId = null, string channelReference = null, string channelId = null, string queueId = null, System.Collections.Generic.IReadOnlyDictionary<string, string> labels = null, System.Collections.Generic.IReadOnlyDictionary<string, string> tags = null, int? priority = default(int?), System.Collections.Generic.IEnumerable<Azure.Messaging.EventGrid.SystemEvents.AcsRouterWorkerSelector> attachedWorkerSelectorsExpired = null, System.Collections.Generic.IEnumerable<Azure.Messaging.EventGrid.SystemEvents.AcsRouterWorkerSelector> requestedWorkerSelectorsExpired = null, System.DateTimeOffset? scheduledTimeUtc = default(System.DateTimeOffset?), string failureReason = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.AcsRouterJobUnassignedEventData AcsRouterJobUnassignedEventData(string jobId = null, string channelReference = null, string channelId = null, string queueId = null, System.Collections.Generic.IReadOnlyDictionary<string, string> labels = null, System.Collections.Generic.IReadOnlyDictionary<string, string> tags = null, string assignmentId = null, string workerId = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.AcsRouterJobWaitingForActivationEventData AcsRouterJobWaitingForActivationEventData(string jobId = null, string channelReference = null, string channelId = null, string queueId = null, System.Collections.Generic.IReadOnlyDictionary<string, string> labels = null, System.Collections.Generic.IReadOnlyDictionary<string, string> tags = null, int? priority = default(int?), System.Collections.Generic.IEnumerable<Azure.Messaging.EventGrid.SystemEvents.AcsRouterWorkerSelector> attachedWorkerSelectorsExpired = null, System.Collections.Generic.IEnumerable<Azure.Messaging.EventGrid.SystemEvents.AcsRouterWorkerSelector> requestedWorkerSelectorsExpired = null, System.DateTimeOffset? scheduledTimeUtc = default(System.DateTimeOffset?), bool? unavailableForMatching = default(bool?)) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.AcsRouterJobWorkerSelectorsExpiredEventData AcsRouterJobWorkerSelectorsExpiredEventData(string jobId = null, string channelReference = null, string channelId = null, string queueId = null, System.Collections.Generic.IReadOnlyDictionary<string, string> labels = null, System.Collections.Generic.IReadOnlyDictionary<string, string> tags = null, System.Collections.Generic.IEnumerable<Azure.Messaging.EventGrid.SystemEvents.AcsRouterWorkerSelector> requestedWorkerSelectorsExpired = null, System.Collections.Generic.IEnumerable<Azure.Messaging.EventGrid.SystemEvents.AcsRouterWorkerSelector> attachedWorkerSelectorsExpired = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.AcsRouterQueueInfo AcsRouterQueueInfo(string id = null, string name = null, System.Collections.Generic.IReadOnlyDictionary<string, string> labels = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.AcsRouterWorkerDeletedEventData AcsRouterWorkerDeletedEventData(string jobId = null, string channelReference = null, string channelId = null, string workerId = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.AcsRouterWorkerDeregisteredEventData AcsRouterWorkerDeregisteredEventData(string workerId = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.AcsRouterWorkerEventBaseProperties AcsRouterWorkerEventBaseProperties(string jobId = null, string channelReference = null, string channelId = null, string workerId = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.AcsRouterWorkerOfferAcceptedEventData AcsRouterWorkerOfferAcceptedEventData(string jobId = null, string channelReference = null, string channelId = null, string workerId = null, string queueId = null, string offerId = null, string assignmentId = null, int? jobPriority = default(int?), System.Collections.Generic.IReadOnlyDictionary<string, string> workerLabels = null, System.Collections.Generic.IReadOnlyDictionary<string, string> workerTags = null, System.Collections.Generic.IReadOnlyDictionary<string, string> jobLabels = null, System.Collections.Generic.IReadOnlyDictionary<string, string> jobTags = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.AcsRouterWorkerOfferDeclinedEventData AcsRouterWorkerOfferDeclinedEventData(string jobId = null, string channelReference = null, string channelId = null, string workerId = null, string queueId = null, string offerId = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.AcsRouterWorkerOfferExpiredEventData AcsRouterWorkerOfferExpiredEventData(string jobId = null, string channelReference = null, string channelId = null, string workerId = null, string queueId = null, string offerId = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.AcsRouterWorkerOfferIssuedEventData AcsRouterWorkerOfferIssuedEventData(string jobId = null, string channelReference = null, string channelId = null, string workerId = null, string queueId = null, string offerId = null, int? jobPriority = default(int?), System.Collections.Generic.IReadOnlyDictionary<string, string> workerLabels = null, System.DateTimeOffset? offerTimeUtc = default(System.DateTimeOffset?), System.DateTimeOffset? expiryTimeUtc = default(System.DateTimeOffset?), System.Collections.Generic.IReadOnlyDictionary<string, string> workerTags = null, System.Collections.Generic.IReadOnlyDictionary<string, string> jobLabels = null, System.Collections.Generic.IReadOnlyDictionary<string, string> jobTags = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.AcsRouterWorkerOfferRevokedEventData AcsRouterWorkerOfferRevokedEventData(string jobId = null, string channelReference = null, string channelId = null, string workerId = null, string queueId = null, string offerId = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.AcsRouterWorkerRegisteredEventData AcsRouterWorkerRegisteredEventData(string workerId = null, System.Collections.Generic.IEnumerable<Azure.Messaging.EventGrid.SystemEvents.AcsRouterQueueInfo> queueAssignments = null, System.Collections.Generic.IEnumerable<Azure.Messaging.EventGrid.SystemEvents.AcsRouterChannelConfiguration> channelConfigurations = null, int? totalCapacity = default(int?), System.Collections.Generic.IReadOnlyDictionary<string, string> labels = null, System.Collections.Generic.IReadOnlyDictionary<string, string> tags = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.AcsRouterWorkerSelector AcsRouterWorkerSelector(string key = null, string labelOperator = null, System.Collections.Generic.IReadOnlyDictionary<string, string> value = null, double? ttlSeconds = default(double?), Azure.Messaging.EventGrid.Models.AcsRouterWorkerSelectorState? state = default(Azure.Messaging.EventGrid.Models.AcsRouterWorkerSelectorState?), System.DateTimeOffset? expireTime = default(System.DateTimeOffset?)) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.AcsSmsDeliveryAttemptProperties AcsSmsDeliveryAttemptProperties(System.DateTimeOffset? timestamp = default(System.DateTimeOffset?), int? segmentsSucceeded = default(int?), int? segmentsFailed = default(int?)) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.AcsSmsDeliveryReportReceivedEventData AcsSmsDeliveryReportReceivedEventData(string messageId = null, string from = null, string to = null, string deliveryStatus = null, string deliveryStatusDetails = null, System.Collections.Generic.IEnumerable<Azure.Messaging.EventGrid.SystemEvents.AcsSmsDeliveryAttemptProperties> deliveryAttempts = null, System.DateTimeOffset? receivedTimestamp = default(System.DateTimeOffset?), string tag = null) { throw null; }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
@@ -131,7 +159,14 @@ namespace Azure.Messaging.EventGrid
         public static Azure.Messaging.EventGrid.SystemEvents.ContainerRegistryEventTarget ContainerRegistryEventTarget(string mediaType = null, long? size = default(long?), string digest = null, long? length = default(long?), string repository = null, string url = null, string tag = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.ContainerRegistryImageDeletedEventData ContainerRegistryImageDeletedEventData(string id = null, System.DateTimeOffset? timestamp = default(System.DateTimeOffset?), string action = null, string location = null, Azure.Messaging.EventGrid.SystemEvents.ContainerRegistryEventTarget target = null, Azure.Messaging.EventGrid.SystemEvents.ContainerRegistryEventRequest request = null, Azure.Messaging.EventGrid.SystemEvents.ContainerRegistryEventActor actor = null, Azure.Messaging.EventGrid.SystemEvents.ContainerRegistryEventSource source = null, Azure.Messaging.EventGrid.SystemEvents.ContainerRegistryEventConnectedRegistry connectedRegistry = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.ContainerRegistryImagePushedEventData ContainerRegistryImagePushedEventData(string id = null, System.DateTimeOffset? timestamp = default(System.DateTimeOffset?), string action = null, string location = null, Azure.Messaging.EventGrid.SystemEvents.ContainerRegistryEventTarget target = null, Azure.Messaging.EventGrid.SystemEvents.ContainerRegistryEventRequest request = null, Azure.Messaging.EventGrid.SystemEvents.ContainerRegistryEventActor actor = null, Azure.Messaging.EventGrid.SystemEvents.ContainerRegistryEventSource source = null, Azure.Messaging.EventGrid.SystemEvents.ContainerRegistryEventConnectedRegistry connectedRegistry = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.ContainerServiceClusterSupportBaseProperties ContainerServiceClusterSupportBaseProperties(string kubernetesVersion = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.ContainerServiceClusterSupportEndedEventData ContainerServiceClusterSupportEndedEventData(string kubernetesVersion = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.ContainerServiceClusterSupportEndingEventData ContainerServiceClusterSupportEndingEventData(string kubernetesVersion = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.ContainerServiceNewKubernetesVersionAvailableEventData ContainerServiceNewKubernetesVersionAvailableEventData(string latestSupportedKubernetesVersion = null, string latestStableKubernetesVersion = null, string lowestMinorKubernetesVersion = null, string latestPreviewKubernetesVersion = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.ContainerServiceNodePoolRollingBaseProperties ContainerServiceNodePoolRollingBaseProperties(string nodePoolName = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.ContainerServiceNodePoolRollingFailedEventData ContainerServiceNodePoolRollingFailedEventData(string nodePoolName = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.ContainerServiceNodePoolRollingStartedEventData ContainerServiceNodePoolRollingStartedEventData(string nodePoolName = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.ContainerServiceNodePoolRollingSucceededEventData ContainerServiceNodePoolRollingSucceededEventData(string nodePoolName = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.DataBoxCopyCompletedEventData DataBoxCopyCompletedEventData(string serialNumber = null, Azure.Messaging.EventGrid.SystemEvents.DataBoxStageName? stageName = default(Azure.Messaging.EventGrid.SystemEvents.DataBoxStageName?), System.DateTimeOffset? stageTime = default(System.DateTimeOffset?)) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.DataBoxCopyStartedEventData DataBoxCopyStartedEventData(string serialNumber = null, Azure.Messaging.EventGrid.SystemEvents.DataBoxStageName? stageName = default(Azure.Messaging.EventGrid.SystemEvents.DataBoxStageName?), System.DateTimeOffset? stageTime = default(System.DateTimeOffset?)) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.DataBoxOrderCompletedEventData DataBoxOrderCompletedEventData(string serialNumber = null, Azure.Messaging.EventGrid.SystemEvents.DataBoxStageName? stageName = default(Azure.Messaging.EventGrid.SystemEvents.DataBoxStageName?), System.DateTimeOffset? stageTime = default(System.DateTimeOffset?)) { throw null; }
@@ -345,6 +380,27 @@ namespace Azure.Messaging.EventGrid
         public const string AcsEmailEngagementTrackingReportReceived = "Microsoft.Communication.EmailEngagementTrackingReportReceived";
         public const string AcsIncomingCall = "Microsoft.Communication.IncomingCall";
         public const string AcsRecordingFileStatusUpdated = "Microsoft.Communication.RecordingFileStatusUpdated";
+        public const string AcsRouterJobCancelled = "Microsoft.Communication.RouterJobCancelled";
+        public const string AcsRouterJobClassificationFailed = "Microsoft.Communication.RouterJobClassificationFailed";
+        public const string AcsRouterJobClassified = "Microsoft.Communication.RouterJobClassified";
+        public const string AcsRouterJobClosed = "Microsoft.Communication.RouterJobClosed";
+        public const string AcsRouterJobCompleted = "Microsoft.Communication.RouterJobCompleted";
+        public const string AcsRouterJobDeleted = "Microsoft.Communication.RouterJobDeleted";
+        public const string AcsRouterJobExceptionTriggered = "Microsoft.Communication.RouterJobExceptionTriggered";
+        public const string AcsRouterJobQueued = "Microsoft.Communication.RouterJobQueued";
+        public const string AcsRouterJobRecieved = "Microsoft.Communication.RouterJobReceived";
+        public const string AcsRouterJobSchedulingFailed = "Microsoft.Communication.RouterJobSchedulingFailed";
+        public const string AcsRouterJobUnassigned = "Microsoft.Communication.RouterJobUnassigned";
+        public const string AcsRouterJobWaitingForActivation = "Microsoft.Communication.RouterJobWaitingForActivation";
+        public const string AcsRouterJobWorkerSelectorsExpired = "Microsoft.Communication.RouterJobWorkerSelectorsExpired";
+        public const string AcsRouterWorkerDeleted = "Microsoft.Communication.RouterWorkerDeleted";
+        public const string AcsRouterWorkerDeregistered = "Microsoft.Communication.RouterWorkerDeregistered";
+        public const string AcsRouterWorkerOfferAccepted = "Microsoft.Communication.RouterWorkerOfferAccepted";
+        public const string AcsRouterWorkerOfferDeclined = "Microsoft.Communication.RouterWorkerOfferDeclined";
+        public const string AcsRouterWorkerOfferExpired = "Microsoft.Communication.RouterWorkerOfferExpired";
+        public const string AcsRouterWorkerOfferIssued = "Microsoft.Communication.RouterWorkerOfferIssued";
+        public const string AcsRouterWorkerOfferRevoked = "Microsoft.Communication.RouterWorkerOfferRevoked";
+        public const string AcsRouterWorkerRegistered = "Microsoft.Communication.RouterWorkerRegistered";
         public const string AcsSmsDeliveryReportReceived = "Microsoft.Communication.SMSDeliveryReportReceived";
         public const string AcsSmsReceived = "Microsoft.Communication.SMSReceived";
         public const string AcsUserDisconnected = "Microsoft.Communication.UserDisconnected";
@@ -380,7 +436,12 @@ namespace Azure.Messaging.EventGrid
         public const string ContainerRegistryChartPushed = "Microsoft.ContainerRegistry.ChartPushed";
         public const string ContainerRegistryImageDeleted = "Microsoft.ContainerRegistry.ImageDeleted";
         public const string ContainerRegistryImagePushed = "Microsoft.ContainerRegistry.ImagePushed";
+        public const string ContainerServiceClusterSupportEnded = "Microsoft.ContainerService.ClusterSupportEnded";
+        public const string ContainerServiceClusterSupportEnding = "Microsoft.ContainerService.ClusterSupportEnding";
         public const string ContainerServiceNewKubernetesVersionAvailable = "Microsoft.ContainerService.NewKubernetesVersionAvailable";
+        public const string ContainerServiceNodePoolRollingFailed = "Microsoft.ContainerService.NodePoolRollingFailed";
+        public const string ContainerServiceNodePoolRollingStarted = "Microsoft.ContainerService.NodePoolRollingStarted";
+        public const string ContainerServiceNodePoolRollingSucceeded = "Microsoft.ContainerService.NodePoolRollingSucceeded";
         public const string DataBoxCopyCompleted = "Microsoft.DataBox.CopyCompleted";
         public const string DataBoxCopyStarted = "Microsoft.DataBox.CopyStarted";
         public const string DataBoxOrderCompleted = "Microsoft.DataBox.OrderCompleted";
@@ -492,6 +553,24 @@ namespace Azure.Messaging.EventGrid
 }
 namespace Azure.Messaging.EventGrid.Models
 {
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct AcsRouterWorkerSelectorState : System.IEquatable<Azure.Messaging.EventGrid.Models.AcsRouterWorkerSelectorState>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public AcsRouterWorkerSelectorState(string value) { throw null; }
+        public static Azure.Messaging.EventGrid.Models.AcsRouterWorkerSelectorState Active { get { throw null; } }
+        public static Azure.Messaging.EventGrid.Models.AcsRouterWorkerSelectorState Expired { get { throw null; } }
+        public bool Equals(Azure.Messaging.EventGrid.Models.AcsRouterWorkerSelectorState other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.Messaging.EventGrid.Models.AcsRouterWorkerSelectorState left, Azure.Messaging.EventGrid.Models.AcsRouterWorkerSelectorState right) { throw null; }
+        public static implicit operator Azure.Messaging.EventGrid.Models.AcsRouterWorkerSelectorState (string value) { throw null; }
+        public static bool operator !=(Azure.Messaging.EventGrid.Models.AcsRouterWorkerSelectorState left, Azure.Messaging.EventGrid.Models.AcsRouterWorkerSelectorState right) { throw null; }
+        public override string ToString() { throw null; }
+    }
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct RecordingChannelType : System.IEquatable<Azure.Messaging.EventGrid.Models.RecordingChannelType>
@@ -860,6 +939,210 @@ namespace Azure.Messaging.EventGrid.SystemEvents
     {
         internal AcsRecordingStorageInfoProperties() { }
         public System.Collections.Generic.IReadOnlyList<Azure.Messaging.EventGrid.SystemEvents.AcsRecordingChunkInfoProperties> RecordingChunks { get { throw null; } }
+    }
+    public partial class AcsRouterChannelConfiguration
+    {
+        internal AcsRouterChannelConfiguration() { }
+        public int? CapacityCostPerJob { get { throw null; } }
+        public string ChannelId { get { throw null; } }
+        public int? MaxNumberOfJobs { get { throw null; } }
+    }
+    public partial class AcsRouterCommunicationError
+    {
+        internal AcsRouterCommunicationError() { }
+        public string Code { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyList<Azure.Messaging.EventGrid.SystemEvents.AcsRouterCommunicationError> Details { get { throw null; } }
+        public Azure.Messaging.EventGrid.SystemEvents.AcsRouterCommunicationError InnerError { get { throw null; } }
+        public string Message { get { throw null; } }
+        public string Target { get { throw null; } }
+    }
+    public partial class AcsRouterEventBaseProperties
+    {
+        internal AcsRouterEventBaseProperties() { }
+        public string ChannelId { get { throw null; } }
+        public string ChannelReference { get { throw null; } }
+        public string JobId { get { throw null; } }
+    }
+    public partial class AcsRouterJobCancelledEventData : Azure.Messaging.EventGrid.SystemEvents.AcsRouterJobEventBaseProperties
+    {
+        internal AcsRouterJobCancelledEventData() { }
+        public string DispositionCode { get { throw null; } }
+        public string Note { get { throw null; } }
+    }
+    public partial class AcsRouterJobClassificationFailedEventData : Azure.Messaging.EventGrid.SystemEvents.AcsRouterJobEventBaseProperties
+    {
+        internal AcsRouterJobClassificationFailedEventData() { }
+        public string ClassificationPolicyId { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyList<Azure.Messaging.EventGrid.SystemEvents.AcsRouterCommunicationError> Errors { get { throw null; } }
+    }
+    public partial class AcsRouterJobClassifiedEventData : Azure.Messaging.EventGrid.SystemEvents.AcsRouterJobEventBaseProperties
+    {
+        internal AcsRouterJobClassifiedEventData() { }
+        public Azure.Messaging.EventGrid.SystemEvents.AcsRouterWorkerSelector AttachedWorkerSelectors { get { throw null; } }
+        public string ClassificationPolicyId { get { throw null; } }
+        public int? Priority { get { throw null; } }
+        public Azure.Messaging.EventGrid.SystemEvents.AcsRouterQueueInfo QueueInfo { get { throw null; } }
+    }
+    public partial class AcsRouterJobClosedEventData : Azure.Messaging.EventGrid.SystemEvents.AcsRouterJobEventBaseProperties
+    {
+        internal AcsRouterJobClosedEventData() { }
+        public string AssignmentId { get { throw null; } }
+        public string DispositionCode { get { throw null; } }
+        public string WorkerId { get { throw null; } }
+    }
+    public partial class AcsRouterJobCompletedEventData : Azure.Messaging.EventGrid.SystemEvents.AcsRouterJobEventBaseProperties
+    {
+        internal AcsRouterJobCompletedEventData() { }
+        public string AssignmentId { get { throw null; } }
+        public string WorkerId { get { throw null; } }
+    }
+    public partial class AcsRouterJobDeletedEventData : Azure.Messaging.EventGrid.SystemEvents.AcsRouterJobEventBaseProperties
+    {
+        internal AcsRouterJobDeletedEventData() { }
+    }
+    public partial class AcsRouterJobEventBaseProperties : Azure.Messaging.EventGrid.SystemEvents.AcsRouterEventBaseProperties
+    {
+        internal AcsRouterJobEventBaseProperties() { }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string> Labels { get { throw null; } }
+        public string QueueId { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string> Tags { get { throw null; } }
+    }
+    public partial class AcsRouterJobExceptionTriggeredEventData : Azure.Messaging.EventGrid.SystemEvents.AcsRouterJobEventBaseProperties
+    {
+        internal AcsRouterJobExceptionTriggeredEventData() { }
+        public string ExceptionRuleId { get { throw null; } }
+        public string RuleKey { get { throw null; } }
+    }
+    public partial class AcsRouterJobQueuedEventData : Azure.Messaging.EventGrid.SystemEvents.AcsRouterJobEventBaseProperties
+    {
+        internal AcsRouterJobQueuedEventData() { }
+        public System.Collections.Generic.IReadOnlyList<Azure.Messaging.EventGrid.SystemEvents.AcsRouterWorkerSelector> AttachedWorkerSelectors { get { throw null; } }
+        public int? Priority { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyList<Azure.Messaging.EventGrid.SystemEvents.AcsRouterWorkerSelector> RequestedWorkerSelectors { get { throw null; } }
+    }
+    public partial class AcsRouterJobRecievedEventData : Azure.Messaging.EventGrid.SystemEvents.AcsRouterJobEventBaseProperties
+    {
+        internal AcsRouterJobRecievedEventData() { }
+        public string ClassificationPolicyId { get { throw null; } }
+        public string JobStatus { get { throw null; } }
+        public int? Priority { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyList<Azure.Messaging.EventGrid.SystemEvents.AcsRouterWorkerSelector> RequestedWorkerSelectors { get { throw null; } }
+        public System.DateTimeOffset? ScheduledTimeUtc { get { throw null; } }
+        public bool? UnavailableForMatching { get { throw null; } }
+    }
+    public partial class AcsRouterJobSchedulingFailedEventData : Azure.Messaging.EventGrid.SystemEvents.AcsRouterJobEventBaseProperties
+    {
+        internal AcsRouterJobSchedulingFailedEventData() { }
+        public System.Collections.Generic.IReadOnlyList<Azure.Messaging.EventGrid.SystemEvents.AcsRouterWorkerSelector> AttachedWorkerSelectorsExpired { get { throw null; } }
+        public string FailureReason { get { throw null; } }
+        public int? Priority { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyList<Azure.Messaging.EventGrid.SystemEvents.AcsRouterWorkerSelector> RequestedWorkerSelectorsExpired { get { throw null; } }
+        public System.DateTimeOffset? ScheduledTimeUtc { get { throw null; } }
+    }
+    public partial class AcsRouterJobUnassignedEventData : Azure.Messaging.EventGrid.SystemEvents.AcsRouterJobEventBaseProperties
+    {
+        internal AcsRouterJobUnassignedEventData() { }
+        public string AssignmentId { get { throw null; } }
+        public string WorkerId { get { throw null; } }
+    }
+    public partial class AcsRouterJobWaitingForActivationEventData : Azure.Messaging.EventGrid.SystemEvents.AcsRouterJobEventBaseProperties
+    {
+        internal AcsRouterJobWaitingForActivationEventData() { }
+        public System.Collections.Generic.IReadOnlyList<Azure.Messaging.EventGrid.SystemEvents.AcsRouterWorkerSelector> AttachedWorkerSelectorsExpired { get { throw null; } }
+        public int? Priority { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyList<Azure.Messaging.EventGrid.SystemEvents.AcsRouterWorkerSelector> RequestedWorkerSelectorsExpired { get { throw null; } }
+        public System.DateTimeOffset? ScheduledTimeUtc { get { throw null; } }
+        public bool? UnavailableForMatching { get { throw null; } }
+    }
+    public partial class AcsRouterJobWorkerSelectorsExpiredEventData : Azure.Messaging.EventGrid.SystemEvents.AcsRouterJobEventBaseProperties
+    {
+        internal AcsRouterJobWorkerSelectorsExpiredEventData() { }
+        public System.Collections.Generic.IReadOnlyList<Azure.Messaging.EventGrid.SystemEvents.AcsRouterWorkerSelector> AttachedWorkerSelectorsExpired { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyList<Azure.Messaging.EventGrid.SystemEvents.AcsRouterWorkerSelector> RequestedWorkerSelectorsExpired { get { throw null; } }
+    }
+    public partial class AcsRouterQueueInfo
+    {
+        internal AcsRouterQueueInfo() { }
+        public string Id { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string> Labels { get { throw null; } }
+        public string Name { get { throw null; } }
+    }
+    public partial class AcsRouterWorkerDeletedEventData : Azure.Messaging.EventGrid.SystemEvents.AcsRouterWorkerEventBaseProperties
+    {
+        internal AcsRouterWorkerDeletedEventData() { }
+    }
+    public partial class AcsRouterWorkerDeregisteredEventData
+    {
+        internal AcsRouterWorkerDeregisteredEventData() { }
+        public string WorkerId { get { throw null; } }
+    }
+    public partial class AcsRouterWorkerEventBaseProperties : Azure.Messaging.EventGrid.SystemEvents.AcsRouterEventBaseProperties
+    {
+        internal AcsRouterWorkerEventBaseProperties() { }
+        public string WorkerId { get { throw null; } }
+    }
+    public partial class AcsRouterWorkerOfferAcceptedEventData : Azure.Messaging.EventGrid.SystemEvents.AcsRouterWorkerEventBaseProperties
+    {
+        internal AcsRouterWorkerOfferAcceptedEventData() { }
+        public string AssignmentId { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string> JobLabels { get { throw null; } }
+        public int? JobPriority { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string> JobTags { get { throw null; } }
+        public string OfferId { get { throw null; } }
+        public string QueueId { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string> WorkerLabels { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string> WorkerTags { get { throw null; } }
+    }
+    public partial class AcsRouterWorkerOfferDeclinedEventData : Azure.Messaging.EventGrid.SystemEvents.AcsRouterWorkerEventBaseProperties
+    {
+        internal AcsRouterWorkerOfferDeclinedEventData() { }
+        public string OfferId { get { throw null; } }
+        public string QueueId { get { throw null; } }
+    }
+    public partial class AcsRouterWorkerOfferExpiredEventData : Azure.Messaging.EventGrid.SystemEvents.AcsRouterWorkerEventBaseProperties
+    {
+        internal AcsRouterWorkerOfferExpiredEventData() { }
+        public string OfferId { get { throw null; } }
+        public string QueueId { get { throw null; } }
+    }
+    public partial class AcsRouterWorkerOfferIssuedEventData : Azure.Messaging.EventGrid.SystemEvents.AcsRouterWorkerEventBaseProperties
+    {
+        internal AcsRouterWorkerOfferIssuedEventData() { }
+        public System.DateTimeOffset? ExpiryTimeUtc { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string> JobLabels { get { throw null; } }
+        public int? JobPriority { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string> JobTags { get { throw null; } }
+        public string OfferId { get { throw null; } }
+        public System.DateTimeOffset? OfferTimeUtc { get { throw null; } }
+        public string QueueId { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string> WorkerLabels { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string> WorkerTags { get { throw null; } }
+    }
+    public partial class AcsRouterWorkerOfferRevokedEventData : Azure.Messaging.EventGrid.SystemEvents.AcsRouterWorkerEventBaseProperties
+    {
+        internal AcsRouterWorkerOfferRevokedEventData() { }
+        public string OfferId { get { throw null; } }
+        public string QueueId { get { throw null; } }
+    }
+    public partial class AcsRouterWorkerRegisteredEventData
+    {
+        internal AcsRouterWorkerRegisteredEventData() { }
+        public System.Collections.Generic.IReadOnlyList<Azure.Messaging.EventGrid.SystemEvents.AcsRouterChannelConfiguration> ChannelConfigurations { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string> Labels { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyList<Azure.Messaging.EventGrid.SystemEvents.AcsRouterQueueInfo> QueueAssignments { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string> Tags { get { throw null; } }
+        public int? TotalCapacity { get { throw null; } }
+        public string WorkerId { get { throw null; } }
+    }
+    public partial class AcsRouterWorkerSelector
+    {
+        internal AcsRouterWorkerSelector() { }
+        public System.DateTimeOffset? ExpireTime { get { throw null; } }
+        public string Key { get { throw null; } }
+        public string LabelOperator { get { throw null; } }
+        public Azure.Messaging.EventGrid.Models.AcsRouterWorkerSelectorState? State { get { throw null; } }
+        public double? TtlSeconds { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string> Value { get { throw null; } }
     }
     public partial class AcsSmsDeliveryAttemptProperties
     {
@@ -1247,6 +1530,19 @@ namespace Azure.Messaging.EventGrid.SystemEvents
     {
         internal ContainerRegistryImagePushedEventData() { }
     }
+    public partial class ContainerServiceClusterSupportBaseProperties
+    {
+        internal ContainerServiceClusterSupportBaseProperties() { }
+        public string KubernetesVersion { get { throw null; } }
+    }
+    public partial class ContainerServiceClusterSupportEndedEventData : Azure.Messaging.EventGrid.SystemEvents.ContainerServiceClusterSupportBaseProperties
+    {
+        internal ContainerServiceClusterSupportEndedEventData() { }
+    }
+    public partial class ContainerServiceClusterSupportEndingEventData : Azure.Messaging.EventGrid.SystemEvents.ContainerServiceClusterSupportBaseProperties
+    {
+        internal ContainerServiceClusterSupportEndingEventData() { }
+    }
     public partial class ContainerServiceNewKubernetesVersionAvailableEventData
     {
         internal ContainerServiceNewKubernetesVersionAvailableEventData() { }
@@ -1254,6 +1550,23 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         public string LatestStableKubernetesVersion { get { throw null; } }
         public string LatestSupportedKubernetesVersion { get { throw null; } }
         public string LowestMinorKubernetesVersion { get { throw null; } }
+    }
+    public partial class ContainerServiceNodePoolRollingBaseProperties
+    {
+        internal ContainerServiceNodePoolRollingBaseProperties() { }
+        public string NodePoolName { get { throw null; } }
+    }
+    public partial class ContainerServiceNodePoolRollingFailedEventData : Azure.Messaging.EventGrid.SystemEvents.ContainerServiceNodePoolRollingBaseProperties
+    {
+        internal ContainerServiceNodePoolRollingFailedEventData() { }
+    }
+    public partial class ContainerServiceNodePoolRollingStartedEventData : Azure.Messaging.EventGrid.SystemEvents.ContainerServiceNodePoolRollingBaseProperties
+    {
+        internal ContainerServiceNodePoolRollingStartedEventData() { }
+    }
+    public partial class ContainerServiceNodePoolRollingSucceededEventData : Azure.Messaging.EventGrid.SystemEvents.ContainerServiceNodePoolRollingBaseProperties
+    {
+        internal ContainerServiceNodePoolRollingSucceededEventData() { }
     }
     public partial class DataBoxCopyCompletedEventData
     {
