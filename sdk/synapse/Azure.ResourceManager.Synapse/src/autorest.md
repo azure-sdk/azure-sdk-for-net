@@ -9,7 +9,7 @@ csharp: true
 library-name: Synapse
 namespace: Azure.ResourceManager.Synapse
 # The readme.md in swagger repo contains invalid setting for C# sdk
-# require: https://github.com/Azure/azure-rest-api-specs/blob/340d577969b7bff5ad0488d79543314bc17daa50/specification/synapse/resource-manager/readme.md
+# require: /mnt/vss/_work/1/s/azure-rest-api-specs/specification/synapse/resource-manager/readme.md
 tag: package-composite-v2
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
