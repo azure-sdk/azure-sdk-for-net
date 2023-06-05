@@ -83,13 +83,15 @@ namespace Azure.ResourceManager.Communication.Models
         /// <param name="domainManagement"> Describes how a Domains resource is being managed. </param>
         /// <param name="verificationStates"> List of VerificationStatusRecord. </param>
         /// <param name="verificationRecords"> List of DnsRecord. </param>
+        /// <param name="validSenderUsernames"> Collection of valid sender usernames. This is a key-value pair where key=username and value=display name. </param>
         /// <param name="userEngagementTracking"> Describes whether user engagement tracking is enabled or disabled. </param>
         /// <returns> A new <see cref="Communication.CommunicationDomainResourceData"/> instance for mocking. </returns>
-        public static CommunicationDomainResourceData CommunicationDomainResourceData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, DomainProvisioningState? provisioningState = null, string dataLocation = null, string fromSenderDomain = null, string mailFromSenderDomain = null, DomainManagement? domainManagement = null, DomainPropertiesVerificationStates verificationStates = null, DomainPropertiesVerificationRecords verificationRecords = null, UserEngagementTracking? userEngagementTracking = null)
+        public static CommunicationDomainResourceData CommunicationDomainResourceData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, DomainProvisioningState? provisioningState = null, string dataLocation = null, string fromSenderDomain = null, string mailFromSenderDomain = null, DomainManagement? domainManagement = null, DomainPropertiesVerificationStates verificationStates = null, DomainPropertiesVerificationRecords verificationRecords = null, IDictionary<string, string> validSenderUsernames = null, UserEngagementTracking? userEngagementTracking = null)
         {
             tags ??= new Dictionary<string, string>();
+            validSenderUsernames ??= new Dictionary<string, string>();
 
-            return new CommunicationDomainResourceData(id, name, resourceType, systemData, tags, location, provisioningState, dataLocation, fromSenderDomain, mailFromSenderDomain, domainManagement, verificationStates, verificationRecords, userEngagementTracking);
+            return new CommunicationDomainResourceData(id, name, resourceType, systemData, tags, location, provisioningState, dataLocation, fromSenderDomain, mailFromSenderDomain, domainManagement, verificationStates, verificationRecords, validSenderUsernames, userEngagementTracking);
         }
 
         /// <summary> Initializes a new instance of DomainPropertiesVerificationStates. </summary>
@@ -151,21 +153,6 @@ namespace Azure.ResourceManager.Communication.Models
             tags ??= new Dictionary<string, string>();
 
             return new EmailServiceResourceData(id, name, resourceType, systemData, tags, location, provisioningState, dataLocation);
-        }
-
-        /// <summary> Initializes a new instance of SenderUsernameResourceData. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="dataLocation"> The location where the SenderUsername resource data is stored at rest. </param>
-        /// <param name="username"> A sender senderUsername to be used when sending emails. </param>
-        /// <param name="displayName"> The display name for the senderUsername. </param>
-        /// <param name="provisioningState"> Provisioning state of the resource. Unknown is the default state for Communication Services. </param>
-        /// <returns> A new <see cref="Communication.SenderUsernameResourceData"/> instance for mocking. </returns>
-        public static SenderUsernameResourceData SenderUsernameResourceData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string dataLocation = null, string username = null, string displayName = null, CommunicationServiceProvisioningState? provisioningState = null)
-        {
-            return new SenderUsernameResourceData(id, name, resourceType, systemData, dataLocation, username, displayName, provisioningState);
         }
     }
 }
