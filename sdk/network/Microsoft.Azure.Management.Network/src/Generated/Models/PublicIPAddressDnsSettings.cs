@@ -35,6 +35,12 @@ namespace Microsoft.Azure.Management.Network.Models
         /// public IP address. If a domain name label is specified, an A DNS
         /// record is created for the public IP in the Microsoft Azure DNS
         /// system.</param>
+        /// <param name="domainNameLabelScope">The domain name label scope. If
+        /// a domain name label and a domain name label scope are specified, an
+        /// A DNS record is created for the public IP in the Microsoft Azure
+        /// DNS system with a hashed value includes in FQDN. Possible values
+        /// include: 'TenantReuse', 'SubscriptionReuse', 'ResourceGroupReuse',
+        /// 'NoReuse'</param>
         /// <param name="fqdn">The Fully Qualified Domain Name of the A DNS
         /// record associated with the public IP. This is the concatenation of
         /// the domainNameLabel and the regionalized DNS zone.</param>
@@ -43,9 +49,10 @@ namespace Microsoft.Azure.Management.Network.Models
         /// the reverseFqdn is specified, then a PTR DNS record is created
         /// pointing from the IP address in the in-addr.arpa domain to the
         /// reverse FQDN.</param>
-        public PublicIPAddressDnsSettings(string domainNameLabel = default(string), string fqdn = default(string), string reverseFqdn = default(string))
+        public PublicIPAddressDnsSettings(string domainNameLabel = default(string), PublicIpAddressDnsSettingsDomainNameLabelScope? domainNameLabelScope = default(PublicIpAddressDnsSettingsDomainNameLabelScope?), string fqdn = default(string), string reverseFqdn = default(string))
         {
             DomainNameLabel = domainNameLabel;
+            DomainNameLabelScope = domainNameLabelScope;
             Fqdn = fqdn;
             ReverseFqdn = reverseFqdn;
             CustomInit();
@@ -65,6 +72,16 @@ namespace Microsoft.Azure.Management.Network.Models
         /// </summary>
         [JsonProperty(PropertyName = "domainNameLabel")]
         public string DomainNameLabel { get; set; }
+
+        /// <summary>
+        /// Gets or sets the domain name label scope. If a domain name label
+        /// and a domain name label scope are specified, an A DNS record is
+        /// created for the public IP in the Microsoft Azure DNS system with a
+        /// hashed value includes in FQDN. Possible values include:
+        /// 'TenantReuse', 'SubscriptionReuse', 'ResourceGroupReuse', 'NoReuse'
+        /// </summary>
+        [JsonProperty(PropertyName = "domainNameLabelScope")]
+        public PublicIpAddressDnsSettingsDomainNameLabelScope? DomainNameLabelScope { get; set; }
 
         /// <summary>
         /// Gets or sets the Fully Qualified Domain Name of the A DNS record
