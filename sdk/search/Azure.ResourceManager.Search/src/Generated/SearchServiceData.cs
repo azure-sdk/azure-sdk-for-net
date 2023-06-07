@@ -34,7 +34,7 @@ namespace Azure.ResourceManager.Search
         /// <param name="tags"> The tags. </param>
         /// <param name="location"> The location. </param>
         /// <param name="sku"> The SKU of the Search Service, which determines price tier and capacity limits. This property is required when creating a new Search Service. </param>
-        /// <param name="identity"> The identity of the resource. Current supported identity types: None, SystemAssigned. </param>
+        /// <param name="identity"> The identity of the resource. </param>
         /// <param name="replicaCount"> The number of replicas in the search service. If specified, it must be a value between 1 and 12 inclusive for standard SKUs or between 1 and 3 inclusive for basic SKU. </param>
         /// <param name="partitionCount"> The number of partitions in the search service; if specified, it can be 1, 2, 3, 4, 6, or 12. Values greater than 1 are only valid for standard SKUs. For &apos;standard3&apos; services with hostingMode set to &apos;highDensity&apos;, the allowed values are between 1 and 3. </param>
         /// <param name="hostingMode"> Applicable only for the standard3 SKU. You can set this property to enable up to 3 high density partitions that allow up to 1000 indexes, which is much higher than the maximum indexes allowed for any other SKU. For the standard3 SKU, the value is either &apos;default&apos; or &apos;highDensity&apos;. For all other SKUs, this value must be &apos;default&apos;. </param>
@@ -81,7 +81,7 @@ namespace Azure.ResourceManager.Search
             }
         }
 
-        /// <summary> The identity of the resource. Current supported identity types: None, SystemAssigned. </summary>
+        /// <summary> The identity of the resource. </summary>
         public ManagedServiceIdentity Identity { get; set; }
         /// <summary> The number of replicas in the search service. If specified, it must be a value between 1 and 12 inclusive for standard SKUs or between 1 and 3 inclusive for basic SKU. </summary>
         public int? ReplicaCount { get; set; }
