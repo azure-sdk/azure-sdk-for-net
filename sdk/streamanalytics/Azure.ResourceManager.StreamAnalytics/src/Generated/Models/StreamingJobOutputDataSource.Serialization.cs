@@ -35,6 +35,7 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
                     case "Microsoft.DBForPostgreSQL/servers/databases": return PostgreSQLOutputDataSource.DeserializePostgreSQLOutputDataSource(element);
                     case "Microsoft.DataLake/Accounts": return DataLakeStoreOutputDataSource.DeserializeDataLakeStoreOutputDataSource(element);
                     case "Microsoft.EventHub/EventHub": return EventHubV2OutputDataSource.DeserializeEventHubV2OutputDataSource(element);
+                    case "Microsoft.Kusto/clusters/databases": return AzureDataExplorerOutputDataSource.DeserializeAzureDataExplorerOutputDataSource(element);
                     case "Microsoft.ServiceBus/EventHub": return EventHubOutputDataSource.DeserializeEventHubOutputDataSource(element);
                     case "Microsoft.ServiceBus/Queue": return ServiceBusQueueOutputDataSource.DeserializeServiceBusQueueOutputDataSource(element);
                     case "Microsoft.ServiceBus/Topic": return ServiceBusTopicOutputDataSource.DeserializeServiceBusTopicOutputDataSource(element);
