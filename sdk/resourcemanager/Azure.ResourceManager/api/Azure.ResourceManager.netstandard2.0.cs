@@ -204,23 +204,10 @@ namespace Azure.ResourceManager.ManagementGroups.Models
         public string Id { get { throw null; } }
         public string Name { get { throw null; } }
     }
-    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
-    public readonly partial struct ManagementGroupChildType : System.IEquatable<Azure.ResourceManager.ManagementGroups.Models.ManagementGroupChildType>
+    public enum ManagementGroupChildType
     {
-        private readonly object _dummy;
-        private readonly int _dummyPrimitive;
-        public ManagementGroupChildType(string value) { throw null; }
-        public static Azure.ResourceManager.ManagementGroups.Models.ManagementGroupChildType MicrosoftManagementManagementGroups { get { throw null; } }
-        public static Azure.ResourceManager.ManagementGroups.Models.ManagementGroupChildType Subscriptions { get { throw null; } }
-        public bool Equals(Azure.ResourceManager.ManagementGroups.Models.ManagementGroupChildType other) { throw null; }
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
-        public override bool Equals(object obj) { throw null; }
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
-        public override int GetHashCode() { throw null; }
-        public static bool operator ==(Azure.ResourceManager.ManagementGroups.Models.ManagementGroupChildType left, Azure.ResourceManager.ManagementGroups.Models.ManagementGroupChildType right) { throw null; }
-        public static implicit operator Azure.ResourceManager.ManagementGroups.Models.ManagementGroupChildType (string value) { throw null; }
-        public static bool operator !=(Azure.ResourceManager.ManagementGroups.Models.ManagementGroupChildType left, Azure.ResourceManager.ManagementGroups.Models.ManagementGroupChildType right) { throw null; }
-        public override string ToString() { throw null; }
+        MicrosoftManagementManagementGroups = 0,
+        Subscriptions = 1,
     }
     public partial class ManagementGroupCreateOrUpdateContent
     {
