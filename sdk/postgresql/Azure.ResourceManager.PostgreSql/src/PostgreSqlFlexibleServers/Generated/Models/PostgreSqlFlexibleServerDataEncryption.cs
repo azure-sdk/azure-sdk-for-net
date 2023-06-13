@@ -21,7 +21,7 @@ namespace Azure.ResourceManager.PostgreSql.FlexibleServers.Models
         /// <summary> Initializes a new instance of PostgreSqlFlexibleServerDataEncryption. </summary>
         /// <param name="primaryKeyUri"> URI for the key for data encryption for primary server. </param>
         /// <param name="primaryUserAssignedIdentityId"> Resource Id for the User assigned identity to be used for data encryption for primary server. </param>
-        /// <param name="keyType"> Data encryption type to depict if it is System assigned vs Azure Key vault. </param>
+        /// <param name="keyType"> Data encryption type to depict if it is System Managed vs Azure Key vault. </param>
         internal PostgreSqlFlexibleServerDataEncryption(Uri primaryKeyUri, ResourceIdentifier primaryUserAssignedIdentityId, PostgreSqlFlexibleServerKeyType? keyType)
         {
             PrimaryKeyUri = primaryKeyUri;
@@ -33,7 +33,7 @@ namespace Azure.ResourceManager.PostgreSql.FlexibleServers.Models
         public Uri PrimaryKeyUri { get; set; }
         /// <summary> Resource Id for the User assigned identity to be used for data encryption for primary server. </summary>
         public ResourceIdentifier PrimaryUserAssignedIdentityId { get; set; }
-        /// <summary> Data encryption type to depict if it is System assigned vs Azure Key vault. </summary>
+        /// <summary> Data encryption type to depict if it is System Managed vs Azure Key vault. </summary>
         public PostgreSqlFlexibleServerKeyType? KeyType { get; set; }
     }
 }

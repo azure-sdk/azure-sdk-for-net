@@ -59,5 +59,7 @@ namespace Azure.ResourceManager.PostgreSql.FlexibleServers.Models
         public PostgreSqlFlexibleServerCreateModeForUpdate? CreateMode { get; set; }
         /// <summary> Replication role of the server. </summary>
         public PostgreSqlFlexibleServerReplicationRole? ReplicationRole { get; set; }
+        /// <summary> Network properties of a server. These are required to be passed only in case if server is a private access server. </summary>
+        public PostgreSqlFlexibleServerNetwork Network { get; set; }
     }
 }
