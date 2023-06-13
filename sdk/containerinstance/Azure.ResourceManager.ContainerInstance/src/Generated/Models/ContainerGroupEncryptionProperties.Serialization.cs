@@ -20,8 +20,11 @@ namespace Azure.ResourceManager.ContainerInstance.Models
             writer.WriteStringValue(VaultBaseUri.AbsoluteUri);
             writer.WritePropertyName("keyName"u8);
             writer.WriteStringValue(KeyName);
-            writer.WritePropertyName("keyVersion"u8);
-            writer.WriteStringValue(KeyVersion);
+            if (Optional.IsDefined(KeyVersion))
+            {
+                writer.WritePropertyName("keyVersion"u8);
+                writer.WriteStringValue(KeyVersion);
+            }
             if (Optional.IsDefined(Identity))
             {
                 writer.WritePropertyName("identity"u8);
@@ -38,7 +41,7 @@ namespace Azure.ResourceManager.ContainerInstance.Models
             }
             Uri vaultBaseUrl = default;
             string keyName = default;
-            string keyVersion = default;
+            Optional<string> keyVersion = default;
             Optional<string> identity = default;
             foreach (var property in element.EnumerateObject())
             {
@@ -63,7 +66,7 @@ namespace Azure.ResourceManager.ContainerInstance.Models
                     continue;
                 }
             }
-            return new ContainerGroupEncryptionProperties(vaultBaseUrl, keyName, keyVersion, identity.Value);
+            return new ContainerGroupEncryptionProperties(vaultBaseUrl, keyName, keyVersion.Value, identity.Value);
         }
     }
 }

@@ -225,7 +225,7 @@ namespace Azure.ResourceManager.ContainerInstance.Models
     }
     public partial class ContainerGroupEncryptionProperties
     {
-        public ContainerGroupEncryptionProperties(System.Uri vaultBaseUri, string keyName, string keyVersion) { }
+        public ContainerGroupEncryptionProperties(System.Uri vaultBaseUri, string keyName) { }
         public string Identity { get { throw null; } set { } }
         public string KeyName { get { throw null; } set { } }
         public string KeyVersion { get { throw null; } set { } }

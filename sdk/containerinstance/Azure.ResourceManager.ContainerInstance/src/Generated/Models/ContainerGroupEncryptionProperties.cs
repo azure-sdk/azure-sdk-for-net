@@ -16,17 +16,14 @@ namespace Azure.ResourceManager.ContainerInstance.Models
         /// <summary> Initializes a new instance of ContainerGroupEncryptionProperties. </summary>
         /// <param name="vaultBaseUri"> The keyvault base url. </param>
         /// <param name="keyName"> The encryption key name. </param>
-        /// <param name="keyVersion"> The encryption key version. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="vaultBaseUri"/>, <paramref name="keyName"/> or <paramref name="keyVersion"/> is null. </exception>
-        public ContainerGroupEncryptionProperties(Uri vaultBaseUri, string keyName, string keyVersion)
+        /// <exception cref="ArgumentNullException"> <paramref name="vaultBaseUri"/> or <paramref name="keyName"/> is null. </exception>
+        public ContainerGroupEncryptionProperties(Uri vaultBaseUri, string keyName)
         {
             Argument.AssertNotNull(vaultBaseUri, nameof(vaultBaseUri));
             Argument.AssertNotNull(keyName, nameof(keyName));
-            Argument.AssertNotNull(keyVersion, nameof(keyVersion));
 
             VaultBaseUri = vaultBaseUri;
             KeyName = keyName;
-            KeyVersion = keyVersion;
         }
 
         /// <summary> Initializes a new instance of ContainerGroupEncryptionProperties. </summary>
