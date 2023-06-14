@@ -272,10 +272,10 @@ namespace Azure.ResourceManager.PostgreSql.FlexibleServers.Models
         /// <param name="authConfig"> AuthConfig properties of a server. </param>
         /// <param name="dataEncryption"> Data encryption properties of a server. </param>
         /// <param name="backup"> Backup properties of a server. </param>
-        /// <param name="network"> Network properties of a server. </param>
+        /// <param name="network"> Network properties of a server. This Network property is required to be passed only in case you want the server to be Private access server. </param>
         /// <param name="highAvailability"> High availability properties of a server. </param>
         /// <param name="maintenanceWindow"> Maintenance window properties of a server. </param>
-        /// <param name="sourceServerResourceId"> The source server resource ID to restore from. It&apos;s required when &apos;createMode&apos; is &apos;PointInTimeRestore&apos; or &apos;GeoRestore&apos; or &apos;Replica&apos;. </param>
+        /// <param name="sourceServerResourceId"> The source server resource ID to restore from. It&apos;s required when &apos;createMode&apos; is &apos;PointInTimeRestore&apos; or &apos;GeoRestore&apos; or &apos;Replica&apos;. This property is returned only for Replica server. </param>
         /// <param name="pointInTimeUtc"> Restore point creation time (ISO8601 format), specifying the time to restore from. It&apos;s required when &apos;createMode&apos; is &apos;PointInTimeRestore&apos; or &apos;GeoRestore&apos;. </param>
         /// <param name="availabilityZone"> availability zone information of the server. </param>
         /// <param name="replicationRole"> Replication role of the server. </param>
@@ -287,6 +287,18 @@ namespace Azure.ResourceManager.PostgreSql.FlexibleServers.Models
             tags ??= new Dictionary<string, string>();
 
             return new PostgreSqlFlexibleServerData(id, name, resourceType, systemData, tags, location, sku, identity, administratorLogin, administratorLoginPassword, version, minorVersion, state, fullyQualifiedDomainName, storageSizeInGB != null ? new PostgreSqlFlexibleServerStorage(storageSizeInGB) : null, authConfig, dataEncryption, backup, network, highAvailability, maintenanceWindow, sourceServerResourceId, pointInTimeUtc, availabilityZone, replicationRole, replicaCapacity, createMode);
+        }
+
+        /// <summary> Initializes a new instance of PostgreSqlFlexibleServerUserAssignedIdentity. </summary>
+        /// <param name="userAssignedIdentities"> represents user assigned identities map. </param>
+        /// <param name="identityType"> the types of identities associated with this resource; currently restricted to &apos;None and UserAssigned&apos;. </param>
+        /// <param name="tenantId"> Tenant id of the server. </param>
+        /// <returns> A new <see cref="Models.PostgreSqlFlexibleServerUserAssignedIdentity"/> instance for mocking. </returns>
+        public static PostgreSqlFlexibleServerUserAssignedIdentity PostgreSqlFlexibleServerUserAssignedIdentity(IDictionary<string, UserAssignedIdentity> userAssignedIdentities = null, PostgreSqlFlexibleServerIdentityType identityType = default, Guid? tenantId = null)
+        {
+            userAssignedIdentities ??= new Dictionary<string, UserAssignedIdentity>();
+
+            return new PostgreSqlFlexibleServerUserAssignedIdentity(userAssignedIdentities, identityType, tenantId);
         }
 
         /// <summary> Initializes a new instance of PostgreSqlFlexibleServerBackupProperties. </summary>
@@ -301,8 +313,8 @@ namespace Azure.ResourceManager.PostgreSql.FlexibleServers.Models
 
         /// <summary> Initializes a new instance of PostgreSqlFlexibleServerNetwork. </summary>
         /// <param name="publicNetworkAccess"> public network access is enabled or not. </param>
-        /// <param name="delegatedSubnetResourceId"> delegated subnet arm resource id. </param>
-        /// <param name="privateDnsZoneArmResourceId"> private dns zone arm resource id. </param>
+        /// <param name="delegatedSubnetResourceId"> Delegated subnet arm resource id. This is required to be passed during create, in case we want the server to be VNET injected, i.e. Private access server. During update, pass this only if we want to update the value for Private DNS zone. </param>
+        /// <param name="privateDnsZoneArmResourceId"> Private dns zone arm resource id. This is required to be passed during create, in case we want the server to be VNET injected, i.e. Private access server. During update, pass this only if we want to update the value for Private DNS zone. </param>
         /// <returns> A new <see cref="Models.PostgreSqlFlexibleServerNetwork"/> instance for mocking. </returns>
         public static PostgreSqlFlexibleServerNetwork PostgreSqlFlexibleServerNetwork(PostgreSqlFlexibleServerPublicNetworkAccessState? publicNetworkAccess = null, ResourceIdentifier delegatedSubnetResourceId = null, ResourceIdentifier privateDnsZoneArmResourceId = null)
         {
