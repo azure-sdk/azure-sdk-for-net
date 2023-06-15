@@ -5,7 +5,8 @@
 <example>
 This sample shows how to call GetServiceStatusAsync.
 <code><![CDATA[
-var client = new HealthApiClient("<https://my-service.azure.com>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new HealthApiClient(endpoint);
 
 Response response = await client.GetServiceStatusAsync();
 Console.WriteLine(response.Status);
@@ -16,7 +17,8 @@ Console.WriteLine(response.Status);
 <example>
 This sample shows how to call GetServiceStatus.
 <code><![CDATA[
-var client = new HealthApiClient("<https://my-service.azure.com>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new HealthApiClient(endpoint);
 
 Response response = client.GetServiceStatus();
 Console.WriteLine(response.Status);
