@@ -74,7 +74,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiManagementTenantSettingTenantSettingsRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, settingsType, cancellationToken).ConfigureAwait(false);
+                var response = await _apiManagementTenantSettingTenantSettingsRestClient.GetAsync(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, settingsType, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ApiManagementTenantSettingResource(Client, response.Value), response.GetRawResponse());
@@ -107,7 +107,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiManagementTenantSettingTenantSettingsRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, settingsType, cancellationToken);
+                var response = _apiManagementTenantSettingTenantSettingsRestClient.Get(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, settingsType, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ApiManagementTenantSettingResource(Client, response.Value), response.GetRawResponse());
@@ -137,8 +137,8 @@ namespace Azure.ResourceManager.ApiManagement
         /// <returns> An async collection of <see cref="ApiManagementTenantSettingResource" /> that may take multiple service requests to iterate over. </returns>
         public virtual AsyncPageable<ApiManagementTenantSettingResource> GetAllAsync(string filter = null, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _apiManagementTenantSettingTenantSettingsRestClient.CreateListByServiceRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, filter);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _apiManagementTenantSettingTenantSettingsRestClient.CreateListByServiceNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, filter);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _apiManagementTenantSettingTenantSettingsRestClient.CreateListByServiceRequest(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, filter);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _apiManagementTenantSettingTenantSettingsRestClient.CreateListByServiceNextPageRequest(nextLink, Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, filter);
             return PageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new ApiManagementTenantSettingResource(Client, ApiManagementTenantSettingData.DeserializeApiManagementTenantSettingData(e)), _apiManagementTenantSettingTenantSettingsClientDiagnostics, Pipeline, "ApiManagementTenantSettingCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
@@ -160,8 +160,8 @@ namespace Azure.ResourceManager.ApiManagement
         /// <returns> A collection of <see cref="ApiManagementTenantSettingResource" /> that may take multiple service requests to iterate over. </returns>
         public virtual Pageable<ApiManagementTenantSettingResource> GetAll(string filter = null, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _apiManagementTenantSettingTenantSettingsRestClient.CreateListByServiceRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, filter);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _apiManagementTenantSettingTenantSettingsRestClient.CreateListByServiceNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, filter);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _apiManagementTenantSettingTenantSettingsRestClient.CreateListByServiceRequest(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, filter);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _apiManagementTenantSettingTenantSettingsRestClient.CreateListByServiceNextPageRequest(nextLink, Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, filter);
             return PageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new ApiManagementTenantSettingResource(Client, ApiManagementTenantSettingData.DeserializeApiManagementTenantSettingData(e)), _apiManagementTenantSettingTenantSettingsClientDiagnostics, Pipeline, "ApiManagementTenantSettingCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
@@ -186,7 +186,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiManagementTenantSettingTenantSettingsRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, settingsType, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var response = await _apiManagementTenantSettingTenantSettingsRestClient.GetAsync(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, settingsType, cancellationToken: cancellationToken).ConfigureAwait(false);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -217,7 +217,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiManagementTenantSettingTenantSettingsRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, settingsType, cancellationToken: cancellationToken);
+                var response = _apiManagementTenantSettingTenantSettingsRestClient.Get(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, settingsType, cancellationToken: cancellationToken);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)

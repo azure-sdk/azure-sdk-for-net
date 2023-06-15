@@ -26,7 +26,7 @@ namespace Azure.ResourceManager.ApiManagement
     public partial class ApiManagementTagResource : ArmResource
     {
         /// <summary> Generate the resource identifier of a <see cref="ApiManagementTagResource"/> instance. </summary>
-        public static ResourceIdentifier CreateResourceIdentifier(string subscriptionId, string resourceGroupName, string serviceName, string tagId)
+        public static ResourceIdentifier CreateResourceIdentifier(Guid subscriptionId, string resourceGroupName, string serviceName, string tagId)
         {
             var resourceId = $"/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/tags/{tagId}";
             return new ResourceIdentifier(resourceId);
@@ -87,6 +87,165 @@ namespace Azure.ResourceManager.ApiManagement
                 throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, ResourceType), nameof(id));
         }
 
+        /// <summary> Gets a collection of ServiceTagApiLinkResources in the ApiManagementTag. </summary>
+        /// <returns> An object representing collection of ServiceTagApiLinkResources and their operations over a ServiceTagApiLinkResource. </returns>
+        public virtual ServiceTagApiLinkCollection GetServiceTagApiLinks()
+        {
+            return GetCachedClient(Client => new ServiceTagApiLinkCollection(Client, Id));
+        }
+
+        /// <summary>
+        /// Gets the API link for the tag.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/tags/{tagId}/apiLinks/{apiLinkId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>TagApiLink_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="apiLinkId"> Tag-API link identifier. Must be unique in the current API Management service instance. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="apiLinkId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="apiLinkId"/> is null. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<ServiceTagApiLinkResource>> GetServiceTagApiLinkAsync(string apiLinkId, CancellationToken cancellationToken = default)
+        {
+            return await GetServiceTagApiLinks().GetAsync(apiLinkId, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets the API link for the tag.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/tags/{tagId}/apiLinks/{apiLinkId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>TagApiLink_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="apiLinkId"> Tag-API link identifier. Must be unique in the current API Management service instance. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="apiLinkId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="apiLinkId"/> is null. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<ServiceTagApiLinkResource> GetServiceTagApiLink(string apiLinkId, CancellationToken cancellationToken = default)
+        {
+            return GetServiceTagApiLinks().Get(apiLinkId, cancellationToken);
+        }
+
+        /// <summary> Gets a collection of ServiceTagOperationLinkResources in the ApiManagementTag. </summary>
+        /// <returns> An object representing collection of ServiceTagOperationLinkResources and their operations over a ServiceTagOperationLinkResource. </returns>
+        public virtual ServiceTagOperationLinkCollection GetServiceTagOperationLinks()
+        {
+            return GetCachedClient(Client => new ServiceTagOperationLinkCollection(Client, Id));
+        }
+
+        /// <summary>
+        /// Gets the operation link for the tag.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/tags/{tagId}/operationLinks/{operationLinkId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>TagOperationLink_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="operationLinkId"> Tag-operation link identifier. Must be unique in the current API Management service instance. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="operationLinkId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="operationLinkId"/> is null. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<ServiceTagOperationLinkResource>> GetServiceTagOperationLinkAsync(string operationLinkId, CancellationToken cancellationToken = default)
+        {
+            return await GetServiceTagOperationLinks().GetAsync(operationLinkId, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets the operation link for the tag.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/tags/{tagId}/operationLinks/{operationLinkId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>TagOperationLink_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="operationLinkId"> Tag-operation link identifier. Must be unique in the current API Management service instance. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="operationLinkId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="operationLinkId"/> is null. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<ServiceTagOperationLinkResource> GetServiceTagOperationLink(string operationLinkId, CancellationToken cancellationToken = default)
+        {
+            return GetServiceTagOperationLinks().Get(operationLinkId, cancellationToken);
+        }
+
+        /// <summary> Gets a collection of ServiceTagProductLinkResources in the ApiManagementTag. </summary>
+        /// <returns> An object representing collection of ServiceTagProductLinkResources and their operations over a ServiceTagProductLinkResource. </returns>
+        public virtual ServiceTagProductLinkCollection GetServiceTagProductLinks()
+        {
+            return GetCachedClient(Client => new ServiceTagProductLinkCollection(Client, Id));
+        }
+
+        /// <summary>
+        /// Gets the product link for the tag.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/tags/{tagId}/productLinks/{productLinkId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>TagProductLink_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="productLinkId"> Tag-product link identifier. Must be unique in the current API Management service instance. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="productLinkId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="productLinkId"/> is null. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<ServiceTagProductLinkResource>> GetServiceTagProductLinkAsync(string productLinkId, CancellationToken cancellationToken = default)
+        {
+            return await GetServiceTagProductLinks().GetAsync(productLinkId, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets the product link for the tag.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/tags/{tagId}/productLinks/{productLinkId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>TagProductLink_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="productLinkId"> Tag-product link identifier. Must be unique in the current API Management service instance. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="productLinkId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="productLinkId"/> is null. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<ServiceTagProductLinkResource> GetServiceTagProductLink(string productLinkId, CancellationToken cancellationToken = default)
+        {
+            return GetServiceTagProductLinks().Get(productLinkId, cancellationToken);
+        }
+
         /// <summary>
         /// Gets the details of the tag specified by its identifier.
         /// <list type="bullet">
@@ -107,7 +266,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiManagementTagTagRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
+                var response = await _apiManagementTagTagRestClient.GetAsync(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ApiManagementTagResource(Client, response.Value), response.GetRawResponse());
@@ -139,7 +298,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiManagementTagTagRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken);
+                var response = _apiManagementTagTagRestClient.Get(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ApiManagementTagResource(Client, response.Value), response.GetRawResponse());
@@ -173,7 +332,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiManagementTagTagRestClient.DeleteAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, ifMatch, cancellationToken).ConfigureAwait(false);
+                var response = await _apiManagementTagTagRestClient.DeleteAsync(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, ifMatch, cancellationToken).ConfigureAwait(false);
                 var operation = new ApiManagementArmOperation(response);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
@@ -208,7 +367,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiManagementTagTagRestClient.Delete(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, ifMatch, cancellationToken);
+                var response = _apiManagementTagTagRestClient.Delete(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, ifMatch, cancellationToken);
                 var operation = new ApiManagementArmOperation(response);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletionResponse(cancellationToken);
@@ -246,7 +405,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiManagementTagTagRestClient.UpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, ifMatch, content, cancellationToken).ConfigureAwait(false);
+                var response = await _apiManagementTagTagRestClient.UpdateAsync(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, ifMatch, content, cancellationToken).ConfigureAwait(false);
                 return Response.FromValue(new ApiManagementTagResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
@@ -281,7 +440,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiManagementTagTagRestClient.Update(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, ifMatch, content, cancellationToken);
+                var response = _apiManagementTagTagRestClient.Update(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, ifMatch, content, cancellationToken);
                 return Response.FromValue(new ApiManagementTagResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
@@ -311,7 +470,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiManagementTagTagRestClient.GetEntityStateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
+                var response = await _apiManagementTagTagRestClient.GetEntityStateAsync(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
                 return response;
             }
             catch (Exception e)
@@ -341,7 +500,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiManagementTagTagRestClient.GetEntityState(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken);
+                var response = _apiManagementTagTagRestClient.GetEntityState(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, cancellationToken);
                 return response;
             }
             catch (Exception e)
