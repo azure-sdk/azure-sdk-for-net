@@ -20,8 +20,8 @@ namespace Azure.ResourceManager.ApiManagement
 {
     /// <summary>
     /// A class representing a collection of <see cref="ApiIssueResource" /> and their operations.
-    /// Each <see cref="ApiIssueResource" /> in the collection will belong to the same instance of <see cref="ApiResource" />.
-    /// To get an <see cref="ApiIssueCollection" /> instance call the GetApiIssues method from an instance of <see cref="ApiResource" />.
+    /// Each <see cref="ApiIssueResource" /> in the collection will belong to the same instance of <see cref="ServiceApiResource" />.
+    /// To get an <see cref="ApiIssueCollection" /> instance call the GetApiIssues method from an instance of <see cref="ServiceApiResource" />.
     /// </summary>
     public partial class ApiIssueCollection : ArmCollection, IEnumerable<ApiIssueResource>, IAsyncEnumerable<ApiIssueResource>
     {
@@ -48,8 +48,8 @@ namespace Azure.ResourceManager.ApiManagement
 
         internal static void ValidateResourceId(ResourceIdentifier id)
         {
-            if (id.ResourceType != ApiResource.ResourceType)
-                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, ApiResource.ResourceType), nameof(id));
+            if (id.ResourceType != ServiceApiResource.ResourceType)
+                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, ServiceApiResource.ResourceType), nameof(id));
         }
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiIssueRestClient.CreateOrUpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, issueId, data, ifMatch, cancellationToken).ConfigureAwait(false);
+                var response = await _apiIssueRestClient.CreateOrUpdateAsync(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, issueId, data, ifMatch, cancellationToken).ConfigureAwait(false);
                 var operation = new ApiManagementArmOperation<ApiIssueResource>(Response.FromValue(new ApiIssueResource(Client, response), response.GetRawResponse()));
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
@@ -123,7 +123,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiIssueRestClient.CreateOrUpdate(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, issueId, data, ifMatch, cancellationToken);
+                var response = _apiIssueRestClient.CreateOrUpdate(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, issueId, data, ifMatch, cancellationToken);
                 var operation = new ApiManagementArmOperation<ApiIssueResource>(Response.FromValue(new ApiIssueResource(Client, response), response.GetRawResponse()));
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
@@ -162,7 +162,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiIssueRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, issueId, expandCommentsAttachments, cancellationToken).ConfigureAwait(false);
+                var response = await _apiIssueRestClient.GetAsync(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, issueId, expandCommentsAttachments, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ApiIssueResource(Client, response.Value), response.GetRawResponse());
@@ -200,7 +200,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiIssueRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, issueId, expandCommentsAttachments, cancellationToken);
+                var response = _apiIssueRestClient.Get(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, issueId, expandCommentsAttachments, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ApiIssueResource(Client, response.Value), response.GetRawResponse());
@@ -233,8 +233,8 @@ namespace Azure.ResourceManager.ApiManagement
         /// <returns> An async collection of <see cref="ApiIssueResource" /> that may take multiple service requests to iterate over. </returns>
         public virtual AsyncPageable<ApiIssueResource> GetAllAsync(string filter = null, bool? expandCommentsAttachments = null, int? top = null, int? skip = null, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _apiIssueRestClient.CreateListByServiceRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, filter, expandCommentsAttachments, top, skip);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _apiIssueRestClient.CreateListByServiceNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, filter, expandCommentsAttachments, top, skip);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _apiIssueRestClient.CreateListByServiceRequest(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, filter, expandCommentsAttachments, top, skip);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _apiIssueRestClient.CreateListByServiceNextPageRequest(nextLink, Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, filter, expandCommentsAttachments, top, skip);
             return PageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new ApiIssueResource(Client, IssueContractData.DeserializeIssueContractData(e)), _apiIssueClientDiagnostics, Pipeline, "ApiIssueCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
@@ -259,8 +259,8 @@ namespace Azure.ResourceManager.ApiManagement
         /// <returns> A collection of <see cref="ApiIssueResource" /> that may take multiple service requests to iterate over. </returns>
         public virtual Pageable<ApiIssueResource> GetAll(string filter = null, bool? expandCommentsAttachments = null, int? top = null, int? skip = null, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _apiIssueRestClient.CreateListByServiceRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, filter, expandCommentsAttachments, top, skip);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _apiIssueRestClient.CreateListByServiceNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, filter, expandCommentsAttachments, top, skip);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _apiIssueRestClient.CreateListByServiceRequest(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, filter, expandCommentsAttachments, top, skip);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _apiIssueRestClient.CreateListByServiceNextPageRequest(nextLink, Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, filter, expandCommentsAttachments, top, skip);
             return PageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new ApiIssueResource(Client, IssueContractData.DeserializeIssueContractData(e)), _apiIssueClientDiagnostics, Pipeline, "ApiIssueCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
@@ -290,7 +290,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiIssueRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, issueId, expandCommentsAttachments, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var response = await _apiIssueRestClient.GetAsync(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, issueId, expandCommentsAttachments, cancellationToken: cancellationToken).ConfigureAwait(false);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -326,7 +326,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiIssueRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, issueId, expandCommentsAttachments, cancellationToken: cancellationToken);
+                var response = _apiIssueRestClient.Get(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, issueId, expandCommentsAttachments, cancellationToken: cancellationToken);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)

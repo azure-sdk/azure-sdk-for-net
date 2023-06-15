@@ -77,7 +77,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiManagementPrivateLinkResourcePrivateEndpointConnectionRestClient.GetPrivateLinkResourceAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, privateLinkSubResourceName, cancellationToken).ConfigureAwait(false);
+                var response = await _apiManagementPrivateLinkResourcePrivateEndpointConnectionRestClient.GetPrivateLinkResourceAsync(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, privateLinkSubResourceName, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ApiManagementPrivateLinkResource(Client, response.Value), response.GetRawResponse());
@@ -114,7 +114,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiManagementPrivateLinkResourcePrivateEndpointConnectionRestClient.GetPrivateLinkResource(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, privateLinkSubResourceName, cancellationToken);
+                var response = _apiManagementPrivateLinkResourcePrivateEndpointConnectionRestClient.GetPrivateLinkResource(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, privateLinkSubResourceName, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ApiManagementPrivateLinkResource(Client, response.Value), response.GetRawResponse());
@@ -143,7 +143,7 @@ namespace Azure.ResourceManager.ApiManagement
         /// <returns> An async collection of <see cref="ApiManagementPrivateLinkResource" /> that may take multiple service requests to iterate over. </returns>
         public virtual AsyncPageable<ApiManagementPrivateLinkResource> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _apiManagementPrivateLinkResourcePrivateEndpointConnectionRestClient.CreateListPrivateLinkResourcesRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _apiManagementPrivateLinkResourcePrivateEndpointConnectionRestClient.CreateListPrivateLinkResourcesRequest(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name);
             return PageableHelpers.CreateAsyncPageable(FirstPageRequest, null, e => new ApiManagementPrivateLinkResource(Client, ApiManagementPrivateLinkResourceData.DeserializeApiManagementPrivateLinkResourceData(e)), _apiManagementPrivateLinkResourcePrivateEndpointConnectionClientDiagnostics, Pipeline, "ApiManagementPrivateLinkResourceCollection.GetAll", "value", null, cancellationToken);
         }
 
@@ -164,7 +164,7 @@ namespace Azure.ResourceManager.ApiManagement
         /// <returns> A collection of <see cref="ApiManagementPrivateLinkResource" /> that may take multiple service requests to iterate over. </returns>
         public virtual Pageable<ApiManagementPrivateLinkResource> GetAll(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _apiManagementPrivateLinkResourcePrivateEndpointConnectionRestClient.CreateListPrivateLinkResourcesRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _apiManagementPrivateLinkResourcePrivateEndpointConnectionRestClient.CreateListPrivateLinkResourcesRequest(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name);
             return PageableHelpers.CreatePageable(FirstPageRequest, null, e => new ApiManagementPrivateLinkResource(Client, ApiManagementPrivateLinkResourceData.DeserializeApiManagementPrivateLinkResourceData(e)), _apiManagementPrivateLinkResourcePrivateEndpointConnectionClientDiagnostics, Pipeline, "ApiManagementPrivateLinkResourceCollection.GetAll", "value", null, cancellationToken);
         }
 
@@ -193,7 +193,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiManagementPrivateLinkResourcePrivateEndpointConnectionRestClient.GetPrivateLinkResourceAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, privateLinkSubResourceName, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var response = await _apiManagementPrivateLinkResourcePrivateEndpointConnectionRestClient.GetPrivateLinkResourceAsync(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, privateLinkSubResourceName, cancellationToken: cancellationToken).ConfigureAwait(false);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -228,7 +228,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiManagementPrivateLinkResourcePrivateEndpointConnectionRestClient.GetPrivateLinkResource(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, privateLinkSubResourceName, cancellationToken: cancellationToken);
+                var response = _apiManagementPrivateLinkResourcePrivateEndpointConnectionRestClient.GetPrivateLinkResource(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, privateLinkSubResourceName, cancellationToken: cancellationToken);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
