@@ -15,35 +15,35 @@ namespace Azure.AI.AnomalyDetector
     /// Training result of a model, including its status, errors, and diagnostics
     /// information.
     /// </summary>
-    public partial class ModelInfo
+    public partial class MultivariateModelDetails
     {
-        /// <summary> Initializes a new instance of ModelInfo. </summary>
-        /// <param name="dataSource">
+        /// <summary> Initializes a new instance of MultivariateModelDetails. </summary>
+        /// <param name="dataSourceUri">
         /// Source link to the input data to indicate an accessible Azure Storage URI.
         /// It either points to an Azure Blob Storage folder or points to a CSV file in
         /// Azure Blob Storage, based on your data schema selection.
         /// </param>
-        /// <param name="startTime">
+        /// <param name="startsOn">
         /// Start date/time of training data, which should be
         /// in ISO 8601 format.
         /// </param>
-        /// <param name="endTime">
+        /// <param name="endsOn">
         /// End date/time of training data, which should be
         /// in ISO 8601 format.
         /// </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="dataSource"/> is null. </exception>
-        public ModelInfo(Uri dataSource, DateTimeOffset startTime, DateTimeOffset endTime)
+        /// <exception cref="ArgumentNullException"> <paramref name="dataSourceUri"/> is null. </exception>
+        public MultivariateModelDetails(Uri dataSourceUri, DateTimeOffset startsOn, DateTimeOffset endsOn)
         {
-            Argument.AssertNotNull(dataSource, nameof(dataSource));
+            Argument.AssertNotNull(dataSourceUri, nameof(dataSourceUri));
 
-            DataSource = dataSource;
-            StartTime = startTime;
-            EndTime = endTime;
+            DataSourceUri = dataSourceUri;
+            StartsOn = startsOn;
+            EndsOn = endsOn;
             Errors = new ChangeTrackingList<ErrorResponse>();
         }
 
-        /// <summary> Initializes a new instance of ModelInfo. </summary>
-        /// <param name="dataSource">
+        /// <summary> Initializes a new instance of MultivariateModelDetails. </summary>
+        /// <param name="dataSourceUri">
         /// Source link to the input data to indicate an accessible Azure Storage URI.
         /// It either points to an Azure Blob Storage folder or points to a CSV file in
         /// Azure Blob Storage, based on your data schema selection.
@@ -52,11 +52,11 @@ namespace Azure.AI.AnomalyDetector
         /// Data schema of the input data source. The default
         /// is OneTable.
         /// </param>
-        /// <param name="startTime">
+        /// <param name="startsOn">
         /// Start date/time of training data, which should be
         /// in ISO 8601 format.
         /// </param>
-        /// <param name="endTime">
+        /// <param name="endsOn">
         /// End date/time of training data, which should be
         /// in ISO 8601 format.
         /// </param>
@@ -72,12 +72,12 @@ namespace Azure.AI.AnomalyDetector
         /// <param name="status"> Model status. </param>
         /// <param name="errors"> Error messages after failure to create a model. </param>
         /// <param name="diagnosticsInfo"> Diagnostics information to help inspect the states of a model or variable. </param>
-        internal ModelInfo(Uri dataSource, DataSchema? dataSchema, DateTimeOffset startTime, DateTimeOffset endTime, string displayName, int? slidingWindow, AlignPolicy alignPolicy, ModelStatus? status, IReadOnlyList<ErrorResponse> errors, DiagnosticsInfo diagnosticsInfo)
+        internal MultivariateModelDetails(Uri dataSourceUri, MultivariateDataSchema? dataSchema, DateTimeOffset startsOn, DateTimeOffset endsOn, string displayName, int? slidingWindow, AlignPolicy alignPolicy, MultivariateModelStatus? status, IReadOnlyList<ErrorResponse> errors, MultivariateDiagnosticDetails diagnosticsInfo)
         {
-            DataSource = dataSource;
+            DataSourceUri = dataSourceUri;
             DataSchema = dataSchema;
-            StartTime = startTime;
-            EndTime = endTime;
+            StartsOn = startsOn;
+            EndsOn = endsOn;
             DisplayName = displayName;
             SlidingWindow = slidingWindow;
             AlignPolicy = alignPolicy;
@@ -91,22 +91,22 @@ namespace Azure.AI.AnomalyDetector
         /// It either points to an Azure Blob Storage folder or points to a CSV file in
         /// Azure Blob Storage, based on your data schema selection.
         /// </summary>
-        public Uri DataSource { get; set; }
+        public Uri DataSourceUri { get; set; }
         /// <summary>
         /// Data schema of the input data source. The default
         /// is OneTable.
         /// </summary>
-        public DataSchema? DataSchema { get; set; }
+        public MultivariateDataSchema? DataSchema { get; set; }
         /// <summary>
         /// Start date/time of training data, which should be
         /// in ISO 8601 format.
         /// </summary>
-        public DateTimeOffset StartTime { get; set; }
+        public DateTimeOffset StartsOn { get; set; }
         /// <summary>
         /// End date/time of training data, which should be
         /// in ISO 8601 format.
         /// </summary>
-        public DateTimeOffset EndTime { get; set; }
+        public DateTimeOffset EndsOn { get; set; }
         /// <summary>
         /// Display name of the model. Maximum length is 24
         /// characters.
@@ -120,10 +120,10 @@ namespace Azure.AI.AnomalyDetector
         /// <summary> Manner of aligning multiple variables. </summary>
         public AlignPolicy AlignPolicy { get; set; }
         /// <summary> Model status. </summary>
-        public ModelStatus? Status { get; }
+        public MultivariateModelStatus? Status { get; }
         /// <summary> Error messages after failure to create a model. </summary>
         public IReadOnlyList<ErrorResponse> Errors { get; }
         /// <summary> Diagnostics information to help inspect the states of a model or variable. </summary>
-        public DiagnosticsInfo DiagnosticsInfo { get; }
+        public MultivariateDiagnosticDetails DiagnosticsInfo { get; }
     }
 }

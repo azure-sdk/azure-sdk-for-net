@@ -12,16 +12,13 @@ using Azure.Core;
 
 namespace Azure.AI.AnomalyDetector
 {
-    public partial class VariableState : IUtf8JsonSerializable
+    public partial class MultivariateVariableState : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
-            if (Optional.IsDefined(Variable))
-            {
-                writer.WritePropertyName("variable"u8);
-                writer.WriteStringValue(Variable);
-            }
+            writer.WritePropertyName("variable"u8);
+            writer.WriteStringValue(Variable);
             if (Optional.IsDefined(FilledNARatio))
             {
                 writer.WritePropertyName("filledNARatio"u8);
@@ -45,13 +42,13 @@ namespace Azure.AI.AnomalyDetector
             writer.WriteEndObject();
         }
 
-        internal static VariableState DeserializeVariableState(JsonElement element)
+        internal static MultivariateVariableState DeserializeMultivariateVariableState(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
                 return null;
             }
-            Optional<string> variable = default;
+            string variable = default;
             Optional<float> filledNARatio = default;
             Optional<int> effectiveCount = default;
             Optional<DateTimeOffset> firstTimestamp = default;
@@ -100,15 +97,15 @@ namespace Azure.AI.AnomalyDetector
                     continue;
                 }
             }
-            return new VariableState(variable.Value, Optional.ToNullable(filledNARatio), Optional.ToNullable(effectiveCount), Optional.ToNullable(firstTimestamp), Optional.ToNullable(lastTimestamp));
+            return new MultivariateVariableState(variable, Optional.ToNullable(filledNARatio), Optional.ToNullable(effectiveCount), Optional.ToNullable(firstTimestamp), Optional.ToNullable(lastTimestamp));
         }
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static VariableState FromResponse(Response response)
+        internal static MultivariateVariableState FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content);
-            return DeserializeVariableState(document.RootElement);
+            return DeserializeMultivariateVariableState(document.RootElement);
         }
 
         /// <summary> Convert into a Utf8JsonRequestContent. </summary>

@@ -22,7 +22,7 @@ namespace Azure.AI.AnomalyDetector
         /// </param>
         /// <param name="granularity"> Granularity is used to verify whether the input series is valid. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="series"/> is null. </exception>
-        public UnivariateChangePointDetectionOptions(IEnumerable<TimeSeriesPoint> series, TimeGranularity granularity)
+        public UnivariateChangePointDetectionOptions(IEnumerable<UnivariateTimeSeriesPoint> series, UnivariateTimeGranularity granularity)
         {
             Argument.AssertNotNull(series, nameof(series));
 
@@ -54,7 +54,7 @@ namespace Azure.AI.AnomalyDetector
         /// value is, the larger the trend error is, which means less change point will
         /// be accepted.
         /// </param>
-        internal UnivariateChangePointDetectionOptions(IList<TimeSeriesPoint> series, TimeGranularity granularity, int? customInterval, int? period, int? stableTrendWindow, float? threshold)
+        internal UnivariateChangePointDetectionOptions(IList<UnivariateTimeSeriesPoint> series, UnivariateTimeGranularity granularity, int? customInterval, int? period, int? stableTrendWindow, float? threshold)
         {
             Series = series;
             Granularity = granularity;
@@ -68,9 +68,9 @@ namespace Azure.AI.AnomalyDetector
         /// Time series data points. Points should be sorted by time stamp in ascending
         /// order to match the change point detection result.
         /// </summary>
-        public IList<TimeSeriesPoint> Series { get; }
+        public IList<UnivariateTimeSeriesPoint> Series { get; }
         /// <summary> Granularity is used to verify whether the input series is valid. </summary>
-        public TimeGranularity Granularity { get; }
+        public UnivariateTimeGranularity Granularity { get; }
         /// <summary>
         /// A custom interval is used to set a nonstandard time interval. For example, if the
         /// series is 5 minutes, the request can be set as {"granularity":"minutely",

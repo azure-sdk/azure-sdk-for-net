@@ -20,7 +20,7 @@ namespace Azure.AI.AnomalyDetector
             {
                 return null;
             }
-            Optional<IReadOnlyList<VariableState>> variableStates = default;
+            Optional<IReadOnlyList<MultivariateVariableState>> variableStates = default;
             Optional<IReadOnlyList<AnomalyState>> results = default;
             foreach (var property in element.EnumerateObject())
             {
@@ -30,10 +30,10 @@ namespace Azure.AI.AnomalyDetector
                     {
                         continue;
                     }
-                    List<VariableState> array = new List<VariableState>();
+                    List<MultivariateVariableState> array = new List<MultivariateVariableState>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(VariableState.DeserializeVariableState(item));
+                        array.Add(MultivariateVariableState.DeserializeMultivariateVariableState(item));
                     }
                     variableStates = array;
                     continue;

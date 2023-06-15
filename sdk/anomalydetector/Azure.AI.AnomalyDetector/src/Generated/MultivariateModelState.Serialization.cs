@@ -5,6 +5,7 @@
 
 #nullable disable
 
+using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure;
@@ -12,7 +13,7 @@ using Azure.Core;
 
 namespace Azure.AI.AnomalyDetector
 {
-    public partial class ModelState : IUtf8JsonSerializable
+    public partial class MultivariateModelState : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
@@ -53,14 +54,14 @@ namespace Azure.AI.AnomalyDetector
                 writer.WriteStartArray();
                 foreach (var item in LatenciesInSeconds)
                 {
-                    writer.WriteNumberValue(item);
+                    writer.WriteNumberValue(Convert.ToInt32(item.ToString("%s")));
                 }
                 writer.WriteEndArray();
             }
             writer.WriteEndObject();
         }
 
-        internal static ModelState DeserializeModelState(JsonElement element)
+        internal static MultivariateModelState DeserializeMultivariateModelState(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
@@ -69,7 +70,7 @@ namespace Azure.AI.AnomalyDetector
             Optional<IList<int>> epochIds = default;
             Optional<IList<float>> trainLosses = default;
             Optional<IList<float>> validationLosses = default;
-            Optional<IList<float>> latenciesInSeconds = default;
+            Optional<IList<TimeSpan>> latenciesInSeconds = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("epochIds"u8))
@@ -120,24 +121,24 @@ namespace Azure.AI.AnomalyDetector
                     {
                         continue;
                     }
-                    List<float> array = new List<float>();
+                    List<TimeSpan> array = new List<TimeSpan>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(item.GetSingle());
+                        array.Add(TimeSpan.FromSeconds(item.GetInt32()));
                     }
                     latenciesInSeconds = array;
                     continue;
                 }
             }
-            return new ModelState(Optional.ToList(epochIds), Optional.ToList(trainLosses), Optional.ToList(validationLosses), Optional.ToList(latenciesInSeconds));
+            return new MultivariateModelState(Optional.ToList(epochIds), Optional.ToList(trainLosses), Optional.ToList(validationLosses), Optional.ToList(latenciesInSeconds));
         }
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static ModelState FromResponse(Response response)
+        internal static MultivariateModelState FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content);
-            return DeserializeModelState(document.RootElement);
+            return DeserializeMultivariateModelState(document.RootElement);
         }
 
         /// <summary> Convert into a Utf8JsonRequestContent. </summary>

@@ -13,14 +13,14 @@ using Azure.Core;
 namespace Azure.AI.AnomalyDetector
 {
     /// <summary> Variable values. </summary>
-    public partial class VariableValues
+    public partial class MultivariateVariableValue
     {
-        /// <summary> Initializes a new instance of VariableValues. </summary>
+        /// <summary> Initializes a new instance of MultivariateVariableValue. </summary>
         /// <param name="variable"> Variable name of the last detection request. </param>
         /// <param name="timestamps"> Time stamps of the last detection request. </param>
         /// <param name="values"> Values of variables. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="variable"/>, <paramref name="timestamps"/> or <paramref name="values"/> is null. </exception>
-        public VariableValues(string variable, IEnumerable<string> timestamps, IEnumerable<float> values)
+        public MultivariateVariableValue(string variable, IEnumerable<DateTimeOffset> timestamps, IEnumerable<float> values)
         {
             Argument.AssertNotNull(variable, nameof(variable));
             Argument.AssertNotNull(timestamps, nameof(timestamps));
@@ -31,11 +31,11 @@ namespace Azure.AI.AnomalyDetector
             Values = values.ToList();
         }
 
-        /// <summary> Initializes a new instance of VariableValues. </summary>
+        /// <summary> Initializes a new instance of MultivariateVariableValue. </summary>
         /// <param name="variable"> Variable name of the last detection request. </param>
         /// <param name="timestamps"> Time stamps of the last detection request. </param>
         /// <param name="values"> Values of variables. </param>
-        internal VariableValues(string variable, IList<string> timestamps, IList<float> values)
+        internal MultivariateVariableValue(string variable, IList<DateTimeOffset> timestamps, IList<float> values)
         {
             Variable = variable;
             Timestamps = timestamps;
@@ -45,7 +45,7 @@ namespace Azure.AI.AnomalyDetector
         /// <summary> Variable name of the last detection request. </summary>
         public string Variable { get; }
         /// <summary> Time stamps of the last detection request. </summary>
-        public IList<string> Timestamps { get; }
+        public IList<DateTimeOffset> Timestamps { get; }
         /// <summary> Values of variables. </summary>
         public IList<float> Values { get; }
     }

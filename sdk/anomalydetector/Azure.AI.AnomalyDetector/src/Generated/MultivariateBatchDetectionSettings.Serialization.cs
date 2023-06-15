@@ -12,7 +12,7 @@ using Azure.Core;
 
 namespace Azure.AI.AnomalyDetector
 {
-    public partial class MultivariateBatchDetectionOptions : IUtf8JsonSerializable
+    public partial class MultivariateBatchDetectionSettings : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
@@ -31,7 +31,7 @@ namespace Azure.AI.AnomalyDetector
             writer.WriteEndObject();
         }
 
-        internal static MultivariateBatchDetectionOptions DeserializeMultivariateBatchDetectionOptions(JsonElement element)
+        internal static MultivariateBatchDetectionSettings DeserializeMultivariateBatchDetectionSettings(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
@@ -68,15 +68,15 @@ namespace Azure.AI.AnomalyDetector
                     continue;
                 }
             }
-            return new MultivariateBatchDetectionOptions(dataSource, Optional.ToNullable(topContributorCount), startTime, endTime);
+            return new MultivariateBatchDetectionSettings(dataSource, Optional.ToNullable(topContributorCount), startTime, endTime);
         }
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static MultivariateBatchDetectionOptions FromResponse(Response response)
+        internal static MultivariateBatchDetectionSettings FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content);
-            return DeserializeMultivariateBatchDetectionOptions(document.RootElement);
+            return DeserializeMultivariateBatchDetectionSettings(document.RootElement);
         }
 
         /// <summary> Convert into a Utf8JsonRequestContent. </summary>

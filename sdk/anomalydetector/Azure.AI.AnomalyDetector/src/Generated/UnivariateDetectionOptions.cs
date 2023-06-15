@@ -23,7 +23,7 @@ namespace Azure.AI.AnomalyDetector
         /// a case, an error message is returned.
         /// </param>
         /// <exception cref="ArgumentNullException"> <paramref name="series"/> is null. </exception>
-        public UnivariateDetectionOptions(IEnumerable<TimeSeriesPoint> series)
+        public UnivariateDetectionOptions(IEnumerable<UnivariateTimeSeriesPoint> series)
         {
             Argument.AssertNotNull(series, nameof(series));
 
@@ -65,7 +65,7 @@ namespace Azure.AI.AnomalyDetector
         /// Specifies the value to fill. It's used when granularity is not "none"
         /// and imputeMode is "fixed".
         /// </param>
-        internal UnivariateDetectionOptions(IList<TimeSeriesPoint> series, TimeGranularity? granularity, int? customInterval, int? period, float? maxAnomalyRatio, int? sensitivity, ImputeMode? imputeMode, float? imputeFixedValue)
+        internal UnivariateDetectionOptions(IList<UnivariateTimeSeriesPoint> series, UnivariateTimeGranularity? granularity, int? customInterval, int? period, float? maxAnomalyRatio, int? sensitivity, ImputeMode? imputeMode, float? imputeFixedValue)
         {
             Series = series;
             Granularity = granularity;
@@ -83,13 +83,13 @@ namespace Azure.AI.AnomalyDetector
         /// correctly or there's a duplicated time stamp, the API won't work. In such
         /// a case, an error message is returned.
         /// </summary>
-        public IList<TimeSeriesPoint> Series { get; }
+        public IList<UnivariateTimeSeriesPoint> Series { get; }
         /// <summary>
         /// Argument that indicates time granularity. If granularity is not present, the value
         /// is none by default. If granularity is none, the time stamp property in the time
         /// series point can be absent.
         /// </summary>
-        public TimeGranularity? Granularity { get; set; }
+        public UnivariateTimeGranularity? Granularity { get; set; }
         /// <summary>
         /// A custom interval is used to set a nonstandard time interval. For example, if the
         /// series is 5 minutes, the request can be set as {"granularity":"minutely",

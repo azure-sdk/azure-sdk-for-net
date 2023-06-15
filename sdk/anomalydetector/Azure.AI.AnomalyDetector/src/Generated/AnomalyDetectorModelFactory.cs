@@ -95,10 +95,10 @@ namespace Azure.AI.AnomalyDetector
         /// will need another API to get detection results.
         /// </param>
         /// <returns> A new <see cref="AnomalyDetector.MultivariateBatchDetectionResultSummary"/> instance for mocking. </returns>
-        public static MultivariateBatchDetectionResultSummary MultivariateBatchDetectionResultSummary(MultivariateBatchDetectionStatus status = default, IEnumerable<ErrorResponse> errors = null, IEnumerable<VariableState> variableStates = null, MultivariateBatchDetectionOptions setupInfo = null)
+        public static MultivariateBatchDetectionResultSummary MultivariateBatchDetectionResultSummary(MultivariateBatchDetectionStatus status = default, IEnumerable<ErrorResponse> errors = null, IEnumerable<MultivariateVariableState> variableStates = null, MultivariateBatchDetectionSettings setupInfo = null)
         {
             errors ??= new List<ErrorResponse>();
-            variableStates ??= new List<VariableState>();
+            variableStates ??= new List<MultivariateVariableState>();
 
             return new MultivariateBatchDetectionResultSummary(status, errors?.ToList(), variableStates?.ToList(), setupInfo);
         }
@@ -108,27 +108,27 @@ namespace Azure.AI.AnomalyDetector
         /// <param name="value"> Detailed value of this anomalous time stamp. </param>
         /// <param name="errors"> Error message for the current time stamp. </param>
         /// <returns> A new <see cref="AnomalyDetector.AnomalyState"/> instance for mocking. </returns>
-        public static AnomalyState AnomalyState(DateTimeOffset timestamp = default, AnomalyValue value = null, IEnumerable<ErrorResponse> errors = null)
+        public static AnomalyState AnomalyState(DateTimeOffset timestamp = default, DataPointDetails value = null, IEnumerable<ErrorResponse> errors = null)
         {
             errors ??= new List<ErrorResponse>();
 
             return new AnomalyState(timestamp, value, errors?.ToList());
         }
 
-        /// <summary> Initializes a new instance of AnomalyValue. </summary>
+        /// <summary> Initializes a new instance of DataPointDetails. </summary>
         /// <param name="isAnomaly"> True if an anomaly is detected at the current time stamp. </param>
         /// <param name="severity">
         /// Indicates the significance of the anomaly. The higher the severity, the more
         /// significant the anomaly is.
         /// </param>
         /// <param name="score"> Raw anomaly score of severity, to help indicate the degree of abnormality. </param>
-        /// <param name="interpretation"> Interpretation of this anomalous time stamp. </param>
-        /// <returns> A new <see cref="AnomalyDetector.AnomalyValue"/> instance for mocking. </returns>
-        public static AnomalyValue AnomalyValue(bool isAnomaly = default, float severity = default, float score = default, IEnumerable<AnomalyInterpretation> interpretation = null)
+        /// <param name="interpretations"> Interpretation of this anomalous time stamp. </param>
+        /// <returns> A new <see cref="AnomalyDetector.DataPointDetails"/> instance for mocking. </returns>
+        public static DataPointDetails DataPointDetails(bool isAnomaly = default, float severity = default, float score = default, IEnumerable<AnomalyInterpretation> interpretations = null)
         {
-            interpretation ??= new List<AnomalyInterpretation>();
+            interpretations ??= new List<AnomalyInterpretation>();
 
-            return new AnomalyValue(isAnomaly, severity, score, interpretation?.ToList());
+            return new DataPointDetails(isAnomaly, severity, score, interpretations?.ToList());
         }
 
         /// <summary> Initializes a new instance of AnomalyInterpretation. </summary>
@@ -154,8 +154,8 @@ namespace Azure.AI.AnomalyDetector
             return new CorrelationChanges(changedVariables?.ToList());
         }
 
-        /// <summary> Initializes a new instance of ModelInfo. </summary>
-        /// <param name="dataSource">
+        /// <summary> Initializes a new instance of MultivariateModelDetails. </summary>
+        /// <param name="dataSourceUri">
         /// Source link to the input data to indicate an accessible Azure Storage URI.
         /// It either points to an Azure Blob Storage folder or points to a CSV file in
         /// Azure Blob Storage, based on your data schema selection.
@@ -164,11 +164,11 @@ namespace Azure.AI.AnomalyDetector
         /// Data schema of the input data source. The default
         /// is OneTable.
         /// </param>
-        /// <param name="startTime">
+        /// <param name="startsOn">
         /// Start date/time of training data, which should be
         /// in ISO 8601 format.
         /// </param>
-        /// <param name="endTime">
+        /// <param name="endsOn">
         /// End date/time of training data, which should be
         /// in ISO 8601 format.
         /// </param>
@@ -184,15 +184,15 @@ namespace Azure.AI.AnomalyDetector
         /// <param name="status"> Model status. </param>
         /// <param name="errors"> Error messages after failure to create a model. </param>
         /// <param name="diagnosticsInfo"> Diagnostics information to help inspect the states of a model or variable. </param>
-        /// <returns> A new <see cref="AnomalyDetector.ModelInfo"/> instance for mocking. </returns>
-        public static ModelInfo ModelInfo(Uri dataSource = null, DataSchema? dataSchema = null, DateTimeOffset startTime = default, DateTimeOffset endTime = default, string displayName = null, int? slidingWindow = null, AlignPolicy alignPolicy = null, ModelStatus? status = null, IEnumerable<ErrorResponse> errors = null, DiagnosticsInfo diagnosticsInfo = null)
+        /// <returns> A new <see cref="AnomalyDetector.MultivariateModelDetails"/> instance for mocking. </returns>
+        public static MultivariateModelDetails MultivariateModelDetails(Uri dataSourceUri = null, MultivariateDataSchema? dataSchema = null, DateTimeOffset startsOn = default, DateTimeOffset endsOn = default, string displayName = null, int? slidingWindow = null, AlignPolicy alignPolicy = null, MultivariateModelStatus? status = null, IEnumerable<ErrorResponse> errors = null, MultivariateDiagnosticDetails diagnosticsInfo = null)
         {
             errors ??= new List<ErrorResponse>();
 
-            return new ModelInfo(dataSource, dataSchema, startTime, endTime, displayName, slidingWindow, alignPolicy, status, errors?.ToList(), diagnosticsInfo);
+            return new MultivariateModelDetails(dataSourceUri, dataSchema, startsOn, endsOn, displayName, slidingWindow, alignPolicy, status, errors?.ToList(), diagnosticsInfo);
         }
 
-        /// <summary> Initializes a new instance of AnomalyDetectionModel. </summary>
+        /// <summary> Initializes a new instance of MultivariateModel. </summary>
         /// <param name="modelId"> Model identifier. </param>
         /// <param name="createdTime"> Date and time (UTC) when the model was created. </param>
         /// <param name="lastUpdatedTime"> Date and time (UTC) when the model was last updated. </param>
@@ -200,19 +200,19 @@ namespace Azure.AI.AnomalyDetector
         /// Training result of a model, including its status, errors, and diagnostics
         /// information.
         /// </param>
-        /// <returns> A new <see cref="AnomalyDetector.AnomalyDetectionModel"/> instance for mocking. </returns>
-        public static AnomalyDetectionModel AnomalyDetectionModel(Guid modelId = default, DateTimeOffset createdTime = default, DateTimeOffset lastUpdatedTime = default, ModelInfo modelInfo = null)
+        /// <returns> A new <see cref="AnomalyDetector.MultivariateModel"/> instance for mocking. </returns>
+        public static MultivariateModel MultivariateModel(Guid modelId = default, DateTimeOffset createdTime = default, DateTimeOffset lastUpdatedTime = default, MultivariateModelDetails modelInfo = null)
         {
-            return new AnomalyDetectionModel(modelId, createdTime, lastUpdatedTime, modelInfo);
+            return new MultivariateModel(modelId, createdTime, lastUpdatedTime, modelInfo);
         }
 
         /// <summary> Initializes a new instance of MultivariateLastDetectionResult. </summary>
         /// <param name="variableStates"> Variable status. </param>
         /// <param name="results"> Anomaly status and information. </param>
         /// <returns> A new <see cref="AnomalyDetector.MultivariateLastDetectionResult"/> instance for mocking. </returns>
-        public static MultivariateLastDetectionResult MultivariateLastDetectionResult(IEnumerable<VariableState> variableStates = null, IEnumerable<AnomalyState> results = null)
+        public static MultivariateLastDetectionResult MultivariateLastDetectionResult(IEnumerable<MultivariateVariableState> variableStates = null, IEnumerable<AnomalyState> results = null)
         {
-            variableStates ??= new List<VariableState>();
+            variableStates ??= new List<MultivariateVariableState>();
             results ??= new List<AnomalyState>();
 
             return new MultivariateLastDetectionResult(variableStates?.ToList(), results?.ToList());

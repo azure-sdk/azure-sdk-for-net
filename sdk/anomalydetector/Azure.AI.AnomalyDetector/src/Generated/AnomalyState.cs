@@ -26,7 +26,7 @@ namespace Azure.AI.AnomalyDetector
         /// <param name="timestamp"> Time stamp for this anomaly. </param>
         /// <param name="value"> Detailed value of this anomalous time stamp. </param>
         /// <param name="errors"> Error message for the current time stamp. </param>
-        internal AnomalyState(DateTimeOffset timestamp, AnomalyValue value, IReadOnlyList<ErrorResponse> errors)
+        internal AnomalyState(DateTimeOffset timestamp, DataPointDetails value, IReadOnlyList<ErrorResponse> errors)
         {
             Timestamp = timestamp;
             Value = value;
@@ -36,7 +36,7 @@ namespace Azure.AI.AnomalyDetector
         /// <summary> Time stamp for this anomaly. </summary>
         public DateTimeOffset Timestamp { get; }
         /// <summary> Detailed value of this anomalous time stamp. </summary>
-        public AnomalyValue Value { get; }
+        public DataPointDetails Value { get; }
         /// <summary> Error message for the current time stamp. </summary>
         public IReadOnlyList<ErrorResponse> Errors { get; }
     }

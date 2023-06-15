@@ -11,26 +11,26 @@ using Azure.Core;
 namespace Azure.AI.AnomalyDetector
 {
     /// <summary> Diagnostics information to help inspect the states of a model or variable. </summary>
-    public partial class DiagnosticsInfo
+    public partial class MultivariateDiagnosticDetails
     {
-        /// <summary> Initializes a new instance of DiagnosticsInfo. </summary>
-        public DiagnosticsInfo()
+        /// <summary> Initializes a new instance of MultivariateDiagnosticDetails. </summary>
+        public MultivariateDiagnosticDetails()
         {
-            VariableStates = new ChangeTrackingList<VariableState>();
+            VariableStates = new ChangeTrackingList<MultivariateVariableState>();
         }
 
-        /// <summary> Initializes a new instance of DiagnosticsInfo. </summary>
+        /// <summary> Initializes a new instance of MultivariateDiagnosticDetails. </summary>
         /// <param name="modelState"> Model status. </param>
         /// <param name="variableStates"> Variable status. </param>
-        internal DiagnosticsInfo(ModelState modelState, IList<VariableState> variableStates)
+        internal MultivariateDiagnosticDetails(MultivariateModelState modelState, IList<MultivariateVariableState> variableStates)
         {
             ModelState = modelState;
             VariableStates = variableStates;
         }
 
         /// <summary> Model status. </summary>
-        public ModelState ModelState { get; set; }
+        public MultivariateModelState ModelState { get; set; }
         /// <summary> Variable status. </summary>
-        public IList<VariableState> VariableStates { get; }
+        public IList<MultivariateVariableState> VariableStates { get; }
     }
 }

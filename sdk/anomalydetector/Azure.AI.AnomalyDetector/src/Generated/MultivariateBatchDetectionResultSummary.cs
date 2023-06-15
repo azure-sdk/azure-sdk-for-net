@@ -21,13 +21,13 @@ namespace Azure.AI.AnomalyDetector
         /// will need another API to get detection results.
         /// </param>
         /// <exception cref="ArgumentNullException"> <paramref name="setupInfo"/> is null. </exception>
-        internal MultivariateBatchDetectionResultSummary(MultivariateBatchDetectionStatus status, MultivariateBatchDetectionOptions setupInfo)
+        internal MultivariateBatchDetectionResultSummary(MultivariateBatchDetectionStatus status, MultivariateBatchDetectionSettings setupInfo)
         {
             Argument.AssertNotNull(setupInfo, nameof(setupInfo));
 
             Status = status;
             Errors = new ChangeTrackingList<ErrorResponse>();
-            VariableStates = new ChangeTrackingList<VariableState>();
+            VariableStates = new ChangeTrackingList<MultivariateVariableState>();
             SetupInfo = setupInfo;
         }
 
@@ -39,7 +39,7 @@ namespace Azure.AI.AnomalyDetector
         /// Detection request for batch inference. This is an asynchronous inference that
         /// will need another API to get detection results.
         /// </param>
-        internal MultivariateBatchDetectionResultSummary(MultivariateBatchDetectionStatus status, IReadOnlyList<ErrorResponse> errors, IReadOnlyList<VariableState> variableStates, MultivariateBatchDetectionOptions setupInfo)
+        internal MultivariateBatchDetectionResultSummary(MultivariateBatchDetectionStatus status, IReadOnlyList<ErrorResponse> errors, IReadOnlyList<MultivariateVariableState> variableStates, MultivariateBatchDetectionSettings setupInfo)
         {
             Status = status;
             Errors = errors;
@@ -52,11 +52,11 @@ namespace Azure.AI.AnomalyDetector
         /// <summary> Error message when detection fails. </summary>
         public IReadOnlyList<ErrorResponse> Errors { get; }
         /// <summary> Variable status. </summary>
-        public IReadOnlyList<VariableState> VariableStates { get; }
+        public IReadOnlyList<MultivariateVariableState> VariableStates { get; }
         /// <summary>
         /// Detection request for batch inference. This is an asynchronous inference that
         /// will need another API to get detection results.
         /// </summary>
-        public MultivariateBatchDetectionOptions SetupInfo { get; }
+        public MultivariateBatchDetectionSettings SetupInfo { get; }
     }
 }

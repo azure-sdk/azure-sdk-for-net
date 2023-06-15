@@ -5,24 +5,25 @@
 
 #nullable disable
 
+using System;
 using System.Collections.Generic;
 using Azure.Core;
 
 namespace Azure.AI.AnomalyDetector
 {
-    /// <summary> Model status. </summary>
-    public partial class ModelState
+    /// <summary> Model state. </summary>
+    public partial class MultivariateModelState
     {
-        /// <summary> Initializes a new instance of ModelState. </summary>
-        public ModelState()
+        /// <summary> Initializes a new instance of MultivariateModelState. </summary>
+        public MultivariateModelState()
         {
             EpochIds = new ChangeTrackingList<int>();
             TrainLosses = new ChangeTrackingList<float>();
             ValidationLosses = new ChangeTrackingList<float>();
-            LatenciesInSeconds = new ChangeTrackingList<float>();
+            LatenciesInSeconds = new ChangeTrackingList<TimeSpan>();
         }
 
-        /// <summary> Initializes a new instance of ModelState. </summary>
+        /// <summary> Initializes a new instance of MultivariateModelState. </summary>
         /// <param name="epochIds">
         /// Number of passes of the entire training dataset that the
         /// algorithm has completed.
@@ -36,7 +37,7 @@ namespace Azure.AI.AnomalyDetector
         /// epoch.
         /// </param>
         /// <param name="latenciesInSeconds"> Latency for each epoch. </param>
-        internal ModelState(IList<int> epochIds, IList<float> trainLosses, IList<float> validationLosses, IList<float> latenciesInSeconds)
+        internal MultivariateModelState(IList<int> epochIds, IList<float> trainLosses, IList<float> validationLosses, IList<TimeSpan> latenciesInSeconds)
         {
             EpochIds = epochIds;
             TrainLosses = trainLosses;
@@ -60,6 +61,6 @@ namespace Azure.AI.AnomalyDetector
         /// </summary>
         public IList<float> ValidationLosses { get; }
         /// <summary> Latency for each epoch. </summary>
-        public IList<float> LatenciesInSeconds { get; }
+        public IList<TimeSpan> LatenciesInSeconds { get; }
     }
 }

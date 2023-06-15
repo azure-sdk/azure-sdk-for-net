@@ -22,7 +22,7 @@ namespace Azure.AI.AnomalyDetector
         /// </param>
         /// <param name="fillNAMethod"> Field that indicates how missing values will be filled. </param>
         /// <param name="paddingValue"> Field that's required when fillNAMethod is Fixed. </param>
-        internal AlignPolicy(AlignMode? alignMode, FillNAMethod? fillNAMethod, float? paddingValue)
+        internal AlignPolicy(MultivariateAlignMode? alignMode, MultivariateFillNaMethod? fillNAMethod, float? paddingValue)
         {
             AlignMode = alignMode;
             FillNAMethod = fillNAMethod;
@@ -33,9 +33,9 @@ namespace Azure.AI.AnomalyDetector
         /// Field that indicates how to align different variables to the same
         /// time range.
         /// </summary>
-        public AlignMode? AlignMode { get; set; }
+        public MultivariateAlignMode? AlignMode { get; set; }
         /// <summary> Field that indicates how missing values will be filled. </summary>
-        public FillNAMethod? FillNAMethod { get; set; }
+        public MultivariateFillNaMethod? FillNAMethod { get; set; }
         /// <summary> Field that's required when fillNAMethod is Fixed. </summary>
         public float? PaddingValue { get; set; }
     }

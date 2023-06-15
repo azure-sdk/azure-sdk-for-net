@@ -22,7 +22,7 @@ namespace Azure.AI.AnomalyDetector
                 return null;
             }
             DateTimeOffset timestamp = default;
-            Optional<AnomalyValue> value = default;
+            Optional<DataPointDetails> value = default;
             Optional<IReadOnlyList<ErrorResponse>> errors = default;
             foreach (var property in element.EnumerateObject())
             {
@@ -37,7 +37,7 @@ namespace Azure.AI.AnomalyDetector
                     {
                         continue;
                     }
-                    value = AnomalyValue.DeserializeAnomalyValue(property.Value);
+                    value = DataPointDetails.DeserializeDataPointDetails(property.Value);
                     continue;
                 }
                 if (property.NameEquals("errors"u8))

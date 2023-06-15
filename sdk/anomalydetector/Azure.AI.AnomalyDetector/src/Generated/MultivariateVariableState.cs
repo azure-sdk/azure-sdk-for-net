@@ -6,24 +6,30 @@
 #nullable disable
 
 using System;
+using Azure.Core;
 
 namespace Azure.AI.AnomalyDetector
 {
     /// <summary> Variable status. </summary>
-    public partial class VariableState
+    public partial class MultivariateVariableState
     {
-        /// <summary> Initializes a new instance of VariableState. </summary>
-        public VariableState()
+        /// <summary> Initializes a new instance of MultivariateVariableState. </summary>
+        /// <param name="variable"> Variable name in variable states. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="variable"/> is null. </exception>
+        public MultivariateVariableState(string variable)
         {
+            Argument.AssertNotNull(variable, nameof(variable));
+
+            Variable = variable;
         }
 
-        /// <summary> Initializes a new instance of VariableState. </summary>
+        /// <summary> Initializes a new instance of MultivariateVariableState. </summary>
         /// <param name="variable"> Variable name in variable states. </param>
-        /// <param name="filledNARatio"> Proportion of missing values that need to be filled by fillNAMethod. </param>
+        /// <param name="filledNARatio"> Proportion of missing values that need to be filled by FillNaMethod. </param>
         /// <param name="effectiveCount"> Number of effective data points before fillNAMethod is applied. </param>
         /// <param name="firstTimestamp"> First valid time stamp with a value of input data. </param>
         /// <param name="lastTimestamp"> Last valid time stamp with a value of input data. </param>
-        internal VariableState(string variable, float? filledNARatio, int? effectiveCount, DateTimeOffset? firstTimestamp, DateTimeOffset? lastTimestamp)
+        internal MultivariateVariableState(string variable, float? filledNARatio, int? effectiveCount, DateTimeOffset? firstTimestamp, DateTimeOffset? lastTimestamp)
         {
             Variable = variable;
             FilledNARatio = filledNARatio;
@@ -34,7 +40,7 @@ namespace Azure.AI.AnomalyDetector
 
         /// <summary> Variable name in variable states. </summary>
         public string Variable { get; set; }
-        /// <summary> Proportion of missing values that need to be filled by fillNAMethod. </summary>
+        /// <summary> Proportion of missing values that need to be filled by FillNaMethod. </summary>
         public float? FilledNARatio { get; set; }
         /// <summary> Number of effective data points before fillNAMethod is applied. </summary>
         public int? EffectiveCount { get; set; }

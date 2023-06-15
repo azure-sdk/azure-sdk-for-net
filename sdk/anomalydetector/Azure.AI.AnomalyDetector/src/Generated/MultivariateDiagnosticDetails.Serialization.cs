@@ -12,7 +12,7 @@ using Azure.Core;
 
 namespace Azure.AI.AnomalyDetector
 {
-    public partial class DiagnosticsInfo : IUtf8JsonSerializable
+    public partial class MultivariateDiagnosticDetails : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
@@ -35,14 +35,14 @@ namespace Azure.AI.AnomalyDetector
             writer.WriteEndObject();
         }
 
-        internal static DiagnosticsInfo DeserializeDiagnosticsInfo(JsonElement element)
+        internal static MultivariateDiagnosticDetails DeserializeMultivariateDiagnosticDetails(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
                 return null;
             }
-            Optional<ModelState> modelState = default;
-            Optional<IList<VariableState>> variableStates = default;
+            Optional<MultivariateModelState> modelState = default;
+            Optional<IList<MultivariateVariableState>> variableStates = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("modelState"u8))
@@ -51,7 +51,7 @@ namespace Azure.AI.AnomalyDetector
                     {
                         continue;
                     }
-                    modelState = ModelState.DeserializeModelState(property.Value);
+                    modelState = MultivariateModelState.DeserializeMultivariateModelState(property.Value);
                     continue;
                 }
                 if (property.NameEquals("variableStates"u8))
@@ -60,24 +60,24 @@ namespace Azure.AI.AnomalyDetector
                     {
                         continue;
                     }
-                    List<VariableState> array = new List<VariableState>();
+                    List<MultivariateVariableState> array = new List<MultivariateVariableState>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(VariableState.DeserializeVariableState(item));
+                        array.Add(MultivariateVariableState.DeserializeMultivariateVariableState(item));
                     }
                     variableStates = array;
                     continue;
                 }
             }
-            return new DiagnosticsInfo(modelState.Value, Optional.ToList(variableStates));
+            return new MultivariateDiagnosticDetails(modelState.Value, Optional.ToList(variableStates));
         }
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static DiagnosticsInfo FromResponse(Response response)
+        internal static MultivariateDiagnosticDetails FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content);
-            return DeserializeDiagnosticsInfo(document.RootElement);
+            return DeserializeMultivariateDiagnosticDetails(document.RootElement);
         }
 
         /// <summary> Convert into a Utf8JsonRequestContent. </summary>

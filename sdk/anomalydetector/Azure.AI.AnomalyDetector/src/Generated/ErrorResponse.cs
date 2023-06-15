@@ -6,29 +6,25 @@
 #nullable disable
 
 using System;
+using Azure;
 using Azure.Core;
 
 namespace Azure.AI.AnomalyDetector
 {
-    /// <summary> Error information that the API returned. </summary>
+    /// <summary> A response containing error details. </summary>
     public partial class ErrorResponse
     {
         /// <summary> Initializes a new instance of ErrorResponse. </summary>
-        /// <param name="code"> Error code. </param>
-        /// <param name="message"> Message that explains the error that the service reported. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="code"/> or <paramref name="message"/> is null. </exception>
-        public ErrorResponse(string code, string message)
+        /// <param name="error"> The error object. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="error"/> is null. </exception>
+        public ErrorResponse(ResponseError error)
         {
-            Argument.AssertNotNull(code, nameof(code));
-            Argument.AssertNotNull(message, nameof(message));
+            Argument.AssertNotNull(error, nameof(error));
 
-            Code = code;
-            Message = message;
+            Error = error;
         }
 
-        /// <summary> Error code. </summary>
-        public string Code { get; set; }
-        /// <summary> Message that explains the error that the service reported. </summary>
-        public string Message { get; set; }
+        /// <summary> The error object. </summary>
+        public ResponseError Error { get; set; }
     }
 }

@@ -16,11 +16,8 @@ namespace Azure.AI.AnomalyDetector
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
-            writer.WritePropertyName("code"u8);
-            writer.WriteStringValue(Code);
-            writer.WritePropertyName("message"u8);
-            writer.WriteStringValue(Message);
-            writer.WriteEndObject();
+            writer.WritePropertyName("error"u8);
+            JsonSerializer.Serialize(writer, Error); writer.WriteEndObject();
         }
 
         internal static ErrorResponse DeserializeErrorResponse(JsonElement element)
@@ -29,22 +26,16 @@ namespace Azure.AI.AnomalyDetector
             {
                 return null;
             }
-            string code = default;
-            string message = default;
+            ResponseError error = default;
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("code"u8))
+                if (property.NameEquals("error"u8))
                 {
-                    code = property.Value.GetString();
-                    continue;
-                }
-                if (property.NameEquals("message"u8))
-                {
-                    message = property.Value.GetString();
+                    error = JsonSerializer.Deserialize<ResponseError>(property.Value.GetRawText());
                     continue;
                 }
             }
-            return new ErrorResponse(code, message);
+            return new ErrorResponse(error);
         }
 
         /// <summary> Deserializes the model from a raw response. </summary>

@@ -299,15 +299,15 @@ namespace Azure.AI.AnomalyDetector.Samples
             var endpoint = new Uri("<https://my-service.azure.com>");
             var client = new AnomalyDetectorClient(endpoint, credential);
 
-            var options = new UnivariateDetectionOptions(new TimeSeriesPoint[]
+            var options = new UnivariateDetectionOptions(new UnivariateTimeSeriesPoint[]
             {
-    new TimeSeriesPoint(3.14f)
+    new UnivariateTimeSeriesPoint(3.14f)
 {
         Timestamp = DateTimeOffset.UtcNow,
     }
             })
             {
-                Granularity = TimeGranularity.Yearly,
+                Granularity = UnivariateTimeGranularity.Yearly,
                 CustomInterval = 1234,
                 Period = 1234,
                 MaxAnomalyRatio = 3.14f,
@@ -436,13 +436,13 @@ namespace Azure.AI.AnomalyDetector.Samples
             var endpoint = new Uri("<https://my-service.azure.com>");
             var client = new AnomalyDetectorClient(endpoint, credential);
 
-            var options = new UnivariateChangePointDetectionOptions(new TimeSeriesPoint[]
+            var options = new UnivariateChangePointDetectionOptions(new UnivariateTimeSeriesPoint[]
             {
-    new TimeSeriesPoint(3.14f)
+    new UnivariateTimeSeriesPoint(3.14f)
 {
         Timestamp = DateTimeOffset.UtcNow,
     }
-            }, TimeGranularity.Yearly)
+            }, UnivariateTimeGranularity.Yearly)
             {
                 CustomInterval = 1234,
                 Period = 1234,
@@ -484,8 +484,10 @@ namespace Azure.AI.AnomalyDetector.Samples
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.GetProperty("resultId").ToString());
             Console.WriteLine(result.GetProperty("summary").GetProperty("status").ToString());
-            Console.WriteLine(result.GetProperty("summary").GetProperty("errors")[0].GetProperty("code").ToString());
-            Console.WriteLine(result.GetProperty("summary").GetProperty("errors")[0].GetProperty("message").ToString());
+            Console.WriteLine(result.GetProperty("summary").GetProperty("errors")[0].GetProperty("error").GetProperty("code").ToString());
+            Console.WriteLine(result.GetProperty("summary").GetProperty("errors")[0].GetProperty("error").GetProperty("message").ToString());
+            Console.WriteLine(result.GetProperty("summary").GetProperty("errors")[0].GetProperty("error").GetProperty("target").ToString());
+            Console.WriteLine(result.GetProperty("summary").GetProperty("errors")[0].GetProperty("error").GetProperty("innererror").GetProperty("code").ToString());
             Console.WriteLine(result.GetProperty("summary").GetProperty("variableStates")[0].GetProperty("variable").ToString());
             Console.WriteLine(result.GetProperty("summary").GetProperty("variableStates")[0].GetProperty("filledNARatio").ToString());
             Console.WriteLine(result.GetProperty("summary").GetProperty("variableStates")[0].GetProperty("effectiveCount").ToString());
@@ -502,8 +504,10 @@ namespace Azure.AI.AnomalyDetector.Samples
             Console.WriteLine(result.GetProperty("results")[0].GetProperty("value").GetProperty("interpretation")[0].GetProperty("variable").ToString());
             Console.WriteLine(result.GetProperty("results")[0].GetProperty("value").GetProperty("interpretation")[0].GetProperty("contributionScore").ToString());
             Console.WriteLine(result.GetProperty("results")[0].GetProperty("value").GetProperty("interpretation")[0].GetProperty("correlationChanges").GetProperty("changedVariables")[0].ToString());
-            Console.WriteLine(result.GetProperty("results")[0].GetProperty("errors")[0].GetProperty("code").ToString());
-            Console.WriteLine(result.GetProperty("results")[0].GetProperty("errors")[0].GetProperty("message").ToString());
+            Console.WriteLine(result.GetProperty("results")[0].GetProperty("errors")[0].GetProperty("error").GetProperty("code").ToString());
+            Console.WriteLine(result.GetProperty("results")[0].GetProperty("errors")[0].GetProperty("error").GetProperty("message").ToString());
+            Console.WriteLine(result.GetProperty("results")[0].GetProperty("errors")[0].GetProperty("error").GetProperty("target").ToString());
+            Console.WriteLine(result.GetProperty("results")[0].GetProperty("errors")[0].GetProperty("error").GetProperty("innererror").GetProperty("code").ToString());
         }
 
         [Test]
@@ -538,8 +542,10 @@ namespace Azure.AI.AnomalyDetector.Samples
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.GetProperty("resultId").ToString());
             Console.WriteLine(result.GetProperty("summary").GetProperty("status").ToString());
-            Console.WriteLine(result.GetProperty("summary").GetProperty("errors")[0].GetProperty("code").ToString());
-            Console.WriteLine(result.GetProperty("summary").GetProperty("errors")[0].GetProperty("message").ToString());
+            Console.WriteLine(result.GetProperty("summary").GetProperty("errors")[0].GetProperty("error").GetProperty("code").ToString());
+            Console.WriteLine(result.GetProperty("summary").GetProperty("errors")[0].GetProperty("error").GetProperty("message").ToString());
+            Console.WriteLine(result.GetProperty("summary").GetProperty("errors")[0].GetProperty("error").GetProperty("target").ToString());
+            Console.WriteLine(result.GetProperty("summary").GetProperty("errors")[0].GetProperty("error").GetProperty("innererror").GetProperty("code").ToString());
             Console.WriteLine(result.GetProperty("summary").GetProperty("variableStates")[0].GetProperty("variable").ToString());
             Console.WriteLine(result.GetProperty("summary").GetProperty("variableStates")[0].GetProperty("filledNARatio").ToString());
             Console.WriteLine(result.GetProperty("summary").GetProperty("variableStates")[0].GetProperty("effectiveCount").ToString());
@@ -556,8 +562,10 @@ namespace Azure.AI.AnomalyDetector.Samples
             Console.WriteLine(result.GetProperty("results")[0].GetProperty("value").GetProperty("interpretation")[0].GetProperty("variable").ToString());
             Console.WriteLine(result.GetProperty("results")[0].GetProperty("value").GetProperty("interpretation")[0].GetProperty("contributionScore").ToString());
             Console.WriteLine(result.GetProperty("results")[0].GetProperty("value").GetProperty("interpretation")[0].GetProperty("correlationChanges").GetProperty("changedVariables")[0].ToString());
-            Console.WriteLine(result.GetProperty("results")[0].GetProperty("errors")[0].GetProperty("code").ToString());
-            Console.WriteLine(result.GetProperty("results")[0].GetProperty("errors")[0].GetProperty("message").ToString());
+            Console.WriteLine(result.GetProperty("results")[0].GetProperty("errors")[0].GetProperty("error").GetProperty("code").ToString());
+            Console.WriteLine(result.GetProperty("results")[0].GetProperty("errors")[0].GetProperty("error").GetProperty("message").ToString());
+            Console.WriteLine(result.GetProperty("results")[0].GetProperty("errors")[0].GetProperty("error").GetProperty("target").ToString());
+            Console.WriteLine(result.GetProperty("results")[0].GetProperty("errors")[0].GetProperty("error").GetProperty("innererror").GetProperty("code").ToString());
         }
 
         [Test]
@@ -634,8 +642,10 @@ namespace Azure.AI.AnomalyDetector.Samples
             Console.WriteLine(result.GetProperty("modelInfo").GetProperty("alignPolicy").GetProperty("fillNAMethod").ToString());
             Console.WriteLine(result.GetProperty("modelInfo").GetProperty("alignPolicy").GetProperty("paddingValue").ToString());
             Console.WriteLine(result.GetProperty("modelInfo").GetProperty("status").ToString());
-            Console.WriteLine(result.GetProperty("modelInfo").GetProperty("errors")[0].GetProperty("code").ToString());
-            Console.WriteLine(result.GetProperty("modelInfo").GetProperty("errors")[0].GetProperty("message").ToString());
+            Console.WriteLine(result.GetProperty("modelInfo").GetProperty("errors")[0].GetProperty("error").GetProperty("code").ToString());
+            Console.WriteLine(result.GetProperty("modelInfo").GetProperty("errors")[0].GetProperty("error").GetProperty("message").ToString());
+            Console.WriteLine(result.GetProperty("modelInfo").GetProperty("errors")[0].GetProperty("error").GetProperty("target").ToString());
+            Console.WriteLine(result.GetProperty("modelInfo").GetProperty("errors")[0].GetProperty("error").GetProperty("innererror").GetProperty("code").ToString());
             Console.WriteLine(result.GetProperty("modelInfo").GetProperty("diagnosticsInfo").GetProperty("modelState").GetProperty("epochIds")[0].ToString());
             Console.WriteLine(result.GetProperty("modelInfo").GetProperty("diagnosticsInfo").GetProperty("modelState").GetProperty("trainLosses")[0].ToString());
             Console.WriteLine(result.GetProperty("modelInfo").GetProperty("diagnosticsInfo").GetProperty("modelState").GetProperty("validationLosses")[0].ToString());
@@ -710,8 +720,10 @@ namespace Azure.AI.AnomalyDetector.Samples
             Console.WriteLine(result.GetProperty("modelInfo").GetProperty("alignPolicy").GetProperty("fillNAMethod").ToString());
             Console.WriteLine(result.GetProperty("modelInfo").GetProperty("alignPolicy").GetProperty("paddingValue").ToString());
             Console.WriteLine(result.GetProperty("modelInfo").GetProperty("status").ToString());
-            Console.WriteLine(result.GetProperty("modelInfo").GetProperty("errors")[0].GetProperty("code").ToString());
-            Console.WriteLine(result.GetProperty("modelInfo").GetProperty("errors")[0].GetProperty("message").ToString());
+            Console.WriteLine(result.GetProperty("modelInfo").GetProperty("errors")[0].GetProperty("error").GetProperty("code").ToString());
+            Console.WriteLine(result.GetProperty("modelInfo").GetProperty("errors")[0].GetProperty("error").GetProperty("message").ToString());
+            Console.WriteLine(result.GetProperty("modelInfo").GetProperty("errors")[0].GetProperty("error").GetProperty("target").ToString());
+            Console.WriteLine(result.GetProperty("modelInfo").GetProperty("errors")[0].GetProperty("error").GetProperty("innererror").GetProperty("code").ToString());
             Console.WriteLine(result.GetProperty("modelInfo").GetProperty("diagnosticsInfo").GetProperty("modelState").GetProperty("epochIds")[0].ToString());
             Console.WriteLine(result.GetProperty("modelInfo").GetProperty("diagnosticsInfo").GetProperty("modelState").GetProperty("trainLosses")[0].ToString());
             Console.WriteLine(result.GetProperty("modelInfo").GetProperty("diagnosticsInfo").GetProperty("modelState").GetProperty("validationLosses")[0].ToString());
@@ -731,15 +743,15 @@ namespace Azure.AI.AnomalyDetector.Samples
             var endpoint = new Uri("<https://my-service.azure.com>");
             var client = new AnomalyDetectorClient(endpoint, credential);
 
-            var modelInfo = new ModelInfo(new Uri("http://localhost:3000"), DateTimeOffset.UtcNow, DateTimeOffset.UtcNow)
+            var modelInfo = new MultivariateModelDetails(new Uri("http://localhost:3000"), DateTimeOffset.UtcNow, DateTimeOffset.UtcNow)
             {
-                DataSchema = DataSchema.OneTable,
+                DataSchema = MultivariateDataSchema.OneTable,
                 DisplayName = "<DisplayName>",
                 SlidingWindow = 1234,
                 AlignPolicy = new AlignPolicy()
                 {
-                    AlignMode = AlignMode.Inner,
-                    FillNAMethod = FillNAMethod.Previous,
+                    AlignMode = MultivariateAlignMode.Inner,
+                    FillNAMethod = MultivariateFillNaMethod.Previous,
                     PaddingValue = 3.14f,
                 },
             };
@@ -834,8 +846,10 @@ namespace Azure.AI.AnomalyDetector.Samples
             Console.WriteLine(result.GetProperty("modelInfo").GetProperty("alignPolicy").GetProperty("fillNAMethod").ToString());
             Console.WriteLine(result.GetProperty("modelInfo").GetProperty("alignPolicy").GetProperty("paddingValue").ToString());
             Console.WriteLine(result.GetProperty("modelInfo").GetProperty("status").ToString());
-            Console.WriteLine(result.GetProperty("modelInfo").GetProperty("errors")[0].GetProperty("code").ToString());
-            Console.WriteLine(result.GetProperty("modelInfo").GetProperty("errors")[0].GetProperty("message").ToString());
+            Console.WriteLine(result.GetProperty("modelInfo").GetProperty("errors")[0].GetProperty("error").GetProperty("code").ToString());
+            Console.WriteLine(result.GetProperty("modelInfo").GetProperty("errors")[0].GetProperty("error").GetProperty("message").ToString());
+            Console.WriteLine(result.GetProperty("modelInfo").GetProperty("errors")[0].GetProperty("error").GetProperty("target").ToString());
+            Console.WriteLine(result.GetProperty("modelInfo").GetProperty("errors")[0].GetProperty("error").GetProperty("innererror").GetProperty("code").ToString());
             Console.WriteLine(result.GetProperty("modelInfo").GetProperty("diagnosticsInfo").GetProperty("modelState").GetProperty("epochIds")[0].ToString());
             Console.WriteLine(result.GetProperty("modelInfo").GetProperty("diagnosticsInfo").GetProperty("modelState").GetProperty("trainLosses")[0].ToString());
             Console.WriteLine(result.GetProperty("modelInfo").GetProperty("diagnosticsInfo").GetProperty("modelState").GetProperty("validationLosses")[0].ToString());
@@ -887,8 +901,10 @@ namespace Azure.AI.AnomalyDetector.Samples
             Console.WriteLine(result.GetProperty("modelInfo").GetProperty("alignPolicy").GetProperty("fillNAMethod").ToString());
             Console.WriteLine(result.GetProperty("modelInfo").GetProperty("alignPolicy").GetProperty("paddingValue").ToString());
             Console.WriteLine(result.GetProperty("modelInfo").GetProperty("status").ToString());
-            Console.WriteLine(result.GetProperty("modelInfo").GetProperty("errors")[0].GetProperty("code").ToString());
-            Console.WriteLine(result.GetProperty("modelInfo").GetProperty("errors")[0].GetProperty("message").ToString());
+            Console.WriteLine(result.GetProperty("modelInfo").GetProperty("errors")[0].GetProperty("error").GetProperty("code").ToString());
+            Console.WriteLine(result.GetProperty("modelInfo").GetProperty("errors")[0].GetProperty("error").GetProperty("message").ToString());
+            Console.WriteLine(result.GetProperty("modelInfo").GetProperty("errors")[0].GetProperty("error").GetProperty("target").ToString());
+            Console.WriteLine(result.GetProperty("modelInfo").GetProperty("errors")[0].GetProperty("error").GetProperty("innererror").GetProperty("code").ToString());
             Console.WriteLine(result.GetProperty("modelInfo").GetProperty("diagnosticsInfo").GetProperty("modelState").GetProperty("epochIds")[0].ToString());
             Console.WriteLine(result.GetProperty("modelInfo").GetProperty("diagnosticsInfo").GetProperty("modelState").GetProperty("trainLosses")[0].ToString());
             Console.WriteLine(result.GetProperty("modelInfo").GetProperty("diagnosticsInfo").GetProperty("modelState").GetProperty("validationLosses")[0].ToString());
@@ -958,8 +974,10 @@ namespace Azure.AI.AnomalyDetector.Samples
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.GetProperty("resultId").ToString());
             Console.WriteLine(result.GetProperty("summary").GetProperty("status").ToString());
-            Console.WriteLine(result.GetProperty("summary").GetProperty("errors")[0].GetProperty("code").ToString());
-            Console.WriteLine(result.GetProperty("summary").GetProperty("errors")[0].GetProperty("message").ToString());
+            Console.WriteLine(result.GetProperty("summary").GetProperty("errors")[0].GetProperty("error").GetProperty("code").ToString());
+            Console.WriteLine(result.GetProperty("summary").GetProperty("errors")[0].GetProperty("error").GetProperty("message").ToString());
+            Console.WriteLine(result.GetProperty("summary").GetProperty("errors")[0].GetProperty("error").GetProperty("target").ToString());
+            Console.WriteLine(result.GetProperty("summary").GetProperty("errors")[0].GetProperty("error").GetProperty("innererror").GetProperty("code").ToString());
             Console.WriteLine(result.GetProperty("summary").GetProperty("variableStates")[0].GetProperty("variable").ToString());
             Console.WriteLine(result.GetProperty("summary").GetProperty("variableStates")[0].GetProperty("filledNARatio").ToString());
             Console.WriteLine(result.GetProperty("summary").GetProperty("variableStates")[0].GetProperty("effectiveCount").ToString());
@@ -976,8 +994,10 @@ namespace Azure.AI.AnomalyDetector.Samples
             Console.WriteLine(result.GetProperty("results")[0].GetProperty("value").GetProperty("interpretation")[0].GetProperty("variable").ToString());
             Console.WriteLine(result.GetProperty("results")[0].GetProperty("value").GetProperty("interpretation")[0].GetProperty("contributionScore").ToString());
             Console.WriteLine(result.GetProperty("results")[0].GetProperty("value").GetProperty("interpretation")[0].GetProperty("correlationChanges").GetProperty("changedVariables")[0].ToString());
-            Console.WriteLine(result.GetProperty("results")[0].GetProperty("errors")[0].GetProperty("code").ToString());
-            Console.WriteLine(result.GetProperty("results")[0].GetProperty("errors")[0].GetProperty("message").ToString());
+            Console.WriteLine(result.GetProperty("results")[0].GetProperty("errors")[0].GetProperty("error").GetProperty("code").ToString());
+            Console.WriteLine(result.GetProperty("results")[0].GetProperty("errors")[0].GetProperty("error").GetProperty("message").ToString());
+            Console.WriteLine(result.GetProperty("results")[0].GetProperty("errors")[0].GetProperty("error").GetProperty("target").ToString());
+            Console.WriteLine(result.GetProperty("results")[0].GetProperty("errors")[0].GetProperty("error").GetProperty("innererror").GetProperty("code").ToString());
         }
 
         [Test]
@@ -1027,8 +1047,10 @@ namespace Azure.AI.AnomalyDetector.Samples
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.GetProperty("resultId").ToString());
             Console.WriteLine(result.GetProperty("summary").GetProperty("status").ToString());
-            Console.WriteLine(result.GetProperty("summary").GetProperty("errors")[0].GetProperty("code").ToString());
-            Console.WriteLine(result.GetProperty("summary").GetProperty("errors")[0].GetProperty("message").ToString());
+            Console.WriteLine(result.GetProperty("summary").GetProperty("errors")[0].GetProperty("error").GetProperty("code").ToString());
+            Console.WriteLine(result.GetProperty("summary").GetProperty("errors")[0].GetProperty("error").GetProperty("message").ToString());
+            Console.WriteLine(result.GetProperty("summary").GetProperty("errors")[0].GetProperty("error").GetProperty("target").ToString());
+            Console.WriteLine(result.GetProperty("summary").GetProperty("errors")[0].GetProperty("error").GetProperty("innererror").GetProperty("code").ToString());
             Console.WriteLine(result.GetProperty("summary").GetProperty("variableStates")[0].GetProperty("variable").ToString());
             Console.WriteLine(result.GetProperty("summary").GetProperty("variableStates")[0].GetProperty("filledNARatio").ToString());
             Console.WriteLine(result.GetProperty("summary").GetProperty("variableStates")[0].GetProperty("effectiveCount").ToString());
@@ -1045,8 +1067,10 @@ namespace Azure.AI.AnomalyDetector.Samples
             Console.WriteLine(result.GetProperty("results")[0].GetProperty("value").GetProperty("interpretation")[0].GetProperty("variable").ToString());
             Console.WriteLine(result.GetProperty("results")[0].GetProperty("value").GetProperty("interpretation")[0].GetProperty("contributionScore").ToString());
             Console.WriteLine(result.GetProperty("results")[0].GetProperty("value").GetProperty("interpretation")[0].GetProperty("correlationChanges").GetProperty("changedVariables")[0].ToString());
-            Console.WriteLine(result.GetProperty("results")[0].GetProperty("errors")[0].GetProperty("code").ToString());
-            Console.WriteLine(result.GetProperty("results")[0].GetProperty("errors")[0].GetProperty("message").ToString());
+            Console.WriteLine(result.GetProperty("results")[0].GetProperty("errors")[0].GetProperty("error").GetProperty("code").ToString());
+            Console.WriteLine(result.GetProperty("results")[0].GetProperty("errors")[0].GetProperty("error").GetProperty("message").ToString());
+            Console.WriteLine(result.GetProperty("results")[0].GetProperty("errors")[0].GetProperty("error").GetProperty("target").ToString());
+            Console.WriteLine(result.GetProperty("results")[0].GetProperty("errors")[0].GetProperty("error").GetProperty("innererror").GetProperty("code").ToString());
         }
 
         [Test]
@@ -1057,7 +1081,7 @@ namespace Azure.AI.AnomalyDetector.Samples
             var endpoint = new Uri("<https://my-service.azure.com>");
             var client = new AnomalyDetectorClient(endpoint, credential);
 
-            var options = new MultivariateBatchDetectionOptions(new Uri("http://localhost:3000"), DateTimeOffset.UtcNow, DateTimeOffset.UtcNow)
+            var options = new MultivariateBatchDetectionSettings(new Uri("http://localhost:3000"), DateTimeOffset.UtcNow, DateTimeOffset.UtcNow)
             {
                 TopContributorCount = 1234,
             };
@@ -1078,7 +1102,7 @@ namespace Azure.AI.AnomalyDetector.Samples
         new {
             variable = "<variable>",
             timestamps = new[] {
-                "<String>"
+                "2022-05-10T14:57:31.2311892-04:00"
             },
             values = new[] {
                 123.45f
@@ -1107,7 +1131,7 @@ namespace Azure.AI.AnomalyDetector.Samples
         new {
             variable = "<variable>",
             timestamps = new[] {
-                "<String>"
+                "2022-05-10T14:57:31.2311892-04:00"
             },
             values = new[] {
                 123.45f
@@ -1132,8 +1156,10 @@ namespace Azure.AI.AnomalyDetector.Samples
             Console.WriteLine(result.GetProperty("results")[0].GetProperty("value").GetProperty("interpretation")[0].GetProperty("variable").ToString());
             Console.WriteLine(result.GetProperty("results")[0].GetProperty("value").GetProperty("interpretation")[0].GetProperty("contributionScore").ToString());
             Console.WriteLine(result.GetProperty("results")[0].GetProperty("value").GetProperty("interpretation")[0].GetProperty("correlationChanges").GetProperty("changedVariables")[0].ToString());
-            Console.WriteLine(result.GetProperty("results")[0].GetProperty("errors")[0].GetProperty("code").ToString());
-            Console.WriteLine(result.GetProperty("results")[0].GetProperty("errors")[0].GetProperty("message").ToString());
+            Console.WriteLine(result.GetProperty("results")[0].GetProperty("errors")[0].GetProperty("error").GetProperty("code").ToString());
+            Console.WriteLine(result.GetProperty("results")[0].GetProperty("errors")[0].GetProperty("error").GetProperty("message").ToString());
+            Console.WriteLine(result.GetProperty("results")[0].GetProperty("errors")[0].GetProperty("error").GetProperty("target").ToString());
+            Console.WriteLine(result.GetProperty("results")[0].GetProperty("errors")[0].GetProperty("error").GetProperty("innererror").GetProperty("code").ToString());
         }
 
         [Test]
@@ -1150,7 +1176,7 @@ namespace Azure.AI.AnomalyDetector.Samples
         new {
             variable = "<variable>",
             timestamps = new[] {
-                "<String>"
+                "2022-05-10T14:57:31.2311892-04:00"
             },
             values = new[] {
                 123.45f
@@ -1179,7 +1205,7 @@ namespace Azure.AI.AnomalyDetector.Samples
         new {
             variable = "<variable>",
             timestamps = new[] {
-                "<String>"
+                "2022-05-10T14:57:31.2311892-04:00"
             },
             values = new[] {
                 123.45f
@@ -1204,8 +1230,10 @@ namespace Azure.AI.AnomalyDetector.Samples
             Console.WriteLine(result.GetProperty("results")[0].GetProperty("value").GetProperty("interpretation")[0].GetProperty("variable").ToString());
             Console.WriteLine(result.GetProperty("results")[0].GetProperty("value").GetProperty("interpretation")[0].GetProperty("contributionScore").ToString());
             Console.WriteLine(result.GetProperty("results")[0].GetProperty("value").GetProperty("interpretation")[0].GetProperty("correlationChanges").GetProperty("changedVariables")[0].ToString());
-            Console.WriteLine(result.GetProperty("results")[0].GetProperty("errors")[0].GetProperty("code").ToString());
-            Console.WriteLine(result.GetProperty("results")[0].GetProperty("errors")[0].GetProperty("message").ToString());
+            Console.WriteLine(result.GetProperty("results")[0].GetProperty("errors")[0].GetProperty("error").GetProperty("code").ToString());
+            Console.WriteLine(result.GetProperty("results")[0].GetProperty("errors")[0].GetProperty("error").GetProperty("message").ToString());
+            Console.WriteLine(result.GetProperty("results")[0].GetProperty("errors")[0].GetProperty("error").GetProperty("target").ToString());
+            Console.WriteLine(result.GetProperty("results")[0].GetProperty("errors")[0].GetProperty("error").GetProperty("innererror").GetProperty("code").ToString());
         }
 
         [Test]
@@ -1216,11 +1244,11 @@ namespace Azure.AI.AnomalyDetector.Samples
             var endpoint = new Uri("<https://my-service.azure.com>");
             var client = new AnomalyDetectorClient(endpoint, credential);
 
-            var options = new MultivariateLastDetectionOptions(new VariableValues[]
+            var options = new MultivariateLastDetectionSettings(new MultivariateVariableValue[]
             {
-    new VariableValues("<variable>", new string[]
+    new MultivariateVariableValue("<variable>", new DateTimeOffset[]
 {
-        "<null>"
+        DateTimeOffset.UtcNow
     }, new float[]
 {
         3.14f
@@ -1273,8 +1301,10 @@ namespace Azure.AI.AnomalyDetector.Samples
                 Console.WriteLine(result.GetProperty("modelInfo").GetProperty("alignPolicy").GetProperty("fillNAMethod").ToString());
                 Console.WriteLine(result.GetProperty("modelInfo").GetProperty("alignPolicy").GetProperty("paddingValue").ToString());
                 Console.WriteLine(result.GetProperty("modelInfo").GetProperty("status").ToString());
-                Console.WriteLine(result.GetProperty("modelInfo").GetProperty("errors")[0].GetProperty("code").ToString());
-                Console.WriteLine(result.GetProperty("modelInfo").GetProperty("errors")[0].GetProperty("message").ToString());
+                Console.WriteLine(result.GetProperty("modelInfo").GetProperty("errors")[0].GetProperty("error").GetProperty("code").ToString());
+                Console.WriteLine(result.GetProperty("modelInfo").GetProperty("errors")[0].GetProperty("error").GetProperty("message").ToString());
+                Console.WriteLine(result.GetProperty("modelInfo").GetProperty("errors")[0].GetProperty("error").GetProperty("target").ToString());
+                Console.WriteLine(result.GetProperty("modelInfo").GetProperty("errors")[0].GetProperty("error").GetProperty("innererror").GetProperty("code").ToString());
                 Console.WriteLine(result.GetProperty("modelInfo").GetProperty("diagnosticsInfo").GetProperty("modelState").GetProperty("epochIds")[0].ToString());
                 Console.WriteLine(result.GetProperty("modelInfo").GetProperty("diagnosticsInfo").GetProperty("modelState").GetProperty("trainLosses")[0].ToString());
                 Console.WriteLine(result.GetProperty("modelInfo").GetProperty("diagnosticsInfo").GetProperty("modelState").GetProperty("validationLosses")[0].ToString());
@@ -1328,8 +1358,10 @@ namespace Azure.AI.AnomalyDetector.Samples
                 Console.WriteLine(result.GetProperty("modelInfo").GetProperty("alignPolicy").GetProperty("fillNAMethod").ToString());
                 Console.WriteLine(result.GetProperty("modelInfo").GetProperty("alignPolicy").GetProperty("paddingValue").ToString());
                 Console.WriteLine(result.GetProperty("modelInfo").GetProperty("status").ToString());
-                Console.WriteLine(result.GetProperty("modelInfo").GetProperty("errors")[0].GetProperty("code").ToString());
-                Console.WriteLine(result.GetProperty("modelInfo").GetProperty("errors")[0].GetProperty("message").ToString());
+                Console.WriteLine(result.GetProperty("modelInfo").GetProperty("errors")[0].GetProperty("error").GetProperty("code").ToString());
+                Console.WriteLine(result.GetProperty("modelInfo").GetProperty("errors")[0].GetProperty("error").GetProperty("message").ToString());
+                Console.WriteLine(result.GetProperty("modelInfo").GetProperty("errors")[0].GetProperty("error").GetProperty("target").ToString());
+                Console.WriteLine(result.GetProperty("modelInfo").GetProperty("errors")[0].GetProperty("error").GetProperty("innererror").GetProperty("code").ToString());
                 Console.WriteLine(result.GetProperty("modelInfo").GetProperty("diagnosticsInfo").GetProperty("modelState").GetProperty("epochIds")[0].ToString());
                 Console.WriteLine(result.GetProperty("modelInfo").GetProperty("diagnosticsInfo").GetProperty("modelState").GetProperty("trainLosses")[0].ToString());
                 Console.WriteLine(result.GetProperty("modelInfo").GetProperty("diagnosticsInfo").GetProperty("modelState").GetProperty("validationLosses")[0].ToString());

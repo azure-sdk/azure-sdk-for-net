@@ -10,19 +10,19 @@ using System;
 namespace Azure.AI.AnomalyDetector
 {
     /// <summary> Definition of input time series points. </summary>
-    public partial class TimeSeriesPoint
+    public partial class UnivariateTimeSeriesPoint
     {
-        /// <summary> Initializes a new instance of TimeSeriesPoint. </summary>
+        /// <summary> Initializes a new instance of UnivariateTimeSeriesPoint. </summary>
         /// <param name="value"> Measurement of that point. </param>
-        public TimeSeriesPoint(float value)
+        public UnivariateTimeSeriesPoint(float value)
         {
             Value = value;
         }
 
-        /// <summary> Initializes a new instance of TimeSeriesPoint. </summary>
+        /// <summary> Initializes a new instance of UnivariateTimeSeriesPoint. </summary>
         /// <param name="timestamp"> Argument that indicates the time stamp of a data point (ISO8601 format). </param>
         /// <param name="value"> Measurement of that point. </param>
-        internal TimeSeriesPoint(DateTimeOffset? timestamp, float value)
+        internal UnivariateTimeSeriesPoint(DateTimeOffset? timestamp, float value)
         {
             Timestamp = timestamp;
             Value = value;

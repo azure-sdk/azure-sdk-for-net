@@ -10,27 +10,23 @@ using Azure.Core;
 
 namespace Azure.AI.AnomalyDetector
 {
-    public partial class VariableValues : IUtf8JsonSerializable
+    public partial class MultivariateLastDetectionSettings : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
-            writer.WritePropertyName("variable"u8);
-            writer.WriteStringValue(Variable);
-            writer.WritePropertyName("timestamps"u8);
+            writer.WritePropertyName("variables"u8);
             writer.WriteStartArray();
-            foreach (var item in Timestamps)
+            foreach (var item in Variables)
             {
-                writer.WriteStringValue(item);
+                writer.WriteObjectValue(item);
             }
             writer.WriteEndArray();
-            writer.WritePropertyName("values"u8);
-            writer.WriteStartArray();
-            foreach (var item in Values)
+            if (Optional.IsDefined(TopContributorCount))
             {
-                writer.WriteNumberValue(item);
+                writer.WritePropertyName("topContributorCount"u8);
+                writer.WriteNumberValue(TopContributorCount.Value);
             }
-            writer.WriteEndArray();
             writer.WriteEndObject();
         }
 

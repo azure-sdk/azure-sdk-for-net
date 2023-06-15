@@ -22,8 +22,8 @@ namespace Azure.AI.AnomalyDetector
             }
             MultivariateBatchDetectionStatus status = default;
             Optional<IReadOnlyList<ErrorResponse>> errors = default;
-            Optional<IReadOnlyList<VariableState>> variableStates = default;
-            MultivariateBatchDetectionOptions setupInfo = default;
+            Optional<IReadOnlyList<MultivariateVariableState>> variableStates = default;
+            MultivariateBatchDetectionSettings setupInfo = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("status"u8))
@@ -51,17 +51,17 @@ namespace Azure.AI.AnomalyDetector
                     {
                         continue;
                     }
-                    List<VariableState> array = new List<VariableState>();
+                    List<MultivariateVariableState> array = new List<MultivariateVariableState>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(VariableState.DeserializeVariableState(item));
+                        array.Add(MultivariateVariableState.DeserializeMultivariateVariableState(item));
                     }
                     variableStates = array;
                     continue;
                 }
                 if (property.NameEquals("setupInfo"u8))
                 {
-                    setupInfo = MultivariateBatchDetectionOptions.DeserializeMultivariateBatchDetectionOptions(property.Value);
+                    setupInfo = MultivariateBatchDetectionSettings.DeserializeMultivariateBatchDetectionSettings(property.Value);
                     continue;
                 }
             }

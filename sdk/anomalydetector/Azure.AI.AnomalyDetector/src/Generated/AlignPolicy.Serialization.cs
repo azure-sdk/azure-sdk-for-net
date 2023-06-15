@@ -40,8 +40,8 @@ namespace Azure.AI.AnomalyDetector
             {
                 return null;
             }
-            Optional<AlignMode> alignMode = default;
-            Optional<FillNAMethod> fillNAMethod = default;
+            Optional<MultivariateAlignMode> alignMode = default;
+            Optional<MultivariateFillNaMethod> fillNAMethod = default;
             Optional<float> paddingValue = default;
             foreach (var property in element.EnumerateObject())
             {
@@ -51,7 +51,7 @@ namespace Azure.AI.AnomalyDetector
                     {
                         continue;
                     }
-                    alignMode = new AlignMode(property.Value.GetString());
+                    alignMode = new MultivariateAlignMode(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("fillNAMethod"u8))
@@ -60,7 +60,7 @@ namespace Azure.AI.AnomalyDetector
                     {
                         continue;
                     }
-                    fillNAMethod = new FillNAMethod(property.Value.GetString());
+                    fillNAMethod = new MultivariateFillNaMethod(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("paddingValue"u8))

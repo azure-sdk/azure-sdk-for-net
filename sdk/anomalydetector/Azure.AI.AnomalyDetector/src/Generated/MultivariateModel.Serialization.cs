@@ -12,9 +12,9 @@ using Azure.Core;
 
 namespace Azure.AI.AnomalyDetector
 {
-    public partial class AnomalyDetectionModel
+    public partial class MultivariateModel
     {
-        internal static AnomalyDetectionModel DeserializeAnomalyDetectionModel(JsonElement element)
+        internal static MultivariateModel DeserializeMultivariateModel(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
@@ -23,7 +23,7 @@ namespace Azure.AI.AnomalyDetector
             Guid modelId = default;
             DateTimeOffset createdTime = default;
             DateTimeOffset lastUpdatedTime = default;
-            Optional<ModelInfo> modelInfo = default;
+            Optional<MultivariateModelDetails> modelInfo = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("modelId"u8))
@@ -47,19 +47,19 @@ namespace Azure.AI.AnomalyDetector
                     {
                         continue;
                     }
-                    modelInfo = ModelInfo.DeserializeModelInfo(property.Value);
+                    modelInfo = MultivariateModelDetails.DeserializeMultivariateModelDetails(property.Value);
                     continue;
                 }
             }
-            return new AnomalyDetectionModel(modelId, createdTime, lastUpdatedTime, modelInfo.Value);
+            return new MultivariateModel(modelId, createdTime, lastUpdatedTime, modelInfo.Value);
         }
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static AnomalyDetectionModel FromResponse(Response response)
+        internal static MultivariateModel FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content);
-            return DeserializeAnomalyDetectionModel(document.RootElement);
+            return DeserializeMultivariateModel(document.RootElement);
         }
     }
 }

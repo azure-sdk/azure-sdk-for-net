@@ -10,7 +10,7 @@ using Azure.Core;
 
 namespace Azure.AI.AnomalyDetector
 {
-    public partial class TimeSeriesPoint : IUtf8JsonSerializable
+    public partial class UnivariateTimeSeriesPoint : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {

@@ -14,9 +14,9 @@ namespace Azure.AI.AnomalyDetector
     /// Detection request for batch inference. This is an asynchronous inference that
     /// will need another API to get detection results.
     /// </summary>
-    public partial class MultivariateBatchDetectionOptions
+    public partial class MultivariateBatchDetectionSettings
     {
-        /// <summary> Initializes a new instance of MultivariateBatchDetectionOptions. </summary>
+        /// <summary> Initializes a new instance of MultivariateBatchDetectionSettings. </summary>
         /// <param name="dataSource">
         /// Source link to the input data to indicate an accessible Azure Storage URI.
         /// It either points to an Azure Blob Storage folder or points to a CSV file in
@@ -34,7 +34,7 @@ namespace Azure.AI.AnomalyDetector
         /// be in ISO 8601 format.
         /// </param>
         /// <exception cref="ArgumentNullException"> <paramref name="dataSource"/> is null. </exception>
-        public MultivariateBatchDetectionOptions(Uri dataSource, DateTimeOffset startTime, DateTimeOffset endTime)
+        public MultivariateBatchDetectionSettings(Uri dataSource, DateTimeOffset startTime, DateTimeOffset endTime)
         {
             Argument.AssertNotNull(dataSource, nameof(dataSource));
 
@@ -43,7 +43,7 @@ namespace Azure.AI.AnomalyDetector
             EndTime = endTime;
         }
 
-        /// <summary> Initializes a new instance of MultivariateBatchDetectionOptions. </summary>
+        /// <summary> Initializes a new instance of MultivariateBatchDetectionSettings. </summary>
         /// <param name="dataSource">
         /// Source link to the input data to indicate an accessible Azure Storage URI.
         /// It either points to an Azure Blob Storage folder or points to a CSV file in
@@ -61,7 +61,7 @@ namespace Azure.AI.AnomalyDetector
         /// End date/time of data for detection, which should
         /// be in ISO 8601 format.
         /// </param>
-        internal MultivariateBatchDetectionOptions(Uri dataSource, int? topContributorCount, DateTimeOffset startTime, DateTimeOffset endTime)
+        internal MultivariateBatchDetectionSettings(Uri dataSource, int? topContributorCount, DateTimeOffset startTime, DateTimeOffset endTime)
         {
             DataSource = dataSource;
             TopContributorCount = topContributorCount;

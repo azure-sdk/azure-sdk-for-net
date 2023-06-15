@@ -13,22 +13,22 @@ using Azure.Core;
 namespace Azure.AI.AnomalyDetector
 {
     /// <summary> Request of the last detection. </summary>
-    public partial class MultivariateLastDetectionOptions
+    public partial class MultivariateLastDetectionSettings
     {
-        /// <summary> Initializes a new instance of MultivariateLastDetectionOptions. </summary>
+        /// <summary> Initializes a new instance of MultivariateLastDetectionSettings. </summary>
         /// <param name="variables">
         /// Contains the inference data, including the name, time stamps (ISO 8601), and
         /// values of variables.
         /// </param>
         /// <exception cref="ArgumentNullException"> <paramref name="variables"/> is null. </exception>
-        public MultivariateLastDetectionOptions(IEnumerable<VariableValues> variables)
+        public MultivariateLastDetectionSettings(IEnumerable<MultivariateVariableValue> variables)
         {
             Argument.AssertNotNull(variables, nameof(variables));
 
             Variables = variables.ToList();
         }
 
-        /// <summary> Initializes a new instance of MultivariateLastDetectionOptions. </summary>
+        /// <summary> Initializes a new instance of MultivariateLastDetectionSettings. </summary>
         /// <param name="variables">
         /// Contains the inference data, including the name, time stamps (ISO 8601), and
         /// values of variables.
@@ -38,7 +38,7 @@ namespace Azure.AI.AnomalyDetector
         /// variables for one anomalous time stamp in the response. The default is
         /// 10.
         /// </param>
-        internal MultivariateLastDetectionOptions(IList<VariableValues> variables, int? topContributorCount)
+        internal MultivariateLastDetectionSettings(IList<MultivariateVariableValue> variables, int? topContributorCount)
         {
             Variables = variables;
             TopContributorCount = topContributorCount;
@@ -48,7 +48,7 @@ namespace Azure.AI.AnomalyDetector
         /// Contains the inference data, including the name, time stamps (ISO 8601), and
         /// values of variables.
         /// </summary>
-        public IList<VariableValues> Variables { get; }
+        public IList<MultivariateVariableValue> Variables { get; }
         /// <summary>
         /// Number of top contributed
         /// variables for one anomalous time stamp in the response. The default is

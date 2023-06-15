@@ -10,20 +10,20 @@ using System;
 namespace Azure.AI.AnomalyDetector
 {
     /// <summary> Response of getting a model. </summary>
-    public partial class AnomalyDetectionModel
+    public partial class MultivariateModel
     {
-        /// <summary> Initializes a new instance of AnomalyDetectionModel. </summary>
+        /// <summary> Initializes a new instance of MultivariateModel. </summary>
         /// <param name="modelId"> Model identifier. </param>
         /// <param name="createdTime"> Date and time (UTC) when the model was created. </param>
         /// <param name="lastUpdatedTime"> Date and time (UTC) when the model was last updated. </param>
-        internal AnomalyDetectionModel(Guid modelId, DateTimeOffset createdTime, DateTimeOffset lastUpdatedTime)
+        internal MultivariateModel(Guid modelId, DateTimeOffset createdTime, DateTimeOffset lastUpdatedTime)
         {
             ModelId = modelId;
             CreatedTime = createdTime;
             LastUpdatedTime = lastUpdatedTime;
         }
 
-        /// <summary> Initializes a new instance of AnomalyDetectionModel. </summary>
+        /// <summary> Initializes a new instance of MultivariateModel. </summary>
         /// <param name="modelId"> Model identifier. </param>
         /// <param name="createdTime"> Date and time (UTC) when the model was created. </param>
         /// <param name="lastUpdatedTime"> Date and time (UTC) when the model was last updated. </param>
@@ -31,7 +31,7 @@ namespace Azure.AI.AnomalyDetector
         /// Training result of a model, including its status, errors, and diagnostics
         /// information.
         /// </param>
-        internal AnomalyDetectionModel(Guid modelId, DateTimeOffset createdTime, DateTimeOffset lastUpdatedTime, ModelInfo modelInfo)
+        internal MultivariateModel(Guid modelId, DateTimeOffset createdTime, DateTimeOffset lastUpdatedTime, MultivariateModelDetails modelInfo)
         {
             ModelId = modelId;
             CreatedTime = createdTime;
@@ -49,6 +49,6 @@ namespace Azure.AI.AnomalyDetector
         /// Training result of a model, including its status, errors, and diagnostics
         /// information.
         /// </summary>
-        public ModelInfo ModelInfo { get; }
+        public MultivariateModelDetails ModelInfo { get; }
     }
 }

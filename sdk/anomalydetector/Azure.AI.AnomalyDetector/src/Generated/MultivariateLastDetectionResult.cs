@@ -16,21 +16,21 @@ namespace Azure.AI.AnomalyDetector
         /// <summary> Initializes a new instance of MultivariateLastDetectionResult. </summary>
         internal MultivariateLastDetectionResult()
         {
-            VariableStates = new ChangeTrackingList<VariableState>();
+            VariableStates = new ChangeTrackingList<MultivariateVariableState>();
             Results = new ChangeTrackingList<AnomalyState>();
         }
 
         /// <summary> Initializes a new instance of MultivariateLastDetectionResult. </summary>
         /// <param name="variableStates"> Variable status. </param>
         /// <param name="results"> Anomaly status and information. </param>
-        internal MultivariateLastDetectionResult(IReadOnlyList<VariableState> variableStates, IReadOnlyList<AnomalyState> results)
+        internal MultivariateLastDetectionResult(IReadOnlyList<MultivariateVariableState> variableStates, IReadOnlyList<AnomalyState> results)
         {
             VariableStates = variableStates;
             Results = results;
         }
 
         /// <summary> Variable status. </summary>
-        public IReadOnlyList<VariableState> VariableStates { get; }
+        public IReadOnlyList<MultivariateVariableState> VariableStates { get; }
         /// <summary> Anomaly status and information. </summary>
         public IReadOnlyList<AnomalyState> Results { get; }
     }

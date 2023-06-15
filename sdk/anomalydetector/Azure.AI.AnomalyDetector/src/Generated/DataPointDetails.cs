@@ -10,38 +10,38 @@ using Azure.Core;
 
 namespace Azure.AI.AnomalyDetector
 {
-    /// <summary> Detailed information of the anomalous time stamp. </summary>
-    public partial class AnomalyValue
+    /// <summary> Detailed information of the data point. </summary>
+    public partial class DataPointDetails
     {
-        /// <summary> Initializes a new instance of AnomalyValue. </summary>
+        /// <summary> Initializes a new instance of DataPointDetails. </summary>
         /// <param name="isAnomaly"> True if an anomaly is detected at the current time stamp. </param>
         /// <param name="severity">
         /// Indicates the significance of the anomaly. The higher the severity, the more
         /// significant the anomaly is.
         /// </param>
         /// <param name="score"> Raw anomaly score of severity, to help indicate the degree of abnormality. </param>
-        internal AnomalyValue(bool isAnomaly, float severity, float score)
+        internal DataPointDetails(bool isAnomaly, float severity, float score)
         {
             IsAnomaly = isAnomaly;
             Severity = severity;
             Score = score;
-            Interpretation = new ChangeTrackingList<AnomalyInterpretation>();
+            Interpretations = new ChangeTrackingList<AnomalyInterpretation>();
         }
 
-        /// <summary> Initializes a new instance of AnomalyValue. </summary>
+        /// <summary> Initializes a new instance of DataPointDetails. </summary>
         /// <param name="isAnomaly"> True if an anomaly is detected at the current time stamp. </param>
         /// <param name="severity">
         /// Indicates the significance of the anomaly. The higher the severity, the more
         /// significant the anomaly is.
         /// </param>
         /// <param name="score"> Raw anomaly score of severity, to help indicate the degree of abnormality. </param>
-        /// <param name="interpretation"> Interpretation of this anomalous time stamp. </param>
-        internal AnomalyValue(bool isAnomaly, float severity, float score, IReadOnlyList<AnomalyInterpretation> interpretation)
+        /// <param name="interpretations"> Interpretation of this anomalous time stamp. </param>
+        internal DataPointDetails(bool isAnomaly, float severity, float score, IReadOnlyList<AnomalyInterpretation> interpretations)
         {
             IsAnomaly = isAnomaly;
             Severity = severity;
             Score = score;
-            Interpretation = interpretation;
+            Interpretations = interpretations;
         }
 
         /// <summary> True if an anomaly is detected at the current time stamp. </summary>
@@ -54,6 +54,6 @@ namespace Azure.AI.AnomalyDetector
         /// <summary> Raw anomaly score of severity, to help indicate the degree of abnormality. </summary>
         public float Score { get; }
         /// <summary> Interpretation of this anomalous time stamp. </summary>
-        public IReadOnlyList<AnomalyInterpretation> Interpretation { get; }
+        public IReadOnlyList<AnomalyInterpretation> Interpretations { get; }
     }
 }

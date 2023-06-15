@@ -13,22 +13,22 @@ using Azure.Core;
 
 namespace Azure.AI.AnomalyDetector
 {
-    public partial class ModelInfo : IUtf8JsonSerializable
+    public partial class MultivariateModelDetails : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
             writer.WritePropertyName("dataSource"u8);
-            writer.WriteStringValue(DataSource.AbsoluteUri);
+            writer.WriteStringValue(DataSourceUri.AbsoluteUri);
             if (Optional.IsDefined(DataSchema))
             {
                 writer.WritePropertyName("dataSchema"u8);
                 writer.WriteStringValue(DataSchema.Value.ToString());
             }
             writer.WritePropertyName("startTime"u8);
-            writer.WriteStringValue(StartTime, "O");
+            writer.WriteStringValue(StartsOn, "O");
             writer.WritePropertyName("endTime"u8);
-            writer.WriteStringValue(EndTime, "O");
+            writer.WriteStringValue(EndsOn, "O");
             if (Optional.IsDefined(DisplayName))
             {
                 writer.WritePropertyName("displayName"u8);
@@ -47,22 +47,22 @@ namespace Azure.AI.AnomalyDetector
             writer.WriteEndObject();
         }
 
-        internal static ModelInfo DeserializeModelInfo(JsonElement element)
+        internal static MultivariateModelDetails DeserializeMultivariateModelDetails(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
                 return null;
             }
             Uri dataSource = default;
-            Optional<DataSchema> dataSchema = default;
+            Optional<MultivariateDataSchema> dataSchema = default;
             DateTimeOffset startTime = default;
             DateTimeOffset endTime = default;
             Optional<string> displayName = default;
             Optional<int> slidingWindow = default;
             Optional<AlignPolicy> alignPolicy = default;
-            Optional<ModelStatus> status = default;
+            Optional<MultivariateModelStatus> status = default;
             Optional<IReadOnlyList<ErrorResponse>> errors = default;
-            Optional<DiagnosticsInfo> diagnosticsInfo = default;
+            Optional<MultivariateDiagnosticDetails> diagnosticsInfo = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("dataSource"u8))
@@ -76,7 +76,7 @@ namespace Azure.AI.AnomalyDetector
                     {
                         continue;
                     }
-                    dataSchema = new DataSchema(property.Value.GetString());
+                    dataSchema = new MultivariateDataSchema(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("startTime"u8))
@@ -118,7 +118,7 @@ namespace Azure.AI.AnomalyDetector
                     {
                         continue;
                     }
-                    status = new ModelStatus(property.Value.GetString());
+                    status = new MultivariateModelStatus(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("errors"u8))
@@ -141,19 +141,19 @@ namespace Azure.AI.AnomalyDetector
                     {
                         continue;
                     }
-                    diagnosticsInfo = DiagnosticsInfo.DeserializeDiagnosticsInfo(property.Value);
+                    diagnosticsInfo = MultivariateDiagnosticDetails.DeserializeMultivariateDiagnosticDetails(property.Value);
                     continue;
                 }
             }
-            return new ModelInfo(dataSource, Optional.ToNullable(dataSchema), startTime, endTime, displayName.Value, Optional.ToNullable(slidingWindow), alignPolicy.Value, Optional.ToNullable(status), Optional.ToList(errors), diagnosticsInfo.Value);
+            return new MultivariateModelDetails(dataSource, Optional.ToNullable(dataSchema), startTime, endTime, displayName.Value, Optional.ToNullable(slidingWindow), alignPolicy.Value, Optional.ToNullable(status), Optional.ToList(errors), diagnosticsInfo.Value);
         }
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static ModelInfo FromResponse(Response response)
+        internal static MultivariateModelDetails FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content);
-            return DeserializeModelInfo(document.RootElement);
+            return DeserializeMultivariateModelDetails(document.RootElement);
         }
 
         /// <summary> Convert into a Utf8JsonRequestContent. </summary>

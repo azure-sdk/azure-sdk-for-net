@@ -12,9 +12,9 @@ using Azure.Core;
 
 namespace Azure.AI.AnomalyDetector
 {
-    public partial class AnomalyValue
+    public partial class DataPointDetails
     {
-        internal static AnomalyValue DeserializeAnomalyValue(JsonElement element)
+        internal static DataPointDetails DeserializeDataPointDetails(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
@@ -56,15 +56,15 @@ namespace Azure.AI.AnomalyDetector
                     continue;
                 }
             }
-            return new AnomalyValue(isAnomaly, severity, score, Optional.ToList(interpretation));
+            return new DataPointDetails(isAnomaly, severity, score, Optional.ToList(interpretation));
         }
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static AnomalyValue FromResponse(Response response)
+        internal static DataPointDetails FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content);
-            return DeserializeAnomalyValue(document.RootElement);
+            return DeserializeDataPointDetails(document.RootElement);
         }
     }
 }
