@@ -21,8 +21,6 @@ namespace Azure.ResourceManager.VoiceServices
     {
         private ClientDiagnostics _voiceServicesCommunicationsGatewayCommunicationsGatewaysClientDiagnostics;
         private CommunicationsGatewaysRestOperations _voiceServicesCommunicationsGatewayCommunicationsGatewaysRestClient;
-        private ClientDiagnostics _nameAvailabilityClientDiagnostics;
-        private NameAvailabilityRestOperations _nameAvailabilityRestClient;
 
         /// <summary> Initializes a new instance of the <see cref="SubscriptionResourceExtensionClient"/> class for mocking. </summary>
         protected SubscriptionResourceExtensionClient()
@@ -38,13 +36,75 @@ namespace Azure.ResourceManager.VoiceServices
 
         private ClientDiagnostics VoiceServicesCommunicationsGatewayCommunicationsGatewaysClientDiagnostics => _voiceServicesCommunicationsGatewayCommunicationsGatewaysClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.VoiceServices", VoiceServicesCommunicationsGatewayResource.ResourceType.Namespace, Diagnostics);
         private CommunicationsGatewaysRestOperations VoiceServicesCommunicationsGatewayCommunicationsGatewaysRestClient => _voiceServicesCommunicationsGatewayCommunicationsGatewaysRestClient ??= new CommunicationsGatewaysRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(VoiceServicesCommunicationsGatewayResource.ResourceType));
-        private ClientDiagnostics NameAvailabilityClientDiagnostics => _nameAvailabilityClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.VoiceServices", ProviderConstants.DefaultProviderNamespace, Diagnostics);
-        private NameAvailabilityRestOperations NameAvailabilityRestClient => _nameAvailabilityRestClient ??= new NameAvailabilityRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
 
         private string GetApiVersionOrNull(ResourceType resourceType)
         {
             TryGetApiVersion(resourceType, out string apiVersion);
             return apiVersion;
+        }
+
+        /// <summary>
+        /// Implements global CheckNameAvailability operations
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/locations/{location}/providers/Microsoft.VoiceServices/checkNameAvailability</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>CommunicationsGateways_CheckLocal</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="location"> The location name. </param>
+        /// <param name="content"> The CheckAvailability request. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual async Task<Response<VoiceServicesCheckNameAvailabilityResult>> CheckLocalCommunicationsGatewayAsync(AzureLocation location, VoiceServicesCheckNameAvailabilityContent content, CancellationToken cancellationToken = default)
+        {
+            using var scope = VoiceServicesCommunicationsGatewayCommunicationsGatewaysClientDiagnostics.CreateScope("SubscriptionResourceExtensionClient.CheckLocalCommunicationsGateway");
+            scope.Start();
+            try
+            {
+                var response = await VoiceServicesCommunicationsGatewayCommunicationsGatewaysRestClient.CheckLocalAsync(Id.SubscriptionId, location, content, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Implements global CheckNameAvailability operations
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/locations/{location}/providers/Microsoft.VoiceServices/checkNameAvailability</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>CommunicationsGateways_CheckLocal</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="location"> The location name. </param>
+        /// <param name="content"> The CheckAvailability request. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual Response<VoiceServicesCheckNameAvailabilityResult> CheckLocalCommunicationsGateway(AzureLocation location, VoiceServicesCheckNameAvailabilityContent content, CancellationToken cancellationToken = default)
+        {
+            using var scope = VoiceServicesCommunicationsGatewayCommunicationsGatewaysClientDiagnostics.CreateScope("SubscriptionResourceExtensionClient.CheckLocalCommunicationsGateway");
+            scope.Start();
+            try
+            {
+                var response = VoiceServicesCommunicationsGatewayCommunicationsGatewaysRestClient.CheckLocal(Id.SubscriptionId, location, content, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -89,70 +149,6 @@ namespace Azure.ResourceManager.VoiceServices
             HttpMessage FirstPageRequest(int? pageSizeHint) => VoiceServicesCommunicationsGatewayCommunicationsGatewaysRestClient.CreateListBySubscriptionRequest(Id.SubscriptionId);
             HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => VoiceServicesCommunicationsGatewayCommunicationsGatewaysRestClient.CreateListBySubscriptionNextPageRequest(nextLink, Id.SubscriptionId);
             return PageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new VoiceServicesCommunicationsGatewayResource(Client, VoiceServicesCommunicationsGatewayData.DeserializeVoiceServicesCommunicationsGatewayData(e)), VoiceServicesCommunicationsGatewayCommunicationsGatewaysClientDiagnostics, Pipeline, "SubscriptionResourceExtensionClient.GetVoiceServicesCommunicationsGateways", "value", "nextLink", cancellationToken);
-        }
-
-        /// <summary>
-        /// Check whether the resource name is available in the given region.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.VoiceServices/locations/{location}/checkNameAvailability</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>NameAvailability_CheckLocal</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="location"> The location in which uniqueness will be verified. </param>
-        /// <param name="content"> The check availability request body. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual async Task<Response<VoiceServicesCheckNameAvailabilityResult>> CheckVoiceServicesNameAvailabilityAsync(AzureLocation location, VoiceServicesCheckNameAvailabilityContent content, CancellationToken cancellationToken = default)
-        {
-            using var scope = NameAvailabilityClientDiagnostics.CreateScope("SubscriptionResourceExtensionClient.CheckVoiceServicesNameAvailability");
-            scope.Start();
-            try
-            {
-                var response = await NameAvailabilityRestClient.CheckLocalAsync(Id.SubscriptionId, location, content, cancellationToken).ConfigureAwait(false);
-                return response;
-            }
-            catch (Exception e)
-            {
-                scope.Failed(e);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Check whether the resource name is available in the given region.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.VoiceServices/locations/{location}/checkNameAvailability</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>NameAvailability_CheckLocal</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="location"> The location in which uniqueness will be verified. </param>
-        /// <param name="content"> The check availability request body. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual Response<VoiceServicesCheckNameAvailabilityResult> CheckVoiceServicesNameAvailability(AzureLocation location, VoiceServicesCheckNameAvailabilityContent content, CancellationToken cancellationToken = default)
-        {
-            using var scope = NameAvailabilityClientDiagnostics.CreateScope("SubscriptionResourceExtensionClient.CheckVoiceServicesNameAvailability");
-            scope.Start();
-            try
-            {
-                var response = NameAvailabilityRestClient.CheckLocal(Id.SubscriptionId, location, content, cancellationToken);
-                return response;
-            }
-            catch (Exception e)
-            {
-                scope.Failed(e);
-                throw;
-            }
         }
     }
 }

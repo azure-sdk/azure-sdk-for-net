@@ -25,9 +25,9 @@ namespace Azure.ResourceManager.VoiceServices.Models
         private const string OperatorConnectValue = "OperatorConnect";
         private const string TeamsPhoneMobileValue = "TeamsPhoneMobile";
 
-        /// <summary> OperatorConnect. </summary>
+        /// <summary> Operator Connect. </summary>
         public static VoiceServicesCommunicationsPlatform OperatorConnect { get; } = new VoiceServicesCommunicationsPlatform(OperatorConnectValue);
-        /// <summary> TeamsPhoneMobile. </summary>
+        /// <summary> Teams Phone Mobile. </summary>
         public static VoiceServicesCommunicationsPlatform TeamsPhoneMobile { get; } = new VoiceServicesCommunicationsPlatform(TeamsPhoneMobileValue);
         /// <summary> Determines if two <see cref="VoiceServicesCommunicationsPlatform"/> values are the same. </summary>
         public static bool operator ==(VoiceServicesCommunicationsPlatform left, VoiceServicesCommunicationsPlatform right) => left.Equals(right);

@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace Azure.ResourceManager.VoiceServices.Models
 {
-    /// <summary> Possible reasons for a name not being available. </summary>
+    /// <summary> The reason why the given name is not available. </summary>
     public readonly partial struct VoiceServicesNameUnavailableReason : IEquatable<VoiceServicesNameUnavailableReason>
     {
         private readonly string _value;

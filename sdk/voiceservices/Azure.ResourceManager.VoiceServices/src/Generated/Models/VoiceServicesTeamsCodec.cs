@@ -29,17 +29,17 @@ namespace Azure.ResourceManager.VoiceServices.Models
         private const string Silk8Value = "SILK_8";
         private const string Silk16Value = "SILK_16";
 
-        /// <summary> PCMA. </summary>
+        /// <summary> PCMA Codec. </summary>
         public static VoiceServicesTeamsCodec Pcma { get; } = new VoiceServicesTeamsCodec(PcmaValue);
-        /// <summary> PCMU. </summary>
+        /// <summary> PCMU Codec. </summary>
         public static VoiceServicesTeamsCodec Pcmu { get; } = new VoiceServicesTeamsCodec(PcmuValue);
-        /// <summary> G722. </summary>
+        /// <summary> G722 Codec. </summary>
         public static VoiceServicesTeamsCodec G722 { get; } = new VoiceServicesTeamsCodec(G722Value);
-        /// <summary> G722_2. </summary>
+        /// <summary> G722.2 Codec. </summary>
         public static VoiceServicesTeamsCodec G7222 { get; } = new VoiceServicesTeamsCodec(G7222Value);
-        /// <summary> SILK_8. </summary>
+        /// <summary> SILK 8K Codec. </summary>
         public static VoiceServicesTeamsCodec Silk8 { get; } = new VoiceServicesTeamsCodec(Silk8Value);
-        /// <summary> SILK_16. </summary>
+        /// <summary> SILK 16K Codec. </summary>
         public static VoiceServicesTeamsCodec Silk16 { get; } = new VoiceServicesTeamsCodec(Silk16Value);
         /// <summary> Determines if two <see cref="VoiceServicesTeamsCodec"/> values are the same. </summary>
         public static bool operator ==(VoiceServicesTeamsCodec left, VoiceServicesTeamsCodec right) => left.Equals(right);

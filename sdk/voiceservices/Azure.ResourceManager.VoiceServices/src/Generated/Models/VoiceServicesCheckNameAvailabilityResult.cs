@@ -18,7 +18,7 @@ namespace Azure.ResourceManager.VoiceServices.Models
         /// <summary> Initializes a new instance of VoiceServicesCheckNameAvailabilityResult. </summary>
         /// <param name="nameAvailable"> Indicates if the resource name is available. </param>
         /// <param name="reason"> The reason why the given name is not available. </param>
-        /// <param name="message"> Detailed reason why the given name is not available. </param>
+        /// <param name="message"> Detailed reason why the given name is available. </param>
         internal VoiceServicesCheckNameAvailabilityResult(bool? nameAvailable, VoiceServicesNameUnavailableReason? reason, string message)
         {
             NameAvailable = nameAvailable;
@@ -30,7 +30,7 @@ namespace Azure.ResourceManager.VoiceServices.Models
         public bool? NameAvailable { get; }
         /// <summary> The reason why the given name is not available. </summary>
         public VoiceServicesNameUnavailableReason? Reason { get; }
-        /// <summary> Detailed reason why the given name is not available. </summary>
+        /// <summary> Detailed reason why the given name is available. </summary>
         public string Message { get; }
     }
 }
