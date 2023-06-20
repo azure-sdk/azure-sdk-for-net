@@ -81,6 +81,7 @@ namespace Azure.ResourceManager.DataBox
             switch (message.Response.Status)
             {
                 case 200:
+                case 201:
                     {
                         AvailableSkusResult value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
@@ -111,6 +112,7 @@ namespace Azure.ResourceManager.DataBox
             switch (message.Response.Status)
             {
                 case 200:
+                case 201:
                     {
                         AvailableSkusResult value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
@@ -564,6 +566,7 @@ namespace Azure.ResourceManager.DataBox
             switch (message.Response.Status)
             {
                 case 200:
+                case 201:
                     {
                         AvailableSkusResult value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
@@ -596,6 +599,7 @@ namespace Azure.ResourceManager.DataBox
             switch (message.Response.Status)
             {
                 case 200:
+                case 201:
                     {
                         AvailableSkusResult value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
