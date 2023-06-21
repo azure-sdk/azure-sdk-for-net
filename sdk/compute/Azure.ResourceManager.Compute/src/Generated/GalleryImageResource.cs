@@ -143,6 +143,13 @@ namespace Azure.ResourceManager.Compute
             return GetGalleryImageVersions().Get(galleryImageVersionName, expand, cancellationToken);
         }
 
+        /// <summary> Gets an object representing a LatestVersionResource along with the instance operations that can be performed on it in the GalleryImage. </summary>
+        /// <returns> Returns a <see cref="LatestVersionResource" /> object. </returns>
+        public virtual LatestVersionResource GetLatestVersion()
+        {
+            return new LatestVersionResource(Client, Id.AppendChildResource("versionNames", "latest"));
+        }
+
         /// <summary>
         /// Retrieves information about a gallery image definition.
         /// <list type="bullet">
