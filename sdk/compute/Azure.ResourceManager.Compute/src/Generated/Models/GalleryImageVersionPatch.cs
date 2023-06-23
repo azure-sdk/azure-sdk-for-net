@@ -28,6 +28,20 @@ namespace Azure.ResourceManager.Compute.Models
         public GalleryImageVersionStorageProfile StorageProfile { get; set; }
         /// <summary> This is the safety profile of the Gallery Image Version. </summary>
         public GalleryImageVersionSafetyProfile SafetyProfile { get; set; }
+        /// <summary> The security profile of a gallery image version. </summary>
+        internal ImageVersionSecurityProfile SecurityProfile { get; set; }
+        /// <summary> Gets or sets the security uefi settings. </summary>
+        public GalleryImageVersionUefiSettings SecurityUefiSettings
+        {
+            get => SecurityProfile is null ? default : SecurityProfile.UefiSettings;
+            set
+            {
+                if (SecurityProfile is null)
+                    SecurityProfile = new ImageVersionSecurityProfile();
+                SecurityProfile.UefiSettings = value;
+            }
+        }
+
         /// <summary> This is the replication status of the gallery image version. </summary>
         public ReplicationStatus ReplicationStatus { get; }
         /// <summary> Resource tags. </summary>

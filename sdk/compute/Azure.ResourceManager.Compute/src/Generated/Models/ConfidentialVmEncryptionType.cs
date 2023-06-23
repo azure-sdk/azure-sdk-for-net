@@ -25,6 +25,7 @@ namespace Azure.ResourceManager.Compute.Models
         private const string EncryptedVmGuestStateOnlyWithPmkValue = "EncryptedVMGuestStateOnlyWithPmk";
         private const string EncryptedWithPmkValue = "EncryptedWithPmk";
         private const string EncryptedWithCmkValue = "EncryptedWithCmk";
+        private const string NonPersistedVmGuestStateValue = "NonPersistedVMGuestState";
 
         /// <summary> EncryptedVMGuestStateOnlyWithPmk. </summary>
         public static ConfidentialVmEncryptionType EncryptedVmGuestStateOnlyWithPmk { get; } = new ConfidentialVmEncryptionType(EncryptedVmGuestStateOnlyWithPmkValue);
@@ -32,6 +33,8 @@ namespace Azure.ResourceManager.Compute.Models
         public static ConfidentialVmEncryptionType EncryptedWithPmk { get; } = new ConfidentialVmEncryptionType(EncryptedWithPmkValue);
         /// <summary> EncryptedWithCmk. </summary>
         public static ConfidentialVmEncryptionType EncryptedWithCmk { get; } = new ConfidentialVmEncryptionType(EncryptedWithCmkValue);
+        /// <summary> NonPersistedVMGuestState. </summary>
+        public static ConfidentialVmEncryptionType NonPersistedVmGuestState { get; } = new ConfidentialVmEncryptionType(NonPersistedVmGuestStateValue);
         /// <summary> Determines if two <see cref="ConfidentialVmEncryptionType"/> values are the same. </summary>
         public static bool operator ==(ConfidentialVmEncryptionType left, ConfidentialVmEncryptionType right) => left.Equals(right);
         /// <summary> Determines if two <see cref="ConfidentialVmEncryptionType"/> values are not the same. </summary>

@@ -35,13 +35,15 @@ namespace Azure.ResourceManager.Compute
         /// <param name="provisioningState"> The provisioning state, which only appears in the response. </param>
         /// <param name="storageProfile"> This is the storage profile of a Gallery Image Version. </param>
         /// <param name="safetyProfile"> This is the safety profile of the Gallery Image Version. </param>
+        /// <param name="securityProfile"> The security profile of a gallery image version. </param>
         /// <param name="replicationStatus"> This is the replication status of the gallery image version. </param>
-        internal GalleryImageVersionData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, GalleryImageVersionPublishingProfile publishingProfile, GalleryProvisioningState? provisioningState, GalleryImageVersionStorageProfile storageProfile, GalleryImageVersionSafetyProfile safetyProfile, ReplicationStatus replicationStatus) : base(id, name, resourceType, systemData, tags, location)
+        internal GalleryImageVersionData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, GalleryImageVersionPublishingProfile publishingProfile, GalleryProvisioningState? provisioningState, GalleryImageVersionStorageProfile storageProfile, GalleryImageVersionSafetyProfile safetyProfile, ImageVersionSecurityProfile securityProfile, ReplicationStatus replicationStatus) : base(id, name, resourceType, systemData, tags, location)
         {
             PublishingProfile = publishingProfile;
             ProvisioningState = provisioningState;
             StorageProfile = storageProfile;
             SafetyProfile = safetyProfile;
+            SecurityProfile = securityProfile;
             ReplicationStatus = replicationStatus;
         }
 
@@ -53,6 +55,20 @@ namespace Azure.ResourceManager.Compute
         public GalleryImageVersionStorageProfile StorageProfile { get; set; }
         /// <summary> This is the safety profile of the Gallery Image Version. </summary>
         public GalleryImageVersionSafetyProfile SafetyProfile { get; set; }
+        /// <summary> The security profile of a gallery image version. </summary>
+        internal ImageVersionSecurityProfile SecurityProfile { get; set; }
+        /// <summary> Gets or sets the security uefi settings. </summary>
+        public GalleryImageVersionUefiSettings SecurityUefiSettings
+        {
+            get => SecurityProfile is null ? default : SecurityProfile.UefiSettings;
+            set
+            {
+                if (SecurityProfile is null)
+                    SecurityProfile = new ImageVersionSecurityProfile();
+                SecurityProfile.UefiSettings = value;
+            }
+        }
+
         /// <summary> This is the replication status of the gallery image version. </summary>
         public ReplicationStatus ReplicationStatus { get; }
     }
