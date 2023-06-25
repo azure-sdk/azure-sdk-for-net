@@ -28,6 +28,22 @@ namespace Azure.ResourceManager.DeviceProvisioningServices
             writer.WriteObjectValue(Properties);
             writer.WritePropertyName("sku"u8);
             writer.WriteObjectValue(Sku);
+            if (Optional.IsDefined(Identity))
+            {
+                writer.WritePropertyName("identity"u8);
+                var serializeOptions = new JsonSerializerOptions { Converters = { new ManagedServiceIdentityTypeV3Converter() } };
+                JsonSerializer.Serialize(writer, Identity, serializeOptions);
+            }
+            if (Optional.IsDefined(Resourcegroup))
+            {
+                writer.WritePropertyName("resourcegroup"u8);
+                writer.WriteStringValue(Resourcegroup);
+            }
+            if (Optional.IsDefined(Subscriptionid))
+            {
+                writer.WritePropertyName("subscriptionid"u8);
+                writer.WriteStringValue(Subscriptionid);
+            }
             if (Optional.IsCollectionDefined(Tags))
             {
                 writer.WritePropertyName("tags"u8);
@@ -53,6 +69,9 @@ namespace Azure.ResourceManager.DeviceProvisioningServices
             Optional<ETag> etag = default;
             DeviceProvisioningServiceProperties properties = default;
             DeviceProvisioningServicesSkuInfo sku = default;
+            Optional<ManagedServiceIdentity> identity = default;
+            Optional<string> resourcegroup = default;
+            Optional<string> subscriptionid = default;
             Optional<IDictionary<string, string>> tags = default;
             AzureLocation location = default;
             ResourceIdentifier id = default;
@@ -78,6 +97,26 @@ namespace Azure.ResourceManager.DeviceProvisioningServices
                 if (property.NameEquals("sku"u8))
                 {
                     sku = DeviceProvisioningServicesSkuInfo.DeserializeDeviceProvisioningServicesSkuInfo(property.Value);
+                    continue;
+                }
+                if (property.NameEquals("identity"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    var serializeOptions = new JsonSerializerOptions { Converters = { new ManagedServiceIdentityTypeV3Converter() } };
+                    identity = JsonSerializer.Deserialize<ManagedServiceIdentity>(property.Value.GetRawText(), serializeOptions);
+                    continue;
+                }
+                if (property.NameEquals("resourcegroup"u8))
+                {
+                    resourcegroup = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("subscriptionid"u8))
+                {
+                    subscriptionid = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("tags"u8))
@@ -124,7 +163,7 @@ namespace Azure.ResourceManager.DeviceProvisioningServices
                     continue;
                 }
             }
-            return new DeviceProvisioningServiceData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, Optional.ToNullable(etag), properties, sku);
+            return new DeviceProvisioningServiceData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, Optional.ToNullable(etag), properties, sku, identity, resourcegroup.Value, subscriptionid.Value);
         }
     }
 }
