@@ -82,6 +82,11 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Models
                 writer.WritePropertyName("enableDataResidency"u8);
                 writer.WriteBooleanValue(IsDataResidencyEnabled.Value);
             }
+            if (Optional.IsDefined(PortalOperationsHostName))
+            {
+                writer.WritePropertyName("portalOperationsHostName"u8);
+                writer.WriteStringValue(PortalOperationsHostName);
+            }
             writer.WriteEndObject();
         }
 
@@ -103,6 +108,7 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Models
             Optional<string> idScope = default;
             Optional<IList<DeviceProvisioningServicesSharedAccessKey>> authorizationPolicies = default;
             Optional<bool> enableDataResidency = default;
+            Optional<string> portalOperationsHostName = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("state"u8))
@@ -217,8 +223,13 @@ namespace Azure.ResourceManager.DeviceProvisioningServices.Models
                     enableDataResidency = property.Value.GetBoolean();
                     continue;
                 }
+                if (property.NameEquals("portalOperationsHostName"u8))
+                {
+                    portalOperationsHostName = property.Value.GetString();
+                    continue;
+                }
             }
-            return new DeviceProvisioningServiceProperties(Optional.ToNullable(state), Optional.ToNullable(publicNetworkAccess), Optional.ToList(ipFilterRules), Optional.ToList(privateEndpointConnections), provisioningState.Value, Optional.ToList(iotHubs), Optional.ToNullable(allocationPolicy), serviceOperationsHostName.Value, deviceProvisioningHostName.Value, idScope.Value, Optional.ToList(authorizationPolicies), Optional.ToNullable(enableDataResidency));
+            return new DeviceProvisioningServiceProperties(Optional.ToNullable(state), Optional.ToNullable(publicNetworkAccess), Optional.ToList(ipFilterRules), Optional.ToList(privateEndpointConnections), provisioningState.Value, Optional.ToList(iotHubs), Optional.ToNullable(allocationPolicy), serviceOperationsHostName.Value, deviceProvisioningHostName.Value, idScope.Value, Optional.ToList(authorizationPolicies), Optional.ToNullable(enableDataResidency), portalOperationsHostName.Value);
         }
     }
 }
