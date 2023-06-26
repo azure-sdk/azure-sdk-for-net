@@ -33,11 +33,11 @@ namespace Azure.ResourceManager.NotificationHubs
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2017-04-01";
+            _apiVersion = apiVersion ?? "2023-01-01-preview";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
-        internal HttpMessage CreateCheckNotificationHubAvailabilityRequest(string subscriptionId, string resourceGroupName, string namespaceName, NotificationHubAvailabilityContent content)
+        internal HttpMessage CreateCheckNotificationHubAvailabilityRequest(Guid subscriptionId, string resourceGroupName, string namespaceName, NotificationHubAvailabilityContent content)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -63,16 +63,15 @@ namespace Azure.ResourceManager.NotificationHubs
         }
 
         /// <summary> Checks the availability of the given notificationHub in a namespace. </summary>
-        /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
-        /// <param name="resourceGroupName"> The name of the resource group. </param>
-        /// <param name="namespaceName"> The namespace name. </param>
-        /// <param name="content"> The notificationHub name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="namespaceName"> Namespace name. </param>
+        /// <param name="content"> Request content. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="content"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="namespaceName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<NotificationHubAvailabilityResult>> CheckNotificationHubAvailabilityAsync(string subscriptionId, string resourceGroupName, string namespaceName, NotificationHubAvailabilityContent content, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/> or <paramref name="namespaceName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<NotificationHubAvailabilityResult>> CheckNotificationHubAvailabilityAsync(Guid subscriptionId, string resourceGroupName, string namespaceName, NotificationHubAvailabilityContent content, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(namespaceName, nameof(namespaceName));
             Argument.AssertNotNull(content, nameof(content));
@@ -94,16 +93,15 @@ namespace Azure.ResourceManager.NotificationHubs
         }
 
         /// <summary> Checks the availability of the given notificationHub in a namespace. </summary>
-        /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
-        /// <param name="resourceGroupName"> The name of the resource group. </param>
-        /// <param name="namespaceName"> The namespace name. </param>
-        /// <param name="content"> The notificationHub name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="namespaceName"> Namespace name. </param>
+        /// <param name="content"> Request content. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="content"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="namespaceName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<NotificationHubAvailabilityResult> CheckNotificationHubAvailability(string subscriptionId, string resourceGroupName, string namespaceName, NotificationHubAvailabilityContent content, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/> or <paramref name="namespaceName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<NotificationHubAvailabilityResult> CheckNotificationHubAvailability(Guid subscriptionId, string resourceGroupName, string namespaceName, NotificationHubAvailabilityContent content, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(namespaceName, nameof(namespaceName));
             Argument.AssertNotNull(content, nameof(content));
@@ -124,7 +122,89 @@ namespace Azure.ResourceManager.NotificationHubs
             }
         }
 
-        internal HttpMessage CreateCreateOrUpdateRequest(string subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, NotificationHubCreateOrUpdateContent content)
+        internal HttpMessage CreateGetRequest(Guid subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Get;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/subscriptions/", false);
+            uri.AppendPath(subscriptionId, true);
+            uri.AppendPath("/resourceGroups/", false);
+            uri.AppendPath(resourceGroupName, true);
+            uri.AppendPath("/providers/Microsoft.NotificationHubs/namespaces/", false);
+            uri.AppendPath(namespaceName, true);
+            uri.AppendPath("/notificationHubs/", false);
+            uri.AppendPath(notificationHubName, true);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> Gets the notification hub. </summary>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="namespaceName"> Namespace name. </param>
+        /// <param name="notificationHubName"> Notification Hub name. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<NotificationHub>> GetAsync(Guid subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(namespaceName, nameof(namespaceName));
+            Argument.AssertNotNullOrEmpty(notificationHubName, nameof(notificationHubName));
+
+            using var message = CreateGetRequest(subscriptionId, resourceGroupName, namespaceName, notificationHubName);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        NotificationHub value = default;
+                        using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+                        value = NotificationHub.DeserializeNotificationHub(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> Gets the notification hub. </summary>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="namespaceName"> Namespace name. </param>
+        /// <param name="notificationHubName"> Notification Hub name. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<NotificationHub> Get(Guid subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(namespaceName, nameof(namespaceName));
+            Argument.AssertNotNullOrEmpty(notificationHubName, nameof(notificationHubName));
+
+            using var message = CreateGetRequest(subscriptionId, resourceGroupName, namespaceName, notificationHubName);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        NotificationHub value = default;
+                        using var document = JsonDocument.Parse(message.Response.ContentStream);
+                        value = NotificationHub.DeserializeNotificationHub(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        internal HttpMessage CreateCreateOrUpdateRequest(Guid subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, NotificationHub notificationHub)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -143,40 +223,39 @@ namespace Azure.ResourceManager.NotificationHubs
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
             request.Headers.Add("Content-Type", "application/json");
-            var content0 = new Utf8JsonRequestContent();
-            content0.JsonWriter.WriteObjectValue(content);
-            request.Content = content0;
+            var content = new Utf8JsonRequestContent();
+            content.JsonWriter.WriteObjectValue(notificationHub);
+            request.Content = content;
             _userAgent.Apply(message);
             return message;
         }
 
         /// <summary> Creates/Update a NotificationHub in a namespace. </summary>
-        /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
-        /// <param name="resourceGroupName"> The name of the resource group. </param>
-        /// <param name="namespaceName"> The namespace name. </param>
-        /// <param name="notificationHubName"> The notification hub name. </param>
-        /// <param name="content"> Parameters supplied to the create/update a NotificationHub Resource. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="namespaceName"> Namespace name. </param>
+        /// <param name="notificationHubName"> Notification Hub name. </param>
+        /// <param name="notificationHub"> Request content. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/>, <paramref name="notificationHubName"/> or <paramref name="content"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<NotificationHubData>> CreateOrUpdateAsync(string subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, NotificationHubCreateOrUpdateContent content, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/>, <paramref name="notificationHubName"/> or <paramref name="notificationHub"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<NotificationHub>> CreateOrUpdateAsync(Guid subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, NotificationHub notificationHub, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(namespaceName, nameof(namespaceName));
             Argument.AssertNotNullOrEmpty(notificationHubName, nameof(notificationHubName));
-            Argument.AssertNotNull(content, nameof(content));
+            Argument.AssertNotNull(notificationHub, nameof(notificationHub));
 
-            using var message = CreateCreateOrUpdateRequest(subscriptionId, resourceGroupName, namespaceName, notificationHubName, content);
+            using var message = CreateCreateOrUpdateRequest(subscriptionId, resourceGroupName, namespaceName, notificationHubName, notificationHub);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
                 case 200:
                 case 201:
                     {
-                        NotificationHubData value = default;
+                        NotificationHub value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = NotificationHubData.DeserializeNotificationHubData(document.RootElement);
+                        value = NotificationHub.DeserializeNotificationHub(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -185,32 +264,31 @@ namespace Azure.ResourceManager.NotificationHubs
         }
 
         /// <summary> Creates/Update a NotificationHub in a namespace. </summary>
-        /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
-        /// <param name="resourceGroupName"> The name of the resource group. </param>
-        /// <param name="namespaceName"> The namespace name. </param>
-        /// <param name="notificationHubName"> The notification hub name. </param>
-        /// <param name="content"> Parameters supplied to the create/update a NotificationHub Resource. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="namespaceName"> Namespace name. </param>
+        /// <param name="notificationHubName"> Notification Hub name. </param>
+        /// <param name="notificationHub"> Request content. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/>, <paramref name="notificationHubName"/> or <paramref name="content"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<NotificationHubData> CreateOrUpdate(string subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, NotificationHubCreateOrUpdateContent content, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/>, <paramref name="notificationHubName"/> or <paramref name="notificationHub"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<NotificationHub> CreateOrUpdate(Guid subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, NotificationHub notificationHub, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(namespaceName, nameof(namespaceName));
             Argument.AssertNotNullOrEmpty(notificationHubName, nameof(notificationHubName));
-            Argument.AssertNotNull(content, nameof(content));
+            Argument.AssertNotNull(notificationHub, nameof(notificationHub));
 
-            using var message = CreateCreateOrUpdateRequest(subscriptionId, resourceGroupName, namespaceName, notificationHubName, content);
+            using var message = CreateCreateOrUpdateRequest(subscriptionId, resourceGroupName, namespaceName, notificationHubName, notificationHub);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
                 case 200:
                 case 201:
                     {
-                        NotificationHubData value = default;
+                        NotificationHub value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = NotificationHubData.DeserializeNotificationHubData(document.RootElement);
+                        value = NotificationHub.DeserializeNotificationHub(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -218,7 +296,7 @@ namespace Azure.ResourceManager.NotificationHubs
             }
         }
 
-        internal HttpMessage CreatePatchRequest(string subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, NotificationHubPatch patch)
+        internal HttpMessage CreateUpdateRequest(Guid subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, NotificationHubPatchContent content)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -237,39 +315,38 @@ namespace Azure.ResourceManager.NotificationHubs
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
             request.Headers.Add("Content-Type", "application/json");
-            var content = new Utf8JsonRequestContent();
-            content.JsonWriter.WriteObjectValue(patch);
-            request.Content = content;
+            var content0 = new Utf8JsonRequestContent();
+            content0.JsonWriter.WriteObjectValue(content);
+            request.Content = content0;
             _userAgent.Apply(message);
             return message;
         }
 
         /// <summary> Patch a NotificationHub in a namespace. </summary>
-        /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
-        /// <param name="resourceGroupName"> The name of the resource group. </param>
-        /// <param name="namespaceName"> The namespace name. </param>
-        /// <param name="notificationHubName"> The notification hub name. </param>
-        /// <param name="patch"> Parameters supplied to patch a NotificationHub Resource. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="namespaceName"> Namespace name. </param>
+        /// <param name="notificationHubName"> Notification Hub name. </param>
+        /// <param name="content"> Request content. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/>, <paramref name="notificationHubName"/> or <paramref name="patch"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<NotificationHubData>> PatchAsync(string subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, NotificationHubPatch patch, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/>, <paramref name="notificationHubName"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<NotificationHub>> UpdateAsync(Guid subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, NotificationHubPatchContent content, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(namespaceName, nameof(namespaceName));
             Argument.AssertNotNullOrEmpty(notificationHubName, nameof(notificationHubName));
-            Argument.AssertNotNull(patch, nameof(patch));
+            Argument.AssertNotNull(content, nameof(content));
 
-            using var message = CreatePatchRequest(subscriptionId, resourceGroupName, namespaceName, notificationHubName, patch);
+            using var message = CreateUpdateRequest(subscriptionId, resourceGroupName, namespaceName, notificationHubName, content);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
                 case 200:
                     {
-                        NotificationHubData value = default;
+                        NotificationHub value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = NotificationHubData.DeserializeNotificationHubData(document.RootElement);
+                        value = NotificationHub.DeserializeNotificationHub(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -278,31 +355,30 @@ namespace Azure.ResourceManager.NotificationHubs
         }
 
         /// <summary> Patch a NotificationHub in a namespace. </summary>
-        /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
-        /// <param name="resourceGroupName"> The name of the resource group. </param>
-        /// <param name="namespaceName"> The namespace name. </param>
-        /// <param name="notificationHubName"> The notification hub name. </param>
-        /// <param name="patch"> Parameters supplied to patch a NotificationHub Resource. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="namespaceName"> Namespace name. </param>
+        /// <param name="notificationHubName"> Notification Hub name. </param>
+        /// <param name="content"> Request content. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/>, <paramref name="notificationHubName"/> or <paramref name="patch"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<NotificationHubData> Patch(string subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, NotificationHubPatch patch, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/>, <paramref name="notificationHubName"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<NotificationHub> Update(Guid subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, NotificationHubPatchContent content, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(namespaceName, nameof(namespaceName));
             Argument.AssertNotNullOrEmpty(notificationHubName, nameof(notificationHubName));
-            Argument.AssertNotNull(patch, nameof(patch));
+            Argument.AssertNotNull(content, nameof(content));
 
-            using var message = CreatePatchRequest(subscriptionId, resourceGroupName, namespaceName, notificationHubName, patch);
+            using var message = CreateUpdateRequest(subscriptionId, resourceGroupName, namespaceName, notificationHubName, content);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
                 case 200:
                     {
-                        NotificationHubData value = default;
+                        NotificationHub value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = NotificationHubData.DeserializeNotificationHubData(document.RootElement);
+                        value = NotificationHub.DeserializeNotificationHub(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -310,84 +386,11 @@ namespace Azure.ResourceManager.NotificationHubs
             }
         }
 
-        internal HttpMessage CreateDeleteRequest(string subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName)
+        internal HttpMessage CreateDeleteRequest(Guid subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
             request.Method = RequestMethod.Delete;
-            var uri = new RawRequestUriBuilder();
-            uri.Reset(_endpoint);
-            uri.AppendPath("/subscriptions/", false);
-            uri.AppendPath(subscriptionId, true);
-            uri.AppendPath("/resourceGroups/", false);
-            uri.AppendPath(resourceGroupName, true);
-            uri.AppendPath("/providers/Microsoft.NotificationHubs/namespaces/", false);
-            uri.AppendPath(namespaceName, true);
-            uri.AppendPath("/notificationHubs/", false);
-            uri.AppendPath(notificationHubName, true);
-            uri.AppendQuery("api-version", _apiVersion, true);
-            request.Uri = uri;
-            _userAgent.Apply(message);
-            return message;
-        }
-
-        /// <summary> Deletes a notification hub associated with a namespace. </summary>
-        /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
-        /// <param name="resourceGroupName"> The name of the resource group. </param>
-        /// <param name="namespaceName"> The namespace name. </param>
-        /// <param name="notificationHubName"> The notification hub name. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response> DeleteAsync(string subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(namespaceName, nameof(namespaceName));
-            Argument.AssertNotNullOrEmpty(notificationHubName, nameof(notificationHubName));
-
-            using var message = CreateDeleteRequest(subscriptionId, resourceGroupName, namespaceName, notificationHubName);
-            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
-            switch (message.Response.Status)
-            {
-                case 200:
-                    return message.Response;
-                default:
-                    throw new RequestFailedException(message.Response);
-            }
-        }
-
-        /// <summary> Deletes a notification hub associated with a namespace. </summary>
-        /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
-        /// <param name="resourceGroupName"> The name of the resource group. </param>
-        /// <param name="namespaceName"> The namespace name. </param>
-        /// <param name="notificationHubName"> The notification hub name. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response Delete(string subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(namespaceName, nameof(namespaceName));
-            Argument.AssertNotNullOrEmpty(notificationHubName, nameof(notificationHubName));
-
-            using var message = CreateDeleteRequest(subscriptionId, resourceGroupName, namespaceName, notificationHubName);
-            _pipeline.Send(message, cancellationToken);
-            switch (message.Response.Status)
-            {
-                case 200:
-                    return message.Response;
-                default:
-                    throw new RequestFailedException(message.Response);
-            }
-        }
-
-        internal HttpMessage CreateGetRequest(string subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName)
-        {
-            var message = _pipeline.CreateMessage();
-            var request = message.Request;
-            request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
             uri.AppendPath("/subscriptions/", false);
@@ -405,73 +408,148 @@ namespace Azure.ResourceManager.NotificationHubs
             return message;
         }
 
-        /// <summary> Lists the notification hubs associated with a namespace. </summary>
-        /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
-        /// <param name="resourceGroupName"> The name of the resource group. </param>
-        /// <param name="namespaceName"> The namespace name. </param>
-        /// <param name="notificationHubName"> The notification hub name. </param>
+        /// <summary> Deletes a notification hub associated with a namespace. </summary>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="namespaceName"> Namespace name. </param>
+        /// <param name="notificationHubName"> Notification Hub name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<NotificationHubData>> GetAsync(string subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response> DeleteAsync(Guid subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(namespaceName, nameof(namespaceName));
             Argument.AssertNotNullOrEmpty(notificationHubName, nameof(notificationHubName));
 
-            using var message = CreateGetRequest(subscriptionId, resourceGroupName, namespaceName, notificationHubName);
+            using var message = CreateDeleteRequest(subscriptionId, resourceGroupName, namespaceName, notificationHubName);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 200:
+                case 204:
+                    return message.Response;
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> Deletes a notification hub associated with a namespace. </summary>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="namespaceName"> Namespace name. </param>
+        /// <param name="notificationHubName"> Notification Hub name. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response Delete(Guid subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(namespaceName, nameof(namespaceName));
+            Argument.AssertNotNullOrEmpty(notificationHubName, nameof(notificationHubName));
+
+            using var message = CreateDeleteRequest(subscriptionId, resourceGroupName, namespaceName, notificationHubName);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 200:
+                case 204:
+                    return message.Response;
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        internal HttpMessage CreateListRequest(Guid subscriptionId, string resourceGroupName, string namespaceName, string skipToken, int? top)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Get;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/subscriptions/", false);
+            uri.AppendPath(subscriptionId, true);
+            uri.AppendPath("/resourceGroups/", false);
+            uri.AppendPath(resourceGroupName, true);
+            uri.AppendPath("/providers/Microsoft.NotificationHubs/namespaces/", false);
+            uri.AppendPath(namespaceName, true);
+            uri.AppendPath("/notificationHubs", false);
+            if (skipToken != null)
+            {
+                uri.AppendQuery("$skipToken", skipToken, true);
+            }
+            if (top != null)
+            {
+                uri.AppendQuery("$top", top.Value, true);
+            }
+            uri.AppendQuery("api-version", _apiVersion, true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> Lists the notification hubs associated with a namespace. </summary>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="namespaceName"> Namespace name. </param>
+        /// <param name="skipToken"> Continuation token. </param>
+        /// <param name="top"> Page size. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="namespaceName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/> or <paramref name="namespaceName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<NotificationHubListResult>> ListAsync(Guid subscriptionId, string resourceGroupName, string namespaceName, string skipToken = null, int? top = null, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(namespaceName, nameof(namespaceName));
+
+            using var message = CreateListRequest(subscriptionId, resourceGroupName, namespaceName, skipToken, top);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
                 case 200:
                     {
-                        NotificationHubData value = default;
+                        NotificationHubListResult value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = NotificationHubData.DeserializeNotificationHubData(document.RootElement);
+                        value = NotificationHubListResult.DeserializeNotificationHubListResult(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
-                case 404:
-                    return Response.FromValue((NotificationHubData)null, message.Response);
                 default:
                     throw new RequestFailedException(message.Response);
             }
         }
 
         /// <summary> Lists the notification hubs associated with a namespace. </summary>
-        /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
-        /// <param name="resourceGroupName"> The name of the resource group. </param>
-        /// <param name="namespaceName"> The namespace name. </param>
-        /// <param name="notificationHubName"> The notification hub name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="namespaceName"> Namespace name. </param>
+        /// <param name="skipToken"> Continuation token. </param>
+        /// <param name="top"> Page size. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<NotificationHubData> Get(string subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="namespaceName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/> or <paramref name="namespaceName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<NotificationHubListResult> List(Guid subscriptionId, string resourceGroupName, string namespaceName, string skipToken = null, int? top = null, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(namespaceName, nameof(namespaceName));
-            Argument.AssertNotNullOrEmpty(notificationHubName, nameof(notificationHubName));
 
-            using var message = CreateGetRequest(subscriptionId, resourceGroupName, namespaceName, notificationHubName);
+            using var message = CreateListRequest(subscriptionId, resourceGroupName, namespaceName, skipToken, top);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
                 case 200:
                     {
-                        NotificationHubData value = default;
+                        NotificationHubListResult value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = NotificationHubData.DeserializeNotificationHubData(document.RootElement);
+                        value = NotificationHubListResult.DeserializeNotificationHubListResult(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
-                case 404:
-                    return Response.FromValue((NotificationHubData)null, message.Response);
                 default:
                     throw new RequestFailedException(message.Response);
             }
         }
 
-        internal HttpMessage CreateDebugSendRequest(string subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, BinaryData anyObject)
+        internal HttpMessage CreateDebugSendRequest(Guid subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -490,42 +568,29 @@ namespace Azure.ResourceManager.NotificationHubs
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
-            if (anyObject != null)
-            {
-                request.Headers.Add("Content-Type", "application/json");
-                var content = new Utf8JsonRequestContent();
-#if NET6_0_OR_GREATER
-				content.JsonWriter.WriteRawValue(anyObject);
-#else
-                JsonSerializer.Serialize(content.JsonWriter, JsonDocument.Parse(anyObject.ToString()).RootElement);
-#endif
-                request.Content = content;
-            }
             _userAgent.Apply(message);
             return message;
         }
 
-        /// <summary> test send a push notification. </summary>
-        /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
-        /// <param name="resourceGroupName"> The name of the resource group. </param>
-        /// <param name="namespaceName"> The namespace name. </param>
-        /// <param name="notificationHubName"> The notification hub name. </param>
-        /// <param name="anyObject"> Debug send parameters. </param>
+        /// <summary> Test send a push notification. </summary>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="namespaceName"> Namespace name. </param>
+        /// <param name="notificationHubName"> Notification Hub name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<NotificationHubTestSendResult>> DebugSendAsync(string subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, BinaryData anyObject = null, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<NotificationHubTestSendResult>> DebugSendAsync(Guid subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(namespaceName, nameof(namespaceName));
             Argument.AssertNotNullOrEmpty(notificationHubName, nameof(notificationHubName));
 
-            using var message = CreateDebugSendRequest(subscriptionId, resourceGroupName, namespaceName, notificationHubName, anyObject);
+            using var message = CreateDebugSendRequest(subscriptionId, resourceGroupName, namespaceName, notificationHubName);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
-                case 201:
+                case 200:
                     {
                         NotificationHubTestSendResult value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
@@ -537,27 +602,25 @@ namespace Azure.ResourceManager.NotificationHubs
             }
         }
 
-        /// <summary> test send a push notification. </summary>
-        /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
-        /// <param name="resourceGroupName"> The name of the resource group. </param>
-        /// <param name="namespaceName"> The namespace name. </param>
-        /// <param name="notificationHubName"> The notification hub name. </param>
-        /// <param name="anyObject"> Debug send parameters. </param>
+        /// <summary> Test send a push notification. </summary>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="namespaceName"> Namespace name. </param>
+        /// <param name="notificationHubName"> Notification Hub name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<NotificationHubTestSendResult> DebugSend(string subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, BinaryData anyObject = null, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<NotificationHubTestSendResult> DebugSend(Guid subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(namespaceName, nameof(namespaceName));
             Argument.AssertNotNullOrEmpty(notificationHubName, nameof(notificationHubName));
 
-            using var message = CreateDebugSendRequest(subscriptionId, resourceGroupName, namespaceName, notificationHubName, anyObject);
+            using var message = CreateDebugSendRequest(subscriptionId, resourceGroupName, namespaceName, notificationHubName);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
-                case 201:
+                case 200:
                     {
                         NotificationHubTestSendResult value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
@@ -569,7 +632,7 @@ namespace Azure.ResourceManager.NotificationHubs
             }
         }
 
-        internal HttpMessage CreateCreateOrUpdateAuthorizationRuleRequest(string subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, string authorizationRuleName, SharedAccessAuthorizationRuleCreateOrUpdateContent content)
+        internal HttpMessage CreateCreateOrUpdateAuthorizationRuleRequest(Guid subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, string authorizationRuleName, NotificationHubAuthorizationRule notificationHubAuthorizationRule)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -584,47 +647,47 @@ namespace Azure.ResourceManager.NotificationHubs
             uri.AppendPath(namespaceName, true);
             uri.AppendPath("/notificationHubs/", false);
             uri.AppendPath(notificationHubName, true);
-            uri.AppendPath("/AuthorizationRules/", false);
+            uri.AppendPath("/authorizationRules/", false);
             uri.AppendPath(authorizationRuleName, true);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
             request.Headers.Add("Content-Type", "application/json");
-            var content0 = new Utf8JsonRequestContent();
-            content0.JsonWriter.WriteObjectValue(content);
-            request.Content = content0;
+            var content = new Utf8JsonRequestContent();
+            content.JsonWriter.WriteObjectValue(notificationHubAuthorizationRule);
+            request.Content = content;
             _userAgent.Apply(message);
             return message;
         }
 
         /// <summary> Creates/Updates an authorization rule for a NotificationHub. </summary>
-        /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
-        /// <param name="resourceGroupName"> The name of the resource group. </param>
-        /// <param name="namespaceName"> The namespace name. </param>
-        /// <param name="notificationHubName"> The notification hub name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="namespaceName"> Namespace name. </param>
+        /// <param name="notificationHubName"> Notification Hub name. </param>
         /// <param name="authorizationRuleName"> Authorization Rule Name. </param>
-        /// <param name="content"> The shared access authorization rule. </param>
+        /// <param name="notificationHubAuthorizationRule"> Request content. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/>, <paramref name="notificationHubName"/>, <paramref name="authorizationRuleName"/> or <paramref name="content"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/>, <paramref name="notificationHubName"/> or <paramref name="authorizationRuleName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<NotificationHubAuthorizationRuleData>> CreateOrUpdateAuthorizationRuleAsync(string subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, string authorizationRuleName, SharedAccessAuthorizationRuleCreateOrUpdateContent content, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/>, <paramref name="notificationHubName"/>, <paramref name="authorizationRuleName"/> or <paramref name="notificationHubAuthorizationRule"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/>, <paramref name="notificationHubName"/> or <paramref name="authorizationRuleName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<NotificationHubAuthorizationRule>> CreateOrUpdateAuthorizationRuleAsync(Guid subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, string authorizationRuleName, NotificationHubAuthorizationRule notificationHubAuthorizationRule, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(namespaceName, nameof(namespaceName));
             Argument.AssertNotNullOrEmpty(notificationHubName, nameof(notificationHubName));
             Argument.AssertNotNullOrEmpty(authorizationRuleName, nameof(authorizationRuleName));
-            Argument.AssertNotNull(content, nameof(content));
+            Argument.AssertNotNull(notificationHubAuthorizationRule, nameof(notificationHubAuthorizationRule));
 
-            using var message = CreateCreateOrUpdateAuthorizationRuleRequest(subscriptionId, resourceGroupName, namespaceName, notificationHubName, authorizationRuleName, content);
+            using var message = CreateCreateOrUpdateAuthorizationRuleRequest(subscriptionId, resourceGroupName, namespaceName, notificationHubName, authorizationRuleName, notificationHubAuthorizationRule);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
                 case 200:
+                case 201:
                     {
-                        NotificationHubAuthorizationRuleData value = default;
+                        NotificationHubAuthorizationRule value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = NotificationHubAuthorizationRuleData.DeserializeNotificationHubAuthorizationRuleData(document.RootElement);
+                        value = NotificationHubAuthorizationRule.DeserializeNotificationHubAuthorizationRule(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -633,33 +696,33 @@ namespace Azure.ResourceManager.NotificationHubs
         }
 
         /// <summary> Creates/Updates an authorization rule for a NotificationHub. </summary>
-        /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
-        /// <param name="resourceGroupName"> The name of the resource group. </param>
-        /// <param name="namespaceName"> The namespace name. </param>
-        /// <param name="notificationHubName"> The notification hub name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="namespaceName"> Namespace name. </param>
+        /// <param name="notificationHubName"> Notification Hub name. </param>
         /// <param name="authorizationRuleName"> Authorization Rule Name. </param>
-        /// <param name="content"> The shared access authorization rule. </param>
+        /// <param name="notificationHubAuthorizationRule"> Request content. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/>, <paramref name="notificationHubName"/>, <paramref name="authorizationRuleName"/> or <paramref name="content"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/>, <paramref name="notificationHubName"/> or <paramref name="authorizationRuleName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<NotificationHubAuthorizationRuleData> CreateOrUpdateAuthorizationRule(string subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, string authorizationRuleName, SharedAccessAuthorizationRuleCreateOrUpdateContent content, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/>, <paramref name="notificationHubName"/>, <paramref name="authorizationRuleName"/> or <paramref name="notificationHubAuthorizationRule"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/>, <paramref name="notificationHubName"/> or <paramref name="authorizationRuleName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<NotificationHubAuthorizationRule> CreateOrUpdateAuthorizationRule(Guid subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, string authorizationRuleName, NotificationHubAuthorizationRule notificationHubAuthorizationRule, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(namespaceName, nameof(namespaceName));
             Argument.AssertNotNullOrEmpty(notificationHubName, nameof(notificationHubName));
             Argument.AssertNotNullOrEmpty(authorizationRuleName, nameof(authorizationRuleName));
-            Argument.AssertNotNull(content, nameof(content));
+            Argument.AssertNotNull(notificationHubAuthorizationRule, nameof(notificationHubAuthorizationRule));
 
-            using var message = CreateCreateOrUpdateAuthorizationRuleRequest(subscriptionId, resourceGroupName, namespaceName, notificationHubName, authorizationRuleName, content);
+            using var message = CreateCreateOrUpdateAuthorizationRuleRequest(subscriptionId, resourceGroupName, namespaceName, notificationHubName, authorizationRuleName, notificationHubAuthorizationRule);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
                 case 200:
+                case 201:
                     {
-                        NotificationHubAuthorizationRuleData value = default;
+                        NotificationHubAuthorizationRule value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = NotificationHubAuthorizationRuleData.DeserializeNotificationHubAuthorizationRuleData(document.RootElement);
+                        value = NotificationHubAuthorizationRule.DeserializeNotificationHubAuthorizationRule(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -667,7 +730,7 @@ namespace Azure.ResourceManager.NotificationHubs
             }
         }
 
-        internal HttpMessage CreateDeleteAuthorizationRuleRequest(string subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, string authorizationRuleName)
+        internal HttpMessage CreateDeleteAuthorizationRuleRequest(Guid subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, string authorizationRuleName)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -682,26 +745,26 @@ namespace Azure.ResourceManager.NotificationHubs
             uri.AppendPath(namespaceName, true);
             uri.AppendPath("/notificationHubs/", false);
             uri.AppendPath(notificationHubName, true);
-            uri.AppendPath("/AuthorizationRules/", false);
+            uri.AppendPath("/authorizationRules/", false);
             uri.AppendPath(authorizationRuleName, true);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
             _userAgent.Apply(message);
             return message;
         }
 
         /// <summary> Deletes a notificationHub authorization rule. </summary>
-        /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
-        /// <param name="resourceGroupName"> The name of the resource group. </param>
-        /// <param name="namespaceName"> The namespace name. </param>
-        /// <param name="notificationHubName"> The notification hub name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="namespaceName"> Namespace name. </param>
+        /// <param name="notificationHubName"> Notification Hub name. </param>
         /// <param name="authorizationRuleName"> Authorization Rule Name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/>, <paramref name="notificationHubName"/> or <paramref name="authorizationRuleName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/>, <paramref name="notificationHubName"/> or <paramref name="authorizationRuleName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response> DeleteAuthorizationRuleAsync(string subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, string authorizationRuleName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/>, <paramref name="notificationHubName"/> or <paramref name="authorizationRuleName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/>, <paramref name="notificationHubName"/> or <paramref name="authorizationRuleName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response> DeleteAuthorizationRuleAsync(Guid subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, string authorizationRuleName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(namespaceName, nameof(namespaceName));
             Argument.AssertNotNullOrEmpty(notificationHubName, nameof(notificationHubName));
@@ -720,17 +783,16 @@ namespace Azure.ResourceManager.NotificationHubs
         }
 
         /// <summary> Deletes a notificationHub authorization rule. </summary>
-        /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
-        /// <param name="resourceGroupName"> The name of the resource group. </param>
-        /// <param name="namespaceName"> The namespace name. </param>
-        /// <param name="notificationHubName"> The notification hub name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="namespaceName"> Namespace name. </param>
+        /// <param name="notificationHubName"> Notification Hub name. </param>
         /// <param name="authorizationRuleName"> Authorization Rule Name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/>, <paramref name="notificationHubName"/> or <paramref name="authorizationRuleName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/>, <paramref name="notificationHubName"/> or <paramref name="authorizationRuleName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response DeleteAuthorizationRule(string subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, string authorizationRuleName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/>, <paramref name="notificationHubName"/> or <paramref name="authorizationRuleName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/>, <paramref name="notificationHubName"/> or <paramref name="authorizationRuleName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response DeleteAuthorizationRule(Guid subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, string authorizationRuleName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(namespaceName, nameof(namespaceName));
             Argument.AssertNotNullOrEmpty(notificationHubName, nameof(notificationHubName));
@@ -748,7 +810,7 @@ namespace Azure.ResourceManager.NotificationHubs
             }
         }
 
-        internal HttpMessage CreateGetAuthorizationRuleRequest(string subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, string authorizationRuleName)
+        internal HttpMessage CreateGetAuthorizationRuleRequest(Guid subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, string authorizationRuleName)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -763,7 +825,7 @@ namespace Azure.ResourceManager.NotificationHubs
             uri.AppendPath(namespaceName, true);
             uri.AppendPath("/notificationHubs/", false);
             uri.AppendPath(notificationHubName, true);
-            uri.AppendPath("/AuthorizationRules/", false);
+            uri.AppendPath("/authorizationRules/", false);
             uri.AppendPath(authorizationRuleName, true);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
@@ -773,17 +835,16 @@ namespace Azure.ResourceManager.NotificationHubs
         }
 
         /// <summary> Gets an authorization rule for a NotificationHub by name. </summary>
-        /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
-        /// <param name="resourceGroupName"> The name of the resource group. </param>
-        /// <param name="namespaceName"> The namespace name. </param>
-        /// <param name="notificationHubName"> The notification hub name. </param>
-        /// <param name="authorizationRuleName"> authorization rule name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="namespaceName"> Namespace name. </param>
+        /// <param name="notificationHubName"> Notification Hub name. </param>
+        /// <param name="authorizationRuleName"> Authorization Rule Name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/>, <paramref name="notificationHubName"/> or <paramref name="authorizationRuleName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/>, <paramref name="notificationHubName"/> or <paramref name="authorizationRuleName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<NotificationHubAuthorizationRuleData>> GetAuthorizationRuleAsync(string subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, string authorizationRuleName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/>, <paramref name="notificationHubName"/> or <paramref name="authorizationRuleName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/>, <paramref name="notificationHubName"/> or <paramref name="authorizationRuleName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<NotificationHubAuthorizationRule>> GetAuthorizationRuleAsync(Guid subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, string authorizationRuleName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(namespaceName, nameof(namespaceName));
             Argument.AssertNotNullOrEmpty(notificationHubName, nameof(notificationHubName));
@@ -795,30 +856,27 @@ namespace Azure.ResourceManager.NotificationHubs
             {
                 case 200:
                     {
-                        NotificationHubAuthorizationRuleData value = default;
+                        NotificationHubAuthorizationRule value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = NotificationHubAuthorizationRuleData.DeserializeNotificationHubAuthorizationRuleData(document.RootElement);
+                        value = NotificationHubAuthorizationRule.DeserializeNotificationHubAuthorizationRule(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
-                case 404:
-                    return Response.FromValue((NotificationHubAuthorizationRuleData)null, message.Response);
                 default:
                     throw new RequestFailedException(message.Response);
             }
         }
 
         /// <summary> Gets an authorization rule for a NotificationHub by name. </summary>
-        /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
-        /// <param name="resourceGroupName"> The name of the resource group. </param>
-        /// <param name="namespaceName"> The namespace name. </param>
-        /// <param name="notificationHubName"> The notification hub name. </param>
-        /// <param name="authorizationRuleName"> authorization rule name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="namespaceName"> Namespace name. </param>
+        /// <param name="notificationHubName"> Notification Hub name. </param>
+        /// <param name="authorizationRuleName"> Authorization Rule Name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/>, <paramref name="notificationHubName"/> or <paramref name="authorizationRuleName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/>, <paramref name="notificationHubName"/> or <paramref name="authorizationRuleName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<NotificationHubAuthorizationRuleData> GetAuthorizationRule(string subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, string authorizationRuleName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/>, <paramref name="notificationHubName"/> or <paramref name="authorizationRuleName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/>, <paramref name="notificationHubName"/> or <paramref name="authorizationRuleName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<NotificationHubAuthorizationRule> GetAuthorizationRule(Guid subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, string authorizationRuleName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(namespaceName, nameof(namespaceName));
             Argument.AssertNotNullOrEmpty(notificationHubName, nameof(notificationHubName));
@@ -830,61 +888,9 @@ namespace Azure.ResourceManager.NotificationHubs
             {
                 case 200:
                     {
-                        NotificationHubAuthorizationRuleData value = default;
+                        NotificationHubAuthorizationRule value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = NotificationHubAuthorizationRuleData.DeserializeNotificationHubAuthorizationRuleData(document.RootElement);
-                        return Response.FromValue(value, message.Response);
-                    }
-                case 404:
-                    return Response.FromValue((NotificationHubAuthorizationRuleData)null, message.Response);
-                default:
-                    throw new RequestFailedException(message.Response);
-            }
-        }
-
-        internal HttpMessage CreateListRequest(string subscriptionId, string resourceGroupName, string namespaceName)
-        {
-            var message = _pipeline.CreateMessage();
-            var request = message.Request;
-            request.Method = RequestMethod.Get;
-            var uri = new RawRequestUriBuilder();
-            uri.Reset(_endpoint);
-            uri.AppendPath("/subscriptions/", false);
-            uri.AppendPath(subscriptionId, true);
-            uri.AppendPath("/resourceGroups/", false);
-            uri.AppendPath(resourceGroupName, true);
-            uri.AppendPath("/providers/Microsoft.NotificationHubs/namespaces/", false);
-            uri.AppendPath(namespaceName, true);
-            uri.AppendPath("/notificationHubs", false);
-            uri.AppendQuery("api-version", _apiVersion, true);
-            request.Uri = uri;
-            request.Headers.Add("Accept", "application/json");
-            _userAgent.Apply(message);
-            return message;
-        }
-
-        /// <summary> Lists the notification hubs associated with a namespace. </summary>
-        /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
-        /// <param name="resourceGroupName"> The name of the resource group. </param>
-        /// <param name="namespaceName"> The namespace name. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="namespaceName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="namespaceName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<NotificationHubListResult>> ListAsync(string subscriptionId, string resourceGroupName, string namespaceName, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(namespaceName, nameof(namespaceName));
-
-            using var message = CreateListRequest(subscriptionId, resourceGroupName, namespaceName);
-            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
-            switch (message.Response.Status)
-            {
-                case 200:
-                    {
-                        NotificationHubListResult value = default;
-                        using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = NotificationHubListResult.DeserializeNotificationHubListResult(document.RootElement);
+                        value = NotificationHubAuthorizationRule.DeserializeNotificationHubAuthorizationRule(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -892,36 +898,7 @@ namespace Azure.ResourceManager.NotificationHubs
             }
         }
 
-        /// <summary> Lists the notification hubs associated with a namespace. </summary>
-        /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
-        /// <param name="resourceGroupName"> The name of the resource group. </param>
-        /// <param name="namespaceName"> The namespace name. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="namespaceName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="namespaceName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<NotificationHubListResult> List(string subscriptionId, string resourceGroupName, string namespaceName, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(namespaceName, nameof(namespaceName));
-
-            using var message = CreateListRequest(subscriptionId, resourceGroupName, namespaceName);
-            _pipeline.Send(message, cancellationToken);
-            switch (message.Response.Status)
-            {
-                case 200:
-                    {
-                        NotificationHubListResult value = default;
-                        using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = NotificationHubListResult.DeserializeNotificationHubListResult(document.RootElement);
-                        return Response.FromValue(value, message.Response);
-                    }
-                default:
-                    throw new RequestFailedException(message.Response);
-            }
-        }
-
-        internal HttpMessage CreateListAuthorizationRulesRequest(string subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName)
+        internal HttpMessage CreateListAuthorizationRulesRequest(Guid subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -936,7 +913,7 @@ namespace Azure.ResourceManager.NotificationHubs
             uri.AppendPath(namespaceName, true);
             uri.AppendPath("/notificationHubs/", false);
             uri.AppendPath(notificationHubName, true);
-            uri.AppendPath("/AuthorizationRules", false);
+            uri.AppendPath("/authorizationRules", false);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
@@ -945,16 +922,15 @@ namespace Azure.ResourceManager.NotificationHubs
         }
 
         /// <summary> Gets the authorization rules for a NotificationHub. </summary>
-        /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
-        /// <param name="resourceGroupName"> The name of the resource group. </param>
-        /// <param name="namespaceName"> The namespace name. </param>
-        /// <param name="notificationHubName"> The notification hub name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="namespaceName"> Namespace name. </param>
+        /// <param name="notificationHubName"> Notification Hub name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<SharedAccessAuthorizationRuleListResult>> ListAuthorizationRulesAsync(string subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<SharedAccessAuthorizationRuleListResult>> ListAuthorizationRulesAsync(Guid subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(namespaceName, nameof(namespaceName));
             Argument.AssertNotNullOrEmpty(notificationHubName, nameof(notificationHubName));
@@ -976,16 +952,15 @@ namespace Azure.ResourceManager.NotificationHubs
         }
 
         /// <summary> Gets the authorization rules for a NotificationHub. </summary>
-        /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
-        /// <param name="resourceGroupName"> The name of the resource group. </param>
-        /// <param name="namespaceName"> The namespace name. </param>
-        /// <param name="notificationHubName"> The notification hub name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="namespaceName"> Namespace name. </param>
+        /// <param name="notificationHubName"> Notification Hub name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<SharedAccessAuthorizationRuleListResult> ListAuthorizationRules(string subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<SharedAccessAuthorizationRuleListResult> ListAuthorizationRules(Guid subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(namespaceName, nameof(namespaceName));
             Argument.AssertNotNullOrEmpty(notificationHubName, nameof(notificationHubName));
@@ -1006,7 +981,7 @@ namespace Azure.ResourceManager.NotificationHubs
             }
         }
 
-        internal HttpMessage CreateListKeysRequest(string subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, string authorizationRuleName)
+        internal HttpMessage CreateListKeysRequest(Guid subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, string authorizationRuleName)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -1021,7 +996,7 @@ namespace Azure.ResourceManager.NotificationHubs
             uri.AppendPath(namespaceName, true);
             uri.AppendPath("/notificationHubs/", false);
             uri.AppendPath(notificationHubName, true);
-            uri.AppendPath("/AuthorizationRules/", false);
+            uri.AppendPath("/authorizationRules/", false);
             uri.AppendPath(authorizationRuleName, true);
             uri.AppendPath("/listKeys", false);
             uri.AppendQuery("api-version", _apiVersion, true);
@@ -1032,17 +1007,16 @@ namespace Azure.ResourceManager.NotificationHubs
         }
 
         /// <summary> Gets the Primary and Secondary ConnectionStrings to the NotificationHub. </summary>
-        /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
-        /// <param name="resourceGroupName"> The name of the resource group. </param>
-        /// <param name="namespaceName"> The namespace name. </param>
-        /// <param name="notificationHubName"> The notification hub name. </param>
-        /// <param name="authorizationRuleName"> The connection string of the NotificationHub for the specified authorizationRule. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="namespaceName"> Namespace name. </param>
+        /// <param name="notificationHubName"> Notification Hub name. </param>
+        /// <param name="authorizationRuleName"> Authorization Rule Name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/>, <paramref name="notificationHubName"/> or <paramref name="authorizationRuleName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/>, <paramref name="notificationHubName"/> or <paramref name="authorizationRuleName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<NotificationHubResourceKeys>> ListKeysAsync(string subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, string authorizationRuleName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/>, <paramref name="notificationHubName"/> or <paramref name="authorizationRuleName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/>, <paramref name="notificationHubName"/> or <paramref name="authorizationRuleName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<NotificationHubResourceKeys>> ListKeysAsync(Guid subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, string authorizationRuleName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(namespaceName, nameof(namespaceName));
             Argument.AssertNotNullOrEmpty(notificationHubName, nameof(notificationHubName));
@@ -1065,17 +1039,16 @@ namespace Azure.ResourceManager.NotificationHubs
         }
 
         /// <summary> Gets the Primary and Secondary ConnectionStrings to the NotificationHub. </summary>
-        /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
-        /// <param name="resourceGroupName"> The name of the resource group. </param>
-        /// <param name="namespaceName"> The namespace name. </param>
-        /// <param name="notificationHubName"> The notification hub name. </param>
-        /// <param name="authorizationRuleName"> The connection string of the NotificationHub for the specified authorizationRule. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="namespaceName"> Namespace name. </param>
+        /// <param name="notificationHubName"> Notification Hub name. </param>
+        /// <param name="authorizationRuleName"> Authorization Rule Name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/>, <paramref name="notificationHubName"/> or <paramref name="authorizationRuleName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/>, <paramref name="notificationHubName"/> or <paramref name="authorizationRuleName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<NotificationHubResourceKeys> ListKeys(string subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, string authorizationRuleName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/>, <paramref name="notificationHubName"/> or <paramref name="authorizationRuleName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/>, <paramref name="notificationHubName"/> or <paramref name="authorizationRuleName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<NotificationHubResourceKeys> ListKeys(Guid subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, string authorizationRuleName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(namespaceName, nameof(namespaceName));
             Argument.AssertNotNullOrEmpty(notificationHubName, nameof(notificationHubName));
@@ -1097,7 +1070,7 @@ namespace Azure.ResourceManager.NotificationHubs
             }
         }
 
-        internal HttpMessage CreateRegenerateKeysRequest(string subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, string authorizationRuleName, NotificationHubPolicyKey notificationHubPolicyKey)
+        internal HttpMessage CreateRegenerateKeysRequest(Guid subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, string authorizationRuleName, PolicyKeyResource policyKeyResource)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -1112,7 +1085,7 @@ namespace Azure.ResourceManager.NotificationHubs
             uri.AppendPath(namespaceName, true);
             uri.AppendPath("/notificationHubs/", false);
             uri.AppendPath(notificationHubName, true);
-            uri.AppendPath("/AuthorizationRules/", false);
+            uri.AppendPath("/authorizationRules/", false);
             uri.AppendPath(authorizationRuleName, true);
             uri.AppendPath("/regenerateKeys", false);
             uri.AppendQuery("api-version", _apiVersion, true);
@@ -1120,32 +1093,31 @@ namespace Azure.ResourceManager.NotificationHubs
             request.Headers.Add("Accept", "application/json");
             request.Headers.Add("Content-Type", "application/json");
             var content = new Utf8JsonRequestContent();
-            content.JsonWriter.WriteObjectValue(notificationHubPolicyKey);
+            content.JsonWriter.WriteObjectValue(policyKeyResource);
             request.Content = content;
             _userAgent.Apply(message);
             return message;
         }
 
         /// <summary> Regenerates the Primary/Secondary Keys to the NotificationHub Authorization Rule. </summary>
-        /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
-        /// <param name="resourceGroupName"> The name of the resource group. </param>
-        /// <param name="namespaceName"> The namespace name. </param>
-        /// <param name="notificationHubName"> The notification hub name. </param>
-        /// <param name="authorizationRuleName"> The connection string of the NotificationHub for the specified authorizationRule. </param>
-        /// <param name="notificationHubPolicyKey"> Parameters supplied to regenerate the NotificationHub Authorization Rule Key. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="namespaceName"> Namespace name. </param>
+        /// <param name="notificationHubName"> Notification Hub name. </param>
+        /// <param name="authorizationRuleName"> Authorization Rule Name. </param>
+        /// <param name="policyKeyResource"> Request content. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/>, <paramref name="notificationHubName"/>, <paramref name="authorizationRuleName"/> or <paramref name="notificationHubPolicyKey"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/>, <paramref name="notificationHubName"/> or <paramref name="authorizationRuleName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<NotificationHubResourceKeys>> RegenerateKeysAsync(string subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, string authorizationRuleName, NotificationHubPolicyKey notificationHubPolicyKey, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/>, <paramref name="notificationHubName"/>, <paramref name="authorizationRuleName"/> or <paramref name="policyKeyResource"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/>, <paramref name="notificationHubName"/> or <paramref name="authorizationRuleName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<NotificationHubResourceKeys>> RegenerateKeysAsync(Guid subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, string authorizationRuleName, PolicyKeyResource policyKeyResource, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(namespaceName, nameof(namespaceName));
             Argument.AssertNotNullOrEmpty(notificationHubName, nameof(notificationHubName));
             Argument.AssertNotNullOrEmpty(authorizationRuleName, nameof(authorizationRuleName));
-            Argument.AssertNotNull(notificationHubPolicyKey, nameof(notificationHubPolicyKey));
+            Argument.AssertNotNull(policyKeyResource, nameof(policyKeyResource));
 
-            using var message = CreateRegenerateKeysRequest(subscriptionId, resourceGroupName, namespaceName, notificationHubName, authorizationRuleName, notificationHubPolicyKey);
+            using var message = CreateRegenerateKeysRequest(subscriptionId, resourceGroupName, namespaceName, notificationHubName, authorizationRuleName, policyKeyResource);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
@@ -1162,25 +1134,24 @@ namespace Azure.ResourceManager.NotificationHubs
         }
 
         /// <summary> Regenerates the Primary/Secondary Keys to the NotificationHub Authorization Rule. </summary>
-        /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
-        /// <param name="resourceGroupName"> The name of the resource group. </param>
-        /// <param name="namespaceName"> The namespace name. </param>
-        /// <param name="notificationHubName"> The notification hub name. </param>
-        /// <param name="authorizationRuleName"> The connection string of the NotificationHub for the specified authorizationRule. </param>
-        /// <param name="notificationHubPolicyKey"> Parameters supplied to regenerate the NotificationHub Authorization Rule Key. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="namespaceName"> Namespace name. </param>
+        /// <param name="notificationHubName"> Notification Hub name. </param>
+        /// <param name="authorizationRuleName"> Authorization Rule Name. </param>
+        /// <param name="policyKeyResource"> Request content. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/>, <paramref name="notificationHubName"/>, <paramref name="authorizationRuleName"/> or <paramref name="notificationHubPolicyKey"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/>, <paramref name="notificationHubName"/> or <paramref name="authorizationRuleName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<NotificationHubResourceKeys> RegenerateKeys(string subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, string authorizationRuleName, NotificationHubPolicyKey notificationHubPolicyKey, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/>, <paramref name="notificationHubName"/>, <paramref name="authorizationRuleName"/> or <paramref name="policyKeyResource"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/>, <paramref name="notificationHubName"/> or <paramref name="authorizationRuleName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<NotificationHubResourceKeys> RegenerateKeys(Guid subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, string authorizationRuleName, PolicyKeyResource policyKeyResource, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(namespaceName, nameof(namespaceName));
             Argument.AssertNotNullOrEmpty(notificationHubName, nameof(notificationHubName));
             Argument.AssertNotNullOrEmpty(authorizationRuleName, nameof(authorizationRuleName));
-            Argument.AssertNotNull(notificationHubPolicyKey, nameof(notificationHubPolicyKey));
+            Argument.AssertNotNull(policyKeyResource, nameof(policyKeyResource));
 
-            using var message = CreateRegenerateKeysRequest(subscriptionId, resourceGroupName, namespaceName, notificationHubName, authorizationRuleName, notificationHubPolicyKey);
+            using var message = CreateRegenerateKeysRequest(subscriptionId, resourceGroupName, namespaceName, notificationHubName, authorizationRuleName, policyKeyResource);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
@@ -1196,7 +1167,7 @@ namespace Azure.ResourceManager.NotificationHubs
             }
         }
 
-        internal HttpMessage CreateGetPnsCredentialsRequest(string subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName)
+        internal HttpMessage CreateGetPnsCredentialsRequest(Guid subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -1219,17 +1190,16 @@ namespace Azure.ResourceManager.NotificationHubs
             return message;
         }
 
-        /// <summary> Lists the PNS Credentials associated with a notification hub . </summary>
-        /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
-        /// <param name="resourceGroupName"> The name of the resource group. </param>
-        /// <param name="namespaceName"> The namespace name. </param>
-        /// <param name="notificationHubName"> The notification hub name. </param>
+        /// <summary> Lists the PNS Credentials associated with a notification hub. </summary>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="namespaceName"> Namespace name. </param>
+        /// <param name="notificationHubName"> Notification Hub name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<NotificationHubPnsCredentials>> GetPnsCredentialsAsync(string subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<NotificationHubPnsCredentials>> GetPnsCredentialsAsync(Guid subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(namespaceName, nameof(namespaceName));
             Argument.AssertNotNullOrEmpty(notificationHubName, nameof(notificationHubName));
@@ -1250,17 +1220,16 @@ namespace Azure.ResourceManager.NotificationHubs
             }
         }
 
-        /// <summary> Lists the PNS Credentials associated with a notification hub . </summary>
-        /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
-        /// <param name="resourceGroupName"> The name of the resource group. </param>
-        /// <param name="namespaceName"> The namespace name. </param>
-        /// <param name="notificationHubName"> The notification hub name. </param>
+        /// <summary> Lists the PNS Credentials associated with a notification hub. </summary>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="namespaceName"> Namespace name. </param>
+        /// <param name="notificationHubName"> Notification Hub name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<NotificationHubPnsCredentials> GetPnsCredentials(string subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<NotificationHubPnsCredentials> GetPnsCredentials(Guid subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(namespaceName, nameof(namespaceName));
             Argument.AssertNotNullOrEmpty(notificationHubName, nameof(notificationHubName));
@@ -1281,7 +1250,7 @@ namespace Azure.ResourceManager.NotificationHubs
             }
         }
 
-        internal HttpMessage CreateListNextPageRequest(string nextLink, string subscriptionId, string resourceGroupName, string namespaceName)
+        internal HttpMessage CreateListNextPageRequest(string nextLink, Guid subscriptionId, string resourceGroupName, string namespaceName, string skipToken, int? top)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -1297,20 +1266,21 @@ namespace Azure.ResourceManager.NotificationHubs
 
         /// <summary> Lists the notification hubs associated with a namespace. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
-        /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
-        /// <param name="resourceGroupName"> The name of the resource group. </param>
-        /// <param name="namespaceName"> The namespace name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="namespaceName"> Namespace name. </param>
+        /// <param name="skipToken"> Continuation token. </param>
+        /// <param name="top"> Page size. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="namespaceName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="namespaceName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<NotificationHubListResult>> ListNextPageAsync(string nextLink, string subscriptionId, string resourceGroupName, string namespaceName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="resourceGroupName"/> or <paramref name="namespaceName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/> or <paramref name="namespaceName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<NotificationHubListResult>> ListNextPageAsync(string nextLink, Guid subscriptionId, string resourceGroupName, string namespaceName, string skipToken = null, int? top = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(nextLink, nameof(nextLink));
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(namespaceName, nameof(namespaceName));
 
-            using var message = CreateListNextPageRequest(nextLink, subscriptionId, resourceGroupName, namespaceName);
+            using var message = CreateListNextPageRequest(nextLink, subscriptionId, resourceGroupName, namespaceName, skipToken, top);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
@@ -1328,20 +1298,21 @@ namespace Azure.ResourceManager.NotificationHubs
 
         /// <summary> Lists the notification hubs associated with a namespace. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
-        /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
-        /// <param name="resourceGroupName"> The name of the resource group. </param>
-        /// <param name="namespaceName"> The namespace name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="namespaceName"> Namespace name. </param>
+        /// <param name="skipToken"> Continuation token. </param>
+        /// <param name="top"> Page size. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="namespaceName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="namespaceName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<NotificationHubListResult> ListNextPage(string nextLink, string subscriptionId, string resourceGroupName, string namespaceName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="resourceGroupName"/> or <paramref name="namespaceName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/> or <paramref name="namespaceName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<NotificationHubListResult> ListNextPage(string nextLink, Guid subscriptionId, string resourceGroupName, string namespaceName, string skipToken = null, int? top = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(nextLink, nameof(nextLink));
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(namespaceName, nameof(namespaceName));
 
-            using var message = CreateListNextPageRequest(nextLink, subscriptionId, resourceGroupName, namespaceName);
+            using var message = CreateListNextPageRequest(nextLink, subscriptionId, resourceGroupName, namespaceName, skipToken, top);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
@@ -1357,7 +1328,7 @@ namespace Azure.ResourceManager.NotificationHubs
             }
         }
 
-        internal HttpMessage CreateListAuthorizationRulesNextPageRequest(string nextLink, string subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName)
+        internal HttpMessage CreateListAuthorizationRulesNextPageRequest(string nextLink, Guid subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -1373,17 +1344,16 @@ namespace Azure.ResourceManager.NotificationHubs
 
         /// <summary> Gets the authorization rules for a NotificationHub. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
-        /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
-        /// <param name="resourceGroupName"> The name of the resource group. </param>
-        /// <param name="namespaceName"> The namespace name. </param>
-        /// <param name="notificationHubName"> The notification hub name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="namespaceName"> Namespace name. </param>
+        /// <param name="notificationHubName"> Notification Hub name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<SharedAccessAuthorizationRuleListResult>> ListAuthorizationRulesNextPageAsync(string nextLink, string subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<SharedAccessAuthorizationRuleListResult>> ListAuthorizationRulesNextPageAsync(string nextLink, Guid subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(nextLink, nameof(nextLink));
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(namespaceName, nameof(namespaceName));
             Argument.AssertNotNullOrEmpty(notificationHubName, nameof(notificationHubName));
@@ -1406,17 +1376,16 @@ namespace Azure.ResourceManager.NotificationHubs
 
         /// <summary> Gets the authorization rules for a NotificationHub. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
-        /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
-        /// <param name="resourceGroupName"> The name of the resource group. </param>
-        /// <param name="namespaceName"> The namespace name. </param>
-        /// <param name="notificationHubName"> The notification hub name. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="namespaceName"> Namespace name. </param>
+        /// <param name="notificationHubName"> Notification Hub name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<SharedAccessAuthorizationRuleListResult> ListAuthorizationRulesNextPage(string nextLink, string subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="namespaceName"/> or <paramref name="notificationHubName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<SharedAccessAuthorizationRuleListResult> ListAuthorizationRulesNextPage(string nextLink, Guid subscriptionId, string resourceGroupName, string namespaceName, string notificationHubName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(nextLink, nameof(nextLink));
-            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(namespaceName, nameof(namespaceName));
             Argument.AssertNotNullOrEmpty(notificationHubName, nameof(notificationHubName));

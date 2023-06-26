@@ -7,7 +7,6 @@
 
 using System.Collections.Generic;
 using Azure.Core;
-using Azure.ResourceManager.NotificationHubs;
 
 namespace Azure.ResourceManager.NotificationHubs.Models
 {
@@ -17,21 +16,21 @@ namespace Azure.ResourceManager.NotificationHubs.Models
         /// <summary> Initializes a new instance of SharedAccessAuthorizationRuleListResult. </summary>
         internal SharedAccessAuthorizationRuleListResult()
         {
-            Value = new ChangeTrackingList<NotificationHubAuthorizationRuleData>();
+            Value = new ChangeTrackingList<NotificationHubAuthorizationRule>();
         }
 
         /// <summary> Initializes a new instance of SharedAccessAuthorizationRuleListResult. </summary>
-        /// <param name="value"> Result of the List AuthorizationRules operation. </param>
-        /// <param name="nextLink"> Link to the next set of results. Not empty if Value contains incomplete list of AuthorizationRules. </param>
-        internal SharedAccessAuthorizationRuleListResult(IReadOnlyList<NotificationHubAuthorizationRuleData> value, string nextLink)
+        /// <param name="value"> Gets or sets result of the List AuthorizationRules operation. </param>
+        /// <param name="nextLink"> Gets or sets link to the next set of results. </param>
+        internal SharedAccessAuthorizationRuleListResult(IReadOnlyList<NotificationHubAuthorizationRule> value, string nextLink)
         {
             Value = value;
             NextLink = nextLink;
         }
 
-        /// <summary> Result of the List AuthorizationRules operation. </summary>
-        public IReadOnlyList<NotificationHubAuthorizationRuleData> Value { get; }
-        /// <summary> Link to the next set of results. Not empty if Value contains incomplete list of AuthorizationRules. </summary>
+        /// <summary> Gets or sets result of the List AuthorizationRules operation. </summary>
+        public IReadOnlyList<NotificationHubAuthorizationRule> Value { get; }
+        /// <summary> Gets or sets link to the next set of results. </summary>
         public string NextLink { get; }
     }
 }

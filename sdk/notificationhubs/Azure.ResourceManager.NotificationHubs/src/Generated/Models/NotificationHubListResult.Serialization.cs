@@ -8,7 +8,6 @@
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
-using Azure.ResourceManager.NotificationHubs;
 
 namespace Azure.ResourceManager.NotificationHubs.Models
 {
@@ -20,7 +19,7 @@ namespace Azure.ResourceManager.NotificationHubs.Models
             {
                 return null;
             }
-            Optional<IReadOnlyList<NotificationHubData>> value = default;
+            Optional<IReadOnlyList<NotificationHub>> value = default;
             Optional<string> nextLink = default;
             foreach (var property in element.EnumerateObject())
             {
@@ -30,10 +29,10 @@ namespace Azure.ResourceManager.NotificationHubs.Models
                     {
                         continue;
                     }
-                    List<NotificationHubData> array = new List<NotificationHubData>();
+                    List<NotificationHub> array = new List<NotificationHub>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(NotificationHubData.DeserializeNotificationHubData(item));
+                        array.Add(NotificationHub.DeserializeNotificationHub(item));
                     }
                     value = array;
                     continue;
