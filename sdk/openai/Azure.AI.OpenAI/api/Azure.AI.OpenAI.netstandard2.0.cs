@@ -183,11 +183,12 @@ namespace Azure.AI.OpenAI
     }
     public partial class OpenAIClientOptions : Azure.Core.ClientOptions
     {
-        public OpenAIClientOptions(Azure.AI.OpenAI.OpenAIClientOptions.ServiceVersion version = Azure.AI.OpenAI.OpenAIClientOptions.ServiceVersion.V2023_03_15_Preview) { }
+        public OpenAIClientOptions(Azure.AI.OpenAI.OpenAIClientOptions.ServiceVersion version = Azure.AI.OpenAI.OpenAIClientOptions.ServiceVersion.V2023_06_01_Preview) { }
         public enum ServiceVersion
         {
             V2022_12_01 = 1,
-            V2023_03_15_Preview = 2,
+            V2023_05_15 = 2,
+            V2023_06_01_Preview = 3,
         }
     }
     public partial class StreamingChatChoice

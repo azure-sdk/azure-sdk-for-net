@@ -1,3 +1,5 @@
+commit: e2879a58147d79b2365f72bc4f442722baec3b78
 directory: specification/cognitiveservices/OpenAI.Inference
-commit: 6af0ff9b1a10e4d498699eab53cc1e6b797bda8c
+additionalDirectories: []
 repo: Azure/azure-rest-api-specs
+
