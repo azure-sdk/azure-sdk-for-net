@@ -174,6 +174,7 @@ namespace Azure.Search.Documents
         public int? Size { get { throw null; } set { } }
         public int? Skip { get { throw null; } set { } }
         public Azure.Search.Documents.Models.SearchQueryVector Vector { get { throw null; } set { } }
+        public System.Collections.Generic.IList<Azure.Search.Documents.Models.SearchQueryVector> Vectors { get { throw null; } }
     }
     public partial class SuggestOptions
     {
