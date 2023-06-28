@@ -7,7 +7,6 @@
 
 using System.Collections.Generic;
 using Azure.Core;
-using Azure.ResourceManager.SignalR;
 
 namespace Azure.ResourceManager.SignalR.Models
 {
@@ -17,20 +16,20 @@ namespace Azure.ResourceManager.SignalR.Models
         /// <summary> Initializes a new instance of SignalRSharedPrivateLinkResourceListResult. </summary>
         internal SignalRSharedPrivateLinkResourceListResult()
         {
-            Value = new ChangeTrackingList<SignalRSharedPrivateLinkResourceData>();
+            Value = new ChangeTrackingList<SignalRSharedPrivateLinkResource>();
         }
 
         /// <summary> Initializes a new instance of SignalRSharedPrivateLinkResourceListResult. </summary>
         /// <param name="value"> The list of the shared private link resources. </param>
         /// <param name="nextLink"> Request URL that can be used to query next page of private endpoint connections. Returned when the total number of requested private endpoint connections exceed maximum page size. </param>
-        internal SignalRSharedPrivateLinkResourceListResult(IReadOnlyList<SignalRSharedPrivateLinkResourceData> value, string nextLink)
+        internal SignalRSharedPrivateLinkResourceListResult(IReadOnlyList<SignalRSharedPrivateLinkResource> value, string nextLink)
         {
             Value = value;
             NextLink = nextLink;
         }
 
         /// <summary> The list of the shared private link resources. </summary>
-        public IReadOnlyList<SignalRSharedPrivateLinkResourceData> Value { get; }
+        public IReadOnlyList<SignalRSharedPrivateLinkResource> Value { get; }
         /// <summary> Request URL that can be used to query next page of private endpoint connections. Returned when the total number of requested private endpoint connections exceed maximum page size. </summary>
         public string NextLink { get; }
     }

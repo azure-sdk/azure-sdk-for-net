@@ -11,15 +11,15 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.SignalR.Models
 {
-    internal partial class SignalRSharedPrivateLinkResourceListResult
+    internal partial class ReplicaList
     {
-        internal static SignalRSharedPrivateLinkResourceListResult DeserializeSignalRSharedPrivateLinkResourceListResult(JsonElement element)
+        internal static ReplicaList DeserializeReplicaList(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
                 return null;
             }
-            Optional<IReadOnlyList<SignalRSharedPrivateLinkResource>> value = default;
+            Optional<IReadOnlyList<Replica>> value = default;
             Optional<string> nextLink = default;
             foreach (var property in element.EnumerateObject())
             {
@@ -29,10 +29,10 @@ namespace Azure.ResourceManager.SignalR.Models
                     {
                         continue;
                     }
-                    List<SignalRSharedPrivateLinkResource> array = new List<SignalRSharedPrivateLinkResource>();
+                    List<Replica> array = new List<Replica>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(SignalRSharedPrivateLinkResource.DeserializeSignalRSharedPrivateLinkResource(item));
+                        array.Add(Replica.DeserializeReplica(item));
                     }
                     value = array;
                     continue;
@@ -43,7 +43,7 @@ namespace Azure.ResourceManager.SignalR.Models
                     continue;
                 }
             }
-            return new SignalRSharedPrivateLinkResourceListResult(Optional.ToList(value), nextLink.Value);
+            return new ReplicaList(Optional.ToList(value), nextLink.Value);
         }
     }
 }

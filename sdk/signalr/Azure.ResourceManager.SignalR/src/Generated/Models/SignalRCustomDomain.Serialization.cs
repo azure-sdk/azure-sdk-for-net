@@ -9,11 +9,10 @@ using System.Text.Json;
 using Azure.Core;
 using Azure.ResourceManager.Models;
 using Azure.ResourceManager.Resources.Models;
-using Azure.ResourceManager.SignalR.Models;
 
-namespace Azure.ResourceManager.SignalR
+namespace Azure.ResourceManager.SignalR.Models
 {
-    public partial class SignalRCustomDomainData : IUtf8JsonSerializable
+    public partial class SignalRCustomDomain : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
@@ -27,7 +26,7 @@ namespace Azure.ResourceManager.SignalR
             writer.WriteEndObject();
         }
 
-        internal static SignalRCustomDomainData DeserializeSignalRCustomDomainData(JsonElement element)
+        internal static SignalRCustomDomain DeserializeSignalRCustomDomain(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
@@ -98,7 +97,7 @@ namespace Azure.ResourceManager.SignalR
                     continue;
                 }
             }
-            return new SignalRCustomDomainData(id, name, type, systemData.Value, Optional.ToNullable(provisioningState), domainName, customCertificate);
+            return new SignalRCustomDomain(id, name, type, systemData.Value, Optional.ToNullable(provisioningState), domainName, customCertificate);
         }
     }
 }

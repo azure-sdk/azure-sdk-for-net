@@ -5,50 +5,86 @@
 
 #nullable disable
 
-using System;
+using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
 using Azure.ResourceManager.Models;
-using Azure.ResourceManager.SignalR.Models;
 
-namespace Azure.ResourceManager.SignalR
+namespace Azure.ResourceManager.SignalR.Models
 {
-    public partial class SignalRCustomCertificateData : IUtf8JsonSerializable
+    public partial class Replica : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
+            if (Optional.IsDefined(Sku))
+            {
+                writer.WritePropertyName("sku"u8);
+                writer.WriteObjectValue(Sku);
+            }
+            if (Optional.IsCollectionDefined(Tags))
+            {
+                writer.WritePropertyName("tags"u8);
+                writer.WriteStartObject();
+                foreach (var item in Tags)
+                {
+                    writer.WritePropertyName(item.Key);
+                    writer.WriteStringValue(item.Value);
+                }
+                writer.WriteEndObject();
+            }
+            writer.WritePropertyName("location"u8);
+            writer.WriteStringValue(Location);
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
-            writer.WritePropertyName("keyVaultBaseUri"u8);
-            writer.WriteStringValue(KeyVaultBaseUri.AbsoluteUri);
-            writer.WritePropertyName("keyVaultSecretName"u8);
-            writer.WriteStringValue(KeyVaultSecretName);
-            if (Optional.IsDefined(KeyVaultSecretVersion))
-            {
-                writer.WritePropertyName("keyVaultSecretVersion"u8);
-                writer.WriteStringValue(KeyVaultSecretVersion);
-            }
             writer.WriteEndObject();
             writer.WriteEndObject();
         }
 
-        internal static SignalRCustomCertificateData DeserializeSignalRCustomCertificateData(JsonElement element)
+        internal static Replica DeserializeReplica(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
                 return null;
             }
+            Optional<SignalRResourceSku> sku = default;
+            Optional<IDictionary<string, string>> tags = default;
+            AzureLocation location = default;
             ResourceIdentifier id = default;
             string name = default;
             ResourceType type = default;
             Optional<SystemData> systemData = default;
             Optional<SignalRProvisioningState> provisioningState = default;
-            Uri keyVaultBaseUri = default;
-            string keyVaultSecretName = default;
-            Optional<string> keyVaultSecretVersion = default;
             foreach (var property in element.EnumerateObject())
             {
+                if (property.NameEquals("sku"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    sku = SignalRResourceSku.DeserializeSignalRResourceSku(property.Value);
+                    continue;
+                }
+                if (property.NameEquals("tags"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    Dictionary<string, string> dictionary = new Dictionary<string, string>();
+                    foreach (var property0 in property.Value.EnumerateObject())
+                    {
+                        dictionary.Add(property0.Name, property0.Value.GetString());
+                    }
+                    tags = dictionary;
+                    continue;
+                }
+                if (property.NameEquals("location"u8))
+                {
+                    location = new AzureLocation(property.Value.GetString());
+                    continue;
+                }
                 if (property.NameEquals("id"u8))
                 {
                     id = new ResourceIdentifier(property.Value.GetString());
@@ -91,26 +127,11 @@ namespace Azure.ResourceManager.SignalR
                             provisioningState = new SignalRProvisioningState(property0.Value.GetString());
                             continue;
                         }
-                        if (property0.NameEquals("keyVaultBaseUri"u8))
-                        {
-                            keyVaultBaseUri = new Uri(property0.Value.GetString());
-                            continue;
-                        }
-                        if (property0.NameEquals("keyVaultSecretName"u8))
-                        {
-                            keyVaultSecretName = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("keyVaultSecretVersion"u8))
-                        {
-                            keyVaultSecretVersion = property0.Value.GetString();
-                            continue;
-                        }
                     }
                     continue;
                 }
             }
-            return new SignalRCustomCertificateData(id, name, type, systemData.Value, Optional.ToNullable(provisioningState), keyVaultBaseUri, keyVaultSecretName, keyVaultSecretVersion.Value);
+            return new Replica(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, sku.Value, Optional.ToNullable(provisioningState));
         }
     }
 }

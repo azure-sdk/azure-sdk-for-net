@@ -10,31 +10,22 @@ using System.Threading;
 using System.Threading.Tasks;
 using Azure;
 using Azure.Core;
-using Azure.ResourceManager;
+using Azure.ResourceManager.SignalR.Models;
 
 namespace Azure.ResourceManager.SignalR
 {
-    internal class SignalROperationSource : IOperationSource<SignalRResource>
+    internal class SignalROperationSource : IOperationSource<Models.SignalR>
     {
-        private readonly ArmClient _client;
-
-        internal SignalROperationSource(ArmClient client)
-        {
-            _client = client;
-        }
-
-        SignalRResource IOperationSource<SignalRResource>.CreateResult(Response response, CancellationToken cancellationToken)
+        Models.SignalR IOperationSource<Models.SignalR>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            var data = SignalRData.DeserializeSignalRData(document.RootElement);
-            return new SignalRResource(_client, data);
+            return Models.SignalR.DeserializeSignalR(document.RootElement);
         }
 
-        async ValueTask<SignalRResource> IOperationSource<SignalRResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
+        async ValueTask<Models.SignalR> IOperationSource<Models.SignalR>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            var data = SignalRData.DeserializeSignalRData(document.RootElement);
-            return new SignalRResource(_client, data);
+            return Models.SignalR.DeserializeSignalR(document.RootElement);
         }
     }
 }

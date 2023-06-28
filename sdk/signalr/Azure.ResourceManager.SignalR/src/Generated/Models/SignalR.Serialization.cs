@@ -9,11 +9,10 @@ using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
 using Azure.ResourceManager.Models;
-using Azure.ResourceManager.SignalR.Models;
 
-namespace Azure.ResourceManager.SignalR
+namespace Azure.ResourceManager.SignalR.Models
 {
-    public partial class SignalRData : IUtf8JsonSerializable
+    public partial class SignalR : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
@@ -78,6 +77,11 @@ namespace Azure.ResourceManager.SignalR
                 writer.WritePropertyName("cors"u8);
                 writer.WriteObjectValue(Cors);
             }
+            if (Optional.IsDefined(Serverless))
+            {
+                writer.WritePropertyName("serverless"u8);
+                writer.WriteObjectValue(Serverless);
+            }
             if (Optional.IsDefined(Upstream))
             {
                 writer.WritePropertyName("upstream"u8);
@@ -107,7 +111,7 @@ namespace Azure.ResourceManager.SignalR
             writer.WriteEndObject();
         }
 
-        internal static SignalRData DeserializeSignalRData(JsonElement element)
+        internal static SignalR DeserializeSignalR(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
@@ -128,14 +132,15 @@ namespace Azure.ResourceManager.SignalR
             Optional<int> publicPort = default;
             Optional<int> serverPort = default;
             Optional<string> version = default;
-            Optional<IReadOnlyList<SignalRPrivateEndpointConnectionData>> privateEndpointConnections = default;
-            Optional<IReadOnlyList<SignalRSharedPrivateLinkResourceData>> sharedPrivateLinkResources = default;
+            Optional<IReadOnlyList<SignalRPrivateEndpointConnection>> privateEndpointConnections = default;
+            Optional<IReadOnlyList<SignalRSharedPrivateLinkResource>> sharedPrivateLinkResources = default;
             Optional<SignalRTlsSettings> tls = default;
             Optional<string> hostNamePrefix = default;
             Optional<IList<SignalRFeature>> features = default;
             Optional<SignalRLiveTraceConfiguration> liveTraceConfiguration = default;
             Optional<SignalRResourceLogCategoryListResult> resourceLogConfiguration = default;
             Optional<SignalRCorsSettings> cors = default;
+            Optional<ServerlessSettings> serverless = default;
             Optional<ServerlessUpstreamSettings> upstream = default;
             Optional<SignalRNetworkAcls> networkACLs = default;
             Optional<string> publicNetworkAccess = default;
@@ -270,10 +275,10 @@ namespace Azure.ResourceManager.SignalR
                             {
                                 continue;
                             }
-                            List<SignalRPrivateEndpointConnectionData> array = new List<SignalRPrivateEndpointConnectionData>();
+                            List<SignalRPrivateEndpointConnection> array = new List<SignalRPrivateEndpointConnection>();
                             foreach (var item in property0.Value.EnumerateArray())
                             {
-                                array.Add(SignalRPrivateEndpointConnectionData.DeserializeSignalRPrivateEndpointConnectionData(item));
+                                array.Add(SignalRPrivateEndpointConnection.DeserializeSignalRPrivateEndpointConnection(item));
                             }
                             privateEndpointConnections = array;
                             continue;
@@ -284,10 +289,10 @@ namespace Azure.ResourceManager.SignalR
                             {
                                 continue;
                             }
-                            List<SignalRSharedPrivateLinkResourceData> array = new List<SignalRSharedPrivateLinkResourceData>();
+                            List<SignalRSharedPrivateLinkResource> array = new List<SignalRSharedPrivateLinkResource>();
                             foreach (var item in property0.Value.EnumerateArray())
                             {
-                                array.Add(SignalRSharedPrivateLinkResourceData.DeserializeSignalRSharedPrivateLinkResourceData(item));
+                                array.Add(SignalRSharedPrivateLinkResource.DeserializeSignalRSharedPrivateLinkResource(item));
                             }
                             sharedPrivateLinkResources = array;
                             continue;
@@ -347,6 +352,15 @@ namespace Azure.ResourceManager.SignalR
                             cors = SignalRCorsSettings.DeserializeSignalRCorsSettings(property0.Value);
                             continue;
                         }
+                        if (property0.NameEquals("serverless"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            serverless = ServerlessSettings.DeserializeServerlessSettings(property0.Value);
+                            continue;
+                        }
                         if (property0.NameEquals("upstream"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -392,7 +406,7 @@ namespace Azure.ResourceManager.SignalR
                     continue;
                 }
             }
-            return new SignalRData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, sku.Value, Optional.ToNullable(kind), identity, Optional.ToNullable(provisioningState), externalIP.Value, hostName.Value, Optional.ToNullable(publicPort), Optional.ToNullable(serverPort), version.Value, Optional.ToList(privateEndpointConnections), Optional.ToList(sharedPrivateLinkResources), tls.Value, hostNamePrefix.Value, Optional.ToList(features), liveTraceConfiguration.Value, resourceLogConfiguration.Value, cors.Value, upstream.Value, networkACLs.Value, publicNetworkAccess.Value, Optional.ToNullable(disableLocalAuth), Optional.ToNullable(disableAadAuth));
+            return new SignalR(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, sku.Value, Optional.ToNullable(kind), identity, Optional.ToNullable(provisioningState), externalIP.Value, hostName.Value, Optional.ToNullable(publicPort), Optional.ToNullable(serverPort), version.Value, Optional.ToList(privateEndpointConnections), Optional.ToList(sharedPrivateLinkResources), tls.Value, hostNamePrefix.Value, Optional.ToList(features), liveTraceConfiguration.Value, resourceLogConfiguration.Value, cors.Value, serverless.Value, upstream.Value, networkACLs.Value, publicNetworkAccess.Value, Optional.ToNullable(disableLocalAuth), Optional.ToNullable(disableAadAuth));
         }
     }
 }

@@ -14,18 +14,18 @@ using Azure.ResourceManager.SignalR.Models;
 
 namespace Azure.ResourceManager.SignalR
 {
-    internal class SignalRCustomDomainOperationSource : IOperationSource<SignalRCustomDomain>
+    internal class ReplicaOperationSource : IOperationSource<Replica>
     {
-        SignalRCustomDomain IOperationSource<SignalRCustomDomain>.CreateResult(Response response, CancellationToken cancellationToken)
+        Replica IOperationSource<Replica>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            return SignalRCustomDomain.DeserializeSignalRCustomDomain(document.RootElement);
+            return Replica.DeserializeReplica(document.RootElement);
         }
 
-        async ValueTask<SignalRCustomDomain> IOperationSource<SignalRCustomDomain>.CreateResultAsync(Response response, CancellationToken cancellationToken)
+        async ValueTask<Replica> IOperationSource<Replica>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            return SignalRCustomDomain.DeserializeSignalRCustomDomain(document.RootElement);
+            return Replica.DeserializeReplica(document.RootElement);
         }
     }
 }

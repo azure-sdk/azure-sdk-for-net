@@ -9,21 +9,17 @@ using System;
 using Azure.Core;
 using Azure.ResourceManager.Models;
 using Azure.ResourceManager.Resources.Models;
-using Azure.ResourceManager.SignalR.Models;
 
-namespace Azure.ResourceManager.SignalR
+namespace Azure.ResourceManager.SignalR.Models
 {
-    /// <summary>
-    /// A class representing the SignalRCustomDomain data model.
-    /// A custom domain
-    /// </summary>
-    public partial class SignalRCustomDomainData : ResourceData
+    /// <summary> A custom domain. </summary>
+    public partial class SignalRCustomDomain : ResourceData
     {
-        /// <summary> Initializes a new instance of SignalRCustomDomainData. </summary>
+        /// <summary> Initializes a new instance of SignalRCustomDomain. </summary>
         /// <param name="domainName"> The custom domain name. </param>
         /// <param name="customCertificate"> Reference to a resource. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="domainName"/> or <paramref name="customCertificate"/> is null. </exception>
-        public SignalRCustomDomainData(string domainName, WritableSubResource customCertificate)
+        public SignalRCustomDomain(string domainName, WritableSubResource customCertificate)
         {
             Argument.AssertNotNull(domainName, nameof(domainName));
             Argument.AssertNotNull(customCertificate, nameof(customCertificate));
@@ -32,7 +28,7 @@ namespace Azure.ResourceManager.SignalR
             CustomCertificate = customCertificate;
         }
 
-        /// <summary> Initializes a new instance of SignalRCustomDomainData. </summary>
+        /// <summary> Initializes a new instance of SignalRCustomDomain. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
@@ -40,7 +36,7 @@ namespace Azure.ResourceManager.SignalR
         /// <param name="provisioningState"> Provisioning state of the resource. </param>
         /// <param name="domainName"> The custom domain name. </param>
         /// <param name="customCertificate"> Reference to a resource. </param>
-        internal SignalRCustomDomainData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, SignalRProvisioningState? provisioningState, string domainName, WritableSubResource customCertificate) : base(id, name, resourceType, systemData)
+        internal SignalRCustomDomain(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, SignalRProvisioningState? provisioningState, string domainName, WritableSubResource customCertificate) : base(id, name, resourceType, systemData)
         {
             ProvisioningState = provisioningState;
             DomainName = domainName;

@@ -8,7 +8,6 @@
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
-using Azure.ResourceManager.SignalR;
 
 namespace Azure.ResourceManager.SignalR.Models
 {
@@ -20,7 +19,7 @@ namespace Azure.ResourceManager.SignalR.Models
             {
                 return null;
             }
-            Optional<IReadOnlyList<SignalRCustomCertificateData>> value = default;
+            Optional<IReadOnlyList<SignalRCustomCertificate>> value = default;
             Optional<string> nextLink = default;
             foreach (var property in element.EnumerateObject())
             {
@@ -30,10 +29,10 @@ namespace Azure.ResourceManager.SignalR.Models
                     {
                         continue;
                     }
-                    List<SignalRCustomCertificateData> array = new List<SignalRCustomCertificateData>();
+                    List<SignalRCustomCertificate> array = new List<SignalRCustomCertificate>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(SignalRCustomCertificateData.DeserializeSignalRCustomCertificateData(item));
+                        array.Add(SignalRCustomCertificate.DeserializeSignalRCustomCertificate(item));
                     }
                     value = array;
                     continue;

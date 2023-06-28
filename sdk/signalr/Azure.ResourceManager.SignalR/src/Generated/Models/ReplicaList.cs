@@ -10,29 +10,29 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.SignalR.Models
 {
-    /// <summary> Object that includes an array of resources and a possible link for next set. </summary>
-    internal partial class SignalRResourceList
+    /// <summary> The ReplicaList. </summary>
+    internal partial class ReplicaList
     {
-        /// <summary> Initializes a new instance of SignalRResourceList. </summary>
-        internal SignalRResourceList()
+        /// <summary> Initializes a new instance of ReplicaList. </summary>
+        internal ReplicaList()
         {
-            Value = new ChangeTrackingList<SignalR>();
+            Value = new ChangeTrackingList<Replica>();
         }
 
-        /// <summary> Initializes a new instance of SignalRResourceList. </summary>
-        /// <param name="value"> List of the resources. </param>
+        /// <summary> Initializes a new instance of ReplicaList. </summary>
+        /// <param name="value"> List of the replica. </param>
         /// <param name="nextLink">
         /// The URL the client should use to fetch the next page (per server side paging).
         /// It's null for now, added for future use.
         /// </param>
-        internal SignalRResourceList(IReadOnlyList<SignalR> value, string nextLink)
+        internal ReplicaList(IReadOnlyList<Replica> value, string nextLink)
         {
             Value = value;
             NextLink = nextLink;
         }
 
-        /// <summary> List of the resources. </summary>
-        public IReadOnlyList<SignalR> Value { get; }
+        /// <summary> List of the replica. </summary>
+        public IReadOnlyList<Replica> Value { get; }
         /// <summary>
         /// The URL the client should use to fetch the next page (per server side paging).
         /// It's null for now, added for future use.

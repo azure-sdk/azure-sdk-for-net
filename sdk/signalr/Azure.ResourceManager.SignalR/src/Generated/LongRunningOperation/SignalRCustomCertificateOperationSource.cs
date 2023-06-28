@@ -10,31 +10,22 @@ using System.Threading;
 using System.Threading.Tasks;
 using Azure;
 using Azure.Core;
-using Azure.ResourceManager;
+using Azure.ResourceManager.SignalR.Models;
 
 namespace Azure.ResourceManager.SignalR
 {
-    internal class SignalRCustomCertificateOperationSource : IOperationSource<SignalRCustomCertificateResource>
+    internal class SignalRCustomCertificateOperationSource : IOperationSource<SignalRCustomCertificate>
     {
-        private readonly ArmClient _client;
-
-        internal SignalRCustomCertificateOperationSource(ArmClient client)
-        {
-            _client = client;
-        }
-
-        SignalRCustomCertificateResource IOperationSource<SignalRCustomCertificateResource>.CreateResult(Response response, CancellationToken cancellationToken)
+        SignalRCustomCertificate IOperationSource<SignalRCustomCertificate>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            var data = SignalRCustomCertificateData.DeserializeSignalRCustomCertificateData(document.RootElement);
-            return new SignalRCustomCertificateResource(_client, data);
+            return SignalRCustomCertificate.DeserializeSignalRCustomCertificate(document.RootElement);
         }
 
-        async ValueTask<SignalRCustomCertificateResource> IOperationSource<SignalRCustomCertificateResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
+        async ValueTask<SignalRCustomCertificate> IOperationSource<SignalRCustomCertificate>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            var data = SignalRCustomCertificateData.DeserializeSignalRCustomCertificateData(document.RootElement);
-            return new SignalRCustomCertificateResource(_client, data);
+            return SignalRCustomCertificate.DeserializeSignalRCustomCertificate(document.RootElement);
         }
     }
 }

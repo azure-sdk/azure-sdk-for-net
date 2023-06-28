@@ -8,7 +8,6 @@
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
-using Azure.ResourceManager.SignalR;
 
 namespace Azure.ResourceManager.SignalR.Models
 {
@@ -20,7 +19,7 @@ namespace Azure.ResourceManager.SignalR.Models
             {
                 return null;
             }
-            Optional<IReadOnlyList<SignalRData>> value = default;
+            Optional<IReadOnlyList<SignalR>> value = default;
             Optional<string> nextLink = default;
             foreach (var property in element.EnumerateObject())
             {
@@ -30,10 +29,10 @@ namespace Azure.ResourceManager.SignalR.Models
                     {
                         continue;
                     }
-                    List<SignalRData> array = new List<SignalRData>();
+                    List<SignalR> array = new List<SignalR>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(SignalRData.DeserializeSignalRData(item));
+                        array.Add(SignalR.DeserializeSignalR(item));
                     }
                     value = array;
                     continue;

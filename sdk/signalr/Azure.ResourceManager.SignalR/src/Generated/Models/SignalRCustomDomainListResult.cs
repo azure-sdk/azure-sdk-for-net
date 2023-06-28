@@ -7,7 +7,6 @@
 
 using System.Collections.Generic;
 using Azure.Core;
-using Azure.ResourceManager.SignalR;
 
 namespace Azure.ResourceManager.SignalR.Models
 {
@@ -17,7 +16,7 @@ namespace Azure.ResourceManager.SignalR.Models
         /// <summary> Initializes a new instance of SignalRCustomDomainListResult. </summary>
         internal SignalRCustomDomainListResult()
         {
-            Value = new ChangeTrackingList<SignalRCustomDomainData>();
+            Value = new ChangeTrackingList<SignalRCustomDomain>();
         }
 
         /// <summary> Initializes a new instance of SignalRCustomDomainListResult. </summary>
@@ -26,14 +25,14 @@ namespace Azure.ResourceManager.SignalR.Models
         /// The URL the client should use to fetch the next page (per server side paging).
         /// It's null for now, added for future use.
         /// </param>
-        internal SignalRCustomDomainListResult(IReadOnlyList<SignalRCustomDomainData> value, string nextLink)
+        internal SignalRCustomDomainListResult(IReadOnlyList<SignalRCustomDomain> value, string nextLink)
         {
             Value = value;
             NextLink = nextLink;
         }
 
         /// <summary> List of custom domains that bind to this resource. </summary>
-        public IReadOnlyList<SignalRCustomDomainData> Value { get; }
+        public IReadOnlyList<SignalRCustomDomain> Value { get; }
         /// <summary>
         /// The URL the client should use to fetch the next page (per server side paging).
         /// It's null for now, added for future use.

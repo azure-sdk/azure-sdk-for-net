@@ -7,7 +7,6 @@
 
 using System.Collections.Generic;
 using Azure.Core;
-using Azure.ResourceManager.SignalR;
 
 namespace Azure.ResourceManager.SignalR.Models
 {
@@ -17,7 +16,7 @@ namespace Azure.ResourceManager.SignalR.Models
         /// <summary> Initializes a new instance of SignalRCustomCertificateListResult. </summary>
         internal SignalRCustomCertificateListResult()
         {
-            Value = new ChangeTrackingList<SignalRCustomCertificateData>();
+            Value = new ChangeTrackingList<SignalRCustomCertificate>();
         }
 
         /// <summary> Initializes a new instance of SignalRCustomCertificateListResult. </summary>
@@ -26,14 +25,14 @@ namespace Azure.ResourceManager.SignalR.Models
         /// The URL the client should use to fetch the next page (per server side paging).
         /// It's null for now, added for future use.
         /// </param>
-        internal SignalRCustomCertificateListResult(IReadOnlyList<SignalRCustomCertificateData> value, string nextLink)
+        internal SignalRCustomCertificateListResult(IReadOnlyList<SignalRCustomCertificate> value, string nextLink)
         {
             Value = value;
             NextLink = nextLink;
         }
 
         /// <summary> List of custom certificates of this resource. </summary>
-        public IReadOnlyList<SignalRCustomCertificateData> Value { get; }
+        public IReadOnlyList<SignalRCustomCertificate> Value { get; }
         /// <summary>
         /// The URL the client should use to fetch the next page (per server side paging).
         /// It's null for now, added for future use.

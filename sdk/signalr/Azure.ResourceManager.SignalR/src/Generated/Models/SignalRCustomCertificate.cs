@@ -8,21 +8,17 @@
 using System;
 using Azure.Core;
 using Azure.ResourceManager.Models;
-using Azure.ResourceManager.SignalR.Models;
 
-namespace Azure.ResourceManager.SignalR
+namespace Azure.ResourceManager.SignalR.Models
 {
-    /// <summary>
-    /// A class representing the SignalRCustomCertificate data model.
-    /// A custom certificate.
-    /// </summary>
-    public partial class SignalRCustomCertificateData : ResourceData
+    /// <summary> A custom certificate. </summary>
+    public partial class SignalRCustomCertificate : ResourceData
     {
-        /// <summary> Initializes a new instance of SignalRCustomCertificateData. </summary>
+        /// <summary> Initializes a new instance of SignalRCustomCertificate. </summary>
         /// <param name="keyVaultBaseUri"> Base uri of the KeyVault that stores certificate. </param>
         /// <param name="keyVaultSecretName"> Certificate secret name. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="keyVaultBaseUri"/> or <paramref name="keyVaultSecretName"/> is null. </exception>
-        public SignalRCustomCertificateData(Uri keyVaultBaseUri, string keyVaultSecretName)
+        public SignalRCustomCertificate(Uri keyVaultBaseUri, string keyVaultSecretName)
         {
             Argument.AssertNotNull(keyVaultBaseUri, nameof(keyVaultBaseUri));
             Argument.AssertNotNull(keyVaultSecretName, nameof(keyVaultSecretName));
@@ -31,7 +27,7 @@ namespace Azure.ResourceManager.SignalR
             KeyVaultSecretName = keyVaultSecretName;
         }
 
-        /// <summary> Initializes a new instance of SignalRCustomCertificateData. </summary>
+        /// <summary> Initializes a new instance of SignalRCustomCertificate. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
@@ -40,7 +36,7 @@ namespace Azure.ResourceManager.SignalR
         /// <param name="keyVaultBaseUri"> Base uri of the KeyVault that stores certificate. </param>
         /// <param name="keyVaultSecretName"> Certificate secret name. </param>
         /// <param name="keyVaultSecretVersion"> Certificate secret version. </param>
-        internal SignalRCustomCertificateData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, SignalRProvisioningState? provisioningState, Uri keyVaultBaseUri, string keyVaultSecretName, string keyVaultSecretVersion) : base(id, name, resourceType, systemData)
+        internal SignalRCustomCertificate(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, SignalRProvisioningState? provisioningState, Uri keyVaultBaseUri, string keyVaultSecretName, string keyVaultSecretVersion) : base(id, name, resourceType, systemData)
         {
             ProvisioningState = provisioningState;
             KeyVaultBaseUri = keyVaultBaseUri;

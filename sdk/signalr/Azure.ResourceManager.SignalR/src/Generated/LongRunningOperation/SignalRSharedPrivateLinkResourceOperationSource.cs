@@ -10,31 +10,22 @@ using System.Threading;
 using System.Threading.Tasks;
 using Azure;
 using Azure.Core;
-using Azure.ResourceManager;
+using Azure.ResourceManager.SignalR.Models;
 
 namespace Azure.ResourceManager.SignalR
 {
     internal class SignalRSharedPrivateLinkResourceOperationSource : IOperationSource<SignalRSharedPrivateLinkResource>
     {
-        private readonly ArmClient _client;
-
-        internal SignalRSharedPrivateLinkResourceOperationSource(ArmClient client)
-        {
-            _client = client;
-        }
-
         SignalRSharedPrivateLinkResource IOperationSource<SignalRSharedPrivateLinkResource>.CreateResult(Response response, CancellationToken cancellationToken)
         {
             using var document = JsonDocument.Parse(response.ContentStream);
-            var data = SignalRSharedPrivateLinkResourceData.DeserializeSignalRSharedPrivateLinkResourceData(document.RootElement);
-            return new SignalRSharedPrivateLinkResource(_client, data);
+            return SignalRSharedPrivateLinkResource.DeserializeSignalRSharedPrivateLinkResource(document.RootElement);
         }
 
         async ValueTask<SignalRSharedPrivateLinkResource> IOperationSource<SignalRSharedPrivateLinkResource>.CreateResultAsync(Response response, CancellationToken cancellationToken)
         {
             using var document = await JsonDocument.ParseAsync(response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-            var data = SignalRSharedPrivateLinkResourceData.DeserializeSignalRSharedPrivateLinkResourceData(document.RootElement);
-            return new SignalRSharedPrivateLinkResource(_client, data);
+            return SignalRSharedPrivateLinkResource.DeserializeSignalRSharedPrivateLinkResource(document.RootElement);
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Azure.ResourceManager.SignalR.Models
     public partial class SignalRNameAvailabilityContent
     {
         /// <summary> Initializes a new instance of SignalRNameAvailabilityContent. </summary>
-        /// <param name="resourceType"> The resource type. Can be "Microsoft.SignalRService/SignalR" or "Microsoft.SignalRService/webPubSub". </param>
+        /// <param name="resourceType"> The resource type. Can be "Microsoft.SignalRService/SignalR", "Microsoft.SignalRService/WebPubSub", "Microsoft.SignalRService/SignalR/replicas" or "Microsoft.SignalRService/WebPubSub/replicas". </param>
         /// <param name="name"> The resource name to validate. e.g."my-resource-name". </param>
         /// <exception cref="ArgumentNullException"> <paramref name="name"/> is null. </exception>
         public SignalRNameAvailabilityContent(ResourceType resourceType, string name)
@@ -25,7 +25,7 @@ namespace Azure.ResourceManager.SignalR.Models
             Name = name;
         }
 
-        /// <summary> The resource type. Can be "Microsoft.SignalRService/SignalR" or "Microsoft.SignalRService/webPubSub". </summary>
+        /// <summary> The resource type. Can be "Microsoft.SignalRService/SignalR", "Microsoft.SignalRService/WebPubSub", "Microsoft.SignalRService/SignalR/replicas" or "Microsoft.SignalRService/WebPubSub/replicas". </summary>
         public ResourceType ResourceType { get; }
         /// <summary> The resource name to validate. e.g."my-resource-name". </summary>
         public string Name { get; }

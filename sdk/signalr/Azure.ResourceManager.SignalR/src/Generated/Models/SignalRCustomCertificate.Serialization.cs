@@ -5,37 +5,34 @@
 
 #nullable disable
 
-using System.Collections.Generic;
+using System;
 using System.Text.Json;
 using Azure.Core;
 using Azure.ResourceManager.Models;
-using Azure.ResourceManager.Resources.Models;
-using Azure.ResourceManager.SignalR.Models;
 
-namespace Azure.ResourceManager.SignalR
+namespace Azure.ResourceManager.SignalR.Models
 {
-    public partial class SignalRPrivateEndpointConnectionData : IUtf8JsonSerializable
+    public partial class SignalRCustomCertificate : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
-            if (Optional.IsDefined(PrivateEndpoint))
+            writer.WritePropertyName("keyVaultBaseUri"u8);
+            writer.WriteStringValue(KeyVaultBaseUri.AbsoluteUri);
+            writer.WritePropertyName("keyVaultSecretName"u8);
+            writer.WriteStringValue(KeyVaultSecretName);
+            if (Optional.IsDefined(KeyVaultSecretVersion))
             {
-                writer.WritePropertyName("privateEndpoint"u8);
-                JsonSerializer.Serialize(writer, PrivateEndpoint);
-            }
-            if (Optional.IsDefined(ConnectionState))
-            {
-                writer.WritePropertyName("privateLinkServiceConnectionState"u8);
-                writer.WriteObjectValue(ConnectionState);
+                writer.WritePropertyName("keyVaultSecretVersion"u8);
+                writer.WriteStringValue(KeyVaultSecretVersion);
             }
             writer.WriteEndObject();
             writer.WriteEndObject();
         }
 
-        internal static SignalRPrivateEndpointConnectionData DeserializeSignalRPrivateEndpointConnectionData(JsonElement element)
+        internal static SignalRCustomCertificate DeserializeSignalRCustomCertificate(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
@@ -46,9 +43,9 @@ namespace Azure.ResourceManager.SignalR
             ResourceType type = default;
             Optional<SystemData> systemData = default;
             Optional<SignalRProvisioningState> provisioningState = default;
-            Optional<WritableSubResource> privateEndpoint = default;
-            Optional<IReadOnlyList<string>> groupIds = default;
-            Optional<SignalRPrivateLinkServiceConnectionState> privateLinkServiceConnectionState = default;
+            Uri keyVaultBaseUri = default;
+            string keyVaultSecretName = default;
+            Optional<string> keyVaultSecretVersion = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("id"u8))
@@ -93,43 +90,26 @@ namespace Azure.ResourceManager.SignalR
                             provisioningState = new SignalRProvisioningState(property0.Value.GetString());
                             continue;
                         }
-                        if (property0.NameEquals("privateEndpoint"u8))
+                        if (property0.NameEquals("keyVaultBaseUri"u8))
                         {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            privateEndpoint = JsonSerializer.Deserialize<WritableSubResource>(property0.Value.GetRawText());
+                            keyVaultBaseUri = new Uri(property0.Value.GetString());
                             continue;
                         }
-                        if (property0.NameEquals("groupIds"u8))
+                        if (property0.NameEquals("keyVaultSecretName"u8))
                         {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            List<string> array = new List<string>();
-                            foreach (var item in property0.Value.EnumerateArray())
-                            {
-                                array.Add(item.GetString());
-                            }
-                            groupIds = array;
+                            keyVaultSecretName = property0.Value.GetString();
                             continue;
                         }
-                        if (property0.NameEquals("privateLinkServiceConnectionState"u8))
+                        if (property0.NameEquals("keyVaultSecretVersion"u8))
                         {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            privateLinkServiceConnectionState = SignalRPrivateLinkServiceConnectionState.DeserializeSignalRPrivateLinkServiceConnectionState(property0.Value);
+                            keyVaultSecretVersion = property0.Value.GetString();
                             continue;
                         }
                     }
                     continue;
                 }
             }
-            return new SignalRPrivateEndpointConnectionData(id, name, type, systemData.Value, Optional.ToNullable(provisioningState), privateEndpoint, Optional.ToList(groupIds), privateLinkServiceConnectionState.Value);
+            return new SignalRCustomCertificate(id, name, type, systemData.Value, Optional.ToNullable(provisioningState), keyVaultBaseUri, keyVaultSecretName, keyVaultSecretVersion.Value);
         }
     }
 }

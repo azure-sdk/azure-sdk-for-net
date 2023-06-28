@@ -10,29 +10,65 @@ using System.Threading;
 using System.Threading.Tasks;
 using Azure;
 using Azure.Core;
+using Azure.Core.Pipeline;
 using Azure.ResourceManager;
-using Azure.ResourceManager.Resources;
 using Azure.ResourceManager.SignalR.Models;
 
 namespace Azure.ResourceManager.SignalR
 {
-    /// <summary> A class to add extension methods to Azure.ResourceManager.SignalR. </summary>
-    public static partial class SignalRExtensions
+    /// <summary> A class to add extension methods to TenantResource. </summary>
+    internal partial class TenantResourceExtensionClient : ArmResource
     {
-        private static TenantResourceExtensionClient GetTenantResourceExtensionClient(ArmResource resource)
+        private ClientDiagnostics _signalRClientDiagnostics;
+        private SignalRRestOperations _signalRRestClient;
+        private ClientDiagnostics _usagesClientDiagnostics;
+        private UsagesRestOperations _usagesRestClient;
+        private ClientDiagnostics _signalRCustomCertificatesClientDiagnostics;
+        private SignalRCustomCertificatesRestOperations _signalRCustomCertificatesRestClient;
+        private ClientDiagnostics _signalRCustomDomainsClientDiagnostics;
+        private SignalRCustomDomainsRestOperations _signalRCustomDomainsRestClient;
+        private ClientDiagnostics _signalRPrivateEndpointConnectionsClientDiagnostics;
+        private SignalRPrivateEndpointConnectionsRestOperations _signalRPrivateEndpointConnectionsRestClient;
+        private ClientDiagnostics _signalRPrivateLinkResourcesClientDiagnostics;
+        private SignalRPrivateLinkResourcesRestOperations _signalRPrivateLinkResourcesRestClient;
+        private ClientDiagnostics _signalRReplicasClientDiagnostics;
+        private SignalRReplicasRestOperations _signalRReplicasRestClient;
+        private ClientDiagnostics _signalRSharedPrivateLinkResourcesClientDiagnostics;
+        private SignalRSharedPrivateLinkResourcesRestOperations _signalRSharedPrivateLinkResourcesRestClient;
+
+        /// <summary> Initializes a new instance of the <see cref="TenantResourceExtensionClient"/> class for mocking. </summary>
+        protected TenantResourceExtensionClient()
         {
-            return resource.GetCachedClient(client =>
-            {
-                return new TenantResourceExtensionClient(client, resource.Id);
-            });
         }
 
-        private static TenantResourceExtensionClient GetTenantResourceExtensionClient(ArmClient client, ResourceIdentifier scope)
+        /// <summary> Initializes a new instance of the <see cref="TenantResourceExtensionClient"/> class. </summary>
+        /// <param name="client"> The client parameters to use in these operations. </param>
+        /// <param name="id"> The identifier of the resource that is the target of operations. </param>
+        internal TenantResourceExtensionClient(ArmClient client, ResourceIdentifier id) : base(client, id)
         {
-            return client.GetResourceClient(() =>
-            {
-                return new TenantResourceExtensionClient(client, scope);
-            });
+        }
+
+        private ClientDiagnostics SignalRClientDiagnostics => _signalRClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.SignalR", ProviderConstants.DefaultProviderNamespace, Diagnostics);
+        private SignalRRestOperations SignalRRestClient => _signalRRestClient ??= new SignalRRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
+        private ClientDiagnostics UsagesClientDiagnostics => _usagesClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.SignalR", ProviderConstants.DefaultProviderNamespace, Diagnostics);
+        private UsagesRestOperations UsagesRestClient => _usagesRestClient ??= new UsagesRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
+        private ClientDiagnostics SignalRCustomCertificatesClientDiagnostics => _signalRCustomCertificatesClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.SignalR", ProviderConstants.DefaultProviderNamespace, Diagnostics);
+        private SignalRCustomCertificatesRestOperations SignalRCustomCertificatesRestClient => _signalRCustomCertificatesRestClient ??= new SignalRCustomCertificatesRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
+        private ClientDiagnostics SignalRCustomDomainsClientDiagnostics => _signalRCustomDomainsClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.SignalR", ProviderConstants.DefaultProviderNamespace, Diagnostics);
+        private SignalRCustomDomainsRestOperations SignalRCustomDomainsRestClient => _signalRCustomDomainsRestClient ??= new SignalRCustomDomainsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
+        private ClientDiagnostics SignalRPrivateEndpointConnectionsClientDiagnostics => _signalRPrivateEndpointConnectionsClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.SignalR", ProviderConstants.DefaultProviderNamespace, Diagnostics);
+        private SignalRPrivateEndpointConnectionsRestOperations SignalRPrivateEndpointConnectionsRestClient => _signalRPrivateEndpointConnectionsRestClient ??= new SignalRPrivateEndpointConnectionsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
+        private ClientDiagnostics SignalRPrivateLinkResourcesClientDiagnostics => _signalRPrivateLinkResourcesClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.SignalR", ProviderConstants.DefaultProviderNamespace, Diagnostics);
+        private SignalRPrivateLinkResourcesRestOperations SignalRPrivateLinkResourcesRestClient => _signalRPrivateLinkResourcesRestClient ??= new SignalRPrivateLinkResourcesRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
+        private ClientDiagnostics SignalRReplicasClientDiagnostics => _signalRReplicasClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.SignalR", ProviderConstants.DefaultProviderNamespace, Diagnostics);
+        private SignalRReplicasRestOperations SignalRReplicasRestClient => _signalRReplicasRestClient ??= new SignalRReplicasRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
+        private ClientDiagnostics SignalRSharedPrivateLinkResourcesClientDiagnostics => _signalRSharedPrivateLinkResourcesClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.SignalR", ProviderConstants.DefaultProviderNamespace, Diagnostics);
+        private SignalRSharedPrivateLinkResourcesRestOperations SignalRSharedPrivateLinkResourcesRestClient => _signalRSharedPrivateLinkResourcesRestClient ??= new SignalRSharedPrivateLinkResourcesRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
+
+        private string GetApiVersionOrNull(ResourceType resourceType)
+        {
+            TryGetApiVersion(resourceType, out string apiVersion);
+            return apiVersion;
         }
 
         /// <summary>
@@ -48,17 +84,24 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="location"> the region. </param>
         /// <param name="content"> Parameters supplied to the operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
-        public static async Task<Response<SignalRNameAvailabilityResult>> CheckSignalRNameAvailabilityAsync(this TenantResource tenantResource, Guid subscriptionId, AzureLocation location, SignalRNameAvailabilityContent content, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<SignalRNameAvailabilityResult>> CheckSignalRNameAvailabilityAsync(Guid subscriptionId, AzureLocation location, SignalRNameAvailabilityContent content, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNull(content, nameof(content));
-
-            return await GetTenantResourceExtensionClient(tenantResource).CheckSignalRNameAvailabilityAsync(subscriptionId, location, content, cancellationToken).ConfigureAwait(false);
+            using var scope = SignalRClientDiagnostics.CreateScope("TenantResourceExtensionClient.CheckSignalRNameAvailability");
+            scope.Start();
+            try
+            {
+                var response = await SignalRRestClient.CheckNameAvailabilityAsync(subscriptionId, location, content, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -74,17 +117,24 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="location"> the region. </param>
         /// <param name="content"> Parameters supplied to the operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
-        public static Response<SignalRNameAvailabilityResult> CheckSignalRNameAvailability(this TenantResource tenantResource, Guid subscriptionId, AzureLocation location, SignalRNameAvailabilityContent content, CancellationToken cancellationToken = default)
+        public virtual Response<SignalRNameAvailabilityResult> CheckSignalRNameAvailability(Guid subscriptionId, AzureLocation location, SignalRNameAvailabilityContent content, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNull(content, nameof(content));
-
-            return GetTenantResourceExtensionClient(tenantResource).CheckSignalRNameAvailability(subscriptionId, location, content, cancellationToken);
+            using var scope = SignalRClientDiagnostics.CreateScope("TenantResourceExtensionClient.CheckSignalRNameAvailability");
+            scope.Start();
+            try
+            {
+                var response = SignalRRestClient.CheckNameAvailability(subscriptionId, location, content, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -100,13 +150,14 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> An async collection of <see cref="Models.SignalR" /> that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<Models.SignalR> GetSignalRsBySubscriptionAsync(this TenantResource tenantResource, Guid subscriptionId, CancellationToken cancellationToken = default)
+        public virtual AsyncPageable<Models.SignalR> GetSignalRsBySubscriptionAsync(Guid subscriptionId, CancellationToken cancellationToken = default)
         {
-            return GetTenantResourceExtensionClient(tenantResource).GetSignalRsBySubscriptionAsync(subscriptionId, cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => SignalRRestClient.CreateListBySubscriptionRequest(subscriptionId);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => SignalRRestClient.CreateListBySubscriptionNextPageRequest(nextLink, subscriptionId);
+            return PageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, Models.SignalR.DeserializeSignalR, SignalRClientDiagnostics, Pipeline, "TenantResourceExtensionClient.GetSignalRsBySubscription", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -122,13 +173,14 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> A collection of <see cref="Models.SignalR" /> that may take multiple service requests to iterate over. </returns>
-        public static Pageable<Models.SignalR> GetSignalRsBySubscription(this TenantResource tenantResource, Guid subscriptionId, CancellationToken cancellationToken = default)
+        public virtual Pageable<Models.SignalR> GetSignalRsBySubscription(Guid subscriptionId, CancellationToken cancellationToken = default)
         {
-            return GetTenantResourceExtensionClient(tenantResource).GetSignalRsBySubscription(subscriptionId, cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => SignalRRestClient.CreateListBySubscriptionRequest(subscriptionId);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => SignalRRestClient.CreateListBySubscriptionNextPageRequest(nextLink, subscriptionId);
+            return PageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, Models.SignalR.DeserializeSignalR, SignalRClientDiagnostics, Pipeline, "TenantResourceExtensionClient.GetSignalRsBySubscription", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -144,18 +196,15 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> is null. </exception>
         /// <returns> An async collection of <see cref="Models.SignalR" /> that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<Models.SignalR> GetSignalRsByResourceGroupAsync(this TenantResource tenantResource, Guid subscriptionId, string resourceGroupName, CancellationToken cancellationToken = default)
+        public virtual AsyncPageable<Models.SignalR> GetSignalRsByResourceGroupAsync(Guid subscriptionId, string resourceGroupName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-
-            return GetTenantResourceExtensionClient(tenantResource).GetSignalRsByResourceGroupAsync(subscriptionId, resourceGroupName, cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => SignalRRestClient.CreateListByResourceGroupRequest(subscriptionId, resourceGroupName);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => SignalRRestClient.CreateListByResourceGroupNextPageRequest(nextLink, subscriptionId, resourceGroupName);
+            return PageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, Models.SignalR.DeserializeSignalR, SignalRClientDiagnostics, Pipeline, "TenantResourceExtensionClient.GetSignalRsByResourceGroup", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -171,18 +220,15 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> is null. </exception>
         /// <returns> A collection of <see cref="Models.SignalR" /> that may take multiple service requests to iterate over. </returns>
-        public static Pageable<Models.SignalR> GetSignalRsByResourceGroup(this TenantResource tenantResource, Guid subscriptionId, string resourceGroupName, CancellationToken cancellationToken = default)
+        public virtual Pageable<Models.SignalR> GetSignalRsByResourceGroup(Guid subscriptionId, string resourceGroupName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-
-            return GetTenantResourceExtensionClient(tenantResource).GetSignalRsByResourceGroup(subscriptionId, resourceGroupName, cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => SignalRRestClient.CreateListByResourceGroupRequest(subscriptionId, resourceGroupName);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => SignalRRestClient.CreateListByResourceGroupNextPageRequest(nextLink, subscriptionId, resourceGroupName);
+            return PageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, Models.SignalR.DeserializeSignalR, SignalRClientDiagnostics, Pipeline, "TenantResourceExtensionClient.GetSignalRsByResourceGroup", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -198,19 +244,24 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is null. </exception>
-        public static async Task<Response<Models.SignalR>> GetSignalRAsync(this TenantResource tenantResource, Guid subscriptionId, string resourceGroupName, string resourceName, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<Models.SignalR>> GetSignalRAsync(Guid subscriptionId, string resourceGroupName, string resourceName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-
-            return await GetTenantResourceExtensionClient(tenantResource).GetSignalRAsync(subscriptionId, resourceGroupName, resourceName, cancellationToken).ConfigureAwait(false);
+            using var scope = SignalRClientDiagnostics.CreateScope("TenantResourceExtensionClient.GetSignalR");
+            scope.Start();
+            try
+            {
+                var response = await SignalRRestClient.GetAsync(subscriptionId, resourceGroupName, resourceName, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -226,19 +277,24 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is null. </exception>
-        public static Response<Models.SignalR> GetSignalR(this TenantResource tenantResource, Guid subscriptionId, string resourceGroupName, string resourceName, CancellationToken cancellationToken = default)
+        public virtual Response<Models.SignalR> GetSignalR(Guid subscriptionId, string resourceGroupName, string resourceName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-
-            return GetTenantResourceExtensionClient(tenantResource).GetSignalR(subscriptionId, resourceGroupName, resourceName, cancellationToken);
+            using var scope = SignalRClientDiagnostics.CreateScope("TenantResourceExtensionClient.GetSignalR");
+            scope.Start();
+            try
+            {
+                var response = SignalRRestClient.Get(subscriptionId, resourceGroupName, resourceName, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -254,22 +310,29 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="signalR"> Parameters for the create or update operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="signalR"/> is null. </exception>
-        public static async Task<ArmOperation<Models.SignalR>> CreateOrUpdateSignalRAsync(this TenantResource tenantResource, WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, Models.SignalR signalR, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation<Models.SignalR>> CreateOrUpdateSignalRAsync(WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, Models.SignalR signalR, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-            Argument.AssertNotNull(signalR, nameof(signalR));
-
-            return await GetTenantResourceExtensionClient(tenantResource).CreateOrUpdateSignalRAsync(waitUntil, subscriptionId, resourceGroupName, resourceName, signalR, cancellationToken).ConfigureAwait(false);
+            using var scope = SignalRClientDiagnostics.CreateScope("TenantResourceExtensionClient.CreateOrUpdateSignalR");
+            scope.Start();
+            try
+            {
+                var response = await SignalRRestClient.CreateOrUpdateAsync(subscriptionId, resourceGroupName, resourceName, signalR, cancellationToken).ConfigureAwait(false);
+                var operation = new SignalRArmOperation<Models.SignalR>(new SignalROperationSource(), SignalRClientDiagnostics, Pipeline, SignalRRestClient.CreateCreateOrUpdateRequest(subscriptionId, resourceGroupName, resourceName, signalR).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -285,22 +348,29 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="signalR"> Parameters for the create or update operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="signalR"/> is null. </exception>
-        public static ArmOperation<Models.SignalR> CreateOrUpdateSignalR(this TenantResource tenantResource, WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, Models.SignalR signalR, CancellationToken cancellationToken = default)
+        public virtual ArmOperation<Models.SignalR> CreateOrUpdateSignalR(WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, Models.SignalR signalR, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-            Argument.AssertNotNull(signalR, nameof(signalR));
-
-            return GetTenantResourceExtensionClient(tenantResource).CreateOrUpdateSignalR(waitUntil, subscriptionId, resourceGroupName, resourceName, signalR, cancellationToken);
+            using var scope = SignalRClientDiagnostics.CreateScope("TenantResourceExtensionClient.CreateOrUpdateSignalR");
+            scope.Start();
+            try
+            {
+                var response = SignalRRestClient.CreateOrUpdate(subscriptionId, resourceGroupName, resourceName, signalR, cancellationToken);
+                var operation = new SignalRArmOperation<Models.SignalR>(new SignalROperationSource(), SignalRClientDiagnostics, Pipeline, SignalRRestClient.CreateCreateOrUpdateRequest(subscriptionId, resourceGroupName, resourceName, signalR).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletion(cancellationToken);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -316,20 +386,28 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is null. </exception>
-        public static async Task<ArmOperation> DeleteSignalRAsync(this TenantResource tenantResource, WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation> DeleteSignalRAsync(WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-
-            return await GetTenantResourceExtensionClient(tenantResource).DeleteSignalRAsync(waitUntil, subscriptionId, resourceGroupName, resourceName, cancellationToken).ConfigureAwait(false);
+            using var scope = SignalRClientDiagnostics.CreateScope("TenantResourceExtensionClient.DeleteSignalR");
+            scope.Start();
+            try
+            {
+                var response = await SignalRRestClient.DeleteAsync(subscriptionId, resourceGroupName, resourceName, cancellationToken).ConfigureAwait(false);
+                var operation = new SignalRArmOperation(SignalRClientDiagnostics, Pipeline, SignalRRestClient.CreateDeleteRequest(subscriptionId, resourceGroupName, resourceName).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -345,20 +423,28 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is null. </exception>
-        public static ArmOperation DeleteSignalR(this TenantResource tenantResource, WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, CancellationToken cancellationToken = default)
+        public virtual ArmOperation DeleteSignalR(WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-
-            return GetTenantResourceExtensionClient(tenantResource).DeleteSignalR(waitUntil, subscriptionId, resourceGroupName, resourceName, cancellationToken);
+            using var scope = SignalRClientDiagnostics.CreateScope("TenantResourceExtensionClient.DeleteSignalR");
+            scope.Start();
+            try
+            {
+                var response = SignalRRestClient.Delete(subscriptionId, resourceGroupName, resourceName, cancellationToken);
+                var operation = new SignalRArmOperation(SignalRClientDiagnostics, Pipeline, SignalRRestClient.CreateDeleteRequest(subscriptionId, resourceGroupName, resourceName).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletionResponse(cancellationToken);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -374,22 +460,29 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="signalR"> Parameters for the update operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="signalR"/> is null. </exception>
-        public static async Task<ArmOperation<Models.SignalR>> UpdateSignalRAsync(this TenantResource tenantResource, WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, Models.SignalR signalR, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation<Models.SignalR>> UpdateSignalRAsync(WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, Models.SignalR signalR, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-            Argument.AssertNotNull(signalR, nameof(signalR));
-
-            return await GetTenantResourceExtensionClient(tenantResource).UpdateSignalRAsync(waitUntil, subscriptionId, resourceGroupName, resourceName, signalR, cancellationToken).ConfigureAwait(false);
+            using var scope = SignalRClientDiagnostics.CreateScope("TenantResourceExtensionClient.UpdateSignalR");
+            scope.Start();
+            try
+            {
+                var response = await SignalRRestClient.UpdateAsync(subscriptionId, resourceGroupName, resourceName, signalR, cancellationToken).ConfigureAwait(false);
+                var operation = new SignalRArmOperation<Models.SignalR>(new SignalROperationSource(), SignalRClientDiagnostics, Pipeline, SignalRRestClient.CreateUpdateRequest(subscriptionId, resourceGroupName, resourceName, signalR).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -405,22 +498,29 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="signalR"> Parameters for the update operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="signalR"/> is null. </exception>
-        public static ArmOperation<Models.SignalR> UpdateSignalR(this TenantResource tenantResource, WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, Models.SignalR signalR, CancellationToken cancellationToken = default)
+        public virtual ArmOperation<Models.SignalR> UpdateSignalR(WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, Models.SignalR signalR, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-            Argument.AssertNotNull(signalR, nameof(signalR));
-
-            return GetTenantResourceExtensionClient(tenantResource).UpdateSignalR(waitUntil, subscriptionId, resourceGroupName, resourceName, signalR, cancellationToken);
+            using var scope = SignalRClientDiagnostics.CreateScope("TenantResourceExtensionClient.UpdateSignalR");
+            scope.Start();
+            try
+            {
+                var response = SignalRRestClient.Update(subscriptionId, resourceGroupName, resourceName, signalR, cancellationToken);
+                var operation = new SignalRArmOperation<Models.SignalR>(new SignalROperationSource(), SignalRClientDiagnostics, Pipeline, SignalRRestClient.CreateUpdateRequest(subscriptionId, resourceGroupName, resourceName, signalR).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletion(cancellationToken);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -436,19 +536,24 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is null. </exception>
-        public static async Task<Response<SignalRKeys>> GetKeysSignalRAsync(this TenantResource tenantResource, Guid subscriptionId, string resourceGroupName, string resourceName, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<SignalRKeys>> GetKeysSignalRAsync(Guid subscriptionId, string resourceGroupName, string resourceName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-
-            return await GetTenantResourceExtensionClient(tenantResource).GetKeysSignalRAsync(subscriptionId, resourceGroupName, resourceName, cancellationToken).ConfigureAwait(false);
+            using var scope = SignalRClientDiagnostics.CreateScope("TenantResourceExtensionClient.GetKeysSignalR");
+            scope.Start();
+            try
+            {
+                var response = await SignalRRestClient.ListKeysAsync(subscriptionId, resourceGroupName, resourceName, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -464,19 +569,24 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is null. </exception>
-        public static Response<SignalRKeys> GetKeysSignalR(this TenantResource tenantResource, Guid subscriptionId, string resourceGroupName, string resourceName, CancellationToken cancellationToken = default)
+        public virtual Response<SignalRKeys> GetKeysSignalR(Guid subscriptionId, string resourceGroupName, string resourceName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-
-            return GetTenantResourceExtensionClient(tenantResource).GetKeysSignalR(subscriptionId, resourceGroupName, resourceName, cancellationToken);
+            using var scope = SignalRClientDiagnostics.CreateScope("TenantResourceExtensionClient.GetKeysSignalR");
+            scope.Start();
+            try
+            {
+                var response = SignalRRestClient.ListKeys(subscriptionId, resourceGroupName, resourceName, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -492,22 +602,29 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="content"> Parameter that describes the Regenerate Key Operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="content"/> is null. </exception>
-        public static async Task<ArmOperation<SignalRKeys>> RegenerateKeySignalRAsync(this TenantResource tenantResource, WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, SignalRRegenerateKeyContent content, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation<SignalRKeys>> RegenerateKeySignalRAsync(WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, SignalRRegenerateKeyContent content, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-            Argument.AssertNotNull(content, nameof(content));
-
-            return await GetTenantResourceExtensionClient(tenantResource).RegenerateKeySignalRAsync(waitUntil, subscriptionId, resourceGroupName, resourceName, content, cancellationToken).ConfigureAwait(false);
+            using var scope = SignalRClientDiagnostics.CreateScope("TenantResourceExtensionClient.RegenerateKeySignalR");
+            scope.Start();
+            try
+            {
+                var response = await SignalRRestClient.RegenerateKeyAsync(subscriptionId, resourceGroupName, resourceName, content, cancellationToken).ConfigureAwait(false);
+                var operation = new SignalRArmOperation<SignalRKeys>(new SignalRKeysOperationSource(), SignalRClientDiagnostics, Pipeline, SignalRRestClient.CreateRegenerateKeyRequest(subscriptionId, resourceGroupName, resourceName, content).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -523,22 +640,29 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="content"> Parameter that describes the Regenerate Key Operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="content"/> is null. </exception>
-        public static ArmOperation<SignalRKeys> RegenerateKeySignalR(this TenantResource tenantResource, WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, SignalRRegenerateKeyContent content, CancellationToken cancellationToken = default)
+        public virtual ArmOperation<SignalRKeys> RegenerateKeySignalR(WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, SignalRRegenerateKeyContent content, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-            Argument.AssertNotNull(content, nameof(content));
-
-            return GetTenantResourceExtensionClient(tenantResource).RegenerateKeySignalR(waitUntil, subscriptionId, resourceGroupName, resourceName, content, cancellationToken);
+            using var scope = SignalRClientDiagnostics.CreateScope("TenantResourceExtensionClient.RegenerateKeySignalR");
+            scope.Start();
+            try
+            {
+                var response = SignalRRestClient.RegenerateKey(subscriptionId, resourceGroupName, resourceName, content, cancellationToken);
+                var operation = new SignalRArmOperation<SignalRKeys>(new SignalRKeysOperationSource(), SignalRClientDiagnostics, Pipeline, SignalRRestClient.CreateRegenerateKeyRequest(subscriptionId, resourceGroupName, resourceName, content).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletion(cancellationToken);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -554,22 +678,16 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="replicaName"> The name of the replica. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="replicaName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="replicaName"/> is null. </exception>
         /// <returns> An async collection of <see cref="SignalRSku" /> that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<SignalRSku> GetReplicaSkusSignalRsAsync(this TenantResource tenantResource, Guid subscriptionId, string resourceGroupName, string resourceName, string replicaName, CancellationToken cancellationToken = default)
+        public virtual AsyncPageable<SignalRSku> GetReplicaSkusSignalRsAsync(Guid subscriptionId, string resourceGroupName, string resourceName, string replicaName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-            Argument.AssertNotNullOrEmpty(replicaName, nameof(replicaName));
-
-            return GetTenantResourceExtensionClient(tenantResource).GetReplicaSkusSignalRsAsync(subscriptionId, resourceGroupName, resourceName, replicaName, cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => SignalRRestClient.CreateListReplicaSkusRequest(subscriptionId, resourceGroupName, resourceName, replicaName);
+            return PageableHelpers.CreateAsyncPageable(FirstPageRequest, null, SignalRSku.DeserializeSignalRSku, SignalRClientDiagnostics, Pipeline, "TenantResourceExtensionClient.GetReplicaSkusSignalRs", "value", null, cancellationToken);
         }
 
         /// <summary>
@@ -585,22 +703,16 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="replicaName"> The name of the replica. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="replicaName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="replicaName"/> is null. </exception>
         /// <returns> A collection of <see cref="SignalRSku" /> that may take multiple service requests to iterate over. </returns>
-        public static Pageable<SignalRSku> GetReplicaSkusSignalRs(this TenantResource tenantResource, Guid subscriptionId, string resourceGroupName, string resourceName, string replicaName, CancellationToken cancellationToken = default)
+        public virtual Pageable<SignalRSku> GetReplicaSkusSignalRs(Guid subscriptionId, string resourceGroupName, string resourceName, string replicaName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-            Argument.AssertNotNullOrEmpty(replicaName, nameof(replicaName));
-
-            return GetTenantResourceExtensionClient(tenantResource).GetReplicaSkusSignalRs(subscriptionId, resourceGroupName, resourceName, replicaName, cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => SignalRRestClient.CreateListReplicaSkusRequest(subscriptionId, resourceGroupName, resourceName, replicaName);
+            return PageableHelpers.CreatePageable(FirstPageRequest, null, SignalRSku.DeserializeSignalRSku, SignalRClientDiagnostics, Pipeline, "TenantResourceExtensionClient.GetReplicaSkusSignalRs", "value", null, cancellationToken);
         }
 
         /// <summary>
@@ -616,20 +728,28 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is null. </exception>
-        public static async Task<ArmOperation> RestartSignalRAsync(this TenantResource tenantResource, WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation> RestartSignalRAsync(WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-
-            return await GetTenantResourceExtensionClient(tenantResource).RestartSignalRAsync(waitUntil, subscriptionId, resourceGroupName, resourceName, cancellationToken).ConfigureAwait(false);
+            using var scope = SignalRClientDiagnostics.CreateScope("TenantResourceExtensionClient.RestartSignalR");
+            scope.Start();
+            try
+            {
+                var response = await SignalRRestClient.RestartAsync(subscriptionId, resourceGroupName, resourceName, cancellationToken).ConfigureAwait(false);
+                var operation = new SignalRArmOperation(SignalRClientDiagnostics, Pipeline, SignalRRestClient.CreateRestartRequest(subscriptionId, resourceGroupName, resourceName).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -645,20 +765,28 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is null. </exception>
-        public static ArmOperation RestartSignalR(this TenantResource tenantResource, WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, CancellationToken cancellationToken = default)
+        public virtual ArmOperation RestartSignalR(WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-
-            return GetTenantResourceExtensionClient(tenantResource).RestartSignalR(waitUntil, subscriptionId, resourceGroupName, resourceName, cancellationToken);
+            using var scope = SignalRClientDiagnostics.CreateScope("TenantResourceExtensionClient.RestartSignalR");
+            scope.Start();
+            try
+            {
+                var response = SignalRRestClient.Restart(subscriptionId, resourceGroupName, resourceName, cancellationToken);
+                var operation = new SignalRArmOperation(SignalRClientDiagnostics, Pipeline, SignalRRestClient.CreateRestartRequest(subscriptionId, resourceGroupName, resourceName).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletionResponse(cancellationToken);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -674,20 +802,15 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is null. </exception>
         /// <returns> An async collection of <see cref="SignalRSku" /> that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<SignalRSku> GetSkusSignalRsAsync(this TenantResource tenantResource, Guid subscriptionId, string resourceGroupName, string resourceName, CancellationToken cancellationToken = default)
+        public virtual AsyncPageable<SignalRSku> GetSkusSignalRsAsync(Guid subscriptionId, string resourceGroupName, string resourceName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-
-            return GetTenantResourceExtensionClient(tenantResource).GetSkusSignalRsAsync(subscriptionId, resourceGroupName, resourceName, cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => SignalRRestClient.CreateListSkusRequest(subscriptionId, resourceGroupName, resourceName);
+            return PageableHelpers.CreateAsyncPageable(FirstPageRequest, null, SignalRSku.DeserializeSignalRSku, SignalRClientDiagnostics, Pipeline, "TenantResourceExtensionClient.GetSkusSignalRs", "value", null, cancellationToken);
         }
 
         /// <summary>
@@ -703,20 +826,15 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is null. </exception>
         /// <returns> A collection of <see cref="SignalRSku" /> that may take multiple service requests to iterate over. </returns>
-        public static Pageable<SignalRSku> GetSkusSignalRs(this TenantResource tenantResource, Guid subscriptionId, string resourceGroupName, string resourceName, CancellationToken cancellationToken = default)
+        public virtual Pageable<SignalRSku> GetSkusSignalRs(Guid subscriptionId, string resourceGroupName, string resourceName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-
-            return GetTenantResourceExtensionClient(tenantResource).GetSkusSignalRs(subscriptionId, resourceGroupName, resourceName, cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => SignalRRestClient.CreateListSkusRequest(subscriptionId, resourceGroupName, resourceName);
+            return PageableHelpers.CreatePageable(FirstPageRequest, null, SignalRSku.DeserializeSignalRSku, SignalRClientDiagnostics, Pipeline, "TenantResourceExtensionClient.GetSkusSignalRs", "value", null, cancellationToken);
         }
 
         /// <summary>
@@ -732,14 +850,15 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="location"> the location like "eastus". </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> An async collection of <see cref="SignalRUsage" /> that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<SignalRUsage> GetUsagesAsync(this TenantResource tenantResource, Guid subscriptionId, AzureLocation location, CancellationToken cancellationToken = default)
+        public virtual AsyncPageable<SignalRUsage> GetUsagesAsync(Guid subscriptionId, AzureLocation location, CancellationToken cancellationToken = default)
         {
-            return GetTenantResourceExtensionClient(tenantResource).GetUsagesAsync(subscriptionId, location, cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => UsagesRestClient.CreateListRequest(subscriptionId, location);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => UsagesRestClient.CreateListNextPageRequest(nextLink, subscriptionId, location);
+            return PageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, SignalRUsage.DeserializeSignalRUsage, UsagesClientDiagnostics, Pipeline, "TenantResourceExtensionClient.GetUsages", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -755,14 +874,15 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="location"> the location like "eastus". </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> A collection of <see cref="SignalRUsage" /> that may take multiple service requests to iterate over. </returns>
-        public static Pageable<SignalRUsage> GetUsages(this TenantResource tenantResource, Guid subscriptionId, AzureLocation location, CancellationToken cancellationToken = default)
+        public virtual Pageable<SignalRUsage> GetUsages(Guid subscriptionId, AzureLocation location, CancellationToken cancellationToken = default)
         {
-            return GetTenantResourceExtensionClient(tenantResource).GetUsages(subscriptionId, location, cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => UsagesRestClient.CreateListRequest(subscriptionId, location);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => UsagesRestClient.CreateListNextPageRequest(nextLink, subscriptionId, location);
+            return PageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, SignalRUsage.DeserializeSignalRUsage, UsagesClientDiagnostics, Pipeline, "TenantResourceExtensionClient.GetUsages", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -778,20 +898,16 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is null. </exception>
         /// <returns> An async collection of <see cref="SignalRCustomCertificate" /> that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<SignalRCustomCertificate> GetSignalRCustomCertificatesAsync(this TenantResource tenantResource, Guid subscriptionId, string resourceGroupName, string resourceName, CancellationToken cancellationToken = default)
+        public virtual AsyncPageable<SignalRCustomCertificate> GetSignalRCustomCertificatesAsync(Guid subscriptionId, string resourceGroupName, string resourceName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-
-            return GetTenantResourceExtensionClient(tenantResource).GetSignalRCustomCertificatesAsync(subscriptionId, resourceGroupName, resourceName, cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => SignalRCustomCertificatesRestClient.CreateListRequest(subscriptionId, resourceGroupName, resourceName);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => SignalRCustomCertificatesRestClient.CreateListNextPageRequest(nextLink, subscriptionId, resourceGroupName, resourceName);
+            return PageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, SignalRCustomCertificate.DeserializeSignalRCustomCertificate, SignalRCustomCertificatesClientDiagnostics, Pipeline, "TenantResourceExtensionClient.GetSignalRCustomCertificates", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -807,20 +923,16 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is null. </exception>
         /// <returns> A collection of <see cref="SignalRCustomCertificate" /> that may take multiple service requests to iterate over. </returns>
-        public static Pageable<SignalRCustomCertificate> GetSignalRCustomCertificates(this TenantResource tenantResource, Guid subscriptionId, string resourceGroupName, string resourceName, CancellationToken cancellationToken = default)
+        public virtual Pageable<SignalRCustomCertificate> GetSignalRCustomCertificates(Guid subscriptionId, string resourceGroupName, string resourceName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-
-            return GetTenantResourceExtensionClient(tenantResource).GetSignalRCustomCertificates(subscriptionId, resourceGroupName, resourceName, cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => SignalRCustomCertificatesRestClient.CreateListRequest(subscriptionId, resourceGroupName, resourceName);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => SignalRCustomCertificatesRestClient.CreateListNextPageRequest(nextLink, subscriptionId, resourceGroupName, resourceName);
+            return PageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, SignalRCustomCertificate.DeserializeSignalRCustomCertificate, SignalRCustomCertificatesClientDiagnostics, Pipeline, "TenantResourceExtensionClient.GetSignalRCustomCertificates", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -836,21 +948,25 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="certificateName"> Custom certificate name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="certificateName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="certificateName"/> is null. </exception>
-        public static async Task<Response<SignalRCustomCertificate>> GetSignalRCustomCertificateAsync(this TenantResource tenantResource, Guid subscriptionId, string resourceGroupName, string resourceName, string certificateName, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<SignalRCustomCertificate>> GetSignalRCustomCertificateAsync(Guid subscriptionId, string resourceGroupName, string resourceName, string certificateName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-            Argument.AssertNotNullOrEmpty(certificateName, nameof(certificateName));
-
-            return await GetTenantResourceExtensionClient(tenantResource).GetSignalRCustomCertificateAsync(subscriptionId, resourceGroupName, resourceName, certificateName, cancellationToken).ConfigureAwait(false);
+            using var scope = SignalRCustomCertificatesClientDiagnostics.CreateScope("TenantResourceExtensionClient.GetSignalRCustomCertificate");
+            scope.Start();
+            try
+            {
+                var response = await SignalRCustomCertificatesRestClient.GetAsync(subscriptionId, resourceGroupName, resourceName, certificateName, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -866,21 +982,25 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="certificateName"> Custom certificate name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="certificateName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="certificateName"/> is null. </exception>
-        public static Response<SignalRCustomCertificate> GetSignalRCustomCertificate(this TenantResource tenantResource, Guid subscriptionId, string resourceGroupName, string resourceName, string certificateName, CancellationToken cancellationToken = default)
+        public virtual Response<SignalRCustomCertificate> GetSignalRCustomCertificate(Guid subscriptionId, string resourceGroupName, string resourceName, string certificateName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-            Argument.AssertNotNullOrEmpty(certificateName, nameof(certificateName));
-
-            return GetTenantResourceExtensionClient(tenantResource).GetSignalRCustomCertificate(subscriptionId, resourceGroupName, resourceName, certificateName, cancellationToken);
+            using var scope = SignalRCustomCertificatesClientDiagnostics.CreateScope("TenantResourceExtensionClient.GetSignalRCustomCertificate");
+            scope.Start();
+            try
+            {
+                var response = SignalRCustomCertificatesRestClient.Get(subscriptionId, resourceGroupName, resourceName, certificateName, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -896,7 +1016,6 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
@@ -904,16 +1023,23 @@ namespace Azure.ResourceManager.SignalR
         /// <param name="certificateName"> Custom certificate name. </param>
         /// <param name="signalRCustomCertificate"> The SignalRCustomCertificate to use. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="certificateName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/>, <paramref name="certificateName"/> or <paramref name="signalRCustomCertificate"/> is null. </exception>
-        public static async Task<ArmOperation<SignalRCustomCertificate>> CreateOrUpdateSignalRCustomCertificateAsync(this TenantResource tenantResource, WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, string certificateName, SignalRCustomCertificate signalRCustomCertificate, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation<SignalRCustomCertificate>> CreateOrUpdateSignalRCustomCertificateAsync(WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, string certificateName, SignalRCustomCertificate signalRCustomCertificate, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-            Argument.AssertNotNullOrEmpty(certificateName, nameof(certificateName));
-            Argument.AssertNotNull(signalRCustomCertificate, nameof(signalRCustomCertificate));
-
-            return await GetTenantResourceExtensionClient(tenantResource).CreateOrUpdateSignalRCustomCertificateAsync(waitUntil, subscriptionId, resourceGroupName, resourceName, certificateName, signalRCustomCertificate, cancellationToken).ConfigureAwait(false);
+            using var scope = SignalRCustomCertificatesClientDiagnostics.CreateScope("TenantResourceExtensionClient.CreateOrUpdateSignalRCustomCertificate");
+            scope.Start();
+            try
+            {
+                var response = await SignalRCustomCertificatesRestClient.CreateOrUpdateAsync(subscriptionId, resourceGroupName, resourceName, certificateName, signalRCustomCertificate, cancellationToken).ConfigureAwait(false);
+                var operation = new SignalRArmOperation<SignalRCustomCertificate>(new SignalRCustomCertificateOperationSource(), SignalRCustomCertificatesClientDiagnostics, Pipeline, SignalRCustomCertificatesRestClient.CreateCreateOrUpdateRequest(subscriptionId, resourceGroupName, resourceName, certificateName, signalRCustomCertificate).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -929,7 +1055,6 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
@@ -937,16 +1062,23 @@ namespace Azure.ResourceManager.SignalR
         /// <param name="certificateName"> Custom certificate name. </param>
         /// <param name="signalRCustomCertificate"> The SignalRCustomCertificate to use. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="certificateName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/>, <paramref name="certificateName"/> or <paramref name="signalRCustomCertificate"/> is null. </exception>
-        public static ArmOperation<SignalRCustomCertificate> CreateOrUpdateSignalRCustomCertificate(this TenantResource tenantResource, WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, string certificateName, SignalRCustomCertificate signalRCustomCertificate, CancellationToken cancellationToken = default)
+        public virtual ArmOperation<SignalRCustomCertificate> CreateOrUpdateSignalRCustomCertificate(WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, string certificateName, SignalRCustomCertificate signalRCustomCertificate, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-            Argument.AssertNotNullOrEmpty(certificateName, nameof(certificateName));
-            Argument.AssertNotNull(signalRCustomCertificate, nameof(signalRCustomCertificate));
-
-            return GetTenantResourceExtensionClient(tenantResource).CreateOrUpdateSignalRCustomCertificate(waitUntil, subscriptionId, resourceGroupName, resourceName, certificateName, signalRCustomCertificate, cancellationToken);
+            using var scope = SignalRCustomCertificatesClientDiagnostics.CreateScope("TenantResourceExtensionClient.CreateOrUpdateSignalRCustomCertificate");
+            scope.Start();
+            try
+            {
+                var response = SignalRCustomCertificatesRestClient.CreateOrUpdate(subscriptionId, resourceGroupName, resourceName, certificateName, signalRCustomCertificate, cancellationToken);
+                var operation = new SignalRArmOperation<SignalRCustomCertificate>(new SignalRCustomCertificateOperationSource(), SignalRCustomCertificatesClientDiagnostics, Pipeline, SignalRCustomCertificatesRestClient.CreateCreateOrUpdateRequest(subscriptionId, resourceGroupName, resourceName, certificateName, signalRCustomCertificate).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletion(cancellationToken);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -962,21 +1094,25 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="certificateName"> Custom certificate name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="certificateName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="certificateName"/> is null. </exception>
-        public static async Task<Response> DeleteSignalRCustomCertificateAsync(this TenantResource tenantResource, Guid subscriptionId, string resourceGroupName, string resourceName, string certificateName, CancellationToken cancellationToken = default)
+        public virtual async Task<Response> DeleteSignalRCustomCertificateAsync(Guid subscriptionId, string resourceGroupName, string resourceName, string certificateName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-            Argument.AssertNotNullOrEmpty(certificateName, nameof(certificateName));
-
-            return await GetTenantResourceExtensionClient(tenantResource).DeleteSignalRCustomCertificateAsync(subscriptionId, resourceGroupName, resourceName, certificateName, cancellationToken).ConfigureAwait(false);
+            using var scope = SignalRCustomCertificatesClientDiagnostics.CreateScope("TenantResourceExtensionClient.DeleteSignalRCustomCertificate");
+            scope.Start();
+            try
+            {
+                var response = await SignalRCustomCertificatesRestClient.DeleteAsync(subscriptionId, resourceGroupName, resourceName, certificateName, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -992,21 +1128,25 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="certificateName"> Custom certificate name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="certificateName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="certificateName"/> is null. </exception>
-        public static Response DeleteSignalRCustomCertificate(this TenantResource tenantResource, Guid subscriptionId, string resourceGroupName, string resourceName, string certificateName, CancellationToken cancellationToken = default)
+        public virtual Response DeleteSignalRCustomCertificate(Guid subscriptionId, string resourceGroupName, string resourceName, string certificateName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-            Argument.AssertNotNullOrEmpty(certificateName, nameof(certificateName));
-
-            return GetTenantResourceExtensionClient(tenantResource).DeleteSignalRCustomCertificate(subscriptionId, resourceGroupName, resourceName, certificateName, cancellationToken);
+            using var scope = SignalRCustomCertificatesClientDiagnostics.CreateScope("TenantResourceExtensionClient.DeleteSignalRCustomCertificate");
+            scope.Start();
+            try
+            {
+                var response = SignalRCustomCertificatesRestClient.Delete(subscriptionId, resourceGroupName, resourceName, certificateName, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1022,20 +1162,16 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is null. </exception>
         /// <returns> An async collection of <see cref="SignalRCustomDomain" /> that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<SignalRCustomDomain> GetSignalRCustomDomainsAsync(this TenantResource tenantResource, Guid subscriptionId, string resourceGroupName, string resourceName, CancellationToken cancellationToken = default)
+        public virtual AsyncPageable<SignalRCustomDomain> GetSignalRCustomDomainsAsync(Guid subscriptionId, string resourceGroupName, string resourceName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-
-            return GetTenantResourceExtensionClient(tenantResource).GetSignalRCustomDomainsAsync(subscriptionId, resourceGroupName, resourceName, cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => SignalRCustomDomainsRestClient.CreateListRequest(subscriptionId, resourceGroupName, resourceName);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => SignalRCustomDomainsRestClient.CreateListNextPageRequest(nextLink, subscriptionId, resourceGroupName, resourceName);
+            return PageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, SignalRCustomDomain.DeserializeSignalRCustomDomain, SignalRCustomDomainsClientDiagnostics, Pipeline, "TenantResourceExtensionClient.GetSignalRCustomDomains", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -1051,20 +1187,16 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is null. </exception>
         /// <returns> A collection of <see cref="SignalRCustomDomain" /> that may take multiple service requests to iterate over. </returns>
-        public static Pageable<SignalRCustomDomain> GetSignalRCustomDomains(this TenantResource tenantResource, Guid subscriptionId, string resourceGroupName, string resourceName, CancellationToken cancellationToken = default)
+        public virtual Pageable<SignalRCustomDomain> GetSignalRCustomDomains(Guid subscriptionId, string resourceGroupName, string resourceName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-
-            return GetTenantResourceExtensionClient(tenantResource).GetSignalRCustomDomains(subscriptionId, resourceGroupName, resourceName, cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => SignalRCustomDomainsRestClient.CreateListRequest(subscriptionId, resourceGroupName, resourceName);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => SignalRCustomDomainsRestClient.CreateListNextPageRequest(nextLink, subscriptionId, resourceGroupName, resourceName);
+            return PageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, SignalRCustomDomain.DeserializeSignalRCustomDomain, SignalRCustomDomainsClientDiagnostics, Pipeline, "TenantResourceExtensionClient.GetSignalRCustomDomains", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -1080,21 +1212,25 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="name"> Custom domain name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="name"/> is null. </exception>
-        public static async Task<Response<SignalRCustomDomain>> GetSignalRCustomDomainAsync(this TenantResource tenantResource, Guid subscriptionId, string resourceGroupName, string resourceName, string name, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<SignalRCustomDomain>> GetSignalRCustomDomainAsync(Guid subscriptionId, string resourceGroupName, string resourceName, string name, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-            Argument.AssertNotNullOrEmpty(name, nameof(name));
-
-            return await GetTenantResourceExtensionClient(tenantResource).GetSignalRCustomDomainAsync(subscriptionId, resourceGroupName, resourceName, name, cancellationToken).ConfigureAwait(false);
+            using var scope = SignalRCustomDomainsClientDiagnostics.CreateScope("TenantResourceExtensionClient.GetSignalRCustomDomain");
+            scope.Start();
+            try
+            {
+                var response = await SignalRCustomDomainsRestClient.GetAsync(subscriptionId, resourceGroupName, resourceName, name, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1110,21 +1246,25 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="name"> Custom domain name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="name"/> is null. </exception>
-        public static Response<SignalRCustomDomain> GetSignalRCustomDomain(this TenantResource tenantResource, Guid subscriptionId, string resourceGroupName, string resourceName, string name, CancellationToken cancellationToken = default)
+        public virtual Response<SignalRCustomDomain> GetSignalRCustomDomain(Guid subscriptionId, string resourceGroupName, string resourceName, string name, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-            Argument.AssertNotNullOrEmpty(name, nameof(name));
-
-            return GetTenantResourceExtensionClient(tenantResource).GetSignalRCustomDomain(subscriptionId, resourceGroupName, resourceName, name, cancellationToken);
+            using var scope = SignalRCustomDomainsClientDiagnostics.CreateScope("TenantResourceExtensionClient.GetSignalRCustomDomain");
+            scope.Start();
+            try
+            {
+                var response = SignalRCustomDomainsRestClient.Get(subscriptionId, resourceGroupName, resourceName, name, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1140,7 +1280,6 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
@@ -1148,16 +1287,23 @@ namespace Azure.ResourceManager.SignalR
         /// <param name="name"> Custom domain name. </param>
         /// <param name="signalRCustomDomain"> The SignalRCustomDomain to use. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/>, <paramref name="name"/> or <paramref name="signalRCustomDomain"/> is null. </exception>
-        public static async Task<ArmOperation<SignalRCustomDomain>> CreateOrUpdateSignalRCustomDomainAsync(this TenantResource tenantResource, WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, string name, SignalRCustomDomain signalRCustomDomain, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation<SignalRCustomDomain>> CreateOrUpdateSignalRCustomDomainAsync(WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, string name, SignalRCustomDomain signalRCustomDomain, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-            Argument.AssertNotNullOrEmpty(name, nameof(name));
-            Argument.AssertNotNull(signalRCustomDomain, nameof(signalRCustomDomain));
-
-            return await GetTenantResourceExtensionClient(tenantResource).CreateOrUpdateSignalRCustomDomainAsync(waitUntil, subscriptionId, resourceGroupName, resourceName, name, signalRCustomDomain, cancellationToken).ConfigureAwait(false);
+            using var scope = SignalRCustomDomainsClientDiagnostics.CreateScope("TenantResourceExtensionClient.CreateOrUpdateSignalRCustomDomain");
+            scope.Start();
+            try
+            {
+                var response = await SignalRCustomDomainsRestClient.CreateOrUpdateAsync(subscriptionId, resourceGroupName, resourceName, name, signalRCustomDomain, cancellationToken).ConfigureAwait(false);
+                var operation = new SignalRArmOperation<SignalRCustomDomain>(new SignalRCustomDomainOperationSource(), SignalRCustomDomainsClientDiagnostics, Pipeline, SignalRCustomDomainsRestClient.CreateCreateOrUpdateRequest(subscriptionId, resourceGroupName, resourceName, name, signalRCustomDomain).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1173,7 +1319,6 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
@@ -1181,16 +1326,23 @@ namespace Azure.ResourceManager.SignalR
         /// <param name="name"> Custom domain name. </param>
         /// <param name="signalRCustomDomain"> The SignalRCustomDomain to use. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/>, <paramref name="name"/> or <paramref name="signalRCustomDomain"/> is null. </exception>
-        public static ArmOperation<SignalRCustomDomain> CreateOrUpdateSignalRCustomDomain(this TenantResource tenantResource, WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, string name, SignalRCustomDomain signalRCustomDomain, CancellationToken cancellationToken = default)
+        public virtual ArmOperation<SignalRCustomDomain> CreateOrUpdateSignalRCustomDomain(WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, string name, SignalRCustomDomain signalRCustomDomain, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-            Argument.AssertNotNullOrEmpty(name, nameof(name));
-            Argument.AssertNotNull(signalRCustomDomain, nameof(signalRCustomDomain));
-
-            return GetTenantResourceExtensionClient(tenantResource).CreateOrUpdateSignalRCustomDomain(waitUntil, subscriptionId, resourceGroupName, resourceName, name, signalRCustomDomain, cancellationToken);
+            using var scope = SignalRCustomDomainsClientDiagnostics.CreateScope("TenantResourceExtensionClient.CreateOrUpdateSignalRCustomDomain");
+            scope.Start();
+            try
+            {
+                var response = SignalRCustomDomainsRestClient.CreateOrUpdate(subscriptionId, resourceGroupName, resourceName, name, signalRCustomDomain, cancellationToken);
+                var operation = new SignalRArmOperation<SignalRCustomDomain>(new SignalRCustomDomainOperationSource(), SignalRCustomDomainsClientDiagnostics, Pipeline, SignalRCustomDomainsRestClient.CreateCreateOrUpdateRequest(subscriptionId, resourceGroupName, resourceName, name, signalRCustomDomain).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletion(cancellationToken);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1206,22 +1358,29 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="name"> Custom domain name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="name"/> is null. </exception>
-        public static async Task<ArmOperation> DeleteSignalRCustomDomainAsync(this TenantResource tenantResource, WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, string name, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation> DeleteSignalRCustomDomainAsync(WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, string name, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-            Argument.AssertNotNullOrEmpty(name, nameof(name));
-
-            return await GetTenantResourceExtensionClient(tenantResource).DeleteSignalRCustomDomainAsync(waitUntil, subscriptionId, resourceGroupName, resourceName, name, cancellationToken).ConfigureAwait(false);
+            using var scope = SignalRCustomDomainsClientDiagnostics.CreateScope("TenantResourceExtensionClient.DeleteSignalRCustomDomain");
+            scope.Start();
+            try
+            {
+                var response = await SignalRCustomDomainsRestClient.DeleteAsync(subscriptionId, resourceGroupName, resourceName, name, cancellationToken).ConfigureAwait(false);
+                var operation = new SignalRArmOperation(SignalRCustomDomainsClientDiagnostics, Pipeline, SignalRCustomDomainsRestClient.CreateDeleteRequest(subscriptionId, resourceGroupName, resourceName, name).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1237,22 +1396,29 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="name"> Custom domain name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="name"/> is null. </exception>
-        public static ArmOperation DeleteSignalRCustomDomain(this TenantResource tenantResource, WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, string name, CancellationToken cancellationToken = default)
+        public virtual ArmOperation DeleteSignalRCustomDomain(WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, string name, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-            Argument.AssertNotNullOrEmpty(name, nameof(name));
-
-            return GetTenantResourceExtensionClient(tenantResource).DeleteSignalRCustomDomain(waitUntil, subscriptionId, resourceGroupName, resourceName, name, cancellationToken);
+            using var scope = SignalRCustomDomainsClientDiagnostics.CreateScope("TenantResourceExtensionClient.DeleteSignalRCustomDomain");
+            scope.Start();
+            try
+            {
+                var response = SignalRCustomDomainsRestClient.Delete(subscriptionId, resourceGroupName, resourceName, name, cancellationToken);
+                var operation = new SignalRArmOperation(SignalRCustomDomainsClientDiagnostics, Pipeline, SignalRCustomDomainsRestClient.CreateDeleteRequest(subscriptionId, resourceGroupName, resourceName, name).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletionResponse(cancellationToken);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1268,20 +1434,16 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is null. </exception>
         /// <returns> An async collection of <see cref="SignalRPrivateEndpointConnection" /> that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<SignalRPrivateEndpointConnection> GetSignalRPrivateEndpointConnectionsAsync(this TenantResource tenantResource, Guid subscriptionId, string resourceGroupName, string resourceName, CancellationToken cancellationToken = default)
+        public virtual AsyncPageable<SignalRPrivateEndpointConnection> GetSignalRPrivateEndpointConnectionsAsync(Guid subscriptionId, string resourceGroupName, string resourceName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-
-            return GetTenantResourceExtensionClient(tenantResource).GetSignalRPrivateEndpointConnectionsAsync(subscriptionId, resourceGroupName, resourceName, cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => SignalRPrivateEndpointConnectionsRestClient.CreateListRequest(subscriptionId, resourceGroupName, resourceName);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => SignalRPrivateEndpointConnectionsRestClient.CreateListNextPageRequest(nextLink, subscriptionId, resourceGroupName, resourceName);
+            return PageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, SignalRPrivateEndpointConnection.DeserializeSignalRPrivateEndpointConnection, SignalRPrivateEndpointConnectionsClientDiagnostics, Pipeline, "TenantResourceExtensionClient.GetSignalRPrivateEndpointConnections", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -1297,20 +1459,16 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is null. </exception>
         /// <returns> A collection of <see cref="SignalRPrivateEndpointConnection" /> that may take multiple service requests to iterate over. </returns>
-        public static Pageable<SignalRPrivateEndpointConnection> GetSignalRPrivateEndpointConnections(this TenantResource tenantResource, Guid subscriptionId, string resourceGroupName, string resourceName, CancellationToken cancellationToken = default)
+        public virtual Pageable<SignalRPrivateEndpointConnection> GetSignalRPrivateEndpointConnections(Guid subscriptionId, string resourceGroupName, string resourceName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-
-            return GetTenantResourceExtensionClient(tenantResource).GetSignalRPrivateEndpointConnections(subscriptionId, resourceGroupName, resourceName, cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => SignalRPrivateEndpointConnectionsRestClient.CreateListRequest(subscriptionId, resourceGroupName, resourceName);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => SignalRPrivateEndpointConnectionsRestClient.CreateListNextPageRequest(nextLink, subscriptionId, resourceGroupName, resourceName);
+            return PageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, SignalRPrivateEndpointConnection.DeserializeSignalRPrivateEndpointConnection, SignalRPrivateEndpointConnectionsClientDiagnostics, Pipeline, "TenantResourceExtensionClient.GetSignalRPrivateEndpointConnections", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -1326,21 +1484,25 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="privateEndpointConnectionName"> The name of the private endpoint connection associated with the Azure resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="privateEndpointConnectionName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="privateEndpointConnectionName"/> is null. </exception>
-        public static async Task<Response<SignalRPrivateEndpointConnection>> GetSignalRPrivateEndpointConnectionAsync(this TenantResource tenantResource, Guid subscriptionId, string resourceGroupName, string resourceName, string privateEndpointConnectionName, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<SignalRPrivateEndpointConnection>> GetSignalRPrivateEndpointConnectionAsync(Guid subscriptionId, string resourceGroupName, string resourceName, string privateEndpointConnectionName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-            Argument.AssertNotNullOrEmpty(privateEndpointConnectionName, nameof(privateEndpointConnectionName));
-
-            return await GetTenantResourceExtensionClient(tenantResource).GetSignalRPrivateEndpointConnectionAsync(subscriptionId, resourceGroupName, resourceName, privateEndpointConnectionName, cancellationToken).ConfigureAwait(false);
+            using var scope = SignalRPrivateEndpointConnectionsClientDiagnostics.CreateScope("TenantResourceExtensionClient.GetSignalRPrivateEndpointConnection");
+            scope.Start();
+            try
+            {
+                var response = await SignalRPrivateEndpointConnectionsRestClient.GetAsync(subscriptionId, resourceGroupName, resourceName, privateEndpointConnectionName, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1356,21 +1518,25 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="privateEndpointConnectionName"> The name of the private endpoint connection associated with the Azure resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="privateEndpointConnectionName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="privateEndpointConnectionName"/> is null. </exception>
-        public static Response<SignalRPrivateEndpointConnection> GetSignalRPrivateEndpointConnection(this TenantResource tenantResource, Guid subscriptionId, string resourceGroupName, string resourceName, string privateEndpointConnectionName, CancellationToken cancellationToken = default)
+        public virtual Response<SignalRPrivateEndpointConnection> GetSignalRPrivateEndpointConnection(Guid subscriptionId, string resourceGroupName, string resourceName, string privateEndpointConnectionName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-            Argument.AssertNotNullOrEmpty(privateEndpointConnectionName, nameof(privateEndpointConnectionName));
-
-            return GetTenantResourceExtensionClient(tenantResource).GetSignalRPrivateEndpointConnection(subscriptionId, resourceGroupName, resourceName, privateEndpointConnectionName, cancellationToken);
+            using var scope = SignalRPrivateEndpointConnectionsClientDiagnostics.CreateScope("TenantResourceExtensionClient.GetSignalRPrivateEndpointConnection");
+            scope.Start();
+            try
+            {
+                var response = SignalRPrivateEndpointConnectionsRestClient.Get(subscriptionId, resourceGroupName, resourceName, privateEndpointConnectionName, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1386,23 +1552,26 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="privateEndpointConnectionName"> The name of the private endpoint connection associated with the Azure resource. </param>
         /// <param name="signalRPrivateEndpointConnection"> The resource of private endpoint and its properties. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="privateEndpointConnectionName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/>, <paramref name="privateEndpointConnectionName"/> or <paramref name="signalRPrivateEndpointConnection"/> is null. </exception>
-        public static async Task<Response<SignalRPrivateEndpointConnection>> UpdateSignalRPrivateEndpointConnectionAsync(this TenantResource tenantResource, Guid subscriptionId, string resourceGroupName, string resourceName, string privateEndpointConnectionName, SignalRPrivateEndpointConnection signalRPrivateEndpointConnection, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<SignalRPrivateEndpointConnection>> UpdateSignalRPrivateEndpointConnectionAsync(Guid subscriptionId, string resourceGroupName, string resourceName, string privateEndpointConnectionName, SignalRPrivateEndpointConnection signalRPrivateEndpointConnection, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-            Argument.AssertNotNullOrEmpty(privateEndpointConnectionName, nameof(privateEndpointConnectionName));
-            Argument.AssertNotNull(signalRPrivateEndpointConnection, nameof(signalRPrivateEndpointConnection));
-
-            return await GetTenantResourceExtensionClient(tenantResource).UpdateSignalRPrivateEndpointConnectionAsync(subscriptionId, resourceGroupName, resourceName, privateEndpointConnectionName, signalRPrivateEndpointConnection, cancellationToken).ConfigureAwait(false);
+            using var scope = SignalRPrivateEndpointConnectionsClientDiagnostics.CreateScope("TenantResourceExtensionClient.UpdateSignalRPrivateEndpointConnection");
+            scope.Start();
+            try
+            {
+                var response = await SignalRPrivateEndpointConnectionsRestClient.UpdateAsync(subscriptionId, resourceGroupName, resourceName, privateEndpointConnectionName, signalRPrivateEndpointConnection, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1418,23 +1587,26 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="privateEndpointConnectionName"> The name of the private endpoint connection associated with the Azure resource. </param>
         /// <param name="signalRPrivateEndpointConnection"> The resource of private endpoint and its properties. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="privateEndpointConnectionName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/>, <paramref name="privateEndpointConnectionName"/> or <paramref name="signalRPrivateEndpointConnection"/> is null. </exception>
-        public static Response<SignalRPrivateEndpointConnection> UpdateSignalRPrivateEndpointConnection(this TenantResource tenantResource, Guid subscriptionId, string resourceGroupName, string resourceName, string privateEndpointConnectionName, SignalRPrivateEndpointConnection signalRPrivateEndpointConnection, CancellationToken cancellationToken = default)
+        public virtual Response<SignalRPrivateEndpointConnection> UpdateSignalRPrivateEndpointConnection(Guid subscriptionId, string resourceGroupName, string resourceName, string privateEndpointConnectionName, SignalRPrivateEndpointConnection signalRPrivateEndpointConnection, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-            Argument.AssertNotNullOrEmpty(privateEndpointConnectionName, nameof(privateEndpointConnectionName));
-            Argument.AssertNotNull(signalRPrivateEndpointConnection, nameof(signalRPrivateEndpointConnection));
-
-            return GetTenantResourceExtensionClient(tenantResource).UpdateSignalRPrivateEndpointConnection(subscriptionId, resourceGroupName, resourceName, privateEndpointConnectionName, signalRPrivateEndpointConnection, cancellationToken);
+            using var scope = SignalRPrivateEndpointConnectionsClientDiagnostics.CreateScope("TenantResourceExtensionClient.UpdateSignalRPrivateEndpointConnection");
+            scope.Start();
+            try
+            {
+                var response = SignalRPrivateEndpointConnectionsRestClient.Update(subscriptionId, resourceGroupName, resourceName, privateEndpointConnectionName, signalRPrivateEndpointConnection, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1450,22 +1622,29 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="privateEndpointConnectionName"> The name of the private endpoint connection associated with the Azure resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="privateEndpointConnectionName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="privateEndpointConnectionName"/> is null. </exception>
-        public static async Task<ArmOperation> DeleteSignalRPrivateEndpointConnectionAsync(this TenantResource tenantResource, WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, string privateEndpointConnectionName, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation> DeleteSignalRPrivateEndpointConnectionAsync(WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, string privateEndpointConnectionName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-            Argument.AssertNotNullOrEmpty(privateEndpointConnectionName, nameof(privateEndpointConnectionName));
-
-            return await GetTenantResourceExtensionClient(tenantResource).DeleteSignalRPrivateEndpointConnectionAsync(waitUntil, subscriptionId, resourceGroupName, resourceName, privateEndpointConnectionName, cancellationToken).ConfigureAwait(false);
+            using var scope = SignalRPrivateEndpointConnectionsClientDiagnostics.CreateScope("TenantResourceExtensionClient.DeleteSignalRPrivateEndpointConnection");
+            scope.Start();
+            try
+            {
+                var response = await SignalRPrivateEndpointConnectionsRestClient.DeleteAsync(subscriptionId, resourceGroupName, resourceName, privateEndpointConnectionName, cancellationToken).ConfigureAwait(false);
+                var operation = new SignalRArmOperation(SignalRPrivateEndpointConnectionsClientDiagnostics, Pipeline, SignalRPrivateEndpointConnectionsRestClient.CreateDeleteRequest(subscriptionId, resourceGroupName, resourceName, privateEndpointConnectionName).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1481,22 +1660,29 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="privateEndpointConnectionName"> The name of the private endpoint connection associated with the Azure resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="privateEndpointConnectionName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="privateEndpointConnectionName"/> is null. </exception>
-        public static ArmOperation DeleteSignalRPrivateEndpointConnection(this TenantResource tenantResource, WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, string privateEndpointConnectionName, CancellationToken cancellationToken = default)
+        public virtual ArmOperation DeleteSignalRPrivateEndpointConnection(WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, string privateEndpointConnectionName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-            Argument.AssertNotNullOrEmpty(privateEndpointConnectionName, nameof(privateEndpointConnectionName));
-
-            return GetTenantResourceExtensionClient(tenantResource).DeleteSignalRPrivateEndpointConnection(waitUntil, subscriptionId, resourceGroupName, resourceName, privateEndpointConnectionName, cancellationToken);
+            using var scope = SignalRPrivateEndpointConnectionsClientDiagnostics.CreateScope("TenantResourceExtensionClient.DeleteSignalRPrivateEndpointConnection");
+            scope.Start();
+            try
+            {
+                var response = SignalRPrivateEndpointConnectionsRestClient.Delete(subscriptionId, resourceGroupName, resourceName, privateEndpointConnectionName, cancellationToken);
+                var operation = new SignalRArmOperation(SignalRPrivateEndpointConnectionsClientDiagnostics, Pipeline, SignalRPrivateEndpointConnectionsRestClient.CreateDeleteRequest(subscriptionId, resourceGroupName, resourceName, privateEndpointConnectionName).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletionResponse(cancellationToken);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1512,20 +1698,16 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is null. </exception>
         /// <returns> An async collection of <see cref="SignalRPrivateLinkResource" /> that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<SignalRPrivateLinkResource> GetSignalRPrivateLinkResourcesAsync(this TenantResource tenantResource, Guid subscriptionId, string resourceGroupName, string resourceName, CancellationToken cancellationToken = default)
+        public virtual AsyncPageable<SignalRPrivateLinkResource> GetSignalRPrivateLinkResourcesAsync(Guid subscriptionId, string resourceGroupName, string resourceName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-
-            return GetTenantResourceExtensionClient(tenantResource).GetSignalRPrivateLinkResourcesAsync(subscriptionId, resourceGroupName, resourceName, cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => SignalRPrivateLinkResourcesRestClient.CreateListRequest(subscriptionId, resourceGroupName, resourceName);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => SignalRPrivateLinkResourcesRestClient.CreateListNextPageRequest(nextLink, subscriptionId, resourceGroupName, resourceName);
+            return PageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, SignalRPrivateLinkResource.DeserializeSignalRPrivateLinkResource, SignalRPrivateLinkResourcesClientDiagnostics, Pipeline, "TenantResourceExtensionClient.GetSignalRPrivateLinkResources", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -1541,20 +1723,16 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is null. </exception>
         /// <returns> A collection of <see cref="SignalRPrivateLinkResource" /> that may take multiple service requests to iterate over. </returns>
-        public static Pageable<SignalRPrivateLinkResource> GetSignalRPrivateLinkResources(this TenantResource tenantResource, Guid subscriptionId, string resourceGroupName, string resourceName, CancellationToken cancellationToken = default)
+        public virtual Pageable<SignalRPrivateLinkResource> GetSignalRPrivateLinkResources(Guid subscriptionId, string resourceGroupName, string resourceName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-
-            return GetTenantResourceExtensionClient(tenantResource).GetSignalRPrivateLinkResources(subscriptionId, resourceGroupName, resourceName, cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => SignalRPrivateLinkResourcesRestClient.CreateListRequest(subscriptionId, resourceGroupName, resourceName);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => SignalRPrivateLinkResourcesRestClient.CreateListNextPageRequest(nextLink, subscriptionId, resourceGroupName, resourceName);
+            return PageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, SignalRPrivateLinkResource.DeserializeSignalRPrivateLinkResource, SignalRPrivateLinkResourcesClientDiagnostics, Pipeline, "TenantResourceExtensionClient.GetSignalRPrivateLinkResources", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -1570,20 +1748,16 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is null. </exception>
         /// <returns> An async collection of <see cref="Replica" /> that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<Replica> GetSignalRReplicasAsync(this TenantResource tenantResource, Guid subscriptionId, string resourceGroupName, string resourceName, CancellationToken cancellationToken = default)
+        public virtual AsyncPageable<Replica> GetSignalRReplicasAsync(Guid subscriptionId, string resourceGroupName, string resourceName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-
-            return GetTenantResourceExtensionClient(tenantResource).GetSignalRReplicasAsync(subscriptionId, resourceGroupName, resourceName, cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => SignalRReplicasRestClient.CreateListRequest(subscriptionId, resourceGroupName, resourceName);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => SignalRReplicasRestClient.CreateListNextPageRequest(nextLink, subscriptionId, resourceGroupName, resourceName);
+            return PageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, Replica.DeserializeReplica, SignalRReplicasClientDiagnostics, Pipeline, "TenantResourceExtensionClient.GetSignalRReplicas", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -1599,20 +1773,16 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is null. </exception>
         /// <returns> A collection of <see cref="Replica" /> that may take multiple service requests to iterate over. </returns>
-        public static Pageable<Replica> GetSignalRReplicas(this TenantResource tenantResource, Guid subscriptionId, string resourceGroupName, string resourceName, CancellationToken cancellationToken = default)
+        public virtual Pageable<Replica> GetSignalRReplicas(Guid subscriptionId, string resourceGroupName, string resourceName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-
-            return GetTenantResourceExtensionClient(tenantResource).GetSignalRReplicas(subscriptionId, resourceGroupName, resourceName, cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => SignalRReplicasRestClient.CreateListRequest(subscriptionId, resourceGroupName, resourceName);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => SignalRReplicasRestClient.CreateListNextPageRequest(nextLink, subscriptionId, resourceGroupName, resourceName);
+            return PageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, Replica.DeserializeReplica, SignalRReplicasClientDiagnostics, Pipeline, "TenantResourceExtensionClient.GetSignalRReplicas", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -1628,21 +1798,25 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="replicaName"> The name of the replica. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="replicaName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="replicaName"/> is null. </exception>
-        public static async Task<Response<Replica>> GetSignalRReplicaAsync(this TenantResource tenantResource, Guid subscriptionId, string resourceGroupName, string resourceName, string replicaName, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<Replica>> GetSignalRReplicaAsync(Guid subscriptionId, string resourceGroupName, string resourceName, string replicaName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-            Argument.AssertNotNullOrEmpty(replicaName, nameof(replicaName));
-
-            return await GetTenantResourceExtensionClient(tenantResource).GetSignalRReplicaAsync(subscriptionId, resourceGroupName, resourceName, replicaName, cancellationToken).ConfigureAwait(false);
+            using var scope = SignalRReplicasClientDiagnostics.CreateScope("TenantResourceExtensionClient.GetSignalRReplica");
+            scope.Start();
+            try
+            {
+                var response = await SignalRReplicasRestClient.GetAsync(subscriptionId, resourceGroupName, resourceName, replicaName, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1658,21 +1832,25 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="replicaName"> The name of the replica. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="replicaName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="replicaName"/> is null. </exception>
-        public static Response<Replica> GetSignalRReplica(this TenantResource tenantResource, Guid subscriptionId, string resourceGroupName, string resourceName, string replicaName, CancellationToken cancellationToken = default)
+        public virtual Response<Replica> GetSignalRReplica(Guid subscriptionId, string resourceGroupName, string resourceName, string replicaName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-            Argument.AssertNotNullOrEmpty(replicaName, nameof(replicaName));
-
-            return GetTenantResourceExtensionClient(tenantResource).GetSignalRReplica(subscriptionId, resourceGroupName, resourceName, replicaName, cancellationToken);
+            using var scope = SignalRReplicasClientDiagnostics.CreateScope("TenantResourceExtensionClient.GetSignalRReplica");
+            scope.Start();
+            try
+            {
+                var response = SignalRReplicasRestClient.Get(subscriptionId, resourceGroupName, resourceName, replicaName, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1688,7 +1866,6 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
@@ -1696,16 +1873,23 @@ namespace Azure.ResourceManager.SignalR
         /// <param name="replicaName"> The name of the replica. </param>
         /// <param name="replica"> Parameters for the create or update operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="replicaName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/>, <paramref name="replicaName"/> or <paramref name="replica"/> is null. </exception>
-        public static async Task<ArmOperation<Replica>> CreateOrUpdateSignalRReplicaAsync(this TenantResource tenantResource, WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, string replicaName, Replica replica, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation<Replica>> CreateOrUpdateSignalRReplicaAsync(WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, string replicaName, Replica replica, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-            Argument.AssertNotNullOrEmpty(replicaName, nameof(replicaName));
-            Argument.AssertNotNull(replica, nameof(replica));
-
-            return await GetTenantResourceExtensionClient(tenantResource).CreateOrUpdateSignalRReplicaAsync(waitUntil, subscriptionId, resourceGroupName, resourceName, replicaName, replica, cancellationToken).ConfigureAwait(false);
+            using var scope = SignalRReplicasClientDiagnostics.CreateScope("TenantResourceExtensionClient.CreateOrUpdateSignalRReplica");
+            scope.Start();
+            try
+            {
+                var response = await SignalRReplicasRestClient.CreateOrUpdateAsync(subscriptionId, resourceGroupName, resourceName, replicaName, replica, cancellationToken).ConfigureAwait(false);
+                var operation = new SignalRArmOperation<Replica>(new ReplicaOperationSource(), SignalRReplicasClientDiagnostics, Pipeline, SignalRReplicasRestClient.CreateCreateOrUpdateRequest(subscriptionId, resourceGroupName, resourceName, replicaName, replica).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1721,7 +1905,6 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
@@ -1729,16 +1912,23 @@ namespace Azure.ResourceManager.SignalR
         /// <param name="replicaName"> The name of the replica. </param>
         /// <param name="replica"> Parameters for the create or update operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="replicaName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/>, <paramref name="replicaName"/> or <paramref name="replica"/> is null. </exception>
-        public static ArmOperation<Replica> CreateOrUpdateSignalRReplica(this TenantResource tenantResource, WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, string replicaName, Replica replica, CancellationToken cancellationToken = default)
+        public virtual ArmOperation<Replica> CreateOrUpdateSignalRReplica(WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, string replicaName, Replica replica, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-            Argument.AssertNotNullOrEmpty(replicaName, nameof(replicaName));
-            Argument.AssertNotNull(replica, nameof(replica));
-
-            return GetTenantResourceExtensionClient(tenantResource).CreateOrUpdateSignalRReplica(waitUntil, subscriptionId, resourceGroupName, resourceName, replicaName, replica, cancellationToken);
+            using var scope = SignalRReplicasClientDiagnostics.CreateScope("TenantResourceExtensionClient.CreateOrUpdateSignalRReplica");
+            scope.Start();
+            try
+            {
+                var response = SignalRReplicasRestClient.CreateOrUpdate(subscriptionId, resourceGroupName, resourceName, replicaName, replica, cancellationToken);
+                var operation = new SignalRArmOperation<Replica>(new ReplicaOperationSource(), SignalRReplicasClientDiagnostics, Pipeline, SignalRReplicasRestClient.CreateCreateOrUpdateRequest(subscriptionId, resourceGroupName, resourceName, replicaName, replica).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletion(cancellationToken);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1754,21 +1944,25 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="replicaName"> The name of the replica. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="replicaName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="replicaName"/> is null. </exception>
-        public static async Task<Response> DeleteSignalRReplicaAsync(this TenantResource tenantResource, Guid subscriptionId, string resourceGroupName, string resourceName, string replicaName, CancellationToken cancellationToken = default)
+        public virtual async Task<Response> DeleteSignalRReplicaAsync(Guid subscriptionId, string resourceGroupName, string resourceName, string replicaName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-            Argument.AssertNotNullOrEmpty(replicaName, nameof(replicaName));
-
-            return await GetTenantResourceExtensionClient(tenantResource).DeleteSignalRReplicaAsync(subscriptionId, resourceGroupName, resourceName, replicaName, cancellationToken).ConfigureAwait(false);
+            using var scope = SignalRReplicasClientDiagnostics.CreateScope("TenantResourceExtensionClient.DeleteSignalRReplica");
+            scope.Start();
+            try
+            {
+                var response = await SignalRReplicasRestClient.DeleteAsync(subscriptionId, resourceGroupName, resourceName, replicaName, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1784,21 +1978,25 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="replicaName"> The name of the replica. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="replicaName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="replicaName"/> is null. </exception>
-        public static Response DeleteSignalRReplica(this TenantResource tenantResource, Guid subscriptionId, string resourceGroupName, string resourceName, string replicaName, CancellationToken cancellationToken = default)
+        public virtual Response DeleteSignalRReplica(Guid subscriptionId, string resourceGroupName, string resourceName, string replicaName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-            Argument.AssertNotNullOrEmpty(replicaName, nameof(replicaName));
-
-            return GetTenantResourceExtensionClient(tenantResource).DeleteSignalRReplica(subscriptionId, resourceGroupName, resourceName, replicaName, cancellationToken);
+            using var scope = SignalRReplicasClientDiagnostics.CreateScope("TenantResourceExtensionClient.DeleteSignalRReplica");
+            scope.Start();
+            try
+            {
+                var response = SignalRReplicasRestClient.Delete(subscriptionId, resourceGroupName, resourceName, replicaName, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1814,7 +2012,6 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
@@ -1822,16 +2019,23 @@ namespace Azure.ResourceManager.SignalR
         /// <param name="replicaName"> The name of the replica. </param>
         /// <param name="replica"> Parameters for the update operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="replicaName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/>, <paramref name="replicaName"/> or <paramref name="replica"/> is null. </exception>
-        public static async Task<ArmOperation<Replica>> UpdateSignalRReplicaAsync(this TenantResource tenantResource, WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, string replicaName, Replica replica, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation<Replica>> UpdateSignalRReplicaAsync(WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, string replicaName, Replica replica, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-            Argument.AssertNotNullOrEmpty(replicaName, nameof(replicaName));
-            Argument.AssertNotNull(replica, nameof(replica));
-
-            return await GetTenantResourceExtensionClient(tenantResource).UpdateSignalRReplicaAsync(waitUntil, subscriptionId, resourceGroupName, resourceName, replicaName, replica, cancellationToken).ConfigureAwait(false);
+            using var scope = SignalRReplicasClientDiagnostics.CreateScope("TenantResourceExtensionClient.UpdateSignalRReplica");
+            scope.Start();
+            try
+            {
+                var response = await SignalRReplicasRestClient.UpdateAsync(subscriptionId, resourceGroupName, resourceName, replicaName, replica, cancellationToken).ConfigureAwait(false);
+                var operation = new SignalRArmOperation<Replica>(new ReplicaOperationSource(), SignalRReplicasClientDiagnostics, Pipeline, SignalRReplicasRestClient.CreateUpdateRequest(subscriptionId, resourceGroupName, resourceName, replicaName, replica).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1847,7 +2051,6 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
@@ -1855,16 +2058,23 @@ namespace Azure.ResourceManager.SignalR
         /// <param name="replicaName"> The name of the replica. </param>
         /// <param name="replica"> Parameters for the update operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="replicaName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/>, <paramref name="replicaName"/> or <paramref name="replica"/> is null. </exception>
-        public static ArmOperation<Replica> UpdateSignalRReplica(this TenantResource tenantResource, WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, string replicaName, Replica replica, CancellationToken cancellationToken = default)
+        public virtual ArmOperation<Replica> UpdateSignalRReplica(WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, string replicaName, Replica replica, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-            Argument.AssertNotNullOrEmpty(replicaName, nameof(replicaName));
-            Argument.AssertNotNull(replica, nameof(replica));
-
-            return GetTenantResourceExtensionClient(tenantResource).UpdateSignalRReplica(waitUntil, subscriptionId, resourceGroupName, resourceName, replicaName, replica, cancellationToken);
+            using var scope = SignalRReplicasClientDiagnostics.CreateScope("TenantResourceExtensionClient.UpdateSignalRReplica");
+            scope.Start();
+            try
+            {
+                var response = SignalRReplicasRestClient.Update(subscriptionId, resourceGroupName, resourceName, replicaName, replica, cancellationToken);
+                var operation = new SignalRArmOperation<Replica>(new ReplicaOperationSource(), SignalRReplicasClientDiagnostics, Pipeline, SignalRReplicasRestClient.CreateUpdateRequest(subscriptionId, resourceGroupName, resourceName, replicaName, replica).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletion(cancellationToken);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1880,22 +2090,29 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="replicaName"> The name of the replica. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="replicaName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="replicaName"/> is null. </exception>
-        public static async Task<ArmOperation> RestartSignalRReplicaAsync(this TenantResource tenantResource, WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, string replicaName, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation> RestartSignalRReplicaAsync(WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, string replicaName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-            Argument.AssertNotNullOrEmpty(replicaName, nameof(replicaName));
-
-            return await GetTenantResourceExtensionClient(tenantResource).RestartSignalRReplicaAsync(waitUntil, subscriptionId, resourceGroupName, resourceName, replicaName, cancellationToken).ConfigureAwait(false);
+            using var scope = SignalRReplicasClientDiagnostics.CreateScope("TenantResourceExtensionClient.RestartSignalRReplica");
+            scope.Start();
+            try
+            {
+                var response = await SignalRReplicasRestClient.RestartAsync(subscriptionId, resourceGroupName, resourceName, replicaName, cancellationToken).ConfigureAwait(false);
+                var operation = new SignalRArmOperation(SignalRReplicasClientDiagnostics, Pipeline, SignalRReplicasRestClient.CreateRestartRequest(subscriptionId, resourceGroupName, resourceName, replicaName).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1911,22 +2128,29 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="replicaName"> The name of the replica. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="replicaName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="replicaName"/> is null. </exception>
-        public static ArmOperation RestartSignalRReplica(this TenantResource tenantResource, WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, string replicaName, CancellationToken cancellationToken = default)
+        public virtual ArmOperation RestartSignalRReplica(WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, string replicaName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-            Argument.AssertNotNullOrEmpty(replicaName, nameof(replicaName));
-
-            return GetTenantResourceExtensionClient(tenantResource).RestartSignalRReplica(waitUntil, subscriptionId, resourceGroupName, resourceName, replicaName, cancellationToken);
+            using var scope = SignalRReplicasClientDiagnostics.CreateScope("TenantResourceExtensionClient.RestartSignalRReplica");
+            scope.Start();
+            try
+            {
+                var response = SignalRReplicasRestClient.Restart(subscriptionId, resourceGroupName, resourceName, replicaName, cancellationToken);
+                var operation = new SignalRArmOperation(SignalRReplicasClientDiagnostics, Pipeline, SignalRReplicasRestClient.CreateRestartRequest(subscriptionId, resourceGroupName, resourceName, replicaName).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletionResponse(cancellationToken);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1942,20 +2166,16 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is null. </exception>
         /// <returns> An async collection of <see cref="SignalRSharedPrivateLinkResource" /> that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<SignalRSharedPrivateLinkResource> GetSignalRSharedPrivateLinkResourcesAsync(this TenantResource tenantResource, Guid subscriptionId, string resourceGroupName, string resourceName, CancellationToken cancellationToken = default)
+        public virtual AsyncPageable<SignalRSharedPrivateLinkResource> GetSignalRSharedPrivateLinkResourcesAsync(Guid subscriptionId, string resourceGroupName, string resourceName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-
-            return GetTenantResourceExtensionClient(tenantResource).GetSignalRSharedPrivateLinkResourcesAsync(subscriptionId, resourceGroupName, resourceName, cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => SignalRSharedPrivateLinkResourcesRestClient.CreateListRequest(subscriptionId, resourceGroupName, resourceName);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => SignalRSharedPrivateLinkResourcesRestClient.CreateListNextPageRequest(nextLink, subscriptionId, resourceGroupName, resourceName);
+            return PageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, SignalRSharedPrivateLinkResource.DeserializeSignalRSharedPrivateLinkResource, SignalRSharedPrivateLinkResourcesClientDiagnostics, Pipeline, "TenantResourceExtensionClient.GetSignalRSharedPrivateLinkResources", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -1971,20 +2191,16 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/> or <paramref name="resourceName"/> is null. </exception>
         /// <returns> A collection of <see cref="SignalRSharedPrivateLinkResource" /> that may take multiple service requests to iterate over. </returns>
-        public static Pageable<SignalRSharedPrivateLinkResource> GetSignalRSharedPrivateLinkResources(this TenantResource tenantResource, Guid subscriptionId, string resourceGroupName, string resourceName, CancellationToken cancellationToken = default)
+        public virtual Pageable<SignalRSharedPrivateLinkResource> GetSignalRSharedPrivateLinkResources(Guid subscriptionId, string resourceGroupName, string resourceName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-
-            return GetTenantResourceExtensionClient(tenantResource).GetSignalRSharedPrivateLinkResources(subscriptionId, resourceGroupName, resourceName, cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => SignalRSharedPrivateLinkResourcesRestClient.CreateListRequest(subscriptionId, resourceGroupName, resourceName);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => SignalRSharedPrivateLinkResourcesRestClient.CreateListNextPageRequest(nextLink, subscriptionId, resourceGroupName, resourceName);
+            return PageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, SignalRSharedPrivateLinkResource.DeserializeSignalRSharedPrivateLinkResource, SignalRSharedPrivateLinkResourcesClientDiagnostics, Pipeline, "TenantResourceExtensionClient.GetSignalRSharedPrivateLinkResources", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -2000,21 +2216,25 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="sharedPrivateLinkResourceName"> The name of the shared private link resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="sharedPrivateLinkResourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="sharedPrivateLinkResourceName"/> is null. </exception>
-        public static async Task<Response<SignalRSharedPrivateLinkResource>> GetSignalRSharedPrivateLinkResourceAsync(this TenantResource tenantResource, Guid subscriptionId, string resourceGroupName, string resourceName, string sharedPrivateLinkResourceName, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<SignalRSharedPrivateLinkResource>> GetSignalRSharedPrivateLinkResourceAsync(Guid subscriptionId, string resourceGroupName, string resourceName, string sharedPrivateLinkResourceName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-            Argument.AssertNotNullOrEmpty(sharedPrivateLinkResourceName, nameof(sharedPrivateLinkResourceName));
-
-            return await GetTenantResourceExtensionClient(tenantResource).GetSignalRSharedPrivateLinkResourceAsync(subscriptionId, resourceGroupName, resourceName, sharedPrivateLinkResourceName, cancellationToken).ConfigureAwait(false);
+            using var scope = SignalRSharedPrivateLinkResourcesClientDiagnostics.CreateScope("TenantResourceExtensionClient.GetSignalRSharedPrivateLinkResource");
+            scope.Start();
+            try
+            {
+                var response = await SignalRSharedPrivateLinkResourcesRestClient.GetAsync(subscriptionId, resourceGroupName, resourceName, sharedPrivateLinkResourceName, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2030,21 +2250,25 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="sharedPrivateLinkResourceName"> The name of the shared private link resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="sharedPrivateLinkResourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="sharedPrivateLinkResourceName"/> is null. </exception>
-        public static Response<SignalRSharedPrivateLinkResource> GetSignalRSharedPrivateLinkResource(this TenantResource tenantResource, Guid subscriptionId, string resourceGroupName, string resourceName, string sharedPrivateLinkResourceName, CancellationToken cancellationToken = default)
+        public virtual Response<SignalRSharedPrivateLinkResource> GetSignalRSharedPrivateLinkResource(Guid subscriptionId, string resourceGroupName, string resourceName, string sharedPrivateLinkResourceName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-            Argument.AssertNotNullOrEmpty(sharedPrivateLinkResourceName, nameof(sharedPrivateLinkResourceName));
-
-            return GetTenantResourceExtensionClient(tenantResource).GetSignalRSharedPrivateLinkResource(subscriptionId, resourceGroupName, resourceName, sharedPrivateLinkResourceName, cancellationToken);
+            using var scope = SignalRSharedPrivateLinkResourcesClientDiagnostics.CreateScope("TenantResourceExtensionClient.GetSignalRSharedPrivateLinkResource");
+            scope.Start();
+            try
+            {
+                var response = SignalRSharedPrivateLinkResourcesRestClient.Get(subscriptionId, resourceGroupName, resourceName, sharedPrivateLinkResourceName, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2060,7 +2284,6 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
@@ -2068,16 +2291,23 @@ namespace Azure.ResourceManager.SignalR
         /// <param name="sharedPrivateLinkResourceName"> The name of the shared private link resource. </param>
         /// <param name="signalRSharedPrivateLinkResource"> The shared private link resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="sharedPrivateLinkResourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/>, <paramref name="sharedPrivateLinkResourceName"/> or <paramref name="signalRSharedPrivateLinkResource"/> is null. </exception>
-        public static async Task<ArmOperation<SignalRSharedPrivateLinkResource>> CreateOrUpdateSignalRSharedPrivateLinkResourceAsync(this TenantResource tenantResource, WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, string sharedPrivateLinkResourceName, SignalRSharedPrivateLinkResource signalRSharedPrivateLinkResource, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation<SignalRSharedPrivateLinkResource>> CreateOrUpdateSignalRSharedPrivateLinkResourceAsync(WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, string sharedPrivateLinkResourceName, SignalRSharedPrivateLinkResource signalRSharedPrivateLinkResource, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-            Argument.AssertNotNullOrEmpty(sharedPrivateLinkResourceName, nameof(sharedPrivateLinkResourceName));
-            Argument.AssertNotNull(signalRSharedPrivateLinkResource, nameof(signalRSharedPrivateLinkResource));
-
-            return await GetTenantResourceExtensionClient(tenantResource).CreateOrUpdateSignalRSharedPrivateLinkResourceAsync(waitUntil, subscriptionId, resourceGroupName, resourceName, sharedPrivateLinkResourceName, signalRSharedPrivateLinkResource, cancellationToken).ConfigureAwait(false);
+            using var scope = SignalRSharedPrivateLinkResourcesClientDiagnostics.CreateScope("TenantResourceExtensionClient.CreateOrUpdateSignalRSharedPrivateLinkResource");
+            scope.Start();
+            try
+            {
+                var response = await SignalRSharedPrivateLinkResourcesRestClient.CreateOrUpdateAsync(subscriptionId, resourceGroupName, resourceName, sharedPrivateLinkResourceName, signalRSharedPrivateLinkResource, cancellationToken).ConfigureAwait(false);
+                var operation = new SignalRArmOperation<SignalRSharedPrivateLinkResource>(new SignalRSharedPrivateLinkResourceOperationSource(), SignalRSharedPrivateLinkResourcesClientDiagnostics, Pipeline, SignalRSharedPrivateLinkResourcesRestClient.CreateCreateOrUpdateRequest(subscriptionId, resourceGroupName, resourceName, sharedPrivateLinkResourceName, signalRSharedPrivateLinkResource).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2093,7 +2323,6 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
@@ -2101,16 +2330,23 @@ namespace Azure.ResourceManager.SignalR
         /// <param name="sharedPrivateLinkResourceName"> The name of the shared private link resource. </param>
         /// <param name="signalRSharedPrivateLinkResource"> The shared private link resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="sharedPrivateLinkResourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/>, <paramref name="sharedPrivateLinkResourceName"/> or <paramref name="signalRSharedPrivateLinkResource"/> is null. </exception>
-        public static ArmOperation<SignalRSharedPrivateLinkResource> CreateOrUpdateSignalRSharedPrivateLinkResource(this TenantResource tenantResource, WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, string sharedPrivateLinkResourceName, SignalRSharedPrivateLinkResource signalRSharedPrivateLinkResource, CancellationToken cancellationToken = default)
+        public virtual ArmOperation<SignalRSharedPrivateLinkResource> CreateOrUpdateSignalRSharedPrivateLinkResource(WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, string sharedPrivateLinkResourceName, SignalRSharedPrivateLinkResource signalRSharedPrivateLinkResource, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-            Argument.AssertNotNullOrEmpty(sharedPrivateLinkResourceName, nameof(sharedPrivateLinkResourceName));
-            Argument.AssertNotNull(signalRSharedPrivateLinkResource, nameof(signalRSharedPrivateLinkResource));
-
-            return GetTenantResourceExtensionClient(tenantResource).CreateOrUpdateSignalRSharedPrivateLinkResource(waitUntil, subscriptionId, resourceGroupName, resourceName, sharedPrivateLinkResourceName, signalRSharedPrivateLinkResource, cancellationToken);
+            using var scope = SignalRSharedPrivateLinkResourcesClientDiagnostics.CreateScope("TenantResourceExtensionClient.CreateOrUpdateSignalRSharedPrivateLinkResource");
+            scope.Start();
+            try
+            {
+                var response = SignalRSharedPrivateLinkResourcesRestClient.CreateOrUpdate(subscriptionId, resourceGroupName, resourceName, sharedPrivateLinkResourceName, signalRSharedPrivateLinkResource, cancellationToken);
+                var operation = new SignalRArmOperation<SignalRSharedPrivateLinkResource>(new SignalRSharedPrivateLinkResourceOperationSource(), SignalRSharedPrivateLinkResourcesClientDiagnostics, Pipeline, SignalRSharedPrivateLinkResourcesRestClient.CreateCreateOrUpdateRequest(subscriptionId, resourceGroupName, resourceName, sharedPrivateLinkResourceName, signalRSharedPrivateLinkResource).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletion(cancellationToken);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2126,22 +2362,29 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="sharedPrivateLinkResourceName"> The name of the shared private link resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="sharedPrivateLinkResourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="sharedPrivateLinkResourceName"/> is null. </exception>
-        public static async Task<ArmOperation> DeleteSignalRSharedPrivateLinkResourceAsync(this TenantResource tenantResource, WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, string sharedPrivateLinkResourceName, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation> DeleteSignalRSharedPrivateLinkResourceAsync(WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, string sharedPrivateLinkResourceName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-            Argument.AssertNotNullOrEmpty(sharedPrivateLinkResourceName, nameof(sharedPrivateLinkResourceName));
-
-            return await GetTenantResourceExtensionClient(tenantResource).DeleteSignalRSharedPrivateLinkResourceAsync(waitUntil, subscriptionId, resourceGroupName, resourceName, sharedPrivateLinkResourceName, cancellationToken).ConfigureAwait(false);
+            using var scope = SignalRSharedPrivateLinkResourcesClientDiagnostics.CreateScope("TenantResourceExtensionClient.DeleteSignalRSharedPrivateLinkResource");
+            scope.Start();
+            try
+            {
+                var response = await SignalRSharedPrivateLinkResourcesRestClient.DeleteAsync(subscriptionId, resourceGroupName, resourceName, sharedPrivateLinkResourceName, cancellationToken).ConfigureAwait(false);
+                var operation = new SignalRArmOperation(SignalRSharedPrivateLinkResourcesClientDiagnostics, Pipeline, SignalRSharedPrivateLinkResourcesRestClient.CreateDeleteRequest(subscriptionId, resourceGroupName, resourceName, sharedPrivateLinkResourceName).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2157,22 +2400,29 @@ namespace Azure.ResourceManager.SignalR
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="resourceName"> The name of the resource. </param>
         /// <param name="sharedPrivateLinkResourceName"> The name of the shared private link resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="sharedPrivateLinkResourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="resourceName"/> or <paramref name="sharedPrivateLinkResourceName"/> is null. </exception>
-        public static ArmOperation DeleteSignalRSharedPrivateLinkResource(this TenantResource tenantResource, WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, string sharedPrivateLinkResourceName, CancellationToken cancellationToken = default)
+        public virtual ArmOperation DeleteSignalRSharedPrivateLinkResource(WaitUntil waitUntil, Guid subscriptionId, string resourceGroupName, string resourceName, string sharedPrivateLinkResourceName, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(resourceName, nameof(resourceName));
-            Argument.AssertNotNullOrEmpty(sharedPrivateLinkResourceName, nameof(sharedPrivateLinkResourceName));
-
-            return GetTenantResourceExtensionClient(tenantResource).DeleteSignalRSharedPrivateLinkResource(waitUntil, subscriptionId, resourceGroupName, resourceName, sharedPrivateLinkResourceName, cancellationToken);
+            using var scope = SignalRSharedPrivateLinkResourcesClientDiagnostics.CreateScope("TenantResourceExtensionClient.DeleteSignalRSharedPrivateLinkResource");
+            scope.Start();
+            try
+            {
+                var response = SignalRSharedPrivateLinkResourcesRestClient.Delete(subscriptionId, resourceGroupName, resourceName, sharedPrivateLinkResourceName, cancellationToken);
+                var operation = new SignalRArmOperation(SignalRSharedPrivateLinkResourcesClientDiagnostics, Pipeline, SignalRSharedPrivateLinkResourcesRestClient.CreateDeleteRequest(subscriptionId, resourceGroupName, resourceName, sharedPrivateLinkResourceName).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletionResponse(cancellationToken);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
     }
 }

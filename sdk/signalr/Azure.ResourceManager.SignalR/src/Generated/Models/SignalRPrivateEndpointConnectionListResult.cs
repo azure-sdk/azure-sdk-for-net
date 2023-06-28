@@ -7,7 +7,6 @@
 
 using System.Collections.Generic;
 using Azure.Core;
-using Azure.ResourceManager.SignalR;
 
 namespace Azure.ResourceManager.SignalR.Models
 {
@@ -17,20 +16,20 @@ namespace Azure.ResourceManager.SignalR.Models
         /// <summary> Initializes a new instance of SignalRPrivateEndpointConnectionListResult. </summary>
         internal SignalRPrivateEndpointConnectionListResult()
         {
-            Value = new ChangeTrackingList<SignalRPrivateEndpointConnectionData>();
+            Value = new ChangeTrackingList<SignalRPrivateEndpointConnection>();
         }
 
         /// <summary> Initializes a new instance of SignalRPrivateEndpointConnectionListResult. </summary>
         /// <param name="value"> The list of the private endpoint connections. </param>
         /// <param name="nextLink"> Request URL that can be used to query next page of private endpoint connections. Returned when the total number of requested private endpoint connections exceed maximum page size. </param>
-        internal SignalRPrivateEndpointConnectionListResult(IReadOnlyList<SignalRPrivateEndpointConnectionData> value, string nextLink)
+        internal SignalRPrivateEndpointConnectionListResult(IReadOnlyList<SignalRPrivateEndpointConnection> value, string nextLink)
         {
             Value = value;
             NextLink = nextLink;
         }
 
         /// <summary> The list of the private endpoint connections. </summary>
-        public IReadOnlyList<SignalRPrivateEndpointConnectionData> Value { get; }
+        public IReadOnlyList<SignalRPrivateEndpointConnection> Value { get; }
         /// <summary> Request URL that can be used to query next page of private endpoint connections. Returned when the total number of requested private endpoint connections exceed maximum page size. </summary>
         public string NextLink { get; }
     }

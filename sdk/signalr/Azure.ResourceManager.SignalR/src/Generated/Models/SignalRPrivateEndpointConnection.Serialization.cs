@@ -5,40 +5,36 @@
 
 #nullable disable
 
+using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
 using Azure.ResourceManager.Models;
-using Azure.ResourceManager.SignalR.Models;
+using Azure.ResourceManager.Resources.Models;
 
-namespace Azure.ResourceManager.SignalR
+namespace Azure.ResourceManager.SignalR.Models
 {
-    public partial class SignalRSharedPrivateLinkResourceData : IUtf8JsonSerializable
+    public partial class SignalRPrivateEndpointConnection : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
-            if (Optional.IsDefined(GroupId))
+            if (Optional.IsDefined(PrivateEndpoint))
             {
-                writer.WritePropertyName("groupId"u8);
-                writer.WriteStringValue(GroupId);
+                writer.WritePropertyName("privateEndpoint"u8);
+                JsonSerializer.Serialize(writer, PrivateEndpoint);
             }
-            if (Optional.IsDefined(PrivateLinkResourceId))
+            if (Optional.IsDefined(ConnectionState))
             {
-                writer.WritePropertyName("privateLinkResourceId"u8);
-                writer.WriteStringValue(PrivateLinkResourceId);
-            }
-            if (Optional.IsDefined(RequestMessage))
-            {
-                writer.WritePropertyName("requestMessage"u8);
-                writer.WriteStringValue(RequestMessage);
+                writer.WritePropertyName("privateLinkServiceConnectionState"u8);
+                writer.WriteObjectValue(ConnectionState);
             }
             writer.WriteEndObject();
             writer.WriteEndObject();
         }
 
-        internal static SignalRSharedPrivateLinkResourceData DeserializeSignalRSharedPrivateLinkResourceData(JsonElement element)
+        internal static SignalRPrivateEndpointConnection DeserializeSignalRPrivateEndpointConnection(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
@@ -48,11 +44,10 @@ namespace Azure.ResourceManager.SignalR
             string name = default;
             ResourceType type = default;
             Optional<SystemData> systemData = default;
-            Optional<string> groupId = default;
-            Optional<ResourceIdentifier> privateLinkResourceId = default;
             Optional<SignalRProvisioningState> provisioningState = default;
-            Optional<string> requestMessage = default;
-            Optional<SignalRSharedPrivateLinkResourceStatus> status = default;
+            Optional<WritableSubResource> privateEndpoint = default;
+            Optional<IReadOnlyList<string>> groupIds = default;
+            Optional<SignalRPrivateLinkServiceConnectionState> privateLinkServiceConnectionState = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("id"u8))
@@ -88,20 +83,6 @@ namespace Azure.ResourceManager.SignalR
                     }
                     foreach (var property0 in property.Value.EnumerateObject())
                     {
-                        if (property0.NameEquals("groupId"u8))
-                        {
-                            groupId = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("privateLinkResourceId"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            privateLinkResourceId = new ResourceIdentifier(property0.Value.GetString());
-                            continue;
-                        }
                         if (property0.NameEquals("provisioningState"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -111,25 +92,43 @@ namespace Azure.ResourceManager.SignalR
                             provisioningState = new SignalRProvisioningState(property0.Value.GetString());
                             continue;
                         }
-                        if (property0.NameEquals("requestMessage"u8))
-                        {
-                            requestMessage = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("status"u8))
+                        if (property0.NameEquals("privateEndpoint"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
                                 continue;
                             }
-                            status = new SignalRSharedPrivateLinkResourceStatus(property0.Value.GetString());
+                            privateEndpoint = JsonSerializer.Deserialize<WritableSubResource>(property0.Value.GetRawText());
+                            continue;
+                        }
+                        if (property0.NameEquals("groupIds"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            List<string> array = new List<string>();
+                            foreach (var item in property0.Value.EnumerateArray())
+                            {
+                                array.Add(item.GetString());
+                            }
+                            groupIds = array;
+                            continue;
+                        }
+                        if (property0.NameEquals("privateLinkServiceConnectionState"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            privateLinkServiceConnectionState = SignalRPrivateLinkServiceConnectionState.DeserializeSignalRPrivateLinkServiceConnectionState(property0.Value);
                             continue;
                         }
                     }
                     continue;
                 }
             }
-            return new SignalRSharedPrivateLinkResourceData(id, name, type, systemData.Value, groupId.Value, privateLinkResourceId.Value, Optional.ToNullable(provisioningState), requestMessage.Value, Optional.ToNullable(status));
+            return new SignalRPrivateEndpointConnection(id, name, type, systemData.Value, Optional.ToNullable(provisioningState), privateEndpoint, Optional.ToList(groupIds), privateLinkServiceConnectionState.Value);
         }
     }
 }

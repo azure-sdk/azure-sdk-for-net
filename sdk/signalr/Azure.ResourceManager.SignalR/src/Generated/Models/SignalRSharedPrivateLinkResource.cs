@@ -7,22 +7,18 @@
 
 using Azure.Core;
 using Azure.ResourceManager.Models;
-using Azure.ResourceManager.SignalR.Models;
 
-namespace Azure.ResourceManager.SignalR
+namespace Azure.ResourceManager.SignalR.Models
 {
-    /// <summary>
-    /// A class representing the SignalRSharedPrivateLinkResource data model.
-    /// Describes a Shared Private Link Resource
-    /// </summary>
-    public partial class SignalRSharedPrivateLinkResourceData : ResourceData
+    /// <summary> Describes a Shared Private Link Resource. </summary>
+    public partial class SignalRSharedPrivateLinkResource : ResourceData
     {
-        /// <summary> Initializes a new instance of SignalRSharedPrivateLinkResourceData. </summary>
-        public SignalRSharedPrivateLinkResourceData()
+        /// <summary> Initializes a new instance of SignalRSharedPrivateLinkResource. </summary>
+        public SignalRSharedPrivateLinkResource()
         {
         }
 
-        /// <summary> Initializes a new instance of SignalRSharedPrivateLinkResourceData. </summary>
+        /// <summary> Initializes a new instance of SignalRSharedPrivateLinkResource. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
@@ -32,7 +28,7 @@ namespace Azure.ResourceManager.SignalR
         /// <param name="provisioningState"> Provisioning state of the resource. </param>
         /// <param name="requestMessage"> The request message for requesting approval of the shared private link resource. </param>
         /// <param name="status"> Status of the shared private link resource. </param>
-        internal SignalRSharedPrivateLinkResourceData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string groupId, ResourceIdentifier privateLinkResourceId, SignalRProvisioningState? provisioningState, string requestMessage, SignalRSharedPrivateLinkResourceStatus? status) : base(id, name, resourceType, systemData)
+        internal SignalRSharedPrivateLinkResource(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string groupId, ResourceIdentifier privateLinkResourceId, SignalRProvisioningState? provisioningState, string requestMessage, SignalRSharedPrivateLinkResourceStatus? status) : base(id, name, resourceType, systemData)
         {
             GroupId = groupId;
             PrivateLinkResourceId = privateLinkResourceId;

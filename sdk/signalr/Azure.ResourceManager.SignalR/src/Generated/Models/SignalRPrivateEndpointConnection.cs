@@ -9,23 +9,19 @@ using System.Collections.Generic;
 using Azure.Core;
 using Azure.ResourceManager.Models;
 using Azure.ResourceManager.Resources.Models;
-using Azure.ResourceManager.SignalR.Models;
 
-namespace Azure.ResourceManager.SignalR
+namespace Azure.ResourceManager.SignalR.Models
 {
-    /// <summary>
-    /// A class representing the SignalRPrivateEndpointConnection data model.
-    /// A private endpoint connection to an azure resource
-    /// </summary>
-    public partial class SignalRPrivateEndpointConnectionData : ResourceData
+    /// <summary> A private endpoint connection to an azure resource. </summary>
+    public partial class SignalRPrivateEndpointConnection : ResourceData
     {
-        /// <summary> Initializes a new instance of SignalRPrivateEndpointConnectionData. </summary>
-        public SignalRPrivateEndpointConnectionData()
+        /// <summary> Initializes a new instance of SignalRPrivateEndpointConnection. </summary>
+        public SignalRPrivateEndpointConnection()
         {
             GroupIds = new ChangeTrackingList<string>();
         }
 
-        /// <summary> Initializes a new instance of SignalRPrivateEndpointConnectionData. </summary>
+        /// <summary> Initializes a new instance of SignalRPrivateEndpointConnection. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
@@ -34,7 +30,7 @@ namespace Azure.ResourceManager.SignalR
         /// <param name="privateEndpoint"> Private endpoint. </param>
         /// <param name="groupIds"> Group IDs. </param>
         /// <param name="connectionState"> Connection state of the private endpoint connection. </param>
-        internal SignalRPrivateEndpointConnectionData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, SignalRProvisioningState? provisioningState, WritableSubResource privateEndpoint, IReadOnlyList<string> groupIds, SignalRPrivateLinkServiceConnectionState connectionState) : base(id, name, resourceType, systemData)
+        internal SignalRPrivateEndpointConnection(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, SignalRProvisioningState? provisioningState, WritableSubResource privateEndpoint, IReadOnlyList<string> groupIds, SignalRPrivateLinkServiceConnectionState connectionState) : base(id, name, resourceType, systemData)
         {
             ProvisioningState = provisioningState;
             PrivateEndpoint = privateEndpoint;
