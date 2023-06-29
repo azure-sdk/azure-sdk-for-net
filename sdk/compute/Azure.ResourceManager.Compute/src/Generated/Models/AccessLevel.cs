@@ -25,6 +25,7 @@ namespace Azure.ResourceManager.Compute.Models
         private const string NoneValue = "None";
         private const string ReadValue = "Read";
         private const string WriteValue = "Write";
+        private const string ReadForDiskInspectionValue = "ReadForDiskInspection";
 
         /// <summary> None. </summary>
         public static AccessLevel None { get; } = new AccessLevel(NoneValue);
@@ -32,6 +33,8 @@ namespace Azure.ResourceManager.Compute.Models
         public static AccessLevel Read { get; } = new AccessLevel(ReadValue);
         /// <summary> Write. </summary>
         public static AccessLevel Write { get; } = new AccessLevel(WriteValue);
+        /// <summary> ReadForDiskInspection. </summary>
+        public static AccessLevel ReadForDiskInspection { get; } = new AccessLevel(ReadForDiskInspectionValue);
         /// <summary> Determines if two <see cref="AccessLevel"/> values are the same. </summary>
         public static bool operator ==(AccessLevel left, AccessLevel right) => left.Equals(right);
         /// <summary> Determines if two <see cref="AccessLevel"/> values are not the same. </summary>

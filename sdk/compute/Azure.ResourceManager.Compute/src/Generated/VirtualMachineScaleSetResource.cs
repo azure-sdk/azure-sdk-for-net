@@ -38,6 +38,8 @@ namespace Azure.ResourceManager.Compute
         private readonly VirtualMachineScaleSetsRestOperations _virtualMachineScaleSetRestClient;
         private readonly ClientDiagnostics _virtualMachineScaleSetRollingUpgradeClientDiagnostics;
         private readonly VirtualMachineScaleSetRollingUpgradesRestOperations _virtualMachineScaleSetRollingUpgradeRestClient;
+        private readonly ClientDiagnostics _managedDiskDisksClientDiagnostics;
+        private readonly DisksRestOperations _managedDiskDisksRestClient;
         private readonly VirtualMachineScaleSetData _data;
 
         /// <summary> Initializes a new instance of the <see cref="VirtualMachineScaleSetResource"/> class for mocking. </summary>
@@ -65,6 +67,9 @@ namespace Azure.ResourceManager.Compute
             _virtualMachineScaleSetRollingUpgradeClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Compute", VirtualMachineScaleSetRollingUpgradeResource.ResourceType.Namespace, Diagnostics);
             TryGetApiVersion(VirtualMachineScaleSetRollingUpgradeResource.ResourceType, out string virtualMachineScaleSetRollingUpgradeApiVersion);
             _virtualMachineScaleSetRollingUpgradeRestClient = new VirtualMachineScaleSetRollingUpgradesRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, virtualMachineScaleSetRollingUpgradeApiVersion);
+            _managedDiskDisksClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Compute", ManagedDiskResource.ResourceType.Namespace, Diagnostics);
+            TryGetApiVersion(ManagedDiskResource.ResourceType, out string managedDiskDisksApiVersion);
+            _managedDiskDisksRestClient = new DisksRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, managedDiskDisksApiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -1763,6 +1768,80 @@ namespace Azure.ResourceManager.Compute
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletionResponse(cancellationToken);
                 return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Grants access to a VMSS VM Instance OS disk for DiskInspection scenario.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachineScaleSets/{vmssName}/disks/{diskName}/beginGetAccess</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Disks_GrantAccessOnVMSSVMInstance</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="diskName"> The name of the managed disk that is being created. The name can't be changed after the disk is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The maximum name length is 80 characters. </param>
+        /// <param name="data"> Access data object supplied in the body of the get disk access operation. The supported accessLevel for this action is 'ReadForDiskInspection' only. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="diskName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="diskName"/> or <paramref name="data"/> is null. </exception>
+        public virtual async Task<Response<AccessUri>> GrantAccessOnVmssvmInstanceDiskAsync(string diskName, GrantAccessData data, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(diskName, nameof(diskName));
+            Argument.AssertNotNull(data, nameof(data));
+
+            using var scope = _managedDiskDisksClientDiagnostics.CreateScope("VirtualMachineScaleSetResource.GrantAccessOnVmssvmInstanceDisk");
+            scope.Start();
+            try
+            {
+                var response = await _managedDiskDisksRestClient.GrantAccessOnVmssvmInstanceAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, diskName, data, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Grants access to a VMSS VM Instance OS disk for DiskInspection scenario.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachineScaleSets/{vmssName}/disks/{diskName}/beginGetAccess</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Disks_GrantAccessOnVMSSVMInstance</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="diskName"> The name of the managed disk that is being created. The name can't be changed after the disk is created. Supported characters for the name are a-z, A-Z, 0-9, _ and -. The maximum name length is 80 characters. </param>
+        /// <param name="data"> Access data object supplied in the body of the get disk access operation. The supported accessLevel for this action is 'ReadForDiskInspection' only. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="diskName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="diskName"/> or <paramref name="data"/> is null. </exception>
+        public virtual Response<AccessUri> GrantAccessOnVmssvmInstanceDisk(string diskName, GrantAccessData data, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(diskName, nameof(diskName));
+            Argument.AssertNotNull(data, nameof(data));
+
+            using var scope = _managedDiskDisksClientDiagnostics.CreateScope("VirtualMachineScaleSetResource.GrantAccessOnVmssvmInstanceDisk");
+            scope.Start();
+            try
+            {
+                var response = _managedDiskDisksRestClient.GrantAccessOnVmssvmInstance(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, diskName, data, cancellationToken);
+                return response;
             }
             catch (Exception e)
             {
