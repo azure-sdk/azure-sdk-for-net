@@ -41,6 +41,14 @@ namespace Azure.ResourceManager.Subscription.Models
             return new EnabledSubscriptionId(subscriptionId);
         }
 
+        /// <summary> Initializes a new instance of SubscriptionCreationResult. </summary>
+        /// <param name="subscriptionLink"> The link to the new subscription. Use this link to check the status of subscription creation operation. </param>
+        /// <returns> A new <see cref="Models.SubscriptionCreationResult"/> instance for mocking. </returns>
+        public static SubscriptionCreationResult SubscriptionCreationResult(string subscriptionLink = null)
+        {
+            return new SubscriptionCreationResult(subscriptionLink);
+        }
+
         /// <summary> Initializes a new instance of SubscriptionAliasData. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>

@@ -75,6 +75,8 @@ namespace Azure.ResourceManager.Subscription
         public static System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Subscription.SubscriptionAliasResource>> GetSubscriptionAliasAsync(this Azure.ResourceManager.Resources.TenantResource tenantResource, string aliasName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static Azure.ResourceManager.Subscription.SubscriptionAliasCollection GetSubscriptionAliases(this Azure.ResourceManager.Resources.TenantResource tenantResource) { throw null; }
         public static Azure.ResourceManager.Subscription.SubscriptionAliasResource GetSubscriptionAliasResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
+        public static Azure.Response<Azure.ResourceManager.Subscription.Models.SubscriptionCreationResult> GetSubscriptionOperation(this Azure.ResourceManager.Resources.TenantResource tenantResource, string operationId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public static System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Subscription.Models.SubscriptionCreationResult>> GetSubscriptionOperationAsync(this Azure.ResourceManager.Resources.TenantResource tenantResource, string operationId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static Azure.ResourceManager.Subscription.TenantPolicyResource GetTenantPolicy(this Azure.ResourceManager.Resources.TenantResource tenantResource) { throw null; }
         public static Azure.ResourceManager.Subscription.TenantPolicyResource GetTenantPolicyResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
         public static Azure.Response<Azure.ResourceManager.Subscription.Models.RenamedSubscriptionId> RenameSubscription(this Azure.ResourceManager.Resources.SubscriptionResource subscriptionResource, Azure.ResourceManager.Subscription.Models.SubscriptionName body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
@@ -172,6 +174,7 @@ namespace Azure.ResourceManager.Subscription.Models
         public static Azure.ResourceManager.Subscription.Models.ServiceTenant ServiceTenant(System.Guid? tenantId = default(System.Guid?), string tenantName = null) { throw null; }
         public static Azure.ResourceManager.Subscription.SubscriptionAliasData SubscriptionAliasData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.ResourceManager.Subscription.Models.SubscriptionAliasProperties properties = null) { throw null; }
         public static Azure.ResourceManager.Subscription.Models.SubscriptionAliasProperties SubscriptionAliasProperties(string subscriptionId = null, string displayName = null, Azure.ResourceManager.Subscription.Models.SubscriptionProvisioningState? provisioningState = default(Azure.ResourceManager.Subscription.Models.SubscriptionProvisioningState?), System.Uri acceptOwnershipUri = null, Azure.ResourceManager.Subscription.Models.AcceptOwnershipState? acceptOwnershipState = default(Azure.ResourceManager.Subscription.Models.AcceptOwnershipState?), string billingScope = null, Azure.ResourceManager.Subscription.Models.SubscriptionWorkload? workload = default(Azure.ResourceManager.Subscription.Models.SubscriptionWorkload?), string resellerId = null, string subscriptionOwnerId = null, string managementGroupId = null, System.DateTimeOffset? createdOn = default(System.DateTimeOffset?), System.Collections.Generic.IReadOnlyDictionary<string, string> tags = null) { throw null; }
+        public static Azure.ResourceManager.Subscription.Models.SubscriptionCreationResult SubscriptionCreationResult(string subscriptionLink = null) { throw null; }
         public static Azure.ResourceManager.Subscription.TenantPolicyData TenantPolicyData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.ResourceManager.Subscription.Models.TenantPolicyProperties properties = null) { throw null; }
         public static Azure.ResourceManager.Subscription.Models.TenantPolicyProperties TenantPolicyProperties(string policyId = null, bool? blockSubscriptionsLeavingTenant = default(bool?), bool? blockSubscriptionsIntoTenant = default(bool?), System.Collections.Generic.IEnumerable<System.Guid> exemptedPrincipals = null) { throw null; }
     }
@@ -235,6 +238,11 @@ namespace Azure.ResourceManager.Subscription.Models
         public string SubscriptionOwnerId { get { throw null; } }
         public System.Collections.Generic.IReadOnlyDictionary<string, string> Tags { get { throw null; } }
         public Azure.ResourceManager.Subscription.Models.SubscriptionWorkload? Workload { get { throw null; } }
+    }
+    public partial class SubscriptionCreationResult
+    {
+        internal SubscriptionCreationResult() { }
+        public string SubscriptionLink { get { throw null; } }
     }
     public partial class SubscriptionName
     {
