@@ -601,6 +601,25 @@ namespace Azure.ResourceManager.Compute
         }
         #endregion
 
+        #region LatestVersionResource
+        /// <summary>
+        /// Gets an object representing a <see cref="LatestVersionResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="LatestVersionResource.CreateResourceIdentifier" /> to create a <see cref="LatestVersionResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="LatestVersionResource" /> object. </returns>
+        public static LatestVersionResource GetLatestVersionResource(this ArmClient client, ResourceIdentifier id)
+        {
+            return client.GetResourceClient(() =>
+            {
+                LatestVersionResource.ValidateResourceId(id);
+                return new LatestVersionResource(client, id);
+            }
+            );
+        }
+        #endregion
+
         #region GalleryApplicationResource
         /// <summary>
         /// Gets an object representing a <see cref="GalleryApplicationResource" /> along with the instance operations that can be performed on it but with no data.
