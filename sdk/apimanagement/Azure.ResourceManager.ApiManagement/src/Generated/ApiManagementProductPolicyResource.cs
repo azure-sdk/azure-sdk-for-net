@@ -21,12 +21,12 @@ namespace Azure.ResourceManager.ApiManagement
     /// A Class representing an ApiManagementProductPolicy along with the instance operations that can be performed on it.
     /// If you have a <see cref="ResourceIdentifier" /> you can construct an <see cref="ApiManagementProductPolicyResource" />
     /// from an instance of <see cref="ArmClient" /> using the GetApiManagementProductPolicyResource method.
-    /// Otherwise you can get one from its parent resource <see cref="ApiManagementProductResource" /> using the GetApiManagementProductPolicy method.
+    /// Otherwise you can get one from its parent resource <see cref="ServiceProductResource" /> using the GetApiManagementProductPolicy method.
     /// </summary>
     public partial class ApiManagementProductPolicyResource : ArmResource
     {
         /// <summary> Generate the resource identifier of a <see cref="ApiManagementProductPolicyResource"/> instance. </summary>
-        public static ResourceIdentifier CreateResourceIdentifier(string subscriptionId, string resourceGroupName, string serviceName, string productId, PolicyName policyId)
+        public static ResourceIdentifier CreateResourceIdentifier(Guid subscriptionId, string resourceGroupName, string serviceName, string productId, PolicyName policyId)
         {
             var resourceId = $"/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/products/{productId}/policies/{policyId}";
             return new ResourceIdentifier(resourceId);
@@ -108,7 +108,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiManagementProductPolicyProductPolicyRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, format, cancellationToken).ConfigureAwait(false);
+                var response = await _apiManagementProductPolicyProductPolicyRestClient.GetAsync(Guid.Parse(Id.Parent.Parent.Parent.Parent.Name), Id.Parent.Parent.Parent.Name, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, format, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ApiManagementProductPolicyResource(Client, response.Value), response.GetRawResponse());
@@ -141,7 +141,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiManagementProductPolicyProductPolicyRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, format, cancellationToken);
+                var response = _apiManagementProductPolicyProductPolicyRestClient.Get(Guid.Parse(Id.Parent.Parent.Parent.Parent.Name), Id.Parent.Parent.Parent.Name, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, format, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ApiManagementProductPolicyResource(Client, response.Value), response.GetRawResponse());
@@ -175,7 +175,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiManagementProductPolicyProductPolicyRestClient.DeleteAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, ifMatch, cancellationToken).ConfigureAwait(false);
+                var response = await _apiManagementProductPolicyProductPolicyRestClient.DeleteAsync(Guid.Parse(Id.Parent.Parent.Parent.Parent.Name), Id.Parent.Parent.Parent.Name, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, ifMatch, cancellationToken).ConfigureAwait(false);
                 var operation = new ApiManagementArmOperation(response);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
@@ -210,7 +210,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiManagementProductPolicyProductPolicyRestClient.Delete(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, ifMatch, cancellationToken);
+                var response = _apiManagementProductPolicyProductPolicyRestClient.Delete(Guid.Parse(Id.Parent.Parent.Parent.Parent.Name), Id.Parent.Parent.Parent.Name, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, ifMatch, cancellationToken);
                 var operation = new ApiManagementArmOperation(response);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletionResponse(cancellationToken);
@@ -249,7 +249,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiManagementProductPolicyProductPolicyRestClient.CreateOrUpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, data, ifMatch, cancellationToken).ConfigureAwait(false);
+                var response = await _apiManagementProductPolicyProductPolicyRestClient.CreateOrUpdateAsync(Guid.Parse(Id.Parent.Parent.Parent.Parent.Name), Id.Parent.Parent.Parent.Name, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, data, ifMatch, cancellationToken).ConfigureAwait(false);
                 var operation = new ApiManagementArmOperation<ApiManagementProductPolicyResource>(Response.FromValue(new ApiManagementProductPolicyResource(Client, response), response.GetRawResponse()));
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
@@ -288,7 +288,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiManagementProductPolicyProductPolicyRestClient.CreateOrUpdate(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, data, ifMatch, cancellationToken);
+                var response = _apiManagementProductPolicyProductPolicyRestClient.CreateOrUpdate(Guid.Parse(Id.Parent.Parent.Parent.Parent.Name), Id.Parent.Parent.Parent.Name, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, data, ifMatch, cancellationToken);
                 var operation = new ApiManagementArmOperation<ApiManagementProductPolicyResource>(Response.FromValue(new ApiManagementProductPolicyResource(Client, response), response.GetRawResponse()));
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
@@ -321,7 +321,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiManagementProductPolicyProductPolicyRestClient.GetEntityTagAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
+                var response = await _apiManagementProductPolicyProductPolicyRestClient.GetEntityTagAsync(Guid.Parse(Id.Parent.Parent.Parent.Parent.Name), Id.Parent.Parent.Parent.Name, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
                 return response;
             }
             catch (Exception e)
@@ -351,7 +351,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiManagementProductPolicyProductPolicyRestClient.GetEntityTag(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, cancellationToken);
+                var response = _apiManagementProductPolicyProductPolicyRestClient.GetEntityTag(Guid.Parse(Id.Parent.Parent.Parent.Parent.Name), Id.Parent.Parent.Parent.Name, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, cancellationToken);
                 return response;
             }
             catch (Exception e)

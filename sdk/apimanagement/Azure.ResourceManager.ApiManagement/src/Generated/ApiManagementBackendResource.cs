@@ -26,7 +26,7 @@ namespace Azure.ResourceManager.ApiManagement
     public partial class ApiManagementBackendResource : ArmResource
     {
         /// <summary> Generate the resource identifier of a <see cref="ApiManagementBackendResource"/> instance. </summary>
-        public static ResourceIdentifier CreateResourceIdentifier(string subscriptionId, string resourceGroupName, string serviceName, string backendId)
+        public static ResourceIdentifier CreateResourceIdentifier(Guid subscriptionId, string resourceGroupName, string serviceName, string backendId)
         {
             var resourceId = $"/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/backends/{backendId}";
             return new ResourceIdentifier(resourceId);
@@ -107,7 +107,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiManagementBackendBackendRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
+                var response = await _apiManagementBackendBackendRestClient.GetAsync(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ApiManagementBackendResource(Client, response.Value), response.GetRawResponse());
@@ -139,7 +139,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiManagementBackendBackendRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken);
+                var response = _apiManagementBackendBackendRestClient.Get(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ApiManagementBackendResource(Client, response.Value), response.GetRawResponse());
@@ -173,7 +173,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiManagementBackendBackendRestClient.DeleteAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, ifMatch, cancellationToken).ConfigureAwait(false);
+                var response = await _apiManagementBackendBackendRestClient.DeleteAsync(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, ifMatch, cancellationToken).ConfigureAwait(false);
                 var operation = new ApiManagementArmOperation(response);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
@@ -208,7 +208,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiManagementBackendBackendRestClient.Delete(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, ifMatch, cancellationToken);
+                var response = _apiManagementBackendBackendRestClient.Delete(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, ifMatch, cancellationToken);
                 var operation = new ApiManagementArmOperation(response);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletionResponse(cancellationToken);
@@ -246,7 +246,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiManagementBackendBackendRestClient.UpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, ifMatch, patch, cancellationToken).ConfigureAwait(false);
+                var response = await _apiManagementBackendBackendRestClient.UpdateAsync(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, ifMatch, patch, cancellationToken).ConfigureAwait(false);
                 return Response.FromValue(new ApiManagementBackendResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
@@ -281,7 +281,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiManagementBackendBackendRestClient.Update(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, ifMatch, patch, cancellationToken);
+                var response = _apiManagementBackendBackendRestClient.Update(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, ifMatch, patch, cancellationToken);
                 return Response.FromValue(new ApiManagementBackendResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
@@ -292,7 +292,7 @@ namespace Azure.ResourceManager.ApiManagement
         }
 
         /// <summary>
-        /// Notifies the APIM proxy to create a new connection to the backend after the specified timeout. If no timeout was specified, timeout of 2 minutes is used.
+        /// Notifies the API Management gateway to create a new connection to the backend after the specified timeout. If no timeout was specified, timeout of 2 minutes is used.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -312,7 +312,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiManagementBackendBackendRestClient.ReconnectAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, backendReconnectContract, cancellationToken).ConfigureAwait(false);
+                var response = await _apiManagementBackendBackendRestClient.ReconnectAsync(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, backendReconnectContract, cancellationToken).ConfigureAwait(false);
                 return response;
             }
             catch (Exception e)
@@ -323,7 +323,7 @@ namespace Azure.ResourceManager.ApiManagement
         }
 
         /// <summary>
-        /// Notifies the APIM proxy to create a new connection to the backend after the specified timeout. If no timeout was specified, timeout of 2 minutes is used.
+        /// Notifies the API Management gateway to create a new connection to the backend after the specified timeout. If no timeout was specified, timeout of 2 minutes is used.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -343,7 +343,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiManagementBackendBackendRestClient.Reconnect(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, backendReconnectContract, cancellationToken);
+                var response = _apiManagementBackendBackendRestClient.Reconnect(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, backendReconnectContract, cancellationToken);
                 return response;
             }
             catch (Exception e)
@@ -373,7 +373,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiManagementBackendBackendRestClient.GetEntityTagAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
+                var response = await _apiManagementBackendBackendRestClient.GetEntityTagAsync(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
                 return response;
             }
             catch (Exception e)
@@ -403,7 +403,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiManagementBackendBackendRestClient.GetEntityTag(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken);
+                var response = _apiManagementBackendBackendRestClient.GetEntityTag(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, cancellationToken);
                 return response;
             }
             catch (Exception e)

@@ -81,7 +81,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiManagementBackendBackendRestClient.CreateOrUpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, backendId, data, ifMatch, cancellationToken).ConfigureAwait(false);
+                var response = await _apiManagementBackendBackendRestClient.CreateOrUpdateAsync(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, backendId, data, ifMatch, cancellationToken).ConfigureAwait(false);
                 var operation = new ApiManagementArmOperation<ApiManagementBackendResource>(Response.FromValue(new ApiManagementBackendResource(Client, response), response.GetRawResponse()));
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
@@ -123,7 +123,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiManagementBackendBackendRestClient.CreateOrUpdate(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, backendId, data, ifMatch, cancellationToken);
+                var response = _apiManagementBackendBackendRestClient.CreateOrUpdate(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, backendId, data, ifMatch, cancellationToken);
                 var operation = new ApiManagementArmOperation<ApiManagementBackendResource>(Response.FromValue(new ApiManagementBackendResource(Client, response), response.GetRawResponse()));
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
@@ -161,7 +161,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiManagementBackendBackendRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, backendId, cancellationToken).ConfigureAwait(false);
+                var response = await _apiManagementBackendBackendRestClient.GetAsync(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, backendId, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ApiManagementBackendResource(Client, response.Value), response.GetRawResponse());
@@ -198,7 +198,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiManagementBackendBackendRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, backendId, cancellationToken);
+                var response = _apiManagementBackendBackendRestClient.Get(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, backendId, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ApiManagementBackendResource(Client, response.Value), response.GetRawResponse());
@@ -230,8 +230,8 @@ namespace Azure.ResourceManager.ApiManagement
         /// <returns> An async collection of <see cref="ApiManagementBackendResource" /> that may take multiple service requests to iterate over. </returns>
         public virtual AsyncPageable<ApiManagementBackendResource> GetAllAsync(string filter = null, int? top = null, int? skip = null, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _apiManagementBackendBackendRestClient.CreateListByServiceRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, filter, top, skip);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _apiManagementBackendBackendRestClient.CreateListByServiceNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, filter, top, skip);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _apiManagementBackendBackendRestClient.CreateListByServiceRequest(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, filter, top, skip);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _apiManagementBackendBackendRestClient.CreateListByServiceNextPageRequest(nextLink, Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, filter, top, skip);
             return PageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new ApiManagementBackendResource(Client, ApiManagementBackendData.DeserializeApiManagementBackendData(e)), _apiManagementBackendBackendClientDiagnostics, Pipeline, "ApiManagementBackendCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
@@ -255,8 +255,8 @@ namespace Azure.ResourceManager.ApiManagement
         /// <returns> A collection of <see cref="ApiManagementBackendResource" /> that may take multiple service requests to iterate over. </returns>
         public virtual Pageable<ApiManagementBackendResource> GetAll(string filter = null, int? top = null, int? skip = null, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _apiManagementBackendBackendRestClient.CreateListByServiceRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, filter, top, skip);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _apiManagementBackendBackendRestClient.CreateListByServiceNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, filter, top, skip);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _apiManagementBackendBackendRestClient.CreateListByServiceRequest(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, filter, top, skip);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _apiManagementBackendBackendRestClient.CreateListByServiceNextPageRequest(nextLink, Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, filter, top, skip);
             return PageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new ApiManagementBackendResource(Client, ApiManagementBackendData.DeserializeApiManagementBackendData(e)), _apiManagementBackendBackendClientDiagnostics, Pipeline, "ApiManagementBackendCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
@@ -285,7 +285,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiManagementBackendBackendRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, backendId, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var response = await _apiManagementBackendBackendRestClient.GetAsync(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, backendId, cancellationToken: cancellationToken).ConfigureAwait(false);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -320,7 +320,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiManagementBackendBackendRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, backendId, cancellationToken: cancellationToken);
+                var response = _apiManagementBackendBackendRestClient.Get(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, backendId, cancellationToken: cancellationToken);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)

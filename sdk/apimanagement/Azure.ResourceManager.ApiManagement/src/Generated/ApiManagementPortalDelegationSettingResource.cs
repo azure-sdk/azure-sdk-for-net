@@ -26,7 +26,7 @@ namespace Azure.ResourceManager.ApiManagement
     public partial class ApiManagementPortalDelegationSettingResource : ArmResource
     {
         /// <summary> Generate the resource identifier of a <see cref="ApiManagementPortalDelegationSettingResource"/> instance. </summary>
-        public static ResourceIdentifier CreateResourceIdentifier(string subscriptionId, string resourceGroupName, string serviceName)
+        public static ResourceIdentifier CreateResourceIdentifier(Guid subscriptionId, string resourceGroupName, string serviceName)
         {
             var resourceId = $"/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/portalsettings/delegation";
             return new ResourceIdentifier(resourceId);
@@ -107,7 +107,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiManagementPortalDelegationSettingDelegationSettingsRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, cancellationToken).ConfigureAwait(false);
+                var response = await _apiManagementPortalDelegationSettingDelegationSettingsRestClient.GetAsync(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ApiManagementPortalDelegationSettingResource(Client, response.Value), response.GetRawResponse());
@@ -139,7 +139,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiManagementPortalDelegationSettingDelegationSettingsRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, cancellationToken);
+                var response = _apiManagementPortalDelegationSettingDelegationSettingsRestClient.Get(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ApiManagementPortalDelegationSettingResource(Client, response.Value), response.GetRawResponse());
@@ -176,7 +176,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiManagementPortalDelegationSettingDelegationSettingsRestClient.UpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, ifMatch, data, cancellationToken).ConfigureAwait(false);
+                var response = await _apiManagementPortalDelegationSettingDelegationSettingsRestClient.UpdateAsync(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, ifMatch, data, cancellationToken).ConfigureAwait(false);
                 return response;
             }
             catch (Exception e)
@@ -211,7 +211,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiManagementPortalDelegationSettingDelegationSettingsRestClient.Update(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, ifMatch, data, cancellationToken);
+                var response = _apiManagementPortalDelegationSettingDelegationSettingsRestClient.Update(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, ifMatch, data, cancellationToken);
                 return response;
             }
             catch (Exception e)
@@ -247,7 +247,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiManagementPortalDelegationSettingDelegationSettingsRestClient.CreateOrUpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, data, ifMatch, cancellationToken).ConfigureAwait(false);
+                var response = await _apiManagementPortalDelegationSettingDelegationSettingsRestClient.CreateOrUpdateAsync(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, data, ifMatch, cancellationToken).ConfigureAwait(false);
                 var operation = new ApiManagementArmOperation<ApiManagementPortalDelegationSettingResource>(Response.FromValue(new ApiManagementPortalDelegationSettingResource(Client, response), response.GetRawResponse()));
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
@@ -286,7 +286,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiManagementPortalDelegationSettingDelegationSettingsRestClient.CreateOrUpdate(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, data, ifMatch, cancellationToken);
+                var response = _apiManagementPortalDelegationSettingDelegationSettingsRestClient.CreateOrUpdate(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, data, ifMatch, cancellationToken);
                 var operation = new ApiManagementArmOperation<ApiManagementPortalDelegationSettingResource>(Response.FromValue(new ApiManagementPortalDelegationSettingResource(Client, response), response.GetRawResponse()));
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
@@ -319,7 +319,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiManagementPortalDelegationSettingDelegationSettingsRestClient.ListSecretsAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, cancellationToken).ConfigureAwait(false);
+                var response = await _apiManagementPortalDelegationSettingDelegationSettingsRestClient.ListSecretsAsync(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, cancellationToken).ConfigureAwait(false);
                 return response;
             }
             catch (Exception e)
@@ -349,7 +349,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiManagementPortalDelegationSettingDelegationSettingsRestClient.ListSecrets(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, cancellationToken);
+                var response = _apiManagementPortalDelegationSettingDelegationSettingsRestClient.ListSecrets(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, cancellationToken);
                 return response;
             }
             catch (Exception e)
@@ -379,7 +379,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiManagementPortalDelegationSettingDelegationSettingsRestClient.GetEntityTagAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, cancellationToken).ConfigureAwait(false);
+                var response = await _apiManagementPortalDelegationSettingDelegationSettingsRestClient.GetEntityTagAsync(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, cancellationToken).ConfigureAwait(false);
                 return response;
             }
             catch (Exception e)
@@ -409,7 +409,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiManagementPortalDelegationSettingDelegationSettingsRestClient.GetEntityTag(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, cancellationToken);
+                var response = _apiManagementPortalDelegationSettingDelegationSettingsRestClient.GetEntityTag(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, cancellationToken);
                 return response;
             }
             catch (Exception e)

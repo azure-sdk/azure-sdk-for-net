@@ -20,8 +20,8 @@ namespace Azure.ResourceManager.ApiManagement
 {
     /// <summary>
     /// A class representing a collection of <see cref="ApiDiagnosticResource" /> and their operations.
-    /// Each <see cref="ApiDiagnosticResource" /> in the collection will belong to the same instance of <see cref="ApiResource" />.
-    /// To get an <see cref="ApiDiagnosticCollection" /> instance call the GetApiDiagnostics method from an instance of <see cref="ApiResource" />.
+    /// Each <see cref="ApiDiagnosticResource" /> in the collection will belong to the same instance of <see cref="ServiceApiResource" />.
+    /// To get an <see cref="ApiDiagnosticCollection" /> instance call the GetApiDiagnostics method from an instance of <see cref="ServiceApiResource" />.
     /// </summary>
     public partial class ApiDiagnosticCollection : ArmCollection, IEnumerable<ApiDiagnosticResource>, IAsyncEnumerable<ApiDiagnosticResource>
     {
@@ -48,8 +48,8 @@ namespace Azure.ResourceManager.ApiManagement
 
         internal static void ValidateResourceId(ResourceIdentifier id)
         {
-            if (id.ResourceType != ApiResource.ResourceType)
-                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, ApiResource.ResourceType), nameof(id));
+            if (id.ResourceType != ServiceApiResource.ResourceType)
+                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, ServiceApiResource.ResourceType), nameof(id));
         }
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiDiagnosticRestClient.CreateOrUpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, diagnosticId, data, ifMatch, cancellationToken).ConfigureAwait(false);
+                var response = await _apiDiagnosticRestClient.CreateOrUpdateAsync(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, diagnosticId, data, ifMatch, cancellationToken).ConfigureAwait(false);
                 var operation = new ApiManagementArmOperation<ApiDiagnosticResource>(Response.FromValue(new ApiDiagnosticResource(Client, response), response.GetRawResponse()));
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
@@ -123,7 +123,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiDiagnosticRestClient.CreateOrUpdate(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, diagnosticId, data, ifMatch, cancellationToken);
+                var response = _apiDiagnosticRestClient.CreateOrUpdate(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, diagnosticId, data, ifMatch, cancellationToken);
                 var operation = new ApiManagementArmOperation<ApiDiagnosticResource>(Response.FromValue(new ApiDiagnosticResource(Client, response), response.GetRawResponse()));
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
@@ -161,7 +161,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiDiagnosticRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, diagnosticId, cancellationToken).ConfigureAwait(false);
+                var response = await _apiDiagnosticRestClient.GetAsync(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, diagnosticId, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ApiDiagnosticResource(Client, response.Value), response.GetRawResponse());
@@ -198,7 +198,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiDiagnosticRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, diagnosticId, cancellationToken);
+                var response = _apiDiagnosticRestClient.Get(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, diagnosticId, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ApiDiagnosticResource(Client, response.Value), response.GetRawResponse());
@@ -230,8 +230,8 @@ namespace Azure.ResourceManager.ApiManagement
         /// <returns> An async collection of <see cref="ApiDiagnosticResource" /> that may take multiple service requests to iterate over. </returns>
         public virtual AsyncPageable<ApiDiagnosticResource> GetAllAsync(string filter = null, int? top = null, int? skip = null, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _apiDiagnosticRestClient.CreateListByServiceRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, filter, top, skip);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _apiDiagnosticRestClient.CreateListByServiceNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, filter, top, skip);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _apiDiagnosticRestClient.CreateListByServiceRequest(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, filter, top, skip);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _apiDiagnosticRestClient.CreateListByServiceNextPageRequest(nextLink, Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, filter, top, skip);
             return PageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new ApiDiagnosticResource(Client, DiagnosticContractData.DeserializeDiagnosticContractData(e)), _apiDiagnosticClientDiagnostics, Pipeline, "ApiDiagnosticCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
@@ -255,8 +255,8 @@ namespace Azure.ResourceManager.ApiManagement
         /// <returns> A collection of <see cref="ApiDiagnosticResource" /> that may take multiple service requests to iterate over. </returns>
         public virtual Pageable<ApiDiagnosticResource> GetAll(string filter = null, int? top = null, int? skip = null, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _apiDiagnosticRestClient.CreateListByServiceRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, filter, top, skip);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _apiDiagnosticRestClient.CreateListByServiceNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, filter, top, skip);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _apiDiagnosticRestClient.CreateListByServiceRequest(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, filter, top, skip);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _apiDiagnosticRestClient.CreateListByServiceNextPageRequest(nextLink, Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, filter, top, skip);
             return PageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new ApiDiagnosticResource(Client, DiagnosticContractData.DeserializeDiagnosticContractData(e)), _apiDiagnosticClientDiagnostics, Pipeline, "ApiDiagnosticCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
@@ -285,7 +285,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiDiagnosticRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, diagnosticId, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var response = await _apiDiagnosticRestClient.GetAsync(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, diagnosticId, cancellationToken: cancellationToken).ConfigureAwait(false);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -320,7 +320,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiDiagnosticRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, diagnosticId, cancellationToken: cancellationToken);
+                var response = _apiDiagnosticRestClient.Get(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, diagnosticId, cancellationToken: cancellationToken);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)

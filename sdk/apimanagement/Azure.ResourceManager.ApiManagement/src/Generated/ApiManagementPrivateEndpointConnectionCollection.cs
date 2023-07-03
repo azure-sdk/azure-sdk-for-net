@@ -81,8 +81,8 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiManagementPrivateEndpointConnectionPrivateEndpointConnectionRestClient.CreateOrUpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, privateEndpointConnectionName, content, cancellationToken).ConfigureAwait(false);
-                var operation = new ApiManagementArmOperation<ApiManagementPrivateEndpointConnectionResource>(new ApiManagementPrivateEndpointConnectionOperationSource(Client), _apiManagementPrivateEndpointConnectionPrivateEndpointConnectionClientDiagnostics, Pipeline, _apiManagementPrivateEndpointConnectionPrivateEndpointConnectionRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, privateEndpointConnectionName, content).Request, response, OperationFinalStateVia.Location);
+                var response = await _apiManagementPrivateEndpointConnectionPrivateEndpointConnectionRestClient.CreateOrUpdateAsync(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, privateEndpointConnectionName, content, cancellationToken).ConfigureAwait(false);
+                var operation = new ApiManagementArmOperation<ApiManagementPrivateEndpointConnectionResource>(new ApiManagementPrivateEndpointConnectionOperationSource(Client), _apiManagementPrivateEndpointConnectionPrivateEndpointConnectionClientDiagnostics, Pipeline, _apiManagementPrivateEndpointConnectionPrivateEndpointConnectionRestClient.CreateCreateOrUpdateRequest(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, privateEndpointConnectionName, content).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -122,8 +122,8 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiManagementPrivateEndpointConnectionPrivateEndpointConnectionRestClient.CreateOrUpdate(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, privateEndpointConnectionName, content, cancellationToken);
-                var operation = new ApiManagementArmOperation<ApiManagementPrivateEndpointConnectionResource>(new ApiManagementPrivateEndpointConnectionOperationSource(Client), _apiManagementPrivateEndpointConnectionPrivateEndpointConnectionClientDiagnostics, Pipeline, _apiManagementPrivateEndpointConnectionPrivateEndpointConnectionRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, privateEndpointConnectionName, content).Request, response, OperationFinalStateVia.Location);
+                var response = _apiManagementPrivateEndpointConnectionPrivateEndpointConnectionRestClient.CreateOrUpdate(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, privateEndpointConnectionName, content, cancellationToken);
+                var operation = new ApiManagementArmOperation<ApiManagementPrivateEndpointConnectionResource>(new ApiManagementPrivateEndpointConnectionOperationSource(Client), _apiManagementPrivateEndpointConnectionPrivateEndpointConnectionClientDiagnostics, Pipeline, _apiManagementPrivateEndpointConnectionPrivateEndpointConnectionRestClient.CreateCreateOrUpdateRequest(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, privateEndpointConnectionName, content).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -160,7 +160,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiManagementPrivateEndpointConnectionPrivateEndpointConnectionRestClient.GetByNameAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, privateEndpointConnectionName, cancellationToken).ConfigureAwait(false);
+                var response = await _apiManagementPrivateEndpointConnectionPrivateEndpointConnectionRestClient.GetByNameAsync(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, privateEndpointConnectionName, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ApiManagementPrivateEndpointConnectionResource(Client, response.Value), response.GetRawResponse());
@@ -197,7 +197,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiManagementPrivateEndpointConnectionPrivateEndpointConnectionRestClient.GetByName(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, privateEndpointConnectionName, cancellationToken);
+                var response = _apiManagementPrivateEndpointConnectionPrivateEndpointConnectionRestClient.GetByName(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, privateEndpointConnectionName, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ApiManagementPrivateEndpointConnectionResource(Client, response.Value), response.GetRawResponse());
@@ -226,7 +226,7 @@ namespace Azure.ResourceManager.ApiManagement
         /// <returns> An async collection of <see cref="ApiManagementPrivateEndpointConnectionResource" /> that may take multiple service requests to iterate over. </returns>
         public virtual AsyncPageable<ApiManagementPrivateEndpointConnectionResource> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _apiManagementPrivateEndpointConnectionPrivateEndpointConnectionRestClient.CreateListByServiceRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _apiManagementPrivateEndpointConnectionPrivateEndpointConnectionRestClient.CreateListByServiceRequest(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name);
             return PageableHelpers.CreateAsyncPageable(FirstPageRequest, null, e => new ApiManagementPrivateEndpointConnectionResource(Client, ApiManagementPrivateEndpointConnectionData.DeserializeApiManagementPrivateEndpointConnectionData(e)), _apiManagementPrivateEndpointConnectionPrivateEndpointConnectionClientDiagnostics, Pipeline, "ApiManagementPrivateEndpointConnectionCollection.GetAll", "value", null, cancellationToken);
         }
 
@@ -247,7 +247,7 @@ namespace Azure.ResourceManager.ApiManagement
         /// <returns> A collection of <see cref="ApiManagementPrivateEndpointConnectionResource" /> that may take multiple service requests to iterate over. </returns>
         public virtual Pageable<ApiManagementPrivateEndpointConnectionResource> GetAll(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _apiManagementPrivateEndpointConnectionPrivateEndpointConnectionRestClient.CreateListByServiceRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _apiManagementPrivateEndpointConnectionPrivateEndpointConnectionRestClient.CreateListByServiceRequest(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name);
             return PageableHelpers.CreatePageable(FirstPageRequest, null, e => new ApiManagementPrivateEndpointConnectionResource(Client, ApiManagementPrivateEndpointConnectionData.DeserializeApiManagementPrivateEndpointConnectionData(e)), _apiManagementPrivateEndpointConnectionPrivateEndpointConnectionClientDiagnostics, Pipeline, "ApiManagementPrivateEndpointConnectionCollection.GetAll", "value", null, cancellationToken);
         }
 
@@ -276,7 +276,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiManagementPrivateEndpointConnectionPrivateEndpointConnectionRestClient.GetByNameAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, privateEndpointConnectionName, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var response = await _apiManagementPrivateEndpointConnectionPrivateEndpointConnectionRestClient.GetByNameAsync(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, privateEndpointConnectionName, cancellationToken: cancellationToken).ConfigureAwait(false);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -311,7 +311,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiManagementPrivateEndpointConnectionPrivateEndpointConnectionRestClient.GetByName(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, privateEndpointConnectionName, cancellationToken: cancellationToken);
+                var response = _apiManagementPrivateEndpointConnectionPrivateEndpointConnectionRestClient.GetByName(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, privateEndpointConnectionName, cancellationToken: cancellationToken);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)

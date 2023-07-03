@@ -20,8 +20,8 @@ namespace Azure.ResourceManager.ApiManagement
 {
     /// <summary>
     /// A class representing a collection of <see cref="ApiTagResource" /> and their operations.
-    /// Each <see cref="ApiTagResource" /> in the collection will belong to the same instance of <see cref="ApiResource" />.
-    /// To get an <see cref="ApiTagCollection" /> instance call the GetApiTags method from an instance of <see cref="ApiResource" />.
+    /// Each <see cref="ApiTagResource" /> in the collection will belong to the same instance of <see cref="ServiceApiResource" />.
+    /// To get an <see cref="ApiTagCollection" /> instance call the GetApiTags method from an instance of <see cref="ServiceApiResource" />.
     /// </summary>
     public partial class ApiTagCollection : ArmCollection, IEnumerable<ApiTagResource>, IAsyncEnumerable<ApiTagResource>
     {
@@ -48,8 +48,8 @@ namespace Azure.ResourceManager.ApiManagement
 
         internal static void ValidateResourceId(ResourceIdentifier id)
         {
-            if (id.ResourceType != ApiResource.ResourceType)
-                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, ApiResource.ResourceType), nameof(id));
+            if (id.ResourceType != ServiceApiResource.ResourceType)
+                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, ServiceApiResource.ResourceType), nameof(id));
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiTagTagRestClient.AssignToApiAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, tagId, cancellationToken).ConfigureAwait(false);
+                var response = await _apiTagTagRestClient.AssignToApiAsync(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, tagId, cancellationToken).ConfigureAwait(false);
                 var operation = new ApiManagementArmOperation<ApiTagResource>(Response.FromValue(new ApiTagResource(Client, response), response.GetRawResponse()));
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
@@ -117,7 +117,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiTagTagRestClient.AssignToApi(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, tagId, cancellationToken);
+                var response = _apiTagTagRestClient.AssignToApi(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, tagId, cancellationToken);
                 var operation = new ApiManagementArmOperation<ApiTagResource>(Response.FromValue(new ApiTagResource(Client, response), response.GetRawResponse()));
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
@@ -155,7 +155,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiTagTagRestClient.GetByApiAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, tagId, cancellationToken).ConfigureAwait(false);
+                var response = await _apiTagTagRestClient.GetByApiAsync(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, tagId, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ApiTagResource(Client, response.Value), response.GetRawResponse());
@@ -192,7 +192,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiTagTagRestClient.GetByApi(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, tagId, cancellationToken);
+                var response = _apiTagTagRestClient.GetByApi(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, tagId, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ApiTagResource(Client, response.Value), response.GetRawResponse());
@@ -224,8 +224,8 @@ namespace Azure.ResourceManager.ApiManagement
         /// <returns> An async collection of <see cref="ApiTagResource" /> that may take multiple service requests to iterate over. </returns>
         public virtual AsyncPageable<ApiTagResource> GetAllAsync(string filter = null, int? top = null, int? skip = null, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _apiTagTagRestClient.CreateListByApiRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, filter, top, skip);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _apiTagTagRestClient.CreateListByApiNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, filter, top, skip);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _apiTagTagRestClient.CreateListByApiRequest(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, filter, top, skip);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _apiTagTagRestClient.CreateListByApiNextPageRequest(nextLink, Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, filter, top, skip);
             return PageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new ApiTagResource(Client, TagContractData.DeserializeTagContractData(e)), _apiTagTagClientDiagnostics, Pipeline, "ApiTagCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
@@ -249,8 +249,8 @@ namespace Azure.ResourceManager.ApiManagement
         /// <returns> A collection of <see cref="ApiTagResource" /> that may take multiple service requests to iterate over. </returns>
         public virtual Pageable<ApiTagResource> GetAll(string filter = null, int? top = null, int? skip = null, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _apiTagTagRestClient.CreateListByApiRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, filter, top, skip);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _apiTagTagRestClient.CreateListByApiNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, filter, top, skip);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _apiTagTagRestClient.CreateListByApiRequest(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, filter, top, skip);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _apiTagTagRestClient.CreateListByApiNextPageRequest(nextLink, Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, filter, top, skip);
             return PageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new ApiTagResource(Client, TagContractData.DeserializeTagContractData(e)), _apiTagTagClientDiagnostics, Pipeline, "ApiTagCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
@@ -279,7 +279,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiTagTagRestClient.GetByApiAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, tagId, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var response = await _apiTagTagRestClient.GetByApiAsync(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, tagId, cancellationToken: cancellationToken).ConfigureAwait(false);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -314,7 +314,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiTagTagRestClient.GetByApi(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, tagId, cancellationToken: cancellationToken);
+                var response = _apiTagTagRestClient.GetByApi(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, tagId, cancellationToken: cancellationToken);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)

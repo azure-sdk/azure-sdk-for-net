@@ -20,12 +20,12 @@ namespace Azure.ResourceManager.ApiManagement
     /// A Class representing an ApiManagementProductTag along with the instance operations that can be performed on it.
     /// If you have a <see cref="ResourceIdentifier" /> you can construct an <see cref="ApiManagementProductTagResource" />
     /// from an instance of <see cref="ArmClient" /> using the GetApiManagementProductTagResource method.
-    /// Otherwise you can get one from its parent resource <see cref="ApiManagementProductResource" /> using the GetApiManagementProductTag method.
+    /// Otherwise you can get one from its parent resource <see cref="ServiceProductResource" /> using the GetApiManagementProductTag method.
     /// </summary>
     public partial class ApiManagementProductTagResource : ArmResource
     {
         /// <summary> Generate the resource identifier of a <see cref="ApiManagementProductTagResource"/> instance. </summary>
-        public static ResourceIdentifier CreateResourceIdentifier(string subscriptionId, string resourceGroupName, string serviceName, string productId, string tagId)
+        public static ResourceIdentifier CreateResourceIdentifier(Guid subscriptionId, string resourceGroupName, string serviceName, string productId, string tagId)
         {
             var resourceId = $"/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/products/{productId}/tags/{tagId}";
             return new ResourceIdentifier(resourceId);
@@ -106,7 +106,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiManagementProductTagTagRestClient.GetByProductAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
+                var response = await _apiManagementProductTagTagRestClient.GetByProductAsync(Guid.Parse(Id.Parent.Parent.Parent.Parent.Name), Id.Parent.Parent.Parent.Name, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ApiManagementProductTagResource(Client, response.Value), response.GetRawResponse());
@@ -138,7 +138,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiManagementProductTagTagRestClient.GetByProduct(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, cancellationToken);
+                var response = _apiManagementProductTagTagRestClient.GetByProduct(Guid.Parse(Id.Parent.Parent.Parent.Parent.Name), Id.Parent.Parent.Parent.Name, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ApiManagementProductTagResource(Client, response.Value), response.GetRawResponse());
@@ -171,7 +171,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiManagementProductTagTagRestClient.DetachFromProductAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
+                var response = await _apiManagementProductTagTagRestClient.DetachFromProductAsync(Guid.Parse(Id.Parent.Parent.Parent.Parent.Name), Id.Parent.Parent.Parent.Name, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
                 var operation = new ApiManagementArmOperation(response);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
@@ -205,7 +205,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiManagementProductTagTagRestClient.DetachFromProduct(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, cancellationToken);
+                var response = _apiManagementProductTagTagRestClient.DetachFromProduct(Guid.Parse(Id.Parent.Parent.Parent.Parent.Name), Id.Parent.Parent.Parent.Name, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, cancellationToken);
                 var operation = new ApiManagementArmOperation(response);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletionResponse(cancellationToken);
@@ -239,7 +239,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiManagementProductTagTagRestClient.AssignToProductAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
+                var response = await _apiManagementProductTagTagRestClient.AssignToProductAsync(Guid.Parse(Id.Parent.Parent.Parent.Parent.Name), Id.Parent.Parent.Parent.Name, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
                 var operation = new ApiManagementArmOperation<ApiManagementProductTagResource>(Response.FromValue(new ApiManagementProductTagResource(Client, response), response.GetRawResponse()));
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
@@ -273,7 +273,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiManagementProductTagTagRestClient.AssignToProduct(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, cancellationToken);
+                var response = _apiManagementProductTagTagRestClient.AssignToProduct(Guid.Parse(Id.Parent.Parent.Parent.Parent.Name), Id.Parent.Parent.Parent.Name, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, cancellationToken);
                 var operation = new ApiManagementArmOperation<ApiManagementProductTagResource>(Response.FromValue(new ApiManagementProductTagResource(Client, response), response.GetRawResponse()));
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
@@ -306,7 +306,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiManagementProductTagTagRestClient.GetEntityStateByProductAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
+                var response = await _apiManagementProductTagTagRestClient.GetEntityStateByProductAsync(Guid.Parse(Id.Parent.Parent.Parent.Parent.Name), Id.Parent.Parent.Parent.Name, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
                 return response;
             }
             catch (Exception e)
@@ -336,7 +336,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiManagementProductTagTagRestClient.GetEntityStateByProduct(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, cancellationToken);
+                var response = _apiManagementProductTagTagRestClient.GetEntityStateByProduct(Guid.Parse(Id.Parent.Parent.Parent.Parent.Name), Id.Parent.Parent.Parent.Name, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, cancellationToken);
                 return response;
             }
             catch (Exception e)

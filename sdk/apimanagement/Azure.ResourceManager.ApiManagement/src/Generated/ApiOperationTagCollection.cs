@@ -20,8 +20,8 @@ namespace Azure.ResourceManager.ApiManagement
 {
     /// <summary>
     /// A class representing a collection of <see cref="ApiOperationTagResource" /> and their operations.
-    /// Each <see cref="ApiOperationTagResource" /> in the collection will belong to the same instance of <see cref="ApiOperationResource" />.
-    /// To get an <see cref="ApiOperationTagCollection" /> instance call the GetApiOperationTags method from an instance of <see cref="ApiOperationResource" />.
+    /// Each <see cref="ApiOperationTagResource" /> in the collection will belong to the same instance of <see cref="ServiceApiOperationResource" />.
+    /// To get an <see cref="ApiOperationTagCollection" /> instance call the GetApiOperationTags method from an instance of <see cref="ServiceApiOperationResource" />.
     /// </summary>
     public partial class ApiOperationTagCollection : ArmCollection, IEnumerable<ApiOperationTagResource>, IAsyncEnumerable<ApiOperationTagResource>
     {
@@ -48,8 +48,8 @@ namespace Azure.ResourceManager.ApiManagement
 
         internal static void ValidateResourceId(ResourceIdentifier id)
         {
-            if (id.ResourceType != ApiOperationResource.ResourceType)
-                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, ApiOperationResource.ResourceType), nameof(id));
+            if (id.ResourceType != ServiceApiOperationResource.ResourceType)
+                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, ServiceApiOperationResource.ResourceType), nameof(id));
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiOperationTagTagRestClient.AssignToOperationAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, tagId, cancellationToken).ConfigureAwait(false);
+                var response = await _apiOperationTagTagRestClient.AssignToOperationAsync(Guid.Parse(Id.Parent.Parent.Parent.Parent.Name), Id.Parent.Parent.Parent.Name, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, tagId, cancellationToken).ConfigureAwait(false);
                 var operation = new ApiManagementArmOperation<ApiOperationTagResource>(Response.FromValue(new ApiOperationTagResource(Client, response), response.GetRawResponse()));
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
@@ -117,7 +117,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiOperationTagTagRestClient.AssignToOperation(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, tagId, cancellationToken);
+                var response = _apiOperationTagTagRestClient.AssignToOperation(Guid.Parse(Id.Parent.Parent.Parent.Parent.Name), Id.Parent.Parent.Parent.Name, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, tagId, cancellationToken);
                 var operation = new ApiManagementArmOperation<ApiOperationTagResource>(Response.FromValue(new ApiOperationTagResource(Client, response), response.GetRawResponse()));
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
@@ -155,7 +155,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiOperationTagTagRestClient.GetByOperationAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, tagId, cancellationToken).ConfigureAwait(false);
+                var response = await _apiOperationTagTagRestClient.GetByOperationAsync(Guid.Parse(Id.Parent.Parent.Parent.Parent.Name), Id.Parent.Parent.Parent.Name, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, tagId, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ApiOperationTagResource(Client, response.Value), response.GetRawResponse());
@@ -192,7 +192,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiOperationTagTagRestClient.GetByOperation(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, tagId, cancellationToken);
+                var response = _apiOperationTagTagRestClient.GetByOperation(Guid.Parse(Id.Parent.Parent.Parent.Parent.Name), Id.Parent.Parent.Parent.Name, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, tagId, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ApiOperationTagResource(Client, response.Value), response.GetRawResponse());
@@ -224,8 +224,8 @@ namespace Azure.ResourceManager.ApiManagement
         /// <returns> An async collection of <see cref="ApiOperationTagResource" /> that may take multiple service requests to iterate over. </returns>
         public virtual AsyncPageable<ApiOperationTagResource> GetAllAsync(string filter = null, int? top = null, int? skip = null, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _apiOperationTagTagRestClient.CreateListByOperationRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, filter, top, skip);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _apiOperationTagTagRestClient.CreateListByOperationNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, filter, top, skip);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _apiOperationTagTagRestClient.CreateListByOperationRequest(Guid.Parse(Id.Parent.Parent.Parent.Parent.Name), Id.Parent.Parent.Parent.Name, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, filter, top, skip);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _apiOperationTagTagRestClient.CreateListByOperationNextPageRequest(nextLink, Guid.Parse(Id.Parent.Parent.Parent.Parent.Name), Id.Parent.Parent.Parent.Name, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, filter, top, skip);
             return PageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new ApiOperationTagResource(Client, TagContractData.DeserializeTagContractData(e)), _apiOperationTagTagClientDiagnostics, Pipeline, "ApiOperationTagCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
@@ -249,8 +249,8 @@ namespace Azure.ResourceManager.ApiManagement
         /// <returns> A collection of <see cref="ApiOperationTagResource" /> that may take multiple service requests to iterate over. </returns>
         public virtual Pageable<ApiOperationTagResource> GetAll(string filter = null, int? top = null, int? skip = null, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _apiOperationTagTagRestClient.CreateListByOperationRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, filter, top, skip);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _apiOperationTagTagRestClient.CreateListByOperationNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, filter, top, skip);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _apiOperationTagTagRestClient.CreateListByOperationRequest(Guid.Parse(Id.Parent.Parent.Parent.Parent.Name), Id.Parent.Parent.Parent.Name, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, filter, top, skip);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _apiOperationTagTagRestClient.CreateListByOperationNextPageRequest(nextLink, Guid.Parse(Id.Parent.Parent.Parent.Parent.Name), Id.Parent.Parent.Parent.Name, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, filter, top, skip);
             return PageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new ApiOperationTagResource(Client, TagContractData.DeserializeTagContractData(e)), _apiOperationTagTagClientDiagnostics, Pipeline, "ApiOperationTagCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
@@ -279,7 +279,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiOperationTagTagRestClient.GetByOperationAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, tagId, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var response = await _apiOperationTagTagRestClient.GetByOperationAsync(Guid.Parse(Id.Parent.Parent.Parent.Parent.Name), Id.Parent.Parent.Parent.Name, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, tagId, cancellationToken: cancellationToken).ConfigureAwait(false);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -314,7 +314,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiOperationTagTagRestClient.GetByOperation(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, tagId, cancellationToken: cancellationToken);
+                var response = _apiOperationTagTagRestClient.GetByOperation(Guid.Parse(Id.Parent.Parent.Parent.Parent.Name), Id.Parent.Parent.Parent.Name, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, tagId, cancellationToken: cancellationToken);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)

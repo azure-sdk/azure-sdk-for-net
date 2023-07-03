@@ -80,7 +80,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiManagementEmailTemplateEmailTemplateRestClient.CreateOrUpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, templateName, content, ifMatch, cancellationToken).ConfigureAwait(false);
+                var response = await _apiManagementEmailTemplateEmailTemplateRestClient.CreateOrUpdateAsync(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, templateName, content, ifMatch, cancellationToken).ConfigureAwait(false);
                 var operation = new ApiManagementArmOperation<ApiManagementEmailTemplateResource>(Response.FromValue(new ApiManagementEmailTemplateResource(Client, response), response.GetRawResponse()));
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
@@ -120,7 +120,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiManagementEmailTemplateEmailTemplateRestClient.CreateOrUpdate(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, templateName, content, ifMatch, cancellationToken);
+                var response = _apiManagementEmailTemplateEmailTemplateRestClient.CreateOrUpdate(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, templateName, content, ifMatch, cancellationToken);
                 var operation = new ApiManagementArmOperation<ApiManagementEmailTemplateResource>(Response.FromValue(new ApiManagementEmailTemplateResource(Client, response), response.GetRawResponse()));
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
@@ -154,7 +154,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiManagementEmailTemplateEmailTemplateRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, templateName, cancellationToken).ConfigureAwait(false);
+                var response = await _apiManagementEmailTemplateEmailTemplateRestClient.GetAsync(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, templateName, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ApiManagementEmailTemplateResource(Client, response.Value), response.GetRawResponse());
@@ -187,7 +187,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiManagementEmailTemplateEmailTemplateRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, templateName, cancellationToken);
+                var response = _apiManagementEmailTemplateEmailTemplateRestClient.Get(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, templateName, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ApiManagementEmailTemplateResource(Client, response.Value), response.GetRawResponse());
@@ -219,8 +219,8 @@ namespace Azure.ResourceManager.ApiManagement
         /// <returns> An async collection of <see cref="ApiManagementEmailTemplateResource" /> that may take multiple service requests to iterate over. </returns>
         public virtual AsyncPageable<ApiManagementEmailTemplateResource> GetAllAsync(string filter = null, int? top = null, int? skip = null, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _apiManagementEmailTemplateEmailTemplateRestClient.CreateListByServiceRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, filter, top, skip);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _apiManagementEmailTemplateEmailTemplateRestClient.CreateListByServiceNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, filter, top, skip);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _apiManagementEmailTemplateEmailTemplateRestClient.CreateListByServiceRequest(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, filter, top, skip);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _apiManagementEmailTemplateEmailTemplateRestClient.CreateListByServiceNextPageRequest(nextLink, Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, filter, top, skip);
             return PageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new ApiManagementEmailTemplateResource(Client, ApiManagementEmailTemplateData.DeserializeApiManagementEmailTemplateData(e)), _apiManagementEmailTemplateEmailTemplateClientDiagnostics, Pipeline, "ApiManagementEmailTemplateCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
@@ -244,8 +244,8 @@ namespace Azure.ResourceManager.ApiManagement
         /// <returns> A collection of <see cref="ApiManagementEmailTemplateResource" /> that may take multiple service requests to iterate over. </returns>
         public virtual Pageable<ApiManagementEmailTemplateResource> GetAll(string filter = null, int? top = null, int? skip = null, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _apiManagementEmailTemplateEmailTemplateRestClient.CreateListByServiceRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, filter, top, skip);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _apiManagementEmailTemplateEmailTemplateRestClient.CreateListByServiceNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, filter, top, skip);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _apiManagementEmailTemplateEmailTemplateRestClient.CreateListByServiceRequest(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, filter, top, skip);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _apiManagementEmailTemplateEmailTemplateRestClient.CreateListByServiceNextPageRequest(nextLink, Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, filter, top, skip);
             return PageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new ApiManagementEmailTemplateResource(Client, ApiManagementEmailTemplateData.DeserializeApiManagementEmailTemplateData(e)), _apiManagementEmailTemplateEmailTemplateClientDiagnostics, Pipeline, "ApiManagementEmailTemplateCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
@@ -270,7 +270,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiManagementEmailTemplateEmailTemplateRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, templateName, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var response = await _apiManagementEmailTemplateEmailTemplateRestClient.GetAsync(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, templateName, cancellationToken: cancellationToken).ConfigureAwait(false);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -301,7 +301,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiManagementEmailTemplateEmailTemplateRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, templateName, cancellationToken: cancellationToken);
+                var response = _apiManagementEmailTemplateEmailTemplateRestClient.Get(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, templateName, cancellationToken: cancellationToken);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
