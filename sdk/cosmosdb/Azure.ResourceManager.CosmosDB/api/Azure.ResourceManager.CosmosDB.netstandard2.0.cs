@@ -3602,10 +3602,10 @@ namespace Azure.ResourceManager.CosmosDB.Models
         public string RoleName { get { throw null; } set { } }
         public System.Collections.Generic.IList<Azure.ResourceManager.CosmosDB.Models.MongoDBRole> Roles { get { throw null; } }
     }
-    public enum MongoDBRoleDefinitionType
+    public enum MongoDBRoleDefinitionType : long
     {
-        BuiltInRole = 0,
-        CustomRole = 1,
+        BuiltInRole = (long)0,
+        CustomRole = (long)1,
     }
     public partial class MongoDBUserDefinitionCreateOrUpdateContent
     {
