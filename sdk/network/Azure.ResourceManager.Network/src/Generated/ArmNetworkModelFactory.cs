@@ -934,8 +934,9 @@ namespace Azure.ResourceManager.Network.Models
         /// <param name="provisioningState"> The provisioning state of the backend address pool resource. </param>
         /// <param name="drainPeriodInSeconds"> Amount of seconds Load Balancer waits for before sending RESET to client and backend address. </param>
         /// <param name="virtualNetworkId"> A reference to a virtual network. </param>
+        /// <param name="syncMode"> Backend address synchronous mode for the backend pool. </param>
         /// <returns> A new <see cref="Network.BackendAddressPoolData"/> instance for mocking. </returns>
-        public static BackendAddressPoolData BackendAddressPoolData(ResourceIdentifier id = null, string name = null, ResourceType? resourceType = null, ETag? etag = null, AzureLocation? location = null, IEnumerable<GatewayLoadBalancerTunnelInterface> tunnelInterfaces = null, IEnumerable<LoadBalancerBackendAddress> loadBalancerBackendAddresses = null, IEnumerable<NetworkInterfaceIPConfigurationData> backendIPConfigurations = null, IEnumerable<WritableSubResource> loadBalancingRules = null, ResourceIdentifier outboundRuleId = null, IEnumerable<WritableSubResource> outboundRules = null, IEnumerable<WritableSubResource> inboundNatRules = null, NetworkProvisioningState? provisioningState = null, int? drainPeriodInSeconds = null, ResourceIdentifier virtualNetworkId = null)
+        public static BackendAddressPoolData BackendAddressPoolData(ResourceIdentifier id = null, string name = null, ResourceType? resourceType = null, ETag? etag = null, AzureLocation? location = null, IEnumerable<GatewayLoadBalancerTunnelInterface> tunnelInterfaces = null, IEnumerable<LoadBalancerBackendAddress> loadBalancerBackendAddresses = null, IEnumerable<NetworkInterfaceIPConfigurationData> backendIPConfigurations = null, IEnumerable<WritableSubResource> loadBalancingRules = null, ResourceIdentifier outboundRuleId = null, IEnumerable<WritableSubResource> outboundRules = null, IEnumerable<WritableSubResource> inboundNatRules = null, NetworkProvisioningState? provisioningState = null, int? drainPeriodInSeconds = null, ResourceIdentifier virtualNetworkId = null, SyncMode? syncMode = null)
         {
             tunnelInterfaces ??= new List<GatewayLoadBalancerTunnelInterface>();
             loadBalancerBackendAddresses ??= new List<LoadBalancerBackendAddress>();
@@ -944,7 +945,7 @@ namespace Azure.ResourceManager.Network.Models
             outboundRules ??= new List<WritableSubResource>();
             inboundNatRules ??= new List<WritableSubResource>();
 
-            return new BackendAddressPoolData(id, name, resourceType, etag, location, tunnelInterfaces?.ToList(), loadBalancerBackendAddresses?.ToList(), backendIPConfigurations?.ToList(), loadBalancingRules?.ToList(), outboundRuleId != null ? ResourceManagerModelFactory.WritableSubResource(outboundRuleId) : null, outboundRules?.ToList(), inboundNatRules?.ToList(), provisioningState, drainPeriodInSeconds, virtualNetworkId != null ? ResourceManagerModelFactory.WritableSubResource(virtualNetworkId) : null);
+            return new BackendAddressPoolData(id, name, resourceType, etag, location, tunnelInterfaces?.ToList(), loadBalancerBackendAddresses?.ToList(), backendIPConfigurations?.ToList(), loadBalancingRules?.ToList(), outboundRuleId != null ? ResourceManagerModelFactory.WritableSubResource(outboundRuleId) : null, outboundRules?.ToList(), inboundNatRules?.ToList(), provisioningState, drainPeriodInSeconds, virtualNetworkId != null ? ResourceManagerModelFactory.WritableSubResource(virtualNetworkId) : null, syncMode);
         }
 
         /// <summary> Initializes a new instance of LoadBalancerBackendAddress. </summary>
