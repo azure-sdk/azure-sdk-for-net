@@ -62,6 +62,8 @@ namespace Azure.ResourceManager.Storage.Models
         public LargeFileSharesState? LargeFileSharesState { get; set; }
         /// <summary> Maintains information about the network routing choice opted by the user for data transfer. </summary>
         public StorageRoutingPreference RoutingPreference { get; set; }
+        /// <summary> Maintains information about the Internet protocol opted by the user. </summary>
+        public DualStackEndpointPreference DualStackEndpointPreference { get; set; }
         /// <summary> Allow or disallow public access to all blobs or containers in the storage account. The default interpretation is true for this property. </summary>
         public bool? AllowBlobPublicAccess { get; set; }
         /// <summary> Set the minimum TLS version to be permitted on requests to storage. The default interpretation is TLS 1.0 for this property. </summary>

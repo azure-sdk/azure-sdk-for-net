@@ -27,6 +27,8 @@ namespace Azure.ResourceManager.Storage.Models
             Optional<Uri> dfs = default;
             Optional<StorageAccountMicrosoftEndpoints> microsoftEndpoints = default;
             Optional<StorageAccountInternetEndpoints> internetEndpoints = default;
+            Optional<StorageAccountIPv4Endpoints> ipv4Endpoints = default;
+            Optional<StorageAccountIPv6Endpoints> ipv6Endpoints = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("blob"u8))
@@ -101,8 +103,26 @@ namespace Azure.ResourceManager.Storage.Models
                     internetEndpoints = StorageAccountInternetEndpoints.DeserializeStorageAccountInternetEndpoints(property.Value);
                     continue;
                 }
+                if (property.NameEquals("ipv4Endpoints"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    ipv4Endpoints = StorageAccountIPv4Endpoints.DeserializeStorageAccountIPv4Endpoints(property.Value);
+                    continue;
+                }
+                if (property.NameEquals("ipv6Endpoints"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    ipv6Endpoints = StorageAccountIPv6Endpoints.DeserializeStorageAccountIPv6Endpoints(property.Value);
+                    continue;
+                }
             }
-            return new StorageAccountEndpoints(blob.Value, queue.Value, table.Value, file.Value, web.Value, dfs.Value, microsoftEndpoints.Value, internetEndpoints.Value);
+            return new StorageAccountEndpoints(blob.Value, queue.Value, table.Value, file.Value, web.Value, dfs.Value, microsoftEndpoints.Value, internetEndpoints.Value, ipv4Endpoints.Value, ipv6Endpoints.Value);
         }
     }
 }

@@ -26,7 +26,9 @@ namespace Azure.ResourceManager.Storage.Models
         /// <param name="dfsUri"> Gets the dfs endpoint. </param>
         /// <param name="microsoftEndpoints"> Gets the microsoft routing storage endpoints. </param>
         /// <param name="internetEndpoints"> Gets the internet routing storage endpoints. </param>
-        internal StorageAccountEndpoints(Uri blobUri, Uri queueUri, Uri tableUri, Uri fileUri, Uri webUri, Uri dfsUri, StorageAccountMicrosoftEndpoints microsoftEndpoints, StorageAccountInternetEndpoints internetEndpoints)
+        /// <param name="ipv4Endpoints"> Gets the ipv4 storage endpoints. </param>
+        /// <param name="ipv6Endpoints"> Gets the ipv6 storage endpoints. </param>
+        internal StorageAccountEndpoints(Uri blobUri, Uri queueUri, Uri tableUri, Uri fileUri, Uri webUri, Uri dfsUri, StorageAccountMicrosoftEndpoints microsoftEndpoints, StorageAccountInternetEndpoints internetEndpoints, StorageAccountIPv4Endpoints ipv4Endpoints, StorageAccountIPv6Endpoints ipv6Endpoints)
         {
             BlobUri = blobUri;
             QueueUri = queueUri;
@@ -36,6 +38,8 @@ namespace Azure.ResourceManager.Storage.Models
             DfsUri = dfsUri;
             MicrosoftEndpoints = microsoftEndpoints;
             InternetEndpoints = internetEndpoints;
+            IPv4Endpoints = ipv4Endpoints;
+            IPv6Endpoints = ipv6Endpoints;
         }
 
         /// <summary> Gets the blob endpoint. </summary>
@@ -54,5 +58,9 @@ namespace Azure.ResourceManager.Storage.Models
         public StorageAccountMicrosoftEndpoints MicrosoftEndpoints { get; }
         /// <summary> Gets the internet routing storage endpoints. </summary>
         public StorageAccountInternetEndpoints InternetEndpoints { get; }
+        /// <summary> Gets the ipv4 storage endpoints. </summary>
+        public StorageAccountIPv4Endpoints IPv4Endpoints { get; }
+        /// <summary> Gets the ipv6 storage endpoints. </summary>
+        public StorageAccountIPv6Endpoints IPv6Endpoints { get; }
     }
 }

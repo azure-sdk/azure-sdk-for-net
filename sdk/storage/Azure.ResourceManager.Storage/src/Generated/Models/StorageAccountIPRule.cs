@@ -14,7 +14,7 @@ namespace Azure.ResourceManager.Storage.Models
     public partial class StorageAccountIPRule
     {
         /// <summary> Initializes a new instance of StorageAccountIPRule. </summary>
-        /// <param name="ipAddressOrRange"> Specifies the IP or IP range in CIDR format. Only IPV4 address is allowed. </param>
+        /// <param name="ipAddressOrRange"> Specifies the IP or IP range in CIDR format. Only IPv4 or IPv6 address is allowed. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="ipAddressOrRange"/> is null. </exception>
         public StorageAccountIPRule(string ipAddressOrRange)
         {
@@ -24,7 +24,7 @@ namespace Azure.ResourceManager.Storage.Models
         }
 
         /// <summary> Initializes a new instance of StorageAccountIPRule. </summary>
-        /// <param name="ipAddressOrRange"> Specifies the IP or IP range in CIDR format. Only IPV4 address is allowed. </param>
+        /// <param name="ipAddressOrRange"> Specifies the IP or IP range in CIDR format. Only IPv4 or IPv6 address is allowed. </param>
         /// <param name="action"> The action of IP ACL rule. </param>
         internal StorageAccountIPRule(string ipAddressOrRange, StorageAccountNetworkRuleAction? action)
         {
@@ -32,7 +32,7 @@ namespace Azure.ResourceManager.Storage.Models
             Action = action;
         }
 
-        /// <summary> Specifies the IP or IP range in CIDR format. Only IPV4 address is allowed. </summary>
+        /// <summary> Specifies the IP or IP range in CIDR format. Only IPv4 or IPv6 address is allowed. </summary>
         public string IPAddressOrRange { get; set; }
         /// <summary> The action of IP ACL rule. </summary>
         public StorageAccountNetworkRuleAction? Action { get; set; }

@@ -81,6 +81,11 @@ namespace Azure.ResourceManager.Storage
                 writer.WritePropertyName("routingPreference"u8);
                 writer.WriteObjectValue(RoutingPreference);
             }
+            if (Optional.IsDefined(DualStackEndpointPreference))
+            {
+                writer.WritePropertyName("dualStackEndpointPreference"u8);
+                writer.WriteObjectValue(DualStackEndpointPreference);
+            }
             if (Optional.IsDefined(AllowBlobPublicAccess))
             {
                 writer.WritePropertyName("allowBlobPublicAccess"u8);
@@ -182,6 +187,7 @@ namespace Azure.ResourceManager.Storage
             Optional<LargeFileSharesState> largeFileSharesState = default;
             Optional<IReadOnlyList<StoragePrivateEndpointConnectionData>> privateEndpointConnections = default;
             Optional<StorageRoutingPreference> routingPreference = default;
+            Optional<DualStackEndpointPreference> dualStackEndpointPreference = default;
             Optional<BlobRestoreStatus> blobRestoreStatus = default;
             Optional<bool> allowBlobPublicAccess = default;
             Optional<StorageMinimumTlsVersion> minimumTlsVersion = default;
@@ -524,6 +530,15 @@ namespace Azure.ResourceManager.Storage
                             routingPreference = StorageRoutingPreference.DeserializeStorageRoutingPreference(property0.Value);
                             continue;
                         }
+                        if (property0.NameEquals("dualStackEndpointPreference"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            dualStackEndpointPreference = DualStackEndpointPreference.DeserializeDualStackEndpointPreference(property0.Value);
+                            continue;
+                        }
                         if (property0.NameEquals("blobRestoreStatus"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -636,7 +651,7 @@ namespace Azure.ResourceManager.Storage
                     continue;
                 }
             }
-            return new StorageAccountData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, sku.Value, Optional.ToNullable(kind), identity, extendedLocation, Optional.ToNullable(provisioningState), primaryEndpoints.Value, Optional.ToNullable(primaryLocation), Optional.ToNullable(statusOfPrimary), Optional.ToNullable(lastGeoFailoverTime), Optional.ToNullable(secondaryLocation), Optional.ToNullable(statusOfSecondary), Optional.ToNullable(creationTime), customDomain.Value, sasPolicy.Value, keyPolicy.Value, keyCreationTime.Value, secondaryEndpoints.Value, encryption.Value, Optional.ToNullable(accessTier), azureFilesIdentityBasedAuthentication.Value, Optional.ToNullable(supportsHttpsTrafficOnly), networkAcls.Value, Optional.ToNullable(isSftpEnabled), Optional.ToNullable(isLocalUserEnabled), Optional.ToNullable(isHnsEnabled), geoReplicationStats.Value, Optional.ToNullable(failoverInProgress), Optional.ToNullable(largeFileSharesState), Optional.ToList(privateEndpointConnections), routingPreference.Value, blobRestoreStatus.Value, Optional.ToNullable(allowBlobPublicAccess), Optional.ToNullable(minimumTlsVersion), Optional.ToNullable(allowSharedKeyAccess), Optional.ToNullable(isNfsV3Enabled), Optional.ToNullable(allowCrossTenantReplication), Optional.ToNullable(defaultToOAuthAuthentication), Optional.ToNullable(publicNetworkAccess), immutableStorageWithVersioning.Value, Optional.ToNullable(allowedCopyScope), storageAccountSkuConversionStatus.Value, Optional.ToNullable(dnsEndpointType));
+            return new StorageAccountData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, sku.Value, Optional.ToNullable(kind), identity, extendedLocation, Optional.ToNullable(provisioningState), primaryEndpoints.Value, Optional.ToNullable(primaryLocation), Optional.ToNullable(statusOfPrimary), Optional.ToNullable(lastGeoFailoverTime), Optional.ToNullable(secondaryLocation), Optional.ToNullable(statusOfSecondary), Optional.ToNullable(creationTime), customDomain.Value, sasPolicy.Value, keyPolicy.Value, keyCreationTime.Value, secondaryEndpoints.Value, encryption.Value, Optional.ToNullable(accessTier), azureFilesIdentityBasedAuthentication.Value, Optional.ToNullable(supportsHttpsTrafficOnly), networkAcls.Value, Optional.ToNullable(isSftpEnabled), Optional.ToNullable(isLocalUserEnabled), Optional.ToNullable(isHnsEnabled), geoReplicationStats.Value, Optional.ToNullable(failoverInProgress), Optional.ToNullable(largeFileSharesState), Optional.ToList(privateEndpointConnections), routingPreference.Value, dualStackEndpointPreference.Value, blobRestoreStatus.Value, Optional.ToNullable(allowBlobPublicAccess), Optional.ToNullable(minimumTlsVersion), Optional.ToNullable(allowSharedKeyAccess), Optional.ToNullable(isNfsV3Enabled), Optional.ToNullable(allowCrossTenantReplication), Optional.ToNullable(defaultToOAuthAuthentication), Optional.ToNullable(publicNetworkAccess), immutableStorageWithVersioning.Value, Optional.ToNullable(allowedCopyScope), storageAccountSkuConversionStatus.Value, Optional.ToNullable(dnsEndpointType));
         }
     }
 }

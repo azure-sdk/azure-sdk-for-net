@@ -20,6 +20,7 @@ namespace Azure.ResourceManager.Storage.Models
             ResourceAccessRules = new ChangeTrackingList<StorageAccountResourceAccessRule>();
             VirtualNetworkRules = new ChangeTrackingList<StorageAccountVirtualNetworkRule>();
             IPRules = new ChangeTrackingList<StorageAccountIPRule>();
+            IPv6Rules = new ChangeTrackingList<StorageAccountIPRule>();
             DefaultAction = defaultAction;
         }
 
@@ -27,14 +28,16 @@ namespace Azure.ResourceManager.Storage.Models
         /// <param name="bypass"> Specifies whether traffic is bypassed for Logging/Metrics/AzureServices. Possible values are any combination of Logging|Metrics|AzureServices (For example, "Logging, Metrics"), or None to bypass none of those traffics. </param>
         /// <param name="resourceAccessRules"> Sets the resource access rules. </param>
         /// <param name="virtualNetworkRules"> Sets the virtual network rules. </param>
-        /// <param name="ipRules"> Sets the IP ACL rules. </param>
+        /// <param name="ipRules"> Sets the IPv4 ACL rules. </param>
+        /// <param name="ipv6Rules"> Sets the IPv6 ACL rules. </param>
         /// <param name="defaultAction"> Specifies the default action of allow or deny when no other rules match. </param>
-        internal StorageAccountNetworkRuleSet(StorageNetworkBypass? bypass, IList<StorageAccountResourceAccessRule> resourceAccessRules, IList<StorageAccountVirtualNetworkRule> virtualNetworkRules, IList<StorageAccountIPRule> ipRules, StorageNetworkDefaultAction defaultAction)
+        internal StorageAccountNetworkRuleSet(StorageNetworkBypass? bypass, IList<StorageAccountResourceAccessRule> resourceAccessRules, IList<StorageAccountVirtualNetworkRule> virtualNetworkRules, IList<StorageAccountIPRule> ipRules, IList<StorageAccountIPRule> ipv6Rules, StorageNetworkDefaultAction defaultAction)
         {
             Bypass = bypass;
             ResourceAccessRules = resourceAccessRules;
             VirtualNetworkRules = virtualNetworkRules;
             IPRules = ipRules;
+            IPv6Rules = ipv6Rules;
             DefaultAction = defaultAction;
         }
 
@@ -44,8 +47,10 @@ namespace Azure.ResourceManager.Storage.Models
         public IList<StorageAccountResourceAccessRule> ResourceAccessRules { get; }
         /// <summary> Sets the virtual network rules. </summary>
         public IList<StorageAccountVirtualNetworkRule> VirtualNetworkRules { get; }
-        /// <summary> Sets the IP ACL rules. </summary>
+        /// <summary> Sets the IPv4 ACL rules. </summary>
         public IList<StorageAccountIPRule> IPRules { get; }
+        /// <summary> Sets the IPv6 ACL rules. </summary>
+        public IList<StorageAccountIPRule> IPv6Rules { get; }
         /// <summary> Specifies the default action of allow or deny when no other rules match. </summary>
         public StorageNetworkDefaultAction DefaultAction { get; set; }
     }

@@ -137,6 +137,7 @@ namespace Azure.ResourceManager.Storage.Models
         /// <param name="largeFileSharesState"> Allow large file shares if sets to Enabled. It cannot be disabled once it is enabled. </param>
         /// <param name="privateEndpointConnections"> List of private endpoint connection associated with the specified storage account. </param>
         /// <param name="routingPreference"> Maintains information about the network routing choice opted by the user for data transfer. </param>
+        /// <param name="dualStackEndpointPreference"> Maintains information about the Internet protocol opted by the user. </param>
         /// <param name="blobRestoreStatus"> Blob restore status. </param>
         /// <param name="allowBlobPublicAccess"> Allow or disallow public access to all blobs or containers in the storage account. The default interpretation is true for this property. </param>
         /// <param name="minimumTlsVersion"> Set the minimum TLS version to be permitted on requests to storage. The default interpretation is TLS 1.0 for this property. </param>
@@ -150,12 +151,12 @@ namespace Azure.ResourceManager.Storage.Models
         /// <param name="storageAccountSkuConversionStatus"> This property is readOnly and is set by server during asynchronous storage account sku conversion operations. </param>
         /// <param name="dnsEndpointType"> Allows you to specify the type of endpoint. Set this to AzureDNSZone to create a large number of accounts in a single subscription, which creates accounts in an Azure DNS Zone and the endpoint URL will have an alphanumeric DNS Zone identifier. </param>
         /// <returns> A new <see cref="Storage.StorageAccountData"/> instance for mocking. </returns>
-        public static StorageAccountData StorageAccountData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, StorageSku sku = null, StorageKind? kind = null, ManagedServiceIdentity identity = null, ExtendedLocation extendedLocation = null, StorageProvisioningState? provisioningState = null, StorageAccountEndpoints primaryEndpoints = null, AzureLocation? primaryLocation = null, StorageAccountStatus? statusOfPrimary = null, DateTimeOffset? lastGeoFailoverOn = null, AzureLocation? secondaryLocation = null, StorageAccountStatus? statusOfSecondary = null, DateTimeOffset? createdOn = null, StorageCustomDomain customDomain = null, StorageAccountSasPolicy sasPolicy = null, int? keyExpirationPeriodInDays = null, StorageAccountKeyCreationTime keyCreationTime = null, StorageAccountEndpoints secondaryEndpoints = null, StorageAccountEncryption encryption = null, StorageAccountAccessTier? accessTier = null, FilesIdentityBasedAuthentication azureFilesIdentityBasedAuthentication = null, bool? enableHttpsTrafficOnly = null, StorageAccountNetworkRuleSet networkRuleSet = null, bool? isSftpEnabled = null, bool? isLocalUserEnabled = null, bool? isHnsEnabled = null, GeoReplicationStatistics geoReplicationStats = null, bool? isFailoverInProgress = null, LargeFileSharesState? largeFileSharesState = null, IEnumerable<StoragePrivateEndpointConnectionData> privateEndpointConnections = null, StorageRoutingPreference routingPreference = null, BlobRestoreStatus blobRestoreStatus = null, bool? allowBlobPublicAccess = null, StorageMinimumTlsVersion? minimumTlsVersion = null, bool? allowSharedKeyAccess = null, bool? isNfsV3Enabled = null, bool? allowCrossTenantReplication = null, bool? isDefaultToOAuthAuthentication = null, StoragePublicNetworkAccess? publicNetworkAccess = null, ImmutableStorageAccount immutableStorageWithVersioning = null, AllowedCopyScope? allowedCopyScope = null, StorageAccountSkuConversionStatus storageAccountSkuConversionStatus = null, StorageDnsEndpointType? dnsEndpointType = null)
+        public static StorageAccountData StorageAccountData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, StorageSku sku = null, StorageKind? kind = null, ManagedServiceIdentity identity = null, ExtendedLocation extendedLocation = null, StorageProvisioningState? provisioningState = null, StorageAccountEndpoints primaryEndpoints = null, AzureLocation? primaryLocation = null, StorageAccountStatus? statusOfPrimary = null, DateTimeOffset? lastGeoFailoverOn = null, AzureLocation? secondaryLocation = null, StorageAccountStatus? statusOfSecondary = null, DateTimeOffset? createdOn = null, StorageCustomDomain customDomain = null, StorageAccountSasPolicy sasPolicy = null, int? keyExpirationPeriodInDays = null, StorageAccountKeyCreationTime keyCreationTime = null, StorageAccountEndpoints secondaryEndpoints = null, StorageAccountEncryption encryption = null, StorageAccountAccessTier? accessTier = null, FilesIdentityBasedAuthentication azureFilesIdentityBasedAuthentication = null, bool? enableHttpsTrafficOnly = null, StorageAccountNetworkRuleSet networkRuleSet = null, bool? isSftpEnabled = null, bool? isLocalUserEnabled = null, bool? isHnsEnabled = null, GeoReplicationStatistics geoReplicationStats = null, bool? isFailoverInProgress = null, LargeFileSharesState? largeFileSharesState = null, IEnumerable<StoragePrivateEndpointConnectionData> privateEndpointConnections = null, StorageRoutingPreference routingPreference = null, DualStackEndpointPreference dualStackEndpointPreference = null, BlobRestoreStatus blobRestoreStatus = null, bool? allowBlobPublicAccess = null, StorageMinimumTlsVersion? minimumTlsVersion = null, bool? allowSharedKeyAccess = null, bool? isNfsV3Enabled = null, bool? allowCrossTenantReplication = null, bool? isDefaultToOAuthAuthentication = null, StoragePublicNetworkAccess? publicNetworkAccess = null, ImmutableStorageAccount immutableStorageWithVersioning = null, AllowedCopyScope? allowedCopyScope = null, StorageAccountSkuConversionStatus storageAccountSkuConversionStatus = null, StorageDnsEndpointType? dnsEndpointType = null)
         {
             tags ??= new Dictionary<string, string>();
             privateEndpointConnections ??= new List<StoragePrivateEndpointConnectionData>();
 
-            return new StorageAccountData(id, name, resourceType, systemData, tags, location, sku, kind, identity, extendedLocation, provisioningState, primaryEndpoints, primaryLocation, statusOfPrimary, lastGeoFailoverOn, secondaryLocation, statusOfSecondary, createdOn, customDomain, sasPolicy, keyExpirationPeriodInDays.HasValue ? new StorageAccountKeyPolicy(keyExpirationPeriodInDays.Value) : null, keyCreationTime, secondaryEndpoints, encryption, accessTier, azureFilesIdentityBasedAuthentication, enableHttpsTrafficOnly, networkRuleSet, isSftpEnabled, isLocalUserEnabled, isHnsEnabled, geoReplicationStats, isFailoverInProgress, largeFileSharesState, privateEndpointConnections?.ToList(), routingPreference, blobRestoreStatus, allowBlobPublicAccess, minimumTlsVersion, allowSharedKeyAccess, isNfsV3Enabled, allowCrossTenantReplication, isDefaultToOAuthAuthentication, publicNetworkAccess, immutableStorageWithVersioning, allowedCopyScope, storageAccountSkuConversionStatus, dnsEndpointType);
+            return new StorageAccountData(id, name, resourceType, systemData, tags, location, sku, kind, identity, extendedLocation, provisioningState, primaryEndpoints, primaryLocation, statusOfPrimary, lastGeoFailoverOn, secondaryLocation, statusOfSecondary, createdOn, customDomain, sasPolicy, keyExpirationPeriodInDays.HasValue ? new StorageAccountKeyPolicy(keyExpirationPeriodInDays.Value) : null, keyCreationTime, secondaryEndpoints, encryption, accessTier, azureFilesIdentityBasedAuthentication, enableHttpsTrafficOnly, networkRuleSet, isSftpEnabled, isLocalUserEnabled, isHnsEnabled, geoReplicationStats, isFailoverInProgress, largeFileSharesState, privateEndpointConnections?.ToList(), routingPreference, dualStackEndpointPreference, blobRestoreStatus, allowBlobPublicAccess, minimumTlsVersion, allowSharedKeyAccess, isNfsV3Enabled, allowCrossTenantReplication, isDefaultToOAuthAuthentication, publicNetworkAccess, immutableStorageWithVersioning, allowedCopyScope, storageAccountSkuConversionStatus, dnsEndpointType);
         }
 
         /// <summary> Initializes a new instance of StorageAccountEndpoints. </summary>
@@ -167,10 +168,12 @@ namespace Azure.ResourceManager.Storage.Models
         /// <param name="dfsUri"> Gets the dfs endpoint. </param>
         /// <param name="microsoftEndpoints"> Gets the microsoft routing storage endpoints. </param>
         /// <param name="internetEndpoints"> Gets the internet routing storage endpoints. </param>
+        /// <param name="ipv4Endpoints"> Gets the ipv4 storage endpoints. </param>
+        /// <param name="ipv6Endpoints"> Gets the ipv6 storage endpoints. </param>
         /// <returns> A new <see cref="Models.StorageAccountEndpoints"/> instance for mocking. </returns>
-        public static StorageAccountEndpoints StorageAccountEndpoints(Uri blobUri = null, Uri queueUri = null, Uri tableUri = null, Uri fileUri = null, Uri webUri = null, Uri dfsUri = null, StorageAccountMicrosoftEndpoints microsoftEndpoints = null, StorageAccountInternetEndpoints internetEndpoints = null)
+        public static StorageAccountEndpoints StorageAccountEndpoints(Uri blobUri = null, Uri queueUri = null, Uri tableUri = null, Uri fileUri = null, Uri webUri = null, Uri dfsUri = null, StorageAccountMicrosoftEndpoints microsoftEndpoints = null, StorageAccountInternetEndpoints internetEndpoints = null, StorageAccountIPv4Endpoints ipv4Endpoints = null, StorageAccountIPv6Endpoints ipv6Endpoints = null)
         {
-            return new StorageAccountEndpoints(blobUri, queueUri, tableUri, fileUri, webUri, dfsUri, microsoftEndpoints, internetEndpoints);
+            return new StorageAccountEndpoints(blobUri, queueUri, tableUri, fileUri, webUri, dfsUri, microsoftEndpoints, internetEndpoints, ipv4Endpoints, ipv6Endpoints);
         }
 
         /// <summary> Initializes a new instance of StorageAccountMicrosoftEndpoints. </summary>
@@ -195,6 +198,36 @@ namespace Azure.ResourceManager.Storage.Models
         public static StorageAccountInternetEndpoints StorageAccountInternetEndpoints(Uri blobUri = null, Uri fileUri = null, Uri webUri = null, Uri dfsUri = null)
         {
             return new StorageAccountInternetEndpoints(blobUri, fileUri, webUri, dfsUri);
+        }
+
+        /// <summary> Initializes a new instance of StorageAccountIPv4Endpoints. </summary>
+        /// <param name="blob"> Gets the blob endpoint. </param>
+        /// <param name="queue"> Gets the queue endpoint. </param>
+        /// <param name="table"> Gets the table endpoint. </param>
+        /// <param name="file"> Gets the file endpoint. </param>
+        /// <param name="web"> Gets the web endpoint. </param>
+        /// <param name="dfs"> Gets the dfs endpoint. </param>
+        /// <param name="microsoftEndpoints"> Gets the microsoft routing storage endpoints. </param>
+        /// <param name="internetEndpoints"> Gets the internet routing storage endpoints. </param>
+        /// <returns> A new <see cref="Models.StorageAccountIPv4Endpoints"/> instance for mocking. </returns>
+        public static StorageAccountIPv4Endpoints StorageAccountIPv4Endpoints(string blob = null, string queue = null, string table = null, string file = null, string web = null, string dfs = null, StorageAccountMicrosoftEndpoints microsoftEndpoints = null, StorageAccountInternetEndpoints internetEndpoints = null)
+        {
+            return new StorageAccountIPv4Endpoints(blob, queue, table, file, web, dfs, microsoftEndpoints, internetEndpoints);
+        }
+
+        /// <summary> Initializes a new instance of StorageAccountIPv6Endpoints. </summary>
+        /// <param name="blob"> Gets the blob endpoint. </param>
+        /// <param name="queue"> Gets the queue endpoint. </param>
+        /// <param name="table"> Gets the table endpoint. </param>
+        /// <param name="file"> Gets the file endpoint. </param>
+        /// <param name="web"> Gets the web endpoint. </param>
+        /// <param name="dfs"> Gets the dfs endpoint. </param>
+        /// <param name="microsoftEndpoints"> Gets the microsoft routing storage endpoints. </param>
+        /// <param name="internetEndpoints"> Gets the internet routing storage endpoints. </param>
+        /// <returns> A new <see cref="Models.StorageAccountIPv6Endpoints"/> instance for mocking. </returns>
+        public static StorageAccountIPv6Endpoints StorageAccountIPv6Endpoints(string blob = null, string queue = null, string table = null, string file = null, string web = null, string dfs = null, StorageAccountMicrosoftEndpoints microsoftEndpoints = null, StorageAccountInternetEndpoints internetEndpoints = null)
+        {
+            return new StorageAccountIPv6Endpoints(blob, queue, table, file, web, dfs, microsoftEndpoints, internetEndpoints);
         }
 
         /// <summary> Initializes a new instance of StorageAccountKeyCreationTime. </summary>

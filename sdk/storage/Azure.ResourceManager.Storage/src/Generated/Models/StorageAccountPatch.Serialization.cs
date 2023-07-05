@@ -105,6 +105,11 @@ namespace Azure.ResourceManager.Storage.Models
                 writer.WritePropertyName("routingPreference"u8);
                 writer.WriteObjectValue(RoutingPreference);
             }
+            if (Optional.IsDefined(DualStackEndpointPreference))
+            {
+                writer.WritePropertyName("dualStackEndpointPreference"u8);
+                writer.WriteObjectValue(DualStackEndpointPreference);
+            }
             if (Optional.IsDefined(AllowBlobPublicAccess))
             {
                 writer.WritePropertyName("allowBlobPublicAccess"u8);

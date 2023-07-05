@@ -51,6 +51,16 @@ namespace Azure.ResourceManager.Storage.Models
                 }
                 writer.WriteEndArray();
             }
+            if (Optional.IsCollectionDefined(IPv6Rules))
+            {
+                writer.WritePropertyName("ipv6Rules"u8);
+                writer.WriteStartArray();
+                foreach (var item in IPv6Rules)
+                {
+                    writer.WriteObjectValue(item);
+                }
+                writer.WriteEndArray();
+            }
             writer.WritePropertyName("defaultAction"u8);
             writer.WriteStringValue(DefaultAction.ToSerialString());
             writer.WriteEndObject();
@@ -66,6 +76,7 @@ namespace Azure.ResourceManager.Storage.Models
             Optional<IList<StorageAccountResourceAccessRule>> resourceAccessRules = default;
             Optional<IList<StorageAccountVirtualNetworkRule>> virtualNetworkRules = default;
             Optional<IList<StorageAccountIPRule>> ipRules = default;
+            Optional<IList<StorageAccountIPRule>> ipv6Rules = default;
             StorageNetworkDefaultAction defaultAction = default;
             foreach (var property in element.EnumerateObject())
             {
@@ -120,13 +131,27 @@ namespace Azure.ResourceManager.Storage.Models
                     ipRules = array;
                     continue;
                 }
+                if (property.NameEquals("ipv6Rules"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<StorageAccountIPRule> array = new List<StorageAccountIPRule>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(StorageAccountIPRule.DeserializeStorageAccountIPRule(item));
+                    }
+                    ipv6Rules = array;
+                    continue;
+                }
                 if (property.NameEquals("defaultAction"u8))
                 {
                     defaultAction = property.Value.GetString().ToStorageNetworkDefaultAction();
                     continue;
                 }
             }
-            return new StorageAccountNetworkRuleSet(Optional.ToNullable(bypass), Optional.ToList(resourceAccessRules), Optional.ToList(virtualNetworkRules), Optional.ToList(ipRules), defaultAction);
+            return new StorageAccountNetworkRuleSet(Optional.ToNullable(bypass), Optional.ToList(resourceAccessRules), Optional.ToList(virtualNetworkRules), Optional.ToList(ipRules), Optional.ToList(ipv6Rules), defaultAction);
         }
     }
 }
