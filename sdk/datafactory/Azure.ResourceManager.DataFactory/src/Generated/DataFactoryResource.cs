@@ -666,6 +666,61 @@ namespace Azure.ResourceManager.DataFactory
             return GetDataFactoryGlobalParameters().Get(globalParameterName, cancellationToken);
         }
 
+        /// <summary> Gets a collection of ChangeDataCaptureResources in the DataFactory. </summary>
+        /// <returns> An object representing collection of ChangeDataCaptureResources and their operations over a ChangeDataCaptureResource. </returns>
+        public virtual ChangeDataCaptureResourceCollection GetChangeDataCaptureResources()
+        {
+            return GetCachedClient(Client => new ChangeDataCaptureResourceCollection(Client, Id));
+        }
+
+        /// <summary>
+        /// Gets a change data capture.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataFactory/factories/{factoryName}/adfcdcs/{changeDataCaptureName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>ChangeDataCapture_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="changeDataCaptureName"> The change data capture name. </param>
+        /// <param name="ifNoneMatch"> ETag of the change data capture entity. Should only be specified for get. If the ETag matches the existing entity tag, or if * was provided, then no content will be returned. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="changeDataCaptureName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="changeDataCaptureName"/> is null. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<ChangeDataCaptureResource>> GetChangeDataCaptureResourceAsync(string changeDataCaptureName, string ifNoneMatch = null, CancellationToken cancellationToken = default)
+        {
+            return await GetChangeDataCaptureResources().GetAsync(changeDataCaptureName, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets a change data capture.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataFactory/factories/{factoryName}/adfcdcs/{changeDataCaptureName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>ChangeDataCapture_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="changeDataCaptureName"> The change data capture name. </param>
+        /// <param name="ifNoneMatch"> ETag of the change data capture entity. Should only be specified for get. If the ETag matches the existing entity tag, or if * was provided, then no content will be returned. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="changeDataCaptureName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="changeDataCaptureName"/> is null. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<ChangeDataCaptureResource> GetChangeDataCaptureResource(string changeDataCaptureName, string ifNoneMatch = null, CancellationToken cancellationToken = default)
+        {
+            return GetChangeDataCaptureResources().Get(changeDataCaptureName, ifNoneMatch, cancellationToken);
+        }
+
         /// <summary>
         /// Gets a factory.
         /// <list type="bullet">

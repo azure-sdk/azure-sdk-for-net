@@ -278,6 +278,25 @@ namespace Azure.ResourceManager.DataFactory
         }
         #endregion
 
+        #region ChangeDataCaptureResource
+        /// <summary>
+        /// Gets an object representing a <see cref="ChangeDataCaptureResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="ChangeDataCaptureResource.CreateResourceIdentifier" /> to create a <see cref="ChangeDataCaptureResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="ChangeDataCaptureResource" /> object. </returns>
+        public static ChangeDataCaptureResource GetChangeDataCaptureResource(this ArmClient client, ResourceIdentifier id)
+        {
+            return client.GetResourceClient(() =>
+            {
+                ChangeDataCaptureResource.ValidateResourceId(id);
+                return new ChangeDataCaptureResource(client, id);
+            }
+            );
+        }
+        #endregion
+
         /// <summary> Gets a collection of DataFactoryResources in the ResourceGroupResource. </summary>
         /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
         /// <returns> An object representing collection of DataFactoryResources and their operations over a DataFactoryResource. </returns>
