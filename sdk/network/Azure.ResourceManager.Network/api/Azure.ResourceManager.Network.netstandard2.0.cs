@@ -6297,6 +6297,7 @@ namespace Azure.ResourceManager.Network.Models
         private readonly object _dummy;
         private readonly int _dummyPrimitive;
         public ApplicationGatewaySkuName(string value) { throw null; }
+        public static Azure.ResourceManager.Network.Models.ApplicationGatewaySkuName Basic { get { throw null; } }
         public static Azure.ResourceManager.Network.Models.ApplicationGatewaySkuName StandardLarge { get { throw null; } }
         public static Azure.ResourceManager.Network.Models.ApplicationGatewaySkuName StandardMedium { get { throw null; } }
         public static Azure.ResourceManager.Network.Models.ApplicationGatewaySkuName StandardSmall { get { throw null; } }
@@ -6461,6 +6462,7 @@ namespace Azure.ResourceManager.Network.Models
         private readonly object _dummy;
         private readonly int _dummyPrimitive;
         public ApplicationGatewayTier(string value) { throw null; }
+        public static Azure.ResourceManager.Network.Models.ApplicationGatewayTier Basic { get { throw null; } }
         public static Azure.ResourceManager.Network.Models.ApplicationGatewayTier Standard { get { throw null; } }
         public static Azure.ResourceManager.Network.Models.ApplicationGatewayTier StandardV2 { get { throw null; } }
         public static Azure.ResourceManager.Network.Models.ApplicationGatewayTier WAF { get { throw null; } }
