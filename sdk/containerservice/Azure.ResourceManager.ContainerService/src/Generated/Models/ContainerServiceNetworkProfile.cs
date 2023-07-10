@@ -27,7 +27,7 @@ namespace Azure.ResourceManager.ContainerService.Models
         /// <param name="networkPolicy"> Network policy used for building the Kubernetes network. </param>
         /// <param name="networkMode"> This cannot be specified if networkPlugin is anything other than 'azure'. </param>
         /// <param name="ebpfDataplane"> The eBPF dataplane used for building the Kubernetes network. </param>
-        /// <param name="podCidr"> A CIDR notation IP range from which to assign pod IPs when kubenet is used. </param>
+        /// <param name="podCidr"> A CIDR notation IP range from which to assign pod IPs. When using the kubenet network plugin, the pod IPs can be assigned from a specified IP range using CIDR notation. The same can be applied for the azure network plugin, but only when the network plugin mode is set to overlay. </param>
         /// <param name="serviceCidr"> A CIDR notation IP range from which to assign service cluster IPs. It must not overlap with any Subnet IP ranges. </param>
         /// <param name="dnsServiceIP"> An IP address assigned to the Kubernetes DNS service. It must be within the Kubernetes service address range specified in serviceCidr. </param>
         /// <param name="dockerBridgeCidr"> A CIDR notation IP range assigned to the Docker bridge network. It must not overlap with any Subnet IP ranges or the Kubernetes service address range. </param>
@@ -70,7 +70,7 @@ namespace Azure.ResourceManager.ContainerService.Models
         public ContainerServiceNetworkMode? NetworkMode { get; set; }
         /// <summary> The eBPF dataplane used for building the Kubernetes network. </summary>
         public EbpfDataplane? EbpfDataplane { get; set; }
-        /// <summary> A CIDR notation IP range from which to assign pod IPs when kubenet is used. </summary>
+        /// <summary> A CIDR notation IP range from which to assign pod IPs. When using the kubenet network plugin, the pod IPs can be assigned from a specified IP range using CIDR notation. The same can be applied for the azure network plugin, but only when the network plugin mode is set to overlay. </summary>
         public string PodCidr { get; set; }
         /// <summary> A CIDR notation IP range from which to assign service cluster IPs. It must not overlap with any Subnet IP ranges. </summary>
         public string ServiceCidr { get; set; }
