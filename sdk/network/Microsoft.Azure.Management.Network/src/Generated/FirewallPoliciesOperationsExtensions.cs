@@ -259,6 +259,173 @@ namespace Microsoft.Azure.Management.Network
             }
 
             /// <summary>
+            /// Creates or updates the draft version of the specified Firewall Policy.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group.
+            /// </param>
+            /// <param name='firewallPolicyName'>
+            /// The name of the Firewall Policy.
+            /// </param>
+            /// <param name='parameters'>
+            /// Parameters supplied to the create or update Firewall Policy operation.
+            /// </param>
+            public static FirewallPolicyDraft CreateOrUpdateDraft(this IFirewallPoliciesOperations operations, string resourceGroupName, string firewallPolicyName, FirewallPolicyDraft parameters)
+            {
+                return operations.CreateOrUpdateDraftAsync(resourceGroupName, firewallPolicyName, parameters).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Creates or updates the draft version of the specified Firewall Policy.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group.
+            /// </param>
+            /// <param name='firewallPolicyName'>
+            /// The name of the Firewall Policy.
+            /// </param>
+            /// <param name='parameters'>
+            /// Parameters supplied to the create or update Firewall Policy operation.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<FirewallPolicyDraft> CreateOrUpdateDraftAsync(this IFirewallPoliciesOperations operations, string resourceGroupName, string firewallPolicyName, FirewallPolicyDraft parameters, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.CreateOrUpdateDraftWithHttpMessagesAsync(resourceGroupName, firewallPolicyName, parameters, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Gets the current draft version of the specified Firewall Policy.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group.
+            /// </param>
+            /// <param name='firewallPolicyName'>
+            /// The name of the Firewall Policy.
+            /// </param>
+            public static FirewallPolicyDraft GetDraft(this IFirewallPoliciesOperations operations, string resourceGroupName, string firewallPolicyName)
+            {
+                return operations.GetDraftAsync(resourceGroupName, firewallPolicyName).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Gets the current draft version of the specified Firewall Policy.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group.
+            /// </param>
+            /// <param name='firewallPolicyName'>
+            /// The name of the Firewall Policy.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<FirewallPolicyDraft> GetDraftAsync(this IFirewallPoliciesOperations operations, string resourceGroupName, string firewallPolicyName, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.GetDraftWithHttpMessagesAsync(resourceGroupName, firewallPolicyName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Sets the current live Firewall Policy body to the body of the current state
+            /// of the draft Firewall Policy
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group.
+            /// </param>
+            /// <param name='firewallPolicyName'>
+            /// The name of the Firewall Policy.
+            /// </param>
+            public static FirewallPolicyDraft DeployDraft(this IFirewallPoliciesOperations operations, string resourceGroupName, string firewallPolicyName)
+            {
+                return operations.DeployDraftAsync(resourceGroupName, firewallPolicyName).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Sets the current live Firewall Policy body to the body of the current state
+            /// of the draft Firewall Policy
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group.
+            /// </param>
+            /// <param name='firewallPolicyName'>
+            /// The name of the Firewall Policy.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<FirewallPolicyDraft> DeployDraftAsync(this IFirewallPoliciesOperations operations, string resourceGroupName, string firewallPolicyName, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.DeployDraftWithHttpMessagesAsync(resourceGroupName, firewallPolicyName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Sets the current live Firewall Policy body to the body of the current state
+            /// of the draft Firewall Policy
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group.
+            /// </param>
+            /// <param name='firewallPolicyName'>
+            /// The name of the Firewall Policy.
+            /// </param>
+            public static void DeleteDraft(this IFirewallPoliciesOperations operations, string resourceGroupName, string firewallPolicyName)
+            {
+                operations.DeleteDraftAsync(resourceGroupName, firewallPolicyName).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Sets the current live Firewall Policy body to the body of the current state
+            /// of the draft Firewall Policy
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group.
+            /// </param>
+            /// <param name='firewallPolicyName'>
+            /// The name of the Firewall Policy.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task DeleteDraftAsync(this IFirewallPoliciesOperations operations, string resourceGroupName, string firewallPolicyName, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                (await operations.DeleteDraftWithHttpMessagesAsync(resourceGroupName, firewallPolicyName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+            }
+
+            /// <summary>
             /// Deletes the specified Firewall Policy.
             /// </summary>
             /// <param name='operations'>
@@ -336,6 +503,94 @@ namespace Microsoft.Azure.Management.Network
             public static async Task<FirewallPolicy> BeginCreateOrUpdateAsync(this IFirewallPoliciesOperations operations, string resourceGroupName, string firewallPolicyName, FirewallPolicy parameters, CancellationToken cancellationToken = default(CancellationToken))
             {
                 using (var _result = await operations.BeginCreateOrUpdateWithHttpMessagesAsync(resourceGroupName, firewallPolicyName, parameters, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Creates or updates the draft version of the specified Firewall Policy.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group.
+            /// </param>
+            /// <param name='firewallPolicyName'>
+            /// The name of the Firewall Policy.
+            /// </param>
+            /// <param name='parameters'>
+            /// Parameters supplied to the create or update Firewall Policy operation.
+            /// </param>
+            public static FirewallPolicyDraft BeginCreateOrUpdateDraft(this IFirewallPoliciesOperations operations, string resourceGroupName, string firewallPolicyName, FirewallPolicyDraft parameters)
+            {
+                return operations.BeginCreateOrUpdateDraftAsync(resourceGroupName, firewallPolicyName, parameters).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Creates or updates the draft version of the specified Firewall Policy.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group.
+            /// </param>
+            /// <param name='firewallPolicyName'>
+            /// The name of the Firewall Policy.
+            /// </param>
+            /// <param name='parameters'>
+            /// Parameters supplied to the create or update Firewall Policy operation.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<FirewallPolicyDraft> BeginCreateOrUpdateDraftAsync(this IFirewallPoliciesOperations operations, string resourceGroupName, string firewallPolicyName, FirewallPolicyDraft parameters, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.BeginCreateOrUpdateDraftWithHttpMessagesAsync(resourceGroupName, firewallPolicyName, parameters, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Sets the current live Firewall Policy body to the body of the current state
+            /// of the draft Firewall Policy
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group.
+            /// </param>
+            /// <param name='firewallPolicyName'>
+            /// The name of the Firewall Policy.
+            /// </param>
+            public static FirewallPolicyDraft BeginDeployDraft(this IFirewallPoliciesOperations operations, string resourceGroupName, string firewallPolicyName)
+            {
+                return operations.BeginDeployDraftAsync(resourceGroupName, firewallPolicyName).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Sets the current live Firewall Policy body to the body of the current state
+            /// of the draft Firewall Policy
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group.
+            /// </param>
+            /// <param name='firewallPolicyName'>
+            /// The name of the Firewall Policy.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<FirewallPolicyDraft> BeginDeployDraftAsync(this IFirewallPoliciesOperations operations, string resourceGroupName, string firewallPolicyName, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.BeginDeployDraftWithHttpMessagesAsync(resourceGroupName, firewallPolicyName, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
