@@ -15,7 +15,7 @@ namespace Azure.ResourceManager.EdgeOrder
 {
     /// <summary>
     /// A class representing the EdgeOrderItem data model.
-    /// Represents order item contract
+    /// Represents order item resource.
     /// </summary>
     public partial class EdgeOrderItemData : TrackedResourceData
     {
@@ -43,18 +43,22 @@ namespace Azure.ResourceManager.EdgeOrder
         /// <param name="systemData"> The systemData. </param>
         /// <param name="tags"> The tags. </param>
         /// <param name="location"> The location. </param>
+        /// <param name="identity"> Msi identity of the resource. </param>
         /// <param name="orderItemDetails"> Represents order item details. </param>
         /// <param name="addressDetails"> Represents shipping and return address for order item. </param>
         /// <param name="startOn"> Start time of order item. </param>
         /// <param name="orderId"> Id of the order to which order item belongs to. </param>
-        internal EdgeOrderItemData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, EdgeOrderItemDetails orderItemDetails, EdgeOrderItemAddressDetails addressDetails, DateTimeOffset? startOn, ResourceIdentifier orderId) : base(id, name, resourceType, systemData, tags, location)
+        internal EdgeOrderItemData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ManagedServiceIdentity identity, EdgeOrderItemDetails orderItemDetails, EdgeOrderItemAddressDetails addressDetails, DateTimeOffset? startOn, ResourceIdentifier orderId) : base(id, name, resourceType, systemData, tags, location)
         {
+            Identity = identity;
             OrderItemDetails = orderItemDetails;
             AddressDetails = addressDetails;
             StartOn = startOn;
             OrderId = orderId;
         }
 
+        /// <summary> Msi identity of the resource. </summary>
+        public ManagedServiceIdentity Identity { get; set; }
         /// <summary> Represents order item details. </summary>
         public EdgeOrderItemDetails OrderItemDetails { get; set; }
         /// <summary> Represents shipping and return address for order item. </summary>

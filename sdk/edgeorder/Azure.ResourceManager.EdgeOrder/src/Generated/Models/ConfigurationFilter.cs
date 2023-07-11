@@ -12,12 +12,12 @@ using Azure.Core;
 namespace Azure.ResourceManager.EdgeOrder.Models
 {
     /// <summary> Configuration filters. </summary>
-    public partial class ConfigurationFilters
+    public partial class ConfigurationFilter
     {
-        /// <summary> Initializes a new instance of ConfigurationFilters. </summary>
+        /// <summary> Initializes a new instance of ConfigurationFilter. </summary>
         /// <param name="hierarchyInformation"> Product hierarchy information. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="hierarchyInformation"/> is null. </exception>
-        public ConfigurationFilters(HierarchyInformation hierarchyInformation)
+        public ConfigurationFilter(HierarchyInformation hierarchyInformation)
         {
             Argument.AssertNotNull(hierarchyInformation, nameof(hierarchyInformation));
 
@@ -29,5 +29,7 @@ namespace Azure.ResourceManager.EdgeOrder.Models
         public HierarchyInformation HierarchyInformation { get; }
         /// <summary> Filters specific to product. </summary>
         public IList<FilterableProperty> FilterableProperty { get; }
+        /// <summary> Filter to fetch specific child configurations that exist in the configuration. This must be passed to either fetch a list of specific child configurations, or all child configurations of specific types of child configurations. </summary>
+        public ChildConfigurationFilter ChildConfigurationFilter { get; set; }
     }
 }

@@ -18,7 +18,7 @@ namespace Azure.ResourceManager.EdgeOrder.Models
         /// <summary> Initializes a new instance of EdgeOrderProductBillingMeterDetails. </summary>
         /// <param name="name"> Represents Billing type name. </param>
         /// <param name="meterDetails">
-        /// Represents MeterDetails
+        /// Represents MeterDetails.
         /// Please note <see cref="EdgeOrderProductMeterDetails"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
         /// The available derived classes include <see cref="Pav2MeterDetails"/> and <see cref="PurchaseMeterDetails"/>.
         /// </param>
@@ -35,7 +35,7 @@ namespace Azure.ResourceManager.EdgeOrder.Models
         /// <summary> Represents Billing type name. </summary>
         public string Name { get; }
         /// <summary>
-        /// Represents MeterDetails
+        /// Represents MeterDetails.
         /// Please note <see cref="EdgeOrderProductMeterDetails"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
         /// The available derived classes include <see cref="Pav2MeterDetails"/> and <see cref="PurchaseMeterDetails"/>.
         /// </summary>
