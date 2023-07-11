@@ -18,7 +18,7 @@ namespace Azure.ResourceManager.Storage.Models
             writer.WritePropertyName("permissions"u8);
             writer.WriteStringValue(Permissions);
             writer.WritePropertyName("service"u8);
-            writer.WriteStringValue(Service);
+            writer.WriteStringValue(Service.ToString());
             writer.WritePropertyName("resourceName"u8);
             writer.WriteStringValue(ResourceName);
             writer.WriteEndObject();
@@ -31,7 +31,7 @@ namespace Azure.ResourceManager.Storage.Models
                 return null;
             }
             string permissions = default;
-            string service = default;
+            PermissionScopeServiceName service = default;
             string resourceName = default;
             foreach (var property in element.EnumerateObject())
             {
@@ -42,7 +42,7 @@ namespace Azure.ResourceManager.Storage.Models
                 }
                 if (property.NameEquals("service"u8))
                 {
-                    service = property.Value.GetString();
+                    service = new PermissionScopeServiceName(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("resourceName"u8))

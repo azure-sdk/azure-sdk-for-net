@@ -1611,6 +1611,24 @@ namespace Azure.ResourceManager.Storage.Models
         public string RuleId { get { throw null; } set { } }
         public string SourceContainer { get { throw null; } set { } }
     }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct PermissionScopeServiceName : System.IEquatable<Azure.ResourceManager.Storage.Models.PermissionScopeServiceName>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public PermissionScopeServiceName(string value) { throw null; }
+        public static Azure.ResourceManager.Storage.Models.PermissionScopeServiceName Blob { get { throw null; } }
+        public static Azure.ResourceManager.Storage.Models.PermissionScopeServiceName File { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.Storage.Models.PermissionScopeServiceName other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.Storage.Models.PermissionScopeServiceName left, Azure.ResourceManager.Storage.Models.PermissionScopeServiceName right) { throw null; }
+        public static implicit operator Azure.ResourceManager.Storage.Models.PermissionScopeServiceName (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.Storage.Models.PermissionScopeServiceName left, Azure.ResourceManager.Storage.Models.PermissionScopeServiceName right) { throw null; }
+        public override string ToString() { throw null; }
+    }
     public partial class ProtectedAppendWritesHistory
     {
         internal ProtectedAppendWritesHistory() { }
@@ -2291,10 +2309,10 @@ namespace Azure.ResourceManager.Storage.Models
     }
     public partial class StoragePermissionScope
     {
-        public StoragePermissionScope(string permissions, string service, string resourceName) { }
+        public StoragePermissionScope(string permissions, Azure.ResourceManager.Storage.Models.PermissionScopeServiceName service, string resourceName) { }
         public string Permissions { get { throw null; } set { } }
         public string ResourceName { get { throw null; } set { } }
-        public string Service { get { throw null; } set { } }
+        public Azure.ResourceManager.Storage.Models.PermissionScopeServiceName Service { get { throw null; } set { } }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct StoragePrivateEndpointConnectionProvisioningState : System.IEquatable<Azure.ResourceManager.Storage.Models.StoragePrivateEndpointConnectionProvisioningState>
