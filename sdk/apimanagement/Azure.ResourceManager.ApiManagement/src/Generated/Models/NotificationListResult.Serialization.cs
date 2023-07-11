@@ -21,7 +21,6 @@ namespace Azure.ResourceManager.ApiManagement.Models
                 return null;
             }
             Optional<IReadOnlyList<ApiManagementNotificationData>> value = default;
-            Optional<long> count = default;
             Optional<string> nextLink = default;
             foreach (var property in element.EnumerateObject())
             {
@@ -39,22 +38,13 @@ namespace Azure.ResourceManager.ApiManagement.Models
                     value = array;
                     continue;
                 }
-                if (property.NameEquals("count"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    count = property.Value.GetInt64();
-                    continue;
-                }
                 if (property.NameEquals("nextLink"u8))
                 {
                     nextLink = property.Value.GetString();
                     continue;
                 }
             }
-            return new NotificationListResult(Optional.ToList(value), Optional.ToNullable(count), nextLink.Value);
+            return new NotificationListResult(Optional.ToList(value), nextLink.Value);
         }
     }
 }

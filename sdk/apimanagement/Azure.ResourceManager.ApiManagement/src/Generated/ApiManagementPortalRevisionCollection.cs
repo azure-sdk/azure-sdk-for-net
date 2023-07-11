@@ -80,8 +80,8 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiManagementPortalRevisionPortalRevisionRestClient.CreateOrUpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, portalRevisionId, data, cancellationToken).ConfigureAwait(false);
-                var operation = new ApiManagementArmOperation<ApiManagementPortalRevisionResource>(new ApiManagementPortalRevisionOperationSource(Client), _apiManagementPortalRevisionPortalRevisionClientDiagnostics, Pipeline, _apiManagementPortalRevisionPortalRevisionRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, portalRevisionId, data).Request, response, OperationFinalStateVia.Location);
+                var response = await _apiManagementPortalRevisionPortalRevisionRestClient.CreateOrUpdateAsync(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, portalRevisionId, data, cancellationToken).ConfigureAwait(false);
+                var operation = new ApiManagementArmOperation<ApiManagementPortalRevisionResource>(new ApiManagementPortalRevisionOperationSource(Client), _apiManagementPortalRevisionPortalRevisionClientDiagnostics, Pipeline, _apiManagementPortalRevisionPortalRevisionRestClient.CreateCreateOrUpdateRequest(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, portalRevisionId, data).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -121,8 +121,8 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiManagementPortalRevisionPortalRevisionRestClient.CreateOrUpdate(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, portalRevisionId, data, cancellationToken);
-                var operation = new ApiManagementArmOperation<ApiManagementPortalRevisionResource>(new ApiManagementPortalRevisionOperationSource(Client), _apiManagementPortalRevisionPortalRevisionClientDiagnostics, Pipeline, _apiManagementPortalRevisionPortalRevisionRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, portalRevisionId, data).Request, response, OperationFinalStateVia.Location);
+                var response = _apiManagementPortalRevisionPortalRevisionRestClient.CreateOrUpdate(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, portalRevisionId, data, cancellationToken);
+                var operation = new ApiManagementArmOperation<ApiManagementPortalRevisionResource>(new ApiManagementPortalRevisionOperationSource(Client), _apiManagementPortalRevisionPortalRevisionClientDiagnostics, Pipeline, _apiManagementPortalRevisionPortalRevisionRestClient.CreateCreateOrUpdateRequest(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, portalRevisionId, data).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -159,7 +159,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiManagementPortalRevisionPortalRevisionRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, portalRevisionId, cancellationToken).ConfigureAwait(false);
+                var response = await _apiManagementPortalRevisionPortalRevisionRestClient.GetAsync(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, portalRevisionId, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ApiManagementPortalRevisionResource(Client, response.Value), response.GetRawResponse());
@@ -196,7 +196,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiManagementPortalRevisionPortalRevisionRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, portalRevisionId, cancellationToken);
+                var response = _apiManagementPortalRevisionPortalRevisionRestClient.Get(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, portalRevisionId, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ApiManagementPortalRevisionResource(Client, response.Value), response.GetRawResponse());
@@ -236,8 +236,8 @@ namespace Azure.ResourceManager.ApiManagement
         /// <returns> An async collection of <see cref="ApiManagementPortalRevisionResource" /> that may take multiple service requests to iterate over. </returns>
         public virtual AsyncPageable<ApiManagementPortalRevisionResource> GetAllAsync(string filter = null, int? top = null, int? skip = null, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _apiManagementPortalRevisionPortalRevisionRestClient.CreateListByServiceRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, filter, top, skip);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _apiManagementPortalRevisionPortalRevisionRestClient.CreateListByServiceNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, filter, top, skip);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _apiManagementPortalRevisionPortalRevisionRestClient.CreateListByServiceRequest(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, filter, top, skip);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _apiManagementPortalRevisionPortalRevisionRestClient.CreateListByServiceNextPageRequest(nextLink, Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, filter, top, skip);
             return PageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new ApiManagementPortalRevisionResource(Client, ApiManagementPortalRevisionData.DeserializeApiManagementPortalRevisionData(e)), _apiManagementPortalRevisionPortalRevisionClientDiagnostics, Pipeline, "ApiManagementPortalRevisionCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
@@ -269,8 +269,8 @@ namespace Azure.ResourceManager.ApiManagement
         /// <returns> A collection of <see cref="ApiManagementPortalRevisionResource" /> that may take multiple service requests to iterate over. </returns>
         public virtual Pageable<ApiManagementPortalRevisionResource> GetAll(string filter = null, int? top = null, int? skip = null, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _apiManagementPortalRevisionPortalRevisionRestClient.CreateListByServiceRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, filter, top, skip);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _apiManagementPortalRevisionPortalRevisionRestClient.CreateListByServiceNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, filter, top, skip);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _apiManagementPortalRevisionPortalRevisionRestClient.CreateListByServiceRequest(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, filter, top, skip);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _apiManagementPortalRevisionPortalRevisionRestClient.CreateListByServiceNextPageRequest(nextLink, Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, filter, top, skip);
             return PageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new ApiManagementPortalRevisionResource(Client, ApiManagementPortalRevisionData.DeserializeApiManagementPortalRevisionData(e)), _apiManagementPortalRevisionPortalRevisionClientDiagnostics, Pipeline, "ApiManagementPortalRevisionCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
@@ -299,7 +299,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiManagementPortalRevisionPortalRevisionRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, portalRevisionId, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var response = await _apiManagementPortalRevisionPortalRevisionRestClient.GetAsync(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, portalRevisionId, cancellationToken: cancellationToken).ConfigureAwait(false);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -334,7 +334,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiManagementPortalRevisionPortalRevisionRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, portalRevisionId, cancellationToken: cancellationToken);
+                var response = _apiManagementPortalRevisionPortalRevisionRestClient.Get(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, portalRevisionId, cancellationToken: cancellationToken);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)

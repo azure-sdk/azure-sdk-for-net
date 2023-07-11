@@ -19,8 +19,8 @@ namespace Azure.ResourceManager.ApiManagement
 {
     /// <summary>
     /// A class representing a collection of <see cref="ApiManagementDeletedServiceResource" /> and their operations.
-    /// Each <see cref="ApiManagementDeletedServiceResource" /> in the collection will belong to the same instance of <see cref="SubscriptionResource" />.
-    /// To get an <see cref="ApiManagementDeletedServiceCollection" /> instance call the GetApiManagementDeletedServices method from an instance of <see cref="SubscriptionResource" />.
+    /// Each <see cref="ApiManagementDeletedServiceResource" /> in the collection will belong to the same instance of <see cref="TenantResource" />.
+    /// To get an <see cref="ApiManagementDeletedServiceCollection" /> instance call the GetApiManagementDeletedServices method from an instance of <see cref="TenantResource" />.
     /// </summary>
     public partial class ApiManagementDeletedServiceCollection : ArmCollection
     {
@@ -47,8 +47,8 @@ namespace Azure.ResourceManager.ApiManagement
 
         internal static void ValidateResourceId(ResourceIdentifier id)
         {
-            if (id.ResourceType != SubscriptionResource.ResourceType)
-                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, SubscriptionResource.ResourceType), nameof(id));
+            if (id.ResourceType != TenantResource.ResourceType)
+                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, TenantResource.ResourceType), nameof(id));
         }
 
         /// <summary>
@@ -64,12 +64,13 @@ namespace Azure.ResourceManager.ApiManagement
         /// </item>
         /// </list>
         /// </summary>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="location"> The location of the deleted API Management service. </param>
         /// <param name="serviceName"> The name of the API Management service. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="serviceName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="serviceName"/> is null. </exception>
-        public virtual async Task<Response<ApiManagementDeletedServiceResource>> GetAsync(AzureLocation location, string serviceName, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<ApiManagementDeletedServiceResource>> GetAsync(Guid subscriptionId, AzureLocation location, string serviceName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(serviceName, nameof(serviceName));
 
@@ -77,7 +78,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiManagementDeletedServiceDeletedServicesRestClient.GetByNameAsync(Id.SubscriptionId, location, serviceName, cancellationToken).ConfigureAwait(false);
+                var response = await _apiManagementDeletedServiceDeletedServicesRestClient.GetByNameAsync(subscriptionId, location, serviceName, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ApiManagementDeletedServiceResource(Client, response.Value), response.GetRawResponse());
@@ -102,12 +103,13 @@ namespace Azure.ResourceManager.ApiManagement
         /// </item>
         /// </list>
         /// </summary>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="location"> The location of the deleted API Management service. </param>
         /// <param name="serviceName"> The name of the API Management service. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="serviceName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="serviceName"/> is null. </exception>
-        public virtual Response<ApiManagementDeletedServiceResource> Get(AzureLocation location, string serviceName, CancellationToken cancellationToken = default)
+        public virtual Response<ApiManagementDeletedServiceResource> Get(Guid subscriptionId, AzureLocation location, string serviceName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(serviceName, nameof(serviceName));
 
@@ -115,7 +117,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiManagementDeletedServiceDeletedServicesRestClient.GetByName(Id.SubscriptionId, location, serviceName, cancellationToken);
+                var response = _apiManagementDeletedServiceDeletedServicesRestClient.GetByName(subscriptionId, location, serviceName, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ApiManagementDeletedServiceResource(Client, response.Value), response.GetRawResponse());
@@ -140,12 +142,13 @@ namespace Azure.ResourceManager.ApiManagement
         /// </item>
         /// </list>
         /// </summary>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="location"> The location of the deleted API Management service. </param>
         /// <param name="serviceName"> The name of the API Management service. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="serviceName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="serviceName"/> is null. </exception>
-        public virtual async Task<Response<bool>> ExistsAsync(AzureLocation location, string serviceName, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<bool>> ExistsAsync(Guid subscriptionId, AzureLocation location, string serviceName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(serviceName, nameof(serviceName));
 
@@ -153,7 +156,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiManagementDeletedServiceDeletedServicesRestClient.GetByNameAsync(Id.SubscriptionId, location, serviceName, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var response = await _apiManagementDeletedServiceDeletedServicesRestClient.GetByNameAsync(subscriptionId, location, serviceName, cancellationToken: cancellationToken).ConfigureAwait(false);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -176,12 +179,13 @@ namespace Azure.ResourceManager.ApiManagement
         /// </item>
         /// </list>
         /// </summary>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="location"> The location of the deleted API Management service. </param>
         /// <param name="serviceName"> The name of the API Management service. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="serviceName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="serviceName"/> is null. </exception>
-        public virtual Response<bool> Exists(AzureLocation location, string serviceName, CancellationToken cancellationToken = default)
+        public virtual Response<bool> Exists(Guid subscriptionId, AzureLocation location, string serviceName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(serviceName, nameof(serviceName));
 
@@ -189,7 +193,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiManagementDeletedServiceDeletedServicesRestClient.GetByName(Id.SubscriptionId, location, serviceName, cancellationToken: cancellationToken);
+                var response = _apiManagementDeletedServiceDeletedServicesRestClient.GetByName(subscriptionId, location, serviceName, cancellationToken: cancellationToken);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)

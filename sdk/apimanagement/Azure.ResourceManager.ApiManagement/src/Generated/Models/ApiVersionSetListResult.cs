@@ -22,19 +22,15 @@ namespace Azure.ResourceManager.ApiManagement.Models
 
         /// <summary> Initializes a new instance of ApiVersionSetListResult. </summary>
         /// <param name="value"> Page values. </param>
-        /// <param name="count"> Total record count number across all pages. </param>
         /// <param name="nextLink"> Next page link if any. </param>
-        internal ApiVersionSetListResult(IReadOnlyList<ApiVersionSetData> value, long? count, string nextLink)
+        internal ApiVersionSetListResult(IReadOnlyList<ApiVersionSetData> value, string nextLink)
         {
             Value = value;
-            Count = count;
             NextLink = nextLink;
         }
 
         /// <summary> Page values. </summary>
         public IReadOnlyList<ApiVersionSetData> Value { get; }
-        /// <summary> Total record count number across all pages. </summary>
-        public long? Count { get; }
         /// <summary> Next page link if any. </summary>
         public string NextLink { get; }
     }

@@ -81,7 +81,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiManagementCacheCacheRestClient.CreateOrUpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cacheId, data, ifMatch, cancellationToken).ConfigureAwait(false);
+                var response = await _apiManagementCacheCacheRestClient.CreateOrUpdateAsync(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, cacheId, data, ifMatch, cancellationToken).ConfigureAwait(false);
                 var operation = new ApiManagementArmOperation<ApiManagementCacheResource>(Response.FromValue(new ApiManagementCacheResource(Client, response), response.GetRawResponse()));
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
@@ -123,7 +123,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiManagementCacheCacheRestClient.CreateOrUpdate(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cacheId, data, ifMatch, cancellationToken);
+                var response = _apiManagementCacheCacheRestClient.CreateOrUpdate(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, cacheId, data, ifMatch, cancellationToken);
                 var operation = new ApiManagementArmOperation<ApiManagementCacheResource>(Response.FromValue(new ApiManagementCacheResource(Client, response), response.GetRawResponse()));
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
@@ -161,7 +161,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiManagementCacheCacheRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cacheId, cancellationToken).ConfigureAwait(false);
+                var response = await _apiManagementCacheCacheRestClient.GetAsync(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, cacheId, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ApiManagementCacheResource(Client, response.Value), response.GetRawResponse());
@@ -198,7 +198,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiManagementCacheCacheRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cacheId, cancellationToken);
+                var response = _apiManagementCacheCacheRestClient.Get(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, cacheId, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ApiManagementCacheResource(Client, response.Value), response.GetRawResponse());
@@ -229,8 +229,8 @@ namespace Azure.ResourceManager.ApiManagement
         /// <returns> An async collection of <see cref="ApiManagementCacheResource" /> that may take multiple service requests to iterate over. </returns>
         public virtual AsyncPageable<ApiManagementCacheResource> GetAllAsync(int? top = null, int? skip = null, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _apiManagementCacheCacheRestClient.CreateListByServiceRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, top, skip);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _apiManagementCacheCacheRestClient.CreateListByServiceNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, top, skip);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _apiManagementCacheCacheRestClient.CreateListByServiceRequest(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, top, skip);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _apiManagementCacheCacheRestClient.CreateListByServiceNextPageRequest(nextLink, Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, top, skip);
             return PageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new ApiManagementCacheResource(Client, ApiManagementCacheData.DeserializeApiManagementCacheData(e)), _apiManagementCacheCacheClientDiagnostics, Pipeline, "ApiManagementCacheCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
@@ -253,8 +253,8 @@ namespace Azure.ResourceManager.ApiManagement
         /// <returns> A collection of <see cref="ApiManagementCacheResource" /> that may take multiple service requests to iterate over. </returns>
         public virtual Pageable<ApiManagementCacheResource> GetAll(int? top = null, int? skip = null, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _apiManagementCacheCacheRestClient.CreateListByServiceRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, top, skip);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _apiManagementCacheCacheRestClient.CreateListByServiceNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, top, skip);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _apiManagementCacheCacheRestClient.CreateListByServiceRequest(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, top, skip);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _apiManagementCacheCacheRestClient.CreateListByServiceNextPageRequest(nextLink, Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, top, skip);
             return PageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new ApiManagementCacheResource(Client, ApiManagementCacheData.DeserializeApiManagementCacheData(e)), _apiManagementCacheCacheClientDiagnostics, Pipeline, "ApiManagementCacheCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
@@ -283,7 +283,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiManagementCacheCacheRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cacheId, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var response = await _apiManagementCacheCacheRestClient.GetAsync(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, cacheId, cancellationToken: cancellationToken).ConfigureAwait(false);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -318,7 +318,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiManagementCacheCacheRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cacheId, cancellationToken: cancellationToken);
+                var response = _apiManagementCacheCacheRestClient.Get(Guid.Parse(Id.Parent.Parent.Name), Id.Parent.Name, Id.Name, cacheId, cancellationToken: cancellationToken);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)

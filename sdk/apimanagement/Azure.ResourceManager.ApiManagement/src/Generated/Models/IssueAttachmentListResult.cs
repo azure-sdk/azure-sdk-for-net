@@ -22,19 +22,15 @@ namespace Azure.ResourceManager.ApiManagement.Models
 
         /// <summary> Initializes a new instance of IssueAttachmentListResult. </summary>
         /// <param name="value"> Issue Attachment values. </param>
-        /// <param name="count"> Total record count number across all pages. </param>
         /// <param name="nextLink"> Next page link if any. </param>
-        internal IssueAttachmentListResult(IReadOnlyList<ApiIssueAttachmentData> value, long? count, string nextLink)
+        internal IssueAttachmentListResult(IReadOnlyList<ApiIssueAttachmentData> value, string nextLink)
         {
             Value = value;
-            Count = count;
             NextLink = nextLink;
         }
 
         /// <summary> Issue Attachment values. </summary>
         public IReadOnlyList<ApiIssueAttachmentData> Value { get; }
-        /// <summary> Total record count number across all pages. </summary>
-        public long? Count { get; }
         /// <summary> Next page link if any. </summary>
         public string NextLink { get; }
     }

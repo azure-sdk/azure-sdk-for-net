@@ -81,7 +81,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiManagementGatewayHostnameConfigurationGatewayHostnameConfigurationRestClient.CreateOrUpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, hcId, data, ifMatch, cancellationToken).ConfigureAwait(false);
+                var response = await _apiManagementGatewayHostnameConfigurationGatewayHostnameConfigurationRestClient.CreateOrUpdateAsync(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, hcId, data, ifMatch, cancellationToken).ConfigureAwait(false);
                 var operation = new ApiManagementArmOperation<ApiManagementGatewayHostnameConfigurationResource>(Response.FromValue(new ApiManagementGatewayHostnameConfigurationResource(Client, response), response.GetRawResponse()));
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
@@ -123,7 +123,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiManagementGatewayHostnameConfigurationGatewayHostnameConfigurationRestClient.CreateOrUpdate(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, hcId, data, ifMatch, cancellationToken);
+                var response = _apiManagementGatewayHostnameConfigurationGatewayHostnameConfigurationRestClient.CreateOrUpdate(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, hcId, data, ifMatch, cancellationToken);
                 var operation = new ApiManagementArmOperation<ApiManagementGatewayHostnameConfigurationResource>(Response.FromValue(new ApiManagementGatewayHostnameConfigurationResource(Client, response), response.GetRawResponse()));
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
@@ -161,7 +161,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiManagementGatewayHostnameConfigurationGatewayHostnameConfigurationRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, hcId, cancellationToken).ConfigureAwait(false);
+                var response = await _apiManagementGatewayHostnameConfigurationGatewayHostnameConfigurationRestClient.GetAsync(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, hcId, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ApiManagementGatewayHostnameConfigurationResource(Client, response.Value), response.GetRawResponse());
@@ -198,7 +198,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiManagementGatewayHostnameConfigurationGatewayHostnameConfigurationRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, hcId, cancellationToken);
+                var response = _apiManagementGatewayHostnameConfigurationGatewayHostnameConfigurationRestClient.Get(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, hcId, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ApiManagementGatewayHostnameConfigurationResource(Client, response.Value), response.GetRawResponse());
@@ -230,8 +230,8 @@ namespace Azure.ResourceManager.ApiManagement
         /// <returns> An async collection of <see cref="ApiManagementGatewayHostnameConfigurationResource" /> that may take multiple service requests to iterate over. </returns>
         public virtual AsyncPageable<ApiManagementGatewayHostnameConfigurationResource> GetAllAsync(string filter = null, int? top = null, int? skip = null, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _apiManagementGatewayHostnameConfigurationGatewayHostnameConfigurationRestClient.CreateListByServiceRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, filter, top, skip);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _apiManagementGatewayHostnameConfigurationGatewayHostnameConfigurationRestClient.CreateListByServiceNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, filter, top, skip);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _apiManagementGatewayHostnameConfigurationGatewayHostnameConfigurationRestClient.CreateListByServiceRequest(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, filter, top, skip);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _apiManagementGatewayHostnameConfigurationGatewayHostnameConfigurationRestClient.CreateListByServiceNextPageRequest(nextLink, Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, filter, top, skip);
             return PageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new ApiManagementGatewayHostnameConfigurationResource(Client, ApiManagementGatewayHostnameConfigurationData.DeserializeApiManagementGatewayHostnameConfigurationData(e)), _apiManagementGatewayHostnameConfigurationGatewayHostnameConfigurationClientDiagnostics, Pipeline, "ApiManagementGatewayHostnameConfigurationCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
@@ -255,8 +255,8 @@ namespace Azure.ResourceManager.ApiManagement
         /// <returns> A collection of <see cref="ApiManagementGatewayHostnameConfigurationResource" /> that may take multiple service requests to iterate over. </returns>
         public virtual Pageable<ApiManagementGatewayHostnameConfigurationResource> GetAll(string filter = null, int? top = null, int? skip = null, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _apiManagementGatewayHostnameConfigurationGatewayHostnameConfigurationRestClient.CreateListByServiceRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, filter, top, skip);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _apiManagementGatewayHostnameConfigurationGatewayHostnameConfigurationRestClient.CreateListByServiceNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, filter, top, skip);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _apiManagementGatewayHostnameConfigurationGatewayHostnameConfigurationRestClient.CreateListByServiceRequest(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, filter, top, skip);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _apiManagementGatewayHostnameConfigurationGatewayHostnameConfigurationRestClient.CreateListByServiceNextPageRequest(nextLink, Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, filter, top, skip);
             return PageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new ApiManagementGatewayHostnameConfigurationResource(Client, ApiManagementGatewayHostnameConfigurationData.DeserializeApiManagementGatewayHostnameConfigurationData(e)), _apiManagementGatewayHostnameConfigurationGatewayHostnameConfigurationClientDiagnostics, Pipeline, "ApiManagementGatewayHostnameConfigurationCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
@@ -285,7 +285,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiManagementGatewayHostnameConfigurationGatewayHostnameConfigurationRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, hcId, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var response = await _apiManagementGatewayHostnameConfigurationGatewayHostnameConfigurationRestClient.GetAsync(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, hcId, cancellationToken: cancellationToken).ConfigureAwait(false);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -320,7 +320,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiManagementGatewayHostnameConfigurationGatewayHostnameConfigurationRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, hcId, cancellationToken: cancellationToken);
+                var response = _apiManagementGatewayHostnameConfigurationGatewayHostnameConfigurationRestClient.Get(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, hcId, cancellationToken: cancellationToken);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)

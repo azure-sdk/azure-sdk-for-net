@@ -20,8 +20,8 @@ namespace Azure.ResourceManager.ApiManagement
 {
     /// <summary>
     /// A class representing a collection of <see cref="ApiManagementProductTagResource" /> and their operations.
-    /// Each <see cref="ApiManagementProductTagResource" /> in the collection will belong to the same instance of <see cref="ApiManagementProductResource" />.
-    /// To get an <see cref="ApiManagementProductTagCollection" /> instance call the GetApiManagementProductTags method from an instance of <see cref="ApiManagementProductResource" />.
+    /// Each <see cref="ApiManagementProductTagResource" /> in the collection will belong to the same instance of <see cref="ServiceProductResource" />.
+    /// To get an <see cref="ApiManagementProductTagCollection" /> instance call the GetApiManagementProductTags method from an instance of <see cref="ServiceProductResource" />.
     /// </summary>
     public partial class ApiManagementProductTagCollection : ArmCollection, IEnumerable<ApiManagementProductTagResource>, IAsyncEnumerable<ApiManagementProductTagResource>
     {
@@ -48,8 +48,8 @@ namespace Azure.ResourceManager.ApiManagement
 
         internal static void ValidateResourceId(ResourceIdentifier id)
         {
-            if (id.ResourceType != ApiManagementProductResource.ResourceType)
-                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, ApiManagementProductResource.ResourceType), nameof(id));
+            if (id.ResourceType != ServiceProductResource.ResourceType)
+                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, ServiceProductResource.ResourceType), nameof(id));
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiManagementProductTagTagRestClient.AssignToProductAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, tagId, cancellationToken).ConfigureAwait(false);
+                var response = await _apiManagementProductTagTagRestClient.AssignToProductAsync(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, tagId, cancellationToken).ConfigureAwait(false);
                 var operation = new ApiManagementArmOperation<ApiManagementProductTagResource>(Response.FromValue(new ApiManagementProductTagResource(Client, response), response.GetRawResponse()));
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
@@ -117,7 +117,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiManagementProductTagTagRestClient.AssignToProduct(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, tagId, cancellationToken);
+                var response = _apiManagementProductTagTagRestClient.AssignToProduct(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, tagId, cancellationToken);
                 var operation = new ApiManagementArmOperation<ApiManagementProductTagResource>(Response.FromValue(new ApiManagementProductTagResource(Client, response), response.GetRawResponse()));
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
@@ -155,7 +155,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiManagementProductTagTagRestClient.GetByProductAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, tagId, cancellationToken).ConfigureAwait(false);
+                var response = await _apiManagementProductTagTagRestClient.GetByProductAsync(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, tagId, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ApiManagementProductTagResource(Client, response.Value), response.GetRawResponse());
@@ -192,7 +192,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiManagementProductTagTagRestClient.GetByProduct(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, tagId, cancellationToken);
+                var response = _apiManagementProductTagTagRestClient.GetByProduct(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, tagId, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ApiManagementProductTagResource(Client, response.Value), response.GetRawResponse());
@@ -224,8 +224,8 @@ namespace Azure.ResourceManager.ApiManagement
         /// <returns> An async collection of <see cref="ApiManagementProductTagResource" /> that may take multiple service requests to iterate over. </returns>
         public virtual AsyncPageable<ApiManagementProductTagResource> GetAllAsync(string filter = null, int? top = null, int? skip = null, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _apiManagementProductTagTagRestClient.CreateListByProductRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, filter, top, skip);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _apiManagementProductTagTagRestClient.CreateListByProductNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, filter, top, skip);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _apiManagementProductTagTagRestClient.CreateListByProductRequest(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, filter, top, skip);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _apiManagementProductTagTagRestClient.CreateListByProductNextPageRequest(nextLink, Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, filter, top, skip);
             return PageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new ApiManagementProductTagResource(Client, TagContractData.DeserializeTagContractData(e)), _apiManagementProductTagTagClientDiagnostics, Pipeline, "ApiManagementProductTagCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
@@ -249,8 +249,8 @@ namespace Azure.ResourceManager.ApiManagement
         /// <returns> A collection of <see cref="ApiManagementProductTagResource" /> that may take multiple service requests to iterate over. </returns>
         public virtual Pageable<ApiManagementProductTagResource> GetAll(string filter = null, int? top = null, int? skip = null, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _apiManagementProductTagTagRestClient.CreateListByProductRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, filter, top, skip);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _apiManagementProductTagTagRestClient.CreateListByProductNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, filter, top, skip);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _apiManagementProductTagTagRestClient.CreateListByProductRequest(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, filter, top, skip);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _apiManagementProductTagTagRestClient.CreateListByProductNextPageRequest(nextLink, Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, filter, top, skip);
             return PageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new ApiManagementProductTagResource(Client, TagContractData.DeserializeTagContractData(e)), _apiManagementProductTagTagClientDiagnostics, Pipeline, "ApiManagementProductTagCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
@@ -279,7 +279,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiManagementProductTagTagRestClient.GetByProductAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, tagId, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var response = await _apiManagementProductTagTagRestClient.GetByProductAsync(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, tagId, cancellationToken: cancellationToken).ConfigureAwait(false);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -314,7 +314,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiManagementProductTagTagRestClient.GetByProduct(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, tagId, cancellationToken: cancellationToken);
+                var response = _apiManagementProductTagTagRestClient.GetByProduct(Guid.Parse(Id.Parent.Parent.Parent.Name), Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, tagId, cancellationToken: cancellationToken);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)

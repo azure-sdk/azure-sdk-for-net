@@ -21,19 +21,15 @@ namespace Azure.ResourceManager.ApiManagement.Models
 
         /// <summary> Initializes a new instance of QuotaCounterListResult. </summary>
         /// <param name="value"> Quota counter values. </param>
-        /// <param name="count"> Total record count number across all pages. </param>
         /// <param name="nextLink"> Next page link if any. </param>
-        internal QuotaCounterListResult(IReadOnlyList<QuotaCounterContract> value, long? count, string nextLink)
+        internal QuotaCounterListResult(IReadOnlyList<QuotaCounterContract> value, string nextLink)
         {
             Value = value;
-            Count = count;
             NextLink = nextLink;
         }
 
         /// <summary> Quota counter values. </summary>
         public IReadOnlyList<QuotaCounterContract> Value { get; }
-        /// <summary> Total record count number across all pages. </summary>
-        public long? Count { get; }
         /// <summary> Next page link if any. </summary>
         public string NextLink { get; }
     }

@@ -20,7 +20,6 @@ namespace Azure.ResourceManager.ApiManagement.Models
                 return null;
             }
             Optional<IReadOnlyList<PolicyDescriptionContractData>> value = default;
-            Optional<long> count = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("value"u8))
@@ -37,17 +36,8 @@ namespace Azure.ResourceManager.ApiManagement.Models
                     value = array;
                     continue;
                 }
-                if (property.NameEquals("count"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    count = property.Value.GetInt64();
-                    continue;
-                }
             }
-            return new PolicyDescriptionListResult(Optional.ToList(value), Optional.ToNullable(count));
+            return new PolicyDescriptionListResult(Optional.ToList(value));
         }
     }
 }

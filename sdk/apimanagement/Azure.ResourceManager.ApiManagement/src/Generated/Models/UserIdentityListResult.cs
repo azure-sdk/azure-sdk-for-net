@@ -21,19 +21,15 @@ namespace Azure.ResourceManager.ApiManagement.Models
 
         /// <summary> Initializes a new instance of UserIdentityListResult. </summary>
         /// <param name="value"> User Identity values. </param>
-        /// <param name="count"> Total record count number across all pages. </param>
         /// <param name="nextLink"> Next page link if any. </param>
-        internal UserIdentityListResult(IReadOnlyList<UserIdentityContract> value, long? count, string nextLink)
+        internal UserIdentityListResult(IReadOnlyList<UserIdentityContract> value, string nextLink)
         {
             Value = value;
-            Count = count;
             NextLink = nextLink;
         }
 
         /// <summary> User Identity values. </summary>
         public IReadOnlyList<UserIdentityContract> Value { get; }
-        /// <summary> Total record count number across all pages. </summary>
-        public long? Count { get; }
         /// <summary> Next page link if any. </summary>
         public string NextLink { get; }
     }

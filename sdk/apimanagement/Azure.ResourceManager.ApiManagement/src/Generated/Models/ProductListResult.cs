@@ -22,19 +22,15 @@ namespace Azure.ResourceManager.ApiManagement.Models
 
         /// <summary> Initializes a new instance of ProductListResult. </summary>
         /// <param name="value"> Page values. </param>
-        /// <param name="count"> Total record count number across all pages. </param>
         /// <param name="nextLink"> Next page link if any. </param>
-        internal ProductListResult(IReadOnlyList<ApiManagementProductData> value, long? count, string nextLink)
+        internal ProductListResult(IReadOnlyList<ApiManagementProductData> value, string nextLink)
         {
             Value = value;
-            Count = count;
             NextLink = nextLink;
         }
 
         /// <summary> Page values. </summary>
         public IReadOnlyList<ApiManagementProductData> Value { get; }
-        /// <summary> Total record count number across all pages. </summary>
-        public long? Count { get; }
         /// <summary> Next page link if any. </summary>
         public string NextLink { get; }
     }

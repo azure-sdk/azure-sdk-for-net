@@ -22,19 +22,15 @@ namespace Azure.ResourceManager.ApiManagement.Models
 
         /// <summary> Initializes a new instance of GlobalSchemaListResult. </summary>
         /// <param name="value"> Global Schema Contract value. </param>
-        /// <param name="count"> Total record count number. </param>
         /// <param name="nextLink"> Next page link if any. </param>
-        internal GlobalSchemaListResult(IReadOnlyList<ApiManagementGlobalSchemaData> value, long? count, string nextLink)
+        internal GlobalSchemaListResult(IReadOnlyList<ApiManagementGlobalSchemaData> value, string nextLink)
         {
             Value = value;
-            Count = count;
             NextLink = nextLink;
         }
 
         /// <summary> Global Schema Contract value. </summary>
         public IReadOnlyList<ApiManagementGlobalSchemaData> Value { get; }
-        /// <summary> Total record count number. </summary>
-        public long? Count { get; }
         /// <summary> Next page link if any. </summary>
         public string NextLink { get; }
     }

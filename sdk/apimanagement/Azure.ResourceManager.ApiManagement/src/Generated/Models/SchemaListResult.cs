@@ -22,19 +22,15 @@ namespace Azure.ResourceManager.ApiManagement.Models
 
         /// <summary> Initializes a new instance of SchemaListResult. </summary>
         /// <param name="value"> API Schema Contract value. </param>
-        /// <param name="count"> Total record count number. </param>
         /// <param name="nextLink"> Next page link if any. </param>
-        internal SchemaListResult(IReadOnlyList<ApiSchemaData> value, long? count, string nextLink)
+        internal SchemaListResult(IReadOnlyList<ApiSchemaData> value, string nextLink)
         {
             Value = value;
-            Count = count;
             NextLink = nextLink;
         }
 
         /// <summary> API Schema Contract value. </summary>
         public IReadOnlyList<ApiSchemaData> Value { get; }
-        /// <summary> Total record count number. </summary>
-        public long? Count { get; }
         /// <summary> Next page link if any. </summary>
         public string NextLink { get; }
     }

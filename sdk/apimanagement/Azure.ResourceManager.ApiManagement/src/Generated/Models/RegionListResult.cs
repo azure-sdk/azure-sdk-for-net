@@ -21,19 +21,15 @@ namespace Azure.ResourceManager.ApiManagement.Models
 
         /// <summary> Initializes a new instance of RegionListResult. </summary>
         /// <param name="value"> Lists of Regions. </param>
-        /// <param name="count"> Total record count number across all pages. </param>
         /// <param name="nextLink"> Next page link if any. </param>
-        internal RegionListResult(IReadOnlyList<RegionContract> value, long? count, string nextLink)
+        internal RegionListResult(IReadOnlyList<RegionContract> value, string nextLink)
         {
             Value = value;
-            Count = count;
             NextLink = nextLink;
         }
 
         /// <summary> Lists of Regions. </summary>
         public IReadOnlyList<RegionContract> Value { get; }
-        /// <summary> Total record count number across all pages. </summary>
-        public long? Count { get; }
         /// <summary> Next page link if any. </summary>
         public string NextLink { get; }
     }

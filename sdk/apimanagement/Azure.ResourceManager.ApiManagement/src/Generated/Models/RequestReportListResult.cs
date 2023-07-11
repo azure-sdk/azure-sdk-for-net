@@ -21,16 +21,12 @@ namespace Azure.ResourceManager.ApiManagement.Models
 
         /// <summary> Initializes a new instance of RequestReportListResult. </summary>
         /// <param name="value"> Page values. </param>
-        /// <param name="count"> Total record count number across all pages. </param>
-        internal RequestReportListResult(IReadOnlyList<RequestReportRecordContract> value, long? count)
+        internal RequestReportListResult(IReadOnlyList<RequestReportRecordContract> value)
         {
             Value = value;
-            Count = count;
         }
 
         /// <summary> Page values. </summary>
         public IReadOnlyList<RequestReportRecordContract> Value { get; }
-        /// <summary> Total record count number across all pages. </summary>
-        public long? Count { get; }
     }
 }

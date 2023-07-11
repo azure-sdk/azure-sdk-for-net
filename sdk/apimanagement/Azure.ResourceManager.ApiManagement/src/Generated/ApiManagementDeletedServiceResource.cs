@@ -21,12 +21,12 @@ namespace Azure.ResourceManager.ApiManagement
     /// A Class representing an ApiManagementDeletedService along with the instance operations that can be performed on it.
     /// If you have a <see cref="ResourceIdentifier" /> you can construct an <see cref="ApiManagementDeletedServiceResource" />
     /// from an instance of <see cref="ArmClient" /> using the GetApiManagementDeletedServiceResource method.
-    /// Otherwise you can get one from its parent resource <see cref="SubscriptionResource" /> using the GetApiManagementDeletedService method.
+    /// Otherwise you can get one from its parent resource <see cref="TenantResource" /> using the GetApiManagementDeletedService method.
     /// </summary>
     public partial class ApiManagementDeletedServiceResource : ArmResource
     {
         /// <summary> Generate the resource identifier of a <see cref="ApiManagementDeletedServiceResource"/> instance. </summary>
-        public static ResourceIdentifier CreateResourceIdentifier(string subscriptionId, AzureLocation location, string serviceName)
+        public static ResourceIdentifier CreateResourceIdentifier(Guid subscriptionId, AzureLocation location, string serviceName)
         {
             var resourceId = $"/subscriptions/{subscriptionId}/providers/Microsoft.ApiManagement/locations/{location}/deletedservices/{serviceName}";
             return new ResourceIdentifier(resourceId);
@@ -107,7 +107,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiManagementDeletedServiceDeletedServicesRestClient.GetByNameAsync(Id.SubscriptionId, new AzureLocation(Id.Parent.Name), Id.Name, cancellationToken).ConfigureAwait(false);
+                var response = await _apiManagementDeletedServiceDeletedServicesRestClient.GetByNameAsync(Guid.Parse(Id.Parent.Parent.Name), new AzureLocation(Id.Parent.Name), Id.Name, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ApiManagementDeletedServiceResource(Client, response.Value), response.GetRawResponse());
@@ -139,7 +139,7 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiManagementDeletedServiceDeletedServicesRestClient.GetByName(Id.SubscriptionId, new AzureLocation(Id.Parent.Name), Id.Name, cancellationToken);
+                var response = _apiManagementDeletedServiceDeletedServicesRestClient.GetByName(Guid.Parse(Id.Parent.Parent.Name), new AzureLocation(Id.Parent.Name), Id.Name, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new ApiManagementDeletedServiceResource(Client, response.Value), response.GetRawResponse());
@@ -172,8 +172,8 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = await _apiManagementDeletedServiceDeletedServicesRestClient.PurgeAsync(Id.SubscriptionId, new AzureLocation(Id.Parent.Name), Id.Name, cancellationToken).ConfigureAwait(false);
-                var operation = new ApiManagementArmOperation(_apiManagementDeletedServiceDeletedServicesClientDiagnostics, Pipeline, _apiManagementDeletedServiceDeletedServicesRestClient.CreatePurgeRequest(Id.SubscriptionId, new AzureLocation(Id.Parent.Name), Id.Name).Request, response, OperationFinalStateVia.Location);
+                var response = await _apiManagementDeletedServiceDeletedServicesRestClient.PurgeAsync(Guid.Parse(Id.Parent.Parent.Name), new AzureLocation(Id.Parent.Name), Id.Name, cancellationToken).ConfigureAwait(false);
+                var operation = new ApiManagementArmOperation(_apiManagementDeletedServiceDeletedServicesClientDiagnostics, Pipeline, _apiManagementDeletedServiceDeletedServicesRestClient.CreatePurgeRequest(Guid.Parse(Id.Parent.Parent.Name), new AzureLocation(Id.Parent.Name), Id.Name).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -206,8 +206,8 @@ namespace Azure.ResourceManager.ApiManagement
             scope.Start();
             try
             {
-                var response = _apiManagementDeletedServiceDeletedServicesRestClient.Purge(Id.SubscriptionId, new AzureLocation(Id.Parent.Name), Id.Name, cancellationToken);
-                var operation = new ApiManagementArmOperation(_apiManagementDeletedServiceDeletedServicesClientDiagnostics, Pipeline, _apiManagementDeletedServiceDeletedServicesRestClient.CreatePurgeRequest(Id.SubscriptionId, new AzureLocation(Id.Parent.Name), Id.Name).Request, response, OperationFinalStateVia.Location);
+                var response = _apiManagementDeletedServiceDeletedServicesRestClient.Purge(Guid.Parse(Id.Parent.Parent.Name), new AzureLocation(Id.Parent.Name), Id.Name, cancellationToken);
+                var operation = new ApiManagementArmOperation(_apiManagementDeletedServiceDeletedServicesClientDiagnostics, Pipeline, _apiManagementDeletedServiceDeletedServicesRestClient.CreatePurgeRequest(Guid.Parse(Id.Parent.Parent.Name), new AzureLocation(Id.Parent.Name), Id.Name).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletionResponse(cancellationToken);
                 return operation;

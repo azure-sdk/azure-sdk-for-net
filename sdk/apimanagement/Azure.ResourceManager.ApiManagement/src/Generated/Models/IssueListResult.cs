@@ -22,19 +22,15 @@ namespace Azure.ResourceManager.ApiManagement.Models
 
         /// <summary> Initializes a new instance of IssueListResult. </summary>
         /// <param name="value"> Issue values. </param>
-        /// <param name="count"> Total record count number across all pages. </param>
         /// <param name="nextLink"> Next page link if any. </param>
-        internal IssueListResult(IReadOnlyList<IssueContractData> value, long? count, string nextLink)
+        internal IssueListResult(IReadOnlyList<IssueContractData> value, string nextLink)
         {
             Value = value;
-            Count = count;
             NextLink = nextLink;
         }
 
         /// <summary> Issue values. </summary>
         public IReadOnlyList<IssueContractData> Value { get; }
-        /// <summary> Total record count number across all pages. </summary>
-        public long? Count { get; }
         /// <summary> Next page link if any. </summary>
         public string NextLink { get; }
     }

@@ -22,19 +22,15 @@ namespace Azure.ResourceManager.ApiManagement.Models
 
         /// <summary> Initializes a new instance of IdentityProviderList. </summary>
         /// <param name="value"> Identity Provider configuration values. </param>
-        /// <param name="count"> Total record count number across all pages. </param>
         /// <param name="nextLink"> Next page link if any. </param>
-        internal IdentityProviderList(IReadOnlyList<ApiManagementIdentityProviderData> value, long? count, string nextLink)
+        internal IdentityProviderList(IReadOnlyList<ApiManagementIdentityProviderData> value, string nextLink)
         {
             Value = value;
-            Count = count;
             NextLink = nextLink;
         }
 
         /// <summary> Identity Provider configuration values. </summary>
         public IReadOnlyList<ApiManagementIdentityProviderData> Value { get; }
-        /// <summary> Total record count number across all pages. </summary>
-        public long? Count { get; }
         /// <summary> Next page link if any. </summary>
         public string NextLink { get; }
     }

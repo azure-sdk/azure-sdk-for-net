@@ -22,19 +22,15 @@ namespace Azure.ResourceManager.ApiManagement.Models
 
         /// <summary> Initializes a new instance of PolicyListResult. </summary>
         /// <param name="value"> Policy Contract value. </param>
-        /// <param name="count"> Total record count number. </param>
         /// <param name="nextLink"> Next page link if any. </param>
-        internal PolicyListResult(IReadOnlyList<PolicyContractData> value, long? count, string nextLink)
+        internal PolicyListResult(IReadOnlyList<PolicyContractData> value, string nextLink)
         {
             Value = value;
-            Count = count;
             NextLink = nextLink;
         }
 
         /// <summary> Policy Contract value. </summary>
         public IReadOnlyList<PolicyContractData> Value { get; }
-        /// <summary> Total record count number. </summary>
-        public long? Count { get; }
         /// <summary> Next page link if any. </summary>
         public string NextLink { get; }
     }

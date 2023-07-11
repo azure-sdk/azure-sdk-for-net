@@ -22,19 +22,15 @@ namespace Azure.ResourceManager.ApiManagement.Models
 
         /// <summary> Initializes a new instance of IssueCommentListResult. </summary>
         /// <param name="value"> Issue Comment values. </param>
-        /// <param name="count"> Total record count number across all pages. </param>
         /// <param name="nextLink"> Next page link if any. </param>
-        internal IssueCommentListResult(IReadOnlyList<ApiIssueCommentData> value, long? count, string nextLink)
+        internal IssueCommentListResult(IReadOnlyList<ApiIssueCommentData> value, string nextLink)
         {
             Value = value;
-            Count = count;
             NextLink = nextLink;
         }
 
         /// <summary> Issue Comment values. </summary>
         public IReadOnlyList<ApiIssueCommentData> Value { get; }
-        /// <summary> Total record count number across all pages. </summary>
-        public long? Count { get; }
         /// <summary> Next page link if any. </summary>
         public string NextLink { get; }
     }
