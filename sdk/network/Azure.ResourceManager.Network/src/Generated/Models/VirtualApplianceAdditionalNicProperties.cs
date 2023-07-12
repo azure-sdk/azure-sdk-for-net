@@ -17,7 +17,7 @@ namespace Azure.ResourceManager.Network.Models
 
         /// <summary> Initializes a new instance of VirtualApplianceAdditionalNicProperties. </summary>
         /// <param name="name"> Name of additional nic. </param>
-        /// <param name="hasPublicIP"> Flag (true or false) for Intent for Public Ip on additional nic. </param>
+        /// <param name="hasPublicIP"> Flag (truealse) for Intent for Public Ip on additional nic. </param>
         internal VirtualApplianceAdditionalNicProperties(string name, bool? hasPublicIP)
         {
             Name = name;
@@ -26,7 +26,7 @@ namespace Azure.ResourceManager.Network.Models
 
         /// <summary> Name of additional nic. </summary>
         public string Name { get; set; }
-        /// <summary> Flag (true or false) for Intent for Public Ip on additional nic. </summary>
+        /// <summary> Flag (truealse) for Intent for Public Ip on additional nic. </summary>
         public bool? HasPublicIP { get; set; }
     }
 }
