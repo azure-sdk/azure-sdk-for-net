@@ -14,6 +14,7 @@ namespace Azure.AI.OpenAI
     public readonly partial struct CompletionsFinishReason : IEquatable<CompletionsFinishReason>
     {
         private readonly string _value;
+        private const string FunctionCallValue = "function_call";
 
         /// <summary> Completions ended normally and reached its end of token generation. </summary>
         public static CompletionsFinishReason Stopped { get; } = new CompletionsFinishReason(StoppedValue);
@@ -24,6 +25,8 @@ namespace Azure.AI.OpenAI
         /// moderation policies.
         /// </summary>
         public static CompletionsFinishReason ContentFiltered { get; } = new CompletionsFinishReason(ContentFilteredValue);
+        /// <summary> Completion ended normally, with the model requesting a function to be called. </summary>
+        public static CompletionsFinishReason FunctionCall { get; } = new CompletionsFinishReason(FunctionCallValue);
         /// <summary> Determines if two <see cref="CompletionsFinishReason"/> values are the same. </summary>
         public static bool operator ==(CompletionsFinishReason left, CompletionsFinishReason right) => left.Equals(right);
         /// <summary> Determines if two <see cref="CompletionsFinishReason"/> values are not the same. </summary>
