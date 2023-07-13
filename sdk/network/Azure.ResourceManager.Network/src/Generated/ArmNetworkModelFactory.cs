@@ -224,7 +224,7 @@ namespace Azure.ResourceManager.Network.Models
         /// <param name="minServers"> Minimum number of servers that are always marked healthy. Default value is 0. </param>
         /// <param name="match"> Criterion for classifying a healthy probe response. </param>
         /// <param name="provisioningState"> The provisioning state of the probe resource. </param>
-        /// <param name="port"> Custom port which will be used for probing the backend servers. The valid value ranges from 1 to 65535. In case not set, port from http settings will be used. This property is valid for Standard_v2 and WAF_v2 only. </param>
+        /// <param name="port"> Custom port which will be used for probing the backend servers. The valid value ranges from 1 to 65535. In case not set, port from http settings will be used. This property is valid for Basic, Standard_v2 and WAF_v2 only. </param>
         /// <returns> A new <see cref="Models.ApplicationGatewayProbe"/> instance for mocking. </returns>
         public static ApplicationGatewayProbe ApplicationGatewayProbe(ResourceIdentifier id = null, string name = null, ResourceType? resourceType = null, ETag? etag = null, ApplicationGatewayProtocol? protocol = null, string host = null, string path = null, int? intervalInSeconds = null, int? timeoutInSeconds = null, int? unhealthyThreshold = null, bool? pickHostNameFromBackendHttpSettings = null, bool? pickHostNameFromBackendSettings = null, int? minServers = null, ApplicationGatewayProbeHealthResponseMatch match = null, NetworkProvisioningState? provisioningState = null, int? port = null)
         {
@@ -2532,6 +2532,16 @@ namespace Azure.ResourceManager.Network.Models
         public static InboundNatRulePortMapping InboundNatRulePortMapping(string inboundNatRuleName = null, LoadBalancingTransportProtocol? protocol = null, int? frontendPort = null, int? backendPort = null)
         {
             return new InboundNatRulePortMapping(inboundNatRuleName, protocol, frontendPort, backendPort);
+        }
+
+        /// <summary> Initializes a new instance of MigratedPools. </summary>
+        /// <param name="migratedPoolsValue"> A list of pools migrated from Nic based to IP based pool. </param>
+        /// <returns> A new <see cref="Models.MigratedPools"/> instance for mocking. </returns>
+        public static MigratedPools MigratedPools(IEnumerable<string> migratedPoolsValue = null)
+        {
+            migratedPoolsValue ??= new List<string>();
+
+            return new MigratedPools(migratedPoolsValue?.ToList());
         }
 
         /// <summary> Initializes a new instance of EffectiveRouteListResult. </summary>

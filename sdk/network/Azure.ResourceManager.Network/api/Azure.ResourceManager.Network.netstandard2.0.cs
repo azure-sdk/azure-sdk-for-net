@@ -2030,6 +2030,8 @@ namespace Azure.ResourceManager.Network
         public virtual Azure.Response<Azure.ResourceManager.Network.ProbeResource> GetProbe(string probeName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Network.ProbeResource>> GetProbeAsync(string probeName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.ResourceManager.Network.ProbeCollection GetProbes() { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.Network.Models.MigratedPools> MigrateToIPBased(Azure.ResourceManager.Network.Models.MigrateLoadBalancerToIPBasedContent content = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Network.Models.MigratedPools>> MigrateToIPBasedAsync(Azure.ResourceManager.Network.Models.MigrateLoadBalancerToIPBasedContent content = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.Network.LoadBalancerResource> RemoveTag(string key, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Network.LoadBalancerResource>> RemoveTagAsync(string key, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.Network.LoadBalancerResource> SetTags(System.Collections.Generic.IDictionary<string, string> tags, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
@@ -6297,6 +6299,7 @@ namespace Azure.ResourceManager.Network.Models
         private readonly object _dummy;
         private readonly int _dummyPrimitive;
         public ApplicationGatewaySkuName(string value) { throw null; }
+        public static Azure.ResourceManager.Network.Models.ApplicationGatewaySkuName Basic { get { throw null; } }
         public static Azure.ResourceManager.Network.Models.ApplicationGatewaySkuName StandardLarge { get { throw null; } }
         public static Azure.ResourceManager.Network.Models.ApplicationGatewaySkuName StandardMedium { get { throw null; } }
         public static Azure.ResourceManager.Network.Models.ApplicationGatewaySkuName StandardSmall { get { throw null; } }
@@ -6461,6 +6464,7 @@ namespace Azure.ResourceManager.Network.Models
         private readonly object _dummy;
         private readonly int _dummyPrimitive;
         public ApplicationGatewayTier(string value) { throw null; }
+        public static Azure.ResourceManager.Network.Models.ApplicationGatewayTier Basic { get { throw null; } }
         public static Azure.ResourceManager.Network.Models.ApplicationGatewayTier Standard { get { throw null; } }
         public static Azure.ResourceManager.Network.Models.ApplicationGatewayTier StandardV2 { get { throw null; } }
         public static Azure.ResourceManager.Network.Models.ApplicationGatewayTier WAF { get { throw null; } }
@@ -6753,6 +6757,7 @@ namespace Azure.ResourceManager.Network.Models
         public static Azure.ResourceManager.Network.LoadBalancingRuleData LoadBalancingRuleData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType? resourceType = default(Azure.Core.ResourceType?), Azure.ETag? etag = default(Azure.ETag?), Azure.Core.ResourceIdentifier frontendIPConfigurationId = null, Azure.Core.ResourceIdentifier backendAddressPoolId = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Resources.Models.WritableSubResource> backendAddressPools = null, Azure.Core.ResourceIdentifier probeId = null, Azure.ResourceManager.Network.Models.LoadBalancingTransportProtocol? protocol = default(Azure.ResourceManager.Network.Models.LoadBalancingTransportProtocol?), Azure.ResourceManager.Network.Models.LoadDistribution? loadDistribution = default(Azure.ResourceManager.Network.Models.LoadDistribution?), int? frontendPort = default(int?), int? backendPort = default(int?), int? idleTimeoutInMinutes = default(int?), bool? enableFloatingIP = default(bool?), bool? enableTcpReset = default(bool?), bool? disableOutboundSnat = default(bool?), Azure.ResourceManager.Network.Models.NetworkProvisioningState? provisioningState = default(Azure.ResourceManager.Network.Models.NetworkProvisioningState?)) { throw null; }
         public static Azure.ResourceManager.Network.LocalNetworkGatewayData LocalNetworkGatewayData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType? resourceType = default(Azure.Core.ResourceType?), Azure.Core.AzureLocation? location = default(Azure.Core.AzureLocation?), System.Collections.Generic.IDictionary<string, string> tags = null, Azure.ETag? etag = default(Azure.ETag?), System.Collections.Generic.IEnumerable<string> localNetworkAddressPrefixes = null, string gatewayIPAddress = null, string fqdn = null, Azure.ResourceManager.Network.Models.BgpSettings bgpSettings = null, System.Guid? resourceGuid = default(System.Guid?), Azure.ResourceManager.Network.Models.NetworkProvisioningState? provisioningState = default(Azure.ResourceManager.Network.Models.NetworkProvisioningState?)) { throw null; }
         public static Azure.ResourceManager.Network.Models.MatchedRule MatchedRule(string ruleName = null, string action = null) { throw null; }
+        public static Azure.ResourceManager.Network.Models.MigratedPools MigratedPools(System.Collections.Generic.IEnumerable<string> migratedPoolsValue = null) { throw null; }
         public static Azure.ResourceManager.Network.NatGatewayData NatGatewayData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType? resourceType = default(Azure.Core.ResourceType?), Azure.Core.AzureLocation? location = default(Azure.Core.AzureLocation?), System.Collections.Generic.IDictionary<string, string> tags = null, Azure.ResourceManager.Network.Models.NatGatewaySkuName? skuName = default(Azure.ResourceManager.Network.Models.NatGatewaySkuName?), System.Collections.Generic.IEnumerable<string> zones = null, Azure.ETag? etag = default(Azure.ETag?), int? idleTimeoutInMinutes = default(int?), System.Collections.Generic.IEnumerable<Azure.ResourceManager.Resources.Models.WritableSubResource> publicIPAddresses = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Resources.Models.WritableSubResource> publicIPPrefixes = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Resources.Models.WritableSubResource> subnets = null, System.Guid? resourceGuid = default(System.Guid?), Azure.ResourceManager.Network.Models.NetworkProvisioningState? provisioningState = default(Azure.ResourceManager.Network.Models.NetworkProvisioningState?)) { throw null; }
         public static Azure.ResourceManager.Network.Models.NatRulePortMapping NatRulePortMapping(string inboundNatRuleName = null, int? frontendPort = default(int?), int? backendPort = default(int?)) { throw null; }
         public static Azure.ResourceManager.Network.Models.NetworkAdminRule NetworkAdminRule(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.ETag? etag = default(Azure.ETag?), string description = null, Azure.ResourceManager.Network.Models.SecurityConfigurationRuleProtocol? protocol = default(Azure.ResourceManager.Network.Models.SecurityConfigurationRuleProtocol?), System.Collections.Generic.IEnumerable<Azure.ResourceManager.Network.Models.AddressPrefixItem> sources = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Network.Models.AddressPrefixItem> destinations = null, System.Collections.Generic.IEnumerable<string> sourcePortRanges = null, System.Collections.Generic.IEnumerable<string> destinationPortRanges = null, Azure.ResourceManager.Network.Models.SecurityConfigurationRuleAccess? access = default(Azure.ResourceManager.Network.Models.SecurityConfigurationRuleAccess?), int? priority = default(int?), Azure.ResourceManager.Network.Models.SecurityConfigurationRuleDirection? direction = default(Azure.ResourceManager.Network.Models.SecurityConfigurationRuleDirection?), Azure.ResourceManager.Network.Models.NetworkProvisioningState? provisioningState = default(Azure.ResourceManager.Network.Models.NetworkProvisioningState?), System.Guid? resourceGuid = default(System.Guid?)) { throw null; }
@@ -9802,6 +9807,16 @@ namespace Azure.ResourceManager.Network.Models
         public MatchVariable(Azure.ResourceManager.Network.Models.WebApplicationFirewallMatchVariable variableName) { }
         public string Selector { get { throw null; } set { } }
         public Azure.ResourceManager.Network.Models.WebApplicationFirewallMatchVariable VariableName { get { throw null; } set { } }
+    }
+    public partial class MigratedPools
+    {
+        internal MigratedPools() { }
+        public System.Collections.Generic.IReadOnlyList<string> MigratedPoolsValue { get { throw null; } }
+    }
+    public partial class MigrateLoadBalancerToIPBasedContent
+    {
+        public MigrateLoadBalancerToIPBasedContent() { }
+        public System.Collections.Generic.IList<string> Pools { get { throw null; } }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct NatGatewaySkuName : System.IEquatable<Azure.ResourceManager.Network.Models.NatGatewaySkuName>
