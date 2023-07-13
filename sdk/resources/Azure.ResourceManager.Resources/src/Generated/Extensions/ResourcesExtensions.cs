@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 using Azure;
 using Azure.Core;
 using Azure.ResourceManager;
-using Azure.ResourceManager.ManagementGroups;
 using Azure.ResourceManager.Resources.Models;
 
 namespace Azure.ResourceManager.Resources
@@ -19,22 +18,6 @@ namespace Azure.ResourceManager.Resources
     /// <summary> A class to add extension methods to Azure.ResourceManager.Resources. </summary>
     public static partial class ResourcesExtensions
     {
-        private static ManagementGroupResourceExtensionClient GetManagementGroupResourceExtensionClient(ArmResource resource)
-        {
-            return resource.GetCachedClient(client =>
-            {
-                return new ManagementGroupResourceExtensionClient(client, resource.Id);
-            });
-        }
-
-        private static ManagementGroupResourceExtensionClient GetManagementGroupResourceExtensionClient(ArmClient client, ResourceIdentifier scope)
-        {
-            return client.GetResourceClient(() =>
-            {
-                return new ManagementGroupResourceExtensionClient(client, scope);
-            });
-        }
-
         private static ResourceGroupResourceExtensionClient GetResourceGroupResourceExtensionClient(ArmResource resource)
         {
             return resource.GetCachedClient(client =>
@@ -66,41 +49,6 @@ namespace Azure.ResourceManager.Resources
                 return new SubscriptionResourceExtensionClient(client, scope);
             });
         }
-
-        private static TenantResourceExtensionClient GetTenantResourceExtensionClient(ArmResource resource)
-        {
-            return resource.GetCachedClient(client =>
-            {
-                return new TenantResourceExtensionClient(client, resource.Id);
-            });
-        }
-
-        private static TenantResourceExtensionClient GetTenantResourceExtensionClient(ArmClient client, ResourceIdentifier scope)
-        {
-            return client.GetResourceClient(() =>
-            {
-                return new TenantResourceExtensionClient(client, scope);
-            });
-        }
-        #region ArmDeploymentResource
-        /// <summary>
-        /// Gets an object representing an <see cref="ArmDeploymentResource" /> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="ArmDeploymentResource.CreateResourceIdentifier" /> to create an <see cref="ArmDeploymentResource" /> <see cref="ResourceIdentifier" /> from its components.
-        /// </summary>
-        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="ArmDeploymentResource" /> object. </returns>
-        public static ArmDeploymentResource GetArmDeploymentResource(this ArmClient client, ResourceIdentifier id)
-        {
-            return client.GetResourceClient(() =>
-            {
-                ArmDeploymentResource.ValidateResourceId(id);
-                return new ArmDeploymentResource(client, id);
-            }
-            );
-        }
-        #endregion
-
         #region ArmApplicationResource
         /// <summary>
         /// Gets an object representing an <see cref="ArmApplicationResource" /> along with the instance operations that can be performed on it but with no data.
@@ -233,118 +181,6 @@ namespace Azure.ResourceManager.Resources
             );
         }
         #endregion
-
-        /// <summary> Gets a collection of ArmDeploymentResources in the ManagementGroupResource. </summary>
-        /// <param name="managementGroupResource"> The <see cref="ManagementGroupResource" /> instance the method will execute against. </param>
-        /// <returns> An object representing collection of ArmDeploymentResources and their operations over a ArmDeploymentResource. </returns>
-        public static ArmDeploymentCollection GetArmDeployments(this ManagementGroupResource managementGroupResource)
-        {
-            return GetManagementGroupResourceExtensionClient(managementGroupResource).GetArmDeployments();
-        }
-
-        /// <summary>
-        /// Gets a deployment.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/{scope}/providers/Microsoft.Resources/deployments/{deploymentName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>Deployments_GetAtScope</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="managementGroupResource"> The <see cref="ManagementGroupResource" /> instance the method will execute against. </param>
-        /// <param name="deploymentName"> The name of the deployment. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="deploymentName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="deploymentName"/> is null. </exception>
-        [ForwardsClientCalls]
-        public static async Task<Response<ArmDeploymentResource>> GetArmDeploymentAsync(this ManagementGroupResource managementGroupResource, string deploymentName, CancellationToken cancellationToken = default)
-        {
-            return await managementGroupResource.GetArmDeployments().GetAsync(deploymentName, cancellationToken).ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// Gets a deployment.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/{scope}/providers/Microsoft.Resources/deployments/{deploymentName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>Deployments_GetAtScope</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="managementGroupResource"> The <see cref="ManagementGroupResource" /> instance the method will execute against. </param>
-        /// <param name="deploymentName"> The name of the deployment. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="deploymentName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="deploymentName"/> is null. </exception>
-        [ForwardsClientCalls]
-        public static Response<ArmDeploymentResource> GetArmDeployment(this ManagementGroupResource managementGroupResource, string deploymentName, CancellationToken cancellationToken = default)
-        {
-            return managementGroupResource.GetArmDeployments().Get(deploymentName, cancellationToken);
-        }
-
-        /// <summary> Gets a collection of ArmDeploymentResources in the ResourceGroupResource. </summary>
-        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
-        /// <returns> An object representing collection of ArmDeploymentResources and their operations over a ArmDeploymentResource. </returns>
-        public static ArmDeploymentCollection GetArmDeployments(this ResourceGroupResource resourceGroupResource)
-        {
-            return GetResourceGroupResourceExtensionClient(resourceGroupResource).GetArmDeployments();
-        }
-
-        /// <summary>
-        /// Gets a deployment.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/{scope}/providers/Microsoft.Resources/deployments/{deploymentName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>Deployments_GetAtScope</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
-        /// <param name="deploymentName"> The name of the deployment. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="deploymentName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="deploymentName"/> is null. </exception>
-        [ForwardsClientCalls]
-        public static async Task<Response<ArmDeploymentResource>> GetArmDeploymentAsync(this ResourceGroupResource resourceGroupResource, string deploymentName, CancellationToken cancellationToken = default)
-        {
-            return await resourceGroupResource.GetArmDeployments().GetAsync(deploymentName, cancellationToken).ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// Gets a deployment.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/{scope}/providers/Microsoft.Resources/deployments/{deploymentName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>Deployments_GetAtScope</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
-        /// <param name="deploymentName"> The name of the deployment. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="deploymentName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="deploymentName"/> is null. </exception>
-        [ForwardsClientCalls]
-        public static Response<ArmDeploymentResource> GetArmDeployment(this ResourceGroupResource resourceGroupResource, string deploymentName, CancellationToken cancellationToken = default)
-        {
-            return resourceGroupResource.GetArmDeployments().Get(deploymentName, cancellationToken);
-        }
 
         /// <summary> Gets a collection of ArmApplicationResources in the ResourceGroupResource. </summary>
         /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
@@ -628,62 +464,6 @@ namespace Azure.ResourceManager.Resources
             return resourceGroupResource.GetTemplateSpecs().Get(templateSpecName, expand, cancellationToken);
         }
 
-        /// <summary> Gets a collection of ArmDeploymentResources in the SubscriptionResource. </summary>
-        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
-        /// <returns> An object representing collection of ArmDeploymentResources and their operations over a ArmDeploymentResource. </returns>
-        public static ArmDeploymentCollection GetArmDeployments(this SubscriptionResource subscriptionResource)
-        {
-            return GetSubscriptionResourceExtensionClient(subscriptionResource).GetArmDeployments();
-        }
-
-        /// <summary>
-        /// Gets a deployment.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/{scope}/providers/Microsoft.Resources/deployments/{deploymentName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>Deployments_GetAtScope</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
-        /// <param name="deploymentName"> The name of the deployment. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="deploymentName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="deploymentName"/> is null. </exception>
-        [ForwardsClientCalls]
-        public static async Task<Response<ArmDeploymentResource>> GetArmDeploymentAsync(this SubscriptionResource subscriptionResource, string deploymentName, CancellationToken cancellationToken = default)
-        {
-            return await subscriptionResource.GetArmDeployments().GetAsync(deploymentName, cancellationToken).ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// Gets a deployment.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/{scope}/providers/Microsoft.Resources/deployments/{deploymentName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>Deployments_GetAtScope</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
-        /// <param name="deploymentName"> The name of the deployment. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="deploymentName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="deploymentName"/> is null. </exception>
-        [ForwardsClientCalls]
-        public static Response<ArmDeploymentResource> GetArmDeployment(this SubscriptionResource subscriptionResource, string deploymentName, CancellationToken cancellationToken = default)
-        {
-            return subscriptionResource.GetArmDeployments().Get(deploymentName, cancellationToken);
-        }
-
         /// <summary>
         /// Gets all the applications within a subscription.
         /// <list type="bullet">
@@ -852,110 +632,6 @@ namespace Azure.ResourceManager.Resources
         public static Pageable<TemplateSpecResource> GetTemplateSpecs(this SubscriptionResource subscriptionResource, TemplateSpecExpandKind? expand = null, CancellationToken cancellationToken = default)
         {
             return GetSubscriptionResourceExtensionClient(subscriptionResource).GetTemplateSpecs(expand, cancellationToken);
-        }
-
-        /// <summary> Gets a collection of ArmDeploymentResources in the TenantResource. </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
-        /// <returns> An object representing collection of ArmDeploymentResources and their operations over a ArmDeploymentResource. </returns>
-        public static ArmDeploymentCollection GetArmDeployments(this TenantResource tenantResource)
-        {
-            return GetTenantResourceExtensionClient(tenantResource).GetArmDeployments();
-        }
-
-        /// <summary>
-        /// Gets a deployment.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/{scope}/providers/Microsoft.Resources/deployments/{deploymentName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>Deployments_GetAtScope</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
-        /// <param name="deploymentName"> The name of the deployment. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="deploymentName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="deploymentName"/> is null. </exception>
-        [ForwardsClientCalls]
-        public static async Task<Response<ArmDeploymentResource>> GetArmDeploymentAsync(this TenantResource tenantResource, string deploymentName, CancellationToken cancellationToken = default)
-        {
-            return await tenantResource.GetArmDeployments().GetAsync(deploymentName, cancellationToken).ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// Gets a deployment.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/{scope}/providers/Microsoft.Resources/deployments/{deploymentName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>Deployments_GetAtScope</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
-        /// <param name="deploymentName"> The name of the deployment. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="deploymentName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="deploymentName"/> is null. </exception>
-        [ForwardsClientCalls]
-        public static Response<ArmDeploymentResource> GetArmDeployment(this TenantResource tenantResource, string deploymentName, CancellationToken cancellationToken = default)
-        {
-            return tenantResource.GetArmDeployments().Get(deploymentName, cancellationToken);
-        }
-
-        /// <summary>
-        /// Calculate the hash of the given template.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/providers/Microsoft.Resources/calculateTemplateHash</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>Deployments_CalculateTemplateHash</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
-        /// <param name="template"> The template provided to calculate hash. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="template"/> is null. </exception>
-        public static async Task<Response<TemplateHashResult>> CalculateDeploymentTemplateHashAsync(this TenantResource tenantResource, BinaryData template, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNull(template, nameof(template));
-
-            return await GetTenantResourceExtensionClient(tenantResource).CalculateDeploymentTemplateHashAsync(template, cancellationToken).ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// Calculate the hash of the given template.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/providers/Microsoft.Resources/calculateTemplateHash</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>Deployments_CalculateTemplateHash</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
-        /// <param name="template"> The template provided to calculate hash. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="template"/> is null. </exception>
-        public static Response<TemplateHashResult> CalculateDeploymentTemplateHash(this TenantResource tenantResource, BinaryData template, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNull(template, nameof(template));
-
-            return GetTenantResourceExtensionClient(tenantResource).CalculateDeploymentTemplateHash(template, cancellationToken);
         }
     }
 }

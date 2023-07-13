@@ -53,13 +53,6 @@ namespace Azure.ResourceManager.Resources
             return apiVersion;
         }
 
-        /// <summary> Gets a collection of ArmDeploymentResources in the SubscriptionResource. </summary>
-        /// <returns> An object representing collection of ArmDeploymentResources and their operations over a ArmDeploymentResource. </returns>
-        public virtual ArmDeploymentCollection GetArmDeployments()
-        {
-            return GetCachedClient(Client => new ArmDeploymentCollection(Client, Id));
-        }
-
         /// <summary>
         /// Gets all the applications within a subscription.
         /// <list type="bullet">
@@ -77,8 +70,8 @@ namespace Azure.ResourceManager.Resources
         /// <returns> An async collection of <see cref="ArmApplicationResource" /> that may take multiple service requests to iterate over. </returns>
         public virtual AsyncPageable<ArmApplicationResource> GetArmApplicationsAsync(CancellationToken cancellationToken = default)
         {
-            Core.HttpMessage FirstPageRequest(int? pageSizeHint) => ArmApplicationApplicationsRestClient.CreateListBySubscriptionRequest(Id.SubscriptionId);
-            Core.HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => ArmApplicationApplicationsRestClient.CreateListBySubscriptionNextPageRequest(nextLink, Id.SubscriptionId);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => ArmApplicationApplicationsRestClient.CreateListBySubscriptionRequest(Id.SubscriptionId);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => ArmApplicationApplicationsRestClient.CreateListBySubscriptionNextPageRequest(nextLink, Id.SubscriptionId);
             return PageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new ArmApplicationResource(Client, ArmApplicationData.DeserializeArmApplicationData(e)), ArmApplicationApplicationsClientDiagnostics, Pipeline, "SubscriptionResourceExtensionClient.GetArmApplications", "value", "nextLink", cancellationToken);
         }
 
@@ -99,8 +92,8 @@ namespace Azure.ResourceManager.Resources
         /// <returns> A collection of <see cref="ArmApplicationResource" /> that may take multiple service requests to iterate over. </returns>
         public virtual Pageable<ArmApplicationResource> GetArmApplications(CancellationToken cancellationToken = default)
         {
-            Core.HttpMessage FirstPageRequest(int? pageSizeHint) => ArmApplicationApplicationsRestClient.CreateListBySubscriptionRequest(Id.SubscriptionId);
-            Core.HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => ArmApplicationApplicationsRestClient.CreateListBySubscriptionNextPageRequest(nextLink, Id.SubscriptionId);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => ArmApplicationApplicationsRestClient.CreateListBySubscriptionRequest(Id.SubscriptionId);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => ArmApplicationApplicationsRestClient.CreateListBySubscriptionNextPageRequest(nextLink, Id.SubscriptionId);
             return PageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new ArmApplicationResource(Client, ArmApplicationData.DeserializeArmApplicationData(e)), ArmApplicationApplicationsClientDiagnostics, Pipeline, "SubscriptionResourceExtensionClient.GetArmApplications", "value", "nextLink", cancellationToken);
         }
 
@@ -121,7 +114,7 @@ namespace Azure.ResourceManager.Resources
         /// <returns> An async collection of <see cref="JitRequestResource" /> that may take multiple service requests to iterate over. </returns>
         public virtual AsyncPageable<JitRequestResource> GetJitRequestDefinitionsAsync(CancellationToken cancellationToken = default)
         {
-            Core.HttpMessage FirstPageRequest(int? pageSizeHint) => JitRequestRestClient.CreateListBySubscriptionRequest(Id.SubscriptionId);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => JitRequestRestClient.CreateListBySubscriptionRequest(Id.SubscriptionId);
             return PageableHelpers.CreateAsyncPageable(FirstPageRequest, null, e => new JitRequestResource(Client, JitRequestData.DeserializeJitRequestData(e)), JitRequestClientDiagnostics, Pipeline, "SubscriptionResourceExtensionClient.GetJitRequestDefinitions", "value", null, cancellationToken);
         }
 
@@ -142,7 +135,7 @@ namespace Azure.ResourceManager.Resources
         /// <returns> A collection of <see cref="JitRequestResource" /> that may take multiple service requests to iterate over. </returns>
         public virtual Pageable<JitRequestResource> GetJitRequestDefinitions(CancellationToken cancellationToken = default)
         {
-            Core.HttpMessage FirstPageRequest(int? pageSizeHint) => JitRequestRestClient.CreateListBySubscriptionRequest(Id.SubscriptionId);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => JitRequestRestClient.CreateListBySubscriptionRequest(Id.SubscriptionId);
             return PageableHelpers.CreatePageable(FirstPageRequest, null, e => new JitRequestResource(Client, JitRequestData.DeserializeJitRequestData(e)), JitRequestClientDiagnostics, Pipeline, "SubscriptionResourceExtensionClient.GetJitRequestDefinitions", "value", null, cancellationToken);
         }
 
@@ -163,8 +156,8 @@ namespace Azure.ResourceManager.Resources
         /// <returns> An async collection of <see cref="ArmDeploymentScriptResource" /> that may take multiple service requests to iterate over. </returns>
         public virtual AsyncPageable<ArmDeploymentScriptResource> GetArmDeploymentScriptsAsync(CancellationToken cancellationToken = default)
         {
-            Core.HttpMessage FirstPageRequest(int? pageSizeHint) => ArmDeploymentScriptDeploymentScriptsRestClient.CreateListBySubscriptionRequest(Id.SubscriptionId);
-            Core.HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => ArmDeploymentScriptDeploymentScriptsRestClient.CreateListBySubscriptionNextPageRequest(nextLink, Id.SubscriptionId);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => ArmDeploymentScriptDeploymentScriptsRestClient.CreateListBySubscriptionRequest(Id.SubscriptionId);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => ArmDeploymentScriptDeploymentScriptsRestClient.CreateListBySubscriptionNextPageRequest(nextLink, Id.SubscriptionId);
             return PageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new ArmDeploymentScriptResource(Client, ArmDeploymentScriptData.DeserializeArmDeploymentScriptData(e)), ArmDeploymentScriptDeploymentScriptsClientDiagnostics, Pipeline, "SubscriptionResourceExtensionClient.GetArmDeploymentScripts", "value", "nextLink", cancellationToken);
         }
 
@@ -185,8 +178,8 @@ namespace Azure.ResourceManager.Resources
         /// <returns> A collection of <see cref="ArmDeploymentScriptResource" /> that may take multiple service requests to iterate over. </returns>
         public virtual Pageable<ArmDeploymentScriptResource> GetArmDeploymentScripts(CancellationToken cancellationToken = default)
         {
-            Core.HttpMessage FirstPageRequest(int? pageSizeHint) => ArmDeploymentScriptDeploymentScriptsRestClient.CreateListBySubscriptionRequest(Id.SubscriptionId);
-            Core.HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => ArmDeploymentScriptDeploymentScriptsRestClient.CreateListBySubscriptionNextPageRequest(nextLink, Id.SubscriptionId);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => ArmDeploymentScriptDeploymentScriptsRestClient.CreateListBySubscriptionRequest(Id.SubscriptionId);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => ArmDeploymentScriptDeploymentScriptsRestClient.CreateListBySubscriptionNextPageRequest(nextLink, Id.SubscriptionId);
             return PageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new ArmDeploymentScriptResource(Client, ArmDeploymentScriptData.DeserializeArmDeploymentScriptData(e)), ArmDeploymentScriptDeploymentScriptsClientDiagnostics, Pipeline, "SubscriptionResourceExtensionClient.GetArmDeploymentScripts", "value", "nextLink", cancellationToken);
         }
 
@@ -208,8 +201,8 @@ namespace Azure.ResourceManager.Resources
         /// <returns> An async collection of <see cref="TemplateSpecResource" /> that may take multiple service requests to iterate over. </returns>
         public virtual AsyncPageable<TemplateSpecResource> GetTemplateSpecsAsync(TemplateSpecExpandKind? expand = null, CancellationToken cancellationToken = default)
         {
-            Core.HttpMessage FirstPageRequest(int? pageSizeHint) => TemplateSpecRestClient.CreateListBySubscriptionRequest(Id.SubscriptionId, expand);
-            Core.HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => TemplateSpecRestClient.CreateListBySubscriptionNextPageRequest(nextLink, Id.SubscriptionId, expand);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => TemplateSpecRestClient.CreateListBySubscriptionRequest(Id.SubscriptionId, expand);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => TemplateSpecRestClient.CreateListBySubscriptionNextPageRequest(nextLink, Id.SubscriptionId, expand);
             return PageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new TemplateSpecResource(Client, TemplateSpecData.DeserializeTemplateSpecData(e)), TemplateSpecClientDiagnostics, Pipeline, "SubscriptionResourceExtensionClient.GetTemplateSpecs", "value", "nextLink", cancellationToken);
         }
 
@@ -231,8 +224,8 @@ namespace Azure.ResourceManager.Resources
         /// <returns> A collection of <see cref="TemplateSpecResource" /> that may take multiple service requests to iterate over. </returns>
         public virtual Pageable<TemplateSpecResource> GetTemplateSpecs(TemplateSpecExpandKind? expand = null, CancellationToken cancellationToken = default)
         {
-            Core.HttpMessage FirstPageRequest(int? pageSizeHint) => TemplateSpecRestClient.CreateListBySubscriptionRequest(Id.SubscriptionId, expand);
-            Core.HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => TemplateSpecRestClient.CreateListBySubscriptionNextPageRequest(nextLink, Id.SubscriptionId, expand);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => TemplateSpecRestClient.CreateListBySubscriptionRequest(Id.SubscriptionId, expand);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => TemplateSpecRestClient.CreateListBySubscriptionNextPageRequest(nextLink, Id.SubscriptionId, expand);
             return PageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new TemplateSpecResource(Client, TemplateSpecData.DeserializeTemplateSpecData(e)), TemplateSpecClientDiagnostics, Pipeline, "SubscriptionResourceExtensionClient.GetTemplateSpecs", "value", "nextLink", cancellationToken);
         }
     }

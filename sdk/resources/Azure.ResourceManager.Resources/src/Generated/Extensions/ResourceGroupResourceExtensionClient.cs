@@ -31,13 +31,6 @@ namespace Azure.ResourceManager.Resources
             return apiVersion;
         }
 
-        /// <summary> Gets a collection of ArmDeploymentResources in the ResourceGroupResource. </summary>
-        /// <returns> An object representing collection of ArmDeploymentResources and their operations over a ArmDeploymentResource. </returns>
-        public virtual ArmDeploymentCollection GetArmDeployments()
-        {
-            return GetCachedClient(Client => new ArmDeploymentCollection(Client, Id));
-        }
-
         /// <summary> Gets a collection of ArmApplicationResources in the ResourceGroupResource. </summary>
         /// <returns> An object representing collection of ArmApplicationResources and their operations over a ArmApplicationResource. </returns>
         public virtual ArmApplicationCollection GetArmApplications()
