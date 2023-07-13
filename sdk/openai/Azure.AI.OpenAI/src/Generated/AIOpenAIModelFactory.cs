@@ -8,6 +8,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Azure;
 
 namespace Azure.AI.OpenAI
 {
@@ -48,25 +49,84 @@ namespace Azure.AI.OpenAI
             return new EmbeddingsUsage(promptTokens, totalTokens);
         }
 
+        /// <summary> Initializes a new instance of PromptFilterResult. </summary>
+        /// <param name="promptIndex"> The index of this prompt in the set of prompt results. </param>
+        /// <param name="contentFilterResults"> Content filtering results for this prompt. </param>
+        /// <returns> A new <see cref="OpenAI.PromptFilterResult"/> instance for mocking. </returns>
+        public static PromptFilterResult PromptFilterResult(int promptIndex = default, ContentFilterResults contentFilterResults = null)
+        {
+            return new PromptFilterResult(promptIndex, contentFilterResults);
+        }
+
+        /// <summary> Initializes a new instance of ContentFilterResults. </summary>
+        /// <param name="sexual">
+        /// Describes language related to anatomical organs and genitals, romantic relationships,
+        ///  acts portrayed in erotic or affectionate terms, physical sexual acts, including
+        ///  those portrayed as an assault or a forced sexual violent act against one’s will,
+        ///  prostitution, pornography, and abuse.
+        /// </param>
+        /// <param name="violence">
+        /// Describes language related to physical actions intended to hurt, injure, damage, or
+        /// kill someone or something; describes weapons, etc.
+        /// </param>
+        /// <param name="hate">
+        /// Describes language attacks or uses that include pejorative or discriminatory language
+        /// with reference to a person or identity group on the basis of certain differentiating
+        /// attributes of these groups including but not limited to race, ethnicity, nationality,
+        /// gender identity and expression, sexual orientation, religion, immigration status, ability
+        /// status, personal appearance, and body size.
+        /// </param>
+        /// <param name="selfHarm">
+        /// Describes language related to physical actions intended to purposely hurt, injure,
+        /// or damage one’s body, or kill oneself.
+        /// </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="sexual"/>, <paramref name="violence"/>, <paramref name="hate"/> or <paramref name="selfHarm"/> is null. </exception>
+        /// <returns> A new <see cref="OpenAI.ContentFilterResults"/> instance for mocking. </returns>
+        public static ContentFilterResults ContentFilterResults(ContentFilterResult sexual = null, ContentFilterResult violence = null, ContentFilterResult hate = null, ContentFilterResult selfHarm = null)
+        {
+            if (sexual == null)
+            {
+                throw new ArgumentNullException(nameof(sexual));
+            }
+            if (violence == null)
+            {
+                throw new ArgumentNullException(nameof(violence));
+            }
+            if (hate == null)
+            {
+                throw new ArgumentNullException(nameof(hate));
+            }
+            if (selfHarm == null)
+            {
+                throw new ArgumentNullException(nameof(selfHarm));
+            }
+
+            return new ContentFilterResults(sexual, violence, hate, selfHarm);
+        }
+
+        /// <summary> Initializes a new instance of ContentFilterResult. </summary>
+        /// <param name="severity"> Ratings for the intensity and risk level of filtered content. </param>
+        /// <param name="filtered"> A value indicating whether or not the content has been filtered. </param>
+        /// <returns> A new <see cref="OpenAI.ContentFilterResult"/> instance for mocking. </returns>
+        public static ContentFilterResult ContentFilterResult(ContentFilterSeverity severity = default, bool filtered = default)
+        {
+            return new ContentFilterResult(severity, filtered);
+        }
+
         /// <summary> Initializes a new instance of Choice. </summary>
         /// <param name="text"> The generated text for a given completions prompt. </param>
         /// <param name="index"> The ordered index associated with this completions choice. </param>
+        /// <param name="contentFilterResults">
+        /// Information about the content filtering category (hate, sexual, violence, self_harm), if it
+        /// has been detected, as well as the severity level (very_low, low, medium, high-scale that
+        /// determines the intensity and risk level of harmful content) and if it has been filtered or not.
+        /// </param>
         /// <param name="logProbabilityModel"> The log probabilities model for tokens associated with this completions choice. </param>
         /// <param name="finishReason"> Reason for finishing. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="text"/> or <paramref name="logProbabilityModel"/> is null. </exception>
         /// <returns> A new <see cref="OpenAI.Choice"/> instance for mocking. </returns>
-        public static Choice Choice(string text = null, int index = default, CompletionsLogProbabilityModel logProbabilityModel = null, CompletionsFinishReason finishReason = default)
+        public static Choice Choice(string text = null, int index = default, ContentFilterResults contentFilterResults = null, CompletionsLogProbabilityModel logProbabilityModel = null, CompletionsFinishReason finishReason = default)
         {
-            if (text == null)
-            {
-                throw new ArgumentNullException(nameof(text));
-            }
-            if (logProbabilityModel == null)
-            {
-                throw new ArgumentNullException(nameof(logProbabilityModel));
-            }
-
-            return new Choice(text, index, logProbabilityModel, finishReason);
+            return new Choice(text, index, contentFilterResults, logProbabilityModel, finishReason);
         }
 
         /// <summary> Initializes a new instance of CompletionsLogProbabilityModel. </summary>
