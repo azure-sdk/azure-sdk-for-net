@@ -697,7 +697,7 @@ namespace Azure.ResourceManager.Resources.Models
         public Azure.ResourceManager.Resources.Models.ErrorDeployment ErrorDeployment { get { throw null; } set { } }
         public Azure.ResourceManager.Resources.Models.ExpressionEvaluationScope? ExpressionEvaluationScope { get { throw null; } set { } }
         public Azure.ResourceManager.Resources.Models.ArmDeploymentMode Mode { get { throw null; } }
-        public System.BinaryData Parameters { get { throw null; } set { } }
+        public System.Collections.Generic.IDictionary<string, Azure.ResourceManager.Resources.Models.DeploymentParameter> Parameters { get { throw null; } }
         public Azure.ResourceManager.Resources.Models.ArmDeploymentParametersLink ParametersLink { get { throw null; } set { } }
         public System.BinaryData Template { get { throw null; } set { } }
         public Azure.ResourceManager.Resources.Models.ArmDeploymentTemplateLink TemplateLink { get { throw null; } set { } }
@@ -864,6 +864,12 @@ namespace Azure.ResourceManager.Resources.Models
         public string ResourceName { get { throw null; } }
         public Azure.Core.ResourceType? ResourceType { get { throw null; } }
     }
+    public partial class DeploymentParameter
+    {
+        public DeploymentParameter() { }
+        public Azure.ResourceManager.Resources.Models.KeyVaultParameterReference Reference { get { throw null; } set { } }
+        public System.BinaryData Value { get { throw null; } set { } }
+    }
     public partial class ErrorDeployment
     {
         public ErrorDeployment() { }
@@ -1005,6 +1011,13 @@ namespace Azure.ResourceManager.Resources.Models
         public static implicit operator Azure.ResourceManager.Resources.Models.JitSchedulingType (string value) { throw null; }
         public static bool operator !=(Azure.ResourceManager.Resources.Models.JitSchedulingType left, Azure.ResourceManager.Resources.Models.JitSchedulingType right) { throw null; }
         public override string ToString() { throw null; }
+    }
+    public partial class KeyVaultParameterReference
+    {
+        public KeyVaultParameterReference(Azure.ResourceManager.Resources.Models.SubResource keyVault, string secretName) { }
+        public Azure.Core.ResourceIdentifier KeyVaultId { get { throw null; } }
+        public string SecretName { get { throw null; } }
+        public string SecretVersion { get { throw null; } set { } }
     }
     public partial class LinkedTemplateArtifact
     {

@@ -34,14 +34,16 @@ namespace Azure.ResourceManager.Resources.Models
                 writer.WritePropertyName("templateLink"u8);
                 writer.WriteObjectValue(TemplateLink);
             }
-            if (Optional.IsDefined(Parameters))
+            if (Optional.IsCollectionDefined(Parameters))
             {
                 writer.WritePropertyName("parameters"u8);
-#if NET6_0_OR_GREATER
-				writer.WriteRawValue(Parameters);
-#else
-                JsonSerializer.Serialize(writer, JsonDocument.Parse(Parameters.ToString()).RootElement);
-#endif
+                writer.WriteStartObject();
+                foreach (var item in Parameters)
+                {
+                    writer.WritePropertyName(item.Key);
+                    writer.WriteObjectValue(item.Value);
+                }
+                writer.WriteEndObject();
             }
             if (Optional.IsDefined(ParametersLink))
             {
