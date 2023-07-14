@@ -32,7 +32,7 @@ namespace Azure.ResourceManager.ManagementGroups.Models
                     {
                         continue;
                     }
-                    type = new ManagementGroupChildType(property.Value.GetString());
+                    type = property.Value.GetString().ToManagementGroupChildType();
                     continue;
                 }
                 if (property.NameEquals("id"u8))

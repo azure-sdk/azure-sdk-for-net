@@ -30,8 +30,8 @@ These settings apply only when `--tag=package-common-type` is specified on the c
 output-folder: $(this-folder)/Common/Generated
 namespace: Azure.ResourceManager
 input-file:
-  - https://raw.githubusercontent.com/Azure/azure-rest-api-specs/be8b6e1fc69e7c2700847d6a9c344c0e204294ce/specification/common-types/resource-management/v3/types.json
-  - https://raw.githubusercontent.com/Azure/azure-rest-api-specs/be8b6e1fc69e7c2700847d6a9c344c0e204294ce/specification/common-types/resource-management/v4/managedidentity.json
+  - https://github.com/Azure/azure-rest-api-specs/blob/938efcc36e61ee158f6beb02682e9007729f10f9/specification/common-types/resource-management/v3/types.json
+  - https://github.com/Azure/azure-rest-api-specs/blob/938efcc36e61ee158f6beb02682e9007729f10f9/specification/common-types/resource-management/v4/managedidentity.json
 
 format-by-name-rules:
   'tenantId': 'uuid'
@@ -170,15 +170,15 @@ output-folder: $(this-folder)/Resources/Generated
 namespace: Azure.ResourceManager.Resources
 title: ResourceManagementClient
 input-file:
-    - https://raw.githubusercontent.com/Azure/azure-rest-api-specs/b74978708bb95475562412d4654c00fbcedd9f89/specification/resources/resource-manager/Microsoft.Authorization/stable/2022-06-01/policyAssignments.json
-    - https://raw.githubusercontent.com/Azure/azure-rest-api-specs/b74978708bb95475562412d4654c00fbcedd9f89/specification/resources/resource-manager/Microsoft.Resources/stable/2022-09-01/resources.json
-    - https://raw.githubusercontent.com/Azure/azure-rest-api-specs/b74978708bb95475562412d4654c00fbcedd9f89/specification/resources/resource-manager/Microsoft.Authorization/stable/2021-06-01/policyDefinitions.json
-    - https://raw.githubusercontent.com/Azure/azure-rest-api-specs/b74978708bb95475562412d4654c00fbcedd9f89/specification/resources/resource-manager/Microsoft.Authorization/stable/2021-06-01/policySetDefinitions.json
-    # - https://raw.githubusercontent.com/Azure/azure-rest-api-specs/91ac14531f0d05b3d6fcf4a817ea0defde59fe63/specification/resources/resource-manager/Microsoft.Authorization/preview/2020-07-01-preview/policyExemptions.json
-    - https://raw.githubusercontent.com/Azure/azure-rest-api-specs/b74978708bb95475562412d4654c00fbcedd9f89/specification/resources/resource-manager/Microsoft.Authorization/stable/2020-09-01/dataPolicyManifests.json
-    - https://raw.githubusercontent.com/Azure/azure-rest-api-specs/b74978708bb95475562412d4654c00fbcedd9f89/specification/resources/resource-manager/Microsoft.Authorization/stable/2016-09-01/locks.json
-    - https://raw.githubusercontent.com/Azure/azure-rest-api-specs/b74978708bb95475562412d4654c00fbcedd9f89/specification/resources/resource-manager/Microsoft.Resources/stable/2022-12-01/subscriptions.json
-    - https://raw.githubusercontent.com/Azure/azure-rest-api-specs/b74978708bb95475562412d4654c00fbcedd9f89/specification/resources/resource-manager/Microsoft.Features/stable/2021-07-01/features.json
+    - https://github.com/Azure/azure-rest-api-specs/blob/938efcc36e61ee158f6beb02682e9007729f10f9/specification/resources/resource-manager/Microsoft.Authorization/stable/2022-06-01/policyAssignments.json
+    - https://github.com/Azure/azure-rest-api-specs/blob/938efcc36e61ee158f6beb02682e9007729f10f9/specification/resources/resource-manager/Microsoft.Resources/stable/2022-09-01/resources.json
+    - https://github.com/Azure/azure-rest-api-specs/blob/938efcc36e61ee158f6beb02682e9007729f10f9/specification/resources/resource-manager/Microsoft.Authorization/stable/2021-06-01/policyDefinitions.json
+    - https://github.com/Azure/azure-rest-api-specs/blob/938efcc36e61ee158f6beb02682e9007729f10f9/specification/resources/resource-manager/Microsoft.Authorization/stable/2021-06-01/policySetDefinitions.json
+    # - https://github.com/Azure/azure-rest-api-specs/blob/938efcc36e61ee158f6beb02682e9007729f10f9/specification/resources/resource-manager/Microsoft.Authorization/preview/2020-07-01-preview/policyExemptions.json
+    - https://github.com/Azure/azure-rest-api-specs/blob/938efcc36e61ee158f6beb02682e9007729f10f9/specification/resources/resource-manager/Microsoft.Authorization/stable/2020-09-01/dataPolicyManifests.json
+    - https://github.com/Azure/azure-rest-api-specs/blob/938efcc36e61ee158f6beb02682e9007729f10f9/specification/resources/resource-manager/Microsoft.Authorization/stable/2016-09-01/locks.json
+    - https://github.com/Azure/azure-rest-api-specs/blob/938efcc36e61ee158f6beb02682e9007729f10f9/specification/resources/resource-manager/Microsoft.Resources/stable/2022-12-01/subscriptions.json
+    - https://github.com/Azure/azure-rest-api-specs/blob/938efcc36e61ee158f6beb02682e9007729f10f9/specification/resources/resource-manager/Microsoft.Features/stable/2021-07-01/features.json
 list-exception:
   - /{resourceId}
 request-path-to-resource-data:
@@ -691,7 +691,7 @@ output-folder: $(this-folder)/ManagementGroup/Generated
 namespace: Azure.ResourceManager.ManagementGroups
 title: ManagementClient
 input-file:
-    - https://raw.githubusercontent.com/Azure/azure-rest-api-specs/94a37114e8f4067410b52d3b1c75aa6e09180658/specification/managementgroups/resource-manager/Microsoft.Management/stable/2021-04-01/management.json
+    - https://github.com/Azure/azure-rest-api-specs/blob/938efcc36e61ee158f6beb02682e9007729f10f9/specification/managementgroups/resource-manager/Microsoft.Management/stable/2021-04-01/management.json
 request-path-to-parent:
   /providers/Microsoft.Management/checkNameAvailability: /providers/Microsoft.Management/managementGroups/{groupId}
 operation-positions:

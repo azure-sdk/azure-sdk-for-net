@@ -296,6 +296,68 @@ namespace Azure.ResourceManager.Resources
         }
 
         /// <summary>
+        /// Lists child resources of a given parent resource.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{parentResourcePath}/{resourceType}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Resources_ListByParent</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="resourceProviderNamespace"> The namespace of the resource provider. </param>
+        /// <param name="parentResourcePath"> The parent resource identity. </param>
+        /// <param name="resourceType"> The resource type of the resource. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="resourceProviderNamespace"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceProviderNamespace"/>, <paramref name="parentResourcePath"/> or <paramref name="resourceType"/> is null. </exception>
+        /// <returns> An async collection of <see cref="GenericResource" /> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<GenericResource> GetResourcesByParentAsync(string resourceProviderNamespace, string parentResourcePath, string resourceType, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(resourceProviderNamespace, nameof(resourceProviderNamespace));
+            Argument.AssertNotNull(parentResourcePath, nameof(parentResourcePath));
+            Argument.AssertNotNull(resourceType, nameof(resourceType));
+
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _resourceGroupResourcesRestClient.CreateListByParentRequest(Id.SubscriptionId, Id.ResourceGroupName, resourceProviderNamespace, parentResourcePath, resourceType);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _resourceGroupResourcesRestClient.CreateListByParentNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, resourceProviderNamespace, parentResourcePath, resourceType);
+            return PageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new GenericResource(Client, GenericResourceData.DeserializeGenericResourceData(e)), _resourceGroupResourcesClientDiagnostics, Pipeline, "ResourceGroupResource.GetResourcesByParent", "value", "nextLink", cancellationToken);
+        }
+
+        /// <summary>
+        /// Lists child resources of a given parent resource.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{parentResourcePath}/{resourceType}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Resources_ListByParent</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="resourceProviderNamespace"> The namespace of the resource provider. </param>
+        /// <param name="parentResourcePath"> The parent resource identity. </param>
+        /// <param name="resourceType"> The resource type of the resource. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="resourceProviderNamespace"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceProviderNamespace"/>, <paramref name="parentResourcePath"/> or <paramref name="resourceType"/> is null. </exception>
+        /// <returns> A collection of <see cref="GenericResource" /> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<GenericResource> GetResourcesByParent(string resourceProviderNamespace, string parentResourcePath, string resourceType, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(resourceProviderNamespace, nameof(resourceProviderNamespace));
+            Argument.AssertNotNull(parentResourcePath, nameof(parentResourcePath));
+            Argument.AssertNotNull(resourceType, nameof(resourceType));
+
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _resourceGroupResourcesRestClient.CreateListByParentRequest(Id.SubscriptionId, Id.ResourceGroupName, resourceProviderNamespace, parentResourcePath, resourceType);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _resourceGroupResourcesRestClient.CreateListByParentNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, resourceProviderNamespace, parentResourcePath, resourceType);
+            return PageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new GenericResource(Client, GenericResourceData.DeserializeGenericResourceData(e)), _resourceGroupResourcesClientDiagnostics, Pipeline, "ResourceGroupResource.GetResourcesByParent", "value", "nextLink", cancellationToken);
+        }
+
+        /// <summary>
         /// Captures the specified resource group as a template.
         /// <list type="bullet">
         /// <item>
