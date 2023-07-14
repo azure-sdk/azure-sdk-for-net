@@ -11,29 +11,21 @@ using Azure.Core;
 
 namespace Azure.AI.OpenAI
 {
-    public partial class Choice
+    public partial class PromptFilterResult
     {
-        internal static Choice DeserializeChoice(JsonElement element)
+        internal static PromptFilterResult DeserializePromptFilterResult(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
                 return null;
             }
-            string text = default;
-            int index = default;
+            int promptIndex = default;
             Optional<ContentFilterResults> contentFilterResults = default;
-            CompletionsLogProbabilityModel logprobs = default;
-            CompletionsFinishReason finishReason = default;
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("text"u8))
+                if (property.NameEquals("prompt_index"u8))
                 {
-                    text = property.Value.GetString();
-                    continue;
-                }
-                if (property.NameEquals("index"u8))
-                {
-                    index = property.Value.GetInt32();
+                    promptIndex = property.Value.GetInt32();
                     continue;
                 }
                 if (property.NameEquals("content_filter_results"u8))
@@ -45,26 +37,16 @@ namespace Azure.AI.OpenAI
                     contentFilterResults = ContentFilterResults.DeserializeContentFilterResults(property.Value);
                     continue;
                 }
-                if (property.NameEquals("logprobs"u8))
-                {
-                    logprobs = CompletionsLogProbabilityModel.DeserializeCompletionsLogProbabilityModel(property.Value);
-                    continue;
-                }
-                if (property.NameEquals("finish_reason"u8))
-                {
-                    finishReason = new CompletionsFinishReason(property.Value.GetString());
-                    continue;
-                }
             }
-            return new Choice(text, index, contentFilterResults.Value, logprobs, finishReason);
+            return new PromptFilterResult(promptIndex, contentFilterResults.Value);
         }
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static Choice FromResponse(Response response)
+        internal static PromptFilterResult FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content);
-            return DeserializeChoice(document.RootElement);
+            return DeserializePromptFilterResult(document.RootElement);
         }
     }
 }
