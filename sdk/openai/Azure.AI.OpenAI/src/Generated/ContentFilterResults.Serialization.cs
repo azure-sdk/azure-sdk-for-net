@@ -11,68 +11,66 @@ using Azure.Core;
 
 namespace Azure.AI.OpenAI
 {
-    public partial class ChatChoice
+    public partial class ContentFilterResults
     {
-        internal static ChatChoice DeserializeChatChoice(JsonElement element)
+        internal static ContentFilterResults DeserializeContentFilterResults(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
                 return null;
             }
-            Optional<ChatMessage> message = default;
-            int index = default;
-            CompletionsFinishReason finishReason = default;
-            Optional<ChatMessage> delta = default;
-            Optional<ContentFilterResults> contentFilterResults = default;
+            Optional<ContentFilterResult> sexual = default;
+            Optional<ContentFilterResult> violence = default;
+            Optional<ContentFilterResult> hate = default;
+            Optional<ContentFilterResult> selfHarm = default;
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("message"u8))
+                if (property.NameEquals("sexual"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    message = ChatMessage.DeserializeChatMessage(property.Value);
+                    sexual = ContentFilterResult.DeserializeContentFilterResult(property.Value);
                     continue;
                 }
-                if (property.NameEquals("index"u8))
-                {
-                    index = property.Value.GetInt32();
-                    continue;
-                }
-                if (property.NameEquals("finish_reason"u8))
-                {
-                    finishReason = new CompletionsFinishReason(property.Value.GetString());
-                    continue;
-                }
-                if (property.NameEquals("delta"u8))
+                if (property.NameEquals("violence"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    delta = ChatMessage.DeserializeChatMessage(property.Value);
+                    violence = ContentFilterResult.DeserializeContentFilterResult(property.Value);
                     continue;
                 }
-                if (property.NameEquals("content_filter_results"u8))
+                if (property.NameEquals("hate"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    contentFilterResults = ContentFilterResults.DeserializeContentFilterResults(property.Value);
+                    hate = ContentFilterResult.DeserializeContentFilterResult(property.Value);
+                    continue;
+                }
+                if (property.NameEquals("self_harm"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    selfHarm = ContentFilterResult.DeserializeContentFilterResult(property.Value);
                     continue;
                 }
             }
-            return new ChatChoice(message.Value, index, finishReason, delta.Value, contentFilterResults.Value);
+            return new ContentFilterResults(sexual.Value, violence.Value, hate.Value, selfHarm.Value);
         }
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static ChatChoice FromResponse(Response response)
+        internal static ContentFilterResults FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content);
-            return DeserializeChatChoice(document.RootElement);
+            return DeserializeContentFilterResults(document.RootElement);
         }
     }
 }
