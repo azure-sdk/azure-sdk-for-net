@@ -28,7 +28,7 @@ namespace Azure.ResourceManager.CosmosDB
             if (Optional.IsDefined(RoleDefinitionType))
             {
                 writer.WritePropertyName("type"u8);
-                writer.WriteStringValue(RoleDefinitionType.Value.ToSerialString());
+                writer.WriteNumberValue((long)RoleDefinitionType.Value);
             }
             if (Optional.IsDefined(DatabaseName))
             {
