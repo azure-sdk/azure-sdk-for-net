@@ -91,6 +91,7 @@ namespace Azure.ResourceManager.DataBoxEdge
             Optional<DataBoxEdgeResourceMoveDetails> resourceMoveDetails = default;
             Optional<EdgeProfile> edgeProfile = default;
             Optional<DataResidency> dataResidency = default;
+            Optional<string> kubernetesWorkloadProfile = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("sku"u8))
@@ -303,11 +304,16 @@ namespace Azure.ResourceManager.DataBoxEdge
                             dataResidency = DataResidency.DeserializeDataResidency(property0.Value);
                             continue;
                         }
+                        if (property0.NameEquals("kubernetesWorkloadProfile"u8))
+                        {
+                            kubernetesWorkloadProfile = property0.Value.GetString();
+                            continue;
+                        }
                     }
                     continue;
                 }
             }
-            return new DataBoxEdgeDeviceData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, sku.Value, Optional.ToNullable(etag), identity, Optional.ToNullable(kind), Optional.ToNullable(dataBoxEdgeDeviceStatus), serialNumber.Value, description.Value, modelDescription.Value, Optional.ToNullable(deviceType), friendlyName.Value, culture.Value, deviceModel.Value, deviceSoftwareVersion.Value, Optional.ToNullable(deviceLocalCapacity), timeZone.Value, deviceHcsVersion.Value, Optional.ToList(configuredRoleTypes), Optional.ToNullable(nodeCount), resourceMoveDetails.Value, edgeProfile.Value, dataResidency.Value);
+            return new DataBoxEdgeDeviceData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, sku.Value, Optional.ToNullable(etag), identity, Optional.ToNullable(kind), Optional.ToNullable(dataBoxEdgeDeviceStatus), serialNumber.Value, description.Value, modelDescription.Value, Optional.ToNullable(deviceType), friendlyName.Value, culture.Value, deviceModel.Value, deviceSoftwareVersion.Value, Optional.ToNullable(deviceLocalCapacity), timeZone.Value, deviceHcsVersion.Value, Optional.ToList(configuredRoleTypes), Optional.ToNullable(nodeCount), resourceMoveDetails.Value, edgeProfile.Value, dataResidency.Value, kubernetesWorkloadProfile.Value);
         }
     }
 }
