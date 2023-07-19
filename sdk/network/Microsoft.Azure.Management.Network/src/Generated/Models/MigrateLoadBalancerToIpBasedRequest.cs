@@ -16,25 +16,28 @@ namespace Microsoft.Azure.Management.Network.Models
     using System.Linq;
 
     /// <summary>
-    /// List of virtual router peer routes.
+    /// The request for a migrateToIpBased API.
     /// </summary>
-    public partial class PeerRouteList
+    public partial class MigrateLoadBalancerToIpBasedRequest
     {
         /// <summary>
-        /// Initializes a new instance of the PeerRouteList class.
+        /// Initializes a new instance of the
+        /// MigrateLoadBalancerToIpBasedRequest class.
         /// </summary>
-        public PeerRouteList()
+        public MigrateLoadBalancerToIpBasedRequest()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the PeerRouteList class.
+        /// Initializes a new instance of the
+        /// MigrateLoadBalancerToIpBasedRequest class.
         /// </summary>
-        /// <param name="value">List of peer routes.</param>
-        public PeerRouteList(IList<PeerRoute> value = default(IList<PeerRoute>))
+        /// <param name="pools">A list of pool names that should be migrated
+        /// from Nic based to IP based pool</param>
+        public MigrateLoadBalancerToIpBasedRequest(IList<string> pools = default(IList<string>))
         {
-            Value = value;
+            Pools = pools;
             CustomInit();
         }
 
@@ -44,10 +47,11 @@ namespace Microsoft.Azure.Management.Network.Models
         partial void CustomInit();
 
         /// <summary>
-        /// Gets or sets list of peer routes.
+        /// Gets or sets a list of pool names that should be migrated from Nic
+        /// based to IP based pool
         /// </summary>
-        [JsonProperty(PropertyName = "value")]
-        public IList<PeerRoute> Value { get; set; }
+        [JsonProperty(PropertyName = "pools")]
+        public IList<string> Pools { get; set; }
 
     }
 }

@@ -57,6 +57,11 @@ namespace Microsoft.Azure.Management.Network
         string ApiVersion { get; }
 
         /// <summary>
+        /// Client API version.
+        /// </summary>
+        string ApiVersion1 { get; }
+
+        /// <summary>
         /// The preferred language for the response.
         /// </summary>
         string AcceptLanguage { get; set; }
@@ -699,6 +704,11 @@ namespace Microsoft.Azure.Management.Network
         /// Gets the IExpressRouteConnectionsOperations.
         /// </summary>
         IExpressRouteConnectionsOperations ExpressRouteConnections { get; }
+
+        /// <summary>
+        /// Gets the INetworkVirtualApplianceConnectionsOperations.
+        /// </summary>
+        INetworkVirtualApplianceConnectionsOperations NetworkVirtualApplianceConnections { get; }
 
         /// <summary>
         /// Gets the IVirtualHubBgpConnectionOperations.

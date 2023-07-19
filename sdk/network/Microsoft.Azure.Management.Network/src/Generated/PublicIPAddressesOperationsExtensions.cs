@@ -644,6 +644,170 @@ namespace Microsoft.Azure.Management.Network
             }
 
             /// <summary>
+            /// Gets information about all public IP addresses on a cloud service level.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group.
+            /// </param>
+            /// <param name='cloudServiceName'>
+            /// The name of the cloud service.
+            /// </param>
+            public static IPage<PublicIPAddress> ListCloudServicePublicIPAddress(this IPublicIPAddressesOperations operations, string resourceGroupName, string cloudServiceName)
+            {
+                return operations.ListCloudServicePublicIPAddressAsync(resourceGroupName, cloudServiceName).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Gets information about all public IP addresses on a cloud service level.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group.
+            /// </param>
+            /// <param name='cloudServiceName'>
+            /// The name of the cloud service.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<IPage<PublicIPAddress>> ListCloudServicePublicIPAddressAsync(this IPublicIPAddressesOperations operations, string resourceGroupName, string cloudServiceName, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.ListCloudServicePublicIPAddressWithHttpMessagesAsync(resourceGroupName, cloudServiceName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Gets information about all public IP addresses in a role instance IP
+            /// configuration in a cloud service.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group.
+            /// </param>
+            /// <param name='cloudServiceName'>
+            /// The name of the cloud service.
+            /// </param>
+            /// <param name='roleInstanceName'>
+            /// The name of role instance.
+            /// </param>
+            /// <param name='networkInterfaceName'>
+            /// The network interface name.
+            /// </param>
+            /// <param name='ipConfigurationName'>
+            /// The IP configuration name.
+            /// </param>
+            public static IPage<PublicIPAddress> ListCloudServiceRoleInstancePublicIPAddress(this IPublicIPAddressesOperations operations, string resourceGroupName, string cloudServiceName, string roleInstanceName, string networkInterfaceName, string ipConfigurationName)
+            {
+                return operations.ListCloudServiceRoleInstancePublicIPAddressAsync(resourceGroupName, cloudServiceName, roleInstanceName, networkInterfaceName, ipConfigurationName).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Gets information about all public IP addresses in a role instance IP
+            /// configuration in a cloud service.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group.
+            /// </param>
+            /// <param name='cloudServiceName'>
+            /// The name of the cloud service.
+            /// </param>
+            /// <param name='roleInstanceName'>
+            /// The name of role instance.
+            /// </param>
+            /// <param name='networkInterfaceName'>
+            /// The network interface name.
+            /// </param>
+            /// <param name='ipConfigurationName'>
+            /// The IP configuration name.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<IPage<PublicIPAddress>> ListCloudServiceRoleInstancePublicIPAddressAsync(this IPublicIPAddressesOperations operations, string resourceGroupName, string cloudServiceName, string roleInstanceName, string networkInterfaceName, string ipConfigurationName, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.ListCloudServiceRoleInstancePublicIPAddressWithHttpMessagesAsync(resourceGroupName, cloudServiceName, roleInstanceName, networkInterfaceName, ipConfigurationName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Get the specified public IP address in a cloud service.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group.
+            /// </param>
+            /// <param name='cloudServiceName'>
+            /// The name of the cloud service.
+            /// </param>
+            /// <param name='roleInstanceName'>
+            /// The role instance name.
+            /// </param>
+            /// <param name='networkInterfaceName'>
+            /// The name of the network interface.
+            /// </param>
+            /// <param name='ipConfigurationName'>
+            /// The name of the IP configuration.
+            /// </param>
+            /// <param name='publicIpAddressName'>
+            /// The name of the public IP Address.
+            /// </param>
+            public static PublicIPAddress GetCloudServiceRoleInstancePublicIPAddress(this IPublicIPAddressesOperations operations, string resourceGroupName, string cloudServiceName, string roleInstanceName, string networkInterfaceName, string ipConfigurationName, string publicIpAddressName)
+            {
+                return operations.GetCloudServiceRoleInstancePublicIPAddressAsync(resourceGroupName, cloudServiceName, roleInstanceName, networkInterfaceName, ipConfigurationName, publicIpAddressName).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Get the specified public IP address in a cloud service.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group.
+            /// </param>
+            /// <param name='cloudServiceName'>
+            /// The name of the cloud service.
+            /// </param>
+            /// <param name='roleInstanceName'>
+            /// The role instance name.
+            /// </param>
+            /// <param name='networkInterfaceName'>
+            /// The name of the network interface.
+            /// </param>
+            /// <param name='ipConfigurationName'>
+            /// The name of the IP configuration.
+            /// </param>
+            /// <param name='publicIpAddressName'>
+            /// The name of the public IP Address.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<PublicIPAddress> GetCloudServiceRoleInstancePublicIPAddressAsync(this IPublicIPAddressesOperations operations, string resourceGroupName, string cloudServiceName, string roleInstanceName, string networkInterfaceName, string ipConfigurationName, string publicIpAddressName, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.GetCloudServiceRoleInstancePublicIPAddressWithHttpMessagesAsync(resourceGroupName, cloudServiceName, roleInstanceName, networkInterfaceName, ipConfigurationName, publicIpAddressName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
             /// Deletes the specified public IP address.
             /// </summary>
             /// <param name='operations'>
@@ -974,6 +1138,76 @@ namespace Microsoft.Azure.Management.Network
             public static async Task<IPage<PublicIPAddress>> ListVirtualMachineScaleSetVMPublicIPAddressesNextAsync(this IPublicIPAddressesOperations operations, string nextPageLink, CancellationToken cancellationToken = default(CancellationToken))
             {
                 using (var _result = await operations.ListVirtualMachineScaleSetVMPublicIPAddressesNextWithHttpMessagesAsync(nextPageLink, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Gets information about all public IP addresses on a cloud service level.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='nextPageLink'>
+            /// The NextLink from the previous successful call to List operation.
+            /// </param>
+            public static IPage<PublicIPAddress> ListCloudServicePublicIPAddressNext(this IPublicIPAddressesOperations operations, string nextPageLink)
+            {
+                return operations.ListCloudServicePublicIPAddressNextAsync(nextPageLink).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Gets information about all public IP addresses on a cloud service level.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='nextPageLink'>
+            /// The NextLink from the previous successful call to List operation.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<IPage<PublicIPAddress>> ListCloudServicePublicIPAddressNextAsync(this IPublicIPAddressesOperations operations, string nextPageLink, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.ListCloudServicePublicIPAddressNextWithHttpMessagesAsync(nextPageLink, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Gets information about all public IP addresses in a role instance IP
+            /// configuration in a cloud service.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='nextPageLink'>
+            /// The NextLink from the previous successful call to List operation.
+            /// </param>
+            public static IPage<PublicIPAddress> ListCloudServiceRoleInstancePublicIPAddressNext(this IPublicIPAddressesOperations operations, string nextPageLink)
+            {
+                return operations.ListCloudServiceRoleInstancePublicIPAddressNextAsync(nextPageLink).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Gets information about all public IP addresses in a role instance IP
+            /// configuration in a cloud service.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='nextPageLink'>
+            /// The NextLink from the previous successful call to List operation.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<IPage<PublicIPAddress>> ListCloudServiceRoleInstancePublicIPAddressNextAsync(this IPublicIPAddressesOperations operations, string nextPageLink, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.ListCloudServiceRoleInstancePublicIPAddressNextWithHttpMessagesAsync(nextPageLink, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
