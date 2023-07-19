@@ -33,7 +33,7 @@ namespace Azure.ResourceManager.Network
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2023-02-01";
+            _apiVersion = apiVersion ?? "2023-04-01";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
@@ -572,6 +572,288 @@ namespace Azure.ResourceManager.Network
             }
         }
 
+        internal HttpMessage CreateListCloudServicePublicIPAddressRequest(string subscriptionId, string resourceGroupName, string cloudServiceName)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Get;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/subscriptions/", false);
+            uri.AppendPath(subscriptionId, true);
+            uri.AppendPath("/resourceGroups/", false);
+            uri.AppendPath(resourceGroupName, true);
+            uri.AppendPath("/providers/Microsoft.Compute/cloudServices/", false);
+            uri.AppendPath(cloudServiceName, true);
+            uri.AppendPath("/providers/Microsoft.Network/cloudServicePublicIPAddresses", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> Gets information about all public IP addresses on a cloud service level. </summary>
+        /// <param name="subscriptionId"> The subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. </param>
+        /// <param name="cloudServiceName"> The name of the cloud service. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="cloudServiceName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="cloudServiceName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<PublicIPAddressListResult>> ListCloudServicePublicIPAddressAsync(string subscriptionId, string resourceGroupName, string cloudServiceName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(cloudServiceName, nameof(cloudServiceName));
+
+            using var message = CreateListCloudServicePublicIPAddressRequest(subscriptionId, resourceGroupName, cloudServiceName);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        PublicIPAddressListResult value = default;
+                        using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+                        value = PublicIPAddressListResult.DeserializePublicIPAddressListResult(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> Gets information about all public IP addresses on a cloud service level. </summary>
+        /// <param name="subscriptionId"> The subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. </param>
+        /// <param name="cloudServiceName"> The name of the cloud service. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="cloudServiceName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="cloudServiceName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<PublicIPAddressListResult> ListCloudServicePublicIPAddress(string subscriptionId, string resourceGroupName, string cloudServiceName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(cloudServiceName, nameof(cloudServiceName));
+
+            using var message = CreateListCloudServicePublicIPAddressRequest(subscriptionId, resourceGroupName, cloudServiceName);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        PublicIPAddressListResult value = default;
+                        using var document = JsonDocument.Parse(message.Response.ContentStream);
+                        value = PublicIPAddressListResult.DeserializePublicIPAddressListResult(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        internal HttpMessage CreateListCloudServiceRoleInstancePublicIPAddressRequest(string subscriptionId, string resourceGroupName, string cloudServiceName, string roleInstanceName, string networkInterfaceName, string ipConfigurationName)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Get;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/subscriptions/", false);
+            uri.AppendPath(subscriptionId, true);
+            uri.AppendPath("/resourceGroups/", false);
+            uri.AppendPath(resourceGroupName, true);
+            uri.AppendPath("/providers/Microsoft.Compute/cloudServices/", false);
+            uri.AppendPath(cloudServiceName, true);
+            uri.AppendPath("/roleInstances/", false);
+            uri.AppendPath(roleInstanceName, true);
+            uri.AppendPath("/providers/Microsoft.Network/cloudServiceNetworkInterfaces/", false);
+            uri.AppendPath(networkInterfaceName, true);
+            uri.AppendPath("/ipconfigurations/", false);
+            uri.AppendPath(ipConfigurationName, true);
+            uri.AppendPath("/publicipaddresses", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> Gets information about all public IP addresses in a role instance IP configuration in a cloud service. </summary>
+        /// <param name="subscriptionId"> The subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. </param>
+        /// <param name="cloudServiceName"> The name of the cloud service. </param>
+        /// <param name="roleInstanceName"> The name of role instance. </param>
+        /// <param name="networkInterfaceName"> The network interface name. </param>
+        /// <param name="ipConfigurationName"> The IP configuration name. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="cloudServiceName"/>, <paramref name="roleInstanceName"/>, <paramref name="networkInterfaceName"/> or <paramref name="ipConfigurationName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="cloudServiceName"/>, <paramref name="roleInstanceName"/>, <paramref name="networkInterfaceName"/> or <paramref name="ipConfigurationName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<PublicIPAddressListResult>> ListCloudServiceRoleInstancePublicIPAddressAsync(string subscriptionId, string resourceGroupName, string cloudServiceName, string roleInstanceName, string networkInterfaceName, string ipConfigurationName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(cloudServiceName, nameof(cloudServiceName));
+            Argument.AssertNotNullOrEmpty(roleInstanceName, nameof(roleInstanceName));
+            Argument.AssertNotNullOrEmpty(networkInterfaceName, nameof(networkInterfaceName));
+            Argument.AssertNotNullOrEmpty(ipConfigurationName, nameof(ipConfigurationName));
+
+            using var message = CreateListCloudServiceRoleInstancePublicIPAddressRequest(subscriptionId, resourceGroupName, cloudServiceName, roleInstanceName, networkInterfaceName, ipConfigurationName);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        PublicIPAddressListResult value = default;
+                        using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+                        value = PublicIPAddressListResult.DeserializePublicIPAddressListResult(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> Gets information about all public IP addresses in a role instance IP configuration in a cloud service. </summary>
+        /// <param name="subscriptionId"> The subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. </param>
+        /// <param name="cloudServiceName"> The name of the cloud service. </param>
+        /// <param name="roleInstanceName"> The name of role instance. </param>
+        /// <param name="networkInterfaceName"> The network interface name. </param>
+        /// <param name="ipConfigurationName"> The IP configuration name. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="cloudServiceName"/>, <paramref name="roleInstanceName"/>, <paramref name="networkInterfaceName"/> or <paramref name="ipConfigurationName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="cloudServiceName"/>, <paramref name="roleInstanceName"/>, <paramref name="networkInterfaceName"/> or <paramref name="ipConfigurationName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<PublicIPAddressListResult> ListCloudServiceRoleInstancePublicIPAddress(string subscriptionId, string resourceGroupName, string cloudServiceName, string roleInstanceName, string networkInterfaceName, string ipConfigurationName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(cloudServiceName, nameof(cloudServiceName));
+            Argument.AssertNotNullOrEmpty(roleInstanceName, nameof(roleInstanceName));
+            Argument.AssertNotNullOrEmpty(networkInterfaceName, nameof(networkInterfaceName));
+            Argument.AssertNotNullOrEmpty(ipConfigurationName, nameof(ipConfigurationName));
+
+            using var message = CreateListCloudServiceRoleInstancePublicIPAddressRequest(subscriptionId, resourceGroupName, cloudServiceName, roleInstanceName, networkInterfaceName, ipConfigurationName);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        PublicIPAddressListResult value = default;
+                        using var document = JsonDocument.Parse(message.Response.ContentStream);
+                        value = PublicIPAddressListResult.DeserializePublicIPAddressListResult(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        internal HttpMessage CreateGetCloudServiceRoleInstancePublicIPAddressRequest(string subscriptionId, string resourceGroupName, string cloudServiceName, string roleInstanceName, string networkInterfaceName, string ipConfigurationName, string publicIPAddressName)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Get;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/subscriptions/", false);
+            uri.AppendPath(subscriptionId, true);
+            uri.AppendPath("/resourceGroups/", false);
+            uri.AppendPath(resourceGroupName, true);
+            uri.AppendPath("/providers/Microsoft.Compute/cloudServices/", false);
+            uri.AppendPath(cloudServiceName, true);
+            uri.AppendPath("/roleInstances/", false);
+            uri.AppendPath(roleInstanceName, true);
+            uri.AppendPath("/providers/Microsoft.Network/cloudServiceNetworkInterfaces/", false);
+            uri.AppendPath(networkInterfaceName, true);
+            uri.AppendPath("/ipconfigurations/", false);
+            uri.AppendPath(ipConfigurationName, true);
+            uri.AppendPath("/publicipaddresses/", false);
+            uri.AppendPath(publicIPAddressName, true);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> Get the specified public IP address in a cloud service. </summary>
+        /// <param name="subscriptionId"> The subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. </param>
+        /// <param name="cloudServiceName"> The name of the cloud service. </param>
+        /// <param name="roleInstanceName"> The role instance name. </param>
+        /// <param name="networkInterfaceName"> The name of the network interface. </param>
+        /// <param name="ipConfigurationName"> The name of the IP configuration. </param>
+        /// <param name="publicIPAddressName"> The name of the public IP Address. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="cloudServiceName"/>, <paramref name="roleInstanceName"/>, <paramref name="networkInterfaceName"/>, <paramref name="ipConfigurationName"/> or <paramref name="publicIPAddressName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="cloudServiceName"/>, <paramref name="roleInstanceName"/>, <paramref name="networkInterfaceName"/>, <paramref name="ipConfigurationName"/> or <paramref name="publicIPAddressName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<PublicIPAddressData>> GetCloudServiceRoleInstancePublicIPAddressAsync(string subscriptionId, string resourceGroupName, string cloudServiceName, string roleInstanceName, string networkInterfaceName, string ipConfigurationName, string publicIPAddressName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(cloudServiceName, nameof(cloudServiceName));
+            Argument.AssertNotNullOrEmpty(roleInstanceName, nameof(roleInstanceName));
+            Argument.AssertNotNullOrEmpty(networkInterfaceName, nameof(networkInterfaceName));
+            Argument.AssertNotNullOrEmpty(ipConfigurationName, nameof(ipConfigurationName));
+            Argument.AssertNotNullOrEmpty(publicIPAddressName, nameof(publicIPAddressName));
+
+            using var message = CreateGetCloudServiceRoleInstancePublicIPAddressRequest(subscriptionId, resourceGroupName, cloudServiceName, roleInstanceName, networkInterfaceName, ipConfigurationName, publicIPAddressName);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        PublicIPAddressData value = default;
+                        using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+                        value = PublicIPAddressData.DeserializePublicIPAddressData(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                case 404:
+                    return Response.FromValue((PublicIPAddressData)null, message.Response);
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> Get the specified public IP address in a cloud service. </summary>
+        /// <param name="subscriptionId"> The subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. </param>
+        /// <param name="cloudServiceName"> The name of the cloud service. </param>
+        /// <param name="roleInstanceName"> The role instance name. </param>
+        /// <param name="networkInterfaceName"> The name of the network interface. </param>
+        /// <param name="ipConfigurationName"> The name of the IP configuration. </param>
+        /// <param name="publicIPAddressName"> The name of the public IP Address. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="cloudServiceName"/>, <paramref name="roleInstanceName"/>, <paramref name="networkInterfaceName"/>, <paramref name="ipConfigurationName"/> or <paramref name="publicIPAddressName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="cloudServiceName"/>, <paramref name="roleInstanceName"/>, <paramref name="networkInterfaceName"/>, <paramref name="ipConfigurationName"/> or <paramref name="publicIPAddressName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<PublicIPAddressData> GetCloudServiceRoleInstancePublicIPAddress(string subscriptionId, string resourceGroupName, string cloudServiceName, string roleInstanceName, string networkInterfaceName, string ipConfigurationName, string publicIPAddressName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(cloudServiceName, nameof(cloudServiceName));
+            Argument.AssertNotNullOrEmpty(roleInstanceName, nameof(roleInstanceName));
+            Argument.AssertNotNullOrEmpty(networkInterfaceName, nameof(networkInterfaceName));
+            Argument.AssertNotNullOrEmpty(ipConfigurationName, nameof(ipConfigurationName));
+            Argument.AssertNotNullOrEmpty(publicIPAddressName, nameof(publicIPAddressName));
+
+            using var message = CreateGetCloudServiceRoleInstancePublicIPAddressRequest(subscriptionId, resourceGroupName, cloudServiceName, roleInstanceName, networkInterfaceName, ipConfigurationName, publicIPAddressName);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        PublicIPAddressData value = default;
+                        using var document = JsonDocument.Parse(message.Response.ContentStream);
+                        value = PublicIPAddressData.DeserializePublicIPAddressData(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                case 404:
+                    return Response.FromValue((PublicIPAddressData)null, message.Response);
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
         internal HttpMessage CreateListAllNextPageRequest(string nextLink, string subscriptionId)
         {
             var message = _pipeline.CreateMessage();
@@ -697,6 +979,170 @@ namespace Azure.ResourceManager.Network
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
 
             using var message = CreateListNextPageRequest(nextLink, subscriptionId, resourceGroupName);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        PublicIPAddressListResult value = default;
+                        using var document = JsonDocument.Parse(message.Response.ContentStream);
+                        value = PublicIPAddressListResult.DeserializePublicIPAddressListResult(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        internal HttpMessage CreateListCloudServicePublicIPAddressNextPageRequest(string nextLink, string subscriptionId, string resourceGroupName, string cloudServiceName)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Get;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendRawNextLink(nextLink, false);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> Gets information about all public IP addresses on a cloud service level. </summary>
+        /// <param name="nextLink"> The URL to the next page of results. </param>
+        /// <param name="subscriptionId"> The subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. </param>
+        /// <param name="cloudServiceName"> The name of the cloud service. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="cloudServiceName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="cloudServiceName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<PublicIPAddressListResult>> ListCloudServicePublicIPAddressNextPageAsync(string nextLink, string subscriptionId, string resourceGroupName, string cloudServiceName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(nextLink, nameof(nextLink));
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(cloudServiceName, nameof(cloudServiceName));
+
+            using var message = CreateListCloudServicePublicIPAddressNextPageRequest(nextLink, subscriptionId, resourceGroupName, cloudServiceName);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        PublicIPAddressListResult value = default;
+                        using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+                        value = PublicIPAddressListResult.DeserializePublicIPAddressListResult(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> Gets information about all public IP addresses on a cloud service level. </summary>
+        /// <param name="nextLink"> The URL to the next page of results. </param>
+        /// <param name="subscriptionId"> The subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. </param>
+        /// <param name="cloudServiceName"> The name of the cloud service. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="cloudServiceName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="cloudServiceName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<PublicIPAddressListResult> ListCloudServicePublicIPAddressNextPage(string nextLink, string subscriptionId, string resourceGroupName, string cloudServiceName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(nextLink, nameof(nextLink));
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(cloudServiceName, nameof(cloudServiceName));
+
+            using var message = CreateListCloudServicePublicIPAddressNextPageRequest(nextLink, subscriptionId, resourceGroupName, cloudServiceName);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        PublicIPAddressListResult value = default;
+                        using var document = JsonDocument.Parse(message.Response.ContentStream);
+                        value = PublicIPAddressListResult.DeserializePublicIPAddressListResult(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        internal HttpMessage CreateListCloudServiceRoleInstancePublicIPAddressNextPageRequest(string nextLink, string subscriptionId, string resourceGroupName, string cloudServiceName, string roleInstanceName, string networkInterfaceName, string ipConfigurationName)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Get;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendRawNextLink(nextLink, false);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> Gets information about all public IP addresses in a role instance IP configuration in a cloud service. </summary>
+        /// <param name="nextLink"> The URL to the next page of results. </param>
+        /// <param name="subscriptionId"> The subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. </param>
+        /// <param name="cloudServiceName"> The name of the cloud service. </param>
+        /// <param name="roleInstanceName"> The name of role instance. </param>
+        /// <param name="networkInterfaceName"> The network interface name. </param>
+        /// <param name="ipConfigurationName"> The IP configuration name. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="cloudServiceName"/>, <paramref name="roleInstanceName"/>, <paramref name="networkInterfaceName"/> or <paramref name="ipConfigurationName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="cloudServiceName"/>, <paramref name="roleInstanceName"/>, <paramref name="networkInterfaceName"/> or <paramref name="ipConfigurationName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<PublicIPAddressListResult>> ListCloudServiceRoleInstancePublicIPAddressNextPageAsync(string nextLink, string subscriptionId, string resourceGroupName, string cloudServiceName, string roleInstanceName, string networkInterfaceName, string ipConfigurationName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(nextLink, nameof(nextLink));
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(cloudServiceName, nameof(cloudServiceName));
+            Argument.AssertNotNullOrEmpty(roleInstanceName, nameof(roleInstanceName));
+            Argument.AssertNotNullOrEmpty(networkInterfaceName, nameof(networkInterfaceName));
+            Argument.AssertNotNullOrEmpty(ipConfigurationName, nameof(ipConfigurationName));
+
+            using var message = CreateListCloudServiceRoleInstancePublicIPAddressNextPageRequest(nextLink, subscriptionId, resourceGroupName, cloudServiceName, roleInstanceName, networkInterfaceName, ipConfigurationName);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        PublicIPAddressListResult value = default;
+                        using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+                        value = PublicIPAddressListResult.DeserializePublicIPAddressListResult(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> Gets information about all public IP addresses in a role instance IP configuration in a cloud service. </summary>
+        /// <param name="nextLink"> The URL to the next page of results. </param>
+        /// <param name="subscriptionId"> The subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. </param>
+        /// <param name="cloudServiceName"> The name of the cloud service. </param>
+        /// <param name="roleInstanceName"> The name of role instance. </param>
+        /// <param name="networkInterfaceName"> The network interface name. </param>
+        /// <param name="ipConfigurationName"> The IP configuration name. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="cloudServiceName"/>, <paramref name="roleInstanceName"/>, <paramref name="networkInterfaceName"/> or <paramref name="ipConfigurationName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="cloudServiceName"/>, <paramref name="roleInstanceName"/>, <paramref name="networkInterfaceName"/> or <paramref name="ipConfigurationName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<PublicIPAddressListResult> ListCloudServiceRoleInstancePublicIPAddressNextPage(string nextLink, string subscriptionId, string resourceGroupName, string cloudServiceName, string roleInstanceName, string networkInterfaceName, string ipConfigurationName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(nextLink, nameof(nextLink));
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(cloudServiceName, nameof(cloudServiceName));
+            Argument.AssertNotNullOrEmpty(roleInstanceName, nameof(roleInstanceName));
+            Argument.AssertNotNullOrEmpty(networkInterfaceName, nameof(networkInterfaceName));
+            Argument.AssertNotNullOrEmpty(ipConfigurationName, nameof(ipConfigurationName));
+
+            using var message = CreateListCloudServiceRoleInstancePublicIPAddressNextPageRequest(nextLink, subscriptionId, resourceGroupName, cloudServiceName, roleInstanceName, networkInterfaceName, ipConfigurationName);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {

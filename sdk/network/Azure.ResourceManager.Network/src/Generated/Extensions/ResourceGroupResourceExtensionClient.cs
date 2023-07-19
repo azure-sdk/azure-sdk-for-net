@@ -23,10 +23,14 @@ namespace Azure.ResourceManager.Network
         private AvailableResourceGroupDelegationsRestOperations _availableResourceGroupDelegationsRestClient;
         private ClientDiagnostics _availableServiceAliasesClientDiagnostics;
         private AvailableServiceAliasesRestOperations _availableServiceAliasesRestClient;
+        private ClientDiagnostics _cloudServiceNetworkInterfaceNetworkInterfacesClientDiagnostics;
+        private NetworkInterfacesRestOperations _cloudServiceNetworkInterfaceNetworkInterfacesRestClient;
         private ClientDiagnostics _availablePrivateEndpointTypesClientDiagnostics;
         private AvailablePrivateEndpointTypesRestOperations _availablePrivateEndpointTypesRestClient;
         private ClientDiagnostics _privateLinkServicesClientDiagnostics;
         private PrivateLinkServicesRestOperations _privateLinkServicesRestClient;
+        private ClientDiagnostics _publicIPAddressesClientDiagnostics;
+        private PublicIPAddressesRestOperations _publicIPAddressesRestClient;
 
         /// <summary> Initializes a new instance of the <see cref="ResourceGroupResourceExtensionClient"/> class for mocking. </summary>
         protected ResourceGroupResourceExtensionClient()
@@ -44,10 +48,14 @@ namespace Azure.ResourceManager.Network
         private AvailableResourceGroupDelegationsRestOperations AvailableResourceGroupDelegationsRestClient => _availableResourceGroupDelegationsRestClient ??= new AvailableResourceGroupDelegationsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
         private ClientDiagnostics AvailableServiceAliasesClientDiagnostics => _availableServiceAliasesClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.Network", ProviderConstants.DefaultProviderNamespace, Diagnostics);
         private AvailableServiceAliasesRestOperations AvailableServiceAliasesRestClient => _availableServiceAliasesRestClient ??= new AvailableServiceAliasesRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
+        private ClientDiagnostics CloudServiceNetworkInterfaceNetworkInterfacesClientDiagnostics => _cloudServiceNetworkInterfaceNetworkInterfacesClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.Network", CloudServiceNetworkInterfaceResource.ResourceType.Namespace, Diagnostics);
+        private NetworkInterfacesRestOperations CloudServiceNetworkInterfaceNetworkInterfacesRestClient => _cloudServiceNetworkInterfaceNetworkInterfacesRestClient ??= new NetworkInterfacesRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(CloudServiceNetworkInterfaceResource.ResourceType));
         private ClientDiagnostics AvailablePrivateEndpointTypesClientDiagnostics => _availablePrivateEndpointTypesClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.Network", ProviderConstants.DefaultProviderNamespace, Diagnostics);
         private AvailablePrivateEndpointTypesRestOperations AvailablePrivateEndpointTypesRestClient => _availablePrivateEndpointTypesRestClient ??= new AvailablePrivateEndpointTypesRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
         private ClientDiagnostics PrivateLinkServicesClientDiagnostics => _privateLinkServicesClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.Network", ProviderConstants.DefaultProviderNamespace, Diagnostics);
         private PrivateLinkServicesRestOperations PrivateLinkServicesRestClient => _privateLinkServicesRestClient ??= new PrivateLinkServicesRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
+        private ClientDiagnostics PublicIPAddressesClientDiagnostics => _publicIPAddressesClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.Network", ProviderConstants.DefaultProviderNamespace, Diagnostics);
+        private PublicIPAddressesRestOperations PublicIPAddressesRestClient => _publicIPAddressesRestClient ??= new PublicIPAddressesRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
 
         private string GetApiVersionOrNull(ResourceType resourceType)
         {
@@ -180,6 +188,15 @@ namespace Azure.ResourceManager.Network
         public virtual NetworkInterfaceCollection GetNetworkInterfaces()
         {
             return GetCachedClient(Client => new NetworkInterfaceCollection(Client, Id));
+        }
+
+        /// <summary> Gets a collection of CloudServiceNetworkInterfaceResources in the ResourceGroupResource. </summary>
+        /// <param name="cloudServiceName"> The name of the cloud service. </param>
+        /// <param name="roleInstanceName"> The name of role instance. </param>
+        /// <returns> An object representing collection of CloudServiceNetworkInterfaceResources and their operations over a CloudServiceNetworkInterfaceResource. </returns>
+        public virtual CloudServiceNetworkInterfaceCollection GetCloudServiceNetworkInterfaces(string cloudServiceName, string roleInstanceName)
+        {
+            return new CloudServiceNetworkInterfaceCollection(Client, Id, cloudServiceName, roleInstanceName);
         }
 
         /// <summary> Gets a collection of NetworkManagerResources in the ResourceGroupResource. </summary>
@@ -464,6 +481,50 @@ namespace Azure.ResourceManager.Network
         }
 
         /// <summary>
+        /// Gets all network interfaces in a cloud service.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/cloudServices/{cloudServiceName}/providers/Microsoft.Network/cloudServiceNetworkInterfaces</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>NetworkInterfaces_ListCloudServiceNetworkInterface</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> An async collection of <see cref="CloudServiceNetworkInterfaceResource" /> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<CloudServiceNetworkInterfaceResource> GetCloudServiceNetworkInterfacesAsync(CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => CloudServiceNetworkInterfaceNetworkInterfacesRestClient.CreateListCloudServiceNetworkInterfaceRequest(Id.SubscriptionId, Id.ResourceGroupName, _cloudServiceName);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => CloudServiceNetworkInterfaceNetworkInterfacesRestClient.CreateListCloudServiceNetworkInterfaceNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, _cloudServiceName);
+            return PageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new CloudServiceNetworkInterfaceResource(Client, NetworkInterfaceData.DeserializeNetworkInterfaceData(e)), CloudServiceNetworkInterfaceNetworkInterfacesClientDiagnostics, Pipeline, "ResourceGroupResourceExtensionClient.GetCloudServiceNetworkInterfaces", "value", "nextLink", cancellationToken);
+        }
+
+        /// <summary>
+        /// Gets all network interfaces in a cloud service.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/cloudServices/{cloudServiceName}/providers/Microsoft.Network/cloudServiceNetworkInterfaces</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>NetworkInterfaces_ListCloudServiceNetworkInterface</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="CloudServiceNetworkInterfaceResource" /> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<CloudServiceNetworkInterfaceResource> GetCloudServiceNetworkInterfaces(CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => CloudServiceNetworkInterfaceNetworkInterfacesRestClient.CreateListCloudServiceNetworkInterfaceRequest(Id.SubscriptionId, Id.ResourceGroupName, _cloudServiceName);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => CloudServiceNetworkInterfaceNetworkInterfacesRestClient.CreateListCloudServiceNetworkInterfaceNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, _cloudServiceName);
+            return PageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new CloudServiceNetworkInterfaceResource(Client, NetworkInterfaceData.DeserializeNetworkInterfaceData(e)), CloudServiceNetworkInterfaceNetworkInterfacesClientDiagnostics, Pipeline, "ResourceGroupResourceExtensionClient.GetCloudServiceNetworkInterfaces", "value", "nextLink", cancellationToken);
+        }
+
+        /// <summary>
         /// Returns all of the resource types that can be linked to a Private Endpoint in this subscription in this region.
         /// <list type="bullet">
         /// <item>
@@ -625,6 +686,52 @@ namespace Azure.ResourceManager.Network
             HttpMessage FirstPageRequest(int? pageSizeHint) => PrivateLinkServicesRestClient.CreateListAutoApprovedPrivateLinkServicesByResourceGroupRequest(Id.SubscriptionId, Id.ResourceGroupName, location);
             HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => PrivateLinkServicesRestClient.CreateListAutoApprovedPrivateLinkServicesByResourceGroupNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, location);
             return PageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, AutoApprovedPrivateLinkService.DeserializeAutoApprovedPrivateLinkService, PrivateLinkServicesClientDiagnostics, Pipeline, "ResourceGroupResourceExtensionClient.GetAutoApprovedPrivateLinkServicesByResourceGroupPrivateLinkServices", "value", "nextLink", cancellationToken);
+        }
+
+        /// <summary>
+        /// Gets information about all public IP addresses on a cloud service level.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/cloudServices/{cloudServiceName}/providers/Microsoft.Network/cloudServicePublicIPAddresses</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>PublicIPAddresses_ListCloudServicePublicIPAddress</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cloudServiceName"> The name of the cloud service. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> An async collection of <see cref="PublicIPAddressData" /> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<PublicIPAddressData> GetCloudServicePublicIPAddressPublicIPAddressesAsync(string cloudServiceName, CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => PublicIPAddressesRestClient.CreateListCloudServicePublicIPAddressRequest(Id.SubscriptionId, Id.ResourceGroupName, cloudServiceName);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => PublicIPAddressesRestClient.CreateListCloudServicePublicIPAddressNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, cloudServiceName);
+            return PageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, PublicIPAddressData.DeserializePublicIPAddressData, PublicIPAddressesClientDiagnostics, Pipeline, "ResourceGroupResourceExtensionClient.GetCloudServicePublicIPAddressPublicIPAddresses", "value", "nextLink", cancellationToken);
+        }
+
+        /// <summary>
+        /// Gets information about all public IP addresses on a cloud service level.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/cloudServices/{cloudServiceName}/providers/Microsoft.Network/cloudServicePublicIPAddresses</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>PublicIPAddresses_ListCloudServicePublicIPAddress</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cloudServiceName"> The name of the cloud service. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="PublicIPAddressData" /> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<PublicIPAddressData> GetCloudServicePublicIPAddressPublicIPAddresses(string cloudServiceName, CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => PublicIPAddressesRestClient.CreateListCloudServicePublicIPAddressRequest(Id.SubscriptionId, Id.ResourceGroupName, cloudServiceName);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => PublicIPAddressesRestClient.CreateListCloudServicePublicIPAddressNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, cloudServiceName);
+            return PageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, PublicIPAddressData.DeserializePublicIPAddressData, PublicIPAddressesClientDiagnostics, Pipeline, "ResourceGroupResourceExtensionClient.GetCloudServicePublicIPAddressPublicIPAddresses", "value", "nextLink", cancellationToken);
         }
     }
 }

@@ -789,6 +789,25 @@ namespace Azure.ResourceManager.Network
         }
         #endregion
 
+        #region CloudServiceNetworkInterfaceResource
+        /// <summary>
+        /// Gets an object representing a <see cref="CloudServiceNetworkInterfaceResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="CloudServiceNetworkInterfaceResource.CreateResourceIdentifier" /> to create a <see cref="CloudServiceNetworkInterfaceResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="CloudServiceNetworkInterfaceResource" /> object. </returns>
+        public static CloudServiceNetworkInterfaceResource GetCloudServiceNetworkInterfaceResource(this ArmClient client, ResourceIdentifier id)
+        {
+            return client.GetResourceClient(() =>
+            {
+                CloudServiceNetworkInterfaceResource.ValidateResourceId(id);
+                return new CloudServiceNetworkInterfaceResource(client, id);
+            }
+            );
+        }
+        #endregion
+
         #region NetworkInterfaceIPConfigurationResource
         /// <summary>
         /// Gets an object representing a <see cref="NetworkInterfaceIPConfigurationResource" /> along with the instance operations that can be performed on it but with no data.
@@ -1316,6 +1335,25 @@ namespace Azure.ResourceManager.Network
             {
                 PublicIPAddressResource.ValidateResourceId(id);
                 return new PublicIPAddressResource(client, id);
+            }
+            );
+        }
+        #endregion
+
+        #region CloudServiceNetworkInterfaceIpconfigurationPublicipaddressResource
+        /// <summary>
+        /// Gets an object representing a <see cref="CloudServiceNetworkInterfaceIpconfigurationPublicipaddressResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="CloudServiceNetworkInterfaceIpconfigurationPublicipaddressResource.CreateResourceIdentifier" /> to create a <see cref="CloudServiceNetworkInterfaceIpconfigurationPublicipaddressResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="CloudServiceNetworkInterfaceIpconfigurationPublicipaddressResource" /> object. </returns>
+        public static CloudServiceNetworkInterfaceIpconfigurationPublicipaddressResource GetCloudServiceNetworkInterfaceIpconfigurationPublicipaddressResource(this ArmClient client, ResourceIdentifier id)
+        {
+            return client.GetResourceClient(() =>
+            {
+                CloudServiceNetworkInterfaceIpconfigurationPublicipaddressResource.ValidateResourceId(id);
+                return new CloudServiceNetworkInterfaceIpconfigurationPublicipaddressResource(client, id);
             }
             );
         }
@@ -3164,6 +3202,73 @@ namespace Azure.ResourceManager.Network
             return resourceGroupResource.GetNetworkInterfaces().Get(networkInterfaceName, expand, cancellationToken);
         }
 
+        /// <summary> Gets a collection of CloudServiceNetworkInterfaceResources in the ResourceGroupResource. </summary>
+        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
+        /// <param name="cloudServiceName"> The name of the cloud service. </param>
+        /// <param name="roleInstanceName"> The name of role instance. </param>
+        /// <exception cref="ArgumentException"> <paramref name="cloudServiceName"/> or <paramref name="roleInstanceName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cloudServiceName"/> or <paramref name="roleInstanceName"/> is null. </exception>
+        /// <returns> An object representing collection of CloudServiceNetworkInterfaceResources and their operations over a CloudServiceNetworkInterfaceResource. </returns>
+        public static CloudServiceNetworkInterfaceCollection GetCloudServiceNetworkInterfaces(this ResourceGroupResource resourceGroupResource, string cloudServiceName, string roleInstanceName)
+        {
+            Argument.AssertNotNullOrEmpty(cloudServiceName, nameof(cloudServiceName));
+            Argument.AssertNotNullOrEmpty(roleInstanceName, nameof(roleInstanceName));
+
+            return GetResourceGroupResourceExtensionClient(resourceGroupResource).GetCloudServiceNetworkInterfaces(cloudServiceName, roleInstanceName);
+        }
+
+        /// <summary>
+        /// Get the specified network interface in a cloud service.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/cloudServices/{cloudServiceName}/roleInstances/{roleInstanceName}/providers/Microsoft.Network/cloudServiceNetworkInterfaces/{networkInterfaceName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>NetworkInterfaces_GetCloudServiceRoleInstanceNetworkInterface</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
+        /// <param name="cloudServiceName"> The name of the cloud service. </param>
+        /// <param name="roleInstanceName"> The name of role instance. </param>
+        /// <param name="networkInterfaceName"> The name of the network interface. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="cloudServiceName"/>, <paramref name="roleInstanceName"/> or <paramref name="networkInterfaceName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cloudServiceName"/>, <paramref name="roleInstanceName"/> or <paramref name="networkInterfaceName"/> is null. </exception>
+        [ForwardsClientCalls]
+        public static async Task<Response<CloudServiceNetworkInterfaceResource>> GetCloudServiceNetworkInterfaceAsync(this ResourceGroupResource resourceGroupResource, string cloudServiceName, string roleInstanceName, string networkInterfaceName, CancellationToken cancellationToken = default)
+        {
+            return await resourceGroupResource.GetCloudServiceNetworkInterfaces(cloudServiceName, roleInstanceName).GetAsync(networkInterfaceName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Get the specified network interface in a cloud service.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/cloudServices/{cloudServiceName}/roleInstances/{roleInstanceName}/providers/Microsoft.Network/cloudServiceNetworkInterfaces/{networkInterfaceName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>NetworkInterfaces_GetCloudServiceRoleInstanceNetworkInterface</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
+        /// <param name="cloudServiceName"> The name of the cloud service. </param>
+        /// <param name="roleInstanceName"> The name of role instance. </param>
+        /// <param name="networkInterfaceName"> The name of the network interface. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="cloudServiceName"/>, <paramref name="roleInstanceName"/> or <paramref name="networkInterfaceName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cloudServiceName"/>, <paramref name="roleInstanceName"/> or <paramref name="networkInterfaceName"/> is null. </exception>
+        [ForwardsClientCalls]
+        public static Response<CloudServiceNetworkInterfaceResource> GetCloudServiceNetworkInterface(this ResourceGroupResource resourceGroupResource, string cloudServiceName, string roleInstanceName, string networkInterfaceName, CancellationToken cancellationToken = default)
+        {
+            return resourceGroupResource.GetCloudServiceNetworkInterfaces(cloudServiceName, roleInstanceName).Get(networkInterfaceName, cancellationToken);
+        }
+
         /// <summary> Gets a collection of NetworkManagerResources in the ResourceGroupResource. </summary>
         /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
         /// <returns> An object representing collection of NetworkManagerResources and their operations over a NetworkManagerResource. </returns>
@@ -4789,6 +4894,48 @@ namespace Azure.ResourceManager.Network
         }
 
         /// <summary>
+        /// Gets all network interfaces in a cloud service.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/cloudServices/{cloudServiceName}/providers/Microsoft.Network/cloudServiceNetworkInterfaces</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>NetworkInterfaces_ListCloudServiceNetworkInterface</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> An async collection of <see cref="CloudServiceNetworkInterfaceResource" /> that may take multiple service requests to iterate over. </returns>
+        public static AsyncPageable<CloudServiceNetworkInterfaceResource> GetCloudServiceNetworkInterfacesAsync(this ResourceGroupResource resourceGroupResource, CancellationToken cancellationToken = default)
+        {
+            return GetResourceGroupResourceExtensionClient(resourceGroupResource).GetCloudServiceNetworkInterfacesAsync(cancellationToken);
+        }
+
+        /// <summary>
+        /// Gets all network interfaces in a cloud service.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/cloudServices/{cloudServiceName}/providers/Microsoft.Network/cloudServiceNetworkInterfaces</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>NetworkInterfaces_ListCloudServiceNetworkInterface</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="CloudServiceNetworkInterfaceResource" /> that may take multiple service requests to iterate over. </returns>
+        public static Pageable<CloudServiceNetworkInterfaceResource> GetCloudServiceNetworkInterfaces(this ResourceGroupResource resourceGroupResource, CancellationToken cancellationToken = default)
+        {
+            return GetResourceGroupResourceExtensionClient(resourceGroupResource).GetCloudServiceNetworkInterfaces(cancellationToken);
+        }
+
+        /// <summary>
         /// Returns all of the resource types that can be linked to a Private Endpoint in this subscription in this region.
         /// <list type="bullet">
         /// <item>
@@ -4926,6 +5073,58 @@ namespace Azure.ResourceManager.Network
         public static Pageable<AutoApprovedPrivateLinkService> GetAutoApprovedPrivateLinkServicesByResourceGroupPrivateLinkServices(this ResourceGroupResource resourceGroupResource, AzureLocation location, CancellationToken cancellationToken = default)
         {
             return GetResourceGroupResourceExtensionClient(resourceGroupResource).GetAutoApprovedPrivateLinkServicesByResourceGroupPrivateLinkServices(location, cancellationToken);
+        }
+
+        /// <summary>
+        /// Gets information about all public IP addresses on a cloud service level.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/cloudServices/{cloudServiceName}/providers/Microsoft.Network/cloudServicePublicIPAddresses</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>PublicIPAddresses_ListCloudServicePublicIPAddress</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
+        /// <param name="cloudServiceName"> The name of the cloud service. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="cloudServiceName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cloudServiceName"/> is null. </exception>
+        /// <returns> An async collection of <see cref="PublicIPAddressData" /> that may take multiple service requests to iterate over. </returns>
+        public static AsyncPageable<PublicIPAddressData> GetCloudServicePublicIPAddressPublicIPAddressesAsync(this ResourceGroupResource resourceGroupResource, string cloudServiceName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(cloudServiceName, nameof(cloudServiceName));
+
+            return GetResourceGroupResourceExtensionClient(resourceGroupResource).GetCloudServicePublicIPAddressPublicIPAddressesAsync(cloudServiceName, cancellationToken);
+        }
+
+        /// <summary>
+        /// Gets information about all public IP addresses on a cloud service level.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/cloudServices/{cloudServiceName}/providers/Microsoft.Network/cloudServicePublicIPAddresses</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>PublicIPAddresses_ListCloudServicePublicIPAddress</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
+        /// <param name="cloudServiceName"> The name of the cloud service. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="cloudServiceName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="cloudServiceName"/> is null. </exception>
+        /// <returns> A collection of <see cref="PublicIPAddressData" /> that may take multiple service requests to iterate over. </returns>
+        public static Pageable<PublicIPAddressData> GetCloudServicePublicIPAddressPublicIPAddresses(this ResourceGroupResource resourceGroupResource, string cloudServiceName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(cloudServiceName, nameof(cloudServiceName));
+
+            return GetResourceGroupResourceExtensionClient(resourceGroupResource).GetCloudServicePublicIPAddressPublicIPAddresses(cloudServiceName, cancellationToken);
         }
 
         /// <summary> Gets a collection of ApplicationGatewayWafDynamicManifestResources in the SubscriptionResource. </summary>
