@@ -54,7 +54,8 @@ namespace Azure.ResourceManager.DataBoxEdge
         /// <param name="resourceMoveDetails"> The details of the move operation on this resource. </param>
         /// <param name="edgeProfile"> The details of Edge Profile for this resource. </param>
         /// <param name="dataResidency"> The details of data-residency related properties for this resource. </param>
-        internal DataBoxEdgeDeviceData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, DataBoxEdgeSku sku, ETag? etag, ManagedServiceIdentity identity, DataBoxEdgeDeviceKind? kind, DataBoxEdgeDeviceStatus? dataBoxEdgeDeviceStatus, string serialNumber, string description, string modelDescription, DataBoxEdgeDeviceType? deviceType, string friendlyName, string culture, string deviceModel, string deviceSoftwareVersion, long? deviceLocalCapacity, string timeZone, string deviceHcsVersion, IReadOnlyList<DataBoxEdgeRoleType> configuredRoleTypes, int? nodeCount, DataBoxEdgeResourceMoveDetails resourceMoveDetails, EdgeProfile edgeProfile, DataResidency dataResidency) : base(id, name, resourceType, systemData, tags, location)
+        /// <param name="kubernetesWorkloadProfile"> Kubernetes Workload Profile. </param>
+        internal DataBoxEdgeDeviceData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, DataBoxEdgeSku sku, ETag? etag, ManagedServiceIdentity identity, DataBoxEdgeDeviceKind? kind, DataBoxEdgeDeviceStatus? dataBoxEdgeDeviceStatus, string serialNumber, string description, string modelDescription, DataBoxEdgeDeviceType? deviceType, string friendlyName, string culture, string deviceModel, string deviceSoftwareVersion, long? deviceLocalCapacity, string timeZone, string deviceHcsVersion, IReadOnlyList<DataBoxEdgeRoleType> configuredRoleTypes, int? nodeCount, DataBoxEdgeResourceMoveDetails resourceMoveDetails, EdgeProfile edgeProfile, DataResidency dataResidency, string kubernetesWorkloadProfile) : base(id, name, resourceType, systemData, tags, location)
         {
             Sku = sku;
             ETag = etag;
@@ -77,6 +78,7 @@ namespace Azure.ResourceManager.DataBoxEdge
             ResourceMoveDetails = resourceMoveDetails;
             EdgeProfile = edgeProfile;
             DataResidency = dataResidency;
+            KubernetesWorkloadProfile = kubernetesWorkloadProfile;
         }
 
         /// <summary> The SKU type. </summary>
@@ -138,5 +140,8 @@ namespace Azure.ResourceManager.DataBoxEdge
                 DataResidency.ResidencyType = value;
             }
         }
+
+        /// <summary> Kubernetes Workload Profile. </summary>
+        public string KubernetesWorkloadProfile { get; }
     }
 }
