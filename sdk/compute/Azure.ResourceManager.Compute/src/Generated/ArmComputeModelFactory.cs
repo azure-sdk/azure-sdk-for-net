@@ -1456,10 +1456,11 @@ namespace Azure.ResourceManager.Compute.Models
         /// <param name="logicalSectorSize"> Logical sector size in bytes for Ultra disks. Supported values are 512 ad 4096. 4096 is the default. </param>
         /// <param name="securityDataUri"> If createOption is ImportSecure, this is the URI of a blob to be imported into VM guest state. </param>
         /// <param name="isPerformancePlusEnabled"> Set this flag to true to get a boost on the performance target of the disk deployed, see here on the respective performance target. This flag can only be set on disk creation time and cannot be disabled after enabled. </param>
+        /// <param name="elasticSanResourceId"> Required if createOption is CopyFromSanSnapshot. this is the ARM id of the source elastic san volume snapshot. </param>
         /// <returns> A new <see cref="Models.DiskCreationData"/> instance for mocking. </returns>
-        public static DiskCreationData DiskCreationData(DiskCreateOption createOption = default, ResourceIdentifier storageAccountId = null, ImageDiskReference imageReference = null, ImageDiskReference galleryImageReference = null, Uri sourceUri = null, ResourceIdentifier sourceResourceId = null, string sourceUniqueId = null, long? uploadSizeBytes = null, int? logicalSectorSize = null, Uri securityDataUri = null, bool? isPerformancePlusEnabled = null)
+        public static DiskCreationData DiskCreationData(DiskCreateOption createOption = default, ResourceIdentifier storageAccountId = null, ImageDiskReference imageReference = null, ImageDiskReference galleryImageReference = null, Uri sourceUri = null, ResourceIdentifier sourceResourceId = null, string sourceUniqueId = null, long? uploadSizeBytes = null, int? logicalSectorSize = null, Uri securityDataUri = null, bool? isPerformancePlusEnabled = null, string elasticSanResourceId = null)
         {
-            return new DiskCreationData(createOption, storageAccountId, imageReference, galleryImageReference, sourceUri, sourceResourceId, sourceUniqueId, uploadSizeBytes, logicalSectorSize, securityDataUri, isPerformancePlusEnabled);
+            return new DiskCreationData(createOption, storageAccountId, imageReference, galleryImageReference, sourceUri, sourceResourceId, sourceUniqueId, uploadSizeBytes, logicalSectorSize, securityDataUri, isPerformancePlusEnabled, elasticSanResourceId);
         }
 
         /// <summary> Initializes a new instance of ShareInfoElement. </summary>
