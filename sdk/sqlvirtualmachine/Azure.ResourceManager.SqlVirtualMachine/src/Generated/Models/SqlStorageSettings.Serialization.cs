@@ -31,6 +31,11 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
                 writer.WritePropertyName("defaultFilePath"u8);
                 writer.WriteStringValue(DefaultFilePath);
             }
+            if (Optional.IsDefined(UseStoragePool))
+            {
+                writer.WritePropertyName("useStoragePool"u8);
+                writer.WriteBooleanValue(UseStoragePool.Value);
+            }
             writer.WriteEndObject();
         }
 
@@ -42,6 +47,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
             }
             Optional<IList<int>> luns = default;
             Optional<string> defaultFilePath = default;
+            Optional<bool> useStoragePool = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("luns"u8))
@@ -63,8 +69,17 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
                     defaultFilePath = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("useStoragePool"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    useStoragePool = property.Value.GetBoolean();
+                    continue;
+                }
             }
-            return new SqlStorageSettings(Optional.ToList(luns), defaultFilePath.Value);
+            return new SqlStorageSettings(Optional.ToList(luns), defaultFilePath.Value, Optional.ToNullable(useStoragePool));
         }
     }
 }

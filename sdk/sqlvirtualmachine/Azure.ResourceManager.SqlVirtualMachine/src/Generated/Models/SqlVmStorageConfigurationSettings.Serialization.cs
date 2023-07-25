@@ -45,6 +45,11 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
                 writer.WritePropertyName("storageWorkloadType"u8);
                 writer.WriteStringValue(StorageWorkloadType.Value.ToString());
             }
+            if (Optional.IsDefined(EnableStorageConfigBlade))
+            {
+                writer.WritePropertyName("enableStorageConfigBlade"u8);
+                writer.WriteBooleanValue(EnableStorageConfigBlade.Value);
+            }
             writer.WriteEndObject();
         }
 
@@ -60,6 +65,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
             Optional<bool> sqlSystemDBOnDataDisk = default;
             Optional<SqlVmDiskConfigurationType> diskConfigurationType = default;
             Optional<SqlVmStorageWorkloadType> storageWorkloadType = default;
+            Optional<bool> enableStorageConfigBlade = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("sqlDataSettings"u8))
@@ -116,8 +122,17 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
                     storageWorkloadType = new SqlVmStorageWorkloadType(property.Value.GetString());
                     continue;
                 }
+                if (property.NameEquals("enableStorageConfigBlade"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    enableStorageConfigBlade = property.Value.GetBoolean();
+                    continue;
+                }
             }
-            return new SqlVmStorageConfigurationSettings(sqlDataSettings.Value, sqlLogSettings.Value, sqlTempDBSettings.Value, Optional.ToNullable(sqlSystemDBOnDataDisk), Optional.ToNullable(diskConfigurationType), Optional.ToNullable(storageWorkloadType));
+            return new SqlVmStorageConfigurationSettings(sqlDataSettings.Value, sqlLogSettings.Value, sqlTempDBSettings.Value, Optional.ToNullable(sqlSystemDBOnDataDisk), Optional.ToNullable(diskConfigurationType), Optional.ToNullable(storageWorkloadType), Optional.ToNullable(enableStorageConfigBlade));
         }
     }
 }

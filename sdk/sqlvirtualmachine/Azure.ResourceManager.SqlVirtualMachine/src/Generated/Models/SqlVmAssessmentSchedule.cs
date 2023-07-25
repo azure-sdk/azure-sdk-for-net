@@ -7,7 +7,7 @@
 
 namespace Azure.ResourceManager.SqlVirtualMachine.Models
 {
-    /// <summary> The SqlVmAssessmentSchedule. </summary>
+    /// <summary> Set assessment schedule for SQL Server. </summary>
     public partial class SqlVmAssessmentSchedule
     {
         /// <summary> Initializes a new instance of SqlVmAssessmentSchedule. </summary>
