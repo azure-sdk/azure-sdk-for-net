@@ -10,7 +10,7 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.Automation.Models
 {
-    public partial class AutomationAccountPython2PackagePatch : IUtf8JsonSerializable
+    public partial class PythonPackageCreateParameters : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
@@ -26,6 +26,11 @@ namespace Azure.ResourceManager.Automation.Models
                 }
                 writer.WriteEndObject();
             }
+            writer.WritePropertyName("properties"u8);
+            writer.WriteStartObject();
+            writer.WritePropertyName("contentLink"u8);
+            writer.WriteObjectValue(ContentLink);
+            writer.WriteEndObject();
             writer.WriteEndObject();
         }
     }
