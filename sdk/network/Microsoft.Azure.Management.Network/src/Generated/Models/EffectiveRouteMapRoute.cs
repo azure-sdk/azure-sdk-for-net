@@ -11,8 +11,6 @@
 namespace Microsoft.Azure.Management.Network.Models
 {
     using Newtonsoft.Json;
-    using System.Collections;
-    using System.Collections.Generic;
     using System.Linq;
 
     /// <summary>
@@ -34,7 +32,7 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <param name="prefix">The address prefix of the route.</param>
         /// <param name="bgpCommunities">BGP communities of the route.</param>
         /// <param name="asPath">The ASPath of this route.</param>
-        public EffectiveRouteMapRoute(IList<string> prefix = default(IList<string>), string bgpCommunities = default(string), string asPath = default(string))
+        public EffectiveRouteMapRoute(string prefix = default(string), string bgpCommunities = default(string), string asPath = default(string))
         {
             Prefix = prefix;
             BgpCommunities = bgpCommunities;
@@ -51,7 +49,7 @@ namespace Microsoft.Azure.Management.Network.Models
         /// Gets or sets the address prefix of the route.
         /// </summary>
         [JsonProperty(PropertyName = "prefix")]
-        public IList<string> Prefix { get; set; }
+        public string Prefix { get; set; }
 
         /// <summary>
         /// Gets or sets BGP communities of the route.
