@@ -2179,7 +2179,7 @@ namespace Azure.ResourceManager.Compute.Models
         /// <param name="osType"> This property allows you to specify the type of the OS that is included in the disk when creating a VM from a managed image. &lt;br&gt;&lt;br&gt; Possible values are: &lt;br&gt;&lt;br&gt; **Windows** &lt;br&gt;&lt;br&gt; **Linux**. </param>
         /// <param name="osState"> This property allows the user to specify whether the virtual machines created under this image are 'Generalized' or 'Specialized'. </param>
         /// <param name="endOfLifeOn"> The end of life date of the gallery image definition. This property can be used for decommissioning purposes. This property is updatable. </param>
-        /// <param name="imageIdentifier"> This is the community gallery image definition identifier. </param>
+        /// <param name="imageIdentifier"> This is the gallery image definition identifier. </param>
         /// <param name="recommended"> The properties describe the recommended machine configuration for this Image Definition. These properties are updatable. </param>
         /// <param name="disallowedDiskTypes"> Describes the disallowed disk types. </param>
         /// <param name="hyperVGeneration"> The hypervisor generation of the Virtual Machine. Applicable to OS disks only. </param>
@@ -2189,22 +2189,12 @@ namespace Azure.ResourceManager.Compute.Models
         /// <param name="privacyStatementUri"> Privacy statement uri for the current community gallery image. </param>
         /// <param name="eula"> End-user license agreement for the current community gallery image. </param>
         /// <returns> A new <see cref="Compute.CommunityGalleryImageData"/> instance for mocking. </returns>
-        public static CommunityGalleryImageData CommunityGalleryImageData(string name = null, AzureLocation? location = null, ResourceType? resourceType = null, string uniqueId = null, SupportedOperatingSystemType? osType = null, OperatingSystemStateType? osState = null, DateTimeOffset? endOfLifeOn = null, CommunityGalleryImageIdentifier imageIdentifier = null, RecommendedMachineConfiguration recommended = null, IEnumerable<string> disallowedDiskTypes = null, HyperVGeneration? hyperVGeneration = null, IEnumerable<GalleryImageFeature> features = null, ImagePurchasePlan purchasePlan = null, ArchitectureType? architecture = null, Uri privacyStatementUri = null, string eula = null)
+        public static CommunityGalleryImageData CommunityGalleryImageData(string name = null, AzureLocation? location = null, ResourceType? resourceType = null, string uniqueId = null, SupportedOperatingSystemType? osType = null, OperatingSystemStateType? osState = null, DateTimeOffset? endOfLifeOn = null, GalleryImageIdentifier imageIdentifier = null, RecommendedMachineConfiguration recommended = null, IEnumerable<string> disallowedDiskTypes = null, HyperVGeneration? hyperVGeneration = null, IEnumerable<GalleryImageFeature> features = null, ImagePurchasePlan purchasePlan = null, ArchitectureType? architecture = null, Uri privacyStatementUri = null, string eula = null)
         {
             disallowedDiskTypes ??= new List<string>();
             features ??= new List<GalleryImageFeature>();
 
             return new CommunityGalleryImageData(name, location, resourceType, uniqueId, osType, osState, endOfLifeOn, imageIdentifier, recommended, disallowedDiskTypes != null ? new Disallowed(disallowedDiskTypes?.ToList()) : null, hyperVGeneration, features?.ToList(), purchasePlan, architecture, privacyStatementUri, eula);
-        }
-
-        /// <summary> Initializes a new instance of CommunityGalleryImageIdentifier. </summary>
-        /// <param name="publisher"> The name of the gallery image definition publisher. </param>
-        /// <param name="offer"> The name of the gallery image definition offer. </param>
-        /// <param name="sku"> The name of the gallery image definition SKU. </param>
-        /// <returns> A new <see cref="Models.CommunityGalleryImageIdentifier"/> instance for mocking. </returns>
-        public static CommunityGalleryImageIdentifier CommunityGalleryImageIdentifier(string publisher = null, string offer = null, string sku = null)
-        {
-            return new CommunityGalleryImageIdentifier(publisher, offer, sku);
         }
 
         /// <summary> Initializes a new instance of CommunityGalleryImageVersionData. </summary>
