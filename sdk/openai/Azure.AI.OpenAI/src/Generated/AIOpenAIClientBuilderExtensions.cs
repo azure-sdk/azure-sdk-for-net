@@ -18,8 +18,9 @@ namespace Microsoft.Extensions.Azure
         /// <summary> Registers a <see cref="OpenAIClient"/> instance. </summary>
         /// <param name="builder"> The builder to register with. </param>
         /// <param name="endpoint">
-        /// Supported Cognitive Services endpoints (protocol and hostname, for example:
-        /// https://westus.api.cognitive.microsoft.com).
+        ///   The connection endpoint for an Azure OpenAI resource as obtained via Azure Portal or Azure AI Studio.
+        ///   This URL should include protocol and hostname with no additional path information. An example could be:
+        ///   https://my-resource.openai.azure.com .
         /// </param>
         /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
         public static IAzureClientBuilder<OpenAIClient, OpenAIClientOptions> AddOpenAIClient<TBuilder>(this TBuilder builder, Uri endpoint, AzureKeyCredential credential)
@@ -31,8 +32,9 @@ namespace Microsoft.Extensions.Azure
         /// <summary> Registers a <see cref="OpenAIClient"/> instance. </summary>
         /// <param name="builder"> The builder to register with. </param>
         /// <param name="endpoint">
-        /// Supported Cognitive Services endpoints (protocol and hostname, for example:
-        /// https://westus.api.cognitive.microsoft.com).
+        ///   The connection endpoint for an Azure OpenAI resource as obtained via Azure Portal or Azure AI Studio.
+        ///   This URL should include protocol and hostname with no additional path information. An example could be:
+        ///   https://my-resource.openai.azure.com .
         /// </param>
         public static IAzureClientBuilder<OpenAIClient, OpenAIClientOptions> AddOpenAIClient<TBuilder>(this TBuilder builder, Uri endpoint)
         where TBuilder : IAzureClientFactoryBuilderWithCredential
