@@ -10,16 +10,18 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.ManagedNetworkFabric.Models
 {
-    /// <summary> The RoutePolicy patch resource definition. </summary>
-    public partial class RoutePolicyPatch
+    /// <summary> The Route Policy patch resource definition. </summary>
+    public partial class RoutePolicyPatch : NetworkRackPatch
     {
         /// <summary> Initializes a new instance of RoutePolicyPatch. </summary>
         public RoutePolicyPatch()
         {
-            Tags = new ChangeTrackingDictionary<string, string>();
+            Statements = new ChangeTrackingList<RoutePolicyStatementProperties>();
         }
 
-        /// <summary> Resource tags. </summary>
-        public IDictionary<string, string> Tags { get; }
+        /// <summary> Default action that needs to be applied when no condition is matched. Example: Permit | Deny. </summary>
+        public CommunityActionType? DefaultAction { get; set; }
+        /// <summary> Route Policy statements. </summary>
+        public IList<RoutePolicyStatementProperties> Statements { get; }
     }
 }

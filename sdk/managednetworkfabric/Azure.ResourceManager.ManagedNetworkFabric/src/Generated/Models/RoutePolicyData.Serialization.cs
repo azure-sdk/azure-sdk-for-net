@@ -38,13 +38,28 @@ namespace Azure.ResourceManager.ManagedNetworkFabric
                 writer.WritePropertyName("annotation"u8);
                 writer.WriteStringValue(Annotation);
             }
-            writer.WritePropertyName("statements"u8);
-            writer.WriteStartArray();
-            foreach (var item in Statements)
+            if (Optional.IsDefined(DefaultAction))
             {
-                writer.WriteObjectValue(item);
+                writer.WritePropertyName("defaultAction"u8);
+                writer.WriteStringValue(DefaultAction.Value.ToString());
             }
-            writer.WriteEndArray();
+            if (Optional.IsCollectionDefined(Statements))
+            {
+                writer.WritePropertyName("statements"u8);
+                writer.WriteStartArray();
+                foreach (var item in Statements)
+                {
+                    writer.WriteObjectValue(item);
+                }
+                writer.WriteEndArray();
+            }
+            writer.WritePropertyName("networkFabricId"u8);
+            writer.WriteStringValue(NetworkFabricId);
+            if (Optional.IsDefined(AddressFamilyType))
+            {
+                writer.WritePropertyName("addressFamilyType"u8);
+                writer.WriteStringValue(AddressFamilyType.Value.ToString());
+            }
             writer.WriteEndObject();
             writer.WriteEndObject();
         }
@@ -62,8 +77,13 @@ namespace Azure.ResourceManager.ManagedNetworkFabric
             ResourceType type = default;
             Optional<SystemData> systemData = default;
             Optional<string> annotation = default;
-            IList<RoutePolicyStatementProperties> statements = default;
+            Optional<CommunityActionType> defaultAction = default;
+            Optional<IList<RoutePolicyStatementProperties>> statements = default;
+            ResourceIdentifier networkFabricId = default;
+            Optional<AddressFamilyType> addressFamilyType = default;
+            Optional<ConfigurationState> configurationState = default;
             Optional<ProvisioningState> provisioningState = default;
+            Optional<AdministrativeState> administrativeState = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("tags"u8))
@@ -123,14 +143,50 @@ namespace Azure.ResourceManager.ManagedNetworkFabric
                             annotation = property0.Value.GetString();
                             continue;
                         }
+                        if (property0.NameEquals("defaultAction"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            defaultAction = new CommunityActionType(property0.Value.GetString());
+                            continue;
+                        }
                         if (property0.NameEquals("statements"u8))
                         {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
                             List<RoutePolicyStatementProperties> array = new List<RoutePolicyStatementProperties>();
                             foreach (var item in property0.Value.EnumerateArray())
                             {
                                 array.Add(RoutePolicyStatementProperties.DeserializeRoutePolicyStatementProperties(item));
                             }
                             statements = array;
+                            continue;
+                        }
+                        if (property0.NameEquals("networkFabricId"u8))
+                        {
+                            networkFabricId = new ResourceIdentifier(property0.Value.GetString());
+                            continue;
+                        }
+                        if (property0.NameEquals("addressFamilyType"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            addressFamilyType = new AddressFamilyType(property0.Value.GetString());
+                            continue;
+                        }
+                        if (property0.NameEquals("configurationState"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            configurationState = new ConfigurationState(property0.Value.GetString());
                             continue;
                         }
                         if (property0.NameEquals("provisioningState"u8))
@@ -142,11 +198,20 @@ namespace Azure.ResourceManager.ManagedNetworkFabric
                             provisioningState = new ProvisioningState(property0.Value.GetString());
                             continue;
                         }
+                        if (property0.NameEquals("administrativeState"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            administrativeState = new AdministrativeState(property0.Value.GetString());
+                            continue;
+                        }
                     }
                     continue;
                 }
             }
-            return new RoutePolicyData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, annotation.Value, statements, Optional.ToNullable(provisioningState));
+            return new RoutePolicyData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, annotation.Value, Optional.ToNullable(defaultAction), Optional.ToList(statements), networkFabricId, Optional.ToNullable(addressFamilyType), Optional.ToNullable(configurationState), Optional.ToNullable(provisioningState), Optional.ToNullable(administrativeState));
         }
     }
 }
