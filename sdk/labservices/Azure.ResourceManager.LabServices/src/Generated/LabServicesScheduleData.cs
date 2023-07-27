@@ -34,7 +34,8 @@ namespace Azure.ResourceManager.LabServices
         /// <param name="timeZoneId"> The IANA timezone id for the schedule. </param>
         /// <param name="notes"> Notes for this schedule. </param>
         /// <param name="provisioningState"> Current provisioning state of the schedule. </param>
-        internal LabServicesScheduleData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, DateTimeOffset? startOn, DateTimeOffset? stopOn, LabServicesRecurrencePattern recurrencePattern, string timeZoneId, BinaryData notes, LabServicesProvisioningState? provisioningState) : base(id, name, resourceType, systemData)
+        /// <param name="resourceOperationError"> Error details of last operation done on schedule. </param>
+        internal LabServicesScheduleData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, DateTimeOffset? startOn, DateTimeOffset? stopOn, LabServicesRecurrencePattern recurrencePattern, string timeZoneId, BinaryData notes, LabServicesProvisioningState? provisioningState, ResourceOperationError resourceOperationError) : base(id, name, resourceType, systemData)
         {
             StartOn = startOn;
             StopOn = stopOn;
@@ -42,6 +43,7 @@ namespace Azure.ResourceManager.LabServices
             TimeZoneId = timeZoneId;
             Notes = notes;
             ProvisioningState = provisioningState;
+            ResourceOperationError = resourceOperationError;
         }
 
         /// <summary> When lab user virtual machines will be started. Timestamp offsets will be ignored and timeZoneId is used instead. </summary>
@@ -85,5 +87,7 @@ namespace Azure.ResourceManager.LabServices
         public BinaryData Notes { get; set; }
         /// <summary> Current provisioning state of the schedule. </summary>
         public LabServicesProvisioningState? ProvisioningState { get; }
+        /// <summary> Error details of last operation done on schedule. </summary>
+        public ResourceOperationError ResourceOperationError { get; }
     }
 }
