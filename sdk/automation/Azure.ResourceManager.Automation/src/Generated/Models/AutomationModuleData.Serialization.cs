@@ -15,90 +15,8 @@ using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.Automation
 {
-    public partial class AutomationModuleData : IUtf8JsonSerializable
+    public partial class AutomationModuleData
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
-        {
-            writer.WriteStartObject();
-            if (Optional.IsDefined(ETag))
-            {
-                writer.WritePropertyName("etag"u8);
-                writer.WriteStringValue(ETag.Value.ToString());
-            }
-            if (Optional.IsCollectionDefined(Tags))
-            {
-                writer.WritePropertyName("tags"u8);
-                writer.WriteStartObject();
-                foreach (var item in Tags)
-                {
-                    writer.WritePropertyName(item.Key);
-                    writer.WriteStringValue(item.Value);
-                }
-                writer.WriteEndObject();
-            }
-            writer.WritePropertyName("location"u8);
-            writer.WriteStringValue(Location);
-            writer.WritePropertyName("properties"u8);
-            writer.WriteStartObject();
-            if (Optional.IsDefined(IsGlobal))
-            {
-                writer.WritePropertyName("isGlobal"u8);
-                writer.WriteBooleanValue(IsGlobal.Value);
-            }
-            if (Optional.IsDefined(Version))
-            {
-                writer.WritePropertyName("version"u8);
-                writer.WriteStringValue(Version);
-            }
-            if (Optional.IsDefined(SizeInBytes))
-            {
-                writer.WritePropertyName("sizeInBytes"u8);
-                writer.WriteNumberValue(SizeInBytes.Value);
-            }
-            if (Optional.IsDefined(ActivityCount))
-            {
-                writer.WritePropertyName("activityCount"u8);
-                writer.WriteNumberValue(ActivityCount.Value);
-            }
-            if (Optional.IsDefined(ProvisioningState))
-            {
-                writer.WritePropertyName("provisioningState"u8);
-                writer.WriteStringValue(ProvisioningState.Value.ToSerialString());
-            }
-            if (Optional.IsDefined(ContentLink))
-            {
-                writer.WritePropertyName("contentLink"u8);
-                writer.WriteObjectValue(ContentLink);
-            }
-            if (Optional.IsDefined(Error))
-            {
-                writer.WritePropertyName("error"u8);
-                writer.WriteObjectValue(Error);
-            }
-            if (Optional.IsDefined(CreatedOn))
-            {
-                writer.WritePropertyName("creationTime"u8);
-                writer.WriteStringValue(CreatedOn.Value, "O");
-            }
-            if (Optional.IsDefined(LastModifiedOn))
-            {
-                writer.WritePropertyName("lastModifiedTime"u8);
-                writer.WriteStringValue(LastModifiedOn.Value, "O");
-            }
-            if (Optional.IsDefined(Description))
-            {
-                writer.WritePropertyName("description"u8);
-                writer.WriteStringValue(Description);
-            }
-            if (Optional.IsDefined(IsComposite))
-            {
-                writer.WritePropertyName("isComposite"u8);
-                writer.WriteBooleanValue(IsComposite.Value);
-            }
-            writer.WriteEndObject();
-            writer.WriteEndObject();
-        }
-
         internal static AutomationModuleData DeserializeAutomationModuleData(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
@@ -106,8 +24,8 @@ namespace Azure.ResourceManager.Automation
                 return null;
             }
             Optional<ETag> etag = default;
-            Optional<IDictionary<string, string>> tags = default;
-            AzureLocation location = default;
+            Optional<IReadOnlyDictionary<string, string>> tags = default;
+            Optional<AzureLocation> location = default;
             ResourceIdentifier id = default;
             string name = default;
             ResourceType type = default;
@@ -150,6 +68,10 @@ namespace Azure.ResourceManager.Automation
                 }
                 if (property.NameEquals("location"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     location = new AzureLocation(property.Value.GetString());
                     continue;
                 }
@@ -224,7 +146,7 @@ namespace Azure.ResourceManager.Automation
                             {
                                 continue;
                             }
-                            provisioningState = property0.Value.GetString().ToModuleProvisioningState();
+                            provisioningState = new ModuleProvisioningState(property0.Value.GetString());
                             continue;
                         }
                         if (property0.NameEquals("contentLink"u8))
@@ -281,7 +203,7 @@ namespace Azure.ResourceManager.Automation
                     continue;
                 }
             }
-            return new AutomationModuleData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, Optional.ToNullable(etag), Optional.ToNullable(isGlobal), version.Value, Optional.ToNullable(sizeInBytes), Optional.ToNullable(activityCount), Optional.ToNullable(provisioningState), contentLink.Value, error.Value, Optional.ToNullable(creationTime), Optional.ToNullable(lastModifiedTime), description.Value, Optional.ToNullable(isComposite));
+            return new AutomationModuleData(id, name, type, systemData.Value, Optional.ToNullable(etag), Optional.ToNullable(isGlobal), version.Value, Optional.ToNullable(sizeInBytes), Optional.ToNullable(activityCount), Optional.ToNullable(provisioningState), contentLink.Value, error.Value, Optional.ToNullable(creationTime), Optional.ToNullable(lastModifiedTime), description.Value, Optional.ToNullable(isComposite), Optional.ToDictionary(tags), Optional.ToNullable(location));
         }
     }
 }

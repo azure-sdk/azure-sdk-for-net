@@ -11,7 +11,7 @@ namespace Azure.ResourceManager.Automation.Models
     public partial class AutomationResponseError
     {
         /// <summary> Initializes a new instance of AutomationResponseError. </summary>
-        public AutomationResponseError()
+        internal AutomationResponseError()
         {
         }
 
@@ -25,8 +25,8 @@ namespace Azure.ResourceManager.Automation.Models
         }
 
         /// <summary> Error code. </summary>
-        public string Code { get; set; }
+        public string Code { get; }
         /// <summary> Error message indicating why the operation failed. </summary>
-        public string Message { get; set; }
+        public string Message { get; }
     }
 }

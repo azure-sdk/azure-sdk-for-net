@@ -19,7 +19,7 @@ namespace Azure.ResourceManager.Automation
     public partial class DscNodeConfigurationData : ResourceData
     {
         /// <summary> Initializes a new instance of DscNodeConfigurationData. </summary>
-        public DscNodeConfigurationData()
+        internal DscNodeConfigurationData()
         {
         }
 
@@ -45,28 +45,22 @@ namespace Azure.ResourceManager.Automation
         }
 
         /// <summary> Gets or sets the last modified time. </summary>
-        public DateTimeOffset? LastModifiedOn { get; set; }
+        public DateTimeOffset? LastModifiedOn { get; }
         /// <summary> Gets or sets creation time. </summary>
-        public DateTimeOffset? CreatedOn { get; set; }
+        public DateTimeOffset? CreatedOn { get; }
         /// <summary> Gets or sets the configuration of the node. </summary>
-        internal DscConfigurationAssociationProperty Configuration { get; set; }
+        internal DscConfigurationAssociationProperty Configuration { get; }
         /// <summary> Gets or sets the name of the Dsc configuration. </summary>
         public string ConfigurationName
         {
-            get => Configuration is null ? default : Configuration.ConfigurationName;
-            set
-            {
-                if (Configuration is null)
-                    Configuration = new DscConfigurationAssociationProperty();
-                Configuration.ConfigurationName = value;
-            }
+            get => Configuration?.ConfigurationName;
         }
 
         /// <summary> Source of node configuration. </summary>
-        public string Source { get; set; }
+        public string Source { get; }
         /// <summary> Number of nodes with this node configuration assigned. </summary>
-        public long? NodeCount { get; set; }
+        public long? NodeCount { get; }
         /// <summary> If a new build version of NodeConfiguration is required. </summary>
-        public bool? IsIncrementNodeConfigurationBuildRequired { get; set; }
+        public bool? IsIncrementNodeConfigurationBuildRequired { get; }
     }
 }

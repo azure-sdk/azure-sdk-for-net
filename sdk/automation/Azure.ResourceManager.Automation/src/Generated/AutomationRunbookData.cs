@@ -18,14 +18,14 @@ namespace Azure.ResourceManager.Automation
     /// A class representing the AutomationRunbook data model.
     /// Definition of the runbook type.
     /// </summary>
-    public partial class AutomationRunbookData : TrackedResourceData
+    public partial class AutomationRunbookData : ResourceData
     {
         /// <summary> Initializes a new instance of AutomationRunbookData. </summary>
-        /// <param name="location"> The location. </param>
-        public AutomationRunbookData(AzureLocation location) : base(location)
+        internal AutomationRunbookData()
         {
             Parameters = new ChangeTrackingDictionary<string, RunbookParameterDefinition>();
             OutputTypes = new ChangeTrackingList<string>();
+            Tags = new ChangeTrackingDictionary<string, string>();
         }
 
         /// <summary> Initializes a new instance of AutomationRunbookData. </summary>
@@ -33,8 +33,6 @@ namespace Azure.ResourceManager.Automation
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="tags"> The tags. </param>
-        /// <param name="location"> The location. </param>
         /// <param name="etag"> Gets or sets the etag of the resource. </param>
         /// <param name="runbookType"> Gets or sets the type of the runbook. </param>
         /// <param name="publishContentLink"> Gets or sets the published runbook content link. </param>
@@ -51,7 +49,9 @@ namespace Azure.ResourceManager.Automation
         /// <param name="createdOn"> Gets or sets the creation time. </param>
         /// <param name="lastModifiedOn"> Gets or sets the last modified time. </param>
         /// <param name="description"> Gets or sets the description. </param>
-        internal AutomationRunbookData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ETag? etag, AutomationRunbookType? runbookType, AutomationContentLink publishContentLink, RunbookState? state, bool? isLogVerboseEnabled, bool? isLogProgressEnabled, int? logActivityTrace, int? jobCount, IDictionary<string, RunbookParameterDefinition> parameters, IList<string> outputTypes, AutomationRunbookDraft draft, RunbookProvisioningState? provisioningState, string lastModifiedBy, DateTimeOffset? createdOn, DateTimeOffset? lastModifiedOn, string description) : base(id, name, resourceType, systemData, tags, location)
+        /// <param name="tags"> Resource tags. </param>
+        /// <param name="location"> The Azure Region where the resource lives. </param>
+        internal AutomationRunbookData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, ETag? etag, AutomationRunbookType? runbookType, AutomationContentLink publishContentLink, RunbookState? state, bool? isLogVerboseEnabled, bool? isLogProgressEnabled, int? logActivityTrace, int? jobCount, IReadOnlyDictionary<string, RunbookParameterDefinition> parameters, IReadOnlyList<string> outputTypes, AutomationRunbookDraft draft, RunbookProvisioningState? provisioningState, string lastModifiedBy, DateTimeOffset? createdOn, DateTimeOffset? lastModifiedOn, string description, IReadOnlyDictionary<string, string> tags, AzureLocation? location) : base(id, name, resourceType, systemData)
         {
             ETag = etag;
             RunbookType = runbookType;
@@ -69,39 +69,45 @@ namespace Azure.ResourceManager.Automation
             CreatedOn = createdOn;
             LastModifiedOn = lastModifiedOn;
             Description = description;
+            Tags = tags;
+            Location = location;
         }
 
         /// <summary> Gets or sets the etag of the resource. </summary>
-        public ETag? ETag { get; set; }
+        public ETag? ETag { get; }
         /// <summary> Gets or sets the type of the runbook. </summary>
-        public AutomationRunbookType? RunbookType { get; set; }
+        public AutomationRunbookType? RunbookType { get; }
         /// <summary> Gets or sets the published runbook content link. </summary>
-        public AutomationContentLink PublishContentLink { get; set; }
+        public AutomationContentLink PublishContentLink { get; }
         /// <summary> Gets or sets the state of the runbook. </summary>
-        public RunbookState? State { get; set; }
+        public RunbookState? State { get; }
         /// <summary> Gets or sets verbose log option. </summary>
-        public bool? IsLogVerboseEnabled { get; set; }
+        public bool? IsLogVerboseEnabled { get; }
         /// <summary> Gets or sets progress log option. </summary>
-        public bool? IsLogProgressEnabled { get; set; }
+        public bool? IsLogProgressEnabled { get; }
         /// <summary> Gets or sets the option to log activity trace of the runbook. </summary>
-        public int? LogActivityTrace { get; set; }
+        public int? LogActivityTrace { get; }
         /// <summary> Gets or sets the job count of the runbook. </summary>
-        public int? JobCount { get; set; }
+        public int? JobCount { get; }
         /// <summary> Gets or sets the runbook parameters. </summary>
-        public IDictionary<string, RunbookParameterDefinition> Parameters { get; }
+        public IReadOnlyDictionary<string, RunbookParameterDefinition> Parameters { get; }
         /// <summary> Gets or sets the runbook output types. </summary>
-        public IList<string> OutputTypes { get; }
+        public IReadOnlyList<string> OutputTypes { get; }
         /// <summary> Gets or sets the draft runbook properties. </summary>
-        public AutomationRunbookDraft Draft { get; set; }
+        public AutomationRunbookDraft Draft { get; }
         /// <summary> Gets or sets the provisioning state of the runbook. </summary>
-        public RunbookProvisioningState? ProvisioningState { get; set; }
+        public RunbookProvisioningState? ProvisioningState { get; }
         /// <summary> Gets or sets the last modified by. </summary>
-        public string LastModifiedBy { get; set; }
+        public string LastModifiedBy { get; }
         /// <summary> Gets or sets the creation time. </summary>
-        public DateTimeOffset? CreatedOn { get; set; }
+        public DateTimeOffset? CreatedOn { get; }
         /// <summary> Gets or sets the last modified time. </summary>
-        public DateTimeOffset? LastModifiedOn { get; set; }
+        public DateTimeOffset? LastModifiedOn { get; }
         /// <summary> Gets or sets the description. </summary>
-        public string Description { get; set; }
+        public string Description { get; }
+        /// <summary> Resource tags. </summary>
+        public IReadOnlyDictionary<string, string> Tags { get; }
+        /// <summary> The Azure Region where the resource lives. </summary>
+        public AzureLocation? Location { get; }
     }
 }

@@ -13,47 +13,8 @@ using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.Automation
 {
-    public partial class HybridRunbookWorkerData : IUtf8JsonSerializable
+    public partial class HybridRunbookWorkerData
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
-        {
-            writer.WriteStartObject();
-            writer.WritePropertyName("properties"u8);
-            writer.WriteStartObject();
-            if (Optional.IsDefined(IP))
-            {
-                writer.WritePropertyName("ip"u8);
-                writer.WriteStringValue(IP);
-            }
-            if (Optional.IsDefined(RegisteredOn))
-            {
-                writer.WritePropertyName("registeredDateTime"u8);
-                writer.WriteStringValue(RegisteredOn.Value, "O");
-            }
-            if (Optional.IsDefined(LastSeenOn))
-            {
-                writer.WritePropertyName("lastSeenDateTime"u8);
-                writer.WriteStringValue(LastSeenOn.Value, "O");
-            }
-            if (Optional.IsDefined(VmResourceId))
-            {
-                writer.WritePropertyName("vmResourceId"u8);
-                writer.WriteStringValue(VmResourceId);
-            }
-            if (Optional.IsDefined(WorkerType))
-            {
-                writer.WritePropertyName("workerType"u8);
-                writer.WriteStringValue(WorkerType.Value.ToString());
-            }
-            if (Optional.IsDefined(WorkerName))
-            {
-                writer.WritePropertyName("workerName"u8);
-                writer.WriteStringValue(WorkerName);
-            }
-            writer.WriteEndObject();
-            writer.WriteEndObject();
-        }
-
         internal static HybridRunbookWorkerData DeserializeHybridRunbookWorkerData(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)

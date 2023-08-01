@@ -19,7 +19,7 @@ namespace Azure.ResourceManager.Automation
     public partial class AutomationScheduleData : ResourceData
     {
         /// <summary> Initializes a new instance of AutomationScheduleData. </summary>
-        public AutomationScheduleData()
+        internal AutomationScheduleData()
         {
         }
 
@@ -61,19 +61,19 @@ namespace Azure.ResourceManager.Automation
         }
 
         /// <summary> Gets or sets the start time of the schedule. </summary>
-        public DateTimeOffset? StartOn { get; set; }
+        public DateTimeOffset? StartOn { get; }
         /// <summary> Gets the start time's offset in minutes. </summary>
         public double? StartInMinutes { get; }
         /// <summary> Gets or sets the end time of the schedule. </summary>
-        public DateTimeOffset? ExpireOn { get; set; }
+        public DateTimeOffset? ExpireOn { get; }
         /// <summary> Gets or sets the expiry time's offset in minutes. </summary>
-        public double? ExpireInMinutes { get; set; }
+        public double? ExpireInMinutes { get; }
         /// <summary> Gets or sets a value indicating whether this schedule is enabled. </summary>
-        public bool? IsEnabled { get; set; }
+        public bool? IsEnabled { get; }
         /// <summary> Gets or sets the next run time of the schedule. </summary>
-        public DateTimeOffset? NextRunOn { get; set; }
+        public DateTimeOffset? NextRunOn { get; }
         /// <summary> Gets or sets the next run time's offset in minutes. </summary>
-        public double? NextRunInMinutes { get; set; }
+        public double? NextRunInMinutes { get; }
         /// <summary>
         /// Gets or sets the interval of the schedule.
         /// <para>
@@ -104,18 +104,18 @@ namespace Azure.ResourceManager.Automation
         /// </list>
         /// </para>
         /// </summary>
-        public BinaryData Interval { get; set; }
+        public BinaryData Interval { get; }
         /// <summary> Gets or sets the frequency of the schedule. </summary>
-        public AutomationScheduleFrequency? Frequency { get; set; }
+        public AutomationScheduleFrequency? Frequency { get; }
         /// <summary> Gets or sets the time zone of the schedule. </summary>
-        public string TimeZone { get; set; }
+        public string TimeZone { get; }
         /// <summary> Gets or sets the advanced schedule. </summary>
-        public AutomationAdvancedSchedule AdvancedSchedule { get; set; }
+        public AutomationAdvancedSchedule AdvancedSchedule { get; }
         /// <summary> Gets or sets the creation time. </summary>
-        public DateTimeOffset? CreatedOn { get; set; }
+        public DateTimeOffset? CreatedOn { get; }
         /// <summary> Gets or sets the last modified time. </summary>
-        public DateTimeOffset? LastModifiedOn { get; set; }
+        public DateTimeOffset? LastModifiedOn { get; }
         /// <summary> Gets or sets the description. </summary>
-        public string Description { get; set; }
+        public string Description { get; }
     }
 }

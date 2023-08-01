@@ -11,7 +11,7 @@ namespace Azure.ResourceManager.Automation.Models
     public partial class AutomationPrivateLinkServiceConnectionStateProperty
     {
         /// <summary> Initializes a new instance of AutomationPrivateLinkServiceConnectionStateProperty. </summary>
-        public AutomationPrivateLinkServiceConnectionStateProperty()
+        internal AutomationPrivateLinkServiceConnectionStateProperty()
         {
         }
 
@@ -27,9 +27,9 @@ namespace Azure.ResourceManager.Automation.Models
         }
 
         /// <summary> The private link service connection status. </summary>
-        public string Status { get; set; }
+        public string Status { get; }
         /// <summary> The private link service connection description. </summary>
-        public string Description { get; set; }
+        public string Description { get; }
         /// <summary> Any action that is required beyond basic workflow (approve/ reject/ disconnect). </summary>
         public string ActionsRequired { get; }
     }

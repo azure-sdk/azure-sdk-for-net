@@ -12,49 +12,8 @@ using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.Automation
 {
-    public partial class AutomationVariableData : IUtf8JsonSerializable
+    public partial class AutomationVariableData
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
-        {
-            writer.WriteStartObject();
-            writer.WritePropertyName("properties"u8);
-            writer.WriteStartObject();
-            if (Optional.IsDefined(Value))
-            {
-                writer.WritePropertyName("value"u8);
-                writer.WriteStringValue(Value);
-            }
-            if (Optional.IsDefined(IsEncrypted))
-            {
-                if (IsEncrypted != null)
-                {
-                    writer.WritePropertyName("isEncrypted"u8);
-                    writer.WriteBooleanValue(IsEncrypted.Value);
-                }
-                else
-                {
-                    writer.WriteNull("isEncrypted");
-                }
-            }
-            if (Optional.IsDefined(CreatedOn))
-            {
-                writer.WritePropertyName("creationTime"u8);
-                writer.WriteStringValue(CreatedOn.Value, "O");
-            }
-            if (Optional.IsDefined(LastModifiedOn))
-            {
-                writer.WritePropertyName("lastModifiedTime"u8);
-                writer.WriteStringValue(LastModifiedOn.Value, "O");
-            }
-            if (Optional.IsDefined(Description))
-            {
-                writer.WritePropertyName("description"u8);
-                writer.WriteStringValue(Description);
-            }
-            writer.WriteEndObject();
-            writer.WriteEndObject();
-        }
-
         internal static AutomationVariableData DeserializeAutomationVariableData(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)

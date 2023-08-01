@@ -18,13 +18,13 @@ namespace Azure.ResourceManager.Automation
     /// A class representing the DscConfiguration data model.
     /// Definition of the configuration type.
     /// </summary>
-    public partial class DscConfigurationData : TrackedResourceData
+    public partial class DscConfigurationData : ResourceData
     {
         /// <summary> Initializes a new instance of DscConfigurationData. </summary>
-        /// <param name="location"> The location. </param>
-        public DscConfigurationData(AzureLocation location) : base(location)
+        internal DscConfigurationData()
         {
             Parameters = new ChangeTrackingDictionary<string, DscConfigurationParameterDefinition>();
+            Tags = new ChangeTrackingDictionary<string, string>();
         }
 
         /// <summary> Initializes a new instance of DscConfigurationData. </summary>
@@ -32,8 +32,6 @@ namespace Azure.ResourceManager.Automation
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="tags"> The tags. </param>
-        /// <param name="location"> The location. </param>
         /// <param name="etag"> Gets or sets the etag of the resource. </param>
         /// <param name="provisioningState"> Gets or sets the provisioning state of the configuration. </param>
         /// <param name="jobCount"> Gets or sets the job count of the configuration. </param>
@@ -45,7 +43,9 @@ namespace Azure.ResourceManager.Automation
         /// <param name="lastModifiedOn"> Gets or sets the last modified time. </param>
         /// <param name="nodeConfigurationCount"> Gets the number of compiled node configurations. </param>
         /// <param name="description"> Gets or sets the description. </param>
-        internal DscConfigurationData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ETag? etag, DscConfigurationProvisioningState? provisioningState, int? jobCount, IDictionary<string, DscConfigurationParameterDefinition> parameters, AutomationContentSource source, DscConfigurationState? state, bool? isLogVerboseEnabled, DateTimeOffset? createdOn, DateTimeOffset? lastModifiedOn, int? nodeConfigurationCount, string description) : base(id, name, resourceType, systemData, tags, location)
+        /// <param name="tags"> Resource tags. </param>
+        /// <param name="location"> The Azure Region where the resource lives. </param>
+        internal DscConfigurationData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, ETag? etag, DscConfigurationProvisioningState? provisioningState, int? jobCount, IReadOnlyDictionary<string, DscConfigurationParameterDefinition> parameters, AutomationContentSource source, DscConfigurationState? state, bool? isLogVerboseEnabled, DateTimeOffset? createdOn, DateTimeOffset? lastModifiedOn, int? nodeConfigurationCount, string description, IReadOnlyDictionary<string, string> tags, AzureLocation? location) : base(id, name, resourceType, systemData)
         {
             ETag = etag;
             ProvisioningState = provisioningState;
@@ -58,29 +58,35 @@ namespace Azure.ResourceManager.Automation
             LastModifiedOn = lastModifiedOn;
             NodeConfigurationCount = nodeConfigurationCount;
             Description = description;
+            Tags = tags;
+            Location = location;
         }
 
         /// <summary> Gets or sets the etag of the resource. </summary>
-        public ETag? ETag { get; set; }
+        public ETag? ETag { get; }
         /// <summary> Gets or sets the provisioning state of the configuration. </summary>
-        public DscConfigurationProvisioningState? ProvisioningState { get; set; }
+        public DscConfigurationProvisioningState? ProvisioningState { get; }
         /// <summary> Gets or sets the job count of the configuration. </summary>
-        public int? JobCount { get; set; }
+        public int? JobCount { get; }
         /// <summary> Gets or sets the configuration parameters. </summary>
-        public IDictionary<string, DscConfigurationParameterDefinition> Parameters { get; }
+        public IReadOnlyDictionary<string, DscConfigurationParameterDefinition> Parameters { get; }
         /// <summary> Gets or sets the source. </summary>
-        public AutomationContentSource Source { get; set; }
+        public AutomationContentSource Source { get; }
         /// <summary> Gets or sets the state of the configuration. </summary>
-        public DscConfigurationState? State { get; set; }
+        public DscConfigurationState? State { get; }
         /// <summary> Gets or sets verbose log option. </summary>
-        public bool? IsLogVerboseEnabled { get; set; }
+        public bool? IsLogVerboseEnabled { get; }
         /// <summary> Gets or sets the creation time. </summary>
-        public DateTimeOffset? CreatedOn { get; set; }
+        public DateTimeOffset? CreatedOn { get; }
         /// <summary> Gets or sets the last modified time. </summary>
-        public DateTimeOffset? LastModifiedOn { get; set; }
+        public DateTimeOffset? LastModifiedOn { get; }
         /// <summary> Gets the number of compiled node configurations. </summary>
-        public int? NodeConfigurationCount { get; set; }
+        public int? NodeConfigurationCount { get; }
         /// <summary> Gets or sets the description. </summary>
-        public string Description { get; set; }
+        public string Description { get; }
+        /// <summary> Resource tags. </summary>
+        public IReadOnlyDictionary<string, string> Tags { get; }
+        /// <summary> The Azure Region where the resource lives. </summary>
+        public AzureLocation? Location { get; }
     }
 }

@@ -14,27 +14,8 @@ using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.Automation
 {
-    public partial class AutomationConnectionData : IUtf8JsonSerializable
+    public partial class AutomationConnectionData
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
-        {
-            writer.WriteStartObject();
-            writer.WritePropertyName("properties"u8);
-            writer.WriteStartObject();
-            if (Optional.IsDefined(ConnectionType))
-            {
-                writer.WritePropertyName("connectionType"u8);
-                writer.WriteObjectValue(ConnectionType);
-            }
-            if (Optional.IsDefined(Description))
-            {
-                writer.WritePropertyName("description"u8);
-                writer.WriteStringValue(Description);
-            }
-            writer.WriteEndObject();
-            writer.WriteEndObject();
-        }
-
         internal static AutomationConnectionData DeserializeAutomationConnectionData(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)

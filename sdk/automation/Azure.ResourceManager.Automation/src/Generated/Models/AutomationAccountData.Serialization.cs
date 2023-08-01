@@ -15,85 +15,8 @@ using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.Automation
 {
-    public partial class AutomationAccountData : IUtf8JsonSerializable
+    public partial class AutomationAccountData
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
-        {
-            writer.WriteStartObject();
-            if (Optional.IsDefined(ETag))
-            {
-                writer.WritePropertyName("etag"u8);
-                writer.WriteStringValue(ETag.Value.ToString());
-            }
-            if (Optional.IsDefined(Identity))
-            {
-                writer.WritePropertyName("identity"u8);
-                JsonSerializer.Serialize(writer, Identity);
-            }
-            if (Optional.IsCollectionDefined(Tags))
-            {
-                writer.WritePropertyName("tags"u8);
-                writer.WriteStartObject();
-                foreach (var item in Tags)
-                {
-                    writer.WritePropertyName(item.Key);
-                    writer.WriteStringValue(item.Value);
-                }
-                writer.WriteEndObject();
-            }
-            writer.WritePropertyName("location"u8);
-            writer.WriteStringValue(Location);
-            writer.WritePropertyName("properties"u8);
-            writer.WriteStartObject();
-            if (Optional.IsDefined(Sku))
-            {
-                writer.WritePropertyName("sku"u8);
-                writer.WriteObjectValue(Sku);
-            }
-            if (Optional.IsDefined(LastModifiedBy))
-            {
-                writer.WritePropertyName("lastModifiedBy"u8);
-                writer.WriteStringValue(LastModifiedBy);
-            }
-            if (Optional.IsDefined(Description))
-            {
-                writer.WritePropertyName("description"u8);
-                writer.WriteStringValue(Description);
-            }
-            if (Optional.IsDefined(Encryption))
-            {
-                writer.WritePropertyName("encryption"u8);
-                writer.WriteObjectValue(Encryption);
-            }
-            if (Optional.IsCollectionDefined(PrivateEndpointConnections))
-            {
-                writer.WritePropertyName("privateEndpointConnections"u8);
-                writer.WriteStartArray();
-                foreach (var item in PrivateEndpointConnections)
-                {
-                    writer.WriteObjectValue(item);
-                }
-                writer.WriteEndArray();
-            }
-            if (Optional.IsDefined(IsPublicNetworkAccessAllowed))
-            {
-                writer.WritePropertyName("publicNetworkAccess"u8);
-                writer.WriteBooleanValue(IsPublicNetworkAccessAllowed.Value);
-            }
-            if (Optional.IsDefined(IsLocalAuthDisabled))
-            {
-                writer.WritePropertyName("disableLocalAuth"u8);
-                writer.WriteBooleanValue(IsLocalAuthDisabled.Value);
-            }
-            if (Optional.IsDefined(AutomationHybridServiceUri))
-            {
-                writer.WritePropertyName("automationHybridServiceUrl"u8);
-                writer.WriteStringValue(AutomationHybridServiceUri.AbsoluteUri);
-            }
-            writer.WriteEndObject();
-            writer.WriteEndObject();
-        }
-
         internal static AutomationAccountData DeserializeAutomationAccountData(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
@@ -102,8 +25,8 @@ namespace Azure.ResourceManager.Automation
             }
             Optional<ETag> etag = default;
             Optional<ManagedServiceIdentity> identity = default;
-            Optional<IDictionary<string, string>> tags = default;
-            AzureLocation location = default;
+            Optional<IReadOnlyDictionary<string, string>> tags = default;
+            Optional<AzureLocation> location = default;
             ResourceIdentifier id = default;
             string name = default;
             ResourceType type = default;
@@ -115,7 +38,7 @@ namespace Azure.ResourceManager.Automation
             Optional<DateTimeOffset> lastModifiedTime = default;
             Optional<string> description = default;
             Optional<AutomationEncryptionProperties> encryption = default;
-            Optional<IList<AutomationPrivateEndpointConnectionData>> privateEndpointConnections = default;
+            Optional<IReadOnlyList<AutomationPrivateEndpointConnection>> privateEndpointConnections = default;
             Optional<bool> publicNetworkAccess = default;
             Optional<bool> disableLocalAuth = default;
             Optional<Uri> automationHybridServiceUrl = default;
@@ -155,6 +78,10 @@ namespace Azure.ResourceManager.Automation
                 }
                 if (property.NameEquals("location"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     location = new AzureLocation(property.Value.GetString());
                     continue;
                 }
@@ -252,10 +179,10 @@ namespace Azure.ResourceManager.Automation
                             {
                                 continue;
                             }
-                            List<AutomationPrivateEndpointConnectionData> array = new List<AutomationPrivateEndpointConnectionData>();
+                            List<AutomationPrivateEndpointConnection> array = new List<AutomationPrivateEndpointConnection>();
                             foreach (var item in property0.Value.EnumerateArray())
                             {
-                                array.Add(AutomationPrivateEndpointConnectionData.DeserializeAutomationPrivateEndpointConnectionData(item));
+                                array.Add(AutomationPrivateEndpointConnection.DeserializeAutomationPrivateEndpointConnection(item));
                             }
                             privateEndpointConnections = array;
                             continue;
@@ -291,7 +218,7 @@ namespace Azure.ResourceManager.Automation
                     continue;
                 }
             }
-            return new AutomationAccountData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, Optional.ToNullable(etag), identity, sku.Value, lastModifiedBy.Value, Optional.ToNullable(state), Optional.ToNullable(creationTime), Optional.ToNullable(lastModifiedTime), description.Value, encryption.Value, Optional.ToList(privateEndpointConnections), Optional.ToNullable(publicNetworkAccess), Optional.ToNullable(disableLocalAuth), automationHybridServiceUrl.Value);
+            return new AutomationAccountData(id, name, type, systemData.Value, Optional.ToNullable(etag), identity, sku.Value, lastModifiedBy.Value, Optional.ToNullable(state), Optional.ToNullable(creationTime), Optional.ToNullable(lastModifiedTime), description.Value, encryption.Value, Optional.ToList(privateEndpointConnections), Optional.ToNullable(publicNetworkAccess), Optional.ToNullable(disableLocalAuth), automationHybridServiceUrl.Value, Optional.ToDictionary(tags), Optional.ToNullable(location));
         }
     }
 }

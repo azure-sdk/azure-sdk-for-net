@@ -14,121 +14,8 @@ using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.Automation
 {
-    public partial class AutomationJobData : IUtf8JsonSerializable
+    public partial class AutomationJobData
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
-        {
-            writer.WriteStartObject();
-            writer.WritePropertyName("properties"u8);
-            writer.WriteStartObject();
-            if (Optional.IsDefined(Runbook))
-            {
-                writer.WritePropertyName("runbook"u8);
-                writer.WriteObjectValue(Runbook);
-            }
-            if (Optional.IsDefined(StartedBy))
-            {
-                writer.WritePropertyName("startedBy"u8);
-                writer.WriteStringValue(StartedBy);
-            }
-            if (Optional.IsDefined(RunOn))
-            {
-                writer.WritePropertyName("runOn"u8);
-                writer.WriteStringValue(RunOn);
-            }
-            if (Optional.IsDefined(JobId))
-            {
-                writer.WritePropertyName("jobId"u8);
-                writer.WriteStringValue(JobId.Value);
-            }
-            if (Optional.IsDefined(CreatedOn))
-            {
-                writer.WritePropertyName("creationTime"u8);
-                writer.WriteStringValue(CreatedOn.Value, "O");
-            }
-            if (Optional.IsDefined(Status))
-            {
-                writer.WritePropertyName("status"u8);
-                writer.WriteStringValue(Status.Value.ToString());
-            }
-            if (Optional.IsDefined(StatusDetails))
-            {
-                writer.WritePropertyName("statusDetails"u8);
-                writer.WriteStringValue(StatusDetails);
-            }
-            if (Optional.IsDefined(StartOn))
-            {
-                if (StartOn != null)
-                {
-                    writer.WritePropertyName("startTime"u8);
-                    writer.WriteStringValue(StartOn.Value, "O");
-                }
-                else
-                {
-                    writer.WriteNull("startTime");
-                }
-            }
-            if (Optional.IsDefined(EndOn))
-            {
-                if (EndOn != null)
-                {
-                    writer.WritePropertyName("endTime"u8);
-                    writer.WriteStringValue(EndOn.Value, "O");
-                }
-                else
-                {
-                    writer.WriteNull("endTime");
-                }
-            }
-            if (Optional.IsDefined(Exception))
-            {
-                writer.WritePropertyName("exception"u8);
-                writer.WriteStringValue(Exception);
-            }
-            if (Optional.IsDefined(LastModifiedOn))
-            {
-                if (LastModifiedOn != null)
-                {
-                    writer.WritePropertyName("lastModifiedTime"u8);
-                    writer.WriteStringValue(LastModifiedOn.Value, "O");
-                }
-                else
-                {
-                    writer.WriteNull("lastModifiedTime");
-                }
-            }
-            if (Optional.IsDefined(LastStatusModifiedOn))
-            {
-                if (LastStatusModifiedOn != null)
-                {
-                    writer.WritePropertyName("lastStatusModifiedTime"u8);
-                    writer.WriteStringValue(LastStatusModifiedOn.Value, "O");
-                }
-                else
-                {
-                    writer.WriteNull("lastStatusModifiedTime");
-                }
-            }
-            if (Optional.IsCollectionDefined(Parameters))
-            {
-                writer.WritePropertyName("parameters"u8);
-                writer.WriteStartObject();
-                foreach (var item in Parameters)
-                {
-                    writer.WritePropertyName(item.Key);
-                    writer.WriteStringValue(item.Value);
-                }
-                writer.WriteEndObject();
-            }
-            if (Optional.IsDefined(ProvisioningState))
-            {
-                writer.WritePropertyName("provisioningState"u8);
-                writer.WriteStringValue(ProvisioningState.Value.ToString());
-            }
-            writer.WriteEndObject();
-            writer.WriteEndObject();
-        }
-
         internal static AutomationJobData DeserializeAutomationJobData(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
@@ -151,7 +38,7 @@ namespace Azure.ResourceManager.Automation
             Optional<string> exception = default;
             Optional<DateTimeOffset?> lastModifiedTime = default;
             Optional<DateTimeOffset?> lastStatusModifiedTime = default;
-            Optional<IDictionary<string, string>> parameters = default;
+            Optional<IReadOnlyDictionary<string, string>> parameters = default;
             Optional<JobProvisioningState> provisioningState = default;
             foreach (var property in element.EnumerateObject())
             {

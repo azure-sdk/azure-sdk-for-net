@@ -10,24 +10,8 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.Automation.Models
 {
-    public partial class AutomationPrivateLinkServiceConnectionStateProperty : IUtf8JsonSerializable
+    public partial class AutomationPrivateLinkServiceConnectionStateProperty
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
-        {
-            writer.WriteStartObject();
-            if (Optional.IsDefined(Status))
-            {
-                writer.WritePropertyName("status"u8);
-                writer.WriteStringValue(Status);
-            }
-            if (Optional.IsDefined(Description))
-            {
-                writer.WritePropertyName("description"u8);
-                writer.WriteStringValue(Description);
-            }
-            writer.WriteEndObject();
-        }
-
         internal static AutomationPrivateLinkServiceConnectionStateProperty DeserializeAutomationPrivateLinkServiceConnectionStateProperty(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)

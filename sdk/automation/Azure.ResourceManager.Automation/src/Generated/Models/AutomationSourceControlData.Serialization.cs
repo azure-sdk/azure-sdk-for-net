@@ -13,62 +13,8 @@ using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.Automation
 {
-    public partial class AutomationSourceControlData : IUtf8JsonSerializable
+    public partial class AutomationSourceControlData
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
-        {
-            writer.WriteStartObject();
-            writer.WritePropertyName("properties"u8);
-            writer.WriteStartObject();
-            if (Optional.IsDefined(RepoUri))
-            {
-                writer.WritePropertyName("repoUrl"u8);
-                writer.WriteStringValue(RepoUri.AbsoluteUri);
-            }
-            if (Optional.IsDefined(Branch))
-            {
-                writer.WritePropertyName("branch"u8);
-                writer.WriteStringValue(Branch);
-            }
-            if (Optional.IsDefined(FolderPath))
-            {
-                writer.WritePropertyName("folderPath"u8);
-                writer.WriteStringValue(FolderPath);
-            }
-            if (Optional.IsDefined(IsAutoSyncEnabled))
-            {
-                writer.WritePropertyName("autoSync"u8);
-                writer.WriteBooleanValue(IsAutoSyncEnabled.Value);
-            }
-            if (Optional.IsDefined(IsAutoPublishRunbookEnabled))
-            {
-                writer.WritePropertyName("publishRunbook"u8);
-                writer.WriteBooleanValue(IsAutoPublishRunbookEnabled.Value);
-            }
-            if (Optional.IsDefined(SourceType))
-            {
-                writer.WritePropertyName("sourceType"u8);
-                writer.WriteStringValue(SourceType.Value.ToString());
-            }
-            if (Optional.IsDefined(Description))
-            {
-                writer.WritePropertyName("description"u8);
-                writer.WriteStringValue(Description);
-            }
-            if (Optional.IsDefined(CreatedOn))
-            {
-                writer.WritePropertyName("creationTime"u8);
-                writer.WriteStringValue(CreatedOn.Value, "O");
-            }
-            if (Optional.IsDefined(LastModifiedOn))
-            {
-                writer.WritePropertyName("lastModifiedTime"u8);
-                writer.WriteStringValue(LastModifiedOn.Value, "O");
-            }
-            writer.WriteEndObject();
-            writer.WriteEndObject();
-        }
-
         internal static AutomationSourceControlData DeserializeAutomationSourceControlData(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)

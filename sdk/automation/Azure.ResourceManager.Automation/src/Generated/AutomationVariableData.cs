@@ -18,7 +18,7 @@ namespace Azure.ResourceManager.Automation
     public partial class AutomationVariableData : ResourceData
     {
         /// <summary> Initializes a new instance of AutomationVariableData. </summary>
-        public AutomationVariableData()
+        internal AutomationVariableData()
         {
         }
 
@@ -42,14 +42,14 @@ namespace Azure.ResourceManager.Automation
         }
 
         /// <summary> Gets or sets the value of the variable. </summary>
-        public string Value { get; set; }
+        public string Value { get; }
         /// <summary> Gets or sets the encrypted flag of the variable. </summary>
-        public bool? IsEncrypted { get; set; }
+        public bool? IsEncrypted { get; }
         /// <summary> Gets or sets the creation time. </summary>
-        public DateTimeOffset? CreatedOn { get; set; }
+        public DateTimeOffset? CreatedOn { get; }
         /// <summary> Gets or sets the last modified time. </summary>
-        public DateTimeOffset? LastModifiedOn { get; set; }
+        public DateTimeOffset? LastModifiedOn { get; }
         /// <summary> Gets or sets the description. </summary>
-        public string Description { get; set; }
+        public string Description { get; }
     }
 }

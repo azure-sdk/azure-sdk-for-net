@@ -12,22 +12,8 @@ using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.Automation.Models
 {
-    public partial class AutomationJobCollectionItemData : IUtf8JsonSerializable
+    public partial class AutomationJobCollectionItemData
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
-        {
-            writer.WriteStartObject();
-            writer.WritePropertyName("properties"u8);
-            writer.WriteStartObject();
-            if (Optional.IsDefined(RunOn))
-            {
-                writer.WritePropertyName("runOn"u8);
-                writer.WriteStringValue(RunOn);
-            }
-            writer.WriteEndObject();
-            writer.WriteEndObject();
-        }
-
         internal static AutomationJobCollectionItemData DeserializeAutomationJobCollectionItemData(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)

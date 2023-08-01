@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.Automation
     public partial class AutomationJobData : ResourceData
     {
         /// <summary> Initializes a new instance of AutomationJobData. </summary>
-        public AutomationJobData()
+        internal AutomationJobData()
         {
             Parameters = new ChangeTrackingDictionary<string, string>();
         }
@@ -44,7 +44,7 @@ namespace Azure.ResourceManager.Automation
         /// <param name="lastStatusModifiedOn"> Gets or sets the last status modified time of the job. </param>
         /// <param name="parameters"> Gets or sets the parameters of the job. </param>
         /// <param name="provisioningState"> The current provisioning state of the job. </param>
-        internal AutomationJobData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, RunbookAssociationProperty runbook, string startedBy, string runOn, Guid? jobId, DateTimeOffset? createdOn, AutomationJobStatus? status, string statusDetails, DateTimeOffset? startOn, DateTimeOffset? endOn, string exception, DateTimeOffset? lastModifiedOn, DateTimeOffset? lastStatusModifiedOn, IDictionary<string, string> parameters, JobProvisioningState? provisioningState) : base(id, name, resourceType, systemData)
+        internal AutomationJobData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, RunbookAssociationProperty runbook, string startedBy, string runOn, Guid? jobId, DateTimeOffset? createdOn, AutomationJobStatus? status, string statusDetails, DateTimeOffset? startOn, DateTimeOffset? endOn, string exception, DateTimeOffset? lastModifiedOn, DateTimeOffset? lastStatusModifiedOn, IReadOnlyDictionary<string, string> parameters, JobProvisioningState? provisioningState) : base(id, name, resourceType, systemData)
         {
             Runbook = runbook;
             StartedBy = startedBy;
@@ -63,44 +63,38 @@ namespace Azure.ResourceManager.Automation
         }
 
         /// <summary> Gets or sets the runbook. </summary>
-        internal RunbookAssociationProperty Runbook { get; set; }
+        internal RunbookAssociationProperty Runbook { get; }
         /// <summary> Gets or sets the name of the runbook. </summary>
         public string RunbookName
         {
-            get => Runbook is null ? default : Runbook.Name;
-            set
-            {
-                if (Runbook is null)
-                    Runbook = new RunbookAssociationProperty();
-                Runbook.Name = value;
-            }
+            get => Runbook?.Name;
         }
 
         /// <summary> Gets or sets the job started by. </summary>
-        public string StartedBy { get; set; }
+        public string StartedBy { get; }
         /// <summary> Gets or sets the runOn which specifies the group name where the job is to be executed. </summary>
-        public string RunOn { get; set; }
+        public string RunOn { get; }
         /// <summary> Gets or sets the id of the job. </summary>
-        public Guid? JobId { get; set; }
+        public Guid? JobId { get; }
         /// <summary> Gets or sets the creation time of the job. </summary>
-        public DateTimeOffset? CreatedOn { get; set; }
+        public DateTimeOffset? CreatedOn { get; }
         /// <summary> Gets or sets the status of the job. </summary>
-        public AutomationJobStatus? Status { get; set; }
+        public AutomationJobStatus? Status { get; }
         /// <summary> Gets or sets the status details of the job. </summary>
-        public string StatusDetails { get; set; }
+        public string StatusDetails { get; }
         /// <summary> Gets or sets the start time of the job. </summary>
-        public DateTimeOffset? StartOn { get; set; }
+        public DateTimeOffset? StartOn { get; }
         /// <summary> Gets or sets the end time of the job. </summary>
-        public DateTimeOffset? EndOn { get; set; }
+        public DateTimeOffset? EndOn { get; }
         /// <summary> Gets or sets the exception of the job. </summary>
-        public string Exception { get; set; }
+        public string Exception { get; }
         /// <summary> Gets or sets the last modified time of the job. </summary>
-        public DateTimeOffset? LastModifiedOn { get; set; }
+        public DateTimeOffset? LastModifiedOn { get; }
         /// <summary> Gets or sets the last status modified time of the job. </summary>
-        public DateTimeOffset? LastStatusModifiedOn { get; set; }
+        public DateTimeOffset? LastStatusModifiedOn { get; }
         /// <summary> Gets or sets the parameters of the job. </summary>
-        public IDictionary<string, string> Parameters { get; }
+        public IReadOnlyDictionary<string, string> Parameters { get; }
         /// <summary> The current provisioning state of the job. </summary>
-        public JobProvisioningState? ProvisioningState { get; set; }
+        public JobProvisioningState? ProvisioningState { get; }
     }
 }

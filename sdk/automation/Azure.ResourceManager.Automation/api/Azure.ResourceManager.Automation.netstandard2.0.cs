@@ -15,22 +15,24 @@ namespace Azure.ResourceManager.Automation
         System.Collections.Generic.IEnumerator<Azure.ResourceManager.Automation.AutomationAccountResource> System.Collections.Generic.IEnumerable<Azure.ResourceManager.Automation.AutomationAccountResource>.GetEnumerator() { throw null; }
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() { throw null; }
     }
-    public partial class AutomationAccountData : Azure.ResourceManager.Models.TrackedResourceData
+    public partial class AutomationAccountData : Azure.ResourceManager.Models.ResourceData
     {
-        public AutomationAccountData(Azure.Core.AzureLocation location) : base (default(Azure.Core.AzureLocation)) { }
-        public System.Uri AutomationHybridServiceUri { get { throw null; } set { } }
+        internal AutomationAccountData() { }
+        public System.Uri AutomationHybridServiceUri { get { throw null; } }
         public System.DateTimeOffset? CreatedOn { get { throw null; } }
-        public string Description { get { throw null; } set { } }
-        public Azure.ResourceManager.Automation.Models.AutomationEncryptionProperties Encryption { get { throw null; } set { } }
-        public Azure.ETag? ETag { get { throw null; } set { } }
-        public Azure.ResourceManager.Models.ManagedServiceIdentity Identity { get { throw null; } set { } }
-        public bool? IsLocalAuthDisabled { get { throw null; } set { } }
-        public bool? IsPublicNetworkAccessAllowed { get { throw null; } set { } }
-        public string LastModifiedBy { get { throw null; } set { } }
+        public string Description { get { throw null; } }
+        public Azure.ResourceManager.Automation.Models.AutomationEncryptionProperties Encryption { get { throw null; } }
+        public Azure.ETag? ETag { get { throw null; } }
+        public Azure.ResourceManager.Models.ManagedServiceIdentity Identity { get { throw null; } }
+        public bool? IsLocalAuthDisabled { get { throw null; } }
+        public bool? IsPublicNetworkAccessAllowed { get { throw null; } }
+        public string LastModifiedBy { get { throw null; } }
         public System.DateTimeOffset? LastModifiedOn { get { throw null; } }
-        public System.Collections.Generic.IList<Azure.ResourceManager.Automation.AutomationPrivateEndpointConnectionData> PrivateEndpointConnections { get { throw null; } }
-        public Azure.ResourceManager.Automation.Models.AutomationSku Sku { get { throw null; } set { } }
+        public Azure.Core.AzureLocation? Location { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Automation.Models.AutomationPrivateEndpointConnection> PrivateEndpointConnections { get { throw null; } }
+        public Azure.ResourceManager.Automation.Models.AutomationSku Sku { get { throw null; } }
         public Azure.ResourceManager.Automation.Models.AutomationAccountState? State { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string> Tags { get { throw null; } }
     }
     public partial class AutomationAccountModuleCollection : Azure.ResourceManager.ArmCollection, System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.Automation.AutomationAccountModuleResource>, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Automation.AutomationAccountModuleResource>, System.Collections.IEnumerable
     {
@@ -78,8 +80,8 @@ namespace Azure.ResourceManager.Automation
     public partial class AutomationAccountPython2PackageCollection : Azure.ResourceManager.ArmCollection, System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.Automation.AutomationAccountPython2PackageResource>, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Automation.AutomationAccountPython2PackageResource>, System.Collections.IEnumerable
     {
         protected AutomationAccountPython2PackageCollection() { }
-        public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Automation.AutomationAccountPython2PackageResource> CreateOrUpdate(Azure.WaitUntil waitUntil, string packageName, Azure.ResourceManager.Automation.Models.AutomationAccountPython2PackageCreateOrUpdateContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Automation.AutomationAccountPython2PackageResource>> CreateOrUpdateAsync(Azure.WaitUntil waitUntil, string packageName, Azure.ResourceManager.Automation.Models.AutomationAccountPython2PackageCreateOrUpdateContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Automation.AutomationAccountPython2PackageResource> CreateOrUpdate(Azure.WaitUntil waitUntil, string packageName, Azure.ResourceManager.Automation.Models.PythonPackageCreateParameters pythonPackageCreateParameters, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Automation.AutomationAccountPython2PackageResource>> CreateOrUpdateAsync(Azure.WaitUntil waitUntil, string packageName, Azure.ResourceManager.Automation.Models.PythonPackageCreateParameters pythonPackageCreateParameters, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<bool> Exists(string packageName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<bool>> ExistsAsync(string packageName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.Automation.AutomationAccountPython2PackageResource> Get(string packageName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
@@ -107,8 +109,43 @@ namespace Azure.ResourceManager.Automation
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.AutomationAccountPython2PackageResource>> RemoveTagAsync(string key, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.Automation.AutomationAccountPython2PackageResource> SetTags(System.Collections.Generic.IDictionary<string, string> tags, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.AutomationAccountPython2PackageResource>> SetTagsAsync(System.Collections.Generic.IDictionary<string, string> tags, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.Response<Azure.ResourceManager.Automation.AutomationAccountPython2PackageResource> Update(Azure.ResourceManager.Automation.Models.AutomationAccountPython2PackagePatch patch, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.AutomationAccountPython2PackageResource>> UpdateAsync(Azure.ResourceManager.Automation.Models.AutomationAccountPython2PackagePatch patch, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.Automation.AutomationAccountPython2PackageResource> Update(Azure.ResourceManager.Automation.Models.PythonPackageUpdateParameters pythonPackageUpdateParameters, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.AutomationAccountPython2PackageResource>> UpdateAsync(Azure.ResourceManager.Automation.Models.PythonPackageUpdateParameters pythonPackageUpdateParameters, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+    }
+    public partial class AutomationAccountPython3PackageCollection : Azure.ResourceManager.ArmCollection, System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.Automation.AutomationAccountPython3PackageResource>, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Automation.AutomationAccountPython3PackageResource>, System.Collections.IEnumerable
+    {
+        protected AutomationAccountPython3PackageCollection() { }
+        public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Automation.AutomationAccountPython3PackageResource> CreateOrUpdate(Azure.WaitUntil waitUntil, string packageName, Azure.ResourceManager.Automation.Models.PythonPackageCreateParameters pythonPackageCreateParameters, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Automation.AutomationAccountPython3PackageResource>> CreateOrUpdateAsync(Azure.WaitUntil waitUntil, string packageName, Azure.ResourceManager.Automation.Models.PythonPackageCreateParameters pythonPackageCreateParameters, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<bool> Exists(string packageName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<bool>> ExistsAsync(string packageName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.Automation.AutomationAccountPython3PackageResource> Get(string packageName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Pageable<Azure.ResourceManager.Automation.AutomationAccountPython3PackageResource> GetAll(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.AsyncPageable<Azure.ResourceManager.Automation.AutomationAccountPython3PackageResource> GetAllAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.AutomationAccountPython3PackageResource>> GetAsync(string packageName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        System.Collections.Generic.IAsyncEnumerator<Azure.ResourceManager.Automation.AutomationAccountPython3PackageResource> System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.Automation.AutomationAccountPython3PackageResource>.GetAsyncEnumerator(System.Threading.CancellationToken cancellationToken) { throw null; }
+        System.Collections.Generic.IEnumerator<Azure.ResourceManager.Automation.AutomationAccountPython3PackageResource> System.Collections.Generic.IEnumerable<Azure.ResourceManager.Automation.AutomationAccountPython3PackageResource>.GetEnumerator() { throw null; }
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() { throw null; }
+    }
+    public partial class AutomationAccountPython3PackageResource : Azure.ResourceManager.ArmResource
+    {
+        public static readonly Azure.Core.ResourceType ResourceType;
+        protected AutomationAccountPython3PackageResource() { }
+        public virtual Azure.ResourceManager.Automation.AutomationModuleData Data { get { throw null; } }
+        public virtual bool HasData { get { throw null; } }
+        public virtual Azure.Response<Azure.ResourceManager.Automation.AutomationAccountPython3PackageResource> AddTag(string key, string value, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.AutomationAccountPython3PackageResource>> AddTagAsync(string key, string value, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public static Azure.Core.ResourceIdentifier CreateResourceIdentifier(string subscriptionId, string resourceGroupName, string automationAccountName, string packageName) { throw null; }
+        public virtual Azure.ResourceManager.ArmOperation Delete(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation> DeleteAsync(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.Automation.AutomationAccountPython3PackageResource> Get(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.AutomationAccountPython3PackageResource>> GetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.Automation.AutomationAccountPython3PackageResource> RemoveTag(string key, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.AutomationAccountPython3PackageResource>> RemoveTagAsync(string key, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.Automation.AutomationAccountPython3PackageResource> SetTags(System.Collections.Generic.IDictionary<string, string> tags, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.AutomationAccountPython3PackageResource>> SetTagsAsync(System.Collections.Generic.IDictionary<string, string> tags, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.Automation.AutomationAccountPython3PackageResource> Update(Azure.ResourceManager.Automation.Models.PythonPackageUpdateParameters pythonPackageUpdateParameters, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.AutomationAccountPython3PackageResource>> UpdateAsync(Azure.ResourceManager.Automation.Models.PythonPackageUpdateParameters pythonPackageUpdateParameters, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
     }
     public partial class AutomationAccountResource : Azure.ResourceManager.ArmResource
     {
@@ -118,20 +155,12 @@ namespace Azure.ResourceManager.Automation
         public virtual bool HasData { get { throw null; } }
         public virtual Azure.Response<Azure.ResourceManager.Automation.AutomationAccountResource> AddTag(string key, string value, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.AutomationAccountResource>> AddTagAsync(string key, string value, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.Pageable<Azure.ResourceManager.Automation.Models.AutomationPrivateLinkResource> AutomationPrivateLinkResources(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.AsyncPageable<Azure.ResourceManager.Automation.Models.AutomationPrivateLinkResource> AutomationPrivateLinkResourcesAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.Automation.Models.GraphicalRunbookContent> ConvertGraphRunbookContent(Azure.ResourceManager.Automation.Models.GraphicalRunbookContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.Models.GraphicalRunbookContent>> ConvertGraphRunbookContentAsync(Azure.ResourceManager.Automation.Models.GraphicalRunbookContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static Azure.Core.ResourceIdentifier CreateResourceIdentifier(string subscriptionId, string resourceGroupName, string automationAccountName) { throw null; }
         public virtual Azure.ResourceManager.ArmOperation Delete(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation> DeleteAsync(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.Response<string> GenerateUriWebhook(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response<string>> GenerateUriWebhookAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.Automation.AutomationAccountResource> Get(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.Response<Azure.ResourceManager.Automation.Models.AgentRegistration> GetAgentRegistrationInformation(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.Models.AgentRegistration>> GetAgentRegistrationInformationAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.Pageable<Azure.ResourceManager.Automation.Models.DscNodeCount> GetAllNodeCountInformation(Azure.ResourceManager.Automation.Models.AutomationCountType countType, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.AsyncPageable<Azure.ResourceManager.Automation.Models.DscNodeCount> GetAllNodeCountInformationAsync(Azure.ResourceManager.Automation.Models.AutomationCountType countType, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.AutomationAccountResource>> GetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Pageable<Azure.ResourceManager.Automation.Models.AutomationKey> GetAutomationAccountKeys(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.AsyncPageable<Azure.ResourceManager.Automation.Models.AutomationKey> GetAutomationAccountKeysAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
@@ -141,6 +170,9 @@ namespace Azure.ResourceManager.Automation
         public virtual Azure.Response<Azure.ResourceManager.Automation.AutomationAccountPython2PackageResource> GetAutomationAccountPython2Package(string packageName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.AutomationAccountPython2PackageResource>> GetAutomationAccountPython2PackageAsync(string packageName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.ResourceManager.Automation.AutomationAccountPython2PackageCollection GetAutomationAccountPython2Packages() { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.Automation.AutomationAccountPython3PackageResource> GetAutomationAccountPython3Package(string packageName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.AutomationAccountPython3PackageResource>> GetAutomationAccountPython3PackageAsync(string packageName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.ResourceManager.Automation.AutomationAccountPython3PackageCollection GetAutomationAccountPython3Packages() { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.Automation.AutomationCertificateResource> GetAutomationCertificate(string certificateName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.AutomationCertificateResource>> GetAutomationCertificateAsync(string certificateName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.ResourceManager.Automation.AutomationCertificateCollection GetAutomationCertificates() { throw null; }
@@ -159,9 +191,6 @@ namespace Azure.ResourceManager.Automation
         public virtual Azure.Response<Azure.ResourceManager.Automation.AutomationJobScheduleResource> GetAutomationJobSchedule(System.Guid jobScheduleId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.AutomationJobScheduleResource>> GetAutomationJobScheduleAsync(System.Guid jobScheduleId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.ResourceManager.Automation.AutomationJobScheduleCollection GetAutomationJobSchedules() { throw null; }
-        public virtual Azure.Response<Azure.ResourceManager.Automation.AutomationPrivateEndpointConnectionResource> GetAutomationPrivateEndpointConnection(string privateEndpointConnectionName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.AutomationPrivateEndpointConnectionResource>> GetAutomationPrivateEndpointConnectionAsync(string privateEndpointConnectionName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.ResourceManager.Automation.AutomationPrivateEndpointConnectionCollection GetAutomationPrivateEndpointConnections() { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.Automation.AutomationRunbookResource> GetAutomationRunbook(string runbookName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.AutomationRunbookResource>> GetAutomationRunbookAsync(string runbookName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.ResourceManager.Automation.AutomationRunbookCollection GetAutomationRunbooks() { throw null; }
@@ -174,26 +203,14 @@ namespace Azure.ResourceManager.Automation
         public virtual Azure.Response<Azure.ResourceManager.Automation.AutomationVariableResource> GetAutomationVariable(string variableName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.AutomationVariableResource>> GetAutomationVariableAsync(string variableName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.ResourceManager.Automation.AutomationVariableCollection GetAutomationVariables() { throw null; }
-        public virtual Azure.Response<Azure.ResourceManager.Automation.AutomationWatcherResource> GetAutomationWatcher(string watcherName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.AutomationWatcherResource>> GetAutomationWatcherAsync(string watcherName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.ResourceManager.Automation.AutomationWatcherCollection GetAutomationWatchers() { throw null; }
-        public virtual Azure.Response<Azure.ResourceManager.Automation.AutomationWebhookResource> GetAutomationWebhook(string webhookName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.AutomationWebhookResource>> GetAutomationWebhookAsync(string webhookName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.ResourceManager.Automation.AutomationWebhookCollection GetAutomationWebhooks() { throw null; }
-        public virtual Azure.Response<Azure.ResourceManager.Automation.DscCompilationJobResource> GetDscCompilationJob(string compilationJobName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.DscCompilationJobResource>> GetDscCompilationJobAsync(string compilationJobName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.ResourceManager.Automation.DscCompilationJobCollection GetDscCompilationJobs() { throw null; }
-        public virtual Azure.Pageable<Azure.ResourceManager.Automation.Models.AutomationJobStream> GetDscCompilationJobStreams(System.Guid jobId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.AsyncPageable<Azure.ResourceManager.Automation.Models.AutomationJobStream> GetDscCompilationJobStreamsAsync(System.Guid jobId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Pageable<Azure.ResourceManager.Automation.Models.DeletedRunbook> GetDeletedRunbooks(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.AsyncPageable<Azure.ResourceManager.Automation.Models.DeletedRunbook> GetDeletedRunbooksAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.Automation.DscConfigurationResource> GetDscConfiguration(string configurationName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.DscConfigurationResource>> GetDscConfigurationAsync(string configurationName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.ResourceManager.Automation.DscConfigurationCollection GetDscConfigurations() { throw null; }
-        public virtual Azure.Response<Azure.ResourceManager.Automation.DscNodeResource> GetDscNode(string nodeId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.DscNodeResource>> GetDscNodeAsync(string nodeId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.Automation.DscNodeConfigurationResource> GetDscNodeConfiguration(string nodeConfigurationName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.DscNodeConfigurationResource>> GetDscNodeConfigurationAsync(string nodeConfigurationName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.ResourceManager.Automation.DscNodeConfigurationCollection GetDscNodeConfigurations() { throw null; }
-        public virtual Azure.ResourceManager.Automation.DscNodeCollection GetDscNodes() { throw null; }
         public virtual Azure.Pageable<Azure.ResourceManager.Automation.Models.AutomationModuleField> GetFieldsByType(string typeName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.AsyncPageable<Azure.ResourceManager.Automation.Models.AutomationModuleField> GetFieldsByTypeAsync(string typeName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.Automation.HybridRunbookWorkerGroupResource> GetHybridRunbookWorkerGroup(string hybridRunbookWorkerGroupName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
@@ -201,8 +218,6 @@ namespace Azure.ResourceManager.Automation
         public virtual Azure.ResourceManager.Automation.HybridRunbookWorkerGroupCollection GetHybridRunbookWorkerGroups() { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.Automation.Models.AutomationLinkedWorkspace> GetLinkedWorkspace(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.Models.AutomationLinkedWorkspace>> GetLinkedWorkspaceAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.Response<Azure.ResourceManager.Automation.SoftwareUpdateConfigurationResource> GetSoftwareUpdateConfiguration(string softwareUpdateConfigurationName, string clientRequestId = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.SoftwareUpdateConfigurationResource>> GetSoftwareUpdateConfigurationAsync(string softwareUpdateConfigurationName, string clientRequestId = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.Automation.Models.SoftwareUpdateConfigurationMachineRun> GetSoftwareUpdateConfigurationMachineRun(System.Guid softwareUpdateConfigurationMachineRunId, string clientRequestId = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.Models.SoftwareUpdateConfigurationMachineRun>> GetSoftwareUpdateConfigurationMachineRunAsync(System.Guid softwareUpdateConfigurationMachineRunId, string clientRequestId = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Pageable<Azure.ResourceManager.Automation.Models.SoftwareUpdateConfigurationMachineRun> GetSoftwareUpdateConfigurationMachineRuns(string clientRequestId = null, string filter = null, string skip = null, string top = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
@@ -211,15 +226,10 @@ namespace Azure.ResourceManager.Automation
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.Models.SoftwareUpdateConfigurationRun>> GetSoftwareUpdateConfigurationRunAsync(System.Guid softwareUpdateConfigurationRunId, string clientRequestId = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Pageable<Azure.ResourceManager.Automation.Models.SoftwareUpdateConfigurationRun> GetSoftwareUpdateConfigurationRuns(string clientRequestId = null, string filter = null, string skip = null, string top = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.AsyncPageable<Azure.ResourceManager.Automation.Models.SoftwareUpdateConfigurationRun> GetSoftwareUpdateConfigurationRunsAsync(string clientRequestId = null, string filter = null, string skip = null, string top = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.ResourceManager.Automation.SoftwareUpdateConfigurationCollection GetSoftwareUpdateConfigurations() { throw null; }
         public virtual Azure.Pageable<Azure.ResourceManager.Automation.Models.AutomationAccountStatistics> GetStatistics(string filter = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.AsyncPageable<Azure.ResourceManager.Automation.Models.AutomationAccountStatistics> GetStatisticsAsync(string filter = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.Response<Azure.ResourceManager.Automation.Models.AutomationJobStream> GetStreamDscCompilationJob(System.Guid jobId, string jobStreamId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.Models.AutomationJobStream>> GetStreamDscCompilationJobAsync(System.Guid jobId, string jobStreamId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Pageable<Azure.ResourceManager.Automation.Models.AutomationUsage> GetUsages(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.AsyncPageable<Azure.ResourceManager.Automation.Models.AutomationUsage> GetUsagesAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.Response<Azure.ResourceManager.Automation.Models.AgentRegistration> RegenerateKeyAgentRegistrationInformation(Azure.ResourceManager.Automation.Models.AgentRegistrationRegenerateKeyContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.Models.AgentRegistration>> RegenerateKeyAgentRegistrationInformationAsync(Azure.ResourceManager.Automation.Models.AgentRegistrationRegenerateKeyContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.Automation.AutomationAccountResource> RemoveTag(string key, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.AutomationAccountResource>> RemoveTagAsync(string key, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.Automation.AutomationAccountResource> SetTags(System.Collections.Generic.IDictionary<string, string> tags, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
@@ -244,9 +254,9 @@ namespace Azure.ResourceManager.Automation
     }
     public partial class AutomationCertificateData : Azure.ResourceManager.Models.ResourceData
     {
-        public AutomationCertificateData() { }
+        internal AutomationCertificateData() { }
         public System.DateTimeOffset? CreatedOn { get { throw null; } }
-        public string Description { get { throw null; } set { } }
+        public string Description { get { throw null; } }
         public System.DateTimeOffset? ExpireOn { get { throw null; } }
         public bool? IsExportable { get { throw null; } }
         public System.DateTimeOffset? LastModifiedOn { get { throw null; } }
@@ -286,10 +296,10 @@ namespace Azure.ResourceManager.Automation
     }
     public partial class AutomationConnectionData : Azure.ResourceManager.Models.ResourceData
     {
-        public AutomationConnectionData() { }
-        public string ConnectionTypeName { get { throw null; } set { } }
+        internal AutomationConnectionData() { }
+        public string ConnectionTypeName { get { throw null; } }
         public System.DateTimeOffset? CreatedOn { get { throw null; } }
-        public string Description { get { throw null; } set { } }
+        public string Description { get { throw null; } }
         public System.Collections.Generic.IReadOnlyDictionary<string, string> FieldDefinitionValues { get { throw null; } }
         public System.DateTimeOffset? LastModifiedOn { get { throw null; } }
     }
@@ -362,9 +372,9 @@ namespace Azure.ResourceManager.Automation
     }
     public partial class AutomationCredentialData : Azure.ResourceManager.Models.ResourceData
     {
-        public AutomationCredentialData() { }
+        internal AutomationCredentialData() { }
         public System.DateTimeOffset? CreatedOn { get { throw null; } }
-        public string Description { get { throw null; } set { } }
+        public string Description { get { throw null; } }
         public System.DateTimeOffset? LastModifiedOn { get { throw null; } }
         public string UserName { get { throw null; } }
     }
@@ -388,6 +398,7 @@ namespace Azure.ResourceManager.Automation
         public static System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.AutomationAccountResource>> GetAutomationAccountAsync(this Azure.ResourceManager.Resources.ResourceGroupResource resourceGroupResource, string automationAccountName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static Azure.ResourceManager.Automation.AutomationAccountModuleResource GetAutomationAccountModuleResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
         public static Azure.ResourceManager.Automation.AutomationAccountPython2PackageResource GetAutomationAccountPython2PackageResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
+        public static Azure.ResourceManager.Automation.AutomationAccountPython3PackageResource GetAutomationAccountPython3PackageResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
         public static Azure.ResourceManager.Automation.AutomationAccountResource GetAutomationAccountResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
         public static Azure.ResourceManager.Automation.AutomationAccountCollection GetAutomationAccounts(this Azure.ResourceManager.Resources.ResourceGroupResource resourceGroupResource) { throw null; }
         public static Azure.Pageable<Azure.ResourceManager.Automation.AutomationAccountResource> GetAutomationAccounts(this Azure.ResourceManager.Resources.SubscriptionResource subscriptionResource, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
@@ -398,22 +409,14 @@ namespace Azure.ResourceManager.Automation
         public static Azure.ResourceManager.Automation.AutomationCredentialResource GetAutomationCredentialResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
         public static Azure.ResourceManager.Automation.AutomationJobResource GetAutomationJobResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
         public static Azure.ResourceManager.Automation.AutomationJobScheduleResource GetAutomationJobScheduleResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
-        public static Azure.ResourceManager.Automation.AutomationPrivateEndpointConnectionResource GetAutomationPrivateEndpointConnectionResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
         public static Azure.ResourceManager.Automation.AutomationRunbookResource GetAutomationRunbookResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
         public static Azure.ResourceManager.Automation.AutomationScheduleResource GetAutomationScheduleResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
         public static Azure.ResourceManager.Automation.AutomationSourceControlResource GetAutomationSourceControlResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
         public static Azure.ResourceManager.Automation.AutomationVariableResource GetAutomationVariableResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
-        public static Azure.ResourceManager.Automation.AutomationWatcherResource GetAutomationWatcherResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
-        public static Azure.ResourceManager.Automation.AutomationWebhookResource GetAutomationWebhookResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
-        public static Azure.Pageable<Azure.ResourceManager.Automation.Models.DeletedAutomationAccount> GetDeletedAutomationAccountsBySubscription(this Azure.ResourceManager.Resources.SubscriptionResource subscriptionResource, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public static Azure.AsyncPageable<Azure.ResourceManager.Automation.Models.DeletedAutomationAccount> GetDeletedAutomationAccountsBySubscriptionAsync(this Azure.ResourceManager.Resources.SubscriptionResource subscriptionResource, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public static Azure.ResourceManager.Automation.DscCompilationJobResource GetDscCompilationJobResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
         public static Azure.ResourceManager.Automation.DscConfigurationResource GetDscConfigurationResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
         public static Azure.ResourceManager.Automation.DscNodeConfigurationResource GetDscNodeConfigurationResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
-        public static Azure.ResourceManager.Automation.DscNodeResource GetDscNodeResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
         public static Azure.ResourceManager.Automation.HybridRunbookWorkerGroupResource GetHybridRunbookWorkerGroupResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
         public static Azure.ResourceManager.Automation.HybridRunbookWorkerResource GetHybridRunbookWorkerResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
-        public static Azure.ResourceManager.Automation.SoftwareUpdateConfigurationResource GetSoftwareUpdateConfigurationResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
     }
     public partial class AutomationJobCollection : Azure.ResourceManager.ArmCollection, System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.Automation.Models.AutomationJobCollectionItemData>, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Automation.Models.AutomationJobCollectionItemData>, System.Collections.IEnumerable
     {
@@ -432,21 +435,21 @@ namespace Azure.ResourceManager.Automation
     }
     public partial class AutomationJobData : Azure.ResourceManager.Models.ResourceData
     {
-        public AutomationJobData() { }
-        public System.DateTimeOffset? CreatedOn { get { throw null; } set { } }
-        public System.DateTimeOffset? EndOn { get { throw null; } set { } }
-        public string Exception { get { throw null; } set { } }
-        public System.Guid? JobId { get { throw null; } set { } }
-        public System.DateTimeOffset? LastModifiedOn { get { throw null; } set { } }
-        public System.DateTimeOffset? LastStatusModifiedOn { get { throw null; } set { } }
-        public System.Collections.Generic.IDictionary<string, string> Parameters { get { throw null; } }
-        public Azure.ResourceManager.Automation.Models.JobProvisioningState? ProvisioningState { get { throw null; } set { } }
-        public string RunbookName { get { throw null; } set { } }
-        public string RunOn { get { throw null; } set { } }
-        public string StartedBy { get { throw null; } set { } }
-        public System.DateTimeOffset? StartOn { get { throw null; } set { } }
-        public Azure.ResourceManager.Automation.Models.AutomationJobStatus? Status { get { throw null; } set { } }
-        public string StatusDetails { get { throw null; } set { } }
+        internal AutomationJobData() { }
+        public System.DateTimeOffset? CreatedOn { get { throw null; } }
+        public System.DateTimeOffset? EndOn { get { throw null; } }
+        public string Exception { get { throw null; } }
+        public System.Guid? JobId { get { throw null; } }
+        public System.DateTimeOffset? LastModifiedOn { get { throw null; } }
+        public System.DateTimeOffset? LastStatusModifiedOn { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string> Parameters { get { throw null; } }
+        public Azure.ResourceManager.Automation.Models.JobProvisioningState? ProvisioningState { get { throw null; } }
+        public string RunbookName { get { throw null; } }
+        public string RunOn { get { throw null; } }
+        public string StartedBy { get { throw null; } }
+        public System.DateTimeOffset? StartOn { get { throw null; } }
+        public Azure.ResourceManager.Automation.Models.AutomationJobStatus? Status { get { throw null; } }
+        public string StatusDetails { get { throw null; } }
     }
     public partial class AutomationJobResource : Azure.ResourceManager.ArmResource
     {
@@ -512,57 +515,23 @@ namespace Azure.ResourceManager.Automation
         public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Automation.AutomationJobScheduleResource> Update(Azure.WaitUntil waitUntil, Azure.ResourceManager.Automation.Models.AutomationJobScheduleCreateOrUpdateContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Automation.AutomationJobScheduleResource>> UpdateAsync(Azure.WaitUntil waitUntil, Azure.ResourceManager.Automation.Models.AutomationJobScheduleCreateOrUpdateContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
     }
-    public partial class AutomationModuleData : Azure.ResourceManager.Models.TrackedResourceData
+    public partial class AutomationModuleData : Azure.ResourceManager.Models.ResourceData
     {
-        public AutomationModuleData(Azure.Core.AzureLocation location) : base (default(Azure.Core.AzureLocation)) { }
-        public int? ActivityCount { get { throw null; } set { } }
-        public Azure.ResourceManager.Automation.Models.AutomationContentLink ContentLink { get { throw null; } set { } }
-        public System.DateTimeOffset? CreatedOn { get { throw null; } set { } }
-        public string Description { get { throw null; } set { } }
-        public Azure.ResourceManager.Automation.Models.AutomationModuleErrorInfo Error { get { throw null; } set { } }
-        public Azure.ETag? ETag { get { throw null; } set { } }
-        public bool? IsComposite { get { throw null; } set { } }
-        public bool? IsGlobal { get { throw null; } set { } }
-        public System.DateTimeOffset? LastModifiedOn { get { throw null; } set { } }
-        public Azure.ResourceManager.Automation.Models.ModuleProvisioningState? ProvisioningState { get { throw null; } set { } }
-        public long? SizeInBytes { get { throw null; } set { } }
-        public string Version { get { throw null; } set { } }
-    }
-    public partial class AutomationPrivateEndpointConnectionCollection : Azure.ResourceManager.ArmCollection, System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.Automation.AutomationPrivateEndpointConnectionResource>, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Automation.AutomationPrivateEndpointConnectionResource>, System.Collections.IEnumerable
-    {
-        protected AutomationPrivateEndpointConnectionCollection() { }
-        public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Automation.AutomationPrivateEndpointConnectionResource> CreateOrUpdate(Azure.WaitUntil waitUntil, string privateEndpointConnectionName, Azure.ResourceManager.Automation.AutomationPrivateEndpointConnectionData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Automation.AutomationPrivateEndpointConnectionResource>> CreateOrUpdateAsync(Azure.WaitUntil waitUntil, string privateEndpointConnectionName, Azure.ResourceManager.Automation.AutomationPrivateEndpointConnectionData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.Response<bool> Exists(string privateEndpointConnectionName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response<bool>> ExistsAsync(string privateEndpointConnectionName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.Response<Azure.ResourceManager.Automation.AutomationPrivateEndpointConnectionResource> Get(string privateEndpointConnectionName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.Pageable<Azure.ResourceManager.Automation.AutomationPrivateEndpointConnectionResource> GetAll(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.AsyncPageable<Azure.ResourceManager.Automation.AutomationPrivateEndpointConnectionResource> GetAllAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.AutomationPrivateEndpointConnectionResource>> GetAsync(string privateEndpointConnectionName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        System.Collections.Generic.IAsyncEnumerator<Azure.ResourceManager.Automation.AutomationPrivateEndpointConnectionResource> System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.Automation.AutomationPrivateEndpointConnectionResource>.GetAsyncEnumerator(System.Threading.CancellationToken cancellationToken) { throw null; }
-        System.Collections.Generic.IEnumerator<Azure.ResourceManager.Automation.AutomationPrivateEndpointConnectionResource> System.Collections.Generic.IEnumerable<Azure.ResourceManager.Automation.AutomationPrivateEndpointConnectionResource>.GetEnumerator() { throw null; }
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() { throw null; }
-    }
-    public partial class AutomationPrivateEndpointConnectionData : Azure.ResourceManager.Models.ResourceData
-    {
-        public AutomationPrivateEndpointConnectionData() { }
-        public Azure.ResourceManager.Automation.Models.AutomationPrivateLinkServiceConnectionStateProperty ConnectionState { get { throw null; } set { } }
-        public System.Collections.Generic.IList<string> GroupIds { get { throw null; } }
-        public Azure.Core.ResourceIdentifier PrivateEndpointId { get { throw null; } set { } }
-    }
-    public partial class AutomationPrivateEndpointConnectionResource : Azure.ResourceManager.ArmResource
-    {
-        public static readonly Azure.Core.ResourceType ResourceType;
-        protected AutomationPrivateEndpointConnectionResource() { }
-        public virtual Azure.ResourceManager.Automation.AutomationPrivateEndpointConnectionData Data { get { throw null; } }
-        public virtual bool HasData { get { throw null; } }
-        public static Azure.Core.ResourceIdentifier CreateResourceIdentifier(string subscriptionId, string resourceGroupName, string automationAccountName, string privateEndpointConnectionName) { throw null; }
-        public virtual Azure.ResourceManager.ArmOperation Delete(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation> DeleteAsync(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.Response<Azure.ResourceManager.Automation.AutomationPrivateEndpointConnectionResource> Get(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.AutomationPrivateEndpointConnectionResource>> GetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Automation.AutomationPrivateEndpointConnectionResource> Update(Azure.WaitUntil waitUntil, Azure.ResourceManager.Automation.AutomationPrivateEndpointConnectionData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Automation.AutomationPrivateEndpointConnectionResource>> UpdateAsync(Azure.WaitUntil waitUntil, Azure.ResourceManager.Automation.AutomationPrivateEndpointConnectionData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        internal AutomationModuleData() { }
+        public int? ActivityCount { get { throw null; } }
+        public Azure.ResourceManager.Automation.Models.AutomationContentLink ContentLink { get { throw null; } }
+        public System.DateTimeOffset? CreatedOn { get { throw null; } }
+        public string Description { get { throw null; } }
+        public Azure.ResourceManager.Automation.Models.AutomationModuleErrorInfo Error { get { throw null; } }
+        public Azure.ETag? ETag { get { throw null; } }
+        public bool? IsComposite { get { throw null; } }
+        public bool? IsGlobal { get { throw null; } }
+        public System.DateTimeOffset? LastModifiedOn { get { throw null; } }
+        public Azure.Core.AzureLocation? Location { get { throw null; } }
+        public Azure.ResourceManager.Automation.Models.ModuleProvisioningState? ProvisioningState { get { throw null; } }
+        public long? SizeInBytes { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string> Tags { get { throw null; } }
+        public string Version { get { throw null; } }
     }
     public partial class AutomationRunbookCollection : Azure.ResourceManager.ArmCollection, System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.Automation.AutomationRunbookResource>, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Automation.AutomationRunbookResource>, System.Collections.IEnumerable
     {
@@ -579,25 +548,27 @@ namespace Azure.ResourceManager.Automation
         System.Collections.Generic.IEnumerator<Azure.ResourceManager.Automation.AutomationRunbookResource> System.Collections.Generic.IEnumerable<Azure.ResourceManager.Automation.AutomationRunbookResource>.GetEnumerator() { throw null; }
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() { throw null; }
     }
-    public partial class AutomationRunbookData : Azure.ResourceManager.Models.TrackedResourceData
+    public partial class AutomationRunbookData : Azure.ResourceManager.Models.ResourceData
     {
-        public AutomationRunbookData(Azure.Core.AzureLocation location) : base (default(Azure.Core.AzureLocation)) { }
-        public System.DateTimeOffset? CreatedOn { get { throw null; } set { } }
-        public string Description { get { throw null; } set { } }
-        public Azure.ResourceManager.Automation.Models.AutomationRunbookDraft Draft { get { throw null; } set { } }
-        public Azure.ETag? ETag { get { throw null; } set { } }
-        public bool? IsLogProgressEnabled { get { throw null; } set { } }
-        public bool? IsLogVerboseEnabled { get { throw null; } set { } }
-        public int? JobCount { get { throw null; } set { } }
-        public string LastModifiedBy { get { throw null; } set { } }
-        public System.DateTimeOffset? LastModifiedOn { get { throw null; } set { } }
-        public int? LogActivityTrace { get { throw null; } set { } }
-        public System.Collections.Generic.IList<string> OutputTypes { get { throw null; } }
-        public System.Collections.Generic.IDictionary<string, Azure.ResourceManager.Automation.Models.RunbookParameterDefinition> Parameters { get { throw null; } }
-        public Azure.ResourceManager.Automation.Models.RunbookProvisioningState? ProvisioningState { get { throw null; } set { } }
-        public Azure.ResourceManager.Automation.Models.AutomationContentLink PublishContentLink { get { throw null; } set { } }
-        public Azure.ResourceManager.Automation.Models.AutomationRunbookType? RunbookType { get { throw null; } set { } }
-        public Azure.ResourceManager.Automation.Models.RunbookState? State { get { throw null; } set { } }
+        internal AutomationRunbookData() { }
+        public System.DateTimeOffset? CreatedOn { get { throw null; } }
+        public string Description { get { throw null; } }
+        public Azure.ResourceManager.Automation.Models.AutomationRunbookDraft Draft { get { throw null; } }
+        public Azure.ETag? ETag { get { throw null; } }
+        public bool? IsLogProgressEnabled { get { throw null; } }
+        public bool? IsLogVerboseEnabled { get { throw null; } }
+        public int? JobCount { get { throw null; } }
+        public string LastModifiedBy { get { throw null; } }
+        public System.DateTimeOffset? LastModifiedOn { get { throw null; } }
+        public Azure.Core.AzureLocation? Location { get { throw null; } }
+        public int? LogActivityTrace { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyList<string> OutputTypes { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, Azure.ResourceManager.Automation.Models.RunbookParameterDefinition> Parameters { get { throw null; } }
+        public Azure.ResourceManager.Automation.Models.RunbookProvisioningState? ProvisioningState { get { throw null; } }
+        public Azure.ResourceManager.Automation.Models.AutomationContentLink PublishContentLink { get { throw null; } }
+        public Azure.ResourceManager.Automation.Models.AutomationRunbookType? RunbookType { get { throw null; } }
+        public Azure.ResourceManager.Automation.Models.RunbookState? State { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string> Tags { get { throw null; } }
     }
     public partial class AutomationRunbookResource : Azure.ResourceManager.ArmResource
     {
@@ -662,21 +633,21 @@ namespace Azure.ResourceManager.Automation
     }
     public partial class AutomationScheduleData : Azure.ResourceManager.Models.ResourceData
     {
-        public AutomationScheduleData() { }
-        public Azure.ResourceManager.Automation.Models.AutomationAdvancedSchedule AdvancedSchedule { get { throw null; } set { } }
-        public System.DateTimeOffset? CreatedOn { get { throw null; } set { } }
-        public string Description { get { throw null; } set { } }
-        public double? ExpireInMinutes { get { throw null; } set { } }
-        public System.DateTimeOffset? ExpireOn { get { throw null; } set { } }
-        public Azure.ResourceManager.Automation.Models.AutomationScheduleFrequency? Frequency { get { throw null; } set { } }
-        public System.BinaryData Interval { get { throw null; } set { } }
-        public bool? IsEnabled { get { throw null; } set { } }
-        public System.DateTimeOffset? LastModifiedOn { get { throw null; } set { } }
-        public double? NextRunInMinutes { get { throw null; } set { } }
-        public System.DateTimeOffset? NextRunOn { get { throw null; } set { } }
+        internal AutomationScheduleData() { }
+        public Azure.ResourceManager.Automation.Models.AutomationAdvancedSchedule AdvancedSchedule { get { throw null; } }
+        public System.DateTimeOffset? CreatedOn { get { throw null; } }
+        public string Description { get { throw null; } }
+        public double? ExpireInMinutes { get { throw null; } }
+        public System.DateTimeOffset? ExpireOn { get { throw null; } }
+        public Azure.ResourceManager.Automation.Models.AutomationScheduleFrequency? Frequency { get { throw null; } }
+        public System.BinaryData Interval { get { throw null; } }
+        public bool? IsEnabled { get { throw null; } }
+        public System.DateTimeOffset? LastModifiedOn { get { throw null; } }
+        public double? NextRunInMinutes { get { throw null; } }
+        public System.DateTimeOffset? NextRunOn { get { throw null; } }
         public double? StartInMinutes { get { throw null; } }
-        public System.DateTimeOffset? StartOn { get { throw null; } set { } }
-        public string TimeZone { get { throw null; } set { } }
+        public System.DateTimeOffset? StartOn { get { throw null; } }
+        public string TimeZone { get { throw null; } }
     }
     public partial class AutomationScheduleResource : Azure.ResourceManager.ArmResource
     {
@@ -709,16 +680,16 @@ namespace Azure.ResourceManager.Automation
     }
     public partial class AutomationSourceControlData : Azure.ResourceManager.Models.ResourceData
     {
-        public AutomationSourceControlData() { }
-        public string Branch { get { throw null; } set { } }
-        public System.DateTimeOffset? CreatedOn { get { throw null; } set { } }
-        public string Description { get { throw null; } set { } }
-        public string FolderPath { get { throw null; } set { } }
-        public bool? IsAutoPublishRunbookEnabled { get { throw null; } set { } }
-        public bool? IsAutoSyncEnabled { get { throw null; } set { } }
-        public System.DateTimeOffset? LastModifiedOn { get { throw null; } set { } }
-        public System.Uri RepoUri { get { throw null; } set { } }
-        public Azure.ResourceManager.Automation.Models.SourceControlSourceType? SourceType { get { throw null; } set { } }
+        internal AutomationSourceControlData() { }
+        public string Branch { get { throw null; } }
+        public System.DateTimeOffset? CreatedOn { get { throw null; } }
+        public string Description { get { throw null; } }
+        public string FolderPath { get { throw null; } }
+        public bool? IsAutoPublishRunbookEnabled { get { throw null; } }
+        public bool? IsAutoSyncEnabled { get { throw null; } }
+        public System.DateTimeOffset? LastModifiedOn { get { throw null; } }
+        public System.Uri RepoUri { get { throw null; } }
+        public Azure.ResourceManager.Automation.Models.SourceControlSourceType? SourceType { get { throw null; } }
     }
     public partial class AutomationSourceControlResource : Azure.ResourceManager.ArmResource
     {
@@ -761,12 +732,12 @@ namespace Azure.ResourceManager.Automation
     }
     public partial class AutomationVariableData : Azure.ResourceManager.Models.ResourceData
     {
-        public AutomationVariableData() { }
-        public System.DateTimeOffset? CreatedOn { get { throw null; } set { } }
-        public string Description { get { throw null; } set { } }
-        public bool? IsEncrypted { get { throw null; } set { } }
-        public System.DateTimeOffset? LastModifiedOn { get { throw null; } set { } }
-        public string Value { get { throw null; } set { } }
+        internal AutomationVariableData() { }
+        public System.DateTimeOffset? CreatedOn { get { throw null; } }
+        public string Description { get { throw null; } }
+        public bool? IsEncrypted { get { throw null; } }
+        public System.DateTimeOffset? LastModifiedOn { get { throw null; } }
+        public string Value { get { throw null; } }
     }
     public partial class AutomationVariableResource : Azure.ResourceManager.ArmResource
     {
@@ -781,142 +752,6 @@ namespace Azure.ResourceManager.Automation
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.AutomationVariableResource>> GetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.Automation.AutomationVariableResource> Update(Azure.ResourceManager.Automation.Models.AutomationVariablePatch patch, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.AutomationVariableResource>> UpdateAsync(Azure.ResourceManager.Automation.Models.AutomationVariablePatch patch, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-    }
-    public partial class AutomationWatcherCollection : Azure.ResourceManager.ArmCollection, System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.Automation.AutomationWatcherResource>, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Automation.AutomationWatcherResource>, System.Collections.IEnumerable
-    {
-        protected AutomationWatcherCollection() { }
-        public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Automation.AutomationWatcherResource> CreateOrUpdate(Azure.WaitUntil waitUntil, string watcherName, Azure.ResourceManager.Automation.AutomationWatcherData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Automation.AutomationWatcherResource>> CreateOrUpdateAsync(Azure.WaitUntil waitUntil, string watcherName, Azure.ResourceManager.Automation.AutomationWatcherData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.Response<bool> Exists(string watcherName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response<bool>> ExistsAsync(string watcherName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.Response<Azure.ResourceManager.Automation.AutomationWatcherResource> Get(string watcherName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.Pageable<Azure.ResourceManager.Automation.AutomationWatcherResource> GetAll(string filter = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.AsyncPageable<Azure.ResourceManager.Automation.AutomationWatcherResource> GetAllAsync(string filter = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.AutomationWatcherResource>> GetAsync(string watcherName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        System.Collections.Generic.IAsyncEnumerator<Azure.ResourceManager.Automation.AutomationWatcherResource> System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.Automation.AutomationWatcherResource>.GetAsyncEnumerator(System.Threading.CancellationToken cancellationToken) { throw null; }
-        System.Collections.Generic.IEnumerator<Azure.ResourceManager.Automation.AutomationWatcherResource> System.Collections.Generic.IEnumerable<Azure.ResourceManager.Automation.AutomationWatcherResource>.GetEnumerator() { throw null; }
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() { throw null; }
-    }
-    public partial class AutomationWatcherData : Azure.ResourceManager.Models.TrackedResourceData
-    {
-        public AutomationWatcherData(Azure.Core.AzureLocation location) : base (default(Azure.Core.AzureLocation)) { }
-        public System.DateTimeOffset? CreatedOn { get { throw null; } }
-        public string Description { get { throw null; } set { } }
-        public Azure.ETag? ETag { get { throw null; } set { } }
-        public long? ExecutionFrequencyInSeconds { get { throw null; } set { } }
-        public string LastModifiedBy { get { throw null; } }
-        public System.DateTimeOffset? LastModifiedOn { get { throw null; } }
-        public string ScriptName { get { throw null; } set { } }
-        public System.Collections.Generic.IDictionary<string, string> ScriptParameters { get { throw null; } }
-        public string ScriptRunOn { get { throw null; } set { } }
-        public string Status { get { throw null; } }
-    }
-    public partial class AutomationWatcherResource : Azure.ResourceManager.ArmResource
-    {
-        public static readonly Azure.Core.ResourceType ResourceType;
-        protected AutomationWatcherResource() { }
-        public virtual Azure.ResourceManager.Automation.AutomationWatcherData Data { get { throw null; } }
-        public virtual bool HasData { get { throw null; } }
-        public static Azure.Core.ResourceIdentifier CreateResourceIdentifier(string subscriptionId, string resourceGroupName, string automationAccountName, string watcherName) { throw null; }
-        public virtual Azure.ResourceManager.ArmOperation Delete(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation> DeleteAsync(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.Response<Azure.ResourceManager.Automation.AutomationWatcherResource> Get(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.AutomationWatcherResource>> GetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.Response Start(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response> StartAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.Response Stop(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response> StopAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.Response<Azure.ResourceManager.Automation.AutomationWatcherResource> Update(Azure.ResourceManager.Automation.Models.AutomationWatcherPatch patch, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.AutomationWatcherResource>> UpdateAsync(Azure.ResourceManager.Automation.Models.AutomationWatcherPatch patch, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-    }
-    public partial class AutomationWebhookCollection : Azure.ResourceManager.ArmCollection, System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.Automation.AutomationWebhookResource>, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Automation.AutomationWebhookResource>, System.Collections.IEnumerable
-    {
-        protected AutomationWebhookCollection() { }
-        public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Automation.AutomationWebhookResource> CreateOrUpdate(Azure.WaitUntil waitUntil, string webhookName, Azure.ResourceManager.Automation.Models.AutomationWebhookCreateOrUpdateContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Automation.AutomationWebhookResource>> CreateOrUpdateAsync(Azure.WaitUntil waitUntil, string webhookName, Azure.ResourceManager.Automation.Models.AutomationWebhookCreateOrUpdateContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.Response<bool> Exists(string webhookName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response<bool>> ExistsAsync(string webhookName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.Response<Azure.ResourceManager.Automation.AutomationWebhookResource> Get(string webhookName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.Pageable<Azure.ResourceManager.Automation.AutomationWebhookResource> GetAll(string filter = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.AsyncPageable<Azure.ResourceManager.Automation.AutomationWebhookResource> GetAllAsync(string filter = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.AutomationWebhookResource>> GetAsync(string webhookName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        System.Collections.Generic.IAsyncEnumerator<Azure.ResourceManager.Automation.AutomationWebhookResource> System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.Automation.AutomationWebhookResource>.GetAsyncEnumerator(System.Threading.CancellationToken cancellationToken) { throw null; }
-        System.Collections.Generic.IEnumerator<Azure.ResourceManager.Automation.AutomationWebhookResource> System.Collections.Generic.IEnumerable<Azure.ResourceManager.Automation.AutomationWebhookResource>.GetEnumerator() { throw null; }
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() { throw null; }
-    }
-    public partial class AutomationWebhookData : Azure.ResourceManager.Models.ResourceData
-    {
-        public AutomationWebhookData() { }
-        public System.DateTimeOffset? CreatedOn { get { throw null; } set { } }
-        public string Description { get { throw null; } set { } }
-        public System.DateTimeOffset? ExpireOn { get { throw null; } set { } }
-        public bool? IsEnabled { get { throw null; } set { } }
-        public System.DateTimeOffset? LastInvokedOn { get { throw null; } set { } }
-        public string LastModifiedBy { get { throw null; } set { } }
-        public System.DateTimeOffset? LastModifiedOn { get { throw null; } set { } }
-        public System.Collections.Generic.IDictionary<string, string> Parameters { get { throw null; } }
-        public string RunbookName { get { throw null; } set { } }
-        public string RunOn { get { throw null; } set { } }
-        public System.Uri Uri { get { throw null; } set { } }
-    }
-    public partial class AutomationWebhookResource : Azure.ResourceManager.ArmResource
-    {
-        public static readonly Azure.Core.ResourceType ResourceType;
-        protected AutomationWebhookResource() { }
-        public virtual Azure.ResourceManager.Automation.AutomationWebhookData Data { get { throw null; } }
-        public virtual bool HasData { get { throw null; } }
-        public static Azure.Core.ResourceIdentifier CreateResourceIdentifier(string subscriptionId, string resourceGroupName, string automationAccountName, string webhookName) { throw null; }
-        public virtual Azure.ResourceManager.ArmOperation Delete(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation> DeleteAsync(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.Response<Azure.ResourceManager.Automation.AutomationWebhookResource> Get(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.AutomationWebhookResource>> GetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.Response<Azure.ResourceManager.Automation.AutomationWebhookResource> Update(Azure.ResourceManager.Automation.Models.AutomationWebhookPatch patch, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.AutomationWebhookResource>> UpdateAsync(Azure.ResourceManager.Automation.Models.AutomationWebhookPatch patch, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-    }
-    public partial class DscCompilationJobCollection : Azure.ResourceManager.ArmCollection, System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.Automation.DscCompilationJobResource>, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Automation.DscCompilationJobResource>, System.Collections.IEnumerable
-    {
-        protected DscCompilationJobCollection() { }
-        public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Automation.DscCompilationJobResource> CreateOrUpdate(Azure.WaitUntil waitUntil, string compilationJobName, Azure.ResourceManager.Automation.Models.DscCompilationJobCreateOrUpdateContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Automation.DscCompilationJobResource>> CreateOrUpdateAsync(Azure.WaitUntil waitUntil, string compilationJobName, Azure.ResourceManager.Automation.Models.DscCompilationJobCreateOrUpdateContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.Response<bool> Exists(string compilationJobName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response<bool>> ExistsAsync(string compilationJobName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.Response<Azure.ResourceManager.Automation.DscCompilationJobResource> Get(string compilationJobName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.Pageable<Azure.ResourceManager.Automation.DscCompilationJobResource> GetAll(string filter = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.AsyncPageable<Azure.ResourceManager.Automation.DscCompilationJobResource> GetAllAsync(string filter = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.DscCompilationJobResource>> GetAsync(string compilationJobName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        System.Collections.Generic.IAsyncEnumerator<Azure.ResourceManager.Automation.DscCompilationJobResource> System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.Automation.DscCompilationJobResource>.GetAsyncEnumerator(System.Threading.CancellationToken cancellationToken) { throw null; }
-        System.Collections.Generic.IEnumerator<Azure.ResourceManager.Automation.DscCompilationJobResource> System.Collections.Generic.IEnumerable<Azure.ResourceManager.Automation.DscCompilationJobResource>.GetEnumerator() { throw null; }
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() { throw null; }
-    }
-    public partial class DscCompilationJobData : Azure.ResourceManager.Models.ResourceData
-    {
-        public DscCompilationJobData() { }
-        public string ConfigurationName { get { throw null; } set { } }
-        public System.DateTimeOffset? CreatedOn { get { throw null; } }
-        public System.DateTimeOffset? EndOn { get { throw null; } }
-        public string Exception { get { throw null; } }
-        public System.Guid? JobId { get { throw null; } }
-        public System.DateTimeOffset? LastModifiedOn { get { throw null; } }
-        public System.DateTimeOffset? LastStatusModifiedOn { get { throw null; } }
-        public System.Collections.Generic.IDictionary<string, string> Parameters { get { throw null; } }
-        public Azure.ResourceManager.Automation.Models.JobProvisioningState? ProvisioningState { get { throw null; } set { } }
-        public string RunOn { get { throw null; } set { } }
-        public string StartedBy { get { throw null; } }
-        public System.DateTimeOffset? StartOn { get { throw null; } }
-        public Azure.ResourceManager.Automation.Models.AutomationJobStatus? Status { get { throw null; } set { } }
-        public string StatusDetails { get { throw null; } set { } }
-    }
-    public partial class DscCompilationJobResource : Azure.ResourceManager.ArmResource
-    {
-        public static readonly Azure.Core.ResourceType ResourceType;
-        protected DscCompilationJobResource() { }
-        public virtual Azure.ResourceManager.Automation.DscCompilationJobData Data { get { throw null; } }
-        public virtual bool HasData { get { throw null; } }
-        public static Azure.Core.ResourceIdentifier CreateResourceIdentifier(string subscriptionId, string resourceGroupName, string automationAccountName, string compilationJobName) { throw null; }
-        public virtual Azure.Response<Azure.ResourceManager.Automation.DscCompilationJobResource> Get(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.DscCompilationJobResource>> GetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Automation.DscCompilationJobResource> Update(Azure.WaitUntil waitUntil, Azure.ResourceManager.Automation.Models.DscCompilationJobCreateOrUpdateContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Automation.DscCompilationJobResource>> UpdateAsync(Azure.WaitUntil waitUntil, Azure.ResourceManager.Automation.Models.DscCompilationJobCreateOrUpdateContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
     }
     public partial class DscConfigurationCollection : Azure.ResourceManager.ArmCollection, System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.Automation.DscConfigurationResource>, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Automation.DscConfigurationResource>, System.Collections.IEnumerable
     {
@@ -933,20 +768,22 @@ namespace Azure.ResourceManager.Automation
         System.Collections.Generic.IEnumerator<Azure.ResourceManager.Automation.DscConfigurationResource> System.Collections.Generic.IEnumerable<Azure.ResourceManager.Automation.DscConfigurationResource>.GetEnumerator() { throw null; }
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() { throw null; }
     }
-    public partial class DscConfigurationData : Azure.ResourceManager.Models.TrackedResourceData
+    public partial class DscConfigurationData : Azure.ResourceManager.Models.ResourceData
     {
-        public DscConfigurationData(Azure.Core.AzureLocation location) : base (default(Azure.Core.AzureLocation)) { }
-        public System.DateTimeOffset? CreatedOn { get { throw null; } set { } }
-        public string Description { get { throw null; } set { } }
-        public Azure.ETag? ETag { get { throw null; } set { } }
-        public bool? IsLogVerboseEnabled { get { throw null; } set { } }
-        public int? JobCount { get { throw null; } set { } }
-        public System.DateTimeOffset? LastModifiedOn { get { throw null; } set { } }
-        public int? NodeConfigurationCount { get { throw null; } set { } }
-        public System.Collections.Generic.IDictionary<string, Azure.ResourceManager.Automation.Models.DscConfigurationParameterDefinition> Parameters { get { throw null; } }
-        public Azure.ResourceManager.Automation.Models.DscConfigurationProvisioningState? ProvisioningState { get { throw null; } set { } }
-        public Azure.ResourceManager.Automation.Models.AutomationContentSource Source { get { throw null; } set { } }
-        public Azure.ResourceManager.Automation.Models.DscConfigurationState? State { get { throw null; } set { } }
+        internal DscConfigurationData() { }
+        public System.DateTimeOffset? CreatedOn { get { throw null; } }
+        public string Description { get { throw null; } }
+        public Azure.ETag? ETag { get { throw null; } }
+        public bool? IsLogVerboseEnabled { get { throw null; } }
+        public int? JobCount { get { throw null; } }
+        public System.DateTimeOffset? LastModifiedOn { get { throw null; } }
+        public Azure.Core.AzureLocation? Location { get { throw null; } }
+        public int? NodeConfigurationCount { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, Azure.ResourceManager.Automation.Models.DscConfigurationParameterDefinition> Parameters { get { throw null; } }
+        public Azure.ResourceManager.Automation.Models.DscConfigurationProvisioningState? ProvisioningState { get { throw null; } }
+        public Azure.ResourceManager.Automation.Models.AutomationContentSource Source { get { throw null; } }
+        public Azure.ResourceManager.Automation.Models.DscConfigurationState? State { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, string> Tags { get { throw null; } }
     }
     public partial class DscConfigurationResource : Azure.ResourceManager.ArmResource
     {
@@ -970,19 +807,6 @@ namespace Azure.ResourceManager.Automation
         public virtual Azure.Response<Azure.ResourceManager.Automation.DscConfigurationResource> Update(Azure.ResourceManager.Automation.Models.DscConfigurationPatch patch, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.DscConfigurationResource>> UpdateAsync(Azure.ResourceManager.Automation.Models.DscConfigurationPatch patch, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
     }
-    public partial class DscNodeCollection : Azure.ResourceManager.ArmCollection, System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.Automation.DscNodeResource>, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Automation.DscNodeResource>, System.Collections.IEnumerable
-    {
-        protected DscNodeCollection() { }
-        public virtual Azure.Response<bool> Exists(string nodeId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response<bool>> ExistsAsync(string nodeId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.Response<Azure.ResourceManager.Automation.DscNodeResource> Get(string nodeId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.Pageable<Azure.ResourceManager.Automation.DscNodeResource> GetAll(string filter = null, int? skip = default(int?), int? top = default(int?), string inlinecount = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.AsyncPageable<Azure.ResourceManager.Automation.DscNodeResource> GetAllAsync(string filter = null, int? skip = default(int?), int? top = default(int?), string inlinecount = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.DscNodeResource>> GetAsync(string nodeId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        System.Collections.Generic.IAsyncEnumerator<Azure.ResourceManager.Automation.DscNodeResource> System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.Automation.DscNodeResource>.GetAsyncEnumerator(System.Threading.CancellationToken cancellationToken) { throw null; }
-        System.Collections.Generic.IEnumerator<Azure.ResourceManager.Automation.DscNodeResource> System.Collections.Generic.IEnumerable<Azure.ResourceManager.Automation.DscNodeResource>.GetEnumerator() { throw null; }
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() { throw null; }
-    }
     public partial class DscNodeConfigurationCollection : Azure.ResourceManager.ArmCollection, System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.Automation.DscNodeConfigurationResource>, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Automation.DscNodeConfigurationResource>, System.Collections.IEnumerable
     {
         protected DscNodeConfigurationCollection() { }
@@ -1000,13 +824,13 @@ namespace Azure.ResourceManager.Automation
     }
     public partial class DscNodeConfigurationData : Azure.ResourceManager.Models.ResourceData
     {
-        public DscNodeConfigurationData() { }
-        public string ConfigurationName { get { throw null; } set { } }
-        public System.DateTimeOffset? CreatedOn { get { throw null; } set { } }
-        public bool? IsIncrementNodeConfigurationBuildRequired { get { throw null; } set { } }
-        public System.DateTimeOffset? LastModifiedOn { get { throw null; } set { } }
-        public long? NodeCount { get { throw null; } set { } }
-        public string Source { get { throw null; } set { } }
+        internal DscNodeConfigurationData() { }
+        public string ConfigurationName { get { throw null; } }
+        public System.DateTimeOffset? CreatedOn { get { throw null; } }
+        public bool? IsIncrementNodeConfigurationBuildRequired { get { throw null; } }
+        public System.DateTimeOffset? LastModifiedOn { get { throw null; } }
+        public long? NodeCount { get { throw null; } }
+        public string Source { get { throw null; } }
     }
     public partial class DscNodeConfigurationResource : Azure.ResourceManager.ArmResource
     {
@@ -1021,40 +845,6 @@ namespace Azure.ResourceManager.Automation
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.DscNodeConfigurationResource>> GetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.ResourceManager.ArmOperation Update(Azure.WaitUntil waitUntil, Azure.ResourceManager.Automation.Models.DscNodeConfigurationCreateOrUpdateContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation> UpdateAsync(Azure.WaitUntil waitUntil, Azure.ResourceManager.Automation.Models.DscNodeConfigurationCreateOrUpdateContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-    }
-    public partial class DscNodeData : Azure.ResourceManager.Models.ResourceData
-    {
-        public DscNodeData() { }
-        public string AccountId { get { throw null; } set { } }
-        public Azure.ETag? ETag { get { throw null; } set { } }
-        public System.Collections.Generic.IList<Azure.ResourceManager.Automation.Models.DscNodeExtensionHandlerAssociationProperty> ExtensionHandler { get { throw null; } }
-        public string IP { get { throw null; } set { } }
-        public System.DateTimeOffset? LastSeenOn { get { throw null; } set { } }
-        public string NamePropertiesNodeConfigurationName { get { throw null; } set { } }
-        public string NodeId { get { throw null; } set { } }
-        public System.DateTimeOffset? RegistrationOn { get { throw null; } set { } }
-        public string Status { get { throw null; } set { } }
-        public int? TotalCount { get { throw null; } set { } }
-    }
-    public partial class DscNodeResource : Azure.ResourceManager.ArmResource
-    {
-        public static readonly Azure.Core.ResourceType ResourceType;
-        protected DscNodeResource() { }
-        public virtual Azure.ResourceManager.Automation.DscNodeData Data { get { throw null; } }
-        public virtual bool HasData { get { throw null; } }
-        public static Azure.Core.ResourceIdentifier CreateResourceIdentifier(string subscriptionId, string resourceGroupName, string automationAccountName, string nodeId) { throw null; }
-        public virtual Azure.ResourceManager.ArmOperation Delete(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation> DeleteAsync(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.Response<Azure.ResourceManager.Automation.DscNodeResource> Get(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.DscNodeResource>> GetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.Response<System.BinaryData> GetContentNodeReport(string reportId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response<System.BinaryData>> GetContentNodeReportAsync(string reportId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.Response<Azure.ResourceManager.Automation.Models.DscNodeReport> GetNodeReport(string reportId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.Models.DscNodeReport>> GetNodeReportAsync(string reportId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.Pageable<Azure.ResourceManager.Automation.Models.DscNodeReport> GetNodeReportsByNode(string filter = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.AsyncPageable<Azure.ResourceManager.Automation.Models.DscNodeReport> GetNodeReportsByNodeAsync(string filter = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.Response<Azure.ResourceManager.Automation.DscNodeResource> Update(Azure.ResourceManager.Automation.Models.DscNodePatch patch, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.DscNodeResource>> UpdateAsync(Azure.ResourceManager.Automation.Models.DscNodePatch patch, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
     }
     public partial class HybridRunbookWorkerCollection : Azure.ResourceManager.ArmCollection, System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.Automation.HybridRunbookWorkerResource>, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Automation.HybridRunbookWorkerResource>, System.Collections.IEnumerable
     {
@@ -1073,13 +863,13 @@ namespace Azure.ResourceManager.Automation
     }
     public partial class HybridRunbookWorkerData : Azure.ResourceManager.Models.ResourceData
     {
-        public HybridRunbookWorkerData() { }
-        public string IP { get { throw null; } set { } }
-        public System.DateTimeOffset? LastSeenOn { get { throw null; } set { } }
-        public System.DateTimeOffset? RegisteredOn { get { throw null; } set { } }
-        public Azure.Core.ResourceIdentifier VmResourceId { get { throw null; } set { } }
-        public string WorkerName { get { throw null; } set { } }
-        public Azure.ResourceManager.Automation.Models.HybridWorkerType? WorkerType { get { throw null; } set { } }
+        internal HybridRunbookWorkerData() { }
+        public string IP { get { throw null; } }
+        public System.DateTimeOffset? LastSeenOn { get { throw null; } }
+        public System.DateTimeOffset? RegisteredOn { get { throw null; } }
+        public Azure.Core.ResourceIdentifier VmResourceId { get { throw null; } }
+        public string WorkerName { get { throw null; } }
+        public Azure.ResourceManager.Automation.Models.HybridWorkerType? WorkerType { get { throw null; } }
     }
     public partial class HybridRunbookWorkerGroupCollection : Azure.ResourceManager.ArmCollection, System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.Automation.HybridRunbookWorkerGroupResource>, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Automation.HybridRunbookWorkerGroupResource>, System.Collections.IEnumerable
     {
@@ -1098,9 +888,9 @@ namespace Azure.ResourceManager.Automation
     }
     public partial class HybridRunbookWorkerGroupData : Azure.ResourceManager.Models.ResourceData
     {
-        public HybridRunbookWorkerGroupData() { }
-        public string CredentialName { get { throw null; } set { } }
-        public Azure.ResourceManager.Automation.Models.HybridWorkerGroup? GroupType { get { throw null; } set { } }
+        internal HybridRunbookWorkerGroupData() { }
+        public string CredentialName { get { throw null; } }
+        public Azure.ResourceManager.Automation.Models.HybridWorkerGroup? GroupType { get { throw null; } }
     }
     public partial class HybridRunbookWorkerGroupResource : Azure.ResourceManager.ArmResource
     {
@@ -1135,93 +925,12 @@ namespace Azure.ResourceManager.Automation
         public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Automation.HybridRunbookWorkerResource> Update(Azure.WaitUntil waitUntil, Azure.ResourceManager.Automation.Models.HybridRunbookWorkerCreateOrUpdateContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Automation.HybridRunbookWorkerResource>> UpdateAsync(Azure.WaitUntil waitUntil, Azure.ResourceManager.Automation.Models.HybridRunbookWorkerCreateOrUpdateContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
     }
-    public partial class SoftwareUpdateConfigurationCollection : Azure.ResourceManager.ArmCollection, System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.Automation.Models.SoftwareUpdateConfigurationCollectionItem>, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Automation.Models.SoftwareUpdateConfigurationCollectionItem>, System.Collections.IEnumerable
-    {
-        protected SoftwareUpdateConfigurationCollection() { }
-        public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Automation.SoftwareUpdateConfigurationResource> CreateOrUpdate(Azure.WaitUntil waitUntil, string softwareUpdateConfigurationName, Azure.ResourceManager.Automation.SoftwareUpdateConfigurationData data, string clientRequestId = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Automation.SoftwareUpdateConfigurationResource>> CreateOrUpdateAsync(Azure.WaitUntil waitUntil, string softwareUpdateConfigurationName, Azure.ResourceManager.Automation.SoftwareUpdateConfigurationData data, string clientRequestId = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.Response<bool> Exists(string softwareUpdateConfigurationName, string clientRequestId = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response<bool>> ExistsAsync(string softwareUpdateConfigurationName, string clientRequestId = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.Response<Azure.ResourceManager.Automation.SoftwareUpdateConfigurationResource> Get(string softwareUpdateConfigurationName, string clientRequestId = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.Pageable<Azure.ResourceManager.Automation.Models.SoftwareUpdateConfigurationCollectionItem> GetAll(string clientRequestId = null, string filter = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.AsyncPageable<Azure.ResourceManager.Automation.Models.SoftwareUpdateConfigurationCollectionItem> GetAllAsync(string clientRequestId = null, string filter = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.SoftwareUpdateConfigurationResource>> GetAsync(string softwareUpdateConfigurationName, string clientRequestId = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        System.Collections.Generic.IAsyncEnumerator<Azure.ResourceManager.Automation.Models.SoftwareUpdateConfigurationCollectionItem> System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.Automation.Models.SoftwareUpdateConfigurationCollectionItem>.GetAsyncEnumerator(System.Threading.CancellationToken cancellationToken) { throw null; }
-        System.Collections.Generic.IEnumerator<Azure.ResourceManager.Automation.Models.SoftwareUpdateConfigurationCollectionItem> System.Collections.Generic.IEnumerable<Azure.ResourceManager.Automation.Models.SoftwareUpdateConfigurationCollectionItem>.GetEnumerator() { throw null; }
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() { throw null; }
-    }
-    public partial class SoftwareUpdateConfigurationData : Azure.ResourceManager.Models.ResourceData
-    {
-        public SoftwareUpdateConfigurationData(Azure.ResourceManager.Automation.Models.SoftwareUpdateConfigurationSpecificProperties updateConfiguration, Azure.ResourceManager.Automation.Models.SoftwareUpdateConfigurationScheduleProperties scheduleInfo) { }
-        public string CreatedBy { get { throw null; } }
-        public System.DateTimeOffset? CreatedOn { get { throw null; } }
-        public Azure.ResourceManager.Automation.Models.AutomationResponseError Error { get { throw null; } set { } }
-        public string LastModifiedBy { get { throw null; } }
-        public System.DateTimeOffset? LastModifiedOn { get { throw null; } }
-        public string ProvisioningState { get { throw null; } }
-        public Azure.ResourceManager.Automation.Models.SoftwareUpdateConfigurationScheduleProperties ScheduleInfo { get { throw null; } set { } }
-        public Azure.ResourceManager.Automation.Models.SoftwareUpdateConfigurationTasks Tasks { get { throw null; } set { } }
-        public Azure.ResourceManager.Automation.Models.SoftwareUpdateConfigurationSpecificProperties UpdateConfiguration { get { throw null; } set { } }
-    }
-    public partial class SoftwareUpdateConfigurationResource : Azure.ResourceManager.ArmResource
-    {
-        public static readonly Azure.Core.ResourceType ResourceType;
-        protected SoftwareUpdateConfigurationResource() { }
-        public virtual Azure.ResourceManager.Automation.SoftwareUpdateConfigurationData Data { get { throw null; } }
-        public virtual bool HasData { get { throw null; } }
-        public static Azure.Core.ResourceIdentifier CreateResourceIdentifier(string subscriptionId, string resourceGroupName, string automationAccountName, string softwareUpdateConfigurationName) { throw null; }
-        public virtual Azure.ResourceManager.ArmOperation Delete(Azure.WaitUntil waitUntil, string clientRequestId = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation> DeleteAsync(Azure.WaitUntil waitUntil, string clientRequestId = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.Response<Azure.ResourceManager.Automation.SoftwareUpdateConfigurationResource> Get(string clientRequestId = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Automation.SoftwareUpdateConfigurationResource>> GetAsync(string clientRequestId = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Automation.SoftwareUpdateConfigurationResource> Update(Azure.WaitUntil waitUntil, Azure.ResourceManager.Automation.SoftwareUpdateConfigurationData data, string clientRequestId = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Automation.SoftwareUpdateConfigurationResource>> UpdateAsync(Azure.WaitUntil waitUntil, Azure.ResourceManager.Automation.SoftwareUpdateConfigurationData data, string clientRequestId = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-    }
 }
 namespace Azure.ResourceManager.Automation.Models
 {
-    public partial class AgentRegistration
-    {
-        internal AgentRegistration() { }
-        public string DscMetaConfiguration { get { throw null; } }
-        public System.Uri Endpoint { get { throw null; } }
-        public Azure.Core.ResourceIdentifier Id { get { throw null; } }
-        public Azure.ResourceManager.Automation.Models.AgentRegistrationKeys Keys { get { throw null; } }
-    }
-    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
-    public readonly partial struct AgentRegistrationKeyName : System.IEquatable<Azure.ResourceManager.Automation.Models.AgentRegistrationKeyName>
-    {
-        private readonly object _dummy;
-        private readonly int _dummyPrimitive;
-        public AgentRegistrationKeyName(string value) { throw null; }
-        public static Azure.ResourceManager.Automation.Models.AgentRegistrationKeyName Primary { get { throw null; } }
-        public static Azure.ResourceManager.Automation.Models.AgentRegistrationKeyName Secondary { get { throw null; } }
-        public bool Equals(Azure.ResourceManager.Automation.Models.AgentRegistrationKeyName other) { throw null; }
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
-        public override bool Equals(object obj) { throw null; }
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
-        public override int GetHashCode() { throw null; }
-        public static bool operator ==(Azure.ResourceManager.Automation.Models.AgentRegistrationKeyName left, Azure.ResourceManager.Automation.Models.AgentRegistrationKeyName right) { throw null; }
-        public static implicit operator Azure.ResourceManager.Automation.Models.AgentRegistrationKeyName (string value) { throw null; }
-        public static bool operator !=(Azure.ResourceManager.Automation.Models.AgentRegistrationKeyName left, Azure.ResourceManager.Automation.Models.AgentRegistrationKeyName right) { throw null; }
-        public override string ToString() { throw null; }
-    }
-    public partial class AgentRegistrationKeys
-    {
-        internal AgentRegistrationKeys() { }
-        public string Primary { get { throw null; } }
-        public string Secondary { get { throw null; } }
-    }
-    public partial class AgentRegistrationRegenerateKeyContent
-    {
-        public AgentRegistrationRegenerateKeyContent(Azure.ResourceManager.Automation.Models.AgentRegistrationKeyName keyName) { }
-        public Azure.ResourceManager.Automation.Models.AgentRegistrationKeyName KeyName { get { throw null; } }
-    }
     public static partial class ArmAutomationModelFactory
     {
-        public static Azure.ResourceManager.Automation.Models.AgentRegistration AgentRegistration(string dscMetaConfiguration = null, System.Uri endpoint = null, Azure.ResourceManager.Automation.Models.AgentRegistrationKeys keys = null, Azure.Core.ResourceIdentifier id = null) { throw null; }
-        public static Azure.ResourceManager.Automation.Models.AgentRegistrationKeys AgentRegistrationKeys(string primary = null, string secondary = null) { throw null; }
-        public static Azure.ResourceManager.Automation.AutomationAccountData AutomationAccountData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, System.Collections.Generic.IDictionary<string, string> tags = null, Azure.Core.AzureLocation location = default(Azure.Core.AzureLocation), Azure.ETag? etag = default(Azure.ETag?), Azure.ResourceManager.Models.ManagedServiceIdentity identity = null, Azure.ResourceManager.Automation.Models.AutomationSku sku = null, string lastModifiedBy = null, Azure.ResourceManager.Automation.Models.AutomationAccountState? state = default(Azure.ResourceManager.Automation.Models.AutomationAccountState?), System.DateTimeOffset? createdOn = default(System.DateTimeOffset?), System.DateTimeOffset? lastModifiedOn = default(System.DateTimeOffset?), string description = null, Azure.ResourceManager.Automation.Models.AutomationEncryptionProperties encryption = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Automation.AutomationPrivateEndpointConnectionData> privateEndpointConnections = null, bool? isPublicNetworkAccessAllowed = default(bool?), bool? isLocalAuthDisabled = default(bool?), System.Uri automationHybridServiceUri = null) { throw null; }
+        public static Azure.ResourceManager.Automation.AutomationAccountData AutomationAccountData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.ETag? etag = default(Azure.ETag?), Azure.ResourceManager.Models.ManagedServiceIdentity identity = null, Azure.ResourceManager.Automation.Models.AutomationSku sku = null, string lastModifiedBy = null, Azure.ResourceManager.Automation.Models.AutomationAccountState? state = default(Azure.ResourceManager.Automation.Models.AutomationAccountState?), System.DateTimeOffset? createdOn = default(System.DateTimeOffset?), System.DateTimeOffset? lastModifiedOn = default(System.DateTimeOffset?), string description = null, Azure.ResourceManager.Automation.Models.AutomationEncryptionProperties encryption = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Automation.Models.AutomationPrivateEndpointConnection> privateEndpointConnections = null, bool? isPublicNetworkAccessAllowed = default(bool?), bool? isLocalAuthDisabled = default(bool?), System.Uri automationHybridServiceUri = null, System.Collections.Generic.IReadOnlyDictionary<string, string> tags = null, Azure.Core.AzureLocation? location = default(Azure.Core.AzureLocation?)) { throw null; }
         public static Azure.ResourceManager.Automation.Models.AutomationAccountStatistics AutomationAccountStatistics(string counterProperty = null, long? counterValue = default(long?), System.DateTimeOffset? startOn = default(System.DateTimeOffset?), System.DateTimeOffset? endOn = default(System.DateTimeOffset?), string id = null) { throw null; }
         public static Azure.ResourceManager.Automation.Models.AutomationActivity AutomationActivity(Azure.Core.ResourceIdentifier id = null, string name = null, string definition = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Automation.Models.AutomationActivityParameterSet> parameterSets = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Automation.Models.AutomationActivityOutputType> outputTypes = null, System.DateTimeOffset? createdOn = default(System.DateTimeOffset?), System.DateTimeOffset? lastModifiedOn = default(System.DateTimeOffset?), string description = null) { throw null; }
         public static Azure.ResourceManager.Automation.Models.AutomationActivityOutputType AutomationActivityOutputType(string name = null, string activityOutputType = null) { throw null; }
@@ -1233,46 +942,34 @@ namespace Azure.ResourceManager.Automation.Models
         public static Azure.ResourceManager.Automation.AutomationConnectionTypeData AutomationConnectionTypeData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, bool? isGlobal = default(bool?), System.Collections.Generic.IReadOnlyDictionary<string, Azure.ResourceManager.Automation.Models.AutomationConnectionFieldDefinition> fieldDefinitions = null, System.DateTimeOffset? createdOn = default(System.DateTimeOffset?), System.DateTimeOffset? lastModifiedOn = default(System.DateTimeOffset?), string description = null) { throw null; }
         public static Azure.ResourceManager.Automation.AutomationCredentialData AutomationCredentialData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, string userName = null, System.DateTimeOffset? createdOn = default(System.DateTimeOffset?), System.DateTimeOffset? lastModifiedOn = default(System.DateTimeOffset?), string description = null) { throw null; }
         public static Azure.ResourceManager.Automation.Models.AutomationJobCollectionItemData AutomationJobCollectionItemData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, string runbookName = null, System.Guid? jobId = default(System.Guid?), System.DateTimeOffset? createdOn = default(System.DateTimeOffset?), Azure.ResourceManager.Automation.Models.AutomationJobStatus? status = default(Azure.ResourceManager.Automation.Models.AutomationJobStatus?), System.DateTimeOffset? startOn = default(System.DateTimeOffset?), System.DateTimeOffset? endOn = default(System.DateTimeOffset?), System.DateTimeOffset? lastModifiedOn = default(System.DateTimeOffset?), string provisioningState = null, string runOn = null) { throw null; }
-        public static Azure.ResourceManager.Automation.AutomationJobData AutomationJobData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, string runbookName = null, string startedBy = null, string runOn = null, System.Guid? jobId = default(System.Guid?), System.DateTimeOffset? createdOn = default(System.DateTimeOffset?), Azure.ResourceManager.Automation.Models.AutomationJobStatus? status = default(Azure.ResourceManager.Automation.Models.AutomationJobStatus?), string statusDetails = null, System.DateTimeOffset? startOn = default(System.DateTimeOffset?), System.DateTimeOffset? endOn = default(System.DateTimeOffset?), string exception = null, System.DateTimeOffset? lastModifiedOn = default(System.DateTimeOffset?), System.DateTimeOffset? lastStatusModifiedOn = default(System.DateTimeOffset?), System.Collections.Generic.IDictionary<string, string> parameters = null, Azure.ResourceManager.Automation.Models.JobProvisioningState? provisioningState = default(Azure.ResourceManager.Automation.Models.JobProvisioningState?)) { throw null; }
+        public static Azure.ResourceManager.Automation.AutomationJobData AutomationJobData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, string runbookName = null, string startedBy = null, string runOn = null, System.Guid? jobId = default(System.Guid?), System.DateTimeOffset? createdOn = default(System.DateTimeOffset?), Azure.ResourceManager.Automation.Models.AutomationJobStatus? status = default(Azure.ResourceManager.Automation.Models.AutomationJobStatus?), string statusDetails = null, System.DateTimeOffset? startOn = default(System.DateTimeOffset?), System.DateTimeOffset? endOn = default(System.DateTimeOffset?), string exception = null, System.DateTimeOffset? lastModifiedOn = default(System.DateTimeOffset?), System.DateTimeOffset? lastStatusModifiedOn = default(System.DateTimeOffset?), System.Collections.Generic.IReadOnlyDictionary<string, string> parameters = null, Azure.ResourceManager.Automation.Models.JobProvisioningState? provisioningState = default(Azure.ResourceManager.Automation.Models.JobProvisioningState?)) { throw null; }
         public static Azure.ResourceManager.Automation.AutomationJobScheduleData AutomationJobScheduleData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, System.Guid? jobScheduleId = default(System.Guid?), string scheduleName = null, string runbookName = null, string runOn = null, System.Collections.Generic.IReadOnlyDictionary<string, string> parameters = null) { throw null; }
         public static Azure.ResourceManager.Automation.Models.AutomationJobStream AutomationJobStream(Azure.Core.ResourceIdentifier id = null, string jobStreamId = null, System.DateTimeOffset? time = default(System.DateTimeOffset?), Azure.ResourceManager.Automation.Models.AutomationJobStreamType? streamType = default(Azure.ResourceManager.Automation.Models.AutomationJobStreamType?), string streamText = null, string summary = null, System.Collections.Generic.IReadOnlyDictionary<string, System.BinaryData> value = null) { throw null; }
         public static Azure.ResourceManager.Automation.Models.AutomationKey AutomationKey(Azure.ResourceManager.Automation.Models.AutomationKeyName? keyName = default(Azure.ResourceManager.Automation.Models.AutomationKeyName?), Azure.ResourceManager.Automation.Models.AutomationKeyPermission? permissions = default(Azure.ResourceManager.Automation.Models.AutomationKeyPermission?), string value = null) { throw null; }
         public static Azure.ResourceManager.Automation.Models.AutomationLinkedWorkspace AutomationLinkedWorkspace(string id = null) { throw null; }
-        public static Azure.ResourceManager.Automation.AutomationModuleData AutomationModuleData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, System.Collections.Generic.IDictionary<string, string> tags = null, Azure.Core.AzureLocation location = default(Azure.Core.AzureLocation), Azure.ETag? etag = default(Azure.ETag?), bool? isGlobal = default(bool?), string version = null, long? sizeInBytes = default(long?), int? activityCount = default(int?), Azure.ResourceManager.Automation.Models.ModuleProvisioningState? provisioningState = default(Azure.ResourceManager.Automation.Models.ModuleProvisioningState?), Azure.ResourceManager.Automation.Models.AutomationContentLink contentLink = null, Azure.ResourceManager.Automation.Models.AutomationModuleErrorInfo error = null, System.DateTimeOffset? createdOn = default(System.DateTimeOffset?), System.DateTimeOffset? lastModifiedOn = default(System.DateTimeOffset?), string description = null, bool? isComposite = default(bool?)) { throw null; }
+        public static Azure.ResourceManager.Automation.AutomationModuleData AutomationModuleData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.ETag? etag = default(Azure.ETag?), bool? isGlobal = default(bool?), string version = null, long? sizeInBytes = default(long?), int? activityCount = default(int?), Azure.ResourceManager.Automation.Models.ModuleProvisioningState? provisioningState = default(Azure.ResourceManager.Automation.Models.ModuleProvisioningState?), Azure.ResourceManager.Automation.Models.AutomationContentLink contentLink = null, Azure.ResourceManager.Automation.Models.AutomationModuleErrorInfo error = null, System.DateTimeOffset? createdOn = default(System.DateTimeOffset?), System.DateTimeOffset? lastModifiedOn = default(System.DateTimeOffset?), string description = null, bool? isComposite = default(bool?), System.Collections.Generic.IReadOnlyDictionary<string, string> tags = null, Azure.Core.AzureLocation? location = default(Azure.Core.AzureLocation?)) { throw null; }
+        public static Azure.ResourceManager.Automation.Models.AutomationModuleErrorInfo AutomationModuleErrorInfo(string code = null, string message = null) { throw null; }
         public static Azure.ResourceManager.Automation.Models.AutomationModuleField AutomationModuleField(string name = null, string fieldType = null) { throw null; }
-        public static Azure.ResourceManager.Automation.AutomationPrivateEndpointConnectionData AutomationPrivateEndpointConnectionData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.Core.ResourceIdentifier privateEndpointId = null, System.Collections.Generic.IEnumerable<string> groupIds = null, Azure.ResourceManager.Automation.Models.AutomationPrivateLinkServiceConnectionStateProperty connectionState = null) { throw null; }
-        public static Azure.ResourceManager.Automation.Models.AutomationPrivateLinkResource AutomationPrivateLinkResource(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, string groupId = null, System.Collections.Generic.IEnumerable<string> requiredMembers = null) { throw null; }
+        public static Azure.ResourceManager.Automation.Models.AutomationPrivateEndpointConnection AutomationPrivateEndpointConnection(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.Core.ResourceIdentifier privateEndpointId = null, System.Collections.Generic.IEnumerable<string> groupIds = null, Azure.ResourceManager.Automation.Models.AutomationPrivateLinkServiceConnectionStateProperty connectionState = null) { throw null; }
         public static Azure.ResourceManager.Automation.Models.AutomationPrivateLinkServiceConnectionStateProperty AutomationPrivateLinkServiceConnectionStateProperty(string status = null, string description = null, string actionsRequired = null) { throw null; }
-        public static Azure.ResourceManager.Automation.AutomationRunbookData AutomationRunbookData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, System.Collections.Generic.IDictionary<string, string> tags = null, Azure.Core.AzureLocation location = default(Azure.Core.AzureLocation), Azure.ETag? etag = default(Azure.ETag?), Azure.ResourceManager.Automation.Models.AutomationRunbookType? runbookType = default(Azure.ResourceManager.Automation.Models.AutomationRunbookType?), Azure.ResourceManager.Automation.Models.AutomationContentLink publishContentLink = null, Azure.ResourceManager.Automation.Models.RunbookState? state = default(Azure.ResourceManager.Automation.Models.RunbookState?), bool? isLogVerboseEnabled = default(bool?), bool? isLogProgressEnabled = default(bool?), int? logActivityTrace = default(int?), int? jobCount = default(int?), System.Collections.Generic.IDictionary<string, Azure.ResourceManager.Automation.Models.RunbookParameterDefinition> parameters = null, System.Collections.Generic.IEnumerable<string> outputTypes = null, Azure.ResourceManager.Automation.Models.AutomationRunbookDraft draft = null, Azure.ResourceManager.Automation.Models.RunbookProvisioningState? provisioningState = default(Azure.ResourceManager.Automation.Models.RunbookProvisioningState?), string lastModifiedBy = null, System.DateTimeOffset? createdOn = default(System.DateTimeOffset?), System.DateTimeOffset? lastModifiedOn = default(System.DateTimeOffset?), string description = null) { throw null; }
+        public static Azure.ResourceManager.Automation.Models.AutomationResponseError AutomationResponseError(string code = null, string message = null) { throw null; }
+        public static Azure.ResourceManager.Automation.AutomationRunbookData AutomationRunbookData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.ETag? etag = default(Azure.ETag?), Azure.ResourceManager.Automation.Models.AutomationRunbookType? runbookType = default(Azure.ResourceManager.Automation.Models.AutomationRunbookType?), Azure.ResourceManager.Automation.Models.AutomationContentLink publishContentLink = null, Azure.ResourceManager.Automation.Models.RunbookState? state = default(Azure.ResourceManager.Automation.Models.RunbookState?), bool? isLogVerboseEnabled = default(bool?), bool? isLogProgressEnabled = default(bool?), int? logActivityTrace = default(int?), int? jobCount = default(int?), System.Collections.Generic.IReadOnlyDictionary<string, Azure.ResourceManager.Automation.Models.RunbookParameterDefinition> parameters = null, System.Collections.Generic.IEnumerable<string> outputTypes = null, Azure.ResourceManager.Automation.Models.AutomationRunbookDraft draft = null, Azure.ResourceManager.Automation.Models.RunbookProvisioningState? provisioningState = default(Azure.ResourceManager.Automation.Models.RunbookProvisioningState?), string lastModifiedBy = null, System.DateTimeOffset? createdOn = default(System.DateTimeOffset?), System.DateTimeOffset? lastModifiedOn = default(System.DateTimeOffset?), string description = null, System.Collections.Generic.IReadOnlyDictionary<string, string> tags = null, Azure.Core.AzureLocation? location = default(Azure.Core.AzureLocation?)) { throw null; }
         public static Azure.ResourceManager.Automation.AutomationScheduleData AutomationScheduleData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, System.DateTimeOffset? startOn = default(System.DateTimeOffset?), double? startInMinutes = default(double?), System.DateTimeOffset? expireOn = default(System.DateTimeOffset?), double? expireInMinutes = default(double?), bool? isEnabled = default(bool?), System.DateTimeOffset? nextRunOn = default(System.DateTimeOffset?), double? nextRunInMinutes = default(double?), System.BinaryData interval = null, Azure.ResourceManager.Automation.Models.AutomationScheduleFrequency? frequency = default(Azure.ResourceManager.Automation.Models.AutomationScheduleFrequency?), string timeZone = null, Azure.ResourceManager.Automation.Models.AutomationAdvancedSchedule advancedSchedule = null, System.DateTimeOffset? createdOn = default(System.DateTimeOffset?), System.DateTimeOffset? lastModifiedOn = default(System.DateTimeOffset?), string description = null) { throw null; }
         public static Azure.ResourceManager.Automation.AutomationSourceControlData AutomationSourceControlData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, System.Uri repoUri = null, string branch = null, string folderPath = null, bool? isAutoSyncEnabled = default(bool?), bool? isAutoPublishRunbookEnabled = default(bool?), Azure.ResourceManager.Automation.Models.SourceControlSourceType? sourceType = default(Azure.ResourceManager.Automation.Models.SourceControlSourceType?), string description = null, System.DateTimeOffset? createdOn = default(System.DateTimeOffset?), System.DateTimeOffset? lastModifiedOn = default(System.DateTimeOffset?)) { throw null; }
         public static Azure.ResourceManager.Automation.Models.AutomationUsage AutomationUsage(string id = null, Azure.ResourceManager.Automation.Models.AutomationUsageCounterName name = null, string unit = null, double? currentValue = default(double?), long? limit = default(long?), string throttleStatus = null) { throw null; }
         public static Azure.ResourceManager.Automation.Models.AutomationUsageCounterName AutomationUsageCounterName(string value = null, string localizedValue = null) { throw null; }
         public static Azure.ResourceManager.Automation.AutomationVariableData AutomationVariableData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, string value = null, bool? isEncrypted = default(bool?), System.DateTimeOffset? createdOn = default(System.DateTimeOffset?), System.DateTimeOffset? lastModifiedOn = default(System.DateTimeOffset?), string description = null) { throw null; }
-        public static Azure.ResourceManager.Automation.AutomationWatcherData AutomationWatcherData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, System.Collections.Generic.IDictionary<string, string> tags = null, Azure.Core.AzureLocation location = default(Azure.Core.AzureLocation), Azure.ETag? etag = default(Azure.ETag?), long? executionFrequencyInSeconds = default(long?), string scriptName = null, System.Collections.Generic.IDictionary<string, string> scriptParameters = null, string scriptRunOn = null, string status = null, System.DateTimeOffset? createdOn = default(System.DateTimeOffset?), System.DateTimeOffset? lastModifiedOn = default(System.DateTimeOffset?), string lastModifiedBy = null, string description = null) { throw null; }
-        public static Azure.ResourceManager.Automation.AutomationWebhookData AutomationWebhookData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, bool? isEnabled = default(bool?), System.Uri uri = null, System.DateTimeOffset? expireOn = default(System.DateTimeOffset?), System.DateTimeOffset? lastInvokedOn = default(System.DateTimeOffset?), System.Collections.Generic.IDictionary<string, string> parameters = null, string runbookName = null, string runOn = null, System.DateTimeOffset? createdOn = default(System.DateTimeOffset?), System.DateTimeOffset? lastModifiedOn = default(System.DateTimeOffset?), string lastModifiedBy = null, string description = null) { throw null; }
-        public static Azure.ResourceManager.Automation.Models.DeletedAutomationAccount DeletedAutomationAccount(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.Core.AzureLocation? location = default(Azure.Core.AzureLocation?), Azure.Core.ResourceIdentifier automationAccountResourceId = null, string automationAccountId = null, string locationPropertiesLocation = null, System.DateTimeOffset? deletedOn = default(System.DateTimeOffset?)) { throw null; }
-        public static Azure.ResourceManager.Automation.DscCompilationJobData DscCompilationJobData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, string configurationName = null, string startedBy = null, System.Guid? jobId = default(System.Guid?), System.DateTimeOffset? createdOn = default(System.DateTimeOffset?), Azure.ResourceManager.Automation.Models.JobProvisioningState? provisioningState = default(Azure.ResourceManager.Automation.Models.JobProvisioningState?), string runOn = null, Azure.ResourceManager.Automation.Models.AutomationJobStatus? status = default(Azure.ResourceManager.Automation.Models.AutomationJobStatus?), string statusDetails = null, System.DateTimeOffset? startOn = default(System.DateTimeOffset?), System.DateTimeOffset? endOn = default(System.DateTimeOffset?), string exception = null, System.DateTimeOffset? lastModifiedOn = default(System.DateTimeOffset?), System.DateTimeOffset? lastStatusModifiedOn = default(System.DateTimeOffset?), System.Collections.Generic.IDictionary<string, string> parameters = null) { throw null; }
-        public static Azure.ResourceManager.Automation.DscConfigurationData DscConfigurationData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, System.Collections.Generic.IDictionary<string, string> tags = null, Azure.Core.AzureLocation location = default(Azure.Core.AzureLocation), Azure.ETag? etag = default(Azure.ETag?), Azure.ResourceManager.Automation.Models.DscConfigurationProvisioningState? provisioningState = default(Azure.ResourceManager.Automation.Models.DscConfigurationProvisioningState?), int? jobCount = default(int?), System.Collections.Generic.IDictionary<string, Azure.ResourceManager.Automation.Models.DscConfigurationParameterDefinition> parameters = null, Azure.ResourceManager.Automation.Models.AutomationContentSource source = null, Azure.ResourceManager.Automation.Models.DscConfigurationState? state = default(Azure.ResourceManager.Automation.Models.DscConfigurationState?), bool? isLogVerboseEnabled = default(bool?), System.DateTimeOffset? createdOn = default(System.DateTimeOffset?), System.DateTimeOffset? lastModifiedOn = default(System.DateTimeOffset?), int? nodeConfigurationCount = default(int?), string description = null) { throw null; }
-        public static Azure.ResourceManager.Automation.Models.DscMetaConfiguration DscMetaConfiguration(int? configurationModeFrequencyMins = default(int?), bool? rebootNodeIfNeeded = default(bool?), string configurationMode = null, string actionAfterReboot = null, string certificateId = null, int? refreshFrequencyMins = default(int?), bool? allowModuleOverwrite = default(bool?)) { throw null; }
+        public static Azure.ResourceManager.Automation.Models.DeletedRunbook DeletedRunbook(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.Core.AzureLocation? location = default(Azure.Core.AzureLocation?), string runbookType = null, string runtime = null, string runtimeEnvironment = null, System.DateTimeOffset? createdOn = default(System.DateTimeOffset?), System.DateTimeOffset? deletedOn = default(System.DateTimeOffset?), string description = null) { throw null; }
+        public static Azure.ResourceManager.Automation.DscConfigurationData DscConfigurationData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.ETag? etag = default(Azure.ETag?), Azure.ResourceManager.Automation.Models.DscConfigurationProvisioningState? provisioningState = default(Azure.ResourceManager.Automation.Models.DscConfigurationProvisioningState?), int? jobCount = default(int?), System.Collections.Generic.IReadOnlyDictionary<string, Azure.ResourceManager.Automation.Models.DscConfigurationParameterDefinition> parameters = null, Azure.ResourceManager.Automation.Models.AutomationContentSource source = null, Azure.ResourceManager.Automation.Models.DscConfigurationState? state = default(Azure.ResourceManager.Automation.Models.DscConfigurationState?), bool? isLogVerboseEnabled = default(bool?), System.DateTimeOffset? createdOn = default(System.DateTimeOffset?), System.DateTimeOffset? lastModifiedOn = default(System.DateTimeOffset?), int? nodeConfigurationCount = default(int?), string description = null, System.Collections.Generic.IReadOnlyDictionary<string, string> tags = null, Azure.Core.AzureLocation? location = default(Azure.Core.AzureLocation?)) { throw null; }
         public static Azure.ResourceManager.Automation.DscNodeConfigurationData DscNodeConfigurationData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, System.DateTimeOffset? lastModifiedOn = default(System.DateTimeOffset?), System.DateTimeOffset? createdOn = default(System.DateTimeOffset?), string configurationName = null, string source = null, long? nodeCount = default(long?), bool? isIncrementNodeConfigurationBuildRequired = default(bool?)) { throw null; }
-        public static Azure.ResourceManager.Automation.Models.DscNodeCount DscNodeCount(string name = null, int? nameCount = default(int?)) { throw null; }
-        public static Azure.ResourceManager.Automation.DscNodeData DscNodeData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, System.DateTimeOffset? lastSeenOn = default(System.DateTimeOffset?), System.DateTimeOffset? registrationOn = default(System.DateTimeOffset?), string ip = null, string accountId = null, string status = null, string nodeId = null, Azure.ETag? etag = default(Azure.ETag?), int? totalCount = default(int?), System.Collections.Generic.IEnumerable<Azure.ResourceManager.Automation.Models.DscNodeExtensionHandlerAssociationProperty> extensionHandler = null, string namePropertiesNodeConfigurationName = null) { throw null; }
-        public static Azure.ResourceManager.Automation.Models.DscNodeReport DscNodeReport(System.DateTimeOffset? endOn = default(System.DateTimeOffset?), System.DateTimeOffset? lastModifiedOn = default(System.DateTimeOffset?), System.DateTimeOffset? startOn = default(System.DateTimeOffset?), string dscNodeReportType = null, string reportId = null, string status = null, string refreshMode = null, string rebootRequested = null, string reportFormatVersion = null, string configurationVersion = null, string id = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Automation.Models.DscReportError> errors = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Automation.Models.DscReportResource> resources = null, Azure.ResourceManager.Automation.Models.DscMetaConfiguration metaConfiguration = null, string hostName = null, System.Collections.Generic.IEnumerable<string> ipV4Addresses = null, System.Collections.Generic.IEnumerable<string> ipV6Addresses = null, int? numberOfResources = default(int?), string rawErrors = null) { throw null; }
-        public static Azure.ResourceManager.Automation.Models.DscReportError DscReportError(string errorSource = null, string resourceId = null, string errorCode = null, string errorMessage = null, string locale = null, string errorDetails = null) { throw null; }
-        public static Azure.ResourceManager.Automation.Models.DscReportResource DscReportResource(string resourceId = null, string sourceInfo = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Automation.Models.DscReportResourceNavigation> dependsOn = null, string moduleName = null, string moduleVersion = null, string resourceName = null, string error = null, string status = null, double? durationInSeconds = default(double?), System.DateTimeOffset? startOn = default(System.DateTimeOffset?)) { throw null; }
-        public static Azure.ResourceManager.Automation.Models.DscReportResourceNavigation DscReportResourceNavigation(string resourceId = null) { throw null; }
         public static Azure.ResourceManager.Automation.HybridRunbookWorkerData HybridRunbookWorkerData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, string ip = null, System.DateTimeOffset? registeredOn = default(System.DateTimeOffset?), System.DateTimeOffset? lastSeenOn = default(System.DateTimeOffset?), Azure.Core.ResourceIdentifier vmResourceId = null, Azure.ResourceManager.Automation.Models.HybridWorkerType? workerType = default(Azure.ResourceManager.Automation.Models.HybridWorkerType?), string workerName = null) { throw null; }
         public static Azure.ResourceManager.Automation.HybridRunbookWorkerGroupData HybridRunbookWorkerGroupData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.ResourceManager.Automation.Models.HybridWorkerGroup? groupType = default(Azure.ResourceManager.Automation.Models.HybridWorkerGroup?), string credentialName = null) { throw null; }
         public static Azure.ResourceManager.Automation.Models.RunbookDraftUndoEditResult RunbookDraftUndoEditResult(Azure.ResourceManager.Automation.Models.AutomationHttpStatusCode? statusCode = default(Azure.ResourceManager.Automation.Models.AutomationHttpStatusCode?), string requestId = null) { throw null; }
         public static Azure.ResourceManager.Automation.Models.RunbookTestJob RunbookTestJob(System.DateTimeOffset? createdOn = default(System.DateTimeOffset?), string status = null, string statusDetails = null, string runOn = null, System.DateTimeOffset? startOn = default(System.DateTimeOffset?), System.DateTimeOffset? endOn = default(System.DateTimeOffset?), string exception = null, System.DateTimeOffset? lastModifiedOn = default(System.DateTimeOffset?), System.DateTimeOffset? lastStatusModifiedOn = default(System.DateTimeOffset?), System.Collections.Generic.IReadOnlyDictionary<string, string> parameters = null, int? logActivityTrace = default(int?)) { throw null; }
-        public static Azure.ResourceManager.Automation.Models.SoftwareUpdateConfigurationCollectionItem SoftwareUpdateConfigurationCollectionItem(string name = null, Azure.Core.ResourceIdentifier id = null, Azure.ResourceManager.Automation.Models.SoftwareUpdateConfigurationSpecificProperties updateConfiguration = null, Azure.ResourceManager.Automation.Models.SoftwareUpdateConfigurationTasks tasks = null, Azure.ResourceManager.Automation.Models.AutomationScheduleFrequency? frequency = default(Azure.ResourceManager.Automation.Models.AutomationScheduleFrequency?), System.DateTimeOffset? startOn = default(System.DateTimeOffset?), System.DateTimeOffset? createdOn = default(System.DateTimeOffset?), System.DateTimeOffset? lastModifiedOn = default(System.DateTimeOffset?), string provisioningState = null, System.DateTimeOffset? nextRunOn = default(System.DateTimeOffset?)) { throw null; }
-        public static Azure.ResourceManager.Automation.SoftwareUpdateConfigurationData SoftwareUpdateConfigurationData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.ResourceManager.Automation.Models.SoftwareUpdateConfigurationSpecificProperties updateConfiguration = null, Azure.ResourceManager.Automation.Models.SoftwareUpdateConfigurationScheduleProperties scheduleInfo = null, string provisioningState = null, Azure.ResourceManager.Automation.Models.AutomationResponseError error = null, System.DateTimeOffset? createdOn = default(System.DateTimeOffset?), string createdBy = null, System.DateTimeOffset? lastModifiedOn = default(System.DateTimeOffset?), string lastModifiedBy = null, Azure.ResourceManager.Automation.Models.SoftwareUpdateConfigurationTasks tasks = null) { throw null; }
         public static Azure.ResourceManager.Automation.Models.SoftwareUpdateConfigurationMachineRun SoftwareUpdateConfigurationMachineRun(string name = null, Azure.Core.ResourceIdentifier id = null, Azure.Core.ResourceIdentifier targetComputerId = null, string targetComputerType = null, string softwareUpdateName = null, string status = null, string osType = null, System.Guid? correlationId = default(System.Guid?), System.Guid? sourceComputerId = default(System.Guid?), System.DateTimeOffset? startOn = default(System.DateTimeOffset?), System.DateTimeOffset? endOn = default(System.DateTimeOffset?), System.TimeSpan? configuredDuration = default(System.TimeSpan?), System.Guid? jobId = default(System.Guid?), System.DateTimeOffset? createdOn = default(System.DateTimeOffset?), string createdBy = null, System.DateTimeOffset? lastModifiedOn = default(System.DateTimeOffset?), string lastModifiedBy = null, Azure.ResourceManager.Automation.Models.AutomationResponseError error = null) { throw null; }
         public static Azure.ResourceManager.Automation.Models.SoftwareUpdateConfigurationRun SoftwareUpdateConfigurationRun(string name = null, Azure.Core.ResourceIdentifier id = null, string softwareUpdateName = null, string status = null, System.TimeSpan? configuredDuration = default(System.TimeSpan?), string osType = null, System.DateTimeOffset? startOn = default(System.DateTimeOffset?), System.DateTimeOffset? endOn = default(System.DateTimeOffset?), int? computerCount = default(int?), int? failedCount = default(int?), System.DateTimeOffset? createdOn = default(System.DateTimeOffset?), string createdBy = null, System.DateTimeOffset? lastModifiedOn = default(System.DateTimeOffset?), string lastModifiedBy = null, Azure.ResourceManager.Automation.Models.SoftwareUpdateConfigurationRunTasks tasks = null) { throw null; }
         public static Azure.ResourceManager.Automation.Models.SoftwareUpdateConfigurationRunTaskProperties SoftwareUpdateConfigurationRunTaskProperties(string status = null, string source = null, System.Guid? jobId = default(System.Guid?)) { throw null; }
         public static Azure.ResourceManager.Automation.Models.SoftwareUpdateConfigurationRunTasks SoftwareUpdateConfigurationRunTasks(Azure.ResourceManager.Automation.Models.SoftwareUpdateConfigurationRunTaskProperties preTask = null, Azure.ResourceManager.Automation.Models.SoftwareUpdateConfigurationRunTaskProperties postTask = null) { throw null; }
-        public static Azure.ResourceManager.Automation.Models.SoftwareUpdateConfigurationScheduleProperties SoftwareUpdateConfigurationScheduleProperties(System.DateTimeOffset? startOn = default(System.DateTimeOffset?), double? startInMinutes = default(double?), System.DateTimeOffset? expireOn = default(System.DateTimeOffset?), double? expireInMinutes = default(double?), bool? isEnabled = default(bool?), System.DateTimeOffset? nextRunOn = default(System.DateTimeOffset?), double? nextRunInMinutes = default(double?), long? interval = default(long?), Azure.ResourceManager.Automation.Models.AutomationScheduleFrequency? frequency = default(Azure.ResourceManager.Automation.Models.AutomationScheduleFrequency?), string timeZone = null, Azure.ResourceManager.Automation.Models.AutomationAdvancedSchedule advancedSchedule = null, System.DateTimeOffset? createdOn = default(System.DateTimeOffset?), System.DateTimeOffset? lastModifiedOn = default(System.DateTimeOffset?), string description = null) { throw null; }
         public static Azure.ResourceManager.Automation.Models.SourceControlSyncJob SourceControlSyncJob(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, string sourceControlSyncJobId = null, System.DateTimeOffset? createdOn = default(System.DateTimeOffset?), Azure.ResourceManager.Automation.Models.SourceControlProvisioningState? provisioningState = default(Azure.ResourceManager.Automation.Models.SourceControlProvisioningState?), System.DateTimeOffset? startOn = default(System.DateTimeOffset?), System.DateTimeOffset? endOn = default(System.DateTimeOffset?), Azure.ResourceManager.Automation.Models.SourceControlSyncType? syncType = default(Azure.ResourceManager.Automation.Models.SourceControlSyncType?)) { throw null; }
         public static Azure.ResourceManager.Automation.Models.SourceControlSyncJobResult SourceControlSyncJobResult(Azure.Core.ResourceIdentifier id = null, string sourceControlSyncJobId = null, System.DateTimeOffset? createdOn = default(System.DateTimeOffset?), Azure.ResourceManager.Automation.Models.SourceControlProvisioningState? provisioningState = default(Azure.ResourceManager.Automation.Models.SourceControlProvisioningState?), System.DateTimeOffset? startOn = default(System.DateTimeOffset?), System.DateTimeOffset? endOn = default(System.DateTimeOffset?), Azure.ResourceManager.Automation.Models.SourceControlSyncType? syncType = default(Azure.ResourceManager.Automation.Models.SourceControlSyncType?), string exception = null) { throw null; }
         public static Azure.ResourceManager.Automation.Models.SourceControlSyncJobStream SourceControlSyncJobStream(Azure.Core.ResourceIdentifier id = null, string sourceControlSyncJobStreamId = null, string summary = null, System.DateTimeOffset? time = default(System.DateTimeOffset?), Azure.ResourceManager.Automation.Models.SourceControlStreamType? streamType = default(Azure.ResourceManager.Automation.Models.SourceControlStreamType?)) { throw null; }
@@ -1316,17 +1013,6 @@ namespace Azure.ResourceManager.Automation.Models
         public Azure.Core.AzureLocation? Location { get { throw null; } set { } }
         public string Name { get { throw null; } set { } }
         public Azure.ResourceManager.Automation.Models.AutomationSku Sku { get { throw null; } set { } }
-        public System.Collections.Generic.IDictionary<string, string> Tags { get { throw null; } }
-    }
-    public partial class AutomationAccountPython2PackageCreateOrUpdateContent
-    {
-        public AutomationAccountPython2PackageCreateOrUpdateContent(Azure.ResourceManager.Automation.Models.AutomationContentLink contentLink) { }
-        public Azure.ResourceManager.Automation.Models.AutomationContentLink ContentLink { get { throw null; } }
-        public System.Collections.Generic.IDictionary<string, string> Tags { get { throw null; } }
-    }
-    public partial class AutomationAccountPython2PackagePatch
-    {
-        public AutomationAccountPython2PackagePatch() { }
         public System.Collections.Generic.IDictionary<string, string> Tags { get { throw null; } }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
@@ -1499,24 +1185,6 @@ namespace Azure.ResourceManager.Automation.Models
         public static bool operator !=(Azure.ResourceManager.Automation.Models.AutomationContentSourceType left, Azure.ResourceManager.Automation.Models.AutomationContentSourceType right) { throw null; }
         public override string ToString() { throw null; }
     }
-    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
-    public readonly partial struct AutomationCountType : System.IEquatable<Azure.ResourceManager.Automation.Models.AutomationCountType>
-    {
-        private readonly object _dummy;
-        private readonly int _dummyPrimitive;
-        public AutomationCountType(string value) { throw null; }
-        public static Azure.ResourceManager.Automation.Models.AutomationCountType NodeConfiguration { get { throw null; } }
-        public static Azure.ResourceManager.Automation.Models.AutomationCountType Status { get { throw null; } }
-        public bool Equals(Azure.ResourceManager.Automation.Models.AutomationCountType other) { throw null; }
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
-        public override bool Equals(object obj) { throw null; }
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
-        public override int GetHashCode() { throw null; }
-        public static bool operator ==(Azure.ResourceManager.Automation.Models.AutomationCountType left, Azure.ResourceManager.Automation.Models.AutomationCountType right) { throw null; }
-        public static implicit operator Azure.ResourceManager.Automation.Models.AutomationCountType (string value) { throw null; }
-        public static bool operator !=(Azure.ResourceManager.Automation.Models.AutomationCountType left, Azure.ResourceManager.Automation.Models.AutomationCountType right) { throw null; }
-        public override string ToString() { throw null; }
-    }
     public partial class AutomationCredentialCreateOrUpdateContent
     {
         public AutomationCredentialCreateOrUpdateContent(string name, string userName, string password) { }
@@ -1628,14 +1296,14 @@ namespace Azure.ResourceManager.Automation.Models
     }
     public partial class AutomationJobCollectionItemData : Azure.ResourceManager.Models.ResourceData
     {
-        public AutomationJobCollectionItemData() { }
+        internal AutomationJobCollectionItemData() { }
         public System.DateTimeOffset? CreatedOn { get { throw null; } }
         public System.DateTimeOffset? EndOn { get { throw null; } }
         public System.Guid? JobId { get { throw null; } }
         public System.DateTimeOffset? LastModifiedOn { get { throw null; } }
         public string ProvisioningState { get { throw null; } }
         public string RunbookName { get { throw null; } }
-        public string RunOn { get { throw null; } set { } }
+        public string RunOn { get { throw null; } }
         public System.DateTimeOffset? StartOn { get { throw null; } }
         public Azure.ResourceManager.Automation.Models.AutomationJobStatus? Status { get { throw null; } }
     }
@@ -1774,9 +1442,9 @@ namespace Azure.ResourceManager.Automation.Models
     }
     public partial class AutomationModuleErrorInfo
     {
-        public AutomationModuleErrorInfo() { }
-        public string Code { get { throw null; } set { } }
-        public string Message { get { throw null; } set { } }
+        internal AutomationModuleErrorInfo() { }
+        public string Code { get { throw null; } }
+        public string Message { get { throw null; } }
     }
     public partial class AutomationModuleField
     {
@@ -1784,24 +1452,25 @@ namespace Azure.ResourceManager.Automation.Models
         public string FieldType { get { throw null; } }
         public string Name { get { throw null; } }
     }
-    public partial class AutomationPrivateLinkResource : Azure.ResourceManager.Models.ResourceData
+    public partial class AutomationPrivateEndpointConnection : Azure.ResourceManager.Models.ResourceData
     {
-        public AutomationPrivateLinkResource() { }
-        public string GroupId { get { throw null; } }
-        public System.Collections.Generic.IReadOnlyList<string> RequiredMembers { get { throw null; } }
+        internal AutomationPrivateEndpointConnection() { }
+        public Azure.ResourceManager.Automation.Models.AutomationPrivateLinkServiceConnectionStateProperty ConnectionState { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyList<string> GroupIds { get { throw null; } }
+        public Azure.Core.ResourceIdentifier PrivateEndpointId { get { throw null; } }
     }
     public partial class AutomationPrivateLinkServiceConnectionStateProperty
     {
-        public AutomationPrivateLinkServiceConnectionStateProperty() { }
+        internal AutomationPrivateLinkServiceConnectionStateProperty() { }
         public string ActionsRequired { get { throw null; } }
-        public string Description { get { throw null; } set { } }
-        public string Status { get { throw null; } set { } }
+        public string Description { get { throw null; } }
+        public string Status { get { throw null; } }
     }
     public partial class AutomationResponseError
     {
-        public AutomationResponseError() { }
-        public string Code { get { throw null; } set { } }
-        public string Message { get { throw null; } set { } }
+        internal AutomationResponseError() { }
+        public string Code { get { throw null; } }
+        public string Message { get { throw null; } }
     }
     public partial class AutomationRunbookCreateOrUpdateContent
     {
@@ -1981,67 +1650,21 @@ namespace Azure.ResourceManager.Automation.Models
         public string Name { get { throw null; } set { } }
         public string Value { get { throw null; } set { } }
     }
-    public partial class AutomationWatcherPatch
-    {
-        public AutomationWatcherPatch() { }
-        public long? ExecutionFrequencyInSeconds { get { throw null; } set { } }
-        public string Name { get { throw null; } set { } }
-    }
-    public partial class AutomationWebhookCreateOrUpdateContent
-    {
-        public AutomationWebhookCreateOrUpdateContent(string name) { }
-        public System.DateTimeOffset? ExpireOn { get { throw null; } set { } }
-        public bool? IsEnabled { get { throw null; } set { } }
-        public string Name { get { throw null; } }
-        public System.Collections.Generic.IDictionary<string, string> Parameters { get { throw null; } }
-        public string RunbookName { get { throw null; } set { } }
-        public string RunOn { get { throw null; } set { } }
-        public System.Uri Uri { get { throw null; } set { } }
-    }
-    public partial class AutomationWebhookPatch
-    {
-        public AutomationWebhookPatch() { }
-        public string Description { get { throw null; } set { } }
-        public bool? IsEnabled { get { throw null; } set { } }
-        public string Name { get { throw null; } set { } }
-        public System.Collections.Generic.IDictionary<string, string> Parameters { get { throw null; } }
-        public string RunOn { get { throw null; } set { } }
-    }
-    public partial class AzureQueryProperties
-    {
-        public AzureQueryProperties() { }
-        public System.Collections.Generic.IList<Azure.Core.AzureLocation> Locations { get { throw null; } }
-        public System.Collections.Generic.IList<string> Scope { get { throw null; } }
-        public Azure.ResourceManager.Automation.Models.QueryTagSettingsProperties TagSettings { get { throw null; } set { } }
-    }
     public partial class ConnectionTypeAssociationProperty
     {
         public ConnectionTypeAssociationProperty() { }
         public string Name { get { throw null; } set { } }
     }
-    public partial class DeletedAutomationAccount : Azure.ResourceManager.Models.ResourceData
+    public partial class DeletedRunbook : Azure.ResourceManager.Models.ResourceData
     {
-        internal DeletedAutomationAccount() { }
-        public string AutomationAccountId { get { throw null; } }
-        public Azure.Core.ResourceIdentifier AutomationAccountResourceId { get { throw null; } }
+        internal DeletedRunbook() { }
+        public System.DateTimeOffset? CreatedOn { get { throw null; } }
         public System.DateTimeOffset? DeletedOn { get { throw null; } }
+        public string Description { get { throw null; } }
         public Azure.Core.AzureLocation? Location { get { throw null; } }
-        public string LocationPropertiesLocation { get { throw null; } }
-    }
-    public partial class DscCompilationJobCreateOrUpdateContent
-    {
-        public DscCompilationJobCreateOrUpdateContent(Azure.ResourceManager.Automation.Models.DscConfigurationAssociationProperty configuration) { }
-        public string ConfigurationName { get { throw null; } }
-        public bool? IsIncrementNodeConfigurationBuildRequired { get { throw null; } set { } }
-        public Azure.Core.AzureLocation? Location { get { throw null; } set { } }
-        public string Name { get { throw null; } set { } }
-        public System.Collections.Generic.IDictionary<string, string> Parameters { get { throw null; } }
-        public System.Collections.Generic.IDictionary<string, string> Tags { get { throw null; } }
-    }
-    public partial class DscConfigurationAssociationProperty
-    {
-        public DscConfigurationAssociationProperty() { }
-        public string ConfigurationName { get { throw null; } set { } }
+        public string RunbookType { get { throw null; } }
+        public string Runtime { get { throw null; } }
+        public string RuntimeEnvironment { get { throw null; } }
     }
     public partial class DscConfigurationCreateOrUpdateContent
     {
@@ -2110,17 +1733,6 @@ namespace Azure.ResourceManager.Automation.Models
         public static bool operator !=(Azure.ResourceManager.Automation.Models.DscConfigurationState left, Azure.ResourceManager.Automation.Models.DscConfigurationState right) { throw null; }
         public override string ToString() { throw null; }
     }
-    public partial class DscMetaConfiguration
-    {
-        internal DscMetaConfiguration() { }
-        public string ActionAfterReboot { get { throw null; } }
-        public bool? AllowModuleOverwrite { get { throw null; } }
-        public string CertificateId { get { throw null; } }
-        public string ConfigurationMode { get { throw null; } }
-        public int? ConfigurationModeFrequencyMins { get { throw null; } }
-        public bool? RebootNodeIfNeeded { get { throw null; } }
-        public int? RefreshFrequencyMins { get { throw null; } }
-    }
     public partial class DscNodeConfigurationCreateOrUpdateContent
     {
         public DscNodeConfigurationCreateOrUpdateContent() { }
@@ -2129,76 +1741,6 @@ namespace Azure.ResourceManager.Automation.Models
         public string Name { get { throw null; } set { } }
         public Azure.ResourceManager.Automation.Models.AutomationContentSource Source { get { throw null; } set { } }
         public System.Collections.Generic.IDictionary<string, string> Tags { get { throw null; } }
-    }
-    public partial class DscNodeCount
-    {
-        internal DscNodeCount() { }
-        public string Name { get { throw null; } }
-        public int? NameCount { get { throw null; } }
-    }
-    public partial class DscNodeExtensionHandlerAssociationProperty
-    {
-        public DscNodeExtensionHandlerAssociationProperty() { }
-        public string Name { get { throw null; } set { } }
-        public string Version { get { throw null; } set { } }
-    }
-    public partial class DscNodePatch
-    {
-        public DscNodePatch() { }
-        public string DscNodeUpdateParametersName { get { throw null; } set { } }
-        public string NodeId { get { throw null; } set { } }
-    }
-    public partial class DscNodeReport
-    {
-        internal DscNodeReport() { }
-        public string ConfigurationVersion { get { throw null; } }
-        public string DscNodeReportType { get { throw null; } }
-        public System.DateTimeOffset? EndOn { get { throw null; } }
-        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Automation.Models.DscReportError> Errors { get { throw null; } }
-        public string HostName { get { throw null; } }
-        public string Id { get { throw null; } }
-        public System.Collections.Generic.IReadOnlyList<string> IPV4Addresses { get { throw null; } }
-        public System.Collections.Generic.IReadOnlyList<string> IPV6Addresses { get { throw null; } }
-        public System.DateTimeOffset? LastModifiedOn { get { throw null; } }
-        public Azure.ResourceManager.Automation.Models.DscMetaConfiguration MetaConfiguration { get { throw null; } }
-        public int? NumberOfResources { get { throw null; } }
-        public string RawErrors { get { throw null; } }
-        public string RebootRequested { get { throw null; } }
-        public string RefreshMode { get { throw null; } }
-        public string ReportFormatVersion { get { throw null; } }
-        public string ReportId { get { throw null; } }
-        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Automation.Models.DscReportResource> Resources { get { throw null; } }
-        public System.DateTimeOffset? StartOn { get { throw null; } }
-        public string Status { get { throw null; } }
-    }
-    public partial class DscReportError
-    {
-        internal DscReportError() { }
-        public string ErrorCode { get { throw null; } }
-        public string ErrorDetails { get { throw null; } }
-        public string ErrorMessage { get { throw null; } }
-        public string ErrorSource { get { throw null; } }
-        public string Locale { get { throw null; } }
-        public string ResourceId { get { throw null; } }
-    }
-    public partial class DscReportResource
-    {
-        internal DscReportResource() { }
-        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Automation.Models.DscReportResourceNavigation> DependsOn { get { throw null; } }
-        public double? DurationInSeconds { get { throw null; } }
-        public string Error { get { throw null; } }
-        public string ModuleName { get { throw null; } }
-        public string ModuleVersion { get { throw null; } }
-        public string ResourceId { get { throw null; } }
-        public string ResourceName { get { throw null; } }
-        public string SourceInfo { get { throw null; } }
-        public System.DateTimeOffset? StartOn { get { throw null; } }
-        public string Status { get { throw null; } }
-    }
-    public partial class DscReportResourceNavigation
-    {
-        internal DscReportResourceNavigation() { }
-        public string ResourceId { get { throw null; } }
     }
     public enum EncryptionKeySourceType
     {
@@ -2303,68 +1845,47 @@ namespace Azure.ResourceManager.Automation.Models
         public override string ToString() { throw null; }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
-    public readonly partial struct LinuxUpdateClassification : System.IEquatable<Azure.ResourceManager.Automation.Models.LinuxUpdateClassification>
+    public readonly partial struct ModuleProvisioningState : System.IEquatable<Azure.ResourceManager.Automation.Models.ModuleProvisioningState>
     {
         private readonly object _dummy;
         private readonly int _dummyPrimitive;
-        public LinuxUpdateClassification(string value) { throw null; }
-        public static Azure.ResourceManager.Automation.Models.LinuxUpdateClassification Critical { get { throw null; } }
-        public static Azure.ResourceManager.Automation.Models.LinuxUpdateClassification Other { get { throw null; } }
-        public static Azure.ResourceManager.Automation.Models.LinuxUpdateClassification Security { get { throw null; } }
-        public static Azure.ResourceManager.Automation.Models.LinuxUpdateClassification Unclassified { get { throw null; } }
-        public bool Equals(Azure.ResourceManager.Automation.Models.LinuxUpdateClassification other) { throw null; }
+        public ModuleProvisioningState(string value) { throw null; }
+        public static Azure.ResourceManager.Automation.Models.ModuleProvisioningState ActivitiesStored { get { throw null; } }
+        public static Azure.ResourceManager.Automation.Models.ModuleProvisioningState Cancelled { get { throw null; } }
+        public static Azure.ResourceManager.Automation.Models.ModuleProvisioningState ConnectionTypeImported { get { throw null; } }
+        public static Azure.ResourceManager.Automation.Models.ModuleProvisioningState ContentDownloaded { get { throw null; } }
+        public static Azure.ResourceManager.Automation.Models.ModuleProvisioningState ContentRetrieved { get { throw null; } }
+        public static Azure.ResourceManager.Automation.Models.ModuleProvisioningState ContentStored { get { throw null; } }
+        public static Azure.ResourceManager.Automation.Models.ModuleProvisioningState ContentValidated { get { throw null; } }
+        public static Azure.ResourceManager.Automation.Models.ModuleProvisioningState Created { get { throw null; } }
+        public static Azure.ResourceManager.Automation.Models.ModuleProvisioningState Creating { get { throw null; } }
+        public static Azure.ResourceManager.Automation.Models.ModuleProvisioningState Failed { get { throw null; } }
+        public static Azure.ResourceManager.Automation.Models.ModuleProvisioningState ModuleDataStored { get { throw null; } }
+        public static Azure.ResourceManager.Automation.Models.ModuleProvisioningState ModuleImportRunbookComplete { get { throw null; } }
+        public static Azure.ResourceManager.Automation.Models.ModuleProvisioningState RunningImportModuleRunbook { get { throw null; } }
+        public static Azure.ResourceManager.Automation.Models.ModuleProvisioningState StartingImportModuleRunbook { get { throw null; } }
+        public static Azure.ResourceManager.Automation.Models.ModuleProvisioningState Succeeded { get { throw null; } }
+        public static Azure.ResourceManager.Automation.Models.ModuleProvisioningState Updating { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.Automation.Models.ModuleProvisioningState other) { throw null; }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public override bool Equals(object obj) { throw null; }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public override int GetHashCode() { throw null; }
-        public static bool operator ==(Azure.ResourceManager.Automation.Models.LinuxUpdateClassification left, Azure.ResourceManager.Automation.Models.LinuxUpdateClassification right) { throw null; }
-        public static implicit operator Azure.ResourceManager.Automation.Models.LinuxUpdateClassification (string value) { throw null; }
-        public static bool operator !=(Azure.ResourceManager.Automation.Models.LinuxUpdateClassification left, Azure.ResourceManager.Automation.Models.LinuxUpdateClassification right) { throw null; }
+        public static bool operator ==(Azure.ResourceManager.Automation.Models.ModuleProvisioningState left, Azure.ResourceManager.Automation.Models.ModuleProvisioningState right) { throw null; }
+        public static implicit operator Azure.ResourceManager.Automation.Models.ModuleProvisioningState (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.Automation.Models.ModuleProvisioningState left, Azure.ResourceManager.Automation.Models.ModuleProvisioningState right) { throw null; }
         public override string ToString() { throw null; }
     }
-    public partial class LinuxUpdateConfigurationProperties
+    public partial class PythonPackageCreateParameters
     {
-        public LinuxUpdateConfigurationProperties() { }
-        public System.Collections.Generic.IList<string> ExcludedPackageNameMasks { get { throw null; } }
-        public Azure.ResourceManager.Automation.Models.LinuxUpdateClassification? IncludedPackageClassifications { get { throw null; } set { } }
-        public System.Collections.Generic.IList<string> IncludedPackageNameMasks { get { throw null; } }
-        public string RebootSetting { get { throw null; } set { } }
+        public PythonPackageCreateParameters(Azure.ResourceManager.Automation.Models.AutomationContentLink contentLink) { }
+        public Azure.ResourceManager.Automation.Models.AutomationContentLink ContentLink { get { throw null; } }
+        public System.Collections.Generic.IDictionary<string, string> Tags { get { throw null; } }
     }
-    public enum ModuleProvisioningState
+    public partial class PythonPackageUpdateParameters
     {
-        Created = 0,
-        Creating = 1,
-        StartingImportModuleRunbook = 2,
-        RunningImportModuleRunbook = 3,
-        ContentRetrieved = 4,
-        ContentDownloaded = 5,
-        ContentValidated = 6,
-        ConnectionTypeImported = 7,
-        ContentStored = 8,
-        ModuleDataStored = 9,
-        ActivitiesStored = 10,
-        ModuleImportRunbookComplete = 11,
-        Succeeded = 12,
-        Failed = 13,
-        Cancelled = 14,
-        Updating = 15,
-    }
-    public partial class NonAzureQueryProperties
-    {
-        public NonAzureQueryProperties() { }
-        public string FunctionAlias { get { throw null; } set { } }
-        public string WorkspaceId { get { throw null; } set { } }
-    }
-    public enum QueryTagOperator
-    {
-        All = 0,
-        Any = 1,
-    }
-    public partial class QueryTagSettingsProperties
-    {
-        public QueryTagSettingsProperties() { }
-        public Azure.ResourceManager.Automation.Models.QueryTagOperator? FilterOperator { get { throw null; } set { } }
-        public System.Collections.Generic.IDictionary<string, System.Collections.Generic.IList<string>> Tags { get { throw null; } }
+        public PythonPackageUpdateParameters() { }
+        public System.Collections.Generic.IDictionary<string, string> Tags { get { throw null; } }
     }
     public partial class RawGraphicalRunbookContent
     {
@@ -2454,20 +1975,6 @@ namespace Azure.ResourceManager.Automation.Models
         public ScheduleAssociationProperty() { }
         public string Name { get { throw null; } set { } }
     }
-    public partial class SoftwareUpdateConfigurationCollectionItem
-    {
-        internal SoftwareUpdateConfigurationCollectionItem() { }
-        public System.DateTimeOffset? CreatedOn { get { throw null; } }
-        public Azure.ResourceManager.Automation.Models.AutomationScheduleFrequency? Frequency { get { throw null; } }
-        public Azure.Core.ResourceIdentifier Id { get { throw null; } }
-        public System.DateTimeOffset? LastModifiedOn { get { throw null; } }
-        public string Name { get { throw null; } }
-        public System.DateTimeOffset? NextRunOn { get { throw null; } }
-        public string ProvisioningState { get { throw null; } }
-        public System.DateTimeOffset? StartOn { get { throw null; } }
-        public Azure.ResourceManager.Automation.Models.SoftwareUpdateConfigurationTasks Tasks { get { throw null; } }
-        public Azure.ResourceManager.Automation.Models.SoftwareUpdateConfigurationSpecificProperties UpdateConfiguration { get { throw null; } }
-    }
     public partial class SoftwareUpdateConfigurationMachineRun
     {
         internal SoftwareUpdateConfigurationMachineRun() { }
@@ -2489,11 +1996,6 @@ namespace Azure.ResourceManager.Automation.Models
         public string Status { get { throw null; } }
         public Azure.Core.ResourceIdentifier TargetComputerId { get { throw null; } }
         public string TargetComputerType { get { throw null; } }
-    }
-    public enum SoftwareUpdateConfigurationOperatingSystemType
-    {
-        Windows = 0,
-        Linux = 1,
     }
     public partial class SoftwareUpdateConfigurationRun
     {
@@ -2526,53 +2028,6 @@ namespace Azure.ResourceManager.Automation.Models
         internal SoftwareUpdateConfigurationRunTasks() { }
         public Azure.ResourceManager.Automation.Models.SoftwareUpdateConfigurationRunTaskProperties PostTask { get { throw null; } }
         public Azure.ResourceManager.Automation.Models.SoftwareUpdateConfigurationRunTaskProperties PreTask { get { throw null; } }
-    }
-    public partial class SoftwareUpdateConfigurationScheduleProperties
-    {
-        public SoftwareUpdateConfigurationScheduleProperties() { }
-        public Azure.ResourceManager.Automation.Models.AutomationAdvancedSchedule AdvancedSchedule { get { throw null; } set { } }
-        public System.DateTimeOffset? CreatedOn { get { throw null; } set { } }
-        public string Description { get { throw null; } set { } }
-        public double? ExpireInMinutes { get { throw null; } set { } }
-        public System.DateTimeOffset? ExpireOn { get { throw null; } set { } }
-        public Azure.ResourceManager.Automation.Models.AutomationScheduleFrequency? Frequency { get { throw null; } set { } }
-        public long? Interval { get { throw null; } set { } }
-        public bool? IsEnabled { get { throw null; } set { } }
-        public System.DateTimeOffset? LastModifiedOn { get { throw null; } set { } }
-        public double? NextRunInMinutes { get { throw null; } set { } }
-        public System.DateTimeOffset? NextRunOn { get { throw null; } set { } }
-        public double? StartInMinutes { get { throw null; } }
-        public System.DateTimeOffset? StartOn { get { throw null; } set { } }
-        public string TimeZone { get { throw null; } set { } }
-    }
-    public partial class SoftwareUpdateConfigurationSpecificProperties
-    {
-        public SoftwareUpdateConfigurationSpecificProperties(Azure.ResourceManager.Automation.Models.SoftwareUpdateConfigurationOperatingSystemType operatingSystem) { }
-        public System.Collections.Generic.IList<string> AzureVirtualMachines { get { throw null; } }
-        public System.TimeSpan? Duration { get { throw null; } set { } }
-        public Azure.ResourceManager.Automation.Models.LinuxUpdateConfigurationProperties Linux { get { throw null; } set { } }
-        public System.Collections.Generic.IList<string> NonAzureComputerNames { get { throw null; } }
-        public Azure.ResourceManager.Automation.Models.SoftwareUpdateConfigurationOperatingSystemType OperatingSystem { get { throw null; } set { } }
-        public Azure.ResourceManager.Automation.Models.SoftwareUpdateConfigurationTargetProperties Targets { get { throw null; } set { } }
-        public Azure.ResourceManager.Automation.Models.WindowsUpdateConfigurationProperties Windows { get { throw null; } set { } }
-    }
-    public partial class SoftwareUpdateConfigurationTargetProperties
-    {
-        public SoftwareUpdateConfigurationTargetProperties() { }
-        public System.Collections.Generic.IList<Azure.ResourceManager.Automation.Models.AzureQueryProperties> AzureQueries { get { throw null; } }
-        public System.Collections.Generic.IList<Azure.ResourceManager.Automation.Models.NonAzureQueryProperties> NonAzureQueries { get { throw null; } }
-    }
-    public partial class SoftwareUpdateConfigurationTaskProperties
-    {
-        public SoftwareUpdateConfigurationTaskProperties() { }
-        public System.Collections.Generic.IDictionary<string, string> Parameters { get { throw null; } }
-        public string Source { get { throw null; } set { } }
-    }
-    public partial class SoftwareUpdateConfigurationTasks
-    {
-        public SoftwareUpdateConfigurationTasks() { }
-        public Azure.ResourceManager.Automation.Models.SoftwareUpdateConfigurationTaskProperties PostTask { get { throw null; } set { } }
-        public Azure.ResourceManager.Automation.Models.SoftwareUpdateConfigurationTaskProperties PreTask { get { throw null; } set { } }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct SourceControlProvisioningState : System.IEquatable<Azure.ResourceManager.Automation.Models.SourceControlProvisioningState>
@@ -2719,38 +2174,5 @@ namespace Azure.ResourceManager.Automation.Models
         public static implicit operator Azure.ResourceManager.Automation.Models.SourceControlTokenType (string value) { throw null; }
         public static bool operator !=(Azure.ResourceManager.Automation.Models.SourceControlTokenType left, Azure.ResourceManager.Automation.Models.SourceControlTokenType right) { throw null; }
         public override string ToString() { throw null; }
-    }
-    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
-    public readonly partial struct WindowsUpdateClassification : System.IEquatable<Azure.ResourceManager.Automation.Models.WindowsUpdateClassification>
-    {
-        private readonly object _dummy;
-        private readonly int _dummyPrimitive;
-        public WindowsUpdateClassification(string value) { throw null; }
-        public static Azure.ResourceManager.Automation.Models.WindowsUpdateClassification Critical { get { throw null; } }
-        public static Azure.ResourceManager.Automation.Models.WindowsUpdateClassification Definition { get { throw null; } }
-        public static Azure.ResourceManager.Automation.Models.WindowsUpdateClassification FeaturePack { get { throw null; } }
-        public static Azure.ResourceManager.Automation.Models.WindowsUpdateClassification Security { get { throw null; } }
-        public static Azure.ResourceManager.Automation.Models.WindowsUpdateClassification ServicePack { get { throw null; } }
-        public static Azure.ResourceManager.Automation.Models.WindowsUpdateClassification Tools { get { throw null; } }
-        public static Azure.ResourceManager.Automation.Models.WindowsUpdateClassification Unclassified { get { throw null; } }
-        public static Azure.ResourceManager.Automation.Models.WindowsUpdateClassification UpdateRollup { get { throw null; } }
-        public static Azure.ResourceManager.Automation.Models.WindowsUpdateClassification Updates { get { throw null; } }
-        public bool Equals(Azure.ResourceManager.Automation.Models.WindowsUpdateClassification other) { throw null; }
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
-        public override bool Equals(object obj) { throw null; }
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
-        public override int GetHashCode() { throw null; }
-        public static bool operator ==(Azure.ResourceManager.Automation.Models.WindowsUpdateClassification left, Azure.ResourceManager.Automation.Models.WindowsUpdateClassification right) { throw null; }
-        public static implicit operator Azure.ResourceManager.Automation.Models.WindowsUpdateClassification (string value) { throw null; }
-        public static bool operator !=(Azure.ResourceManager.Automation.Models.WindowsUpdateClassification left, Azure.ResourceManager.Automation.Models.WindowsUpdateClassification right) { throw null; }
-        public override string ToString() { throw null; }
-    }
-    public partial class WindowsUpdateConfigurationProperties
-    {
-        public WindowsUpdateConfigurationProperties() { }
-        public System.Collections.Generic.IList<string> ExcludedKBNumbers { get { throw null; } }
-        public System.Collections.Generic.IList<string> IncludedKBNumbers { get { throw null; } }
-        public Azure.ResourceManager.Automation.Models.WindowsUpdateClassification? IncludedUpdateClassifications { get { throw null; } set { } }
-        public string RebootSetting { get { throw null; } set { } }
     }
 }

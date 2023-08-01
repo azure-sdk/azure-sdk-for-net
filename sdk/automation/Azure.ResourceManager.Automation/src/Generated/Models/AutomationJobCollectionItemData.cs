@@ -15,7 +15,7 @@ namespace Azure.ResourceManager.Automation.Models
     public partial class AutomationJobCollectionItemData : ResourceData
     {
         /// <summary> Initializes a new instance of AutomationJobCollectionItemData. </summary>
-        public AutomationJobCollectionItemData()
+        internal AutomationJobCollectionItemData()
         {
         }
 
@@ -69,6 +69,6 @@ namespace Azure.ResourceManager.Automation.Models
         /// <summary> The provisioning state of a resource. </summary>
         public string ProvisioningState { get; }
         /// <summary> Specifies the runOn group name where the job was executed. </summary>
-        public string RunOn { get; set; }
+        public string RunOn { get; }
     }
 }

@@ -18,7 +18,7 @@ namespace Azure.ResourceManager.Automation
     public partial class HybridRunbookWorkerGroupData : ResourceData
     {
         /// <summary> Initializes a new instance of HybridRunbookWorkerGroupData. </summary>
-        public HybridRunbookWorkerGroupData()
+        internal HybridRunbookWorkerGroupData()
         {
         }
 
@@ -36,19 +36,13 @@ namespace Azure.ResourceManager.Automation
         }
 
         /// <summary> Type of the HybridWorkerGroup. </summary>
-        public HybridWorkerGroup? GroupType { get; set; }
+        public HybridWorkerGroup? GroupType { get; }
         /// <summary> Sets the credential of a worker group. </summary>
-        internal RunAsCredentialAssociationProperty Credential { get; set; }
+        internal RunAsCredentialAssociationProperty Credential { get; }
         /// <summary> Gets or sets the name of the credential. </summary>
         public string CredentialName
         {
-            get => Credential is null ? default : Credential.Name;
-            set
-            {
-                if (Credential is null)
-                    Credential = new RunAsCredentialAssociationProperty();
-                Credential.Name = value;
-            }
+            get => Credential?.Name;
         }
     }
 }

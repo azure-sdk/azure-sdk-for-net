@@ -11,7 +11,7 @@ namespace Azure.ResourceManager.Automation.Models
     public partial class AutomationModuleErrorInfo
     {
         /// <summary> Initializes a new instance of AutomationModuleErrorInfo. </summary>
-        public AutomationModuleErrorInfo()
+        internal AutomationModuleErrorInfo()
         {
         }
 
@@ -25,8 +25,8 @@ namespace Azure.ResourceManager.Automation.Models
         }
 
         /// <summary> Gets or sets the error code. </summary>
-        public string Code { get; set; }
+        public string Code { get; }
         /// <summary> Gets or sets the error message. </summary>
-        public string Message { get; set; }
+        public string Message { get; }
     }
 }

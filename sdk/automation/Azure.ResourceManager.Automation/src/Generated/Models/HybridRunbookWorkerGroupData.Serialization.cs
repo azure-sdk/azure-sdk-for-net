@@ -12,27 +12,8 @@ using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.Automation
 {
-    public partial class HybridRunbookWorkerGroupData : IUtf8JsonSerializable
+    public partial class HybridRunbookWorkerGroupData
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
-        {
-            writer.WriteStartObject();
-            writer.WritePropertyName("properties"u8);
-            writer.WriteStartObject();
-            if (Optional.IsDefined(GroupType))
-            {
-                writer.WritePropertyName("groupType"u8);
-                writer.WriteStringValue(GroupType.Value.ToString());
-            }
-            if (Optional.IsDefined(Credential))
-            {
-                writer.WritePropertyName("credential"u8);
-                writer.WriteObjectValue(Credential);
-            }
-            writer.WriteEndObject();
-            writer.WriteEndObject();
-        }
-
         internal static HybridRunbookWorkerGroupData DeserializeHybridRunbookWorkerGroupData(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)

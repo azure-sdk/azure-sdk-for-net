@@ -18,12 +18,12 @@ namespace Azure.ResourceManager.Automation
     /// A class representing the AutomationModule data model.
     /// Definition of the module type.
     /// </summary>
-    public partial class AutomationModuleData : TrackedResourceData
+    public partial class AutomationModuleData : ResourceData
     {
         /// <summary> Initializes a new instance of AutomationModuleData. </summary>
-        /// <param name="location"> The location. </param>
-        public AutomationModuleData(AzureLocation location) : base(location)
+        internal AutomationModuleData()
         {
+            Tags = new ChangeTrackingDictionary<string, string>();
         }
 
         /// <summary> Initializes a new instance of AutomationModuleData. </summary>
@@ -31,8 +31,6 @@ namespace Azure.ResourceManager.Automation
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="tags"> The tags. </param>
-        /// <param name="location"> The location. </param>
         /// <param name="etag"> Gets or sets the etag of the resource. </param>
         /// <param name="isGlobal"> Gets or sets the isGlobal flag of the module. </param>
         /// <param name="version"> Gets or sets the version of the module. </param>
@@ -45,7 +43,9 @@ namespace Azure.ResourceManager.Automation
         /// <param name="lastModifiedOn"> Gets or sets the last modified time. </param>
         /// <param name="description"> Gets or sets the description. </param>
         /// <param name="isComposite"> Gets or sets type of module, if its composite or not. </param>
-        internal AutomationModuleData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ETag? etag, bool? isGlobal, string version, long? sizeInBytes, int? activityCount, ModuleProvisioningState? provisioningState, AutomationContentLink contentLink, AutomationModuleErrorInfo error, DateTimeOffset? createdOn, DateTimeOffset? lastModifiedOn, string description, bool? isComposite) : base(id, name, resourceType, systemData, tags, location)
+        /// <param name="tags"> Resource tags. </param>
+        /// <param name="location"> The Azure Region where the resource lives. </param>
+        internal AutomationModuleData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, ETag? etag, bool? isGlobal, string version, long? sizeInBytes, int? activityCount, ModuleProvisioningState? provisioningState, AutomationContentLink contentLink, AutomationModuleErrorInfo error, DateTimeOffset? createdOn, DateTimeOffset? lastModifiedOn, string description, bool? isComposite, IReadOnlyDictionary<string, string> tags, AzureLocation? location) : base(id, name, resourceType, systemData)
         {
             ETag = etag;
             IsGlobal = isGlobal;
@@ -59,31 +59,37 @@ namespace Azure.ResourceManager.Automation
             LastModifiedOn = lastModifiedOn;
             Description = description;
             IsComposite = isComposite;
+            Tags = tags;
+            Location = location;
         }
 
         /// <summary> Gets or sets the etag of the resource. </summary>
-        public ETag? ETag { get; set; }
+        public ETag? ETag { get; }
         /// <summary> Gets or sets the isGlobal flag of the module. </summary>
-        public bool? IsGlobal { get; set; }
+        public bool? IsGlobal { get; }
         /// <summary> Gets or sets the version of the module. </summary>
-        public string Version { get; set; }
+        public string Version { get; }
         /// <summary> Gets or sets the size in bytes of the module. </summary>
-        public long? SizeInBytes { get; set; }
+        public long? SizeInBytes { get; }
         /// <summary> Gets or sets the activity count of the module. </summary>
-        public int? ActivityCount { get; set; }
+        public int? ActivityCount { get; }
         /// <summary> Gets or sets the provisioning state of the module. </summary>
-        public ModuleProvisioningState? ProvisioningState { get; set; }
+        public ModuleProvisioningState? ProvisioningState { get; }
         /// <summary> Gets or sets the contentLink of the module. </summary>
-        public AutomationContentLink ContentLink { get; set; }
+        public AutomationContentLink ContentLink { get; }
         /// <summary> Gets or sets the error info of the module. </summary>
-        public AutomationModuleErrorInfo Error { get; set; }
+        public AutomationModuleErrorInfo Error { get; }
         /// <summary> Gets or sets the creation time. </summary>
-        public DateTimeOffset? CreatedOn { get; set; }
+        public DateTimeOffset? CreatedOn { get; }
         /// <summary> Gets or sets the last modified time. </summary>
-        public DateTimeOffset? LastModifiedOn { get; set; }
+        public DateTimeOffset? LastModifiedOn { get; }
         /// <summary> Gets or sets the description. </summary>
-        public string Description { get; set; }
+        public string Description { get; }
         /// <summary> Gets or sets type of module, if its composite or not. </summary>
-        public bool? IsComposite { get; set; }
+        public bool? IsComposite { get; }
+        /// <summary> Resource tags. </summary>
+        public IReadOnlyDictionary<string, string> Tags { get; }
+        /// <summary> The Azure Region where the resource lives. </summary>
+        public AzureLocation? Location { get; }
     }
 }

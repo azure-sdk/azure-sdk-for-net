@@ -18,13 +18,13 @@ namespace Azure.ResourceManager.Automation
     /// A class representing the AutomationAccount data model.
     /// Definition of the automation account type.
     /// </summary>
-    public partial class AutomationAccountData : TrackedResourceData
+    public partial class AutomationAccountData : ResourceData
     {
         /// <summary> Initializes a new instance of AutomationAccountData. </summary>
-        /// <param name="location"> The location. </param>
-        public AutomationAccountData(AzureLocation location) : base(location)
+        internal AutomationAccountData()
         {
-            PrivateEndpointConnections = new ChangeTrackingList<AutomationPrivateEndpointConnectionData>();
+            PrivateEndpointConnections = new ChangeTrackingList<AutomationPrivateEndpointConnection>();
+            Tags = new ChangeTrackingDictionary<string, string>();
         }
 
         /// <summary> Initializes a new instance of AutomationAccountData. </summary>
@@ -32,8 +32,6 @@ namespace Azure.ResourceManager.Automation
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="tags"> The tags. </param>
-        /// <param name="location"> The location. </param>
         /// <param name="etag"> Gets or sets the etag of the resource. </param>
         /// <param name="identity"> Identity for the resource. </param>
         /// <param name="sku"> Gets or sets the SKU of account. </param>
@@ -47,7 +45,9 @@ namespace Azure.ResourceManager.Automation
         /// <param name="isPublicNetworkAccessAllowed"> Indicates whether traffic on the non-ARM endpoint (Webhook/Agent) is allowed from the public internet. </param>
         /// <param name="isLocalAuthDisabled"> Indicates whether requests using non-AAD authentication are blocked. </param>
         /// <param name="automationHybridServiceUri"> URL of automation hybrid service which is used for hybrid worker on-boarding. </param>
-        internal AutomationAccountData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ETag? etag, ManagedServiceIdentity identity, AutomationSku sku, string lastModifiedBy, AutomationAccountState? state, DateTimeOffset? createdOn, DateTimeOffset? lastModifiedOn, string description, AutomationEncryptionProperties encryption, IList<AutomationPrivateEndpointConnectionData> privateEndpointConnections, bool? isPublicNetworkAccessAllowed, bool? isLocalAuthDisabled, Uri automationHybridServiceUri) : base(id, name, resourceType, systemData, tags, location)
+        /// <param name="tags"> Resource tags. </param>
+        /// <param name="location"> The Azure Region where the resource lives. </param>
+        internal AutomationAccountData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, ETag? etag, ManagedServiceIdentity identity, AutomationSku sku, string lastModifiedBy, AutomationAccountState? state, DateTimeOffset? createdOn, DateTimeOffset? lastModifiedOn, string description, AutomationEncryptionProperties encryption, IReadOnlyList<AutomationPrivateEndpointConnection> privateEndpointConnections, bool? isPublicNetworkAccessAllowed, bool? isLocalAuthDisabled, Uri automationHybridServiceUri, IReadOnlyDictionary<string, string> tags, AzureLocation? location) : base(id, name, resourceType, systemData)
         {
             ETag = etag;
             Identity = identity;
@@ -62,16 +62,18 @@ namespace Azure.ResourceManager.Automation
             IsPublicNetworkAccessAllowed = isPublicNetworkAccessAllowed;
             IsLocalAuthDisabled = isLocalAuthDisabled;
             AutomationHybridServiceUri = automationHybridServiceUri;
+            Tags = tags;
+            Location = location;
         }
 
         /// <summary> Gets or sets the etag of the resource. </summary>
-        public ETag? ETag { get; set; }
+        public ETag? ETag { get; }
         /// <summary> Identity for the resource. </summary>
-        public ManagedServiceIdentity Identity { get; set; }
+        public ManagedServiceIdentity Identity { get; }
         /// <summary> Gets or sets the SKU of account. </summary>
-        public AutomationSku Sku { get; set; }
+        public AutomationSku Sku { get; }
         /// <summary> Gets or sets the last modified by. </summary>
-        public string LastModifiedBy { get; set; }
+        public string LastModifiedBy { get; }
         /// <summary> Gets status of account. </summary>
         public AutomationAccountState? State { get; }
         /// <summary> Gets the creation time. </summary>
@@ -79,16 +81,20 @@ namespace Azure.ResourceManager.Automation
         /// <summary> Gets the last modified time. </summary>
         public DateTimeOffset? LastModifiedOn { get; }
         /// <summary> Gets or sets the description. </summary>
-        public string Description { get; set; }
+        public string Description { get; }
         /// <summary> Encryption properties for the automation account. </summary>
-        public AutomationEncryptionProperties Encryption { get; set; }
+        public AutomationEncryptionProperties Encryption { get; }
         /// <summary> List of Automation operations supported by the Automation resource provider. </summary>
-        public IList<AutomationPrivateEndpointConnectionData> PrivateEndpointConnections { get; }
+        public IReadOnlyList<AutomationPrivateEndpointConnection> PrivateEndpointConnections { get; }
         /// <summary> Indicates whether traffic on the non-ARM endpoint (Webhook/Agent) is allowed from the public internet. </summary>
-        public bool? IsPublicNetworkAccessAllowed { get; set; }
+        public bool? IsPublicNetworkAccessAllowed { get; }
         /// <summary> Indicates whether requests using non-AAD authentication are blocked. </summary>
-        public bool? IsLocalAuthDisabled { get; set; }
+        public bool? IsLocalAuthDisabled { get; }
         /// <summary> URL of automation hybrid service which is used for hybrid worker on-boarding. </summary>
-        public Uri AutomationHybridServiceUri { get; set; }
+        public Uri AutomationHybridServiceUri { get; }
+        /// <summary> Resource tags. </summary>
+        public IReadOnlyDictionary<string, string> Tags { get; }
+        /// <summary> The Azure Region where the resource lives. </summary>
+        public AzureLocation? Location { get; }
     }
 }

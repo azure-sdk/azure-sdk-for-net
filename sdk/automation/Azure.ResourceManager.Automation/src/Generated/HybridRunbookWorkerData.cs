@@ -19,7 +19,7 @@ namespace Azure.ResourceManager.Automation
     public partial class HybridRunbookWorkerData : ResourceData
     {
         /// <summary> Initializes a new instance of HybridRunbookWorkerData. </summary>
-        public HybridRunbookWorkerData()
+        internal HybridRunbookWorkerData()
         {
         }
 
@@ -45,16 +45,16 @@ namespace Azure.ResourceManager.Automation
         }
 
         /// <summary> Gets or sets the assigned machine IP address. </summary>
-        public string IP { get; set; }
+        public string IP { get; }
         /// <summary> Gets or sets the registration time of the worker machine. </summary>
-        public DateTimeOffset? RegisteredOn { get; set; }
+        public DateTimeOffset? RegisteredOn { get; }
         /// <summary> Last Heartbeat from the Worker. </summary>
-        public DateTimeOffset? LastSeenOn { get; set; }
+        public DateTimeOffset? LastSeenOn { get; }
         /// <summary> Azure Resource Manager Id for a virtual machine. </summary>
-        public ResourceIdentifier VmResourceId { get; set; }
+        public ResourceIdentifier VmResourceId { get; }
         /// <summary> Type of the HybridWorker. </summary>
-        public HybridWorkerType? WorkerType { get; set; }
+        public HybridWorkerType? WorkerType { get; }
         /// <summary> Name of the HybridWorker. </summary>
-        public string WorkerName { get; set; }
+        public string WorkerName { get; }
     }
 }

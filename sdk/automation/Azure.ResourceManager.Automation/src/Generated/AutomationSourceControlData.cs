@@ -19,7 +19,7 @@ namespace Azure.ResourceManager.Automation
     public partial class AutomationSourceControlData : ResourceData
     {
         /// <summary> Initializes a new instance of AutomationSourceControlData. </summary>
-        public AutomationSourceControlData()
+        internal AutomationSourceControlData()
         {
         }
 
@@ -51,22 +51,22 @@ namespace Azure.ResourceManager.Automation
         }
 
         /// <summary> The repo url of the source control. </summary>
-        public Uri RepoUri { get; set; }
+        public Uri RepoUri { get; }
         /// <summary> The repo branch of the source control. Include branch as empty string for VsoTfvc. </summary>
-        public string Branch { get; set; }
+        public string Branch { get; }
         /// <summary> The folder path of the source control. </summary>
-        public string FolderPath { get; set; }
+        public string FolderPath { get; }
         /// <summary> The auto sync of the source control. Default is false. </summary>
-        public bool? IsAutoSyncEnabled { get; set; }
+        public bool? IsAutoSyncEnabled { get; }
         /// <summary> The auto publish of the source control. Default is true. </summary>
-        public bool? IsAutoPublishRunbookEnabled { get; set; }
+        public bool? IsAutoPublishRunbookEnabled { get; }
         /// <summary> The source type. Must be one of VsoGit, VsoTfvc, GitHub. </summary>
-        public SourceControlSourceType? SourceType { get; set; }
+        public SourceControlSourceType? SourceType { get; }
         /// <summary> The description. </summary>
-        public string Description { get; set; }
+        public string Description { get; }
         /// <summary> The creation time. </summary>
-        public DateTimeOffset? CreatedOn { get; set; }
+        public DateTimeOffset? CreatedOn { get; }
         /// <summary> The last modified time. </summary>
-        public DateTimeOffset? LastModifiedOn { get; set; }
+        public DateTimeOffset? LastModifiedOn { get; }
     }
 }

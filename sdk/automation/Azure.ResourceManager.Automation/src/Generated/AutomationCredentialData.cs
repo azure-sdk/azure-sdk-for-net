@@ -18,7 +18,7 @@ namespace Azure.ResourceManager.Automation
     public partial class AutomationCredentialData : ResourceData
     {
         /// <summary> Initializes a new instance of AutomationCredentialData. </summary>
-        public AutomationCredentialData()
+        internal AutomationCredentialData()
         {
         }
 
@@ -46,6 +46,6 @@ namespace Azure.ResourceManager.Automation
         /// <summary> Gets the last modified time. </summary>
         public DateTimeOffset? LastModifiedOn { get; }
         /// <summary> Gets or sets the description. </summary>
-        public string Description { get; set; }
+        public string Description { get; }
     }
 }

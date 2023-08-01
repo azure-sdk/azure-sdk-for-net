@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.Automation
     public partial class AutomationConnectionData : ResourceData
     {
         /// <summary> Initializes a new instance of AutomationConnectionData. </summary>
-        public AutomationConnectionData()
+        internal AutomationConnectionData()
         {
             FieldDefinitionValues = new ChangeTrackingDictionary<string, string>();
         }
@@ -45,17 +45,11 @@ namespace Azure.ResourceManager.Automation
         }
 
         /// <summary> Gets or sets the connectionType of the connection. </summary>
-        internal ConnectionTypeAssociationProperty ConnectionType { get; set; }
+        internal ConnectionTypeAssociationProperty ConnectionType { get; }
         /// <summary> Gets or sets the name of the connection type. </summary>
         public string ConnectionTypeName
         {
-            get => ConnectionType is null ? default : ConnectionType.Name;
-            set
-            {
-                if (ConnectionType is null)
-                    ConnectionType = new ConnectionTypeAssociationProperty();
-                ConnectionType.Name = value;
-            }
+            get => ConnectionType?.Name;
         }
 
         /// <summary> Gets the field definition values of the connection. </summary>
@@ -65,6 +59,6 @@ namespace Azure.ResourceManager.Automation
         /// <summary> Gets the last modified time. </summary>
         public DateTimeOffset? LastModifiedOn { get; }
         /// <summary> Gets or sets the description. </summary>
-        public string Description { get; set; }
+        public string Description { get; }
     }
 }

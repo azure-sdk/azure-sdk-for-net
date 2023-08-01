@@ -13,47 +13,8 @@ using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.Automation
 {
-    public partial class DscNodeConfigurationData : IUtf8JsonSerializable
+    public partial class DscNodeConfigurationData
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
-        {
-            writer.WriteStartObject();
-            writer.WritePropertyName("properties"u8);
-            writer.WriteStartObject();
-            if (Optional.IsDefined(LastModifiedOn))
-            {
-                writer.WritePropertyName("lastModifiedTime"u8);
-                writer.WriteStringValue(LastModifiedOn.Value, "O");
-            }
-            if (Optional.IsDefined(CreatedOn))
-            {
-                writer.WritePropertyName("creationTime"u8);
-                writer.WriteStringValue(CreatedOn.Value, "O");
-            }
-            if (Optional.IsDefined(Configuration))
-            {
-                writer.WritePropertyName("configuration"u8);
-                writer.WriteObjectValue(Configuration);
-            }
-            if (Optional.IsDefined(Source))
-            {
-                writer.WritePropertyName("source"u8);
-                writer.WriteStringValue(Source);
-            }
-            if (Optional.IsDefined(NodeCount))
-            {
-                writer.WritePropertyName("nodeCount"u8);
-                writer.WriteNumberValue(NodeCount.Value);
-            }
-            if (Optional.IsDefined(IsIncrementNodeConfigurationBuildRequired))
-            {
-                writer.WritePropertyName("incrementNodeConfigurationBuild"u8);
-                writer.WriteBooleanValue(IsIncrementNodeConfigurationBuildRequired.Value);
-            }
-            writer.WriteEndObject();
-            writer.WriteEndObject();
-        }
-
         internal static DscNodeConfigurationData DeserializeDscNodeConfigurationData(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)

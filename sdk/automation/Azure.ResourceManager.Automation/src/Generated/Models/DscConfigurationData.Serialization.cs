@@ -15,91 +15,8 @@ using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.Automation
 {
-    public partial class DscConfigurationData : IUtf8JsonSerializable
+    public partial class DscConfigurationData
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
-        {
-            writer.WriteStartObject();
-            if (Optional.IsDefined(ETag))
-            {
-                writer.WritePropertyName("etag"u8);
-                writer.WriteStringValue(ETag.Value.ToString());
-            }
-            if (Optional.IsCollectionDefined(Tags))
-            {
-                writer.WritePropertyName("tags"u8);
-                writer.WriteStartObject();
-                foreach (var item in Tags)
-                {
-                    writer.WritePropertyName(item.Key);
-                    writer.WriteStringValue(item.Value);
-                }
-                writer.WriteEndObject();
-            }
-            writer.WritePropertyName("location"u8);
-            writer.WriteStringValue(Location);
-            writer.WritePropertyName("properties"u8);
-            writer.WriteStartObject();
-            if (Optional.IsDefined(ProvisioningState))
-            {
-                writer.WritePropertyName("provisioningState"u8);
-                writer.WriteStringValue(ProvisioningState.Value.ToString());
-            }
-            if (Optional.IsDefined(JobCount))
-            {
-                writer.WritePropertyName("jobCount"u8);
-                writer.WriteNumberValue(JobCount.Value);
-            }
-            if (Optional.IsCollectionDefined(Parameters))
-            {
-                writer.WritePropertyName("parameters"u8);
-                writer.WriteStartObject();
-                foreach (var item in Parameters)
-                {
-                    writer.WritePropertyName(item.Key);
-                    writer.WriteObjectValue(item.Value);
-                }
-                writer.WriteEndObject();
-            }
-            if (Optional.IsDefined(Source))
-            {
-                writer.WritePropertyName("source"u8);
-                writer.WriteObjectValue(Source);
-            }
-            if (Optional.IsDefined(State))
-            {
-                writer.WritePropertyName("state"u8);
-                writer.WriteStringValue(State.Value.ToString());
-            }
-            if (Optional.IsDefined(IsLogVerboseEnabled))
-            {
-                writer.WritePropertyName("logVerbose"u8);
-                writer.WriteBooleanValue(IsLogVerboseEnabled.Value);
-            }
-            if (Optional.IsDefined(CreatedOn))
-            {
-                writer.WritePropertyName("creationTime"u8);
-                writer.WriteStringValue(CreatedOn.Value, "O");
-            }
-            if (Optional.IsDefined(LastModifiedOn))
-            {
-                writer.WritePropertyName("lastModifiedTime"u8);
-                writer.WriteStringValue(LastModifiedOn.Value, "O");
-            }
-            if (Optional.IsDefined(NodeConfigurationCount))
-            {
-                writer.WritePropertyName("nodeConfigurationCount"u8);
-                writer.WriteNumberValue(NodeConfigurationCount.Value);
-            }
-            if (Optional.IsDefined(Description))
-            {
-                writer.WritePropertyName("description"u8);
-                writer.WriteStringValue(Description);
-            }
-            writer.WriteEndObject();
-            writer.WriteEndObject();
-        }
-
         internal static DscConfigurationData DeserializeDscConfigurationData(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
@@ -107,15 +24,15 @@ namespace Azure.ResourceManager.Automation
                 return null;
             }
             Optional<ETag> etag = default;
-            Optional<IDictionary<string, string>> tags = default;
-            AzureLocation location = default;
+            Optional<IReadOnlyDictionary<string, string>> tags = default;
+            Optional<AzureLocation> location = default;
             ResourceIdentifier id = default;
             string name = default;
             ResourceType type = default;
             Optional<SystemData> systemData = default;
             Optional<DscConfigurationProvisioningState> provisioningState = default;
             Optional<int> jobCount = default;
-            Optional<IDictionary<string, DscConfigurationParameterDefinition>> parameters = default;
+            Optional<IReadOnlyDictionary<string, DscConfigurationParameterDefinition>> parameters = default;
             Optional<AutomationContentSource> source = default;
             Optional<DscConfigurationState> state = default;
             Optional<bool> logVerbose = default;
@@ -150,6 +67,10 @@ namespace Azure.ResourceManager.Automation
                 }
                 if (property.NameEquals("location"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     location = new AzureLocation(property.Value.GetString());
                     continue;
                 }
@@ -281,7 +202,7 @@ namespace Azure.ResourceManager.Automation
                     continue;
                 }
             }
-            return new DscConfigurationData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, Optional.ToNullable(etag), Optional.ToNullable(provisioningState), Optional.ToNullable(jobCount), Optional.ToDictionary(parameters), source.Value, Optional.ToNullable(state), Optional.ToNullable(logVerbose), Optional.ToNullable(creationTime), Optional.ToNullable(lastModifiedTime), Optional.ToNullable(nodeConfigurationCount), description.Value);
+            return new DscConfigurationData(id, name, type, systemData.Value, Optional.ToNullable(etag), Optional.ToNullable(provisioningState), Optional.ToNullable(jobCount), Optional.ToDictionary(parameters), source.Value, Optional.ToNullable(state), Optional.ToNullable(logVerbose), Optional.ToNullable(creationTime), Optional.ToNullable(lastModifiedTime), Optional.ToNullable(nodeConfigurationCount), description.Value, Optional.ToDictionary(tags), Optional.ToNullable(location));
         }
     }
 }

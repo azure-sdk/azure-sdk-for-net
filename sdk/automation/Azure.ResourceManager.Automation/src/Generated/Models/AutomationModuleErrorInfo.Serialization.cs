@@ -10,24 +10,8 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.Automation.Models
 {
-    public partial class AutomationModuleErrorInfo : IUtf8JsonSerializable
+    public partial class AutomationModuleErrorInfo
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
-        {
-            writer.WriteStartObject();
-            if (Optional.IsDefined(Code))
-            {
-                writer.WritePropertyName("code"u8);
-                writer.WriteStringValue(Code);
-            }
-            if (Optional.IsDefined(Message))
-            {
-                writer.WritePropertyName("message"u8);
-                writer.WriteStringValue(Message);
-            }
-            writer.WriteEndObject();
-        }
-
         internal static AutomationModuleErrorInfo DeserializeAutomationModuleErrorInfo(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
