@@ -105,6 +105,7 @@ namespace Azure.ResourceManager.LabServices
             Optional<LabServicesProvisioningState> provisioningState = default;
             Optional<LabNetworkProfile> networkProfile = default;
             Optional<LabState> state = default;
+            Optional<ResourceOperationError> resourceOperationError = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("tags"u8))
@@ -250,11 +251,20 @@ namespace Azure.ResourceManager.LabServices
                             state = property0.Value.GetString().ToLabState();
                             continue;
                         }
+                        if (property0.NameEquals("resourceOperationError"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            resourceOperationError = ResourceOperationError.DeserializeResourceOperationError(property0.Value);
+                            continue;
+                        }
                     }
                     continue;
                 }
             }
-            return new LabData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, autoShutdownProfile.Value, connectionProfile.Value, virtualMachineProfile.Value, securityProfile.Value, rosterProfile.Value, labPlanId.Value, title.Value, description.Value, Optional.ToNullable(provisioningState), networkProfile.Value, Optional.ToNullable(state));
+            return new LabData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, autoShutdownProfile.Value, connectionProfile.Value, virtualMachineProfile.Value, securityProfile.Value, rosterProfile.Value, labPlanId.Value, title.Value, description.Value, Optional.ToNullable(provisioningState), networkProfile.Value, Optional.ToNullable(state), resourceOperationError.Value);
         }
     }
 }
