@@ -129,12 +129,13 @@ namespace Azure.ResourceManager.Authorization
         /// </item>
         /// </list>
         /// </summary>
+        /// <param name="filter"> The filter to apply on the operation. For example '$filter=roleDefinitionId%20eq%20'{scope}/providers/Microsoft.Authorization/roleDefinitions/{roleDefinitionId}'. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> An async collection of <see cref="RoleManagementPolicyResource" /> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<RoleManagementPolicyResource> GetAllAsync(CancellationToken cancellationToken = default)
+        public virtual AsyncPageable<RoleManagementPolicyResource> GetAllAsync(string filter = null, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _roleManagementPolicyRestClient.CreateListForScopeRequest(Id);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _roleManagementPolicyRestClient.CreateListForScopeNextPageRequest(nextLink, Id);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _roleManagementPolicyRestClient.CreateListForScopeRequest(Id, filter);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _roleManagementPolicyRestClient.CreateListForScopeNextPageRequest(nextLink, Id, filter);
             return PageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new RoleManagementPolicyResource(Client, RoleManagementPolicyData.DeserializeRoleManagementPolicyData(e)), _roleManagementPolicyClientDiagnostics, Pipeline, "RoleManagementPolicyCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
@@ -151,12 +152,13 @@ namespace Azure.ResourceManager.Authorization
         /// </item>
         /// </list>
         /// </summary>
+        /// <param name="filter"> The filter to apply on the operation. For example '$filter=roleDefinitionId%20eq%20'{scope}/providers/Microsoft.Authorization/roleDefinitions/{roleDefinitionId}'. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> A collection of <see cref="RoleManagementPolicyResource" /> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<RoleManagementPolicyResource> GetAll(CancellationToken cancellationToken = default)
+        public virtual Pageable<RoleManagementPolicyResource> GetAll(string filter = null, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _roleManagementPolicyRestClient.CreateListForScopeRequest(Id);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _roleManagementPolicyRestClient.CreateListForScopeNextPageRequest(nextLink, Id);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _roleManagementPolicyRestClient.CreateListForScopeRequest(Id, filter);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _roleManagementPolicyRestClient.CreateListForScopeNextPageRequest(nextLink, Id, filter);
             return PageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new RoleManagementPolicyResource(Client, RoleManagementPolicyData.DeserializeRoleManagementPolicyData(e)), _roleManagementPolicyClientDiagnostics, Pipeline, "RoleManagementPolicyCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 

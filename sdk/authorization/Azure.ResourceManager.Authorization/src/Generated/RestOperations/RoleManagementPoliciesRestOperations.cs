@@ -193,7 +193,7 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
-        internal HttpMessage CreateListForScopeRequest(string scope)
+        internal HttpMessage CreateListForScopeRequest(string scope, string filter)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -203,6 +203,10 @@ namespace Azure.ResourceManager.Authorization
             uri.AppendPath("/", false);
             uri.AppendPath(scope, false);
             uri.AppendPath("/providers/Microsoft.Authorization/roleManagementPolicies", false);
+            if (filter != null)
+            {
+                uri.AppendQuery("$filter", filter, true);
+            }
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
@@ -212,13 +216,14 @@ namespace Azure.ResourceManager.Authorization
 
         /// <summary> Gets role management policies for a resource scope. </summary>
         /// <param name="scope"> The scope of the role management policy. </param>
+        /// <param name="filter"> The filter to apply on the operation. For example '$filter=roleDefinitionId%20eq%20'{scope}/providers/Microsoft.Authorization/roleDefinitions/{roleDefinitionId}'. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="scope"/> is null. </exception>
-        public async Task<Response<RoleManagementPolicyListResult>> ListForScopeAsync(string scope, CancellationToken cancellationToken = default)
+        public async Task<Response<RoleManagementPolicyListResult>> ListForScopeAsync(string scope, string filter = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(scope, nameof(scope));
 
-            using var message = CreateListForScopeRequest(scope);
+            using var message = CreateListForScopeRequest(scope, filter);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
@@ -236,13 +241,14 @@ namespace Azure.ResourceManager.Authorization
 
         /// <summary> Gets role management policies for a resource scope. </summary>
         /// <param name="scope"> The scope of the role management policy. </param>
+        /// <param name="filter"> The filter to apply on the operation. For example '$filter=roleDefinitionId%20eq%20'{scope}/providers/Microsoft.Authorization/roleDefinitions/{roleDefinitionId}'. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="scope"/> is null. </exception>
-        public Response<RoleManagementPolicyListResult> ListForScope(string scope, CancellationToken cancellationToken = default)
+        public Response<RoleManagementPolicyListResult> ListForScope(string scope, string filter = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(scope, nameof(scope));
 
-            using var message = CreateListForScopeRequest(scope);
+            using var message = CreateListForScopeRequest(scope, filter);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
@@ -258,7 +264,7 @@ namespace Azure.ResourceManager.Authorization
             }
         }
 
-        internal HttpMessage CreateListForScopeNextPageRequest(string nextLink, string scope)
+        internal HttpMessage CreateListForScopeNextPageRequest(string nextLink, string scope, string filter)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -275,14 +281,15 @@ namespace Azure.ResourceManager.Authorization
         /// <summary> Gets role management policies for a resource scope. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
         /// <param name="scope"> The scope of the role management policy. </param>
+        /// <param name="filter"> The filter to apply on the operation. For example '$filter=roleDefinitionId%20eq%20'{scope}/providers/Microsoft.Authorization/roleDefinitions/{roleDefinitionId}'. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/> or <paramref name="scope"/> is null. </exception>
-        public async Task<Response<RoleManagementPolicyListResult>> ListForScopeNextPageAsync(string nextLink, string scope, CancellationToken cancellationToken = default)
+        public async Task<Response<RoleManagementPolicyListResult>> ListForScopeNextPageAsync(string nextLink, string scope, string filter = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(nextLink, nameof(nextLink));
             Argument.AssertNotNull(scope, nameof(scope));
 
-            using var message = CreateListForScopeNextPageRequest(nextLink, scope);
+            using var message = CreateListForScopeNextPageRequest(nextLink, scope, filter);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
@@ -301,14 +308,15 @@ namespace Azure.ResourceManager.Authorization
         /// <summary> Gets role management policies for a resource scope. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
         /// <param name="scope"> The scope of the role management policy. </param>
+        /// <param name="filter"> The filter to apply on the operation. For example '$filter=roleDefinitionId%20eq%20'{scope}/providers/Microsoft.Authorization/roleDefinitions/{roleDefinitionId}'. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/> or <paramref name="scope"/> is null. </exception>
-        public Response<RoleManagementPolicyListResult> ListForScopeNextPage(string nextLink, string scope, CancellationToken cancellationToken = default)
+        public Response<RoleManagementPolicyListResult> ListForScopeNextPage(string nextLink, string scope, string filter = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(nextLink, nameof(nextLink));
             Argument.AssertNotNull(scope, nameof(scope));
 
-            using var message = CreateListForScopeNextPageRequest(nextLink, scope);
+            using var message = CreateListForScopeNextPageRequest(nextLink, scope, filter);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
