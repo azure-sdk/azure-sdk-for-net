@@ -8,7 +8,7 @@ csharp: true
 library-name: ContainerRegistry
 namespace: Azure.ResourceManager.ContainerRegistry
 # default tag is a preview version
-require: https://github.com/Azure/azure-rest-api-specs/blob/8a28143c7271d4496296ed47f70c3cb5a9981e57/specification/containerregistry/resource-manager/readme.md
+require: https://github.com/Azure/azure-rest-api-specs/blob/9d171f5580576db60b1ea835a3f0b90fd453464e/specification/containerregistry/resource-manager/readme.md
 tag: package-2022-12
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
