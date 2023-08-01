@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Azure.Core;
 
 namespace Azure.ResourceManager.NotificationHubs.Models
@@ -15,51 +16,67 @@ namespace Azure.ResourceManager.NotificationHubs.Models
     public partial class SharedAccessAuthorizationRuleProperties
     {
         /// <summary> Initializes a new instance of SharedAccessAuthorizationRuleProperties. </summary>
-        public SharedAccessAuthorizationRuleProperties()
+        /// <param name="rights"> Gets or sets the rights associated with the rule. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="rights"/> is null. </exception>
+        public SharedAccessAuthorizationRuleProperties(IEnumerable<AuthorizationRuleAccessRight> rights)
         {
-            Rights = new ChangeTrackingList<AuthorizationRuleAccessRight>();
+            Argument.AssertNotNull(rights, nameof(rights));
+
+            Rights = rights.ToList();
         }
 
         /// <summary> Initializes a new instance of SharedAccessAuthorizationRuleProperties. </summary>
-        /// <param name="rights"> The rights associated with the rule. </param>
-        /// <param name="primaryKey"> A base64-encoded 256-bit primary key for signing and validating the SAS token. </param>
-        /// <param name="secondaryKey"> A base64-encoded 256-bit primary key for signing and validating the SAS token. </param>
-        /// <param name="keyName"> A string that describes the authorization rule. </param>
-        /// <param name="claimType"> A string that describes the claim type. </param>
-        /// <param name="claimValue"> A string that describes the claim value. </param>
-        /// <param name="modifiedOn"> The last modified time for this rule. </param>
-        /// <param name="createdOn"> The created time for this rule. </param>
-        /// <param name="revision"> The revision number for the rule. </param>
-        internal SharedAccessAuthorizationRuleProperties(IList<AuthorizationRuleAccessRight> rights, string primaryKey, string secondaryKey, string keyName, string claimType, string claimValue, DateTimeOffset? modifiedOn, DateTimeOffset? createdOn, int? revision)
+        /// <param name="rights"> Gets or sets the rights associated with the rule. </param>
+        /// <param name="primaryKey">
+        /// Gets a base64-encoded 256-bit primary key for signing and
+        /// validating the SAS token.
+        /// </param>
+        /// <param name="secondaryKey">
+        /// Gets a base64-encoded 256-bit primary key for signing and
+        /// validating the SAS token.
+        /// </param>
+        /// <param name="keyName"> Gets a string that describes the authorization rule. </param>
+        /// <param name="modifiedOn"> Gets the last modified time for this rule. </param>
+        /// <param name="createdOn"> Gets the created time for this rule. </param>
+        /// <param name="claimType"> Gets a string that describes the claim type. </param>
+        /// <param name="claimValue"> Gets a string that describes the claim value. </param>
+        /// <param name="revision"> Gets the revision number for the rule. </param>
+        internal SharedAccessAuthorizationRuleProperties(IList<AuthorizationRuleAccessRight> rights, string primaryKey, string secondaryKey, string keyName, DateTimeOffset? modifiedOn, DateTimeOffset? createdOn, string claimType, string claimValue, int? revision)
         {
             Rights = rights;
             PrimaryKey = primaryKey;
             SecondaryKey = secondaryKey;
             KeyName = keyName;
-            ClaimType = claimType;
-            ClaimValue = claimValue;
             ModifiedOn = modifiedOn;
             CreatedOn = createdOn;
+            ClaimType = claimType;
+            ClaimValue = claimValue;
             Revision = revision;
         }
 
-        /// <summary> The rights associated with the rule. </summary>
+        /// <summary> Gets or sets the rights associated with the rule. </summary>
         public IList<AuthorizationRuleAccessRight> Rights { get; }
-        /// <summary> A base64-encoded 256-bit primary key for signing and validating the SAS token. </summary>
-        public string PrimaryKey { get; }
-        /// <summary> A base64-encoded 256-bit primary key for signing and validating the SAS token. </summary>
-        public string SecondaryKey { get; }
-        /// <summary> A string that describes the authorization rule. </summary>
+        /// <summary>
+        /// Gets a base64-encoded 256-bit primary key for signing and
+        /// validating the SAS token.
+        /// </summary>
+        public string PrimaryKey { get; set; }
+        /// <summary>
+        /// Gets a base64-encoded 256-bit primary key for signing and
+        /// validating the SAS token.
+        /// </summary>
+        public string SecondaryKey { get; set; }
+        /// <summary> Gets a string that describes the authorization rule. </summary>
         public string KeyName { get; }
-        /// <summary> A string that describes the claim type. </summary>
-        public string ClaimType { get; }
-        /// <summary> A string that describes the claim value. </summary>
-        public string ClaimValue { get; }
-        /// <summary> The last modified time for this rule. </summary>
+        /// <summary> Gets the last modified time for this rule. </summary>
         public DateTimeOffset? ModifiedOn { get; }
-        /// <summary> The created time for this rule. </summary>
+        /// <summary> Gets the created time for this rule. </summary>
         public DateTimeOffset? CreatedOn { get; }
-        /// <summary> The revision number for the rule. </summary>
+        /// <summary> Gets a string that describes the claim type. </summary>
+        public string ClaimType { get; }
+        /// <summary> Gets a string that describes the claim value. </summary>
+        public string ClaimValue { get; }
+        /// <summary> Gets the revision number for the rule. </summary>
         public int? Revision { get; }
     }
 }
