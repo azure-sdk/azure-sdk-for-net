@@ -738,6 +738,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private readonly object _dummy;
         private readonly int _dummyPrimitive;
         public AcsEmailDeliveryReportStatus(string value) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.AcsEmailDeliveryReportStatus AsynchronouslyBounced { get { throw null; } }
         public static Azure.Messaging.EventGrid.SystemEvents.AcsEmailDeliveryReportStatus Bounced { get { throw null; } }
         public static Azure.Messaging.EventGrid.SystemEvents.AcsEmailDeliveryReportStatus Delivered { get { throw null; } }
         public static Azure.Messaging.EventGrid.SystemEvents.AcsEmailDeliveryReportStatus Failed { get { throw null; } }

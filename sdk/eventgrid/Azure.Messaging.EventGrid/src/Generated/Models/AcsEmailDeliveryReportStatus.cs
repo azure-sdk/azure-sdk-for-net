@@ -22,6 +22,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             _value = value ?? throw new ArgumentNullException(nameof(value));
         }
 
+        private const string AsynchronouslyBouncedValue = "AsynchronouslyBounced";
         private const string BouncedValue = "Bounced";
         private const string DeliveredValue = "Delivered";
         private const string FailedValue = "Failed";
@@ -29,7 +30,9 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private const string QuarantinedValue = "Quarantined";
         private const string SuppressedValue = "Suppressed";
 
-        /// <summary> Hard bounce detected while sending the email. </summary>
+        /// <summary> Hard bounce detected asynchronously while sending the email. </summary>
+        public static AcsEmailDeliveryReportStatus AsynchronouslyBounced { get; } = new AcsEmailDeliveryReportStatus(AsynchronouslyBouncedValue);
+        /// <summary> Hard bounce detected synchronously while sending the email. </summary>
         public static AcsEmailDeliveryReportStatus Bounced { get; } = new AcsEmailDeliveryReportStatus(BouncedValue);
         /// <summary> The email was delivered. </summary>
         public static AcsEmailDeliveryReportStatus Delivered { get; } = new AcsEmailDeliveryReportStatus(DeliveredValue);
