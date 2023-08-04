@@ -1,0 +1,6 @@
+additionalDirectories:
+- specification/contosowidgetmanager/Contoso.WidgetManager.Shared/
+commit: 097c5b3806d5f43e772fc0dfb9bd352e689c2cc7
+directory: specification/contosowidgetmanager/Contoso.WidgetManager
+repo: test-repo-billy/azure-rest-api-specs
+
