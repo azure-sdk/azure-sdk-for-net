@@ -5,6 +5,9 @@
 
 #nullable disable
 
+using System.Collections.Generic;
+using Azure.Core;
+
 namespace Azure.ResourceManager.ServiceBus.Models
 {
     /// <summary> Represents a filter which is a composition of an expression and an action that is executed in the pub/sub pipeline. </summary>
@@ -13,17 +16,20 @@ namespace Azure.ResourceManager.ServiceBus.Models
         /// <summary> Initializes a new instance of ServiceBusSqlFilter. </summary>
         public ServiceBusSqlFilter()
         {
+            Parameters = new ChangeTrackingDictionary<string, string>();
         }
 
         /// <summary> Initializes a new instance of ServiceBusSqlFilter. </summary>
         /// <param name="sqlExpression"> The SQL expression. e.g. MyProperty='ABC'. </param>
         /// <param name="compatibilityLevel"> This property is reserved for future use. An integer value showing the compatibility level, currently hard-coded to 20. </param>
         /// <param name="requiresPreprocessing"> Value that indicates whether the rule action requires preprocessing. </param>
-        internal ServiceBusSqlFilter(string sqlExpression, int? compatibilityLevel, bool? requiresPreprocessing)
+        /// <param name="parameters"> Sets the value of a filter expression. </param>
+        internal ServiceBusSqlFilter(string sqlExpression, int? compatibilityLevel, bool? requiresPreprocessing, IDictionary<string, string> parameters)
         {
             SqlExpression = sqlExpression;
             CompatibilityLevel = compatibilityLevel;
             RequiresPreprocessing = requiresPreprocessing;
+            Parameters = parameters;
         }
 
         /// <summary> The SQL expression. e.g. MyProperty='ABC'. </summary>
@@ -32,5 +38,7 @@ namespace Azure.ResourceManager.ServiceBus.Models
         public int? CompatibilityLevel { get; set; }
         /// <summary> Value that indicates whether the rule action requires preprocessing. </summary>
         public bool? RequiresPreprocessing { get; set; }
+        /// <summary> Sets the value of a filter expression. </summary>
+        public IDictionary<string, string> Parameters { get; }
     }
 }

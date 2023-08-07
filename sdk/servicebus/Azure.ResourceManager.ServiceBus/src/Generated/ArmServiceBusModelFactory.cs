@@ -56,12 +56,15 @@ namespace Azure.ResourceManager.ServiceBus.Models
         /// <param name="systemData"> The systemData. </param>
         /// <param name="privateEndpointId"> The Private Endpoint resource for this Connection. </param>
         /// <param name="connectionState"> Details about the state of the connection. </param>
+        /// <param name="groupId"> Array of group IDs. </param>
         /// <param name="provisioningState"> Provisioning state of the Private Endpoint Connection. </param>
         /// <param name="location"> The geo-location where the resource lives. </param>
         /// <returns> A new <see cref="ServiceBus.ServiceBusPrivateEndpointConnectionData"/> instance for mocking. </returns>
-        public static ServiceBusPrivateEndpointConnectionData ServiceBusPrivateEndpointConnectionData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, ResourceIdentifier privateEndpointId = null, ServiceBusPrivateLinkServiceConnectionState connectionState = null, ServiceBusPrivateEndpointConnectionProvisioningState? provisioningState = null, AzureLocation? location = null)
+        public static ServiceBusPrivateEndpointConnectionData ServiceBusPrivateEndpointConnectionData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, ResourceIdentifier privateEndpointId = null, ServiceBusPrivateLinkServiceConnectionState connectionState = null, IEnumerable<string> groupId = null, ServiceBusPrivateEndpointConnectionProvisioningState? provisioningState = null, AzureLocation? location = null)
         {
-            return new ServiceBusPrivateEndpointConnectionData(id, name, resourceType, systemData, privateEndpointId != null ? ResourceManagerModelFactory.WritableSubResource(privateEndpointId) : null, connectionState, provisioningState, location);
+            groupId ??= new List<string>();
+
+            return new ServiceBusPrivateEndpointConnectionData(id, name, resourceType, systemData, privateEndpointId != null ? ResourceManagerModelFactory.WritableSubResource(privateEndpointId) : null, connectionState, groupId?.ToList(), provisioningState, location);
         }
 
         /// <summary> Initializes a new instance of ServiceBusNamespacePatch. </summary>
@@ -117,13 +120,14 @@ namespace Azure.ResourceManager.ServiceBus.Models
         /// <param name="provisioningState"> Provisioning state of the Alias(Disaster Recovery configuration) - possible values 'Accepted' or 'Succeeded' or 'Failed'. </param>
         /// <param name="pendingReplicationOperationsCount"> Number of entities pending to be replicated. </param>
         /// <param name="partnerNamespace"> ARM Id of the Primary/Secondary eventhub namespace name, which is part of GEO DR pairing. </param>
+        /// <param name="typePropertiesType"> replication type. </param>
         /// <param name="alternateName"> Primary/Secondary eventhub namespace name, which is part of GEO DR pairing. </param>
         /// <param name="role"> role of namespace in GEO DR - possible values 'Primary' or 'PrimaryNotReplicating' or 'Secondary'. </param>
         /// <param name="location"> The geo-location where the resource lives. </param>
         /// <returns> A new <see cref="ServiceBus.ServiceBusDisasterRecoveryData"/> instance for mocking. </returns>
-        public static ServiceBusDisasterRecoveryData ServiceBusDisasterRecoveryData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, ServiceBusDisasterRecoveryProvisioningState? provisioningState = null, long? pendingReplicationOperationsCount = null, string partnerNamespace = null, string alternateName = null, ServiceBusDisasterRecoveryRole? role = null, AzureLocation? location = null)
+        public static ServiceBusDisasterRecoveryData ServiceBusDisasterRecoveryData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, ServiceBusDisasterRecoveryProvisioningState? provisioningState = null, long? pendingReplicationOperationsCount = null, string partnerNamespace = null, Type? typePropertiesType = null, string alternateName = null, ServiceBusDisasterRecoveryRole? role = null, AzureLocation? location = null)
         {
-            return new ServiceBusDisasterRecoveryData(id, name, resourceType, systemData, provisioningState, pendingReplicationOperationsCount, partnerNamespace, alternateName, role, location);
+            return new ServiceBusDisasterRecoveryData(id, name, resourceType, systemData, provisioningState, pendingReplicationOperationsCount, partnerNamespace, typePropertiesType, alternateName, role, location);
         }
 
         /// <summary> Initializes a new instance of MigrationConfigurationData. </summary>

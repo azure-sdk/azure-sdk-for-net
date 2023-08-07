@@ -24,6 +24,11 @@ namespace Azure.ResourceManager.ServiceBus
                 writer.WritePropertyName("partnerNamespace"u8);
                 writer.WriteStringValue(PartnerNamespace);
             }
+            if (Optional.IsDefined(TypePropertiesType))
+            {
+                writer.WritePropertyName("type"u8);
+                writer.WriteStringValue(TypePropertiesType.Value.ToString());
+            }
             if (Optional.IsDefined(AlternateName))
             {
                 writer.WritePropertyName("alternateName"u8);
@@ -47,6 +52,7 @@ namespace Azure.ResourceManager.ServiceBus
             Optional<ServiceBusDisasterRecoveryProvisioningState> provisioningState = default;
             Optional<long> pendingReplicationOperationsCount = default;
             Optional<string> partnerNamespace = default;
+            Optional<Type> type0 = default;
             Optional<string> alternateName = default;
             Optional<ServiceBusDisasterRecoveryRole> role = default;
             foreach (var property in element.EnumerateObject())
@@ -116,6 +122,15 @@ namespace Azure.ResourceManager.ServiceBus
                             partnerNamespace = property0.Value.GetString();
                             continue;
                         }
+                        if (property0.NameEquals("type"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            type0 = new Type(property0.Value.GetString());
+                            continue;
+                        }
                         if (property0.NameEquals("alternateName"u8))
                         {
                             alternateName = property0.Value.GetString();
@@ -134,7 +149,7 @@ namespace Azure.ResourceManager.ServiceBus
                     continue;
                 }
             }
-            return new ServiceBusDisasterRecoveryData(id, name, type, systemData.Value, Optional.ToNullable(provisioningState), Optional.ToNullable(pendingReplicationOperationsCount), partnerNamespace.Value, alternateName.Value, Optional.ToNullable(role), Optional.ToNullable(location));
+            return new ServiceBusDisasterRecoveryData(id, name, type, systemData.Value, Optional.ToNullable(provisioningState), Optional.ToNullable(pendingReplicationOperationsCount), partnerNamespace.Value, Optional.ToNullable(type0), alternateName.Value, Optional.ToNullable(role), Optional.ToNullable(location));
         }
     }
 }

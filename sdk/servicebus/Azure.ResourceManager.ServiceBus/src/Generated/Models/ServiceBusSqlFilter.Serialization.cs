@@ -5,6 +5,7 @@
 
 #nullable disable
 
+using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
 
@@ -30,6 +31,17 @@ namespace Azure.ResourceManager.ServiceBus.Models
                 writer.WritePropertyName("requiresPreprocessing"u8);
                 writer.WriteBooleanValue(RequiresPreprocessing.Value);
             }
+            if (Optional.IsCollectionDefined(Parameters))
+            {
+                writer.WritePropertyName("parameters"u8);
+                writer.WriteStartObject();
+                foreach (var item in Parameters)
+                {
+                    writer.WritePropertyName(item.Key);
+                    writer.WriteStringValue(item.Value);
+                }
+                writer.WriteEndObject();
+            }
             writer.WriteEndObject();
         }
 
@@ -42,6 +54,7 @@ namespace Azure.ResourceManager.ServiceBus.Models
             Optional<string> sqlExpression = default;
             Optional<int> compatibilityLevel = default;
             Optional<bool> requiresPreprocessing = default;
+            Optional<IDictionary<string, string>> parameters = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("sqlExpression"u8))
@@ -67,8 +80,22 @@ namespace Azure.ResourceManager.ServiceBus.Models
                     requiresPreprocessing = property.Value.GetBoolean();
                     continue;
                 }
+                if (property.NameEquals("parameters"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    Dictionary<string, string> dictionary = new Dictionary<string, string>();
+                    foreach (var property0 in property.Value.EnumerateObject())
+                    {
+                        dictionary.Add(property0.Name, property0.Value.GetString());
+                    }
+                    parameters = dictionary;
+                    continue;
+                }
             }
-            return new ServiceBusSqlFilter(sqlExpression.Value, Optional.ToNullable(compatibilityLevel), Optional.ToNullable(requiresPreprocessing));
+            return new ServiceBusSqlFilter(sqlExpression.Value, Optional.ToNullable(compatibilityLevel), Optional.ToNullable(requiresPreprocessing), Optional.ToDictionary(parameters));
         }
     }
 }

@@ -5,6 +5,7 @@
 
 #nullable disable
 
+using System.Collections.Generic;
 using Azure.Core;
 using Azure.ResourceManager.Models;
 using Azure.ResourceManager.Resources.Models;
@@ -21,6 +22,7 @@ namespace Azure.ResourceManager.ServiceBus
         /// <summary> Initializes a new instance of ServiceBusPrivateEndpointConnectionData. </summary>
         public ServiceBusPrivateEndpointConnectionData()
         {
+            GroupId = new ChangeTrackingList<string>();
         }
 
         /// <summary> Initializes a new instance of ServiceBusPrivateEndpointConnectionData. </summary>
@@ -30,12 +32,14 @@ namespace Azure.ResourceManager.ServiceBus
         /// <param name="systemData"> The systemData. </param>
         /// <param name="privateEndpoint"> The Private Endpoint resource for this Connection. </param>
         /// <param name="connectionState"> Details about the state of the connection. </param>
+        /// <param name="groupId"> Array of group IDs. </param>
         /// <param name="provisioningState"> Provisioning state of the Private Endpoint Connection. </param>
         /// <param name="location"> The geo-location where the resource lives. </param>
-        internal ServiceBusPrivateEndpointConnectionData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, WritableSubResource privateEndpoint, ServiceBusPrivateLinkServiceConnectionState connectionState, ServiceBusPrivateEndpointConnectionProvisioningState? provisioningState, AzureLocation? location) : base(id, name, resourceType, systemData)
+        internal ServiceBusPrivateEndpointConnectionData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, WritableSubResource privateEndpoint, ServiceBusPrivateLinkServiceConnectionState connectionState, IList<string> groupId, ServiceBusPrivateEndpointConnectionProvisioningState? provisioningState, AzureLocation? location) : base(id, name, resourceType, systemData)
         {
             PrivateEndpoint = privateEndpoint;
             ConnectionState = connectionState;
+            GroupId = groupId;
             ProvisioningState = provisioningState;
             Location = location;
         }
@@ -56,6 +60,8 @@ namespace Azure.ResourceManager.ServiceBus
 
         /// <summary> Details about the state of the connection. </summary>
         public ServiceBusPrivateLinkServiceConnectionState ConnectionState { get; set; }
+        /// <summary> Array of group IDs. </summary>
+        public IList<string> GroupId { get; }
         /// <summary> Provisioning state of the Private Endpoint Connection. </summary>
         public ServiceBusPrivateEndpointConnectionProvisioningState? ProvisioningState { get; set; }
         /// <summary> The geo-location where the resource lives. </summary>

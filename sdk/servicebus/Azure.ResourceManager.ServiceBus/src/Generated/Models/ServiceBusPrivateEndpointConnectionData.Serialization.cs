@@ -5,6 +5,7 @@
 
 #nullable disable
 
+using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
 using Azure.ResourceManager.Models;
@@ -30,6 +31,16 @@ namespace Azure.ResourceManager.ServiceBus
                 writer.WritePropertyName("privateLinkServiceConnectionState"u8);
                 writer.WriteObjectValue(ConnectionState);
             }
+            if (Optional.IsCollectionDefined(GroupId))
+            {
+                writer.WritePropertyName("groupId"u8);
+                writer.WriteStartArray();
+                foreach (var item in GroupId)
+                {
+                    writer.WriteStringValue(item);
+                }
+                writer.WriteEndArray();
+            }
             if (Optional.IsDefined(ProvisioningState))
             {
                 writer.WritePropertyName("provisioningState"u8);
@@ -52,6 +63,7 @@ namespace Azure.ResourceManager.ServiceBus
             Optional<SystemData> systemData = default;
             Optional<WritableSubResource> privateEndpoint = default;
             Optional<ServiceBusPrivateLinkServiceConnectionState> privateLinkServiceConnectionState = default;
+            Optional<IList<string>> groupId = default;
             Optional<ServiceBusPrivateEndpointConnectionProvisioningState> provisioningState = default;
             foreach (var property in element.EnumerateObject())
             {
@@ -115,6 +127,20 @@ namespace Azure.ResourceManager.ServiceBus
                             privateLinkServiceConnectionState = ServiceBusPrivateLinkServiceConnectionState.DeserializeServiceBusPrivateLinkServiceConnectionState(property0.Value);
                             continue;
                         }
+                        if (property0.NameEquals("groupId"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            List<string> array = new List<string>();
+                            foreach (var item in property0.Value.EnumerateArray())
+                            {
+                                array.Add(item.GetString());
+                            }
+                            groupId = array;
+                            continue;
+                        }
                         if (property0.NameEquals("provisioningState"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -128,7 +154,7 @@ namespace Azure.ResourceManager.ServiceBus
                     continue;
                 }
             }
-            return new ServiceBusPrivateEndpointConnectionData(id, name, type, systemData.Value, privateEndpoint, privateLinkServiceConnectionState.Value, Optional.ToNullable(provisioningState), Optional.ToNullable(location));
+            return new ServiceBusPrivateEndpointConnectionData(id, name, type, systemData.Value, privateEndpoint, privateLinkServiceConnectionState.Value, Optional.ToList(groupId), Optional.ToNullable(provisioningState), Optional.ToNullable(location));
         }
     }
 }
