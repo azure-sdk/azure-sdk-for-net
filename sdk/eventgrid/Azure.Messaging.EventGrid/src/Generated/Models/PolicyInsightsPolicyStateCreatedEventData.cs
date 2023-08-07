@@ -7,33 +7,14 @@
 
 using System;
 
-namespace Azure.Messaging.EventGrid.SystemEvents
+namespace Azure.Messaging.EventGrid.Models
 {
     /// <summary> Schema of the Data property of an EventGridEvent for a Microsoft.PolicyInsights.PolicyStateCreated event. </summary>
-    public partial class PolicyInsightsPolicyStateCreatedEventData
+    internal partial class PolicyInsightsPolicyStateCreatedEventData
     {
         /// <summary> Initializes a new instance of PolicyInsightsPolicyStateCreatedEventData. </summary>
         internal PolicyInsightsPolicyStateCreatedEventData()
         {
-        }
-
-        /// <summary> Initializes a new instance of PolicyInsightsPolicyStateCreatedEventData. </summary>
-        /// <param name="timestamp"> The time that the resource was scanned by Azure Policy in the Universal ISO 8601 DateTime format yyyy-MM-ddTHH:mm:ss.fffffffZ. </param>
-        /// <param name="policyAssignmentId"> The resource ID of the policy assignment. </param>
-        /// <param name="policyDefinitionId"> The resource ID of the policy definition. </param>
-        /// <param name="policyDefinitionReferenceId"> The reference ID for the policy definition inside the initiative definition, if the policy assignment is for an initiative. May be empty. </param>
-        /// <param name="complianceState"> The compliance state of the resource with respect to the policy assignment. </param>
-        /// <param name="subscriptionId"> The subscription ID of the resource. </param>
-        /// <param name="complianceReasonCode"> The compliance reason code. May be empty. </param>
-        internal PolicyInsightsPolicyStateCreatedEventData(DateTimeOffset? timestamp, string policyAssignmentId, string policyDefinitionId, string policyDefinitionReferenceId, string complianceState, string subscriptionId, string complianceReasonCode)
-        {
-            Timestamp = timestamp;
-            PolicyAssignmentId = policyAssignmentId;
-            PolicyDefinitionId = policyDefinitionId;
-            PolicyDefinitionReferenceId = policyDefinitionReferenceId;
-            ComplianceState = complianceState;
-            SubscriptionId = subscriptionId;
-            ComplianceReasonCode = complianceReasonCode;
         }
 
         /// <summary> The time that the resource was scanned by Azure Policy in the Universal ISO 8601 DateTime format yyyy-MM-ddTHH:mm:ss.fffffffZ. </summary>

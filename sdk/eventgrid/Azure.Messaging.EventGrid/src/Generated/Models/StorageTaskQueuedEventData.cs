@@ -6,28 +6,27 @@
 #nullable disable
 
 using System;
+using Azure.Core;
 
-namespace Azure.Messaging.EventGrid.SystemEvents
+namespace Azure.Messaging.EventGrid.Models
 {
     /// <summary> Schema of the Data property of an EventGridEvent for an Microsoft.Storage.StorageTaskQueued event. </summary>
-    public partial class StorageTaskQueuedEventData
+    internal partial class StorageTaskQueuedEventData
     {
-        /// <summary> Initializes a new instance of StorageTaskQueuedEventData. </summary>
-        internal StorageTaskQueuedEventData()
-        {
-        }
-
         /// <summary> Initializes a new instance of StorageTaskQueuedEventData. </summary>
         /// <param name="queuedDateTime"> The time at which a storage task was queued. </param>
         /// <param name="taskExecutionId"> The execution id for a storage task. </param>
-        internal StorageTaskQueuedEventData(DateTimeOffset? queuedDateTime, string taskExecutionId)
+        /// <exception cref="ArgumentNullException"> <paramref name="taskExecutionId"/> is null. </exception>
+        internal StorageTaskQueuedEventData(DateTimeOffset queuedDateTime, string taskExecutionId)
         {
+            Argument.AssertNotNull(taskExecutionId, nameof(taskExecutionId));
+
             QueuedDateTime = queuedDateTime;
             TaskExecutionId = taskExecutionId;
         }
 
         /// <summary> The time at which a storage task was queued. </summary>
-        public DateTimeOffset? QueuedDateTime { get; }
+        public DateTimeOffset QueuedDateTime { get; }
         /// <summary> The execution id for a storage task. </summary>
         public string TaskExecutionId { get; }
     }

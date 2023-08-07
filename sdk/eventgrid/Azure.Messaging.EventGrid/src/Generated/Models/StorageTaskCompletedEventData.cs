@@ -6,41 +6,42 @@
 #nullable disable
 
 using System;
+using Azure.Core;
 
-namespace Azure.Messaging.EventGrid.SystemEvents
+namespace Azure.Messaging.EventGrid.Models
 {
     /// <summary> Schema of the Data property of an EventGridEvent for an Microsoft.Storage.StorageTaskCompleted event. </summary>
-    public partial class StorageTaskCompletedEventData
+    internal partial class StorageTaskCompletedEventData
     {
         /// <summary> Initializes a new instance of StorageTaskCompletedEventData. </summary>
-        internal StorageTaskCompletedEventData()
-        {
-        }
-
-        /// <summary> Initializes a new instance of StorageTaskCompletedEventData. </summary>
-        /// <param name="status"> The status for a storage task. </param>
         /// <param name="completedDateTime"> The time at which a storage task was completed. </param>
+        /// <param name="status"> The status for a storage task. </param>
+        /// <param name="summaryReportBlobUrl"> The summary report blob url for a storage task. </param>
         /// <param name="taskExecutionId"> The execution id for a storage task. </param>
         /// <param name="taskName"> The task name for a storage task. </param>
-        /// <param name="summaryReportBlobUri"> The summary report blob url for a storage task. </param>
-        internal StorageTaskCompletedEventData(StorageTaskCompletedStatus? status, DateTimeOffset? completedDateTime, string taskExecutionId, string taskName, Uri summaryReportBlobUri)
+        /// <exception cref="ArgumentNullException"> <paramref name="summaryReportBlobUrl"/>, <paramref name="taskExecutionId"/> or <paramref name="taskName"/> is null. </exception>
+        internal StorageTaskCompletedEventData(DateTimeOffset completedDateTime, StorageTaskCompletedStatus status, Uri summaryReportBlobUrl, string taskExecutionId, string taskName)
         {
-            Status = status;
+            Argument.AssertNotNull(summaryReportBlobUrl, nameof(summaryReportBlobUrl));
+            Argument.AssertNotNull(taskExecutionId, nameof(taskExecutionId));
+            Argument.AssertNotNull(taskName, nameof(taskName));
+
             CompletedDateTime = completedDateTime;
+            Status = status;
+            SummaryReportBlobUrl = summaryReportBlobUrl;
             TaskExecutionId = taskExecutionId;
             TaskName = taskName;
-            SummaryReportBlobUri = summaryReportBlobUri;
         }
 
-        /// <summary> The status for a storage task. </summary>
-        public StorageTaskCompletedStatus? Status { get; }
         /// <summary> The time at which a storage task was completed. </summary>
-        public DateTimeOffset? CompletedDateTime { get; }
+        public DateTimeOffset CompletedDateTime { get; }
+        /// <summary> The status for a storage task. </summary>
+        public StorageTaskCompletedStatus Status { get; }
+        /// <summary> The summary report blob url for a storage task. </summary>
+        public Uri SummaryReportBlobUrl { get; }
         /// <summary> The execution id for a storage task. </summary>
         public string TaskExecutionId { get; }
         /// <summary> The task name for a storage task. </summary>
         public string TaskName { get; }
-        /// <summary> The summary report blob url for a storage task. </summary>
-        public Uri SummaryReportBlobUri { get; }
     }
 }

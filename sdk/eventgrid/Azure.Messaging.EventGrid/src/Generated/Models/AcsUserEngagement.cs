@@ -8,10 +8,10 @@
 using System;
 using System.ComponentModel;
 
-namespace Azure.Messaging.EventGrid.SystemEvents
+namespace Azure.Messaging.EventGrid.Models
 {
     /// <summary> The type of engagement user have with email. </summary>
-    public readonly partial struct AcsUserEngagement : IEquatable<AcsUserEngagement>
+    internal readonly partial struct AcsUserEngagement : IEquatable<AcsUserEngagement>
     {
         private readonly string _value;
 
@@ -25,9 +25,9 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         private const string ViewValue = "view";
         private const string ClickValue = "click";
 
-        /// <summary> view. </summary>
+        /// <summary> View. </summary>
         public static AcsUserEngagement View { get; } = new AcsUserEngagement(ViewValue);
-        /// <summary> click. </summary>
+        /// <summary> Click. </summary>
         public static AcsUserEngagement Click { get; } = new AcsUserEngagement(ClickValue);
         /// <summary> Determines if two <see cref="AcsUserEngagement"/> values are the same. </summary>
         public static bool operator ==(AcsUserEngagement left, AcsUserEngagement right) => left.Equals(right);

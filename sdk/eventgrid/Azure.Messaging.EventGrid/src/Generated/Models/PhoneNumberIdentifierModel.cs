@@ -8,10 +8,10 @@
 using System;
 using Azure.Core;
 
-namespace Azure.Messaging.EventGrid.SystemEvents
+namespace Azure.Messaging.EventGrid.Models
 {
     /// <summary> A phone number. </summary>
-    public partial class PhoneNumberIdentifierModel
+    internal partial class PhoneNumberIdentifierModel
     {
         /// <summary> Initializes a new instance of PhoneNumberIdentifierModel. </summary>
         /// <param name="value"> The phone number in E.164 format. </param>

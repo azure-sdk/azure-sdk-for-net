@@ -8,10 +8,10 @@
 using System;
 using System.ComponentModel;
 
-namespace Azure.Messaging.EventGrid.SystemEvents
+namespace Azure.Messaging.EventGrid.Models
 {
     /// <summary> Asynchronous operation status of the operation on the app service plan. </summary>
-    public readonly partial struct AsyncStatus : IEquatable<AsyncStatus>
+    internal readonly partial struct AsyncStatus : IEquatable<AsyncStatus>
     {
         private readonly string _value;
 

@@ -8,10 +8,10 @@
 using System;
 using System.ComponentModel;
 
-namespace Azure.Messaging.EventGrid.SystemEvents
+namespace Azure.Messaging.EventGrid.Models
 {
     /// <summary> The status of the email. Any value other than Delivered is considered failed. </summary>
-    public readonly partial struct AcsEmailDeliveryReportStatus : IEquatable<AcsEmailDeliveryReportStatus>
+    internal readonly partial struct AcsEmailDeliveryReportStatus : IEquatable<AcsEmailDeliveryReportStatus>
     {
         private readonly string _value;
 
@@ -35,7 +35,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         public static AcsEmailDeliveryReportStatus Delivered { get; } = new AcsEmailDeliveryReportStatus(DeliveredValue);
         /// <summary> The email failed to be delivered. </summary>
         public static AcsEmailDeliveryReportStatus Failed { get; } = new AcsEmailDeliveryReportStatus(FailedValue);
-        /// <summary> The message was identified spam and was rejected or blocked (not quarantined). </summary>
+        /// <summary> The message was identified as spam and was rejected or blocked (not quarantined). </summary>
         public static AcsEmailDeliveryReportStatus FilteredSpam { get; } = new AcsEmailDeliveryReportStatus(FilteredSpamValue);
         /// <summary> The message was quarantined (as spam, bulk mail, or phishing). For more information, see Quarantined email messages in EOP (EXCHANGE ONLINE PROTECTION). </summary>
         public static AcsEmailDeliveryReportStatus Quarantined { get; } = new AcsEmailDeliveryReportStatus(QuarantinedValue);

@@ -37,40 +37,19 @@ namespace Azure.Messaging.EventGrid.Models
             DataVersion = dataVersion;
         }
 
-        /// <summary> Initializes a new instance of EventGridEventInternal. </summary>
-        /// <param name="id"> An unique identifier for the event. </param>
-        /// <param name="topic"> The resource path of the event source. </param>
-        /// <param name="subject"> A resource path relative to the topic path. </param>
-        /// <param name="data"> Event data specific to the event type. </param>
-        /// <param name="eventType"> The type of the event that occurred. </param>
-        /// <param name="eventTime"> The time (in UTC) the event was generated. </param>
-        /// <param name="metadataVersion"> The schema version of the event metadata. </param>
-        /// <param name="dataVersion"> The schema version of the data object. </param>
-        internal EventGridEventInternal(string id, string topic, string subject, JsonElement data, string eventType, DateTimeOffset eventTime, string metadataVersion, string dataVersion)
-        {
-            Id = id;
-            Topic = topic;
-            Subject = subject;
-            Data = data;
-            EventType = eventType;
-            EventTime = eventTime;
-            MetadataVersion = metadataVersion;
-            DataVersion = dataVersion;
-        }
-
         /// <summary> An unique identifier for the event. </summary>
-        public string Id { get; set; }
+        public string Id { get; }
         /// <summary> The resource path of the event source. </summary>
         public string Topic { get; set; }
         /// <summary> A resource path relative to the topic path. </summary>
-        public string Subject { get; set; }
+        public string Subject { get; }
         /// <summary> The type of the event that occurred. </summary>
-        public string EventType { get; set; }
+        public string EventType { get; }
         /// <summary> The time (in UTC) the event was generated. </summary>
-        public DateTimeOffset EventTime { get; set; }
+        public DateTimeOffset EventTime { get; }
         /// <summary> The schema version of the event metadata. </summary>
         public string MetadataVersion { get; }
         /// <summary> The schema version of the data object. </summary>
-        public string DataVersion { get; set; }
+        public string DataVersion { get; }
     }
 }

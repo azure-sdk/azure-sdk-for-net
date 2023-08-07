@@ -8,10 +8,10 @@
 using System;
 using System.ComponentModel;
 
-namespace Azure.Messaging.EventGrid.SystemEvents
+namespace Azure.Messaging.EventGrid.Models
 {
     /// <summary> Schema of DataBox Stage Name enumeration. </summary>
-    public readonly partial struct DataBoxStageName : IEquatable<DataBoxStageName>
+    internal readonly partial struct DataBoxStageName : IEquatable<DataBoxStageName>
     {
         private readonly string _value;
 

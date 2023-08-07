@@ -6,13 +6,12 @@
 #nullable disable
 
 using System;
-using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
 
 namespace Azure.Messaging.EventGrid.Models
 {
-    /// <summary> Properties of an event published to an Event Grid topic using the CloudEvent 1.0 Schema. </summary>
+    /// <summary> Properties of an event published to an Azure Messaging EventGrid Namespace topic using the CloudEvent 1.0 Schema. </summary>
     internal partial class CloudEventInternal
     {
         /// <summary> Initializes a new instance of CloudEventInternal. </summary>
@@ -21,7 +20,7 @@ namespace Azure.Messaging.EventGrid.Models
         /// <param name="type"> Type of event related to the originating occurrence. </param>
         /// <param name="specversion"> The version of the CloudEvents specification which the event uses. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="id"/>, <paramref name="source"/>, <paramref name="type"/> or <paramref name="specversion"/> is null. </exception>
-        public CloudEventInternal(string id, string source, string type, string specversion)
+        internal CloudEventInternal(string id, string source, string type, string specversion)
         {
             Argument.AssertNotNull(id, nameof(id));
             Argument.AssertNotNull(source, nameof(source));
@@ -32,7 +31,6 @@ namespace Azure.Messaging.EventGrid.Models
             Source = source;
             Type = type;
             Specversion = specversion;
-            AdditionalProperties = new ChangeTrackingDictionary<string, object>();
         }
 
         /// <summary> An identifier for the event. The combination of id and source must be unique for each distinct event. </summary>
@@ -40,20 +38,18 @@ namespace Azure.Messaging.EventGrid.Models
         /// <summary> Identifies the context in which an event happened. The combination of id and source must be unique for each distinct event. </summary>
         public string Source { get; }
         /// <summary> Event data specific to the event type, encoded as a base64 string. </summary>
-        public byte[] DataBase64 { get; set; }
+        public byte[] DataBase64 { get; }
         /// <summary> Type of event related to the originating occurrence. </summary>
         public string Type { get; }
         /// <summary> The time (in UTC) the event was generated, in RFC3339 format. </summary>
-        public DateTimeOffset? Time { get; set; }
+        public DateTimeOffset? Time { get; }
         /// <summary> The version of the CloudEvents specification which the event uses. </summary>
         public string Specversion { get; }
         /// <summary> Identifies the schema that data adheres to. </summary>
-        public string Dataschema { get; set; }
+        public string Dataschema { get; }
         /// <summary> Content type of data value. </summary>
-        public string Datacontenttype { get; set; }
+        public string Datacontenttype { get; }
         /// <summary> This describes the subject of the event in the context of the event producer (identified by source). </summary>
-        public string Subject { get; set; }
-        /// <summary> Additional Properties. </summary>
-        public IDictionary<string, object> AdditionalProperties { get; }
+        public string Subject { get; }
     }
 }

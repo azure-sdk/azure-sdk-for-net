@@ -5,27 +5,14 @@
 
 #nullable disable
 
-namespace Azure.Messaging.EventGrid.SystemEvents
+namespace Azure.Messaging.EventGrid.Models
 {
     /// <summary> Schema of the Data property of an EventGridEvent for a Microsoft.Storage.LifecyclePolicyCompleted event. </summary>
-    public partial class StorageLifecyclePolicyCompletedEventData
+    internal partial class StorageLifecyclePolicyCompletedEventData
     {
         /// <summary> Initializes a new instance of StorageLifecyclePolicyCompletedEventData. </summary>
         internal StorageLifecyclePolicyCompletedEventData()
         {
-        }
-
-        /// <summary> Initializes a new instance of StorageLifecyclePolicyCompletedEventData. </summary>
-        /// <param name="scheduleTime"> The time the policy task was scheduled. </param>
-        /// <param name="deleteSummary"> Execution statistics of a specific policy action in a Blob Management cycle. </param>
-        /// <param name="tierToCoolSummary"> Execution statistics of a specific policy action in a Blob Management cycle. </param>
-        /// <param name="tierToArchiveSummary"> Execution statistics of a specific policy action in a Blob Management cycle. </param>
-        internal StorageLifecyclePolicyCompletedEventData(string scheduleTime, StorageLifecyclePolicyActionSummaryDetail deleteSummary, StorageLifecyclePolicyActionSummaryDetail tierToCoolSummary, StorageLifecyclePolicyActionSummaryDetail tierToArchiveSummary)
-        {
-            ScheduleTime = scheduleTime;
-            DeleteSummary = deleteSummary;
-            TierToCoolSummary = tierToCoolSummary;
-            TierToArchiveSummary = tierToArchiveSummary;
         }
 
         /// <summary> The time the policy task was scheduled. </summary>

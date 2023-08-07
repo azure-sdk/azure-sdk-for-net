@@ -5,27 +5,14 @@
 
 #nullable disable
 
-namespace Azure.Messaging.EventGrid.SystemEvents
+namespace Azure.Messaging.EventGrid.Models
 {
     /// <summary> Identifies a participant in Azure Communication services. A participant is, for example, a phone number or an Azure communication user. This model must be interpreted as a union: Apart from rawId, at most one further property may be set. </summary>
-    public partial class CommunicationIdentifierModel
+    internal partial class CommunicationIdentifierModel
     {
         /// <summary> Initializes a new instance of CommunicationIdentifierModel. </summary>
         internal CommunicationIdentifierModel()
         {
-        }
-
-        /// <summary> Initializes a new instance of CommunicationIdentifierModel. </summary>
-        /// <param name="rawId"> Raw Id of the identifier. Optional in requests, required in responses. </param>
-        /// <param name="communicationUser"> The communication user. </param>
-        /// <param name="phoneNumber"> The phone number. </param>
-        /// <param name="microsoftTeamsUser"> The Microsoft Teams user. </param>
-        internal CommunicationIdentifierModel(string rawId, CommunicationUserIdentifierModel communicationUser, PhoneNumberIdentifierModel phoneNumber, MicrosoftTeamsUserIdentifierModel microsoftTeamsUser)
-        {
-            RawId = rawId;
-            CommunicationUser = communicationUser;
-            PhoneNumber = phoneNumber;
-            MicrosoftTeamsUser = microsoftTeamsUser;
         }
 
         /// <summary> Raw Id of the identifier. Optional in requests, required in responses. </summary>

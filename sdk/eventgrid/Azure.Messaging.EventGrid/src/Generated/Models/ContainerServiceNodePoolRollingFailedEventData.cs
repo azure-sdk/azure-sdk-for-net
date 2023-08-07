@@ -5,19 +5,13 @@
 
 #nullable disable
 
-namespace Azure.Messaging.EventGrid.SystemEvents
+namespace Azure.Messaging.EventGrid.Models
 {
     /// <summary> Schema of the Data property of an EventGridEvent for a Microsoft.ContainerService.NodePoolRollingFailed event. </summary>
-    public partial class ContainerServiceNodePoolRollingFailedEventData : ContainerServiceNodePoolRollingEventData
+    internal partial class ContainerServiceNodePoolRollingFailedEventData : ContainerServiceNodePoolRollingEventData
     {
         /// <summary> Initializes a new instance of ContainerServiceNodePoolRollingFailedEventData. </summary>
         internal ContainerServiceNodePoolRollingFailedEventData()
-        {
-        }
-
-        /// <summary> Initializes a new instance of ContainerServiceNodePoolRollingFailedEventData. </summary>
-        /// <param name="nodePoolName"> The name of the node pool in the ManagedCluster resource. </param>
-        internal ContainerServiceNodePoolRollingFailedEventData(string nodePoolName) : base(nodePoolName)
         {
         }
     }

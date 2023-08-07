@@ -5,27 +5,14 @@
 
 #nullable disable
 
-namespace Azure.Messaging.EventGrid.SystemEvents
+namespace Azure.Messaging.EventGrid.Models
 {
     /// <summary> Schema of the Data property of an EventGridEvent for a Microsoft.ContainerService.NewKubernetesVersionAvailable event. </summary>
-    public partial class ContainerServiceNewKubernetesVersionAvailableEventData
+    internal partial class ContainerServiceNewKubernetesVersionAvailableEventData
     {
         /// <summary> Initializes a new instance of ContainerServiceNewKubernetesVersionAvailableEventData. </summary>
         internal ContainerServiceNewKubernetesVersionAvailableEventData()
         {
-        }
-
-        /// <summary> Initializes a new instance of ContainerServiceNewKubernetesVersionAvailableEventData. </summary>
-        /// <param name="latestSupportedKubernetesVersion"> The highest PATCH Kubernetes version for the highest MINOR version supported by ManagedCluster resource. </param>
-        /// <param name="latestStableKubernetesVersion"> The highest PATCH Kubernetes version for the MINOR version considered stable for the ManagedCluster resource. </param>
-        /// <param name="lowestMinorKubernetesVersion"> The highest PATCH Kubernetes version for the lowest applicable MINOR version available for the ManagedCluster resource. </param>
-        /// <param name="latestPreviewKubernetesVersion"> The highest PATCH Kubernetes version considered preview for the ManagedCluster resource. There might not be any version in preview at the time of publishing the event. </param>
-        internal ContainerServiceNewKubernetesVersionAvailableEventData(string latestSupportedKubernetesVersion, string latestStableKubernetesVersion, string lowestMinorKubernetesVersion, string latestPreviewKubernetesVersion)
-        {
-            LatestSupportedKubernetesVersion = latestSupportedKubernetesVersion;
-            LatestStableKubernetesVersion = latestStableKubernetesVersion;
-            LowestMinorKubernetesVersion = lowestMinorKubernetesVersion;
-            LatestPreviewKubernetesVersion = latestPreviewKubernetesVersion;
         }
 
         /// <summary> The highest PATCH Kubernetes version for the highest MINOR version supported by ManagedCluster resource. </summary>

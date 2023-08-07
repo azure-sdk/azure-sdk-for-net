@@ -8,10 +8,10 @@
 using System;
 using System.ComponentModel;
 
-namespace Azure.Messaging.EventGrid.SystemEvents
+namespace Azure.Messaging.EventGrid.Models
 {
     /// <summary> Schema of FHIR resource type enumeration. </summary>
-    public readonly partial struct HealthcareFhirResourceType : IEquatable<HealthcareFhirResourceType>
+    internal readonly partial struct HealthcareFhirResourceType : IEquatable<HealthcareFhirResourceType>
     {
         private readonly string _value;
 

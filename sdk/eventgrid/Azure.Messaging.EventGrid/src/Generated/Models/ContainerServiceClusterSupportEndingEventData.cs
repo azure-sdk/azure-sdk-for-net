@@ -5,19 +5,13 @@
 
 #nullable disable
 
-namespace Azure.Messaging.EventGrid.SystemEvents
+namespace Azure.Messaging.EventGrid.Models
 {
     /// <summary> Schema of the Data property of an EventGridEvent for a Microsoft.ContainerService.ClusterSupportEnding event. </summary>
-    public partial class ContainerServiceClusterSupportEndingEventData : ContainerServiceClusterSupportEventData
+    internal partial class ContainerServiceClusterSupportEndingEventData : ContainerServiceClusterSupportEventData
     {
         /// <summary> Initializes a new instance of ContainerServiceClusterSupportEndingEventData. </summary>
         internal ContainerServiceClusterSupportEndingEventData()
-        {
-        }
-
-        /// <summary> Initializes a new instance of ContainerServiceClusterSupportEndingEventData. </summary>
-        /// <param name="kubernetesVersion"> The Kubernetes version of the ManagedCluster resource. </param>
-        internal ContainerServiceClusterSupportEndingEventData(string kubernetesVersion) : base(kubernetesVersion)
         {
         }
     }

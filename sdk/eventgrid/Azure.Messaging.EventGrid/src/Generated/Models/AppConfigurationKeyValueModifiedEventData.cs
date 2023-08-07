@@ -5,27 +5,14 @@
 
 #nullable disable
 
-namespace Azure.Messaging.EventGrid.SystemEvents
+namespace Azure.Messaging.EventGrid.Models
 {
     /// <summary> Schema of the Data property of an EventGridEvent for a Microsoft.AppConfiguration.KeyValueModified event. </summary>
-    public partial class AppConfigurationKeyValueModifiedEventData
+    internal partial class AppConfigurationKeyValueModifiedEventData
     {
         /// <summary> Initializes a new instance of AppConfigurationKeyValueModifiedEventData. </summary>
         internal AppConfigurationKeyValueModifiedEventData()
         {
-        }
-
-        /// <summary> Initializes a new instance of AppConfigurationKeyValueModifiedEventData. </summary>
-        /// <param name="key"> The key used to identify the key-value that was modified. </param>
-        /// <param name="label"> The label, if any, used to identify the key-value that was modified. </param>
-        /// <param name="etag"> The etag representing the new state of the key-value. </param>
-        /// <param name="syncToken"> The sync token representing the server state after the event. </param>
-        internal AppConfigurationKeyValueModifiedEventData(string key, string label, string etag, string syncToken)
-        {
-            Key = key;
-            Label = label;
-            Etag = etag;
-            SyncToken = syncToken;
         }
 
         /// <summary> The key used to identify the key-value that was modified. </summary>

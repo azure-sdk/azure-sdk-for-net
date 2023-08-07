@@ -5,25 +5,14 @@
 
 #nullable disable
 
-namespace Azure.Messaging.EventGrid.SystemEvents
+namespace Azure.Messaging.EventGrid.Models
 {
     /// <summary> Execution statistics of a specific policy action in a Blob Management cycle. </summary>
-    public partial class StorageLifecyclePolicyActionSummaryDetail
+    internal partial class StorageLifecyclePolicyActionSummaryDetail
     {
         /// <summary> Initializes a new instance of StorageLifecyclePolicyActionSummaryDetail. </summary>
         internal StorageLifecyclePolicyActionSummaryDetail()
         {
-        }
-
-        /// <summary> Initializes a new instance of StorageLifecyclePolicyActionSummaryDetail. </summary>
-        /// <param name="totalObjectsCount"> Total number of objects to be acted on by this action. </param>
-        /// <param name="successCount"> Number of success operations of this action. </param>
-        /// <param name="errorList"> Error messages of this action if any. </param>
-        internal StorageLifecyclePolicyActionSummaryDetail(long? totalObjectsCount, long? successCount, string errorList)
-        {
-            TotalObjectsCount = totalObjectsCount;
-            SuccessCount = successCount;
-            ErrorList = errorList;
         }
 
         /// <summary> Total number of objects to be acted on by this action. </summary>

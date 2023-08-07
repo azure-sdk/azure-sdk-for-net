@@ -7,25 +7,14 @@
 
 using System;
 
-namespace Azure.Messaging.EventGrid.SystemEvents
+namespace Azure.Messaging.EventGrid.Models
 {
     /// <summary> Schema of the Data property of an EventGridEvent for a Microsoft.DataBox.CopyCompleted event. </summary>
-    public partial class DataBoxCopyCompletedEventData
+    internal partial class DataBoxCopyCompletedEventData
     {
         /// <summary> Initializes a new instance of DataBoxCopyCompletedEventData. </summary>
         internal DataBoxCopyCompletedEventData()
         {
-        }
-
-        /// <summary> Initializes a new instance of DataBoxCopyCompletedEventData. </summary>
-        /// <param name="serialNumber"> Serial Number of the device associated with the event. The list is comma separated if more than one serial number is associated. </param>
-        /// <param name="stageName"> Name of the current Stage. </param>
-        /// <param name="stageTime"> The time at which the stage happened. </param>
-        internal DataBoxCopyCompletedEventData(string serialNumber, DataBoxStageName? stageName, DateTimeOffset? stageTime)
-        {
-            SerialNumber = serialNumber;
-            StageName = stageName;
-            StageTime = stageTime;
         }
 
         /// <summary> Serial Number of the device associated with the event. The list is comma separated if more than one serial number is associated. </summary>

@@ -5,21 +5,14 @@
 
 #nullable disable
 
-namespace Azure.Messaging.EventGrid.SystemEvents
+namespace Azure.Messaging.EventGrid.Models
 {
     /// <summary> Schema of the Data property of an EventGridEvent for a Microsoft.ApiManagement.UserDeleted event. </summary>
-    public partial class ApiManagementUserDeletedEventData
+    internal partial class ApiManagementUserDeletedEventData
     {
         /// <summary> Initializes a new instance of ApiManagementUserDeletedEventData. </summary>
         internal ApiManagementUserDeletedEventData()
         {
-        }
-
-        /// <summary> Initializes a new instance of ApiManagementUserDeletedEventData. </summary>
-        /// <param name="resourceUri"> The fully qualified ID of the resource that the compliance state change is for, including the resource name and resource type. Uses the format, `/subscriptions/&lt;SubscriptionID&gt;/resourceGroups/&lt;ResourceGroup&gt;/Microsoft.ApiManagement/service/&lt;ServiceName&gt;/&lt;ResourceType&gt;/&lt;ResourceName&gt;`. </param>
-        internal ApiManagementUserDeletedEventData(string resourceUri)
-        {
-            ResourceUri = resourceUri;
         }
 
         /// <summary> The fully qualified ID of the resource that the compliance state change is for, including the resource name and resource type. Uses the format, `/subscriptions/&lt;SubscriptionID&gt;/resourceGroups/&lt;ResourceGroup&gt;/Microsoft.ApiManagement/service/&lt;ServiceName&gt;/&lt;ResourceType&gt;/&lt;ResourceName&gt;`. </summary>

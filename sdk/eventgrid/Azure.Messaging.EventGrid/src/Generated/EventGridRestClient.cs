@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure;
@@ -36,96 +37,17 @@ namespace Azure.Messaging.EventGrid
             _apiVersion = apiVersion ?? throw new ArgumentNullException(nameof(apiVersion));
         }
 
-        internal HttpMessage CreatePublishEventGridEventsRequest(string topicHostname, IEnumerable<EventGridEventInternal> events)
+        internal HttpMessage CreatePublishEventGridEventRequest(Uri endpoint, IEnumerable<EventGridEventInternal> events)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
             request.Method = RequestMethod.Post;
             var uri = new RawRequestUriBuilder();
-            uri.AppendRaw("https://", false);
-            uri.AppendRaw(topicHostname, false);
+            uri.Reset(endpoint);
+            uri.AppendPath("/send", false);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
-            request.Headers.Add("Content-Type", "application/json");
-            var content = new Utf8JsonRequestContent();
-            content.JsonWriter.WriteStartArray();
-            foreach (var item in events)
-            {
-                content.JsonWriter.WriteObjectValue(item);
-            }
-            content.JsonWriter.WriteEndArray();
-            request.Content = content;
-            return message;
-        }
-
-        /// <summary> Publishes a batch of events to an Azure Event Grid topic. </summary>
-        /// <param name="topicHostname"> The host name of the topic, e.g. topic1.westus2-1.eventgrid.azure.net. </param>
-        /// <param name="events"> An array of events to be published to Event Grid. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="topicHostname"/> or <paramref name="events"/> is null. </exception>
-        public async Task<Response> PublishEventGridEventsAsync(string topicHostname, IEnumerable<EventGridEventInternal> events, CancellationToken cancellationToken = default)
-        {
-            if (topicHostname == null)
-            {
-                throw new ArgumentNullException(nameof(topicHostname));
-            }
-            if (events == null)
-            {
-                throw new ArgumentNullException(nameof(events));
-            }
-
-            using var message = CreatePublishEventGridEventsRequest(topicHostname, events);
-            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
-            switch (message.Response.Status)
-            {
-                case 200:
-                    return message.Response;
-                default:
-                    throw new RequestFailedException(message.Response);
-            }
-        }
-
-        /// <summary> Publishes a batch of events to an Azure Event Grid topic. </summary>
-        /// <param name="topicHostname"> The host name of the topic, e.g. topic1.westus2-1.eventgrid.azure.net. </param>
-        /// <param name="events"> An array of events to be published to Event Grid. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="topicHostname"/> or <paramref name="events"/> is null. </exception>
-        public Response PublishEventGridEvents(string topicHostname, IEnumerable<EventGridEventInternal> events, CancellationToken cancellationToken = default)
-        {
-            if (topicHostname == null)
-            {
-                throw new ArgumentNullException(nameof(topicHostname));
-            }
-            if (events == null)
-            {
-                throw new ArgumentNullException(nameof(events));
-            }
-
-            using var message = CreatePublishEventGridEventsRequest(topicHostname, events);
-            _pipeline.Send(message, cancellationToken);
-            switch (message.Response.Status)
-            {
-                case 200:
-                    return message.Response;
-                default:
-                    throw new RequestFailedException(message.Response);
-            }
-        }
-
-        internal HttpMessage CreatePublishCloudEventEventsRequest(string topicHostname, IEnumerable<CloudEventInternal> events, string aegChannelName)
-        {
-            var message = _pipeline.CreateMessage();
-            var request = message.Request;
-            request.Method = RequestMethod.Post;
-            var uri = new RawRequestUriBuilder();
-            uri.AppendRaw("https://", false);
-            uri.AppendRaw(topicHostname, false);
-            uri.AppendQuery("api-version", _apiVersion, true);
-            request.Uri = uri;
-            if (aegChannelName != null)
-            {
-                request.Headers.Add("aeg-channel-name", aegChannelName);
-            }
+            request.Headers.Add("Accept", "application/json");
             request.Headers.Add("Content-Type", "application/cloudevents-batch+json; charset=utf-8");
             var content = new Utf8JsonRequestContent();
             content.JsonWriter.WriteStartArray();
@@ -138,138 +60,65 @@ namespace Azure.Messaging.EventGrid
             return message;
         }
 
-        /// <summary> Publishes a batch of events to an Azure Event Grid topic. </summary>
-        /// <param name="topicHostname"> The host name of the topic, e.g. topic1.westus2-1.eventgrid.azure.net. </param>
-        /// <param name="events"> An array of events to be published to Event Grid. </param>
-        /// <param name="aegChannelName"> Required only when publishing to partner namespaces with partner topic routing mode ChannelNameHeader. </param>
+        /// <summary> Publish EventGridEvents. </summary>
+        /// <param name="endpoint"> The host name of the topic, e.g. topic1.westus2-1.eventgrid.azure.net. </param>
+        /// <param name="events"> Events being published. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="topicHostname"/> or <paramref name="events"/> is null. </exception>
-        public async Task<Response> PublishCloudEventEventsAsync(string topicHostname, IEnumerable<CloudEventInternal> events, string aegChannelName = null, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> or <paramref name="events"/> is null. </exception>
+        public async Task<Response<object>> PublishEventGridEventAsync(Uri endpoint, IEnumerable<EventGridEventInternal> events, CancellationToken cancellationToken = default)
         {
-            if (topicHostname == null)
+            if (endpoint == null)
             {
-                throw new ArgumentNullException(nameof(topicHostname));
+                throw new ArgumentNullException(nameof(endpoint));
             }
             if (events == null)
             {
                 throw new ArgumentNullException(nameof(events));
             }
 
-            using var message = CreatePublishCloudEventEventsRequest(topicHostname, events, aegChannelName);
+            using var message = CreatePublishEventGridEventRequest(endpoint, events);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
                 case 200:
-                    return message.Response;
+                    {
+                        object value = default;
+                        using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+                        value = document.RootElement.GetObject();
+                        return Response.FromValue(value, message.Response);
+                    }
                 default:
                     throw new RequestFailedException(message.Response);
             }
         }
 
-        /// <summary> Publishes a batch of events to an Azure Event Grid topic. </summary>
-        /// <param name="topicHostname"> The host name of the topic, e.g. topic1.westus2-1.eventgrid.azure.net. </param>
-        /// <param name="events"> An array of events to be published to Event Grid. </param>
-        /// <param name="aegChannelName"> Required only when publishing to partner namespaces with partner topic routing mode ChannelNameHeader. </param>
+        /// <summary> Publish EventGridEvents. </summary>
+        /// <param name="endpoint"> The host name of the topic, e.g. topic1.westus2-1.eventgrid.azure.net. </param>
+        /// <param name="events"> Events being published. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="topicHostname"/> or <paramref name="events"/> is null. </exception>
-        public Response PublishCloudEventEvents(string topicHostname, IEnumerable<CloudEventInternal> events, string aegChannelName = null, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> or <paramref name="events"/> is null. </exception>
+        public Response<object> PublishEventGridEvent(Uri endpoint, IEnumerable<EventGridEventInternal> events, CancellationToken cancellationToken = default)
         {
-            if (topicHostname == null)
+            if (endpoint == null)
             {
-                throw new ArgumentNullException(nameof(topicHostname));
+                throw new ArgumentNullException(nameof(endpoint));
             }
             if (events == null)
             {
                 throw new ArgumentNullException(nameof(events));
             }
 
-            using var message = CreatePublishCloudEventEventsRequest(topicHostname, events, aegChannelName);
+            using var message = CreatePublishEventGridEventRequest(endpoint, events);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
                 case 200:
-                    return message.Response;
-                default:
-                    throw new RequestFailedException(message.Response);
-            }
-        }
-
-        internal HttpMessage CreatePublishCustomEventEventsRequest(string topicHostname, IEnumerable<object> events)
-        {
-            var message = _pipeline.CreateMessage();
-            var request = message.Request;
-            request.Method = RequestMethod.Post;
-            var uri = new RawRequestUriBuilder();
-            uri.AppendRaw("https://", false);
-            uri.AppendRaw(topicHostname, false);
-            uri.AppendQuery("api-version", _apiVersion, true);
-            request.Uri = uri;
-            request.Headers.Add("Content-Type", "application/json");
-            var content = new Utf8JsonRequestContent();
-            content.JsonWriter.WriteStartArray();
-            foreach (var item in events)
-            {
-                if (item == null)
-                {
-                    content.JsonWriter.WriteNullValue();
-                    continue;
-                }
-                content.JsonWriter.WriteObjectValue(item);
-            }
-            content.JsonWriter.WriteEndArray();
-            request.Content = content;
-            return message;
-        }
-
-        /// <summary> Publishes a batch of events to an Azure Event Grid topic. </summary>
-        /// <param name="topicHostname"> The host name of the topic, e.g. topic1.westus2-1.eventgrid.azure.net. </param>
-        /// <param name="events"> An array of events to be published to Event Grid. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="topicHostname"/> or <paramref name="events"/> is null. </exception>
-        public async Task<Response> PublishCustomEventEventsAsync(string topicHostname, IEnumerable<object> events, CancellationToken cancellationToken = default)
-        {
-            if (topicHostname == null)
-            {
-                throw new ArgumentNullException(nameof(topicHostname));
-            }
-            if (events == null)
-            {
-                throw new ArgumentNullException(nameof(events));
-            }
-
-            using var message = CreatePublishCustomEventEventsRequest(topicHostname, events);
-            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
-            switch (message.Response.Status)
-            {
-                case 200:
-                    return message.Response;
-                default:
-                    throw new RequestFailedException(message.Response);
-            }
-        }
-
-        /// <summary> Publishes a batch of events to an Azure Event Grid topic. </summary>
-        /// <param name="topicHostname"> The host name of the topic, e.g. topic1.westus2-1.eventgrid.azure.net. </param>
-        /// <param name="events"> An array of events to be published to Event Grid. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="topicHostname"/> or <paramref name="events"/> is null. </exception>
-        public Response PublishCustomEventEvents(string topicHostname, IEnumerable<object> events, CancellationToken cancellationToken = default)
-        {
-            if (topicHostname == null)
-            {
-                throw new ArgumentNullException(nameof(topicHostname));
-            }
-            if (events == null)
-            {
-                throw new ArgumentNullException(nameof(events));
-            }
-
-            using var message = CreatePublishCustomEventEventsRequest(topicHostname, events);
-            _pipeline.Send(message, cancellationToken);
-            switch (message.Response.Status)
-            {
-                case 200:
-                    return message.Response;
+                    {
+                        object value = default;
+                        using var document = JsonDocument.Parse(message.Response.ContentStream);
+                        value = document.RootElement.GetObject();
+                        return Response.FromValue(value, message.Response);
+                    }
                 default:
                     throw new RequestFailedException(message.Response);
             }

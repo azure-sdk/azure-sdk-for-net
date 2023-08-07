@@ -5,21 +5,14 @@
 
 #nullable disable
 
-namespace Azure.Messaging.EventGrid.SystemEvents
+namespace Azure.Messaging.EventGrid.Models
 {
     /// <summary> Schema of the Data property of an EventGridEvent for a Microsoft.ApiManagement.GatewayAPIAdded event. </summary>
-    public partial class ApiManagementGatewayApiAddedEventData
+    internal partial class ApiManagementGatewayApiAddedEventData
     {
         /// <summary> Initializes a new instance of ApiManagementGatewayApiAddedEventData. </summary>
         internal ApiManagementGatewayApiAddedEventData()
         {
-        }
-
-        /// <summary> Initializes a new instance of ApiManagementGatewayApiAddedEventData. </summary>
-        /// <param name="resourceUri"> The fully qualified ID of the resource that the compliance state change is for, including the resource name and resource type. Uses the format, `/subscriptions/&lt;SubscriptionID&gt;/resourceGroups/&lt;ResourceGroup&gt;/Microsoft.ApiManagement/service/&lt;ServiceName&gt;/gateways/&lt;GatewayName&gt;/apis/&lt;ResourceName&gt;`. </param>
-        internal ApiManagementGatewayApiAddedEventData(string resourceUri)
-        {
-            ResourceUri = resourceUri;
         }
 
         /// <summary> The fully qualified ID of the resource that the compliance state change is for, including the resource name and resource type. Uses the format, `/subscriptions/&lt;SubscriptionID&gt;/resourceGroups/&lt;ResourceGroup&gt;/Microsoft.ApiManagement/service/&lt;ServiceName&gt;/gateways/&lt;GatewayName&gt;/apis/&lt;ResourceName&gt;`. </summary>
