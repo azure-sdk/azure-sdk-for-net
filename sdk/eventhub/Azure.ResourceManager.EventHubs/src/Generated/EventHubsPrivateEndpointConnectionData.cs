@@ -5,6 +5,7 @@
 
 #nullable disable
 
+using System.Collections.Generic;
 using Azure.Core;
 using Azure.ResourceManager.EventHubs.Models;
 using Azure.ResourceManager.Models;
@@ -21,6 +22,7 @@ namespace Azure.ResourceManager.EventHubs
         /// <summary> Initializes a new instance of EventHubsPrivateEndpointConnectionData. </summary>
         public EventHubsPrivateEndpointConnectionData()
         {
+            GroupId = new ChangeTrackingList<string>();
         }
 
         /// <summary> Initializes a new instance of EventHubsPrivateEndpointConnectionData. </summary>
@@ -30,12 +32,14 @@ namespace Azure.ResourceManager.EventHubs
         /// <param name="systemData"> The systemData. </param>
         /// <param name="privateEndpoint"> The Private Endpoint resource for this Connection. </param>
         /// <param name="connectionState"> Details about the state of the connection. </param>
+        /// <param name="groupId"> Array of group IDs. </param>
         /// <param name="provisioningState"> Provisioning state of the Private Endpoint Connection. </param>
         /// <param name="location"> The geo-location where the resource lives. </param>
-        internal EventHubsPrivateEndpointConnectionData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, WritableSubResource privateEndpoint, EventHubsPrivateLinkServiceConnectionState connectionState, EventHubsPrivateEndpointConnectionProvisioningState? provisioningState, AzureLocation? location) : base(id, name, resourceType, systemData)
+        internal EventHubsPrivateEndpointConnectionData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, WritableSubResource privateEndpoint, EventHubsPrivateLinkServiceConnectionState connectionState, IList<string> groupId, EventHubsPrivateEndpointConnectionProvisioningState? provisioningState, AzureLocation? location) : base(id, name, resourceType, systemData)
         {
             PrivateEndpoint = privateEndpoint;
             ConnectionState = connectionState;
+            GroupId = groupId;
             ProvisioningState = provisioningState;
             Location = location;
         }
@@ -56,6 +60,8 @@ namespace Azure.ResourceManager.EventHubs
 
         /// <summary> Details about the state of the connection. </summary>
         public EventHubsPrivateLinkServiceConnectionState ConnectionState { get; set; }
+        /// <summary> Array of group IDs. </summary>
+        public IList<string> GroupId { get; }
         /// <summary> Provisioning state of the Private Endpoint Connection. </summary>
         public EventHubsPrivateEndpointConnectionProvisioningState? ProvisioningState { get; set; }
         /// <summary> The geo-location where the resource lives. </summary>

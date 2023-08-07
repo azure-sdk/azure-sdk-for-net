@@ -29,14 +29,16 @@ namespace Azure.ResourceManager.EventHubs
         /// <param name="systemData"> The systemData. </param>
         /// <param name="provisioningState"> Provisioning state of the Alias(Disaster Recovery configuration) - possible values 'Accepted' or 'Succeeded' or 'Failed'. </param>
         /// <param name="partnerNamespace"> ARM Id of the Primary/Secondary eventhub namespace name, which is part of GEO DR pairing. </param>
+        /// <param name="typePropertiesType"> replication type. </param>
         /// <param name="alternateName"> Alternate name specified when alias and namespace names are same. </param>
         /// <param name="role"> role of namespace in GEO DR - possible values 'Primary' or 'PrimaryNotReplicating' or 'Secondary'. </param>
         /// <param name="pendingReplicationOperationsCount"> Number of entities pending to be replicated. </param>
         /// <param name="location"> The geo-location where the resource lives. </param>
-        internal EventHubsDisasterRecoveryData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, EventHubsDisasterRecoveryProvisioningState? provisioningState, string partnerNamespace, string alternateName, EventHubsDisasterRecoveryRole? role, long? pendingReplicationOperationsCount, AzureLocation? location) : base(id, name, resourceType, systemData)
+        internal EventHubsDisasterRecoveryData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, EventHubsDisasterRecoveryProvisioningState? provisioningState, string partnerNamespace, Type? typePropertiesType, string alternateName, EventHubsDisasterRecoveryRole? role, long? pendingReplicationOperationsCount, AzureLocation? location) : base(id, name, resourceType, systemData)
         {
             ProvisioningState = provisioningState;
             PartnerNamespace = partnerNamespace;
+            TypePropertiesType = typePropertiesType;
             AlternateName = alternateName;
             Role = role;
             PendingReplicationOperationsCount = pendingReplicationOperationsCount;
@@ -47,6 +49,8 @@ namespace Azure.ResourceManager.EventHubs
         public EventHubsDisasterRecoveryProvisioningState? ProvisioningState { get; }
         /// <summary> ARM Id of the Primary/Secondary eventhub namespace name, which is part of GEO DR pairing. </summary>
         public string PartnerNamespace { get; set; }
+        /// <summary> replication type. </summary>
+        public Type? TypePropertiesType { get; set; }
         /// <summary> Alternate name specified when alias and namespace names are same. </summary>
         public string AlternateName { get; set; }
         /// <summary> role of namespace in GEO DR - possible values 'Primary' or 'PrimaryNotReplicating' or 'Secondary'. </summary>

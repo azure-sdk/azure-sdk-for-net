@@ -24,6 +24,11 @@ namespace Azure.ResourceManager.EventHubs
                 writer.WritePropertyName("partnerNamespace"u8);
                 writer.WriteStringValue(PartnerNamespace);
             }
+            if (Optional.IsDefined(TypePropertiesType))
+            {
+                writer.WritePropertyName("type"u8);
+                writer.WriteStringValue(TypePropertiesType.Value.ToString());
+            }
             if (Optional.IsDefined(AlternateName))
             {
                 writer.WritePropertyName("alternateName"u8);
@@ -46,6 +51,7 @@ namespace Azure.ResourceManager.EventHubs
             Optional<SystemData> systemData = default;
             Optional<EventHubsDisasterRecoveryProvisioningState> provisioningState = default;
             Optional<string> partnerNamespace = default;
+            Optional<Type> type0 = default;
             Optional<string> alternateName = default;
             Optional<EventHubsDisasterRecoveryRole> role = default;
             Optional<long> pendingReplicationOperationsCount = default;
@@ -107,6 +113,15 @@ namespace Azure.ResourceManager.EventHubs
                             partnerNamespace = property0.Value.GetString();
                             continue;
                         }
+                        if (property0.NameEquals("type"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            type0 = new Type(property0.Value.GetString());
+                            continue;
+                        }
                         if (property0.NameEquals("alternateName"u8))
                         {
                             alternateName = property0.Value.GetString();
@@ -134,7 +149,7 @@ namespace Azure.ResourceManager.EventHubs
                     continue;
                 }
             }
-            return new EventHubsDisasterRecoveryData(id, name, type, systemData.Value, Optional.ToNullable(provisioningState), partnerNamespace.Value, alternateName.Value, Optional.ToNullable(role), Optional.ToNullable(pendingReplicationOperationsCount), Optional.ToNullable(location));
+            return new EventHubsDisasterRecoveryData(id, name, type, systemData.Value, Optional.ToNullable(provisioningState), partnerNamespace.Value, Optional.ToNullable(type0), alternateName.Value, Optional.ToNullable(role), Optional.ToNullable(pendingReplicationOperationsCount), Optional.ToNullable(location));
         }
     }
 }
