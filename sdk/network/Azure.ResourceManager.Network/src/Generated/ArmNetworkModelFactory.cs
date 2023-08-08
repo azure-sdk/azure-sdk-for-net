@@ -2243,6 +2243,7 @@ namespace Azure.ResourceManager.Network.Models
         /// <param name="tags"> Resource tags. </param>
         /// <param name="etag"> A unique read-only string that changes whenever the resource is updated. </param>
         /// <param name="identity"> The identity of the firewall policy. </param>
+        /// <param name="firewallPolicySize"> A read-only string that represents the size of the FirewallPolicyPropertiesFormat in MB. (ex 0.5MB). </param>
         /// <param name="ruleCollectionGroups"> List of references to FirewallPolicyRuleCollectionGroups. </param>
         /// <param name="provisioningState"> The provisioning state of the firewall policy resource. </param>
         /// <param name="basePolicyId"> The parent firewall policy from which rules are inherited. </param>
@@ -2259,14 +2260,14 @@ namespace Azure.ResourceManager.Network.Models
         /// <param name="transportSecurityCertificateAuthority"> TLS Configuration definition. </param>
         /// <param name="skuTier"> The Firewall Policy SKU. </param>
         /// <returns> A new <see cref="Network.FirewallPolicyData"/> instance for mocking. </returns>
-        public static FirewallPolicyData FirewallPolicyData(ResourceIdentifier id = null, string name = null, ResourceType? resourceType = null, AzureLocation? location = null, IDictionary<string, string> tags = null, ETag? etag = null, ManagedServiceIdentity identity = null, IEnumerable<WritableSubResource> ruleCollectionGroups = null, NetworkProvisioningState? provisioningState = null, ResourceIdentifier basePolicyId = null, IEnumerable<WritableSubResource> firewalls = null, IEnumerable<WritableSubResource> childPolicies = null, AzureFirewallThreatIntelMode? threatIntelMode = null, FirewallPolicyThreatIntelWhitelist threatIntelWhitelist = null, FirewallPolicyInsights insights = null, FirewallPolicySnat snat = null, bool? allowSqlRedirect = null, DnsSettings dnsSettings = null, FirewallPolicyExplicitProxy explicitProxy = null, FirewallPolicyIntrusionDetection intrusionDetection = null, FirewallPolicyCertificateAuthority transportSecurityCertificateAuthority = null, FirewallPolicySkuTier? skuTier = null)
+        public static FirewallPolicyData FirewallPolicyData(ResourceIdentifier id = null, string name = null, ResourceType? resourceType = null, AzureLocation? location = null, IDictionary<string, string> tags = null, ETag? etag = null, ManagedServiceIdentity identity = null, string firewallPolicySize = null, IEnumerable<WritableSubResource> ruleCollectionGroups = null, NetworkProvisioningState? provisioningState = null, ResourceIdentifier basePolicyId = null, IEnumerable<WritableSubResource> firewalls = null, IEnumerable<WritableSubResource> childPolicies = null, AzureFirewallThreatIntelMode? threatIntelMode = null, FirewallPolicyThreatIntelWhitelist threatIntelWhitelist = null, FirewallPolicyInsights insights = null, FirewallPolicySnat snat = null, bool? allowSqlRedirect = null, DnsSettings dnsSettings = null, FirewallPolicyExplicitProxy explicitProxy = null, FirewallPolicyIntrusionDetection intrusionDetection = null, FirewallPolicyCertificateAuthority transportSecurityCertificateAuthority = null, FirewallPolicySkuTier? skuTier = null)
         {
             tags ??= new Dictionary<string, string>();
             ruleCollectionGroups ??= new List<WritableSubResource>();
             firewalls ??= new List<WritableSubResource>();
             childPolicies ??= new List<WritableSubResource>();
 
-            return new FirewallPolicyData(id, name, resourceType, location, tags, etag, identity, ruleCollectionGroups?.ToList(), provisioningState, basePolicyId != null ? ResourceManagerModelFactory.WritableSubResource(basePolicyId) : null, firewalls?.ToList(), childPolicies?.ToList(), threatIntelMode, threatIntelWhitelist, insights, snat, allowSqlRedirect != null ? new FirewallPolicySQL(allowSqlRedirect) : null, dnsSettings, explicitProxy, intrusionDetection, transportSecurityCertificateAuthority != null ? new FirewallPolicyTransportSecurity(transportSecurityCertificateAuthority) : null, skuTier != null ? new FirewallPolicySku(skuTier) : null);
+            return new FirewallPolicyData(id, name, resourceType, location, tags, etag, identity, firewallPolicySize, ruleCollectionGroups?.ToList(), provisioningState, basePolicyId != null ? ResourceManagerModelFactory.WritableSubResource(basePolicyId) : null, firewalls?.ToList(), childPolicies?.ToList(), threatIntelMode, threatIntelWhitelist, insights, snat, allowSqlRedirect != null ? new FirewallPolicySQL(allowSqlRedirect) : null, dnsSettings, explicitProxy, intrusionDetection, transportSecurityCertificateAuthority != null ? new FirewallPolicyTransportSecurity(transportSecurityCertificateAuthority) : null, skuTier != null ? new FirewallPolicySku(skuTier) : null);
         }
 
         /// <summary> Initializes a new instance of FirewallPolicyRuleCollectionGroupData. </summary>
@@ -2274,6 +2275,7 @@ namespace Azure.ResourceManager.Network.Models
         /// <param name="name"> Resource name. </param>
         /// <param name="resourceType"> Resource type. </param>
         /// <param name="etag"> A unique read-only string that changes whenever the resource is updated. </param>
+        /// <param name="ruleCollectionGroupSize"> A read-only string that represents the size of the FirewallPolicyRuleCollectionGroupProperties in MB. (ex 1.2MB). </param>
         /// <param name="priority"> Priority of the Firewall Policy Rule Collection Group resource. </param>
         /// <param name="ruleCollections">
         /// Group of Firewall Policy rule collections.
@@ -2282,11 +2284,11 @@ namespace Azure.ResourceManager.Network.Models
         /// </param>
         /// <param name="provisioningState"> The provisioning state of the firewall policy rule collection group resource. </param>
         /// <returns> A new <see cref="Network.FirewallPolicyRuleCollectionGroupData"/> instance for mocking. </returns>
-        public static FirewallPolicyRuleCollectionGroupData FirewallPolicyRuleCollectionGroupData(ResourceIdentifier id = null, string name = null, ResourceType? resourceType = null, ETag? etag = null, int? priority = null, IEnumerable<FirewallPolicyRuleCollectionInfo> ruleCollections = null, NetworkProvisioningState? provisioningState = null)
+        public static FirewallPolicyRuleCollectionGroupData FirewallPolicyRuleCollectionGroupData(ResourceIdentifier id = null, string name = null, ResourceType? resourceType = null, ETag? etag = null, string ruleCollectionGroupSize = null, int? priority = null, IEnumerable<FirewallPolicyRuleCollectionInfo> ruleCollections = null, NetworkProvisioningState? provisioningState = null)
         {
             ruleCollections ??= new List<FirewallPolicyRuleCollectionInfo>();
 
-            return new FirewallPolicyRuleCollectionGroupData(id, name, resourceType, etag, priority, ruleCollections?.ToList(), provisioningState);
+            return new FirewallPolicyRuleCollectionGroupData(id, name, resourceType, etag, ruleCollectionGroupSize, priority, ruleCollections?.ToList(), provisioningState);
         }
 
         /// <summary> Initializes a new instance of IdpsSignatureListResult. </summary>
