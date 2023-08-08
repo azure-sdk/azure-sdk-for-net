@@ -21,6 +21,8 @@ namespace Azure.ResourceManager.TrafficManager
     {
         private ClientDiagnostics _trafficManagerProfileProfilesClientDiagnostics;
         private ProfilesRestOperations _trafficManagerProfileProfilesRestClient;
+        private ClientDiagnostics _trafficManagerUserMetricsTrafficManagerUserMetricsKeysClientDiagnostics;
+        private TrafficManagerUserMetricsKeysRestOperations _trafficManagerUserMetricsTrafficManagerUserMetricsKeysRestClient;
 
         /// <summary> Initializes a new instance of the <see cref="SubscriptionResourceExtensionClient"/> class for mocking. </summary>
         protected SubscriptionResourceExtensionClient()
@@ -36,6 +38,8 @@ namespace Azure.ResourceManager.TrafficManager
 
         private ClientDiagnostics TrafficManagerProfileProfilesClientDiagnostics => _trafficManagerProfileProfilesClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.TrafficManager", TrafficManagerProfileResource.ResourceType.Namespace, Diagnostics);
         private ProfilesRestOperations TrafficManagerProfileProfilesRestClient => _trafficManagerProfileProfilesRestClient ??= new ProfilesRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(TrafficManagerProfileResource.ResourceType));
+        private ClientDiagnostics TrafficManagerUserMetricsTrafficManagerUserMetricsKeysClientDiagnostics => _trafficManagerUserMetricsTrafficManagerUserMetricsKeysClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.TrafficManager", TrafficManagerUserMetricsResource.ResourceType.Namespace, Diagnostics);
+        private TrafficManagerUserMetricsKeysRestOperations TrafficManagerUserMetricsTrafficManagerUserMetricsKeysRestClient => _trafficManagerUserMetricsTrafficManagerUserMetricsKeysRestClient ??= new TrafficManagerUserMetricsKeysRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(TrafficManagerUserMetricsResource.ResourceType));
 
         private string GetApiVersionOrNull(ResourceType resourceType)
         {
@@ -152,6 +156,186 @@ namespace Azure.ResourceManager.TrafficManager
         {
             HttpMessage FirstPageRequest(int? pageSizeHint) => TrafficManagerProfileProfilesRestClient.CreateListBySubscriptionRequest(Id.SubscriptionId);
             return PageableHelpers.CreatePageable(FirstPageRequest, null, e => new TrafficManagerProfileResource(Client, TrafficManagerProfileData.DeserializeTrafficManagerProfileData(e)), TrafficManagerProfileProfilesClientDiagnostics, Pipeline, "SubscriptionResourceExtensionClient.GetTrafficManagerProfiles", "value", null, cancellationToken);
+        }
+
+        /// <summary>
+        /// Get the subscription-level key used for Real User Metrics collection.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Network/trafficManagerUserMetricsKeys</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>TrafficManagerUserMetricsKeys_GetNoDefault</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual async Task<Response<TrafficManagerUserMetricsResource>> GetNoDefaultTrafficManagerUserMetricsKeyAsync(CancellationToken cancellationToken = default)
+        {
+            using var scope = TrafficManagerUserMetricsTrafficManagerUserMetricsKeysClientDiagnostics.CreateScope("SubscriptionResourceExtensionClient.GetNoDefaultTrafficManagerUserMetricsKey");
+            scope.Start();
+            try
+            {
+                var response = await TrafficManagerUserMetricsTrafficManagerUserMetricsKeysRestClient.GetNoDefaultAsync(Id.SubscriptionId, cancellationToken).ConfigureAwait(false);
+                return Response.FromValue(new TrafficManagerUserMetricsResource(Client, response.Value), response.GetRawResponse());
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get the subscription-level key used for Real User Metrics collection.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Network/trafficManagerUserMetricsKeys</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>TrafficManagerUserMetricsKeys_GetNoDefault</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual Response<TrafficManagerUserMetricsResource> GetNoDefaultTrafficManagerUserMetricsKey(CancellationToken cancellationToken = default)
+        {
+            using var scope = TrafficManagerUserMetricsTrafficManagerUserMetricsKeysClientDiagnostics.CreateScope("SubscriptionResourceExtensionClient.GetNoDefaultTrafficManagerUserMetricsKey");
+            scope.Start();
+            try
+            {
+                var response = TrafficManagerUserMetricsTrafficManagerUserMetricsKeysRestClient.GetNoDefault(Id.SubscriptionId, cancellationToken);
+                return Response.FromValue(new TrafficManagerUserMetricsResource(Client, response.Value), response.GetRawResponse());
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Create or update a subscription-level key used for Real User Metrics collection.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Network/trafficManagerUserMetricsKeys</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>TrafficManagerUserMetricsKeys_CreateOrUpdateNoDefault</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual async Task<Response<TrafficManagerUserMetricsResource>> CreateOrUpdateNoDefaultTrafficManagerUserMetricsKeyAsync(CancellationToken cancellationToken = default)
+        {
+            using var scope = TrafficManagerUserMetricsTrafficManagerUserMetricsKeysClientDiagnostics.CreateScope("SubscriptionResourceExtensionClient.CreateOrUpdateNoDefaultTrafficManagerUserMetricsKey");
+            scope.Start();
+            try
+            {
+                var response = await TrafficManagerUserMetricsTrafficManagerUserMetricsKeysRestClient.CreateOrUpdateNoDefaultAsync(Id.SubscriptionId, cancellationToken).ConfigureAwait(false);
+                return Response.FromValue(new TrafficManagerUserMetricsResource(Client, response.Value), response.GetRawResponse());
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Create or update a subscription-level key used for Real User Metrics collection.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Network/trafficManagerUserMetricsKeys</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>TrafficManagerUserMetricsKeys_CreateOrUpdateNoDefault</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual Response<TrafficManagerUserMetricsResource> CreateOrUpdateNoDefaultTrafficManagerUserMetricsKey(CancellationToken cancellationToken = default)
+        {
+            using var scope = TrafficManagerUserMetricsTrafficManagerUserMetricsKeysClientDiagnostics.CreateScope("SubscriptionResourceExtensionClient.CreateOrUpdateNoDefaultTrafficManagerUserMetricsKey");
+            scope.Start();
+            try
+            {
+                var response = TrafficManagerUserMetricsTrafficManagerUserMetricsKeysRestClient.CreateOrUpdateNoDefault(Id.SubscriptionId, cancellationToken);
+                return Response.FromValue(new TrafficManagerUserMetricsResource(Client, response.Value), response.GetRawResponse());
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Delete a subscription-level key used for Real User Metrics collection.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Network/trafficManagerUserMetricsKeys</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>TrafficManagerUserMetricsKeys_DeleteNoDefault</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual async Task<Response> DeleteNoDefaultTrafficManagerUserMetricsKeyAsync(CancellationToken cancellationToken = default)
+        {
+            using var scope = TrafficManagerUserMetricsTrafficManagerUserMetricsKeysClientDiagnostics.CreateScope("SubscriptionResourceExtensionClient.DeleteNoDefaultTrafficManagerUserMetricsKey");
+            scope.Start();
+            try
+            {
+                var response = await TrafficManagerUserMetricsTrafficManagerUserMetricsKeysRestClient.DeleteNoDefaultAsync(Id.SubscriptionId, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Delete a subscription-level key used for Real User Metrics collection.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Network/trafficManagerUserMetricsKeys</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>TrafficManagerUserMetricsKeys_DeleteNoDefault</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual Response DeleteNoDefaultTrafficManagerUserMetricsKey(CancellationToken cancellationToken = default)
+        {
+            using var scope = TrafficManagerUserMetricsTrafficManagerUserMetricsKeysClientDiagnostics.CreateScope("SubscriptionResourceExtensionClient.DeleteNoDefaultTrafficManagerUserMetricsKey");
+            scope.Start();
+            try
+            {
+                var response = TrafficManagerUserMetricsTrafficManagerUserMetricsKeysRestClient.DeleteNoDefault(Id.SubscriptionId, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
     }
 }

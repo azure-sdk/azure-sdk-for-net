@@ -315,6 +315,126 @@ namespace Azure.ResourceManager.TrafficManager
             return GetSubscriptionResourceExtensionClient(subscriptionResource).GetTrafficManagerProfiles(cancellationToken);
         }
 
+        /// <summary>
+        /// Get the subscription-level key used for Real User Metrics collection.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Network/trafficManagerUserMetricsKeys</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>TrafficManagerUserMetricsKeys_GetNoDefault</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public static async Task<Response<TrafficManagerUserMetricsResource>> GetNoDefaultTrafficManagerUserMetricsKeyAsync(this SubscriptionResource subscriptionResource, CancellationToken cancellationToken = default)
+        {
+            return await GetSubscriptionResourceExtensionClient(subscriptionResource).GetNoDefaultTrafficManagerUserMetricsKeyAsync(cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Get the subscription-level key used for Real User Metrics collection.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Network/trafficManagerUserMetricsKeys</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>TrafficManagerUserMetricsKeys_GetNoDefault</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public static Response<TrafficManagerUserMetricsResource> GetNoDefaultTrafficManagerUserMetricsKey(this SubscriptionResource subscriptionResource, CancellationToken cancellationToken = default)
+        {
+            return GetSubscriptionResourceExtensionClient(subscriptionResource).GetNoDefaultTrafficManagerUserMetricsKey(cancellationToken);
+        }
+
+        /// <summary>
+        /// Create or update a subscription-level key used for Real User Metrics collection.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Network/trafficManagerUserMetricsKeys</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>TrafficManagerUserMetricsKeys_CreateOrUpdateNoDefault</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public static async Task<Response<TrafficManagerUserMetricsResource>> CreateOrUpdateNoDefaultTrafficManagerUserMetricsKeyAsync(this SubscriptionResource subscriptionResource, CancellationToken cancellationToken = default)
+        {
+            return await GetSubscriptionResourceExtensionClient(subscriptionResource).CreateOrUpdateNoDefaultTrafficManagerUserMetricsKeyAsync(cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Create or update a subscription-level key used for Real User Metrics collection.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Network/trafficManagerUserMetricsKeys</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>TrafficManagerUserMetricsKeys_CreateOrUpdateNoDefault</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public static Response<TrafficManagerUserMetricsResource> CreateOrUpdateNoDefaultTrafficManagerUserMetricsKey(this SubscriptionResource subscriptionResource, CancellationToken cancellationToken = default)
+        {
+            return GetSubscriptionResourceExtensionClient(subscriptionResource).CreateOrUpdateNoDefaultTrafficManagerUserMetricsKey(cancellationToken);
+        }
+
+        /// <summary>
+        /// Delete a subscription-level key used for Real User Metrics collection.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Network/trafficManagerUserMetricsKeys</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>TrafficManagerUserMetricsKeys_DeleteNoDefault</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public static async Task<Response> DeleteNoDefaultTrafficManagerUserMetricsKeyAsync(this SubscriptionResource subscriptionResource, CancellationToken cancellationToken = default)
+        {
+            return await GetSubscriptionResourceExtensionClient(subscriptionResource).DeleteNoDefaultTrafficManagerUserMetricsKeyAsync(cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Delete a subscription-level key used for Real User Metrics collection.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Network/trafficManagerUserMetricsKeys</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>TrafficManagerUserMetricsKeys_DeleteNoDefault</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public static Response DeleteNoDefaultTrafficManagerUserMetricsKey(this SubscriptionResource subscriptionResource, CancellationToken cancellationToken = default)
+        {
+            return GetSubscriptionResourceExtensionClient(subscriptionResource).DeleteNoDefaultTrafficManagerUserMetricsKey(cancellationToken);
+        }
+
         /// <summary> Gets an object representing a TrafficManagerGeographicHierarchyResource along with the instance operations that can be performed on it in the TenantResource. </summary>
         /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
         /// <returns> Returns a <see cref="TrafficManagerGeographicHierarchyResource" /> object. </returns>
