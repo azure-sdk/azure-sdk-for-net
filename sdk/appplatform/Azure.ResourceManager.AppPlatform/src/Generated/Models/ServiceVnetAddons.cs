@@ -8,7 +8,7 @@
 namespace Azure.ResourceManager.AppPlatform.Models
 {
     /// <summary> Additional Service settings in vnet injection instance. </summary>
-    internal partial class ServiceVnetAddons
+    public partial class ServiceVnetAddons
     {
         /// <summary> Initializes a new instance of ServiceVnetAddons. </summary>
         public ServiceVnetAddons()
@@ -17,12 +17,16 @@ namespace Azure.ResourceManager.AppPlatform.Models
 
         /// <summary> Initializes a new instance of ServiceVnetAddons. </summary>
         /// <param name="isLogStreamPublicEndpoint"> Indicates whether the log stream in vnet injection instance could be accessed from internet. </param>
-        internal ServiceVnetAddons(bool? isLogStreamPublicEndpoint)
+        /// <param name="dataPlanePublicEndpoint"> Indicates whether the data plane components(log stream, app connect, remote debugging) in vnet injection instance could be accessed from internet. </param>
+        internal ServiceVnetAddons(bool? isLogStreamPublicEndpoint, bool? dataPlanePublicEndpoint)
         {
             IsLogStreamPublicEndpoint = isLogStreamPublicEndpoint;
+            DataPlanePublicEndpoint = dataPlanePublicEndpoint;
         }
 
         /// <summary> Indicates whether the log stream in vnet injection instance could be accessed from internet. </summary>
         public bool? IsLogStreamPublicEndpoint { get; set; }
+        /// <summary> Indicates whether the data plane components(log stream, app connect, remote debugging) in vnet injection instance could be accessed from internet. </summary>
+        public bool? DataPlanePublicEndpoint { get; set; }
     }
 }
