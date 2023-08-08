@@ -31,11 +31,12 @@ namespace Azure.ResourceManager.Maps
             return apiVersion;
         }
 
-        /// <summary> Gets a collection of MapsAccountResources in the ResourceGroupResource. </summary>
-        /// <returns> An object representing collection of MapsAccountResources and their operations over a MapsAccountResource. </returns>
-        public virtual MapsAccountCollection GetMapsAccounts()
+        /// <summary> Gets a collection of MapsCreatorResources in the ResourceGroupResource. </summary>
+        /// <param name="accountName"> The name of the Maps Account. </param>
+        /// <returns> An object representing collection of MapsCreatorResources and their operations over a MapsCreatorResource. </returns>
+        public virtual MapsCreatorCollection GetMapsCreators(string accountName)
         {
-            return GetCachedClient(Client => new MapsAccountCollection(Client, Id));
+            return new MapsCreatorCollection(Client, Id, accountName);
         }
     }
 }
