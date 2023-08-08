@@ -23,7 +23,8 @@ namespace Azure.Messaging.WebPubSub.Samples
         [Ignore("Only validating compilation of examples")]
         public void Example_GetServiceStatus()
         {
-            var client = new HealthApiClient("<https://my-service.azure.com>");
+            var endpoint = new Uri("<https://my-service.azure.com>");
+            var client = new HealthApiClient(endpoint);
 
             Response response = client.GetServiceStatus();
             Console.WriteLine(response.Status);
@@ -33,7 +34,8 @@ namespace Azure.Messaging.WebPubSub.Samples
         [Ignore("Only validating compilation of examples")]
         public void Example_GetServiceStatus_AllParameters()
         {
-            var client = new HealthApiClient("<https://my-service.azure.com>");
+            var endpoint = new Uri("<https://my-service.azure.com>");
+            var client = new HealthApiClient(endpoint);
 
             Response response = client.GetServiceStatus();
             Console.WriteLine(response.Status);
@@ -43,7 +45,8 @@ namespace Azure.Messaging.WebPubSub.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Example_GetServiceStatus_Async()
         {
-            var client = new HealthApiClient("<https://my-service.azure.com>");
+            var endpoint = new Uri("<https://my-service.azure.com>");
+            var client = new HealthApiClient(endpoint);
 
             Response response = await client.GetServiceStatusAsync();
             Console.WriteLine(response.Status);
@@ -53,7 +56,8 @@ namespace Azure.Messaging.WebPubSub.Samples
         [Ignore("Only validating compilation of examples")]
         public async Task Example_GetServiceStatus_AllParameters_Async()
         {
-            var client = new HealthApiClient("<https://my-service.azure.com>");
+            var endpoint = new Uri("<https://my-service.azure.com>");
+            var client = new HealthApiClient(endpoint);
 
             Response response = await client.GetServiceStatusAsync();
             Console.WriteLine(response.Status);
