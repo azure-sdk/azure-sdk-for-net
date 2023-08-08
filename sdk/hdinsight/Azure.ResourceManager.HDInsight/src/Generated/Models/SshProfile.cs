@@ -5,28 +5,30 @@
 
 #nullable disable
 
-using System.Collections.Generic;
-using Azure.Core;
-
 namespace Azure.ResourceManager.HDInsight.Models
 {
-    /// <summary> The list of SSH public keys. </summary>
-    internal partial class SshProfile
+    /// <summary> Ssh profile for the cluster. </summary>
+    public partial class SshProfile
     {
         /// <summary> Initializes a new instance of SshProfile. </summary>
-        public SshProfile()
+        /// <param name="count"> Number of ssh pods per cluster. </param>
+        public SshProfile(int count)
         {
-            PublicKeys = new ChangeTrackingList<HDInsightSshPublicKey>();
+            Count = count;
         }
 
         /// <summary> Initializes a new instance of SshProfile. </summary>
-        /// <param name="publicKeys"> The list of SSH public keys. </param>
-        internal SshProfile(IList<HDInsightSshPublicKey> publicKeys)
+        /// <param name="count"> Number of ssh pods per cluster. </param>
+        /// <param name="podPrefix"> Prefix of the pod names. Pod number will be appended to the prefix. The ingress URLs for the pods will be available at &lt;clusterFqdn&gt;/&lt;sshBasePath&gt;/&lt;prefix&gt;-&lt;number&gt;. </param>
+        internal SshProfile(int count, string podPrefix)
         {
-            PublicKeys = publicKeys;
+            Count = count;
+            PodPrefix = podPrefix;
         }
 
-        /// <summary> The list of SSH public keys. </summary>
-        public IList<HDInsightSshPublicKey> PublicKeys { get; }
+        /// <summary> Number of ssh pods per cluster. </summary>
+        public int Count { get; set; }
+        /// <summary> Prefix of the pod names. Pod number will be appended to the prefix. The ingress URLs for the pods will be available at &lt;clusterFqdn&gt;/&lt;sshBasePath&gt;/&lt;prefix&gt;-&lt;number&gt;. </summary>
+        public string PodPrefix { get; }
     }
 }
