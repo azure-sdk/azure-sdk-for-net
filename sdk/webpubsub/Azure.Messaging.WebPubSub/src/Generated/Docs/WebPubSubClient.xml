@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="AddConnectionsToGroupsAsync(string,RequestContent,RequestContext)">
+<example>
+This sample shows how to call AddConnectionsToGroupsAsync with required parameters.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new WebPubSubClient(endpoint);
+
+var data = new {};
+
+Response response = await client.AddConnectionsToGroupsAsync("<hub>", RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call AddConnectionsToGroupsAsync with all parameters and request content.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new WebPubSubClient(endpoint);
+
+var data = new {
+    groups = new[] {
+        "<String>"
+    },
+    filter = "<filter>",
+};
+
+Response response = await client.AddConnectionsToGroupsAsync("<hub>", RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+</example>
+    </member>
+    <member name="AddConnectionsToGroups(string,RequestContent,RequestContext)">
+<example>
+This sample shows how to call AddConnectionsToGroups with required parameters.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new WebPubSubClient(endpoint);
+
+var data = new {};
+
+Response response = client.AddConnectionsToGroups("<hub>", RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call AddConnectionsToGroups with all parameters and request content.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new WebPubSubClient(endpoint);
+
+var data = new {
+    groups = new[] {
+        "<String>"
+    },
+    filter = "<filter>",
+};
+
+Response response = client.AddConnectionsToGroups("<hub>", RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+</example>
+    </member>
+    <member name="RemoveConnectionsFromGroupsAsync(string,RequestContent,RequestContext)">
+<example>
+This sample shows how to call RemoveConnectionsFromGroupsAsync with required parameters.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new WebPubSubClient(endpoint);
+
+var data = new {};
+
+Response response = await client.RemoveConnectionsFromGroupsAsync("<hub>", RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call RemoveConnectionsFromGroupsAsync with all parameters and request content.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new WebPubSubClient(endpoint);
+
+var data = new {
+    groups = new[] {
+        "<String>"
+    },
+    filter = "<filter>",
+};
+
+Response response = await client.RemoveConnectionsFromGroupsAsync("<hub>", RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+</example>
+    </member>
+    <member name="RemoveConnectionsFromGroups(string,RequestContent,RequestContext)">
+<example>
+This sample shows how to call RemoveConnectionsFromGroups with required parameters.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new WebPubSubClient(endpoint);
+
+var data = new {};
+
+Response response = client.RemoveConnectionsFromGroups("<hub>", RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call RemoveConnectionsFromGroups with all parameters and request content.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new WebPubSubClient(endpoint);
+
+var data = new {
+    groups = new[] {
+        "<String>"
+    },
+    filter = "<filter>",
+};
+
+Response response = client.RemoveConnectionsFromGroups("<hub>", RequestContent.Create(data));
+Console.WriteLine(response.Status);
+]]></code>
+</example>
+    </member>
+  </members>
+</doc>

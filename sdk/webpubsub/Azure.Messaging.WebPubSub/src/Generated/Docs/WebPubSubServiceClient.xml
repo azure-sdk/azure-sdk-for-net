@@ -5,14 +5,16 @@
 <example>
 This sample shows how to call CloseAllConnectionsAsync.
 <code><![CDATA[
-var client = new WebPubSubServiceClient("<https://my-service.azure.com>", "<hub>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new WebPubSubServiceClient(endpoint, "<hub>");
 
 Response response = await client.CloseAllConnectionsAsync();
 Console.WriteLine(response.Status);
 ]]></code>
 This sample shows how to call CloseAllConnectionsAsync with all parameters.
 <code><![CDATA[
-var client = new WebPubSubServiceClient("<https://my-service.azure.com>", "<hub>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new WebPubSubServiceClient(endpoint, "<hub>");
 
 Response response = await client.CloseAllConnectionsAsync(new String[]{"<excluded>"}, "<reason>");
 Console.WriteLine(response.Status);
@@ -23,14 +25,16 @@ Console.WriteLine(response.Status);
 <example>
 This sample shows how to call CloseAllConnections.
 <code><![CDATA[
-var client = new WebPubSubServiceClient("<https://my-service.azure.com>", "<hub>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new WebPubSubServiceClient(endpoint, "<hub>");
 
 Response response = client.CloseAllConnections();
 Console.WriteLine(response.Status);
 ]]></code>
 This sample shows how to call CloseAllConnections with all parameters.
 <code><![CDATA[
-var client = new WebPubSubServiceClient("<https://my-service.azure.com>", "<hub>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new WebPubSubServiceClient(endpoint, "<hub>");
 
 Response response = client.CloseAllConnections(new String[]{"<excluded>"}, "<reason>");
 Console.WriteLine(response.Status);
@@ -41,11 +45,12 @@ Console.WriteLine(response.Status);
     </member>
     <member name="GenerateClientTokenImpl(string,IEnumerable{string},int?,IEnumerable{string},RequestContext)">
     </member>
-    <member name="SendToAllAsync(RequestContent,ContentType,IEnumerable{string},string,RequestContext)">
+    <member name="SendToAllAsync(RequestContent,ContentType,IEnumerable{string},string,int?,RequestContext)">
 <example>
 This sample shows how to call SendToAllAsync with required parameters and request content.
 <code><![CDATA[
-var client = new WebPubSubServiceClient("<https://my-service.azure.com>", "<hub>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new WebPubSubServiceClient(endpoint, "<hub>");
 
 var data = File.OpenRead("<filePath>");
 
@@ -54,20 +59,22 @@ Console.WriteLine(response.Status);
 ]]></code>
 This sample shows how to call SendToAllAsync with all parameters and request content.
 <code><![CDATA[
-var client = new WebPubSubServiceClient("<https://my-service.azure.com>", "<hub>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new WebPubSubServiceClient(endpoint, "<hub>");
 
 var data = File.OpenRead("<filePath>");
 
-Response response = await client.SendToAllAsync(RequestContent.Create(data), ContentType.ApplicationOctetStream, new String[]{"<excluded>"}, "<filter>");
+Response response = await client.SendToAllAsync(RequestContent.Create(data), ContentType.ApplicationOctetStream, new String[]{"<excluded>"}, "<filter>", 1234);
 Console.WriteLine(response.Status);
 ]]></code>
 </example>
     </member>
-    <member name="SendToAll(RequestContent,ContentType,IEnumerable{string},string,RequestContext)">
+    <member name="SendToAll(RequestContent,ContentType,IEnumerable{string},string,int?,RequestContext)">
 <example>
 This sample shows how to call SendToAll with required parameters and request content.
 <code><![CDATA[
-var client = new WebPubSubServiceClient("<https://my-service.azure.com>", "<hub>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new WebPubSubServiceClient(endpoint, "<hub>");
 
 var data = File.OpenRead("<filePath>");
 
@@ -76,11 +83,12 @@ Console.WriteLine(response.Status);
 ]]></code>
 This sample shows how to call SendToAll with all parameters and request content.
 <code><![CDATA[
-var client = new WebPubSubServiceClient("<https://my-service.azure.com>", "<hub>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new WebPubSubServiceClient(endpoint, "<hub>");
 
 var data = File.OpenRead("<filePath>");
 
-Response response = client.SendToAll(RequestContent.Create(data), ContentType.ApplicationOctetStream, new String[]{"<excluded>"}, "<filter>");
+Response response = client.SendToAll(RequestContent.Create(data), ContentType.ApplicationOctetStream, new String[]{"<excluded>"}, "<filter>", 1234);
 Console.WriteLine(response.Status);
 ]]></code>
 </example>
@@ -89,14 +97,16 @@ Console.WriteLine(response.Status);
 <example>
 This sample shows how to call CloseConnectionAsync with required parameters.
 <code><![CDATA[
-var client = new WebPubSubServiceClient("<https://my-service.azure.com>", "<hub>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new WebPubSubServiceClient(endpoint, "<hub>");
 
 Response response = await client.CloseConnectionAsync("<connectionId>");
 Console.WriteLine(response.Status);
 ]]></code>
 This sample shows how to call CloseConnectionAsync with all parameters.
 <code><![CDATA[
-var client = new WebPubSubServiceClient("<https://my-service.azure.com>", "<hub>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new WebPubSubServiceClient(endpoint, "<hub>");
 
 Response response = await client.CloseConnectionAsync("<connectionId>", "<reason>");
 Console.WriteLine(response.Status);
@@ -107,14 +117,16 @@ Console.WriteLine(response.Status);
 <example>
 This sample shows how to call CloseConnection with required parameters.
 <code><![CDATA[
-var client = new WebPubSubServiceClient("<https://my-service.azure.com>", "<hub>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new WebPubSubServiceClient(endpoint, "<hub>");
 
 Response response = client.CloseConnection("<connectionId>");
 Console.WriteLine(response.Status);
 ]]></code>
 This sample shows how to call CloseConnection with all parameters.
 <code><![CDATA[
-var client = new WebPubSubServiceClient("<https://my-service.azure.com>", "<hub>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new WebPubSubServiceClient(endpoint, "<hub>");
 
 Response response = client.CloseConnection("<connectionId>", "<reason>");
 Console.WriteLine(response.Status);
@@ -125,28 +137,50 @@ Console.WriteLine(response.Status);
     </member>
     <member name="ConnectionExistsImpl(string,RequestContext)">
     </member>
-    <member name="SendToConnectionAsync(string,RequestContent,ContentType,RequestContext)">
+    <member name="SendToConnectionAsync(string,RequestContent,ContentType,int?,RequestContext)">
 <example>
 This sample shows how to call SendToConnectionAsync with required parameters and request content.
 <code><![CDATA[
-var client = new WebPubSubServiceClient("<https://my-service.azure.com>", "<hub>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new WebPubSubServiceClient(endpoint, "<hub>");
 
 var data = File.OpenRead("<filePath>");
 
 Response response = await client.SendToConnectionAsync("<connectionId>", RequestContent.Create(data), ContentType.ApplicationOctetStream);
 Console.WriteLine(response.Status);
 ]]></code>
+This sample shows how to call SendToConnectionAsync with all parameters and request content.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new WebPubSubServiceClient(endpoint, "<hub>");
+
+var data = File.OpenRead("<filePath>");
+
+Response response = await client.SendToConnectionAsync("<connectionId>", RequestContent.Create(data), ContentType.ApplicationOctetStream, 1234);
+Console.WriteLine(response.Status);
+]]></code>
 </example>
     </member>
-    <member name="SendToConnection(string,RequestContent,ContentType,RequestContext)">
+    <member name="SendToConnection(string,RequestContent,ContentType,int?,RequestContext)">
 <example>
 This sample shows how to call SendToConnection with required parameters and request content.
 <code><![CDATA[
-var client = new WebPubSubServiceClient("<https://my-service.azure.com>", "<hub>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new WebPubSubServiceClient(endpoint, "<hub>");
 
 var data = File.OpenRead("<filePath>");
 
 Response response = client.SendToConnection("<connectionId>", RequestContent.Create(data), ContentType.ApplicationOctetStream);
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call SendToConnection with all parameters and request content.
+<code><![CDATA[
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new WebPubSubServiceClient(endpoint, "<hub>");
+
+var data = File.OpenRead("<filePath>");
+
+Response response = client.SendToConnection("<connectionId>", RequestContent.Create(data), ContentType.ApplicationOctetStream, 1234);
 Console.WriteLine(response.Status);
 ]]></code>
 </example>
@@ -155,7 +189,8 @@ Console.WriteLine(response.Status);
 <example>
 This sample shows how to call RemoveConnectionFromAllGroupsAsync with required parameters.
 <code><![CDATA[
-var client = new WebPubSubServiceClient("<https://my-service.azure.com>", "<hub>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new WebPubSubServiceClient(endpoint, "<hub>");
 
 Response response = await client.RemoveConnectionFromAllGroupsAsync("<connectionId>");
 Console.WriteLine(response.Status);
@@ -166,7 +201,8 @@ Console.WriteLine(response.Status);
 <example>
 This sample shows how to call RemoveConnectionFromAllGroups with required parameters.
 <code><![CDATA[
-var client = new WebPubSubServiceClient("<https://my-service.azure.com>", "<hub>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new WebPubSubServiceClient(endpoint, "<hub>");
 
 Response response = client.RemoveConnectionFromAllGroups("<connectionId>");
 Console.WriteLine(response.Status);
@@ -181,14 +217,16 @@ Console.WriteLine(response.Status);
 <example>
 This sample shows how to call CloseGroupConnectionsAsync with required parameters.
 <code><![CDATA[
-var client = new WebPubSubServiceClient("<https://my-service.azure.com>", "<hub>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new WebPubSubServiceClient(endpoint, "<hub>");
 
 Response response = await client.CloseGroupConnectionsAsync("<group>");
 Console.WriteLine(response.Status);
 ]]></code>
 This sample shows how to call CloseGroupConnectionsAsync with all parameters.
 <code><![CDATA[
-var client = new WebPubSubServiceClient("<https://my-service.azure.com>", "<hub>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new WebPubSubServiceClient(endpoint, "<hub>");
 
 Response response = await client.CloseGroupConnectionsAsync("<group>", new String[]{"<excluded>"}, "<reason>");
 Console.WriteLine(response.Status);
@@ -199,25 +237,28 @@ Console.WriteLine(response.Status);
 <example>
 This sample shows how to call CloseGroupConnections with required parameters.
 <code><![CDATA[
-var client = new WebPubSubServiceClient("<https://my-service.azure.com>", "<hub>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new WebPubSubServiceClient(endpoint, "<hub>");
 
 Response response = client.CloseGroupConnections("<group>");
 Console.WriteLine(response.Status);
 ]]></code>
 This sample shows how to call CloseGroupConnections with all parameters.
 <code><![CDATA[
-var client = new WebPubSubServiceClient("<https://my-service.azure.com>", "<hub>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new WebPubSubServiceClient(endpoint, "<hub>");
 
 Response response = client.CloseGroupConnections("<group>", new String[]{"<excluded>"}, "<reason>");
 Console.WriteLine(response.Status);
 ]]></code>
 </example>
     </member>
-    <member name="SendToGroupAsync(string,RequestContent,ContentType,IEnumerable{string},string,RequestContext)">
+    <member name="SendToGroupAsync(string,RequestContent,ContentType,IEnumerable{string},string,int?,RequestContext)">
 <example>
 This sample shows how to call SendToGroupAsync with required parameters and request content.
 <code><![CDATA[
-var client = new WebPubSubServiceClient("<https://my-service.azure.com>", "<hub>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new WebPubSubServiceClient(endpoint, "<hub>");
 
 var data = File.OpenRead("<filePath>");
 
@@ -226,20 +267,22 @@ Console.WriteLine(response.Status);
 ]]></code>
 This sample shows how to call SendToGroupAsync with all parameters and request content.
 <code><![CDATA[
-var client = new WebPubSubServiceClient("<https://my-service.azure.com>", "<hub>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new WebPubSubServiceClient(endpoint, "<hub>");
 
 var data = File.OpenRead("<filePath>");
 
-Response response = await client.SendToGroupAsync("<group>", RequestContent.Create(data), ContentType.ApplicationOctetStream, new String[]{"<excluded>"}, "<filter>");
+Response response = await client.SendToGroupAsync("<group>", RequestContent.Create(data), ContentType.ApplicationOctetStream, new String[]{"<excluded>"}, "<filter>", 1234);
 Console.WriteLine(response.Status);
 ]]></code>
 </example>
     </member>
-    <member name="SendToGroup(string,RequestContent,ContentType,IEnumerable{string},string,RequestContext)">
+    <member name="SendToGroup(string,RequestContent,ContentType,IEnumerable{string},string,int?,RequestContext)">
 <example>
 This sample shows how to call SendToGroup with required parameters and request content.
 <code><![CDATA[
-var client = new WebPubSubServiceClient("<https://my-service.azure.com>", "<hub>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new WebPubSubServiceClient(endpoint, "<hub>");
 
 var data = File.OpenRead("<filePath>");
 
@@ -248,11 +291,12 @@ Console.WriteLine(response.Status);
 ]]></code>
 This sample shows how to call SendToGroup with all parameters and request content.
 <code><![CDATA[
-var client = new WebPubSubServiceClient("<https://my-service.azure.com>", "<hub>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new WebPubSubServiceClient(endpoint, "<hub>");
 
 var data = File.OpenRead("<filePath>");
 
-Response response = client.SendToGroup("<group>", RequestContent.Create(data), ContentType.ApplicationOctetStream, new String[]{"<excluded>"}, "<filter>");
+Response response = client.SendToGroup("<group>", RequestContent.Create(data), ContentType.ApplicationOctetStream, new String[]{"<excluded>"}, "<filter>", 1234);
 Console.WriteLine(response.Status);
 ]]></code>
 </example>
@@ -261,7 +305,8 @@ Console.WriteLine(response.Status);
 <example>
 This sample shows how to call RemoveConnectionFromGroupAsync with required parameters.
 <code><![CDATA[
-var client = new WebPubSubServiceClient("<https://my-service.azure.com>", "<hub>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new WebPubSubServiceClient(endpoint, "<hub>");
 
 Response response = await client.RemoveConnectionFromGroupAsync("<group>", "<connectionId>");
 Console.WriteLine(response.Status);
@@ -272,7 +317,8 @@ Console.WriteLine(response.Status);
 <example>
 This sample shows how to call RemoveConnectionFromGroup with required parameters.
 <code><![CDATA[
-var client = new WebPubSubServiceClient("<https://my-service.azure.com>", "<hub>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new WebPubSubServiceClient(endpoint, "<hub>");
 
 Response response = client.RemoveConnectionFromGroup("<group>", "<connectionId>");
 Console.WriteLine(response.Status);
@@ -283,7 +329,8 @@ Console.WriteLine(response.Status);
 <example>
 This sample shows how to call AddConnectionToGroupAsync with required parameters.
 <code><![CDATA[
-var client = new WebPubSubServiceClient("<https://my-service.azure.com>", "<hub>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new WebPubSubServiceClient(endpoint, "<hub>");
 
 Response response = await client.AddConnectionToGroupAsync("<group>", "<connectionId>");
 Console.WriteLine(response.Status);
@@ -294,7 +341,8 @@ Console.WriteLine(response.Status);
 <example>
 This sample shows how to call AddConnectionToGroup with required parameters.
 <code><![CDATA[
-var client = new WebPubSubServiceClient("<https://my-service.azure.com>", "<hub>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new WebPubSubServiceClient(endpoint, "<hub>");
 
 Response response = client.AddConnectionToGroup("<group>", "<connectionId>");
 Console.WriteLine(response.Status);
@@ -321,14 +369,16 @@ Console.WriteLine(response.Status);
 <example>
 This sample shows how to call CloseUserConnectionsAsync with required parameters.
 <code><![CDATA[
-var client = new WebPubSubServiceClient("<https://my-service.azure.com>", "<hub>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new WebPubSubServiceClient(endpoint, "<hub>");
 
 Response response = await client.CloseUserConnectionsAsync("<userId>");
 Console.WriteLine(response.Status);
 ]]></code>
 This sample shows how to call CloseUserConnectionsAsync with all parameters.
 <code><![CDATA[
-var client = new WebPubSubServiceClient("<https://my-service.azure.com>", "<hub>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new WebPubSubServiceClient(endpoint, "<hub>");
 
 Response response = await client.CloseUserConnectionsAsync("<userId>", new String[]{"<excluded>"}, "<reason>");
 Console.WriteLine(response.Status);
@@ -339,25 +389,28 @@ Console.WriteLine(response.Status);
 <example>
 This sample shows how to call CloseUserConnections with required parameters.
 <code><![CDATA[
-var client = new WebPubSubServiceClient("<https://my-service.azure.com>", "<hub>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new WebPubSubServiceClient(endpoint, "<hub>");
 
 Response response = client.CloseUserConnections("<userId>");
 Console.WriteLine(response.Status);
 ]]></code>
 This sample shows how to call CloseUserConnections with all parameters.
 <code><![CDATA[
-var client = new WebPubSubServiceClient("<https://my-service.azure.com>", "<hub>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new WebPubSubServiceClient(endpoint, "<hub>");
 
 Response response = client.CloseUserConnections("<userId>", new String[]{"<excluded>"}, "<reason>");
 Console.WriteLine(response.Status);
 ]]></code>
 </example>
     </member>
-    <member name="SendToUserAsync(string,RequestContent,ContentType,string,RequestContext)">
+    <member name="SendToUserAsync(string,RequestContent,ContentType,string,int?,RequestContext)">
 <example>
 This sample shows how to call SendToUserAsync with required parameters and request content.
 <code><![CDATA[
-var client = new WebPubSubServiceClient("<https://my-service.azure.com>", "<hub>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new WebPubSubServiceClient(endpoint, "<hub>");
 
 var data = File.OpenRead("<filePath>");
 
@@ -366,20 +419,22 @@ Console.WriteLine(response.Status);
 ]]></code>
 This sample shows how to call SendToUserAsync with all parameters and request content.
 <code><![CDATA[
-var client = new WebPubSubServiceClient("<https://my-service.azure.com>", "<hub>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new WebPubSubServiceClient(endpoint, "<hub>");
 
 var data = File.OpenRead("<filePath>");
 
-Response response = await client.SendToUserAsync("<userId>", RequestContent.Create(data), ContentType.ApplicationOctetStream, "<filter>");
+Response response = await client.SendToUserAsync("<userId>", RequestContent.Create(data), ContentType.ApplicationOctetStream, "<filter>", 1234);
 Console.WriteLine(response.Status);
 ]]></code>
 </example>
     </member>
-    <member name="SendToUser(string,RequestContent,ContentType,string,RequestContext)">
+    <member name="SendToUser(string,RequestContent,ContentType,string,int?,RequestContext)">
 <example>
 This sample shows how to call SendToUser with required parameters and request content.
 <code><![CDATA[
-var client = new WebPubSubServiceClient("<https://my-service.azure.com>", "<hub>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new WebPubSubServiceClient(endpoint, "<hub>");
 
 var data = File.OpenRead("<filePath>");
 
@@ -388,11 +443,12 @@ Console.WriteLine(response.Status);
 ]]></code>
 This sample shows how to call SendToUser with all parameters and request content.
 <code><![CDATA[
-var client = new WebPubSubServiceClient("<https://my-service.azure.com>", "<hub>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new WebPubSubServiceClient(endpoint, "<hub>");
 
 var data = File.OpenRead("<filePath>");
 
-Response response = client.SendToUser("<userId>", RequestContent.Create(data), ContentType.ApplicationOctetStream, "<filter>");
+Response response = client.SendToUser("<userId>", RequestContent.Create(data), ContentType.ApplicationOctetStream, "<filter>", 1234);
 Console.WriteLine(response.Status);
 ]]></code>
 </example>
@@ -401,7 +457,8 @@ Console.WriteLine(response.Status);
 <example>
 This sample shows how to call RemoveUserFromAllGroupsAsync with required parameters.
 <code><![CDATA[
-var client = new WebPubSubServiceClient("<https://my-service.azure.com>", "<hub>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new WebPubSubServiceClient(endpoint, "<hub>");
 
 Response response = await client.RemoveUserFromAllGroupsAsync("<userId>");
 Console.WriteLine(response.Status);
@@ -412,7 +469,8 @@ Console.WriteLine(response.Status);
 <example>
 This sample shows how to call RemoveUserFromAllGroups with required parameters.
 <code><![CDATA[
-var client = new WebPubSubServiceClient("<https://my-service.azure.com>", "<hub>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new WebPubSubServiceClient(endpoint, "<hub>");
 
 Response response = client.RemoveUserFromAllGroups("<userId>");
 Console.WriteLine(response.Status);
