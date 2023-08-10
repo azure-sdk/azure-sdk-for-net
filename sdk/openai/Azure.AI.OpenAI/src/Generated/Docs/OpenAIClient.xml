@@ -115,6 +115,10 @@ var chatCompletionsOptions = new ChatCompletionsOptions(new ChatMessage[]
 {
         Name = "<Name>",
         FunctionCall = new FunctionCall("<name>", "<arguments>"),
+        AzureExtensionsContext = new AzureChatExtensionsMessageContext()
+{
+            Messages = {},
+        },
     }
 })
 {
@@ -142,6 +146,10 @@ var chatCompletionsOptions = new ChatCompletionsOptions(new ChatMessage[]
     },
     PresencePenalty = 3.14f,
     FrequencyPenalty = 3.14f,
+    InternalAzureExtensionsDataSources = 
+{
+        new AzureChatExtensionConfiguration("<type>", BinaryData.FromString("<your binary data content>"))
+    },
 };
 var result = await client.GetChatCompletionsAsync("<deploymentId>", chatCompletionsOptions);
 ]]></code>
@@ -159,6 +167,10 @@ var chatCompletionsOptions = new ChatCompletionsOptions(new ChatMessage[]
 {
         Name = "<Name>",
         FunctionCall = new FunctionCall("<name>", "<arguments>"),
+        AzureExtensionsContext = new AzureChatExtensionsMessageContext()
+{
+            Messages = {},
+        },
     }
 })
 {
@@ -186,6 +198,10 @@ var chatCompletionsOptions = new ChatCompletionsOptions(new ChatMessage[]
     },
     PresencePenalty = 3.14f,
     FrequencyPenalty = 3.14f,
+    InternalAzureExtensionsDataSources = 
+{
+        new AzureChatExtensionConfiguration("<type>", BinaryData.FromString("<your binary data content>"))
+    },
 };
 var result = client.GetChatCompletions("<deploymentId>", chatCompletionsOptions);
 ]]></code>
@@ -194,6 +210,14 @@ var result = client.GetChatCompletions("<deploymentId>", chatCompletionsOptions)
     <member name="GetChatCompletionsAsync(string,RequestContent,RequestContext)">
     </member>
     <member name="GetChatCompletions(string,RequestContent,RequestContext)">
+    </member>
+    <member name="GetChatCompletionsWithAzureExtensionsAsync(string,ChatCompletionsOptions,CancellationToken)">
+    </member>
+    <member name="GetChatCompletionsWithAzureExtensions(string,ChatCompletionsOptions,CancellationToken)">
+    </member>
+    <member name="GetChatCompletionsWithAzureExtensionsAsync(string,RequestContent,RequestContext)">
+    </member>
+    <member name="GetChatCompletionsWithAzureExtensions(string,RequestContent,RequestContext)">
     </member>
     <member name="BeginAzureBatchImageGenerationAsync(WaitUntil,ImageGenerationOptions,CancellationToken)">
     </member>

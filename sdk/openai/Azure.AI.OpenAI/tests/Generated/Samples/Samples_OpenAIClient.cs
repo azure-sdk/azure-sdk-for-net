@@ -76,6 +76,10 @@ namespace Azure.AI.OpenAI.Samples
 {
         Name = "<Name>",
         FunctionCall = new FunctionCall("<name>", "<arguments>"),
+        AzureExtensionsContext = new AzureChatExtensionsMessageContext()
+{
+            Messages = {},
+        },
     }
             })
             {
@@ -103,6 +107,10 @@ namespace Azure.AI.OpenAI.Samples
     },
                 PresencePenalty = 3.14f,
                 FrequencyPenalty = 3.14f,
+                InternalAzureExtensionsDataSources =
+{
+        new AzureChatExtensionConfiguration("<type>", BinaryData.FromString("<your binary data content>"))
+    },
             };
             var result = await client.GetChatCompletionsAsync("<deploymentId>", chatCompletionsOptions);
         }
