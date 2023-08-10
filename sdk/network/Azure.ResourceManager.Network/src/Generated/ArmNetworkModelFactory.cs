@@ -1491,6 +1491,7 @@ namespace Azure.ResourceManager.Network.Models
         /// <param name="managementIPConfiguration"> IP configuration of the Azure Firewall used for management traffic. </param>
         /// <param name="provisioningState"> The provisioning state of the Azure firewall resource. </param>
         /// <param name="threatIntelMode"> The operation mode for Threat Intelligence. </param>
+        /// <param name="autoscaleSettings"> The autoscale settings for Azure Firewall. </param>
         /// <param name="virtualHubId"> The virtualHub to which the firewall belongs. </param>
         /// <param name="firewallPolicyId"> The firewallPolicy associated with this azure firewall. </param>
         /// <param name="hubIPAddresses"> IP addresses associated with AzureFirewall. </param>
@@ -1498,7 +1499,7 @@ namespace Azure.ResourceManager.Network.Models
         /// <param name="sku"> The Azure Firewall Resource SKU. </param>
         /// <param name="additionalProperties"> The additional properties used to further config this azure firewall. </param>
         /// <returns> A new <see cref="Network.AzureFirewallData"/> instance for mocking. </returns>
-        public static AzureFirewallData AzureFirewallData(ResourceIdentifier id = null, string name = null, ResourceType? resourceType = null, AzureLocation? location = null, IDictionary<string, string> tags = null, IEnumerable<string> zones = null, ETag? etag = null, IEnumerable<AzureFirewallApplicationRuleCollectionData> applicationRuleCollections = null, IEnumerable<AzureFirewallNatRuleCollectionData> natRuleCollections = null, IEnumerable<AzureFirewallNetworkRuleCollectionData> networkRuleCollections = null, IEnumerable<AzureFirewallIPConfiguration> ipConfigurations = null, AzureFirewallIPConfiguration managementIPConfiguration = null, NetworkProvisioningState? provisioningState = null, AzureFirewallThreatIntelMode? threatIntelMode = null, ResourceIdentifier virtualHubId = null, ResourceIdentifier firewallPolicyId = null, HubIPAddresses hubIPAddresses = null, IEnumerable<AzureFirewallIPGroups> ipGroups = null, AzureFirewallSku sku = null, IDictionary<string, string> additionalProperties = null)
+        public static AzureFirewallData AzureFirewallData(ResourceIdentifier id = null, string name = null, ResourceType? resourceType = null, AzureLocation? location = null, IDictionary<string, string> tags = null, IEnumerable<string> zones = null, ETag? etag = null, IEnumerable<AzureFirewallApplicationRuleCollectionData> applicationRuleCollections = null, IEnumerable<AzureFirewallNatRuleCollectionData> natRuleCollections = null, IEnumerable<AzureFirewallNetworkRuleCollectionData> networkRuleCollections = null, IEnumerable<AzureFirewallIPConfiguration> ipConfigurations = null, AzureFirewallIPConfiguration managementIPConfiguration = null, NetworkProvisioningState? provisioningState = null, AzureFirewallThreatIntelMode? threatIntelMode = null, AzureFirewallAutoScaleSettings autoscaleSettings = null, ResourceIdentifier virtualHubId = null, ResourceIdentifier firewallPolicyId = null, HubIPAddresses hubIPAddresses = null, IEnumerable<AzureFirewallIPGroups> ipGroups = null, AzureFirewallSku sku = null, IDictionary<string, string> additionalProperties = null)
         {
             tags ??= new Dictionary<string, string>();
             zones ??= new List<string>();
@@ -1509,7 +1510,7 @@ namespace Azure.ResourceManager.Network.Models
             ipGroups ??= new List<AzureFirewallIPGroups>();
             additionalProperties ??= new Dictionary<string, string>();
 
-            return new AzureFirewallData(id, name, resourceType, location, tags, zones?.ToList(), etag, applicationRuleCollections?.ToList(), natRuleCollections?.ToList(), networkRuleCollections?.ToList(), ipConfigurations?.ToList(), managementIPConfiguration, provisioningState, threatIntelMode, virtualHubId != null ? ResourceManagerModelFactory.WritableSubResource(virtualHubId) : null, firewallPolicyId != null ? ResourceManagerModelFactory.WritableSubResource(firewallPolicyId) : null, hubIPAddresses, ipGroups?.ToList(), sku, additionalProperties);
+            return new AzureFirewallData(id, name, resourceType, location, tags, zones?.ToList(), etag, applicationRuleCollections?.ToList(), natRuleCollections?.ToList(), networkRuleCollections?.ToList(), ipConfigurations?.ToList(), managementIPConfiguration, provisioningState, threatIntelMode, autoscaleSettings, virtualHubId != null ? ResourceManagerModelFactory.WritableSubResource(virtualHubId) : null, firewallPolicyId != null ? ResourceManagerModelFactory.WritableSubResource(firewallPolicyId) : null, hubIPAddresses, ipGroups?.ToList(), sku, additionalProperties);
         }
 
         /// <summary> Initializes a new instance of AzureFirewallApplicationRuleCollectionData. </summary>

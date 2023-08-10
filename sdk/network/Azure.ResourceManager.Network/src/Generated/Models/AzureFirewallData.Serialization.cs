@@ -102,6 +102,11 @@ namespace Azure.ResourceManager.Network
                 writer.WritePropertyName("threatIntelMode"u8);
                 writer.WriteStringValue(ThreatIntelMode.Value.ToString());
             }
+            if (Optional.IsDefined(AutoscaleSettings))
+            {
+                writer.WritePropertyName("autoscaleSettings"u8);
+                writer.WriteObjectValue(AutoscaleSettings);
+            }
             if (Optional.IsDefined(VirtualHub))
             {
                 writer.WritePropertyName("virtualHub"u8);
@@ -157,6 +162,7 @@ namespace Azure.ResourceManager.Network
             Optional<AzureFirewallIPConfiguration> managementIPConfiguration = default;
             Optional<NetworkProvisioningState> provisioningState = default;
             Optional<AzureFirewallThreatIntelMode> threatIntelMode = default;
+            Optional<AzureFirewallAutoScaleSettings> autoscaleSettings = default;
             Optional<WritableSubResource> virtualHub = default;
             Optional<WritableSubResource> firewallPolicy = default;
             Optional<HubIPAddresses> hubIPAddresses = default;
@@ -326,6 +332,15 @@ namespace Azure.ResourceManager.Network
                             threatIntelMode = new AzureFirewallThreatIntelMode(property0.Value.GetString());
                             continue;
                         }
+                        if (property0.NameEquals("autoscaleSettings"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            autoscaleSettings = AzureFirewallAutoScaleSettings.DeserializeAzureFirewallAutoScaleSettings(property0.Value);
+                            continue;
+                        }
                         if (property0.NameEquals("virtualHub"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -394,7 +409,7 @@ namespace Azure.ResourceManager.Network
                     continue;
                 }
             }
-            return new AzureFirewallData(id.Value, name.Value, Optional.ToNullable(type), Optional.ToNullable(location), Optional.ToDictionary(tags), Optional.ToList(zones), Optional.ToNullable(etag), Optional.ToList(applicationRuleCollections), Optional.ToList(natRuleCollections), Optional.ToList(networkRuleCollections), Optional.ToList(ipConfigurations), managementIPConfiguration.Value, Optional.ToNullable(provisioningState), Optional.ToNullable(threatIntelMode), virtualHub, firewallPolicy, hubIPAddresses.Value, Optional.ToList(ipGroups), sku.Value, Optional.ToDictionary(additionalProperties));
+            return new AzureFirewallData(id.Value, name.Value, Optional.ToNullable(type), Optional.ToNullable(location), Optional.ToDictionary(tags), Optional.ToList(zones), Optional.ToNullable(etag), Optional.ToList(applicationRuleCollections), Optional.ToList(natRuleCollections), Optional.ToList(networkRuleCollections), Optional.ToList(ipConfigurations), managementIPConfiguration.Value, Optional.ToNullable(provisioningState), Optional.ToNullable(threatIntelMode), autoscaleSettings.Value, virtualHub, firewallPolicy, hubIPAddresses.Value, Optional.ToList(ipGroups), sku.Value, Optional.ToDictionary(additionalProperties));
         }
     }
 }
