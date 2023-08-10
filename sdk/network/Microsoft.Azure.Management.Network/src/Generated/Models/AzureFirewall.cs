@@ -55,6 +55,8 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <param name="threatIntelMode">The operation mode for Threat
         /// Intelligence. Possible values include: 'Alert', 'Deny',
         /// 'Off'</param>
+        /// <param name="autoscaleSettings">The autoscale settings for Azure
+        /// Firewall.</param>
         /// <param name="virtualHub">The virtualHub to which the firewall
         /// belongs.</param>
         /// <param name="firewallPolicy">The firewallPolicy associated with
@@ -70,7 +72,7 @@ namespace Microsoft.Azure.Management.Network.Models
         /// resource needs to come from.</param>
         /// <param name="etag">A unique read-only string that changes whenever
         /// the resource is updated.</param>
-        public AzureFirewall(string id = default(string), string name = default(string), string type = default(string), string location = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), IList<AzureFirewallApplicationRuleCollection> applicationRuleCollections = default(IList<AzureFirewallApplicationRuleCollection>), IList<AzureFirewallNatRuleCollection> natRuleCollections = default(IList<AzureFirewallNatRuleCollection>), IList<AzureFirewallNetworkRuleCollection> networkRuleCollections = default(IList<AzureFirewallNetworkRuleCollection>), IList<AzureFirewallIPConfiguration> ipConfigurations = default(IList<AzureFirewallIPConfiguration>), AzureFirewallIPConfiguration managementIpConfiguration = default(AzureFirewallIPConfiguration), string provisioningState = default(string), string threatIntelMode = default(string), SubResource virtualHub = default(SubResource), SubResource firewallPolicy = default(SubResource), HubIPAddresses hubIPAddresses = default(HubIPAddresses), IList<AzureFirewallIpGroups> ipGroups = default(IList<AzureFirewallIpGroups>), AzureFirewallSku sku = default(AzureFirewallSku), IDictionary<string, string> additionalProperties = default(IDictionary<string, string>), IList<string> zones = default(IList<string>), string etag = default(string))
+        public AzureFirewall(string id = default(string), string name = default(string), string type = default(string), string location = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), IList<AzureFirewallApplicationRuleCollection> applicationRuleCollections = default(IList<AzureFirewallApplicationRuleCollection>), IList<AzureFirewallNatRuleCollection> natRuleCollections = default(IList<AzureFirewallNatRuleCollection>), IList<AzureFirewallNetworkRuleCollection> networkRuleCollections = default(IList<AzureFirewallNetworkRuleCollection>), IList<AzureFirewallIPConfiguration> ipConfigurations = default(IList<AzureFirewallIPConfiguration>), AzureFirewallIPConfiguration managementIpConfiguration = default(AzureFirewallIPConfiguration), string provisioningState = default(string), string threatIntelMode = default(string), AzureFirewallAutoScaleSettings autoscaleSettings = default(AzureFirewallAutoScaleSettings), SubResource virtualHub = default(SubResource), SubResource firewallPolicy = default(SubResource), HubIPAddresses hubIPAddresses = default(HubIPAddresses), IList<AzureFirewallIpGroups> ipGroups = default(IList<AzureFirewallIpGroups>), AzureFirewallSku sku = default(AzureFirewallSku), IDictionary<string, string> additionalProperties = default(IDictionary<string, string>), IList<string> zones = default(IList<string>), string etag = default(string))
             : base(id, name, type, location, tags)
         {
             ApplicationRuleCollections = applicationRuleCollections;
@@ -80,6 +82,7 @@ namespace Microsoft.Azure.Management.Network.Models
             ManagementIpConfiguration = managementIpConfiguration;
             ProvisioningState = provisioningState;
             ThreatIntelMode = threatIntelMode;
+            AutoscaleSettings = autoscaleSettings;
             VirtualHub = virtualHub;
             FirewallPolicy = firewallPolicy;
             HubIPAddresses = hubIPAddresses;
@@ -146,6 +149,12 @@ namespace Microsoft.Azure.Management.Network.Models
         public string ThreatIntelMode { get; set; }
 
         /// <summary>
+        /// Gets or sets the autoscale settings for Azure Firewall.
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.autoscaleSettings")]
+        public AzureFirewallAutoScaleSettings AutoscaleSettings { get; set; }
+
+        /// <summary>
         /// Gets or sets the virtualHub to which the firewall belongs.
         /// </summary>
         [JsonProperty(PropertyName = "properties.virtualHub")]
@@ -197,5 +206,48 @@ namespace Microsoft.Azure.Management.Network.Models
         [JsonProperty(PropertyName = "etag")]
         public string Etag { get; private set; }
 
+        /// <summary>
+        /// Validate the object.
+        /// </summary>
+        /// <exception cref="ValidationException">
+        /// Thrown if validation fails
+        /// </exception>
+        public virtual void Validate()
+        {
+            if (ApplicationRuleCollections != null)
+            {
+                foreach (var element in ApplicationRuleCollections)
+                {
+                    if (element != null)
+                    {
+                        element.Validate();
+                    }
+                }
+            }
+            if (NatRuleCollections != null)
+            {
+                foreach (var element1 in NatRuleCollections)
+                {
+                    if (element1 != null)
+                    {
+                        element1.Validate();
+                    }
+                }
+            }
+            if (NetworkRuleCollections != null)
+            {
+                foreach (var element2 in NetworkRuleCollections)
+                {
+                    if (element2 != null)
+                    {
+                        element2.Validate();
+                    }
+                }
+            }
+            if (AutoscaleSettings != null)
+            {
+                AutoscaleSettings.Validate();
+            }
+        }
     }
 }
