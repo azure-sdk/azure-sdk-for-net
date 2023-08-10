@@ -5,28 +5,34 @@
 
 #nullable disable
 
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Azure.Core;
 
 namespace Azure.ResourceManager.HDInsight.Models
 {
-    /// <summary> Describes the compute profile. </summary>
+    /// <summary> The compute profile. </summary>
     internal partial class ComputeProfile
     {
         /// <summary> Initializes a new instance of ComputeProfile. </summary>
-        public ComputeProfile()
+        /// <param name="nodes"> The nodes definitions. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="nodes"/> is null. </exception>
+        public ComputeProfile(IEnumerable<NodeProfile> nodes)
         {
-            Roles = new ChangeTrackingList<HDInsightClusterRole>();
+            Argument.AssertNotNull(nodes, nameof(nodes));
+
+            Nodes = nodes.ToList();
         }
 
         /// <summary> Initializes a new instance of ComputeProfile. </summary>
-        /// <param name="roles"> The list of roles in the cluster. </param>
-        internal ComputeProfile(IList<HDInsightClusterRole> roles)
+        /// <param name="nodes"> The nodes definitions. </param>
+        internal ComputeProfile(IList<NodeProfile> nodes)
         {
-            Roles = roles;
+            Nodes = nodes;
         }
 
-        /// <summary> The list of roles in the cluster. </summary>
-        public IList<HDInsightClusterRole> Roles { get; }
+        /// <summary> The nodes definitions. </summary>
+        public IList<NodeProfile> Nodes { get; }
     }
 }
