@@ -35,7 +35,7 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <param name="type">The endpoint type. Possible values include:
         /// 'AzureVM', 'AzureVNet', 'AzureSubnet', 'ExternalAddress',
         /// 'MMAWorkspaceMachine', 'MMAWorkspaceNetwork', 'AzureArcVM',
-        /// 'AzureVMSS'</param>
+        /// 'AzureVMSS', 'AzureArcNetwork'</param>
         /// <param name="resourceId">Resource ID of the connection monitor
         /// endpoint.</param>
         /// <param name="address">Address of the connection monitor endpoint
@@ -46,7 +46,11 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <param name="coverageLevel">Test coverage for the endpoint.
         /// Possible values include: 'Default', 'Low', 'BelowAverage',
         /// 'Average', 'AboveAverage', 'Full'</param>
-        public ConnectionMonitorEndpoint(string name, string type = default(string), string resourceId = default(string), string address = default(string), ConnectionMonitorEndpointFilter filter = default(ConnectionMonitorEndpointFilter), ConnectionMonitorEndpointScope scope = default(ConnectionMonitorEndpointScope), string coverageLevel = default(string))
+        /// <param name="locationDetails">Location details for connection
+        /// monitor endpoint.</param>
+        /// <param name="subscriptionId">Subscription ID for connection monitor
+        /// endpoint.</param>
+        public ConnectionMonitorEndpoint(string name, string type = default(string), string resourceId = default(string), string address = default(string), ConnectionMonitorEndpointFilter filter = default(ConnectionMonitorEndpointFilter), ConnectionMonitorEndpointScope scope = default(ConnectionMonitorEndpointScope), string coverageLevel = default(string), ConnectionMonitorEndPointLocationDetails locationDetails = default(ConnectionMonitorEndPointLocationDetails), string subscriptionId = default(string))
         {
             Name = name;
             Type = type;
@@ -55,6 +59,8 @@ namespace Microsoft.Azure.Management.Network.Models
             Filter = filter;
             Scope = scope;
             CoverageLevel = coverageLevel;
+            LocationDetails = locationDetails;
+            SubscriptionId = subscriptionId;
             CustomInit();
         }
 
@@ -73,7 +79,7 @@ namespace Microsoft.Azure.Management.Network.Models
         /// Gets or sets the endpoint type. Possible values include: 'AzureVM',
         /// 'AzureVNet', 'AzureSubnet', 'ExternalAddress',
         /// 'MMAWorkspaceMachine', 'MMAWorkspaceNetwork', 'AzureArcVM',
-        /// 'AzureVMSS'
+        /// 'AzureVMSS', 'AzureArcNetwork'
         /// </summary>
         [JsonProperty(PropertyName = "type")]
         public string Type { get; set; }
@@ -110,6 +116,18 @@ namespace Microsoft.Azure.Management.Network.Models
         /// </summary>
         [JsonProperty(PropertyName = "coverageLevel")]
         public string CoverageLevel { get; set; }
+
+        /// <summary>
+        /// Gets or sets location details for connection monitor endpoint.
+        /// </summary>
+        [JsonProperty(PropertyName = "locationDetails")]
+        public ConnectionMonitorEndPointLocationDetails LocationDetails { get; set; }
+
+        /// <summary>
+        /// Gets or sets subscription ID for connection monitor endpoint.
+        /// </summary>
+        [JsonProperty(PropertyName = "subscriptionId")]
+        public string SubscriptionId { get; set; }
 
         /// <summary>
         /// Validate the object.
