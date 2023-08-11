@@ -31,7 +31,9 @@ namespace Azure.ResourceManager.Network.Models
         /// <param name="filter"> Filter for sub-items within the endpoint. </param>
         /// <param name="scope"> Endpoint scope. </param>
         /// <param name="coverageLevel"> Test coverage for the endpoint. </param>
-        internal ConnectionMonitorEndpoint(string name, ConnectionMonitorEndpointType? endpointType, ResourceIdentifier resourceId, string address, ConnectionMonitorEndpointFilter filter, ConnectionMonitorEndpointScope scope, CoverageLevel? coverageLevel)
+        /// <param name="locationDetails"> Location details for connection monitor endpoint. </param>
+        /// <param name="subscriptionId"> Subscription ID for connection monitor endpoint. </param>
+        internal ConnectionMonitorEndpoint(string name, ConnectionMonitorEndpointType? endpointType, ResourceIdentifier resourceId, string address, ConnectionMonitorEndpointFilter filter, ConnectionMonitorEndpointScope scope, CoverageLevel? coverageLevel, ConnectionMonitorEndPointLocationDetails locationDetails, string subscriptionId)
         {
             Name = name;
             EndpointType = endpointType;
@@ -40,6 +42,8 @@ namespace Azure.ResourceManager.Network.Models
             Filter = filter;
             Scope = scope;
             CoverageLevel = coverageLevel;
+            LocationDetails = locationDetails;
+            SubscriptionId = subscriptionId;
         }
 
         /// <summary> The name of the connection monitor endpoint. </summary>
@@ -56,5 +60,21 @@ namespace Azure.ResourceManager.Network.Models
         public ConnectionMonitorEndpointScope Scope { get; set; }
         /// <summary> Test coverage for the endpoint. </summary>
         public CoverageLevel? CoverageLevel { get; set; }
+        /// <summary> Location details for connection monitor endpoint. </summary>
+        internal ConnectionMonitorEndPointLocationDetails LocationDetails { get; set; }
+        /// <summary> Region for connection monitor endpoint. </summary>
+        public string LocationDetailsRegion
+        {
+            get => LocationDetails is null ? default : LocationDetails.Region;
+            set
+            {
+                if (LocationDetails is null)
+                    LocationDetails = new ConnectionMonitorEndPointLocationDetails();
+                LocationDetails.Region = value;
+            }
+        }
+
+        /// <summary> Subscription ID for connection monitor endpoint. </summary>
+        public string SubscriptionId { get; set; }
     }
 }

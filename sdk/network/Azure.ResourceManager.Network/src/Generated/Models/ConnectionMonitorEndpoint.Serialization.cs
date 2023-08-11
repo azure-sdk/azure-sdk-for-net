@@ -47,6 +47,16 @@ namespace Azure.ResourceManager.Network.Models
                 writer.WritePropertyName("coverageLevel"u8);
                 writer.WriteStringValue(CoverageLevel.Value.ToString());
             }
+            if (Optional.IsDefined(LocationDetails))
+            {
+                writer.WritePropertyName("locationDetails"u8);
+                writer.WriteObjectValue(LocationDetails);
+            }
+            if (Optional.IsDefined(SubscriptionId))
+            {
+                writer.WritePropertyName("subscriptionId"u8);
+                writer.WriteStringValue(SubscriptionId);
+            }
             writer.WriteEndObject();
         }
 
@@ -63,6 +73,8 @@ namespace Azure.ResourceManager.Network.Models
             Optional<ConnectionMonitorEndpointFilter> filter = default;
             Optional<ConnectionMonitorEndpointScope> scope = default;
             Optional<CoverageLevel> coverageLevel = default;
+            Optional<ConnectionMonitorEndPointLocationDetails> locationDetails = default;
+            Optional<string> subscriptionId = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("name"u8))
@@ -120,8 +132,22 @@ namespace Azure.ResourceManager.Network.Models
                     coverageLevel = new CoverageLevel(property.Value.GetString());
                     continue;
                 }
+                if (property.NameEquals("locationDetails"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    locationDetails = ConnectionMonitorEndPointLocationDetails.DeserializeConnectionMonitorEndPointLocationDetails(property.Value);
+                    continue;
+                }
+                if (property.NameEquals("subscriptionId"u8))
+                {
+                    subscriptionId = property.Value.GetString();
+                    continue;
+                }
             }
-            return new ConnectionMonitorEndpoint(name, Optional.ToNullable(type), resourceId.Value, address.Value, filter.Value, scope.Value, Optional.ToNullable(coverageLevel));
+            return new ConnectionMonitorEndpoint(name, Optional.ToNullable(type), resourceId.Value, address.Value, filter.Value, scope.Value, Optional.ToNullable(coverageLevel), locationDetails.Value, subscriptionId.Value);
         }
     }
 }
