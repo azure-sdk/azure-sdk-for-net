@@ -6,6 +6,8 @@
 #nullable disable
 
 using System;
+using System.Collections.Generic;
+using Azure.Core;
 
 namespace Azure.ResourceManager.DataBox.Models
 {
@@ -15,6 +17,7 @@ namespace Azure.ResourceManager.DataBox.Models
         /// <summary> Initializes a new instance of DataBoxJobStage. </summary>
         internal DataBoxJobStage()
         {
+            DelayInformation = new ChangeTrackingList<JobDelayDetails>();
         }
 
         /// <summary> Initializes a new instance of DataBoxJobStage. </summary>
@@ -23,13 +26,15 @@ namespace Azure.ResourceManager.DataBox.Models
         /// <param name="stageStatus"> Status of the job stage. </param>
         /// <param name="stageTime"> Time for the job stage in UTC ISO 8601 format. </param>
         /// <param name="jobStageDetails"> Job Stage Details. </param>
-        internal DataBoxJobStage(DataBoxStageName? stageName, string displayName, DataBoxStageStatus? stageStatus, DateTimeOffset? stageTime, BinaryData jobStageDetails)
+        /// <param name="delayInformation"> Delay information for the job stages. </param>
+        internal DataBoxJobStage(DataBoxStageName? stageName, string displayName, DataBoxStageStatus? stageStatus, DateTimeOffset? stageTime, BinaryData jobStageDetails, IReadOnlyList<JobDelayDetails> delayInformation)
         {
             StageName = stageName;
             DisplayName = displayName;
             StageStatus = stageStatus;
             StageTime = stageTime;
             JobStageDetails = jobStageDetails;
+            DelayInformation = delayInformation;
         }
 
         /// <summary> Name of the job stage. </summary>
@@ -69,5 +74,7 @@ namespace Azure.ResourceManager.DataBox.Models
         /// </para>
         /// </summary>
         public BinaryData JobStageDetails { get; }
+        /// <summary> Delay information for the job stages. </summary>
+        public IReadOnlyList<JobDelayDetails> DelayInformation { get; }
     }
 }
