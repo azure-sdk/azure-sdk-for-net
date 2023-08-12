@@ -1571,12 +1571,28 @@ namespace Azure.ResourceManager.Sql.Models
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
         /// <param name="privateEndpointId"> Private endpoint which the connection belongs to. </param>
+        /// <param name="groupIds"> Group IDs. </param>
         /// <param name="connectionState"> Connection state of the private endpoint connection. </param>
         /// <param name="provisioningState"> State of the private endpoint connection. </param>
         /// <returns> A new <see cref="Sql.SqlPrivateEndpointConnectionData"/> instance for mocking. </returns>
-        public static SqlPrivateEndpointConnectionData SqlPrivateEndpointConnectionData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, ResourceIdentifier privateEndpointId = null, SqlPrivateLinkServiceConnectionStateProperty connectionState = null, SqlPrivateEndpointProvisioningState? provisioningState = null)
+        public static SqlPrivateEndpointConnectionData SqlPrivateEndpointConnectionData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, ResourceIdentifier privateEndpointId = null, IEnumerable<string> groupIds = null, SqlPrivateLinkServiceConnectionStateProperty connectionState = null, SqlPrivateEndpointProvisioningState? provisioningState = null)
         {
-            return new SqlPrivateEndpointConnectionData(id, name, resourceType, systemData, privateEndpointId != null ? ResourceManagerModelFactory.WritableSubResource(privateEndpointId) : null, connectionState, provisioningState);
+            groupIds ??= new List<string>();
+
+            return new SqlPrivateEndpointConnectionData(id, name, resourceType, systemData, privateEndpointId != null ? ResourceManagerModelFactory.WritableSubResource(privateEndpointId) : null, groupIds?.ToList(), connectionState, provisioningState);
+        }
+
+        /// <summary> Initializes a new instance of ServerPrivateEndpointConnectionProperties. </summary>
+        /// <param name="privateEndpointId"> Private endpoint which the connection belongs to. </param>
+        /// <param name="groupIds"> Group IDs. </param>
+        /// <param name="connectionState"> Connection state of the private endpoint connection. </param>
+        /// <param name="provisioningState"> State of the private endpoint connection. </param>
+        /// <returns> A new <see cref="Models.ServerPrivateEndpointConnectionProperties"/> instance for mocking. </returns>
+        public static ServerPrivateEndpointConnectionProperties ServerPrivateEndpointConnectionProperties(ResourceIdentifier privateEndpointId = null, IEnumerable<string> groupIds = null, SqlPrivateLinkServiceConnectionStateProperty connectionState = null, SqlPrivateEndpointProvisioningState? provisioningState = null)
+        {
+            groupIds ??= new List<string>();
+
+            return new ServerPrivateEndpointConnectionProperties(privateEndpointId != null ? ResourceManagerModelFactory.WritableSubResource(privateEndpointId) : null, groupIds?.ToList(), connectionState, provisioningState);
         }
 
         /// <summary> Initializes a new instance of SqlPrivateLinkServiceConnectionStateProperty. </summary>
@@ -3592,19 +3608,6 @@ namespace Azure.ResourceManager.Sql.Models
         public static SqlServerPrivateEndpointConnection SqlServerPrivateEndpointConnection(ResourceIdentifier id = null, ServerPrivateEndpointConnectionProperties properties = null)
         {
             return new SqlServerPrivateEndpointConnection(id, properties);
-        }
-
-        /// <summary> Initializes a new instance of ServerPrivateEndpointConnectionProperties. </summary>
-        /// <param name="privateEndpointId"> Private endpoint which the connection belongs to. </param>
-        /// <param name="groupIds"> Group IDs. </param>
-        /// <param name="connectionState"> Connection state of the private endpoint connection. </param>
-        /// <param name="provisioningState"> State of the private endpoint connection. </param>
-        /// <returns> A new <see cref="Models.ServerPrivateEndpointConnectionProperties"/> instance for mocking. </returns>
-        public static ServerPrivateEndpointConnectionProperties ServerPrivateEndpointConnectionProperties(ResourceIdentifier privateEndpointId = null, IEnumerable<string> groupIds = null, SqlPrivateLinkServiceConnectionStateProperty connectionState = null, SqlPrivateEndpointProvisioningState? provisioningState = null)
-        {
-            groupIds ??= new List<string>();
-
-            return new ServerPrivateEndpointConnectionProperties(privateEndpointId != null ? ResourceManagerModelFactory.WritableSubResource(privateEndpointId) : null, groupIds?.ToList(), connectionState, provisioningState);
         }
 
         /// <summary> Initializes a new instance of RefreshExternalGovernanceStatusOperationResult. </summary>
