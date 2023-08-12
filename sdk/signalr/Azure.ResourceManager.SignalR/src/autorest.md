@@ -8,7 +8,7 @@ azure-arm: true
 csharp: true
 library-name: SignalR
 namespace: Azure.ResourceManager.SignalR
-require: https://github.com/Azure/azure-rest-api-specs/blob/34ba022add0034e30462b76e1548ce5a7e053e33/specification/signalr/resource-manager/readme.md
+require: https://github.com/Azure/azure-rest-api-specs/blob/8f1d63e27811cd4d47e11faac9687edfcd16a5e7/specification/signalr/resource-manager/readme.md
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
 skip-csproj: true
