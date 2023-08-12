@@ -42,7 +42,8 @@ namespace Azure.ResourceManager.LabServices
         /// <param name="provisioningState"> Current provisioning state of the lab. </param>
         /// <param name="networkProfile"> The network profile for the lab, typically applied via a lab plan. This profile cannot be modified once a lab has been created. </param>
         /// <param name="state"> The lab state. </param>
-        internal LabData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, LabAutoShutdownProfile autoShutdownProfile, LabConnectionProfile connectionProfile, LabVirtualMachineProfile virtualMachineProfile, LabSecurityProfile securityProfile, LabRosterProfile rosterProfile, ResourceIdentifier labPlanId, string title, string description, LabServicesProvisioningState? provisioningState, LabNetworkProfile networkProfile, LabState? state) : base(id, name, resourceType, systemData, tags, location)
+        /// <param name="resourceOperationError"> Error details of last operation done on lab. </param>
+        internal LabData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, LabAutoShutdownProfile autoShutdownProfile, LabConnectionProfile connectionProfile, LabVirtualMachineProfile virtualMachineProfile, LabSecurityProfile securityProfile, LabRosterProfile rosterProfile, ResourceIdentifier labPlanId, string title, string description, LabServicesProvisioningState? provisioningState, LabNetworkProfile networkProfile, LabState? state, ResourceOperationError resourceOperationError) : base(id, name, resourceType, systemData, tags, location)
         {
             AutoShutdownProfile = autoShutdownProfile;
             ConnectionProfile = connectionProfile;
@@ -55,6 +56,7 @@ namespace Azure.ResourceManager.LabServices
             ProvisioningState = provisioningState;
             NetworkProfile = networkProfile;
             State = state;
+            ResourceOperationError = resourceOperationError;
         }
 
         /// <summary> The resource auto shutdown configuration for the lab. This controls whether actions are taken on resources that are sitting idle. </summary>
@@ -79,5 +81,7 @@ namespace Azure.ResourceManager.LabServices
         public LabNetworkProfile NetworkProfile { get; set; }
         /// <summary> The lab state. </summary>
         public LabState? State { get; }
+        /// <summary> Error details of last operation done on lab. </summary>
+        public ResourceOperationError ResourceOperationError { get; }
     }
 }

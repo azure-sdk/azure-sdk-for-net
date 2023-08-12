@@ -35,6 +35,7 @@ namespace Azure.ResourceManager.LabServices
             Optional<SystemData> systemData = default;
             Optional<LabServicesProvisioningState> provisioningState = default;
             Optional<LabVirtualMachineState> state = default;
+            Optional<ResourceOperationError> resourceOperationError = default;
             Optional<LabVirtualMachineConnectionProfile> connectionProfile = default;
             Optional<string> claimedByUserId = default;
             Optional<LabVirtualMachineType> vmType = default;
@@ -91,6 +92,15 @@ namespace Azure.ResourceManager.LabServices
                             state = property0.Value.GetString().ToLabVirtualMachineState();
                             continue;
                         }
+                        if (property0.NameEquals("resourceOperationError"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            resourceOperationError = ResourceOperationError.DeserializeResourceOperationError(property0.Value);
+                            continue;
+                        }
                         if (property0.NameEquals("connectionProfile"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -118,7 +128,7 @@ namespace Azure.ResourceManager.LabServices
                     continue;
                 }
             }
-            return new LabVirtualMachineData(id, name, type, systemData.Value, Optional.ToNullable(provisioningState), Optional.ToNullable(state), connectionProfile.Value, claimedByUserId.Value, Optional.ToNullable(vmType));
+            return new LabVirtualMachineData(id, name, type, systemData.Value, Optional.ToNullable(provisioningState), Optional.ToNullable(state), resourceOperationError.Value, connectionProfile.Value, claimedByUserId.Value, Optional.ToNullable(vmType));
         }
     }
 }
