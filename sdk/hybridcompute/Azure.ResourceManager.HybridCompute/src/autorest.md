@@ -9,7 +9,7 @@ csharp: true
 library-name: HybridCompute
 namespace: Azure.ResourceManager.HybridCompute
 # default tag is a preview version
-require: https://github.com/Azure/azure-rest-api-specs/blob/7d5d1db0c45d6fe0934c97b6a6f9bb34112d42d1/specification/hybridcompute/resource-manager/readme.md
+require: https://github.com/Azure/azure-rest-api-specs/blob/8f1d63e27811cd4d47e11faac9687edfcd16a5e7/specification/hybridcompute/resource-manager/readme.md
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
 skip-csproj: true
