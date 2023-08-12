@@ -17,10 +17,10 @@ namespace Azure.ResourceManager.NotificationHubs.Models
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
-            if (Optional.IsDefined(Sku))
+            if (Optional.IsDefined(Properties))
             {
-                writer.WritePropertyName("sku"u8);
-                writer.WriteObjectValue(Sku);
+                writer.WritePropertyName("properties"u8);
+                writer.WriteObjectValue(Properties);
             }
             if (Optional.IsCollectionDefined(Tags))
             {
@@ -35,39 +35,6 @@ namespace Azure.ResourceManager.NotificationHubs.Models
             }
             writer.WritePropertyName("location"u8);
             writer.WriteStringValue(Location);
-            writer.WritePropertyName("properties"u8);
-            writer.WriteStartObject();
-            if (Optional.IsDefined(ApnsCredential))
-            {
-                writer.WritePropertyName("apnsCredential"u8);
-                writer.WriteObjectValue(ApnsCredential);
-            }
-            if (Optional.IsDefined(WnsCredential))
-            {
-                writer.WritePropertyName("wnsCredential"u8);
-                writer.WriteObjectValue(WnsCredential);
-            }
-            if (Optional.IsDefined(GcmCredential))
-            {
-                writer.WritePropertyName("gcmCredential"u8);
-                writer.WriteObjectValue(GcmCredential);
-            }
-            if (Optional.IsDefined(MpnsCredential))
-            {
-                writer.WritePropertyName("mpnsCredential"u8);
-                writer.WriteObjectValue(MpnsCredential);
-            }
-            if (Optional.IsDefined(AdmCredential))
-            {
-                writer.WritePropertyName("admCredential"u8);
-                writer.WriteObjectValue(AdmCredential);
-            }
-            if (Optional.IsDefined(BaiduCredential))
-            {
-                writer.WritePropertyName("baiduCredential"u8);
-                writer.WriteObjectValue(BaiduCredential);
-            }
-            writer.WriteEndObject();
             writer.WriteEndObject();
         }
 
@@ -77,28 +44,22 @@ namespace Azure.ResourceManager.NotificationHubs.Models
             {
                 return null;
             }
-            Optional<NotificationHubSku> sku = default;
+            Optional<PnsCredentials> properties = default;
             Optional<IDictionary<string, string>> tags = default;
             AzureLocation location = default;
             ResourceIdentifier id = default;
             string name = default;
             ResourceType type = default;
             Optional<SystemData> systemData = default;
-            Optional<NotificationHubApnsCredential> apnsCredential = default;
-            Optional<NotificationHubWnsCredential> wnsCredential = default;
-            Optional<NotificationHubGcmCredential> gcmCredential = default;
-            Optional<NotificationHubMpnsCredential> mpnsCredential = default;
-            Optional<NotificationHubAdmCredential> admCredential = default;
-            Optional<NotificationHubBaiduCredential> baiduCredential = default;
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("sku"u8))
+                if (property.NameEquals("properties"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    sku = NotificationHubSku.DeserializeNotificationHubSku(property.Value);
+                    properties = PnsCredentials.DeserializePnsCredentials(property.Value);
                     continue;
                 }
                 if (property.NameEquals("tags"u8))
@@ -144,74 +105,8 @@ namespace Azure.ResourceManager.NotificationHubs.Models
                     systemData = JsonSerializer.Deserialize<SystemData>(property.Value.GetRawText());
                     continue;
                 }
-                if (property.NameEquals("properties"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
-                    foreach (var property0 in property.Value.EnumerateObject())
-                    {
-                        if (property0.NameEquals("apnsCredential"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            apnsCredential = NotificationHubApnsCredential.DeserializeNotificationHubApnsCredential(property0.Value);
-                            continue;
-                        }
-                        if (property0.NameEquals("wnsCredential"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            wnsCredential = NotificationHubWnsCredential.DeserializeNotificationHubWnsCredential(property0.Value);
-                            continue;
-                        }
-                        if (property0.NameEquals("gcmCredential"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            gcmCredential = NotificationHubGcmCredential.DeserializeNotificationHubGcmCredential(property0.Value);
-                            continue;
-                        }
-                        if (property0.NameEquals("mpnsCredential"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            mpnsCredential = NotificationHubMpnsCredential.DeserializeNotificationHubMpnsCredential(property0.Value);
-                            continue;
-                        }
-                        if (property0.NameEquals("admCredential"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            admCredential = NotificationHubAdmCredential.DeserializeNotificationHubAdmCredential(property0.Value);
-                            continue;
-                        }
-                        if (property0.NameEquals("baiduCredential"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            baiduCredential = NotificationHubBaiduCredential.DeserializeNotificationHubBaiduCredential(property0.Value);
-                            continue;
-                        }
-                    }
-                    continue;
-                }
             }
-            return new NotificationHubPnsCredentials(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, apnsCredential.Value, wnsCredential.Value, gcmCredential.Value, mpnsCredential.Value, admCredential.Value, baiduCredential.Value, sku.Value);
+            return new NotificationHubPnsCredentials(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, properties.Value);
         }
     }
 }
