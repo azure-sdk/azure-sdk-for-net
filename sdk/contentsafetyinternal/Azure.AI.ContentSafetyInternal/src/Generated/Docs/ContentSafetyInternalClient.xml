@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="GetWritelistFeaturesAsync(CancellationToken)">
+<example>
+This sample shows how to call GetWritelistFeaturesAsync.
+<code><![CDATA[
+var credential = new AzureKeyCredential("<key>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ContentSafetyInternalClient(endpoint, credential);
+
+var result = await client.GetWritelistFeaturesAsync();
+]]></code>
+</example>
+    </member>
+    <member name="GetWritelistFeatures(CancellationToken)">
+<example>
+This sample shows how to call GetWritelistFeatures.
+<code><![CDATA[
+var credential = new AzureKeyCredential("<key>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ContentSafetyInternalClient(endpoint, credential);
+
+var result = client.GetWritelistFeatures();
+]]></code>
+</example>
+    </member>
+    <member name="GetWritelistFeaturesAsync(RequestContext)">
+<example>
+This sample shows how to call GetWritelistFeaturesAsync with required parameters and parse the result.
+<code><![CDATA[
+var credential = new AzureKeyCredential("<key>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ContentSafetyInternalClient(endpoint, credential);
+
+Response response = await client.GetWritelistFeaturesAsync(new RequestContext());
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("featureName").ToString());
+]]></code>
+</example>
+    </member>
+    <member name="GetWritelistFeatures(RequestContext)">
+<example>
+This sample shows how to call GetWritelistFeatures with required parameters and parse the result.
+<code><![CDATA[
+var credential = new AzureKeyCredential("<key>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ContentSafetyInternalClient(endpoint, credential);
+
+Response response = client.GetWritelistFeatures(new RequestContext());
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("featureName").ToString());
+]]></code>
+</example>
+    </member>
+    <member name="GetBlocklistTopTermsAsync(int,DateTimeOffset,DateTimeOffset,ContentSafetyVersion,CancellationToken)">
+<example>
+This sample shows how to call GetBlocklistTopTermsAsync with required parameters.
+<code><![CDATA[
+var credential = new AzureKeyCredential("<key>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ContentSafetyInternalClient(endpoint, credential);
+
+var result = await client.GetBlocklistTopTermsAsync(1234, DateTimeOffset.UtcNow, DateTimeOffset.UtcNow, null);
+]]></code>
+</example>
+    </member>
+    <member name="GetBlocklistTopTerms(int,DateTimeOffset,DateTimeOffset,ContentSafetyVersion,CancellationToken)">
+<example>
+This sample shows how to call GetBlocklistTopTerms with required parameters.
+<code><![CDATA[
+var credential = new AzureKeyCredential("<key>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ContentSafetyInternalClient(endpoint, credential);
+
+var result = client.GetBlocklistTopTerms(1234, DateTimeOffset.UtcNow, DateTimeOffset.UtcNow, null);
+]]></code>
+</example>
+    </member>
+    <member name="GetBlocklistTopTermsAsync(int,DateTimeOffset,DateTimeOffset,string,RequestContext)">
+<example>
+This sample shows how to call GetBlocklistTopTermsAsync with required parameters and parse the result.
+<code><![CDATA[
+var credential = new AzureKeyCredential("<key>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ContentSafetyInternalClient(endpoint, credential);
+
+Response response = await client.GetBlocklistTopTermsAsync(1234, DateTimeOffset.UtcNow, DateTimeOffset.UtcNow, "<contentSafetyVersion>");
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("term").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("count").ToString());
+]]></code>
+</example>
+    </member>
+    <member name="GetBlocklistTopTerms(int,DateTimeOffset,DateTimeOffset,string,RequestContext)">
+<example>
+This sample shows how to call GetBlocklistTopTerms with required parameters and parse the result.
+<code><![CDATA[
+var credential = new AzureKeyCredential("<key>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ContentSafetyInternalClient(endpoint, credential);
+
+Response response = client.GetBlocklistTopTerms(1234, DateTimeOffset.UtcNow, DateTimeOffset.UtcNow, "<contentSafetyVersion>");
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("term").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("count").ToString());
+]]></code>
+</example>
+    </member>
+    <member name="GetRequestCountsAsync(DateTimeOffset,DateTimeOffset,Granularity,ContentSafetyVersion,ContentSafetyOperation,int?,int?,int?,CancellationToken)">
+<example>
+This sample shows how to call GetRequestCountsAsync with required parameters.
+<code><![CDATA[
+var credential = new AzureKeyCredential("<key>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ContentSafetyInternalClient(endpoint, credential);
+
+await foreach (var item in client.GetRequestCountsAsync(DateTimeOffset.UtcNow, DateTimeOffset.UtcNow, null, null, null, 1234, 1234, 1234))
+{
+}
+]]></code>
+</example>
+    </member>
+    <member name="GetRequestCounts(DateTimeOffset,DateTimeOffset,Granularity,ContentSafetyVersion,ContentSafetyOperation,int?,int?,int?,CancellationToken)">
+<example>
+This sample shows how to call GetRequestCounts with required parameters.
+<code><![CDATA[
+var credential = new AzureKeyCredential("<key>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ContentSafetyInternalClient(endpoint, credential);
+
+foreach (var item in client.GetRequestCounts(DateTimeOffset.UtcNow, DateTimeOffset.UtcNow, null, null, null, 1234, 1234, 1234))
+{
+}
+]]></code>
+</example>
+    </member>
+    <member name="GetRequestCountsAsync(DateTimeOffset,DateTimeOffset,string,string,string,int?,int?,int?,RequestContext)">
+<example>
+This sample shows how to call GetRequestCountsAsync with required parameters and parse the result.
+<code><![CDATA[
+var credential = new AzureKeyCredential("<key>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ContentSafetyInternalClient(endpoint, credential);
+
+await foreach (var item in client.GetRequestCountsAsync(DateTimeOffset.UtcNow, DateTimeOffset.UtcNow, "<granularity>", "<contentSafetyVersion>", "<contentSafetyOperation>"))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("dateTime").ToString());
+    Console.WriteLine(result.GetProperty("count").ToString());
+}
+]]></code>
+This sample shows how to call GetRequestCountsAsync with all parameters, and how to parse the result.
+<code><![CDATA[
+var credential = new AzureKeyCredential("<key>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ContentSafetyInternalClient(endpoint, credential);
+
+await foreach (var item in client.GetRequestCountsAsync(DateTimeOffset.UtcNow, DateTimeOffset.UtcNow, "<granularity>", "<contentSafetyVersion>", "<contentSafetyOperation>", 1234, 1234, 1234))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("dateTime").ToString());
+    Console.WriteLine(result.GetProperty("count").ToString());
+}
+]]></code>
+</example>
+    </member>
+    <member name="GetRequestCounts(DateTimeOffset,DateTimeOffset,string,string,string,int?,int?,int?,RequestContext)">
+<example>
+This sample shows how to call GetRequestCounts with required parameters and parse the result.
+<code><![CDATA[
+var credential = new AzureKeyCredential("<key>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ContentSafetyInternalClient(endpoint, credential);
+
+foreach (var item in client.GetRequestCounts(DateTimeOffset.UtcNow, DateTimeOffset.UtcNow, "<granularity>", "<contentSafetyVersion>", "<contentSafetyOperation>"))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("dateTime").ToString());
+    Console.WriteLine(result.GetProperty("count").ToString());
+}
+]]></code>
+This sample shows how to call GetRequestCounts with all parameters, and how to parse the result.
+<code><![CDATA[
+var credential = new AzureKeyCredential("<key>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ContentSafetyInternalClient(endpoint, credential);
+
+foreach (var item in client.GetRequestCounts(DateTimeOffset.UtcNow, DateTimeOffset.UtcNow, "<granularity>", "<contentSafetyVersion>", "<contentSafetyOperation>", 1234, 1234, 1234))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("dateTime").ToString());
+    Console.WriteLine(result.GetProperty("count").ToString());
+}
+]]></code>
+</example>
+    </member>
+    <member name="GetRequestLatenciesAsync(DateTimeOffset,DateTimeOffset,Granularity,ContentSafetyVersion,ContentSafetyOperation,Aggregation,int?,int?,int?,CancellationToken)">
+<example>
+This sample shows how to call GetRequestLatenciesAsync with required parameters.
+<code><![CDATA[
+var credential = new AzureKeyCredential("<key>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ContentSafetyInternalClient(endpoint, credential);
+
+await foreach (var item in client.GetRequestLatenciesAsync(DateTimeOffset.UtcNow, DateTimeOffset.UtcNow, null, null, null, null, 1234, 1234, 1234))
+{
+}
+]]></code>
+</example>
+    </member>
+    <member name="GetRequestLatencies(DateTimeOffset,DateTimeOffset,Granularity,ContentSafetyVersion,ContentSafetyOperation,Aggregation,int?,int?,int?,CancellationToken)">
+<example>
+This sample shows how to call GetRequestLatencies with required parameters.
+<code><![CDATA[
+var credential = new AzureKeyCredential("<key>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ContentSafetyInternalClient(endpoint, credential);
+
+foreach (var item in client.GetRequestLatencies(DateTimeOffset.UtcNow, DateTimeOffset.UtcNow, null, null, null, null, 1234, 1234, 1234))
+{
+}
+]]></code>
+</example>
+    </member>
+    <member name="GetRequestLatenciesAsync(DateTimeOffset,DateTimeOffset,string,string,string,string,int?,int?,int?,RequestContext)">
+<example>
+This sample shows how to call GetRequestLatenciesAsync with required parameters and parse the result.
+<code><![CDATA[
+var credential = new AzureKeyCredential("<key>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ContentSafetyInternalClient(endpoint, credential);
+
+await foreach (var item in client.GetRequestLatenciesAsync(DateTimeOffset.UtcNow, DateTimeOffset.UtcNow, "<granularity>", "<contentSafetyVersion>", "<contentSafetyOperation>", "<aggregation>"))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("dateTime").ToString());
+    Console.WriteLine(result.GetProperty("latency").ToString());
+}
+]]></code>
+This sample shows how to call GetRequestLatenciesAsync with all parameters, and how to parse the result.
+<code><![CDATA[
+var credential = new AzureKeyCredential("<key>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ContentSafetyInternalClient(endpoint, credential);
+
+await foreach (var item in client.GetRequestLatenciesAsync(DateTimeOffset.UtcNow, DateTimeOffset.UtcNow, "<granularity>", "<contentSafetyVersion>", "<contentSafetyOperation>", "<aggregation>", 1234, 1234, 1234))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("dateTime").ToString());
+    Console.WriteLine(result.GetProperty("latency").ToString());
+}
+]]></code>
+</example>
+    </member>
+    <member name="GetRequestLatencies(DateTimeOffset,DateTimeOffset,string,string,string,string,int?,int?,int?,RequestContext)">
+<example>
+This sample shows how to call GetRequestLatencies with required parameters and parse the result.
+<code><![CDATA[
+var credential = new AzureKeyCredential("<key>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ContentSafetyInternalClient(endpoint, credential);
+
+foreach (var item in client.GetRequestLatencies(DateTimeOffset.UtcNow, DateTimeOffset.UtcNow, "<granularity>", "<contentSafetyVersion>", "<contentSafetyOperation>", "<aggregation>"))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("dateTime").ToString());
+    Console.WriteLine(result.GetProperty("latency").ToString());
+}
+]]></code>
+This sample shows how to call GetRequestLatencies with all parameters, and how to parse the result.
+<code><![CDATA[
+var credential = new AzureKeyCredential("<key>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ContentSafetyInternalClient(endpoint, credential);
+
+foreach (var item in client.GetRequestLatencies(DateTimeOffset.UtcNow, DateTimeOffset.UtcNow, "<granularity>", "<contentSafetyVersion>", "<contentSafetyOperation>", "<aggregation>", 1234, 1234, 1234))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("dateTime").ToString());
+    Console.WriteLine(result.GetProperty("latency").ToString());
+}
+]]></code>
+</example>
+    </member>
+    <member name="GetRequestCountsByCategoryAndSeverityAsync(CategoryEnum,DateTimeOffset,DateTimeOffset,Granularity,ContentSafetyVersion,ContentModality,int?,int?,int?,CancellationToken)">
+<example>
+This sample shows how to call GetRequestCountsByCategoryAndSeverityAsync with required parameters.
+<code><![CDATA[
+var credential = new AzureKeyCredential("<key>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ContentSafetyInternalClient(endpoint, credential);
+
+await foreach (var item in client.GetRequestCountsByCategoryAndSeverityAsync(null, DateTimeOffset.UtcNow, DateTimeOffset.UtcNow, null, null, null, 1234, 1234, 1234))
+{
+}
+]]></code>
+</example>
+    </member>
+    <member name="GetRequestCountsByCategoryAndSeverity(CategoryEnum,DateTimeOffset,DateTimeOffset,Granularity,ContentSafetyVersion,ContentModality,int?,int?,int?,CancellationToken)">
+<example>
+This sample shows how to call GetRequestCountsByCategoryAndSeverity with required parameters.
+<code><![CDATA[
+var credential = new AzureKeyCredential("<key>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ContentSafetyInternalClient(endpoint, credential);
+
+foreach (var item in client.GetRequestCountsByCategoryAndSeverity(null, DateTimeOffset.UtcNow, DateTimeOffset.UtcNow, null, null, null, 1234, 1234, 1234))
+{
+}
+]]></code>
+</example>
+    </member>
+    <member name="GetRequestCountsByCategoryAndSeverityAsync(string,DateTimeOffset,DateTimeOffset,string,string,string,int?,int?,int?,RequestContext)">
+<example>
+This sample shows how to call GetRequestCountsByCategoryAndSeverityAsync with required parameters and parse the result.
+<code><![CDATA[
+var credential = new AzureKeyCredential("<key>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ContentSafetyInternalClient(endpoint, credential);
+
+await foreach (var item in client.GetRequestCountsByCategoryAndSeverityAsync("<category>", DateTimeOffset.UtcNow, DateTimeOffset.UtcNow, "<granularity>", "<contentSafetyVersion>", "<modality>"))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("dateTime").ToString());
+    Console.WriteLine(result.GetProperty("count")[0].GetProperty("severity").ToString());
+    Console.WriteLine(result.GetProperty("count")[0].GetProperty("severityCount").ToString());
+}
+]]></code>
+This sample shows how to call GetRequestCountsByCategoryAndSeverityAsync with all parameters, and how to parse the result.
+<code><![CDATA[
+var credential = new AzureKeyCredential("<key>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ContentSafetyInternalClient(endpoint, credential);
+
+await foreach (var item in client.GetRequestCountsByCategoryAndSeverityAsync("<category>", DateTimeOffset.UtcNow, DateTimeOffset.UtcNow, "<granularity>", "<contentSafetyVersion>", "<modality>", 1234, 1234, 1234))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("dateTime").ToString());
+    Console.WriteLine(result.GetProperty("count")[0].GetProperty("severity").ToString());
+    Console.WriteLine(result.GetProperty("count")[0].GetProperty("severityCount").ToString());
+}
+]]></code>
+</example>
+    </member>
+    <member name="GetRequestCountsByCategoryAndSeverity(string,DateTimeOffset,DateTimeOffset,string,string,string,int?,int?,int?,RequestContext)">
+<example>
+This sample shows how to call GetRequestCountsByCategoryAndSeverity with required parameters and parse the result.
+<code><![CDATA[
+var credential = new AzureKeyCredential("<key>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ContentSafetyInternalClient(endpoint, credential);
+
+foreach (var item in client.GetRequestCountsByCategoryAndSeverity("<category>", DateTimeOffset.UtcNow, DateTimeOffset.UtcNow, "<granularity>", "<contentSafetyVersion>", "<modality>"))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("dateTime").ToString());
+    Console.WriteLine(result.GetProperty("count")[0].GetProperty("severity").ToString());
+    Console.WriteLine(result.GetProperty("count")[0].GetProperty("severityCount").ToString());
+}
+]]></code>
+This sample shows how to call GetRequestCountsByCategoryAndSeverity with all parameters, and how to parse the result.
+<code><![CDATA[
+var credential = new AzureKeyCredential("<key>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ContentSafetyInternalClient(endpoint, credential);
+
+foreach (var item in client.GetRequestCountsByCategoryAndSeverity("<category>", DateTimeOffset.UtcNow, DateTimeOffset.UtcNow, "<granularity>", "<contentSafetyVersion>", "<modality>", 1234, 1234, 1234))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("dateTime").ToString());
+    Console.WriteLine(result.GetProperty("count")[0].GetProperty("severity").ToString());
+    Console.WriteLine(result.GetProperty("count")[0].GetProperty("severityCount").ToString());
+}
+]]></code>
+</example>
+    </member>
+    <member name="GetBlocklistHitCallsAsync(DateTimeOffset,DateTimeOffset,Granularity,ContentSafetyVersion,int?,int?,int?,CancellationToken)">
+<example>
+This sample shows how to call GetBlocklistHitCallsAsync with required parameters.
+<code><![CDATA[
+var credential = new AzureKeyCredential("<key>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ContentSafetyInternalClient(endpoint, credential);
+
+await foreach (var item in client.GetBlocklistHitCallsAsync(DateTimeOffset.UtcNow, DateTimeOffset.UtcNow, null, null, 1234, 1234, 1234))
+{
+}
+]]></code>
+</example>
+    </member>
+    <member name="GetBlocklistHitCalls(DateTimeOffset,DateTimeOffset,Granularity,ContentSafetyVersion,int?,int?,int?,CancellationToken)">
+<example>
+This sample shows how to call GetBlocklistHitCalls with required parameters.
+<code><![CDATA[
+var credential = new AzureKeyCredential("<key>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ContentSafetyInternalClient(endpoint, credential);
+
+foreach (var item in client.GetBlocklistHitCalls(DateTimeOffset.UtcNow, DateTimeOffset.UtcNow, null, null, 1234, 1234, 1234))
+{
+}
+]]></code>
+</example>
+    </member>
+    <member name="GetBlocklistHitCallsAsync(DateTimeOffset,DateTimeOffset,string,string,int?,int?,int?,RequestContext)">
+<example>
+This sample shows how to call GetBlocklistHitCallsAsync with required parameters and parse the result.
+<code><![CDATA[
+var credential = new AzureKeyCredential("<key>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ContentSafetyInternalClient(endpoint, credential);
+
+await foreach (var item in client.GetBlocklistHitCallsAsync(DateTimeOffset.UtcNow, DateTimeOffset.UtcNow, "<granularity>", "<contentSafetyVersion>"))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("dateTime").ToString());
+    Console.WriteLine(result.GetProperty("count").ToString());
+}
+]]></code>
+This sample shows how to call GetBlocklistHitCallsAsync with all parameters, and how to parse the result.
+<code><![CDATA[
+var credential = new AzureKeyCredential("<key>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ContentSafetyInternalClient(endpoint, credential);
+
+await foreach (var item in client.GetBlocklistHitCallsAsync(DateTimeOffset.UtcNow, DateTimeOffset.UtcNow, "<granularity>", "<contentSafetyVersion>", 1234, 1234, 1234))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("dateTime").ToString());
+    Console.WriteLine(result.GetProperty("count").ToString());
+}
+]]></code>
+</example>
+    </member>
+    <member name="GetBlocklistHitCalls(DateTimeOffset,DateTimeOffset,string,string,int?,int?,int?,RequestContext)">
+<example>
+This sample shows how to call GetBlocklistHitCalls with required parameters and parse the result.
+<code><![CDATA[
+var credential = new AzureKeyCredential("<key>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ContentSafetyInternalClient(endpoint, credential);
+
+foreach (var item in client.GetBlocklistHitCalls(DateTimeOffset.UtcNow, DateTimeOffset.UtcNow, "<granularity>", "<contentSafetyVersion>"))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("dateTime").ToString());
+    Console.WriteLine(result.GetProperty("count").ToString());
+}
+]]></code>
+This sample shows how to call GetBlocklistHitCalls with all parameters, and how to parse the result.
+<code><![CDATA[
+var credential = new AzureKeyCredential("<key>");
+var endpoint = new Uri("<https://my-service.azure.com>");
+var client = new ContentSafetyInternalClient(endpoint, credential);
+
+foreach (var item in client.GetBlocklistHitCalls(DateTimeOffset.UtcNow, DateTimeOffset.UtcNow, "<granularity>", "<contentSafetyVersion>", 1234, 1234, 1234))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("dateTime").ToString());
+    Console.WriteLine(result.GetProperty("count").ToString());
+}
+]]></code>
+</example>
+    </member>
+  </members>
+</doc>
