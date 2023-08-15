@@ -26,6 +26,16 @@ namespace Azure.ResourceManager.AppPlatform.Models
                 }
                 writer.WriteEndArray();
             }
+            if (Optional.IsCollectionDefined(AllowedOriginPatterns))
+            {
+                writer.WritePropertyName("allowedOriginPatterns"u8);
+                writer.WriteStartArray();
+                foreach (var item in AllowedOriginPatterns)
+                {
+                    writer.WriteStringValue(item);
+                }
+                writer.WriteEndArray();
+            }
             if (Optional.IsCollectionDefined(AllowedMethods))
             {
                 writer.WritePropertyName("allowedMethods"u8);
@@ -76,6 +86,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
                 return null;
             }
             Optional<IList<string>> allowedOrigins = default;
+            Optional<IList<string>> allowedOriginPatterns = default;
             Optional<IList<string>> allowedMethods = default;
             Optional<IList<string>> allowedHeaders = default;
             Optional<int> maxAge = default;
@@ -95,6 +106,20 @@ namespace Azure.ResourceManager.AppPlatform.Models
                         array.Add(item.GetString());
                     }
                     allowedOrigins = array;
+                    continue;
+                }
+                if (property.NameEquals("allowedOriginPatterns"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<string> array = new List<string>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(item.GetString());
+                    }
+                    allowedOriginPatterns = array;
                     continue;
                 }
                 if (property.NameEquals("allowedMethods"u8))
@@ -158,7 +183,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
                     continue;
                 }
             }
-            return new AppPlatformGatewayCorsProperties(Optional.ToList(allowedOrigins), Optional.ToList(allowedMethods), Optional.ToList(allowedHeaders), Optional.ToNullable(maxAge), Optional.ToNullable(allowCredentials), Optional.ToList(exposedHeaders));
+            return new AppPlatformGatewayCorsProperties(Optional.ToList(allowedOrigins), Optional.ToList(allowedOriginPatterns), Optional.ToList(allowedMethods), Optional.ToList(allowedHeaders), Optional.ToNullable(maxAge), Optional.ToNullable(allowCredentials), Optional.ToList(exposedHeaders));
         }
     }
 }

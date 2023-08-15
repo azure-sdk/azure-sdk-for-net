@@ -34,22 +34,11 @@ namespace Azure.ResourceManager.AppPlatform.Models
                         writer.WriteNullValue();
                         continue;
                     }
-                    writer.WriteStartObject();
-                    foreach (var item0 in item.Value)
-                    {
-                        writer.WritePropertyName(item0.Key);
-                        if (item0.Value == null)
-                        {
-                            writer.WriteNullValue();
-                            continue;
-                        }
 #if NET6_0_OR_GREATER
-				writer.WriteRawValue(item0.Value);
+				writer.WriteRawValue(item.Value);
 #else
-                        JsonSerializer.Serialize(writer, JsonDocument.Parse(item0.Value.ToString()).RootElement);
+                    JsonSerializer.Serialize(writer, JsonDocument.Parse(item.Value.ToString()).RootElement);
 #endif
-                    }
-                    writer.WriteEndObject();
                 }
                 writer.WriteEndObject();
             }
@@ -103,6 +92,21 @@ namespace Azure.ResourceManager.AppPlatform.Models
                 writer.WritePropertyName("ingressSettings"u8);
                 writer.WriteObjectValue(IngressSettings);
             }
+            if (Optional.IsCollectionDefined(Secrets))
+            {
+                writer.WritePropertyName("secrets"u8);
+                writer.WriteStartArray();
+                foreach (var item in Secrets)
+                {
+                    writer.WriteObjectValue(item);
+                }
+                writer.WriteEndArray();
+            }
+            if (Optional.IsDefined(WorkloadProfileName))
+            {
+                writer.WritePropertyName("workloadProfileName"u8);
+                writer.WriteStringValue(WorkloadProfileName);
+            }
             writer.WriteEndObject();
         }
 
@@ -114,7 +118,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
             }
             Optional<bool> @public = default;
             Optional<string> uri = default;
-            Optional<IDictionary<string, IDictionary<string, BinaryData>>> addonConfigs = default;
+            Optional<IDictionary<string, BinaryData>> addonConfigs = default;
             Optional<AppPlatformAppProvisioningState> provisioningState = default;
             Optional<string> fqdn = default;
             Optional<bool> httpsOnly = default;
@@ -125,6 +129,8 @@ namespace Azure.ResourceManager.AppPlatform.Models
             Optional<IList<AppLoadedCertificate>> loadedCertificates = default;
             Optional<AppVnetAddons> vnetAddons = default;
             Optional<AppIngressSettings> ingressSettings = default;
+            Optional<IList<Secret>> secrets = default;
+            Optional<string> workloadProfileName = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("public"u8))
@@ -147,7 +153,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
                     {
                         continue;
                     }
-                    Dictionary<string, IDictionary<string, BinaryData>> dictionary = new Dictionary<string, IDictionary<string, BinaryData>>();
+                    Dictionary<string, BinaryData> dictionary = new Dictionary<string, BinaryData>();
                     foreach (var property0 in property.Value.EnumerateObject())
                     {
                         if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -156,19 +162,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
                         }
                         else
                         {
-                            Dictionary<string, BinaryData> dictionary0 = new Dictionary<string, BinaryData>();
-                            foreach (var property1 in property0.Value.EnumerateObject())
-                            {
-                                if (property1.Value.ValueKind == JsonValueKind.Null)
-                                {
-                                    dictionary0.Add(property1.Name, null);
-                                }
-                                else
-                                {
-                                    dictionary0.Add(property1.Name, BinaryData.FromString(property1.Value.GetRawText()));
-                                }
-                            }
-                            dictionary.Add(property0.Name, dictionary0);
+                            dictionary.Add(property0.Name, BinaryData.FromString(property0.Value.GetRawText()));
                         }
                     }
                     addonConfigs = dictionary;
@@ -270,8 +264,27 @@ namespace Azure.ResourceManager.AppPlatform.Models
                     ingressSettings = AppIngressSettings.DeserializeAppIngressSettings(property.Value);
                     continue;
                 }
+                if (property.NameEquals("secrets"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<Secret> array = new List<Secret>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(Secret.DeserializeSecret(item));
+                    }
+                    secrets = array;
+                    continue;
+                }
+                if (property.NameEquals("workloadProfileName"u8))
+                {
+                    workloadProfileName = property.Value.GetString();
+                    continue;
+                }
             }
-            return new AppPlatformAppProperties(Optional.ToNullable(@public), uri.Value, Optional.ToDictionary(addonConfigs), Optional.ToNullable(provisioningState), fqdn.Value, Optional.ToNullable(httpsOnly), temporaryDisk.Value, persistentDisk.Value, Optional.ToList(customPersistentDisks), Optional.ToNullable(enableEndToEndTls), Optional.ToList(loadedCertificates), vnetAddons.Value, ingressSettings.Value);
+            return new AppPlatformAppProperties(Optional.ToNullable(@public), uri.Value, Optional.ToDictionary(addonConfigs), Optional.ToNullable(provisioningState), fqdn.Value, Optional.ToNullable(httpsOnly), temporaryDisk.Value, persistentDisk.Value, Optional.ToList(customPersistentDisks), Optional.ToNullable(enableEndToEndTls), Optional.ToList(loadedCertificates), vnetAddons.Value, ingressSettings.Value, Optional.ToList(secrets), workloadProfileName.Value);
         }
     }
 }
