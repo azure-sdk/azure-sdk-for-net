@@ -1190,6 +1190,7 @@ namespace Azure.ResourceManager.Compute
         public Azure.ResourceManager.Compute.Models.GalleryImageVersionPublishingProfile PublishingProfile { get { throw null; } set { } }
         public Azure.ResourceManager.Compute.Models.ReplicationStatus ReplicationStatus { get { throw null; } }
         public Azure.ResourceManager.Compute.Models.GalleryImageVersionSafetyProfile SafetyProfile { get { throw null; } set { } }
+        public Azure.ResourceManager.Compute.Models.GalleryImageVersionUefiSettings SecurityUefiSettings { get { throw null; } set { } }
         public Azure.ResourceManager.Compute.Models.GalleryImageVersionStorageProfile StorageProfile { get { throw null; } set { } }
     }
     public partial class GalleryImageVersionResource : Azure.ResourceManager.ArmResource
@@ -2460,7 +2461,7 @@ namespace Azure.ResourceManager.Compute.Models
         public static Azure.ResourceManager.Compute.Models.GalleryDataDiskImage GalleryDataDiskImage(int? sizeInGB = default(int?), Azure.ResourceManager.Compute.Models.HostCaching? hostCaching = default(Azure.ResourceManager.Compute.Models.HostCaching?), Azure.ResourceManager.Compute.Models.GalleryDiskImageSource gallerySource = null, int lun = 0) { throw null; }
         public static Azure.ResourceManager.Compute.Models.GalleryDiskImage GalleryDiskImage(int? sizeInGB = default(int?), Azure.ResourceManager.Compute.Models.HostCaching? hostCaching = default(Azure.ResourceManager.Compute.Models.HostCaching?), Azure.ResourceManager.Compute.Models.GalleryDiskImageSource gallerySource = null) { throw null; }
         public static Azure.ResourceManager.Compute.GalleryImageData GalleryImageData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, System.Collections.Generic.IDictionary<string, string> tags = null, Azure.Core.AzureLocation location = default(Azure.Core.AzureLocation), string description = null, string eula = null, System.Uri privacyStatementUri = null, System.Uri releaseNoteUri = null, Azure.ResourceManager.Compute.Models.SupportedOperatingSystemType? osType = default(Azure.ResourceManager.Compute.Models.SupportedOperatingSystemType?), Azure.ResourceManager.Compute.Models.OperatingSystemStateType? osState = default(Azure.ResourceManager.Compute.Models.OperatingSystemStateType?), Azure.ResourceManager.Compute.Models.HyperVGeneration? hyperVGeneration = default(Azure.ResourceManager.Compute.Models.HyperVGeneration?), System.DateTimeOffset? endOfLifeOn = default(System.DateTimeOffset?), Azure.ResourceManager.Compute.Models.GalleryImageIdentifier identifier = null, Azure.ResourceManager.Compute.Models.RecommendedMachineConfiguration recommended = null, System.Collections.Generic.IEnumerable<string> disallowedDiskTypes = null, Azure.ResourceManager.Compute.Models.ImagePurchasePlan purchasePlan = null, Azure.ResourceManager.Compute.Models.GalleryProvisioningState? provisioningState = default(Azure.ResourceManager.Compute.Models.GalleryProvisioningState?), System.Collections.Generic.IEnumerable<Azure.ResourceManager.Compute.Models.GalleryImageFeature> features = null, Azure.ResourceManager.Compute.Models.ArchitectureType? architecture = default(Azure.ResourceManager.Compute.Models.ArchitectureType?)) { throw null; }
-        public static Azure.ResourceManager.Compute.GalleryImageVersionData GalleryImageVersionData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, System.Collections.Generic.IDictionary<string, string> tags = null, Azure.Core.AzureLocation location = default(Azure.Core.AzureLocation), Azure.ResourceManager.Compute.Models.GalleryImageVersionPublishingProfile publishingProfile = null, Azure.ResourceManager.Compute.Models.GalleryProvisioningState? provisioningState = default(Azure.ResourceManager.Compute.Models.GalleryProvisioningState?), Azure.ResourceManager.Compute.Models.GalleryImageVersionStorageProfile storageProfile = null, Azure.ResourceManager.Compute.Models.GalleryImageVersionSafetyProfile safetyProfile = null, Azure.ResourceManager.Compute.Models.ReplicationStatus replicationStatus = null) { throw null; }
+        public static Azure.ResourceManager.Compute.GalleryImageVersionData GalleryImageVersionData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, System.Collections.Generic.IDictionary<string, string> tags = null, Azure.Core.AzureLocation location = default(Azure.Core.AzureLocation), Azure.ResourceManager.Compute.Models.GalleryImageVersionPublishingProfile publishingProfile = null, Azure.ResourceManager.Compute.Models.GalleryProvisioningState? provisioningState = default(Azure.ResourceManager.Compute.Models.GalleryProvisioningState?), Azure.ResourceManager.Compute.Models.GalleryImageVersionStorageProfile storageProfile = null, Azure.ResourceManager.Compute.Models.GalleryImageVersionSafetyProfile safetyProfile = null, Azure.ResourceManager.Compute.Models.ReplicationStatus replicationStatus = null, Azure.ResourceManager.Compute.Models.GalleryImageVersionUefiSettings securityUefiSettings = null) { throw null; }
         public static Azure.ResourceManager.Compute.Models.GalleryImageVersionPolicyViolation GalleryImageVersionPolicyViolation(Azure.ResourceManager.Compute.Models.GalleryImageVersionPolicyViolationCategory? category = default(Azure.ResourceManager.Compute.Models.GalleryImageVersionPolicyViolationCategory?), string details = null) { throw null; }
         public static Azure.ResourceManager.Compute.Models.GalleryImageVersionPublishingProfile GalleryImageVersionPublishingProfile(System.Collections.Generic.IEnumerable<Azure.ResourceManager.Compute.Models.TargetRegion> targetRegions = null, int? replicaCount = default(int?), bool? isExcludedFromLatest = default(bool?), System.DateTimeOffset? publishedOn = default(System.DateTimeOffset?), System.DateTimeOffset? endOfLifeOn = default(System.DateTimeOffset?), Azure.ResourceManager.Compute.Models.ImageStorageAccountType? storageAccountType = default(Azure.ResourceManager.Compute.Models.ImageStorageAccountType?), Azure.ResourceManager.Compute.Models.GalleryReplicationMode? replicationMode = default(Azure.ResourceManager.Compute.Models.GalleryReplicationMode?), System.Collections.Generic.IEnumerable<Azure.ResourceManager.Compute.Models.GalleryTargetExtendedLocation> targetExtendedLocations = null) { throw null; }
         public static Azure.ResourceManager.Compute.Models.GalleryImageVersionSafetyProfile GalleryImageVersionSafetyProfile(bool? allowDeletionOfReplicatedLocations = default(bool?), bool? isReportedForPolicyViolation = default(bool?), System.Collections.Generic.IEnumerable<Azure.ResourceManager.Compute.Models.GalleryImageVersionPolicyViolation> policyViolations = null) { throw null; }
@@ -3154,6 +3155,7 @@ namespace Azure.ResourceManager.Compute.Models
         public static Azure.ResourceManager.Compute.Models.ConfidentialVmEncryptionType EncryptedVmGuestStateOnlyWithPmk { get { throw null; } }
         public static Azure.ResourceManager.Compute.Models.ConfidentialVmEncryptionType EncryptedWithCmk { get { throw null; } }
         public static Azure.ResourceManager.Compute.Models.ConfidentialVmEncryptionType EncryptedWithPmk { get { throw null; } }
+        public static Azure.ResourceManager.Compute.Models.ConfidentialVmEncryptionType NonPersistedTPM { get { throw null; } }
         public bool Equals(Azure.ResourceManager.Compute.Models.ConfidentialVmEncryptionType other) { throw null; }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public override bool Equals(object obj) { throw null; }
@@ -3909,6 +3911,7 @@ namespace Azure.ResourceManager.Compute.Models
         public Azure.ResourceManager.Compute.Models.GalleryImageVersionPublishingProfile PublishingProfile { get { throw null; } set { } }
         public Azure.ResourceManager.Compute.Models.ReplicationStatus ReplicationStatus { get { throw null; } }
         public Azure.ResourceManager.Compute.Models.GalleryImageVersionSafetyProfile SafetyProfile { get { throw null; } set { } }
+        public Azure.ResourceManager.Compute.Models.GalleryImageVersionUefiSettings SecurityUefiSettings { get { throw null; } set { } }
         public Azure.ResourceManager.Compute.Models.GalleryImageVersionStorageProfile StorageProfile { get { throw null; } set { } }
         public System.Collections.Generic.IDictionary<string, string> Tags { get { throw null; } }
     }
@@ -3956,6 +3959,12 @@ namespace Azure.ResourceManager.Compute.Models
         public Azure.ResourceManager.Compute.Models.GalleryOSDiskImage OSDiskImage { get { throw null; } set { } }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public Azure.ResourceManager.Compute.Models.GalleryArtifactVersionSource Source { get { throw null; } set { } }
+    }
+    public partial class GalleryImageVersionUefiSettings
+    {
+        public GalleryImageVersionUefiSettings() { }
+        public Azure.ResourceManager.Compute.Models.UefiKeySignatures AdditionalSignatures { get { throw null; } set { } }
+        public System.Collections.Generic.IList<Azure.ResourceManager.Compute.Models.UefiSignatureTemplateName> SignatureTemplateNames { get { throw null; } }
     }
     public partial class GalleryOSDiskImage : Azure.ResourceManager.Compute.Models.GalleryDiskImage
     {
@@ -4892,6 +4901,7 @@ namespace Azure.ResourceManager.Compute.Models
         private readonly int _dummyPrimitive;
         public ReplicationStatusType(string value) { throw null; }
         public static Azure.ResourceManager.Compute.Models.ReplicationStatusType ReplicationStatus { get { throw null; } }
+        public static Azure.ResourceManager.Compute.Models.ReplicationStatusType UefiSettings { get { throw null; } }
         public bool Equals(Azure.ResourceManager.Compute.Models.ReplicationStatusType other) { throw null; }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public override bool Equals(object obj) { throw null; }
@@ -5538,11 +5548,62 @@ namespace Azure.ResourceManager.Compute.Models
     {
         public ThrottledRequestsContent(System.Uri blobContainerSasUri, System.DateTimeOffset fromTime, System.DateTimeOffset toTime) : base (default(System.Uri), default(System.DateTimeOffset), default(System.DateTimeOffset)) { }
     }
+    public partial class UefiKey
+    {
+        public UefiKey() { }
+        public Azure.ResourceManager.Compute.Models.UefiKeyType? KeyType { get { throw null; } set { } }
+        public System.Collections.Generic.IList<string> Value { get { throw null; } }
+    }
+    public partial class UefiKeySignatures
+    {
+        public UefiKeySignatures() { }
+        public System.Collections.Generic.IList<Azure.ResourceManager.Compute.Models.UefiKey> Db { get { throw null; } }
+        public System.Collections.Generic.IList<Azure.ResourceManager.Compute.Models.UefiKey> Dbx { get { throw null; } }
+        public System.Collections.Generic.IList<Azure.ResourceManager.Compute.Models.UefiKey> Kek { get { throw null; } }
+        public Azure.ResourceManager.Compute.Models.UefiKey Pk { get { throw null; } set { } }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct UefiKeyType : System.IEquatable<Azure.ResourceManager.Compute.Models.UefiKeyType>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public UefiKeyType(string value) { throw null; }
+        public static Azure.ResourceManager.Compute.Models.UefiKeyType Sha256 { get { throw null; } }
+        public static Azure.ResourceManager.Compute.Models.UefiKeyType X509 { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.Compute.Models.UefiKeyType other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.Compute.Models.UefiKeyType left, Azure.ResourceManager.Compute.Models.UefiKeyType right) { throw null; }
+        public static implicit operator Azure.ResourceManager.Compute.Models.UefiKeyType (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.Compute.Models.UefiKeyType left, Azure.ResourceManager.Compute.Models.UefiKeyType right) { throw null; }
+        public override string ToString() { throw null; }
+    }
     public partial class UefiSettings
     {
         public UefiSettings() { }
         public bool? IsSecureBootEnabled { get { throw null; } set { } }
         public bool? IsVirtualTpmEnabled { get { throw null; } set { } }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct UefiSignatureTemplateName : System.IEquatable<Azure.ResourceManager.Compute.Models.UefiSignatureTemplateName>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public UefiSignatureTemplateName(string value) { throw null; }
+        public static Azure.ResourceManager.Compute.Models.UefiSignatureTemplateName MicrosoftUefiCertificateAuthorityTemplate { get { throw null; } }
+        public static Azure.ResourceManager.Compute.Models.UefiSignatureTemplateName MicrosoftWindowsTemplate { get { throw null; } }
+        public static Azure.ResourceManager.Compute.Models.UefiSignatureTemplateName NoSignatureTemplate { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.Compute.Models.UefiSignatureTemplateName other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.Compute.Models.UefiSignatureTemplateName left, Azure.ResourceManager.Compute.Models.UefiSignatureTemplateName right) { throw null; }
+        public static implicit operator Azure.ResourceManager.Compute.Models.UefiSignatureTemplateName (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.Compute.Models.UefiSignatureTemplateName left, Azure.ResourceManager.Compute.Models.UefiSignatureTemplateName right) { throw null; }
+        public override string ToString() { throw null; }
     }
     public partial class UpdateDomainIdentifier
     {
