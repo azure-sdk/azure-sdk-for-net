@@ -16,14 +16,18 @@ namespace Azure.ResourceManager.Network.Models
         }
 
         /// <summary> Initializes a new instance of FirewallPolicyIntrusionDetection. </summary>
+        /// <param name="profile"> Intrusion detection profile. </param>
         /// <param name="mode"> Intrusion detection general state. </param>
         /// <param name="configuration"> Intrusion detection configuration properties. </param>
-        internal FirewallPolicyIntrusionDetection(FirewallPolicyIntrusionDetectionStateType? mode, FirewallPolicyIntrusionDetectionConfiguration configuration)
+        internal FirewallPolicyIntrusionDetection(FirewallPolicyIntrusionDetectionProfileType? profile, FirewallPolicyIntrusionDetectionStateType? mode, FirewallPolicyIntrusionDetectionConfiguration configuration)
         {
+            Profile = profile;
             Mode = mode;
             Configuration = configuration;
         }
 
+        /// <summary> Intrusion detection profile. </summary>
+        public FirewallPolicyIntrusionDetectionProfileType? Profile { get; set; }
         /// <summary> Intrusion detection general state. </summary>
         public FirewallPolicyIntrusionDetectionStateType? Mode { get; set; }
         /// <summary> Intrusion detection configuration properties. </summary>

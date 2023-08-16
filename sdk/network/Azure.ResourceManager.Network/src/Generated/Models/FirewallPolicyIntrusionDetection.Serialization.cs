@@ -15,6 +15,11 @@ namespace Azure.ResourceManager.Network.Models
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
+            if (Optional.IsDefined(Profile))
+            {
+                writer.WritePropertyName("profile"u8);
+                writer.WriteStringValue(Profile.Value.ToString());
+            }
             if (Optional.IsDefined(Mode))
             {
                 writer.WritePropertyName("mode"u8);
@@ -34,10 +39,20 @@ namespace Azure.ResourceManager.Network.Models
             {
                 return null;
             }
+            Optional<FirewallPolicyIntrusionDetectionProfileType> profile = default;
             Optional<FirewallPolicyIntrusionDetectionStateType> mode = default;
             Optional<FirewallPolicyIntrusionDetectionConfiguration> configuration = default;
             foreach (var property in element.EnumerateObject())
             {
+                if (property.NameEquals("profile"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    profile = new FirewallPolicyIntrusionDetectionProfileType(property.Value.GetString());
+                    continue;
+                }
                 if (property.NameEquals("mode"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -57,7 +72,7 @@ namespace Azure.ResourceManager.Network.Models
                     continue;
                 }
             }
-            return new FirewallPolicyIntrusionDetection(Optional.ToNullable(mode), configuration.Value);
+            return new FirewallPolicyIntrusionDetection(Optional.ToNullable(profile), Optional.ToNullable(mode), configuration.Value);
         }
     }
 }

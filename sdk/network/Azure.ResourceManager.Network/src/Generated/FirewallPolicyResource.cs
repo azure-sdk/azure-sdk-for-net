@@ -38,8 +38,10 @@ namespace Azure.ResourceManager.Network
         private readonly FirewallPoliciesRestOperations _firewallPolicyRestClient;
         private readonly ClientDiagnostics _firewallPolicyIdpsSignaturesClientDiagnostics;
         private readonly FirewallPolicyIdpsSignaturesRestOperations _firewallPolicyIdpsSignaturesRestClient;
-        private readonly ClientDiagnostics _firewallPolicyIdpsSignaturesFilterValuesClientDiagnostics;
-        private readonly FirewallPolicyIdpsSignaturesFilterValuesRestOperations _firewallPolicyIdpsSignaturesFilterValuesRestClient;
+        private readonly ClientDiagnostics _policySignaturesOverridesForIdpsFirewallPolicyIdpsSignaturesOverridesClientDiagnostics;
+        private readonly FirewallPolicyIdpsSignaturesOverridesRestOperations _policySignaturesOverridesForIdpsFirewallPolicyIdpsSignaturesOverridesRestClient;
+        private readonly ClientDiagnostics _policySignaturesOverridesForIdpsFirewallPolicyIdpsSignaturesFilterValuesClientDiagnostics;
+        private readonly FirewallPolicyIdpsSignaturesFilterValuesRestOperations _policySignaturesOverridesForIdpsFirewallPolicyIdpsSignaturesFilterValuesRestClient;
         private readonly FirewallPolicyData _data;
 
         /// <summary> Initializes a new instance of the <see cref="FirewallPolicyResource"/> class for mocking. </summary>
@@ -66,8 +68,12 @@ namespace Azure.ResourceManager.Network
             _firewallPolicyRestClient = new FirewallPoliciesRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, firewallPolicyApiVersion);
             _firewallPolicyIdpsSignaturesClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Network", ProviderConstants.DefaultProviderNamespace, Diagnostics);
             _firewallPolicyIdpsSignaturesRestClient = new FirewallPolicyIdpsSignaturesRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
-            _firewallPolicyIdpsSignaturesFilterValuesClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Network", ProviderConstants.DefaultProviderNamespace, Diagnostics);
-            _firewallPolicyIdpsSignaturesFilterValuesRestClient = new FirewallPolicyIdpsSignaturesFilterValuesRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
+            _policySignaturesOverridesForIdpsFirewallPolicyIdpsSignaturesOverridesClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Network", PolicySignaturesOverridesForIdpsResource.ResourceType.Namespace, Diagnostics);
+            TryGetApiVersion(PolicySignaturesOverridesForIdpsResource.ResourceType, out string policySignaturesOverridesForIdpsFirewallPolicyIdpsSignaturesOverridesApiVersion);
+            _policySignaturesOverridesForIdpsFirewallPolicyIdpsSignaturesOverridesRestClient = new FirewallPolicyIdpsSignaturesOverridesRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, policySignaturesOverridesForIdpsFirewallPolicyIdpsSignaturesOverridesApiVersion);
+            _policySignaturesOverridesForIdpsFirewallPolicyIdpsSignaturesFilterValuesClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Network", PolicySignaturesOverridesForIdpsResource.ResourceType.Namespace, Diagnostics);
+            TryGetApiVersion(PolicySignaturesOverridesForIdpsResource.ResourceType, out string policySignaturesOverridesForIdpsFirewallPolicyIdpsSignaturesFilterValuesApiVersion);
+            _policySignaturesOverridesForIdpsFirewallPolicyIdpsSignaturesFilterValuesRestClient = new FirewallPolicyIdpsSignaturesFilterValuesRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, policySignaturesOverridesForIdpsFirewallPolicyIdpsSignaturesFilterValuesApiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -154,7 +160,7 @@ namespace Azure.ResourceManager.Network
         /// <returns> Returns a <see cref="PolicySignaturesOverridesForIdpsResource" /> object. </returns>
         public virtual PolicySignaturesOverridesForIdpsResource GetPolicySignaturesOverridesForIdps()
         {
-            return new PolicySignaturesOverridesForIdpsResource(Client, Id.AppendChildResource("signatureOverrides", "default"));
+            return new PolicySignaturesOverridesForIdpsResource(Client, Id.AppendChildResource("intrusionDetectionSignaturesOverrides", "default"));
         }
 
         /// <summary>
@@ -428,11 +434,53 @@ namespace Azure.ResourceManager.Network
         }
 
         /// <summary>
+        /// Returns all signatures overrides objects for a specific policy as a list containing a single value.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/firewallPolicies/{firewallPolicyName}/signatureOverrides</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>FirewallPolicyIdpsSignaturesOverrides_List</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> An async collection of <see cref="PolicySignaturesOverridesForIdpsResource" /> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<PolicySignaturesOverridesForIdpsResource> GetFirewallPolicyIdpsSignaturesOverridesAsync(CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _policySignaturesOverridesForIdpsFirewallPolicyIdpsSignaturesOverridesRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            return PageableHelpers.CreateAsyncPageable(FirstPageRequest, null, e => new PolicySignaturesOverridesForIdpsResource(Client, PolicySignaturesOverridesForIdpsData.DeserializePolicySignaturesOverridesForIdpsData(e)), _policySignaturesOverridesForIdpsFirewallPolicyIdpsSignaturesOverridesClientDiagnostics, Pipeline, "FirewallPolicyResource.GetFirewallPolicyIdpsSignaturesOverrides", "value", null, cancellationToken);
+        }
+
+        /// <summary>
+        /// Returns all signatures overrides objects for a specific policy as a list containing a single value.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/firewallPolicies/{firewallPolicyName}/signatureOverrides</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>FirewallPolicyIdpsSignaturesOverrides_List</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="PolicySignaturesOverridesForIdpsResource" /> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<PolicySignaturesOverridesForIdpsResource> GetFirewallPolicyIdpsSignaturesOverrides(CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _policySignaturesOverridesForIdpsFirewallPolicyIdpsSignaturesOverridesRestClient.CreateListRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            return PageableHelpers.CreatePageable(FirstPageRequest, null, e => new PolicySignaturesOverridesForIdpsResource(Client, PolicySignaturesOverridesForIdpsData.DeserializePolicySignaturesOverridesForIdpsData(e)), _policySignaturesOverridesForIdpsFirewallPolicyIdpsSignaturesOverridesClientDiagnostics, Pipeline, "FirewallPolicyResource.GetFirewallPolicyIdpsSignaturesOverrides", "value", null, cancellationToken);
+        }
+
+        /// <summary>
         /// Retrieves the current filter values for the signatures overrides
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/firewallPolicies/{firewallPolicyName}/listIdpsFilterOptions</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/firewallPolicies/{firewallPolicyName}/intrusionDetectionSignaturesOverrides</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
@@ -447,11 +495,11 @@ namespace Azure.ResourceManager.Network
         {
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = _firewallPolicyIdpsSignaturesFilterValuesClientDiagnostics.CreateScope("FirewallPolicyResource.GetFirewallPolicyIdpsSignaturesFilterValue");
+            using var scope = _policySignaturesOverridesForIdpsFirewallPolicyIdpsSignaturesFilterValuesClientDiagnostics.CreateScope("FirewallPolicyResource.GetFirewallPolicyIdpsSignaturesFilterValue");
             scope.Start();
             try
             {
-                var response = await _firewallPolicyIdpsSignaturesFilterValuesRestClient.ListAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, content, cancellationToken).ConfigureAwait(false);
+                var response = await _policySignaturesOverridesForIdpsFirewallPolicyIdpsSignaturesFilterValuesRestClient.ListAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, content, cancellationToken).ConfigureAwait(false);
                 return response;
             }
             catch (Exception e)
@@ -466,7 +514,7 @@ namespace Azure.ResourceManager.Network
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/firewallPolicies/{firewallPolicyName}/listIdpsFilterOptions</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/firewallPolicies/{firewallPolicyName}/intrusionDetectionSignaturesOverrides</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
@@ -481,11 +529,11 @@ namespace Azure.ResourceManager.Network
         {
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = _firewallPolicyIdpsSignaturesFilterValuesClientDiagnostics.CreateScope("FirewallPolicyResource.GetFirewallPolicyIdpsSignaturesFilterValue");
+            using var scope = _policySignaturesOverridesForIdpsFirewallPolicyIdpsSignaturesFilterValuesClientDiagnostics.CreateScope("FirewallPolicyResource.GetFirewallPolicyIdpsSignaturesFilterValue");
             scope.Start();
             try
             {
-                var response = _firewallPolicyIdpsSignaturesFilterValuesRestClient.List(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, content, cancellationToken);
+                var response = _policySignaturesOverridesForIdpsFirewallPolicyIdpsSignaturesFilterValuesRestClient.List(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, content, cancellationToken);
                 return response;
             }
             catch (Exception e)
