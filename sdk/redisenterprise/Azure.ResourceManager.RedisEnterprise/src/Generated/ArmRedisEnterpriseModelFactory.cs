@@ -40,22 +40,20 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
         /// <param name="location"> The location. </param>
         /// <param name="sku"> The SKU to create, which affects price, performance, and features. </param>
         /// <param name="zones"> The Availability Zones where this cluster will be deployed. </param>
-        /// <param name="identity"> The identity of the resource. </param>
         /// <param name="minimumTlsVersion"> The minimum TLS version for the cluster to support, e.g. '1.2'. </param>
-        /// <param name="customerManagedKeyEncryption"> Encryption-at-rest configuration for the cluster. </param>
         /// <param name="hostName"> DNS name of the cluster endpoint. </param>
         /// <param name="provisioningState"> Current provisioning status of the cluster. </param>
         /// <param name="resourceState"> Current resource status of the cluster. </param>
         /// <param name="redisVersion"> Version of redis the cluster supports, e.g. '6'. </param>
         /// <param name="privateEndpointConnections"> List of private endpoint connections associated with the specified RedisEnterprise cluster. </param>
         /// <returns> A new <see cref="RedisEnterprise.RedisEnterpriseClusterData"/> instance for mocking. </returns>
-        public static RedisEnterpriseClusterData RedisEnterpriseClusterData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, RedisEnterpriseSku sku = null, IEnumerable<string> zones = null, ManagedServiceIdentity identity = null, RedisEnterpriseTlsVersion? minimumTlsVersion = null, RedisEnterpriseCustomerManagedKeyEncryption customerManagedKeyEncryption = null, string hostName = null, RedisEnterpriseProvisioningStatus? provisioningState = null, RedisEnterpriseClusterResourceState? resourceState = null, string redisVersion = null, IEnumerable<RedisEnterprisePrivateEndpointConnectionData> privateEndpointConnections = null)
+        public static RedisEnterpriseClusterData RedisEnterpriseClusterData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, RedisEnterpriseSku sku = null, IEnumerable<string> zones = null, RedisEnterpriseTlsVersion? minimumTlsVersion = null, string hostName = null, RedisEnterpriseProvisioningStatus? provisioningState = null, RedisEnterpriseClusterResourceState? resourceState = null, string redisVersion = null, IEnumerable<RedisEnterprisePrivateEndpointConnectionData> privateEndpointConnections = null)
         {
             tags ??= new Dictionary<string, string>();
             zones ??= new List<string>();
             privateEndpointConnections ??= new List<RedisEnterprisePrivateEndpointConnectionData>();
 
-            return new RedisEnterpriseClusterData(id, name, resourceType, systemData, tags, location, sku, zones?.ToList(), identity, minimumTlsVersion, customerManagedKeyEncryption != null ? new ClusterPropertiesEncryption(customerManagedKeyEncryption) : null, hostName, provisioningState, resourceState, redisVersion, privateEndpointConnections?.ToList());
+            return new RedisEnterpriseClusterData(id, name, resourceType, systemData, tags, location, sku, zones?.ToList(), minimumTlsVersion, hostName, provisioningState, resourceState, redisVersion, privateEndpointConnections?.ToList());
         }
 
         /// <summary> Initializes a new instance of RedisEnterprisePrivateEndpointConnectionData. </summary>
@@ -137,36 +135,6 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
             requiredZoneNames ??= new List<string>();
 
             return new RedisEnterprisePrivateLinkResource(id, name, resourceType, systemData, groupId, requiredMembers?.ToList(), requiredZoneNames?.ToList());
-        }
-
-        /// <summary> Initializes a new instance of RedisEnterpriseRegionSkuDetail. </summary>
-        /// <param name="resourceType"> Resource type which has the SKU, such as Microsoft.Cache/redisEnterprise. </param>
-        /// <param name="locationInfo"> Details about location and its capabilities. </param>
-        /// <param name="skuDetailsName"> Details about available skus. </param>
-        /// <returns> A new <see cref="Models.RedisEnterpriseRegionSkuDetail"/> instance for mocking. </returns>
-        public static RedisEnterpriseRegionSkuDetail RedisEnterpriseRegionSkuDetail(ResourceType? resourceType = null, RedisEnterpriseLocationInfo locationInfo = null, RedisEnterpriseSkuName? skuDetailsName = null)
-        {
-            return new RedisEnterpriseRegionSkuDetail(resourceType, locationInfo, skuDetailsName != null ? new SkuDetail(skuDetailsName) : null);
-        }
-
-        /// <summary> Initializes a new instance of RedisEnterpriseLocationInfo. </summary>
-        /// <param name="location"> Location name. </param>
-        /// <param name="capabilities"> List of capabilities. </param>
-        /// <returns> A new <see cref="Models.RedisEnterpriseLocationInfo"/> instance for mocking. </returns>
-        public static RedisEnterpriseLocationInfo RedisEnterpriseLocationInfo(AzureLocation? location = null, IEnumerable<RedisEnterpriseCapability> capabilities = null)
-        {
-            capabilities ??= new List<RedisEnterpriseCapability>();
-
-            return new RedisEnterpriseLocationInfo(location, capabilities?.ToList());
-        }
-
-        /// <summary> Initializes a new instance of RedisEnterpriseCapability. </summary>
-        /// <param name="name"> Feature name. </param>
-        /// <param name="value"> Indicates whether feature is supported or not. </param>
-        /// <returns> A new <see cref="Models.RedisEnterpriseCapability"/> instance for mocking. </returns>
-        public static RedisEnterpriseCapability RedisEnterpriseCapability(string name = null, bool? value = null)
-        {
-            return new RedisEnterpriseCapability(name, value);
         }
     }
 }
