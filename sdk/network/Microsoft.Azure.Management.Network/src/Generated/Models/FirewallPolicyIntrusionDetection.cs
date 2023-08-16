@@ -31,12 +31,15 @@ namespace Microsoft.Azure.Management.Network.Models
         /// Initializes a new instance of the FirewallPolicyIntrusionDetection
         /// class.
         /// </summary>
+        /// <param name="profile">Intrusion detection profile. Possible values
+        /// include: 'Low', 'Balanced', 'High', 'Extended'</param>
         /// <param name="mode">Intrusion detection general state. Possible
         /// values include: 'Off', 'Alert', 'Deny'</param>
         /// <param name="configuration">Intrusion detection configuration
         /// properties.</param>
-        public FirewallPolicyIntrusionDetection(string mode = default(string), FirewallPolicyIntrusionDetectionConfiguration configuration = default(FirewallPolicyIntrusionDetectionConfiguration))
+        public FirewallPolicyIntrusionDetection(string profile = default(string), string mode = default(string), FirewallPolicyIntrusionDetectionConfiguration configuration = default(FirewallPolicyIntrusionDetectionConfiguration))
         {
+            Profile = profile;
             Mode = mode;
             Configuration = configuration;
             CustomInit();
@@ -46,6 +49,13 @@ namespace Microsoft.Azure.Management.Network.Models
         /// An initialization method that performs custom operations like setting defaults
         /// </summary>
         partial void CustomInit();
+
+        /// <summary>
+        /// Gets or sets intrusion detection profile. Possible values include:
+        /// 'Low', 'Balanced', 'High', 'Extended'
+        /// </summary>
+        [JsonProperty(PropertyName = "profile")]
+        public string Profile { get; set; }
 
         /// <summary>
         /// Gets or sets intrusion detection general state. Possible values
