@@ -19,21 +19,33 @@ namespace Azure.ResourceManager.AppPlatform.Models
         /// <param name="provisioningState"> Provisioning state of the Service. </param>
         /// <param name="networkProfile"> Network profile of the Service. </param>
         /// <param name="vnetAddons"> Additional Service settings in vnet injection instance. </param>
+        /// <param name="maintenanceScheduleConfiguration">
+        /// Additional Service settings for planned maintenance
+        /// Please note <see cref="MaintenanceScheduleConfiguration"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
+        /// The available derived classes include <see cref="WeeklyMaintenanceScheduleConfiguration"/>.
+        /// </param>
         /// <param name="version"> Version of the Service. </param>
-        /// <param name="serviceInstanceId"> ServiceInstanceEntity GUID which uniquely identifies a created resource. </param>
+        /// <param name="serviceInstanceId"> ServiceInstanceEntity Id which uniquely identifies a created resource. </param>
+        /// <param name="managedEnvironmentId"> The resource Id of the Managed Environment that the Spring Apps instance builds on. </param>
+        /// <param name="infraResourceGroup"> The name of the resource group that contains the infrastructure resources. </param>
         /// <param name="powerState"> Power state of the Service. </param>
         /// <param name="isZoneRedundant"></param>
         /// <param name="fqdn"> Fully qualified dns name of the service instance. </param>
-        internal AppPlatformServiceProperties(AppPlatformServiceProvisioningState? provisioningState, AppPlatformServiceNetworkProfile networkProfile, ServiceVnetAddons vnetAddons, int? version, string serviceInstanceId, AppPlatformServicePowerState? powerState, bool? isZoneRedundant, string fqdn)
+        /// <param name="marketplaceResource"> Purchasing 3rd party product of the Service resource. </param>
+        internal AppPlatformServiceProperties(AppPlatformServiceProvisioningState? provisioningState, AppPlatformServiceNetworkProfile networkProfile, ServiceVnetAddons vnetAddons, MaintenanceScheduleConfiguration maintenanceScheduleConfiguration, int? version, string serviceInstanceId, string managedEnvironmentId, string infraResourceGroup, AppPlatformServicePowerState? powerState, bool? isZoneRedundant, string fqdn, MarketplaceResource marketplaceResource)
         {
             ProvisioningState = provisioningState;
             NetworkProfile = networkProfile;
             VnetAddons = vnetAddons;
+            MaintenanceScheduleConfiguration = maintenanceScheduleConfiguration;
             Version = version;
             ServiceInstanceId = serviceInstanceId;
+            ManagedEnvironmentId = managedEnvironmentId;
+            InfraResourceGroup = infraResourceGroup;
             PowerState = powerState;
             IsZoneRedundant = isZoneRedundant;
             Fqdn = fqdn;
+            MarketplaceResource = marketplaceResource;
         }
 
         /// <summary> Provisioning state of the Service. </summary>
@@ -41,28 +53,28 @@ namespace Azure.ResourceManager.AppPlatform.Models
         /// <summary> Network profile of the Service. </summary>
         public AppPlatformServiceNetworkProfile NetworkProfile { get; set; }
         /// <summary> Additional Service settings in vnet injection instance. </summary>
-        internal ServiceVnetAddons VnetAddons { get; set; }
-        /// <summary> Indicates whether the log stream in vnet injection instance could be accessed from internet. </summary>
-        public bool? IsLogStreamPublicEndpoint
-        {
-            get => VnetAddons is null ? default : VnetAddons.IsLogStreamPublicEndpoint;
-            set
-            {
-                if (VnetAddons is null)
-                    VnetAddons = new ServiceVnetAddons();
-                VnetAddons.IsLogStreamPublicEndpoint = value;
-            }
-        }
-
+        public ServiceVnetAddons VnetAddons { get; set; }
+        /// <summary>
+        /// Additional Service settings for planned maintenance
+        /// Please note <see cref="MaintenanceScheduleConfiguration"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
+        /// The available derived classes include <see cref="WeeklyMaintenanceScheduleConfiguration"/>.
+        /// </summary>
+        public MaintenanceScheduleConfiguration MaintenanceScheduleConfiguration { get; set; }
         /// <summary> Version of the Service. </summary>
         public int? Version { get; }
-        /// <summary> ServiceInstanceEntity GUID which uniquely identifies a created resource. </summary>
+        /// <summary> ServiceInstanceEntity Id which uniquely identifies a created resource. </summary>
         public string ServiceInstanceId { get; }
+        /// <summary> The resource Id of the Managed Environment that the Spring Apps instance builds on. </summary>
+        public string ManagedEnvironmentId { get; set; }
+        /// <summary> The name of the resource group that contains the infrastructure resources. </summary>
+        public string InfraResourceGroup { get; set; }
         /// <summary> Power state of the Service. </summary>
         public AppPlatformServicePowerState? PowerState { get; }
         /// <summary> Gets or sets the is zone redundant. </summary>
         public bool? IsZoneRedundant { get; set; }
         /// <summary> Fully qualified dns name of the service instance. </summary>
         public string Fqdn { get; }
+        /// <summary> Purchasing 3rd party product of the Service resource. </summary>
+        public MarketplaceResource MarketplaceResource { get; set; }
     }
 }

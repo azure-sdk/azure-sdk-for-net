@@ -32,7 +32,8 @@ namespace Azure.ResourceManager.AppPlatform.Models
         /// <param name="ssoProperties"> Single sign-on related configuration. </param>
         /// <param name="resourceRequests"> The requested resource quantity for required CPU and Memory. </param>
         /// <param name="instances"> Collection of instances belong to API portal. </param>
-        internal AppPlatformApiPortalProperties(AppPlatformApiPortalProvisioningState? provisioningState, bool? isPublic, Uri uri, bool? isHttpsOnly, IList<ResourceIdentifier> gatewayIds, IList<Uri> sourceUris, AppPlatformSsoProperties ssoProperties, AppPlatformApiPortalResourceRequirements resourceRequests, IReadOnlyList<AppPlatformApiPortalInstance> instances)
+        /// <param name="apiTryOutEnabledState"> Indicates whether the API try-out feature is enabled or disabled. When enabled, users can try out the API by sending requests and viewing responses in API portal. When disabled, users cannot try out the API. </param>
+        internal AppPlatformApiPortalProperties(AppPlatformApiPortalProvisioningState? provisioningState, bool? isPublic, Uri uri, bool? isHttpsOnly, IList<ResourceIdentifier> gatewayIds, IList<Uri> sourceUris, AppPlatformSsoProperties ssoProperties, AppPlatformApiPortalResourceRequirements resourceRequests, IReadOnlyList<AppPlatformApiPortalInstance> instances, ApiPortalApiTryOutEnabledState? apiTryOutEnabledState)
         {
             ProvisioningState = provisioningState;
             IsPublic = isPublic;
@@ -43,6 +44,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
             SsoProperties = ssoProperties;
             ResourceRequests = resourceRequests;
             Instances = instances;
+            ApiTryOutEnabledState = apiTryOutEnabledState;
         }
 
         /// <summary> State of the API portal. </summary>
@@ -63,5 +65,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
         public AppPlatformApiPortalResourceRequirements ResourceRequests { get; }
         /// <summary> Collection of instances belong to API portal. </summary>
         public IReadOnlyList<AppPlatformApiPortalInstance> Instances { get; }
+        /// <summary> Indicates whether the API try-out feature is enabled or disabled. When enabled, users can try out the API by sending requests and viewing responses in API portal. When disabled, users cannot try out the API. </summary>
+        public ApiPortalApiTryOutEnabledState? ApiTryOutEnabledState { get; set; }
     }
 }
