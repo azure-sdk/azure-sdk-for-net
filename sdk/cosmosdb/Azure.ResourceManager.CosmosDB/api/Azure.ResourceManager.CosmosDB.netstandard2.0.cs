@@ -2395,6 +2395,7 @@ namespace Azure.ResourceManager.CosmosDB.Models
     {
         public CosmosCassandraDataTransferDataSourceSink(string keyspaceName, string tableName) { }
         public string KeyspaceName { get { throw null; } set { } }
+        public string RemoteAccountName { get { throw null; } set { } }
         public string TableName { get { throw null; } set { } }
     }
     public abstract partial class CosmosDBAccountBackupPolicy
@@ -3475,12 +3476,14 @@ namespace Azure.ResourceManager.CosmosDB.Models
         public CosmosMongoDataTransferDataSourceSink(string databaseName, string collectionName) { }
         public string CollectionName { get { throw null; } set { } }
         public string DatabaseName { get { throw null; } set { } }
+        public string RemoteAccountName { get { throw null; } set { } }
     }
     public partial class CosmosSqlDataTransferDataSourceSink : Azure.ResourceManager.CosmosDB.Models.DataTransferDataSourceSink
     {
         public CosmosSqlDataTransferDataSourceSink(string databaseName, string containerName) { }
         public string ContainerName { get { throw null; } set { } }
         public string DatabaseName { get { throw null; } set { } }
+        public string RemoteAccountName { get { throw null; } set { } }
     }
     public partial class DatabaseAccountKeysMetadata
     {
