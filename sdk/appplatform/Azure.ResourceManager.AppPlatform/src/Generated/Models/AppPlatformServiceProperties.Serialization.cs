@@ -25,10 +25,30 @@ namespace Azure.ResourceManager.AppPlatform.Models
                 writer.WritePropertyName("vnetAddons"u8);
                 writer.WriteObjectValue(VnetAddons);
             }
+            if (Optional.IsDefined(MaintenanceScheduleConfiguration))
+            {
+                writer.WritePropertyName("maintenanceScheduleConfiguration"u8);
+                writer.WriteObjectValue(MaintenanceScheduleConfiguration);
+            }
+            if (Optional.IsDefined(ManagedEnvironmentId))
+            {
+                writer.WritePropertyName("managedEnvironmentId"u8);
+                writer.WriteStringValue(ManagedEnvironmentId);
+            }
+            if (Optional.IsDefined(InfraResourceGroup))
+            {
+                writer.WritePropertyName("infraResourceGroup"u8);
+                writer.WriteStringValue(InfraResourceGroup);
+            }
             if (Optional.IsDefined(IsZoneRedundant))
             {
                 writer.WritePropertyName("zoneRedundant"u8);
                 writer.WriteBooleanValue(IsZoneRedundant.Value);
+            }
+            if (Optional.IsDefined(MarketplaceResource))
+            {
+                writer.WritePropertyName("marketplaceResource"u8);
+                writer.WriteObjectValue(MarketplaceResource);
             }
             writer.WriteEndObject();
         }
@@ -42,11 +62,15 @@ namespace Azure.ResourceManager.AppPlatform.Models
             Optional<AppPlatformServiceProvisioningState> provisioningState = default;
             Optional<AppPlatformServiceNetworkProfile> networkProfile = default;
             Optional<ServiceVnetAddons> vnetAddons = default;
+            Optional<MaintenanceScheduleConfiguration> maintenanceScheduleConfiguration = default;
             Optional<int> version = default;
             Optional<string> serviceId = default;
+            Optional<string> managedEnvironmentId = default;
+            Optional<string> infraResourceGroup = default;
             Optional<AppPlatformServicePowerState> powerState = default;
             Optional<bool> zoneRedundant = default;
             Optional<string> fqdn = default;
+            Optional<MarketplaceResource> marketplaceResource = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("provisioningState"u8))
@@ -76,6 +100,15 @@ namespace Azure.ResourceManager.AppPlatform.Models
                     vnetAddons = ServiceVnetAddons.DeserializeServiceVnetAddons(property.Value);
                     continue;
                 }
+                if (property.NameEquals("maintenanceScheduleConfiguration"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    maintenanceScheduleConfiguration = MaintenanceScheduleConfiguration.DeserializeMaintenanceScheduleConfiguration(property.Value);
+                    continue;
+                }
                 if (property.NameEquals("version"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -88,6 +121,16 @@ namespace Azure.ResourceManager.AppPlatform.Models
                 if (property.NameEquals("serviceId"u8))
                 {
                     serviceId = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("managedEnvironmentId"u8))
+                {
+                    managedEnvironmentId = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("infraResourceGroup"u8))
+                {
+                    infraResourceGroup = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("powerState"u8))
@@ -113,8 +156,17 @@ namespace Azure.ResourceManager.AppPlatform.Models
                     fqdn = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("marketplaceResource"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    marketplaceResource = MarketplaceResource.DeserializeMarketplaceResource(property.Value);
+                    continue;
+                }
             }
-            return new AppPlatformServiceProperties(Optional.ToNullable(provisioningState), networkProfile.Value, vnetAddons.Value, Optional.ToNullable(version), serviceId.Value, Optional.ToNullable(powerState), Optional.ToNullable(zoneRedundant), fqdn.Value);
+            return new AppPlatformServiceProperties(Optional.ToNullable(provisioningState), networkProfile.Value, vnetAddons.Value, maintenanceScheduleConfiguration.Value, Optional.ToNullable(version), serviceId.Value, managedEnvironmentId.Value, infraResourceGroup.Value, Optional.ToNullable(powerState), Optional.ToNullable(zoneRedundant), fqdn.Value, marketplaceResource.Value);
         }
     }
 }

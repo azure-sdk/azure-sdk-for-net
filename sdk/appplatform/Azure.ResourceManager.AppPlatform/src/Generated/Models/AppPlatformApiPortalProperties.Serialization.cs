@@ -62,6 +62,11 @@ namespace Azure.ResourceManager.AppPlatform.Models
                 writer.WritePropertyName("ssoProperties"u8);
                 writer.WriteObjectValue(SsoProperties);
             }
+            if (Optional.IsDefined(ApiTryOutEnabledState))
+            {
+                writer.WritePropertyName("apiTryOutEnabledState"u8);
+                writer.WriteStringValue(ApiTryOutEnabledState.Value.ToString());
+            }
             writer.WriteEndObject();
         }
 
@@ -80,6 +85,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
             Optional<AppPlatformSsoProperties> ssoProperties = default;
             Optional<AppPlatformApiPortalResourceRequirements> resourceRequests = default;
             Optional<IReadOnlyList<AppPlatformApiPortalInstance>> instances = default;
+            Optional<ApiPortalApiTryOutEnabledState> apiTryOutEnabledState = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("provisioningState"u8))
@@ -192,8 +198,17 @@ namespace Azure.ResourceManager.AppPlatform.Models
                     instances = array;
                     continue;
                 }
+                if (property.NameEquals("apiTryOutEnabledState"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    apiTryOutEnabledState = new ApiPortalApiTryOutEnabledState(property.Value.GetString());
+                    continue;
+                }
             }
-            return new AppPlatformApiPortalProperties(Optional.ToNullable(provisioningState), Optional.ToNullable(@public), uri.Value, Optional.ToNullable(httpsOnly), Optional.ToList(gatewayIds), Optional.ToList(sourceUris), ssoProperties.Value, resourceRequests.Value, Optional.ToList(instances));
+            return new AppPlatformApiPortalProperties(Optional.ToNullable(provisioningState), Optional.ToNullable(@public), uri.Value, Optional.ToNullable(httpsOnly), Optional.ToList(gatewayIds), Optional.ToList(sourceUris), ssoProperties.Value, resourceRequests.Value, Optional.ToList(instances), Optional.ToNullable(apiTryOutEnabledState));
         }
     }
 }

@@ -16,19 +16,23 @@ namespace Azure.ResourceManager.AppPlatform.Models
         }
 
         /// <summary> Initializes a new instance of AppPlatformBuildServiceProperties. </summary>
+        /// <param name="containerRegistry"> The resource id of the container registry used in this build service. </param>
         /// <param name="kPackVersion"> The installed KPack version in this build service. </param>
-        /// <param name="provisioningState"> Provisioning state of the KPack build result. </param>
+        /// <param name="provisioningState"> Provisioning state of the KPack build service. </param>
         /// <param name="resourceRequests"> The runtime resource configuration of this build service. </param>
-        internal AppPlatformBuildServiceProperties(string kPackVersion, AppPlatformBuildServiceProvisioningState? provisioningState, AppPlatformBuildServiceResourceRequirements resourceRequests)
+        internal AppPlatformBuildServiceProperties(string containerRegistry, string kPackVersion, AppPlatformBuildServiceProvisioningState? provisioningState, AppPlatformBuildServiceResourceRequirements resourceRequests)
         {
+            ContainerRegistry = containerRegistry;
             KPackVersion = kPackVersion;
             ProvisioningState = provisioningState;
             ResourceRequests = resourceRequests;
         }
 
+        /// <summary> The resource id of the container registry used in this build service. </summary>
+        public string ContainerRegistry { get; set; }
         /// <summary> The installed KPack version in this build service. </summary>
-        public string KPackVersion { get; set; }
-        /// <summary> Provisioning state of the KPack build result. </summary>
+        public string KPackVersion { get; }
+        /// <summary> Provisioning state of the KPack build service. </summary>
         public AppPlatformBuildServiceProvisioningState? ProvisioningState { get; }
         /// <summary> The runtime resource configuration of this build service. </summary>
         public AppPlatformBuildServiceResourceRequirements ResourceRequests { get; set; }
