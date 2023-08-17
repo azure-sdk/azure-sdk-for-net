@@ -107,6 +107,25 @@ namespace Azure.ResourceManager.DataMigration
         }
         #endregion
 
+        #region MigrationServiceResource
+        /// <summary>
+        /// Gets an object representing a <see cref="MigrationServiceResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="MigrationServiceResource.CreateResourceIdentifier" /> to create a <see cref="MigrationServiceResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="MigrationServiceResource" /> object. </returns>
+        public static MigrationServiceResource GetMigrationServiceResource(this ArmClient client, ResourceIdentifier id)
+        {
+            return client.GetResourceClient(() =>
+            {
+                MigrationServiceResource.ValidateResourceId(id);
+                return new MigrationServiceResource(client, id);
+            }
+            );
+        }
+        #endregion
+
         #region SqlMigrationServiceResource
         /// <summary>
         /// Gets an object representing a <see cref="SqlMigrationServiceResource" /> along with the instance operations that can be performed on it but with no data.
@@ -407,6 +426,62 @@ namespace Azure.ResourceManager.DataMigration
             return resourceGroupResource.GetDatabaseMigrationSqlVms().Get(sqlVirtualMachineName, targetDBName, migrationOperationId, expand, cancellationToken);
         }
 
+        /// <summary> Gets a collection of MigrationServiceResources in the ResourceGroupResource. </summary>
+        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
+        /// <returns> An object representing collection of MigrationServiceResources and their operations over a MigrationServiceResource. </returns>
+        public static MigrationServiceCollection GetMigrationServices(this ResourceGroupResource resourceGroupResource)
+        {
+            return GetResourceGroupResourceExtensionClient(resourceGroupResource).GetMigrationServices();
+        }
+
+        /// <summary>
+        /// Retrieve the Database Migration Service
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/migrationServices/{migrationServiceName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>MigrationServices_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
+        /// <param name="migrationServiceName"> Name of the Migration Service. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="migrationServiceName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="migrationServiceName"/> is null. </exception>
+        [ForwardsClientCalls]
+        public static async Task<Response<MigrationServiceResource>> GetMigrationServiceAsync(this ResourceGroupResource resourceGroupResource, string migrationServiceName, CancellationToken cancellationToken = default)
+        {
+            return await resourceGroupResource.GetMigrationServices().GetAsync(migrationServiceName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Retrieve the Database Migration Service
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DataMigration/migrationServices/{migrationServiceName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>MigrationServices_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
+        /// <param name="migrationServiceName"> Name of the Migration Service. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="migrationServiceName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="migrationServiceName"/> is null. </exception>
+        [ForwardsClientCalls]
+        public static Response<MigrationServiceResource> GetMigrationService(this ResourceGroupResource resourceGroupResource, string migrationServiceName, CancellationToken cancellationToken = default)
+        {
+            return resourceGroupResource.GetMigrationServices().Get(migrationServiceName, cancellationToken);
+        }
+
         /// <summary> Gets a collection of SqlMigrationServiceResources in the ResourceGroupResource. </summary>
         /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
         /// <returns> An object representing collection of SqlMigrationServiceResources and their operations over a SqlMigrationServiceResource. </returns>
@@ -472,7 +547,7 @@ namespace Azure.ResourceManager.DataMigration
         }
 
         /// <summary>
-        /// The services resource is the top-level resource that represents the Database Migration Service. The GET method retrieves information about a service instance.
+        /// The services resource is the top-level resource that represents the Azure Database Migration Service (classic). The GET method retrieves information about a service instance.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -496,7 +571,7 @@ namespace Azure.ResourceManager.DataMigration
         }
 
         /// <summary>
-        /// The services resource is the top-level resource that represents the Database Migration Service. The GET method retrieves information about a service instance.
+        /// The services resource is the top-level resource that represents the Azure Database Migration Service (classic). The GET method retrieves information about a service instance.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -517,6 +592,48 @@ namespace Azure.ResourceManager.DataMigration
         public static Response<DataMigrationServiceResource> GetDataMigrationService(this ResourceGroupResource resourceGroupResource, string serviceName, CancellationToken cancellationToken = default)
         {
             return resourceGroupResource.GetDataMigrationServices().Get(serviceName, cancellationToken);
+        }
+
+        /// <summary>
+        /// Retrieve all migration services in the subscriptions.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.DataMigration/migrationServices</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>MigrationServices_ListBySubscription</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> An async collection of <see cref="MigrationServiceResource" /> that may take multiple service requests to iterate over. </returns>
+        public static AsyncPageable<MigrationServiceResource> GetMigrationServicesAsync(this SubscriptionResource subscriptionResource, CancellationToken cancellationToken = default)
+        {
+            return GetSubscriptionResourceExtensionClient(subscriptionResource).GetMigrationServicesAsync(cancellationToken);
+        }
+
+        /// <summary>
+        /// Retrieve all migration services in the subscriptions.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.DataMigration/migrationServices</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>MigrationServices_ListBySubscription</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="MigrationServiceResource" /> that may take multiple service requests to iterate over. </returns>
+        public static Pageable<MigrationServiceResource> GetMigrationServices(this SubscriptionResource subscriptionResource, CancellationToken cancellationToken = default)
+        {
+            return GetSubscriptionResourceExtensionClient(subscriptionResource).GetMigrationServices(cancellationToken);
         }
 
         /// <summary>
@@ -562,7 +679,7 @@ namespace Azure.ResourceManager.DataMigration
         }
 
         /// <summary>
-        /// The skus action returns the list of SKUs that DMS supports.
+        /// The skus action returns the list of SKUs that DMS (classic) supports.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -583,7 +700,7 @@ namespace Azure.ResourceManager.DataMigration
         }
 
         /// <summary>
-        /// The skus action returns the list of SKUs that DMS supports.
+        /// The skus action returns the list of SKUs that DMS (classic) supports.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -604,7 +721,7 @@ namespace Azure.ResourceManager.DataMigration
         }
 
         /// <summary>
-        /// The services resource is the top-level resource that represents the Database Migration Service. This method returns a list of service resources in a subscription.
+        /// The services resource is the top-level resource that represents the Azure Database Migration Service (classic). This method returns a list of service resources in a subscription.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -625,7 +742,7 @@ namespace Azure.ResourceManager.DataMigration
         }
 
         /// <summary>
-        /// The services resource is the top-level resource that represents the Database Migration Service. This method returns a list of service resources in a subscription.
+        /// The services resource is the top-level resource that represents the Azure Database Migration Service (classic). This method returns a list of service resources in a subscription.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -696,7 +813,7 @@ namespace Azure.ResourceManager.DataMigration
         }
 
         /// <summary>
-        /// This method returns region-specific quotas and resource usage information for the Database Migration Service.
+        /// This method returns region-specific quotas and resource usage information for the Azure Database Migration Service (classic).
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -718,7 +835,7 @@ namespace Azure.ResourceManager.DataMigration
         }
 
         /// <summary>
-        /// This method returns region-specific quotas and resource usage information for the Database Migration Service.
+        /// This method returns region-specific quotas and resource usage information for the Azure Database Migration Service (classic).
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>

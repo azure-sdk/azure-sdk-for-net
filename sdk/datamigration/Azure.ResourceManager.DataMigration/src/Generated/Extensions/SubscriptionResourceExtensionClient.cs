@@ -19,6 +19,8 @@ namespace Azure.ResourceManager.DataMigration
     /// <summary> A class to add extension methods to SubscriptionResource. </summary>
     internal partial class SubscriptionResourceExtensionClient : ArmResource
     {
+        private ClientDiagnostics _migrationServiceClientDiagnostics;
+        private MigrationServicesRestOperations _migrationServiceRestClient;
         private ClientDiagnostics _sqlMigrationServiceClientDiagnostics;
         private SqlMigrationServicesRestOperations _sqlMigrationServiceRestClient;
         private ClientDiagnostics _resourceSkusClientDiagnostics;
@@ -40,6 +42,8 @@ namespace Azure.ResourceManager.DataMigration
         {
         }
 
+        private ClientDiagnostics MigrationServiceClientDiagnostics => _migrationServiceClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.DataMigration", MigrationServiceResource.ResourceType.Namespace, Diagnostics);
+        private MigrationServicesRestOperations MigrationServiceRestClient => _migrationServiceRestClient ??= new MigrationServicesRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(MigrationServiceResource.ResourceType));
         private ClientDiagnostics SqlMigrationServiceClientDiagnostics => _sqlMigrationServiceClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.DataMigration", SqlMigrationServiceResource.ResourceType.Namespace, Diagnostics);
         private SqlMigrationServicesRestOperations SqlMigrationServiceRestClient => _sqlMigrationServiceRestClient ??= new SqlMigrationServicesRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(SqlMigrationServiceResource.ResourceType));
         private ClientDiagnostics ResourceSkusClientDiagnostics => _resourceSkusClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.DataMigration", ProviderConstants.DefaultProviderNamespace, Diagnostics);
@@ -53,6 +57,50 @@ namespace Azure.ResourceManager.DataMigration
         {
             TryGetApiVersion(resourceType, out string apiVersion);
             return apiVersion;
+        }
+
+        /// <summary>
+        /// Retrieve all migration services in the subscriptions.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.DataMigration/migrationServices</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>MigrationServices_ListBySubscription</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> An async collection of <see cref="MigrationServiceResource" /> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<MigrationServiceResource> GetMigrationServicesAsync(CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => MigrationServiceRestClient.CreateListBySubscriptionRequest(Id.SubscriptionId);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => MigrationServiceRestClient.CreateListBySubscriptionNextPageRequest(nextLink, Id.SubscriptionId);
+            return PageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new MigrationServiceResource(Client, MigrationServiceData.DeserializeMigrationServiceData(e)), MigrationServiceClientDiagnostics, Pipeline, "SubscriptionResourceExtensionClient.GetMigrationServices", "value", "nextLink", cancellationToken);
+        }
+
+        /// <summary>
+        /// Retrieve all migration services in the subscriptions.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.DataMigration/migrationServices</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>MigrationServices_ListBySubscription</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="MigrationServiceResource" /> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<MigrationServiceResource> GetMigrationServices(CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => MigrationServiceRestClient.CreateListBySubscriptionRequest(Id.SubscriptionId);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => MigrationServiceRestClient.CreateListBySubscriptionNextPageRequest(nextLink, Id.SubscriptionId);
+            return PageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new MigrationServiceResource(Client, MigrationServiceData.DeserializeMigrationServiceData(e)), MigrationServiceClientDiagnostics, Pipeline, "SubscriptionResourceExtensionClient.GetMigrationServices", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -100,7 +148,7 @@ namespace Azure.ResourceManager.DataMigration
         }
 
         /// <summary>
-        /// The skus action returns the list of SKUs that DMS supports.
+        /// The skus action returns the list of SKUs that DMS (classic) supports.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -122,7 +170,7 @@ namespace Azure.ResourceManager.DataMigration
         }
 
         /// <summary>
-        /// The skus action returns the list of SKUs that DMS supports.
+        /// The skus action returns the list of SKUs that DMS (classic) supports.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -144,7 +192,7 @@ namespace Azure.ResourceManager.DataMigration
         }
 
         /// <summary>
-        /// The services resource is the top-level resource that represents the Database Migration Service. This method returns a list of service resources in a subscription.
+        /// The services resource is the top-level resource that represents the Azure Database Migration Service (classic). This method returns a list of service resources in a subscription.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -166,7 +214,7 @@ namespace Azure.ResourceManager.DataMigration
         }
 
         /// <summary>
-        /// The services resource is the top-level resource that represents the Database Migration Service. This method returns a list of service resources in a subscription.
+        /// The services resource is the top-level resource that represents the Azure Database Migration Service (classic). This method returns a list of service resources in a subscription.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -252,7 +300,7 @@ namespace Azure.ResourceManager.DataMigration
         }
 
         /// <summary>
-        /// This method returns region-specific quotas and resource usage information for the Database Migration Service.
+        /// This method returns region-specific quotas and resource usage information for the Azure Database Migration Service (classic).
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -275,7 +323,7 @@ namespace Azure.ResourceManager.DataMigration
         }
 
         /// <summary>
-        /// This method returns region-specific quotas and resource usage information for the Database Migration Service.
+        /// This method returns region-specific quotas and resource usage information for the Azure Database Migration Service (classic).
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>

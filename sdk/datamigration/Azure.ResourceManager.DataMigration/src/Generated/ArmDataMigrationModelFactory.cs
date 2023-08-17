@@ -257,6 +257,23 @@ namespace Azure.ResourceManager.DataMigration.Models
             return new DatabaseMigrationSqlVmProperties(ResourceType.SqlVm, scope, provisioningState, migrationStatus, startedOn, endedOn, sourceSqlConnection, sourceDatabaseName, sourceServerName, migrationService, migrationOperationId, migrationFailureError, targetDatabaseCollation, provisioningError, migrationStatusDetails, backupConfiguration, offlineConfiguration);
         }
 
+        /// <summary> Initializes a new instance of MigrationServiceData. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="tags"> The tags. </param>
+        /// <param name="location"> The location. </param>
+        /// <param name="provisioningState"> Provisioning state to track the async operation status. </param>
+        /// <param name="integrationRuntimeState"> Current state of the Integration runtime. </param>
+        /// <returns> A new <see cref="DataMigration.MigrationServiceData"/> instance for mocking. </returns>
+        public static MigrationServiceData MigrationServiceData(ResourceIdentifier id = null, string name = null, Core.ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, string provisioningState = null, string integrationRuntimeState = null)
+        {
+            tags ??= new Dictionary<string, string>();
+
+            return new MigrationServiceData(id, name, resourceType, systemData, tags, location, provisioningState, integrationRuntimeState);
+        }
+
         /// <summary> Initializes a new instance of SqlMigrationServiceData. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
@@ -331,7 +348,7 @@ namespace Azure.ResourceManager.DataMigration.Models
         /// <summary> Initializes a new instance of ResourceSku. </summary>
         /// <param name="resourceType"> The type of resource the SKU applies to. </param>
         /// <param name="name"> The name of SKU. </param>
-        /// <param name="tier"> Specifies the tier of DMS in a scale set. </param>
+        /// <param name="tier"> Specifies the tier of DMS (classic) in a scale set. </param>
         /// <param name="size"> The Size of the SKU. </param>
         /// <param name="family"> The Family of this particular SKU. </param>
         /// <param name="kind"> The Kind of resources that are supported in this SKU. </param>

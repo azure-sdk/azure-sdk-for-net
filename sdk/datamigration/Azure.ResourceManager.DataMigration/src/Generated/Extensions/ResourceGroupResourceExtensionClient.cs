@@ -52,6 +52,13 @@ namespace Azure.ResourceManager.DataMigration
             return GetCachedClient(Client => new DatabaseMigrationSqlVmCollection(Client, Id));
         }
 
+        /// <summary> Gets a collection of MigrationServiceResources in the ResourceGroupResource. </summary>
+        /// <returns> An object representing collection of MigrationServiceResources and their operations over a MigrationServiceResource. </returns>
+        public virtual MigrationServiceCollection GetMigrationServices()
+        {
+            return GetCachedClient(Client => new MigrationServiceCollection(Client, Id));
+        }
+
         /// <summary> Gets a collection of SqlMigrationServiceResources in the ResourceGroupResource. </summary>
         /// <returns> An object representing collection of SqlMigrationServiceResources and their operations over a SqlMigrationServiceResource. </returns>
         public virtual SqlMigrationServiceCollection GetSqlMigrationServices()
