@@ -22,18 +22,21 @@ namespace Azure.ResourceManager.CostManagement
         private readonly HttpPipeline _pipeline;
         private readonly Uri _endpoint;
         private readonly string _apiVersion;
+        private readonly string _ifMatch;
 
         /// <summary> Initializes a new instance of ScheduledActionsRestOperations. </summary>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
         /// <param name="applicationId"> The application id to use for user agent. </param>
         /// <param name="endpoint"> server parameter. </param>
         /// <param name="apiVersion"> Api Version. </param>
+        /// <param name="ifMatch"> ETag of the Entity. Not required when creating an entity, but required when updating an entity. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="pipeline"/> or <paramref name="apiVersion"/> is null. </exception>
-        public ScheduledActionsRestOperations(HttpPipeline pipeline, string applicationId, Uri endpoint = null, string apiVersion = default)
+        public ScheduledActionsRestOperations(HttpPipeline pipeline, string applicationId, Uri endpoint = null, string apiVersion = default, string ifMatch = null)
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2023-03-01";
+            _apiVersion = apiVersion ?? "2023-09-01-preview";
+            _ifMatch = ifMatch;
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
@@ -108,7 +111,7 @@ namespace Azure.ResourceManager.CostManagement
             }
         }
 
-        internal HttpMessage CreateCreateOrUpdateRequest(string name, ScheduledActionData data, string ifMatch)
+        internal HttpMessage CreateCreateOrUpdateRequest(string name, ScheduledActionData data)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -119,9 +122,9 @@ namespace Azure.ResourceManager.CostManagement
             uri.AppendPath(name, true);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
-            if (ifMatch != null)
+            if (_ifMatch != null)
             {
-                request.Headers.Add("If-Match", ifMatch);
+                request.Headers.Add("If-Match", _ifMatch);
             }
             request.Headers.Add("Accept", "application/json");
             request.Headers.Add("Content-Type", "application/json");
@@ -135,16 +138,15 @@ namespace Azure.ResourceManager.CostManagement
         /// <summary> Create or update a private scheduled action. </summary>
         /// <param name="name"> Scheduled action name. </param>
         /// <param name="data"> Scheduled action to be created or updated. </param>
-        /// <param name="ifMatch"> ETag of the Entity. Not required when creating an entity. Optional when updating an entity and can be specified to achieve optimistic concurrency. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="name"/> or <paramref name="data"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<ScheduledActionData>> CreateOrUpdateAsync(string name, ScheduledActionData data, string ifMatch = null, CancellationToken cancellationToken = default)
+        public async Task<Response<ScheduledActionData>> CreateOrUpdateAsync(string name, ScheduledActionData data, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(name, nameof(name));
             Argument.AssertNotNull(data, nameof(data));
 
-            using var message = CreateCreateOrUpdateRequest(name, data, ifMatch);
+            using var message = CreateCreateOrUpdateRequest(name, data);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
@@ -164,16 +166,15 @@ namespace Azure.ResourceManager.CostManagement
         /// <summary> Create or update a private scheduled action. </summary>
         /// <param name="name"> Scheduled action name. </param>
         /// <param name="data"> Scheduled action to be created or updated. </param>
-        /// <param name="ifMatch"> ETag of the Entity. Not required when creating an entity. Optional when updating an entity and can be specified to achieve optimistic concurrency. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="name"/> or <paramref name="data"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<ScheduledActionData> CreateOrUpdate(string name, ScheduledActionData data, string ifMatch = null, CancellationToken cancellationToken = default)
+        public Response<ScheduledActionData> CreateOrUpdate(string name, ScheduledActionData data, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(name, nameof(name));
             Argument.AssertNotNull(data, nameof(data));
 
-            using var message = CreateCreateOrUpdateRequest(name, data, ifMatch);
+            using var message = CreateCreateOrUpdateRequest(name, data);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
@@ -318,7 +319,7 @@ namespace Azure.ResourceManager.CostManagement
             }
         }
 
-        internal HttpMessage CreateCreateOrUpdateByScopeRequest(string scope, string name, ScheduledActionData data, string ifMatch)
+        internal HttpMessage CreateCreateOrUpdateByScopeRequest(string scope, string name, ScheduledActionData data)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -331,9 +332,9 @@ namespace Azure.ResourceManager.CostManagement
             uri.AppendPath(name, true);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
-            if (ifMatch != null)
+            if (_ifMatch != null)
             {
-                request.Headers.Add("If-Match", ifMatch);
+                request.Headers.Add("If-Match", _ifMatch);
             }
             request.Headers.Add("Accept", "application/json");
             request.Headers.Add("Content-Type", "application/json");
@@ -348,17 +349,16 @@ namespace Azure.ResourceManager.CostManagement
         /// <param name="scope"> The scope associated with scheduled action operations. This includes 'subscriptions/{subscriptionId}' for subscription scope, 'subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}' for resourceGroup scope, 'providers/Microsoft.Billing/billingAccounts/{billingAccountId}' for Billing Account scope, 'providers/Microsoft.Billing/billingAccounts/{billingAccountId}/departments/{departmentId}' for Department scope, 'providers/Microsoft.Billing/billingAccounts/{billingAccountId}/enrollmentAccounts/{enrollmentAccountId}' for EnrollmentAccount scope, 'providers/Microsoft.Billing/billingAccounts/{billingAccountId}/billingProfiles/{billingProfileId}' for BillingProfile scope, 'providers/Microsoft.Billing/billingAccounts/{billingAccountId}/invoiceSections/{invoiceSectionId}' for InvoiceSection scope, 'providers/Microsoft.CostManagement/externalBillingAccounts/{externalBillingAccountName}' for External Billing Account scope and 'providers/Microsoft.CostManagement/externalSubscriptions/{externalSubscriptionName}' for External Subscription scope. Note: Insight Alerts are only available on subscription scope. </param>
         /// <param name="name"> Scheduled action name. </param>
         /// <param name="data"> Scheduled action to be created or updated. </param>
-        /// <param name="ifMatch"> ETag of the Entity. Not required when creating an entity. Optional when updating an entity and can be specified to achieve optimistic concurrency. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="scope"/>, <paramref name="name"/> or <paramref name="data"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<ScheduledActionData>> CreateOrUpdateByScopeAsync(string scope, string name, ScheduledActionData data, string ifMatch = null, CancellationToken cancellationToken = default)
+        public async Task<Response<ScheduledActionData>> CreateOrUpdateByScopeAsync(string scope, string name, ScheduledActionData data, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(scope, nameof(scope));
             Argument.AssertNotNullOrEmpty(name, nameof(name));
             Argument.AssertNotNull(data, nameof(data));
 
-            using var message = CreateCreateOrUpdateByScopeRequest(scope, name, data, ifMatch);
+            using var message = CreateCreateOrUpdateByScopeRequest(scope, name, data);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
@@ -379,17 +379,16 @@ namespace Azure.ResourceManager.CostManagement
         /// <param name="scope"> The scope associated with scheduled action operations. This includes 'subscriptions/{subscriptionId}' for subscription scope, 'subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}' for resourceGroup scope, 'providers/Microsoft.Billing/billingAccounts/{billingAccountId}' for Billing Account scope, 'providers/Microsoft.Billing/billingAccounts/{billingAccountId}/departments/{departmentId}' for Department scope, 'providers/Microsoft.Billing/billingAccounts/{billingAccountId}/enrollmentAccounts/{enrollmentAccountId}' for EnrollmentAccount scope, 'providers/Microsoft.Billing/billingAccounts/{billingAccountId}/billingProfiles/{billingProfileId}' for BillingProfile scope, 'providers/Microsoft.Billing/billingAccounts/{billingAccountId}/invoiceSections/{invoiceSectionId}' for InvoiceSection scope, 'providers/Microsoft.CostManagement/externalBillingAccounts/{externalBillingAccountName}' for External Billing Account scope and 'providers/Microsoft.CostManagement/externalSubscriptions/{externalSubscriptionName}' for External Subscription scope. Note: Insight Alerts are only available on subscription scope. </param>
         /// <param name="name"> Scheduled action name. </param>
         /// <param name="data"> Scheduled action to be created or updated. </param>
-        /// <param name="ifMatch"> ETag of the Entity. Not required when creating an entity. Optional when updating an entity and can be specified to achieve optimistic concurrency. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="scope"/>, <paramref name="name"/> or <paramref name="data"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<ScheduledActionData> CreateOrUpdateByScope(string scope, string name, ScheduledActionData data, string ifMatch = null, CancellationToken cancellationToken = default)
+        public Response<ScheduledActionData> CreateOrUpdateByScope(string scope, string name, ScheduledActionData data, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(scope, nameof(scope));
             Argument.AssertNotNullOrEmpty(name, nameof(name));
             Argument.AssertNotNull(data, nameof(data));
 
-            using var message = CreateCreateOrUpdateByScopeRequest(scope, name, data, ifMatch);
+            using var message = CreateCreateOrUpdateByScopeRequest(scope, name, data);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {

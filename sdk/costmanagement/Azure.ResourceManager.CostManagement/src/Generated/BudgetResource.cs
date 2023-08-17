@@ -17,60 +17,60 @@ using Azure.ResourceManager;
 namespace Azure.ResourceManager.CostManagement
 {
     /// <summary>
-    /// A Class representing a ScheduledAction along with the instance operations that can be performed on it.
-    /// If you have a <see cref="ResourceIdentifier" /> you can construct a <see cref="ScheduledActionResource" />
-    /// from an instance of <see cref="ArmClient" /> using the GetScheduledActionResource method.
-    /// Otherwise you can get one from its parent resource <see cref="ArmResource" /> using the GetScheduledAction method.
+    /// A Class representing a Budget along with the instance operations that can be performed on it.
+    /// If you have a <see cref="ResourceIdentifier" /> you can construct a <see cref="BudgetResource" />
+    /// from an instance of <see cref="ArmClient" /> using the GetBudgetResource method.
+    /// Otherwise you can get one from its parent resource <see cref="ArmResource" /> using the GetBudget method.
     /// </summary>
-    public partial class ScheduledActionResource : ArmResource
+    public partial class BudgetResource : ArmResource
     {
-        /// <summary> Generate the resource identifier of a <see cref="ScheduledActionResource"/> instance. </summary>
-        public static ResourceIdentifier CreateResourceIdentifier(string scope, string name)
+        /// <summary> Generate the resource identifier of a <see cref="BudgetResource"/> instance. </summary>
+        public static ResourceIdentifier CreateResourceIdentifier(string scope, string budgetName)
         {
-            var resourceId = $"{scope}/providers/Microsoft.CostManagement/scheduledActions/{name}";
+            var resourceId = $"{scope}/providers/Microsoft.CostManagement/budgets/{budgetName}";
             return new ResourceIdentifier(resourceId);
         }
 
-        private readonly ClientDiagnostics _scheduledActionClientDiagnostics;
-        private readonly ScheduledActionsRestOperations _scheduledActionRestClient;
-        private readonly ScheduledActionData _data;
+        private readonly ClientDiagnostics _budgetClientDiagnostics;
+        private readonly BudgetsRestOperations _budgetRestClient;
+        private readonly BudgetData _data;
 
-        /// <summary> Initializes a new instance of the <see cref="ScheduledActionResource"/> class for mocking. </summary>
-        protected ScheduledActionResource()
+        /// <summary> Initializes a new instance of the <see cref="BudgetResource"/> class for mocking. </summary>
+        protected BudgetResource()
         {
         }
 
-        /// <summary> Initializes a new instance of the <see cref = "ScheduledActionResource"/> class. </summary>
+        /// <summary> Initializes a new instance of the <see cref = "BudgetResource"/> class. </summary>
         /// <param name="client"> The client parameters to use in these operations. </param>
         /// <param name="data"> The resource that is the target of operations. </param>
-        internal ScheduledActionResource(ArmClient client, ScheduledActionData data) : this(client, data.Id)
+        internal BudgetResource(ArmClient client, BudgetData data) : this(client, data.Id)
         {
             HasData = true;
             _data = data;
         }
 
-        /// <summary> Initializes a new instance of the <see cref="ScheduledActionResource"/> class. </summary>
+        /// <summary> Initializes a new instance of the <see cref="BudgetResource"/> class. </summary>
         /// <param name="client"> The client parameters to use in these operations. </param>
         /// <param name="id"> The identifier of the resource that is the target of operations. </param>
-        internal ScheduledActionResource(ArmClient client, ResourceIdentifier id) : base(client, id)
+        internal BudgetResource(ArmClient client, ResourceIdentifier id) : base(client, id)
         {
-            _scheduledActionClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.CostManagement", ResourceType.Namespace, Diagnostics);
-            TryGetApiVersion(ResourceType, out string scheduledActionApiVersion);
-            _scheduledActionRestClient = new ScheduledActionsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, scheduledActionApiVersion);
+            _budgetClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.CostManagement", ResourceType.Namespace, Diagnostics);
+            TryGetApiVersion(ResourceType, out string budgetApiVersion);
+            _budgetRestClient = new BudgetsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, budgetApiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
         }
 
         /// <summary> Gets the resource type for the operations. </summary>
-        public static readonly ResourceType ResourceType = "Microsoft.CostManagement/scheduledActions";
+        public static readonly ResourceType ResourceType = "Microsoft.CostManagement/budgets";
 
         /// <summary> Gets whether or not the current instance has data. </summary>
         public virtual bool HasData { get; }
 
         /// <summary> Gets the data representing this Feature. </summary>
         /// <exception cref="InvalidOperationException"> Throws if there is no data loaded in the current instance. </exception>
-        public virtual ScheduledActionData Data
+        public virtual BudgetData Data
         {
             get
             {
@@ -87,29 +87,29 @@ namespace Azure.ResourceManager.CostManagement
         }
 
         /// <summary>
-        /// Get the shared scheduled action from the given scope by name.
+        /// Gets the budget for the scope by budget name.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/{scope}/providers/Microsoft.CostManagement/scheduledActions/{name}</description>
+        /// <description>/{scope}/providers/Microsoft.CostManagement/budgets/{budgetName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>ScheduledActions_GetByScope</description>
+        /// <description>Budgets_Get</description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual async Task<Response<ScheduledActionResource>> GetAsync(CancellationToken cancellationToken = default)
+        public virtual async Task<Response<BudgetResource>> GetAsync(CancellationToken cancellationToken = default)
         {
-            using var scope = _scheduledActionClientDiagnostics.CreateScope("ScheduledActionResource.Get");
+            using var scope = _budgetClientDiagnostics.CreateScope("BudgetResource.Get");
             scope.Start();
             try
             {
-                var response = await _scheduledActionRestClient.GetByScopeAsync(Id.Parent, Id.Name, cancellationToken).ConfigureAwait(false);
+                var response = await _budgetRestClient.GetAsync(Id.Parent, Id.Name, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
-                return Response.FromValue(new ScheduledActionResource(Client, response.Value), response.GetRawResponse());
+                return Response.FromValue(new BudgetResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -119,29 +119,29 @@ namespace Azure.ResourceManager.CostManagement
         }
 
         /// <summary>
-        /// Get the shared scheduled action from the given scope by name.
+        /// Gets the budget for the scope by budget name.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/{scope}/providers/Microsoft.CostManagement/scheduledActions/{name}</description>
+        /// <description>/{scope}/providers/Microsoft.CostManagement/budgets/{budgetName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>ScheduledActions_GetByScope</description>
+        /// <description>Budgets_Get</description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual Response<ScheduledActionResource> Get(CancellationToken cancellationToken = default)
+        public virtual Response<BudgetResource> Get(CancellationToken cancellationToken = default)
         {
-            using var scope = _scheduledActionClientDiagnostics.CreateScope("ScheduledActionResource.Get");
+            using var scope = _budgetClientDiagnostics.CreateScope("BudgetResource.Get");
             scope.Start();
             try
             {
-                var response = _scheduledActionRestClient.GetByScope(Id.Parent, Id.Name, cancellationToken);
+                var response = _budgetRestClient.Get(Id.Parent, Id.Name, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
-                return Response.FromValue(new ScheduledActionResource(Client, response.Value), response.GetRawResponse());
+                return Response.FromValue(new BudgetResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -151,15 +151,15 @@ namespace Azure.ResourceManager.CostManagement
         }
 
         /// <summary>
-        /// Delete a scheduled action within the given scope.
+        /// The operation to delete a budget.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/{scope}/providers/Microsoft.CostManagement/scheduledActions/{name}</description>
+        /// <description>/{scope}/providers/Microsoft.CostManagement/budgets/{budgetName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>ScheduledActions_DeleteByScope</description>
+        /// <description>Budgets_Delete</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -167,11 +167,11 @@ namespace Azure.ResourceManager.CostManagement
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual async Task<ArmOperation> DeleteAsync(WaitUntil waitUntil, CancellationToken cancellationToken = default)
         {
-            using var scope = _scheduledActionClientDiagnostics.CreateScope("ScheduledActionResource.Delete");
+            using var scope = _budgetClientDiagnostics.CreateScope("BudgetResource.Delete");
             scope.Start();
             try
             {
-                var response = await _scheduledActionRestClient.DeleteByScopeAsync(Id.Parent, Id.Name, cancellationToken).ConfigureAwait(false);
+                var response = await _budgetRestClient.DeleteAsync(Id.Parent, Id.Name, cancellationToken).ConfigureAwait(false);
                 var operation = new CostManagementArmOperation(response);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
@@ -185,15 +185,15 @@ namespace Azure.ResourceManager.CostManagement
         }
 
         /// <summary>
-        /// Delete a scheduled action within the given scope.
+        /// The operation to delete a budget.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/{scope}/providers/Microsoft.CostManagement/scheduledActions/{name}</description>
+        /// <description>/{scope}/providers/Microsoft.CostManagement/budgets/{budgetName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>ScheduledActions_DeleteByScope</description>
+        /// <description>Budgets_Delete</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -201,11 +201,11 @@ namespace Azure.ResourceManager.CostManagement
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual ArmOperation Delete(WaitUntil waitUntil, CancellationToken cancellationToken = default)
         {
-            using var scope = _scheduledActionClientDiagnostics.CreateScope("ScheduledActionResource.Delete");
+            using var scope = _budgetClientDiagnostics.CreateScope("BudgetResource.Delete");
             scope.Start();
             try
             {
-                var response = _scheduledActionRestClient.DeleteByScope(Id.Parent, Id.Name, cancellationToken);
+                var response = _budgetRestClient.Delete(Id.Parent, Id.Name, cancellationToken);
                 var operation = new CostManagementArmOperation(response);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletionResponse(cancellationToken);
@@ -219,32 +219,32 @@ namespace Azure.ResourceManager.CostManagement
         }
 
         /// <summary>
-        /// Create or update a shared scheduled action within the given scope.
+        /// The operation to create or update a budget. You can optionally provide an eTag if desired as a form of concurrency control. To obtain the latest eTag for a given budget, perform a get operation prior to your put operation.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/{scope}/providers/Microsoft.CostManagement/scheduledActions/{name}</description>
+        /// <description>/{scope}/providers/Microsoft.CostManagement/budgets/{budgetName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>ScheduledActions_CreateOrUpdateByScope</description>
+        /// <description>Budgets_CreateOrUpdate</description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
-        /// <param name="data"> Scheduled action to be created or updated. </param>
+        /// <param name="data"> Parameters supplied to the Create Budget operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="data"/> is null. </exception>
-        public virtual async Task<ArmOperation<ScheduledActionResource>> UpdateAsync(WaitUntil waitUntil, ScheduledActionData data, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation<BudgetResource>> UpdateAsync(WaitUntil waitUntil, BudgetData data, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(data, nameof(data));
 
-            using var scope = _scheduledActionClientDiagnostics.CreateScope("ScheduledActionResource.Update");
+            using var scope = _budgetClientDiagnostics.CreateScope("BudgetResource.Update");
             scope.Start();
             try
             {
-                var response = await _scheduledActionRestClient.CreateOrUpdateByScopeAsync(Id.Parent, Id.Name, data, cancellationToken).ConfigureAwait(false);
-                var operation = new CostManagementArmOperation<ScheduledActionResource>(Response.FromValue(new ScheduledActionResource(Client, response), response.GetRawResponse()));
+                var response = await _budgetRestClient.CreateOrUpdateAsync(Id.Parent, Id.Name, data, cancellationToken).ConfigureAwait(false);
+                var operation = new CostManagementArmOperation<BudgetResource>(Response.FromValue(new BudgetResource(Client, response), response.GetRawResponse()));
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -257,95 +257,35 @@ namespace Azure.ResourceManager.CostManagement
         }
 
         /// <summary>
-        /// Create or update a shared scheduled action within the given scope.
+        /// The operation to create or update a budget. You can optionally provide an eTag if desired as a form of concurrency control. To obtain the latest eTag for a given budget, perform a get operation prior to your put operation.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/{scope}/providers/Microsoft.CostManagement/scheduledActions/{name}</description>
+        /// <description>/{scope}/providers/Microsoft.CostManagement/budgets/{budgetName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>ScheduledActions_CreateOrUpdateByScope</description>
+        /// <description>Budgets_CreateOrUpdate</description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
-        /// <param name="data"> Scheduled action to be created or updated. </param>
+        /// <param name="data"> Parameters supplied to the Create Budget operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="data"/> is null. </exception>
-        public virtual ArmOperation<ScheduledActionResource> Update(WaitUntil waitUntil, ScheduledActionData data, CancellationToken cancellationToken = default)
+        public virtual ArmOperation<BudgetResource> Update(WaitUntil waitUntil, BudgetData data, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(data, nameof(data));
 
-            using var scope = _scheduledActionClientDiagnostics.CreateScope("ScheduledActionResource.Update");
+            using var scope = _budgetClientDiagnostics.CreateScope("BudgetResource.Update");
             scope.Start();
             try
             {
-                var response = _scheduledActionRestClient.CreateOrUpdateByScope(Id.Parent, Id.Name, data, cancellationToken);
-                var operation = new CostManagementArmOperation<ScheduledActionResource>(Response.FromValue(new ScheduledActionResource(Client, response), response.GetRawResponse()));
+                var response = _budgetRestClient.CreateOrUpdate(Id.Parent, Id.Name, data, cancellationToken);
+                var operation = new CostManagementArmOperation<BudgetResource>(Response.FromValue(new BudgetResource(Client, response), response.GetRawResponse()));
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
-            }
-            catch (Exception e)
-            {
-                scope.Failed(e);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Runs a shared scheduled action within the given scope.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/{scope}/providers/Microsoft.CostManagement/scheduledActions/{name}/execute</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>ScheduledActions_RunByScope</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual async Task<Response> RunByScopeAsync(CancellationToken cancellationToken = default)
-        {
-            using var scope = _scheduledActionClientDiagnostics.CreateScope("ScheduledActionResource.RunByScope");
-            scope.Start();
-            try
-            {
-                var response = await _scheduledActionRestClient.RunByScopeAsync(Id.Parent, Id.Name, cancellationToken).ConfigureAwait(false);
-                return response;
-            }
-            catch (Exception e)
-            {
-                scope.Failed(e);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Runs a shared scheduled action within the given scope.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/{scope}/providers/Microsoft.CostManagement/scheduledActions/{name}/execute</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>ScheduledActions_RunByScope</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual Response RunByScope(CancellationToken cancellationToken = default)
-        {
-            using var scope = _scheduledActionClientDiagnostics.CreateScope("ScheduledActionResource.RunByScope");
-            scope.Start();
-            try
-            {
-                var response = _scheduledActionRestClient.RunByScope(Id.Parent, Id.Name, cancellationToken);
-                return response;
             }
             catch (Exception e)
             {

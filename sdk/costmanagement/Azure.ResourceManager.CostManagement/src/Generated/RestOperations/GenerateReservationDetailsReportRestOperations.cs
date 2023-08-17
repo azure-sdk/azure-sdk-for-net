@@ -31,7 +31,7 @@ namespace Azure.ResourceManager.CostManagement
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2023-03-01";
+            _apiVersion = apiVersion ?? "2023-09-01-preview";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
@@ -54,7 +54,7 @@ namespace Azure.ResourceManager.CostManagement
             return message;
         }
 
-        /// <summary> Generates the reservations details report for provided date range asynchronously based on enrollment id. The Reservation usage details can be viewed only by certain enterprise roles. For more details on the roles see, https://docs.microsoft.com/en-us/azure/cost-management-billing/manage/understand-ea-roles#usage-and-costs-access-by-role. </summary>
+        /// <summary> Generates the reservations details report for provided date range asynchronously based on enrollment id. The Reservation usage details can be viewed only by certain enterprise roles. For more details on the roles see, https://docs.microsoft.com/azure/cost-management-billing/manage/understand-ea-roles#usage-and-costs-access-by-role. </summary>
         /// <param name="billingAccountId"> Enrollment ID (Legacy BillingAccount ID). </param>
         /// <param name="startDate"> Start Date. </param>
         /// <param name="endDate"> End Date. </param>
@@ -79,7 +79,7 @@ namespace Azure.ResourceManager.CostManagement
             }
         }
 
-        /// <summary> Generates the reservations details report for provided date range asynchronously based on enrollment id. The Reservation usage details can be viewed only by certain enterprise roles. For more details on the roles see, https://docs.microsoft.com/en-us/azure/cost-management-billing/manage/understand-ea-roles#usage-and-costs-access-by-role. </summary>
+        /// <summary> Generates the reservations details report for provided date range asynchronously based on enrollment id. The Reservation usage details can be viewed only by certain enterprise roles. For more details on the roles see, https://docs.microsoft.com/azure/cost-management-billing/manage/understand-ea-roles#usage-and-costs-access-by-role. </summary>
         /// <param name="billingAccountId"> Enrollment ID (Legacy BillingAccount ID). </param>
         /// <param name="startDate"> Start Date. </param>
         /// <param name="endDate"> End Date. </param>
@@ -125,7 +125,7 @@ namespace Azure.ResourceManager.CostManagement
             return message;
         }
 
-        /// <summary> Generates the reservations details report for provided date range asynchronously by billing profile. The Reservation usage details can be viewed by only certain enterprise roles by default. For more details on the roles see, https://docs.microsoft.com/en-us/azure/cost-management-billing/reservations/reservation-utilization#view-utilization-in-the-azure-portal-with-azure-rbac-access. </summary>
+        /// <summary> Generates the reservations details report for provided date range asynchronously by billing profile. The Reservation usage details can be viewed by only certain enterprise roles by default. For more details on the roles see, https://docs.microsoft.com/azure/cost-management-billing/reservations/reservation-utilization#view-utilization-in-the-azure-portal-with-azure-rbac-access. </summary>
         /// <param name="billingAccountId"> Billing account ID. </param>
         /// <param name="billingProfileId"> Billing profile ID. </param>
         /// <param name="startDate"> Start Date. </param>
@@ -152,7 +152,7 @@ namespace Azure.ResourceManager.CostManagement
             }
         }
 
-        /// <summary> Generates the reservations details report for provided date range asynchronously by billing profile. The Reservation usage details can be viewed by only certain enterprise roles by default. For more details on the roles see, https://docs.microsoft.com/en-us/azure/cost-management-billing/reservations/reservation-utilization#view-utilization-in-the-azure-portal-with-azure-rbac-access. </summary>
+        /// <summary> Generates the reservations details report for provided date range asynchronously by billing profile. The Reservation usage details can be viewed by only certain enterprise roles by default. For more details on the roles see, https://docs.microsoft.com/azure/cost-management-billing/reservations/reservation-utilization#view-utilization-in-the-azure-portal-with-azure-rbac-access. </summary>
         /// <param name="billingAccountId"> Billing account ID. </param>
         /// <param name="billingProfileId"> Billing profile ID. </param>
         /// <param name="startDate"> Start Date. </param>

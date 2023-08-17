@@ -48,8 +48,9 @@ namespace Azure.ResourceManager.CostManagement
         /// <param name="timePeriod"> Has time period for pulling data for the report. </param>
         /// <param name="dataSet"> Has definition for data in this report config. </param>
         /// <param name="includeMonetaryCommitment"> If true, report includes monetary commitment. </param>
+        /// <param name="provider"> Optionally select a resource provider to get detailed usage information. Permitted values include 'AKS'. </param>
         /// <param name="eTag"> eTag of the resource. To handle concurrent update scenario, this field will be used to determine whether the user is updating the latest version or not. </param>
-        internal CostManagementViewData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string displayName, ResourceIdentifier scope, DateTimeOffset? createdOn, DateTimeOffset? modifiedOn, string dateRange, string currency, ViewChartType? chart, AccumulatedType? accumulated, ViewMetricType? metric, IList<ViewKpiProperties> kpis, IList<ViewPivotProperties> pivots, ViewReportType? typePropertiesQueryType, ReportTimeframeType? timeframe, ReportConfigTimePeriod timePeriod, ReportConfigDataset dataSet, bool? includeMonetaryCommitment, ETag? eTag) : base(id, name, resourceType, systemData)
+        internal CostManagementViewData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string displayName, ResourceIdentifier scope, DateTimeOffset? createdOn, DateTimeOffset? modifiedOn, string dateRange, string currency, ViewChartType? chart, AccumulatedType? accumulated, ViewMetricType? metric, IList<ViewKpiProperties> kpis, IList<ViewPivotProperties> pivots, ViewReportType? typePropertiesQueryType, ReportTimeframeType? timeframe, ReportConfigTimePeriod timePeriod, ReportConfigDataset dataSet, bool? includeMonetaryCommitment, string provider, ETag? eTag) : base(id, name, resourceType, systemData)
         {
             DisplayName = displayName;
             Scope = scope;
@@ -67,6 +68,7 @@ namespace Azure.ResourceManager.CostManagement
             TimePeriod = timePeriod;
             DataSet = dataSet;
             IncludeMonetaryCommitment = includeMonetaryCommitment;
+            Provider = provider;
             ETag = eTag;
         }
 
@@ -77,9 +79,9 @@ namespace Azure.ResourceManager.CostManagement
         /// <summary> Date the user created this view. </summary>
         public DateTimeOffset? CreatedOn { get; }
         /// <summary> Date when the user last modified this view. </summary>
-        public DateTimeOffset? ModifiedOn { get; }
+        public DateTimeOffset? ModifiedOn { get; set; }
         /// <summary> Date range of the current view. </summary>
-        public string DateRange { get; }
+        public string DateRange { get; set; }
         /// <summary> Currency of the current view. </summary>
         public string Currency { get; }
         /// <summary> Chart type of the main view in Cost Analysis. Required. </summary>
@@ -102,6 +104,8 @@ namespace Azure.ResourceManager.CostManagement
         public ReportConfigDataset DataSet { get; set; }
         /// <summary> If true, report includes monetary commitment. </summary>
         public bool? IncludeMonetaryCommitment { get; set; }
+        /// <summary> Optionally select a resource provider to get detailed usage information. Permitted values include 'AKS'. </summary>
+        public string Provider { get; set; }
         /// <summary> eTag of the resource. To handle concurrent update scenario, this field will be used to determine whether the user is updating the latest version or not. </summary>
         public ETag? ETag { get; set; }
     }
