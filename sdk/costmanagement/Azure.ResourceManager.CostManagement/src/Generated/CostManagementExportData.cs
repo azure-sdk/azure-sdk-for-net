@@ -30,6 +30,8 @@ namespace Azure.ResourceManager.CostManagement
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
+        /// <param name="identity"> The managed identity associated with Export. Current supported identity types: None, SystemAssigned. </param>
+        /// <param name="location"> The location of the Export's managed identity. Only required when utilizing managed identity. </param>
         /// <param name="format"> The format of the export being delivered. Currently only 'Csv' is supported. </param>
         /// <param name="deliveryInfo"> Has delivery information for the export. </param>
         /// <param name="definition"> Has the definition for the export. </param>
@@ -38,8 +40,10 @@ namespace Azure.ResourceManager.CostManagement
         /// <param name="nextRunTimeEstimate"> If the export has an active schedule, provides an estimate of the next run time. </param>
         /// <param name="schedule"> Has schedule information for the export. </param>
         /// <param name="eTag"> eTag of the resource. To handle concurrent update scenario, this field will be used to determine whether the user is updating the latest version or not. </param>
-        internal CostManagementExportData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, ExportFormatType? format, ExportDeliveryInfo deliveryInfo, ExportDefinition definition, ExportExecutionListResult runHistory, bool? partitionData, DateTimeOffset? nextRunTimeEstimate, ExportSchedule schedule, ETag? eTag) : base(id, name, resourceType, systemData)
+        internal CostManagementExportData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, ManagedServiceIdentity identity, AzureLocation? location, ExportFormatType? format, ExportDeliveryInfo deliveryInfo, ExportDefinition definition, ExportExecutionListResult runHistory, bool? partitionData, DateTimeOffset? nextRunTimeEstimate, ExportSchedule schedule, ETag? eTag) : base(id, name, resourceType, systemData)
         {
+            Identity = identity;
+            Location = location;
             Format = format;
             DeliveryInfo = deliveryInfo;
             Definition = definition;
@@ -50,6 +54,10 @@ namespace Azure.ResourceManager.CostManagement
             ETag = eTag;
         }
 
+        /// <summary> The managed identity associated with Export. Current supported identity types: None, SystemAssigned. </summary>
+        public ManagedServiceIdentity Identity { get; set; }
+        /// <summary> The location of the Export's managed identity. Only required when utilizing managed identity. </summary>
+        public AzureLocation? Location { get; set; }
         /// <summary> The format of the export being delivered. Currently only 'Csv' is supported. </summary>
         public ExportFormatType? Format { get; set; }
         /// <summary> Has delivery information for the export. </summary>
