@@ -219,7 +219,8 @@ namespace Azure.ResourceManager.ApiManagement
         public virtual AsyncPageable<ApiManagementPolicyResource> GetAllAsync(CancellationToken cancellationToken = default)
         {
             HttpMessage FirstPageRequest(int? pageSizeHint) => _apiManagementPolicyPolicyRestClient.CreateListByServiceRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
-            return PageableHelpers.CreateAsyncPageable(FirstPageRequest, null, e => new ApiManagementPolicyResource(Client, PolicyContractData.DeserializePolicyContractData(e)), _apiManagementPolicyPolicyClientDiagnostics, Pipeline, "ApiManagementPolicyCollection.GetAll", "value", null, cancellationToken);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _apiManagementPolicyPolicyRestClient.CreateListByServiceNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            return PageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new ApiManagementPolicyResource(Client, PolicyContractData.DeserializePolicyContractData(e)), _apiManagementPolicyPolicyClientDiagnostics, Pipeline, "ApiManagementPolicyCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
@@ -240,7 +241,8 @@ namespace Azure.ResourceManager.ApiManagement
         public virtual Pageable<ApiManagementPolicyResource> GetAll(CancellationToken cancellationToken = default)
         {
             HttpMessage FirstPageRequest(int? pageSizeHint) => _apiManagementPolicyPolicyRestClient.CreateListByServiceRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
-            return PageableHelpers.CreatePageable(FirstPageRequest, null, e => new ApiManagementPolicyResource(Client, PolicyContractData.DeserializePolicyContractData(e)), _apiManagementPolicyPolicyClientDiagnostics, Pipeline, "ApiManagementPolicyCollection.GetAll", "value", null, cancellationToken);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _apiManagementPolicyPolicyRestClient.CreateListByServiceNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            return PageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new ApiManagementPolicyResource(Client, PolicyContractData.DeserializePolicyContractData(e)), _apiManagementPolicyPolicyClientDiagnostics, Pipeline, "ApiManagementPolicyCollection.GetAll", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
