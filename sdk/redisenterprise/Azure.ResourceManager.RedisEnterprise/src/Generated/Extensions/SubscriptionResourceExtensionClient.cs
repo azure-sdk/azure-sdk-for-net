@@ -160,6 +160,68 @@ namespace Azure.ResourceManager.RedisEnterprise
         }
 
         /// <summary>
+        /// Checks that the Redis Enterprise cache name is valid and is not already in use.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Cache/checkNameAvailability</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>RedisEnterprise_CheckNameAvailability</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="content"> Parameters supplied to the CheckNameAvailability Redis operation. The only supported resource type is 'Microsoft.Cache/redisenterprise'. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual async Task<Response> CheckNameAvailabilityRedisEnterpriseAsync(CheckNameAvailabilityContent content, CancellationToken cancellationToken = default)
+        {
+            using var scope = RedisEnterpriseClusterRedisEnterpriseClientDiagnostics.CreateScope("SubscriptionResourceExtensionClient.CheckNameAvailabilityRedisEnterprise");
+            scope.Start();
+            try
+            {
+                var response = await RedisEnterpriseClusterRedisEnterpriseRestClient.CheckNameAvailabilityAsync(Id.SubscriptionId, content, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Checks that the Redis Enterprise cache name is valid and is not already in use.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Cache/checkNameAvailability</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>RedisEnterprise_CheckNameAvailability</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="content"> Parameters supplied to the CheckNameAvailability Redis operation. The only supported resource type is 'Microsoft.Cache/redisenterprise'. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual Response CheckNameAvailabilityRedisEnterprise(CheckNameAvailabilityContent content, CancellationToken cancellationToken = default)
+        {
+            using var scope = RedisEnterpriseClusterRedisEnterpriseClientDiagnostics.CreateScope("SubscriptionResourceExtensionClient.CheckNameAvailabilityRedisEnterprise");
+            scope.Start();
+            try
+            {
+                var response = RedisEnterpriseClusterRedisEnterpriseRestClient.CheckNameAvailability(Id.SubscriptionId, content, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
         /// Gets information about skus in specified location for the given subscription id
         /// <list type="bullet">
         /// <item>
