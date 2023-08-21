@@ -6,6 +6,7 @@
 #nullable disable
 
 using System;
+using System.Collections.Generic;
 
 namespace Azure.ResourceManager.ApiManagement.Models
 {
@@ -21,7 +22,7 @@ namespace Azure.ResourceManager.ApiManagement.Models
         public string Title { get; set; }
         /// <summary> Backend Description. </summary>
         public string Description { get; set; }
-        /// <summary> Management Uri of the Resource in External System. This url can be the Arm Resource Id of Logic Apps, Function Apps or API Apps. </summary>
+        /// <summary> Management Uri of the Resource in External System. This URL can be the Arm Resource Id of Logic Apps, Function Apps or API Apps. </summary>
         public Uri ResourceUri { get; set; }
         /// <summary> Backend Properties contract. </summary>
         internal BackendProperties Properties { get; set; }
@@ -39,10 +40,23 @@ namespace Azure.ResourceManager.ApiManagement.Models
 
         /// <summary> Backend Credentials Contract Properties. </summary>
         public BackendCredentialsContract Credentials { get; set; }
-        /// <summary> Backend Proxy Contract Properties. </summary>
+        /// <summary> Backend gateway Contract Properties. </summary>
         public BackendProxyContract Proxy { get; set; }
         /// <summary> Backend TLS Properties. </summary>
         public BackendTlsProperties Tls { get; set; }
+        /// <summary> Backend Circuit Breaker Configuration. </summary>
+        internal BackendCircuitBreaker CircuitBreaker { get; set; }
+        /// <summary> The rules for tripping the backend. </summary>
+        public IList<CircuitBreakerRule> CircuitBreakerRules
+        {
+            get
+            {
+                if (CircuitBreaker is null)
+                    CircuitBreaker = new BackendCircuitBreaker();
+                return CircuitBreaker.Rules;
+            }
+        }
+
         /// <summary> Runtime Url of the Backend. </summary>
         public Uri Uri { get; set; }
         /// <summary> Backend communication protocol. </summary>
