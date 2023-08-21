@@ -16,16 +16,13 @@ namespace Azure.ResourceManager.HDInsight.Models
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
-            if (Optional.IsCollectionDefined(Roles))
+            writer.WritePropertyName("nodes"u8);
+            writer.WriteStartArray();
+            foreach (var item in Nodes)
             {
-                writer.WritePropertyName("roles"u8);
-                writer.WriteStartArray();
-                foreach (var item in Roles)
-                {
-                    writer.WriteObjectValue(item);
-                }
-                writer.WriteEndArray();
+                writer.WriteObjectValue(item);
             }
+            writer.WriteEndArray();
             writer.WriteEndObject();
         }
 
@@ -35,25 +32,21 @@ namespace Azure.ResourceManager.HDInsight.Models
             {
                 return null;
             }
-            Optional<IList<HDInsightClusterRole>> roles = default;
+            IList<NodeProfile> nodes = default;
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("roles"u8))
+                if (property.NameEquals("nodes"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    List<HDInsightClusterRole> array = new List<HDInsightClusterRole>();
+                    List<NodeProfile> array = new List<NodeProfile>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(HDInsightClusterRole.DeserializeHDInsightClusterRole(item));
+                        array.Add(NodeProfile.DeserializeNodeProfile(item));
                     }
-                    roles = array;
+                    nodes = array;
                     continue;
                 }
             }
-            return new ComputeProfile(Optional.ToList(roles));
+            return new ComputeProfile(nodes);
         }
     }
 }

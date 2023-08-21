@@ -19,10 +19,14 @@ namespace Azure.ResourceManager.HDInsight
     /// <summary> A class to add extension methods to SubscriptionResource. </summary>
     internal partial class SubscriptionResourceExtensionClient : ArmResource
     {
-        private ClientDiagnostics _hdInsightClusterClustersClientDiagnostics;
-        private ClustersRestOperations _hdInsightClusterClustersRestClient;
+        private ClientDiagnostics _clusterPoolClientDiagnostics;
+        private ClusterPoolsRestOperations _clusterPoolRestClient;
         private ClientDiagnostics _locationsClientDiagnostics;
         private LocationsRestOperations _locationsRestClient;
+        private ClientDiagnostics _availableClusterPoolVersionsClientDiagnostics;
+        private AvailableClusterPoolVersionsRestOperations _availableClusterPoolVersionsRestClient;
+        private ClientDiagnostics _availableClusterVersionsClientDiagnostics;
+        private AvailableClusterVersionsRestOperations _availableClusterVersionsRestClient;
 
         /// <summary> Initializes a new instance of the <see cref="SubscriptionResourceExtensionClient"/> class for mocking. </summary>
         protected SubscriptionResourceExtensionClient()
@@ -36,10 +40,14 @@ namespace Azure.ResourceManager.HDInsight
         {
         }
 
-        private ClientDiagnostics HDInsightClusterClustersClientDiagnostics => _hdInsightClusterClustersClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.HDInsight", HDInsightClusterResource.ResourceType.Namespace, Diagnostics);
-        private ClustersRestOperations HDInsightClusterClustersRestClient => _hdInsightClusterClustersRestClient ??= new ClustersRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(HDInsightClusterResource.ResourceType));
+        private ClientDiagnostics ClusterPoolClientDiagnostics => _clusterPoolClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.HDInsight", ClusterPoolResource.ResourceType.Namespace, Diagnostics);
+        private ClusterPoolsRestOperations ClusterPoolRestClient => _clusterPoolRestClient ??= new ClusterPoolsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(ClusterPoolResource.ResourceType));
         private ClientDiagnostics LocationsClientDiagnostics => _locationsClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.HDInsight", ProviderConstants.DefaultProviderNamespace, Diagnostics);
         private LocationsRestOperations LocationsRestClient => _locationsRestClient ??= new LocationsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
+        private ClientDiagnostics AvailableClusterPoolVersionsClientDiagnostics => _availableClusterPoolVersionsClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.HDInsight", ProviderConstants.DefaultProviderNamespace, Diagnostics);
+        private AvailableClusterPoolVersionsRestOperations AvailableClusterPoolVersionsRestClient => _availableClusterPoolVersionsRestClient ??= new AvailableClusterPoolVersionsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
+        private ClientDiagnostics AvailableClusterVersionsClientDiagnostics => _availableClusterVersionsClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.HDInsight", ProviderConstants.DefaultProviderNamespace, Diagnostics);
+        private AvailableClusterVersionsRestOperations AvailableClusterVersionsRestClient => _availableClusterVersionsRestClient ??= new AvailableClusterVersionsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
 
         private string GetApiVersionOrNull(ResourceType resourceType)
         {
@@ -48,219 +56,51 @@ namespace Azure.ResourceManager.HDInsight
         }
 
         /// <summary>
-        /// Lists all the HDInsight clusters under the subscription.
+        /// Gets the list of Cluster Pools within a Subscription.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.HDInsight/clusters</description>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.HDInsight/clusterpools</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Clusters_List</description>
+        /// <description>ClusterPools_ListBySubscription</description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> An async collection of <see cref="HDInsightClusterResource" /> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<HDInsightClusterResource> GetHDInsightClustersAsync(CancellationToken cancellationToken = default)
+        /// <returns> An async collection of <see cref="ClusterPoolResource" /> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<ClusterPoolResource> GetClusterPoolsAsync(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => HDInsightClusterClustersRestClient.CreateListRequest(Id.SubscriptionId);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => HDInsightClusterClustersRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId);
-            return PageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new HDInsightClusterResource(Client, HDInsightClusterData.DeserializeHDInsightClusterData(e)), HDInsightClusterClustersClientDiagnostics, Pipeline, "SubscriptionResourceExtensionClient.GetHDInsightClusters", "value", "nextLink", cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => ClusterPoolRestClient.CreateListBySubscriptionRequest(Id.SubscriptionId);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => ClusterPoolRestClient.CreateListBySubscriptionNextPageRequest(nextLink, Id.SubscriptionId);
+            return PageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new ClusterPoolResource(Client, ClusterPoolData.DeserializeClusterPoolData(e)), ClusterPoolClientDiagnostics, Pipeline, "SubscriptionResourceExtensionClient.GetClusterPools", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
-        /// Lists all the HDInsight clusters under the subscription.
+        /// Gets the list of Cluster Pools within a Subscription.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.HDInsight/clusters</description>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.HDInsight/clusterpools</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Clusters_List</description>
+        /// <description>ClusterPools_ListBySubscription</description>
         /// </item>
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="HDInsightClusterResource" /> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<HDInsightClusterResource> GetHDInsightClusters(CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="ClusterPoolResource" /> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<ClusterPoolResource> GetClusterPools(CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => HDInsightClusterClustersRestClient.CreateListRequest(Id.SubscriptionId);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => HDInsightClusterClustersRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId);
-            return PageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new HDInsightClusterResource(Client, HDInsightClusterData.DeserializeHDInsightClusterData(e)), HDInsightClusterClustersClientDiagnostics, Pipeline, "SubscriptionResourceExtensionClient.GetHDInsightClusters", "value", "nextLink", cancellationToken);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => ClusterPoolRestClient.CreateListBySubscriptionRequest(Id.SubscriptionId);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => ClusterPoolRestClient.CreateListBySubscriptionNextPageRequest(nextLink, Id.SubscriptionId);
+            return PageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new ClusterPoolResource(Client, ClusterPoolData.DeserializeClusterPoolData(e)), ClusterPoolClientDiagnostics, Pipeline, "SubscriptionResourceExtensionClient.GetClusterPools", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
-        /// Gets the capabilities for the specified location.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.HDInsight/locations/{location}/capabilities</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>Locations_GetCapabilities</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="location"> The Azure location (region) for which to make the request. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual async Task<Response<HDInsightCapabilitiesResult>> GetHDInsightCapabilitiesAsync(AzureLocation location, CancellationToken cancellationToken = default)
-        {
-            using var scope = LocationsClientDiagnostics.CreateScope("SubscriptionResourceExtensionClient.GetHDInsightCapabilities");
-            scope.Start();
-            try
-            {
-                var response = await LocationsRestClient.GetCapabilitiesAsync(Id.SubscriptionId, location, cancellationToken).ConfigureAwait(false);
-                return response;
-            }
-            catch (Exception e)
-            {
-                scope.Failed(e);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Gets the capabilities for the specified location.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.HDInsight/locations/{location}/capabilities</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>Locations_GetCapabilities</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="location"> The Azure location (region) for which to make the request. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual Response<HDInsightCapabilitiesResult> GetHDInsightCapabilities(AzureLocation location, CancellationToken cancellationToken = default)
-        {
-            using var scope = LocationsClientDiagnostics.CreateScope("SubscriptionResourceExtensionClient.GetHDInsightCapabilities");
-            scope.Start();
-            try
-            {
-                var response = LocationsRestClient.GetCapabilities(Id.SubscriptionId, location, cancellationToken);
-                return response;
-            }
-            catch (Exception e)
-            {
-                scope.Failed(e);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Lists the usages for the specified location.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.HDInsight/locations/{location}/usages</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>Locations_ListUsages</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="location"> The Azure location (region) for which to make the request. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> An async collection of <see cref="HDInsightUsage" /> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<HDInsightUsage> GetHDInsightUsagesAsync(AzureLocation location, CancellationToken cancellationToken = default)
-        {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => LocationsRestClient.CreateListUsagesRequest(Id.SubscriptionId, location);
-            return PageableHelpers.CreateAsyncPageable(FirstPageRequest, null, HDInsightUsage.DeserializeHDInsightUsage, LocationsClientDiagnostics, Pipeline, "SubscriptionResourceExtensionClient.GetHDInsightUsages", "value", null, cancellationToken);
-        }
-
-        /// <summary>
-        /// Lists the usages for the specified location.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.HDInsight/locations/{location}/usages</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>Locations_ListUsages</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="location"> The Azure location (region) for which to make the request. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="HDInsightUsage" /> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<HDInsightUsage> GetHDInsightUsages(AzureLocation location, CancellationToken cancellationToken = default)
-        {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => LocationsRestClient.CreateListUsagesRequest(Id.SubscriptionId, location);
-            return PageableHelpers.CreatePageable(FirstPageRequest, null, HDInsightUsage.DeserializeHDInsightUsage, LocationsClientDiagnostics, Pipeline, "SubscriptionResourceExtensionClient.GetHDInsightUsages", "value", null, cancellationToken);
-        }
-
-        /// <summary>
-        /// Lists the billingSpecs for the specified subscription and location.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.HDInsight/locations/{location}/billingSpecs</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>Locations_ListBillingSpecs</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="location"> The Azure location (region) for which to make the request. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual async Task<Response<HDInsightBillingSpecsListResult>> GetHDInsightBillingSpecsAsync(AzureLocation location, CancellationToken cancellationToken = default)
-        {
-            using var scope = LocationsClientDiagnostics.CreateScope("SubscriptionResourceExtensionClient.GetHDInsightBillingSpecs");
-            scope.Start();
-            try
-            {
-                var response = await LocationsRestClient.ListBillingSpecsAsync(Id.SubscriptionId, location, cancellationToken).ConfigureAwait(false);
-                return response;
-            }
-            catch (Exception e)
-            {
-                scope.Failed(e);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Lists the billingSpecs for the specified subscription and location.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.HDInsight/locations/{location}/billingSpecs</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>Locations_ListBillingSpecs</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="location"> The Azure location (region) for which to make the request. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual Response<HDInsightBillingSpecsListResult> GetHDInsightBillingSpecs(AzureLocation location, CancellationToken cancellationToken = default)
-        {
-            using var scope = LocationsClientDiagnostics.CreateScope("SubscriptionResourceExtensionClient.GetHDInsightBillingSpecs");
-            scope.Start();
-            try
-            {
-                var response = LocationsRestClient.ListBillingSpecs(Id.SubscriptionId, location, cancellationToken);
-                return response;
-            }
-            catch (Exception e)
-            {
-                scope.Failed(e);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Check the cluster name is available or not.
+        /// Check the availability of the resource name.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -272,10 +112,10 @@ namespace Azure.ResourceManager.HDInsight
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="location"> The Azure location (region) for which to make the request. </param>
-        /// <param name="content"> The HDInsightNameAvailabilityContent to use. </param>
+        /// <param name="location"> The name of the Azure region. </param>
+        /// <param name="content"> The name and type of the resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual async Task<Response<HDInsightNameAvailabilityResult>> CheckHDInsightNameAvailabilityAsync(AzureLocation location, HDInsightNameAvailabilityContent content, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<NameAvailabilityResult>> CheckHDInsightNameAvailabilityAsync(AzureLocation location, NameAvailabilityContent content, CancellationToken cancellationToken = default)
         {
             using var scope = LocationsClientDiagnostics.CreateScope("SubscriptionResourceExtensionClient.CheckHDInsightNameAvailability");
             scope.Start();
@@ -292,7 +132,7 @@ namespace Azure.ResourceManager.HDInsight
         }
 
         /// <summary>
-        /// Check the cluster name is available or not.
+        /// Check the availability of the resource name.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -304,10 +144,10 @@ namespace Azure.ResourceManager.HDInsight
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="location"> The Azure location (region) for which to make the request. </param>
-        /// <param name="content"> The HDInsightNameAvailabilityContent to use. </param>
+        /// <param name="location"> The name of the Azure region. </param>
+        /// <param name="content"> The name and type of the resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual Response<HDInsightNameAvailabilityResult> CheckHDInsightNameAvailability(AzureLocation location, HDInsightNameAvailabilityContent content, CancellationToken cancellationToken = default)
+        public virtual Response<NameAvailabilityResult> CheckHDInsightNameAvailability(AzureLocation location, NameAvailabilityContent content, CancellationToken cancellationToken = default)
         {
             using var scope = LocationsClientDiagnostics.CreateScope("SubscriptionResourceExtensionClient.CheckHDInsightNameAvailability");
             scope.Start();
@@ -324,67 +164,95 @@ namespace Azure.ResourceManager.HDInsight
         }
 
         /// <summary>
-        /// Validate the cluster create request spec is valid or not.
+        /// Returns a list of available cluster pool versions.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.HDInsight/locations/{location}/validateCreateRequest</description>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.HDInsight/locations/{location}/availableClusterPoolVersions</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Locations_ValidateClusterCreateRequest</description>
+        /// <description>AvailableClusterPoolVersions_ListByLocation</description>
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="location"> The Azure location (region) for which to make the request. </param>
-        /// <param name="content"> The HDInsightClusterCreationValidateContent to use. </param>
+        /// <param name="location"> The name of the Azure region. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual async Task<Response<HDInsightClusterCreationValidateResult>> ValidateHDInsightClusterCreationAsync(AzureLocation location, HDInsightClusterCreationValidateContent content, CancellationToken cancellationToken = default)
+        /// <returns> An async collection of <see cref="ClusterPoolVersion" /> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<ClusterPoolVersion> GetAvailableClusterPoolVersionsByLocationAsync(AzureLocation location, CancellationToken cancellationToken = default)
         {
-            using var scope = LocationsClientDiagnostics.CreateScope("SubscriptionResourceExtensionClient.ValidateHDInsightClusterCreation");
-            scope.Start();
-            try
-            {
-                var response = await LocationsRestClient.ValidateClusterCreateRequestAsync(Id.SubscriptionId, location, content, cancellationToken).ConfigureAwait(false);
-                return response;
-            }
-            catch (Exception e)
-            {
-                scope.Failed(e);
-                throw;
-            }
+            HttpMessage FirstPageRequest(int? pageSizeHint) => AvailableClusterPoolVersionsRestClient.CreateListByLocationRequest(Id.SubscriptionId, location);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => AvailableClusterPoolVersionsRestClient.CreateListByLocationNextPageRequest(nextLink, Id.SubscriptionId, location);
+            return PageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, ClusterPoolVersion.DeserializeClusterPoolVersion, AvailableClusterPoolVersionsClientDiagnostics, Pipeline, "SubscriptionResourceExtensionClient.GetAvailableClusterPoolVersionsByLocation", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
-        /// Validate the cluster create request spec is valid or not.
+        /// Returns a list of available cluster pool versions.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.HDInsight/locations/{location}/validateCreateRequest</description>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.HDInsight/locations/{location}/availableClusterPoolVersions</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Locations_ValidateClusterCreateRequest</description>
+        /// <description>AvailableClusterPoolVersions_ListByLocation</description>
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="location"> The Azure location (region) for which to make the request. </param>
-        /// <param name="content"> The HDInsightClusterCreationValidateContent to use. </param>
+        /// <param name="location"> The name of the Azure region. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual Response<HDInsightClusterCreationValidateResult> ValidateHDInsightClusterCreation(AzureLocation location, HDInsightClusterCreationValidateContent content, CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="ClusterPoolVersion" /> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<ClusterPoolVersion> GetAvailableClusterPoolVersionsByLocation(AzureLocation location, CancellationToken cancellationToken = default)
         {
-            using var scope = LocationsClientDiagnostics.CreateScope("SubscriptionResourceExtensionClient.ValidateHDInsightClusterCreation");
-            scope.Start();
-            try
-            {
-                var response = LocationsRestClient.ValidateClusterCreateRequest(Id.SubscriptionId, location, content, cancellationToken);
-                return response;
-            }
-            catch (Exception e)
-            {
-                scope.Failed(e);
-                throw;
-            }
+            HttpMessage FirstPageRequest(int? pageSizeHint) => AvailableClusterPoolVersionsRestClient.CreateListByLocationRequest(Id.SubscriptionId, location);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => AvailableClusterPoolVersionsRestClient.CreateListByLocationNextPageRequest(nextLink, Id.SubscriptionId, location);
+            return PageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, ClusterPoolVersion.DeserializeClusterPoolVersion, AvailableClusterPoolVersionsClientDiagnostics, Pipeline, "SubscriptionResourceExtensionClient.GetAvailableClusterPoolVersionsByLocation", "value", "nextLink", cancellationToken);
+        }
+
+        /// <summary>
+        /// Returns a list of available cluster versions.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.HDInsight/locations/{location}/availableClusterVersions</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>AvailableClusterVersions_ListByLocation</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="location"> The name of the Azure region. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> An async collection of <see cref="ClusterVersion" /> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<ClusterVersion> GetAvailableClusterVersionsByLocationAsync(AzureLocation location, CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => AvailableClusterVersionsRestClient.CreateListByLocationRequest(Id.SubscriptionId, location);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => AvailableClusterVersionsRestClient.CreateListByLocationNextPageRequest(nextLink, Id.SubscriptionId, location);
+            return PageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, ClusterVersion.DeserializeClusterVersion, AvailableClusterVersionsClientDiagnostics, Pipeline, "SubscriptionResourceExtensionClient.GetAvailableClusterVersionsByLocation", "value", "nextLink", cancellationToken);
+        }
+
+        /// <summary>
+        /// Returns a list of available cluster versions.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.HDInsight/locations/{location}/availableClusterVersions</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>AvailableClusterVersions_ListByLocation</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="location"> The name of the Azure region. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="ClusterVersion" /> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<ClusterVersion> GetAvailableClusterVersionsByLocation(AzureLocation location, CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => AvailableClusterVersionsRestClient.CreateListByLocationRequest(Id.SubscriptionId, location);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => AvailableClusterVersionsRestClient.CreateListByLocationNextPageRequest(nextLink, Id.SubscriptionId, location);
+            return PageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, ClusterVersion.DeserializeClusterVersion, AvailableClusterVersionsClientDiagnostics, Pipeline, "SubscriptionResourceExtensionClient.GetAvailableClusterVersionsByLocation", "value", "nextLink", cancellationToken);
         }
     }
 }

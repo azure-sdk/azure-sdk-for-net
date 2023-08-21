@@ -7,7 +7,6 @@
 
 using System.Collections.Generic;
 using System.Text.Json;
-using Azure;
 using Azure.Core;
 using Azure.ResourceManager.HDInsight.Models;
 using Azure.ResourceManager.Models;
@@ -19,31 +18,6 @@ namespace Azure.ResourceManager.HDInsight
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
-            if (Optional.IsDefined(ETag))
-            {
-                writer.WritePropertyName("etag"u8);
-                writer.WriteStringValue(ETag.Value.ToString());
-            }
-            if (Optional.IsCollectionDefined(Zones))
-            {
-                writer.WritePropertyName("zones"u8);
-                writer.WriteStartArray();
-                foreach (var item in Zones)
-                {
-                    writer.WriteStringValue(item);
-                }
-                writer.WriteEndArray();
-            }
-            if (Optional.IsDefined(Properties))
-            {
-                writer.WritePropertyName("properties"u8);
-                writer.WriteObjectValue(Properties);
-            }
-            if (Optional.IsDefined(Identity))
-            {
-                writer.WritePropertyName("identity"u8);
-                JsonSerializer.Serialize(writer, Identity);
-            }
             if (Optional.IsCollectionDefined(Tags))
             {
                 writer.WritePropertyName("tags"u8);
@@ -57,6 +31,24 @@ namespace Azure.ResourceManager.HDInsight
             }
             writer.WritePropertyName("location"u8);
             writer.WriteStringValue(Location);
+            writer.WritePropertyName("properties"u8);
+            writer.WriteStartObject();
+            if (Optional.IsDefined(ClusterType))
+            {
+                writer.WritePropertyName("clusterType"u8);
+                writer.WriteStringValue(ClusterType);
+            }
+            if (Optional.IsDefined(ComputeProfile))
+            {
+                writer.WritePropertyName("computeProfile"u8);
+                writer.WriteObjectValue(ComputeProfile);
+            }
+            if (Optional.IsDefined(ClusterProfile))
+            {
+                writer.WritePropertyName("clusterProfile"u8);
+                writer.WriteObjectValue(ClusterProfile);
+            }
+            writer.WriteEndObject();
             writer.WriteEndObject();
         }
 
@@ -66,59 +58,20 @@ namespace Azure.ResourceManager.HDInsight
             {
                 return null;
             }
-            Optional<ETag> etag = default;
-            Optional<IList<string>> zones = default;
-            Optional<HDInsightClusterProperties> properties = default;
-            Optional<ManagedServiceIdentity> identity = default;
             Optional<IDictionary<string, string>> tags = default;
             AzureLocation location = default;
             ResourceIdentifier id = default;
             string name = default;
             ResourceType type = default;
             Optional<SystemData> systemData = default;
+            Optional<ProvisioningStatus> provisioningState = default;
+            Optional<string> clusterType = default;
+            Optional<string> deploymentId = default;
+            Optional<ComputeProfile> computeProfile = default;
+            Optional<ClusterProfile> clusterProfile = default;
+            Optional<string> status = default;
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("etag"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    etag = new ETag(property.Value.GetString());
-                    continue;
-                }
-                if (property.NameEquals("zones"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    List<string> array = new List<string>();
-                    foreach (var item in property.Value.EnumerateArray())
-                    {
-                        array.Add(item.GetString());
-                    }
-                    zones = array;
-                    continue;
-                }
-                if (property.NameEquals("properties"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    properties = HDInsightClusterProperties.DeserializeHDInsightClusterProperties(property.Value);
-                    continue;
-                }
-                if (property.NameEquals("identity"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    identity = JsonSerializer.Deserialize<ManagedServiceIdentity>(property.Value.GetRawText());
-                    continue;
-                }
                 if (property.NameEquals("tags"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -162,8 +115,62 @@ namespace Azure.ResourceManager.HDInsight
                     systemData = JsonSerializer.Deserialize<SystemData>(property.Value.GetRawText());
                     continue;
                 }
+                if (property.NameEquals("properties"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        property.ThrowNonNullablePropertyIsNull();
+                        continue;
+                    }
+                    foreach (var property0 in property.Value.EnumerateObject())
+                    {
+                        if (property0.NameEquals("provisioningState"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            provisioningState = new ProvisioningStatus(property0.Value.GetString());
+                            continue;
+                        }
+                        if (property0.NameEquals("clusterType"u8))
+                        {
+                            clusterType = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("deploymentId"u8))
+                        {
+                            deploymentId = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("computeProfile"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            computeProfile = ComputeProfile.DeserializeComputeProfile(property0.Value);
+                            continue;
+                        }
+                        if (property0.NameEquals("clusterProfile"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            clusterProfile = ClusterProfile.DeserializeClusterProfile(property0.Value);
+                            continue;
+                        }
+                        if (property0.NameEquals("status"u8))
+                        {
+                            status = property0.Value.GetString();
+                            continue;
+                        }
+                    }
+                    continue;
+                }
             }
-            return new HDInsightClusterData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, Optional.ToNullable(etag), Optional.ToList(zones), properties.Value, identity);
+            return new HDInsightClusterData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, Optional.ToNullable(provisioningState), clusterType.Value, deploymentId.Value, computeProfile.Value, clusterProfile.Value, status.Value);
         }
     }
 }
