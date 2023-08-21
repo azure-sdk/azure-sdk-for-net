@@ -17,6 +17,9 @@ namespace Azure.ResourceManager.AppPlatform.Models
         /// <summary> Initializes a new instance of AppPlatformGatewayProperties. </summary>
         public AppPlatformGatewayProperties()
         {
+            ApmTypes = new ChangeTrackingList<ApmType>();
+            Apms = new ChangeTrackingList<ApmReference>();
+            AddonConfigs = new ChangeTrackingDictionary<string, BinaryData>();
             Instances = new ChangeTrackingList<AppPlatformGatewayInstance>();
         }
 
@@ -28,10 +31,15 @@ namespace Azure.ResourceManager.AppPlatform.Models
         /// <param name="ssoProperties"> Single sign-on related configuration. </param>
         /// <param name="apiMetadataProperties"> API metadata property for Spring Cloud Gateway. </param>
         /// <param name="corsProperties"> Cross-Origin Resource Sharing property. </param>
+        /// <param name="clientAuth"> Client-Certification Authentication. </param>
+        /// <param name="apmTypes"> Collection of APM type used in Spring Cloud Gateway. </param>
+        /// <param name="apms"> Collection of ApmReferences in service level. </param>
+        /// <param name="environmentVariables"> Environment variables of Spring Cloud Gateway. </param>
         /// <param name="resourceRequests"> The requested resource quantity for required CPU and Memory. </param>
+        /// <param name="addonConfigs"> Collection of addons for Spring Cloud Gateway. </param>
         /// <param name="instances"> Collection of instances belong to Spring Cloud Gateway. </param>
         /// <param name="operatorProperties"> Properties of the Spring Cloud Gateway Operator. </param>
-        internal AppPlatformGatewayProperties(AppPlatformGatewayProvisioningState? provisioningState, bool? isPublic, Uri uri, bool? isHttpsOnly, AppPlatformSsoProperties ssoProperties, AppPlatformGatewayApiMetadataProperties apiMetadataProperties, AppPlatformGatewayCorsProperties corsProperties, AppPlatformGatewayResourceRequirements resourceRequests, IReadOnlyList<AppPlatformGatewayInstance> instances, AppPlatformGatewayOperatorProperties operatorProperties)
+        internal AppPlatformGatewayProperties(AppPlatformGatewayProvisioningState? provisioningState, bool? isPublic, Uri uri, bool? isHttpsOnly, AppPlatformSsoProperties ssoProperties, AppPlatformGatewayApiMetadataProperties apiMetadataProperties, AppPlatformGatewayCorsProperties corsProperties, GatewayPropertiesClientAuth clientAuth, IList<ApmType> apmTypes, IList<ApmReference> apms, GatewayPropertiesEnvironmentVariables environmentVariables, AppPlatformGatewayResourceRequirements resourceRequests, IDictionary<string, BinaryData> addonConfigs, IReadOnlyList<AppPlatformGatewayInstance> instances, AppPlatformGatewayOperatorProperties operatorProperties)
         {
             ProvisioningState = provisioningState;
             IsPublic = isPublic;
@@ -40,7 +48,12 @@ namespace Azure.ResourceManager.AppPlatform.Models
             SsoProperties = ssoProperties;
             ApiMetadataProperties = apiMetadataProperties;
             CorsProperties = corsProperties;
+            ClientAuth = clientAuth;
+            ApmTypes = apmTypes;
+            Apms = apms;
+            EnvironmentVariables = environmentVariables;
             ResourceRequests = resourceRequests;
+            AddonConfigs = addonConfigs;
             Instances = instances;
             OperatorProperties = operatorProperties;
         }
@@ -59,8 +72,47 @@ namespace Azure.ResourceManager.AppPlatform.Models
         public AppPlatformGatewayApiMetadataProperties ApiMetadataProperties { get; set; }
         /// <summary> Cross-Origin Resource Sharing property. </summary>
         public AppPlatformGatewayCorsProperties CorsProperties { get; set; }
+        /// <summary> Client-Certification Authentication. </summary>
+        public GatewayPropertiesClientAuth ClientAuth { get; set; }
+        /// <summary> Collection of APM type used in Spring Cloud Gateway. </summary>
+        public IList<ApmType> ApmTypes { get; }
+        /// <summary> Collection of ApmReferences in service level. </summary>
+        public IList<ApmReference> Apms { get; }
+        /// <summary> Environment variables of Spring Cloud Gateway. </summary>
+        public GatewayPropertiesEnvironmentVariables EnvironmentVariables { get; set; }
         /// <summary> The requested resource quantity for required CPU and Memory. </summary>
         public AppPlatformGatewayResourceRequirements ResourceRequests { get; set; }
+        /// <summary>
+        /// Collection of addons for Spring Cloud Gateway
+        /// <para>
+        /// To assign an object to the value of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
+        /// </para>
+        /// <para>
+        /// To assign an already formated json string to this property use <see cref="BinaryData.FromString(string)"/>.
+        /// </para>
+        /// <para>
+        /// Examples:
+        /// <list type="bullet">
+        /// <item>
+        /// <term>BinaryData.FromObjectAsJson("foo")</term>
+        /// <description>Creates a payload of "foo".</description>
+        /// </item>
+        /// <item>
+        /// <term>BinaryData.FromString("\"foo\"")</term>
+        /// <description>Creates a payload of "foo".</description>
+        /// </item>
+        /// <item>
+        /// <term>BinaryData.FromObjectAsJson(new { key = "value" })</term>
+        /// <description>Creates a payload of { "key": "value" }.</description>
+        /// </item>
+        /// <item>
+        /// <term>BinaryData.FromString("{\"key\": \"value\"}")</term>
+        /// <description>Creates a payload of { "key": "value" }.</description>
+        /// </item>
+        /// </list>
+        /// </para>
+        /// </summary>
+        public IDictionary<string, BinaryData> AddonConfigs { get; }
         /// <summary> Collection of instances belong to Spring Cloud Gateway. </summary>
         public IReadOnlyList<AppPlatformGatewayInstance> Instances { get; }
         /// <summary> Properties of the Spring Cloud Gateway Operator. </summary>
