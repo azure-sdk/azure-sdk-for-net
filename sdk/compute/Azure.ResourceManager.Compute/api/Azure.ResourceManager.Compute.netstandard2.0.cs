@@ -2545,6 +2545,7 @@ namespace Azure.ResourceManager.Compute.Models
         public static Azure.ResourceManager.Compute.Models.VirtualMachineScaleSetVmExtensionPatch VirtualMachineScaleSetVmExtensionPatch(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, string forceUpdateTag = null, string publisher = null, string extensionType = null, string typeHandlerVersion = null, bool? autoUpgradeMinorVersion = default(bool?), bool? enableAutomaticUpgrade = default(bool?), System.BinaryData settings = null, System.BinaryData protectedSettings = null, bool? suppressFailures = default(bool?), Azure.ResourceManager.Compute.Models.KeyVaultSecretReference keyVaultProtectedSettings = null) { throw null; }
         public static Azure.ResourceManager.Compute.Models.VirtualMachineScaleSetVmExtensionsSummary VirtualMachineScaleSetVmExtensionsSummary(string name = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Compute.Models.VirtualMachineStatusCodeCount> statusesSummary = null) { throw null; }
         public static Azure.ResourceManager.Compute.Models.VirtualMachineScaleSetVmInstanceView VirtualMachineScaleSetVmInstanceView(int? platformUpdateDomain = default(int?), int? platformFaultDomain = default(int?), string rdpThumbPrint = null, Azure.ResourceManager.Compute.Models.VirtualMachineAgentInstanceView vmAgent = null, Azure.ResourceManager.Compute.Models.MaintenanceRedeployStatus maintenanceRedeployStatus = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Compute.Models.DiskInstanceView> disks = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Compute.Models.VirtualMachineExtensionInstanceView> extensions = null, Azure.ResourceManager.Compute.Models.InstanceViewStatus vmHealthStatus = null, Azure.ResourceManager.Compute.Models.BootDiagnosticsInstanceView bootDiagnostics = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Compute.Models.InstanceViewStatus> statuses = null, Azure.Core.ResourceIdentifier assignedHost = null, string placementGroupId = null, string computerName = null, string osName = null, string osVersion = null, Azure.ResourceManager.Compute.Models.HyperVGeneration? hyperVGeneration = default(Azure.ResourceManager.Compute.Models.HyperVGeneration?)) { throw null; }
+        public static Azure.ResourceManager.Compute.Models.VirtualMachineScaleSetVmProfile VirtualMachineScaleSetVmProfile(Azure.ResourceManager.Compute.Models.VirtualMachineScaleSetOSProfile osProfile = null, Azure.ResourceManager.Compute.Models.VirtualMachineScaleSetStorageProfile storageProfile = null, Azure.ResourceManager.Compute.Models.VirtualMachineScaleSetNetworkProfile networkProfile = null, Azure.ResourceManager.Compute.Models.SecurityProfile securityProfile = null, Azure.ResourceManager.Compute.Models.BootDiagnostics bootDiagnostics = null, Azure.ResourceManager.Compute.Models.VirtualMachineScaleSetExtensionProfile extensionProfile = null, string licenseType = null, Azure.ResourceManager.Compute.Models.VirtualMachinePriorityType? priority = default(Azure.ResourceManager.Compute.Models.VirtualMachinePriorityType?), Azure.ResourceManager.Compute.Models.VirtualMachineEvictionPolicyType? evictionPolicy = default(Azure.ResourceManager.Compute.Models.VirtualMachineEvictionPolicyType?), double? billingMaxPrice = default(double?), Azure.ResourceManager.Compute.Models.ComputeScheduledEventsProfile scheduledEventsProfile = null, string userData = null, Azure.Core.ResourceIdentifier capacityReservationGroupId = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Compute.Models.VirtualMachineGalleryApplication> galleryApplications = null, Azure.ResourceManager.Compute.Models.VirtualMachineSizeProperties hardwareVmSizeProperties = null, Azure.Core.ResourceIdentifier serviceArtifactReferenceId = null, Azure.ResourceManager.Compute.Models.ComputeSecurityPostureReference securityPostureReference = null, System.DateTimeOffset? timeCreated = default(System.DateTimeOffset?)) { throw null; }
         public static Azure.ResourceManager.Compute.Models.VirtualMachineSize VirtualMachineSize(string name = null, int? numberOfCores = default(int?), int? osDiskSizeInMB = default(int?), int? resourceDiskSizeInMB = default(int?), int? memoryInMB = default(int?), int? maxDataDiskCount = default(int?)) { throw null; }
         public static Azure.ResourceManager.Compute.Models.VirtualMachineSoftwarePatchProperties VirtualMachineSoftwarePatchProperties(string patchId = null, string name = null, string version = null, string kbId = null, System.Collections.Generic.IEnumerable<string> classifications = null, Azure.ResourceManager.Compute.Models.VmGuestPatchRebootBehavior? rebootBehavior = default(Azure.ResourceManager.Compute.Models.VmGuestPatchRebootBehavior?), string activityId = null, System.DateTimeOffset? publishedOn = default(System.DateTimeOffset?), System.DateTimeOffset? lastModifiedOn = default(System.DateTimeOffset?), Azure.ResourceManager.Compute.Models.PatchAssessmentState? assessmentState = default(Azure.ResourceManager.Compute.Models.PatchAssessmentState?)) { throw null; }
         public static Azure.ResourceManager.Compute.Models.VirtualMachineStatusCodeCount VirtualMachineStatusCodeCount(string code = null, int? count = default(int?)) { throw null; }
@@ -3488,24 +3489,6 @@ namespace Azure.ResourceManager.Compute.Models
         public DiskImageEncryption() { }
         public Azure.Core.ResourceIdentifier DiskEncryptionSetId { get { throw null; } set { } }
     }
-    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
-    public readonly partial struct DiskImageFileFormat : System.IEquatable<Azure.ResourceManager.Compute.Models.DiskImageFileFormat>
-    {
-        private readonly object _dummy;
-        private readonly int _dummyPrimitive;
-        public DiskImageFileFormat(string value) { throw null; }
-        public static Azure.ResourceManager.Compute.Models.DiskImageFileFormat Vhd { get { throw null; } }
-        public static Azure.ResourceManager.Compute.Models.DiskImageFileFormat Vhdx { get { throw null; } }
-        public bool Equals(Azure.ResourceManager.Compute.Models.DiskImageFileFormat other) { throw null; }
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
-        public override bool Equals(object obj) { throw null; }
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
-        public override int GetHashCode() { throw null; }
-        public static bool operator ==(Azure.ResourceManager.Compute.Models.DiskImageFileFormat left, Azure.ResourceManager.Compute.Models.DiskImageFileFormat right) { throw null; }
-        public static implicit operator Azure.ResourceManager.Compute.Models.DiskImageFileFormat (string value) { throw null; }
-        public static bool operator !=(Azure.ResourceManager.Compute.Models.DiskImageFileFormat left, Azure.ResourceManager.Compute.Models.DiskImageFileFormat right) { throw null; }
-        public override string ToString() { throw null; }
-    }
     public partial class DiskImagePatch : Azure.ResourceManager.Compute.Models.ComputeResourcePatch
     {
         public DiskImagePatch() { }
@@ -4064,7 +4047,6 @@ namespace Azure.ResourceManager.Compute.Models
         public GrantAccessData(Azure.ResourceManager.Compute.Models.AccessLevel access, int durationInSeconds) { }
         public Azure.ResourceManager.Compute.Models.AccessLevel Access { get { throw null; } }
         public int DurationInSeconds { get { throw null; } }
-        public Azure.ResourceManager.Compute.Models.DiskImageFileFormat? FileFormat { get { throw null; } set { } }
         public bool? GetSecureVmGuestStateSas { get { throw null; } set { } }
     }
     public enum HostCaching
@@ -6449,6 +6431,7 @@ namespace Azure.ResourceManager.Compute.Models
         public Azure.ResourceManager.Compute.Models.SecurityProfile SecurityProfile { get { throw null; } set { } }
         public Azure.Core.ResourceIdentifier ServiceArtifactReferenceId { get { throw null; } set { } }
         public Azure.ResourceManager.Compute.Models.VirtualMachineScaleSetStorageProfile StorageProfile { get { throw null; } set { } }
+        public System.DateTimeOffset? TimeCreated { get { throw null; } }
         public string UserData { get { throw null; } set { } }
     }
     public partial class VirtualMachineScaleSetVmProtectionPolicy
