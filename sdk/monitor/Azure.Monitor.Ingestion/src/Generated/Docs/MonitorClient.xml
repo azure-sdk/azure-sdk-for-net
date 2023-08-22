@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="GetBatchAsync(string,IEnumerable{string},RequestContent,string,TimeSpan?,int?,RequestContext)">
+<example>
+This sample shows how to call GetBatchAsync with required parameters and request content, and how to parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var client = new MonitorClient(credential);
+
+var data = new {
+    resourceIds = new[] {
+        new {}
+    },
+};
+
+Response response = await client.GetBatchAsync("<subscriptionId>", new String[]{"<metricnames>"}, RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("values")[0].GetProperty("starttime").ToString());
+]]></code>
+This sample shows how to call GetBatchAsync with all parameters and request content, and how to parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var client = new MonitorClient(credential);
+
+var data = new {
+    resourceIds = new[] {
+        new {}
+    },
+};
+
+Response response = await client.GetBatchAsync("<subscriptionId>", new String[]{"<metricnames>"}, RequestContent.Create(data), "<startTime>", new TimeSpan(1, 2, 3), 1234);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("values")[0].GetProperty("starttime").ToString());
+]]></code>
+</example>
+    </member>
+    <member name="GetBatch(string,IEnumerable{string},RequestContent,string,TimeSpan?,int?,RequestContext)">
+<example>
+This sample shows how to call GetBatch with required parameters and request content, and how to parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var client = new MonitorClient(credential);
+
+var data = new {
+    resourceIds = new[] {
+        new {}
+    },
+};
+
+Response response = client.GetBatch("<subscriptionId>", new String[]{"<metricnames>"}, RequestContent.Create(data));
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("values")[0].GetProperty("starttime").ToString());
+]]></code>
+This sample shows how to call GetBatch with all parameters and request content, and how to parse the result.
+<code><![CDATA[
+var credential = new DefaultAzureCredential();
+var client = new MonitorClient(credential);
+
+var data = new {
+    resourceIds = new[] {
+        new {}
+    },
+};
+
+Response response = client.GetBatch("<subscriptionId>", new String[]{"<metricnames>"}, RequestContent.Create(data), "<startTime>", new TimeSpan(1, 2, 3), 1234);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("values")[0].GetProperty("starttime").ToString());
+]]></code>
+</example>
+    </member>
+  </members>
+</doc>
