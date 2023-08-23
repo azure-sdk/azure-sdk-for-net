@@ -1,5 +1,33 @@
 namespace Azure.AI.OpenAI
 {
+    public partial class AzureChatExtensionConfiguration
+    {
+        public AzureChatExtensionConfiguration(Azure.AI.OpenAI.AzureChatExtensionType type, System.BinaryData parameters) { }
+        public System.BinaryData Parameters { get { throw null; } }
+        public Azure.AI.OpenAI.AzureChatExtensionType Type { get { throw null; } }
+    }
+    public partial class AzureChatExtensionsMessageContext
+    {
+        public AzureChatExtensionsMessageContext() { }
+        public System.Collections.Generic.IList<Azure.AI.OpenAI.ChatMessage> Messages { get { throw null; } }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct AzureChatExtensionType : System.IEquatable<Azure.AI.OpenAI.AzureChatExtensionType>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public AzureChatExtensionType(string value) { throw null; }
+        public static Azure.AI.OpenAI.AzureChatExtensionType AzureCognitiveSearch { get { throw null; } }
+        public bool Equals(Azure.AI.OpenAI.AzureChatExtensionType other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.AI.OpenAI.AzureChatExtensionType left, Azure.AI.OpenAI.AzureChatExtensionType right) { throw null; }
+        public static implicit operator Azure.AI.OpenAI.AzureChatExtensionType (string value) { throw null; }
+        public static bool operator !=(Azure.AI.OpenAI.AzureChatExtensionType left, Azure.AI.OpenAI.AzureChatExtensionType right) { throw null; }
+        public override string ToString() { throw null; }
+    }
     public static partial class AzureOpenAIModelFactory
     {
         public static Azure.AI.OpenAI.ChatChoice ChatChoice(Azure.AI.OpenAI.ChatMessage message = null, int index = 0, Azure.AI.OpenAI.CompletionsFinishReason finishReason = default(Azure.AI.OpenAI.CompletionsFinishReason), Azure.AI.OpenAI.ChatMessage deltaMessage = null, Azure.AI.OpenAI.ContentFilterResults contentFilterResults = null) { throw null; }
@@ -46,6 +74,7 @@ namespace Azure.AI.OpenAI
         public float? FrequencyPenalty { get { throw null; } set { } }
         public Azure.AI.OpenAI.FunctionDefinition FunctionCall { get { throw null; } set { } }
         public System.Collections.Generic.IList<Azure.AI.OpenAI.FunctionDefinition> Functions { get { throw null; } set { } }
+        public System.Collections.Generic.IList<Azure.AI.OpenAI.AzureChatExtensionConfiguration> InternalAzureExtensionsDataSources { get { throw null; } }
         public int? MaxTokens { get { throw null; } set { } }
         public System.Collections.Generic.IList<Azure.AI.OpenAI.ChatMessage> Messages { get { throw null; } }
         public float? NucleusSamplingFactor { get { throw null; } set { } }
@@ -59,6 +88,7 @@ namespace Azure.AI.OpenAI
     {
         public ChatMessage() { }
         public ChatMessage(Azure.AI.OpenAI.ChatRole role, string content) { }
+        public Azure.AI.OpenAI.AzureChatExtensionsMessageContext AzureExtensionsContext { get { throw null; } set { } }
         public string Content { get { throw null; } set { } }
         public Azure.AI.OpenAI.FunctionCall FunctionCall { get { throw null; } set { } }
         public string Name { get { throw null; } set { } }
@@ -73,6 +103,7 @@ namespace Azure.AI.OpenAI
         public static Azure.AI.OpenAI.ChatRole Assistant { get { throw null; } }
         public static Azure.AI.OpenAI.ChatRole Function { get { throw null; } }
         public static Azure.AI.OpenAI.ChatRole System { get { throw null; } }
+        public static Azure.AI.OpenAI.ChatRole Tool { get { throw null; } }
         public static Azure.AI.OpenAI.ChatRole User { get { throw null; } }
         public bool Equals(Azure.AI.OpenAI.ChatRole other) { throw null; }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
@@ -297,13 +328,14 @@ namespace Azure.AI.OpenAI
     }
     public partial class OpenAIClientOptions : Azure.Core.ClientOptions
     {
-        public OpenAIClientOptions(Azure.AI.OpenAI.OpenAIClientOptions.ServiceVersion version = Azure.AI.OpenAI.OpenAIClientOptions.ServiceVersion.V2023_07_01_Preview) { }
+        public OpenAIClientOptions(Azure.AI.OpenAI.OpenAIClientOptions.ServiceVersion version = Azure.AI.OpenAI.OpenAIClientOptions.ServiceVersion.V2023_08_01_Preview) { }
         public enum ServiceVersion
         {
             V2022_12_01 = 1,
             V2023_05_15 = 2,
             V2023_06_01_Preview = 3,
             V2023_07_01_Preview = 4,
+            V2023_08_01_Preview = 5,
         }
     }
     public partial class PromptFilterResult
