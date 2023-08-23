@@ -5,27 +5,18 @@
 
 #nullable disable
 
-using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
 
 namespace Azure.ResourceManager.HDInsight.Models
 {
-    internal partial class SshProfile : IUtf8JsonSerializable
+    public partial class SshProfile : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
-            if (Optional.IsCollectionDefined(PublicKeys))
-            {
-                writer.WritePropertyName("publicKeys"u8);
-                writer.WriteStartArray();
-                foreach (var item in PublicKeys)
-                {
-                    writer.WriteObjectValue(item);
-                }
-                writer.WriteEndArray();
-            }
+            writer.WritePropertyName("count"u8);
+            writer.WriteNumberValue(Count);
             writer.WriteEndObject();
         }
 
@@ -35,25 +26,22 @@ namespace Azure.ResourceManager.HDInsight.Models
             {
                 return null;
             }
-            Optional<IList<HDInsightSshPublicKey>> publicKeys = default;
+            int count = default;
+            Optional<string> podPrefix = default;
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("publicKeys"u8))
+                if (property.NameEquals("count"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    List<HDInsightSshPublicKey> array = new List<HDInsightSshPublicKey>();
-                    foreach (var item in property.Value.EnumerateArray())
-                    {
-                        array.Add(HDInsightSshPublicKey.DeserializeHDInsightSshPublicKey(item));
-                    }
-                    publicKeys = array;
+                    count = property.Value.GetInt32();
+                    continue;
+                }
+                if (property.NameEquals("podPrefix"u8))
+                {
+                    podPrefix = property.Value.GetString();
                     continue;
                 }
             }
-            return new SshProfile(Optional.ToList(publicKeys));
+            return new SshProfile(count, podPrefix.Value);
         }
     }
 }
