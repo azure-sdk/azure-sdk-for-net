@@ -18,11 +18,13 @@ namespace Azure.ResourceManager.AppPlatform.Models
         /// <summary> Initializes a new instance of AppPlatformConfigServerProperties. </summary>
         /// <param name="provisioningState"> State of the config server. </param>
         /// <param name="error"> Error when apply config server settings. </param>
+        /// <param name="enabledState"> Enabled state of the config server. This is only used in Consumption tier. </param>
         /// <param name="configServer"> Settings of config server. </param>
-        internal AppPlatformConfigServerProperties(AppPlatformConfigServerState? provisioningState, AppPlatformErrorInfo error, ConfigServerSettings configServer)
+        internal AppPlatformConfigServerProperties(AppPlatformConfigServerState? provisioningState, AppPlatformErrorInfo error, ConfigServerEnabledState? enabledState, ConfigServerSettings configServer)
         {
             ProvisioningState = provisioningState;
             Error = error;
+            EnabledState = enabledState;
             ConfigServer = configServer;
         }
 
@@ -30,6 +32,8 @@ namespace Azure.ResourceManager.AppPlatform.Models
         public AppPlatformConfigServerState? ProvisioningState { get; }
         /// <summary> Error when apply config server settings. </summary>
         public AppPlatformErrorInfo Error { get; set; }
+        /// <summary> Enabled state of the config server. This is only used in Consumption tier. </summary>
+        public ConfigServerEnabledState? EnabledState { get; set; }
         /// <summary> Settings of config server. </summary>
         internal ConfigServerSettings ConfigServer { get; set; }
         /// <summary> Property of git environment. </summary>
