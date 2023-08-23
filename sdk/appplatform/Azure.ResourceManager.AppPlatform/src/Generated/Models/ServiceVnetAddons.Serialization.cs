@@ -10,7 +10,7 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.AppPlatform.Models
 {
-    internal partial class ServiceVnetAddons : IUtf8JsonSerializable
+    public partial class ServiceVnetAddons : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
@@ -19,6 +19,11 @@ namespace Azure.ResourceManager.AppPlatform.Models
             {
                 writer.WritePropertyName("logStreamPublicEndpoint"u8);
                 writer.WriteBooleanValue(IsLogStreamPublicEndpoint.Value);
+            }
+            if (Optional.IsDefined(DataPlanePublicEndpoint))
+            {
+                writer.WritePropertyName("dataPlanePublicEndpoint"u8);
+                writer.WriteBooleanValue(DataPlanePublicEndpoint.Value);
             }
             writer.WriteEndObject();
         }
@@ -30,6 +35,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
                 return null;
             }
             Optional<bool> logStreamPublicEndpoint = default;
+            Optional<bool> dataPlanePublicEndpoint = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("logStreamPublicEndpoint"u8))
@@ -41,8 +47,17 @@ namespace Azure.ResourceManager.AppPlatform.Models
                     logStreamPublicEndpoint = property.Value.GetBoolean();
                     continue;
                 }
+                if (property.NameEquals("dataPlanePublicEndpoint"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    dataPlanePublicEndpoint = property.Value.GetBoolean();
+                    continue;
+                }
             }
-            return new ServiceVnetAddons(Optional.ToNullable(logStreamPublicEndpoint));
+            return new ServiceVnetAddons(Optional.ToNullable(logStreamPublicEndpoint), Optional.ToNullable(dataPlanePublicEndpoint));
         }
     }
 }

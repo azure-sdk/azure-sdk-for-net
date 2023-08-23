@@ -42,12 +42,14 @@ namespace Azure.ResourceManager.AppPlatform.Models
         /// <param name="keyVaultCertName"> The certificate name of key vault. </param>
         /// <param name="certVersion"> The certificate version of key vault. </param>
         /// <param name="isPrivateKeyExcluded"> Optional. If set to true, it will not import private key from key vault. </param>
-        internal AppPlatformKeyVaultCertificateProperties(string certificatePropertiesType, string thumbprint, string issuer, DateTimeOffset? issuedOn, DateTimeOffset? expireOn, DateTimeOffset? activateOn, string subjectName, IReadOnlyList<string> dnsNames, AppPlatformCertificateProvisioningState? provisioningState, Uri vaultUri, string keyVaultCertName, string certVersion, bool? isPrivateKeyExcluded) : base(certificatePropertiesType, thumbprint, issuer, issuedOn, expireOn, activateOn, subjectName, dnsNames, provisioningState)
+        /// <param name="autoSync"> Indicates whether to automatically synchronize certificate from key vault. </param>
+        internal AppPlatformKeyVaultCertificateProperties(string certificatePropertiesType, string thumbprint, string issuer, DateTimeOffset? issuedOn, DateTimeOffset? expireOn, DateTimeOffset? activateOn, string subjectName, IReadOnlyList<string> dnsNames, AppPlatformCertificateProvisioningState? provisioningState, Uri vaultUri, string keyVaultCertName, string certVersion, bool? isPrivateKeyExcluded, bool? autoSync) : base(certificatePropertiesType, thumbprint, issuer, issuedOn, expireOn, activateOn, subjectName, dnsNames, provisioningState)
         {
             VaultUri = vaultUri;
             KeyVaultCertName = keyVaultCertName;
             CertVersion = certVersion;
             IsPrivateKeyExcluded = isPrivateKeyExcluded;
+            AutoSync = autoSync;
             CertificatePropertiesType = certificatePropertiesType ?? "KeyVaultCertificate";
         }
 
@@ -59,5 +61,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
         public string CertVersion { get; set; }
         /// <summary> Optional. If set to true, it will not import private key from key vault. </summary>
         public bool? IsPrivateKeyExcluded { get; set; }
+        /// <summary> Indicates whether to automatically synchronize certificate from key vault. </summary>
+        public bool? AutoSync { get; set; }
     }
 }

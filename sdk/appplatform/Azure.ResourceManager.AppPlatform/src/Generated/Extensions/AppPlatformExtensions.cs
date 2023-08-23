@@ -85,6 +85,44 @@ namespace Azure.ResourceManager.AppPlatform
         }
         #endregion
 
+        #region ApmResource
+        /// <summary>
+        /// Gets an object representing an <see cref="ApmResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="ApmResource.CreateResourceIdentifier" /> to create an <see cref="ApmResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="ApmResource" /> object. </returns>
+        public static ApmResource GetApmResource(this ArmClient client, ResourceIdentifier id)
+        {
+            return client.GetResourceClient(() =>
+            {
+                ApmResource.ValidateResourceId(id);
+                return new ApmResource(client, id);
+            }
+            );
+        }
+        #endregion
+
+        #region EurekaServerResource
+        /// <summary>
+        /// Gets an object representing an <see cref="EurekaServerResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="EurekaServerResource.CreateResourceIdentifier" /> to create an <see cref="EurekaServerResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="EurekaServerResource" /> object. </returns>
+        public static EurekaServerResource GetEurekaServerResource(this ArmClient client, ResourceIdentifier id)
+        {
+            return client.GetResourceClient(() =>
+            {
+                EurekaServerResource.ValidateResourceId(id);
+                return new EurekaServerResource(client, id);
+            }
+            );
+        }
+        #endregion
+
         #region AppPlatformConfigServerResource
         /// <summary>
         /// Gets an object representing an <see cref="AppPlatformConfigServerResource" /> along with the instance operations that can be performed on it but with no data.
@@ -137,6 +175,63 @@ namespace Azure.ResourceManager.AppPlatform
             {
                 AppPlatformServiceRegistryResource.ValidateResourceId(id);
                 return new AppPlatformServiceRegistryResource(client, id);
+            }
+            );
+        }
+        #endregion
+
+        #region ApplicationLiveViewResource
+        /// <summary>
+        /// Gets an object representing an <see cref="ApplicationLiveViewResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="ApplicationLiveViewResource.CreateResourceIdentifier" /> to create an <see cref="ApplicationLiveViewResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="ApplicationLiveViewResource" /> object. </returns>
+        public static ApplicationLiveViewResource GetApplicationLiveViewResource(this ArmClient client, ResourceIdentifier id)
+        {
+            return client.GetResourceClient(() =>
+            {
+                ApplicationLiveViewResource.ValidateResourceId(id);
+                return new ApplicationLiveViewResource(client, id);
+            }
+            );
+        }
+        #endregion
+
+        #region DevToolPortalResource
+        /// <summary>
+        /// Gets an object representing a <see cref="DevToolPortalResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="DevToolPortalResource.CreateResourceIdentifier" /> to create a <see cref="DevToolPortalResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="DevToolPortalResource" /> object. </returns>
+        public static DevToolPortalResource GetDevToolPortalResource(this ArmClient client, ResourceIdentifier id)
+        {
+            return client.GetResourceClient(() =>
+            {
+                DevToolPortalResource.ValidateResourceId(id);
+                return new DevToolPortalResource(client, id);
+            }
+            );
+        }
+        #endregion
+
+        #region ContainerRegistryResource
+        /// <summary>
+        /// Gets an object representing a <see cref="ContainerRegistryResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="ContainerRegistryResource.CreateResourceIdentifier" /> to create a <see cref="ContainerRegistryResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="ContainerRegistryResource" /> object. </returns>
+        public static ContainerRegistryResource GetContainerRegistryResource(this ArmClient client, ResourceIdentifier id)
+        {
+            return client.GetResourceClient(() =>
+            {
+                ContainerRegistryResource.ValidateResourceId(id);
+                return new ContainerRegistryResource(client, id);
             }
             );
         }
@@ -517,6 +612,63 @@ namespace Azure.ResourceManager.AppPlatform
             {
                 AppPlatformApiPortalCustomDomainResource.ValidateResourceId(id);
                 return new AppPlatformApiPortalCustomDomainResource(client, id);
+            }
+            );
+        }
+        #endregion
+
+        #region ApplicationAcceleratorResource
+        /// <summary>
+        /// Gets an object representing an <see cref="ApplicationAcceleratorResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="ApplicationAcceleratorResource.CreateResourceIdentifier" /> to create an <see cref="ApplicationAcceleratorResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="ApplicationAcceleratorResource" /> object. </returns>
+        public static ApplicationAcceleratorResource GetApplicationAcceleratorResource(this ArmClient client, ResourceIdentifier id)
+        {
+            return client.GetResourceClient(() =>
+            {
+                ApplicationAcceleratorResource.ValidateResourceId(id);
+                return new ApplicationAcceleratorResource(client, id);
+            }
+            );
+        }
+        #endregion
+
+        #region CustomizedAcceleratorResource
+        /// <summary>
+        /// Gets an object representing a <see cref="CustomizedAcceleratorResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="CustomizedAcceleratorResource.CreateResourceIdentifier" /> to create a <see cref="CustomizedAcceleratorResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="CustomizedAcceleratorResource" /> object. </returns>
+        public static CustomizedAcceleratorResource GetCustomizedAcceleratorResource(this ArmClient client, ResourceIdentifier id)
+        {
+            return client.GetResourceClient(() =>
+            {
+                CustomizedAcceleratorResource.ValidateResourceId(id);
+                return new CustomizedAcceleratorResource(client, id);
+            }
+            );
+        }
+        #endregion
+
+        #region PredefinedAcceleratorResource
+        /// <summary>
+        /// Gets an object representing a <see cref="PredefinedAcceleratorResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="PredefinedAcceleratorResource.CreateResourceIdentifier" /> to create a <see cref="PredefinedAcceleratorResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="PredefinedAcceleratorResource" /> object. </returns>
+        public static PredefinedAcceleratorResource GetPredefinedAcceleratorResource(this ArmClient client, ResourceIdentifier id)
+        {
+            return client.GetResourceClient(() =>
+            {
+                PredefinedAcceleratorResource.ValidateResourceId(id);
+                return new PredefinedAcceleratorResource(client, id);
             }
             );
         }
