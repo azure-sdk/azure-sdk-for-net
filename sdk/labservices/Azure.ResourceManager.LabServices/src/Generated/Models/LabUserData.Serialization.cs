@@ -43,6 +43,7 @@ namespace Azure.ResourceManager.LabServices
             Optional<SystemData> systemData = default;
             Optional<TimeSpan> additionalUsageQuota = default;
             Optional<LabServicesProvisioningState> provisioningState = default;
+            Optional<ResourceOperationError> resourceOperationError = default;
             Optional<string> displayName = default;
             string email = default;
             Optional<LabUserRegistrationState> registrationState = default;
@@ -102,6 +103,15 @@ namespace Azure.ResourceManager.LabServices
                             provisioningState = property0.Value.GetString().ToLabServicesProvisioningState();
                             continue;
                         }
+                        if (property0.NameEquals("resourceOperationError"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            resourceOperationError = ResourceOperationError.DeserializeResourceOperationError(property0.Value);
+                            continue;
+                        }
                         if (property0.NameEquals("displayName"u8))
                         {
                             displayName = property0.Value.GetString();
@@ -152,7 +162,7 @@ namespace Azure.ResourceManager.LabServices
                     continue;
                 }
             }
-            return new LabUserData(id, name, type, systemData.Value, Optional.ToNullable(additionalUsageQuota), Optional.ToNullable(provisioningState), displayName.Value, email, Optional.ToNullable(registrationState), Optional.ToNullable(invitationState), Optional.ToNullable(invitationSent), Optional.ToNullable(totalUsage));
+            return new LabUserData(id, name, type, systemData.Value, Optional.ToNullable(additionalUsageQuota), Optional.ToNullable(provisioningState), resourceOperationError.Value, displayName.Value, email, Optional.ToNullable(registrationState), Optional.ToNullable(invitationState), Optional.ToNullable(invitationSent), Optional.ToNullable(totalUsage));
         }
     }
 }
