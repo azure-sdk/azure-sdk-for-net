@@ -90,7 +90,7 @@ namespace Azure.ResourceManager.Synapse
         /// <summary> Whether session level packages enabled. </summary>
         public bool? IsSessionLevelPackagesEnabled { get; set; }
         /// <summary> The cache size. </summary>
-        public int? CacheSize { get; set; }
+        public int? CacheSize { get; }
         /// <summary> Dynamic Executor Allocation. </summary>
         public SynapseDynamicExecutorAllocation DynamicExecutorAllocation { get; set; }
         /// <summary> The Spark events folder. </summary>
