@@ -8,7 +8,7 @@ azure-arm: true
 csharp: true
 library-name: Consumption
 namespace: Azure.ResourceManager.Consumption
-require: https://github.com/Azure/azure-rest-api-specs/blob/6b08774c89877269e73e11ac3ecbd1bd4e14f5a0/specification/consumption/resource-manager/readme.md
+require: https://github.com/Azure/azure-rest-api-specs/blob/11c996bba026a39dd4c3d38cc03ab742452beb39/specification/consumption/resource-manager/readme.md
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
 skip-csproj: true
