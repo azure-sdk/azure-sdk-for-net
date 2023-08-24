@@ -45,9 +45,14 @@ namespace Microsoft.Azure.Management.Avs.Models
         /// distributed across availability zones</param>
         /// <param name="encryption">Customer managed key encryption, can be
         /// enabled or disabled</param>
+        /// <param name="extendedNetworkBlocks">Array of additional networks
+        /// noncontiguous with networkBlock. Networks must be unique and
+        /// non-overlapping across VNet in your subscription, on-premise, and
+        /// this privateCloud networkBlock attribute. Make sure the CIDR format
+        /// conforms to (A.B.C.D/X).</param>
         /// <param name="identity">The identity of the private cloud, if
         /// configured.</param>
-        public PrivateCloudUpdate(IDictionary<string, string> tags = default(IDictionary<string, string>), ManagementCluster managementCluster = default(ManagementCluster), string internet = default(string), IList<IdentitySource> identitySources = default(IList<IdentitySource>), AvailabilityProperties availability = default(AvailabilityProperties), Encryption encryption = default(Encryption), PrivateCloudIdentity identity = default(PrivateCloudIdentity))
+        public PrivateCloudUpdate(IDictionary<string, string> tags = default(IDictionary<string, string>), ManagementCluster managementCluster = default(ManagementCluster), string internet = default(string), IList<IdentitySource> identitySources = default(IList<IdentitySource>), AvailabilityProperties availability = default(AvailabilityProperties), Encryption encryption = default(Encryption), IList<string> extendedNetworkBlocks = default(IList<string>), PrivateCloudIdentity identity = default(PrivateCloudIdentity))
         {
             Tags = tags;
             ManagementCluster = managementCluster;
@@ -55,6 +60,7 @@ namespace Microsoft.Azure.Management.Avs.Models
             IdentitySources = identitySources;
             Availability = availability;
             Encryption = encryption;
+            ExtendedNetworkBlocks = extendedNetworkBlocks;
             Identity = identity;
             CustomInit();
         }
@@ -102,6 +108,16 @@ namespace Microsoft.Azure.Management.Avs.Models
         /// </summary>
         [JsonProperty(PropertyName = "properties.encryption")]
         public Encryption Encryption { get; set; }
+
+        /// <summary>
+        /// Gets or sets array of additional networks noncontiguous with
+        /// networkBlock. Networks must be unique and non-overlapping across
+        /// VNet in your subscription, on-premise, and this privateCloud
+        /// networkBlock attribute. Make sure the CIDR format conforms to
+        /// (A.B.C.D/X).
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.extendedNetworkBlocks")]
+        public IList<string> ExtendedNetworkBlocks { get; set; }
 
         /// <summary>
         /// Gets or sets the identity of the private cloud, if configured.
