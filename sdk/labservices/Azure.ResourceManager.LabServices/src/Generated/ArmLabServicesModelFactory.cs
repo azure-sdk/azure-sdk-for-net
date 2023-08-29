@@ -63,13 +63,25 @@ namespace Azure.ResourceManager.LabServices.Models
         /// <param name="supportInfo"> Support contact information and instructions for users of the lab plan. This information is displayed to lab owners and virtual machine users for all labs in the lab plan. </param>
         /// <param name="linkedLmsInstance"> Base Url of the lms instance this lab plan can link lab rosters against. </param>
         /// <param name="provisioningState"> Current provisioning state of the lab plan. </param>
+        /// <param name="resourceOperationError"> Error details of last operation done on lab plan. </param>
         /// <returns> A new <see cref="LabServices.LabPlanData"/> instance for mocking. </returns>
-        public static LabPlanData LabPlanData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, ManagedServiceIdentity identity = null, LabConnectionProfile defaultConnectionProfile = null, LabAutoShutdownProfile defaultAutoShutdownProfile = null, ResourceIdentifier defaultNetworkSubnetId = null, IEnumerable<AzureLocation> allowedRegions = null, ResourceIdentifier sharedGalleryId = null, LabPlanSupportInfo supportInfo = null, Uri linkedLmsInstance = null, LabServicesProvisioningState? provisioningState = null)
+        public static LabPlanData LabPlanData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, ManagedServiceIdentity identity = null, LabConnectionProfile defaultConnectionProfile = null, LabAutoShutdownProfile defaultAutoShutdownProfile = null, ResourceIdentifier defaultNetworkSubnetId = null, IEnumerable<AzureLocation> allowedRegions = null, ResourceIdentifier sharedGalleryId = null, LabPlanSupportInfo supportInfo = null, Uri linkedLmsInstance = null, LabServicesProvisioningState? provisioningState = null, ResourceOperationError resourceOperationError = null)
         {
             tags ??= new Dictionary<string, string>();
             allowedRegions ??= new List<AzureLocation>();
 
-            return new LabPlanData(id, name, resourceType, systemData, tags, location, identity, defaultConnectionProfile, defaultAutoShutdownProfile, defaultNetworkSubnetId != null ? new LabPlanNetworkProfile(defaultNetworkSubnetId) : null, allowedRegions?.ToList(), sharedGalleryId, supportInfo, linkedLmsInstance, provisioningState);
+            return new LabPlanData(id, name, resourceType, systemData, tags, location, identity, defaultConnectionProfile, defaultAutoShutdownProfile, defaultNetworkSubnetId != null ? new LabPlanNetworkProfile(defaultNetworkSubnetId) : null, allowedRegions?.ToList(), sharedGalleryId, supportInfo, linkedLmsInstance, provisioningState, resourceOperationError);
+        }
+
+        /// <summary> Initializes a new instance of ResourceOperationError. </summary>
+        /// <param name="timestamp"> The datetime of when the error occured. </param>
+        /// <param name="code"> The code that corresponds to the type of operation failure. </param>
+        /// <param name="message"> The operation failure message. </param>
+        /// <param name="action"> The operation action that failed. </param>
+        /// <returns> A new <see cref="Models.ResourceOperationError"/> instance for mocking. </returns>
+        public static ResourceOperationError ResourceOperationError(DateTimeOffset? timestamp = null, string code = null, string message = null, string action = null)
+        {
+            return new ResourceOperationError(timestamp, code, message, action);
         }
 
         /// <summary> Initializes a new instance of LabData. </summary>
@@ -90,12 +102,13 @@ namespace Azure.ResourceManager.LabServices.Models
         /// <param name="provisioningState"> Current provisioning state of the lab. </param>
         /// <param name="networkProfile"> The network profile for the lab, typically applied via a lab plan. This profile cannot be modified once a lab has been created. </param>
         /// <param name="state"> The lab state. </param>
+        /// <param name="resourceOperationError"> Error details of last operation done on lab. </param>
         /// <returns> A new <see cref="LabServices.LabData"/> instance for mocking. </returns>
-        public static LabData LabData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, LabAutoShutdownProfile autoShutdownProfile = null, LabConnectionProfile connectionProfile = null, LabVirtualMachineProfile virtualMachineProfile = null, LabSecurityProfile securityProfile = null, LabRosterProfile rosterProfile = null, ResourceIdentifier labPlanId = null, string title = null, string description = null, LabServicesProvisioningState? provisioningState = null, LabNetworkProfile networkProfile = null, LabState? state = null)
+        public static LabData LabData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, LabAutoShutdownProfile autoShutdownProfile = null, LabConnectionProfile connectionProfile = null, LabVirtualMachineProfile virtualMachineProfile = null, LabSecurityProfile securityProfile = null, LabRosterProfile rosterProfile = null, ResourceIdentifier labPlanId = null, string title = null, string description = null, LabServicesProvisioningState? provisioningState = null, LabNetworkProfile networkProfile = null, LabState? state = null, ResourceOperationError resourceOperationError = null)
         {
             tags ??= new Dictionary<string, string>();
 
-            return new LabData(id, name, resourceType, systemData, tags, location, autoShutdownProfile, connectionProfile, virtualMachineProfile, securityProfile, rosterProfile, labPlanId, title, description, provisioningState, networkProfile, state);
+            return new LabData(id, name, resourceType, systemData, tags, location, autoShutdownProfile, connectionProfile, virtualMachineProfile, securityProfile, rosterProfile, labPlanId, title, description, provisioningState, networkProfile, state, resourceOperationError);
         }
 
         /// <summary> Initializes a new instance of LabVirtualMachineProfile. </summary>
@@ -147,10 +160,11 @@ namespace Azure.ResourceManager.LabServices.Models
         /// <param name="timeZoneId"> The IANA timezone id for the schedule. </param>
         /// <param name="notes"> Notes for this schedule. </param>
         /// <param name="provisioningState"> Current provisioning state of the schedule. </param>
+        /// <param name="resourceOperationError"> Error details of last operation done on schedule. </param>
         /// <returns> A new <see cref="LabServices.LabServicesScheduleData"/> instance for mocking. </returns>
-        public static LabServicesScheduleData LabServicesScheduleData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, DateTimeOffset? startOn = null, DateTimeOffset? stopOn = null, LabServicesRecurrencePattern recurrencePattern = null, string timeZoneId = null, BinaryData notes = null, LabServicesProvisioningState? provisioningState = null)
+        public static LabServicesScheduleData LabServicesScheduleData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, DateTimeOffset? startOn = null, DateTimeOffset? stopOn = null, LabServicesRecurrencePattern recurrencePattern = null, string timeZoneId = null, BinaryData notes = null, LabServicesProvisioningState? provisioningState = null, ResourceOperationError resourceOperationError = null)
         {
-            return new LabServicesScheduleData(id, name, resourceType, systemData, startOn, stopOn, recurrencePattern, timeZoneId, notes, provisioningState);
+            return new LabServicesScheduleData(id, name, resourceType, systemData, startOn, stopOn, recurrencePattern, timeZoneId, notes, provisioningState, resourceOperationError);
         }
 
         /// <summary> Initializes a new instance of AvailableLabServicesSku. </summary>
@@ -248,6 +262,7 @@ namespace Azure.ResourceManager.LabServices.Models
         /// <param name="systemData"> The systemData. </param>
         /// <param name="additionalUsageQuota"> The amount of usage quota time the user gets in addition to the lab usage quota. </param>
         /// <param name="provisioningState"> Current provisioning state of the user resource. </param>
+        /// <param name="resourceOperationError"> Error details of last operation done on lab plan. </param>
         /// <param name="displayName"> Display name of the user, for example user's full name. </param>
         /// <param name="email"> Email address of the user. </param>
         /// <param name="registrationState"> State of the user's registration within the lab. </param>
@@ -255,9 +270,9 @@ namespace Azure.ResourceManager.LabServices.Models
         /// <param name="invitationSentOn"> Date and time when the invitation message was sent to the user. </param>
         /// <param name="totalUsage"> How long the user has used their virtual machines in this lab. </param>
         /// <returns> A new <see cref="LabServices.LabUserData"/> instance for mocking. </returns>
-        public static LabUserData LabUserData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, TimeSpan? additionalUsageQuota = null, LabServicesProvisioningState? provisioningState = null, string displayName = null, string email = null, LabUserRegistrationState? registrationState = null, LabUserInvitationState? invitationState = null, DateTimeOffset? invitationSentOn = null, TimeSpan? totalUsage = null)
+        public static LabUserData LabUserData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, TimeSpan? additionalUsageQuota = null, LabServicesProvisioningState? provisioningState = null, ResourceOperationError resourceOperationError = null, string displayName = null, string email = null, LabUserRegistrationState? registrationState = null, LabUserInvitationState? invitationState = null, DateTimeOffset? invitationSentOn = null, TimeSpan? totalUsage = null)
         {
-            return new LabUserData(id, name, resourceType, systemData, additionalUsageQuota, provisioningState, displayName, email, registrationState, invitationState, invitationSentOn, totalUsage);
+            return new LabUserData(id, name, resourceType, systemData, additionalUsageQuota, provisioningState, resourceOperationError, displayName, email, registrationState, invitationState, invitationSentOn, totalUsage);
         }
 
         /// <summary> Initializes a new instance of LabVirtualMachineData. </summary>
@@ -267,13 +282,14 @@ namespace Azure.ResourceManager.LabServices.Models
         /// <param name="systemData"> The systemData. </param>
         /// <param name="provisioningState"> Current provisioning state of the virtual machine. </param>
         /// <param name="state"> The current state of the virtual machine. </param>
+        /// <param name="resourceOperationError"> Error details of last operation done on lab plan. </param>
         /// <param name="connectionProfile"> Profile for information about connecting to the virtual machine. </param>
         /// <param name="claimedByUserId"> The lab user ID (not the PUID!) of who claimed the virtual machine. </param>
         /// <param name="vmType"> The type of this VM resource. </param>
         /// <returns> A new <see cref="LabServices.LabVirtualMachineData"/> instance for mocking. </returns>
-        public static LabVirtualMachineData LabVirtualMachineData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, LabServicesProvisioningState? provisioningState = null, LabVirtualMachineState? state = null, LabVirtualMachineConnectionProfile connectionProfile = null, string claimedByUserId = null, LabVirtualMachineType? vmType = null)
+        public static LabVirtualMachineData LabVirtualMachineData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, LabServicesProvisioningState? provisioningState = null, LabVirtualMachineState? state = null, ResourceOperationError resourceOperationError = null, LabVirtualMachineConnectionProfile connectionProfile = null, string claimedByUserId = null, LabVirtualMachineType? vmType = null)
         {
-            return new LabVirtualMachineData(id, name, resourceType, systemData, provisioningState, state, connectionProfile, claimedByUserId, vmType);
+            return new LabVirtualMachineData(id, name, resourceType, systemData, provisioningState, state, resourceOperationError, connectionProfile, claimedByUserId, vmType);
         }
 
         /// <summary> Initializes a new instance of LabVirtualMachineConnectionProfile. </summary>
