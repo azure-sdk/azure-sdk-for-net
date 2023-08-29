@@ -1307,7 +1307,7 @@ namespace Azure.ResourceManager.Monitor
         }
 
         /// <summary>
-        /// Returns the specific Azure Monitor workspace
+        /// Returns the specified Azure Monitor Workspace
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -1320,7 +1320,7 @@ namespace Azure.ResourceManager.Monitor
         /// </list>
         /// </summary>
         /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
-        /// <param name="azureMonitorWorkspaceName"> The name of the Azure Monitor workspace.  The name is case insensitive. </param>
+        /// <param name="azureMonitorWorkspaceName"> The name of the Azure Monitor Workspace. The name is case insensitive. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="azureMonitorWorkspaceName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="azureMonitorWorkspaceName"/> is null. </exception>
@@ -1331,7 +1331,7 @@ namespace Azure.ResourceManager.Monitor
         }
 
         /// <summary>
-        /// Returns the specific Azure Monitor workspace
+        /// Returns the specified Azure Monitor Workspace
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -1344,7 +1344,7 @@ namespace Azure.ResourceManager.Monitor
         /// </list>
         /// </summary>
         /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
-        /// <param name="azureMonitorWorkspaceName"> The name of the Azure Monitor workspace.  The name is case insensitive. </param>
+        /// <param name="azureMonitorWorkspaceName"> The name of the Azure Monitor Workspace. The name is case insensitive. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="azureMonitorWorkspaceName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="azureMonitorWorkspaceName"/> is null. </exception>
@@ -1991,7 +1991,7 @@ namespace Azure.ResourceManager.Monitor
         }
 
         /// <summary>
-        /// Lists all workspaces in the specified subscription
+        /// Lists all Azure Monitor Workspaces in the specified subscription
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -2012,7 +2012,7 @@ namespace Azure.ResourceManager.Monitor
         }
 
         /// <summary>
-        /// Lists all workspaces in the specified subscription
+        /// Lists all Azure Monitor Workspaces in the specified subscription
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>

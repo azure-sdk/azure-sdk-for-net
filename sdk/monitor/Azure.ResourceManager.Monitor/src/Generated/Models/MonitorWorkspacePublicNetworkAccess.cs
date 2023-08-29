@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace Azure.ResourceManager.Monitor.Models
 {
-    /// <summary> Gets or sets allow or disallow public network access to workspace. </summary>
+    /// <summary> Gets or sets allow or disallow public network access to Azure Monitor Workspace. </summary>
     public readonly partial struct MonitorWorkspacePublicNetworkAccess : IEquatable<MonitorWorkspacePublicNetworkAccess>
     {
         private readonly string _value;

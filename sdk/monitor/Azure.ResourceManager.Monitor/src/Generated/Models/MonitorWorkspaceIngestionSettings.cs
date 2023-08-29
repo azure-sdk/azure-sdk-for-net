@@ -18,17 +18,17 @@ namespace Azure.ResourceManager.Monitor.Models
         }
 
         /// <summary> Initializes a new instance of MonitorWorkspaceIngestionSettings. </summary>
-        /// <param name="dataCollectionRuleResourceId"> The Azure resource Id of the default data collection rule for this workspace. </param>
-        /// <param name="dataCollectionEndpointResourceId"> The Azure resource Id of the default data collection endpoint for this workspace. </param>
+        /// <param name="dataCollectionRuleResourceId"> The Azure resource Id of the default data collection rule for this Azure Monitor Workspace. </param>
+        /// <param name="dataCollectionEndpointResourceId"> The Azure resource Id of the default data collection endpoint for this Azure Monitor Workspace. </param>
         internal MonitorWorkspaceIngestionSettings(ResourceIdentifier dataCollectionRuleResourceId, ResourceIdentifier dataCollectionEndpointResourceId)
         {
             DataCollectionRuleResourceId = dataCollectionRuleResourceId;
             DataCollectionEndpointResourceId = dataCollectionEndpointResourceId;
         }
 
-        /// <summary> The Azure resource Id of the default data collection rule for this workspace. </summary>
+        /// <summary> The Azure resource Id of the default data collection rule for this Azure Monitor Workspace. </summary>
         public ResourceIdentifier DataCollectionRuleResourceId { get; }
-        /// <summary> The Azure resource Id of the default data collection endpoint for this workspace. </summary>
+        /// <summary> The Azure resource Id of the default data collection endpoint for this Azure Monitor Workspace. </summary>
         public ResourceIdentifier DataCollectionEndpointResourceId { get; }
     }
 }

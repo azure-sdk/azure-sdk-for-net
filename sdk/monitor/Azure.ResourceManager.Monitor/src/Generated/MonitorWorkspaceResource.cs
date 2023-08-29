@@ -90,7 +90,7 @@ namespace Azure.ResourceManager.Monitor
         }
 
         /// <summary>
-        /// Returns the specific Azure Monitor workspace
+        /// Returns the specified Azure Monitor Workspace
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -122,7 +122,7 @@ namespace Azure.ResourceManager.Monitor
         }
 
         /// <summary>
-        /// Returns the specific Azure Monitor workspace
+        /// Returns the specified Azure Monitor Workspace
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -154,7 +154,7 @@ namespace Azure.ResourceManager.Monitor
         }
 
         /// <summary>
-        /// Delete a workspace
+        /// Deletes an Azure Monitor Workspace
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -188,7 +188,7 @@ namespace Azure.ResourceManager.Monitor
         }
 
         /// <summary>
-        /// Delete a workspace
+        /// Deletes an Azure Monitor Workspace
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -222,7 +222,7 @@ namespace Azure.ResourceManager.Monitor
         }
 
         /// <summary>
-        /// Updates part of a workspace
+        /// Updates part of an Azure Monitor Workspace
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -256,7 +256,7 @@ namespace Azure.ResourceManager.Monitor
         }
 
         /// <summary>
-        /// Updates part of a workspace
+        /// Updates part of an Azure Monitor Workspace
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>

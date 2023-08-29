@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace Azure.ResourceManager.Monitor.Models
 {
-    /// <summary> The provisioning state of the Azure Monitor workspace. Set to Succeeded if everything is healthy. </summary>
+    /// <summary> The provisioning state of the Azure Monitor Workspace. Set to Succeeded if everything is healthy. </summary>
     public readonly partial struct MonitorProvisioningState : IEquatable<MonitorProvisioningState>
     {
         private readonly string _value;

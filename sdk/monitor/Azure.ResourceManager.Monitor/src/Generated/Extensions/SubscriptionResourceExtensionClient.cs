@@ -619,7 +619,7 @@ namespace Azure.ResourceManager.Monitor
         }
 
         /// <summary>
-        /// Lists all workspaces in the specified subscription
+        /// Lists all Azure Monitor Workspaces in the specified subscription
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -641,7 +641,7 @@ namespace Azure.ResourceManager.Monitor
         }
 
         /// <summary>
-        /// Lists all workspaces in the specified subscription
+        /// Lists all Azure Monitor Workspaces in the specified subscription
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
