@@ -85,6 +85,7 @@ namespace Azure.ResourceManager.DataBox
             Optional<ReverseTransportPreferenceEditStatus> reverseTransportPreferenceUpdate = default;
             Optional<bool> isPrepareToShipEnabled = default;
             Optional<DataBoxStageName> status = default;
+            Optional<DataBoxStageName> delayedStage = default;
             Optional<DateTimeOffset> startTime = default;
             Optional<ResponseError> error = default;
             Optional<DataBoxBasicJobDetails> details = default;
@@ -228,6 +229,15 @@ namespace Azure.ResourceManager.DataBox
                             status = new DataBoxStageName(property0.Value.GetString());
                             continue;
                         }
+                        if (property0.NameEquals("delayedStage"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            delayedStage = new DataBoxStageName(property0.Value.GetString());
+                            continue;
+                        }
                         if (property0.NameEquals("startTime"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -291,7 +301,7 @@ namespace Azure.ResourceManager.DataBox
                     continue;
                 }
             }
-            return new DataBoxJobData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, transferType, Optional.ToNullable(isCancellable), Optional.ToNullable(isDeletable), Optional.ToNullable(isShippingAddressEditable), Optional.ToNullable(reverseShippingDetailsUpdate), Optional.ToNullable(reverseTransportPreferenceUpdate), Optional.ToNullable(isPrepareToShipEnabled), Optional.ToNullable(status), Optional.ToNullable(startTime), error.Value, details.Value, cancellationReason.Value, Optional.ToNullable(deliveryType), deliveryInfo.Value, Optional.ToNullable(isCancellableWithoutFee), sku, identity);
+            return new DataBoxJobData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, transferType, Optional.ToNullable(isCancellable), Optional.ToNullable(isDeletable), Optional.ToNullable(isShippingAddressEditable), Optional.ToNullable(reverseShippingDetailsUpdate), Optional.ToNullable(reverseTransportPreferenceUpdate), Optional.ToNullable(isPrepareToShipEnabled), Optional.ToNullable(status), Optional.ToNullable(delayedStage), Optional.ToNullable(startTime), error.Value, details.Value, cancellationReason.Value, Optional.ToNullable(deliveryType), deliveryInfo.Value, Optional.ToNullable(isCancellableWithoutFee), sku, identity);
         }
     }
 }

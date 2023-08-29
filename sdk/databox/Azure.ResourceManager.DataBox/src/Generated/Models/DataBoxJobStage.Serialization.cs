@@ -6,6 +6,7 @@
 #nullable disable
 
 using System;
+using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
 
@@ -24,6 +25,7 @@ namespace Azure.ResourceManager.DataBox.Models
             Optional<DataBoxStageStatus> stageStatus = default;
             Optional<DateTimeOffset> stageTime = default;
             Optional<BinaryData> jobStageDetails = default;
+            Optional<IReadOnlyList<JobDelayDetails>> delayInformation = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("stageName"u8))
@@ -67,8 +69,22 @@ namespace Azure.ResourceManager.DataBox.Models
                     jobStageDetails = BinaryData.FromString(property.Value.GetRawText());
                     continue;
                 }
+                if (property.NameEquals("delayInformation"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<JobDelayDetails> array = new List<JobDelayDetails>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(JobDelayDetails.DeserializeJobDelayDetails(item));
+                    }
+                    delayInformation = array;
+                    continue;
+                }
             }
-            return new DataBoxJobStage(Optional.ToNullable(stageName), displayName.Value, Optional.ToNullable(stageStatus), Optional.ToNullable(stageTime), jobStageDetails.Value);
+            return new DataBoxJobStage(Optional.ToNullable(stageName), displayName.Value, Optional.ToNullable(stageStatus), Optional.ToNullable(stageTime), jobStageDetails.Value, Optional.ToList(delayInformation));
         }
     }
 }
