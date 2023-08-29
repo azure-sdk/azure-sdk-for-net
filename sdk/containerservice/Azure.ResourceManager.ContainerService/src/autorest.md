@@ -8,7 +8,7 @@ azure-arm: true
 csharp: true
 library-name: ContainerService
 namespace: Azure.ResourceManager.ContainerService
-require: https://github.com/Azure/azure-rest-api-specs/blob/3b4a2c4af20e4aea66871c9ed067d0641ea2ac80/specification/containerservice/resource-manager/Microsoft.ContainerService/aks/readme.md
+require: https://github.com/Azure/azure-rest-api-specs/blob/6777a8265b9fc8fe17e2556a1c071c0b48d8aa4b/specification/containerservice/resource-manager/Microsoft.ContainerService/aks/readme.md
 tag: package-preview-2022-11
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
