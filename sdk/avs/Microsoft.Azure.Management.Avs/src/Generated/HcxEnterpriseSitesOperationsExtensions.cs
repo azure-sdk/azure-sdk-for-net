@@ -22,7 +22,7 @@ namespace Microsoft.Azure.Management.Avs
     public static partial class HcxEnterpriseSitesOperationsExtensions
     {
             /// <summary>
-            /// List HCX Enterprise Sites in a private cloud
+            /// List HCX on-premises key in a private cloud
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -39,7 +39,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// List HCX Enterprise Sites in a private cloud
+            /// List HCX on-premises key in a private cloud
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -62,7 +62,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Get an HCX Enterprise Site by name in a private cloud
+            /// Get an HCX on-premises key by name in a private cloud
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -82,7 +82,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Get an HCX Enterprise Site by name in a private cloud
+            /// Get an HCX on-premises key by name in a private cloud
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -108,7 +108,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create or update an HCX Enterprise Site in a private cloud
+            /// Create or update an activation key for on-premises HCX site
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -128,7 +128,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Create or update an HCX Enterprise Site in a private cloud
+            /// Create or update an activation key for on-premises HCX site
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -154,7 +154,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Delete an HCX Enterprise Site in a private cloud
+            /// Delete HCX on-premises key in a private cloud
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -174,7 +174,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// Delete an HCX Enterprise Site in a private cloud
+            /// Delete HCX on-premises key in a private cloud
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -197,7 +197,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// List HCX Enterprise Sites in a private cloud
+            /// List HCX on-premises key in a private cloud
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -211,7 +211,7 @@ namespace Microsoft.Azure.Management.Avs
             }
 
             /// <summary>
-            /// List HCX Enterprise Sites in a private cloud
+            /// List HCX on-premises key in a private cloud
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
