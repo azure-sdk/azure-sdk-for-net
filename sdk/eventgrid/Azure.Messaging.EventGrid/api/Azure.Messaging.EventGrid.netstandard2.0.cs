@@ -111,6 +111,9 @@ namespace Azure.Messaging.EventGrid
         public static Azure.Messaging.EventGrid.SystemEvents.ApiManagementUserUpdatedEventData ApiManagementUserUpdatedEventData(string resourceUri = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.AppConfigurationKeyValueDeletedEventData AppConfigurationKeyValueDeletedEventData(string key = null, string label = null, string etag = null, string syncToken = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.AppConfigurationKeyValueModifiedEventData AppConfigurationKeyValueModifiedEventData(string key = null, string label = null, string etag = null, string syncToken = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.AppConfigurationSnapshotCreatedEventData AppConfigurationSnapshotCreatedEventData(string name = null, string etag = null, string syncToken = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.AppConfigurationSnapshotEventData AppConfigurationSnapshotEventData(string name = null, string etag = null, string syncToken = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.AppConfigurationSnapshotModifiedEventData AppConfigurationSnapshotModifiedEventData(string name = null, string etag = null, string syncToken = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.AppEventTypeDetail AppEventTypeDetail(Azure.Messaging.EventGrid.SystemEvents.AppAction? action = default(Azure.Messaging.EventGrid.SystemEvents.AppAction?)) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.AppServicePlanEventTypeDetail AppServicePlanEventTypeDetail(Azure.Messaging.EventGrid.SystemEvents.StampKind? stampKind = default(Azure.Messaging.EventGrid.SystemEvents.StampKind?), Azure.Messaging.EventGrid.SystemEvents.AppServicePlanAction? action = default(Azure.Messaging.EventGrid.SystemEvents.AppServicePlanAction?), Azure.Messaging.EventGrid.SystemEvents.AsyncStatus? status = default(Azure.Messaging.EventGrid.SystemEvents.AsyncStatus?)) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.CommunicationIdentifierModel CommunicationIdentifierModel(string rawId = null, Azure.Messaging.EventGrid.SystemEvents.CommunicationUserIdentifierModel communicationUser = null, Azure.Messaging.EventGrid.SystemEvents.PhoneNumberIdentifierModel phoneNumber = null, Azure.Messaging.EventGrid.SystemEvents.MicrosoftTeamsUserIdentifierModel microsoftTeamsUser = null) { throw null; }
@@ -383,6 +386,8 @@ namespace Azure.Messaging.EventGrid
         public const string ApiManagementUserUpdated = "Microsoft.ApiManagement.UserUpdated";
         public const string AppConfigurationKeyValueDeleted = "Microsoft.AppConfiguration.KeyValueDeleted";
         public const string AppConfigurationKeyValueModified = "Microsoft.AppConfiguration.KeyValueModified";
+        public const string AppConfigurationSnapshotCreated = "Microsoft.AppConfiguration.SnapshotCreated";
+        public const string AppConfigurationSnapshotModified = "Microsoft.AppConfiguration.SnapshotModified";
         public const string ContainerRegistryChartDeleted = "Microsoft.ContainerRegistry.ChartDeleted";
         public const string ContainerRegistryChartPushed = "Microsoft.ContainerRegistry.ChartPushed";
         public const string ContainerRegistryImageDeleted = "Microsoft.ContainerRegistry.ImageDeleted";
@@ -1092,6 +1097,21 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         public string Key { get { throw null; } }
         public string Label { get { throw null; } }
         public string SyncToken { get { throw null; } }
+    }
+    public partial class AppConfigurationSnapshotCreatedEventData : Azure.Messaging.EventGrid.SystemEvents.AppConfigurationSnapshotEventData
+    {
+        internal AppConfigurationSnapshotCreatedEventData() { }
+    }
+    public partial class AppConfigurationSnapshotEventData
+    {
+        internal AppConfigurationSnapshotEventData() { }
+        public string Etag { get { throw null; } }
+        public string Name { get { throw null; } }
+        public string SyncToken { get { throw null; } }
+    }
+    public partial class AppConfigurationSnapshotModifiedEventData : Azure.Messaging.EventGrid.SystemEvents.AppConfigurationSnapshotEventData
+    {
+        internal AppConfigurationSnapshotModifiedEventData() { }
     }
     public partial class AppEventTypeDetail
     {
