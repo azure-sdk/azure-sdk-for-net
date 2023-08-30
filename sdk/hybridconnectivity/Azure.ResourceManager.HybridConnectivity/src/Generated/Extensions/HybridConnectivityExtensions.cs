@@ -51,6 +51,25 @@ namespace Azure.ResourceManager.HybridConnectivity
         }
         #endregion
 
+        #region ServiceConfigurationResource
+        /// <summary>
+        /// Gets an object representing a <see cref="ServiceConfigurationResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="ServiceConfigurationResource.CreateResourceIdentifier" /> to create a <see cref="ServiceConfigurationResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="ServiceConfigurationResource" /> object. </returns>
+        public static ServiceConfigurationResource GetServiceConfigurationResource(this ArmClient client, ResourceIdentifier id)
+        {
+            return client.GetResourceClient(() =>
+            {
+                ServiceConfigurationResource.ValidateResourceId(id);
+                return new ServiceConfigurationResource(client, id);
+            }
+            );
+        }
+        #endregion
+
         /// <summary> Gets a collection of EndpointResources in the ArmResource. </summary>
         /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
         /// <param name="scope"> The scope that the resource will apply against. </param>

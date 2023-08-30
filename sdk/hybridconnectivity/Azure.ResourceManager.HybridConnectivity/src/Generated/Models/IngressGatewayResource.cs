@@ -5,25 +5,33 @@
 
 #nullable disable
 
+using System;
+
 namespace Azure.ResourceManager.HybridConnectivity.Models
 {
-    /// <summary> The endpoint access for the target resource. </summary>
-    public partial class TargetResourceEndpointAccess
+    /// <summary> The ingress gateway access credentials. </summary>
+    public partial class IngressGatewayResource
     {
-        /// <summary> Initializes a new instance of TargetResourceEndpointAccess. </summary>
-        internal TargetResourceEndpointAccess()
+        /// <summary> Initializes a new instance of IngressGatewayResource. </summary>
+        internal IngressGatewayResource()
         {
         }
 
-        /// <summary> Initializes a new instance of TargetResourceEndpointAccess. </summary>
+        /// <summary> Initializes a new instance of IngressGatewayResource. </summary>
+        /// <param name="hostname"> The ingress hostname. </param>
+        /// <param name="serverId"> The arc ingress gateway server app id. </param>
+        /// <param name="tenantId"> The target resource home tenant id. </param>
         /// <param name="namespaceName"> The namespace name. </param>
         /// <param name="namespaceNameSuffix"> The suffix domain name of relay namespace. </param>
         /// <param name="hybridConnectionName"> Azure Relay hybrid connection name for the resource. </param>
         /// <param name="accessKey"> Access key for hybrid connection. </param>
         /// <param name="expiresOn"> The expiration of access key in unix time. </param>
         /// <param name="serviceConfigurationToken"> The token to access the enabled service. </param>
-        internal TargetResourceEndpointAccess(string namespaceName, string namespaceNameSuffix, string hybridConnectionName, string accessKey, long? expiresOn, string serviceConfigurationToken)
+        internal IngressGatewayResource(string hostname, string serverId, Guid? tenantId, string namespaceName, string namespaceNameSuffix, string hybridConnectionName, string accessKey, long? expiresOn, string serviceConfigurationToken)
         {
+            Hostname = hostname;
+            ServerId = serverId;
+            TenantId = tenantId;
             NamespaceName = namespaceName;
             NamespaceNameSuffix = namespaceNameSuffix;
             HybridConnectionName = hybridConnectionName;
@@ -32,6 +40,12 @@ namespace Azure.ResourceManager.HybridConnectivity.Models
             ServiceConfigurationToken = serviceConfigurationToken;
         }
 
+        /// <summary> The ingress hostname. </summary>
+        public string Hostname { get; }
+        /// <summary> The arc ingress gateway server app id. </summary>
+        public string ServerId { get; }
+        /// <summary> The target resource home tenant id. </summary>
+        public Guid? TenantId { get; }
         /// <summary> The namespace name. </summary>
         public string NamespaceName { get; }
         /// <summary> The suffix domain name of relay namespace. </summary>

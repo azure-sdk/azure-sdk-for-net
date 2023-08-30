@@ -5,19 +5,23 @@
 
 #nullable disable
 
+using System;
 using System.Text.Json;
 using Azure.Core;
 
 namespace Azure.ResourceManager.HybridConnectivity.Models
 {
-    public partial class TargetResourceEndpointAccess
+    public partial class IngressGatewayResource
     {
-        internal static TargetResourceEndpointAccess DeserializeTargetResourceEndpointAccess(JsonElement element)
+        internal static IngressGatewayResource DeserializeIngressGatewayResource(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
                 return null;
             }
+            Optional<string> hostname = default;
+            Optional<string> serverId = default;
+            Optional<Guid> tenantId = default;
             Optional<string> namespaceName = default;
             Optional<string> namespaceNameSuffix = default;
             Optional<string> hybridConnectionName = default;
@@ -26,6 +30,49 @@ namespace Azure.ResourceManager.HybridConnectivity.Models
             Optional<string> serviceConfigurationToken = default;
             foreach (var property in element.EnumerateObject())
             {
+                if (property.NameEquals("ingress"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        property.ThrowNonNullablePropertyIsNull();
+                        continue;
+                    }
+                    foreach (var property0 in property.Value.EnumerateObject())
+                    {
+                        if (property0.NameEquals("hostname"u8))
+                        {
+                            hostname = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("aadProfile"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                property0.ThrowNonNullablePropertyIsNull();
+                                continue;
+                            }
+                            foreach (var property1 in property0.Value.EnumerateObject())
+                            {
+                                if (property1.NameEquals("serverId"u8))
+                                {
+                                    serverId = property1.Value.GetString();
+                                    continue;
+                                }
+                                if (property1.NameEquals("tenantId"u8))
+                                {
+                                    if (property1.Value.ValueKind == JsonValueKind.Null)
+                                    {
+                                        continue;
+                                    }
+                                    tenantId = property1.Value.GetGuid();
+                                    continue;
+                                }
+                            }
+                            continue;
+                        }
+                    }
+                    continue;
+                }
                 if (property.NameEquals("relay"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -73,7 +120,7 @@ namespace Azure.ResourceManager.HybridConnectivity.Models
                     continue;
                 }
             }
-            return new TargetResourceEndpointAccess(namespaceName.Value, namespaceNameSuffix.Value, hybridConnectionName.Value, accessKey.Value, Optional.ToNullable(expiresOn), serviceConfigurationToken.Value);
+            return new IngressGatewayResource(hostname.Value, serverId.Value, Optional.ToNullable(tenantId), namespaceName.Value, namespaceNameSuffix.Value, hybridConnectionName.Value, accessKey.Value, Optional.ToNullable(expiresOn), serviceConfigurationToken.Value);
         }
     }
 }
