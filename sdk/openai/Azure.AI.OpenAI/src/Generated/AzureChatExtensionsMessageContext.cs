@@ -15,10 +15,10 @@ namespace Azure.AI.OpenAI
     ///   in the generation of a corresponding chat completions response. This context information is only populated when
     ///   using an Azure OpenAI request configured to use a matching extension.
     /// </summary>
-    public partial class AzureChatExtensionsMessageContext
+    internal partial class AzureChatExtensionsMessageContext
     {
         /// <summary> Initializes a new instance of AzureChatExtensionsMessageContext. </summary>
-        public AzureChatExtensionsMessageContext()
+        internal AzureChatExtensionsMessageContext()
         {
             Messages = new ChangeTrackingList<ChatMessage>();
         }
@@ -30,7 +30,7 @@ namespace Azure.AI.OpenAI
         ///   course of generating a chat completions response that was augmented by capabilities from Azure OpenAI chat
         ///   extensions.
         /// </param>
-        internal AzureChatExtensionsMessageContext(IList<ChatMessage> messages)
+        internal AzureChatExtensionsMessageContext(IReadOnlyList<ChatMessage> messages)
         {
             Messages = messages;
         }
@@ -41,6 +41,6 @@ namespace Azure.AI.OpenAI
         ///   course of generating a chat completions response that was augmented by capabilities from Azure OpenAI chat
         ///   extensions.
         /// </summary>
-        public IList<ChatMessage> Messages { get; }
+        public IReadOnlyList<ChatMessage> Messages { get; }
     }
 }

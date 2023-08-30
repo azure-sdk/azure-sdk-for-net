@@ -11,49 +11,27 @@ using Azure.Core;
 
 namespace Azure.AI.OpenAI
 {
-    public partial class ChatMessage : IUtf8JsonSerializable
+    internal partial class ChatMessageDelta
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
-        {
-            writer.WriteStartObject();
-            writer.WritePropertyName("role"u8);
-            writer.WriteStringValue(Role.ToString());
-            if (Content != null)
-            {
-                writer.WritePropertyName("content"u8);
-                writer.WriteStringValue(Content);
-            }
-            else
-            {
-                writer.WriteNull("content");
-            }
-            if (Optional.IsDefined(Name))
-            {
-                writer.WritePropertyName("name"u8);
-                writer.WriteStringValue(Name);
-            }
-            if (Optional.IsDefined(FunctionCall))
-            {
-                writer.WritePropertyName("function_call"u8);
-                writer.WriteObjectValue(FunctionCall);
-            }
-            writer.WriteEndObject();
-        }
-
-        internal static ChatMessage DeserializeChatMessage(JsonElement element)
+        internal static ChatMessageDelta DeserializeChatMessageDelta(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
                 return null;
             }
-            ChatRole role = default;
-            string content = default;
+            Optional<ChatRole> role = default;
+            Optional<string> content = default;
             Optional<string> name = default;
             Optional<FunctionCall> functionCall = default;
+            Optional<AzureChatExtensionsMessageContext> context = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("role"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     role = new ChatRole(property.Value.GetString());
                     continue;
                 }
@@ -81,24 +59,25 @@ namespace Azure.AI.OpenAI
                     functionCall = FunctionCall.DeserializeFunctionCall(property.Value);
                     continue;
                 }
+                if (property.NameEquals("context"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    context = AzureChatExtensionsMessageContext.DeserializeAzureChatExtensionsMessageContext(property.Value);
+                    continue;
+                }
             }
-            return new ChatMessage(role, content, name.Value, functionCall.Value);
+            return new ChatMessageDelta(Optional.ToNullable(role), content.Value, name.Value, functionCall.Value, context.Value);
         }
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static ChatMessage FromResponse(Response response)
+        internal static ChatMessageDelta FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content);
-            return DeserializeChatMessage(document.RootElement);
-        }
-
-        /// <summary> Convert into a Utf8JsonRequestContent. </summary>
-        internal virtual RequestContent ToRequestContent()
-        {
-            var content = new Utf8JsonRequestContent();
-            content.JsonWriter.WriteObjectValue(this);
-            return content;
+            return DeserializeChatMessageDelta(document.RootElement);
         }
     }
 }
