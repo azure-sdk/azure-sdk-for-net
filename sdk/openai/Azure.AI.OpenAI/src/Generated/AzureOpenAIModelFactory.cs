@@ -105,10 +105,14 @@ namespace Azure.AI.OpenAI
         /// Describes language related to physical actions intended to purposely hurt, injure,
         /// or damage one’s body, or kill oneself.
         /// </param>
+        /// <param name="error">
+        /// Describes an error returned if the content filtering system is
+        /// down or otherwise unable to complete the operation in time.
+        /// </param>
         /// <returns> A new <see cref="OpenAI.ContentFilterResults"/> instance for mocking. </returns>
-        public static ContentFilterResults ContentFilterResults(ContentFilterResult sexual = null, ContentFilterResult violence = null, ContentFilterResult hate = null, ContentFilterResult selfHarm = null)
+        public static ContentFilterResults ContentFilterResults(ContentFilterResult sexual = null, ContentFilterResult violence = null, ContentFilterResult hate = null, ContentFilterResult selfHarm = null, ResponseError error = null)
         {
-            return new ContentFilterResults(sexual, violence, hate, selfHarm);
+            return new ContentFilterResults(sexual, violence, hate, selfHarm, error);
         }
 
         /// <summary> Initializes a new instance of ContentFilterResult. </summary>
