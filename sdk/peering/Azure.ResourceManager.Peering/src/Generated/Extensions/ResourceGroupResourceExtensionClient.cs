@@ -5,14 +5,23 @@
 
 #nullable disable
 
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+using Azure;
 using Azure.Core;
+using Azure.Core.Pipeline;
 using Azure.ResourceManager;
+using Azure.ResourceManager.Peering.Models;
 
 namespace Azure.ResourceManager.Peering
 {
     /// <summary> A class to add extension methods to ResourceGroupResource. </summary>
     internal partial class ResourceGroupResourceExtensionClient : ArmResource
     {
+        private ClientDiagnostics _resourceMoveClientDiagnostics;
+        private ResourceMoveRestOperations _resourceMoveRestClient;
+
         /// <summary> Initializes a new instance of the <see cref="ResourceGroupResourceExtensionClient"/> class for mocking. </summary>
         protected ResourceGroupResourceExtensionClient()
         {
@@ -24,6 +33,9 @@ namespace Azure.ResourceManager.Peering
         internal ResourceGroupResourceExtensionClient(ArmClient client, ResourceIdentifier id) : base(client, id)
         {
         }
+
+        private ClientDiagnostics ResourceMoveClientDiagnostics => _resourceMoveClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.Peering", ProviderConstants.DefaultProviderNamespace, Diagnostics);
+        private ResourceMoveRestOperations ResourceMoveRestClient => _resourceMoveRestClient ??= new ResourceMoveRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
 
         private string GetApiVersionOrNull(ResourceType resourceType)
         {
@@ -43,6 +55,130 @@ namespace Azure.ResourceManager.Peering
         public virtual PeeringServiceCollection GetPeeringServices()
         {
             return GetCachedClient(Client => new PeeringServiceCollection(Client, Id));
+        }
+
+        /// <summary>
+        /// ValidateMoveResources will be called by ARM when a resource is moved.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/validateMoveResources</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>ResourceMove_ValidateMoveResources</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="resourceMoveRequest"> Payload. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual async Task<Response> ValidateMoveResourcesResourceMoveAsync(ResourceMoveRequest resourceMoveRequest, CancellationToken cancellationToken = default)
+        {
+            using var scope = ResourceMoveClientDiagnostics.CreateScope("ResourceGroupResourceExtensionClient.ValidateMoveResourcesResourceMove");
+            scope.Start();
+            try
+            {
+                var response = await ResourceMoveRestClient.ValidateMoveResourcesAsync(Id.SubscriptionId, Id.ResourceGroupName, resourceMoveRequest, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// ValidateMoveResources will be called by ARM when a resource is moved.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/validateMoveResources</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>ResourceMove_ValidateMoveResources</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="resourceMoveRequest"> Payload. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual Response ValidateMoveResourcesResourceMove(ResourceMoveRequest resourceMoveRequest, CancellationToken cancellationToken = default)
+        {
+            using var scope = ResourceMoveClientDiagnostics.CreateScope("ResourceGroupResourceExtensionClient.ValidateMoveResourcesResourceMove");
+            scope.Start();
+            try
+            {
+                var response = ResourceMoveRestClient.ValidateMoveResources(Id.SubscriptionId, Id.ResourceGroupName, resourceMoveRequest, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// MoveResources will be called by ARM when a resource is moved.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/moveResources</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>ResourceMove_MoveResources</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="resourceMoveRequest"> Request payload. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual async Task<Response> MoveResourcesResourceMoveAsync(ResourceMoveRequest resourceMoveRequest, CancellationToken cancellationToken = default)
+        {
+            using var scope = ResourceMoveClientDiagnostics.CreateScope("ResourceGroupResourceExtensionClient.MoveResourcesResourceMove");
+            scope.Start();
+            try
+            {
+                var response = await ResourceMoveRestClient.MoveResourcesAsync(Id.SubscriptionId, Id.ResourceGroupName, resourceMoveRequest, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// MoveResources will be called by ARM when a resource is moved.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/moveResources</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>ResourceMove_MoveResources</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="resourceMoveRequest"> Request payload. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual Response MoveResourcesResourceMove(ResourceMoveRequest resourceMoveRequest, CancellationToken cancellationToken = default)
+        {
+            using var scope = ResourceMoveClientDiagnostics.CreateScope("ResourceGroupResourceExtensionClient.MoveResourcesResourceMove");
+            scope.Start();
+            try
+            {
+                var response = ResourceMoveRestClient.MoveResources(Id.SubscriptionId, Id.ResourceGroupName, resourceMoveRequest, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
     }
 }

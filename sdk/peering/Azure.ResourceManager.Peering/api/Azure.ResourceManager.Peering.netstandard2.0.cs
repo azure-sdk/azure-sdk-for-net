@@ -143,6 +143,10 @@ namespace Azure.ResourceManager.Peering
         public static System.Threading.Tasks.Task<Azure.Response> InitializePeeringServiceConnectionMonitorAsync(this Azure.ResourceManager.Resources.SubscriptionResource subscriptionResource, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static Azure.Response<Azure.ResourceManager.Peering.Models.LookingGlassOutput> InvokeLookingGlass(this Azure.ResourceManager.Resources.SubscriptionResource subscriptionResource, Azure.ResourceManager.Peering.Models.LookingGlassCommand command, Azure.ResourceManager.Peering.Models.LookingGlassSourceType sourceType, string sourceLocation, string destinationIP, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Peering.Models.LookingGlassOutput>> InvokeLookingGlassAsync(this Azure.ResourceManager.Resources.SubscriptionResource subscriptionResource, Azure.ResourceManager.Peering.Models.LookingGlassCommand command, Azure.ResourceManager.Peering.Models.LookingGlassSourceType sourceType, string sourceLocation, string destinationIP, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public static Azure.Response MoveResourcesResourceMove(this Azure.ResourceManager.Resources.ResourceGroupResource resourceGroupResource, Azure.ResourceManager.Peering.Models.ResourceMoveRequest resourceMoveRequest, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public static System.Threading.Tasks.Task<Azure.Response> MoveResourcesResourceMoveAsync(this Azure.ResourceManager.Resources.ResourceGroupResource resourceGroupResource, Azure.ResourceManager.Peering.Models.ResourceMoveRequest resourceMoveRequest, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public static Azure.Response ValidateMoveResourcesResourceMove(this Azure.ResourceManager.Resources.ResourceGroupResource resourceGroupResource, Azure.ResourceManager.Peering.Models.ResourceMoveRequest resourceMoveRequest, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public static System.Threading.Tasks.Task<Azure.Response> ValidateMoveResourcesResourceMoveAsync(this Azure.ResourceManager.Resources.ResourceGroupResource resourceGroupResource, Azure.ResourceManager.Peering.Models.ResourceMoveRequest resourceMoveRequest, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
     }
     public partial class PeeringRegisteredAsnCollection : Azure.ResourceManager.ArmCollection, System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.Peering.PeeringRegisteredAsnResource>, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Peering.PeeringRegisteredAsnResource>, System.Collections.IEnumerable
     {
@@ -565,6 +569,7 @@ namespace Azure.ResourceManager.Peering.Models
         private readonly int _dummyPrimitive;
         public PeeringConnectionState(string value) { throw null; }
         public static Azure.ResourceManager.Peering.Models.PeeringConnectionState Active { get { throw null; } }
+        public static Azure.ResourceManager.Peering.Models.PeeringConnectionState ActiveNoBilling { get { throw null; } }
         public static Azure.ResourceManager.Peering.Models.PeeringConnectionState Approved { get { throw null; } }
         public static Azure.ResourceManager.Peering.Models.PeeringConnectionState None { get { throw null; } }
         public static Azure.ResourceManager.Peering.Models.PeeringConnectionState PendingApproval { get { throw null; } }
@@ -970,6 +975,12 @@ namespace Azure.ResourceManager.Peering.Models
         public static implicit operator Azure.ResourceManager.Peering.Models.PeeringTier (string value) { throw null; }
         public static bool operator !=(Azure.ResourceManager.Peering.Models.PeeringTier left, Azure.ResourceManager.Peering.Models.PeeringTier right) { throw null; }
         public override string ToString() { throw null; }
+    }
+    public partial class ResourceMoveRequest
+    {
+        public ResourceMoveRequest(string targetResourceGroup, System.Collections.Generic.IEnumerable<string> resources) { }
+        public System.Collections.Generic.IList<string> Resources { get { throw null; } }
+        public string TargetResourceGroup { get { throw null; } }
     }
     public partial class RoutingPreferenceUnbilledPrefix
     {

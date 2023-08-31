@@ -295,6 +295,102 @@ namespace Azure.ResourceManager.Peering
             return resourceGroupResource.GetPeeringServices().Get(peeringServiceName, cancellationToken);
         }
 
+        /// <summary>
+        /// ValidateMoveResources will be called by ARM when a resource is moved.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/validateMoveResources</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>ResourceMove_ValidateMoveResources</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
+        /// <param name="resourceMoveRequest"> Payload. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceMoveRequest"/> is null. </exception>
+        public static async Task<Response> ValidateMoveResourcesResourceMoveAsync(this ResourceGroupResource resourceGroupResource, ResourceMoveRequest resourceMoveRequest, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(resourceMoveRequest, nameof(resourceMoveRequest));
+
+            return await GetResourceGroupResourceExtensionClient(resourceGroupResource).ValidateMoveResourcesResourceMoveAsync(resourceMoveRequest, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// ValidateMoveResources will be called by ARM when a resource is moved.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/validateMoveResources</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>ResourceMove_ValidateMoveResources</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
+        /// <param name="resourceMoveRequest"> Payload. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceMoveRequest"/> is null. </exception>
+        public static Response ValidateMoveResourcesResourceMove(this ResourceGroupResource resourceGroupResource, ResourceMoveRequest resourceMoveRequest, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(resourceMoveRequest, nameof(resourceMoveRequest));
+
+            return GetResourceGroupResourceExtensionClient(resourceGroupResource).ValidateMoveResourcesResourceMove(resourceMoveRequest, cancellationToken);
+        }
+
+        /// <summary>
+        /// MoveResources will be called by ARM when a resource is moved.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/moveResources</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>ResourceMove_MoveResources</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
+        /// <param name="resourceMoveRequest"> Request payload. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceMoveRequest"/> is null. </exception>
+        public static async Task<Response> MoveResourcesResourceMoveAsync(this ResourceGroupResource resourceGroupResource, ResourceMoveRequest resourceMoveRequest, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(resourceMoveRequest, nameof(resourceMoveRequest));
+
+            return await GetResourceGroupResourceExtensionClient(resourceGroupResource).MoveResourcesResourceMoveAsync(resourceMoveRequest, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// MoveResources will be called by ARM when a resource is moved.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/moveResources</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>ResourceMove_MoveResources</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
+        /// <param name="resourceMoveRequest"> Request payload. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceMoveRequest"/> is null. </exception>
+        public static Response MoveResourcesResourceMove(this ResourceGroupResource resourceGroupResource, ResourceMoveRequest resourceMoveRequest, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(resourceMoveRequest, nameof(resourceMoveRequest));
+
+            return GetResourceGroupResourceExtensionClient(resourceGroupResource).MoveResourcesResourceMove(resourceMoveRequest, cancellationToken);
+        }
+
         /// <summary> Gets a collection of PeerAsnResources in the SubscriptionResource. </summary>
         /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
         /// <returns> An object representing collection of PeerAsnResources and their operations over a PeerAsnResource. </returns>
