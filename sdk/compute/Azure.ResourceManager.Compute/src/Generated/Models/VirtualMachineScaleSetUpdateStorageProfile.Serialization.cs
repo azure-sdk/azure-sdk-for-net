@@ -38,7 +38,7 @@ namespace Azure.ResourceManager.Compute.Models
             if (Optional.IsDefined(DiskControllerType))
             {
                 writer.WritePropertyName("diskControllerType"u8);
-                writer.WriteStringValue(DiskControllerType);
+                writer.WriteStringValue(DiskControllerType.Value.ToString());
             }
             writer.WriteEndObject();
         }

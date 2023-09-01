@@ -25,7 +25,7 @@ namespace Azure.ResourceManager.Compute.Models
         public VirtualMachineScaleSetUpdateOSDisk OSDisk { get; set; }
         /// <summary> The data disks. </summary>
         public IList<VirtualMachineScaleSetDataDisk> DataDisks { get; }
-        /// <summary> Gets or sets the disk controller type. </summary>
-        public string DiskControllerType { get; set; }
+        /// <summary> Specifies the disk controller type configured for the virtual machines in the scale set. **Note:** You need to deallocate the virtual machines in the scale set before updating its disk controller type based on the upgrade mode configured for the scale set. Minimum api-version: 2022-08-01. </summary>
+        public DiskControllerType? DiskControllerType { get; set; }
     }
 }
