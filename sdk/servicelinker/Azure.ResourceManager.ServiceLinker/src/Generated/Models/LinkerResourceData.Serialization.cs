@@ -70,6 +70,30 @@ namespace Azure.ResourceManager.ServiceLinker
                     writer.WriteNull("scope");
                 }
             }
+            if (Optional.IsDefined(PublicNetworkSolution))
+            {
+                if (PublicNetworkSolution != null)
+                {
+                    writer.WritePropertyName("publicNetworkSolution"u8);
+                    writer.WriteObjectValue(PublicNetworkSolution);
+                }
+                else
+                {
+                    writer.WriteNull("publicNetworkSolution");
+                }
+            }
+            if (Optional.IsDefined(ConfigurationInfo))
+            {
+                if (ConfigurationInfo != null)
+                {
+                    writer.WritePropertyName("configurationInfo"u8);
+                    writer.WriteObjectValue(ConfigurationInfo);
+                }
+                else
+                {
+                    writer.WriteNull("configurationInfo");
+                }
+            }
             writer.WriteEndObject();
             writer.WriteEndObject();
         }
@@ -91,6 +115,8 @@ namespace Azure.ResourceManager.ServiceLinker
             Optional<VnetSolution> vnetSolution = default;
             Optional<LinkerSecretStore> secretStore = default;
             Optional<string> scope = default;
+            Optional<PublicNetworkSolution> publicNetworkSolution = default;
+            Optional<ConfigurationInfo> configurationInfo = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("id"u8))
@@ -188,11 +214,31 @@ namespace Azure.ResourceManager.ServiceLinker
                             scope = property0.Value.GetString();
                             continue;
                         }
+                        if (property0.NameEquals("publicNetworkSolution"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                publicNetworkSolution = null;
+                                continue;
+                            }
+                            publicNetworkSolution = PublicNetworkSolution.DeserializePublicNetworkSolution(property0.Value);
+                            continue;
+                        }
+                        if (property0.NameEquals("configurationInfo"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                configurationInfo = null;
+                                continue;
+                            }
+                            configurationInfo = ConfigurationInfo.DeserializeConfigurationInfo(property0.Value);
+                            continue;
+                        }
                     }
                     continue;
                 }
             }
-            return new LinkerResourceData(id, name, type, systemData.Value, targetService.Value, authInfo.Value, Optional.ToNullable(clientType), provisioningState.Value, vnetSolution.Value, secretStore.Value, scope.Value);
+            return new LinkerResourceData(id, name, type, systemData.Value, targetService.Value, authInfo.Value, Optional.ToNullable(clientType), provisioningState.Value, vnetSolution.Value, secretStore.Value, scope.Value, publicNetworkSolution.Value, configurationInfo.Value);
         }
     }
 }

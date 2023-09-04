@@ -10,7 +10,7 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.ServiceLinker.Models
 {
-    internal partial class VnetSolution : IUtf8JsonSerializable
+    public partial class VnetSolution : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
@@ -27,6 +27,11 @@ namespace Azure.ResourceManager.ServiceLinker.Models
                     writer.WriteNull("type");
                 }
             }
+            if (Optional.IsDefined(DeleteOrUpdateBehavior))
+            {
+                writer.WritePropertyName("deleteOrUpdateBehavior"u8);
+                writer.WriteStringValue(DeleteOrUpdateBehavior.Value.ToString());
+            }
             writer.WriteEndObject();
         }
 
@@ -37,6 +42,7 @@ namespace Azure.ResourceManager.ServiceLinker.Models
                 return null;
             }
             Optional<VnetSolutionType?> type = default;
+            Optional<DeleteOrUpdateBehavior> deleteOrUpdateBehavior = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("type"u8))
@@ -49,8 +55,17 @@ namespace Azure.ResourceManager.ServiceLinker.Models
                     type = new VnetSolutionType(property.Value.GetString());
                     continue;
                 }
+                if (property.NameEquals("deleteOrUpdateBehavior"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    deleteOrUpdateBehavior = new DeleteOrUpdateBehavior(property.Value.GetString());
+                    continue;
+                }
             }
-            return new VnetSolution(Optional.ToNullable(type));
+            return new VnetSolution(Optional.ToNullable(type), Optional.ToNullable(deleteOrUpdateBehavior));
         }
     }
 }
