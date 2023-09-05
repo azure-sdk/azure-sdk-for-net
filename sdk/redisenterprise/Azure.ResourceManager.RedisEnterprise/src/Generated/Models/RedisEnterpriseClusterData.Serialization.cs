@@ -30,11 +30,6 @@ namespace Azure.ResourceManager.RedisEnterprise
                 }
                 writer.WriteEndArray();
             }
-            if (Optional.IsDefined(Identity))
-            {
-                writer.WritePropertyName("identity"u8);
-                JsonSerializer.Serialize(writer, Identity);
-            }
             if (Optional.IsCollectionDefined(Tags))
             {
                 writer.WritePropertyName("tags"u8);
@@ -55,11 +50,6 @@ namespace Azure.ResourceManager.RedisEnterprise
                 writer.WritePropertyName("minimumTlsVersion"u8);
                 writer.WriteStringValue(MinimumTlsVersion.Value.ToString());
             }
-            if (Optional.IsDefined(Encryption))
-            {
-                writer.WritePropertyName("encryption"u8);
-                writer.WriteObjectValue(Encryption);
-            }
             writer.WriteEndObject();
             writer.WriteEndObject();
         }
@@ -72,7 +62,6 @@ namespace Azure.ResourceManager.RedisEnterprise
             }
             RedisEnterpriseSku sku = default;
             Optional<IList<string>> zones = default;
-            Optional<ManagedServiceIdentity> identity = default;
             Optional<IDictionary<string, string>> tags = default;
             AzureLocation location = default;
             ResourceIdentifier id = default;
@@ -80,7 +69,6 @@ namespace Azure.ResourceManager.RedisEnterprise
             ResourceType type = default;
             Optional<SystemData> systemData = default;
             Optional<RedisEnterpriseTlsVersion> minimumTlsVersion = default;
-            Optional<ClusterPropertiesEncryption> encryption = default;
             Optional<string> hostName = default;
             Optional<RedisEnterpriseProvisioningStatus> provisioningState = default;
             Optional<RedisEnterpriseClusterResourceState> resourceState = default;
@@ -105,15 +93,6 @@ namespace Azure.ResourceManager.RedisEnterprise
                         array.Add(item.GetString());
                     }
                     zones = array;
-                    continue;
-                }
-                if (property.NameEquals("identity"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    identity = JsonSerializer.Deserialize<ManagedServiceIdentity>(property.Value.GetRawText());
                     continue;
                 }
                 if (property.NameEquals("tags"u8))
@@ -177,15 +156,6 @@ namespace Azure.ResourceManager.RedisEnterprise
                             minimumTlsVersion = new RedisEnterpriseTlsVersion(property0.Value.GetString());
                             continue;
                         }
-                        if (property0.NameEquals("encryption"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            encryption = ClusterPropertiesEncryption.DeserializeClusterPropertiesEncryption(property0.Value);
-                            continue;
-                        }
                         if (property0.NameEquals("hostName"u8))
                         {
                             hostName = property0.Value.GetString();
@@ -232,7 +202,7 @@ namespace Azure.ResourceManager.RedisEnterprise
                     continue;
                 }
             }
-            return new RedisEnterpriseClusterData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, sku, Optional.ToList(zones), identity, Optional.ToNullable(minimumTlsVersion), encryption.Value, hostName.Value, Optional.ToNullable(provisioningState), Optional.ToNullable(resourceState), redisVersion.Value, Optional.ToList(privateEndpointConnections));
+            return new RedisEnterpriseClusterData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, sku, Optional.ToList(zones), Optional.ToNullable(minimumTlsVersion), hostName.Value, Optional.ToNullable(provisioningState), Optional.ToNullable(resourceState), redisVersion.Value, Optional.ToList(privateEndpointConnections));
         }
     }
 }
