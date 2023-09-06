@@ -36,6 +36,11 @@ namespace Azure.Search.Documents.Models
                 writer.WritePropertyName("fields"u8);
                 writer.WriteStringValue(FieldsRaw);
             }
+            if (Optional.IsDefined(Exhaustive))
+            {
+                writer.WritePropertyName("exhaustive"u8);
+                writer.WriteBooleanValue(Exhaustive.Value);
+            }
             writer.WriteEndObject();
         }
 
@@ -48,6 +53,7 @@ namespace Azure.Search.Documents.Models
             Optional<IReadOnlyList<float>> value = default;
             Optional<int> k = default;
             Optional<string> fields = default;
+            Optional<bool> exhaustive = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("value"u8))
@@ -78,8 +84,17 @@ namespace Azure.Search.Documents.Models
                     fields = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("exhaustive"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    exhaustive = property.Value.GetBoolean();
+                    continue;
+                }
             }
-            return new SearchQueryVector(Optional.ToList(value), Optional.ToNullable(k), fields.Value);
+            return new SearchQueryVector(Optional.ToList(value), Optional.ToNullable(k), fields.Value, Optional.ToNullable(exhaustive));
         }
     }
 }

@@ -25,7 +25,7 @@ namespace Azure.Search.Documents.Indexes.Models
 
         /// <summary> Initializes a new instance of HnswVectorSearchAlgorithmConfiguration. </summary>
         /// <param name="name"> The name to associate with this particular configuration. </param>
-        /// <param name="kind"> The name of the kind of algorithm being configured for use with vector search. Only `hnsw` is supported in the current preview. </param>
+        /// <param name="kind"> The name of the kind of algorithm being configured for use with vector search. </param>
         /// <param name="parameters"> Contains the parameters specific to hnsw algorithm. </param>
         internal HnswVectorSearchAlgorithmConfiguration(string name, string kind, HnswParameters parameters) : base(name, kind)
         {

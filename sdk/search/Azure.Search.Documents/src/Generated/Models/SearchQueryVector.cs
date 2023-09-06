@@ -23,13 +23,17 @@ namespace Azure.Search.Documents.Models
         /// <param name="value"> The vector representation of a search query. </param>
         /// <param name="kNearestNeighborsCount"> Number of nearest neighbors to return as top hits. </param>
         /// <param name="fieldsRaw"> Vector Fields of type Collection(Edm.Single) to be included in the vector searched. </param>
-        internal SearchQueryVector(IReadOnlyList<float> value, int? kNearestNeighborsCount, string fieldsRaw)
+        /// <param name="exhaustive"> If set to true, will compute the exact nearest neighbors by searching through all the training points returning the true k nearest neighbors. </param>
+        internal SearchQueryVector(IReadOnlyList<float> value, int? kNearestNeighborsCount, string fieldsRaw, bool? exhaustive)
         {
             Value = value;
             KNearestNeighborsCount = kNearestNeighborsCount;
             FieldsRaw = fieldsRaw;
+            Exhaustive = exhaustive;
         }
         /// <summary> Number of nearest neighbors to return as top hits. </summary>
         public int? KNearestNeighborsCount { get; set; }
+        /// <summary> If set to true, will compute the exact nearest neighbors by searching through all the training points returning the true k nearest neighbors. </summary>
+        public bool? Exhaustive { get; set; }
     }
 }

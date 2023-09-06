@@ -14,7 +14,7 @@ namespace Azure.Search.Documents.Models
     {
         /// <summary> Initializes a new instance of UnknownVectorSearchAlgorithmConfiguration. </summary>
         /// <param name="name"> The name to associate with this particular configuration. </param>
-        /// <param name="kind"> The name of the kind of algorithm being configured for use with vector search. Only `hnsw` is supported in the current preview. </param>
+        /// <param name="kind"> The name of the kind of algorithm being configured for use with vector search. </param>
         internal UnknownVectorSearchAlgorithmConfiguration(string name, string kind) : base(name, kind)
         {
             Kind = kind ?? "Unknown";
