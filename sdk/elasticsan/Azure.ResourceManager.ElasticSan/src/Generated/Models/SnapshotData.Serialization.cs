@@ -5,7 +5,6 @@
 
 #nullable disable
 
-using System;
 using System.Text.Json;
 using Azure.Core;
 using Azure.ResourceManager.ElasticSan.Models;
@@ -13,30 +12,20 @@ using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.ElasticSan
 {
-    public partial class ElasticSanVolumeData : IUtf8JsonSerializable
+    public partial class SnapshotData : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
-            if (Optional.IsDefined(CreationData))
-            {
-                writer.WritePropertyName("creationData"u8);
-                writer.WriteObjectValue(CreationData);
-            }
-            writer.WritePropertyName("sizeGiB"u8);
-            writer.WriteNumberValue(SizeGiB);
-            if (Optional.IsDefined(ManagedBy))
-            {
-                writer.WritePropertyName("managedBy"u8);
-                writer.WriteObjectValue(ManagedBy);
-            }
+            writer.WritePropertyName("creationData"u8);
+            writer.WriteObjectValue(CreationData);
             writer.WriteEndObject();
             writer.WriteEndObject();
         }
 
-        internal static ElasticSanVolumeData DeserializeElasticSanVolumeData(JsonElement element)
+        internal static SnapshotData DeserializeSnapshotData(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
@@ -46,12 +35,10 @@ namespace Azure.ResourceManager.ElasticSan
             string name = default;
             ResourceType type = default;
             Optional<SystemData> systemData = default;
-            Optional<Guid> volumeId = default;
-            Optional<ElasticSanVolumeDataSourceInfo> creationData = default;
-            long sizeGiB = default;
-            Optional<IscsiTargetInfo> storageTarget = default;
-            Optional<ManagedByInfo> managedBy = default;
+            SnapshotCreationData creationData = default;
             Optional<ElasticSanProvisioningState> provisioningState = default;
+            Optional<long> sourceVolumeSizeGiB = default;
+            Optional<string> volumeName = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("id"u8))
@@ -87,45 +74,9 @@ namespace Azure.ResourceManager.ElasticSan
                     }
                     foreach (var property0 in property.Value.EnumerateObject())
                     {
-                        if (property0.NameEquals("volumeId"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            volumeId = property0.Value.GetGuid();
-                            continue;
-                        }
                         if (property0.NameEquals("creationData"u8))
                         {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            creationData = ElasticSanVolumeDataSourceInfo.DeserializeElasticSanVolumeDataSourceInfo(property0.Value);
-                            continue;
-                        }
-                        if (property0.NameEquals("sizeGiB"u8))
-                        {
-                            sizeGiB = property0.Value.GetInt64();
-                            continue;
-                        }
-                        if (property0.NameEquals("storageTarget"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            storageTarget = IscsiTargetInfo.DeserializeIscsiTargetInfo(property0.Value);
-                            continue;
-                        }
-                        if (property0.NameEquals("managedBy"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            managedBy = ManagedByInfo.DeserializeManagedByInfo(property0.Value);
+                            creationData = SnapshotCreationData.DeserializeSnapshotCreationData(property0.Value);
                             continue;
                         }
                         if (property0.NameEquals("provisioningState"u8))
@@ -137,11 +88,25 @@ namespace Azure.ResourceManager.ElasticSan
                             provisioningState = new ElasticSanProvisioningState(property0.Value.GetString());
                             continue;
                         }
+                        if (property0.NameEquals("sourceVolumeSizeGiB"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            sourceVolumeSizeGiB = property0.Value.GetInt64();
+                            continue;
+                        }
+                        if (property0.NameEquals("volumeName"u8))
+                        {
+                            volumeName = property0.Value.GetString();
+                            continue;
+                        }
                     }
                     continue;
                 }
             }
-            return new ElasticSanVolumeData(id, name, type, systemData.Value, Optional.ToNullable(volumeId), creationData.Value, sizeGiB, storageTarget.Value, managedBy.Value, Optional.ToNullable(provisioningState));
+            return new SnapshotData(id, name, type, systemData.Value, creationData, Optional.ToNullable(provisioningState), Optional.ToNullable(sourceVolumeSizeGiB), volumeName.Value);
         }
     }
 }
