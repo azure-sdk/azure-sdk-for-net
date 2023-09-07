@@ -89,59 +89,6 @@ namespace Azure.ResourceManager.CosmosDB
                 throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, ResourceType), nameof(id));
         }
 
-        /// <summary> Gets a collection of CassandraClusterBackupResources in the CassandraCluster. </summary>
-        /// <returns> An object representing collection of CassandraClusterBackupResources and their operations over a CassandraClusterBackupResource. </returns>
-        public virtual CassandraClusterBackupResourceCollection GetCassandraClusterBackupResources()
-        {
-            return GetCachedClient(Client => new CassandraClusterBackupResourceCollection(Client, Id));
-        }
-
-        /// <summary>
-        /// Get the properties of an individual backup of this cluster that is available to restore.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DocumentDB/cassandraClusters/{clusterName}/backups/{backupId}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>CassandraClusters_GetBackup</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="backupId"> Id of a restorable backup of a Cassandra cluster. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="backupId"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="backupId"/> is null. </exception>
-        [ForwardsClientCalls]
-        public virtual async Task<Response<CassandraClusterBackupResource>> GetCassandraClusterBackupResourceAsync(string backupId, CancellationToken cancellationToken = default)
-        {
-            return await GetCassandraClusterBackupResources().GetAsync(backupId, cancellationToken).ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// Get the properties of an individual backup of this cluster that is available to restore.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DocumentDB/cassandraClusters/{clusterName}/backups/{backupId}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>CassandraClusters_GetBackup</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="backupId"> Id of a restorable backup of a Cassandra cluster. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="backupId"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="backupId"/> is null. </exception>
-        [ForwardsClientCalls]
-        public virtual Response<CassandraClusterBackupResource> GetCassandraClusterBackupResource(string backupId, CancellationToken cancellationToken = default)
-        {
-            return GetCassandraClusterBackupResources().Get(backupId, cancellationToken);
-        }
-
         /// <summary> Gets a collection of CassandraDataCenterResources in the CassandraCluster. </summary>
         /// <returns> An object representing collection of CassandraDataCenterResources and their operations over a CassandraDataCenterResource. </returns>
         public virtual CassandraDataCenterCollection GetCassandraDataCenters()
@@ -468,6 +415,74 @@ namespace Azure.ResourceManager.CosmosDB
             {
                 var response = _cassandraClusterRestClient.InvokeCommand(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, body, cancellationToken);
                 var operation = new CosmosDBArmOperation<CassandraCommandOutput>(new CassandraCommandOutputOperationSource(), _cassandraClusterClientDiagnostics, Pipeline, _cassandraClusterRestClient.CreateInvokeCommandRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, body).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletion(cancellationToken);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// List all commands currently running on ring info
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DocumentDB/cassandraClusters/{clusterName}/commands</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>CassandraClusters_ListCommand</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual async Task<ArmOperation<CassandraCommandOutput>> GetCommandAsync(WaitUntil waitUntil, CancellationToken cancellationToken = default)
+        {
+            using var scope = _cassandraClusterClientDiagnostics.CreateScope("CassandraClusterResource.GetCommand");
+            scope.Start();
+            try
+            {
+                var response = await _cassandraClusterRestClient.ListCommandAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
+                var operation = new CosmosDBArmOperation<CassandraCommandOutput>(new CassandraCommandOutputOperationSource(), _cassandraClusterClientDiagnostics, Pipeline, _cassandraClusterRestClient.CreateListCommandRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// List all commands currently running on ring info
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DocumentDB/cassandraClusters/{clusterName}/commands</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>CassandraClusters_ListCommand</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual ArmOperation<CassandraCommandOutput> GetCommand(WaitUntil waitUntil, CancellationToken cancellationToken = default)
+        {
+            using var scope = _cassandraClusterClientDiagnostics.CreateScope("CassandraClusterResource.GetCommand");
+            scope.Start();
+            try
+            {
+                var response = _cassandraClusterRestClient.ListCommand(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
+                var operation = new CosmosDBArmOperation<CassandraCommandOutput>(new CassandraCommandOutputOperationSource(), _cassandraClusterClientDiagnostics, Pipeline, _cassandraClusterRestClient.CreateListCommandRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
