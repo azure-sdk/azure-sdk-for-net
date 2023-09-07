@@ -10,16 +10,15 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.NetApp.Models
 {
-    internal partial class NetAppVolumePatchDataProtection : IUtf8JsonSerializable
+    public partial class QueryNetworkSiblingSetContent : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
-            if (Optional.IsDefined(Snapshot))
-            {
-                writer.WritePropertyName("snapshot"u8);
-                writer.WriteObjectValue(Snapshot);
-            }
+            writer.WritePropertyName("networkSiblingSetId"u8);
+            writer.WriteStringValue(NetworkSiblingSetId);
+            writer.WritePropertyName("subnetId"u8);
+            writer.WriteStringValue(SubnetId);
             writer.WriteEndObject();
         }
     }

@@ -10,15 +10,13 @@ using Azure.Core;
 namespace Azure.ResourceManager.NetApp.Models
 {
     /// <summary> DataProtection type volumes include an object containing details of the replication. </summary>
-    public partial class NetAppVolumePatchDataProtection
+    internal partial class NetAppVolumePatchDataProtection
     {
         /// <summary> Initializes a new instance of NetAppVolumePatchDataProtection. </summary>
         public NetAppVolumePatchDataProtection()
         {
         }
 
-        /// <summary> Backup Properties. </summary>
-        public NetAppVolumeBackupConfiguration Backup { get; set; }
         /// <summary> Snapshot properties. </summary>
         internal VolumeSnapshotProperties Snapshot { get; set; }
         /// <summary> Snapshot Policy ResourceId. </summary>
