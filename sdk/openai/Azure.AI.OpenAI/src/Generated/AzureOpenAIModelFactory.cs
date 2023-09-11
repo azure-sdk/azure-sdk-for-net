@@ -15,40 +15,6 @@ namespace Azure.AI.OpenAI
     /// <summary> Model factory for models. </summary>
     public static partial class AzureOpenAIModelFactory
     {
-        /// <summary> Initializes a new instance of Embeddings. </summary>
-        /// <param name="data"> Embedding values for the prompts submitted in the request. </param>
-        /// <param name="usage"> Usage counts for tokens input using the embeddings API. </param>
-        /// <returns> A new <see cref="OpenAI.Embeddings"/> instance for mocking. </returns>
-        public static Embeddings Embeddings(IEnumerable<EmbeddingItem> data = null, EmbeddingsUsage usage = null)
-        {
-            data ??= new List<EmbeddingItem>();
-
-            return new Embeddings(data?.ToList(), usage);
-        }
-
-        /// <summary> Initializes a new instance of EmbeddingItem. </summary>
-        /// <param name="embedding">
-        /// List of embeddings value for the input prompt. These represent a measurement of the
-        /// vector-based relatedness of the provided input.
-        /// </param>
-        /// <param name="index"> Index of the prompt to which the EmbeddingItem corresponds. </param>
-        /// <returns> A new <see cref="OpenAI.EmbeddingItem"/> instance for mocking. </returns>
-        public static EmbeddingItem EmbeddingItem(IEnumerable<float> embedding = null, int index = default)
-        {
-            embedding ??= new List<float>();
-
-            return new EmbeddingItem(embedding?.ToList(), index);
-        }
-
-        /// <summary> Initializes a new instance of EmbeddingsUsage. </summary>
-        /// <param name="promptTokens"> Number of tokens sent in the original request. </param>
-        /// <param name="totalTokens"> Total number of tokens transacted in this request/response. </param>
-        /// <returns> A new <see cref="OpenAI.EmbeddingsUsage"/> instance for mocking. </returns>
-        public static EmbeddingsUsage EmbeddingsUsage(int promptTokens = default, int totalTokens = default)
-        {
-            return new EmbeddingsUsage(promptTokens, totalTokens);
-        }
-
         /// <summary> Initializes a new instance of Completions. </summary>
         /// <param name="id"> A unique identifier associated with this completions response. </param>
         /// <param name="created">
@@ -105,10 +71,14 @@ namespace Azure.AI.OpenAI
         /// Describes language related to physical actions intended to purposely hurt, injure,
         /// or damage one’s body, or kill oneself.
         /// </param>
+        /// <param name="error">
+        /// Describes an error returned if the content filtering system is
+        /// down or otherwise unable to complete the operation in time.
+        /// </param>
         /// <returns> A new <see cref="OpenAI.ContentFilterResults"/> instance for mocking. </returns>
-        public static ContentFilterResults ContentFilterResults(ContentFilterResult sexual = null, ContentFilterResult violence = null, ContentFilterResult hate = null, ContentFilterResult selfHarm = null)
+        public static ContentFilterResults ContentFilterResults(ContentFilterResult sexual = null, ContentFilterResult violence = null, ContentFilterResult hate = null, ContentFilterResult selfHarm = null, ResponseError error = null)
         {
-            return new ContentFilterResults(sexual, violence, hate, selfHarm);
+            return new ContentFilterResults(sexual, violence, hate, selfHarm, error);
         }
 
         /// <summary> Initializes a new instance of ContentFilterResult. </summary>
@@ -185,6 +155,40 @@ namespace Azure.AI.OpenAI
             promptFilterResults ??= new List<PromptFilterResult>();
 
             return new ChatCompletions(id, created, choices?.ToList(), promptFilterResults?.ToList(), usage);
+        }
+
+        /// <summary> Initializes a new instance of Embeddings. </summary>
+        /// <param name="data"> Embedding values for the prompts submitted in the request. </param>
+        /// <param name="usage"> Usage counts for tokens input using the embeddings API. </param>
+        /// <returns> A new <see cref="OpenAI.Embeddings"/> instance for mocking. </returns>
+        public static Embeddings Embeddings(IEnumerable<EmbeddingItem> data = null, EmbeddingsUsage usage = null)
+        {
+            data ??= new List<EmbeddingItem>();
+
+            return new Embeddings(data?.ToList(), usage);
+        }
+
+        /// <summary> Initializes a new instance of EmbeddingItem. </summary>
+        /// <param name="embedding">
+        /// List of embeddings value for the input prompt. These represent a measurement of the
+        /// vector-based relatedness of the provided input.
+        /// </param>
+        /// <param name="index"> Index of the prompt to which the EmbeddingItem corresponds. </param>
+        /// <returns> A new <see cref="OpenAI.EmbeddingItem"/> instance for mocking. </returns>
+        public static EmbeddingItem EmbeddingItem(IEnumerable<float> embedding = null, int index = default)
+        {
+            embedding ??= new List<float>();
+
+            return new EmbeddingItem(embedding?.ToList(), index);
+        }
+
+        /// <summary> Initializes a new instance of EmbeddingsUsage. </summary>
+        /// <param name="promptTokens"> Number of tokens sent in the original request. </param>
+        /// <param name="totalTokens"> Total number of tokens transacted in this request/response. </param>
+        /// <returns> A new <see cref="OpenAI.EmbeddingsUsage"/> instance for mocking. </returns>
+        public static EmbeddingsUsage EmbeddingsUsage(int promptTokens = default, int totalTokens = default)
+        {
+            return new EmbeddingsUsage(promptTokens, totalTokens);
         }
 
         /// <summary> Initializes a new instance of ImageGenerations. </summary>
