@@ -86,6 +86,18 @@ namespace Azure.ResourceManager.MachineLearning.Models
                     writer.WriteNull("setupScripts");
                 }
             }
+            if (Optional.IsDefined(Schedules))
+            {
+                if (Schedules != null)
+                {
+                    writer.WritePropertyName("schedules"u8);
+                    writer.WriteObjectValue(Schedules);
+                }
+                else
+                {
+                    writer.WriteNull("schedules");
+                }
+            }
             if (Optional.IsDefined(EnableNodePublicIP))
             {
                 writer.WritePropertyName("enableNodePublicIp"u8);
