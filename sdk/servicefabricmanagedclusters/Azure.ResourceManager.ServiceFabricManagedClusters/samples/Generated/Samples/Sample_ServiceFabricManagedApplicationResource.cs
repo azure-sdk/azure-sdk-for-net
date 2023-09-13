@@ -6,6 +6,7 @@
 #nullable disable
 
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Azure;
 using Azure.Core;
@@ -18,12 +19,161 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Samples
 {
     public partial class Sample_ServiceFabricManagedApplicationResource
     {
+        // Get an application upgrade
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task ReadUpgrade_GetAnApplicationUpgrade()
+        {
+            // Generated from example definition: specification/servicefabricmanagedclusters/resource-manager/Microsoft.ServiceFabric/preview/2023-09-01-preview/examples/ApplicationActionGetUpgrade_example.json
+            // this example is just showing the usage of "Applications_ReadUpgrade" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ServiceFabricManagedApplicationResource created on azure
+            // for more information of creating ServiceFabricManagedApplicationResource, please refer to the document of ServiceFabricManagedApplicationResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "resRg";
+            string clusterName = "myCluster";
+            string applicationName = "myApp";
+            ResourceIdentifier serviceFabricManagedApplicationResourceId = ServiceFabricManagedApplicationResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, clusterName, applicationName);
+            ServiceFabricManagedApplicationResource serviceFabricManagedApplication = client.GetServiceFabricManagedApplicationResource(serviceFabricManagedApplicationResourceId);
+
+            // invoke the operation
+            await serviceFabricManagedApplication.ReadUpgradeAsync(WaitUntil.Completed);
+
+            Console.WriteLine($"Succeeded");
+        }
+
+        // Start an application upgrade rollback
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task StartRollback_StartAnApplicationUpgradeRollback()
+        {
+            // Generated from example definition: specification/servicefabricmanagedclusters/resource-manager/Microsoft.ServiceFabric/preview/2023-09-01-preview/examples/ApplicationActionStartRollback_example.json
+            // this example is just showing the usage of "Applications_StartRollback" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ServiceFabricManagedApplicationResource created on azure
+            // for more information of creating ServiceFabricManagedApplicationResource, please refer to the document of ServiceFabricManagedApplicationResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "resRg";
+            string clusterName = "myCluster";
+            string applicationName = "myApp";
+            ResourceIdentifier serviceFabricManagedApplicationResourceId = ServiceFabricManagedApplicationResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, clusterName, applicationName);
+            ServiceFabricManagedApplicationResource serviceFabricManagedApplication = client.GetServiceFabricManagedApplicationResource(serviceFabricManagedApplicationResourceId);
+
+            // invoke the operation
+            await serviceFabricManagedApplication.StartRollbackAsync(WaitUntil.Completed);
+
+            Console.WriteLine($"Succeeded");
+        }
+
+        // Resume upgrade
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task ResumeUpgrade_ResumeUpgrade()
+        {
+            // Generated from example definition: specification/servicefabricmanagedclusters/resource-manager/Microsoft.ServiceFabric/preview/2023-09-01-preview/examples/ApplicationActionResumeUpgrade_example.json
+            // this example is just showing the usage of "Applications_ResumeUpgrade" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ServiceFabricManagedApplicationResource created on azure
+            // for more information of creating ServiceFabricManagedApplicationResource, please refer to the document of ServiceFabricManagedApplicationResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "resRg";
+            string clusterName = "myCluster";
+            string applicationName = "myApp";
+            ResourceIdentifier serviceFabricManagedApplicationResourceId = ServiceFabricManagedApplicationResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, clusterName, applicationName);
+            ServiceFabricManagedApplicationResource serviceFabricManagedApplication = client.GetServiceFabricManagedApplicationResource(serviceFabricManagedApplicationResourceId);
+
+            // invoke the operation
+            RuntimeResumeApplicationUpgradeContent content = new RuntimeResumeApplicationUpgradeContent()
+            {
+                UpgradeDomainName = "upgradeDomainName",
+            };
+            await serviceFabricManagedApplication.ResumeUpgradeAsync(WaitUntil.Completed, content);
+
+            Console.WriteLine($"Succeeded");
+        }
+
+        // Update upgrade
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task UpdateUpgrade_UpdateUpgrade()
+        {
+            // Generated from example definition: specification/servicefabricmanagedclusters/resource-manager/Microsoft.ServiceFabric/preview/2023-09-01-preview/examples/ApplicationActionUpdateUpgrade_example.json
+            // this example is just showing the usage of "Applications_UpdateUpgrade" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ServiceFabricManagedApplicationResource created on azure
+            // for more information of creating ServiceFabricManagedApplicationResource, please refer to the document of ServiceFabricManagedApplicationResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "resRg";
+            string clusterName = "myCluster";
+            string applicationName = "myApp";
+            ResourceIdentifier serviceFabricManagedApplicationResourceId = ServiceFabricManagedApplicationResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, clusterName, applicationName);
+            ServiceFabricManagedApplicationResource serviceFabricManagedApplication = client.GetServiceFabricManagedApplicationResource(serviceFabricManagedApplicationResourceId);
+
+            // invoke the operation
+            RuntimeApplicationUpgradeUpdateDescription runtimeApplicationUpgradeUpdateDescription = new RuntimeApplicationUpgradeUpdateDescription("fabric:/Voting", UpgradeKind.Rolling)
+            {
+                ApplicationHealthPolicy = new RuntimeApplicationHealthPolicy()
+                {
+                    ConsiderWarningAsError = true,
+                    MaxPercentUnhealthyDeployedApplications = 10,
+                    DefaultServiceTypeHealthPolicy = new RuntimeServiceTypeHealthPolicy()
+                    {
+                        MaxPercentUnhealthyPartitionsPerService = 10,
+                        MaxPercentUnhealthyReplicasPerPartition = 11,
+                        MaxPercentUnhealthyServices = 12,
+                    },
+                    ServiceTypeHealthPolicyMap = BinaryData.FromObjectAsJson(new Dictionary<string, object>()
+                    {
+                        ["VotingWeb"] = new Dictionary<string, object>()
+                        {
+                            ["maxPercentUnhealthyPartitionsPerService"] = "13",
+                            ["maxPercentUnhealthyReplicasPerPartition"] = "14",
+                            ["maxPercentUnhealthyServices"] = "15"
+                        }
+                    }),
+                },
+                UpdateDescription = new RuntimeRollingUpgradeUpdateDescription(UpgradeMode.Monitored)
+                {
+                    ForceRestart = true,
+                    FailureAction = PolicyViolationCompensationAction.Manual,
+                    HealthCheckWaitDurationInMilliseconds = "PT0H0M10S",
+                    HealthCheckStableDurationInMilliseconds = "PT1H0M0S",
+                    HealthCheckRetryTimeoutInMilliseconds = "PT0H15M0S",
+                    UpgradeTimeoutInMilliseconds = "PT2H0M0S",
+                    UpgradeDomainTimeoutInMilliseconds = "PT2H0M0S",
+                },
+            };
+            await serviceFabricManagedApplication.UpdateUpgradeAsync(WaitUntil.Completed, runtimeApplicationUpgradeUpdateDescription);
+
+            Console.WriteLine($"Succeeded");
+        }
+
         // Get an application
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetAnApplication()
         {
-            // Generated from example definition: specification/servicefabricmanagedclusters/resource-manager/Microsoft.ServiceFabric/preview/2023-03-01-preview/examples/ApplicationGetOperation_example.json
+            // Generated from example definition: specification/servicefabricmanagedclusters/resource-manager/Microsoft.ServiceFabric/preview/2023-09-01-preview/examples/ApplicationGetOperation_example.json
             // this example is just showing the usage of "Applications_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -55,7 +205,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_PatchAnApplication()
         {
-            // Generated from example definition: specification/servicefabricmanagedclusters/resource-manager/Microsoft.ServiceFabric/preview/2023-03-01-preview/examples/ApplicationPatchOperation_example.json
+            // Generated from example definition: specification/servicefabricmanagedclusters/resource-manager/Microsoft.ServiceFabric/preview/2023-09-01-preview/examples/ApplicationPatchOperation_example.json
             // this example is just showing the usage of "Applications_Update" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -94,7 +244,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Delete_DeleteAnApplication()
         {
-            // Generated from example definition: specification/servicefabricmanagedclusters/resource-manager/Microsoft.ServiceFabric/preview/2023-03-01-preview/examples/ApplicationDeleteOperation_example.json
+            // Generated from example definition: specification/servicefabricmanagedclusters/resource-manager/Microsoft.ServiceFabric/preview/2023-09-01-preview/examples/ApplicationDeleteOperation_example.json
             // this example is just showing the usage of "Applications_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
