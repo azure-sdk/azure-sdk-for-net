@@ -36,6 +36,8 @@ namespace Azure.ResourceManager.CognitiveServices
         private ModelsRestOperations _modelsRestClient;
         private ClientDiagnostics _cognitiveServicesCommitmentPlanCommitmentPlansClientDiagnostics;
         private CommitmentPlansRestOperations _cognitiveServicesCommitmentPlanCommitmentPlansRestClient;
+        private ClientDiagnostics _raiContentFiltersClientDiagnostics;
+        private RaiContentFiltersRestOperations _raiContentFiltersRestClient;
 
         /// <summary> Initializes a new instance of the <see cref="SubscriptionResourceExtensionClient"/> class for mocking. </summary>
         protected SubscriptionResourceExtensionClient()
@@ -65,6 +67,8 @@ namespace Azure.ResourceManager.CognitiveServices
         private ModelsRestOperations ModelsRestClient => _modelsRestClient ??= new ModelsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
         private ClientDiagnostics CognitiveServicesCommitmentPlanCommitmentPlansClientDiagnostics => _cognitiveServicesCommitmentPlanCommitmentPlansClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.CognitiveServices", CognitiveServicesCommitmentPlanResource.ResourceType.Namespace, Diagnostics);
         private CommitmentPlansRestOperations CognitiveServicesCommitmentPlanCommitmentPlansRestClient => _cognitiveServicesCommitmentPlanCommitmentPlansRestClient ??= new CommitmentPlansRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(CognitiveServicesCommitmentPlanResource.ResourceType));
+        private ClientDiagnostics RaiContentFiltersClientDiagnostics => _raiContentFiltersClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.CognitiveServices", ProviderConstants.DefaultProviderNamespace, Diagnostics);
+        private RaiContentFiltersRestOperations RaiContentFiltersRestClient => _raiContentFiltersRestClient ??= new RaiContentFiltersRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
 
         private string GetApiVersionOrNull(ResourceType resourceType)
         {
@@ -501,6 +505,50 @@ namespace Azure.ResourceManager.CognitiveServices
             HttpMessage FirstPageRequest(int? pageSizeHint) => CognitiveServicesCommitmentPlanCommitmentPlansRestClient.CreateListPlansBySubscriptionRequest(Id.SubscriptionId);
             HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => CognitiveServicesCommitmentPlanCommitmentPlansRestClient.CreateListPlansBySubscriptionNextPageRequest(nextLink, Id.SubscriptionId);
             return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new CognitiveServicesCommitmentPlanResource(Client, CommitmentPlanData.DeserializeCommitmentPlanData(e)), CognitiveServicesCommitmentPlanCommitmentPlansClientDiagnostics, Pipeline, "SubscriptionResourceExtensionClient.GetCognitiveServicesCommitmentPlans", "value", "nextLink", cancellationToken);
+        }
+
+        /// <summary>
+        /// List Content Filters types.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.CognitiveServices/locations/{location}/raiContentFilters</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>RaiContentFilters_List</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="location"> Resource location. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> An async collection of <see cref="RaiContentFilter" /> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<RaiContentFilter> GetRaiContentFiltersAsync(AzureLocation location, CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => RaiContentFiltersRestClient.CreateListRequest(Id.SubscriptionId, location);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, null, RaiContentFilter.DeserializeRaiContentFilter, RaiContentFiltersClientDiagnostics, Pipeline, "SubscriptionResourceExtensionClient.GetRaiContentFilters", "value", null, cancellationToken);
+        }
+
+        /// <summary>
+        /// List Content Filters types.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.CognitiveServices/locations/{location}/raiContentFilters</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>RaiContentFilters_List</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="location"> Resource location. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="RaiContentFilter" /> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<RaiContentFilter> GetRaiContentFilters(AzureLocation location, CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => RaiContentFiltersRestClient.CreateListRequest(Id.SubscriptionId, location);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, null, RaiContentFilter.DeserializeRaiContentFilter, RaiContentFiltersClientDiagnostics, Pipeline, "SubscriptionResourceExtensionClient.GetRaiContentFilters", "value", null, cancellationToken);
         }
     }
 }

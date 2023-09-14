@@ -502,6 +502,72 @@ namespace Azure.ResourceManager.CognitiveServices.Models
             return new CommitmentPeriod(tier, count, quota, startOn, endOn);
         }
 
+        /// <summary> Initializes a new instance of RaiPolicyData. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="etag"> Resource Etag. </param>
+        /// <param name="properties"> Properties of Cognitive Services RaiPolicy. </param>
+        /// <returns> A new <see cref="CognitiveServices.RaiPolicyData"/> instance for mocking. </returns>
+        public static RaiPolicyData RaiPolicyData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, ETag? etag = null, RaiPolicyProperties properties = null)
+        {
+            return new RaiPolicyData(id, name, resourceType, systemData, etag, properties);
+        }
+
+        /// <summary> Initializes a new instance of RaiPolicyProperties. </summary>
+        /// <param name="policyType"> Content Filters policy type. </param>
+        /// <param name="mode"> Content Filters mode. </param>
+        /// <param name="basePolicyName"> Name of the base Content Filters. </param>
+        /// <param name="promptBlocklists"> The list of blocklists for prompt. </param>
+        /// <param name="completionBlocklists"> The list of blocklists for completion. </param>
+        /// <param name="contentFilters"> The list of Content Filters. </param>
+        /// <returns> A new <see cref="Models.RaiPolicyProperties"/> instance for mocking. </returns>
+        public static RaiPolicyProperties RaiPolicyProperties(RaiPolicyType? policyType = null, RaiPolicyMode? mode = null, string basePolicyName = null, IEnumerable<RaiBlocklistConfig> promptBlocklists = null, IEnumerable<RaiBlocklistConfig> completionBlocklists = null, IEnumerable<RaiPolicyContentFilter> contentFilters = null)
+        {
+            promptBlocklists ??= new List<RaiBlocklistConfig>();
+            completionBlocklists ??= new List<RaiBlocklistConfig>();
+            contentFilters ??= new List<RaiPolicyContentFilter>();
+
+            return new RaiPolicyProperties(policyType, mode, basePolicyName, promptBlocklists?.ToList(), completionBlocklists?.ToList(), contentFilters?.ToList());
+        }
+
+        /// <summary> Initializes a new instance of RaiBlocklistData. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="etag"> Resource Etag. </param>
+        /// <param name="raiBlocklistDescription"> Properties of Cognitive Services RaiBlocklist. </param>
+        /// <returns> A new <see cref="CognitiveServices.RaiBlocklistData"/> instance for mocking. </returns>
+        public static RaiBlocklistData RaiBlocklistData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, ETag? etag = null, string raiBlocklistDescription = null)
+        {
+            return new RaiBlocklistData(id, name, resourceType, systemData, etag, raiBlocklistDescription != null ? new RaiBlocklistProperties(raiBlocklistDescription) : null);
+        }
+
+        /// <summary> Initializes a new instance of RaiBlocklistItemData. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="etag"> Resource Etag. </param>
+        /// <param name="properties"> Properties of Cognitive Services RaiBlocklist Item. </param>
+        /// <returns> A new <see cref="CognitiveServices.RaiBlocklistItemData"/> instance for mocking. </returns>
+        public static RaiBlocklistItemData RaiBlocklistItemData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, ETag? etag = null, RaiBlocklistItemProperties properties = null)
+        {
+            return new RaiBlocklistItemData(id, name, resourceType, systemData, etag, properties);
+        }
+
+        /// <summary> Initializes a new instance of RaiContentFilter. </summary>
+        /// <param name="policyName"> Name of Content Filter. </param>
+        /// <param name="description"> Description of Content Filter. </param>
+        /// <param name="filterType"> Content Filter type. </param>
+        /// <returns> A new <see cref="Models.RaiContentFilter"/> instance for mocking. </returns>
+        public static RaiContentFilter RaiContentFilter(string policyName = null, string description = null, RaiContentFilterType? filterType = null)
+        {
+            return new RaiContentFilter(policyName, description, filterType);
+        }
+
         /// <summary> Initializes a new instance of CommitmentPlanAccountAssociationData. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
