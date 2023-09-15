@@ -2596,5 +2596,110 @@ namespace Azure.Messaging.EventGrid
         {
             return new HealthcareDicomImageDeletedEventData(partitionName, imageStudyInstanceUid, imageSeriesInstanceUid, imageSopInstanceUid, serviceHostName, sequenceNumber);
         }
+
+        /// <summary> Initializes a new instance of ResourceManagementCreatedOrUpdatedEventData. </summary>
+        /// <param name="resourceInfo"> Data specific to the resource. </param>
+        /// <param name="apiVersion"> api version of the resource payload. </param>
+        /// <returns> A new <see cref="SystemEvents.ResourceManagementCreatedOrUpdatedEventData"/> instance for mocking. </returns>
+        public static ResourceManagementCreatedOrUpdatedEventData ResourceManagementCreatedOrUpdatedEventData(ResourceInfoAboutCreatedOrUpdatedEvent resourceInfo = null, string apiVersion = null)
+        {
+            return new ResourceManagementCreatedOrUpdatedEventData(resourceInfo, apiVersion);
+        }
+
+        /// <summary> Initializes a new instance of ResourceInfoAboutCreatedOrUpdatedEvent. </summary>
+        /// <param name="id"> id of the base resource which is being created or updated. </param>
+        /// <param name="name"> name of the resource being created or updated. </param>
+        /// <param name="type"> the type of the resource being created or updated. </param>
+        /// <param name="location"> the location of the resource being created or updated. </param>
+        /// <param name="tags"> tags on the resource being created or updated. </param>
+        /// <param name="properties"> properties in the resource payload. </param>
+        /// <returns> A new <see cref="SystemEvents.ResourceInfoAboutCreatedOrUpdatedEvent"/> instance for mocking. </returns>
+        public static ResourceInfoAboutCreatedOrUpdatedEvent ResourceInfoAboutCreatedOrUpdatedEvent(string id = null, string name = null, string type = null, string location = null, string tags = null, object properties = null)
+        {
+            return new ResourceInfoAboutCreatedOrUpdatedEvent(id, name, type, location, tags, properties);
+        }
+
+        /// <summary> Initializes a new instance of ResourceManagementDeletedEventData. </summary>
+        /// <param name="resourceInfo"> Data specific to the resource. </param>
+        /// <param name="apiVersion"> api version of the resource payload. </param>
+        /// <returns> A new <see cref="SystemEvents.ResourceManagementDeletedEventData"/> instance for mocking. </returns>
+        public static ResourceManagementDeletedEventData ResourceManagementDeletedEventData(ResourceInfoAboutDeletedEvent resourceInfo = null, string apiVersion = null)
+        {
+            return new ResourceManagementDeletedEventData(resourceInfo, apiVersion);
+        }
+
+        /// <summary> Initializes a new instance of ResourceInfoAboutDeletedEvent. </summary>
+        /// <param name="id"> id of the base resource which is being deleted. </param>
+        /// <param name="name"> name of the resource being deleted. </param>
+        /// <param name="type"> the type of the resource being deleted. </param>
+        /// <param name="location"> the location of the resource being deleted. </param>
+        /// <param name="tags"> tags on the resource being deleted. </param>
+        /// <returns> A new <see cref="SystemEvents.ResourceInfoAboutDeletedEvent"/> instance for mocking. </returns>
+        public static ResourceInfoAboutDeletedEvent ResourceInfoAboutDeletedEvent(string id = null, string name = null, string type = null, string location = null, string tags = null)
+        {
+            return new ResourceInfoAboutDeletedEvent(id, name, type, location, tags);
+        }
+
+        /// <summary> Initializes a new instance of HealthResourcesAvailabilityStatusChangedEventData. </summary>
+        /// <param name="resourceInfo"> Data specific to the resource. </param>
+        /// <param name="apiVersion"> api version of the resource payload. </param>
+        /// <returns> A new <see cref="SystemEvents.HealthResourcesAvailabilityStatusChangedEventData"/> instance for mocking. </returns>
+        public static HealthResourcesAvailabilityStatusChangedEventData HealthResourcesAvailabilityStatusChangedEventData(ResourceInfoForAvailabilityStatusChangedEvent resourceInfo = null, string apiVersion = null)
+        {
+            return new HealthResourcesAvailabilityStatusChangedEventData(resourceInfo, apiVersion);
+        }
+
+        /// <summary> Initializes a new instance of ResourceInfoForAvailabilityStatusChangedEvent. </summary>
+        /// <param name="id"> id of the base resource whose availability status has been impacted. </param>
+        /// <param name="name"> name of the resource whose availability status has been influenced. </param>
+        /// <param name="type"> the type of the resource whose availability status has been impacted. </param>
+        /// <param name="properties"> properties in the resource payload of the resource whose availability status has been impacted. </param>
+        /// <returns> A new <see cref="SystemEvents.ResourceInfoForAvailabilityStatusChangedEvent"/> instance for mocking. </returns>
+        public static ResourceInfoForAvailabilityStatusChangedEvent ResourceInfoForAvailabilityStatusChangedEvent(string id = null, string name = null, string type = null, object properties = null)
+        {
+            return new ResourceInfoForAvailabilityStatusChangedEvent(id, name, type, properties);
+        }
+
+        /// <summary> Initializes a new instance of HealthResourcesResourceAnnotatedEventData. </summary>
+        /// <param name="resourceInfo"> Data specific to the resource. </param>
+        /// <param name="apiVersion"> api version of the resource payload. </param>
+        /// <returns> A new <see cref="SystemEvents.HealthResourcesResourceAnnotatedEventData"/> instance for mocking. </returns>
+        public static HealthResourcesResourceAnnotatedEventData HealthResourcesResourceAnnotatedEventData(ResourceInfoAboutResourceAnnotatedEvent resourceInfo = null, string apiVersion = null)
+        {
+            return new HealthResourcesResourceAnnotatedEventData(resourceInfo, apiVersion);
+        }
+
+        /// <summary> Initializes a new instance of ResourceInfoAboutResourceAnnotatedEvent. </summary>
+        /// <param name="id"> id of the base resource for which the annotation event is being emitted. </param>
+        /// <param name="name"> name of the resource for which the annotation event is being emitted. </param>
+        /// <param name="type"> the type of the resource for which the annotation event is being emitted. </param>
+        /// <param name="properties"> properties in the resource payload of the resource whose availability status has been impacted. </param>
+        /// <returns> A new <see cref="SystemEvents.ResourceInfoAboutResourceAnnotatedEvent"/> instance for mocking. </returns>
+        public static ResourceInfoAboutResourceAnnotatedEvent ResourceInfoAboutResourceAnnotatedEvent(string id = null, string name = null, string type = null, object properties = null)
+        {
+            return new ResourceInfoAboutResourceAnnotatedEvent(id, name, type, properties);
+        }
+
+        /// <summary> Initializes a new instance of MaintenanceResourcesScheduledEventEmittedEventData. </summary>
+        /// <param name="resourceInfo"> Data specific to the resource. </param>
+        /// <param name="apiVersion"> api version of the resource payload. </param>
+        /// <returns> A new <see cref="SystemEvents.MaintenanceResourcesScheduledEventEmittedEventData"/> instance for mocking. </returns>
+        public static MaintenanceResourcesScheduledEventEmittedEventData MaintenanceResourcesScheduledEventEmittedEventData(ResourceInfoForScheduledEventEmittedEvent resourceInfo = null, string apiVersion = null)
+        {
+            return new MaintenanceResourcesScheduledEventEmittedEventData(resourceInfo, apiVersion);
+        }
+
+        /// <summary> Initializes a new instance of ResourceInfoForScheduledEventEmittedEvent. </summary>
+        /// <param name="id"> id of the base resource which is being created or updated. </param>
+        /// <param name="name"> name of the resource being created or updated. </param>
+        /// <param name="type"> the type of the resource being created or updated. </param>
+        /// <param name="location"> the location of the resource being created or updated. </param>
+        /// <param name="tags"> tags on the resource being created or updated. </param>
+        /// <param name="properties"> properties in the resource payload. </param>
+        /// <returns> A new <see cref="SystemEvents.ResourceInfoForScheduledEventEmittedEvent"/> instance for mocking. </returns>
+        public static ResourceInfoForScheduledEventEmittedEvent ResourceInfoForScheduledEventEmittedEvent(string id = null, string name = null, string type = null, string location = null, string tags = null, object properties = null)
+        {
+            return new ResourceInfoForScheduledEventEmittedEvent(id, name, type, location, tags, properties);
+        }
     }
 }

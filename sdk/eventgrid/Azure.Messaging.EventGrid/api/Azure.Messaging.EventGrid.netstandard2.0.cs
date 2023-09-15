@@ -172,6 +172,8 @@ namespace Azure.Messaging.EventGrid
         public static Azure.Messaging.EventGrid.SystemEvents.HealthcareFhirResourceCreatedEventData HealthcareFhirResourceCreatedEventData(Azure.Messaging.EventGrid.SystemEvents.HealthcareFhirResourceType? fhirResourceType = default(Azure.Messaging.EventGrid.SystemEvents.HealthcareFhirResourceType?), string fhirServiceHostName = null, string fhirResourceId = null, long? fhirResourceVersionId = default(long?)) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.HealthcareFhirResourceDeletedEventData HealthcareFhirResourceDeletedEventData(Azure.Messaging.EventGrid.SystemEvents.HealthcareFhirResourceType? fhirResourceType = default(Azure.Messaging.EventGrid.SystemEvents.HealthcareFhirResourceType?), string fhirServiceHostName = null, string fhirResourceId = null, long? fhirResourceVersionId = default(long?)) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.HealthcareFhirResourceUpdatedEventData HealthcareFhirResourceUpdatedEventData(Azure.Messaging.EventGrid.SystemEvents.HealthcareFhirResourceType? fhirResourceType = default(Azure.Messaging.EventGrid.SystemEvents.HealthcareFhirResourceType?), string fhirServiceHostName = null, string fhirResourceId = null, long? fhirResourceVersionId = default(long?)) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.HealthResourcesAvailabilityStatusChangedEventData HealthResourcesAvailabilityStatusChangedEventData(Azure.Messaging.EventGrid.SystemEvents.ResourceInfoForAvailabilityStatusChangedEvent resourceInfo = null, string apiVersion = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.HealthResourcesResourceAnnotatedEventData HealthResourcesResourceAnnotatedEventData(Azure.Messaging.EventGrid.SystemEvents.ResourceInfoAboutResourceAnnotatedEvent resourceInfo = null, string apiVersion = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.IotHubDeviceConnectedEventData IotHubDeviceConnectedEventData(string deviceId = null, string moduleId = null, string hubName = null, Azure.Messaging.EventGrid.SystemEvents.DeviceConnectionStateEventInfo deviceConnectionStateEventInfo = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.IotHubDeviceCreatedEventData IotHubDeviceCreatedEventData(string deviceId = null, string hubName = null, Azure.Messaging.EventGrid.SystemEvents.DeviceTwinInfo twin = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.IotHubDeviceDeletedEventData IotHubDeviceDeletedEventData(string deviceId = null, string hubName = null, Azure.Messaging.EventGrid.SystemEvents.DeviceTwinInfo twin = null) { throw null; }
@@ -192,6 +194,7 @@ namespace Azure.Messaging.EventGrid
         public static Azure.Messaging.EventGrid.SystemEvents.MachineLearningServicesModelRegisteredEventData MachineLearningServicesModelRegisteredEventData(string modelName = null, string modelVersion = null, object modelTags = null, object modelProperties = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.MachineLearningServicesRunCompletedEventData MachineLearningServicesRunCompletedEventData(string experimentId = null, string experimentName = null, string runId = null, string runType = null, object runTags = null, object runProperties = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.MachineLearningServicesRunStatusChangedEventData MachineLearningServicesRunStatusChangedEventData(string experimentId = null, string experimentName = null, string runId = null, string runType = null, object runTags = null, object runProperties = null, string runStatus = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.MaintenanceResourcesScheduledEventEmittedEventData MaintenanceResourcesScheduledEventEmittedEventData(Azure.Messaging.EventGrid.SystemEvents.ResourceInfoForScheduledEventEmittedEvent resourceInfo = null, string apiVersion = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.MapsGeofenceEnteredEventData MapsGeofenceEnteredEventData(System.Collections.Generic.IEnumerable<string> expiredGeofenceGeometryId = null, System.Collections.Generic.IEnumerable<Azure.Messaging.EventGrid.SystemEvents.MapsGeofenceGeometry> geometries = null, System.Collections.Generic.IEnumerable<string> invalidPeriodGeofenceGeometryId = null, bool? isEventPublished = default(bool?)) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.MapsGeofenceEventProperties MapsGeofenceEventProperties(System.Collections.Generic.IEnumerable<string> expiredGeofenceGeometryId = null, System.Collections.Generic.IEnumerable<Azure.Messaging.EventGrid.SystemEvents.MapsGeofenceGeometry> geometries = null, System.Collections.Generic.IEnumerable<string> invalidPeriodGeofenceGeometryId = null, bool? isEventPublished = default(bool?)) { throw null; }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
@@ -255,6 +258,13 @@ namespace Azure.Messaging.EventGrid
         public static Azure.Messaging.EventGrid.SystemEvents.ResourceDeleteFailureEventData ResourceDeleteFailureEventData(string tenantId = null, string subscriptionId = null, string resourceGroup = null, string resourceProvider = null, string resourceUri = null, string operationName = null, string status = null, string authorization = null, string claims = null, string correlationId = null, string httpRequest = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.ResourceDeleteSuccessEventData ResourceDeleteSuccessEventData(string tenantId = null, string subscriptionId = null, string resourceGroup = null, string resourceProvider = null, string resourceUri = null, string operationName = null, string status = null, string authorization = null, string claims = null, string correlationId = null, string httpRequest = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.ResourceHttpRequest ResourceHttpRequest(string clientRequestId = null, string clientIpAddress = null, Azure.Core.RequestMethod? method = default(Azure.Core.RequestMethod?), string url = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.ResourceInfoAboutCreatedOrUpdatedEvent ResourceInfoAboutCreatedOrUpdatedEvent(string id = null, string name = null, string type = null, string location = null, string tags = null, object properties = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.ResourceInfoAboutDeletedEvent ResourceInfoAboutDeletedEvent(string id = null, string name = null, string type = null, string location = null, string tags = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.ResourceInfoAboutResourceAnnotatedEvent ResourceInfoAboutResourceAnnotatedEvent(string id = null, string name = null, string type = null, object properties = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.ResourceInfoForAvailabilityStatusChangedEvent ResourceInfoForAvailabilityStatusChangedEvent(string id = null, string name = null, string type = null, object properties = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.ResourceInfoForScheduledEventEmittedEvent ResourceInfoForScheduledEventEmittedEvent(string id = null, string name = null, string type = null, string location = null, string tags = null, object properties = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.ResourceManagementCreatedOrUpdatedEventData ResourceManagementCreatedOrUpdatedEventData(Azure.Messaging.EventGrid.SystemEvents.ResourceInfoAboutCreatedOrUpdatedEvent resourceInfo = null, string apiVersion = null) { throw null; }
+        public static Azure.Messaging.EventGrid.SystemEvents.ResourceManagementDeletedEventData ResourceManagementDeletedEventData(Azure.Messaging.EventGrid.SystemEvents.ResourceInfoAboutDeletedEvent resourceInfo = null, string apiVersion = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.ResourceWriteCancelEventData ResourceWriteCancelEventData(string tenantId = null, string subscriptionId = null, string resourceGroup = null, string resourceProvider = null, string resourceUri = null, string operationName = null, string status = null, string authorization = null, string claims = null, string correlationId = null, string httpRequest = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.ResourceWriteFailureEventData ResourceWriteFailureEventData(string tenantId = null, string subscriptionId = null, string resourceGroup = null, string resourceProvider = null, string resourceUri = null, string operationName = null, string status = null, string authorization = null, string claims = null, string correlationId = null, string httpRequest = null) { throw null; }
         public static Azure.Messaging.EventGrid.SystemEvents.ResourceWriteSuccessEventData ResourceWriteSuccessEventData(string tenantId = null, string subscriptionId = null, string resourceGroup = null, string resourceProvider = null, string resourceUri = null, string operationName = null, string status = null, string authorization = null, string claims = null, string correlationId = null, string httpRequest = null) { throw null; }
@@ -421,6 +431,8 @@ namespace Azure.Messaging.EventGrid
         public const string HealthcareFhirResourceCreated = "Microsoft.HealthcareApis.FhirResourceCreated";
         public const string HealthcareFhirResourceDeleted = "Microsoft.HealthcareApis.FhirResourceDeleted";
         public const string HealthcareFhirResourceUpdated = "Microsoft.HealthcareApis.FhirResourceUpdated";
+        public const string HealthResourcesAvailabilityStatusChanged = "Microsoft.ResourceNotifications.HealthResources";
+        public const string HealthResourcesResourceAnnotated = "Microsoft.ResourceNotifications.HealthResources";
         public const string IotHubDeviceConnected = "Microsoft.Devices.DeviceConnected";
         public const string IotHubDeviceCreated = "Microsoft.Devices.DeviceCreated";
         public const string IotHubDeviceDeleted = "Microsoft.Devices.DeviceDeleted";
@@ -441,6 +453,7 @@ namespace Azure.Messaging.EventGrid
         public const string MachineLearningServicesModelRegistered = "Microsoft.MachineLearningServices.ModelRegistered";
         public const string MachineLearningServicesRunCompleted = "Microsoft.MachineLearningServices.RunCompleted";
         public const string MachineLearningServicesRunStatusChanged = "Microsoft.MachineLearningServices.RunStatusChanged";
+        public const string MaintenanceResourcesScheduledEventEmitted = "Microsoft.ResourceNotifications.MaintenanceResources";
         public const string MapsGeofenceEntered = "Microsoft.Maps.GeofenceEntered";
         public const string MapsGeofenceExited = "Microsoft.Maps.GeofenceExited";
         public const string MapsGeofenceResult = "Microsoft.Maps.GeofenceResult";
@@ -482,6 +495,8 @@ namespace Azure.Messaging.EventGrid
         public const string ResourceDeleteCancel = "Microsoft.Resources.ResourceDeleteCancel";
         public const string ResourceDeleteFailure = "Microsoft.Resources.ResourceDeleteFailure";
         public const string ResourceDeleteSuccess = "Microsoft.Resources.ResourceDeleteSuccess";
+        public const string ResourceManagementCreatedOrUpdated = "Microsoft.ResourceNotifications.Resources";
+        public const string ResourceManagementDeleted = "Microsoft.ResourceNotifications.Resources";
         public const string ResourceWriteCancel = "Microsoft.Resources.ResourceWriteCancel";
         public const string ResourceWriteFailure = "Microsoft.Resources.ResourceWriteFailure";
         public const string ResourceWriteSuccess = "Microsoft.Resources.ResourceWriteSuccess";
@@ -1755,6 +1770,18 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         public long? FhirResourceVersionId { get { throw null; } }
         public string FhirServiceHostName { get { throw null; } }
     }
+    public partial class HealthResourcesAvailabilityStatusChangedEventData
+    {
+        internal HealthResourcesAvailabilityStatusChangedEventData() { }
+        public string ApiVersion { get { throw null; } }
+        public Azure.Messaging.EventGrid.SystemEvents.ResourceInfoForAvailabilityStatusChangedEvent ResourceInfo { get { throw null; } }
+    }
+    public partial class HealthResourcesResourceAnnotatedEventData
+    {
+        internal HealthResourcesResourceAnnotatedEventData() { }
+        public string ApiVersion { get { throw null; } }
+        public Azure.Messaging.EventGrid.SystemEvents.ResourceInfoAboutResourceAnnotatedEvent ResourceInfo { get { throw null; } }
+    }
     public partial class IotHubDeviceConnectedEventData : Azure.Messaging.EventGrid.SystemEvents.DeviceConnectionStateEventProperties
     {
         internal IotHubDeviceConnectedEventData() { }
@@ -1934,6 +1961,12 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         public string RunStatus { get { throw null; } }
         public object RunTags { get { throw null; } }
         public string RunType { get { throw null; } }
+    }
+    public partial class MaintenanceResourcesScheduledEventEmittedEventData
+    {
+        internal MaintenanceResourcesScheduledEventEmittedEventData() { }
+        public string ApiVersion { get { throw null; } }
+        public Azure.Messaging.EventGrid.SystemEvents.ResourceInfoForScheduledEventEmittedEvent ResourceInfo { get { throw null; } }
     }
     public partial class MapsGeofenceEnteredEventData : Azure.Messaging.EventGrid.SystemEvents.MapsGeofenceEventProperties
     {
@@ -2420,6 +2453,63 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         public string ClientRequestId { get { throw null; } }
         public Azure.Core.RequestMethod Method { get { throw null; } }
         public string Url { get { throw null; } }
+    }
+    public partial class ResourceInfoAboutCreatedOrUpdatedEvent
+    {
+        internal ResourceInfoAboutCreatedOrUpdatedEvent() { }
+        public string Id { get { throw null; } }
+        public string Location { get { throw null; } }
+        public string Name { get { throw null; } }
+        public object Properties { get { throw null; } }
+        public string Tags { get { throw null; } }
+        public string Type { get { throw null; } }
+    }
+    public partial class ResourceInfoAboutDeletedEvent
+    {
+        internal ResourceInfoAboutDeletedEvent() { }
+        public string Id { get { throw null; } }
+        public string Location { get { throw null; } }
+        public string Name { get { throw null; } }
+        public string Tags { get { throw null; } }
+        public string Type { get { throw null; } }
+    }
+    public partial class ResourceInfoAboutResourceAnnotatedEvent
+    {
+        internal ResourceInfoAboutResourceAnnotatedEvent() { }
+        public string Id { get { throw null; } }
+        public string Name { get { throw null; } }
+        public object Properties { get { throw null; } }
+        public string Type { get { throw null; } }
+    }
+    public partial class ResourceInfoForAvailabilityStatusChangedEvent
+    {
+        internal ResourceInfoForAvailabilityStatusChangedEvent() { }
+        public string Id { get { throw null; } }
+        public string Name { get { throw null; } }
+        public object Properties { get { throw null; } }
+        public string Type { get { throw null; } }
+    }
+    public partial class ResourceInfoForScheduledEventEmittedEvent
+    {
+        internal ResourceInfoForScheduledEventEmittedEvent() { }
+        public string Id { get { throw null; } }
+        public string Location { get { throw null; } }
+        public string Name { get { throw null; } }
+        public object Properties { get { throw null; } }
+        public string Tags { get { throw null; } }
+        public string Type { get { throw null; } }
+    }
+    public partial class ResourceManagementCreatedOrUpdatedEventData
+    {
+        internal ResourceManagementCreatedOrUpdatedEventData() { }
+        public string ApiVersion { get { throw null; } }
+        public Azure.Messaging.EventGrid.SystemEvents.ResourceInfoAboutCreatedOrUpdatedEvent ResourceInfo { get { throw null; } }
+    }
+    public partial class ResourceManagementDeletedEventData
+    {
+        internal ResourceManagementDeletedEventData() { }
+        public string ApiVersion { get { throw null; } }
+        public Azure.Messaging.EventGrid.SystemEvents.ResourceInfoAboutDeletedEvent ResourceInfo { get { throw null; } }
     }
     public partial class ResourceWriteCancelEventData
     {
