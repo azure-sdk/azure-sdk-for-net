@@ -11,9 +11,9 @@ using Azure.Core;
 namespace Azure.Search.Documents.Indexes.Models
 {
     /// <summary>
-    /// Contains configuration options specific to the algorithm used during indexing time.
+    /// Contains configuration options specific to the algorithm used during indexing and/or querying.
     /// Please note <see cref="VectorSearchAlgorithmConfiguration"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-    /// The available derived classes include <see cref="HnswVectorSearchAlgorithmConfiguration"/>.
+    /// The available derived classes include <see cref="ExhaustiveKnnVectorSearchAlgorithmConfiguration"/> and <see cref="HnswVectorSearchAlgorithmConfiguration"/>.
     /// </summary>
     public abstract partial class VectorSearchAlgorithmConfiguration
     {
@@ -29,7 +29,7 @@ namespace Azure.Search.Documents.Indexes.Models
 
         /// <summary> Initializes a new instance of VectorSearchAlgorithmConfiguration. </summary>
         /// <param name="name"> The name to associate with this particular configuration. </param>
-        /// <param name="kind"> The name of the kind of algorithm being configured for use with vector search. Only `hnsw` is supported in the current preview. </param>
+        /// <param name="kind"> The name of the kind of algorithm being configured for use with vector search. </param>
         internal VectorSearchAlgorithmConfiguration(string name, string kind)
         {
             Name = name;
@@ -38,7 +38,7 @@ namespace Azure.Search.Documents.Indexes.Models
 
         /// <summary> The name to associate with this particular configuration. </summary>
         public string Name { get; set; }
-        /// <summary> The name of the kind of algorithm being configured for use with vector search. Only `hnsw` is supported in the current preview. </summary>
+        /// <summary> The name of the kind of algorithm being configured for use with vector search. </summary>
         internal string Kind { get; set; }
     }
 }
