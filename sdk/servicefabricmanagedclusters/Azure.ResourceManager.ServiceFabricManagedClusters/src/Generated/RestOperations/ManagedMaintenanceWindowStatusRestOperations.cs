@@ -16,20 +16,20 @@ using Azure.ResourceManager.ServiceFabricManagedClusters.Models;
 
 namespace Azure.ResourceManager.ServiceFabricManagedClusters
 {
-    internal partial class ManagedAzResiliencyStatusRestOperations
+    internal partial class ManagedMaintenanceWindowStatusRestOperations
     {
         private readonly TelemetryDetails _userAgent;
         private readonly HttpPipeline _pipeline;
         private readonly Uri _endpoint;
         private readonly string _apiVersion;
 
-        /// <summary> Initializes a new instance of ManagedAzResiliencyStatusRestOperations. </summary>
+        /// <summary> Initializes a new instance of ManagedMaintenanceWindowStatusRestOperations. </summary>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
         /// <param name="applicationId"> The application id to use for user agent. </param>
         /// <param name="endpoint"> server parameter. </param>
         /// <param name="apiVersion"> Api Version. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="pipeline"/> or <paramref name="apiVersion"/> is null. </exception>
-        public ManagedAzResiliencyStatusRestOperations(HttpPipeline pipeline, string applicationId, Uri endpoint = null, string apiVersion = default)
+        public ManagedMaintenanceWindowStatusRestOperations(HttpPipeline pipeline, string applicationId, Uri endpoint = null, string apiVersion = default)
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
@@ -50,7 +50,7 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
             uri.AppendPath(resourceGroupName, true);
             uri.AppendPath("/providers/Microsoft.ServiceFabric/managedClusters/", false);
             uri.AppendPath(clusterName, true);
-            uri.AppendPath("/getazresiliencystatus", false);
+            uri.AppendPath("/getMaintenanceWindowStatus", false);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
@@ -58,14 +58,14 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
             return message;
         }
 
-        /// <summary> Action to get Az Resiliency Status of all the Base resources constituting Service Fabric Managed Clusters. </summary>
+        /// <summary> Action to get Maintenance Window Status of the Service Fabric Managed Clusters. </summary>
         /// <param name="subscriptionId"> The customer subscription identifier. </param>
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="clusterName"> The name of the cluster resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="clusterName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="clusterName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<ManagedAzResiliencyStatus>> GetAsync(string subscriptionId, string resourceGroupName, string clusterName, CancellationToken cancellationToken = default)
+        public async Task<Response<ManagedMaintenanceWindowStatus>> GetAsync(string subscriptionId, string resourceGroupName, string clusterName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
@@ -77,9 +77,9 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
             {
                 case 200:
                     {
-                        ManagedAzResiliencyStatus value = default;
+                        ManagedMaintenanceWindowStatus value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = ManagedAzResiliencyStatus.DeserializeManagedAzResiliencyStatus(document.RootElement);
+                        value = ManagedMaintenanceWindowStatus.DeserializeManagedMaintenanceWindowStatus(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -87,14 +87,14 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
             }
         }
 
-        /// <summary> Action to get Az Resiliency Status of all the Base resources constituting Service Fabric Managed Clusters. </summary>
+        /// <summary> Action to get Maintenance Window Status of the Service Fabric Managed Clusters. </summary>
         /// <param name="subscriptionId"> The customer subscription identifier. </param>
         /// <param name="resourceGroupName"> The name of the resource group. </param>
         /// <param name="clusterName"> The name of the cluster resource. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="clusterName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="clusterName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<ManagedAzResiliencyStatus> Get(string subscriptionId, string resourceGroupName, string clusterName, CancellationToken cancellationToken = default)
+        public Response<ManagedMaintenanceWindowStatus> Get(string subscriptionId, string resourceGroupName, string clusterName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
@@ -106,9 +106,9 @@ namespace Azure.ResourceManager.ServiceFabricManagedClusters
             {
                 case 200:
                     {
-                        ManagedAzResiliencyStatus value = default;
+                        ManagedMaintenanceWindowStatus value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = ManagedAzResiliencyStatus.DeserializeManagedAzResiliencyStatus(document.RootElement);
+                        value = ManagedMaintenanceWindowStatus.DeserializeManagedMaintenanceWindowStatus(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
