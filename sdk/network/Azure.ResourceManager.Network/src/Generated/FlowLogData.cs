@@ -31,6 +31,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="location"> Resource location. </param>
         /// <param name="tags"> Resource tags. </param>
         /// <param name="etag"> A unique read-only string that changes whenever the resource is updated. </param>
+        /// <param name="identity"> Identity of the workspace. </param>
         /// <param name="targetResourceId"> ID of network security group to which flow log will be applied. </param>
         /// <param name="targetResourceGuid"> Guid of network security group to which flow log will be applied. </param>
         /// <param name="storageId"> ID of the storage account which is used to store the flow log. </param>
@@ -39,9 +40,10 @@ namespace Azure.ResourceManager.Network
         /// <param name="format"> Parameters that define the flow log format. </param>
         /// <param name="flowAnalyticsConfiguration"> Parameters that define the configuration of traffic analytics. </param>
         /// <param name="provisioningState"> The provisioning state of the flow log. </param>
-        internal FlowLogData(ResourceIdentifier id, string name, ResourceType? resourceType, AzureLocation? location, IDictionary<string, string> tags, ETag? etag, ResourceIdentifier targetResourceId, Guid? targetResourceGuid, ResourceIdentifier storageId, bool? enabled, RetentionPolicyParameters retentionPolicy, FlowLogProperties format, TrafficAnalyticsProperties flowAnalyticsConfiguration, NetworkProvisioningState? provisioningState) : base(id, name, resourceType, location, tags)
+        internal FlowLogData(ResourceIdentifier id, string name, ResourceType? resourceType, AzureLocation? location, IDictionary<string, string> tags, ETag? etag, ResultIdentityObjectForUserAssigned identity, ResourceIdentifier targetResourceId, Guid? targetResourceGuid, ResourceIdentifier storageId, bool? enabled, RetentionPolicyParameters retentionPolicy, FlowLogProperties format, TrafficAnalyticsProperties flowAnalyticsConfiguration, NetworkProvisioningState? provisioningState) : base(id, name, resourceType, location, tags)
         {
             ETag = etag;
+            Identity = identity;
             TargetResourceId = targetResourceId;
             TargetResourceGuid = targetResourceGuid;
             StorageId = storageId;
@@ -54,6 +56,8 @@ namespace Azure.ResourceManager.Network
 
         /// <summary> A unique read-only string that changes whenever the resource is updated. </summary>
         public ETag? ETag { get; }
+        /// <summary> Identity of the workspace. </summary>
+        public ResultIdentityObjectForUserAssigned Identity { get; set; }
         /// <summary> ID of network security group to which flow log will be applied. </summary>
         public ResourceIdentifier TargetResourceId { get; set; }
         /// <summary> Guid of network security group to which flow log will be applied. </summary>

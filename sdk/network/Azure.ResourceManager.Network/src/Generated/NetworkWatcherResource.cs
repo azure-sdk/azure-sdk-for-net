@@ -910,19 +910,19 @@ namespace Azure.ResourceManager.Network
         /// </list>
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
-        /// <param name="flowLogInformation"> Parameters that define the configuration of flow log. </param>
+        /// <param name="content"> Parameters that define the configuration of flow log. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="flowLogInformation"/> is null. </exception>
-        public virtual async Task<ArmOperation<FlowLogInformation>> SetFlowLogConfigurationAsync(WaitUntil waitUntil, FlowLogInformation flowLogInformation, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
+        public virtual async Task<ArmOperation<FlowLogInformationResponse>> SetFlowLogConfigurationAsync(WaitUntil waitUntil, FlowLogInformationContent content, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNull(flowLogInformation, nameof(flowLogInformation));
+            Argument.AssertNotNull(content, nameof(content));
 
             using var scope = _networkWatcherClientDiagnostics.CreateScope("NetworkWatcherResource.SetFlowLogConfiguration");
             scope.Start();
             try
             {
-                var response = await _networkWatcherRestClient.SetFlowLogConfigurationAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, flowLogInformation, cancellationToken).ConfigureAwait(false);
-                var operation = new NetworkArmOperation<FlowLogInformation>(new FlowLogInformationOperationSource(), _networkWatcherClientDiagnostics, Pipeline, _networkWatcherRestClient.CreateSetFlowLogConfigurationRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, flowLogInformation).Request, response, OperationFinalStateVia.Location);
+                var response = await _networkWatcherRestClient.SetFlowLogConfigurationAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, content, cancellationToken).ConfigureAwait(false);
+                var operation = new NetworkArmOperation<FlowLogInformationResponse>(new FlowLogInformationResponseOperationSource(), _networkWatcherClientDiagnostics, Pipeline, _networkWatcherRestClient.CreateSetFlowLogConfigurationRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, content).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -948,19 +948,19 @@ namespace Azure.ResourceManager.Network
         /// </list>
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
-        /// <param name="flowLogInformation"> Parameters that define the configuration of flow log. </param>
+        /// <param name="content"> Parameters that define the configuration of flow log. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="flowLogInformation"/> is null. </exception>
-        public virtual ArmOperation<FlowLogInformation> SetFlowLogConfiguration(WaitUntil waitUntil, FlowLogInformation flowLogInformation, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
+        public virtual ArmOperation<FlowLogInformationResponse> SetFlowLogConfiguration(WaitUntil waitUntil, FlowLogInformationContent content, CancellationToken cancellationToken = default)
         {
-            Argument.AssertNotNull(flowLogInformation, nameof(flowLogInformation));
+            Argument.AssertNotNull(content, nameof(content));
 
             using var scope = _networkWatcherClientDiagnostics.CreateScope("NetworkWatcherResource.SetFlowLogConfiguration");
             scope.Start();
             try
             {
-                var response = _networkWatcherRestClient.SetFlowLogConfiguration(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, flowLogInformation, cancellationToken);
-                var operation = new NetworkArmOperation<FlowLogInformation>(new FlowLogInformationOperationSource(), _networkWatcherClientDiagnostics, Pipeline, _networkWatcherRestClient.CreateSetFlowLogConfigurationRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, flowLogInformation).Request, response, OperationFinalStateVia.Location);
+                var response = _networkWatcherRestClient.SetFlowLogConfiguration(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, content, cancellationToken);
+                var operation = new NetworkArmOperation<FlowLogInformationResponse>(new FlowLogInformationResponseOperationSource(), _networkWatcherClientDiagnostics, Pipeline, _networkWatcherRestClient.CreateSetFlowLogConfigurationRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, content).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -989,7 +989,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="content"> Parameters that define a resource to query flow log and traffic analytics (optional) status. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
-        public virtual async Task<ArmOperation<FlowLogInformation>> GetFlowLogStatusAsync(WaitUntil waitUntil, FlowLogStatusContent content, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation<FlowLogInformationResponse>> GetFlowLogStatusAsync(WaitUntil waitUntil, FlowLogStatusContent content, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(content, nameof(content));
 
@@ -998,7 +998,7 @@ namespace Azure.ResourceManager.Network
             try
             {
                 var response = await _networkWatcherRestClient.GetFlowLogStatusAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, content, cancellationToken).ConfigureAwait(false);
-                var operation = new NetworkArmOperation<FlowLogInformation>(new FlowLogInformationOperationSource(), _networkWatcherClientDiagnostics, Pipeline, _networkWatcherRestClient.CreateGetFlowLogStatusRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, content).Request, response, OperationFinalStateVia.Location);
+                var operation = new NetworkArmOperation<FlowLogInformationResponse>(new FlowLogInformationResponseOperationSource(), _networkWatcherClientDiagnostics, Pipeline, _networkWatcherRestClient.CreateGetFlowLogStatusRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, content).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -1027,7 +1027,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="content"> Parameters that define a resource to query flow log and traffic analytics (optional) status. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
-        public virtual ArmOperation<FlowLogInformation> GetFlowLogStatus(WaitUntil waitUntil, FlowLogStatusContent content, CancellationToken cancellationToken = default)
+        public virtual ArmOperation<FlowLogInformationResponse> GetFlowLogStatus(WaitUntil waitUntil, FlowLogStatusContent content, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(content, nameof(content));
 
@@ -1036,7 +1036,7 @@ namespace Azure.ResourceManager.Network
             try
             {
                 var response = _networkWatcherRestClient.GetFlowLogStatus(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, content, cancellationToken);
-                var operation = new NetworkArmOperation<FlowLogInformation>(new FlowLogInformationOperationSource(), _networkWatcherClientDiagnostics, Pipeline, _networkWatcherRestClient.CreateGetFlowLogStatusRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, content).Request, response, OperationFinalStateVia.Location);
+                var operation = new NetworkArmOperation<FlowLogInformationResponse>(new FlowLogInformationResponseOperationSource(), _networkWatcherClientDiagnostics, Pipeline, _networkWatcherRestClient.CreateGetFlowLogStatusRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, content).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;

@@ -10,39 +10,9 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.Network.Models
 {
-    public partial class FlowLogInformation : IUtf8JsonSerializable
+    public partial class FlowLogInformationResponse
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
-        {
-            writer.WriteStartObject();
-            writer.WritePropertyName("targetResourceId"u8);
-            writer.WriteStringValue(TargetResourceId);
-            if (Optional.IsDefined(FlowAnalyticsConfiguration))
-            {
-                writer.WritePropertyName("flowAnalyticsConfiguration"u8);
-                writer.WriteObjectValue(FlowAnalyticsConfiguration);
-            }
-            writer.WritePropertyName("properties"u8);
-            writer.WriteStartObject();
-            writer.WritePropertyName("storageId"u8);
-            writer.WriteStringValue(StorageId);
-            writer.WritePropertyName("enabled"u8);
-            writer.WriteBooleanValue(Enabled);
-            if (Optional.IsDefined(RetentionPolicy))
-            {
-                writer.WritePropertyName("retentionPolicy"u8);
-                writer.WriteObjectValue(RetentionPolicy);
-            }
-            if (Optional.IsDefined(Format))
-            {
-                writer.WritePropertyName("format"u8);
-                writer.WriteObjectValue(Format);
-            }
-            writer.WriteEndObject();
-            writer.WriteEndObject();
-        }
-
-        internal static FlowLogInformation DeserializeFlowLogInformation(JsonElement element)
+        internal static FlowLogInformationResponse DeserializeFlowLogInformationResponse(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
@@ -50,6 +20,7 @@ namespace Azure.ResourceManager.Network.Models
             }
             ResourceIdentifier targetResourceId = default;
             Optional<TrafficAnalyticsProperties> flowAnalyticsConfiguration = default;
+            Optional<ResultIdentityObjectForUserAssigned> identity = default;
             ResourceIdentifier storageId = default;
             bool enabled = default;
             Optional<RetentionPolicyParameters> retentionPolicy = default;
@@ -68,6 +39,15 @@ namespace Azure.ResourceManager.Network.Models
                         continue;
                     }
                     flowAnalyticsConfiguration = TrafficAnalyticsProperties.DeserializeTrafficAnalyticsProperties(property.Value);
+                    continue;
+                }
+                if (property.NameEquals("identity"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    identity = ResultIdentityObjectForUserAssigned.DeserializeResultIdentityObjectForUserAssigned(property.Value);
                     continue;
                 }
                 if (property.NameEquals("properties"u8))
@@ -111,7 +91,7 @@ namespace Azure.ResourceManager.Network.Models
                     continue;
                 }
             }
-            return new FlowLogInformation(targetResourceId, flowAnalyticsConfiguration.Value, storageId, enabled, retentionPolicy.Value, format.Value);
+            return new FlowLogInformationResponse(targetResourceId, flowAnalyticsConfiguration.Value, identity.Value, storageId, enabled, retentionPolicy.Value, format.Value);
         }
     }
 }
