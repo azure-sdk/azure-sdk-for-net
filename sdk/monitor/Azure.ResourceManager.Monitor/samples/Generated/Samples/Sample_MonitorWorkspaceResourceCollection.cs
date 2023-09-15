@@ -18,10 +18,10 @@ namespace Azure.ResourceManager.Monitor.Samples
 {
     public partial class Sample_MonitorWorkspaceResourceCollection
     {
-        // List monitor workspaces by resource group
+        // List Azure Monitor Workspaces by resource group
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task GetAll_ListMonitorWorkspacesByResourceGroup()
+        public async Task GetAll_ListAzureMonitorWorkspacesByResourceGroup()
         {
             // Generated from example definition: specification/monitor/resource-manager/Microsoft.Monitor/stable/2023-04-03/examples/AzureMonitorWorkspacesListByResourceGroup.json
             // this example is just showing the usage of "AzureMonitorWorkspaces_ListByResourceGroup" operation, for the dependent resources, they will have to be created separately.
@@ -54,10 +54,10 @@ namespace Azure.ResourceManager.Monitor.Samples
             Console.WriteLine($"Succeeded");
         }
 
-        // Get workspace
+        // Get Azure Monitor Workspace
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task Get_GetWorkspace()
+        public async Task Get_GetAzureMonitorWorkspace()
         {
             // Generated from example definition: specification/monitor/resource-manager/Microsoft.Monitor/stable/2023-04-03/examples/AzureMonitorWorkspacesGet.json
             // this example is just showing the usage of "AzureMonitorWorkspaces_Get" operation, for the dependent resources, they will have to be created separately.
@@ -88,10 +88,10 @@ namespace Azure.ResourceManager.Monitor.Samples
             Console.WriteLine($"Succeeded on id: {resourceData.Id}");
         }
 
-        // Get workspace
+        // Get Azure Monitor Workspace
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task Exists_GetWorkspace()
+        public async Task Exists_GetAzureMonitorWorkspace()
         {
             // Generated from example definition: specification/monitor/resource-manager/Microsoft.Monitor/stable/2023-04-03/examples/AzureMonitorWorkspacesGet.json
             // this example is just showing the usage of "AzureMonitorWorkspaces_Get" operation, for the dependent resources, they will have to be created separately.
@@ -118,10 +118,10 @@ namespace Azure.ResourceManager.Monitor.Samples
             Console.WriteLine($"Succeeded: {result}");
         }
 
-        // Create or update workspace
+        // Create or update an Azure Monitor Workspace
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task CreateOrUpdate_CreateOrUpdateWorkspace()
+        public async Task CreateOrUpdate_CreateOrUpdateAnAzureMonitorWorkspace()
         {
             // Generated from example definition: specification/monitor/resource-manager/Microsoft.Monitor/stable/2023-04-03/examples/AzureMonitorWorkspacesCreate.json
             // this example is just showing the usage of "AzureMonitorWorkspaces_Create" operation, for the dependent resources, they will have to be created separately.

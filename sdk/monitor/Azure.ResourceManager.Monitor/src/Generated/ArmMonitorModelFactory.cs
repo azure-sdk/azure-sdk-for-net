@@ -980,12 +980,12 @@ namespace Azure.ResourceManager.Monitor.Models
         /// <param name="tags"> The tags. </param>
         /// <param name="location"> The location. </param>
         /// <param name="etag"> Resource entity tag (ETag). </param>
-        /// <param name="accountId"> The immutable ID of the Azure Monitor workspace. This property is read-only. </param>
-        /// <param name="metrics"> Information about metrics for the Azure Monitor workspace. </param>
-        /// <param name="provisioningState"> The provisioning state of the Azure Monitor workspace. Set to Succeeded if everything is healthy. </param>
+        /// <param name="accountId"> The immutable Id of the Azure Monitor Workspace. This property is read-only. </param>
+        /// <param name="metrics"> Properties related to the metrics container in the Azure Monitor Workspace. </param>
+        /// <param name="provisioningState"> The provisioning state of the Azure Monitor Workspace. Set to Succeeded if everything is healthy. </param>
         /// <param name="defaultIngestionSettings"> The Data Collection Rule and Endpoint used for ingestion by default. </param>
         /// <param name="privateEndpointConnections"> List of private endpoint connections. </param>
-        /// <param name="publicNetworkAccess"> Gets or sets allow or disallow public network access to workspace. </param>
+        /// <param name="publicNetworkAccess"> Gets or sets allow or disallow public network access to Azure Monitor Workspace. </param>
         /// <returns> A new <see cref="Monitor.MonitorWorkspaceResourceData"/> instance for mocking. </returns>
         public static MonitorWorkspaceResourceData MonitorWorkspaceResourceData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, ETag? etag = null, string accountId = null, MonitorWorkspaceMetrics metrics = null, MonitorProvisioningState? provisioningState = null, MonitorWorkspaceDefaultIngestionSettings defaultIngestionSettings = null, IEnumerable<MonitorWorkspacePrivateEndpointConnection> privateEndpointConnections = null, MonitorWorkspacePublicNetworkAccess? publicNetworkAccess = null)
         {
@@ -996,7 +996,7 @@ namespace Azure.ResourceManager.Monitor.Models
         }
 
         /// <summary> Initializes a new instance of MonitorWorkspaceMetrics. </summary>
-        /// <param name="prometheusQueryEndpoint"> The Prometheus query endpoint for the workspace. </param>
+        /// <param name="prometheusQueryEndpoint"> The Prometheus query endpoint for the Azure Monitor Workspace. </param>
         /// <param name="internalId"> An internal identifier for the metrics container. Only to be used by the system. </param>
         /// <returns> A new <see cref="Models.MonitorWorkspaceMetrics"/> instance for mocking. </returns>
         public static MonitorWorkspaceMetrics MonitorWorkspaceMetrics(string prometheusQueryEndpoint = null, string internalId = null)
@@ -1005,7 +1005,7 @@ namespace Azure.ResourceManager.Monitor.Models
         }
 
         /// <summary> Initializes a new instance of MonitorWorkspaceMetricProperties. </summary>
-        /// <param name="prometheusQueryEndpoint"> The Prometheus query endpoint for the workspace. </param>
+        /// <param name="prometheusQueryEndpoint"> The Prometheus query endpoint for the Azure Monitor Workspace. </param>
         /// <param name="internalId"> An internal identifier for the metrics container. Only to be used by the system. </param>
         /// <returns> A new <see cref="Models.MonitorWorkspaceMetricProperties"/> instance for mocking. </returns>
         public static MonitorWorkspaceMetricProperties MonitorWorkspaceMetricProperties(string prometheusQueryEndpoint = null, string internalId = null)
@@ -1014,8 +1014,8 @@ namespace Azure.ResourceManager.Monitor.Models
         }
 
         /// <summary> Initializes a new instance of MonitorWorkspaceDefaultIngestionSettings. </summary>
-        /// <param name="dataCollectionRuleResourceId"> The Azure resource Id of the default data collection rule for this workspace. </param>
-        /// <param name="dataCollectionEndpointResourceId"> The Azure resource Id of the default data collection endpoint for this workspace. </param>
+        /// <param name="dataCollectionRuleResourceId"> The Azure resource Id of the default data collection rule for this Azure Monitor Workspace. </param>
+        /// <param name="dataCollectionEndpointResourceId"> The Azure resource Id of the default data collection endpoint for this Azure Monitor Workspace. </param>
         /// <returns> A new <see cref="Models.MonitorWorkspaceDefaultIngestionSettings"/> instance for mocking. </returns>
         public static MonitorWorkspaceDefaultIngestionSettings MonitorWorkspaceDefaultIngestionSettings(ResourceIdentifier dataCollectionRuleResourceId = null, ResourceIdentifier dataCollectionEndpointResourceId = null)
         {
@@ -1023,8 +1023,8 @@ namespace Azure.ResourceManager.Monitor.Models
         }
 
         /// <summary> Initializes a new instance of MonitorWorkspaceIngestionSettings. </summary>
-        /// <param name="dataCollectionRuleResourceId"> The Azure resource Id of the default data collection rule for this workspace. </param>
-        /// <param name="dataCollectionEndpointResourceId"> The Azure resource Id of the default data collection endpoint for this workspace. </param>
+        /// <param name="dataCollectionRuleResourceId"> The Azure resource Id of the default data collection rule for this Azure Monitor Workspace. </param>
+        /// <param name="dataCollectionEndpointResourceId"> The Azure resource Id of the default data collection endpoint for this Azure Monitor Workspace. </param>
         /// <returns> A new <see cref="Models.MonitorWorkspaceIngestionSettings"/> instance for mocking. </returns>
         public static MonitorWorkspaceIngestionSettings MonitorWorkspaceIngestionSettings(ResourceIdentifier dataCollectionRuleResourceId = null, ResourceIdentifier dataCollectionEndpointResourceId = null)
         {
