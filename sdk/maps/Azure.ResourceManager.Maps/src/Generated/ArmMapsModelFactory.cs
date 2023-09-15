@@ -26,7 +26,7 @@ namespace Azure.ResourceManager.Maps.Models
         /// <param name="location"> The location. </param>
         /// <param name="sku"> The SKU of this account. </param>
         /// <param name="kind"> Get or Set Kind property. </param>
-        /// <param name="identity"> Sets the identity property for maps account. </param>
+        /// <param name="identity"> Managed service identity (system assigned and/or user assigned identities). </param>
         /// <param name="properties"> The map account properties. </param>
         /// <returns> A new <see cref="Maps.MapsAccountData"/> instance for mocking. </returns>
         public static MapsAccountData MapsAccountData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, MapsSku sku = null, MapsAccountKind? kind = null, ManagedServiceIdentity identity = null, MapsAccountProperties properties = null)
@@ -47,17 +47,18 @@ namespace Azure.ResourceManager.Maps.Models
 
         /// <summary> Initializes a new instance of MapsAccountProperties. </summary>
         /// <param name="uniqueId"> A unique identifier for the maps account. </param>
-        /// <param name="disableLocalAuth"> Allows toggle functionality on Azure Policy to disable Azure Maps local authentication support. This will disable Shared Keys authentication from any usage. </param>
-        /// <param name="provisioningState"> The provisioning state of the Map account resource. </param>
-        /// <param name="linkedResources"> Sets the resources to be used for Managed Identities based operations for the Map account resource. </param>
+        /// <param name="disableLocalAuth"> Allows toggle functionality on Azure Policy to disable Azure Maps local authentication support. This will disable Shared Keys and Shared Access Signature Token authentication from any usage. </param>
+        /// <param name="provisioningState"> The provisioning state of the Map account resource, Account updates can only be performed on terminal states. Terminal states: `Succeeded` and `Failed`. </param>
+        /// <param name="linkedResources"> The array of associated resources to the Map account. Linked resource in the array cannot individually update, you must update all linked resources in the array together. These resources may be used on operations on the Azure Maps REST API. Access is controlled by the Map Account Managed Identity(s) permissions to those resource(s). </param>
         /// <param name="corsRulesValue"> Specifies CORS rules for the Blob service. You can include up to five CorsRule elements in the request. If no CorsRule elements are included in the request body, all CORS rules will be deleted, and CORS will be disabled for the Blob service. </param>
+        /// <param name="encryption"> (Optional) Discouraged to include in resource definition. Only needed where it is possible to disable platform (AKA infrastructure) encryption. Azure SQL TDE is an example of this. Values are enabled and disabled. </param>
         /// <returns> A new <see cref="Models.MapsAccountProperties"/> instance for mocking. </returns>
-        public static MapsAccountProperties MapsAccountProperties(Guid? uniqueId = null, bool? disableLocalAuth = null, string provisioningState = null, IEnumerable<MapsLinkedResource> linkedResources = null, IEnumerable<MapsCorsRule> corsRulesValue = null)
+        public static MapsAccountProperties MapsAccountProperties(Guid? uniqueId = null, bool? disableLocalAuth = null, string provisioningState = null, IEnumerable<MapsLinkedResource> linkedResources = null, IEnumerable<MapsCorsRule> corsRulesValue = null, Encryption encryption = null)
         {
             linkedResources ??= new List<MapsLinkedResource>();
             corsRulesValue ??= new List<MapsCorsRule>();
 
-            return new MapsAccountProperties(uniqueId, disableLocalAuth, provisioningState, linkedResources?.ToList(), corsRulesValue != null ? new CorsRules(corsRulesValue?.ToList()) : null);
+            return new MapsAccountProperties(uniqueId, disableLocalAuth, provisioningState, linkedResources?.ToList(), corsRulesValue != null ? new CorsRules(corsRulesValue?.ToList()) : null, encryption);
         }
 
         /// <summary> Initializes a new instance of MapsAccountSasToken. </summary>

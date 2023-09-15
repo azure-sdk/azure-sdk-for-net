@@ -37,6 +37,11 @@ namespace Azure.ResourceManager.Maps.Models
                 writer.WritePropertyName("cors"u8);
                 writer.WriteObjectValue(Cors);
             }
+            if (Optional.IsDefined(Encryption))
+            {
+                writer.WritePropertyName("encryption"u8);
+                writer.WriteObjectValue(Encryption);
+            }
             writer.WriteEndObject();
         }
 
@@ -51,6 +56,7 @@ namespace Azure.ResourceManager.Maps.Models
             Optional<string> provisioningState = default;
             Optional<IList<MapsLinkedResource>> linkedResources = default;
             Optional<CorsRules> cors = default;
+            Optional<Encryption> encryption = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("uniqueId"u8))
@@ -99,8 +105,17 @@ namespace Azure.ResourceManager.Maps.Models
                     cors = CorsRules.DeserializeCorsRules(property.Value);
                     continue;
                 }
+                if (property.NameEquals("encryption"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    encryption = Encryption.DeserializeEncryption(property.Value);
+                    continue;
+                }
             }
-            return new MapsAccountProperties(Optional.ToNullable(uniqueId), Optional.ToNullable(disableLocalAuth), provisioningState.Value, Optional.ToList(linkedResources), cors.Value);
+            return new MapsAccountProperties(Optional.ToNullable(uniqueId), Optional.ToNullable(disableLocalAuth), provisioningState.Value, Optional.ToList(linkedResources), cors.Value, encryption.Value);
         }
     }
 }
