@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="AnalyzeConversationAsync(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call AnalyzeConversationAsync and parse the result.
+<code><![CDATA[
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationsClient client = new ConversationsClient(credential);
+
+RequestContent content = RequestContent.Create(new
+{
+    analysisInput = new
+    {
+        conversationItem = new
+        {
+            id = "<id>",
+            participantId = "<participantId>",
+        },
+    },
+    parameters = new
+    {
+        projectName = "<projectName>",
+        deploymentName = "<deploymentName>",
+    },
+    kind = "ConversationalTask",
+});
+Response response = await client.AnalyzeConversationAsync("<endpoint>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("kind").ToString());
+]]></code>
+This sample shows how to call AnalyzeConversationAsync with all parameters and request content and parse the result.
+<code><![CDATA[
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationsClient client = new ConversationsClient(credential);
+
+RequestContent content = RequestContent.Create(new
+{
+    analysisInput = new
+    {
+        conversationItem = new
+        {
+            id = "<id>",
+            participantId = "<participantId>",
+            language = "<language>",
+            modality = "transcript",
+        },
+    },
+    parameters = new
+    {
+        projectName = "<projectName>",
+        deploymentName = "<deploymentName>",
+        verbose = true,
+        isLoggingEnabled = true,
+        stringIndexType = "TextElements_v8",
+        directTarget = "<directTarget>",
+        targetProjectParameters = new
+        {
+            key = new
+            {
+                callingOptions = new
+                {
+                    language = "<language>",
+                    verbose = true,
+                    isLoggingEnabled = true,
+                },
+                targetProjectKind = "ConversationParameters",
+                apiVersion = "<apiVersion>",
+            },
+        },
+    },
+    kind = "ConversationalTask",
+});
+Response response = await client.AnalyzeConversationAsync("<endpoint>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("kind").ToString());
+]]></code></example>
+    </member>
+    <member name="AnalyzeConversation(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call AnalyzeConversation and parse the result.
+<code><![CDATA[
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationsClient client = new ConversationsClient(credential);
+
+RequestContent content = RequestContent.Create(new
+{
+    analysisInput = new
+    {
+        conversationItem = new
+        {
+            id = "<id>",
+            participantId = "<participantId>",
+        },
+    },
+    parameters = new
+    {
+        projectName = "<projectName>",
+        deploymentName = "<deploymentName>",
+    },
+    kind = "ConversationalTask",
+});
+Response response = client.AnalyzeConversation("<endpoint>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("kind").ToString());
+]]></code>
+This sample shows how to call AnalyzeConversation with all parameters and request content and parse the result.
+<code><![CDATA[
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ConversationsClient client = new ConversationsClient(credential);
+
+RequestContent content = RequestContent.Create(new
+{
+    analysisInput = new
+    {
+        conversationItem = new
+        {
+            id = "<id>",
+            participantId = "<participantId>",
+            language = "<language>",
+            modality = "transcript",
+        },
+    },
+    parameters = new
+    {
+        projectName = "<projectName>",
+        deploymentName = "<deploymentName>",
+        verbose = true,
+        isLoggingEnabled = true,
+        stringIndexType = "TextElements_v8",
+        directTarget = "<directTarget>",
+        targetProjectParameters = new
+        {
+            key = new
+            {
+                callingOptions = new
+                {
+                    language = "<language>",
+                    verbose = true,
+                    isLoggingEnabled = true,
+                },
+                targetProjectKind = "ConversationParameters",
+                apiVersion = "<apiVersion>",
+            },
+        },
+    },
+    kind = "ConversationalTask",
+});
+Response response = client.AnalyzeConversation("<endpoint>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("kind").ToString());
+]]></code></example>
+    </member>
+  </members>
+</doc>
