@@ -7,6 +7,7 @@
 
 using System.Collections.Generic;
 using Azure.Core;
+using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.Cdn.Models
 {
@@ -21,6 +22,8 @@ namespace Azure.ResourceManager.Cdn.Models
 
         /// <summary> Profile tags. </summary>
         public IDictionary<string, string> Tags { get; }
+        /// <summary> Managed service identity (system assigned and/or user assigned identities). </summary>
+        public ManagedServiceIdentity Identity { get; set; }
         /// <summary> Send and receive timeout on forwarding request to the origin. When timeout is reached, the request fails and returns. </summary>
         public int? OriginResponseTimeoutSeconds { get; set; }
     }
