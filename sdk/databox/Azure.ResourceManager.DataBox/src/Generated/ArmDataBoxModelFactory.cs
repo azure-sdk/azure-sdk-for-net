@@ -33,6 +33,7 @@ namespace Azure.ResourceManager.DataBox.Models
         /// <param name="reverseTransportPreferenceUpdate"> The Editable status for Reverse Transport preferences. </param>
         /// <param name="isPrepareToShipEnabled"> Is Prepare To Ship Enabled on this job. </param>
         /// <param name="status"> Name of the stage which is in progress. </param>
+        /// <param name="delayedStage"> Name of the stage where delay might be present. </param>
         /// <param name="startOn"> Time at which the job was started in UTC ISO 8601 format. </param>
         /// <param name="error"> Top level error for the job. </param>
         /// <param name="details">
@@ -47,11 +48,11 @@ namespace Azure.ResourceManager.DataBox.Models
         /// <param name="sku"> The sku type. </param>
         /// <param name="identity"> Msi identity of the resource. </param>
         /// <returns> A new <see cref="DataBox.DataBoxJobData"/> instance for mocking. </returns>
-        public static DataBoxJobData DataBoxJobData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, DataBoxJobTransferType transferType = default, bool? isCancellable = null, bool? isDeletable = null, bool? isShippingAddressEditable = null, ReverseShippingDetailsEditStatus? reverseShippingDetailsUpdate = null, ReverseTransportPreferenceEditStatus? reverseTransportPreferenceUpdate = null, bool? isPrepareToShipEnabled = null, DataBoxStageName? status = null, DateTimeOffset? startOn = null, ResponseError error = null, DataBoxBasicJobDetails details = null, string cancellationReason = null, JobDeliveryType? deliveryType = null, DateTimeOffset? deliveryInfoScheduledOn = null, bool? isCancellableWithoutFee = null, DataBoxSku sku = null, ManagedServiceIdentity identity = null)
+        public static DataBoxJobData DataBoxJobData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, DataBoxJobTransferType transferType = default, bool? isCancellable = null, bool? isDeletable = null, bool? isShippingAddressEditable = null, ReverseShippingDetailsEditStatus? reverseShippingDetailsUpdate = null, ReverseTransportPreferenceEditStatus? reverseTransportPreferenceUpdate = null, bool? isPrepareToShipEnabled = null, DataBoxStageName? status = null, DataBoxStageName? delayedStage = null, DateTimeOffset? startOn = null, ResponseError error = null, DataBoxBasicJobDetails details = null, string cancellationReason = null, JobDeliveryType? deliveryType = null, DateTimeOffset? deliveryInfoScheduledOn = null, bool? isCancellableWithoutFee = null, DataBoxSku sku = null, ManagedServiceIdentity identity = null)
         {
             tags ??= new Dictionary<string, string>();
 
-            return new DataBoxJobData(id, name, resourceType, systemData, tags, location, transferType, isCancellable, isDeletable, isShippingAddressEditable, reverseShippingDetailsUpdate, reverseTransportPreferenceUpdate, isPrepareToShipEnabled, status, startOn, error, details, cancellationReason, deliveryType, deliveryInfoScheduledOn != null ? new JobDeliveryInfo(deliveryInfoScheduledOn) : null, isCancellableWithoutFee, sku, identity);
+            return new DataBoxJobData(id, name, resourceType, systemData, tags, location, transferType, isCancellable, isDeletable, isShippingAddressEditable, reverseShippingDetailsUpdate, reverseTransportPreferenceUpdate, isPrepareToShipEnabled, status, delayedStage, startOn, error, details, cancellationReason, deliveryType, deliveryInfoScheduledOn != null ? new JobDeliveryInfo(deliveryInfoScheduledOn) : null, isCancellableWithoutFee, sku, identity);
         }
 
         /// <summary> Initializes a new instance of DataBoxBasicJobDetails. </summary>
@@ -100,10 +101,25 @@ namespace Azure.ResourceManager.DataBox.Models
         /// <param name="stageStatus"> Status of the job stage. </param>
         /// <param name="stageTime"> Time for the job stage in UTC ISO 8601 format. </param>
         /// <param name="jobStageDetails"> Job Stage Details. </param>
+        /// <param name="delayInformation"> Delay information for the job stages. </param>
         /// <returns> A new <see cref="Models.DataBoxJobStage"/> instance for mocking. </returns>
-        public static DataBoxJobStage DataBoxJobStage(DataBoxStageName? stageName = null, string displayName = null, DataBoxStageStatus? stageStatus = null, DateTimeOffset? stageTime = null, BinaryData jobStageDetails = null)
+        public static DataBoxJobStage DataBoxJobStage(DataBoxStageName? stageName = null, string displayName = null, DataBoxStageStatus? stageStatus = null, DateTimeOffset? stageTime = null, BinaryData jobStageDetails = null, IEnumerable<JobDelayDetails> delayInformation = null)
         {
-            return new DataBoxJobStage(stageName, displayName, stageStatus, stageTime, jobStageDetails);
+            delayInformation ??= new List<JobDelayDetails>();
+
+            return new DataBoxJobStage(stageName, displayName, stageStatus, stageTime, jobStageDetails, delayInformation?.ToList());
+        }
+
+        /// <summary> Initializes a new instance of JobDelayDetails. </summary>
+        /// <param name="status"> Status of notification. </param>
+        /// <param name="errorCode"> Delay Error code. </param>
+        /// <param name="description"> Description of the delay. </param>
+        /// <param name="startOn"> Timestamp when the delay notification was created. </param>
+        /// <param name="resolutionOn"> Timestamp when the delay notification was resolved. </param>
+        /// <returns> A new <see cref="Models.JobDelayDetails"/> instance for mocking. </returns>
+        public static JobDelayDetails JobDelayDetails(DelayNotificationStatus? status = null, PortalDelayErrorCode? errorCode = null, string description = null, DateTimeOffset? startOn = null, DateTimeOffset? resolutionOn = null)
+        {
+            return new JobDelayDetails(status, errorCode, description, startOn, resolutionOn);
         }
 
         /// <summary> Initializes a new instance of PackageShippingDetails. </summary>

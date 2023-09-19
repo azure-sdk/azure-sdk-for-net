@@ -23,7 +23,7 @@ namespace Azure.ResourceManager.DataBox.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetAvailableSkus_AvailableSkusPost()
         {
-            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2022-12-01/examples/AvailableSkusPost.json
+            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2023-03-01/examples/AvailableSkusPost.json
             // this example is just showing the usage of "Service_ListAvailableSkusByResourceGroup" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -54,7 +54,7 @@ namespace Azure.ResourceManager.DataBox.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task ValidateInputs_ValidateInputsByResourceGroup()
         {
-            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2022-12-01/examples/ValidateInputsByResourceGroup.json
+            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2023-03-01/examples/ValidateInputsByResourceGroup.json
             // this example is just showing the usage of "Service_ValidateInputsByResourceGroup" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -107,7 +107,7 @@ TransportPreferences = new TransportPreferences(TransportShipmentType.MicrosoftM
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetRegionConfiguration_RegionConfigurationByResourceGroup()
         {
-            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2022-12-01/examples/RegionConfigurationByResourceGroup.json
+            // Generated from example definition: specification/databox/resource-manager/Microsoft.DataBox/stable/2023-03-01/examples/RegionConfigurationByResourceGroup.json
             // this example is just showing the usage of "Service_RegionConfigurationByResourceGroup" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
