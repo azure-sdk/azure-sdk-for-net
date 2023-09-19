@@ -23,7 +23,7 @@ namespace Azure.ResourceManager.LabServices.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetVirtualMachine()
         {
-            // Generated from example definition: specification/labservices/resource-manager/Microsoft.LabServices/stable/2022-08-01/examples/VirtualMachines/getVirtualMachine.json
+            // Generated from example definition: specification/labservices/resource-manager/Microsoft.LabServices/stable/2023-06-07/examples/VirtualMachines/getVirtualMachine.json
             // this example is just showing the usage of "VirtualMachines_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -55,7 +55,7 @@ namespace Azure.ResourceManager.LabServices.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Start_StartVirtualMachine()
         {
-            // Generated from example definition: specification/labservices/resource-manager/Microsoft.LabServices/stable/2022-08-01/examples/VirtualMachines/startVirtualMachine.json
+            // Generated from example definition: specification/labservices/resource-manager/Microsoft.LabServices/stable/2023-06-07/examples/VirtualMachines/startVirtualMachine.json
             // this example is just showing the usage of "VirtualMachines_Start" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -83,7 +83,7 @@ namespace Azure.ResourceManager.LabServices.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Stop_StopVirtualMachine()
         {
-            // Generated from example definition: specification/labservices/resource-manager/Microsoft.LabServices/stable/2022-08-01/examples/VirtualMachines/stopVirtualMachine.json
+            // Generated from example definition: specification/labservices/resource-manager/Microsoft.LabServices/stable/2023-06-07/examples/VirtualMachines/stopVirtualMachine.json
             // this example is just showing the usage of "VirtualMachines_Stop" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -111,7 +111,7 @@ namespace Azure.ResourceManager.LabServices.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Reimage_ReimageVirtualMachine()
         {
-            // Generated from example definition: specification/labservices/resource-manager/Microsoft.LabServices/stable/2022-08-01/examples/VirtualMachines/reimageVirtualMachine.json
+            // Generated from example definition: specification/labservices/resource-manager/Microsoft.LabServices/stable/2023-06-07/examples/VirtualMachines/reimageVirtualMachine.json
             // this example is just showing the usage of "VirtualMachines_Reimage" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -139,7 +139,7 @@ namespace Azure.ResourceManager.LabServices.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Redeploy_RedeployVirtualMachine()
         {
-            // Generated from example definition: specification/labservices/resource-manager/Microsoft.LabServices/stable/2022-08-01/examples/VirtualMachines/redeployVirtualMachine.json
+            // Generated from example definition: specification/labservices/resource-manager/Microsoft.LabServices/stable/2023-06-07/examples/VirtualMachines/redeployVirtualMachine.json
             // this example is just showing the usage of "VirtualMachines_Redeploy" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -167,7 +167,7 @@ namespace Azure.ResourceManager.LabServices.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task ResetPassword_ResetPasswordVirtualMachine()
         {
-            // Generated from example definition: specification/labservices/resource-manager/Microsoft.LabServices/stable/2022-08-01/examples/VirtualMachines/resetPasswordVirtualMachine.json
+            // Generated from example definition: specification/labservices/resource-manager/Microsoft.LabServices/stable/2023-06-07/examples/VirtualMachines/resetPasswordVirtualMachine.json
             // this example is just showing the usage of "VirtualMachines_ResetPassword" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line

@@ -104,6 +104,7 @@ namespace Azure.ResourceManager.LabServices
             Optional<LabPlanSupportInfo> supportInfo = default;
             Optional<Uri> linkedLmsInstance = default;
             Optional<LabServicesProvisioningState> provisioningState = default;
+            Optional<ResourceOperationError> resourceOperationError = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("identity"u8))
@@ -244,11 +245,20 @@ namespace Azure.ResourceManager.LabServices
                             provisioningState = property0.Value.GetString().ToLabServicesProvisioningState();
                             continue;
                         }
+                        if (property0.NameEquals("resourceOperationError"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            resourceOperationError = ResourceOperationError.DeserializeResourceOperationError(property0.Value);
+                            continue;
+                        }
                     }
                     continue;
                 }
             }
-            return new LabPlanData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, identity, defaultConnectionProfile.Value, defaultAutoShutdownProfile.Value, defaultNetworkProfile.Value, Optional.ToList(allowedRegions), sharedGalleryId.Value, supportInfo.Value, linkedLmsInstance.Value, Optional.ToNullable(provisioningState));
+            return new LabPlanData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, identity, defaultConnectionProfile.Value, defaultAutoShutdownProfile.Value, defaultNetworkProfile.Value, Optional.ToList(allowedRegions), sharedGalleryId.Value, supportInfo.Value, linkedLmsInstance.Value, Optional.ToNullable(provisioningState), resourceOperationError.Value);
         }
     }
 }

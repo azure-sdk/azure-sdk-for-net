@@ -24,7 +24,7 @@ namespace Azure.ResourceManager.LabServices.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetLabs_ListLabs()
         {
-            // Generated from example definition: specification/labservices/resource-manager/Microsoft.LabServices/stable/2022-08-01/examples/Labs/listLabs.json
+            // Generated from example definition: specification/labservices/resource-manager/Microsoft.LabServices/stable/2023-06-07/examples/Labs/listLabs.json
             // this example is just showing the usage of "Labs_ListBySubscription" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -56,7 +56,7 @@ namespace Azure.ResourceManager.LabServices.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetLab()
         {
-            // Generated from example definition: specification/labservices/resource-manager/Microsoft.LabServices/stable/2022-08-01/examples/Labs/getLab.json
+            // Generated from example definition: specification/labservices/resource-manager/Microsoft.LabServices/stable/2023-06-07/examples/Labs/getLab.json
             // this example is just showing the usage of "Labs_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -87,7 +87,7 @@ namespace Azure.ResourceManager.LabServices.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_PatchLab()
         {
-            // Generated from example definition: specification/labservices/resource-manager/Microsoft.LabServices/stable/2022-08-01/examples/Labs/patchLab.json
+            // Generated from example definition: specification/labservices/resource-manager/Microsoft.LabServices/stable/2023-06-07/examples/Labs/patchLab.json
             // this example is just showing the usage of "Labs_Update" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -126,7 +126,7 @@ namespace Azure.ResourceManager.LabServices.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Delete_DeleteLab()
         {
-            // Generated from example definition: specification/labservices/resource-manager/Microsoft.LabServices/stable/2022-08-01/examples/Labs/deleteLab.json
+            // Generated from example definition: specification/labservices/resource-manager/Microsoft.LabServices/stable/2023-06-07/examples/Labs/deleteLab.json
             // this example is just showing the usage of "Labs_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -153,7 +153,7 @@ namespace Azure.ResourceManager.LabServices.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Publish_PublishLab()
         {
-            // Generated from example definition: specification/labservices/resource-manager/Microsoft.LabServices/stable/2022-08-01/examples/Labs/publishLab.json
+            // Generated from example definition: specification/labservices/resource-manager/Microsoft.LabServices/stable/2023-06-07/examples/Labs/publishLab.json
             // this example is just showing the usage of "Labs_Publish" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -180,7 +180,7 @@ namespace Azure.ResourceManager.LabServices.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task SyncGroup_SyncLab()
         {
-            // Generated from example definition: specification/labservices/resource-manager/Microsoft.LabServices/stable/2022-08-01/examples/Labs/syncLab.json
+            // Generated from example definition: specification/labservices/resource-manager/Microsoft.LabServices/stable/2023-06-07/examples/Labs/syncLab.json
             // this example is just showing the usage of "Labs_SyncGroup" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line

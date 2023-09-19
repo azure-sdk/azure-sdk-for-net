@@ -25,7 +25,7 @@ namespace Azure.ResourceManager.LabServices.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetAll_ListResourceGroupLabPlans()
         {
-            // Generated from example definition: specification/labservices/resource-manager/Microsoft.LabServices/stable/2022-08-01/examples/LabPlans/listResourceGroupLabPlans.json
+            // Generated from example definition: specification/labservices/resource-manager/Microsoft.LabServices/stable/2023-06-07/examples/LabPlans/listResourceGroupLabPlans.json
             // this example is just showing the usage of "LabPlans_ListByResourceGroup" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -61,7 +61,7 @@ namespace Azure.ResourceManager.LabServices.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetLabPlan()
         {
-            // Generated from example definition: specification/labservices/resource-manager/Microsoft.LabServices/stable/2022-08-01/examples/LabPlans/getLabPlan.json
+            // Generated from example definition: specification/labservices/resource-manager/Microsoft.LabServices/stable/2023-06-07/examples/LabPlans/getLabPlan.json
             // this example is just showing the usage of "LabPlans_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -95,7 +95,7 @@ namespace Azure.ResourceManager.LabServices.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Exists_GetLabPlan()
         {
-            // Generated from example definition: specification/labservices/resource-manager/Microsoft.LabServices/stable/2022-08-01/examples/LabPlans/getLabPlan.json
+            // Generated from example definition: specification/labservices/resource-manager/Microsoft.LabServices/stable/2023-06-07/examples/LabPlans/getLabPlan.json
             // this example is just showing the usage of "LabPlans_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -125,7 +125,7 @@ namespace Azure.ResourceManager.LabServices.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_PutLabPlan()
         {
-            // Generated from example definition: specification/labservices/resource-manager/Microsoft.LabServices/stable/2022-08-01/examples/LabPlans/putLabPlan.json
+            // Generated from example definition: specification/labservices/resource-manager/Microsoft.LabServices/stable/2023-06-07/examples/LabPlans/putLabPlan.json
             // this example is just showing the usage of "LabPlans_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line

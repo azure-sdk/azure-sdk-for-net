@@ -24,7 +24,7 @@ namespace Azure.ResourceManager.LabServices.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetUser()
         {
-            // Generated from example definition: specification/labservices/resource-manager/Microsoft.LabServices/stable/2022-08-01/examples/Users/getUser.json
+            // Generated from example definition: specification/labservices/resource-manager/Microsoft.LabServices/stable/2023-06-07/examples/Users/getUser.json
             // this example is just showing the usage of "Users_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -56,7 +56,7 @@ namespace Azure.ResourceManager.LabServices.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_PatchUser()
         {
-            // Generated from example definition: specification/labservices/resource-manager/Microsoft.LabServices/stable/2022-08-01/examples/Users/patchUser.json
+            // Generated from example definition: specification/labservices/resource-manager/Microsoft.LabServices/stable/2023-06-07/examples/Users/patchUser.json
             // this example is just showing the usage of "Users_Update" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -93,7 +93,7 @@ namespace Azure.ResourceManager.LabServices.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Delete_DeleteUser()
         {
-            // Generated from example definition: specification/labservices/resource-manager/Microsoft.LabServices/stable/2022-08-01/examples/Users/deleteUser.json
+            // Generated from example definition: specification/labservices/resource-manager/Microsoft.LabServices/stable/2023-06-07/examples/Users/deleteUser.json
             // this example is just showing the usage of "Users_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -121,7 +121,7 @@ namespace Azure.ResourceManager.LabServices.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Invite_InviteUser()
         {
-            // Generated from example definition: specification/labservices/resource-manager/Microsoft.LabServices/stable/2022-08-01/examples/Users/inviteUser.json
+            // Generated from example definition: specification/labservices/resource-manager/Microsoft.LabServices/stable/2023-06-07/examples/Users/inviteUser.json
             // this example is just showing the usage of "Users_Invite" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
