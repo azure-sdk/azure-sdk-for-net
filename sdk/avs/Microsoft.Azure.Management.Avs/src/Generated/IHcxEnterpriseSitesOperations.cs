@@ -24,7 +24,7 @@ namespace Microsoft.Azure.Management.Avs
     public partial interface IHcxEnterpriseSitesOperations
     {
         /// <summary>
-        /// List HCX Enterprise Sites in a private cloud
+        /// List HCX on-premises key in a private cloud
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -38,7 +38,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -49,7 +49,7 @@ namespace Microsoft.Azure.Management.Avs
         /// </exception>
         Task<AzureOperationResponse<IPage<HcxEnterpriseSite>>> ListWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Get an HCX Enterprise Site by name in a private cloud
+        /// Get an HCX on-premises key by name in a private cloud
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -66,7 +66,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -77,7 +77,7 @@ namespace Microsoft.Azure.Management.Avs
         /// </exception>
         Task<AzureOperationResponse<HcxEnterpriseSite>> GetWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string hcxEnterpriseSiteName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Create or update an HCX Enterprise Site in a private cloud
+        /// Create or update an activation key for on-premises HCX site
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -94,7 +94,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -105,7 +105,7 @@ namespace Microsoft.Azure.Management.Avs
         /// </exception>
         Task<AzureOperationResponse<HcxEnterpriseSite>> CreateOrUpdateWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string hcxEnterpriseSiteName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Delete an HCX Enterprise Site in a private cloud
+        /// Delete HCX on-premises key in a private cloud
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -122,7 +122,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.ValidationException">
@@ -130,7 +130,7 @@ namespace Microsoft.Azure.Management.Avs
         /// </exception>
         Task<AzureOperationResponse> DeleteWithHttpMessagesAsync(string resourceGroupName, string privateCloudName, string hcxEnterpriseSiteName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// List HCX Enterprise Sites in a private cloud
+        /// List HCX on-premises key in a private cloud
         /// </summary>
         /// <param name='nextPageLink'>
         /// The NextLink from the previous successful call to List operation.
@@ -141,7 +141,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="Microsoft.Rest.Azure.CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
