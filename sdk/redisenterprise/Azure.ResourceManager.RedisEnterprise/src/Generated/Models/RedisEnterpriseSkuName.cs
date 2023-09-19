@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace Azure.ResourceManager.RedisEnterprise.Models
 {
-    /// <summary> The RedisEnterpriseSkuName. </summary>
+    /// <summary> The type of RedisEnterprise cluster to deploy. Possible values: (Enterprise_E10, EnterpriseFlash_F300 etc.). </summary>
     public readonly partial struct RedisEnterpriseSkuName : IEquatable<RedisEnterpriseSkuName>
     {
         private readonly string _value;
