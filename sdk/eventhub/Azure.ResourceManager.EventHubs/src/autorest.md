@@ -7,7 +7,7 @@ azure-arm: true
 csharp: true
 namespace: Azure.ResourceManager.EventHubs
 output-folder: $(this-folder)/Generated
-require: https://github.com/Azure/azure-rest-api-specs/blob/969e0846e56a0869203bcc52773415c71115f59e/specification/eventhub/resource-manager/readme.md
+require: https://github.com/Azure/azure-rest-api-specs/blob/d9481bed8de890dee53904229d60519443929984/specification/eventhub/resource-manager/readme.md
 # tag: package-2022-10-preview
 clear-output-folder: true
 sample-gen:
