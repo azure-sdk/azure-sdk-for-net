@@ -60,6 +60,13 @@ namespace Azure.ResourceManager.CostManagement
             return apiVersion;
         }
 
+        /// <summary> Gets a collection of BudgetResources in the ArmResource. </summary>
+        /// <returns> An object representing collection of BudgetResources and their operations over a BudgetResource. </returns>
+        public virtual BudgetCollection GetBudgets()
+        {
+            return GetCachedClient(Client => new BudgetCollection(Client, Id));
+        }
+
         /// <summary> Gets a collection of CostManagementExportResources in the ArmResource. </summary>
         /// <returns> An object representing collection of CostManagementExportResources and their operations over a CostManagementExportResource. </returns>
         public virtual CostManagementExportCollection GetCostManagementExports()

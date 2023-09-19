@@ -134,6 +134,102 @@ namespace Azure.ResourceManager.CostManagement.Models
             return new AsyncOperationStatusProperties(reportUri, secondaryReportUri, validUntil);
         }
 
+        /// <summary> Initializes a new instance of BudgetData. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="category">
+        /// The category of the budget.
+        /// - 'Cost' defines a Budget.
+        /// - 'ReservationUtilization' defines a Reservation Utilization Alert Rule.
+        /// </param>
+        /// <param name="amount">
+        /// The total amount of cost to track with the budget.
+        ///
+        ///  Supported for CategoryType(s): Cost.
+        ///
+        ///  Required for CategoryType(s): Cost.
+        /// </param>
+        /// <param name="timeGrain">
+        /// The time covered by a budget. Tracking of the amount will be reset based on the time grain.
+        ///
+        /// Supported for CategoryType(s): Cost, ReservationUtilization.
+        ///
+        ///  Supported timeGrainTypes for **CategoryType: Cost**
+        ///
+        /// - Monthly
+        /// - Quarterly
+        /// - Annually
+        /// - BillingMonth*
+        /// - BillingQuarter*
+        /// - BillingAnnual*
+        ///
+        ///   *only supported for Web Direct customers.
+        ///
+        ///  Supported timeGrainTypes for **CategoryType: ReservationUtilization**
+        /// - Last7Days
+        /// - Last30Days
+        ///
+        ///  Required for CategoryType(s): Cost, ReservationUtilization.
+        /// </param>
+        /// <param name="timePeriod">
+        /// The time period that defines the active period of the budget. The budget will evaluate data on or after the startDate and will expire on the endDate.
+        ///
+        ///  Supported for CategoryType(s): Cost, ReservationUtilization.
+        ///
+        ///  Required for CategoryType(s): Cost, ReservationUtilization.
+        /// </param>
+        /// <param name="filter">
+        /// May be used to filter budgets by user-specified dimensions and/or tags.
+        ///
+        ///  Supported for CategoryType(s): Cost, ReservationUtilization.
+        /// </param>
+        /// <param name="currentSpend">
+        /// The current amount of cost which is being tracked for a budget.
+        ///
+        ///  Supported for CategoryType(s): Cost.
+        /// </param>
+        /// <param name="notifications">
+        /// Dictionary of notifications associated with the budget.
+        ///
+        ///  Supported for CategoryType(s): Cost, ReservationUtilization.
+        ///
+        /// - Constraints for **CategoryType: Cost** - Budget can have up to 5 notifications with thresholdType: Actual and 5 notifications with thresholdType: Forecasted.
+        /// - Constraints for **CategoryType: ReservationUtilization** - Only one notification allowed. thresholdType is not applicable.
+        /// </param>
+        /// <param name="forecastSpend">
+        /// The forecasted cost which is being tracked for a budget.
+        ///
+        ///  Supported for CategoryType(s): Cost.
+        /// </param>
+        /// <param name="eTag"> eTag of the resource. To handle concurrent update scenario, this field will be used to determine whether the user is updating the latest version or not. </param>
+        /// <returns> A new <see cref="CostManagement.BudgetData"/> instance for mocking. </returns>
+        public static BudgetData BudgetData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, CategoryType? category = null, float? amount = null, TimeGrainType? timeGrain = null, BudgetTimePeriod timePeriod = null, BudgetFilter filter = null, CurrentSpend currentSpend = null, IDictionary<string, Notification> notifications = null, ForecastSpend forecastSpend = null, ETag? eTag = null)
+        {
+            notifications ??= new Dictionary<string, Notification>();
+
+            return new BudgetData(id, name, resourceType, systemData, category, amount, timeGrain, timePeriod, filter, currentSpend, notifications, forecastSpend, eTag);
+        }
+
+        /// <summary> Initializes a new instance of CurrentSpend. </summary>
+        /// <param name="amount"> The total amount of cost which is being tracked by the budget. </param>
+        /// <param name="unit"> The unit of measure for the budget amount. </param>
+        /// <returns> A new <see cref="Models.CurrentSpend"/> instance for mocking. </returns>
+        public static CurrentSpend CurrentSpend(float? amount = null, string unit = null)
+        {
+            return new CurrentSpend(amount, unit);
+        }
+
+        /// <summary> Initializes a new instance of ForecastSpend. </summary>
+        /// <param name="amount"> The forecasted cost for the total time period which is being tracked by the budget. This value is only provided if the budget contains a forecast alert type. </param>
+        /// <param name="unit"> The unit of measure for the budget amount. </param>
+        /// <returns> A new <see cref="Models.ForecastSpend"/> instance for mocking. </returns>
+        public static ForecastSpend ForecastSpend(float? amount = null, string unit = null)
+        {
+            return new ForecastSpend(amount, unit);
+        }
+
         /// <summary> Initializes a new instance of CostManagementExportData. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
@@ -364,7 +460,7 @@ namespace Azure.ResourceManager.CostManagement.Models
         /// <param name="notification"> Notification properties based on scheduled action kind. </param>
         /// <param name="notificationEmail"> Email address of the point of contact that should get the unsubscribe requests and notification emails. </param>
         /// <param name="schedule"> Schedule of the scheduled action. </param>
-        /// <param name="scope"> Cost Management scope like 'subscriptions/{subscriptionId}' for subscription scope, 'subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}' for resourceGroup scope, 'providers/Microsoft.Billing/billingAccounts/{billingAccountId}' for Billing Account scope, 'providers/Microsoft.Billing/billingAccounts/{billingAccountId}/departments/{departmentId}' for Department scope, 'providers/Microsoft.Billing/billingAccounts/{billingAccountId}/enrollmentAccounts/{enrollmentAccountId}' for EnrollmentAccount scope, 'providers/Microsoft.Billing/billingAccounts/{billingAccountId}/billingProfiles/{billingProfileId}' for BillingProfile scope, 'providers/Microsoft.Billing/billingAccounts/{billingAccountId}/invoiceSections/{invoiceSectionId}' for InvoiceSection scope, '/providers/Microsoft.CostManagement/externalBillingAccounts/{externalBillingAccountName}' for ExternalBillingAccount scope, and '/providers/Microsoft.CostManagement/externalSubscriptions/{externalSubscriptionName}' for ExternalSubscription scope. </param>
+        /// <param name="scope"> For private scheduled action(Create or Update), scope will be empty.&lt;br /&gt; For shared scheduled action(Create or Update By Scope), Cost Management scope can be 'subscriptions/{subscriptionId}' for subscription scope, 'subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}' for resourceGroup scope, 'providers/Microsoft.Billing/billingAccounts/{billingAccountId}' for Billing Account scope, 'providers/Microsoft.Billing/billingAccounts/{billingAccountId}/departments/{departmentId}' for Department scope, 'providers/Microsoft.Billing/billingAccounts/{billingAccountId}/enrollmentAccounts/{enrollmentAccountId}' for EnrollmentAccount scope, 'providers/Microsoft.Billing/billingAccounts/{billingAccountId}/billingProfiles/{billingProfileId}' for BillingProfile scope, 'providers/Microsoft.Billing/billingAccounts/{billingAccountId}/invoiceSections/{invoiceSectionId}' for InvoiceSection scope, '/providers/Microsoft.CostManagement/externalBillingAccounts/{externalBillingAccountName}' for ExternalBillingAccount scope, and '/providers/Microsoft.CostManagement/externalSubscriptions/{externalSubscriptionName}' for ExternalSubscription scope. </param>
         /// <param name="status"> Status of the scheduled action. </param>
         /// <param name="viewId"> Cost analysis viewId used for scheduled action. For example, '/providers/Microsoft.CostManagement/views/swaggerExample'. </param>
         /// <param name="eTag"> Resource Etag. For update calls, eTag is optional and can be specified to achieve optimistic concurrency. Fetch the resource's eTag by doing a 'GET' call first and then including the latest eTag as part of the request body or 'If-Match' header while performing the update. For create calls, eTag is not required. </param>
@@ -454,9 +550,9 @@ namespace Azure.ResourceManager.CostManagement.Models
         /// <param name="benefitOrderId"> The benefit order ID is the identifier for a benefit purchase. </param>
         /// <param name="benefitType"> The benefit type. Supported values: 'SavingsPlan'. </param>
         /// <param name="usageOn"> Date corresponding to the utilization summary record. If the grain of data is monthly, value for this field will be first day of the month. </param>
-        /// <param name="avgUtilizationPercentage"> This is the average hourly utilization for each date range that corresponds to given grain (Daily, Monthly). Suppose the API call is for usageDate &gt; 2023-03-01 and usageDate &lt; 2022-10-31 at a daily granularity. There will be one record per benefit id for each day. For a single day, the avgUtilizationPercentage value will be equal to the average of the set of values where the set contains 24 utilization percentage entries one for each hour in a specific day. </param>
-        /// <param name="minUtilizationPercentage"> This is the minimum hourly utilization for each date range that corresponds to given grain (Daily, Monthly). Suppose the API call is for usageDate &gt; 2023-03-01 and usageDate &lt; 2022-10-31 at a daily granularity. There will be one record per benefit id for each day. For a single day, the minUtilizationPercentage value will be equal to the smallest in the set of values where the set contains 24 utilization percentage entries one for each hour in a specific day. If on the day 2022-10-18, the lowest utilization percentage was 10% at hour 4, then the value for the minUtilizationPercentage in the response will be 10%. </param>
-        /// <param name="maxUtilizationPercentage"> This is the maximum hourly utilization for each date range that corresponds to given grain (Daily, Monthly). Suppose the API call is for usageDate &gt; 2023-03-01 and usageDate &lt; 2022-10-31 at a daily granularity. There will be one record per benefit id for each day. For a single day, the maxUtilizationPercentage value will be equal to the largest in the set of values where the set contains 24 utilization percentage entries one for each hour in a specific day. If on the day 2022-10-18, the largest utilization percentage was 90% at hour 5, then the value for the maxUtilizationPercentage in the response will be 90%. </param>
+        /// <param name="avgUtilizationPercentage"> This is the average hourly utilization for each date range that corresponds to given grain (Daily, Monthly). Suppose the API call is for usageDate &gt; 2023-08-01 and usageDate &lt; 2022-10-31 at a daily granularity. There will be one record per benefit id for each day. For a single day, the avgUtilizationPercentage value will be equal to the average of the set of values where the set contains 24 utilization percentage entries one for each hour in a specific day. </param>
+        /// <param name="minUtilizationPercentage"> This is the minimum hourly utilization for each date range that corresponds to given grain (Daily, Monthly). Suppose the API call is for usageDate &gt; 2023-08-01 and usageDate &lt; 2022-10-31 at a daily granularity. There will be one record per benefit id for each day. For a single day, the minUtilizationPercentage value will be equal to the smallest in the set of values where the set contains 24 utilization percentage entries one for each hour in a specific day. If on the day 2022-10-18, the lowest utilization percentage was 10% at hour 4, then the value for the minUtilizationPercentage in the response will be 10%. </param>
+        /// <param name="maxUtilizationPercentage"> This is the maximum hourly utilization for each date range that corresponds to given grain (Daily, Monthly). Suppose the API call is for usageDate &gt; 2023-08-01 and usageDate &lt; 2022-10-31 at a daily granularity. There will be one record per benefit id for each day. For a single day, the maxUtilizationPercentage value will be equal to the largest in the set of values where the set contains 24 utilization percentage entries one for each hour in a specific day. If on the day 2022-10-18, the largest utilization percentage was 90% at hour 5, then the value for the maxUtilizationPercentage in the response will be 90%. </param>
         /// <returns> A new <see cref="Models.SavingsPlanUtilizationSummary"/> instance for mocking. </returns>
         public static SavingsPlanUtilizationSummary SavingsPlanUtilizationSummary(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string armSkuName = null, string benefitId = null, string benefitOrderId = null, BillingAccountBenefitKind? benefitType = null, DateTimeOffset? usageOn = null, decimal? avgUtilizationPercentage = null, decimal? minUtilizationPercentage = null, decimal? maxUtilizationPercentage = null)
         {

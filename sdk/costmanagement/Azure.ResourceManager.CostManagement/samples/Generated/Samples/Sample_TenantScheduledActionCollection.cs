@@ -23,7 +23,7 @@ namespace Azure.ResourceManager.CostManagement.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreateOrUpdatePrivateScheduledAction()
         {
-            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-03-01/examples/scheduledActions/scheduledAction-createOrUpdate-private.json
+            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-08-01/examples/scheduledActions/scheduledAction-createOrUpdate-private.json
             // this example is just showing the usage of "ScheduledActions_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -79,7 +79,7 @@ ScheduledActionWeeksOfMonth.First,ScheduledActionWeeksOfMonth.Third
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_PrivateScheduledAction()
         {
-            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-03-01/examples/scheduledActions/scheduledAction-get-private.json
+            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-08-01/examples/scheduledActions/scheduledAction-get-private.json
             // this example is just showing the usage of "ScheduledActions_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -110,7 +110,7 @@ ScheduledActionWeeksOfMonth.First,ScheduledActionWeeksOfMonth.Third
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Exists_PrivateScheduledAction()
         {
-            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-03-01/examples/scheduledActions/scheduledAction-get-private.json
+            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-08-01/examples/scheduledActions/scheduledAction-get-private.json
             // this example is just showing the usage of "ScheduledActions_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line

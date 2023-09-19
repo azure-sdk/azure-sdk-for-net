@@ -23,7 +23,7 @@ namespace Azure.ResourceManager.CostManagement.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_ResourceGroupView()
         {
-            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-03-01/examples/ViewByResourceGroup.json
+            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-08-01/examples/ViewByResourceGroup.json
             // this example is just showing the usage of "Views_GetByScope" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -53,7 +53,7 @@ namespace Azure.ResourceManager.CostManagement.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_ResourceGroupCreateOrUpdateView()
         {
-            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-03-01/examples/ViewCreateOrUpdateByResourceGroup.json
+            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-08-01/examples/ViewCreateOrUpdateByResourceGroup.json
             // this example is just showing the usage of "Views_CreateOrUpdateByScope" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -142,7 +142,7 @@ Direction = ReportConfigSortingType.Ascending,
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Delete_ResourceGroupDeleteView()
         {
-            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-03-01/examples/ViewDeleteByResourceGroup.json
+            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-08-01/examples/ViewDeleteByResourceGroup.json
             // this example is just showing the usage of "Views_DeleteByScope" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line

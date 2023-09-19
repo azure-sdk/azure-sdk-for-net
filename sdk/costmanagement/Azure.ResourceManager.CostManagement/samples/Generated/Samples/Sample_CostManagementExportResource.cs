@@ -23,7 +23,7 @@ namespace Azure.ResourceManager.CostManagement.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_ExportGetByBillingAccount()
         {
-            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-03-01/examples/ExportGetByBillingAccount.json
+            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-08-01/examples/ExportGetByBillingAccount.json
             // this example is just showing the usage of "Exports_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -53,7 +53,7 @@ namespace Azure.ResourceManager.CostManagement.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_ExportGetByDepartment()
         {
-            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-03-01/examples/ExportGetByDepartment.json
+            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-08-01/examples/ExportGetByDepartment.json
             // this example is just showing the usage of "Exports_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -83,7 +83,7 @@ namespace Azure.ResourceManager.CostManagement.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_ExportGetByEnrollmentAccount()
         {
-            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-03-01/examples/ExportGetByEnrollmentAccount.json
+            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-08-01/examples/ExportGetByEnrollmentAccount.json
             // this example is just showing the usage of "Exports_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -113,7 +113,7 @@ namespace Azure.ResourceManager.CostManagement.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_ExportGetByManagementGroup()
         {
-            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-03-01/examples/ExportGetByManagementGroup.json
+            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-08-01/examples/ExportGetByManagementGroup.json
             // this example is just showing the usage of "Exports_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -143,7 +143,7 @@ namespace Azure.ResourceManager.CostManagement.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_ExportGetByResourceGroup()
         {
-            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-03-01/examples/ExportGetByResourceGroup.json
+            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-08-01/examples/ExportGetByResourceGroup.json
             // this example is just showing the usage of "Exports_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -173,7 +173,7 @@ namespace Azure.ResourceManager.CostManagement.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_ExportGetBySubscription()
         {
-            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-03-01/examples/ExportGetBySubscription.json
+            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-08-01/examples/ExportGetBySubscription.json
             // this example is just showing the usage of "Exports_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -203,7 +203,7 @@ namespace Azure.ResourceManager.CostManagement.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_ExportCreateOrUpdateByBillingAccount()
         {
-            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-03-01/examples/ExportCreateOrUpdateByBillingAccount.json
+            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-08-01/examples/ExportCreateOrUpdateByBillingAccount.json
             // this example is just showing the usage of "Exports_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -263,7 +263,7 @@ namespace Azure.ResourceManager.CostManagement.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_ExportCreateOrUpdateByDepartment()
         {
-            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-03-01/examples/ExportCreateOrUpdateByDepartment.json
+            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-08-01/examples/ExportCreateOrUpdateByDepartment.json
             // this example is just showing the usage of "Exports_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -323,7 +323,7 @@ namespace Azure.ResourceManager.CostManagement.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_ExportCreateOrUpdateByEnrollmentAccount()
         {
-            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-03-01/examples/ExportCreateOrUpdateByEnrollmentAccount.json
+            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-08-01/examples/ExportCreateOrUpdateByEnrollmentAccount.json
             // this example is just showing the usage of "Exports_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -383,7 +383,7 @@ namespace Azure.ResourceManager.CostManagement.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_ExportCreateOrUpdateByManagementGroup()
         {
-            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-03-01/examples/ExportCreateOrUpdateByManagementGroup.json
+            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-08-01/examples/ExportCreateOrUpdateByManagementGroup.json
             // this example is just showing the usage of "Exports_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -443,7 +443,7 @@ namespace Azure.ResourceManager.CostManagement.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_ExportCreateOrUpdateByResourceGroup()
         {
-            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-03-01/examples/ExportCreateOrUpdateByResourceGroup.json
+            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-08-01/examples/ExportCreateOrUpdateByResourceGroup.json
             // this example is just showing the usage of "Exports_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -503,7 +503,7 @@ namespace Azure.ResourceManager.CostManagement.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_ExportCreateOrUpdateBySubscription()
         {
-            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-03-01/examples/ExportCreateOrUpdateBySubscription.json
+            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-08-01/examples/ExportCreateOrUpdateBySubscription.json
             // this example is just showing the usage of "Exports_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -563,7 +563,7 @@ namespace Azure.ResourceManager.CostManagement.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Delete_ExportDeleteByBillingAccount()
         {
-            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-03-01/examples/ExportDeleteByBillingAccount.json
+            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-08-01/examples/ExportDeleteByBillingAccount.json
             // this example is just showing the usage of "Exports_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -589,7 +589,7 @@ namespace Azure.ResourceManager.CostManagement.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Delete_ExportDeleteByDepartment()
         {
-            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-03-01/examples/ExportDeleteByDepartment.json
+            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-08-01/examples/ExportDeleteByDepartment.json
             // this example is just showing the usage of "Exports_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -615,7 +615,7 @@ namespace Azure.ResourceManager.CostManagement.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Delete_ExportDeleteByEnrollmentAccount()
         {
-            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-03-01/examples/ExportDeleteByEnrollmentAccount.json
+            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-08-01/examples/ExportDeleteByEnrollmentAccount.json
             // this example is just showing the usage of "Exports_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -641,7 +641,7 @@ namespace Azure.ResourceManager.CostManagement.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Delete_ExportDeleteByManagementGroup()
         {
-            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-03-01/examples/ExportDeleteByManagementGroup.json
+            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-08-01/examples/ExportDeleteByManagementGroup.json
             // this example is just showing the usage of "Exports_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -667,7 +667,7 @@ namespace Azure.ResourceManager.CostManagement.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Delete_ExportDeleteByResourceGroup()
         {
-            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-03-01/examples/ExportDeleteByResourceGroup.json
+            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-08-01/examples/ExportDeleteByResourceGroup.json
             // this example is just showing the usage of "Exports_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -693,7 +693,7 @@ namespace Azure.ResourceManager.CostManagement.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Delete_ExportDeleteBySubscription()
         {
-            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-03-01/examples/ExportDeleteBySubscription.json
+            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-08-01/examples/ExportDeleteBySubscription.json
             // this example is just showing the usage of "Exports_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -719,7 +719,7 @@ namespace Azure.ResourceManager.CostManagement.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Execute_ExportRunByBillingAccount()
         {
-            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-03-01/examples/ExportRunByBillingAccount.json
+            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-08-01/examples/ExportRunByBillingAccount.json
             // this example is just showing the usage of "Exports_Execute" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -745,7 +745,7 @@ namespace Azure.ResourceManager.CostManagement.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Execute_ExportRunByDepartment()
         {
-            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-03-01/examples/ExportRunByDepartment.json
+            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-08-01/examples/ExportRunByDepartment.json
             // this example is just showing the usage of "Exports_Execute" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -771,7 +771,7 @@ namespace Azure.ResourceManager.CostManagement.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Execute_ExportRunByEnrollmentAccount()
         {
-            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-03-01/examples/ExportRunByEnrollmentAccount.json
+            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-08-01/examples/ExportRunByEnrollmentAccount.json
             // this example is just showing the usage of "Exports_Execute" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -797,7 +797,7 @@ namespace Azure.ResourceManager.CostManagement.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Execute_ExportRunByManagementGroup()
         {
-            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-03-01/examples/ExportRunByManagementGroup.json
+            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-08-01/examples/ExportRunByManagementGroup.json
             // this example is just showing the usage of "Exports_Execute" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -823,7 +823,7 @@ namespace Azure.ResourceManager.CostManagement.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Execute_ExportRunByResourceGroup()
         {
-            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-03-01/examples/ExportRunByResourceGroup.json
+            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-08-01/examples/ExportRunByResourceGroup.json
             // this example is just showing the usage of "Exports_Execute" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -849,7 +849,7 @@ namespace Azure.ResourceManager.CostManagement.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Execute_ExportRunBySubscription()
         {
-            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-03-01/examples/ExportRunBySubscription.json
+            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-08-01/examples/ExportRunBySubscription.json
             // this example is just showing the usage of "Exports_Execute" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -875,7 +875,7 @@ namespace Azure.ResourceManager.CostManagement.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetExecutionHistory_ExportRunHistoryGetByBillingAccount()
         {
-            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-03-01/examples/ExportRunHistoryGetByBillingAccount.json
+            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-08-01/examples/ExportRunHistoryGetByBillingAccount.json
             // this example is just showing the usage of "Exports_GetExecutionHistory" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -904,7 +904,7 @@ namespace Azure.ResourceManager.CostManagement.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetExecutionHistory_ExportRunHistoryGetByDepartment()
         {
-            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-03-01/examples/ExportRunHistoryGetByDepartment.json
+            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-08-01/examples/ExportRunHistoryGetByDepartment.json
             // this example is just showing the usage of "Exports_GetExecutionHistory" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -933,7 +933,7 @@ namespace Azure.ResourceManager.CostManagement.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetExecutionHistory_ExportRunHistoryGetByEnrollmentAccount()
         {
-            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-03-01/examples/ExportRunHistoryGetByEnrollmentAccount.json
+            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-08-01/examples/ExportRunHistoryGetByEnrollmentAccount.json
             // this example is just showing the usage of "Exports_GetExecutionHistory" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -962,7 +962,7 @@ namespace Azure.ResourceManager.CostManagement.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetExecutionHistory_ExportRunHistoryGetByManagementGroup()
         {
-            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-03-01/examples/ExportRunHistoryGetByManagementGroup.json
+            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-08-01/examples/ExportRunHistoryGetByManagementGroup.json
             // this example is just showing the usage of "Exports_GetExecutionHistory" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -991,7 +991,7 @@ namespace Azure.ResourceManager.CostManagement.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetExecutionHistory_ExportRunHistoryGetByResourceGroup()
         {
-            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-03-01/examples/ExportRunHistoryGetByResourceGroup.json
+            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-08-01/examples/ExportRunHistoryGetByResourceGroup.json
             // this example is just showing the usage of "Exports_GetExecutionHistory" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -1020,7 +1020,7 @@ namespace Azure.ResourceManager.CostManagement.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetExecutionHistory_ExportRunHistoryGetBySubscription()
         {
-            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-03-01/examples/ExportRunHistoryGetBySubscription.json
+            // Generated from example definition: specification/cost-management/resource-manager/Microsoft.CostManagement/stable/2023-08-01/examples/ExportRunHistoryGetBySubscription.json
             // this example is just showing the usage of "Exports_GetExecutionHistory" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line

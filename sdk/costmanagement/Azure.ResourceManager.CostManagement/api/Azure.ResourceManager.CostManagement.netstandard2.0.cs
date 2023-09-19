@@ -1,5 +1,47 @@
 namespace Azure.ResourceManager.CostManagement
 {
+    public partial class BudgetCollection : Azure.ResourceManager.ArmCollection, System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.CostManagement.BudgetResource>, System.Collections.Generic.IEnumerable<Azure.ResourceManager.CostManagement.BudgetResource>, System.Collections.IEnumerable
+    {
+        protected BudgetCollection() { }
+        public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.CostManagement.BudgetResource> CreateOrUpdate(Azure.WaitUntil waitUntil, string budgetName, Azure.ResourceManager.CostManagement.BudgetData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.CostManagement.BudgetResource>> CreateOrUpdateAsync(Azure.WaitUntil waitUntil, string budgetName, Azure.ResourceManager.CostManagement.BudgetData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<bool> Exists(string budgetName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<bool>> ExistsAsync(string budgetName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.CostManagement.BudgetResource> Get(string budgetName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Pageable<Azure.ResourceManager.CostManagement.BudgetResource> GetAll(string filter = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.AsyncPageable<Azure.ResourceManager.CostManagement.BudgetResource> GetAllAsync(string filter = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.CostManagement.BudgetResource>> GetAsync(string budgetName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        System.Collections.Generic.IAsyncEnumerator<Azure.ResourceManager.CostManagement.BudgetResource> System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.CostManagement.BudgetResource>.GetAsyncEnumerator(System.Threading.CancellationToken cancellationToken) { throw null; }
+        System.Collections.Generic.IEnumerator<Azure.ResourceManager.CostManagement.BudgetResource> System.Collections.Generic.IEnumerable<Azure.ResourceManager.CostManagement.BudgetResource>.GetEnumerator() { throw null; }
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() { throw null; }
+    }
+    public partial class BudgetData : Azure.ResourceManager.Models.ResourceData
+    {
+        public BudgetData() { }
+        public float? Amount { get { throw null; } set { } }
+        public Azure.ResourceManager.CostManagement.Models.CategoryType? Category { get { throw null; } set { } }
+        public Azure.ResourceManager.CostManagement.Models.CurrentSpend CurrentSpend { get { throw null; } }
+        public Azure.ETag? ETag { get { throw null; } set { } }
+        public Azure.ResourceManager.CostManagement.Models.BudgetFilter Filter { get { throw null; } set { } }
+        public Azure.ResourceManager.CostManagement.Models.ForecastSpend ForecastSpend { get { throw null; } }
+        public System.Collections.Generic.IDictionary<string, Azure.ResourceManager.CostManagement.Models.Notification> Notifications { get { throw null; } }
+        public Azure.ResourceManager.CostManagement.Models.TimeGrainType? TimeGrain { get { throw null; } set { } }
+        public Azure.ResourceManager.CostManagement.Models.BudgetTimePeriod TimePeriod { get { throw null; } set { } }
+    }
+    public partial class BudgetResource : Azure.ResourceManager.ArmResource
+    {
+        public static readonly Azure.Core.ResourceType ResourceType;
+        protected BudgetResource() { }
+        public virtual Azure.ResourceManager.CostManagement.BudgetData Data { get { throw null; } }
+        public virtual bool HasData { get { throw null; } }
+        public static Azure.Core.ResourceIdentifier CreateResourceIdentifier(string scope, string budgetName) { throw null; }
+        public virtual Azure.ResourceManager.ArmOperation Delete(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation> DeleteAsync(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.CostManagement.BudgetResource> Get(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.CostManagement.BudgetResource>> GetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.CostManagement.BudgetResource> Update(Azure.WaitUntil waitUntil, Azure.ResourceManager.CostManagement.BudgetData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.CostManagement.BudgetResource>> UpdateAsync(Azure.WaitUntil waitUntil, Azure.ResourceManager.CostManagement.BudgetData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+    }
     public partial class CostManagementAlertCollection : Azure.ResourceManager.ArmCollection, System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.CostManagement.CostManagementAlertResource>, System.Collections.Generic.IEnumerable<Azure.ResourceManager.CostManagement.CostManagementAlertResource>, System.Collections.IEnumerable
     {
         protected CostManagementAlertCollection() { }
@@ -104,18 +146,18 @@ namespace Azure.ResourceManager.CostManagement
         public static System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.CostManagement.Models.DownloadURL>> DownloadPriceSheetAsync(this Azure.ResourceManager.Resources.TenantResource tenantResource, Azure.WaitUntil waitUntil, string billingAccountName, string billingProfileName, string invoiceName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static Azure.Response<Azure.ResourceManager.CostManagement.Models.ForecastResult> ExternalCloudProviderUsageForecast(this Azure.ResourceManager.Resources.TenantResource tenantResource, Azure.ResourceManager.CostManagement.Models.ExternalCloudProviderType externalCloudProviderType, string externalCloudProviderId, Azure.ResourceManager.CostManagement.Models.ForecastDefinition forecastDefinition, string filter = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.CostManagement.Models.ForecastResult>> ExternalCloudProviderUsageForecastAsync(this Azure.ResourceManager.Resources.TenantResource tenantResource, Azure.ResourceManager.CostManagement.Models.ExternalCloudProviderType externalCloudProviderType, string externalCloudProviderId, Azure.ResourceManager.CostManagement.Models.ForecastDefinition forecastDefinition, string filter = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public static Azure.ResourceManager.ArmOperation<Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummariesOperationStatus> GenerateBenefitUtilizationSummariesReportAsyncSavingsPlanScope(this Azure.ResourceManager.Resources.TenantResource tenantResource, Azure.WaitUntil waitUntil, string savingsPlanOrderId, string savingsPlanId, Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummariesContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public static System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummariesOperationStatus>> GenerateBenefitUtilizationSummariesReportAsyncSavingsPlanScopeAsync(this Azure.ResourceManager.Resources.TenantResource tenantResource, Azure.WaitUntil waitUntil, string savingsPlanOrderId, string savingsPlanId, Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummariesContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public static Azure.ResourceManager.ArmOperation<Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummariesOperationStatus> GenerateBenefitUtilizationSummariesReportBillingAccountScope(this Azure.ResourceManager.Resources.TenantResource tenantResource, Azure.WaitUntil waitUntil, string billingAccountId, Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummariesContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public static System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummariesOperationStatus>> GenerateBenefitUtilizationSummariesReportBillingAccountScopeAsync(this Azure.ResourceManager.Resources.TenantResource tenantResource, Azure.WaitUntil waitUntil, string billingAccountId, Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummariesContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public static Azure.ResourceManager.ArmOperation<Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummariesOperationStatus> GenerateBenefitUtilizationSummariesReportBillingProfileScope(this Azure.ResourceManager.Resources.TenantResource tenantResource, Azure.WaitUntil waitUntil, string billingAccountId, string billingProfileId, Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummariesContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public static System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummariesOperationStatus>> GenerateBenefitUtilizationSummariesReportBillingProfileScopeAsync(this Azure.ResourceManager.Resources.TenantResource tenantResource, Azure.WaitUntil waitUntil, string billingAccountId, string billingProfileId, Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummariesContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public static Azure.ResourceManager.ArmOperation<Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummariesOperationStatus> GenerateBenefitUtilizationSummariesReportReservationOrderScope(this Azure.ResourceManager.Resources.TenantResource tenantResource, Azure.WaitUntil waitUntil, string reservationOrderId, Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummariesContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public static System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummariesOperationStatus>> GenerateBenefitUtilizationSummariesReportReservationOrderScopeAsync(this Azure.ResourceManager.Resources.TenantResource tenantResource, Azure.WaitUntil waitUntil, string reservationOrderId, Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummariesContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public static Azure.ResourceManager.ArmOperation<Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummariesOperationStatus> GenerateBenefitUtilizationSummariesReportReservationScope(this Azure.ResourceManager.Resources.TenantResource tenantResource, Azure.WaitUntil waitUntil, string reservationOrderId, string reservationId, Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummariesContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public static System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummariesOperationStatus>> GenerateBenefitUtilizationSummariesReportReservationScopeAsync(this Azure.ResourceManager.Resources.TenantResource tenantResource, Azure.WaitUntil waitUntil, string reservationOrderId, string reservationId, Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummariesContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public static Azure.ResourceManager.ArmOperation<Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummariesOperationStatus> GenerateBenefitUtilizationSummariesReportSavingsPlanOrderScope(this Azure.ResourceManager.Resources.TenantResource tenantResource, Azure.WaitUntil waitUntil, string savingsPlanOrderId, Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummariesContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public static System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummariesOperationStatus>> GenerateBenefitUtilizationSummariesReportSavingsPlanOrderScopeAsync(this Azure.ResourceManager.Resources.TenantResource tenantResource, Azure.WaitUntil waitUntil, string savingsPlanOrderId, Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummariesContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public static Azure.ResourceManager.ArmOperation<Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummariesOperationStatus> GenerateByBillingAccountGenerateBenefitUtilizationSummariesReport(this Azure.ResourceManager.Resources.TenantResource tenantResource, Azure.WaitUntil waitUntil, string billingAccountId, Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummariesContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public static System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummariesOperationStatus>> GenerateByBillingAccountGenerateBenefitUtilizationSummariesReportAsync(this Azure.ResourceManager.Resources.TenantResource tenantResource, Azure.WaitUntil waitUntil, string billingAccountId, Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummariesContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public static Azure.ResourceManager.ArmOperation<Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummariesOperationStatus> GenerateByBillingProfileGenerateBenefitUtilizationSummariesReport(this Azure.ResourceManager.Resources.TenantResource tenantResource, Azure.WaitUntil waitUntil, string billingAccountId, string billingProfileId, Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummariesContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public static System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummariesOperationStatus>> GenerateByBillingProfileGenerateBenefitUtilizationSummariesReportAsync(this Azure.ResourceManager.Resources.TenantResource tenantResource, Azure.WaitUntil waitUntil, string billingAccountId, string billingProfileId, Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummariesContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public static Azure.ResourceManager.ArmOperation<Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummariesOperationStatus> GenerateByReservationIdGenerateBenefitUtilizationSummariesReport(this Azure.ResourceManager.Resources.TenantResource tenantResource, Azure.WaitUntil waitUntil, string reservationOrderId, string reservationId, Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummariesContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public static System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummariesOperationStatus>> GenerateByReservationIdGenerateBenefitUtilizationSummariesReportAsync(this Azure.ResourceManager.Resources.TenantResource tenantResource, Azure.WaitUntil waitUntil, string reservationOrderId, string reservationId, Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummariesContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public static Azure.ResourceManager.ArmOperation<Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummariesOperationStatus> GenerateByReservationOrderIdGenerateBenefitUtilizationSummariesReport(this Azure.ResourceManager.Resources.TenantResource tenantResource, Azure.WaitUntil waitUntil, string reservationOrderId, Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummariesContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public static System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummariesOperationStatus>> GenerateByReservationOrderIdGenerateBenefitUtilizationSummariesReportAsync(this Azure.ResourceManager.Resources.TenantResource tenantResource, Azure.WaitUntil waitUntil, string reservationOrderId, Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummariesContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public static Azure.ResourceManager.ArmOperation<Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummariesOperationStatus> GenerateBySavingsPlanIdGenerateBenefitUtilizationSummariesReport(this Azure.ResourceManager.Resources.TenantResource tenantResource, Azure.WaitUntil waitUntil, string savingsPlanOrderId, string savingsPlanId, Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummariesContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public static System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummariesOperationStatus>> GenerateBySavingsPlanIdGenerateBenefitUtilizationSummariesReportAsync(this Azure.ResourceManager.Resources.TenantResource tenantResource, Azure.WaitUntil waitUntil, string savingsPlanOrderId, string savingsPlanId, Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummariesContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public static Azure.ResourceManager.ArmOperation<Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummariesOperationStatus> GenerateBySavingsPlanOrderIdGenerateBenefitUtilizationSummariesReport(this Azure.ResourceManager.Resources.TenantResource tenantResource, Azure.WaitUntil waitUntil, string savingsPlanOrderId, Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummariesContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public static System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummariesOperationStatus>> GenerateBySavingsPlanOrderIdGenerateBenefitUtilizationSummariesReportAsync(this Azure.ResourceManager.Resources.TenantResource tenantResource, Azure.WaitUntil waitUntil, string savingsPlanOrderId, Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummariesContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static Azure.ResourceManager.CostManagement.CostManagementViewsCollection GetAllCostManagementViews(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier scope) { throw null; }
         public static Azure.ResourceManager.CostManagement.TenantsCostManagementViewsCollection GetAllTenantsCostManagementViews(this Azure.ResourceManager.Resources.TenantResource tenantResource) { throw null; }
         public static Azure.Pageable<Azure.ResourceManager.CostManagement.Models.BenefitRecommendationModel> GetBenefitRecommendations(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier scope, string filter = null, string orderby = null, string expand = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
@@ -128,6 +170,10 @@ namespace Azure.ResourceManager.CostManagement
         public static Azure.AsyncPageable<Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummary> GetBenefitUtilizationSummariesBySavingsPlanIdAsync(this Azure.ResourceManager.Resources.TenantResource tenantResource, string savingsPlanOrderId, string savingsPlanId, string filter = null, Azure.ResourceManager.CostManagement.Models.GrainContent? grainParameter = default(Azure.ResourceManager.CostManagement.Models.GrainContent?), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static Azure.Pageable<Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummary> GetBenefitUtilizationSummariesBySavingsPlanOrder(this Azure.ResourceManager.Resources.TenantResource tenantResource, string savingsPlanOrderId, string filter = null, Azure.ResourceManager.CostManagement.Models.GrainContent? grainParameter = default(Azure.ResourceManager.CostManagement.Models.GrainContent?), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static Azure.AsyncPageable<Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummary> GetBenefitUtilizationSummariesBySavingsPlanOrderAsync(this Azure.ResourceManager.Resources.TenantResource tenantResource, string savingsPlanOrderId, string filter = null, Azure.ResourceManager.CostManagement.Models.GrainContent? grainParameter = default(Azure.ResourceManager.CostManagement.Models.GrainContent?), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public static Azure.Response<Azure.ResourceManager.CostManagement.BudgetResource> GetBudget(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier scope, string budgetName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public static System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.CostManagement.BudgetResource>> GetBudgetAsync(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier scope, string budgetName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public static Azure.ResourceManager.CostManagement.BudgetResource GetBudgetResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
+        public static Azure.ResourceManager.CostManagement.BudgetCollection GetBudgets(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier scope) { throw null; }
         public static Azure.Response<Azure.ResourceManager.CostManagement.CostManagementAlertResource> GetCostManagementAlert(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier scope, string alertId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.CostManagement.CostManagementAlertResource>> GetCostManagementAlertAsync(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier scope, string alertId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static Azure.ResourceManager.CostManagement.CostManagementAlertResource GetCostManagementAlertResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
@@ -169,13 +215,13 @@ namespace Azure.ResourceManager.CostManagement
         public System.DateTimeOffset? CreatedOn { get { throw null; } }
         public string Currency { get { throw null; } }
         public Azure.ResourceManager.CostManagement.Models.ReportConfigDataset DataSet { get { throw null; } set { } }
-        public string DateRange { get { throw null; } }
+        public string DateRange { get { throw null; } set { } }
         public string DisplayName { get { throw null; } set { } }
         public Azure.ETag? ETag { get { throw null; } set { } }
         public bool? IncludeMonetaryCommitment { get { throw null; } set { } }
         public System.Collections.Generic.IList<Azure.ResourceManager.CostManagement.Models.ViewKpiProperties> Kpis { get { throw null; } }
         public Azure.ResourceManager.CostManagement.Models.ViewMetricType? Metric { get { throw null; } set { } }
-        public System.DateTimeOffset? ModifiedOn { get { throw null; } }
+        public System.DateTimeOffset? ModifiedOn { get { throw null; } set { } }
         public System.Collections.Generic.IList<Azure.ResourceManager.CostManagement.Models.ViewPivotProperties> Pivots { get { throw null; } }
         public Azure.Core.ResourceIdentifier Scope { get { throw null; } set { } }
         public Azure.ResourceManager.CostManagement.Models.ReportTimeframeType? Timeframe { get { throw null; } set { } }
@@ -441,17 +487,20 @@ namespace Azure.ResourceManager.CostManagement.Models
         public static Azure.ResourceManager.CostManagement.Models.BenefitRecommendationProperties BenefitRecommendationProperties(System.DateTimeOffset? firstConsumptionOn = default(System.DateTimeOffset?), System.DateTimeOffset? lastConsumptionOn = default(System.DateTimeOffset?), Azure.ResourceManager.CostManagement.Models.LookBackPeriod? lookBackPeriod = default(Azure.ResourceManager.CostManagement.Models.LookBackPeriod?), int? totalHours = default(int?), Azure.ResourceManager.CostManagement.Models.RecommendationUsageDetails usage = null, string armSkuName = null, Azure.ResourceManager.CostManagement.Models.BenefitRecommendationPeriodTerm? term = default(Azure.ResourceManager.CostManagement.Models.BenefitRecommendationPeriodTerm?), Azure.ResourceManager.CostManagement.Models.BenefitRecommendationUsageGrain? commitmentGranularity = default(Azure.ResourceManager.CostManagement.Models.BenefitRecommendationUsageGrain?), string currencyCode = null, decimal? costWithoutBenefit = default(decimal?), Azure.ResourceManager.CostManagement.Models.AllSavingsBenefitDetails recommendationDetails = null, Azure.ResourceManager.CostManagement.Models.AllSavingsList allRecommendationDetails = null, string scope = "Unknown") { throw null; }
         public static Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummariesOperationStatus BenefitUtilizationSummariesOperationStatus(Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummariesContent input = null, Azure.ResourceManager.CostManagement.Models.OperationStatusType? status = default(Azure.ResourceManager.CostManagement.Models.OperationStatusType?), Azure.ResourceManager.CostManagement.Models.AsyncOperationStatusProperties properties = null) { throw null; }
         public static Azure.ResourceManager.CostManagement.Models.BenefitUtilizationSummary BenefitUtilizationSummary(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, string kind = "Unknown") { throw null; }
+        public static Azure.ResourceManager.CostManagement.BudgetData BudgetData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.ResourceManager.CostManagement.Models.CategoryType? category = default(Azure.ResourceManager.CostManagement.Models.CategoryType?), float? amount = default(float?), Azure.ResourceManager.CostManagement.Models.TimeGrainType? timeGrain = default(Azure.ResourceManager.CostManagement.Models.TimeGrainType?), Azure.ResourceManager.CostManagement.Models.BudgetTimePeriod timePeriod = null, Azure.ResourceManager.CostManagement.Models.BudgetFilter filter = null, Azure.ResourceManager.CostManagement.Models.CurrentSpend currentSpend = null, System.Collections.Generic.IDictionary<string, Azure.ResourceManager.CostManagement.Models.Notification> notifications = null, Azure.ResourceManager.CostManagement.Models.ForecastSpend forecastSpend = null, Azure.ETag? eTag = default(Azure.ETag?)) { throw null; }
         public static Azure.ResourceManager.CostManagement.Models.CommonExportProperties CommonExportProperties(Azure.ResourceManager.CostManagement.Models.ExportFormatType? format = default(Azure.ResourceManager.CostManagement.Models.ExportFormatType?), Azure.ResourceManager.CostManagement.Models.ExportDeliveryDestination deliveryInfoDestination = null, Azure.ResourceManager.CostManagement.Models.ExportDefinition definition = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.CostManagement.Models.ExportRun> runHistoryValue = null, bool? partitionData = default(bool?), System.DateTimeOffset? nextRunTimeEstimate = default(System.DateTimeOffset?)) { throw null; }
         public static Azure.ResourceManager.CostManagement.CostManagementAlertData CostManagementAlertData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.ResourceManager.CostManagement.Models.AlertPropertiesDefinition definition = null, string description = null, Azure.ResourceManager.CostManagement.Models.CostManagementAlertSource? source = default(Azure.ResourceManager.CostManagement.Models.CostManagementAlertSource?), Azure.ResourceManager.CostManagement.Models.AlertPropertiesDetails details = null, string costEntityId = null, Azure.ResourceManager.CostManagement.Models.CostManagementAlertStatus? status = default(Azure.ResourceManager.CostManagement.Models.CostManagementAlertStatus?), System.DateTimeOffset? createdOn = default(System.DateTimeOffset?), System.DateTimeOffset? closeOn = default(System.DateTimeOffset?), System.DateTimeOffset? modifiedOn = default(System.DateTimeOffset?), string statusModificationUserName = null, System.DateTimeOffset? statusModifiedOn = default(System.DateTimeOffset?), Azure.ETag? eTag = default(Azure.ETag?)) { throw null; }
         public static Azure.ResourceManager.CostManagement.Models.CostManagementDimension CostManagementDimension(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, string description = null, bool? isFilterEnabled = default(bool?), bool? isGroupingEnabled = default(bool?), System.Collections.Generic.IEnumerable<string> data = null, int? total = default(int?), string category = null, System.DateTimeOffset? usageStart = default(System.DateTimeOffset?), System.DateTimeOffset? usageEnd = default(System.DateTimeOffset?), string nextLink = null, Azure.Core.AzureLocation? location = default(Azure.Core.AzureLocation?), string sku = null, Azure.ETag? eTag = default(Azure.ETag?), System.Collections.Generic.IReadOnlyDictionary<string, string> tags = null) { throw null; }
         public static Azure.ResourceManager.CostManagement.CostManagementExportData CostManagementExportData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.ResourceManager.CostManagement.Models.ExportFormatType? format = default(Azure.ResourceManager.CostManagement.Models.ExportFormatType?), Azure.ResourceManager.CostManagement.Models.ExportDeliveryDestination deliveryInfoDestination = null, Azure.ResourceManager.CostManagement.Models.ExportDefinition definition = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.CostManagement.Models.ExportRun> runHistoryValue = null, bool? partitionData = default(bool?), System.DateTimeOffset? nextRunTimeEstimate = default(System.DateTimeOffset?), Azure.ResourceManager.CostManagement.Models.ExportSchedule schedule = null, Azure.ETag? eTag = default(Azure.ETag?)) { throw null; }
         public static Azure.ResourceManager.CostManagement.Models.CostManagementNameAvailabilityResult CostManagementNameAvailabilityResult(bool? nameAvailable = default(bool?), Azure.ResourceManager.CostManagement.Models.CostManagementUnavailabilityReason? reason = default(Azure.ResourceManager.CostManagement.Models.CostManagementUnavailabilityReason?), string message = null) { throw null; }
         public static Azure.ResourceManager.CostManagement.CostManagementViewData CostManagementViewData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, string displayName = null, Azure.Core.ResourceIdentifier scope = null, System.DateTimeOffset? createdOn = default(System.DateTimeOffset?), System.DateTimeOffset? modifiedOn = default(System.DateTimeOffset?), string dateRange = null, string currency = null, Azure.ResourceManager.CostManagement.Models.ViewChartType? chart = default(Azure.ResourceManager.CostManagement.Models.ViewChartType?), Azure.ResourceManager.CostManagement.Models.AccumulatedType? accumulated = default(Azure.ResourceManager.CostManagement.Models.AccumulatedType?), Azure.ResourceManager.CostManagement.Models.ViewMetricType? metric = default(Azure.ResourceManager.CostManagement.Models.ViewMetricType?), System.Collections.Generic.IEnumerable<Azure.ResourceManager.CostManagement.Models.ViewKpiProperties> kpis = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.CostManagement.Models.ViewPivotProperties> pivots = null, Azure.ResourceManager.CostManagement.Models.ViewReportType? typePropertiesQueryType = default(Azure.ResourceManager.CostManagement.Models.ViewReportType?), Azure.ResourceManager.CostManagement.Models.ReportTimeframeType? timeframe = default(Azure.ResourceManager.CostManagement.Models.ReportTimeframeType?), Azure.ResourceManager.CostManagement.Models.ReportConfigTimePeriod timePeriod = null, Azure.ResourceManager.CostManagement.Models.ReportConfigDataset dataSet = null, bool? includeMonetaryCommitment = default(bool?), Azure.ETag? eTag = default(Azure.ETag?)) { throw null; }
+        public static Azure.ResourceManager.CostManagement.Models.CurrentSpend CurrentSpend(float? amount = default(float?), string unit = null) { throw null; }
         public static Azure.ResourceManager.CostManagement.Models.DownloadURL DownloadURL(System.DateTimeOffset? expiryOn = default(System.DateTimeOffset?), System.DateTimeOffset? validTill = default(System.DateTimeOffset?), System.Uri downloadUri = null) { throw null; }
         public static Azure.ResourceManager.CostManagement.Models.ExportRun ExportRun(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.ResourceManager.CostManagement.Models.ExportRunExecutionType? executionType = default(Azure.ResourceManager.CostManagement.Models.ExportRunExecutionType?), Azure.ResourceManager.CostManagement.Models.ExportRunExecutionStatus? status = default(Azure.ResourceManager.CostManagement.Models.ExportRunExecutionStatus?), string submittedBy = null, System.DateTimeOffset? submittedOn = default(System.DateTimeOffset?), System.DateTimeOffset? processingStartOn = default(System.DateTimeOffset?), System.DateTimeOffset? processingEndOn = default(System.DateTimeOffset?), string fileName = null, Azure.ResourceManager.CostManagement.Models.CommonExportProperties runSettings = null, Azure.ResourceManager.CostManagement.Models.ExportRunErrorDetails error = null, Azure.ETag? eTag = default(Azure.ETag?)) { throw null; }
         public static Azure.ResourceManager.CostManagement.Models.ExportRunErrorDetails ExportRunErrorDetails(string code = null, string message = null) { throw null; }
         public static Azure.ResourceManager.CostManagement.Models.ForecastColumn ForecastColumn(string name = null, string forecastColumnType = null) { throw null; }
         public static Azure.ResourceManager.CostManagement.Models.ForecastResult ForecastResult(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, string nextLink = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.CostManagement.Models.ForecastColumn> columns = null, System.Collections.Generic.IEnumerable<System.Collections.Generic.IList<System.BinaryData>> rows = null, Azure.Core.AzureLocation? location = default(Azure.Core.AzureLocation?), string sku = null, Azure.ETag? eTag = default(Azure.ETag?), System.Collections.Generic.IReadOnlyDictionary<string, string> tags = null) { throw null; }
+        public static Azure.ResourceManager.CostManagement.Models.ForecastSpend ForecastSpend(float? amount = default(float?), string unit = null) { throw null; }
         public static Azure.ResourceManager.CostManagement.Models.IncludedQuantityUtilizationSummary IncludedQuantityUtilizationSummary(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, string armSkuName = null, string benefitId = null, string benefitOrderId = null, Azure.ResourceManager.CostManagement.Models.BillingAccountBenefitKind? benefitType = default(Azure.ResourceManager.CostManagement.Models.BillingAccountBenefitKind?), System.DateTimeOffset? usageOn = default(System.DateTimeOffset?), decimal? utilizationPercentage = default(decimal?)) { throw null; }
         public static Azure.ResourceManager.CostManagement.Models.OperationStatus OperationStatus(Azure.ResourceManager.CostManagement.Models.OperationStatusType? status = default(Azure.ResourceManager.CostManagement.Models.OperationStatusType?), Azure.ResourceManager.CostManagement.Models.ReservationReportSchema? reportUri = default(Azure.ResourceManager.CostManagement.Models.ReservationReportSchema?), System.DateTimeOffset? validUntil = default(System.DateTimeOffset?)) { throw null; }
         public static Azure.ResourceManager.CostManagement.Models.QueryColumn QueryColumn(string name = null, string queryColumnType = null) { throw null; }
@@ -593,6 +642,87 @@ namespace Azure.ResourceManager.CostManagement.Models
         public static bool operator ==(Azure.ResourceManager.CostManagement.Models.BillingAccountBenefitKind left, Azure.ResourceManager.CostManagement.Models.BillingAccountBenefitKind right) { throw null; }
         public static implicit operator Azure.ResourceManager.CostManagement.Models.BillingAccountBenefitKind (string value) { throw null; }
         public static bool operator !=(Azure.ResourceManager.CostManagement.Models.BillingAccountBenefitKind left, Azure.ResourceManager.CostManagement.Models.BillingAccountBenefitKind right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    public partial class BudgetComparisonExpression
+    {
+        public BudgetComparisonExpression(string name, Azure.ResourceManager.CostManagement.Models.BudgetOperatorType @operator, System.Collections.Generic.IEnumerable<string> values) { }
+        public string Name { get { throw null; } set { } }
+        public Azure.ResourceManager.CostManagement.Models.BudgetOperatorType Operator { get { throw null; } set { } }
+        public System.Collections.Generic.IList<string> Values { get { throw null; } }
+    }
+    public partial class BudgetFilter
+    {
+        public BudgetFilter() { }
+        public System.Collections.Generic.IList<Azure.ResourceManager.CostManagement.Models.BudgetFilterProperties> And { get { throw null; } }
+        public Azure.ResourceManager.CostManagement.Models.BudgetComparisonExpression Dimensions { get { throw null; } set { } }
+        public Azure.ResourceManager.CostManagement.Models.BudgetComparisonExpression Tags { get { throw null; } set { } }
+    }
+    public partial class BudgetFilterProperties
+    {
+        public BudgetFilterProperties() { }
+        public Azure.ResourceManager.CostManagement.Models.BudgetComparisonExpression Dimensions { get { throw null; } set { } }
+        public Azure.ResourceManager.CostManagement.Models.BudgetComparisonExpression Tags { get { throw null; } set { } }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct BudgetNotificationOperatorType : System.IEquatable<Azure.ResourceManager.CostManagement.Models.BudgetNotificationOperatorType>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public BudgetNotificationOperatorType(string value) { throw null; }
+        public static Azure.ResourceManager.CostManagement.Models.BudgetNotificationOperatorType EqualTo { get { throw null; } }
+        public static Azure.ResourceManager.CostManagement.Models.BudgetNotificationOperatorType GreaterThan { get { throw null; } }
+        public static Azure.ResourceManager.CostManagement.Models.BudgetNotificationOperatorType GreaterThanOrEqualTo { get { throw null; } }
+        public static Azure.ResourceManager.CostManagement.Models.BudgetNotificationOperatorType LessThan { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.CostManagement.Models.BudgetNotificationOperatorType other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.CostManagement.Models.BudgetNotificationOperatorType left, Azure.ResourceManager.CostManagement.Models.BudgetNotificationOperatorType right) { throw null; }
+        public static implicit operator Azure.ResourceManager.CostManagement.Models.BudgetNotificationOperatorType (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.CostManagement.Models.BudgetNotificationOperatorType left, Azure.ResourceManager.CostManagement.Models.BudgetNotificationOperatorType right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct BudgetOperatorType : System.IEquatable<Azure.ResourceManager.CostManagement.Models.BudgetOperatorType>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public BudgetOperatorType(string value) { throw null; }
+        public static Azure.ResourceManager.CostManagement.Models.BudgetOperatorType In { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.CostManagement.Models.BudgetOperatorType other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.CostManagement.Models.BudgetOperatorType left, Azure.ResourceManager.CostManagement.Models.BudgetOperatorType right) { throw null; }
+        public static implicit operator Azure.ResourceManager.CostManagement.Models.BudgetOperatorType (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.CostManagement.Models.BudgetOperatorType left, Azure.ResourceManager.CostManagement.Models.BudgetOperatorType right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    public partial class BudgetTimePeriod
+    {
+        public BudgetTimePeriod(System.DateTimeOffset startOn) { }
+        public System.DateTimeOffset? EndOn { get { throw null; } set { } }
+        public System.DateTimeOffset StartOn { get { throw null; } set { } }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct CategoryType : System.IEquatable<Azure.ResourceManager.CostManagement.Models.CategoryType>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public CategoryType(string value) { throw null; }
+        public static Azure.ResourceManager.CostManagement.Models.CategoryType Cost { get { throw null; } }
+        public static Azure.ResourceManager.CostManagement.Models.CategoryType ReservationUtilization { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.CostManagement.Models.CategoryType other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.CostManagement.Models.CategoryType left, Azure.ResourceManager.CostManagement.Models.CategoryType right) { throw null; }
+        public static implicit operator Azure.ResourceManager.CostManagement.Models.CategoryType (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.CostManagement.Models.CategoryType left, Azure.ResourceManager.CostManagement.Models.CategoryType right) { throw null; }
         public override string ToString() { throw null; }
     }
     public partial class CommonExportProperties
@@ -789,6 +919,49 @@ namespace Azure.ResourceManager.CostManagement.Models
         public static implicit operator Azure.ResourceManager.CostManagement.Models.CostManagementUnavailabilityReason (string value) { throw null; }
         public static bool operator !=(Azure.ResourceManager.CostManagement.Models.CostManagementUnavailabilityReason left, Azure.ResourceManager.CostManagement.Models.CostManagementUnavailabilityReason right) { throw null; }
         public override string ToString() { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct CultureCode : System.IEquatable<Azure.ResourceManager.CostManagement.Models.CultureCode>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public CultureCode(string value) { throw null; }
+        public static Azure.ResourceManager.CostManagement.Models.CultureCode CsCz { get { throw null; } }
+        public static Azure.ResourceManager.CostManagement.Models.CultureCode DaDk { get { throw null; } }
+        public static Azure.ResourceManager.CostManagement.Models.CultureCode DeDe { get { throw null; } }
+        public static Azure.ResourceManager.CostManagement.Models.CultureCode EnGb { get { throw null; } }
+        public static Azure.ResourceManager.CostManagement.Models.CultureCode EnUs { get { throw null; } }
+        public static Azure.ResourceManager.CostManagement.Models.CultureCode EsEs { get { throw null; } }
+        public static Azure.ResourceManager.CostManagement.Models.CultureCode FrFr { get { throw null; } }
+        public static Azure.ResourceManager.CostManagement.Models.CultureCode HuHu { get { throw null; } }
+        public static Azure.ResourceManager.CostManagement.Models.CultureCode ItIt { get { throw null; } }
+        public static Azure.ResourceManager.CostManagement.Models.CultureCode JaJp { get { throw null; } }
+        public static Azure.ResourceManager.CostManagement.Models.CultureCode KoKr { get { throw null; } }
+        public static Azure.ResourceManager.CostManagement.Models.CultureCode NbNo { get { throw null; } }
+        public static Azure.ResourceManager.CostManagement.Models.CultureCode NlNl { get { throw null; } }
+        public static Azure.ResourceManager.CostManagement.Models.CultureCode PlPl { get { throw null; } }
+        public static Azure.ResourceManager.CostManagement.Models.CultureCode PtBr { get { throw null; } }
+        public static Azure.ResourceManager.CostManagement.Models.CultureCode PtPt { get { throw null; } }
+        public static Azure.ResourceManager.CostManagement.Models.CultureCode RuRu { get { throw null; } }
+        public static Azure.ResourceManager.CostManagement.Models.CultureCode SvSe { get { throw null; } }
+        public static Azure.ResourceManager.CostManagement.Models.CultureCode TrTr { get { throw null; } }
+        public static Azure.ResourceManager.CostManagement.Models.CultureCode ZhCn { get { throw null; } }
+        public static Azure.ResourceManager.CostManagement.Models.CultureCode ZhTw { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.CostManagement.Models.CultureCode other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.CostManagement.Models.CultureCode left, Azure.ResourceManager.CostManagement.Models.CultureCode right) { throw null; }
+        public static implicit operator Azure.ResourceManager.CostManagement.Models.CultureCode (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.CostManagement.Models.CultureCode left, Azure.ResourceManager.CostManagement.Models.CultureCode right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    public partial class CurrentSpend
+    {
+        internal CurrentSpend() { }
+        public float? Amount { get { throw null; } }
+        public string Unit { get { throw null; } }
     }
     public partial class DownloadURL
     {
@@ -1070,6 +1243,12 @@ namespace Azure.ResourceManager.CostManagement.Models
         public string Sku { get { throw null; } }
         public System.Collections.Generic.IReadOnlyDictionary<string, string> Tags { get { throw null; } }
     }
+    public partial class ForecastSpend
+    {
+        internal ForecastSpend() { }
+        public float? Amount { get { throw null; } }
+        public string Unit { get { throw null; } }
+    }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct ForecastTimeframe : System.IEquatable<Azure.ResourceManager.CostManagement.Models.ForecastTimeframe>
     {
@@ -1110,6 +1289,25 @@ namespace Azure.ResourceManager.CostManagement.Models
         public static bool operator ==(Azure.ResourceManager.CostManagement.Models.ForecastType left, Azure.ResourceManager.CostManagement.Models.ForecastType right) { throw null; }
         public static implicit operator Azure.ResourceManager.CostManagement.Models.ForecastType (string value) { throw null; }
         public static bool operator !=(Azure.ResourceManager.CostManagement.Models.ForecastType left, Azure.ResourceManager.CostManagement.Models.ForecastType right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct Frequency : System.IEquatable<Azure.ResourceManager.CostManagement.Models.Frequency>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public Frequency(string value) { throw null; }
+        public static Azure.ResourceManager.CostManagement.Models.Frequency Daily { get { throw null; } }
+        public static Azure.ResourceManager.CostManagement.Models.Frequency Monthly { get { throw null; } }
+        public static Azure.ResourceManager.CostManagement.Models.Frequency Weekly { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.CostManagement.Models.Frequency other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.CostManagement.Models.Frequency left, Azure.ResourceManager.CostManagement.Models.Frequency right) { throw null; }
+        public static implicit operator Azure.ResourceManager.CostManagement.Models.Frequency (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.CostManagement.Models.Frequency left, Azure.ResourceManager.CostManagement.Models.Frequency right) { throw null; }
         public override string ToString() { throw null; }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
@@ -1213,6 +1411,19 @@ namespace Azure.ResourceManager.CostManagement.Models
         public static implicit operator Azure.ResourceManager.CostManagement.Models.LookBackPeriod (string value) { throw null; }
         public static bool operator !=(Azure.ResourceManager.CostManagement.Models.LookBackPeriod left, Azure.ResourceManager.CostManagement.Models.LookBackPeriod right) { throw null; }
         public override string ToString() { throw null; }
+    }
+    public partial class Notification
+    {
+        public Notification(bool enabled, Azure.ResourceManager.CostManagement.Models.BudgetNotificationOperatorType @operator, float threshold, System.Collections.Generic.IEnumerable<string> contactEmails) { }
+        public System.Collections.Generic.IList<string> ContactEmails { get { throw null; } }
+        public System.Collections.Generic.IList<string> ContactGroups { get { throw null; } }
+        public System.Collections.Generic.IList<string> ContactRoles { get { throw null; } }
+        public bool Enabled { get { throw null; } set { } }
+        public Azure.ResourceManager.CostManagement.Models.Frequency? Frequency { get { throw null; } set { } }
+        public Azure.ResourceManager.CostManagement.Models.CultureCode? Locale { get { throw null; } set { } }
+        public Azure.ResourceManager.CostManagement.Models.BudgetNotificationOperatorType Operator { get { throw null; } set { } }
+        public float Threshold { get { throw null; } set { } }
+        public Azure.ResourceManager.CostManagement.Models.ThresholdType? ThresholdType { get { throw null; } set { } }
     }
     public partial class NotificationProperties
     {
@@ -1651,6 +1862,24 @@ namespace Azure.ResourceManager.CostManagement.Models
         public int? Top { get { throw null; } set { } }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct ThresholdType : System.IEquatable<Azure.ResourceManager.CostManagement.Models.ThresholdType>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public ThresholdType(string value) { throw null; }
+        public static Azure.ResourceManager.CostManagement.Models.ThresholdType Actual { get { throw null; } }
+        public static Azure.ResourceManager.CostManagement.Models.ThresholdType Forecasted { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.CostManagement.Models.ThresholdType other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.CostManagement.Models.ThresholdType left, Azure.ResourceManager.CostManagement.Models.ThresholdType right) { throw null; }
+        public static implicit operator Azure.ResourceManager.CostManagement.Models.ThresholdType (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.CostManagement.Models.ThresholdType left, Azure.ResourceManager.CostManagement.Models.ThresholdType right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct TimeframeType : System.IEquatable<Azure.ResourceManager.CostManagement.Models.TimeframeType>
     {
         private readonly object _dummy;
@@ -1670,6 +1899,30 @@ namespace Azure.ResourceManager.CostManagement.Models
         public static bool operator ==(Azure.ResourceManager.CostManagement.Models.TimeframeType left, Azure.ResourceManager.CostManagement.Models.TimeframeType right) { throw null; }
         public static implicit operator Azure.ResourceManager.CostManagement.Models.TimeframeType (string value) { throw null; }
         public static bool operator !=(Azure.ResourceManager.CostManagement.Models.TimeframeType left, Azure.ResourceManager.CostManagement.Models.TimeframeType right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct TimeGrainType : System.IEquatable<Azure.ResourceManager.CostManagement.Models.TimeGrainType>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public TimeGrainType(string value) { throw null; }
+        public static Azure.ResourceManager.CostManagement.Models.TimeGrainType Annually { get { throw null; } }
+        public static Azure.ResourceManager.CostManagement.Models.TimeGrainType BillingAnnual { get { throw null; } }
+        public static Azure.ResourceManager.CostManagement.Models.TimeGrainType BillingMonth { get { throw null; } }
+        public static Azure.ResourceManager.CostManagement.Models.TimeGrainType BillingQuarter { get { throw null; } }
+        public static Azure.ResourceManager.CostManagement.Models.TimeGrainType Last30Days { get { throw null; } }
+        public static Azure.ResourceManager.CostManagement.Models.TimeGrainType Last7Days { get { throw null; } }
+        public static Azure.ResourceManager.CostManagement.Models.TimeGrainType Monthly { get { throw null; } }
+        public static Azure.ResourceManager.CostManagement.Models.TimeGrainType Quarterly { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.CostManagement.Models.TimeGrainType other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.CostManagement.Models.TimeGrainType left, Azure.ResourceManager.CostManagement.Models.TimeGrainType right) { throw null; }
+        public static implicit operator Azure.ResourceManager.CostManagement.Models.TimeGrainType (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.CostManagement.Models.TimeGrainType left, Azure.ResourceManager.CostManagement.Models.TimeGrainType right) { throw null; }
         public override string ToString() { throw null; }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
