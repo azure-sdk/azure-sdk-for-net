@@ -348,7 +348,7 @@ namespace Microsoft.Azure.Management.ManagementGroups
             Operations = new Operations(this);
             Entities = new EntitiesOperations(this);
             BaseUri = new System.Uri("https://management.azure.com");
-            ApiVersion = "2021-04-01";
+            ApiVersion = "2023-04-01";
             AcceptLanguage = "en-US";
             LongRunningOperationRetryTimeout = 30;
             GenerateClientRequestId = true;
