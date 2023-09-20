@@ -455,6 +455,8 @@ namespace Azure.ResourceManager.Network
         public static Azure.Core.ResourceIdentifier CreateResourceIdentifier(string subscriptionId, string resourceGroupName, string bastionHostName) { throw null; }
         public virtual Azure.ResourceManager.ArmOperation Delete(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation> DeleteAsync(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.ResourceManager.ArmOperation DeleteBastionShareableLinkByToken(Azure.WaitUntil waitUntil, Azure.ResourceManager.Network.Models.BastionShareableLinkTokenListContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation> DeleteBastionShareableLinkByTokenAsync(Azure.WaitUntil waitUntil, Azure.ResourceManager.Network.Models.BastionShareableLinkTokenListContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.Network.BastionHostResource> Get(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Network.BastionHostResource>> GetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.Network.BastionHostResource> RemoveTag(string key, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
@@ -7383,6 +7385,7 @@ namespace Azure.ResourceManager.Network.Models
         private readonly int _dummyPrimitive;
         public BastionHostSkuName(string value) { throw null; }
         public static Azure.ResourceManager.Network.Models.BastionHostSkuName Basic { get { throw null; } }
+        public static Azure.ResourceManager.Network.Models.BastionHostSkuName Developer { get { throw null; } }
         public static Azure.ResourceManager.Network.Models.BastionHostSkuName Standard { get { throw null; } }
         public bool Equals(Azure.ResourceManager.Network.Models.BastionHostSkuName other) { throw null; }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
@@ -7393,6 +7396,11 @@ namespace Azure.ResourceManager.Network.Models
         public static implicit operator Azure.ResourceManager.Network.Models.BastionHostSkuName (string value) { throw null; }
         public static bool operator !=(Azure.ResourceManager.Network.Models.BastionHostSkuName left, Azure.ResourceManager.Network.Models.BastionHostSkuName right) { throw null; }
         public override string ToString() { throw null; }
+    }
+    public partial class BastionShareableLinkTokenListContent
+    {
+        public BastionShareableLinkTokenListContent() { }
+        public System.Collections.Generic.IList<string> Tokens { get { throw null; } }
     }
     public partial class BgpCommunity
     {
