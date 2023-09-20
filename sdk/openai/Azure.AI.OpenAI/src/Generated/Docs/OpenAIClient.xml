@@ -17,6 +17,514 @@
     <member name="GetChatCompletionsWithAzureExtensions(string,ChatCompletionsOptions,CancellationToken)" />
     <member name="GetChatCompletionsWithAzureExtensionsAsync(string,RequestContent,RequestContext)" />
     <member name="GetChatCompletionsWithAzureExtensions(string,RequestContent,RequestContext)" />
+    <member name="GetAudioTranscriptionAsPlainTextAsync(string,AudioTranscriptionOptions,CancellationToken)">
+      <example>
+This sample shows how to call GetAudioTranscriptionAsPlainTextAsync.
+<code><![CDATA[
+OpenAIClient client = new OpenAIClient(null);
+
+AudioTranscriptionOptions audioTranscriptionOptions = new AudioTranscriptionOptions(BinaryData.FromObjectAsJson(new object()));
+Response<string> response = await client.GetAudioTranscriptionAsPlainTextAsync("<deploymentId>", audioTranscriptionOptions);
+]]></code>
+This sample shows how to call GetAudioTranscriptionAsPlainTextAsync with all parameters.
+<code><![CDATA[
+OpenAIClient client = new OpenAIClient(null);
+
+AudioTranscriptionOptions audioTranscriptionOptions = new AudioTranscriptionOptions(BinaryData.FromObjectAsJson(new object()))
+{
+    ResponseFormat = AudioTranscriptionFormat.Json,
+    Language = "<language>",
+    Prompt = "<prompt>",
+    Temperature = 123.45F,
+    InternalNonAzureModelName = "<model>",
+};
+Response<string> response = await client.GetAudioTranscriptionAsPlainTextAsync("<deploymentId>", audioTranscriptionOptions);
+]]></code></example>
+    </member>
+    <member name="GetAudioTranscriptionAsPlainText(string,AudioTranscriptionOptions,CancellationToken)">
+      <example>
+This sample shows how to call GetAudioTranscriptionAsPlainText.
+<code><![CDATA[
+OpenAIClient client = new OpenAIClient(null);
+
+AudioTranscriptionOptions audioTranscriptionOptions = new AudioTranscriptionOptions(BinaryData.FromObjectAsJson(new object()));
+Response<string> response = client.GetAudioTranscriptionAsPlainText("<deploymentId>", audioTranscriptionOptions);
+]]></code>
+This sample shows how to call GetAudioTranscriptionAsPlainText with all parameters.
+<code><![CDATA[
+OpenAIClient client = new OpenAIClient(null);
+
+AudioTranscriptionOptions audioTranscriptionOptions = new AudioTranscriptionOptions(BinaryData.FromObjectAsJson(new object()))
+{
+    ResponseFormat = AudioTranscriptionFormat.Json,
+    Language = "<language>",
+    Prompt = "<prompt>",
+    Temperature = 123.45F,
+    InternalNonAzureModelName = "<model>",
+};
+Response<string> response = client.GetAudioTranscriptionAsPlainText("<deploymentId>", audioTranscriptionOptions);
+]]></code></example>
+    </member>
+    <member name="GetAudioTranscriptionAsPlainTextAsync(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call GetAudioTranscriptionAsPlainTextAsync and parse the result.
+<code><![CDATA[
+OpenAIClient client = new OpenAIClient(null);
+
+RequestContent content = RequestContent.Create(new
+{
+    file = new object(),
+});
+Response response = await client.GetAudioTranscriptionAsPlainTextAsync("<deploymentId>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code>
+This sample shows how to call GetAudioTranscriptionAsPlainTextAsync with all parameters and request content and parse the result.
+<code><![CDATA[
+OpenAIClient client = new OpenAIClient(null);
+
+RequestContent content = RequestContent.Create(new
+{
+    file = new object(),
+    response_format = "json",
+    language = "<language>",
+    prompt = "<prompt>",
+    temperature = 123.45F,
+    model = "<model>",
+});
+Response response = await client.GetAudioTranscriptionAsPlainTextAsync("<deploymentId>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code></example>
+    </member>
+    <member name="GetAudioTranscriptionAsPlainText(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call GetAudioTranscriptionAsPlainText and parse the result.
+<code><![CDATA[
+OpenAIClient client = new OpenAIClient(null);
+
+RequestContent content = RequestContent.Create(new
+{
+    file = new object(),
+});
+Response response = client.GetAudioTranscriptionAsPlainText("<deploymentId>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code>
+This sample shows how to call GetAudioTranscriptionAsPlainText with all parameters and request content and parse the result.
+<code><![CDATA[
+OpenAIClient client = new OpenAIClient(null);
+
+RequestContent content = RequestContent.Create(new
+{
+    file = new object(),
+    response_format = "json",
+    language = "<language>",
+    prompt = "<prompt>",
+    temperature = 123.45F,
+    model = "<model>",
+});
+Response response = client.GetAudioTranscriptionAsPlainText("<deploymentId>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code></example>
+    </member>
+    <member name="GetAudioTranscriptionAsResponseObjectAsync(string,AudioTranscriptionOptions,CancellationToken)">
+      <example>
+This sample shows how to call GetAudioTranscriptionAsResponseObjectAsync.
+<code><![CDATA[
+OpenAIClient client = new OpenAIClient(null);
+
+AudioTranscriptionOptions audioTranscriptionOptions = new AudioTranscriptionOptions(BinaryData.FromObjectAsJson(new object()));
+Response<AudioTranscription> response = await client.GetAudioTranscriptionAsResponseObjectAsync("<deploymentId>", audioTranscriptionOptions);
+]]></code>
+This sample shows how to call GetAudioTranscriptionAsResponseObjectAsync with all parameters.
+<code><![CDATA[
+OpenAIClient client = new OpenAIClient(null);
+
+AudioTranscriptionOptions audioTranscriptionOptions = new AudioTranscriptionOptions(BinaryData.FromObjectAsJson(new object()))
+{
+    ResponseFormat = AudioTranscriptionFormat.Json,
+    Language = "<language>",
+    Prompt = "<prompt>",
+    Temperature = 123.45F,
+    InternalNonAzureModelName = "<model>",
+};
+Response<AudioTranscription> response = await client.GetAudioTranscriptionAsResponseObjectAsync("<deploymentId>", audioTranscriptionOptions);
+]]></code></example>
+    </member>
+    <member name="GetAudioTranscriptionAsResponseObject(string,AudioTranscriptionOptions,CancellationToken)">
+      <example>
+This sample shows how to call GetAudioTranscriptionAsResponseObject.
+<code><![CDATA[
+OpenAIClient client = new OpenAIClient(null);
+
+AudioTranscriptionOptions audioTranscriptionOptions = new AudioTranscriptionOptions(BinaryData.FromObjectAsJson(new object()));
+Response<AudioTranscription> response = client.GetAudioTranscriptionAsResponseObject("<deploymentId>", audioTranscriptionOptions);
+]]></code>
+This sample shows how to call GetAudioTranscriptionAsResponseObject with all parameters.
+<code><![CDATA[
+OpenAIClient client = new OpenAIClient(null);
+
+AudioTranscriptionOptions audioTranscriptionOptions = new AudioTranscriptionOptions(BinaryData.FromObjectAsJson(new object()))
+{
+    ResponseFormat = AudioTranscriptionFormat.Json,
+    Language = "<language>",
+    Prompt = "<prompt>",
+    Temperature = 123.45F,
+    InternalNonAzureModelName = "<model>",
+};
+Response<AudioTranscription> response = client.GetAudioTranscriptionAsResponseObject("<deploymentId>", audioTranscriptionOptions);
+]]></code></example>
+    </member>
+    <member name="GetAudioTranscriptionAsResponseObjectAsync(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call GetAudioTranscriptionAsResponseObjectAsync and parse the result.
+<code><![CDATA[
+OpenAIClient client = new OpenAIClient(null);
+
+RequestContent content = RequestContent.Create(new
+{
+    file = new object(),
+});
+Response response = await client.GetAudioTranscriptionAsResponseObjectAsync("<deploymentId>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("text").ToString());
+]]></code>
+This sample shows how to call GetAudioTranscriptionAsResponseObjectAsync with all parameters and request content and parse the result.
+<code><![CDATA[
+OpenAIClient client = new OpenAIClient(null);
+
+RequestContent content = RequestContent.Create(new
+{
+    file = new object(),
+    response_format = "json",
+    language = "<language>",
+    prompt = "<prompt>",
+    temperature = 123.45F,
+    model = "<model>",
+});
+Response response = await client.GetAudioTranscriptionAsResponseObjectAsync("<deploymentId>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("text").ToString());
+Console.WriteLine(result.GetProperty("task").ToString());
+Console.WriteLine(result.GetProperty("language").ToString());
+Console.WriteLine(result.GetProperty("duration").ToString());
+Console.WriteLine(result.GetProperty("segments")[0].GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("segments")[0].GetProperty("start").ToString());
+Console.WriteLine(result.GetProperty("segments")[0].GetProperty("end").ToString());
+Console.WriteLine(result.GetProperty("segments")[0].GetProperty("text").ToString());
+Console.WriteLine(result.GetProperty("segments")[0].GetProperty("temperature").ToString());
+Console.WriteLine(result.GetProperty("segments")[0].GetProperty("avg_logprob").ToString());
+Console.WriteLine(result.GetProperty("segments")[0].GetProperty("compression_ratio").ToString());
+Console.WriteLine(result.GetProperty("segments")[0].GetProperty("no_speech_prob").ToString());
+Console.WriteLine(result.GetProperty("segments")[0].GetProperty("tokens")[0].ToString());
+Console.WriteLine(result.GetProperty("segments")[0].GetProperty("seek").ToString());
+]]></code></example>
+    </member>
+    <member name="GetAudioTranscriptionAsResponseObject(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call GetAudioTranscriptionAsResponseObject and parse the result.
+<code><![CDATA[
+OpenAIClient client = new OpenAIClient(null);
+
+RequestContent content = RequestContent.Create(new
+{
+    file = new object(),
+});
+Response response = client.GetAudioTranscriptionAsResponseObject("<deploymentId>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("text").ToString());
+]]></code>
+This sample shows how to call GetAudioTranscriptionAsResponseObject with all parameters and request content and parse the result.
+<code><![CDATA[
+OpenAIClient client = new OpenAIClient(null);
+
+RequestContent content = RequestContent.Create(new
+{
+    file = new object(),
+    response_format = "json",
+    language = "<language>",
+    prompt = "<prompt>",
+    temperature = 123.45F,
+    model = "<model>",
+});
+Response response = client.GetAudioTranscriptionAsResponseObject("<deploymentId>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("text").ToString());
+Console.WriteLine(result.GetProperty("task").ToString());
+Console.WriteLine(result.GetProperty("language").ToString());
+Console.WriteLine(result.GetProperty("duration").ToString());
+Console.WriteLine(result.GetProperty("segments")[0].GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("segments")[0].GetProperty("start").ToString());
+Console.WriteLine(result.GetProperty("segments")[0].GetProperty("end").ToString());
+Console.WriteLine(result.GetProperty("segments")[0].GetProperty("text").ToString());
+Console.WriteLine(result.GetProperty("segments")[0].GetProperty("temperature").ToString());
+Console.WriteLine(result.GetProperty("segments")[0].GetProperty("avg_logprob").ToString());
+Console.WriteLine(result.GetProperty("segments")[0].GetProperty("compression_ratio").ToString());
+Console.WriteLine(result.GetProperty("segments")[0].GetProperty("no_speech_prob").ToString());
+Console.WriteLine(result.GetProperty("segments")[0].GetProperty("tokens")[0].ToString());
+Console.WriteLine(result.GetProperty("segments")[0].GetProperty("seek").ToString());
+]]></code></example>
+    </member>
+    <member name="GetAudioTranslationAsPlainTextAsync(string,AudioTranslationOptions,CancellationToken)">
+      <example>
+This sample shows how to call GetAudioTranslationAsPlainTextAsync.
+<code><![CDATA[
+OpenAIClient client = new OpenAIClient(null);
+
+AudioTranslationOptions audioTranslationOptions = new AudioTranslationOptions(BinaryData.FromObjectAsJson(new object()));
+Response<string> response = await client.GetAudioTranslationAsPlainTextAsync("<deploymentId>", audioTranslationOptions);
+]]></code>
+This sample shows how to call GetAudioTranslationAsPlainTextAsync with all parameters.
+<code><![CDATA[
+OpenAIClient client = new OpenAIClient(null);
+
+AudioTranslationOptions audioTranslationOptions = new AudioTranslationOptions(BinaryData.FromObjectAsJson(new object()))
+{
+    ResponseFormat = AudioTranslationFormat.Json,
+    Prompt = "<prompt>",
+    Temperature = 123.45F,
+    InternalNonAzureModelName = "<model>",
+};
+Response<string> response = await client.GetAudioTranslationAsPlainTextAsync("<deploymentId>", audioTranslationOptions);
+]]></code></example>
+    </member>
+    <member name="GetAudioTranslationAsPlainText(string,AudioTranslationOptions,CancellationToken)">
+      <example>
+This sample shows how to call GetAudioTranslationAsPlainText.
+<code><![CDATA[
+OpenAIClient client = new OpenAIClient(null);
+
+AudioTranslationOptions audioTranslationOptions = new AudioTranslationOptions(BinaryData.FromObjectAsJson(new object()));
+Response<string> response = client.GetAudioTranslationAsPlainText("<deploymentId>", audioTranslationOptions);
+]]></code>
+This sample shows how to call GetAudioTranslationAsPlainText with all parameters.
+<code><![CDATA[
+OpenAIClient client = new OpenAIClient(null);
+
+AudioTranslationOptions audioTranslationOptions = new AudioTranslationOptions(BinaryData.FromObjectAsJson(new object()))
+{
+    ResponseFormat = AudioTranslationFormat.Json,
+    Prompt = "<prompt>",
+    Temperature = 123.45F,
+    InternalNonAzureModelName = "<model>",
+};
+Response<string> response = client.GetAudioTranslationAsPlainText("<deploymentId>", audioTranslationOptions);
+]]></code></example>
+    </member>
+    <member name="GetAudioTranslationAsPlainTextAsync(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call GetAudioTranslationAsPlainTextAsync and parse the result.
+<code><![CDATA[
+OpenAIClient client = new OpenAIClient(null);
+
+RequestContent content = RequestContent.Create(new
+{
+    file = new object(),
+});
+Response response = await client.GetAudioTranslationAsPlainTextAsync("<deploymentId>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code>
+This sample shows how to call GetAudioTranslationAsPlainTextAsync with all parameters and request content and parse the result.
+<code><![CDATA[
+OpenAIClient client = new OpenAIClient(null);
+
+RequestContent content = RequestContent.Create(new
+{
+    file = new object(),
+    response_format = "json",
+    prompt = "<prompt>",
+    temperature = 123.45F,
+    model = "<model>",
+});
+Response response = await client.GetAudioTranslationAsPlainTextAsync("<deploymentId>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code></example>
+    </member>
+    <member name="GetAudioTranslationAsPlainText(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call GetAudioTranslationAsPlainText and parse the result.
+<code><![CDATA[
+OpenAIClient client = new OpenAIClient(null);
+
+RequestContent content = RequestContent.Create(new
+{
+    file = new object(),
+});
+Response response = client.GetAudioTranslationAsPlainText("<deploymentId>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code>
+This sample shows how to call GetAudioTranslationAsPlainText with all parameters and request content and parse the result.
+<code><![CDATA[
+OpenAIClient client = new OpenAIClient(null);
+
+RequestContent content = RequestContent.Create(new
+{
+    file = new object(),
+    response_format = "json",
+    prompt = "<prompt>",
+    temperature = 123.45F,
+    model = "<model>",
+});
+Response response = client.GetAudioTranslationAsPlainText("<deploymentId>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code></example>
+    </member>
+    <member name="GetAudioTranslationAsResponseObjectAsync(string,AudioTranslationOptions,CancellationToken)">
+      <example>
+This sample shows how to call GetAudioTranslationAsResponseObjectAsync.
+<code><![CDATA[
+OpenAIClient client = new OpenAIClient(null);
+
+AudioTranslationOptions audioTranslationOptions = new AudioTranslationOptions(BinaryData.FromObjectAsJson(new object()));
+Response<AudioTranslation> response = await client.GetAudioTranslationAsResponseObjectAsync("<deploymentId>", audioTranslationOptions);
+]]></code>
+This sample shows how to call GetAudioTranslationAsResponseObjectAsync with all parameters.
+<code><![CDATA[
+OpenAIClient client = new OpenAIClient(null);
+
+AudioTranslationOptions audioTranslationOptions = new AudioTranslationOptions(BinaryData.FromObjectAsJson(new object()))
+{
+    ResponseFormat = AudioTranslationFormat.Json,
+    Prompt = "<prompt>",
+    Temperature = 123.45F,
+    InternalNonAzureModelName = "<model>",
+};
+Response<AudioTranslation> response = await client.GetAudioTranslationAsResponseObjectAsync("<deploymentId>", audioTranslationOptions);
+]]></code></example>
+    </member>
+    <member name="GetAudioTranslationAsResponseObject(string,AudioTranslationOptions,CancellationToken)">
+      <example>
+This sample shows how to call GetAudioTranslationAsResponseObject.
+<code><![CDATA[
+OpenAIClient client = new OpenAIClient(null);
+
+AudioTranslationOptions audioTranslationOptions = new AudioTranslationOptions(BinaryData.FromObjectAsJson(new object()));
+Response<AudioTranslation> response = client.GetAudioTranslationAsResponseObject("<deploymentId>", audioTranslationOptions);
+]]></code>
+This sample shows how to call GetAudioTranslationAsResponseObject with all parameters.
+<code><![CDATA[
+OpenAIClient client = new OpenAIClient(null);
+
+AudioTranslationOptions audioTranslationOptions = new AudioTranslationOptions(BinaryData.FromObjectAsJson(new object()))
+{
+    ResponseFormat = AudioTranslationFormat.Json,
+    Prompt = "<prompt>",
+    Temperature = 123.45F,
+    InternalNonAzureModelName = "<model>",
+};
+Response<AudioTranslation> response = client.GetAudioTranslationAsResponseObject("<deploymentId>", audioTranslationOptions);
+]]></code></example>
+    </member>
+    <member name="GetAudioTranslationAsResponseObjectAsync(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call GetAudioTranslationAsResponseObjectAsync and parse the result.
+<code><![CDATA[
+OpenAIClient client = new OpenAIClient(null);
+
+RequestContent content = RequestContent.Create(new
+{
+    file = new object(),
+});
+Response response = await client.GetAudioTranslationAsResponseObjectAsync("<deploymentId>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("text").ToString());
+]]></code>
+This sample shows how to call GetAudioTranslationAsResponseObjectAsync with all parameters and request content and parse the result.
+<code><![CDATA[
+OpenAIClient client = new OpenAIClient(null);
+
+RequestContent content = RequestContent.Create(new
+{
+    file = new object(),
+    response_format = "json",
+    prompt = "<prompt>",
+    temperature = 123.45F,
+    model = "<model>",
+});
+Response response = await client.GetAudioTranslationAsResponseObjectAsync("<deploymentId>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("text").ToString());
+Console.WriteLine(result.GetProperty("task").ToString());
+Console.WriteLine(result.GetProperty("language").ToString());
+Console.WriteLine(result.GetProperty("duration").ToString());
+Console.WriteLine(result.GetProperty("segments")[0].GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("segments")[0].GetProperty("start").ToString());
+Console.WriteLine(result.GetProperty("segments")[0].GetProperty("end").ToString());
+Console.WriteLine(result.GetProperty("segments")[0].GetProperty("text").ToString());
+Console.WriteLine(result.GetProperty("segments")[0].GetProperty("temperature").ToString());
+Console.WriteLine(result.GetProperty("segments")[0].GetProperty("avg_logprob").ToString());
+Console.WriteLine(result.GetProperty("segments")[0].GetProperty("compression_ratio").ToString());
+Console.WriteLine(result.GetProperty("segments")[0].GetProperty("no_speech_prob").ToString());
+Console.WriteLine(result.GetProperty("segments")[0].GetProperty("tokens")[0].ToString());
+Console.WriteLine(result.GetProperty("segments")[0].GetProperty("seek").ToString());
+]]></code></example>
+    </member>
+    <member name="GetAudioTranslationAsResponseObject(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call GetAudioTranslationAsResponseObject and parse the result.
+<code><![CDATA[
+OpenAIClient client = new OpenAIClient(null);
+
+RequestContent content = RequestContent.Create(new
+{
+    file = new object(),
+});
+Response response = client.GetAudioTranslationAsResponseObject("<deploymentId>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("text").ToString());
+]]></code>
+This sample shows how to call GetAudioTranslationAsResponseObject with all parameters and request content and parse the result.
+<code><![CDATA[
+OpenAIClient client = new OpenAIClient(null);
+
+RequestContent content = RequestContent.Create(new
+{
+    file = new object(),
+    response_format = "json",
+    prompt = "<prompt>",
+    temperature = 123.45F,
+    model = "<model>",
+});
+Response response = client.GetAudioTranslationAsResponseObject("<deploymentId>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("text").ToString());
+Console.WriteLine(result.GetProperty("task").ToString());
+Console.WriteLine(result.GetProperty("language").ToString());
+Console.WriteLine(result.GetProperty("duration").ToString());
+Console.WriteLine(result.GetProperty("segments")[0].GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("segments")[0].GetProperty("start").ToString());
+Console.WriteLine(result.GetProperty("segments")[0].GetProperty("end").ToString());
+Console.WriteLine(result.GetProperty("segments")[0].GetProperty("text").ToString());
+Console.WriteLine(result.GetProperty("segments")[0].GetProperty("temperature").ToString());
+Console.WriteLine(result.GetProperty("segments")[0].GetProperty("avg_logprob").ToString());
+Console.WriteLine(result.GetProperty("segments")[0].GetProperty("compression_ratio").ToString());
+Console.WriteLine(result.GetProperty("segments")[0].GetProperty("no_speech_prob").ToString());
+Console.WriteLine(result.GetProperty("segments")[0].GetProperty("tokens")[0].ToString());
+Console.WriteLine(result.GetProperty("segments")[0].GetProperty("seek").ToString());
+]]></code></example>
+    </member>
     <member name="BeginAzureBatchImageGenerationAsync(WaitUntil,ImageGenerationOptions,CancellationToken)" />
     <member name="BeginAzureBatchImageGeneration(WaitUntil,ImageGenerationOptions,CancellationToken)" />
     <member name="BeginAzureBatchImageGenerationAsync(WaitUntil,RequestContent,RequestContext)" />

@@ -23,7 +23,7 @@ namespace Azure.AI.OpenAI
             }
             string id = default;
             DateTimeOffset created = default;
-            Optional<IReadOnlyList<PromptFilterResult>> promptAnnotations = default;
+            Optional<IReadOnlyList<PromptFilterResult>> promptFilterResults = default;
             IReadOnlyList<Choice> choices = default;
             CompletionsUsage usage = default;
             foreach (var property in element.EnumerateObject())
@@ -38,7 +38,7 @@ namespace Azure.AI.OpenAI
                     created = DateTimeOffset.FromUnixTimeSeconds(property.Value.GetInt64());
                     continue;
                 }
-                if (property.NameEquals("prompt_annotations"u8))
+                if (property.NameEquals("prompt_filter_results"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
@@ -49,7 +49,7 @@ namespace Azure.AI.OpenAI
                     {
                         array.Add(PromptFilterResult.DeserializePromptFilterResult(item));
                     }
-                    promptAnnotations = array;
+                    promptFilterResults = array;
                     continue;
                 }
                 if (property.NameEquals("choices"u8))
@@ -68,7 +68,7 @@ namespace Azure.AI.OpenAI
                     continue;
                 }
             }
-            return new Completions(id, created, Optional.ToList(promptAnnotations), choices, usage);
+            return new Completions(id, created, Optional.ToList(promptFilterResults), choices, usage);
         }
 
         /// <summary> Deserializes the model from a raw response. </summary>
