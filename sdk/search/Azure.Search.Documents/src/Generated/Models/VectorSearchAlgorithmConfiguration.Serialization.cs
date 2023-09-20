@@ -33,6 +33,7 @@ namespace Azure.Search.Documents.Indexes.Models
             {
                 switch (discriminator.GetString())
                 {
+                    case "exhaustiveKnn": return ExhaustiveKnnVectorSearchAlgorithmConfiguration.DeserializeExhaustiveKnnVectorSearchAlgorithmConfiguration(element);
                     case "hnsw": return HnswVectorSearchAlgorithmConfiguration.DeserializeHnswVectorSearchAlgorithmConfiguration(element);
                 }
             }
