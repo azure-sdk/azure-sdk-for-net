@@ -45,6 +45,8 @@ namespace Azure.ResourceManager.ConfidentialLedger
         public virtual bool HasData { get { throw null; } }
         public virtual Azure.Response<Azure.ResourceManager.ConfidentialLedger.ConfidentialLedgerResource> AddTag(string key, string value, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.ConfidentialLedger.ConfidentialLedgerResource>> AddTagAsync(string key, string value, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.ConfidentialLedger.Models.ConfidentialLedgerBackupResponse> Backup(Azure.WaitUntil waitUntil, Azure.ResourceManager.ConfidentialLedger.Models.ConfidentialLedgerBackup confidentialLedger, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.ConfidentialLedger.Models.ConfidentialLedgerBackupResponse>> BackupAsync(Azure.WaitUntil waitUntil, Azure.ResourceManager.ConfidentialLedger.Models.ConfidentialLedgerBackup confidentialLedger, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static Azure.Core.ResourceIdentifier CreateResourceIdentifier(string subscriptionId, string resourceGroupName, string ledgerName) { throw null; }
         public virtual Azure.ResourceManager.ArmOperation Delete(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation> DeleteAsync(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
@@ -52,6 +54,8 @@ namespace Azure.ResourceManager.ConfidentialLedger
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.ConfidentialLedger.ConfidentialLedgerResource>> GetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.ConfidentialLedger.ConfidentialLedgerResource> RemoveTag(string key, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.ConfidentialLedger.ConfidentialLedgerResource>> RemoveTagAsync(string key, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.ConfidentialLedger.Models.ConfidentialLedgerRestoreResponse> Restore(Azure.WaitUntil waitUntil, Azure.ResourceManager.ConfidentialLedger.Models.ConfidentialLedgerRestore confidentialLedger, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.ConfidentialLedger.Models.ConfidentialLedgerRestoreResponse>> RestoreAsync(Azure.WaitUntil waitUntil, Azure.ResourceManager.ConfidentialLedger.Models.ConfidentialLedgerRestore confidentialLedger, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.ConfidentialLedger.ConfidentialLedgerResource> SetTags(System.Collections.Generic.IDictionary<string, string> tags, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.ConfidentialLedger.ConfidentialLedgerResource>> SetTagsAsync(System.Collections.Generic.IDictionary<string, string> tags, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.ConfidentialLedger.ConfidentialLedgerResource> Update(Azure.WaitUntil waitUntil, Azure.ResourceManager.ConfidentialLedger.ConfidentialLedgerData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
@@ -85,6 +89,8 @@ namespace Azure.ResourceManager.ConfidentialLedger
         public virtual bool HasData { get { throw null; } }
         public virtual Azure.Response<Azure.ResourceManager.ConfidentialLedger.ManagedCcfResource> AddTag(string key, string value, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.ConfidentialLedger.ManagedCcfResource>> AddTagAsync(string key, string value, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.ConfidentialLedger.Models.ManagedCcfBackupResponse> Backup(Azure.WaitUntil waitUntil, Azure.ResourceManager.ConfidentialLedger.Models.ManagedCcfBackup managedCcf, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.ConfidentialLedger.Models.ManagedCcfBackupResponse>> BackupAsync(Azure.WaitUntil waitUntil, Azure.ResourceManager.ConfidentialLedger.Models.ManagedCcfBackup managedCcf, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static Azure.Core.ResourceIdentifier CreateResourceIdentifier(string subscriptionId, string resourceGroupName, string appName) { throw null; }
         public virtual Azure.ResourceManager.ArmOperation Delete(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation> DeleteAsync(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
@@ -92,10 +98,12 @@ namespace Azure.ResourceManager.ConfidentialLedger
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.ConfidentialLedger.ManagedCcfResource>> GetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.ConfidentialLedger.ManagedCcfResource> RemoveTag(string key, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.ConfidentialLedger.ManagedCcfResource>> RemoveTagAsync(string key, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.ConfidentialLedger.Models.ManagedCcfRestoreResponse> Restore(Azure.WaitUntil waitUntil, Azure.ResourceManager.ConfidentialLedger.Models.ManagedCcfRestore managedCcf, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.ConfidentialLedger.Models.ManagedCcfRestoreResponse>> RestoreAsync(Azure.WaitUntil waitUntil, Azure.ResourceManager.ConfidentialLedger.Models.ManagedCcfRestore managedCcf, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.ConfidentialLedger.ManagedCcfResource> SetTags(System.Collections.Generic.IDictionary<string, string> tags, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.ConfidentialLedger.ManagedCcfResource>> SetTagsAsync(System.Collections.Generic.IDictionary<string, string> tags, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.ResourceManager.ArmOperation Update(Azure.WaitUntil waitUntil, Azure.ResourceManager.ConfidentialLedger.ManagedCcfData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation> UpdateAsync(Azure.WaitUntil waitUntil, Azure.ResourceManager.ConfidentialLedger.ManagedCcfData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.ConfidentialLedger.ManagedCcfResource> Update(Azure.WaitUntil waitUntil, Azure.ResourceManager.ConfidentialLedger.ManagedCcfData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.ConfidentialLedger.ManagedCcfResource>> UpdateAsync(Azure.WaitUntil waitUntil, Azure.ResourceManager.ConfidentialLedger.ManagedCcfData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
     }
 }
 namespace Azure.ResourceManager.ConfidentialLedger.Models
@@ -109,17 +117,32 @@ namespace Azure.ResourceManager.ConfidentialLedger.Models
     }
     public static partial class ArmConfidentialLedgerModelFactory
     {
+        public static Azure.ResourceManager.ConfidentialLedger.Models.ConfidentialLedgerBackupResponse ConfidentialLedgerBackupResponse(string message = null) { throw null; }
         public static Azure.ResourceManager.ConfidentialLedger.ConfidentialLedgerData ConfidentialLedgerData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, System.Collections.Generic.IDictionary<string, string> tags = null, Azure.Core.AzureLocation location = default(Azure.Core.AzureLocation), Azure.ResourceManager.ConfidentialLedger.Models.ConfidentialLedgerProperties properties = null) { throw null; }
         public static Azure.ResourceManager.ConfidentialLedger.Models.ConfidentialLedgerNameAvailabilityResult ConfidentialLedgerNameAvailabilityResult(bool? isNameAvailable = default(bool?), Azure.ResourceManager.ConfidentialLedger.Models.ConfidentialLedgerNameUnavailableReason? reason = default(Azure.ResourceManager.ConfidentialLedger.Models.ConfidentialLedgerNameUnavailableReason?), string message = null) { throw null; }
         public static Azure.ResourceManager.ConfidentialLedger.Models.ConfidentialLedgerProperties ConfidentialLedgerProperties(string ledgerName = null, System.Uri ledgerUri = null, System.Uri identityServiceUri = null, string ledgerInternalNamespace = null, Azure.ResourceManager.ConfidentialLedger.Models.ConfidentialLedgerRunningState? runningState = default(Azure.ResourceManager.ConfidentialLedger.Models.ConfidentialLedgerRunningState?), Azure.ResourceManager.ConfidentialLedger.Models.ConfidentialLedgerType? ledgerType = default(Azure.ResourceManager.ConfidentialLedger.Models.ConfidentialLedgerType?), Azure.ResourceManager.ConfidentialLedger.Models.ConfidentialLedgerProvisioningState? provisioningState = default(Azure.ResourceManager.ConfidentialLedger.Models.ConfidentialLedgerProvisioningState?), System.Collections.Generic.IEnumerable<Azure.ResourceManager.ConfidentialLedger.Models.AadBasedSecurityPrincipal> aadBasedSecurityPrincipals = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.ConfidentialLedger.Models.CertBasedSecurityPrincipal> certBasedSecurityPrincipals = null) { throw null; }
+        public static Azure.ResourceManager.ConfidentialLedger.Models.ConfidentialLedgerRestoreResponse ConfidentialLedgerRestoreResponse(string message = null) { throw null; }
+        public static Azure.ResourceManager.ConfidentialLedger.Models.ManagedCcfBackupResponse ManagedCcfBackupResponse(string message = null) { throw null; }
         public static Azure.ResourceManager.ConfidentialLedger.ManagedCcfData ManagedCcfData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, System.Collections.Generic.IDictionary<string, string> tags = null, Azure.Core.AzureLocation location = default(Azure.Core.AzureLocation), Azure.ResourceManager.ConfidentialLedger.Models.ManagedCcfProperties properties = null) { throw null; }
-        public static Azure.ResourceManager.ConfidentialLedger.Models.ManagedCcfProperties ManagedCcfProperties(string appName = null, System.Uri appUri = null, System.Uri identityServiceUri = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.ConfidentialLedger.Models.ConfidentialLedgerMemberIdentityCertificate> memberIdentityCertificates = null, Azure.ResourceManager.ConfidentialLedger.Models.ConfidentialLedgerDeploymentType deploymentType = null, Azure.ResourceManager.ConfidentialLedger.Models.ConfidentialLedgerProvisioningState? provisioningState = default(Azure.ResourceManager.ConfidentialLedger.Models.ConfidentialLedgerProvisioningState?), int? nodeCount = default(int?)) { throw null; }
+        public static Azure.ResourceManager.ConfidentialLedger.Models.ManagedCcfProperties ManagedCcfProperties(string appName = null, System.Uri appUri = null, System.Uri identityServiceUri = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.ConfidentialLedger.Models.ConfidentialLedgerMemberIdentityCertificate> memberIdentityCertificates = null, Azure.ResourceManager.ConfidentialLedger.Models.ConfidentialLedgerDeploymentType deploymentType = null, Azure.ResourceManager.ConfidentialLedger.Models.ConfidentialLedgerRunningState? runningState = default(Azure.ResourceManager.ConfidentialLedger.Models.ConfidentialLedgerRunningState?), Azure.ResourceManager.ConfidentialLedger.Models.ConfidentialLedgerProvisioningState? provisioningState = default(Azure.ResourceManager.ConfidentialLedger.Models.ConfidentialLedgerProvisioningState?), int? nodeCount = default(int?)) { throw null; }
+        public static Azure.ResourceManager.ConfidentialLedger.Models.ManagedCcfRestoreResponse ManagedCcfRestoreResponse(string message = null) { throw null; }
     }
     public partial class CertBasedSecurityPrincipal
     {
         public CertBasedSecurityPrincipal() { }
         public string Cert { get { throw null; } set { } }
         public Azure.ResourceManager.ConfidentialLedger.Models.ConfidentialLedgerRoleName? LedgerRoleName { get { throw null; } set { } }
+    }
+    public partial class ConfidentialLedgerBackup
+    {
+        public ConfidentialLedgerBackup(System.Uri uri) { }
+        public string RestoreRegion { get { throw null; } set { } }
+        public System.Uri Uri { get { throw null; } }
+    }
+    public partial class ConfidentialLedgerBackupResponse
+    {
+        internal ConfidentialLedgerBackupResponse() { }
+        public string Message { get { throw null; } }
     }
     public partial class ConfidentialLedgerDeploymentType
     {
@@ -219,6 +242,18 @@ namespace Azure.ResourceManager.ConfidentialLedger.Models
         public static bool operator !=(Azure.ResourceManager.ConfidentialLedger.Models.ConfidentialLedgerProvisioningState left, Azure.ResourceManager.ConfidentialLedger.Models.ConfidentialLedgerProvisioningState right) { throw null; }
         public override string ToString() { throw null; }
     }
+    public partial class ConfidentialLedgerRestore
+    {
+        public ConfidentialLedgerRestore(string fileShareName, string restoreRegion, System.Uri uri) { }
+        public string FileShareName { get { throw null; } }
+        public string RestoreRegion { get { throw null; } }
+        public System.Uri Uri { get { throw null; } }
+    }
+    public partial class ConfidentialLedgerRestoreResponse
+    {
+        internal ConfidentialLedgerRestoreResponse() { }
+        public string Message { get { throw null; } }
+    }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct ConfidentialLedgerRoleName : System.IEquatable<Azure.ResourceManager.ConfidentialLedger.Models.ConfidentialLedgerRoleName>
     {
@@ -278,6 +313,17 @@ namespace Azure.ResourceManager.ConfidentialLedger.Models
         public static bool operator !=(Azure.ResourceManager.ConfidentialLedger.Models.ConfidentialLedgerType left, Azure.ResourceManager.ConfidentialLedger.Models.ConfidentialLedgerType right) { throw null; }
         public override string ToString() { throw null; }
     }
+    public partial class ManagedCcfBackup
+    {
+        public ManagedCcfBackup(System.Uri uri) { }
+        public string RestoreRegion { get { throw null; } set { } }
+        public System.Uri Uri { get { throw null; } }
+    }
+    public partial class ManagedCcfBackupResponse
+    {
+        internal ManagedCcfBackupResponse() { }
+        public string Message { get { throw null; } }
+    }
     public partial class ManagedCcfProperties
     {
         public ManagedCcfProperties() { }
@@ -288,5 +334,18 @@ namespace Azure.ResourceManager.ConfidentialLedger.Models
         public System.Collections.Generic.IList<Azure.ResourceManager.ConfidentialLedger.Models.ConfidentialLedgerMemberIdentityCertificate> MemberIdentityCertificates { get { throw null; } }
         public int? NodeCount { get { throw null; } set { } }
         public Azure.ResourceManager.ConfidentialLedger.Models.ConfidentialLedgerProvisioningState? ProvisioningState { get { throw null; } }
+        public Azure.ResourceManager.ConfidentialLedger.Models.ConfidentialLedgerRunningState? RunningState { get { throw null; } set { } }
+    }
+    public partial class ManagedCcfRestore
+    {
+        public ManagedCcfRestore(string fileShareName, string restoreRegion, System.Uri uri) { }
+        public string FileShareName { get { throw null; } }
+        public string RestoreRegion { get { throw null; } }
+        public System.Uri Uri { get { throw null; } }
+    }
+    public partial class ManagedCcfRestoreResponse
+    {
+        internal ManagedCcfRestoreResponse() { }
+        public string Message { get { throw null; } }
     }
 }
