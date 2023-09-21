@@ -1,0 +1,35 @@
+# NOTE: Please refer to https://aka.ms/azsdk/engsys/ci-yaml before editing this file.
+
+trigger:
+  branches:
+    include:
+    - main
+    - hotfix/*
+    - release/*
+  paths:
+    include:
+    - sdk/imageAnalysis
+    - sdk/imageAnalysis/ci.yml
+    - sdk/imageAnalysis/Azure.AI.Vision.ImageAnalysis
+
+pr:
+  branches:
+    include:
+    - main
+    - feature/*
+    - hotfix/*
+    - release/*
+  paths:
+    include:
+    - sdk/imageAnalysis
+    - sdk/imageAnalysis/ci.yml
+    - sdk/imageAnalysis/Azure.AI.Vision.ImageAnalysis
+
+extends:
+  template: /eng/pipelines/templates/stages/archetype-sdk-client.yml
+  parameters:
+    ServiceDirectory: imageAnalysis
+    ArtifactName: packages
+    Artifacts:
+    - name: Azure.AI.Vision.ImageAnalysis
+      safeName: AzureAIVisionImageAnalysis
