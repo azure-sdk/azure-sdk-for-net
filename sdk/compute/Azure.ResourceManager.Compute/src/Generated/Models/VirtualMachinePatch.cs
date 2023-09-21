@@ -156,7 +156,7 @@ namespace Azure.ResourceManager.Compute.Models
         public int? PlatformFaultDomain { get; set; }
         /// <summary> Specifies Scheduled Event related configurations. </summary>
         public ComputeScheduledEventsProfile ScheduledEventsProfile { get; set; }
-        /// <summary> UserData for the VM, which must be base-64 encoded. Customer should not pass any secrets in here. Minimum api-version: 2021-03-01. </summary>
+        /// <summary> UserData for the VM, which must be base-64 encoded. Customer should not pass any secrets in here. Maximum size limit of 256KB before base-64 encoding. Minimum api-version: 2021-03-01. </summary>
         public string UserData { get; set; }
         /// <summary> Specifies information about the capacity reservation that is used to allocate virtual machine. Minimum api-version: 2021-04-01. </summary>
         internal CapacityReservationProfile CapacityReservation { get; set; }
