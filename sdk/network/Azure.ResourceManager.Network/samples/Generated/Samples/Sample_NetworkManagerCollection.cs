@@ -115,7 +115,7 @@ namespace Azure.ResourceManager.Network.Samples
                 {
                     ManagementGroups =
 {
-"/Microsoft.Management/testmg"
+"/providers/Microsoft.Management/managementGroups/sampleMG"
 },
                     Subscriptions =
 {
