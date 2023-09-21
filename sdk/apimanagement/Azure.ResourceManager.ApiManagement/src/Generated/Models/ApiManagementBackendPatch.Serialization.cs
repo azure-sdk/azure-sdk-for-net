@@ -52,6 +52,11 @@ namespace Azure.ResourceManager.ApiManagement.Models
                 writer.WritePropertyName("tls"u8);
                 writer.WriteObjectValue(Tls);
             }
+            if (Optional.IsDefined(CircuitBreaker))
+            {
+                writer.WritePropertyName("circuitBreaker"u8);
+                writer.WriteObjectValue(CircuitBreaker);
+            }
             if (Optional.IsDefined(Uri))
             {
                 writer.WritePropertyName("url"u8);

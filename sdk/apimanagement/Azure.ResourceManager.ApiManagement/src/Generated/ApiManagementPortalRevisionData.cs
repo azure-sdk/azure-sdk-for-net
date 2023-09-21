@@ -34,7 +34,8 @@ namespace Azure.ResourceManager.ApiManagement
         /// <param name="isCurrent"> Indicates if the portal's revision is public. </param>
         /// <param name="createdOn"> Portal's revision creation date and time. </param>
         /// <param name="updatedOn"> Last updated date and time. </param>
-        internal ApiManagementPortalRevisionData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string description, string statusDetails, PortalRevisionStatus? status, bool? isCurrent, DateTimeOffset? createdOn, DateTimeOffset? updatedOn) : base(id, name, resourceType, systemData)
+        /// <param name="provisioningState"> The provisioning state. </param>
+        internal ApiManagementPortalRevisionData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string description, string statusDetails, PortalRevisionStatus? status, bool? isCurrent, DateTimeOffset? createdOn, DateTimeOffset? updatedOn, string provisioningState) : base(id, name, resourceType, systemData)
         {
             Description = description;
             StatusDetails = statusDetails;
@@ -42,6 +43,7 @@ namespace Azure.ResourceManager.ApiManagement
             IsCurrent = isCurrent;
             CreatedOn = createdOn;
             UpdatedOn = updatedOn;
+            ProvisioningState = provisioningState;
         }
 
         /// <summary> Portal revision description. </summary>
@@ -56,5 +58,7 @@ namespace Azure.ResourceManager.ApiManagement
         public DateTimeOffset? CreatedOn { get; }
         /// <summary> Last updated date and time. </summary>
         public DateTimeOffset? UpdatedOn { get; }
+        /// <summary> The provisioning state. </summary>
+        public string ProvisioningState { get; }
     }
 }

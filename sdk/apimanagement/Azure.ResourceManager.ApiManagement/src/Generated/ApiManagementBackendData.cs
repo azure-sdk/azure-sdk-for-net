@@ -6,6 +6,7 @@
 #nullable disable
 
 using System;
+using System.Collections.Generic;
 using Azure.Core;
 using Azure.ResourceManager.ApiManagement.Models;
 using Azure.ResourceManager.Models;
@@ -30,14 +31,15 @@ namespace Azure.ResourceManager.ApiManagement
         /// <param name="systemData"> The systemData. </param>
         /// <param name="title"> Backend Title. </param>
         /// <param name="description"> Backend Description. </param>
-        /// <param name="resourceUri"> Management Uri of the Resource in External System. This url can be the Arm Resource Id of Logic Apps, Function Apps or API Apps. </param>
+        /// <param name="resourceUri"> Management Uri of the Resource in External System. This URL can be the Arm Resource Id of Logic Apps, Function Apps or API Apps. </param>
         /// <param name="properties"> Backend Properties contract. </param>
         /// <param name="credentials"> Backend Credentials Contract Properties. </param>
-        /// <param name="proxy"> Backend Proxy Contract Properties. </param>
+        /// <param name="proxy"> Backend gateway Contract Properties. </param>
         /// <param name="tls"> Backend TLS Properties. </param>
+        /// <param name="circuitBreaker"> Backend Circuit Breaker Configuration. </param>
         /// <param name="uri"> Runtime Url of the Backend. </param>
         /// <param name="protocol"> Backend communication protocol. </param>
-        internal ApiManagementBackendData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string title, string description, Uri resourceUri, BackendProperties properties, BackendCredentialsContract credentials, BackendProxyContract proxy, BackendTlsProperties tls, Uri uri, BackendProtocol? protocol) : base(id, name, resourceType, systemData)
+        internal ApiManagementBackendData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string title, string description, Uri resourceUri, BackendProperties properties, BackendCredentialsContract credentials, BackendProxyContract proxy, BackendTlsProperties tls, BackendCircuitBreaker circuitBreaker, Uri uri, BackendProtocol? protocol) : base(id, name, resourceType, systemData)
         {
             Title = title;
             Description = description;
@@ -46,6 +48,7 @@ namespace Azure.ResourceManager.ApiManagement
             Credentials = credentials;
             Proxy = proxy;
             Tls = tls;
+            CircuitBreaker = circuitBreaker;
             Uri = uri;
             Protocol = protocol;
         }
@@ -54,7 +57,7 @@ namespace Azure.ResourceManager.ApiManagement
         public string Title { get; set; }
         /// <summary> Backend Description. </summary>
         public string Description { get; set; }
-        /// <summary> Management Uri of the Resource in External System. This url can be the Arm Resource Id of Logic Apps, Function Apps or API Apps. </summary>
+        /// <summary> Management Uri of the Resource in External System. This URL can be the Arm Resource Id of Logic Apps, Function Apps or API Apps. </summary>
         public Uri ResourceUri { get; set; }
         /// <summary> Backend Properties contract. </summary>
         internal BackendProperties Properties { get; set; }
@@ -72,10 +75,23 @@ namespace Azure.ResourceManager.ApiManagement
 
         /// <summary> Backend Credentials Contract Properties. </summary>
         public BackendCredentialsContract Credentials { get; set; }
-        /// <summary> Backend Proxy Contract Properties. </summary>
+        /// <summary> Backend gateway Contract Properties. </summary>
         public BackendProxyContract Proxy { get; set; }
         /// <summary> Backend TLS Properties. </summary>
         public BackendTlsProperties Tls { get; set; }
+        /// <summary> Backend Circuit Breaker Configuration. </summary>
+        internal BackendCircuitBreaker CircuitBreaker { get; set; }
+        /// <summary> The rules for tripping the backend. </summary>
+        public IList<CircuitBreakerRule> CircuitBreakerRules
+        {
+            get
+            {
+                if (CircuitBreaker is null)
+                    CircuitBreaker = new BackendCircuitBreaker();
+                return CircuitBreaker.Rules;
+            }
+        }
+
         /// <summary> Runtime Url of the Backend. </summary>
         public Uri Uri { get; set; }
         /// <summary> Backend communication protocol. </summary>

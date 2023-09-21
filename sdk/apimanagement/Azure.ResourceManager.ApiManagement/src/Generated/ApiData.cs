@@ -51,7 +51,8 @@ namespace Azure.ResourceManager.ApiManagement
         /// <param name="path"> Relative URL uniquely identifying this API and all of its resource paths within the API Management service instance. It is appended to the API endpoint base URL specified during the service instance creation to form a public URL for this API. </param>
         /// <param name="protocols"> Describes on which protocols the operations in this API can be invoked. </param>
         /// <param name="apiVersionSet"> Version set details. </param>
-        internal ApiData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string description, AuthenticationSettingsContract authenticationSettings, SubscriptionKeyParameterNamesContract subscriptionKeyParameterNames, ApiType? apiType, string apiRevision, string apiVersion, bool? isCurrent, bool? isOnline, string apiRevisionDescription, string apiVersionDescription, ResourceIdentifier apiVersionSetId, bool? isSubscriptionRequired, Uri termsOfServiceUri, ApiContactInformation contact, ApiLicenseInformation license, ResourceIdentifier sourceApiId, string displayName, Uri serviceUri, string path, IList<ApiOperationInvokableProtocol> protocols, ApiVersionSetContractDetails apiVersionSet) : base(id, name, resourceType, systemData)
+        /// <param name="provisioningState"> The provisioning state. </param>
+        internal ApiData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string description, AuthenticationSettingsContract authenticationSettings, SubscriptionKeyParameterNamesContract subscriptionKeyParameterNames, ApiType? apiType, string apiRevision, string apiVersion, bool? isCurrent, bool? isOnline, string apiRevisionDescription, string apiVersionDescription, ResourceIdentifier apiVersionSetId, bool? isSubscriptionRequired, Uri termsOfServiceUri, ApiContactInformation contact, ApiLicenseInformation license, ResourceIdentifier sourceApiId, string displayName, Uri serviceUri, string path, IList<ApiOperationInvokableProtocol> protocols, ApiVersionSetContractDetails apiVersionSet, string provisioningState) : base(id, name, resourceType, systemData)
         {
             Description = description;
             AuthenticationSettings = authenticationSettings;
@@ -74,6 +75,7 @@ namespace Azure.ResourceManager.ApiManagement
             Path = path;
             Protocols = protocols;
             ApiVersionSet = apiVersionSet;
+            ProvisioningState = provisioningState;
         }
 
         /// <summary> Description of the API. May include HTML formatting tags. </summary>
@@ -118,5 +120,7 @@ namespace Azure.ResourceManager.ApiManagement
         public IList<ApiOperationInvokableProtocol> Protocols { get; }
         /// <summary> Version set details. </summary>
         public ApiVersionSetContractDetails ApiVersionSet { get; set; }
+        /// <summary> The provisioning state. </summary>
+        public string ProvisioningState { get; }
     }
 }

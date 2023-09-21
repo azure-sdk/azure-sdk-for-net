@@ -32,12 +32,14 @@ namespace Azure.ResourceManager.ApiManagement
         /// <param name="description"> Free-form schema entity description. </param>
         /// <param name="value"> Json-encoded string for non json-based schema. </param>
         /// <param name="document"> Global Schema document object for json-based schema formats(e.g. json schema). </param>
-        internal ApiManagementGlobalSchemaData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, ApiSchemaType? schemaType, string description, BinaryData value, BinaryData document) : base(id, name, resourceType, systemData)
+        /// <param name="provisioningState"> The provisioning state. </param>
+        internal ApiManagementGlobalSchemaData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, ApiSchemaType? schemaType, string description, BinaryData value, BinaryData document, string provisioningState) : base(id, name, resourceType, systemData)
         {
             SchemaType = schemaType;
             Description = description;
             Value = value;
             Document = document;
+            ProvisioningState = provisioningState;
         }
 
         /// <summary> Schema Type. Immutable. </summary>
@@ -106,5 +108,7 @@ namespace Azure.ResourceManager.ApiManagement
         /// </para>
         /// </summary>
         public BinaryData Document { get; set; }
+        /// <summary> The provisioning state. </summary>
+        public string ProvisioningState { get; }
     }
 }
