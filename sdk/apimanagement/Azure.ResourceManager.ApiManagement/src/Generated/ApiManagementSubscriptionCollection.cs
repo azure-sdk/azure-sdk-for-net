@@ -69,7 +69,7 @@ namespace Azure.ResourceManager.ApiManagement
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="sid"> Subscription entity Identifier. The entity represents the association between a user and a product in API Management. </param>
-        /// <param name="content"> Create parameters. </param>
+        /// <param name="subscriptionCreateParameters"> Create parameters. </param>
         /// <param name="notify">
         /// Notify change in Subscription State.
         ///  - If false, do not send any email notification for change of state of subscription
@@ -79,17 +79,17 @@ namespace Azure.ResourceManager.ApiManagement
         /// <param name="appType"> Determines the type of application which send the create user request. Default is legacy publisher portal. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="sid"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="sid"/> or <paramref name="content"/> is null. </exception>
-        public virtual async Task<ArmOperation<ApiManagementSubscriptionResource>> CreateOrUpdateAsync(WaitUntil waitUntil, string sid, ApiManagementSubscriptionCreateOrUpdateContent content, bool? notify = null, ETag? ifMatch = null, AppType? appType = null, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="sid"/> or <paramref name="subscriptionCreateParameters"/> is null. </exception>
+        public virtual async Task<ArmOperation<ApiManagementSubscriptionResource>> CreateOrUpdateAsync(WaitUntil waitUntil, string sid, SubscriptionCreateParameters subscriptionCreateParameters, bool? notify = null, ETag? ifMatch = null, AppType? appType = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(sid, nameof(sid));
-            Argument.AssertNotNull(content, nameof(content));
+            Argument.AssertNotNull(subscriptionCreateParameters, nameof(subscriptionCreateParameters));
 
             using var scope = _apiManagementSubscriptionSubscriptionClientDiagnostics.CreateScope("ApiManagementSubscriptionCollection.CreateOrUpdate");
             scope.Start();
             try
             {
-                var response = await _apiManagementSubscriptionSubscriptionRestClient.CreateOrUpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, sid, content, notify, ifMatch, appType, cancellationToken).ConfigureAwait(false);
+                var response = await _apiManagementSubscriptionSubscriptionRestClient.CreateOrUpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, sid, subscriptionCreateParameters, notify, ifMatch, appType, cancellationToken).ConfigureAwait(false);
                 var operation = new ApiManagementArmOperation<ApiManagementSubscriptionResource>(Response.FromValue(new ApiManagementSubscriptionResource(Client, response), response.GetRawResponse()));
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
@@ -117,7 +117,7 @@ namespace Azure.ResourceManager.ApiManagement
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="sid"> Subscription entity Identifier. The entity represents the association between a user and a product in API Management. </param>
-        /// <param name="content"> Create parameters. </param>
+        /// <param name="subscriptionCreateParameters"> Create parameters. </param>
         /// <param name="notify">
         /// Notify change in Subscription State.
         ///  - If false, do not send any email notification for change of state of subscription
@@ -127,17 +127,17 @@ namespace Azure.ResourceManager.ApiManagement
         /// <param name="appType"> Determines the type of application which send the create user request. Default is legacy publisher portal. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="sid"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="sid"/> or <paramref name="content"/> is null. </exception>
-        public virtual ArmOperation<ApiManagementSubscriptionResource> CreateOrUpdate(WaitUntil waitUntil, string sid, ApiManagementSubscriptionCreateOrUpdateContent content, bool? notify = null, ETag? ifMatch = null, AppType? appType = null, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="sid"/> or <paramref name="subscriptionCreateParameters"/> is null. </exception>
+        public virtual ArmOperation<ApiManagementSubscriptionResource> CreateOrUpdate(WaitUntil waitUntil, string sid, SubscriptionCreateParameters subscriptionCreateParameters, bool? notify = null, ETag? ifMatch = null, AppType? appType = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(sid, nameof(sid));
-            Argument.AssertNotNull(content, nameof(content));
+            Argument.AssertNotNull(subscriptionCreateParameters, nameof(subscriptionCreateParameters));
 
             using var scope = _apiManagementSubscriptionSubscriptionClientDiagnostics.CreateScope("ApiManagementSubscriptionCollection.CreateOrUpdate");
             scope.Start();
             try
             {
-                var response = _apiManagementSubscriptionSubscriptionRestClient.CreateOrUpdate(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, sid, content, notify, ifMatch, appType, cancellationToken);
+                var response = _apiManagementSubscriptionSubscriptionRestClient.CreateOrUpdate(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, sid, subscriptionCreateParameters, notify, ifMatch, appType, cancellationToken);
                 var operation = new ApiManagementArmOperation<ApiManagementSubscriptionResource>(Response.FromValue(new ApiManagementSubscriptionResource(Client, response), response.GetRawResponse()));
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
