@@ -193,11 +193,6 @@ namespace Azure.ResourceManager.CosmosDB.Models
                 }
                 writer.WriteEndArray();
             }
-            if (Optional.IsDefined(DiagnosticLogSettings))
-            {
-                writer.WritePropertyName("diagnosticLogSettings"u8);
-                writer.WriteObjectValue(DiagnosticLogSettings);
-            }
             if (Optional.IsDefined(DisableLocalAuth))
             {
                 writer.WritePropertyName("disableLocalAuth"u8);
@@ -213,25 +208,25 @@ namespace Azure.ResourceManager.CosmosDB.Models
                 writer.WritePropertyName("capacity"u8);
                 writer.WriteObjectValue(Capacity);
             }
-            if (Optional.IsDefined(EnableMaterializedViews))
-            {
-                writer.WritePropertyName("enableMaterializedViews"u8);
-                writer.WriteBooleanValue(EnableMaterializedViews.Value);
-            }
             if (Optional.IsDefined(EnablePartitionMerge))
             {
                 writer.WritePropertyName("enablePartitionMerge"u8);
                 writer.WriteBooleanValue(EnablePartitionMerge.Value);
+            }
+            if (Optional.IsDefined(MinimalTlsVersion))
+            {
+                writer.WritePropertyName("minimalTlsVersion"u8);
+                writer.WriteStringValue(MinimalTlsVersion.Value.ToString());
             }
             if (Optional.IsDefined(EnableBurstCapacity))
             {
                 writer.WritePropertyName("enableBurstCapacity"u8);
                 writer.WriteBooleanValue(EnableBurstCapacity.Value);
             }
-            if (Optional.IsDefined(MinimalTlsVersion))
+            if (Optional.IsDefined(CustomerManagedKeyStatus))
             {
-                writer.WritePropertyName("minimalTlsVersion"u8);
-                writer.WriteStringValue(MinimalTlsVersion.Value.ToString());
+                writer.WritePropertyName("customerManagedKeyStatus"u8);
+                writer.WriteStringValue(CustomerManagedKeyStatus.Value.ToString());
             }
             writer.WriteEndObject();
             writer.WriteEndObject();
@@ -275,15 +270,14 @@ namespace Azure.ResourceManager.CosmosDB.Models
             Optional<IList<CosmosDBAccountCorsPolicy>> cors = default;
             Optional<NetworkAclBypass> networkAclBypass = default;
             Optional<IList<ResourceIdentifier>> networkAclBypassResourceIds = default;
-            Optional<DiagnosticLogSettings> diagnosticLogSettings = default;
             Optional<bool> disableLocalAuth = default;
             Optional<CosmosDBAccountRestoreParameters> restoreParameters = default;
             Optional<CosmosDBAccountCapacity> capacity = default;
-            Optional<bool> enableMaterializedViews = default;
             Optional<DatabaseAccountKeysMetadata> keysMetadata = default;
             Optional<bool> enablePartitionMerge = default;
-            Optional<bool> enableBurstCapacity = default;
             Optional<CosmosDBMinimalTlsVersion> minimalTlsVersion = default;
+            Optional<bool> enableBurstCapacity = default;
+            Optional<CustomerManagedKeyStatus> customerManagedKeyStatus = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("kind"u8))
@@ -598,15 +592,6 @@ namespace Azure.ResourceManager.CosmosDB.Models
                             networkAclBypassResourceIds = array;
                             continue;
                         }
-                        if (property0.NameEquals("diagnosticLogSettings"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            diagnosticLogSettings = DiagnosticLogSettings.DeserializeDiagnosticLogSettings(property0.Value);
-                            continue;
-                        }
                         if (property0.NameEquals("disableLocalAuth"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -634,15 +619,6 @@ namespace Azure.ResourceManager.CosmosDB.Models
                             capacity = CosmosDBAccountCapacity.DeserializeCosmosDBAccountCapacity(property0.Value);
                             continue;
                         }
-                        if (property0.NameEquals("enableMaterializedViews"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            enableMaterializedViews = property0.Value.GetBoolean();
-                            continue;
-                        }
                         if (property0.NameEquals("keysMetadata"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -661,15 +637,6 @@ namespace Azure.ResourceManager.CosmosDB.Models
                             enablePartitionMerge = property0.Value.GetBoolean();
                             continue;
                         }
-                        if (property0.NameEquals("enableBurstCapacity"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            enableBurstCapacity = property0.Value.GetBoolean();
-                            continue;
-                        }
                         if (property0.NameEquals("minimalTlsVersion"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -679,11 +646,29 @@ namespace Azure.ResourceManager.CosmosDB.Models
                             minimalTlsVersion = new CosmosDBMinimalTlsVersion(property0.Value.GetString());
                             continue;
                         }
+                        if (property0.NameEquals("enableBurstCapacity"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            enableBurstCapacity = property0.Value.GetBoolean();
+                            continue;
+                        }
+                        if (property0.NameEquals("customerManagedKeyStatus"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            customerManagedKeyStatus = new CustomerManagedKeyStatus(property0.Value.GetString());
+                            continue;
+                        }
                     }
                     continue;
                 }
             }
-            return new CosmosDBAccountCreateOrUpdateContent(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, Optional.ToNullable(kind), consistencyPolicy.Value, locations, databaseAccountOfferType, Optional.ToList(ipRules), Optional.ToNullable(isVirtualNetworkFilterEnabled), Optional.ToNullable(enableAutomaticFailover), Optional.ToList(capabilities), Optional.ToList(virtualNetworkRules), Optional.ToNullable(enableMultipleWriteLocations), Optional.ToNullable(enableCassandraConnector), Optional.ToNullable(connectorOffer), Optional.ToNullable(disableKeyBasedMetadataWriteAccess), keyVaultKeyUri.Value, defaultIdentity.Value, Optional.ToNullable(publicNetworkAccess), Optional.ToNullable(enableFreeTier), apiProperties.Value, Optional.ToNullable(enableAnalyticalStorage), analyticalStorageConfiguration.Value, Optional.ToNullable(createMode), backupPolicy.Value, Optional.ToList(cors), Optional.ToNullable(networkAclBypass), Optional.ToList(networkAclBypassResourceIds), diagnosticLogSettings.Value, Optional.ToNullable(disableLocalAuth), restoreParameters.Value, capacity.Value, Optional.ToNullable(enableMaterializedViews), keysMetadata.Value, Optional.ToNullable(enablePartitionMerge), Optional.ToNullable(enableBurstCapacity), Optional.ToNullable(minimalTlsVersion), identity);
+            return new CosmosDBAccountCreateOrUpdateContent(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, Optional.ToNullable(kind), identity, consistencyPolicy.Value, locations, databaseAccountOfferType, Optional.ToList(ipRules), Optional.ToNullable(isVirtualNetworkFilterEnabled), Optional.ToNullable(enableAutomaticFailover), Optional.ToList(capabilities), Optional.ToList(virtualNetworkRules), Optional.ToNullable(enableMultipleWriteLocations), Optional.ToNullable(enableCassandraConnector), Optional.ToNullable(connectorOffer), Optional.ToNullable(disableKeyBasedMetadataWriteAccess), keyVaultKeyUri.Value, defaultIdentity.Value, Optional.ToNullable(publicNetworkAccess), Optional.ToNullable(enableFreeTier), apiProperties.Value, Optional.ToNullable(enableAnalyticalStorage), analyticalStorageConfiguration.Value, Optional.ToNullable(createMode), backupPolicy.Value, Optional.ToList(cors), Optional.ToNullable(networkAclBypass), Optional.ToList(networkAclBypassResourceIds), Optional.ToNullable(disableLocalAuth), restoreParameters.Value, capacity.Value, keysMetadata.Value, Optional.ToNullable(enablePartitionMerge), Optional.ToNullable(minimalTlsVersion), Optional.ToNullable(enableBurstCapacity), Optional.ToNullable(customerManagedKeyStatus));
         }
     }
 }
