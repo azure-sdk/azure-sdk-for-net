@@ -8,7 +8,7 @@
 namespace Azure.ResourceManager.StreamAnalytics.Models
 {
     /// <summary> The properties that are associated with a SKU. </summary>
-    internal partial class StreamAnalyticsSku
+    public partial class StreamAnalyticsSku
     {
         /// <summary> Initializes a new instance of StreamAnalyticsSku. </summary>
         public StreamAnalyticsSku()
@@ -17,12 +17,16 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
 
         /// <summary> Initializes a new instance of StreamAnalyticsSku. </summary>
         /// <param name="name"> The name of the SKU. Required on PUT (CreateOrReplace) requests. </param>
-        internal StreamAnalyticsSku(StreamAnalyticsSkuName? name)
+        /// <param name="capacity"> The capacity of the SKU. </param>
+        internal StreamAnalyticsSku(StreamAnalyticsSkuName? name, int? capacity)
         {
             Name = name;
+            Capacity = capacity;
         }
 
         /// <summary> The name of the SKU. Required on PUT (CreateOrReplace) requests. </summary>
         public StreamAnalyticsSkuName? Name { get; set; }
+        /// <summary> The capacity of the SKU. </summary>
+        public int? Capacity { get; set; }
     }
 }

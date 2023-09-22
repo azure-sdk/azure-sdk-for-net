@@ -34,7 +34,7 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
             }
             Optional<ResourceIdentifier> id = default;
             Optional<string> name = default;
-            Optional<ResourceType> type = default;
+            Optional<Core.ResourceType> type = default;
             Optional<int> maxCount = default;
             Optional<int> currentCount = default;
             foreach (var property in element.EnumerateObject())
@@ -59,7 +59,7 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
                     {
                         continue;
                     }
-                    type = new ResourceType(property.Value.GetString());
+                    type = new Core.ResourceType(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("properties"u8))

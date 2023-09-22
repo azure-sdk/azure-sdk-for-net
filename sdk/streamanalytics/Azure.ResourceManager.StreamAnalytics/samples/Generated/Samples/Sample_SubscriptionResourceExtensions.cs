@@ -71,7 +71,14 @@ namespace Azure.ResourceManager.StreamAnalytics.Samples
             AzureLocation location = new AzureLocation("West US");
             StreamAnalyticsTestQuery testQuery = new StreamAnalyticsTestQuery(new StreamingJobData(new AzureLocation("West US"))
             {
-                SkuName = StreamAnalyticsSkuName.Standard,
+                Sku = new StreamAnalyticsSku()
+                {
+                    Name = StreamAnalyticsSkuName.Standard,
+                },
+                SkuPropertiesSku = new StreamAnalyticsSku()
+                {
+                    Name = StreamAnalyticsSkuName.Standard,
+                },
                 EventsOutOfOrderPolicy = EventsOutOfOrderPolicy.Drop,
                 OutputErrorPolicy = StreamingJobOutputErrorPolicy.Drop,
                 EventsOutOfOrderMaxDelayInSeconds = 0,

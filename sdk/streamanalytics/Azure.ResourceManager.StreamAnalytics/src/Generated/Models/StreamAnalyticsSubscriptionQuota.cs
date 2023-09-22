@@ -23,7 +23,7 @@ namespace Azure.ResourceManager.StreamAnalytics.Models
         /// <param name="resourceType"> Resource type. </param>
         /// <param name="maxCount"> The max permitted usage of this resource. </param>
         /// <param name="currentCount"> The current usage of this resource. </param>
-        internal StreamAnalyticsSubscriptionQuota(ResourceIdentifier id, string name, ResourceType? resourceType, int? maxCount, int? currentCount) : base(id, name, resourceType)
+        internal StreamAnalyticsSubscriptionQuota(ResourceIdentifier id, string name, Core.ResourceType? resourceType, int? maxCount, int? currentCount) : base(id, name, resourceType)
         {
             MaxCount = maxCount;
             CurrentCount = currentCount;
