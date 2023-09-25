@@ -640,6 +640,25 @@ namespace Azure.ResourceManager.Sql
         }
         #endregion
 
+        #region JobPrivateEndpointResource
+        /// <summary>
+        /// Gets an object representing a <see cref="JobPrivateEndpointResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="JobPrivateEndpointResource.CreateResourceIdentifier" /> to create a <see cref="JobPrivateEndpointResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="JobPrivateEndpointResource" /> object. </returns>
+        public static JobPrivateEndpointResource GetJobPrivateEndpointResource(this ArmClient client, ResourceIdentifier id)
+        {
+            return client.GetResourceClient(() =>
+            {
+                JobPrivateEndpointResource.ValidateResourceId(id);
+                return new JobPrivateEndpointResource(client, id);
+            }
+            );
+        }
+        #endregion
+
         #region SqlServerJobResource
         /// <summary>
         /// Gets an object representing a <see cref="SqlServerJobResource" /> along with the instance operations that can be performed on it but with no data.
@@ -2065,25 +2084,6 @@ namespace Azure.ResourceManager.Sql
         }
         #endregion
 
-        #region ManagedInstanceResource
-        /// <summary>
-        /// Gets an object representing a <see cref="ManagedInstanceResource" /> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="ManagedInstanceResource.CreateResourceIdentifier" /> to create a <see cref="ManagedInstanceResource" /> <see cref="ResourceIdentifier" /> from its components.
-        /// </summary>
-        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="ManagedInstanceResource" /> object. </returns>
-        public static ManagedInstanceResource GetManagedInstanceResource(this ArmClient client, ResourceIdentifier id)
-        {
-            return client.GetResourceClient(() =>
-            {
-                ManagedInstanceResource.ValidateResourceId(id);
-                return new ManagedInstanceResource(client, id);
-            }
-            );
-        }
-        #endregion
-
         #region ManagedLedgerDigestUploadResource
         /// <summary>
         /// Gets an object representing a <see cref="ManagedLedgerDigestUploadResource" /> along with the instance operations that can be performed on it but with no data.
@@ -2160,6 +2160,25 @@ namespace Azure.ResourceManager.Sql
         }
         #endregion
 
+        #region SqlServerResource
+        /// <summary>
+        /// Gets an object representing a <see cref="SqlServerResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="SqlServerResource.CreateResourceIdentifier" /> to create a <see cref="SqlServerResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="SqlServerResource" /> object. </returns>
+        public static SqlServerResource GetSqlServerResource(this ArmClient client, ResourceIdentifier id)
+        {
+            return client.GetResourceClient(() =>
+            {
+                SqlServerResource.ValidateResourceId(id);
+                return new SqlServerResource(client, id);
+            }
+            );
+        }
+        #endregion
+
         #region ManagedInstanceStartStopScheduleResource
         /// <summary>
         /// Gets an object representing a <see cref="ManagedInstanceStartStopScheduleResource" /> along with the instance operations that can be performed on it but with no data.
@@ -2193,6 +2212,25 @@ namespace Azure.ResourceManager.Sql
             {
                 LogicalDatabaseTransparentDataEncryptionResource.ValidateResourceId(id);
                 return new LogicalDatabaseTransparentDataEncryptionResource(client, id);
+            }
+            );
+        }
+        #endregion
+
+        #region FailoverGroupResource
+        /// <summary>
+        /// Gets an object representing a <see cref="FailoverGroupResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="FailoverGroupResource.CreateResourceIdentifier" /> to create a <see cref="FailoverGroupResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="FailoverGroupResource" /> object. </returns>
+        public static FailoverGroupResource GetFailoverGroupResource(this ArmClient client, ResourceIdentifier id)
+        {
+            return client.GetResourceClient(() =>
+            {
+                FailoverGroupResource.ValidateResourceId(id);
+                return new FailoverGroupResource(client, id);
             }
             );
         }
@@ -2407,39 +2445,20 @@ namespace Azure.ResourceManager.Sql
         }
         #endregion
 
-        #region SqlServerResource
+        #region ManagedInstanceResource
         /// <summary>
-        /// Gets an object representing a <see cref="SqlServerResource" /> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="SqlServerResource.CreateResourceIdentifier" /> to create a <see cref="SqlServerResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// Gets an object representing a <see cref="ManagedInstanceResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="ManagedInstanceResource.CreateResourceIdentifier" /> to create a <see cref="ManagedInstanceResource" /> <see cref="ResourceIdentifier" /> from its components.
         /// </summary>
         /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
         /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="SqlServerResource" /> object. </returns>
-        public static SqlServerResource GetSqlServerResource(this ArmClient client, ResourceIdentifier id)
+        /// <returns> Returns a <see cref="ManagedInstanceResource" /> object. </returns>
+        public static ManagedInstanceResource GetManagedInstanceResource(this ArmClient client, ResourceIdentifier id)
         {
             return client.GetResourceClient(() =>
             {
-                SqlServerResource.ValidateResourceId(id);
-                return new SqlServerResource(client, id);
-            }
-            );
-        }
-        #endregion
-
-        #region FailoverGroupResource
-        /// <summary>
-        /// Gets an object representing a <see cref="FailoverGroupResource" /> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="FailoverGroupResource.CreateResourceIdentifier" /> to create a <see cref="FailoverGroupResource" /> <see cref="ResourceIdentifier" /> from its components.
-        /// </summary>
-        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="FailoverGroupResource" /> object. </returns>
-        public static FailoverGroupResource GetFailoverGroupResource(this ArmClient client, ResourceIdentifier id)
-        {
-            return client.GetResourceClient(() =>
-            {
-                FailoverGroupResource.ValidateResourceId(id);
-                return new FailoverGroupResource(client, id);
+                ManagedInstanceResource.ValidateResourceId(id);
+                return new ManagedInstanceResource(client, id);
             }
             );
         }
@@ -2815,64 +2834,6 @@ namespace Azure.ResourceManager.Sql
             return resourceGroupResource.GetInstanceFailoverGroups(locationName).Get(failoverGroupName, cancellationToken);
         }
 
-        /// <summary> Gets a collection of ManagedInstanceResources in the ResourceGroupResource. </summary>
-        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
-        /// <returns> An object representing collection of ManagedInstanceResources and their operations over a ManagedInstanceResource. </returns>
-        public static ManagedInstanceCollection GetManagedInstances(this ResourceGroupResource resourceGroupResource)
-        {
-            return GetResourceGroupResourceExtensionClient(resourceGroupResource).GetManagedInstances();
-        }
-
-        /// <summary>
-        /// Gets a managed instance.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Sql/managedInstances/{managedInstanceName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>ManagedInstances_Get</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
-        /// <param name="managedInstanceName"> The name of the managed instance. </param>
-        /// <param name="expand"> The child resources to include in the response. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="managedInstanceName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="managedInstanceName"/> is null. </exception>
-        [ForwardsClientCalls]
-        public static async Task<Response<ManagedInstanceResource>> GetManagedInstanceAsync(this ResourceGroupResource resourceGroupResource, string managedInstanceName, string expand = null, CancellationToken cancellationToken = default)
-        {
-            return await resourceGroupResource.GetManagedInstances().GetAsync(managedInstanceName, expand, cancellationToken).ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// Gets a managed instance.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Sql/managedInstances/{managedInstanceName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>ManagedInstances_Get</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
-        /// <param name="managedInstanceName"> The name of the managed instance. </param>
-        /// <param name="expand"> The child resources to include in the response. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="managedInstanceName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="managedInstanceName"/> is null. </exception>
-        [ForwardsClientCalls]
-        public static Response<ManagedInstanceResource> GetManagedInstance(this ResourceGroupResource resourceGroupResource, string managedInstanceName, string expand = null, CancellationToken cancellationToken = default)
-        {
-            return resourceGroupResource.GetManagedInstances().Get(managedInstanceName, expand, cancellationToken);
-        }
-
         /// <summary> Gets a collection of SqlServerResources in the ResourceGroupResource. </summary>
         /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
         /// <returns> An object representing collection of SqlServerResources and their operations over a SqlServerResource. </returns>
@@ -2929,6 +2890,64 @@ namespace Azure.ResourceManager.Sql
         public static Response<SqlServerResource> GetSqlServer(this ResourceGroupResource resourceGroupResource, string serverName, string expand = null, CancellationToken cancellationToken = default)
         {
             return resourceGroupResource.GetSqlServers().Get(serverName, expand, cancellationToken);
+        }
+
+        /// <summary> Gets a collection of ManagedInstanceResources in the ResourceGroupResource. </summary>
+        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
+        /// <returns> An object representing collection of ManagedInstanceResources and their operations over a ManagedInstanceResource. </returns>
+        public static ManagedInstanceCollection GetManagedInstances(this ResourceGroupResource resourceGroupResource)
+        {
+            return GetResourceGroupResourceExtensionClient(resourceGroupResource).GetManagedInstances();
+        }
+
+        /// <summary>
+        /// Gets a managed instance.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Sql/managedInstances/{managedInstanceName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>ManagedInstances_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
+        /// <param name="managedInstanceName"> The name of the managed instance. </param>
+        /// <param name="expand"> The child resources to include in the response. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="managedInstanceName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="managedInstanceName"/> is null. </exception>
+        [ForwardsClientCalls]
+        public static async Task<Response<ManagedInstanceResource>> GetManagedInstanceAsync(this ResourceGroupResource resourceGroupResource, string managedInstanceName, string expand = null, CancellationToken cancellationToken = default)
+        {
+            return await resourceGroupResource.GetManagedInstances().GetAsync(managedInstanceName, expand, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets a managed instance.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Sql/managedInstances/{managedInstanceName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>ManagedInstances_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
+        /// <param name="managedInstanceName"> The name of the managed instance. </param>
+        /// <param name="expand"> The child resources to include in the response. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="managedInstanceName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="managedInstanceName"/> is null. </exception>
+        [ForwardsClientCalls]
+        public static Response<ManagedInstanceResource> GetManagedInstance(this ResourceGroupResource resourceGroupResource, string managedInstanceName, string expand = null, CancellationToken cancellationToken = default)
+        {
+            return resourceGroupResource.GetManagedInstances().Get(managedInstanceName, expand, cancellationToken);
         }
 
         /// <summary>
@@ -3887,50 +3906,6 @@ namespace Azure.ResourceManager.Sql
         }
 
         /// <summary>
-        /// Gets a list of all managed instances in the subscription.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Sql/managedInstances</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>ManagedInstances_List</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
-        /// <param name="expand"> The child resources to include in the response. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> An async collection of <see cref="ManagedInstanceResource" /> that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<ManagedInstanceResource> GetManagedInstancesAsync(this SubscriptionResource subscriptionResource, string expand = null, CancellationToken cancellationToken = default)
-        {
-            return GetSubscriptionResourceExtensionClient(subscriptionResource).GetManagedInstancesAsync(expand, cancellationToken);
-        }
-
-        /// <summary>
-        /// Gets a list of all managed instances in the subscription.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Sql/managedInstances</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>ManagedInstances_List</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
-        /// <param name="expand"> The child resources to include in the response. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="ManagedInstanceResource" /> that may take multiple service requests to iterate over. </returns>
-        public static Pageable<ManagedInstanceResource> GetManagedInstances(this SubscriptionResource subscriptionResource, string expand = null, CancellationToken cancellationToken = default)
-        {
-            return GetSubscriptionResourceExtensionClient(subscriptionResource).GetManagedInstances(expand, cancellationToken);
-        }
-
-        /// <summary>
         /// Determines whether a resource can be created with the specified name.
         /// <list type="bullet">
         /// <item>
@@ -4020,6 +3995,50 @@ namespace Azure.ResourceManager.Sql
         public static Pageable<SqlServerResource> GetSqlServers(this SubscriptionResource subscriptionResource, string expand = null, CancellationToken cancellationToken = default)
         {
             return GetSubscriptionResourceExtensionClient(subscriptionResource).GetSqlServers(expand, cancellationToken);
+        }
+
+        /// <summary>
+        /// Gets a list of all managed instances in the subscription.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Sql/managedInstances</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>ManagedInstances_List</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
+        /// <param name="expand"> The child resources to include in the response. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> An async collection of <see cref="ManagedInstanceResource" /> that may take multiple service requests to iterate over. </returns>
+        public static AsyncPageable<ManagedInstanceResource> GetManagedInstancesAsync(this SubscriptionResource subscriptionResource, string expand = null, CancellationToken cancellationToken = default)
+        {
+            return GetSubscriptionResourceExtensionClient(subscriptionResource).GetManagedInstancesAsync(expand, cancellationToken);
+        }
+
+        /// <summary>
+        /// Gets a list of all managed instances in the subscription.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Sql/managedInstances</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>ManagedInstances_List</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
+        /// <param name="expand"> The child resources to include in the response. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="ManagedInstanceResource" /> that may take multiple service requests to iterate over. </returns>
+        public static Pageable<ManagedInstanceResource> GetManagedInstances(this SubscriptionResource subscriptionResource, string expand = null, CancellationToken cancellationToken = default)
+        {
+            return GetSubscriptionResourceExtensionClient(subscriptionResource).GetManagedInstances(expand, cancellationToken);
         }
     }
 }

@@ -699,6 +699,19 @@ namespace Azure.ResourceManager.Sql.Models
             return new JobExecutionTarget(targetType, serverName, databaseName);
         }
 
+        /// <summary> Initializes a new instance of JobPrivateEndpointData. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="targetServerAzureResourceId"> ARM resource id of the server the private endpoint will target. </param>
+        /// <param name="privateEndpointId"> Private endpoint id of the private endpoint. </param>
+        /// <returns> A new <see cref="Sql.JobPrivateEndpointData"/> instance for mocking. </returns>
+        public static JobPrivateEndpointData JobPrivateEndpointData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, ResourceIdentifier targetServerAzureResourceId = null, string privateEndpointId = null)
+        {
+            return new JobPrivateEndpointData(id, name, resourceType, systemData, targetServerAzureResourceId, privateEndpointId);
+        }
+
         /// <summary> Initializes a new instance of SqlServerJobData. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
@@ -1201,20 +1214,6 @@ namespace Azure.ResourceManager.Sql.Models
             intervals ??= new List<QueryMetricInterval>();
 
             return new QueryStatistics(id, name, resourceType, systemData, databaseName, queryId, startTime, endTime, intervals?.ToList());
-        }
-
-        /// <summary> Initializes a new instance of QueryStatisticsProperties. </summary>
-        /// <param name="databaseName"> Database name of the database in which this query was executed. </param>
-        /// <param name="queryId"> Unique query id (unique within one database). </param>
-        /// <param name="startTime"> The start time for the metric (ISO-8601 format). </param>
-        /// <param name="endTime"> The end time for the metric (ISO-8601 format). </param>
-        /// <param name="intervals"> List of intervals with appropriate metric data. </param>
-        /// <returns> A new <see cref="Models.QueryStatisticsProperties"/> instance for mocking. </returns>
-        public static QueryStatisticsProperties QueryStatisticsProperties(string databaseName = null, string queryId = null, string startTime = null, string endTime = null, IEnumerable<QueryMetricInterval> intervals = null)
-        {
-            intervals ??= new List<QueryMetricInterval>();
-
-            return new QueryStatisticsProperties(databaseName, queryId, startTime, endTime, intervals?.ToList());
         }
 
         /// <summary> Initializes a new instance of QueryMetricInterval. </summary>
@@ -3372,132 +3371,6 @@ namespace Azure.ResourceManager.Sql.Models
             return new ManagedDatabaseData(id, name, resourceType, systemData, tags, location, collation, status, createdOn, earliestRestorePoint, restorePointInTime, defaultSecondaryLocation, catalogCollation, createMode, storageContainerUri, sourceDatabaseId, crossSubscriptionSourceDatabaseId, restorableDroppedDatabaseId, crossSubscriptionRestorableDroppedDatabaseId, storageContainerIdentity, storageContainerSasToken, failoverGroupId, recoverableDatabaseId, longTermRetentionBackupResourceId, allowAutoCompleteRestore, lastBackupName, crossSubscriptionTargetManagedInstanceId, isLedgerOn);
         }
 
-        /// <summary> Initializes a new instance of ManagedInstanceData. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="tags"> The tags. </param>
-        /// <param name="location"> The location. </param>
-        /// <param name="identity"> The Azure Active Directory identity of the managed instance. </param>
-        /// <param name="sku"> Managed instance SKU. Allowed values for sku.name: GP_Gen5, GP_G8IM, GP_G8IH, BC_Gen5, BC_G8IM, BC_G8IH. </param>
-        /// <param name="provisioningState"></param>
-        /// <param name="managedInstanceCreateMode">
-        /// Specifies the mode of database creation.
-        ///
-        /// Default: Regular instance creation.
-        ///
-        /// Restore: Creates an instance by restoring a set of backups to specific point in time. RestorePointInTime and SourceManagedInstanceId must be specified.
-        /// </param>
-        /// <param name="fullyQualifiedDomainName"> The fully qualified domain name of the managed instance. </param>
-        /// <param name="administratorLogin"> Administrator username for the managed instance. Can only be specified when the managed instance is being created (and is required for creation). </param>
-        /// <param name="administratorLoginPassword"> The administrator login password (required for managed instance creation). </param>
-        /// <param name="subnetId"> Subnet resource ID for the managed instance. </param>
-        /// <param name="state"> The state of the managed instance. </param>
-        /// <param name="licenseType"> The license type. Possible values are 'LicenseIncluded' (regular price inclusive of a new SQL license) and 'BasePrice' (discounted AHB price for bringing your own SQL licenses). </param>
-        /// <param name="vCores"> The number of vCores. Allowed values: 8, 16, 24, 32, 40, 64, 80. </param>
-        /// <param name="storageSizeInGB"> Storage size in GB. Minimum value: 32. Maximum value: 16384. Increments of 32 GB allowed only. Maximum value depends on the selected hardware family and number of vCores. </param>
-        /// <param name="collation"> Collation of the managed instance. </param>
-        /// <param name="dnsZone"> The Dns Zone that the managed instance is in. </param>
-        /// <param name="managedDnsZonePartner"> The resource id of another managed instance whose DNS zone this managed instance will share after creation. </param>
-        /// <param name="isPublicDataEndpointEnabled"> Whether or not the public data endpoint is enabled. </param>
-        /// <param name="sourceManagedInstanceId"> The resource identifier of the source managed instance associated with create operation of this instance. </param>
-        /// <param name="restorePointInTime"> Specifies the point in time (ISO8601 format) of the source database that will be restored to create the new database. </param>
-        /// <param name="proxyOverride"> Connection type used for connecting to the instance. </param>
-        /// <param name="timezoneId">
-        /// Id of the timezone. Allowed values are timezones supported by Windows.
-        /// Windows keeps details on supported timezones, including the id, in registry under
-        /// KEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Time Zones.
-        /// You can get those registry values via SQL Server by querying SELECT name AS timezone_id FROM sys.time_zone_info.
-        /// List of Ids can also be obtained by executing [System.TimeZoneInfo]::GetSystemTimeZones() in PowerShell.
-        /// An example of valid timezone id is "Pacific Standard Time" or "W. Europe Standard Time".
-        /// </param>
-        /// <param name="instancePoolId"> The Id of the instance pool this managed server belongs to. </param>
-        /// <param name="maintenanceConfigurationId"> Specifies maintenance configuration id to apply to this managed instance. </param>
-        /// <param name="privateEndpointConnections"> List of private endpoint connections on a managed instance. </param>
-        /// <param name="minimalTlsVersion"> Minimal TLS version. Allowed values: 'None', '1.0', '1.1', '1.2'. </param>
-        /// <param name="currentBackupStorageRedundancy"> The storage account type used to store backups for this instance. The options are Local (LocallyRedundantStorage), Zone (ZoneRedundantStorage), Geo (GeoRedundantStorage) and GeoZone(GeoZoneRedundantStorage). </param>
-        /// <param name="requestedBackupStorageRedundancy"> The storage account type to be used to store backups for this instance. The options are Local (LocallyRedundantStorage), Zone (ZoneRedundantStorage), Geo (GeoRedundantStorage) and GeoZone(GeoZoneRedundantStorage). </param>
-        /// <param name="isZoneRedundant"> Whether or not the multi-az is enabled. </param>
-        /// <param name="primaryUserAssignedIdentityId"> The resource id of a user assigned identity to be used by default. </param>
-        /// <param name="keyId"> A CMK URI of the key to use for encryption. </param>
-        /// <param name="administrators"> The Azure Active Directory administrator of the instance. This can only be used at instance create time. If used for instance update, it will be ignored or it will result in an error. For updates individual APIs will need to be used. </param>
-        /// <param name="servicePrincipal"> The managed instance's service principal. </param>
-        /// <returns> A new <see cref="Sql.ManagedInstanceData"/> instance for mocking. </returns>
-        public static ManagedInstanceData ManagedInstanceData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, ManagedServiceIdentity identity = null, SqlSku sku = null, ManagedInstancePropertiesProvisioningState? provisioningState = null, ManagedServerCreateMode? managedInstanceCreateMode = null, string fullyQualifiedDomainName = null, string administratorLogin = null, string administratorLoginPassword = null, ResourceIdentifier subnetId = null, string state = null, ManagedInstanceLicenseType? licenseType = null, int? vCores = null, int? storageSizeInGB = null, string collation = null, string dnsZone = null, ResourceIdentifier managedDnsZonePartner = null, bool? isPublicDataEndpointEnabled = null, ResourceIdentifier sourceManagedInstanceId = null, DateTimeOffset? restorePointInTime = null, ManagedInstanceProxyOverride? proxyOverride = null, string timezoneId = null, ResourceIdentifier instancePoolId = null, ResourceIdentifier maintenanceConfigurationId = null, IEnumerable<ManagedInstancePecProperty> privateEndpointConnections = null, string minimalTlsVersion = null, SqlBackupStorageRedundancy? currentBackupStorageRedundancy = null, SqlBackupStorageRedundancy? requestedBackupStorageRedundancy = null, bool? isZoneRedundant = null, ResourceIdentifier primaryUserAssignedIdentityId = null, Uri keyId = null, ManagedInstanceExternalAdministrator administrators = null, SqlServicePrincipal servicePrincipal = null)
-        {
-            tags ??= new Dictionary<string, string>();
-            privateEndpointConnections ??= new List<ManagedInstancePecProperty>();
-
-            return new ManagedInstanceData(id, name, resourceType, systemData, tags, location, identity, sku, provisioningState, managedInstanceCreateMode, fullyQualifiedDomainName, administratorLogin, administratorLoginPassword, subnetId, state, licenseType, vCores, storageSizeInGB, collation, dnsZone, managedDnsZonePartner, isPublicDataEndpointEnabled, sourceManagedInstanceId, restorePointInTime, proxyOverride, timezoneId, instancePoolId, maintenanceConfigurationId, privateEndpointConnections?.ToList(), minimalTlsVersion, currentBackupStorageRedundancy, requestedBackupStorageRedundancy, isZoneRedundant, primaryUserAssignedIdentityId, keyId, administrators, servicePrincipal);
-        }
-
-        /// <summary> Initializes a new instance of ManagedInstancePecProperty. </summary>
-        /// <param name="id"> Resource ID. </param>
-        /// <param name="properties"> Private endpoint connection properties. </param>
-        /// <returns> A new <see cref="Models.ManagedInstancePecProperty"/> instance for mocking. </returns>
-        public static ManagedInstancePecProperty ManagedInstancePecProperty(ResourceIdentifier id = null, ManagedInstancePrivateEndpointConnectionProperties properties = null)
-        {
-            return new ManagedInstancePecProperty(id, properties);
-        }
-
-        /// <summary> Initializes a new instance of SqlServicePrincipal. </summary>
-        /// <param name="principalId"> The Azure Active Directory application object id. </param>
-        /// <param name="clientId"> The Azure Active Directory application client id. </param>
-        /// <param name="tenantId"> The Azure Active Directory tenant id. </param>
-        /// <param name="principalType"> Service principal type. </param>
-        /// <returns> A new <see cref="Models.SqlServicePrincipal"/> instance for mocking. </returns>
-        public static SqlServicePrincipal SqlServicePrincipal(Guid? principalId = null, Guid? clientId = null, Guid? tenantId = null, SqlServicePrincipalType? principalType = null)
-        {
-            return new SqlServicePrincipal(principalId, clientId, tenantId, principalType);
-        }
-
-        /// <summary> Initializes a new instance of SqlOutboundEnvironmentEndpoint. </summary>
-        /// <param name="category"> The type of service accessed by the managed instance service, e.g., Azure Storage, Azure Active Directory, etc. </param>
-        /// <param name="endpoints"> The endpoints that the managed instance service communicates with in order to function correctly. </param>
-        /// <returns> A new <see cref="Models.SqlOutboundEnvironmentEndpoint"/> instance for mocking. </returns>
-        public static SqlOutboundEnvironmentEndpoint SqlOutboundEnvironmentEndpoint(string category = null, IEnumerable<ManagedInstanceEndpointDependency> endpoints = null)
-        {
-            endpoints ??= new List<ManagedInstanceEndpointDependency>();
-
-            return new SqlOutboundEnvironmentEndpoint(category, endpoints?.ToList());
-        }
-
-        /// <summary> Initializes a new instance of ManagedInstanceEndpointDependency. </summary>
-        /// <param name="domainName"> The domain name of the dependency. </param>
-        /// <param name="endpointDetails"> The IP Addresses and Ports used when connecting to DomainName. </param>
-        /// <returns> A new <see cref="Models.ManagedInstanceEndpointDependency"/> instance for mocking. </returns>
-        public static ManagedInstanceEndpointDependency ManagedInstanceEndpointDependency(string domainName = null, IEnumerable<ManagedInstanceEndpointDetail> endpointDetails = null)
-        {
-            endpointDetails ??= new List<ManagedInstanceEndpointDetail>();
-
-            return new ManagedInstanceEndpointDependency(domainName, endpointDetails?.ToList());
-        }
-
-        /// <summary> Initializes a new instance of ManagedInstanceEndpointDetail. </summary>
-        /// <param name="port"> The port an endpoint is connected to. </param>
-        /// <returns> A new <see cref="Models.ManagedInstanceEndpointDetail"/> instance for mocking. </returns>
-        public static ManagedInstanceEndpointDetail ManagedInstanceEndpointDetail(int? port = null)
-        {
-            return new ManagedInstanceEndpointDetail(port);
-        }
-
-        /// <summary> Initializes a new instance of TopQueries. </summary>
-        /// <param name="numberOfQueries"> Requested number of top queries. </param>
-        /// <param name="aggregationFunction"> Aggregation function used to calculate query metrics. </param>
-        /// <param name="observationMetric"> Metric used to rank queries. </param>
-        /// <param name="intervalType"> Interval type (length). </param>
-        /// <param name="startTime"> The start time for the metric (ISO-8601 format). </param>
-        /// <param name="endTime"> The end time for the metric (ISO-8601 format). </param>
-        /// <param name="queries"> List of top resource consuming queries with appropriate metric data. </param>
-        /// <returns> A new <see cref="Models.TopQueries"/> instance for mocking. </returns>
-        public static TopQueries TopQueries(int? numberOfQueries = null, string aggregationFunction = null, string observationMetric = null, QueryTimeGrainType? intervalType = null, string startTime = null, string endTime = null, IEnumerable<QueryStatisticsProperties> queries = null)
-        {
-            queries ??= new List<QueryStatisticsProperties>();
-
-            return new TopQueries(numberOfQueries, aggregationFunction, observationMetric, intervalType, startTime, endTime, queries?.ToList());
-        }
-
         /// <summary> Initializes a new instance of ManagedLedgerDigestUploadData. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
@@ -3566,6 +3439,76 @@ namespace Azure.ResourceManager.Sql.Models
             return new ManagedInstanceServerConfigurationOptionData(id, name, resourceType, systemData, serverConfigurationOptionValue, provisioningState);
         }
 
+        /// <summary> Initializes a new instance of SqlNameAvailabilityResponse. </summary>
+        /// <param name="name"> The name whose availability was checked. </param>
+        /// <param name="isAvailable"> True if the name is available, otherwise false. </param>
+        /// <param name="reason"> The reason code explaining why the name is unavailable. Will be undefined if the name is available. </param>
+        /// <param name="message"> A message explaining why the name is unavailable. Will be undefined if the name is available. </param>
+        /// <returns> A new <see cref="Models.SqlNameAvailabilityResponse"/> instance for mocking. </returns>
+        public static SqlNameAvailabilityResponse SqlNameAvailabilityResponse(string name = null, bool? isAvailable = null, SqlNameUnavailableReason? reason = null, string message = null)
+        {
+            return new SqlNameAvailabilityResponse(name, isAvailable, reason, message);
+        }
+
+        /// <summary> Initializes a new instance of SqlServerData. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="tags"> The tags. </param>
+        /// <param name="location"> The location. </param>
+        /// <param name="identity"> The Azure Active Directory identity of the server. </param>
+        /// <param name="kind"> Kind of sql server. This is metadata used for the Azure portal experience. </param>
+        /// <param name="administratorLogin"> Administrator username for the server. Once created it cannot be changed. </param>
+        /// <param name="administratorLoginPassword"> The administrator login password (required for server creation). </param>
+        /// <param name="version"> The version of the server. </param>
+        /// <param name="state"> The state of the server. </param>
+        /// <param name="fullyQualifiedDomainName"> The fully qualified domain name of the server. </param>
+        /// <param name="privateEndpointConnections"> List of private endpoint connections on a server. </param>
+        /// <param name="minimalTlsVersion"> Minimal TLS version. Allowed values: 'None', '1.0', '1.1', '1.2'. </param>
+        /// <param name="publicNetworkAccess"> Whether or not public endpoint access is allowed for this server.  Value is optional but if passed in, must be 'Enabled' or 'Disabled' or 'SecuredByPerimeter'. </param>
+        /// <param name="workspaceFeature"> Whether or not existing server has a workspace created and if it allows connection from workspace. </param>
+        /// <param name="primaryUserAssignedIdentityId"> The resource id of a user assigned identity to be used by default. </param>
+        /// <param name="federatedClientId"> The Client id used for cross tenant CMK scenario. </param>
+        /// <param name="keyId"> A CMK URI of the key to use for encryption. </param>
+        /// <param name="administrators"> The Azure Active Directory administrator of the server. This can only be used at server create time. If used for server update, it will be ignored or it will result in an error. For updates individual APIs will need to be used. </param>
+        /// <param name="restrictOutboundNetworkAccess"> Whether or not to restrict outbound network access for this server.  Value is optional but if passed in, must be 'Enabled' or 'Disabled'. </param>
+        /// <param name="externalGovernanceStatus"> Status of external governance. </param>
+        /// <returns> A new <see cref="Sql.SqlServerData"/> instance for mocking. </returns>
+        public static SqlServerData SqlServerData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, ManagedServiceIdentity identity = null, string kind = null, string administratorLogin = null, string administratorLoginPassword = null, string version = null, string state = null, string fullyQualifiedDomainName = null, IEnumerable<SqlServerPrivateEndpointConnection> privateEndpointConnections = null, string minimalTlsVersion = null, ServerNetworkAccessFlag? publicNetworkAccess = null, ServerWorkspaceFeature? workspaceFeature = null, ResourceIdentifier primaryUserAssignedIdentityId = null, Guid? federatedClientId = null, Uri keyId = null, ServerExternalAdministrator administrators = null, ServerNetworkAccessFlag? restrictOutboundNetworkAccess = null, ExternalGovernanceStatus? externalGovernanceStatus = null)
+        {
+            tags ??= new Dictionary<string, string>();
+            privateEndpointConnections ??= new List<SqlServerPrivateEndpointConnection>();
+
+            return new SqlServerData(id, name, resourceType, systemData, tags, location, identity, kind, administratorLogin, administratorLoginPassword, version, state, fullyQualifiedDomainName, privateEndpointConnections?.ToList(), minimalTlsVersion, publicNetworkAccess, workspaceFeature, primaryUserAssignedIdentityId, federatedClientId, keyId, administrators, restrictOutboundNetworkAccess, externalGovernanceStatus);
+        }
+
+        /// <summary> Initializes a new instance of SqlServerPrivateEndpointConnection. </summary>
+        /// <param name="id"> Resource ID. </param>
+        /// <param name="properties"> Private endpoint connection properties. </param>
+        /// <returns> A new <see cref="Models.SqlServerPrivateEndpointConnection"/> instance for mocking. </returns>
+        public static SqlServerPrivateEndpointConnection SqlServerPrivateEndpointConnection(ResourceIdentifier id = null, ServerPrivateEndpointConnectionProperties properties = null)
+        {
+            return new SqlServerPrivateEndpointConnection(id, properties);
+        }
+
+        /// <summary> Initializes a new instance of RefreshExternalGovernanceStatusOperationResult. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="requestId"> Request Id. </param>
+        /// <param name="requestType"> Request type. </param>
+        /// <param name="queuedTime"> Queued time. </param>
+        /// <param name="serverName"> Server name. </param>
+        /// <param name="status"> Operation status. </param>
+        /// <param name="errorMessage"> Error message. </param>
+        /// <returns> A new <see cref="Models.RefreshExternalGovernanceStatusOperationResult"/> instance for mocking. </returns>
+        public static RefreshExternalGovernanceStatusOperationResult RefreshExternalGovernanceStatusOperationResult(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, Guid? requestId = null, string requestType = null, string queuedTime = null, string serverName = null, string status = null, string errorMessage = null)
+        {
+            return new RefreshExternalGovernanceStatusOperationResult(id, name, resourceType, systemData, requestId, requestType, queuedTime, serverName, status, errorMessage);
+        }
+
         /// <summary> Initializes a new instance of ManagedInstanceStartStopScheduleData. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
@@ -3594,6 +3537,39 @@ namespace Azure.ResourceManager.Sql.Models
         public static LogicalDatabaseTransparentDataEncryptionData LogicalDatabaseTransparentDataEncryptionData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, TransparentDataEncryptionState? state = null)
         {
             return new LogicalDatabaseTransparentDataEncryptionData(id, name, resourceType, systemData, state);
+        }
+
+        /// <summary> Initializes a new instance of FailoverGroupData. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="location"> Resource location. </param>
+        /// <param name="tags"> Resource tags. </param>
+        /// <param name="readWriteEndpoint"> Read-write endpoint of the failover group instance. </param>
+        /// <param name="readOnlyEndpointFailoverPolicy"> Read-only endpoint of the failover group instance. </param>
+        /// <param name="replicationRole"> Local replication role of the failover group instance. </param>
+        /// <param name="replicationState"> Replication state of the failover group instance. </param>
+        /// <param name="partnerServers"> List of partner server information for the failover group. </param>
+        /// <param name="failoverDatabases"> List of databases in the failover group. </param>
+        /// <returns> A new <see cref="Sql.FailoverGroupData"/> instance for mocking. </returns>
+        public static FailoverGroupData FailoverGroupData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, AzureLocation? location = null, IDictionary<string, string> tags = null, FailoverGroupReadWriteEndpoint readWriteEndpoint = null, ReadOnlyEndpointFailoverPolicy? readOnlyEndpointFailoverPolicy = null, FailoverGroupReplicationRole? replicationRole = null, string replicationState = null, IEnumerable<PartnerServerInfo> partnerServers = null, IEnumerable<ResourceIdentifier> failoverDatabases = null)
+        {
+            tags ??= new Dictionary<string, string>();
+            partnerServers ??= new List<PartnerServerInfo>();
+            failoverDatabases ??= new List<ResourceIdentifier>();
+
+            return new FailoverGroupData(id, name, resourceType, systemData, location, tags, readWriteEndpoint, readOnlyEndpointFailoverPolicy != null ? new FailoverGroupReadOnlyEndpoint(readOnlyEndpointFailoverPolicy) : null, replicationRole, replicationState, partnerServers?.ToList(), failoverDatabases?.ToList());
+        }
+
+        /// <summary> Initializes a new instance of PartnerServerInfo. </summary>
+        /// <param name="id"> Resource identifier of the partner server. </param>
+        /// <param name="location"> Geo location of the partner server. </param>
+        /// <param name="replicationRole"> Replication role of the partner server. </param>
+        /// <returns> A new <see cref="Models.PartnerServerInfo"/> instance for mocking. </returns>
+        public static PartnerServerInfo PartnerServerInfo(ResourceIdentifier id = null, AzureLocation? location = null, FailoverGroupReplicationRole? replicationRole = null)
+        {
+            return new PartnerServerInfo(id, location, replicationRole);
         }
 
         /// <summary> Initializes a new instance of IPv6FirewallRuleData. </summary>
@@ -3816,61 +3792,128 @@ namespace Azure.ResourceManager.Sql.Models
             return new SqlVulnerabilityAssessmentData(id, name, resourceType, systemData, state);
         }
 
-        /// <summary> Initializes a new instance of SqlNameAvailabilityResponse. </summary>
-        /// <param name="name"> The name whose availability was checked. </param>
-        /// <param name="isAvailable"> True if the name is available, otherwise false. </param>
-        /// <param name="reason"> The reason code explaining why the name is unavailable. Will be undefined if the name is available. </param>
-        /// <param name="message"> A message explaining why the name is unavailable. Will be undefined if the name is available. </param>
-        /// <returns> A new <see cref="Models.SqlNameAvailabilityResponse"/> instance for mocking. </returns>
-        public static SqlNameAvailabilityResponse SqlNameAvailabilityResponse(string name = null, bool? isAvailable = null, SqlNameUnavailableReason? reason = null, string message = null)
-        {
-            return new SqlNameAvailabilityResponse(name, isAvailable, reason, message);
-        }
-
-        /// <summary> Initializes a new instance of SqlServerData. </summary>
+        /// <summary> Initializes a new instance of ManagedInstanceData. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
         /// <param name="tags"> The tags. </param>
         /// <param name="location"> The location. </param>
-        /// <param name="identity"> The Azure Active Directory identity of the server. </param>
-        /// <param name="kind"> Kind of sql server. This is metadata used for the Azure portal experience. </param>
-        /// <param name="administratorLogin"> Administrator username for the server. Once created it cannot be changed. </param>
-        /// <param name="administratorLoginPassword"> The administrator login password (required for server creation). </param>
-        /// <param name="version"> The version of the server. </param>
-        /// <param name="state"> The state of the server. </param>
-        /// <param name="fullyQualifiedDomainName"> The fully qualified domain name of the server. </param>
-        /// <param name="privateEndpointConnections"> List of private endpoint connections on a server. </param>
+        /// <param name="identity"> The Azure Active Directory identity of the managed instance. </param>
+        /// <param name="sku"> Managed instance SKU. Allowed values for sku.name: GP_Gen5, GP_G8IM, GP_G8IH, BC_Gen5, BC_G8IM, BC_G8IH. </param>
+        /// <param name="provisioningState"> Provisioning state of managed instance. </param>
+        /// <param name="managedInstanceCreateMode">
+        /// Specifies the mode of database creation.
+        ///
+        /// Default: Regular instance creation.
+        ///
+        /// Restore: Creates an instance by restoring a set of backups to specific point in time. RestorePointInTime and SourceManagedInstanceId must be specified.
+        /// </param>
+        /// <param name="fullyQualifiedDomainName"> The fully qualified domain name of the managed instance. </param>
+        /// <param name="isGeneralPurposeV2"> Whether or not this is a GPv2 variant of General Purpose edition. </param>
+        /// <param name="administratorLogin"> Administrator username for the managed instance. Can only be specified when the managed instance is being created (and is required for creation). </param>
+        /// <param name="administratorLoginPassword"> The administrator login password (required for managed instance creation). </param>
+        /// <param name="subnetId"> Subnet resource ID for the managed instance. </param>
+        /// <param name="state"> The state of the managed instance. </param>
+        /// <param name="licenseType"> The license type. Possible values are 'LicenseIncluded' (regular price inclusive of a new SQL license) and 'BasePrice' (discounted AHB price for bringing your own SQL licenses). </param>
+        /// <param name="hybridSecondaryUsage"> Hybrid secondary usage. Possible values are 'Active' (default value) and 'Passive' (customer uses the secondary as Passive DR). </param>
+        /// <param name="hybridSecondaryUsageDetected"> Hybrid secondary usage detected. Possible values are 'Active' (customer does not meet the requirements to use the secondary as Passive DR) and 'Passive' (customer meets the requirements to use the secondary as Passive DR). </param>
+        /// <param name="vCores"> The number of vCores. Allowed values: 8, 16, 24, 32, 40, 64, 80. </param>
+        /// <param name="storageSizeInGB"> Storage size in GB. Minimum value: 32. Maximum value: 16384. Increments of 32 GB allowed only. Maximum value depends on the selected hardware family and number of vCores. </param>
+        /// <param name="storageIOps"> Storage IOps. Minimum value: 120. Maximum value: 120000. Increments of 1 IOps allowed only. Maximum value depends on the selected hardware family and number of vCores. </param>
+        /// <param name="storageThroughputMBps"> Storage throughput in MBps. Minimum value: 25. Maximum value: 4000. Increments of 1 MBps allowed only. Maximum value depends on the selected hardware family and number of vCores. </param>
+        /// <param name="collation"> Collation of the managed instance. </param>
+        /// <param name="dnsZone"> The Dns Zone that the managed instance is in. </param>
+        /// <param name="managedDnsZonePartner"> The resource id of another managed instance whose DNS zone this managed instance will share after creation. </param>
+        /// <param name="isPublicDataEndpointEnabled"> Whether or not the public data endpoint is enabled. </param>
+        /// <param name="sourceManagedInstanceId"> The resource identifier of the source managed instance associated with create operation of this instance. </param>
+        /// <param name="restorePointInTime"> Specifies the point in time (ISO8601 format) of the source database that will be restored to create the new database. </param>
+        /// <param name="proxyOverride"> Connection type used for connecting to the instance. </param>
+        /// <param name="timezoneId">
+        /// Id of the timezone. Allowed values are timezones supported by Windows.
+        /// Windows keeps details on supported timezones, including the id, in registry under
+        /// KEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Time Zones.
+        /// You can get those registry values via SQL Server by querying SELECT name AS timezone_id FROM sys.time_zone_info.
+        /// List of Ids can also be obtained by executing [System.TimeZoneInfo]::GetSystemTimeZones() in PowerShell.
+        /// An example of valid timezone id is "Pacific Standard Time" or "W. Europe Standard Time".
+        /// </param>
+        /// <param name="instancePoolId"> The Id of the instance pool this managed server belongs to. </param>
+        /// <param name="maintenanceConfigurationId"> Specifies maintenance configuration id to apply to this managed instance. </param>
+        /// <param name="privateEndpointConnections"> List of private endpoint connections on a managed instance. </param>
         /// <param name="minimalTlsVersion"> Minimal TLS version. Allowed values: 'None', '1.0', '1.1', '1.2'. </param>
-        /// <param name="publicNetworkAccess"> Whether or not public endpoint access is allowed for this server.  Value is optional but if passed in, must be 'Enabled' or 'Disabled' or 'SecuredByPerimeter'. </param>
-        /// <param name="workspaceFeature"> Whether or not existing server has a workspace created and if it allows connection from workspace. </param>
+        /// <param name="currentBackupStorageRedundancy"> The storage account type used to store backups for this instance. The options are Local (LocallyRedundantStorage), Zone (ZoneRedundantStorage), Geo (GeoRedundantStorage) and GeoZone(GeoZoneRedundantStorage). </param>
+        /// <param name="requestedBackupStorageRedundancy"> The storage account type to be used to store backups for this instance. The options are Local (LocallyRedundantStorage), Zone (ZoneRedundantStorage), Geo (GeoRedundantStorage) and GeoZone(GeoZoneRedundantStorage). </param>
+        /// <param name="isZoneRedundant"> Whether or not the multi-az is enabled. </param>
         /// <param name="primaryUserAssignedIdentityId"> The resource id of a user assigned identity to be used by default. </param>
-        /// <param name="federatedClientId"> The Client id used for cross tenant CMK scenario. </param>
         /// <param name="keyId"> A CMK URI of the key to use for encryption. </param>
-        /// <param name="administrators"> The Azure Active Directory administrator of the server. This can only be used at server create time. If used for server update, it will be ignored or it will result in an error. For updates individual APIs will need to be used. </param>
-        /// <param name="restrictOutboundNetworkAccess"> Whether or not to restrict outbound network access for this server.  Value is optional but if passed in, must be 'Enabled' or 'Disabled'. </param>
-        /// <param name="isIPv6Enabled"> Whether or not to enable IPv6 support for this server.  Value is optional but if passed in, must be 'Enabled' or 'Disabled'. </param>
+        /// <param name="administrators"> The Azure Active Directory administrator of the instance. This can only be used at instance create time. If used for instance update, it will be ignored or it will result in an error. For updates individual APIs will need to be used. </param>
+        /// <param name="servicePrincipal"> The managed instance's service principal. </param>
+        /// <param name="virtualClusterId"> Virtual cluster resource id for the Managed Instance. </param>
         /// <param name="externalGovernanceStatus"> Status of external governance. </param>
-        /// <returns> A new <see cref="Sql.SqlServerData"/> instance for mocking. </returns>
-        public static SqlServerData SqlServerData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, ManagedServiceIdentity identity = null, string kind = null, string administratorLogin = null, string administratorLoginPassword = null, string version = null, string state = null, string fullyQualifiedDomainName = null, IEnumerable<SqlServerPrivateEndpointConnection> privateEndpointConnections = null, string minimalTlsVersion = null, ServerNetworkAccessFlag? publicNetworkAccess = null, ServerWorkspaceFeature? workspaceFeature = null, ResourceIdentifier primaryUserAssignedIdentityId = null, Guid? federatedClientId = null, Uri keyId = null, ServerExternalAdministrator administrators = null, ServerNetworkAccessFlag? restrictOutboundNetworkAccess = null, ServerNetworkAccessFlag? isIPv6Enabled = null, ExternalGovernanceStatus? externalGovernanceStatus = null)
+        /// <param name="pricingModel"> Weather or not Managed Instance is freemium. </param>
+        /// <param name="createOn"> Specifies the point in time (ISO8601 format) of the Managed Instance creation. </param>
+        /// <param name="authenticationMetadata"> The managed instance's authentication metadata lookup mode. </param>
+        /// <param name="databaseFormat"> Specifies the internal format of instance databases specific to the SQL engine version. </param>
+        /// <returns> A new <see cref="Sql.ManagedInstanceData"/> instance for mocking. </returns>
+        public static ManagedInstanceData ManagedInstanceData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, ManagedServiceIdentity identity = null, SqlSku sku = null, JobExecutionProvisioningState? provisioningState = null, ManagedServerCreateMode? managedInstanceCreateMode = null, string fullyQualifiedDomainName = null, bool? isGeneralPurposeV2 = null, string administratorLogin = null, string administratorLoginPassword = null, ResourceIdentifier subnetId = null, string state = null, ManagedInstanceLicenseType? licenseType = null, HybridSecondaryUsage? hybridSecondaryUsage = null, HybridSecondaryUsageDetected? hybridSecondaryUsageDetected = null, int? vCores = null, int? storageSizeInGB = null, int? storageIOps = null, int? storageThroughputMBps = null, string collation = null, string dnsZone = null, ResourceIdentifier managedDnsZonePartner = null, bool? isPublicDataEndpointEnabled = null, ResourceIdentifier sourceManagedInstanceId = null, DateTimeOffset? restorePointInTime = null, ManagedInstanceProxyOverride? proxyOverride = null, string timezoneId = null, ResourceIdentifier instancePoolId = null, ResourceIdentifier maintenanceConfigurationId = null, IEnumerable<ManagedInstancePecProperty> privateEndpointConnections = null, string minimalTlsVersion = null, SqlBackupStorageRedundancy? currentBackupStorageRedundancy = null, SqlBackupStorageRedundancy? requestedBackupStorageRedundancy = null, bool? isZoneRedundant = null, ResourceIdentifier primaryUserAssignedIdentityId = null, Uri keyId = null, ManagedInstanceExternalAdministrator administrators = null, SqlServicePrincipal servicePrincipal = null, string virtualClusterId = null, ExternalGovernanceStatus? externalGovernanceStatus = null, FreemiumType? pricingModel = null, DateTimeOffset? createOn = null, AuthMetadataLookupMode? authenticationMetadata = null, ManagedInstanceDatabaseFormat? databaseFormat = null)
         {
             tags ??= new Dictionary<string, string>();
-            privateEndpointConnections ??= new List<SqlServerPrivateEndpointConnection>();
+            privateEndpointConnections ??= new List<ManagedInstancePecProperty>();
 
-            return new SqlServerData(id, name, resourceType, systemData, tags, location, identity, kind, administratorLogin, administratorLoginPassword, version, state, fullyQualifiedDomainName, privateEndpointConnections?.ToList(), minimalTlsVersion, publicNetworkAccess, workspaceFeature, primaryUserAssignedIdentityId, federatedClientId, keyId, administrators, restrictOutboundNetworkAccess, isIPv6Enabled, externalGovernanceStatus);
+            return new ManagedInstanceData(id, name, resourceType, systemData, tags, location, identity, sku, provisioningState, managedInstanceCreateMode, fullyQualifiedDomainName, isGeneralPurposeV2, administratorLogin, administratorLoginPassword, subnetId, state, licenseType, hybridSecondaryUsage, hybridSecondaryUsageDetected, vCores, storageSizeInGB, storageIOps, storageThroughputMBps, collation, dnsZone, managedDnsZonePartner, isPublicDataEndpointEnabled, sourceManagedInstanceId, restorePointInTime, proxyOverride, timezoneId, instancePoolId, maintenanceConfigurationId, privateEndpointConnections?.ToList(), minimalTlsVersion, currentBackupStorageRedundancy, requestedBackupStorageRedundancy, isZoneRedundant, primaryUserAssignedIdentityId, keyId, administrators, servicePrincipal, virtualClusterId, externalGovernanceStatus, pricingModel, createOn, authenticationMetadata, databaseFormat);
         }
 
-        /// <summary> Initializes a new instance of SqlServerPrivateEndpointConnection. </summary>
+        /// <summary> Initializes a new instance of ManagedInstancePecProperty. </summary>
         /// <param name="id"> Resource ID. </param>
         /// <param name="properties"> Private endpoint connection properties. </param>
-        /// <returns> A new <see cref="Models.SqlServerPrivateEndpointConnection"/> instance for mocking. </returns>
-        public static SqlServerPrivateEndpointConnection SqlServerPrivateEndpointConnection(ResourceIdentifier id = null, ServerPrivateEndpointConnectionProperties properties = null)
+        /// <returns> A new <see cref="Models.ManagedInstancePecProperty"/> instance for mocking. </returns>
+        public static ManagedInstancePecProperty ManagedInstancePecProperty(ResourceIdentifier id = null, ManagedInstancePrivateEndpointConnectionProperties properties = null)
         {
-            return new SqlServerPrivateEndpointConnection(id, properties);
+            return new ManagedInstancePecProperty(id, properties);
         }
 
-        /// <summary> Initializes a new instance of RefreshExternalGovernanceStatusOperationResult. </summary>
+        /// <summary> Initializes a new instance of SqlServicePrincipal. </summary>
+        /// <param name="principalId"> The Azure Active Directory application object id. </param>
+        /// <param name="clientId"> The Azure Active Directory application client id. </param>
+        /// <param name="tenantId"> The Azure Active Directory tenant id. </param>
+        /// <param name="principalType"> Service principal type. </param>
+        /// <returns> A new <see cref="Models.SqlServicePrincipal"/> instance for mocking. </returns>
+        public static SqlServicePrincipal SqlServicePrincipal(Guid? principalId = null, Guid? clientId = null, Guid? tenantId = null, SqlServicePrincipalType? principalType = null)
+        {
+            return new SqlServicePrincipal(principalId, clientId, tenantId, principalType);
+        }
+
+        /// <summary> Initializes a new instance of SqlOutboundEnvironmentEndpoint. </summary>
+        /// <param name="category"> The type of service accessed by the managed instance service, e.g., Azure Storage, Azure Active Directory, etc. </param>
+        /// <param name="endpoints"> The endpoints that the managed instance service communicates with in order to function correctly. </param>
+        /// <returns> A new <see cref="Models.SqlOutboundEnvironmentEndpoint"/> instance for mocking. </returns>
+        public static SqlOutboundEnvironmentEndpoint SqlOutboundEnvironmentEndpoint(string category = null, IEnumerable<ManagedInstanceEndpointDependency> endpoints = null)
+        {
+            endpoints ??= new List<ManagedInstanceEndpointDependency>();
+
+            return new SqlOutboundEnvironmentEndpoint(category, endpoints?.ToList());
+        }
+
+        /// <summary> Initializes a new instance of ManagedInstanceEndpointDependency. </summary>
+        /// <param name="domainName"> The domain name of the dependency. </param>
+        /// <param name="endpointDetails"> The IP Addresses and Ports used when connecting to DomainName. </param>
+        /// <returns> A new <see cref="Models.ManagedInstanceEndpointDependency"/> instance for mocking. </returns>
+        public static ManagedInstanceEndpointDependency ManagedInstanceEndpointDependency(string domainName = null, IEnumerable<ManagedInstanceEndpointDetail> endpointDetails = null)
+        {
+            endpointDetails ??= new List<ManagedInstanceEndpointDetail>();
+
+            return new ManagedInstanceEndpointDependency(domainName, endpointDetails?.ToList());
+        }
+
+        /// <summary> Initializes a new instance of ManagedInstanceEndpointDetail. </summary>
+        /// <param name="port"> The port an endpoint is connected to. </param>
+        /// <returns> A new <see cref="Models.ManagedInstanceEndpointDetail"/> instance for mocking. </returns>
+        public static ManagedInstanceEndpointDetail ManagedInstanceEndpointDetail(int? port = null)
+        {
+            return new ManagedInstanceEndpointDetail(port);
+        }
+
+        /// <summary> Initializes a new instance of RefreshExternalGovernanceStatusOperationResultMI. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
@@ -3878,46 +3921,56 @@ namespace Azure.ResourceManager.Sql.Models
         /// <param name="requestId"> Request Id. </param>
         /// <param name="requestType"> Request type. </param>
         /// <param name="queuedTime"> Queued time. </param>
-        /// <param name="serverName"> Server name. </param>
+        /// <param name="managedInstanceName"> Managed instance name. </param>
         /// <param name="status"> Operation status. </param>
         /// <param name="errorMessage"> Error message. </param>
-        /// <returns> A new <see cref="Models.RefreshExternalGovernanceStatusOperationResult"/> instance for mocking. </returns>
-        public static RefreshExternalGovernanceStatusOperationResult RefreshExternalGovernanceStatusOperationResult(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, Guid? requestId = null, string requestType = null, string queuedTime = null, string serverName = null, string status = null, string errorMessage = null)
+        /// <returns> A new <see cref="Models.RefreshExternalGovernanceStatusOperationResultMI"/> instance for mocking. </returns>
+        public static RefreshExternalGovernanceStatusOperationResultMI RefreshExternalGovernanceStatusOperationResultMI(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, Guid? requestId = null, string requestType = null, string queuedTime = null, string managedInstanceName = null, string status = null, string errorMessage = null)
         {
-            return new RefreshExternalGovernanceStatusOperationResult(id, name, resourceType, systemData, requestId, requestType, queuedTime, serverName, status, errorMessage);
+            return new RefreshExternalGovernanceStatusOperationResultMI(id, name, resourceType, systemData, requestId, requestType, queuedTime, managedInstanceName, status, errorMessage);
         }
 
-        /// <summary> Initializes a new instance of FailoverGroupData. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="location"> Resource location. </param>
-        /// <param name="tags"> Resource tags. </param>
-        /// <param name="readWriteEndpoint"> Read-write endpoint of the failover group instance. </param>
-        /// <param name="readOnlyEndpoint"> Read-only endpoint of the failover group instance. </param>
-        /// <param name="replicationRole"> Local replication role of the failover group instance. </param>
-        /// <param name="replicationState"> Replication state of the failover group instance. </param>
-        /// <param name="partnerServers"> List of partner server information for the failover group. </param>
-        /// <param name="failoverDatabases"> List of databases in the failover group. </param>
-        /// <returns> A new <see cref="Sql.FailoverGroupData"/> instance for mocking. </returns>
-        public static FailoverGroupData FailoverGroupData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, AzureLocation? location = null, IDictionary<string, string> tags = null, FailoverGroupReadWriteEndpoint readWriteEndpoint = null, FailoverGroupReadOnlyEndpoint readOnlyEndpoint = null, FailoverGroupReplicationRole? replicationRole = null, string replicationState = null, IEnumerable<PartnerServerInfo> partnerServers = null, IEnumerable<ResourceIdentifier> failoverDatabases = null)
+        /// <summary> Initializes a new instance of TopQueries. </summary>
+        /// <param name="numberOfQueries"> Requested number of top queries. </param>
+        /// <param name="aggregationFunction"> Aggregation function used to calculate query metrics. </param>
+        /// <param name="observationMetric"> Metric used to rank queries. </param>
+        /// <param name="intervalType"> Interval type (length). </param>
+        /// <param name="startTime"> The start time for the metric (ISO-8601 format). </param>
+        /// <param name="endTime"> The end time for the metric (ISO-8601 format). </param>
+        /// <param name="queries"> List of top resource consuming queries with appropriate metric data. </param>
+        /// <returns> A new <see cref="Models.TopQueries"/> instance for mocking. </returns>
+        public static TopQueries TopQueries(int? numberOfQueries = null, string aggregationFunction = null, string observationMetric = null, QueryTimeGrainType? intervalType = null, string startTime = null, string endTime = null, IEnumerable<QueryStatisticsProperties> queries = null)
         {
-            tags ??= new Dictionary<string, string>();
-            partnerServers ??= new List<PartnerServerInfo>();
-            failoverDatabases ??= new List<ResourceIdentifier>();
+            queries ??= new List<QueryStatisticsProperties>();
 
-            return new FailoverGroupData(id, name, resourceType, systemData, location, tags, readWriteEndpoint, readOnlyEndpoint, replicationRole, replicationState, partnerServers?.ToList(), failoverDatabases?.ToList());
+            return new TopQueries(numberOfQueries, aggregationFunction, observationMetric, intervalType, startTime, endTime, queries?.ToList());
         }
 
-        /// <summary> Initializes a new instance of PartnerServerInfo. </summary>
-        /// <param name="id"> Resource identifier of the partner server. </param>
-        /// <param name="location"> Geo location of the partner server. </param>
-        /// <param name="replicationRole"> Replication role of the partner server. </param>
-        /// <returns> A new <see cref="Models.PartnerServerInfo"/> instance for mocking. </returns>
-        public static PartnerServerInfo PartnerServerInfo(ResourceIdentifier id = null, AzureLocation? location = null, FailoverGroupReplicationRole? replicationRole = null)
+        /// <summary> Initializes a new instance of QueryStatisticsProperties. </summary>
+        /// <param name="databaseName"> Database name of the database in which this query was executed. </param>
+        /// <param name="queryId"> Unique query id (unique within one database). </param>
+        /// <param name="startTime"> The start time for the metric (ISO-8601 format). </param>
+        /// <param name="endTime"> The end time for the metric (ISO-8601 format). </param>
+        /// <param name="intervals"> List of intervals with appropriate metric data. </param>
+        /// <returns> A new <see cref="Models.QueryStatisticsProperties"/> instance for mocking. </returns>
+        public static QueryStatisticsProperties QueryStatisticsProperties(string databaseName = null, string queryId = null, string startTime = null, string endTime = null, IEnumerable<QueryMetricIntervalAutoGenerated> intervals = null)
         {
-            return new PartnerServerInfo(id, location, replicationRole);
+            intervals ??= new List<QueryMetricIntervalAutoGenerated>();
+
+            return new QueryStatisticsProperties(databaseName, queryId, startTime, endTime, intervals?.ToList());
+        }
+
+        /// <summary> Initializes a new instance of QueryMetricIntervalAutoGenerated. </summary>
+        /// <param name="intervalStartTime"> The start time for the metric interval (ISO-8601 format). </param>
+        /// <param name="intervalType"> Interval type (length). </param>
+        /// <param name="executionCount"> Execution count of a query in this interval. </param>
+        /// <param name="metrics"> List of metric objects for this interval. </param>
+        /// <returns> A new <see cref="Models.QueryMetricIntervalAutoGenerated"/> instance for mocking. </returns>
+        public static QueryMetricIntervalAutoGenerated QueryMetricIntervalAutoGenerated(string intervalStartTime = null, QueryTimeGrainType? intervalType = null, long? executionCount = null, IEnumerable<QueryMetricProperties> metrics = null)
+        {
+            metrics ??= new List<QueryMetricProperties>();
+
+            return new QueryMetricIntervalAutoGenerated(intervalStartTime, intervalType, executionCount, metrics?.ToList());
         }
     }
 }

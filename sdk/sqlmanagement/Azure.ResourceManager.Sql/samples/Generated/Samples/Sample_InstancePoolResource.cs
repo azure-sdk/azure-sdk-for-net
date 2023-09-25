@@ -214,7 +214,7 @@ namespace Azure.ResourceManager.Sql.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetManagedInstances_ListManagedInstancesByInstancePool()
         {
-            // Generated from example definition: specification/sql/resource-manager/Microsoft.Sql/preview/2022-08-01-preview/examples/ManagedInstanceListByInstancePool.json
+            // Generated from example definition: specification/sql/resource-manager/Microsoft.Sql/preview/2023-05-01-preview/examples/ManagedInstanceListByInstancePool.json
             // this example is just showing the usage of "ManagedInstances_ListByInstancePool" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -224,7 +224,7 @@ namespace Azure.ResourceManager.Sql.Samples
 
             // this example assumes you already have this InstancePoolResource created on azure
             // for more information of creating InstancePoolResource, please refer to the document of InstancePoolResource
-            string subscriptionId = "20D7082A-0FC7-4468-82BD-542694D5042B";
+            string subscriptionId = "00000000-1111-2222-3333-444444444444";
             string resourceGroupName = "Test1";
             string instancePoolName = "pool1";
             ResourceIdentifier instancePoolResourceId = InstancePoolResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, instancePoolName);
@@ -248,7 +248,7 @@ namespace Azure.ResourceManager.Sql.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetManagedInstances_ListManagedInstancesByInstancePoolWithExpandAdministratorsActivedirectory()
         {
-            // Generated from example definition: specification/sql/resource-manager/Microsoft.Sql/preview/2022-08-01-preview/examples/ManagedInstanceListByInstancePoolWithExpandEqualsAdministrators.json
+            // Generated from example definition: specification/sql/resource-manager/Microsoft.Sql/preview/2023-05-01-preview/examples/ManagedInstanceListByInstancePoolWithExpandEqualsAdministrators.json
             // this example is just showing the usage of "ManagedInstances_ListByInstancePool" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -258,7 +258,7 @@ namespace Azure.ResourceManager.Sql.Samples
 
             // this example assumes you already have this InstancePoolResource created on azure
             // for more information of creating InstancePoolResource, please refer to the document of InstancePoolResource
-            string subscriptionId = "20D7082A-0FC7-4468-82BD-542694D5042B";
+            string subscriptionId = "00000000-1111-2222-3333-444444444444";
             string resourceGroupName = "Test1";
             string instancePoolName = "pool1";
             ResourceIdentifier instancePoolResourceId = InstancePoolResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, instancePoolName);

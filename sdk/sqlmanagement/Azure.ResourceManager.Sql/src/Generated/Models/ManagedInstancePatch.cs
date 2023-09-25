@@ -28,8 +28,8 @@ namespace Azure.ResourceManager.Sql.Models
         public ManagedServiceIdentity Identity { get; set; }
         /// <summary> Resource tags. </summary>
         public IDictionary<string, string> Tags { get; }
-        /// <summary> Gets the provisioning state. </summary>
-        public ManagedInstancePropertiesProvisioningState? ProvisioningState { get; }
+        /// <summary> Provisioning state of managed instance. </summary>
+        public JobExecutionProvisioningState? ProvisioningState { get; }
         /// <summary>
         /// Specifies the mode of database creation.
         ///
@@ -40,6 +40,8 @@ namespace Azure.ResourceManager.Sql.Models
         public ManagedServerCreateMode? ManagedInstanceCreateMode { get; set; }
         /// <summary> The fully qualified domain name of the managed instance. </summary>
         public string FullyQualifiedDomainName { get; }
+        /// <summary> Whether or not this is a GPv2 variant of General Purpose edition. </summary>
+        public bool? IsGeneralPurposeV2 { get; set; }
         /// <summary> Administrator username for the managed instance. Can only be specified when the managed instance is being created (and is required for creation). </summary>
         public string AdministratorLogin { get; set; }
         /// <summary> The administrator login password (required for managed instance creation). </summary>
@@ -50,10 +52,18 @@ namespace Azure.ResourceManager.Sql.Models
         public string State { get; }
         /// <summary> The license type. Possible values are 'LicenseIncluded' (regular price inclusive of a new SQL license) and 'BasePrice' (discounted AHB price for bringing your own SQL licenses). </summary>
         public ManagedInstanceLicenseType? LicenseType { get; set; }
+        /// <summary> Hybrid secondary usage. Possible values are 'Active' (default value) and 'Passive' (customer uses the secondary as Passive DR). </summary>
+        public HybridSecondaryUsage? HybridSecondaryUsage { get; set; }
+        /// <summary> Hybrid secondary usage detected. Possible values are 'Active' (customer does not meet the requirements to use the secondary as Passive DR) and 'Passive' (customer meets the requirements to use the secondary as Passive DR). </summary>
+        public HybridSecondaryUsageDetected? HybridSecondaryUsageDetected { get; }
         /// <summary> The number of vCores. Allowed values: 8, 16, 24, 32, 40, 64, 80. </summary>
         public int? VCores { get; set; }
         /// <summary> Storage size in GB. Minimum value: 32. Maximum value: 16384. Increments of 32 GB allowed only. Maximum value depends on the selected hardware family and number of vCores. </summary>
         public int? StorageSizeInGB { get; set; }
+        /// <summary> Storage IOps. Minimum value: 120. Maximum value: 120000. Increments of 1 IOps allowed only. Maximum value depends on the selected hardware family and number of vCores. </summary>
+        public int? StorageIOps { get; set; }
+        /// <summary> Storage throughput in MBps. Minimum value: 25. Maximum value: 4000. Increments of 1 MBps allowed only. Maximum value depends on the selected hardware family and number of vCores. </summary>
+        public int? StorageThroughputMBps { get; set; }
         /// <summary> Collation of the managed instance. </summary>
         public string Collation { get; set; }
         /// <summary> The Dns Zone that the managed instance is in. </summary>
@@ -99,5 +109,17 @@ namespace Azure.ResourceManager.Sql.Models
         public ManagedInstanceExternalAdministrator Administrators { get; set; }
         /// <summary> The managed instance's service principal. </summary>
         public SqlServicePrincipal ServicePrincipal { get; set; }
+        /// <summary> Virtual cluster resource id for the Managed Instance. </summary>
+        public string VirtualClusterId { get; }
+        /// <summary> Status of external governance. </summary>
+        public ExternalGovernanceStatus? ExternalGovernanceStatus { get; }
+        /// <summary> Weather or not Managed Instance is freemium. </summary>
+        public FreemiumType? PricingModel { get; set; }
+        /// <summary> Specifies the point in time (ISO8601 format) of the Managed Instance creation. </summary>
+        public DateTimeOffset? CreateOn { get; }
+        /// <summary> The managed instance's authentication metadata lookup mode. </summary>
+        public AuthMetadataLookupMode? AuthenticationMetadata { get; set; }
+        /// <summary> Specifies the internal format of instance databases specific to the SQL engine version. </summary>
+        public ManagedInstanceDatabaseFormat? DatabaseFormat { get; set; }
     }
 }
