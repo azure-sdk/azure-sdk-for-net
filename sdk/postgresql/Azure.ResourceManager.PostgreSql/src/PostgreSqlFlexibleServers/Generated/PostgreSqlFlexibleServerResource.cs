@@ -477,6 +477,55 @@ namespace Azure.ResourceManager.PostgreSql.FlexibleServers
             return GetPostgreSqlLtrServerBackupOperations().Get(backupName, cancellationToken);
         }
 
+        /// <summary> Gets a collection of ServerThreatProtectionSettingsModelResources in the PostgreSqlFlexibleServer. </summary>
+        /// <returns> An object representing collection of ServerThreatProtectionSettingsModelResources and their operations over a ServerThreatProtectionSettingsModelResource. </returns>
+        public virtual ServerThreatProtectionSettingsModelCollection GetServerThreatProtectionSettingsModels()
+        {
+            return GetCachedClient(Client => new ServerThreatProtectionSettingsModelCollection(Client, Id));
+        }
+
+        /// <summary>
+        /// Get a server's Threat Protection settings.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforPostgreSQL/flexibleServers/{serverName}/advancedThreatProtectionSettings/{threatProtectionName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>ServerThreatProtectionSettings_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="threatProtectionName"> The name of the Threat Protection state. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<ServerThreatProtectionSettingsModelResource>> GetServerThreatProtectionSettingsModelAsync(ThreatProtectionName threatProtectionName, CancellationToken cancellationToken = default)
+        {
+            return await GetServerThreatProtectionSettingsModels().GetAsync(threatProtectionName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Get a server's Threat Protection settings.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DBforPostgreSQL/flexibleServers/{serverName}/advancedThreatProtectionSettings/{threatProtectionName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>ServerThreatProtectionSettings_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="threatProtectionName"> The name of the Threat Protection state. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        [ForwardsClientCalls]
+        public virtual Response<ServerThreatProtectionSettingsModelResource> GetServerThreatProtectionSettingsModel(ThreatProtectionName threatProtectionName, CancellationToken cancellationToken = default)
+        {
+            return GetServerThreatProtectionSettingsModels().Get(threatProtectionName, cancellationToken);
+        }
+
         /// <summary>
         /// Gets information about a server.
         /// <list type="bullet">

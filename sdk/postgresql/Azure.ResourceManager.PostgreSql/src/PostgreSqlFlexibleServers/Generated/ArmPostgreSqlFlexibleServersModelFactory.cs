@@ -508,5 +508,18 @@ namespace Azure.ResourceManager.PostgreSql.FlexibleServers.Models
         {
             return new PostgreSqlLtrServerBackupOperationData(id, name, resourceType, systemData, datasourceSizeInBytes, dataTransferredInBytes, backupName, backupMetadata, status, startOn, endOn, percentComplete, errorCode, errorMessage);
         }
+
+        /// <summary> Initializes a new instance of ServerThreatProtectionSettingsModelData. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="state"> Specifies the state of the Threat Protection, whether it is enabled or disabled or a state has not been applied yet on the specific server. </param>
+        /// <param name="createdOn"> Specifies the UTC creation time of the policy. </param>
+        /// <returns> A new <see cref="FlexibleServers.ServerThreatProtectionSettingsModelData"/> instance for mocking. </returns>
+        public static ServerThreatProtectionSettingsModelData ServerThreatProtectionSettingsModelData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, ThreatProtectionState? state = null, DateTimeOffset? createdOn = null)
+        {
+            return new ServerThreatProtectionSettingsModelData(id, name, resourceType, systemData, state, createdOn);
+        }
     }
 }

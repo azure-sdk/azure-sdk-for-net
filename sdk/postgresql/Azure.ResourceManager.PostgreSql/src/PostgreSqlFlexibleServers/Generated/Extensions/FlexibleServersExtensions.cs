@@ -218,6 +218,25 @@ namespace Azure.ResourceManager.PostgreSql.FlexibleServers
         }
         #endregion
 
+        #region ServerThreatProtectionSettingsModelResource
+        /// <summary>
+        /// Gets an object representing a <see cref="ServerThreatProtectionSettingsModelResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="ServerThreatProtectionSettingsModelResource.CreateResourceIdentifier" /> to create a <see cref="ServerThreatProtectionSettingsModelResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="ServerThreatProtectionSettingsModelResource" /> object. </returns>
+        public static ServerThreatProtectionSettingsModelResource GetServerThreatProtectionSettingsModelResource(this ArmClient client, ResourceIdentifier id)
+        {
+            return client.GetResourceClient(() =>
+            {
+                ServerThreatProtectionSettingsModelResource.ValidateResourceId(id);
+                return new ServerThreatProtectionSettingsModelResource(client, id);
+            }
+            );
+        }
+        #endregion
+
         /// <summary> Gets a collection of PostgreSqlFlexibleServerResources in the ResourceGroupResource. </summary>
         /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
         /// <returns> An object representing collection of PostgreSqlFlexibleServerResources and their operations over a PostgreSqlFlexibleServerResource. </returns>
