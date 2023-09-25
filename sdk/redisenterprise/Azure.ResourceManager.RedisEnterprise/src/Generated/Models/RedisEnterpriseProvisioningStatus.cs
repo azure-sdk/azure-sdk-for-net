@@ -28,6 +28,8 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
         private const string CreatingValue = "Creating";
         private const string UpdatingValue = "Updating";
         private const string DeletingValue = "Deleting";
+        private const string ScalingValue = "Scaling";
+        private const string ScalingFailedValue = "ScalingFailed";
 
         /// <summary> Succeeded. </summary>
         public static RedisEnterpriseProvisioningStatus Succeeded { get; } = new RedisEnterpriseProvisioningStatus(SucceededValue);
@@ -41,6 +43,10 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
         public static RedisEnterpriseProvisioningStatus Updating { get; } = new RedisEnterpriseProvisioningStatus(UpdatingValue);
         /// <summary> Deleting. </summary>
         public static RedisEnterpriseProvisioningStatus Deleting { get; } = new RedisEnterpriseProvisioningStatus(DeletingValue);
+        /// <summary> Scaling. </summary>
+        public static RedisEnterpriseProvisioningStatus Scaling { get; } = new RedisEnterpriseProvisioningStatus(ScalingValue);
+        /// <summary> ScalingFailed. </summary>
+        public static RedisEnterpriseProvisioningStatus ScalingFailed { get; } = new RedisEnterpriseProvisioningStatus(ScalingFailedValue);
         /// <summary> Determines if two <see cref="RedisEnterpriseProvisioningStatus"/> values are the same. </summary>
         public static bool operator ==(RedisEnterpriseProvisioningStatus left, RedisEnterpriseProvisioningStatus right) => left.Equals(right);
         /// <summary> Determines if two <see cref="RedisEnterpriseProvisioningStatus"/> values are not the same. </summary>

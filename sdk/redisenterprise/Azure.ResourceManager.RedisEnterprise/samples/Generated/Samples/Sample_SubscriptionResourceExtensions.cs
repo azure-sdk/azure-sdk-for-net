@@ -23,7 +23,7 @@ namespace Azure.ResourceManager.RedisEnterprise.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetRedisEnterpriseOperationsStatus_OperationsStatusGet()
         {
-            // Generated from example definition: specification/redisenterprise/resource-manager/Microsoft.Cache/preview/2023-03-01-preview/examples/OperationsStatusGet.json
+            // Generated from example definition: specification/redisenterprise/resource-manager/Microsoft.Cache/preview/2023-08-01-preview/examples/OperationsStatusGet.json
             // this example is just showing the usage of "OperationsStatus_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -50,7 +50,7 @@ namespace Azure.ResourceManager.RedisEnterprise.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetRedisEnterpriseSkus_SkusList()
         {
-            // Generated from example definition: specification/redisenterprise/resource-manager/Microsoft.Cache/preview/2023-03-01-preview/examples/RedisEnterpriseSkusList.json
+            // Generated from example definition: specification/redisenterprise/resource-manager/Microsoft.Cache/preview/2023-08-01-preview/examples/RedisEnterpriseSkusList.json
             // this example is just showing the usage of "Skus_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
