@@ -22,6 +22,8 @@ namespace Azure.ResourceManager.Datadog
     {
         private ClientDiagnostics _marketplaceAgreementsClientDiagnostics;
         private MarketplaceAgreementsRestOperations _marketplaceAgreementsRestClient;
+        private ClientDiagnostics _creationSupportedClientDiagnostics;
+        private CreationSupportedRestOperations _creationSupportedRestClient;
         private ClientDiagnostics _datadogMonitorResourceMonitorsClientDiagnostics;
         private MonitorsRestOperations _datadogMonitorResourceMonitorsRestClient;
 
@@ -39,6 +41,8 @@ namespace Azure.ResourceManager.Datadog
 
         private ClientDiagnostics MarketplaceAgreementsClientDiagnostics => _marketplaceAgreementsClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.Datadog", ProviderConstants.DefaultProviderNamespace, Diagnostics);
         private MarketplaceAgreementsRestOperations MarketplaceAgreementsRestClient => _marketplaceAgreementsRestClient ??= new MarketplaceAgreementsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
+        private ClientDiagnostics CreationSupportedClientDiagnostics => _creationSupportedClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.Datadog", ProviderConstants.DefaultProviderNamespace, Diagnostics);
+        private CreationSupportedRestOperations CreationSupportedRestClient => _creationSupportedRestClient ??= new CreationSupportedRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
         private ClientDiagnostics DatadogMonitorResourceMonitorsClientDiagnostics => _datadogMonitorResourceMonitorsClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.Datadog", DatadogMonitorResource.ResourceType.Namespace, Diagnostics);
         private MonitorsRestOperations DatadogMonitorResourceMonitorsRestClient => _datadogMonitorResourceMonitorsRestClient ??= new MonitorsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(DatadogMonitorResource.ResourceType));
 
@@ -145,6 +149,112 @@ namespace Azure.ResourceManager.Datadog
             try
             {
                 var response = MarketplaceAgreementsRestClient.CreateOrUpdate(Id.SubscriptionId, body, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Informs if the current subscription is being already monitored for selected Datadog organization.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Datadog/subscriptionStatuses</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>CreationSupported_List</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="datadogOrganizationId"> Datadog Organization Id. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> An async collection of <see cref="CreateResourceSupportedResponse" /> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<CreateResourceSupportedResponse> GetCreationSupportedsAsync(string datadogOrganizationId, CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => CreationSupportedRestClient.CreateListRequest(Id.SubscriptionId, datadogOrganizationId);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, null, CreateResourceSupportedResponse.DeserializeCreateResourceSupportedResponse, CreationSupportedClientDiagnostics, Pipeline, "SubscriptionResourceExtensionClient.GetCreationSupporteds", "value", null, cancellationToken);
+        }
+
+        /// <summary>
+        /// Informs if the current subscription is being already monitored for selected Datadog organization.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Datadog/subscriptionStatuses</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>CreationSupported_List</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="datadogOrganizationId"> Datadog Organization Id. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="CreateResourceSupportedResponse" /> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<CreateResourceSupportedResponse> GetCreationSupporteds(string datadogOrganizationId, CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => CreationSupportedRestClient.CreateListRequest(Id.SubscriptionId, datadogOrganizationId);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, null, CreateResourceSupportedResponse.DeserializeCreateResourceSupportedResponse, CreationSupportedClientDiagnostics, Pipeline, "SubscriptionResourceExtensionClient.GetCreationSupporteds", "value", null, cancellationToken);
+        }
+
+        /// <summary>
+        /// Informs if the current subscription is being already monitored for selected Datadog organization.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Datadog/subscriptionStatuses/default</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>CreationSupported_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="datadogOrganizationId"> Datadog Organization Id. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual async Task<Response<CreateResourceSupportedResponse>> GetCreationSupportedAsync(string datadogOrganizationId, CancellationToken cancellationToken = default)
+        {
+            using var scope = CreationSupportedClientDiagnostics.CreateScope("SubscriptionResourceExtensionClient.GetCreationSupported");
+            scope.Start();
+            try
+            {
+                var response = await CreationSupportedRestClient.GetAsync(Id.SubscriptionId, datadogOrganizationId, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Informs if the current subscription is being already monitored for selected Datadog organization.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Datadog/subscriptionStatuses/default</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>CreationSupported_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="datadogOrganizationId"> Datadog Organization Id. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual Response<CreateResourceSupportedResponse> GetCreationSupported(string datadogOrganizationId, CancellationToken cancellationToken = default)
+        {
+            using var scope = CreationSupportedClientDiagnostics.CreateScope("SubscriptionResourceExtensionClient.GetCreationSupported");
+            scope.Start();
+            try
+            {
+                var response = CreationSupportedRestClient.Get(Id.SubscriptionId, datadogOrganizationId, cancellationToken);
                 return response;
             }
             catch (Exception e)

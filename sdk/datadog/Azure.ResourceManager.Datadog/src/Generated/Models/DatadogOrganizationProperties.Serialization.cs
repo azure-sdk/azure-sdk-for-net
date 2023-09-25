@@ -16,6 +16,16 @@ namespace Azure.ResourceManager.Datadog.Models
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
+            if (Optional.IsDefined(Name))
+            {
+                writer.WritePropertyName("name"u8);
+                writer.WriteStringValue(Name);
+            }
+            if (Optional.IsDefined(Id))
+            {
+                writer.WritePropertyName("id"u8);
+                writer.WriteStringValue(Id);
+            }
             if (Optional.IsDefined(LinkingAuthCode))
             {
                 writer.WritePropertyName("linkingAuthCode"u8);
@@ -46,6 +56,11 @@ namespace Azure.ResourceManager.Datadog.Models
                 writer.WritePropertyName("enterpriseAppId"u8);
                 writer.WriteStringValue(EnterpriseAppId);
             }
+            if (Optional.IsDefined(Cspm))
+            {
+                writer.WritePropertyName("cspm"u8);
+                writer.WriteBooleanValue(Cspm.Value);
+            }
             writer.WriteEndObject();
         }
 
@@ -63,6 +78,7 @@ namespace Azure.ResourceManager.Datadog.Models
             Optional<string> apiKey = default;
             Optional<string> applicationKey = default;
             Optional<string> enterpriseAppId = default;
+            Optional<bool> cspm = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("name"u8))
@@ -109,8 +125,17 @@ namespace Azure.ResourceManager.Datadog.Models
                     enterpriseAppId = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("cspm"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    cspm = property.Value.GetBoolean();
+                    continue;
+                }
             }
-            return new DatadogOrganizationProperties(name.Value, id.Value, linkingAuthCode.Value, linkingClientId.Value, redirectUri.Value, apiKey.Value, applicationKey.Value, enterpriseAppId.Value);
+            return new DatadogOrganizationProperties(name.Value, id.Value, linkingAuthCode.Value, linkingClientId.Value, redirectUri.Value, apiKey.Value, applicationKey.Value, enterpriseAppId.Value, Optional.ToNullable(cspm));
         }
     }
 }

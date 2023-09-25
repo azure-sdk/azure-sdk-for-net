@@ -25,6 +25,11 @@ namespace Azure.ResourceManager.Datadog.Models
                 writer.WritePropertyName("metricRules"u8);
                 writer.WriteObjectValue(MetricRules);
             }
+            if (Optional.IsDefined(Automuting))
+            {
+                writer.WritePropertyName("automuting"u8);
+                writer.WriteBooleanValue(Automuting.Value);
+            }
             writer.WriteEndObject();
         }
 
@@ -37,6 +42,7 @@ namespace Azure.ResourceManager.Datadog.Models
             Optional<ProvisioningState> provisioningState = default;
             Optional<LogRules> logRules = default;
             Optional<MetricRules> metricRules = default;
+            Optional<bool> automuting = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("provisioningState"u8))
@@ -66,8 +72,17 @@ namespace Azure.ResourceManager.Datadog.Models
                     metricRules = MetricRules.DeserializeMetricRules(property.Value);
                     continue;
                 }
+                if (property.NameEquals("automuting"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    automuting = property.Value.GetBoolean();
+                    continue;
+                }
             }
-            return new MonitoringTagRulesProperties(Optional.ToNullable(provisioningState), logRules.Value, metricRules.Value);
+            return new MonitoringTagRulesProperties(Optional.ToNullable(provisioningState), logRules.Value, metricRules.Value, Optional.ToNullable(automuting));
         }
     }
 }
