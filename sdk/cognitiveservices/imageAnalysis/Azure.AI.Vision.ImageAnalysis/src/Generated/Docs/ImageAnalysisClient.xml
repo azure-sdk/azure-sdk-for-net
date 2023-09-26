@@ -1,0 +1,693 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="AnalyzeFromStreamAsync(BinaryData,IEnumerable{VisualFeatures},string,string,IEnumerable{double},bool?,CancellationToken)">
+      <example>
+This sample shows how to call AnalyzeFromStreamAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ImageAnalysisClient client = new ImageAnalysisClient(endpoint, credential);
+
+Response<ImageAnalysisResult> response = await client.AnalyzeFromStreamAsync(BinaryData.FromObjectAsJson(new object()));
+]]></code>
+This sample shows how to call AnalyzeFromStreamAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ImageAnalysisClient client = new ImageAnalysisClient(endpoint, credential);
+
+Response<ImageAnalysisResult> response = await client.AnalyzeFromStreamAsync(BinaryData.FromObjectAsJson(new object()), visualFeatures: new List<VisualFeatures>()
+{
+    VisualFeatures.Tags
+}, modelName: "<modelName>", language: "<language>", smartCropsAspectRatios: new List<double>()
+{
+    123.45
+}, genderNeutralCaption: true);
+]]></code></example>
+    </member>
+    <member name="AnalyzeFromStream(BinaryData,IEnumerable{VisualFeatures},string,string,IEnumerable{double},bool?,CancellationToken)">
+      <example>
+This sample shows how to call AnalyzeFromStream.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ImageAnalysisClient client = new ImageAnalysisClient(endpoint, credential);
+
+Response<ImageAnalysisResult> response = client.AnalyzeFromStream(BinaryData.FromObjectAsJson(new object()));
+]]></code>
+This sample shows how to call AnalyzeFromStream with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ImageAnalysisClient client = new ImageAnalysisClient(endpoint, credential);
+
+Response<ImageAnalysisResult> response = client.AnalyzeFromStream(BinaryData.FromObjectAsJson(new object()), visualFeatures: new List<VisualFeatures>()
+{
+    VisualFeatures.Tags
+}, modelName: "<modelName>", language: "<language>", smartCropsAspectRatios: new List<double>()
+{
+    123.45
+}, genderNeutralCaption: true);
+]]></code></example>
+    </member>
+    <member name="AnalyzeFromStreamAsync(RequestContent,IEnumerable{VisualFeatures},string,string,IEnumerable{double},bool?,RequestContext)">
+      <example>
+This sample shows how to call AnalyzeFromStreamAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ImageAnalysisClient client = new ImageAnalysisClient(endpoint, credential);
+
+RequestContent content = RequestContent.Create(new object());
+Response response = await client.AnalyzeFromStreamAsync(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("metadata").GetProperty("height").ToString());
+Console.WriteLine(result.GetProperty("metadata").GetProperty("width").ToString());
+Console.WriteLine(result.GetProperty("modelVersion").ToString());
+]]></code>
+This sample shows how to call AnalyzeFromStreamAsync with all parameters and request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ImageAnalysisClient client = new ImageAnalysisClient(endpoint, credential);
+
+RequestContent content = RequestContent.Create(new object());
+Response response = await client.AnalyzeFromStreamAsync(content, visualFeatures: new List<VisualFeatures>()
+{
+    VisualFeatures.Tags
+}, modelName: "<modelName>", language: "<language>", smartCropsAspectRatios: new List<double>()
+{
+    123.45
+}, genderNeutralCaption: true);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("captionResult").GetProperty("confidence").ToString());
+Console.WriteLine(result.GetProperty("captionResult").GetProperty("text").ToString());
+Console.WriteLine(result.GetProperty("customModelResult").GetProperty("objectsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("x").ToString());
+Console.WriteLine(result.GetProperty("customModelResult").GetProperty("objectsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("y").ToString());
+Console.WriteLine(result.GetProperty("customModelResult").GetProperty("objectsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("w").ToString());
+Console.WriteLine(result.GetProperty("customModelResult").GetProperty("objectsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("h").ToString());
+Console.WriteLine(result.GetProperty("customModelResult").GetProperty("objectsResult").GetProperty("values")[0].GetProperty("tags")[0].GetProperty("confidence").ToString());
+Console.WriteLine(result.GetProperty("customModelResult").GetProperty("objectsResult").GetProperty("values")[0].GetProperty("tags")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("customModelResult").GetProperty("tagsResult").GetProperty("values")[0].GetProperty("confidence").ToString());
+Console.WriteLine(result.GetProperty("customModelResult").GetProperty("tagsResult").GetProperty("values")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("denseCaptionsResult").GetProperty("values")[0].GetProperty("confidence").ToString());
+Console.WriteLine(result.GetProperty("denseCaptionsResult").GetProperty("values")[0].GetProperty("text").ToString());
+Console.WriteLine(result.GetProperty("denseCaptionsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("x").ToString());
+Console.WriteLine(result.GetProperty("denseCaptionsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("y").ToString());
+Console.WriteLine(result.GetProperty("denseCaptionsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("w").ToString());
+Console.WriteLine(result.GetProperty("denseCaptionsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("h").ToString());
+Console.WriteLine(result.GetProperty("metadata").GetProperty("height").ToString());
+Console.WriteLine(result.GetProperty("metadata").GetProperty("width").ToString());
+Console.WriteLine(result.GetProperty("modelVersion").ToString());
+Console.WriteLine(result.GetProperty("objectsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("x").ToString());
+Console.WriteLine(result.GetProperty("objectsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("y").ToString());
+Console.WriteLine(result.GetProperty("objectsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("w").ToString());
+Console.WriteLine(result.GetProperty("objectsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("h").ToString());
+Console.WriteLine(result.GetProperty("objectsResult").GetProperty("values")[0].GetProperty("tags")[0].GetProperty("confidence").ToString());
+Console.WriteLine(result.GetProperty("objectsResult").GetProperty("values")[0].GetProperty("tags")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("peopleResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("x").ToString());
+Console.WriteLine(result.GetProperty("peopleResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("y").ToString());
+Console.WriteLine(result.GetProperty("peopleResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("w").ToString());
+Console.WriteLine(result.GetProperty("peopleResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("h").ToString());
+Console.WriteLine(result.GetProperty("peopleResult").GetProperty("values")[0].GetProperty("confidence").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("content").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("angle").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("height").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("lines")[0].GetProperty("boundingBox")[0].ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("lines")[0].GetProperty("content").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("lines")[0].GetProperty("spans")[0].GetProperty("length").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("lines")[0].GetProperty("spans")[0].GetProperty("offset").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("pageNumber").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("spans")[0].GetProperty("length").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("spans")[0].GetProperty("offset").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("width").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("words")[0].GetProperty("boundingBox")[0].ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("words")[0].GetProperty("confidence").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("words")[0].GetProperty("content").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("words")[0].GetProperty("span").GetProperty("length").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("words")[0].GetProperty("span").GetProperty("offset").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("stringIndexType").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("styles")[0].GetProperty("confidence").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("styles")[0].GetProperty("isHandwritten").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("styles")[0].GetProperty("spans")[0].GetProperty("length").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("styles")[0].GetProperty("spans")[0].GetProperty("offset").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("modelVersion").ToString());
+Console.WriteLine(result.GetProperty("smartCropsResult").GetProperty("values")[0].GetProperty("aspectRatio").ToString());
+Console.WriteLine(result.GetProperty("smartCropsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("x").ToString());
+Console.WriteLine(result.GetProperty("smartCropsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("y").ToString());
+Console.WriteLine(result.GetProperty("smartCropsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("w").ToString());
+Console.WriteLine(result.GetProperty("smartCropsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("h").ToString());
+Console.WriteLine(result.GetProperty("tagsResult").GetProperty("values")[0].GetProperty("confidence").ToString());
+Console.WriteLine(result.GetProperty("tagsResult").GetProperty("values")[0].GetProperty("name").ToString());
+]]></code></example>
+    </member>
+    <member name="AnalyzeFromStream(RequestContent,IEnumerable{VisualFeatures},string,string,IEnumerable{double},bool?,RequestContext)">
+      <example>
+This sample shows how to call AnalyzeFromStream and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ImageAnalysisClient client = new ImageAnalysisClient(endpoint, credential);
+
+RequestContent content = RequestContent.Create(new object());
+Response response = client.AnalyzeFromStream(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("metadata").GetProperty("height").ToString());
+Console.WriteLine(result.GetProperty("metadata").GetProperty("width").ToString());
+Console.WriteLine(result.GetProperty("modelVersion").ToString());
+]]></code>
+This sample shows how to call AnalyzeFromStream with all parameters and request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ImageAnalysisClient client = new ImageAnalysisClient(endpoint, credential);
+
+RequestContent content = RequestContent.Create(new object());
+Response response = client.AnalyzeFromStream(content, visualFeatures: new List<VisualFeatures>()
+{
+    VisualFeatures.Tags
+}, modelName: "<modelName>", language: "<language>", smartCropsAspectRatios: new List<double>()
+{
+    123.45
+}, genderNeutralCaption: true);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("captionResult").GetProperty("confidence").ToString());
+Console.WriteLine(result.GetProperty("captionResult").GetProperty("text").ToString());
+Console.WriteLine(result.GetProperty("customModelResult").GetProperty("objectsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("x").ToString());
+Console.WriteLine(result.GetProperty("customModelResult").GetProperty("objectsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("y").ToString());
+Console.WriteLine(result.GetProperty("customModelResult").GetProperty("objectsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("w").ToString());
+Console.WriteLine(result.GetProperty("customModelResult").GetProperty("objectsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("h").ToString());
+Console.WriteLine(result.GetProperty("customModelResult").GetProperty("objectsResult").GetProperty("values")[0].GetProperty("tags")[0].GetProperty("confidence").ToString());
+Console.WriteLine(result.GetProperty("customModelResult").GetProperty("objectsResult").GetProperty("values")[0].GetProperty("tags")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("customModelResult").GetProperty("tagsResult").GetProperty("values")[0].GetProperty("confidence").ToString());
+Console.WriteLine(result.GetProperty("customModelResult").GetProperty("tagsResult").GetProperty("values")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("denseCaptionsResult").GetProperty("values")[0].GetProperty("confidence").ToString());
+Console.WriteLine(result.GetProperty("denseCaptionsResult").GetProperty("values")[0].GetProperty("text").ToString());
+Console.WriteLine(result.GetProperty("denseCaptionsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("x").ToString());
+Console.WriteLine(result.GetProperty("denseCaptionsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("y").ToString());
+Console.WriteLine(result.GetProperty("denseCaptionsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("w").ToString());
+Console.WriteLine(result.GetProperty("denseCaptionsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("h").ToString());
+Console.WriteLine(result.GetProperty("metadata").GetProperty("height").ToString());
+Console.WriteLine(result.GetProperty("metadata").GetProperty("width").ToString());
+Console.WriteLine(result.GetProperty("modelVersion").ToString());
+Console.WriteLine(result.GetProperty("objectsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("x").ToString());
+Console.WriteLine(result.GetProperty("objectsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("y").ToString());
+Console.WriteLine(result.GetProperty("objectsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("w").ToString());
+Console.WriteLine(result.GetProperty("objectsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("h").ToString());
+Console.WriteLine(result.GetProperty("objectsResult").GetProperty("values")[0].GetProperty("tags")[0].GetProperty("confidence").ToString());
+Console.WriteLine(result.GetProperty("objectsResult").GetProperty("values")[0].GetProperty("tags")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("peopleResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("x").ToString());
+Console.WriteLine(result.GetProperty("peopleResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("y").ToString());
+Console.WriteLine(result.GetProperty("peopleResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("w").ToString());
+Console.WriteLine(result.GetProperty("peopleResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("h").ToString());
+Console.WriteLine(result.GetProperty("peopleResult").GetProperty("values")[0].GetProperty("confidence").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("content").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("angle").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("height").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("lines")[0].GetProperty("boundingBox")[0].ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("lines")[0].GetProperty("content").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("lines")[0].GetProperty("spans")[0].GetProperty("length").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("lines")[0].GetProperty("spans")[0].GetProperty("offset").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("pageNumber").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("spans")[0].GetProperty("length").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("spans")[0].GetProperty("offset").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("width").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("words")[0].GetProperty("boundingBox")[0].ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("words")[0].GetProperty("confidence").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("words")[0].GetProperty("content").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("words")[0].GetProperty("span").GetProperty("length").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("words")[0].GetProperty("span").GetProperty("offset").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("stringIndexType").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("styles")[0].GetProperty("confidence").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("styles")[0].GetProperty("isHandwritten").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("styles")[0].GetProperty("spans")[0].GetProperty("length").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("styles")[0].GetProperty("spans")[0].GetProperty("offset").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("modelVersion").ToString());
+Console.WriteLine(result.GetProperty("smartCropsResult").GetProperty("values")[0].GetProperty("aspectRatio").ToString());
+Console.WriteLine(result.GetProperty("smartCropsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("x").ToString());
+Console.WriteLine(result.GetProperty("smartCropsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("y").ToString());
+Console.WriteLine(result.GetProperty("smartCropsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("w").ToString());
+Console.WriteLine(result.GetProperty("smartCropsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("h").ToString());
+Console.WriteLine(result.GetProperty("tagsResult").GetProperty("values")[0].GetProperty("confidence").ToString());
+Console.WriteLine(result.GetProperty("tagsResult").GetProperty("values")[0].GetProperty("name").ToString());
+]]></code></example>
+    </member>
+    <member name="AnalyzeFromUrlAsync(ImageUrl,IEnumerable{VisualFeatures},string,string,IEnumerable{double},bool?,CancellationToken)">
+      <example>
+This sample shows how to call AnalyzeFromUrlAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ImageAnalysisClient client = new ImageAnalysisClient(endpoint, credential);
+
+ImageUrl imageContents = new ImageUrl(new Uri("http://localhost:3000"));
+Response<ImageAnalysisResult> response = await client.AnalyzeFromUrlAsync(imageContents);
+]]></code>
+This sample shows how to call AnalyzeFromUrlAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ImageAnalysisClient client = new ImageAnalysisClient(endpoint, credential);
+
+ImageUrl imageContents = new ImageUrl(new Uri("http://localhost:3000"));
+Response<ImageAnalysisResult> response = await client.AnalyzeFromUrlAsync(imageContents, visualFeatures: new List<VisualFeatures>()
+{
+    VisualFeatures.Tags
+}, modelName: "<modelName>", language: "<language>", smartCropsAspectRatios: new List<double>()
+{
+    123.45
+}, genderNeutralCaption: true);
+]]></code></example>
+    </member>
+    <member name="AnalyzeFromUrl(ImageUrl,IEnumerable{VisualFeatures},string,string,IEnumerable{double},bool?,CancellationToken)">
+      <example>
+This sample shows how to call AnalyzeFromUrl.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ImageAnalysisClient client = new ImageAnalysisClient(endpoint, credential);
+
+ImageUrl imageContents = new ImageUrl(new Uri("http://localhost:3000"));
+Response<ImageAnalysisResult> response = client.AnalyzeFromUrl(imageContents);
+]]></code>
+This sample shows how to call AnalyzeFromUrl with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ImageAnalysisClient client = new ImageAnalysisClient(endpoint, credential);
+
+ImageUrl imageContents = new ImageUrl(new Uri("http://localhost:3000"));
+Response<ImageAnalysisResult> response = client.AnalyzeFromUrl(imageContents, visualFeatures: new List<VisualFeatures>()
+{
+    VisualFeatures.Tags
+}, modelName: "<modelName>", language: "<language>", smartCropsAspectRatios: new List<double>()
+{
+    123.45
+}, genderNeutralCaption: true);
+]]></code></example>
+    </member>
+    <member name="AnalyzeFromUrlAsync(RequestContent,IEnumerable{VisualFeatures},string,string,IEnumerable{double},bool?,RequestContext)">
+      <example>
+This sample shows how to call AnalyzeFromUrlAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ImageAnalysisClient client = new ImageAnalysisClient(endpoint, credential);
+
+RequestContent content = RequestContent.Create(new
+{
+    url = "http://localhost:3000",
+});
+Response response = await client.AnalyzeFromUrlAsync(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("metadata").GetProperty("height").ToString());
+Console.WriteLine(result.GetProperty("metadata").GetProperty("width").ToString());
+Console.WriteLine(result.GetProperty("modelVersion").ToString());
+]]></code>
+This sample shows how to call AnalyzeFromUrlAsync with all parameters and request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ImageAnalysisClient client = new ImageAnalysisClient(endpoint, credential);
+
+RequestContent content = RequestContent.Create(new
+{
+    url = "http://localhost:3000",
+});
+Response response = await client.AnalyzeFromUrlAsync(content, visualFeatures: new List<VisualFeatures>()
+{
+    VisualFeatures.Tags
+}, modelName: "<modelName>", language: "<language>", smartCropsAspectRatios: new List<double>()
+{
+    123.45
+}, genderNeutralCaption: true);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("captionResult").GetProperty("confidence").ToString());
+Console.WriteLine(result.GetProperty("captionResult").GetProperty("text").ToString());
+Console.WriteLine(result.GetProperty("customModelResult").GetProperty("objectsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("x").ToString());
+Console.WriteLine(result.GetProperty("customModelResult").GetProperty("objectsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("y").ToString());
+Console.WriteLine(result.GetProperty("customModelResult").GetProperty("objectsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("w").ToString());
+Console.WriteLine(result.GetProperty("customModelResult").GetProperty("objectsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("h").ToString());
+Console.WriteLine(result.GetProperty("customModelResult").GetProperty("objectsResult").GetProperty("values")[0].GetProperty("tags")[0].GetProperty("confidence").ToString());
+Console.WriteLine(result.GetProperty("customModelResult").GetProperty("objectsResult").GetProperty("values")[0].GetProperty("tags")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("customModelResult").GetProperty("tagsResult").GetProperty("values")[0].GetProperty("confidence").ToString());
+Console.WriteLine(result.GetProperty("customModelResult").GetProperty("tagsResult").GetProperty("values")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("denseCaptionsResult").GetProperty("values")[0].GetProperty("confidence").ToString());
+Console.WriteLine(result.GetProperty("denseCaptionsResult").GetProperty("values")[0].GetProperty("text").ToString());
+Console.WriteLine(result.GetProperty("denseCaptionsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("x").ToString());
+Console.WriteLine(result.GetProperty("denseCaptionsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("y").ToString());
+Console.WriteLine(result.GetProperty("denseCaptionsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("w").ToString());
+Console.WriteLine(result.GetProperty("denseCaptionsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("h").ToString());
+Console.WriteLine(result.GetProperty("metadata").GetProperty("height").ToString());
+Console.WriteLine(result.GetProperty("metadata").GetProperty("width").ToString());
+Console.WriteLine(result.GetProperty("modelVersion").ToString());
+Console.WriteLine(result.GetProperty("objectsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("x").ToString());
+Console.WriteLine(result.GetProperty("objectsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("y").ToString());
+Console.WriteLine(result.GetProperty("objectsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("w").ToString());
+Console.WriteLine(result.GetProperty("objectsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("h").ToString());
+Console.WriteLine(result.GetProperty("objectsResult").GetProperty("values")[0].GetProperty("tags")[0].GetProperty("confidence").ToString());
+Console.WriteLine(result.GetProperty("objectsResult").GetProperty("values")[0].GetProperty("tags")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("peopleResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("x").ToString());
+Console.WriteLine(result.GetProperty("peopleResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("y").ToString());
+Console.WriteLine(result.GetProperty("peopleResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("w").ToString());
+Console.WriteLine(result.GetProperty("peopleResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("h").ToString());
+Console.WriteLine(result.GetProperty("peopleResult").GetProperty("values")[0].GetProperty("confidence").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("content").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("angle").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("height").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("lines")[0].GetProperty("boundingBox")[0].ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("lines")[0].GetProperty("content").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("lines")[0].GetProperty("spans")[0].GetProperty("length").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("lines")[0].GetProperty("spans")[0].GetProperty("offset").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("pageNumber").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("spans")[0].GetProperty("length").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("spans")[0].GetProperty("offset").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("width").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("words")[0].GetProperty("boundingBox")[0].ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("words")[0].GetProperty("confidence").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("words")[0].GetProperty("content").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("words")[0].GetProperty("span").GetProperty("length").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("words")[0].GetProperty("span").GetProperty("offset").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("stringIndexType").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("styles")[0].GetProperty("confidence").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("styles")[0].GetProperty("isHandwritten").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("styles")[0].GetProperty("spans")[0].GetProperty("length").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("styles")[0].GetProperty("spans")[0].GetProperty("offset").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("modelVersion").ToString());
+Console.WriteLine(result.GetProperty("smartCropsResult").GetProperty("values")[0].GetProperty("aspectRatio").ToString());
+Console.WriteLine(result.GetProperty("smartCropsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("x").ToString());
+Console.WriteLine(result.GetProperty("smartCropsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("y").ToString());
+Console.WriteLine(result.GetProperty("smartCropsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("w").ToString());
+Console.WriteLine(result.GetProperty("smartCropsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("h").ToString());
+Console.WriteLine(result.GetProperty("tagsResult").GetProperty("values")[0].GetProperty("confidence").ToString());
+Console.WriteLine(result.GetProperty("tagsResult").GetProperty("values")[0].GetProperty("name").ToString());
+]]></code></example>
+    </member>
+    <member name="AnalyzeFromUrl(RequestContent,IEnumerable{VisualFeatures},string,string,IEnumerable{double},bool?,RequestContext)">
+      <example>
+This sample shows how to call AnalyzeFromUrl and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ImageAnalysisClient client = new ImageAnalysisClient(endpoint, credential);
+
+RequestContent content = RequestContent.Create(new
+{
+    url = "http://localhost:3000",
+});
+Response response = client.AnalyzeFromUrl(content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("metadata").GetProperty("height").ToString());
+Console.WriteLine(result.GetProperty("metadata").GetProperty("width").ToString());
+Console.WriteLine(result.GetProperty("modelVersion").ToString());
+]]></code>
+This sample shows how to call AnalyzeFromUrl with all parameters and request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ImageAnalysisClient client = new ImageAnalysisClient(endpoint, credential);
+
+RequestContent content = RequestContent.Create(new
+{
+    url = "http://localhost:3000",
+});
+Response response = client.AnalyzeFromUrl(content, visualFeatures: new List<VisualFeatures>()
+{
+    VisualFeatures.Tags
+}, modelName: "<modelName>", language: "<language>", smartCropsAspectRatios: new List<double>()
+{
+    123.45
+}, genderNeutralCaption: true);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("captionResult").GetProperty("confidence").ToString());
+Console.WriteLine(result.GetProperty("captionResult").GetProperty("text").ToString());
+Console.WriteLine(result.GetProperty("customModelResult").GetProperty("objectsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("x").ToString());
+Console.WriteLine(result.GetProperty("customModelResult").GetProperty("objectsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("y").ToString());
+Console.WriteLine(result.GetProperty("customModelResult").GetProperty("objectsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("w").ToString());
+Console.WriteLine(result.GetProperty("customModelResult").GetProperty("objectsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("h").ToString());
+Console.WriteLine(result.GetProperty("customModelResult").GetProperty("objectsResult").GetProperty("values")[0].GetProperty("tags")[0].GetProperty("confidence").ToString());
+Console.WriteLine(result.GetProperty("customModelResult").GetProperty("objectsResult").GetProperty("values")[0].GetProperty("tags")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("customModelResult").GetProperty("tagsResult").GetProperty("values")[0].GetProperty("confidence").ToString());
+Console.WriteLine(result.GetProperty("customModelResult").GetProperty("tagsResult").GetProperty("values")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("denseCaptionsResult").GetProperty("values")[0].GetProperty("confidence").ToString());
+Console.WriteLine(result.GetProperty("denseCaptionsResult").GetProperty("values")[0].GetProperty("text").ToString());
+Console.WriteLine(result.GetProperty("denseCaptionsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("x").ToString());
+Console.WriteLine(result.GetProperty("denseCaptionsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("y").ToString());
+Console.WriteLine(result.GetProperty("denseCaptionsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("w").ToString());
+Console.WriteLine(result.GetProperty("denseCaptionsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("h").ToString());
+Console.WriteLine(result.GetProperty("metadata").GetProperty("height").ToString());
+Console.WriteLine(result.GetProperty("metadata").GetProperty("width").ToString());
+Console.WriteLine(result.GetProperty("modelVersion").ToString());
+Console.WriteLine(result.GetProperty("objectsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("x").ToString());
+Console.WriteLine(result.GetProperty("objectsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("y").ToString());
+Console.WriteLine(result.GetProperty("objectsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("w").ToString());
+Console.WriteLine(result.GetProperty("objectsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("h").ToString());
+Console.WriteLine(result.GetProperty("objectsResult").GetProperty("values")[0].GetProperty("tags")[0].GetProperty("confidence").ToString());
+Console.WriteLine(result.GetProperty("objectsResult").GetProperty("values")[0].GetProperty("tags")[0].GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("peopleResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("x").ToString());
+Console.WriteLine(result.GetProperty("peopleResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("y").ToString());
+Console.WriteLine(result.GetProperty("peopleResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("w").ToString());
+Console.WriteLine(result.GetProperty("peopleResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("h").ToString());
+Console.WriteLine(result.GetProperty("peopleResult").GetProperty("values")[0].GetProperty("confidence").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("content").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("angle").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("height").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("lines")[0].GetProperty("boundingBox")[0].ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("lines")[0].GetProperty("content").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("lines")[0].GetProperty("spans")[0].GetProperty("length").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("lines")[0].GetProperty("spans")[0].GetProperty("offset").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("pageNumber").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("spans")[0].GetProperty("length").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("spans")[0].GetProperty("offset").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("width").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("words")[0].GetProperty("boundingBox")[0].ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("words")[0].GetProperty("confidence").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("words")[0].GetProperty("content").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("words")[0].GetProperty("span").GetProperty("length").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("pages")[0].GetProperty("words")[0].GetProperty("span").GetProperty("offset").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("stringIndexType").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("styles")[0].GetProperty("confidence").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("styles")[0].GetProperty("isHandwritten").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("styles")[0].GetProperty("spans")[0].GetProperty("length").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("styles")[0].GetProperty("spans")[0].GetProperty("offset").ToString());
+Console.WriteLine(result.GetProperty("readResult").GetProperty("modelVersion").ToString());
+Console.WriteLine(result.GetProperty("smartCropsResult").GetProperty("values")[0].GetProperty("aspectRatio").ToString());
+Console.WriteLine(result.GetProperty("smartCropsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("x").ToString());
+Console.WriteLine(result.GetProperty("smartCropsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("y").ToString());
+Console.WriteLine(result.GetProperty("smartCropsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("w").ToString());
+Console.WriteLine(result.GetProperty("smartCropsResult").GetProperty("values")[0].GetProperty("boundingBox").GetProperty("h").ToString());
+Console.WriteLine(result.GetProperty("tagsResult").GetProperty("values")[0].GetProperty("confidence").ToString());
+Console.WriteLine(result.GetProperty("tagsResult").GetProperty("values")[0].GetProperty("name").ToString());
+]]></code></example>
+    </member>
+    <member name="SegmentFromUrlAsync(SegmentationMode,ImageUrl,CancellationToken)">
+      <example>
+This sample shows how to call SegmentFromUrlAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ImageAnalysisClient client = new ImageAnalysisClient(endpoint, credential);
+
+ImageUrl imageContents = new ImageUrl(new Uri("http://localhost:3000"));
+Response<BinaryData> response = await client.SegmentFromUrlAsync(SegmentationMode.BackgroundRemoval, imageContents);
+]]></code>
+This sample shows how to call SegmentFromUrlAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ImageAnalysisClient client = new ImageAnalysisClient(endpoint, credential);
+
+ImageUrl imageContents = new ImageUrl(new Uri("http://localhost:3000"));
+Response<BinaryData> response = await client.SegmentFromUrlAsync(SegmentationMode.BackgroundRemoval, imageContents);
+]]></code></example>
+    </member>
+    <member name="SegmentFromUrl(SegmentationMode,ImageUrl,CancellationToken)">
+      <example>
+This sample shows how to call SegmentFromUrl.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ImageAnalysisClient client = new ImageAnalysisClient(endpoint, credential);
+
+ImageUrl imageContents = new ImageUrl(new Uri("http://localhost:3000"));
+Response<BinaryData> response = client.SegmentFromUrl(SegmentationMode.BackgroundRemoval, imageContents);
+]]></code>
+This sample shows how to call SegmentFromUrl with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ImageAnalysisClient client = new ImageAnalysisClient(endpoint, credential);
+
+ImageUrl imageContents = new ImageUrl(new Uri("http://localhost:3000"));
+Response<BinaryData> response = client.SegmentFromUrl(SegmentationMode.BackgroundRemoval, imageContents);
+]]></code></example>
+    </member>
+    <member name="SegmentFromUrlAsync(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call SegmentFromUrlAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ImageAnalysisClient client = new ImageAnalysisClient(endpoint, credential);
+
+RequestContent content = RequestContent.Create(new
+{
+    url = "http://localhost:3000",
+});
+Response response = await client.SegmentFromUrlAsync("backgroundRemoval", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code>
+This sample shows how to call SegmentFromUrlAsync with all parameters and request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ImageAnalysisClient client = new ImageAnalysisClient(endpoint, credential);
+
+RequestContent content = RequestContent.Create(new
+{
+    url = "http://localhost:3000",
+});
+Response response = await client.SegmentFromUrlAsync("backgroundRemoval", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code></example>
+    </member>
+    <member name="SegmentFromUrl(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call SegmentFromUrl and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ImageAnalysisClient client = new ImageAnalysisClient(endpoint, credential);
+
+RequestContent content = RequestContent.Create(new
+{
+    url = "http://localhost:3000",
+});
+Response response = client.SegmentFromUrl("backgroundRemoval", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code>
+This sample shows how to call SegmentFromUrl with all parameters and request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ImageAnalysisClient client = new ImageAnalysisClient(endpoint, credential);
+
+RequestContent content = RequestContent.Create(new
+{
+    url = "http://localhost:3000",
+});
+Response response = client.SegmentFromUrl("backgroundRemoval", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code></example>
+    </member>
+    <member name="SegmentFromStreamAsync(SegmentationMode,BinaryData,CancellationToken)">
+      <example>
+This sample shows how to call SegmentFromStreamAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ImageAnalysisClient client = new ImageAnalysisClient(endpoint, credential);
+
+Response<BinaryData> response = await client.SegmentFromStreamAsync(SegmentationMode.BackgroundRemoval, BinaryData.FromObjectAsJson(new object()));
+]]></code>
+This sample shows how to call SegmentFromStreamAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ImageAnalysisClient client = new ImageAnalysisClient(endpoint, credential);
+
+Response<BinaryData> response = await client.SegmentFromStreamAsync(SegmentationMode.BackgroundRemoval, BinaryData.FromObjectAsJson(new object()));
+]]></code></example>
+    </member>
+    <member name="SegmentFromStream(SegmentationMode,BinaryData,CancellationToken)">
+      <example>
+This sample shows how to call SegmentFromStream.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ImageAnalysisClient client = new ImageAnalysisClient(endpoint, credential);
+
+Response<BinaryData> response = client.SegmentFromStream(SegmentationMode.BackgroundRemoval, BinaryData.FromObjectAsJson(new object()));
+]]></code>
+This sample shows how to call SegmentFromStream with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ImageAnalysisClient client = new ImageAnalysisClient(endpoint, credential);
+
+Response<BinaryData> response = client.SegmentFromStream(SegmentationMode.BackgroundRemoval, BinaryData.FromObjectAsJson(new object()));
+]]></code></example>
+    </member>
+    <member name="SegmentFromStreamAsync(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call SegmentFromStreamAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ImageAnalysisClient client = new ImageAnalysisClient(endpoint, credential);
+
+RequestContent content = RequestContent.Create(new object());
+Response response = await client.SegmentFromStreamAsync("backgroundRemoval", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code>
+This sample shows how to call SegmentFromStreamAsync with all parameters and request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ImageAnalysisClient client = new ImageAnalysisClient(endpoint, credential);
+
+RequestContent content = RequestContent.Create(new object());
+Response response = await client.SegmentFromStreamAsync("backgroundRemoval", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code></example>
+    </member>
+    <member name="SegmentFromStream(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call SegmentFromStream and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ImageAnalysisClient client = new ImageAnalysisClient(endpoint, credential);
+
+RequestContent content = RequestContent.Create(new object());
+Response response = client.SegmentFromStream("backgroundRemoval", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code>
+This sample shows how to call SegmentFromStream with all parameters and request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+AzureKeyCredential credential = new AzureKeyCredential("<key>");
+ImageAnalysisClient client = new ImageAnalysisClient(endpoint, credential);
+
+RequestContent content = RequestContent.Create(new object());
+Response response = client.SegmentFromStream("backgroundRemoval", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code></example>
+    </member>
+  </members>
+</doc>

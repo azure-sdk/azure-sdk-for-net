@@ -1,0 +1,5 @@
+directory: specification/cognitiveservices/Vision.ImageAnalysis
+commit: d4bebdb0c0772f67c455eab313d48793ceddfa42
+repo: Azure/azure-rest-api-specs
+additionalDirectories: []
+
