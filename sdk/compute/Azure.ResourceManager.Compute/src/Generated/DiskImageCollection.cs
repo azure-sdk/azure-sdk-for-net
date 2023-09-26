@@ -213,7 +213,7 @@ namespace Azure.ResourceManager.Compute
         }
 
         /// <summary>
-        /// Gets the list of images under a resource group. Use nextLink property in the response to get the next page of Images. Do this till nextLink is null to fetch all the Images.
+        /// Gets the list of images under a resource group.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -235,7 +235,7 @@ namespace Azure.ResourceManager.Compute
         }
 
         /// <summary>
-        /// Gets the list of images under a resource group. Use nextLink property in the response to get the next page of Images. Do this till nextLink is null to fetch all the Images.
+        /// Gets the list of images under a resource group.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
