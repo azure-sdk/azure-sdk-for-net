@@ -1073,7 +1073,7 @@ namespace Azure.ResourceManager.MachineLearning.Models
         public static Azure.ResourceManager.MachineLearning.Models.MachineLearningComputeInstanceProperties MachineLearningComputeInstanceProperties(string vmSize = null, Azure.Core.ResourceIdentifier subnetId = null, Azure.ResourceManager.MachineLearning.Models.MachineLearningApplicationSharingPolicy? applicationSharingPolicy = default(Azure.ResourceManager.MachineLearning.Models.MachineLearningApplicationSharingPolicy?), Azure.ResourceManager.MachineLearning.Models.MachineLearningComputeInstanceSshSettings sshSettings = null, Azure.ResourceManager.MachineLearning.Models.MachineLearningComputeInstanceConnectivityEndpoints connectivityEndpoints = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.MachineLearning.Models.MachineLearningComputeInstanceApplication> applications = null, Azure.ResourceManager.MachineLearning.Models.MachineLearningComputeInstanceCreatedBy createdBy = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.MachineLearning.Models.MachineLearningError> errors = null, Azure.ResourceManager.MachineLearning.Models.MachineLearningComputeInstanceState? state = default(Azure.ResourceManager.MachineLearning.Models.MachineLearningComputeInstanceState?), Azure.ResourceManager.MachineLearning.Models.MachineLearningComputeInstanceAuthorizationType? computeInstanceAuthorizationType = default(Azure.ResourceManager.MachineLearning.Models.MachineLearningComputeInstanceAuthorizationType?), Azure.ResourceManager.MachineLearning.Models.MachineLearningComputeInstanceAssignedUser personalComputeInstanceAssignedUser = null, Azure.ResourceManager.MachineLearning.Models.MachineLearningScriptsToExecute scripts = null, Azure.ResourceManager.MachineLearning.Models.MachineLearningComputeInstanceLastOperation lastOperation = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.MachineLearning.Models.MachineLearningComputeStartStopSchedule> schedulesComputeStartStop = null, bool? enableNodePublicIP = default(bool?), System.Collections.Generic.IEnumerable<Azure.ResourceManager.MachineLearning.Models.MachineLearningComputeInstanceContainer> containers = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.MachineLearning.Models.MachineLearningComputeInstanceDataDisk> dataDisks = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.MachineLearning.Models.MachineLearningComputeInstanceDataMount> dataMounts = null, string versionsRuntime = null) { throw null; }
         public static Azure.ResourceManager.MachineLearning.Models.MachineLearningComputeInstanceSshSettings MachineLearningComputeInstanceSshSettings(Azure.ResourceManager.MachineLearning.Models.MachineLearningSshPublicAccess? sshPublicAccess = default(Azure.ResourceManager.MachineLearning.Models.MachineLearningSshPublicAccess?), string adminUserName = null, int? sshPort = default(int?), string adminPublicKey = null) { throw null; }
         public static Azure.ResourceManager.MachineLearning.Models.MachineLearningComputeProperties MachineLearningComputeProperties(string computeType = "Unknown", string computeLocation = null, Azure.ResourceManager.MachineLearning.Models.MachineLearningProvisioningState? provisioningState = default(Azure.ResourceManager.MachineLearning.Models.MachineLearningProvisioningState?), string description = null, System.DateTimeOffset? createdOn = default(System.DateTimeOffset?), System.DateTimeOffset? modifiedOn = default(System.DateTimeOffset?), Azure.Core.ResourceIdentifier resourceId = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.MachineLearning.Models.MachineLearningError> provisioningErrors = null, bool? isAttachedCompute = default(bool?), bool? disableLocalAuth = default(bool?)) { throw null; }
-        public static Azure.ResourceManager.MachineLearning.Models.MachineLearningComputeStartStopSchedule MachineLearningComputeStartStopSchedule(string id = null, Azure.ResourceManager.MachineLearning.Models.MachineLearningComputeProvisioningStatus? provisioningStatus = default(Azure.ResourceManager.MachineLearning.Models.MachineLearningComputeProvisioningStatus?), Azure.ResourceManager.MachineLearning.Models.MachineLearningScheduleStatus? status = default(Azure.ResourceManager.MachineLearning.Models.MachineLearningScheduleStatus?), Azure.ResourceManager.MachineLearning.Models.MachineLearningComputePowerAction? action = default(Azure.ResourceManager.MachineLearning.Models.MachineLearningComputePowerAction?), Azure.ResourceManager.MachineLearning.Models.MachineLearningTriggerType? triggerType = default(Azure.ResourceManager.MachineLearning.Models.MachineLearningTriggerType?), Azure.ResourceManager.MachineLearning.Models.MachineLearningRecurrenceTrigger recurrence = null, Azure.ResourceManager.MachineLearning.Models.CronTrigger cron = null, Azure.ResourceManager.MachineLearning.Models.MachineLearningScheduleBase schedule = null) { throw null; }
+        public static Azure.ResourceManager.MachineLearning.Models.MachineLearningComputeStartStopSchedule MachineLearningComputeStartStopSchedule(string id = null, Azure.ResourceManager.MachineLearning.Models.MachineLearningComputeProvisioningStatus? provisioningStatus = default(Azure.ResourceManager.MachineLearning.Models.MachineLearningComputeProvisioningStatus?), Azure.ResourceManager.MachineLearning.Models.MachineLearningScheduleStatus? status = default(Azure.ResourceManager.MachineLearning.Models.MachineLearningScheduleStatus?), Azure.ResourceManager.MachineLearning.Models.MachineLearningComputePowerAction? action = default(Azure.ResourceManager.MachineLearning.Models.MachineLearningComputePowerAction?), Azure.ResourceManager.MachineLearning.Models.MachineLearningTriggerType? triggerType = default(Azure.ResourceManager.MachineLearning.Models.MachineLearningTriggerType?), Azure.ResourceManager.MachineLearning.Models.Recurrence recurrence = null, Azure.ResourceManager.MachineLearning.Models.Cron cron = null, Azure.ResourceManager.MachineLearning.Models.MachineLearningScheduleBase schedule = null) { throw null; }
         public static Azure.ResourceManager.MachineLearning.Models.MachineLearningComputeSystemService MachineLearningComputeSystemService(string systemServiceType = null, string publicIPAddress = null, string version = null) { throw null; }
         public static Azure.ResourceManager.MachineLearning.Models.MachineLearningContainerRegistryCredentials MachineLearningContainerRegistryCredentials(Azure.Core.AzureLocation? location = default(Azure.Core.AzureLocation?), string username = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.MachineLearning.Models.MachineLearningPasswordDetail> passwords = null) { throw null; }
         public static Azure.ResourceManager.MachineLearning.Models.MachineLearningDatabricksCompute MachineLearningDatabricksCompute(string computeLocation = null, Azure.ResourceManager.MachineLearning.Models.MachineLearningProvisioningState? provisioningState = default(Azure.ResourceManager.MachineLearning.Models.MachineLearningProvisioningState?), string description = null, System.DateTimeOffset? createdOn = default(System.DateTimeOffset?), System.DateTimeOffset? modifiedOn = default(System.DateTimeOffset?), Azure.Core.ResourceIdentifier resourceId = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.MachineLearning.Models.MachineLearningError> provisioningErrors = null, bool? isAttachedCompute = default(bool?), bool? disableLocalAuth = default(bool?), Azure.ResourceManager.MachineLearning.Models.MachineLearningDatabricksProperties properties = null) { throw null; }
@@ -1125,7 +1125,6 @@ namespace Azure.ResourceManager.MachineLearning.Models
         public static Azure.ResourceManager.MachineLearning.Models.MachineLearningPrivateLinkResource MachineLearningPrivateLinkResource(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, System.Collections.Generic.IDictionary<string, string> tags = null, Azure.Core.AzureLocation location = default(Azure.Core.AzureLocation), Azure.ResourceManager.Models.ManagedServiceIdentity identity = null, Azure.ResourceManager.MachineLearning.Models.MachineLearningSku sku = null, string groupId = null, System.Collections.Generic.IEnumerable<string> requiredMembers = null, System.Collections.Generic.IEnumerable<string> requiredZoneNames = null) { throw null; }
         public static Azure.ResourceManager.MachineLearning.Models.MachineLearningResourceName MachineLearningResourceName(string value = null, string localizedValue = null) { throw null; }
         public static Azure.ResourceManager.MachineLearning.Models.MachineLearningResourceQuota MachineLearningResourceQuota(string id = null, string amlWorkspaceLocation = null, string resourceQuotaType = null, Azure.ResourceManager.MachineLearning.Models.MachineLearningResourceName name = null, long? limit = default(long?), Azure.ResourceManager.MachineLearning.Models.MachineLearningQuotaUnit? unit = default(Azure.ResourceManager.MachineLearning.Models.MachineLearningQuotaUnit?)) { throw null; }
-        public static Azure.ResourceManager.MachineLearning.Models.MachineLearningScheduleBase MachineLearningScheduleBase(string id = null, Azure.ResourceManager.MachineLearning.Models.MachineLearningScheduleProvisioningState? provisioningStatus = default(Azure.ResourceManager.MachineLearning.Models.MachineLearningScheduleProvisioningState?), Azure.ResourceManager.MachineLearning.Models.MachineLearningScheduleStatus? status = default(Azure.ResourceManager.MachineLearning.Models.MachineLearningScheduleStatus?)) { throw null; }
         public static Azure.ResourceManager.MachineLearning.MachineLearningScheduleData MachineLearningScheduleData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.ResourceManager.MachineLearning.Models.MachineLearningScheduleProperties properties = null) { throw null; }
         public static Azure.ResourceManager.MachineLearning.Models.MachineLearningScheduleProperties MachineLearningScheduleProperties(string description = null, System.Collections.Generic.IDictionary<string, string> properties = null, System.Collections.Generic.IDictionary<string, string> tags = null, Azure.ResourceManager.MachineLearning.Models.MachineLearningScheduleAction action = null, string displayName = null, bool? isEnabled = default(bool?), Azure.ResourceManager.MachineLearning.Models.MachineLearningScheduleProvisioningStatus? provisioningState = default(Azure.ResourceManager.MachineLearning.Models.MachineLearningScheduleProvisioningStatus?), Azure.ResourceManager.MachineLearning.Models.MachineLearningTriggerBase trigger = null) { throw null; }
         public static Azure.ResourceManager.MachineLearning.Models.MachineLearningSkuCapacity MachineLearningSkuCapacity(int? @default = default(int?), int? maximum = default(int?), int? minimum = default(int?), Azure.ResourceManager.MachineLearning.Models.MachineLearningSkuScaleType? scaleType = default(Azure.ResourceManager.MachineLearning.Models.MachineLearningSkuScaleType?)) { throw null; }
@@ -1400,6 +1399,13 @@ namespace Azure.ResourceManager.MachineLearning.Models
         public ColumnTransformer() { }
         public System.Collections.Generic.IList<string> Fields { get { throw null; } set { } }
         public System.BinaryData Parameters { get { throw null; } set { } }
+    }
+    public partial class Cron
+    {
+        public Cron() { }
+        public string Expression { get { throw null; } set { } }
+        public string StartTime { get { throw null; } set { } }
+        public string TimeZone { get { throw null; } set { } }
     }
     public partial class CronTrigger : Azure.ResourceManager.MachineLearning.Models.MachineLearningTriggerBase
     {
@@ -2188,7 +2194,7 @@ namespace Azure.ResourceManager.MachineLearning.Models
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.MachineLearning.Models.MachineLearningError> Errors { get { throw null; } }
         public Azure.ResourceManager.MachineLearning.Models.MachineLearningComputeInstanceLastOperation LastOperation { get { throw null; } }
         public Azure.ResourceManager.MachineLearning.Models.MachineLearningComputeInstanceAssignedUser PersonalComputeInstanceAssignedUser { get { throw null; } set { } }
-        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.MachineLearning.Models.MachineLearningComputeStartStopSchedule> SchedulesComputeStartStop { get { throw null; } }
+        public System.Collections.Generic.IList<Azure.ResourceManager.MachineLearning.Models.MachineLearningComputeStartStopSchedule> SchedulesComputeStartStop { get { throw null; } }
         public Azure.ResourceManager.MachineLearning.Models.MachineLearningScriptsToExecute Scripts { get { throw null; } set { } }
         public Azure.ResourceManager.MachineLearning.Models.MachineLearningComputeInstanceSshSettings SshSettings { get { throw null; } set { } }
         public Azure.ResourceManager.MachineLearning.Models.MachineLearningComputeInstanceState? State { get { throw null; } }
@@ -2296,15 +2302,15 @@ namespace Azure.ResourceManager.MachineLearning.Models
     }
     public partial class MachineLearningComputeStartStopSchedule
     {
-        internal MachineLearningComputeStartStopSchedule() { }
-        public Azure.ResourceManager.MachineLearning.Models.MachineLearningComputePowerAction? Action { get { throw null; } }
-        public Azure.ResourceManager.MachineLearning.Models.CronTrigger Cron { get { throw null; } }
+        public MachineLearningComputeStartStopSchedule() { }
+        public Azure.ResourceManager.MachineLearning.Models.MachineLearningComputePowerAction? Action { get { throw null; } set { } }
+        public Azure.ResourceManager.MachineLearning.Models.Cron Cron { get { throw null; } set { } }
         public string Id { get { throw null; } }
         public Azure.ResourceManager.MachineLearning.Models.MachineLearningComputeProvisioningStatus? ProvisioningStatus { get { throw null; } }
-        public Azure.ResourceManager.MachineLearning.Models.MachineLearningRecurrenceTrigger Recurrence { get { throw null; } }
-        public Azure.ResourceManager.MachineLearning.Models.MachineLearningScheduleBase Schedule { get { throw null; } }
-        public Azure.ResourceManager.MachineLearning.Models.MachineLearningScheduleStatus? Status { get { throw null; } }
-        public Azure.ResourceManager.MachineLearning.Models.MachineLearningTriggerType? TriggerType { get { throw null; } }
+        public Azure.ResourceManager.MachineLearning.Models.Recurrence Recurrence { get { throw null; } set { } }
+        public Azure.ResourceManager.MachineLearning.Models.MachineLearningScheduleBase Schedule { get { throw null; } set { } }
+        public Azure.ResourceManager.MachineLearning.Models.MachineLearningScheduleStatus? Status { get { throw null; } set { } }
+        public Azure.ResourceManager.MachineLearning.Models.MachineLearningTriggerType? TriggerType { get { throw null; } set { } }
     }
     public partial class MachineLearningComputeSystemService
     {
@@ -3830,10 +3836,10 @@ namespace Azure.ResourceManager.MachineLearning.Models
     }
     public partial class MachineLearningScheduleBase
     {
-        internal MachineLearningScheduleBase() { }
-        public string Id { get { throw null; } }
-        public Azure.ResourceManager.MachineLearning.Models.MachineLearningScheduleProvisioningState? ProvisioningStatus { get { throw null; } }
-        public Azure.ResourceManager.MachineLearning.Models.MachineLearningScheduleStatus? Status { get { throw null; } }
+        public MachineLearningScheduleBase() { }
+        public string Id { get { throw null; } set { } }
+        public Azure.ResourceManager.MachineLearning.Models.MachineLearningScheduleProvisioningState? ProvisioningStatus { get { throw null; } set { } }
+        public Azure.ResourceManager.MachineLearning.Models.MachineLearningScheduleStatus? Status { get { throw null; } set { } }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct MachineLearningScheduleListViewType : System.IEquatable<Azure.ResourceManager.MachineLearning.Models.MachineLearningScheduleListViewType>
@@ -4745,6 +4751,15 @@ namespace Azure.ResourceManager.MachineLearning.Models
         public static implicit operator Azure.ResourceManager.MachineLearning.Models.RandomSamplingAlgorithmRule (string value) { throw null; }
         public static bool operator !=(Azure.ResourceManager.MachineLearning.Models.RandomSamplingAlgorithmRule left, Azure.ResourceManager.MachineLearning.Models.RandomSamplingAlgorithmRule right) { throw null; }
         public override string ToString() { throw null; }
+    }
+    public partial class Recurrence
+    {
+        public Recurrence() { }
+        public Azure.ResourceManager.MachineLearning.Models.MachineLearningRecurrenceFrequency? Frequency { get { throw null; } set { } }
+        public int? Interval { get { throw null; } set { } }
+        public Azure.ResourceManager.MachineLearning.Models.MachineLearningRecurrenceSchedule Schedule { get { throw null; } set { } }
+        public string StartTime { get { throw null; } set { } }
+        public string TimeZone { get { throw null; } set { } }
     }
     public partial class RegressionTrainingSettings : Azure.ResourceManager.MachineLearning.Models.MachineLearningTrainingSettings
     {
