@@ -1233,35 +1233,6 @@ namespace Azure.ResourceManager.SecurityCenter.Models
             return new SecuritySettingData(id, name, resourceType, systemData, kind);
         }
 
-        /// <summary> Initializes a new instance of IngestionSettingData. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="properties"> Ingestion setting data. </param>
-        /// <returns> A new <see cref="SecurityCenter.IngestionSettingData"/> instance for mocking. </returns>
-        public static IngestionSettingData IngestionSettingData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, BinaryData properties = null)
-        {
-            return new IngestionSettingData(id, name, resourceType, systemData, properties);
-        }
-
-        /// <summary> Initializes a new instance of IngestionSettingToken. </summary>
-        /// <param name="token"> The token is used for correlating security data and logs with the resources in the subscription. </param>
-        /// <returns> A new <see cref="Models.IngestionSettingToken"/> instance for mocking. </returns>
-        public static IngestionSettingToken IngestionSettingToken(string token = null)
-        {
-            return new IngestionSettingToken(token);
-        }
-
-        /// <summary> Initializes a new instance of IngestionConnectionString. </summary>
-        /// <param name="location"> The region where ingested logs and data resides. </param>
-        /// <param name="value"> Connection string value. </param>
-        /// <returns> A new <see cref="Models.IngestionConnectionString"/> instance for mocking. </returns>
-        public static IngestionConnectionString IngestionConnectionString(AzureLocation? location = null, string value = null)
-        {
-            return new IngestionConnectionString(location, value);
-        }
-
         /// <summary> Initializes a new instance of SoftwareInventoryData. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
