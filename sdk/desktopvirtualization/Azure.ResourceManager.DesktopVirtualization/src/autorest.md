@@ -9,7 +9,7 @@ generate-model-factory: true
 csharp: true
 library-name: DesktopVirtualization
 namespace: Azure.ResourceManager.DesktopVirtualization
-require: https://github.com/Azure/azure-rest-api-specs/blob/45765fbbfd14084eb7a12ebd099aaeddb2a13173/specification/desktopvirtualization/resource-manager/readme.md
+require: https://github.com/Azure/azure-rest-api-specs/blob/f7f085ca7d370195f9dc75eb26e94ad5364ffb55/specification/desktopvirtualization/resource-manager/readme.md
 # tag: package-2022-09
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
