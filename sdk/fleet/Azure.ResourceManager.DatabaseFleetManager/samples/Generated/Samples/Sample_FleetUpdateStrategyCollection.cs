@@ -12,18 +12,19 @@ using Azure.Core;
 using Azure.Identity;
 using Azure.ResourceManager;
 using Azure.ResourceManager.DatabaseFleetManager;
+using Azure.ResourceManager.DatabaseFleetManager.Models;
 
 namespace Azure.ResourceManager.DatabaseFleetManager.Samples
 {
-    public partial class Sample_DatabaseFleetMemberCollection
+    public partial class Sample_FleetUpdateStrategyCollection
     {
-        // Lists the members of a Fleet.
+        // List the FleetUpdateStrategy resources by fleet.
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task GetAll_ListsTheMembersOfAFleet()
+        public async Task GetAll_ListTheFleetUpdateStrategyResourcesByFleet()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/fleet/preview/2023-08-15-preview/examples/FleetMembers_ListByFleet.json
-            // this example is just showing the usage of "FleetMembers_ListByFleet" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/fleet/preview/2023-08-15-preview/examples/UpdateStrategies_ListByFleet.json
+            // this example is just showing the usage of "FleetUpdateStrategies_ListByFleet" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -32,21 +33,21 @@ namespace Azure.ResourceManager.DatabaseFleetManager.Samples
 
             // this example assumes you already have this DatabaseFleetResource created on azure
             // for more information of creating DatabaseFleetResource, please refer to the document of DatabaseFleetResource
-            string subscriptionId = "subid1";
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
             string resourceGroupName = "rg1";
             string fleetName = "fleet1";
             ResourceIdentifier databaseFleetResourceId = DatabaseFleetResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, fleetName);
             DatabaseFleetResource databaseFleet = client.GetDatabaseFleetResource(databaseFleetResourceId);
 
-            // get the collection of this DatabaseFleetMemberResource
-            DatabaseFleetMemberCollection collection = databaseFleet.GetDatabaseFleetMembers();
+            // get the collection of this FleetUpdateStrategyResource
+            FleetUpdateStrategyCollection collection = databaseFleet.GetFleetUpdateStrategies();
 
             // invoke the operation and iterate over the result
-            await foreach (DatabaseFleetMemberResource item in collection.GetAllAsync())
+            await foreach (FleetUpdateStrategyResource item in collection.GetAllAsync())
             {
                 // the variable item is a resource, you could call other operations on this instance as well
                 // but just for demo, we get its data from this resource instance
-                DatabaseFleetMemberData resourceData = item.Data;
+                FleetUpdateStrategyData resourceData = item.Data;
                 // for demo we just print out the id
                 Console.WriteLine($"Succeeded on id: {resourceData.Id}");
             }
@@ -54,13 +55,13 @@ namespace Azure.ResourceManager.DatabaseFleetManager.Samples
             Console.WriteLine($"Succeeded");
         }
 
-        // Gets a FleetMember resource.
+        // Get a FleetUpdateStrategy resource.
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task Get_GetsAFleetMemberResource()
+        public async Task Get_GetAFleetUpdateStrategyResource()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/fleet/preview/2023-08-15-preview/examples/FleetMembers_Get.json
-            // this example is just showing the usage of "FleetMembers_Get" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/fleet/preview/2023-08-15-preview/examples/UpdateStrategies_Get.json
+            // this example is just showing the usage of "FleetUpdateStrategies_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -69,33 +70,33 @@ namespace Azure.ResourceManager.DatabaseFleetManager.Samples
 
             // this example assumes you already have this DatabaseFleetResource created on azure
             // for more information of creating DatabaseFleetResource, please refer to the document of DatabaseFleetResource
-            string subscriptionId = "subid1";
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
             string resourceGroupName = "rg1";
             string fleetName = "fleet1";
             ResourceIdentifier databaseFleetResourceId = DatabaseFleetResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, fleetName);
             DatabaseFleetResource databaseFleet = client.GetDatabaseFleetResource(databaseFleetResourceId);
 
-            // get the collection of this DatabaseFleetMemberResource
-            DatabaseFleetMemberCollection collection = databaseFleet.GetDatabaseFleetMembers();
+            // get the collection of this FleetUpdateStrategyResource
+            FleetUpdateStrategyCollection collection = databaseFleet.GetFleetUpdateStrategies();
 
             // invoke the operation
-            string fleetMemberName = "member-1";
-            DatabaseFleetMemberResource result = await collection.GetAsync(fleetMemberName);
+            string updateStrategyName = "strategy1";
+            FleetUpdateStrategyResource result = await collection.GetAsync(updateStrategyName);
 
             // the variable result is a resource, you could call other operations on this instance as well
             // but just for demo, we get its data from this resource instance
-            DatabaseFleetMemberData resourceData = result.Data;
+            FleetUpdateStrategyData resourceData = result.Data;
             // for demo we just print out the id
             Console.WriteLine($"Succeeded on id: {resourceData.Id}");
         }
 
-        // Gets a FleetMember resource.
+        // Get a FleetUpdateStrategy resource.
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task Exists_GetsAFleetMemberResource()
+        public async Task Exists_GetAFleetUpdateStrategyResource()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/fleet/preview/2023-08-15-preview/examples/FleetMembers_Get.json
-            // this example is just showing the usage of "FleetMembers_Get" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/fleet/preview/2023-08-15-preview/examples/UpdateStrategies_Get.json
+            // this example is just showing the usage of "FleetUpdateStrategies_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -104,29 +105,29 @@ namespace Azure.ResourceManager.DatabaseFleetManager.Samples
 
             // this example assumes you already have this DatabaseFleetResource created on azure
             // for more information of creating DatabaseFleetResource, please refer to the document of DatabaseFleetResource
-            string subscriptionId = "subid1";
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
             string resourceGroupName = "rg1";
             string fleetName = "fleet1";
             ResourceIdentifier databaseFleetResourceId = DatabaseFleetResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, fleetName);
             DatabaseFleetResource databaseFleet = client.GetDatabaseFleetResource(databaseFleetResourceId);
 
-            // get the collection of this DatabaseFleetMemberResource
-            DatabaseFleetMemberCollection collection = databaseFleet.GetDatabaseFleetMembers();
+            // get the collection of this FleetUpdateStrategyResource
+            FleetUpdateStrategyCollection collection = databaseFleet.GetFleetUpdateStrategies();
 
             // invoke the operation
-            string fleetMemberName = "member-1";
-            bool result = await collection.ExistsAsync(fleetMemberName);
+            string updateStrategyName = "strategy1";
+            bool result = await collection.ExistsAsync(updateStrategyName);
 
             Console.WriteLine($"Succeeded: {result}");
         }
 
-        // Gets a FleetMember resource.
+        // Get a FleetUpdateStrategy resource.
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task GetIfExists_GetsAFleetMemberResource()
+        public async Task GetIfExists_GetAFleetUpdateStrategyResource()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/fleet/preview/2023-08-15-preview/examples/FleetMembers_Get.json
-            // this example is just showing the usage of "FleetMembers_Get" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/fleet/preview/2023-08-15-preview/examples/UpdateStrategies_Get.json
+            // this example is just showing the usage of "FleetUpdateStrategies_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -135,19 +136,19 @@ namespace Azure.ResourceManager.DatabaseFleetManager.Samples
 
             // this example assumes you already have this DatabaseFleetResource created on azure
             // for more information of creating DatabaseFleetResource, please refer to the document of DatabaseFleetResource
-            string subscriptionId = "subid1";
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
             string resourceGroupName = "rg1";
             string fleetName = "fleet1";
             ResourceIdentifier databaseFleetResourceId = DatabaseFleetResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, fleetName);
             DatabaseFleetResource databaseFleet = client.GetDatabaseFleetResource(databaseFleetResourceId);
 
-            // get the collection of this DatabaseFleetMemberResource
-            DatabaseFleetMemberCollection collection = databaseFleet.GetDatabaseFleetMembers();
+            // get the collection of this FleetUpdateStrategyResource
+            FleetUpdateStrategyCollection collection = databaseFleet.GetFleetUpdateStrategies();
 
             // invoke the operation
-            string fleetMemberName = "member-1";
-            NullableResponse<DatabaseFleetMemberResource> response = await collection.GetIfExistsAsync(fleetMemberName);
-            DatabaseFleetMemberResource result = response.HasValue ? response.Value : null;
+            string updateStrategyName = "strategy1";
+            NullableResponse<FleetUpdateStrategyResource> response = await collection.GetIfExistsAsync(updateStrategyName);
+            FleetUpdateStrategyResource result = response.HasValue ? response.Value : null;
 
             if (result == null)
             {
@@ -157,19 +158,19 @@ namespace Azure.ResourceManager.DatabaseFleetManager.Samples
             {
                 // the variable result is a resource, you could call other operations on this instance as well
                 // but just for demo, we get its data from this resource instance
-                DatabaseFleetMemberData resourceData = result.Data;
+                FleetUpdateStrategyData resourceData = result.Data;
                 // for demo we just print out the id
                 Console.WriteLine($"Succeeded on id: {resourceData.Id}");
             }
         }
 
-        // Creates a FleetMember resource with a long running operation.
+        // Create a FleetUpdateStrategy.
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task CreateOrUpdate_CreatesAFleetMemberResourceWithALongRunningOperation()
+        public async Task CreateOrUpdate_CreateAFleetUpdateStrategy()
         {
-            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/fleet/preview/2023-08-15-preview/examples/FleetMembers_Create.json
-            // this example is just showing the usage of "FleetMembers_Create" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/containerservice/resource-manager/Microsoft.ContainerService/fleet/preview/2023-08-15-preview/examples/UpdateStrategies_CreateOrUpdate.json
+            // this example is just showing the usage of "FleetUpdateStrategies_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -178,27 +179,37 @@ namespace Azure.ResourceManager.DatabaseFleetManager.Samples
 
             // this example assumes you already have this DatabaseFleetResource created on azure
             // for more information of creating DatabaseFleetResource, please refer to the document of DatabaseFleetResource
-            string subscriptionId = "subid1";
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
             string resourceGroupName = "rg1";
             string fleetName = "fleet1";
             ResourceIdentifier databaseFleetResourceId = DatabaseFleetResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, fleetName);
             DatabaseFleetResource databaseFleet = client.GetDatabaseFleetResource(databaseFleetResourceId);
 
-            // get the collection of this DatabaseFleetMemberResource
-            DatabaseFleetMemberCollection collection = databaseFleet.GetDatabaseFleetMembers();
+            // get the collection of this FleetUpdateStrategyResource
+            FleetUpdateStrategyCollection collection = databaseFleet.GetFleetUpdateStrategies();
 
             // invoke the operation
-            string fleetMemberName = "member-1";
-            DatabaseFleetMemberData data = new DatabaseFleetMemberData()
+            string updateStrategyName = "strartegy1";
+            FleetUpdateStrategyData data = new FleetUpdateStrategyData()
             {
-                ClusterResourceId = new ResourceIdentifier("/subscriptions/subid1/resourcegroups/rg1/providers/Microsoft.ContainerService/managedClusters/cluster-1"),
+                StrategyStages =
+{
+new FleetUpdateStage("stage1")
+{
+Groups =
+{
+new FleetUpdateGroup("group-a")
+},
+AfterStageWaitInSeconds = 3600,
+}
+},
             };
-            ArmOperation<DatabaseFleetMemberResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, fleetMemberName, data);
-            DatabaseFleetMemberResource result = lro.Value;
+            ArmOperation<FleetUpdateStrategyResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, updateStrategyName, data);
+            FleetUpdateStrategyResource result = lro.Value;
 
             // the variable result is a resource, you could call other operations on this instance as well
             // but just for demo, we get its data from this resource instance
-            DatabaseFleetMemberData resourceData = result.Data;
+            FleetUpdateStrategyData resourceData = result.Data;
             // for demo we just print out the id
             Console.WriteLine($"Succeeded on id: {resourceData.Id}");
         }

@@ -44,6 +44,7 @@ namespace Azure.ResourceManager.DatabaseFleetManager.Models
             Optional<FleetAgentProfile> agentProfile = default;
             Optional<string> fqdn = default;
             Optional<string> kubernetesVersion = default;
+            Optional<string> portalFqdn = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("dnsPrefix"u8))
@@ -79,8 +80,13 @@ namespace Azure.ResourceManager.DatabaseFleetManager.Models
                     kubernetesVersion = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("portalFqdn"u8))
+                {
+                    portalFqdn = property.Value.GetString();
+                    continue;
+                }
             }
-            return new FleetHubProfile(dnsPrefix.Value, apiServerAccessProfile.Value, agentProfile.Value, fqdn.Value, kubernetesVersion.Value);
+            return new FleetHubProfile(dnsPrefix.Value, apiServerAccessProfile.Value, agentProfile.Value, fqdn.Value, kubernetesVersion.Value, portalFqdn.Value);
         }
     }
 }

@@ -7,7 +7,7 @@ azure-arm: true
 csharp: true
 library-name: DatabaseFleetManager
 namespace: Azure.ResourceManager.DatabaseFleetManager
-require: https://github.com/Azure/azure-rest-api-specs/blob/de06c42bd985fb66b6a49c907aaf5baee693bc7b/specification/containerservice/resource-manager/Microsoft.ContainerService/fleet/readme.md
+require: https://github.com/Azure/azure-rest-api-specs/blob/f7f085ca7d370195f9dc75eb26e94ad5364ffb55/specification/containerservice/resource-manager/Microsoft.ContainerService/fleet/readme.md
 #tag: package-2023-06-preview
 output-folder: $(this-folder)/Generated
 clear-output-folder: true

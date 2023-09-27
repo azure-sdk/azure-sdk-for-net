@@ -10,7 +10,7 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.DatabaseFleetManager.Models
 {
-    internal partial class FleetAgentProfile : IUtf8JsonSerializable
+    public partial class FleetAgentProfile : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
@@ -19,6 +19,11 @@ namespace Azure.ResourceManager.DatabaseFleetManager.Models
             {
                 writer.WritePropertyName("subnetId"u8);
                 writer.WriteStringValue(SubnetId);
+            }
+            if (Optional.IsDefined(VmSize))
+            {
+                writer.WritePropertyName("vmSize"u8);
+                writer.WriteStringValue(VmSize);
             }
             writer.WriteEndObject();
         }
@@ -30,6 +35,7 @@ namespace Azure.ResourceManager.DatabaseFleetManager.Models
                 return null;
             }
             Optional<ResourceIdentifier> subnetId = default;
+            Optional<string> vmSize = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("subnetId"u8))
@@ -41,8 +47,13 @@ namespace Azure.ResourceManager.DatabaseFleetManager.Models
                     subnetId = new ResourceIdentifier(property.Value.GetString());
                     continue;
                 }
+                if (property.NameEquals("vmSize"u8))
+                {
+                    vmSize = property.Value.GetString();
+                    continue;
+                }
             }
-            return new FleetAgentProfile(subnetId.Value);
+            return new FleetAgentProfile(subnetId.Value, vmSize.Value);
         }
     }
 }

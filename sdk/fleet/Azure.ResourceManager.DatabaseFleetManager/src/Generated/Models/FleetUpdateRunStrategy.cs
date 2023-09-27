@@ -12,11 +12,19 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.DatabaseFleetManager.Models
 {
-    /// <summary> The UpdateRunStrategy configures the sequence of Stages and Groups in which the clusters will be updated. </summary>
+    /// <summary>
+    /// Defines the update sequence of the clusters via stages and groups.
+    ///
+    /// Stages within a run are executed sequentially one after another.
+    /// Groups within a stage are executed in parallel.
+    /// Member clusters within a group are updated sequentially one after another.
+    ///
+    /// A valid strategy contains no duplicate groups within or across stages.
+    /// </summary>
     internal partial class FleetUpdateRunStrategy
     {
         /// <summary> Initializes a new instance of FleetUpdateRunStrategy. </summary>
-        /// <param name="stages"> The list of stages that compose this update run. </param>
+        /// <param name="stages"> The list of stages that compose this update run. Min size: 1. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="stages"/> is null. </exception>
         public FleetUpdateRunStrategy(IEnumerable<FleetUpdateStage> stages)
         {
@@ -26,13 +34,13 @@ namespace Azure.ResourceManager.DatabaseFleetManager.Models
         }
 
         /// <summary> Initializes a new instance of FleetUpdateRunStrategy. </summary>
-        /// <param name="stages"> The list of stages that compose this update run. </param>
+        /// <param name="stages"> The list of stages that compose this update run. Min size: 1. </param>
         internal FleetUpdateRunStrategy(IList<FleetUpdateStage> stages)
         {
             Stages = stages;
         }
 
-        /// <summary> The list of stages that compose this update run. </summary>
+        /// <summary> The list of stages that compose this update run. Min size: 1. </summary>
         public IList<FleetUpdateStage> Stages { get; }
     }
 }
