@@ -62,6 +62,22 @@ namespace Azure.ResourceManager.ConfidentialLedger.Models
             return new ConfidentialLedgerProperties(ledgerName, ledgerUri, identityServiceUri, ledgerInternalNamespace, runningState, ledgerType, provisioningState, aadBasedSecurityPrincipals?.ToList(), certBasedSecurityPrincipals?.ToList());
         }
 
+        /// <summary> Initializes a new instance of ConfidentialLedgerBackupResponse. </summary>
+        /// <param name="message"> Response body stating if the ledger is being backed up. </param>
+        /// <returns> A new <see cref="Models.ConfidentialLedgerBackupResponse"/> instance for mocking. </returns>
+        public static ConfidentialLedgerBackupResponse ConfidentialLedgerBackupResponse(string message = null)
+        {
+            return new ConfidentialLedgerBackupResponse(message);
+        }
+
+        /// <summary> Initializes a new instance of ConfidentialLedgerRestoreResponse. </summary>
+        /// <param name="message"> Response body stating if the ledger is being restored. </param>
+        /// <returns> A new <see cref="Models.ConfidentialLedgerRestoreResponse"/> instance for mocking. </returns>
+        public static ConfidentialLedgerRestoreResponse ConfidentialLedgerRestoreResponse(string message = null)
+        {
+            return new ConfidentialLedgerRestoreResponse(message);
+        }
+
         /// <summary> Initializes a new instance of ManagedCcfData. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
@@ -84,14 +100,31 @@ namespace Azure.ResourceManager.ConfidentialLedger.Models
         /// <param name="identityServiceUri"> Endpoint for accessing network identity. </param>
         /// <param name="memberIdentityCertificates"> List of member identity certificates for  Managed CCF. </param>
         /// <param name="deploymentType"> Deployment Type of Managed CCF. </param>
-        /// <param name="provisioningState"> Provisioning state of Ledger Resource. </param>
+        /// <param name="runningState"> Object representing RunningState for Managed CCF. </param>
+        /// <param name="provisioningState"> Provisioning state of Managed CCF Resource. </param>
         /// <param name="nodeCount"> Number of CCF nodes in the Managed CCF. </param>
         /// <returns> A new <see cref="Models.ManagedCcfProperties"/> instance for mocking. </returns>
-        public static ManagedCcfProperties ManagedCcfProperties(string appName = null, Uri appUri = null, Uri identityServiceUri = null, IEnumerable<ConfidentialLedgerMemberIdentityCertificate> memberIdentityCertificates = null, ConfidentialLedgerDeploymentType deploymentType = null, ConfidentialLedgerProvisioningState? provisioningState = null, int? nodeCount = null)
+        public static ManagedCcfProperties ManagedCcfProperties(string appName = null, Uri appUri = null, Uri identityServiceUri = null, IEnumerable<ConfidentialLedgerMemberIdentityCertificate> memberIdentityCertificates = null, ConfidentialLedgerDeploymentType deploymentType = null, ConfidentialLedgerRunningState? runningState = null, ConfidentialLedgerProvisioningState? provisioningState = null, int? nodeCount = null)
         {
             memberIdentityCertificates ??= new List<ConfidentialLedgerMemberIdentityCertificate>();
 
-            return new ManagedCcfProperties(appName, appUri, identityServiceUri, memberIdentityCertificates?.ToList(), deploymentType, provisioningState, nodeCount);
+            return new ManagedCcfProperties(appName, appUri, identityServiceUri, memberIdentityCertificates?.ToList(), deploymentType, runningState, provisioningState, nodeCount);
+        }
+
+        /// <summary> Initializes a new instance of ManagedCcfBackupResponse. </summary>
+        /// <param name="message"> Response body stating if the managed CCF resource is being backed up. </param>
+        /// <returns> A new <see cref="Models.ManagedCcfBackupResponse"/> instance for mocking. </returns>
+        public static ManagedCcfBackupResponse ManagedCcfBackupResponse(string message = null)
+        {
+            return new ManagedCcfBackupResponse(message);
+        }
+
+        /// <summary> Initializes a new instance of ManagedCcfRestoreResponse. </summary>
+        /// <param name="message"> Response body stating if the managed CCF resource is being restored. </param>
+        /// <returns> A new <see cref="Models.ManagedCcfRestoreResponse"/> instance for mocking. </returns>
+        public static ManagedCcfRestoreResponse ManagedCcfRestoreResponse(string message = null)
+        {
+            return new ManagedCcfRestoreResponse(message);
         }
     }
 }
