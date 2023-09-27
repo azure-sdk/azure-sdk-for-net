@@ -58,7 +58,8 @@ namespace Azure.ResourceManager.Sql
         /// <summary> Read-write endpoint of the failover group instance. </summary>
         public FailoverGroupReadWriteEndpoint ReadWriteEndpoint { get; set; }
         /// <summary> Read-only endpoint of the failover group instance. </summary>
-        public FailoverGroupReadOnlyEndpoint ReadOnlyEndpoint { get; set; }
+        internal FailoverGroupReadOnlyEndpoint ReadOnlyEndpoint { get; set; }
+
         /// <summary> Local replication role of the failover group instance. </summary>
         public FailoverGroupReplicationRole? ReplicationRole { get; }
         /// <summary> Replication state of the failover group instance. </summary>
