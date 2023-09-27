@@ -117,6 +117,8 @@ namespace Azure.ResourceManager.RedisEnterprise
     }
     public static partial class RedisEnterpriseExtensions
     {
+        public static Azure.Response CheckNameAvailabilityRedisEnterprise(this Azure.ResourceManager.Resources.SubscriptionResource subscriptionResource, Azure.ResourceManager.RedisEnterprise.Models.CheckNameAvailabilityContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public static System.Threading.Tasks.Task<Azure.Response> CheckNameAvailabilityRedisEnterpriseAsync(this Azure.ResourceManager.Resources.SubscriptionResource subscriptionResource, Azure.ResourceManager.RedisEnterprise.Models.CheckNameAvailabilityContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static Azure.Response<Azure.ResourceManager.RedisEnterprise.RedisEnterpriseClusterResource> GetRedisEnterpriseCluster(this Azure.ResourceManager.Resources.ResourceGroupResource resourceGroupResource, string clusterName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.RedisEnterprise.RedisEnterpriseClusterResource>> GetRedisEnterpriseClusterAsync(this Azure.ResourceManager.Resources.ResourceGroupResource resourceGroupResource, string clusterName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static Azure.ResourceManager.RedisEnterprise.RedisEnterpriseClusterResource GetRedisEnterpriseClusterResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
@@ -185,6 +187,12 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
         public static Azure.ResourceManager.RedisEnterprise.Models.RedisEnterprisePrivateLinkResource RedisEnterprisePrivateLinkResource(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, string groupId = null, System.Collections.Generic.IEnumerable<string> requiredMembers = null, System.Collections.Generic.IEnumerable<string> requiredZoneNames = null) { throw null; }
         public static Azure.ResourceManager.RedisEnterprise.Models.RedisEnterpriseRegionSkuDetail RedisEnterpriseRegionSkuDetail(Azure.Core.ResourceType? resourceType = default(Azure.Core.ResourceType?), Azure.ResourceManager.RedisEnterprise.Models.RedisEnterpriseLocationInfo locationInfo = null, Azure.ResourceManager.RedisEnterprise.Models.RedisEnterpriseSkuName? skuDetailsName = default(Azure.ResourceManager.RedisEnterprise.Models.RedisEnterpriseSkuName?)) { throw null; }
     }
+    public partial class CheckNameAvailabilityContent
+    {
+        public CheckNameAvailabilityContent(string name, string resourceType) { }
+        public string Name { get { throw null; } }
+        public string ResourceType { get { throw null; } }
+    }
     public partial class ExportRedisEnterpriseDatabaseContent
     {
         public ExportRedisEnterpriseDatabaseContent(System.Uri sasUri) { }
@@ -193,7 +201,7 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
     public partial class FlushRedisEnterpriseDatabaseContent
     {
         public FlushRedisEnterpriseDatabaseContent() { }
-        public System.Collections.Generic.IList<string> Ids { get { throw null; } }
+        public System.Collections.Generic.IList<Azure.Core.ResourceIdentifier> Ids { get { throw null; } }
     }
     public partial class ForceUnlinkRedisEnterpriseDatabaseContent
     {
@@ -319,6 +327,8 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
         public static Azure.ResourceManager.RedisEnterprise.Models.RedisEnterpriseClusterResourceState EnableFailed { get { throw null; } }
         public static Azure.ResourceManager.RedisEnterprise.Models.RedisEnterpriseClusterResourceState Enabling { get { throw null; } }
         public static Azure.ResourceManager.RedisEnterprise.Models.RedisEnterpriseClusterResourceState Running { get { throw null; } }
+        public static Azure.ResourceManager.RedisEnterprise.Models.RedisEnterpriseClusterResourceState Scaling { get { throw null; } }
+        public static Azure.ResourceManager.RedisEnterprise.Models.RedisEnterpriseClusterResourceState ScalingFailed { get { throw null; } }
         public static Azure.ResourceManager.RedisEnterprise.Models.RedisEnterpriseClusterResourceState UpdateFailed { get { throw null; } }
         public static Azure.ResourceManager.RedisEnterprise.Models.RedisEnterpriseClusterResourceState Updating { get { throw null; } }
         public bool Equals(Azure.ResourceManager.RedisEnterprise.Models.RedisEnterpriseClusterResourceState other) { throw null; }
