@@ -5,7 +5,6 @@
 
 #nullable disable
 
-using System;
 using System.Collections.Generic;
 using Azure.Core;
 using Azure.ResourceManager.Models;
@@ -15,7 +14,7 @@ namespace Azure.ResourceManager.NotificationHubs
 {
     /// <summary>
     /// A class representing the NotificationHubAuthorizationRule data model.
-    /// Description of a Namespace AuthorizationRules.
+    /// Response for POST requests that return single SharedAccessAuthorizationRule.
     /// </summary>
     public partial class NotificationHubAuthorizationRuleData : TrackedResourceData
     {
@@ -23,7 +22,6 @@ namespace Azure.ResourceManager.NotificationHubs
         /// <param name="location"> The location. </param>
         public NotificationHubAuthorizationRuleData(AzureLocation location) : base(location)
         {
-            Rights = new ChangeTrackingList<AuthorizationRuleAccessRight>();
         }
 
         /// <summary> Initializes a new instance of NotificationHubAuthorizationRuleData. </summary>
@@ -33,49 +31,13 @@ namespace Azure.ResourceManager.NotificationHubs
         /// <param name="systemData"> The systemData. </param>
         /// <param name="tags"> The tags. </param>
         /// <param name="location"> The location. </param>
-        /// <param name="rights"> The rights associated with the rule. </param>
-        /// <param name="primaryKey"> A base64-encoded 256-bit primary key for signing and validating the SAS token. </param>
-        /// <param name="secondaryKey"> A base64-encoded 256-bit primary key for signing and validating the SAS token. </param>
-        /// <param name="keyName"> A string that describes the authorization rule. </param>
-        /// <param name="claimType"> A string that describes the claim type. </param>
-        /// <param name="claimValue"> A string that describes the claim value. </param>
-        /// <param name="modifiedOn"> The last modified time for this rule. </param>
-        /// <param name="createdOn"> The created time for this rule. </param>
-        /// <param name="revision"> The revision number for the rule. </param>
-        /// <param name="sku"> The sku of the created namespace. </param>
-        internal NotificationHubAuthorizationRuleData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, IList<AuthorizationRuleAccessRight> rights, string primaryKey, string secondaryKey, string keyName, string claimType, string claimValue, DateTimeOffset? modifiedOn, DateTimeOffset? createdOn, int? revision, NotificationHubSku sku) : base(id, name, resourceType, systemData, tags, location)
+        /// <param name="properties"> SharedAccessAuthorizationRule properties. </param>
+        internal NotificationHubAuthorizationRuleData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, SharedAccessAuthorizationRuleProperties properties) : base(id, name, resourceType, systemData, tags, location)
         {
-            Rights = rights;
-            PrimaryKey = primaryKey;
-            SecondaryKey = secondaryKey;
-            KeyName = keyName;
-            ClaimType = claimType;
-            ClaimValue = claimValue;
-            ModifiedOn = modifiedOn;
-            CreatedOn = createdOn;
-            Revision = revision;
-            Sku = sku;
+            Properties = properties;
         }
 
-        /// <summary> The rights associated with the rule. </summary>
-        public IList<AuthorizationRuleAccessRight> Rights { get; }
-        /// <summary> A base64-encoded 256-bit primary key for signing and validating the SAS token. </summary>
-        public string PrimaryKey { get; }
-        /// <summary> A base64-encoded 256-bit primary key for signing and validating the SAS token. </summary>
-        public string SecondaryKey { get; }
-        /// <summary> A string that describes the authorization rule. </summary>
-        public string KeyName { get; }
-        /// <summary> A string that describes the claim type. </summary>
-        public string ClaimType { get; }
-        /// <summary> A string that describes the claim value. </summary>
-        public string ClaimValue { get; }
-        /// <summary> The last modified time for this rule. </summary>
-        public DateTimeOffset? ModifiedOn { get; }
-        /// <summary> The created time for this rule. </summary>
-        public DateTimeOffset? CreatedOn { get; }
-        /// <summary> The revision number for the rule. </summary>
-        public int? Revision { get; }
-        /// <summary> The sku of the created namespace. </summary>
-        public NotificationHubSku Sku { get; set; }
+        /// <summary> SharedAccessAuthorizationRule properties. </summary>
+        public SharedAccessAuthorizationRuleProperties Properties { get; set; }
     }
 }
