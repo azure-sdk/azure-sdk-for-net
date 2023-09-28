@@ -472,7 +472,7 @@ namespace Azure.ResourceManager.DataMigration
         }
 
         /// <summary>
-        /// The services resource is the top-level resource that represents the Database Migration Service. The GET method retrieves information about a service instance.
+        /// The services resource is the top-level resource that represents the Azure Database Migration Service (classic). The GET method retrieves information about a service instance.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -496,7 +496,7 @@ namespace Azure.ResourceManager.DataMigration
         }
 
         /// <summary>
-        /// The services resource is the top-level resource that represents the Database Migration Service. The GET method retrieves information about a service instance.
+        /// The services resource is the top-level resource that represents the Azure Database Migration Service (classic). The GET method retrieves information about a service instance.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -562,7 +562,7 @@ namespace Azure.ResourceManager.DataMigration
         }
 
         /// <summary>
-        /// The skus action returns the list of SKUs that DMS supports.
+        /// The skus action returns the list of SKUs that DMS (classic) supports.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -583,7 +583,7 @@ namespace Azure.ResourceManager.DataMigration
         }
 
         /// <summary>
-        /// The skus action returns the list of SKUs that DMS supports.
+        /// The skus action returns the list of SKUs that DMS (classic) supports.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -604,7 +604,7 @@ namespace Azure.ResourceManager.DataMigration
         }
 
         /// <summary>
-        /// The services resource is the top-level resource that represents the Database Migration Service. This method returns a list of service resources in a subscription.
+        /// The services resource is the top-level resource that represents the Azure Database Migration Service (classic). This method returns a list of service resources in a subscription.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -625,7 +625,7 @@ namespace Azure.ResourceManager.DataMigration
         }
 
         /// <summary>
-        /// The services resource is the top-level resource that represents the Database Migration Service. This method returns a list of service resources in a subscription.
+        /// The services resource is the top-level resource that represents the Azure Database Migration Service (classic). This method returns a list of service resources in a subscription.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -696,7 +696,7 @@ namespace Azure.ResourceManager.DataMigration
         }
 
         /// <summary>
-        /// This method returns region-specific quotas and resource usage information for the Database Migration Service.
+        /// This method returns region-specific quotas and resource usage information for the Azure Database Migration Service (classic).
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -718,7 +718,7 @@ namespace Azure.ResourceManager.DataMigration
         }
 
         /// <summary>
-        /// This method returns region-specific quotas and resource usage information for the Database Migration Service.
+        /// This method returns region-specific quotas and resource usage information for the Azure Database Migration Service (classic).
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
