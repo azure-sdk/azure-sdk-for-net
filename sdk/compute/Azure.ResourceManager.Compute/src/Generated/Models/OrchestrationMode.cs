@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace Azure.ResourceManager.Compute.Models
 {
-    /// <summary> Specifies the orchestration mode for the virtual machine scale set. </summary>
+    /// <summary> Specifies the orchestration mode for the virtual machine scale set. By default Flexible OrchestrationMode is applicable. </summary>
     public readonly partial struct OrchestrationMode : IEquatable<OrchestrationMode>
     {
         private readonly string _value;
