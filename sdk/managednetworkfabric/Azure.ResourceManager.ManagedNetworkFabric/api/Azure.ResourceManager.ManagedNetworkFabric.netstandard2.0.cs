@@ -950,8 +950,8 @@ namespace Azure.ResourceManager.ManagedNetworkFabric
         public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.ManagedNetworkFabric.Models.StateUpdateCommonPostActionResult>> UpdateInfraManagementBfdConfigurationAsync(Azure.WaitUntil waitUntil, Azure.ResourceManager.ManagedNetworkFabric.Models.UpdateAdministrativeStateContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.ManagedNetworkFabric.Models.StateUpdateCommonPostActionResult> UpdateWorkloadManagementBfdConfiguration(Azure.WaitUntil waitUntil, Azure.ResourceManager.ManagedNetworkFabric.Models.UpdateAdministrativeStateContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.ManagedNetworkFabric.Models.StateUpdateCommonPostActionResult>> UpdateWorkloadManagementBfdConfigurationAsync(Azure.WaitUntil waitUntil, Azure.ResourceManager.ManagedNetworkFabric.Models.UpdateAdministrativeStateContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.ManagedNetworkFabric.Models.StateUpdateCommonPostActionResult> Upgrade(Azure.WaitUntil waitUntil, Azure.ResourceManager.ManagedNetworkFabric.Models.NetworkFabricUpdateVersionContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.ManagedNetworkFabric.Models.StateUpdateCommonPostActionResult>> UpgradeAsync(Azure.WaitUntil waitUntil, Azure.ResourceManager.ManagedNetworkFabric.Models.NetworkFabricUpdateVersionContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.ManagedNetworkFabric.Models.StateUpdateCommonPostActionResult> Upgrade(Azure.WaitUntil waitUntil, Azure.ResourceManager.ManagedNetworkFabric.Models.UpgradeNetworkFabricProperties body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.ManagedNetworkFabric.Models.StateUpdateCommonPostActionResult>> UpgradeAsync(Azure.WaitUntil waitUntil, Azure.ResourceManager.ManagedNetworkFabric.Models.UpgradeNetworkFabricProperties body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.ManagedNetworkFabric.Models.ValidateConfigurationResult> ValidateConfiguration(Azure.WaitUntil waitUntil, Azure.ResourceManager.ManagedNetworkFabric.Models.ValidateConfigurationContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.ManagedNetworkFabric.Models.ValidateConfigurationResult>> ValidateConfigurationAsync(Azure.WaitUntil waitUntil, Azure.ResourceManager.ManagedNetworkFabric.Models.ValidateConfigurationContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
     }
@@ -2106,7 +2106,9 @@ namespace Azure.ResourceManager.ManagedNetworkFabric.Models
         public static Azure.ResourceManager.ManagedNetworkFabric.Models.NetworkFabricConfigurationState ErrorDeprovisioning { get { throw null; } }
         public static Azure.ResourceManager.ManagedNetworkFabric.Models.NetworkFabricConfigurationState ErrorProvisioning { get { throw null; } }
         public static Azure.ResourceManager.ManagedNetworkFabric.Models.NetworkFabricConfigurationState Failed { get { throw null; } }
+        public static Azure.ResourceManager.ManagedNetworkFabric.Models.NetworkFabricConfigurationState PendingCommit { get { throw null; } }
         public static Azure.ResourceManager.ManagedNetworkFabric.Models.NetworkFabricConfigurationState Provisioned { get { throw null; } }
+        public static Azure.ResourceManager.ManagedNetworkFabric.Models.NetworkFabricConfigurationState Provisioning { get { throw null; } }
         public static Azure.ResourceManager.ManagedNetworkFabric.Models.NetworkFabricConfigurationState Rejected { get { throw null; } }
         public static Azure.ResourceManager.ManagedNetworkFabric.Models.NetworkFabricConfigurationState Succeeded { get { throw null; } }
         public bool Equals(Azure.ResourceManager.ManagedNetworkFabric.Models.NetworkFabricConfigurationState other) { throw null; }
@@ -2363,6 +2365,24 @@ namespace Azure.ResourceManager.ManagedNetworkFabric.Models
     {
         public NetworkFabricUpdateVersionContent() { }
         public string Version { get { throw null; } set { } }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct NetworkFabricUpgradeAction : System.IEquatable<Azure.ResourceManager.ManagedNetworkFabric.Models.NetworkFabricUpgradeAction>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public NetworkFabricUpgradeAction(string value) { throw null; }
+        public static Azure.ResourceManager.ManagedNetworkFabric.Models.NetworkFabricUpgradeAction Complete { get { throw null; } }
+        public static Azure.ResourceManager.ManagedNetworkFabric.Models.NetworkFabricUpgradeAction Start { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.ManagedNetworkFabric.Models.NetworkFabricUpgradeAction other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.ManagedNetworkFabric.Models.NetworkFabricUpgradeAction left, Azure.ResourceManager.ManagedNetworkFabric.Models.NetworkFabricUpgradeAction right) { throw null; }
+        public static implicit operator Azure.ResourceManager.ManagedNetworkFabric.Models.NetworkFabricUpgradeAction (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.ManagedNetworkFabric.Models.NetworkFabricUpgradeAction left, Azure.ResourceManager.ManagedNetworkFabric.Models.NetworkFabricUpgradeAction right) { throw null; }
+        public override string ToString() { throw null; }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct NetworkFabricValidateAction : System.IEquatable<Azure.ResourceManager.ManagedNetworkFabric.Models.NetworkFabricValidateAction>
@@ -2851,6 +2871,11 @@ namespace Azure.ResourceManager.ManagedNetworkFabric.Models
     {
         public UpdateDeviceAdministrativeStateContent() { }
         public Azure.ResourceManager.ManagedNetworkFabric.Models.NetworkDeviceAdministrativeState? State { get { throw null; } set { } }
+    }
+    public partial class UpgradeNetworkFabricProperties : Azure.ResourceManager.ManagedNetworkFabric.Models.NetworkFabricUpdateVersionContent
+    {
+        public UpgradeNetworkFabricProperties() { }
+        public Azure.ResourceManager.ManagedNetworkFabric.Models.NetworkFabricUpgradeAction? Action { get { throw null; } set { } }
     }
     public partial class ValidateConfigurationContent
     {
