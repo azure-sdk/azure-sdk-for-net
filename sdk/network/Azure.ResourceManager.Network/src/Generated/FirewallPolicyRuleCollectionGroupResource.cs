@@ -13,6 +13,7 @@ using Azure;
 using Azure.Core;
 using Azure.Core.Pipeline;
 using Azure.ResourceManager;
+using Azure.ResourceManager.Network.Models;
 
 namespace Azure.ResourceManager.Network
 {
@@ -286,6 +287,194 @@ namespace Azure.ResourceManager.Network
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get the current draft version of the specified Firewall Policy Rule Collection Group.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/firewallPolicies/{firewallPolicyName}/ruleCollectionGroups/{ruleCollectionGroupName}/draft/default</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>FirewallPolicyRuleCollectionGroups_GetDraft</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual async Task<Response<FirewallPolicyRuleCollectionGroupDraft>> GetDraftAsync(CancellationToken cancellationToken = default)
+        {
+            using var scope = _firewallPolicyRuleCollectionGroupClientDiagnostics.CreateScope("FirewallPolicyRuleCollectionGroupResource.GetDraft");
+            scope.Start();
+            try
+            {
+                var response = await _firewallPolicyRuleCollectionGroupRestClient.GetDraftAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get the current draft version of the specified Firewall Policy Rule Collection Group.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/firewallPolicies/{firewallPolicyName}/ruleCollectionGroups/{ruleCollectionGroupName}/draft/default</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>FirewallPolicyRuleCollectionGroups_GetDraft</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual Response<FirewallPolicyRuleCollectionGroupDraft> GetDraft(CancellationToken cancellationToken = default)
+        {
+            using var scope = _firewallPolicyRuleCollectionGroupClientDiagnostics.CreateScope("FirewallPolicyRuleCollectionGroupResource.GetDraft");
+            scope.Start();
+            try
+            {
+                var response = _firewallPolicyRuleCollectionGroupRestClient.GetDraft(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Creates or updates a new draft version of the specified Firewall Policy Rule Collection Group.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/firewallPolicies/{firewallPolicyName}/ruleCollectionGroups/{ruleCollectionGroupName}/draft/default</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>FirewallPolicyRuleCollectionGroups_CreateOrUpdateDraft</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="firewallPolicyRuleCollectionGroupDraft"> Parameters supplied to the create or update FirewallPolicyRuleCollectionGroup operation. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="firewallPolicyRuleCollectionGroupDraft"/> is null. </exception>
+        public virtual async Task<Response<FirewallPolicyRuleCollectionGroupDraft>> CreateOrUpdateDraftAsync(FirewallPolicyRuleCollectionGroupDraft firewallPolicyRuleCollectionGroupDraft, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(firewallPolicyRuleCollectionGroupDraft, nameof(firewallPolicyRuleCollectionGroupDraft));
+
+            using var scope = _firewallPolicyRuleCollectionGroupClientDiagnostics.CreateScope("FirewallPolicyRuleCollectionGroupResource.CreateOrUpdateDraft");
+            scope.Start();
+            try
+            {
+                var response = await _firewallPolicyRuleCollectionGroupRestClient.CreateOrUpdateDraftAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, firewallPolicyRuleCollectionGroupDraft, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Creates or updates a new draft version of the specified Firewall Policy Rule Collection Group.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/firewallPolicies/{firewallPolicyName}/ruleCollectionGroups/{ruleCollectionGroupName}/draft/default</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>FirewallPolicyRuleCollectionGroups_CreateOrUpdateDraft</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="firewallPolicyRuleCollectionGroupDraft"> Parameters supplied to the create or update FirewallPolicyRuleCollectionGroup operation. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="firewallPolicyRuleCollectionGroupDraft"/> is null. </exception>
+        public virtual Response<FirewallPolicyRuleCollectionGroupDraft> CreateOrUpdateDraft(FirewallPolicyRuleCollectionGroupDraft firewallPolicyRuleCollectionGroupDraft, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(firewallPolicyRuleCollectionGroupDraft, nameof(firewallPolicyRuleCollectionGroupDraft));
+
+            using var scope = _firewallPolicyRuleCollectionGroupClientDiagnostics.CreateScope("FirewallPolicyRuleCollectionGroupResource.CreateOrUpdateDraft");
+            scope.Start();
+            try
+            {
+                var response = _firewallPolicyRuleCollectionGroupRestClient.CreateOrUpdateDraft(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, firewallPolicyRuleCollectionGroupDraft, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get the current draft version of the specified Firewall Policy Rule Collection Group.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/firewallPolicies/{firewallPolicyName}/ruleCollectionGroups/{ruleCollectionGroupName}/draft/default</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>FirewallPolicyRuleCollectionGroups_DeleteDraft</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual async Task<Response<FirewallPolicyRuleCollectionGroupResource>> DeleteDraftAsync(CancellationToken cancellationToken = default)
+        {
+            using var scope = _firewallPolicyRuleCollectionGroupClientDiagnostics.CreateScope("FirewallPolicyRuleCollectionGroupResource.DeleteDraft");
+            scope.Start();
+            try
+            {
+                var response = await _firewallPolicyRuleCollectionGroupRestClient.DeleteDraftAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
+                return Response.FromValue(new FirewallPolicyRuleCollectionGroupResource(Client, response.Value), response.GetRawResponse());
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get the current draft version of the specified Firewall Policy Rule Collection Group.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/firewallPolicies/{firewallPolicyName}/ruleCollectionGroups/{ruleCollectionGroupName}/draft/default</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>FirewallPolicyRuleCollectionGroups_DeleteDraft</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual Response<FirewallPolicyRuleCollectionGroupResource> DeleteDraft(CancellationToken cancellationToken = default)
+        {
+            using var scope = _firewallPolicyRuleCollectionGroupClientDiagnostics.CreateScope("FirewallPolicyRuleCollectionGroupResource.DeleteDraft");
+            scope.Start();
+            try
+            {
+                var response = _firewallPolicyRuleCollectionGroupRestClient.DeleteDraft(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken);
+                return Response.FromValue(new FirewallPolicyRuleCollectionGroupResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {

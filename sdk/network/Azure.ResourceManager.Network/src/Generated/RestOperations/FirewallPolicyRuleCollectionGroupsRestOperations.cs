@@ -33,8 +33,271 @@ namespace Azure.ResourceManager.Network
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2023-05-01";
+            _apiVersion = apiVersion ?? "2023-06-01";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
+        }
+
+        internal HttpMessage CreateGetDraftRequest(string subscriptionId, string resourceGroupName, string firewallPolicyName, string ruleCollectionGroupName)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Get;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/subscriptions/", false);
+            uri.AppendPath(subscriptionId, true);
+            uri.AppendPath("/resourceGroups/", false);
+            uri.AppendPath(resourceGroupName, true);
+            uri.AppendPath("/providers/Microsoft.Network/firewallPolicies/", false);
+            uri.AppendPath(firewallPolicyName, true);
+            uri.AppendPath("/ruleCollectionGroups/", false);
+            uri.AppendPath(ruleCollectionGroupName, true);
+            uri.AppendPath("/draft/default", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> Get the current draft version of the specified Firewall Policy Rule Collection Group. </summary>
+        /// <param name="subscriptionId"> The subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="firewallPolicyName"> The name of the Firewall Policy. </param>
+        /// <param name="ruleCollectionGroupName"> The name of the FirewallPolicyRuleCollectionGroup. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="firewallPolicyName"/> or <paramref name="ruleCollectionGroupName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="firewallPolicyName"/> or <paramref name="ruleCollectionGroupName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<FirewallPolicyRuleCollectionGroupDraft>> GetDraftAsync(string subscriptionId, string resourceGroupName, string firewallPolicyName, string ruleCollectionGroupName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(firewallPolicyName, nameof(firewallPolicyName));
+            Argument.AssertNotNullOrEmpty(ruleCollectionGroupName, nameof(ruleCollectionGroupName));
+
+            using var message = CreateGetDraftRequest(subscriptionId, resourceGroupName, firewallPolicyName, ruleCollectionGroupName);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        FirewallPolicyRuleCollectionGroupDraft value = default;
+                        using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+                        value = FirewallPolicyRuleCollectionGroupDraft.DeserializeFirewallPolicyRuleCollectionGroupDraft(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> Get the current draft version of the specified Firewall Policy Rule Collection Group. </summary>
+        /// <param name="subscriptionId"> The subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="firewallPolicyName"> The name of the Firewall Policy. </param>
+        /// <param name="ruleCollectionGroupName"> The name of the FirewallPolicyRuleCollectionGroup. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="firewallPolicyName"/> or <paramref name="ruleCollectionGroupName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="firewallPolicyName"/> or <paramref name="ruleCollectionGroupName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<FirewallPolicyRuleCollectionGroupDraft> GetDraft(string subscriptionId, string resourceGroupName, string firewallPolicyName, string ruleCollectionGroupName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(firewallPolicyName, nameof(firewallPolicyName));
+            Argument.AssertNotNullOrEmpty(ruleCollectionGroupName, nameof(ruleCollectionGroupName));
+
+            using var message = CreateGetDraftRequest(subscriptionId, resourceGroupName, firewallPolicyName, ruleCollectionGroupName);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        FirewallPolicyRuleCollectionGroupDraft value = default;
+                        using var document = JsonDocument.Parse(message.Response.ContentStream);
+                        value = FirewallPolicyRuleCollectionGroupDraft.DeserializeFirewallPolicyRuleCollectionGroupDraft(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        internal HttpMessage CreateCreateOrUpdateDraftRequest(string subscriptionId, string resourceGroupName, string firewallPolicyName, string ruleCollectionGroupName, FirewallPolicyRuleCollectionGroupDraft firewallPolicyRuleCollectionGroupDraft)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Put;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/subscriptions/", false);
+            uri.AppendPath(subscriptionId, true);
+            uri.AppendPath("/resourceGroups/", false);
+            uri.AppendPath(resourceGroupName, true);
+            uri.AppendPath("/providers/Microsoft.Network/firewallPolicies/", false);
+            uri.AppendPath(firewallPolicyName, true);
+            uri.AppendPath("/ruleCollectionGroups/", false);
+            uri.AppendPath(ruleCollectionGroupName, true);
+            uri.AppendPath("/draft/default", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            request.Headers.Add("Content-Type", "application/json");
+            var content = new Utf8JsonRequestContent();
+            content.JsonWriter.WriteObjectValue(firewallPolicyRuleCollectionGroupDraft);
+            request.Content = content;
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> Creates or updates a new draft version of the specified Firewall Policy Rule Collection Group. </summary>
+        /// <param name="subscriptionId"> The subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="firewallPolicyName"> The name of the Firewall Policy. </param>
+        /// <param name="ruleCollectionGroupName"> The name of the FirewallPolicyRuleCollectionGroup. </param>
+        /// <param name="firewallPolicyRuleCollectionGroupDraft"> Parameters supplied to the create or update FirewallPolicyRuleCollectionGroup operation. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="firewallPolicyName"/>, <paramref name="ruleCollectionGroupName"/> or <paramref name="firewallPolicyRuleCollectionGroupDraft"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="firewallPolicyName"/> or <paramref name="ruleCollectionGroupName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<FirewallPolicyRuleCollectionGroupDraft>> CreateOrUpdateDraftAsync(string subscriptionId, string resourceGroupName, string firewallPolicyName, string ruleCollectionGroupName, FirewallPolicyRuleCollectionGroupDraft firewallPolicyRuleCollectionGroupDraft, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(firewallPolicyName, nameof(firewallPolicyName));
+            Argument.AssertNotNullOrEmpty(ruleCollectionGroupName, nameof(ruleCollectionGroupName));
+            Argument.AssertNotNull(firewallPolicyRuleCollectionGroupDraft, nameof(firewallPolicyRuleCollectionGroupDraft));
+
+            using var message = CreateCreateOrUpdateDraftRequest(subscriptionId, resourceGroupName, firewallPolicyName, ruleCollectionGroupName, firewallPolicyRuleCollectionGroupDraft);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        FirewallPolicyRuleCollectionGroupDraft value = default;
+                        using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+                        value = FirewallPolicyRuleCollectionGroupDraft.DeserializeFirewallPolicyRuleCollectionGroupDraft(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> Creates or updates a new draft version of the specified Firewall Policy Rule Collection Group. </summary>
+        /// <param name="subscriptionId"> The subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="firewallPolicyName"> The name of the Firewall Policy. </param>
+        /// <param name="ruleCollectionGroupName"> The name of the FirewallPolicyRuleCollectionGroup. </param>
+        /// <param name="firewallPolicyRuleCollectionGroupDraft"> Parameters supplied to the create or update FirewallPolicyRuleCollectionGroup operation. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="firewallPolicyName"/>, <paramref name="ruleCollectionGroupName"/> or <paramref name="firewallPolicyRuleCollectionGroupDraft"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="firewallPolicyName"/> or <paramref name="ruleCollectionGroupName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<FirewallPolicyRuleCollectionGroupDraft> CreateOrUpdateDraft(string subscriptionId, string resourceGroupName, string firewallPolicyName, string ruleCollectionGroupName, FirewallPolicyRuleCollectionGroupDraft firewallPolicyRuleCollectionGroupDraft, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(firewallPolicyName, nameof(firewallPolicyName));
+            Argument.AssertNotNullOrEmpty(ruleCollectionGroupName, nameof(ruleCollectionGroupName));
+            Argument.AssertNotNull(firewallPolicyRuleCollectionGroupDraft, nameof(firewallPolicyRuleCollectionGroupDraft));
+
+            using var message = CreateCreateOrUpdateDraftRequest(subscriptionId, resourceGroupName, firewallPolicyName, ruleCollectionGroupName, firewallPolicyRuleCollectionGroupDraft);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        FirewallPolicyRuleCollectionGroupDraft value = default;
+                        using var document = JsonDocument.Parse(message.Response.ContentStream);
+                        value = FirewallPolicyRuleCollectionGroupDraft.DeserializeFirewallPolicyRuleCollectionGroupDraft(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        internal HttpMessage CreateDeleteDraftRequest(string subscriptionId, string resourceGroupName, string firewallPolicyName, string ruleCollectionGroupName)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Delete;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/subscriptions/", false);
+            uri.AppendPath(subscriptionId, true);
+            uri.AppendPath("/resourceGroups/", false);
+            uri.AppendPath(resourceGroupName, true);
+            uri.AppendPath("/providers/Microsoft.Network/firewallPolicies/", false);
+            uri.AppendPath(firewallPolicyName, true);
+            uri.AppendPath("/ruleCollectionGroups/", false);
+            uri.AppendPath(ruleCollectionGroupName, true);
+            uri.AppendPath("/draft/default", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> Get the current draft version of the specified Firewall Policy Rule Collection Group. </summary>
+        /// <param name="subscriptionId"> The subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="firewallPolicyName"> The name of the Firewall Policy. </param>
+        /// <param name="ruleCollectionGroupName"> The name of the FirewallPolicyRuleCollectionGroup. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="firewallPolicyName"/> or <paramref name="ruleCollectionGroupName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="firewallPolicyName"/> or <paramref name="ruleCollectionGroupName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<FirewallPolicyRuleCollectionGroupData>> DeleteDraftAsync(string subscriptionId, string resourceGroupName, string firewallPolicyName, string ruleCollectionGroupName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(firewallPolicyName, nameof(firewallPolicyName));
+            Argument.AssertNotNullOrEmpty(ruleCollectionGroupName, nameof(ruleCollectionGroupName));
+
+            using var message = CreateDeleteDraftRequest(subscriptionId, resourceGroupName, firewallPolicyName, ruleCollectionGroupName);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        FirewallPolicyRuleCollectionGroupData value = default;
+                        using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+                        value = FirewallPolicyRuleCollectionGroupData.DeserializeFirewallPolicyRuleCollectionGroupData(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> Get the current draft version of the specified Firewall Policy Rule Collection Group. </summary>
+        /// <param name="subscriptionId"> The subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="firewallPolicyName"> The name of the Firewall Policy. </param>
+        /// <param name="ruleCollectionGroupName"> The name of the FirewallPolicyRuleCollectionGroup. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="firewallPolicyName"/> or <paramref name="ruleCollectionGroupName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="firewallPolicyName"/> or <paramref name="ruleCollectionGroupName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<FirewallPolicyRuleCollectionGroupData> DeleteDraft(string subscriptionId, string resourceGroupName, string firewallPolicyName, string ruleCollectionGroupName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(firewallPolicyName, nameof(firewallPolicyName));
+            Argument.AssertNotNullOrEmpty(ruleCollectionGroupName, nameof(ruleCollectionGroupName));
+
+            using var message = CreateDeleteDraftRequest(subscriptionId, resourceGroupName, firewallPolicyName, ruleCollectionGroupName);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        FirewallPolicyRuleCollectionGroupData value = default;
+                        using var document = JsonDocument.Parse(message.Response.ContentStream);
+                        value = FirewallPolicyRuleCollectionGroupData.DeserializeFirewallPolicyRuleCollectionGroupData(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
         }
 
         internal HttpMessage CreateDeleteRequest(string subscriptionId, string resourceGroupName, string firewallPolicyName, string ruleCollectionGroupName)

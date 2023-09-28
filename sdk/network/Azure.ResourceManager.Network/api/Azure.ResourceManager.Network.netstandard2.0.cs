@@ -475,6 +475,8 @@ namespace Azure.ResourceManager.Network
         public static Azure.Core.ResourceIdentifier CreateResourceIdentifier(string subscriptionId, string resourceGroupName, string bastionHostName) { throw null; }
         public virtual Azure.ResourceManager.ArmOperation Delete(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation> DeleteAsync(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.ResourceManager.ArmOperation DeleteBastionShareableLinkByToken(Azure.WaitUntil waitUntil, Azure.ResourceManager.Network.Models.BastionShareableLinkTokenListContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation> DeleteBastionShareableLinkByTokenAsync(Azure.WaitUntil waitUntil, Azure.ResourceManager.Network.Models.BastionShareableLinkTokenListContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.Network.BastionHostResource> Get(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Network.BastionHostResource>> GetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.Network.BastionHostResource> RemoveTag(string key, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
@@ -1628,11 +1630,19 @@ namespace Azure.ResourceManager.Network
         public virtual bool HasData { get { throw null; } }
         public virtual Azure.Response<Azure.ResourceManager.Network.FirewallPolicyResource> AddTag(string key, string value, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Network.FirewallPolicyResource>> AddTagAsync(string key, string value, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.Network.Models.FirewallPolicyDraft> CreateOrUpdateDraft(Azure.ResourceManager.Network.Models.FirewallPolicyDraft firewallPolicyDraft, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Network.Models.FirewallPolicyDraft>> CreateOrUpdateDraftAsync(Azure.ResourceManager.Network.Models.FirewallPolicyDraft firewallPolicyDraft, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static Azure.Core.ResourceIdentifier CreateResourceIdentifier(string subscriptionId, string resourceGroupName, string firewallPolicyName) { throw null; }
         public virtual Azure.ResourceManager.ArmOperation Delete(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation> DeleteAsync(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<System.BinaryData> DeleteDraft(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<System.BinaryData>> DeleteDraftAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Network.Models.FirewallPolicyDraft> DeployFirewallPoliciesDraft(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Network.Models.FirewallPolicyDraft>> DeployFirewallPoliciesDraftAsync(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.Network.FirewallPolicyResource> Get(string expand = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Network.FirewallPolicyResource>> GetAsync(string expand = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.Network.Models.FirewallPolicyDraft> GetDraft(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Network.Models.FirewallPolicyDraft>> GetDraftAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.Network.Models.IdpsSignatureListResult> GetFirewallPolicyIdpsSignature(Azure.ResourceManager.Network.Models.IdpsQueryContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Network.Models.IdpsSignatureListResult>> GetFirewallPolicyIdpsSignatureAsync(Azure.ResourceManager.Network.Models.IdpsQueryContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.Network.Models.SignatureOverridesFilterValuesResult> GetFirewallPolicyIdpsSignaturesFilterValue(Azure.ResourceManager.Network.Models.SignatureOverridesFilterValuesQueryContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
@@ -1686,11 +1696,17 @@ namespace Azure.ResourceManager.Network
         protected FirewallPolicyRuleCollectionGroupResource() { }
         public virtual Azure.ResourceManager.Network.FirewallPolicyRuleCollectionGroupData Data { get { throw null; } }
         public virtual bool HasData { get { throw null; } }
+        public virtual Azure.Response<Azure.ResourceManager.Network.Models.FirewallPolicyRuleCollectionGroupDraft> CreateOrUpdateDraft(Azure.ResourceManager.Network.Models.FirewallPolicyRuleCollectionGroupDraft firewallPolicyRuleCollectionGroupDraft, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Network.Models.FirewallPolicyRuleCollectionGroupDraft>> CreateOrUpdateDraftAsync(Azure.ResourceManager.Network.Models.FirewallPolicyRuleCollectionGroupDraft firewallPolicyRuleCollectionGroupDraft, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static Azure.Core.ResourceIdentifier CreateResourceIdentifier(string subscriptionId, string resourceGroupName, string firewallPolicyName, string ruleCollectionGroupName) { throw null; }
         public virtual Azure.ResourceManager.ArmOperation Delete(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation> DeleteAsync(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.Network.FirewallPolicyRuleCollectionGroupResource> DeleteDraft(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Network.FirewallPolicyRuleCollectionGroupResource>> DeleteDraftAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.Network.FirewallPolicyRuleCollectionGroupResource> Get(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Network.FirewallPolicyRuleCollectionGroupResource>> GetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.Network.Models.FirewallPolicyRuleCollectionGroupDraft> GetDraft(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Network.Models.FirewallPolicyRuleCollectionGroupDraft>> GetDraftAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Network.FirewallPolicyRuleCollectionGroupResource> Update(Azure.WaitUntil waitUntil, Azure.ResourceManager.Network.FirewallPolicyRuleCollectionGroupData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Network.FirewallPolicyRuleCollectionGroupResource>> UpdateAsync(Azure.WaitUntil waitUntil, Azure.ResourceManager.Network.FirewallPolicyRuleCollectionGroupData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
     }
@@ -7621,6 +7637,7 @@ namespace Azure.ResourceManager.Network.Models
         private readonly int _dummyPrimitive;
         public BastionHostSkuName(string value) { throw null; }
         public static Azure.ResourceManager.Network.Models.BastionHostSkuName Basic { get { throw null; } }
+        public static Azure.ResourceManager.Network.Models.BastionHostSkuName Developer { get { throw null; } }
         public static Azure.ResourceManager.Network.Models.BastionHostSkuName Standard { get { throw null; } }
         public bool Equals(Azure.ResourceManager.Network.Models.BastionHostSkuName other) { throw null; }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
@@ -7631,6 +7648,11 @@ namespace Azure.ResourceManager.Network.Models
         public static implicit operator Azure.ResourceManager.Network.Models.BastionHostSkuName (string value) { throw null; }
         public static bool operator !=(Azure.ResourceManager.Network.Models.BastionHostSkuName left, Azure.ResourceManager.Network.Models.BastionHostSkuName right) { throw null; }
         public override string ToString() { throw null; }
+    }
+    public partial class BastionShareableLinkTokenListContent
+    {
+        public BastionShareableLinkTokenListContent() { }
+        public System.Collections.Generic.IList<string> Tokens { get { throw null; } }
     }
     public partial class BgpCommunity
     {
@@ -9046,6 +9068,18 @@ namespace Azure.ResourceManager.Network.Models
         public string KeyVaultSecretId { get { throw null; } set { } }
         public string Name { get { throw null; } set { } }
     }
+    public partial class FirewallPolicyDraft
+    {
+        public FirewallPolicyDraft() { }
+        public bool? AllowSqlRedirect { get { throw null; } set { } }
+        public Azure.ResourceManager.Network.Models.DnsSettings DnsSettings { get { throw null; } set { } }
+        public Azure.ResourceManager.Network.Models.FirewallPolicyExplicitProxy ExplicitProxy { get { throw null; } set { } }
+        public Azure.ResourceManager.Network.Models.FirewallPolicyInsights Insights { get { throw null; } set { } }
+        public Azure.ResourceManager.Network.Models.FirewallPolicyIntrusionDetection IntrusionDetection { get { throw null; } set { } }
+        public Azure.ResourceManager.Network.Models.FirewallPolicySnat Snat { get { throw null; } set { } }
+        public Azure.ResourceManager.Network.Models.AzureFirewallThreatIntelMode? ThreatIntelMode { get { throw null; } set { } }
+        public Azure.ResourceManager.Network.Models.FirewallPolicyThreatIntelWhitelist ThreatIntelWhitelist { get { throw null; } set { } }
+    }
     public partial class FirewallPolicyExplicitProxy
     {
         public FirewallPolicyExplicitProxy() { }
@@ -9109,6 +9143,8 @@ namespace Azure.ResourceManager.Network.Models
         Zero = 0,
         One = 1,
         Two = 2,
+        Three = 3,
+        Four = 4,
     }
     public enum FirewallPolicyIdpsSignatureMode
     {
@@ -9134,6 +9170,7 @@ namespace Azure.ResourceManager.Network.Models
         public FirewallPolicyIntrusionDetection() { }
         public Azure.ResourceManager.Network.Models.FirewallPolicyIntrusionDetectionConfiguration Configuration { get { throw null; } set { } }
         public Azure.ResourceManager.Network.Models.FirewallPolicyIntrusionDetectionStateType? Mode { get { throw null; } set { } }
+        public Azure.ResourceManager.Network.Models.FirewallPolicyIntrusionDetectionProfileType? Profile { get { throw null; } set { } }
     }
     public partial class FirewallPolicyIntrusionDetectionBypassTrafficSpecifications
     {
@@ -9153,6 +9190,26 @@ namespace Azure.ResourceManager.Network.Models
         public System.Collections.Generic.IList<Azure.ResourceManager.Network.Models.FirewallPolicyIntrusionDetectionBypassTrafficSpecifications> BypassTrafficSettings { get { throw null; } }
         public System.Collections.Generic.IList<string> PrivateRanges { get { throw null; } }
         public System.Collections.Generic.IList<Azure.ResourceManager.Network.Models.FirewallPolicyIntrusionDetectionSignatureSpecification> SignatureOverrides { get { throw null; } }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct FirewallPolicyIntrusionDetectionProfileType : System.IEquatable<Azure.ResourceManager.Network.Models.FirewallPolicyIntrusionDetectionProfileType>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public FirewallPolicyIntrusionDetectionProfileType(string value) { throw null; }
+        public static Azure.ResourceManager.Network.Models.FirewallPolicyIntrusionDetectionProfileType Advanced { get { throw null; } }
+        public static Azure.ResourceManager.Network.Models.FirewallPolicyIntrusionDetectionProfileType Basic { get { throw null; } }
+        public static Azure.ResourceManager.Network.Models.FirewallPolicyIntrusionDetectionProfileType Extended { get { throw null; } }
+        public static Azure.ResourceManager.Network.Models.FirewallPolicyIntrusionDetectionProfileType Standard { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.Network.Models.FirewallPolicyIntrusionDetectionProfileType other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.Network.Models.FirewallPolicyIntrusionDetectionProfileType left, Azure.ResourceManager.Network.Models.FirewallPolicyIntrusionDetectionProfileType right) { throw null; }
+        public static implicit operator Azure.ResourceManager.Network.Models.FirewallPolicyIntrusionDetectionProfileType (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.Network.Models.FirewallPolicyIntrusionDetectionProfileType left, Azure.ResourceManager.Network.Models.FirewallPolicyIntrusionDetectionProfileType right) { throw null; }
+        public override string ToString() { throw null; }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct FirewallPolicyIntrusionDetectionProtocol : System.IEquatable<Azure.ResourceManager.Network.Models.FirewallPolicyIntrusionDetectionProtocol>
@@ -9263,6 +9320,12 @@ namespace Azure.ResourceManager.Network.Models
         public static implicit operator Azure.ResourceManager.Network.Models.FirewallPolicyRuleApplicationProtocolType (string value) { throw null; }
         public static bool operator !=(Azure.ResourceManager.Network.Models.FirewallPolicyRuleApplicationProtocolType left, Azure.ResourceManager.Network.Models.FirewallPolicyRuleApplicationProtocolType right) { throw null; }
         public override string ToString() { throw null; }
+    }
+    public partial class FirewallPolicyRuleCollectionGroupDraft
+    {
+        public FirewallPolicyRuleCollectionGroupDraft() { }
+        public int? Priority { get { throw null; } set { } }
+        public System.Collections.Generic.IList<Azure.ResourceManager.Network.Models.FirewallPolicyRuleCollectionInfo> RuleCollections { get { throw null; } }
     }
     public abstract partial class FirewallPolicyRuleCollectionInfo
     {

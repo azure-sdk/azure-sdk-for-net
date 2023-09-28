@@ -36,6 +36,8 @@ namespace Azure.ResourceManager.Network
 
         private readonly ClientDiagnostics _firewallPolicyClientDiagnostics;
         private readonly FirewallPoliciesRestOperations _firewallPolicyRestClient;
+        private readonly ClientDiagnostics _firewallPoliciesDraftsClientDiagnostics;
+        private readonly FirewallPoliciesDraftsRestOperations _firewallPoliciesDraftsRestClient;
         private readonly ClientDiagnostics _firewallPolicyIdpsSignaturesClientDiagnostics;
         private readonly FirewallPolicyIdpsSignaturesRestOperations _firewallPolicyIdpsSignaturesRestClient;
         private readonly ClientDiagnostics _firewallPolicyIdpsSignaturesFilterValuesClientDiagnostics;
@@ -64,6 +66,8 @@ namespace Azure.ResourceManager.Network
             _firewallPolicyClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Network", ResourceType.Namespace, Diagnostics);
             TryGetApiVersion(ResourceType, out string firewallPolicyApiVersion);
             _firewallPolicyRestClient = new FirewallPoliciesRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, firewallPolicyApiVersion);
+            _firewallPoliciesDraftsClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Network", ProviderConstants.DefaultProviderNamespace, Diagnostics);
+            _firewallPoliciesDraftsRestClient = new FirewallPoliciesDraftsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
             _firewallPolicyIdpsSignaturesClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Network", ProviderConstants.DefaultProviderNamespace, Diagnostics);
             _firewallPolicyIdpsSignaturesRestClient = new FirewallPolicyIdpsSignaturesRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
             _firewallPolicyIdpsSignaturesFilterValuesClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Network", ProviderConstants.DefaultProviderNamespace, Diagnostics);
@@ -360,7 +364,263 @@ namespace Azure.ResourceManager.Network
         }
 
         /// <summary>
-        /// Retrieves the current status of IDPS signatures for the relevant policy
+        /// Deploy the specified Firewall Policy draft to Azure Firewall Policy.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/firewallPolicies/{firewallPolicyName}/draft/default/deploy</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>FirewallPoliciesDrafts_Deploy</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual async Task<ArmOperation<FirewallPolicyDraft>> DeployFirewallPoliciesDraftAsync(WaitUntil waitUntil, CancellationToken cancellationToken = default)
+        {
+            using var scope = _firewallPoliciesDraftsClientDiagnostics.CreateScope("FirewallPolicyResource.DeployFirewallPoliciesDraft");
+            scope.Start();
+            try
+            {
+                var response = await _firewallPoliciesDraftsRestClient.DeployAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
+                var operation = new NetworkArmOperation<FirewallPolicyDraft>(new FirewallPolicyDraftOperationSource(), _firewallPoliciesDraftsClientDiagnostics, Pipeline, _firewallPoliciesDraftsRestClient.CreateDeployRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Deploy the specified Firewall Policy draft to Azure Firewall Policy.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/firewallPolicies/{firewallPolicyName}/draft/default/deploy</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>FirewallPoliciesDrafts_Deploy</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual ArmOperation<FirewallPolicyDraft> DeployFirewallPoliciesDraft(WaitUntil waitUntil, CancellationToken cancellationToken = default)
+        {
+            using var scope = _firewallPoliciesDraftsClientDiagnostics.CreateScope("FirewallPolicyResource.DeployFirewallPoliciesDraft");
+            scope.Start();
+            try
+            {
+                var response = _firewallPoliciesDraftsRestClient.Deploy(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
+                var operation = new NetworkArmOperation<FirewallPolicyDraft>(new FirewallPolicyDraftOperationSource(), _firewallPoliciesDraftsClientDiagnostics, Pipeline, _firewallPoliciesDraftsRestClient.CreateDeployRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletion(cancellationToken);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Gets the current draft version of the specified Firewall Policy.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/firewallPolicies/{firewallPolicyName}/draft/default</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>FirewallPolicies_GetDraft</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual async Task<Response<FirewallPolicyDraft>> GetDraftAsync(CancellationToken cancellationToken = default)
+        {
+            using var scope = _firewallPolicyClientDiagnostics.CreateScope("FirewallPolicyResource.GetDraft");
+            scope.Start();
+            try
+            {
+                var response = await _firewallPolicyRestClient.GetDraftAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Gets the current draft version of the specified Firewall Policy.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/firewallPolicies/{firewallPolicyName}/draft/default</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>FirewallPolicies_GetDraft</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual Response<FirewallPolicyDraft> GetDraft(CancellationToken cancellationToken = default)
+        {
+            using var scope = _firewallPolicyClientDiagnostics.CreateScope("FirewallPolicyResource.GetDraft");
+            scope.Start();
+            try
+            {
+                var response = _firewallPolicyRestClient.GetDraft(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Creates or updates the draft version of the specified Firewall Policy.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/firewallPolicies/{firewallPolicyName}/draft/default</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>FirewallPolicies_CreateOrUpdateDraft</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="firewallPolicyDraft"> Parameters supplied to the create or update Firewall Policy operation. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="firewallPolicyDraft"/> is null. </exception>
+        public virtual async Task<Response<FirewallPolicyDraft>> CreateOrUpdateDraftAsync(FirewallPolicyDraft firewallPolicyDraft, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(firewallPolicyDraft, nameof(firewallPolicyDraft));
+
+            using var scope = _firewallPolicyClientDiagnostics.CreateScope("FirewallPolicyResource.CreateOrUpdateDraft");
+            scope.Start();
+            try
+            {
+                var response = await _firewallPolicyRestClient.CreateOrUpdateDraftAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, firewallPolicyDraft, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Creates or updates the draft version of the specified Firewall Policy.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/firewallPolicies/{firewallPolicyName}/draft/default</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>FirewallPolicies_CreateOrUpdateDraft</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="firewallPolicyDraft"> Parameters supplied to the create or update Firewall Policy operation. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="firewallPolicyDraft"/> is null. </exception>
+        public virtual Response<FirewallPolicyDraft> CreateOrUpdateDraft(FirewallPolicyDraft firewallPolicyDraft, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(firewallPolicyDraft, nameof(firewallPolicyDraft));
+
+            using var scope = _firewallPolicyClientDiagnostics.CreateScope("FirewallPolicyResource.CreateOrUpdateDraft");
+            scope.Start();
+            try
+            {
+                var response = _firewallPolicyRestClient.CreateOrUpdateDraft(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, firewallPolicyDraft, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Sets the current live Firewall Policy body to the body of the current state of the draft Firewall Policy
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/firewallPolicies/{firewallPolicyName}/draft/default</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>FirewallPolicies_DeleteDraft</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual async Task<Response<BinaryData>> DeleteDraftAsync(CancellationToken cancellationToken = default)
+        {
+            using var scope = _firewallPolicyClientDiagnostics.CreateScope("FirewallPolicyResource.DeleteDraft");
+            scope.Start();
+            try
+            {
+                var response = await _firewallPolicyRestClient.DeleteDraftAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Sets the current live Firewall Policy body to the body of the current state of the draft Firewall Policy
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/firewallPolicies/{firewallPolicyName}/draft/default</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>FirewallPolicies_DeleteDraft</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual Response<BinaryData> DeleteDraft(CancellationToken cancellationToken = default)
+        {
+            using var scope = _firewallPolicyClientDiagnostics.CreateScope("FirewallPolicyResource.DeleteDraft");
+            scope.Start();
+            try
+            {
+                var response = _firewallPolicyRestClient.DeleteDraft(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Retrieves the current status of IDPS signatures for the relevant policy. Maximal amount of returned signatures is 1000.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -394,7 +654,7 @@ namespace Azure.ResourceManager.Network
         }
 
         /// <summary>
-        /// Retrieves the current status of IDPS signatures for the relevant policy
+        /// Retrieves the current status of IDPS signatures for the relevant policy. Maximal amount of returned signatures is 1000.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
