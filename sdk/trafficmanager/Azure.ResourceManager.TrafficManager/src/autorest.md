@@ -8,7 +8,7 @@ azure-arm: true
 csharp: true
 library-name: TrafficManager
 namespace: Azure.ResourceManager.TrafficManager
-require: https://github.com/Azure/azure-rest-api-specs/blob/4f4073bdb028bc84bc3e6405c1cbaf8e89b83caf/specification/trafficmanager/resource-manager/readme.md
+require: /mnt/vss/_work/1/s/azure-rest-api-specs/specification/trafficmanager/resource-manager/readme.md
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
 sample-gen:
