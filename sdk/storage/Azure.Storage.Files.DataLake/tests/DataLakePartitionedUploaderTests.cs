@@ -297,13 +297,10 @@ namespace Azure.Storage.Files.DataLake.Tests
             clientMock.Setup(
                 c => c.CreateInternal(
                     IsAny<PathResourceType>(),
+                    default,
                     s_pathHttpHeaders,
                     default,
-                    s_permissions,
-                    s_umask,
-                    default,
-                    default,
-                    default,
+                    IsAny<(string, string, string, string, IList<PathAccessControlItem>)>(),
                     default,
                     default,
                     default,
@@ -312,7 +309,7 @@ namespace Azure.Storage.Files.DataLake.Tests
                     s_conditions,
                     _async,
                     cts.Token
-                )).Returns<PathResourceType, PathHttpHeaders, IDictionary<string, string>, string, string, string, string, IList<PathAccessControlItem>, string, TimeSpan?, TimeSpan?, DateTimeOffset?, string, DataLakeRequestConditions, bool, CancellationToken>(sink.CreateInternal);
+                )).Returns<PathResourceType, BlobType?, PathHttpHeaders, IDictionary<string, string>, (string, string, string, string, IList<PathAccessControlItem>), string, TimeSpan?, TimeSpan?, DateTimeOffset?, string, DataLakeRequestConditions, bool, CancellationToken>(sink.CreateInternal);
 
             clientMock.Setup(
                 c => c.AppendInternal(
@@ -367,13 +364,14 @@ namespace Azure.Storage.Files.DataLake.Tests
 
             public async Task<Response<PathInfo>> CreateInternal(
                 PathResourceType type,
+                BlobType? blobType,
                 PathHttpHeaders httpHeaders,
                 IDictionary<string, string> metadata,
-                string permissions,
-                string umask,
-                string owner,
-                string group,
-                IList<PathAccessControlItem> accessControlList,
+                (string Permissions,
+                string Umask,
+                string Owner,
+                string Group,
+                IList<PathAccessControlItem> AccessControlList) accessOptions,
                 string leaseId,
                 TimeSpan? leaseDuration,
                 TimeSpan? timeToExpire,

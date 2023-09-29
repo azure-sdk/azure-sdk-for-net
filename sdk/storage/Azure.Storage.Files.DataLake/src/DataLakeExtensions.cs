@@ -997,6 +997,19 @@ namespace Azure.Storage.Files.DataLake
                 : new GetPathTagResult { Tags = blobTagResult.Tags };
         }
 
+        internal static ConcurrentAppendResult ToConcurrentAppendResult(this ResponseWithHeaders<PathConcurrentAppendHeaders> response)
+        {
+            if (response == null)
+            {
+                return null;
+            }
+
+            return new ConcurrentAppendResult
+            {
+                CommittedBlockCount = response.Headers.CommittedBlockCount.GetValueOrDefault()
+            };
+        }
+
         #region ValidateConditionsNotPresent
         internal static void ValidateConditionsNotPresent(
             this RequestConditions requestConditions,

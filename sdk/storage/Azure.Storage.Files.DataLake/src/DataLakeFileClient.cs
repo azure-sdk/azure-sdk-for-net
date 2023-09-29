@@ -5987,13 +5987,10 @@ namespace Azure.Storage.Files.DataLake
                 {
                     Response<PathInfo> createResponse = await CreateInternal(
                         resourceType: PathResourceType.File,
+                        blobType: null,
                         httpHeaders: default,
                         metadata: default,
-                        permissions: default,
-                        umask: default,
-                        owner: default,
-                        group: default,
-                        accessControlList: default,
+                        accessOptions: default,
                         leaseId: default,
                         leaseDuration: default,
                         timeToExpire: default,
@@ -6034,13 +6031,10 @@ namespace Azure.Storage.Files.DataLake
                     {
                         Response<PathInfo> createResponse = await CreateInternal(
                             resourceType: PathResourceType.File,
+                            blobType: default,
                             httpHeaders: default,
                             metadata: default,
-                            permissions: default,
-                            umask: default,
-                            owner: default,
-                            group: default,
-                            accessControlList: default,
+                            accessOptions: default,
                             leaseId: default,
                             leaseDuration: default,
                             timeToExpire: default,
@@ -6103,13 +6097,15 @@ namespace Azure.Storage.Files.DataLake
                 InitializeDestination = async (args, async, cancellationToken)
                     => await client.CreateInternal(
                         resourceType: PathResourceType.File,
+                        blobType: null,
                         httpHeaders: args.HttpHeaders,
                         metadata: args.Metadata,
-                        permissions: args.Permissions,
-                        umask: args.Umask,
-                        owner: default,
-                        group: default,
-                        accessControlList: default,
+                        accessOptions:
+                            (Permissions: args.Permissions,
+                            Umask: args.Umask,
+                            Owner: default,
+                            Group: default,
+                            AccessControlList: default),
                         leaseId: default,
                         leaseDuration: default,
                         timeToExpire: default,
