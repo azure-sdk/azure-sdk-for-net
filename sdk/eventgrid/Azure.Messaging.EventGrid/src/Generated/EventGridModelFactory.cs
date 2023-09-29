@@ -2596,5 +2596,58 @@ namespace Azure.Messaging.EventGrid
         {
             return new HealthcareDicomImageDeletedEventData(partitionName, imageStudyInstanceUid, imageSeriesInstanceUid, imageSopInstanceUid, serviceHostName, sequenceNumber);
         }
+
+        /// <summary> Initializes a new instance of ResourceNotificationsResourceUpdatedDetails. </summary>
+        /// <param name="id"> id of the resource for which the event is being emitted. </param>
+        /// <param name="name"> name of the resource for which the event is being emitted. </param>
+        /// <param name="type"> the type of the resource for which the event is being emitted. </param>
+        /// <param name="location"> the location of the resource for which the event is being emitted. </param>
+        /// <param name="tags"> the tags on the resource for which the event is being emitted. </param>
+        /// <param name="properties"> properties in the payload of the resource for which the event is being emitted. </param>
+        /// <returns> A new <see cref="SystemEvents.ResourceNotificationsResourceUpdatedDetails"/> instance for mocking. </returns>
+        public static ResourceNotificationsResourceUpdatedDetails ResourceNotificationsResourceUpdatedDetails(string id = null, string name = null, string type = null, string location = null, string tags = null, IReadOnlyDictionary<string, object> properties = null)
+        {
+            properties ??= new Dictionary<string, object>();
+
+            return new ResourceNotificationsResourceUpdatedDetails(id, name, type, location, tags, properties);
+        }
+
+        /// <summary> Initializes a new instance of ResourceNotificationsOperationalDetails. </summary>
+        /// <param name="resourceEventTime"> Date and Time when resource was updated. </param>
+        /// <returns> A new <see cref="SystemEvents.ResourceNotificationsOperationalDetails"/> instance for mocking. </returns>
+        public static ResourceNotificationsOperationalDetails ResourceNotificationsOperationalDetails(DateTimeOffset? resourceEventTime = null)
+        {
+            return new ResourceNotificationsOperationalDetails(resourceEventTime);
+        }
+
+        /// <summary> Initializes a new instance of ResourceNotificationsResourceUpdatedEventData. </summary>
+        /// <param name="resourceDetails"> resourceInfo details for update event. </param>
+        /// <param name="operationalDetails"> details about operational info. </param>
+        /// <param name="apiVersion"> api version of the resource properties bag. </param>
+        /// <returns> A new <see cref="SystemEvents.ResourceNotificationsResourceUpdatedEventData"/> instance for mocking. </returns>
+        public static ResourceNotificationsResourceUpdatedEventData ResourceNotificationsResourceUpdatedEventData(ResourceNotificationsResourceUpdatedDetails resourceDetails = null, ResourceNotificationsOperationalDetails operationalDetails = null, string apiVersion = null)
+        {
+            return new ResourceNotificationsResourceUpdatedEventData(resourceDetails, operationalDetails, apiVersion);
+        }
+
+        /// <summary> Initializes a new instance of ResourceNotificationsHealthResourcesAvailabilityStatusChangedEventData. </summary>
+        /// <param name="resourceDetails"> resourceInfo details for update event. </param>
+        /// <param name="operationalDetails"> details about operational info. </param>
+        /// <param name="apiVersion"> api version of the resource properties bag. </param>
+        /// <returns> A new <see cref="SystemEvents.ResourceNotificationsHealthResourcesAvailabilityStatusChangedEventData"/> instance for mocking. </returns>
+        public static ResourceNotificationsHealthResourcesAvailabilityStatusChangedEventData ResourceNotificationsHealthResourcesAvailabilityStatusChangedEventData(ResourceNotificationsResourceUpdatedDetails resourceDetails = null, ResourceNotificationsOperationalDetails operationalDetails = null, string apiVersion = null)
+        {
+            return new ResourceNotificationsHealthResourcesAvailabilityStatusChangedEventData(resourceDetails, operationalDetails, apiVersion);
+        }
+
+        /// <summary> Initializes a new instance of ResourceNotificationsHealthResourcesAnnotatedEventData. </summary>
+        /// <param name="resourceDetails"> resourceInfo details for update event. </param>
+        /// <param name="operationalDetails"> details about operational info. </param>
+        /// <param name="apiVersion"> api version of the resource properties bag. </param>
+        /// <returns> A new <see cref="SystemEvents.ResourceNotificationsHealthResourcesAnnotatedEventData"/> instance for mocking. </returns>
+        public static ResourceNotificationsHealthResourcesAnnotatedEventData ResourceNotificationsHealthResourcesAnnotatedEventData(ResourceNotificationsResourceUpdatedDetails resourceDetails = null, ResourceNotificationsOperationalDetails operationalDetails = null, string apiVersion = null)
+        {
+            return new ResourceNotificationsHealthResourcesAnnotatedEventData(resourceDetails, operationalDetails, apiVersion);
+        }
     }
 }
