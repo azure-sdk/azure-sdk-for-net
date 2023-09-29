@@ -5,63 +5,51 @@
 
 #nullable disable
 
-using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
 
 namespace Azure.Search.Documents.Models
 {
-    public partial class SearchQueryVector : IUtf8JsonSerializable
+    internal partial class UnknownVectorQuery : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
-            if (Optional.IsCollectionDefined(Value))
-            {
-                writer.WritePropertyName("value"u8);
-                writer.WriteStartArray();
-                foreach (var item in Value)
-                {
-                    writer.WriteNumberValue(item);
-                }
-                writer.WriteEndArray();
-            }
-            if (Optional.IsDefined(KNearestNeighborsCount))
+            writer.WritePropertyName("kind"u8);
+            writer.WriteStringValue(Kind.ToString());
+            if (Optional.IsDefined(K))
             {
                 writer.WritePropertyName("k"u8);
-                writer.WriteNumberValue(KNearestNeighborsCount.Value);
+                writer.WriteNumberValue(K.Value);
             }
-            if (Optional.IsDefined(FieldsRaw))
+            if (Optional.IsDefined(Fields))
             {
                 writer.WritePropertyName("fields"u8);
-                writer.WriteStringValue(FieldsRaw);
+                writer.WriteStringValue(Fields);
+            }
+            if (Optional.IsDefined(Exhaustive))
+            {
+                writer.WritePropertyName("exhaustive"u8);
+                writer.WriteBooleanValue(Exhaustive.Value);
             }
             writer.WriteEndObject();
         }
 
-        internal static SearchQueryVector DeserializeSearchQueryVector(JsonElement element)
+        internal static UnknownVectorQuery DeserializeUnknownVectorQuery(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
                 return null;
             }
-            Optional<IReadOnlyList<float>> value = default;
+            VectorQueryKind kind = "Unknown";
             Optional<int> k = default;
             Optional<string> fields = default;
+            Optional<bool> exhaustive = default;
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("value"u8))
+                if (property.NameEquals("kind"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    List<float> array = new List<float>();
-                    foreach (var item in property.Value.EnumerateArray())
-                    {
-                        array.Add(item.GetSingle());
-                    }
-                    value = array;
+                    kind = new VectorQueryKind(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("k"u8))
@@ -78,8 +66,17 @@ namespace Azure.Search.Documents.Models
                     fields = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("exhaustive"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    exhaustive = property.Value.GetBoolean();
+                    continue;
+                }
             }
-            return new SearchQueryVector(Optional.ToList(value), Optional.ToNullable(k), fields.Value);
+            return new UnknownVectorQuery(kind, Optional.ToNullable(k), fields.Value, Optional.ToNullable(exhaustive));
         }
     }
 }
