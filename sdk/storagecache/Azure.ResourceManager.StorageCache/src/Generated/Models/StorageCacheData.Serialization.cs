@@ -49,6 +49,11 @@ namespace Azure.ResourceManager.StorageCache
                 writer.WritePropertyName("cacheSizeGB"u8);
                 writer.WriteNumberValue(CacheSizeGB.Value);
             }
+            if (Optional.IsDefined(ScalingFactor))
+            {
+                writer.WritePropertyName("scalingFactor"u8);
+                writer.WriteNumberValue(ScalingFactor.Value);
+            }
             if (Optional.IsDefined(Subnet))
             {
                 writer.WritePropertyName("subnet"u8);
@@ -108,6 +113,7 @@ namespace Azure.ResourceManager.StorageCache
             ResourceType type = default;
             Optional<SystemData> systemData = default;
             Optional<int> cacheSizeGB = default;
+            Optional<double> scalingFactor = default;
             Optional<StorageCacheHealth> health = default;
             Optional<IReadOnlyList<IPAddress>> mountAddresses = default;
             Optional<StorageCacheProvisioningStateType> provisioningState = default;
@@ -200,6 +206,15 @@ namespace Azure.ResourceManager.StorageCache
                                 continue;
                             }
                             cacheSizeGB = property0.Value.GetInt32();
+                            continue;
+                        }
+                        if (property0.NameEquals("scalingFactor"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            scalingFactor = property0.Value.GetDouble();
                             continue;
                         }
                         if (property0.NameEquals("health"u8))
@@ -350,7 +365,7 @@ namespace Azure.ResourceManager.StorageCache
                     continue;
                 }
             }
-            return new StorageCacheData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, identity, sku.Value, Optional.ToNullable(cacheSizeGB), health.Value, Optional.ToList(mountAddresses), Optional.ToNullable(provisioningState), subnet.Value, upgradeStatus.Value, upgradeSettings.Value, networkSettings.Value, encryptionSettings.Value, securitySettings.Value, directoryServicesSettings.Value, Optional.ToList(zones), Optional.ToList(primingJobs), Optional.ToList(spaceAllocation));
+            return new StorageCacheData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, identity, sku.Value, Optional.ToNullable(cacheSizeGB), Optional.ToNullable(scalingFactor), health.Value, Optional.ToList(mountAddresses), Optional.ToNullable(provisioningState), subnet.Value, upgradeStatus.Value, upgradeSettings.Value, networkSettings.Value, encryptionSettings.Value, securitySettings.Value, directoryServicesSettings.Value, Optional.ToList(zones), Optional.ToList(primingJobs), Optional.ToList(spaceAllocation));
         }
     }
 }

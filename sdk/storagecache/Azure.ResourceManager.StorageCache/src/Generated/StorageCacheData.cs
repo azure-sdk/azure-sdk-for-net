@@ -38,7 +38,8 @@ namespace Azure.ResourceManager.StorageCache
         /// <param name="location"> The location. </param>
         /// <param name="identity"> The identity of the cache, if configured. </param>
         /// <param name="sku"> SKU for the cache. </param>
-        /// <param name="cacheSizeGB"> The size of this Cache, in GB. </param>
+        /// <param name="cacheSizeGB"> The size of this cache, in GB, when scalingFactor is 1.0. Values depend on the cache SKU - &lt;a href="https://learn.microsoft.com/en-us/rest/api/storagecache/skus/list?tabs=HTTP"&gt;List SKUs&lt;/a&gt;. </param>
+        /// <param name="scalingFactor"> Multiplier that sets the current storage and throughput capacity of the cache. Values depend on the cache SKU - &lt;a href="https://learn.microsoft.com/en-us/rest/api/storagecache/skus/list?tabs=HTTP"&gt;List SKUs&lt;/a&gt;. Values above 1.0 increase the cache size and throughput - for example, the scaling factor 1.33 gives a cache that's 33% larger than its base size. </param>
         /// <param name="health"> Health of the cache. </param>
         /// <param name="mountAddresses"> Array of IPv4 addresses that can be used by clients mounting this cache. </param>
         /// <param name="provisioningState"> ARM provisioning state, see https://github.com/Azure/azure-resource-manager-rpc/blob/master/v1.0/Addendum.md#provisioningstate-property. </param>
@@ -52,11 +53,12 @@ namespace Azure.ResourceManager.StorageCache
         /// <param name="zones"> Availability zones for resources. This field should only contain a single element in the array. </param>
         /// <param name="primingJobs"> Specifies the priming jobs defined in the cache. </param>
         /// <param name="spaceAllocation"> Specifies the space allocation percentage for each storage target in the cache. </param>
-        internal StorageCacheData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ManagedServiceIdentity identity, StorageCacheSkuInfo sku, int? cacheSizeGB, StorageCacheHealth health, IReadOnlyList<IPAddress> mountAddresses, StorageCacheProvisioningStateType? provisioningState, ResourceIdentifier subnet, StorageCacheUpgradeStatus upgradeStatus, StorageCacheUpgradeSettings upgradeSettings, StorageCacheNetworkSettings networkSettings, StorageCacheEncryptionSettings encryptionSettings, StorageCacheSecuritySettings securitySettings, StorageCacheDirectorySettings directoryServicesSettings, IList<string> zones, IReadOnlyList<PrimingJob> primingJobs, IReadOnlyList<StorageTargetSpaceAllocation> spaceAllocation) : base(id, name, resourceType, systemData, tags, location)
+        internal StorageCacheData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ManagedServiceIdentity identity, StorageCacheSkuInfo sku, int? cacheSizeGB, double? scalingFactor, StorageCacheHealth health, IReadOnlyList<IPAddress> mountAddresses, StorageCacheProvisioningStateType? provisioningState, ResourceIdentifier subnet, StorageCacheUpgradeStatus upgradeStatus, StorageCacheUpgradeSettings upgradeSettings, StorageCacheNetworkSettings networkSettings, StorageCacheEncryptionSettings encryptionSettings, StorageCacheSecuritySettings securitySettings, StorageCacheDirectorySettings directoryServicesSettings, IList<string> zones, IReadOnlyList<PrimingJob> primingJobs, IReadOnlyList<StorageTargetSpaceAllocation> spaceAllocation) : base(id, name, resourceType, systemData, tags, location)
         {
             Identity = identity;
             Sku = sku;
             CacheSizeGB = cacheSizeGB;
+            ScalingFactor = scalingFactor;
             Health = health;
             MountAddresses = mountAddresses;
             ProvisioningState = provisioningState;
@@ -88,8 +90,10 @@ namespace Azure.ResourceManager.StorageCache
             }
         }
 
-        /// <summary> The size of this Cache, in GB. </summary>
+        /// <summary> The size of this cache, in GB, when scalingFactor is 1.0. Values depend on the cache SKU - &lt;a href="https://learn.microsoft.com/en-us/rest/api/storagecache/skus/list?tabs=HTTP"&gt;List SKUs&lt;/a&gt;. </summary>
         public int? CacheSizeGB { get; set; }
+        /// <summary> Multiplier that sets the current storage and throughput capacity of the cache. Values depend on the cache SKU - &lt;a href="https://learn.microsoft.com/en-us/rest/api/storagecache/skus/list?tabs=HTTP"&gt;List SKUs&lt;/a&gt;. Values above 1.0 increase the cache size and throughput - for example, the scaling factor 1.33 gives a cache that's 33% larger than its base size. </summary>
+        public double? ScalingFactor { get; set; }
         /// <summary> Health of the cache. </summary>
         public StorageCacheHealth Health { get; }
         /// <summary> Array of IPv4 addresses that can be used by clients mounting this cache. </summary>

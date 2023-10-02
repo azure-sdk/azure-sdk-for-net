@@ -32,18 +32,21 @@ namespace Azure.ResourceManager.StorageCache.Models
         /// <param name="health"> Health of the AML file system. </param>
         /// <param name="provisioningState"> ARM provisioning state. </param>
         /// <param name="filesystemSubnet"> Subnet used for managing the AML file system and for client-facing operations. This subnet should have at least a /24 subnet mask within the VNET's address space. </param>
-        /// <param name="clientInfo"> Client information for the AML file system. </param>
+        /// <param name="mgsAddress"> The IPv4 address used by clients to mount the AML file system's Lustre Management Service (MGS). </param>
+        /// <param name="mountCommand"> Recommended command to mount the AML file system. </param>
+        /// <param name="lustreVersion"> The version of Lustre running in the AML file system. </param>
         /// <param name="throughputProvisionedMBps"> Throughput provisioned in MB per sec, calculated as storageCapacityTiB * per-unit storage throughput. </param>
         /// <param name="keyEncryptionKey"> Specifies encryption settings of the AML file system. </param>
         /// <param name="maintenanceWindow"> Start time of a 30-minute weekly maintenance window. </param>
         /// <param name="hsm"> Hydration and archive settings and status. </param>
+        /// <param name="rootSquashSettings"> Specifies root squash settings of the AML file system. </param>
         /// <returns> A new <see cref="StorageCache.AmlFileSystemData"/> instance for mocking. </returns>
-        public static AmlFileSystemData AmlFileSystemData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, ManagedServiceIdentity identity = null, string skuName = null, IEnumerable<string> zones = null, float? storageCapacityTiB = null, AmlFileSystemHealth health = null, AmlFileSystemProvisioningStateType? provisioningState = null, string filesystemSubnet = null, AmlFileSystemClientInfo clientInfo = null, int? throughputProvisionedMBps = null, StorageCacheEncryptionKeyVaultKeyReference keyEncryptionKey = null, AmlFileSystemPropertiesMaintenanceWindow maintenanceWindow = null, AmlFileSystemPropertiesHsm hsm = null)
+        public static AmlFileSystemData AmlFileSystemData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, ManagedServiceIdentity identity = null, string skuName = null, IEnumerable<string> zones = null, float? storageCapacityTiB = null, AmlFileSystemHealth health = null, AmlFileSystemProvisioningStateType? provisioningState = null, string filesystemSubnet = null, string mgsAddress = null, string mountCommand = null, string lustreVersion = null, int? throughputProvisionedMBps = null, StorageCacheEncryptionKeyVaultKeyReference keyEncryptionKey = null, AmlFileSystemPropertiesMaintenanceWindow maintenanceWindow = null, AmlFileSystemPropertiesHsm hsm = null, AmlFileSystemRootSquashSettings rootSquashSettings = null)
         {
             tags ??= new Dictionary<string, string>();
             zones ??= new List<string>();
 
-            return new AmlFileSystemData(id, name, resourceType, systemData, tags, location, identity, skuName != null ? new StorageCacheSkuName(skuName) : null, zones?.ToList(), storageCapacityTiB, health, provisioningState, filesystemSubnet, clientInfo, throughputProvisionedMBps, keyEncryptionKey != null ? new AmlFileSystemEncryptionSettings(keyEncryptionKey) : null, maintenanceWindow, hsm);
+            return new AmlFileSystemData(id, name, resourceType, systemData, tags, location, identity, skuName != null ? new StorageCacheSkuName(skuName) : null, zones?.ToList(), storageCapacityTiB, health, provisioningState, filesystemSubnet, mgsAddress, mountCommand, lustreVersion, throughputProvisionedMBps, keyEncryptionKey != null ? new AmlFileSystemEncryptionSettings(keyEncryptionKey) : null, maintenanceWindow, hsm, rootSquashSettings);
         }
 
         /// <summary> Initializes a new instance of AmlFileSystemHealth. </summary>
@@ -54,27 +57,6 @@ namespace Azure.ResourceManager.StorageCache.Models
         public static AmlFileSystemHealth AmlFileSystemHealth(AmlFileSystemHealthStateType? state = null, string statusCode = null, string statusDescription = null)
         {
             return new AmlFileSystemHealth(state, statusCode, statusDescription);
-        }
-
-        /// <summary> Initializes a new instance of AmlFileSystemClientInfo. </summary>
-        /// <param name="mgsAddress"> The IPv4 address used by clients to mount the AML file system's Lustre Management Service (MGS). </param>
-        /// <param name="mountCommand"> Recommended command to mount the AML file system. </param>
-        /// <param name="lustreVersion"> The version of Lustre running in the AML file system. </param>
-        /// <param name="containerStorageInterface"> Container Storage Interface information for the AML file system. </param>
-        /// <returns> A new <see cref="Models.AmlFileSystemClientInfo"/> instance for mocking. </returns>
-        public static AmlFileSystemClientInfo AmlFileSystemClientInfo(string mgsAddress = null, string mountCommand = null, string lustreVersion = null, AmlFileSystemContainerStorageInterface containerStorageInterface = null)
-        {
-            return new AmlFileSystemClientInfo(mgsAddress, mountCommand, lustreVersion, containerStorageInterface);
-        }
-
-        /// <summary> Initializes a new instance of AmlFileSystemContainerStorageInterface. </summary>
-        /// <param name="persistentVolumeClaim"> Recommended AKS Persistent Volume Claim for the CSI driver, in Base64 encoded YAML. </param>
-        /// <param name="persistentVolume"> Recommended AKS Persistent Volume for the CSI driver, in Base64 encoded YAML. </param>
-        /// <param name="storageClass"> Recommended AKS Storage Class for the CSI driver, in Base64 encoded YAML. </param>
-        /// <returns> A new <see cref="Models.AmlFileSystemContainerStorageInterface"/> instance for mocking. </returns>
-        public static AmlFileSystemContainerStorageInterface AmlFileSystemContainerStorageInterface(string persistentVolumeClaim = null, string persistentVolume = null, string storageClass = null)
-        {
-            return new AmlFileSystemContainerStorageInterface(persistentVolumeClaim, persistentVolume, storageClass);
         }
 
         /// <summary> Initializes a new instance of AmlFileSystemPropertiesHsm. </summary>
@@ -108,6 +90,18 @@ namespace Azure.ResourceManager.StorageCache.Models
         public static AmlFileSystemArchiveStatus AmlFileSystemArchiveStatus(ArchiveStatusType? state = null, DateTimeOffset? lastCompletionOn = null, DateTimeOffset? lastStartedOn = null, int? percentComplete = null, string errorCode = null, string errorMessage = null)
         {
             return new AmlFileSystemArchiveStatus(state, lastCompletionOn, lastStartedOn, percentComplete, errorCode, errorMessage);
+        }
+
+        /// <summary> Initializes a new instance of AmlFileSystemRootSquashSettings. </summary>
+        /// <param name="mode"> Squash mode of the AML file system. </param>
+        /// <param name="noSquashNidLists"> Semicolon separated NID IP Address list(s) to be added to the TrustedSystems. </param>
+        /// <param name="squashUID"> User ID to squash to. </param>
+        /// <param name="squashGID"> Group ID to squash to. </param>
+        /// <param name="status"> AML file system squash status. </param>
+        /// <returns> A new <see cref="Models.AmlFileSystemRootSquashSettings"/> instance for mocking. </returns>
+        public static AmlFileSystemRootSquashSettings AmlFileSystemRootSquashSettings(AmlFileSystemSquashMode? mode = null, string noSquashNidLists = null, long? squashUID = null, long? squashGID = null, string status = null)
+        {
+            return new AmlFileSystemRootSquashSettings(mode, noSquashNidLists, squashUID, squashGID, status);
         }
 
         /// <summary> Initializes a new instance of RequiredAmlFileSystemSubnetsSize. </summary>
@@ -207,7 +201,8 @@ namespace Azure.ResourceManager.StorageCache.Models
         /// <param name="location"> The location. </param>
         /// <param name="identity"> The identity of the cache, if configured. </param>
         /// <param name="skuName"> SKU for the cache. </param>
-        /// <param name="cacheSizeGB"> The size of this Cache, in GB. </param>
+        /// <param name="cacheSizeGB"> The size of this cache, in GB, when scalingFactor is 1.0. Values depend on the cache SKU - &lt;a href="https://learn.microsoft.com/en-us/rest/api/storagecache/skus/list?tabs=HTTP"&gt;List SKUs&lt;/a&gt;. </param>
+        /// <param name="scalingFactor"> Multiplier that sets the current storage and throughput capacity of the cache. Values depend on the cache SKU - &lt;a href="https://learn.microsoft.com/en-us/rest/api/storagecache/skus/list?tabs=HTTP"&gt;List SKUs&lt;/a&gt;. Values above 1.0 increase the cache size and throughput - for example, the scaling factor 1.33 gives a cache that's 33% larger than its base size. </param>
         /// <param name="health"> Health of the cache. </param>
         /// <param name="mountAddresses"> Array of IPv4 addresses that can be used by clients mounting this cache. </param>
         /// <param name="provisioningState"> ARM provisioning state, see https://github.com/Azure/azure-resource-manager-rpc/blob/master/v1.0/Addendum.md#provisioningstate-property. </param>
@@ -222,7 +217,7 @@ namespace Azure.ResourceManager.StorageCache.Models
         /// <param name="primingJobs"> Specifies the priming jobs defined in the cache. </param>
         /// <param name="spaceAllocation"> Specifies the space allocation percentage for each storage target in the cache. </param>
         /// <returns> A new <see cref="StorageCache.StorageCacheData"/> instance for mocking. </returns>
-        public static StorageCacheData StorageCacheData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, ManagedServiceIdentity identity = null, string skuName = null, int? cacheSizeGB = null, StorageCacheHealth health = null, IEnumerable<IPAddress> mountAddresses = null, StorageCacheProvisioningStateType? provisioningState = null, ResourceIdentifier subnet = null, StorageCacheUpgradeStatus upgradeStatus = null, StorageCacheUpgradeSettings upgradeSettings = null, StorageCacheNetworkSettings networkSettings = null, StorageCacheEncryptionSettings encryptionSettings = null, IEnumerable<NfsAccessPolicy> securityAccessPolicies = null, StorageCacheDirectorySettings directoryServicesSettings = null, IEnumerable<string> zones = null, IEnumerable<PrimingJob> primingJobs = null, IEnumerable<StorageTargetSpaceAllocation> spaceAllocation = null)
+        public static StorageCacheData StorageCacheData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, ManagedServiceIdentity identity = null, string skuName = null, int? cacheSizeGB = null, double? scalingFactor = null, StorageCacheHealth health = null, IEnumerable<IPAddress> mountAddresses = null, StorageCacheProvisioningStateType? provisioningState = null, ResourceIdentifier subnet = null, StorageCacheUpgradeStatus upgradeStatus = null, StorageCacheUpgradeSettings upgradeSettings = null, StorageCacheNetworkSettings networkSettings = null, StorageCacheEncryptionSettings encryptionSettings = null, IEnumerable<NfsAccessPolicy> securityAccessPolicies = null, StorageCacheDirectorySettings directoryServicesSettings = null, IEnumerable<string> zones = null, IEnumerable<PrimingJob> primingJobs = null, IEnumerable<StorageTargetSpaceAllocation> spaceAllocation = null)
         {
             tags ??= new Dictionary<string, string>();
             mountAddresses ??= new List<IPAddress>();
@@ -231,7 +226,7 @@ namespace Azure.ResourceManager.StorageCache.Models
             primingJobs ??= new List<PrimingJob>();
             spaceAllocation ??= new List<StorageTargetSpaceAllocation>();
 
-            return new StorageCacheData(id, name, resourceType, systemData, tags, location, identity, skuName != null ? new StorageCacheSkuInfo(skuName) : null, cacheSizeGB, health, mountAddresses?.ToList(), provisioningState, subnet, upgradeStatus, upgradeSettings, networkSettings, encryptionSettings, securityAccessPolicies != null ? new StorageCacheSecuritySettings(securityAccessPolicies?.ToList()) : null, directoryServicesSettings, zones?.ToList(), primingJobs?.ToList(), spaceAllocation?.ToList());
+            return new StorageCacheData(id, name, resourceType, systemData, tags, location, identity, skuName != null ? new StorageCacheSkuInfo(skuName) : null, cacheSizeGB, scalingFactor, health, mountAddresses?.ToList(), provisioningState, subnet, upgradeStatus, upgradeSettings, networkSettings, encryptionSettings, securityAccessPolicies != null ? new StorageCacheSecuritySettings(securityAccessPolicies?.ToList()) : null, directoryServicesSettings, zones?.ToList(), primingJobs?.ToList(), spaceAllocation?.ToList());
         }
 
         /// <summary> Initializes a new instance of StorageCacheHealth. </summary>

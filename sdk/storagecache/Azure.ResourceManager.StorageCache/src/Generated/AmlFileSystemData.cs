@@ -39,12 +39,15 @@ namespace Azure.ResourceManager.StorageCache
         /// <param name="health"> Health of the AML file system. </param>
         /// <param name="provisioningState"> ARM provisioning state. </param>
         /// <param name="filesystemSubnet"> Subnet used for managing the AML file system and for client-facing operations. This subnet should have at least a /24 subnet mask within the VNET's address space. </param>
-        /// <param name="clientInfo"> Client information for the AML file system. </param>
+        /// <param name="mgsAddress"> The IPv4 address used by clients to mount the AML file system's Lustre Management Service (MGS). </param>
+        /// <param name="mountCommand"> Recommended command to mount the AML file system. </param>
+        /// <param name="lustreVersion"> The version of Lustre running in the AML file system. </param>
         /// <param name="throughputProvisionedMBps"> Throughput provisioned in MB per sec, calculated as storageCapacityTiB * per-unit storage throughput. </param>
         /// <param name="encryptionSettings"> Specifies encryption settings of the AML file system. </param>
         /// <param name="maintenanceWindow"> Start time of a 30-minute weekly maintenance window. </param>
         /// <param name="hsm"> Hydration and archive settings and status. </param>
-        internal AmlFileSystemData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ManagedServiceIdentity identity, StorageCacheSkuName sku, IList<string> zones, float? storageCapacityTiB, AmlFileSystemHealth health, AmlFileSystemProvisioningStateType? provisioningState, string filesystemSubnet, AmlFileSystemClientInfo clientInfo, int? throughputProvisionedMBps, AmlFileSystemEncryptionSettings encryptionSettings, AmlFileSystemPropertiesMaintenanceWindow maintenanceWindow, AmlFileSystemPropertiesHsm hsm) : base(id, name, resourceType, systemData, tags, location)
+        /// <param name="rootSquashSettings"> Specifies root squash settings of the AML file system. </param>
+        internal AmlFileSystemData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ManagedServiceIdentity identity, StorageCacheSkuName sku, IList<string> zones, float? storageCapacityTiB, AmlFileSystemHealth health, AmlFileSystemProvisioningStateType? provisioningState, string filesystemSubnet, string mgsAddress, string mountCommand, string lustreVersion, int? throughputProvisionedMBps, AmlFileSystemEncryptionSettings encryptionSettings, AmlFileSystemPropertiesMaintenanceWindow maintenanceWindow, AmlFileSystemPropertiesHsm hsm, AmlFileSystemRootSquashSettings rootSquashSettings) : base(id, name, resourceType, systemData, tags, location)
         {
             Identity = identity;
             Sku = sku;
@@ -53,11 +56,14 @@ namespace Azure.ResourceManager.StorageCache
             Health = health;
             ProvisioningState = provisioningState;
             FilesystemSubnet = filesystemSubnet;
-            ClientInfo = clientInfo;
+            MgsAddress = mgsAddress;
+            MountCommand = mountCommand;
+            LustreVersion = lustreVersion;
             ThroughputProvisionedMBps = throughputProvisionedMBps;
             EncryptionSettings = encryptionSettings;
             MaintenanceWindow = maintenanceWindow;
             Hsm = hsm;
+            RootSquashSettings = rootSquashSettings;
         }
 
         /// <summary> The managed identity used by the AML file system, if configured. Current supported identity types: None, UserAssigned. </summary>
@@ -86,8 +92,12 @@ namespace Azure.ResourceManager.StorageCache
         public AmlFileSystemProvisioningStateType? ProvisioningState { get; }
         /// <summary> Subnet used for managing the AML file system and for client-facing operations. This subnet should have at least a /24 subnet mask within the VNET's address space. </summary>
         public string FilesystemSubnet { get; set; }
-        /// <summary> Client information for the AML file system. </summary>
-        public AmlFileSystemClientInfo ClientInfo { get; }
+        /// <summary> The IPv4 address used by clients to mount the AML file system's Lustre Management Service (MGS). </summary>
+        public string MgsAddress { get; }
+        /// <summary> Recommended command to mount the AML file system. </summary>
+        public string MountCommand { get; }
+        /// <summary> The version of Lustre running in the AML file system. </summary>
+        public string LustreVersion { get; }
         /// <summary> Throughput provisioned in MB per sec, calculated as storageCapacityTiB * per-unit storage throughput. </summary>
         public int? ThroughputProvisionedMBps { get; }
         /// <summary> Specifies encryption settings of the AML file system. </summary>
@@ -108,5 +118,7 @@ namespace Azure.ResourceManager.StorageCache
         public AmlFileSystemPropertiesMaintenanceWindow MaintenanceWindow { get; set; }
         /// <summary> Hydration and archive settings and status. </summary>
         public AmlFileSystemPropertiesHsm Hsm { get; set; }
+        /// <summary> Specifies root squash settings of the AML file system. </summary>
+        public AmlFileSystemRootSquashSettings RootSquashSettings { get; set; }
     }
 }
