@@ -112,6 +112,7 @@ namespace Azure.ResourceManager.DataProtectionBackup.Models
             Optional<Uri> progressUrl = default;
             Optional<string> rehydrationPriority = default;
             Optional<string> restoreType = default;
+            Optional<string> sourceDataStoreType = default;
             string sourceResourceGroup = default;
             string sourceSubscriptionId = default;
             DateTimeOffset startTime = default;
@@ -262,6 +263,11 @@ namespace Azure.ResourceManager.DataProtectionBackup.Models
                     restoreType = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("sourceDataStoreType"u8))
+                {
+                    sourceDataStoreType = property.Value.GetString();
+                    continue;
+                }
                 if (property.NameEquals("sourceResourceGroup"u8))
                 {
                     sourceResourceGroup = property.Value.GetString();
@@ -322,7 +328,7 @@ namespace Azure.ResourceManager.DataProtectionBackup.Models
                     continue;
                 }
             }
-            return new DataProtectionBackupJobProperties(activityId, backupInstanceFriendlyName, backupInstanceId.Value, dataSourceId, dataSourceLocation, dataSourceName, dataSourceSetName.Value, dataSourceType, Optional.ToNullable(duration), Optional.ToNullable(endTime), Optional.ToList(errorDetails), extendedInfo.Value, isUserTriggered, operation, operationCategory, policyId.Value, policyName.Value, progressEnabled, progressUrl.Value, rehydrationPriority.Value, restoreType.Value, sourceResourceGroup, sourceSubscriptionId, startTime, status, subscriptionId, supportedActions, vaultName, Optional.ToNullable(etag), sourceDataStoreName.Value, destinationDataStoreName.Value);
+            return new DataProtectionBackupJobProperties(activityId, backupInstanceFriendlyName, backupInstanceId.Value, dataSourceId, dataSourceLocation, dataSourceName, dataSourceSetName.Value, dataSourceType, Optional.ToNullable(duration), Optional.ToNullable(endTime), Optional.ToList(errorDetails), extendedInfo.Value, isUserTriggered, operation, operationCategory, policyId.Value, policyName.Value, progressEnabled, progressUrl.Value, rehydrationPriority.Value, restoreType.Value, sourceDataStoreType.Value, sourceResourceGroup, sourceSubscriptionId, startTime, status, subscriptionId, supportedActions, vaultName, Optional.ToNullable(etag), sourceDataStoreName.Value, destinationDataStoreName.Value);
         }
     }
 }
