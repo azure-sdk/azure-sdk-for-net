@@ -46,6 +46,11 @@ namespace Azure.ResourceManager.FrontDoor.Models
                 writer.WritePropertyName("requestBodyCheck"u8);
                 writer.WriteStringValue(RequestBodyCheck.Value.ToString());
             }
+            if (Optional.IsDefined(LogScrubbing))
+            {
+                writer.WritePropertyName("logScrubbing"u8);
+                writer.WriteObjectValue(LogScrubbing);
+            }
             writer.WriteEndObject();
         }
 
@@ -61,6 +66,7 @@ namespace Azure.ResourceManager.FrontDoor.Models
             Optional<int> customBlockResponseStatusCode = default;
             Optional<string> customBlockResponseBody = default;
             Optional<PolicyRequestBodyCheck> requestBodyCheck = default;
+            Optional<PolicySettingsLogScrubbing> logScrubbing = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("enabledState"u8))
@@ -113,8 +119,17 @@ namespace Azure.ResourceManager.FrontDoor.Models
                     requestBodyCheck = new PolicyRequestBodyCheck(property.Value.GetString());
                     continue;
                 }
+                if (property.NameEquals("logScrubbing"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    logScrubbing = PolicySettingsLogScrubbing.DeserializePolicySettingsLogScrubbing(property.Value);
+                    continue;
+                }
             }
-            return new FrontDoorWebApplicationFirewallPolicySettings(Optional.ToNullable(enabledState), Optional.ToNullable(mode), redirectUrl.Value, Optional.ToNullable(customBlockResponseStatusCode), customBlockResponseBody.Value, Optional.ToNullable(requestBodyCheck));
+            return new FrontDoorWebApplicationFirewallPolicySettings(Optional.ToNullable(enabledState), Optional.ToNullable(mode), redirectUrl.Value, Optional.ToNullable(customBlockResponseStatusCode), customBlockResponseBody.Value, Optional.ToNullable(requestBodyCheck), logScrubbing.Value);
         }
     }
 }

@@ -24,7 +24,8 @@ namespace Azure.ResourceManager.FrontDoor.Models
         /// <param name="customBlockResponseStatusCode"> If the action type is block, customer can override the response status code. </param>
         /// <param name="customBlockResponseBody"> If the action type is block, customer can override the response body. The body must be specified in base64 encoding. </param>
         /// <param name="requestBodyCheck"> Describes if policy managed rules will inspect the request body content. </param>
-        internal FrontDoorWebApplicationFirewallPolicySettings(PolicyEnabledState? enabledState, FrontDoorWebApplicationFirewallPolicyMode? mode, Uri redirectUri, int? customBlockResponseStatusCode, string customBlockResponseBody, PolicyRequestBodyCheck? requestBodyCheck)
+        /// <param name="logScrubbing"> Defines rules to scrub sensitive fields in Web Application Firewall logs. </param>
+        internal FrontDoorWebApplicationFirewallPolicySettings(PolicyEnabledState? enabledState, FrontDoorWebApplicationFirewallPolicyMode? mode, Uri redirectUri, int? customBlockResponseStatusCode, string customBlockResponseBody, PolicyRequestBodyCheck? requestBodyCheck, PolicySettingsLogScrubbing logScrubbing)
         {
             EnabledState = enabledState;
             Mode = mode;
@@ -32,6 +33,7 @@ namespace Azure.ResourceManager.FrontDoor.Models
             CustomBlockResponseStatusCode = customBlockResponseStatusCode;
             CustomBlockResponseBody = customBlockResponseBody;
             RequestBodyCheck = requestBodyCheck;
+            LogScrubbing = logScrubbing;
         }
 
         /// <summary> Describes if the policy is in enabled or disabled state. Defaults to Enabled if not specified. </summary>
@@ -46,5 +48,7 @@ namespace Azure.ResourceManager.FrontDoor.Models
         public string CustomBlockResponseBody { get; set; }
         /// <summary> Describes if policy managed rules will inspect the request body content. </summary>
         public PolicyRequestBodyCheck? RequestBodyCheck { get; set; }
+        /// <summary> Defines rules to scrub sensitive fields in Web Application Firewall logs. </summary>
+        public PolicySettingsLogScrubbing LogScrubbing { get; set; }
     }
 }
