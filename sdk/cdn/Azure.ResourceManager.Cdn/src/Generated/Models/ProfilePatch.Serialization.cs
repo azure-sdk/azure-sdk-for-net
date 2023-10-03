@@ -26,12 +26,22 @@ namespace Azure.ResourceManager.Cdn.Models
                 }
                 writer.WriteEndObject();
             }
+            if (Optional.IsDefined(Identity))
+            {
+                writer.WritePropertyName("identity"u8);
+                JsonSerializer.Serialize(writer, Identity);
+            }
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
             if (Optional.IsDefined(OriginResponseTimeoutSeconds))
             {
                 writer.WritePropertyName("originResponseTimeoutSeconds"u8);
                 writer.WriteNumberValue(OriginResponseTimeoutSeconds.Value);
+            }
+            if (Optional.IsDefined(LogScrubbing))
+            {
+                writer.WritePropertyName("logScrubbing"u8);
+                writer.WriteObjectValue(LogScrubbing);
             }
             writer.WriteEndObject();
             writer.WriteEndObject();
