@@ -90,11 +90,6 @@ namespace Azure.ResourceManager.Sql
                 writer.WritePropertyName("restrictOutboundNetworkAccess"u8);
                 writer.WriteStringValue(RestrictOutboundNetworkAccess.Value.ToString());
             }
-            if (Optional.IsDefined(IsIPv6Enabled))
-            {
-                writer.WritePropertyName("isIPv6Enabled"u8);
-                writer.WriteStringValue(IsIPv6Enabled.Value.ToString());
-            }
             writer.WriteEndObject();
             writer.WriteEndObject();
         }
@@ -127,7 +122,6 @@ namespace Azure.ResourceManager.Sql
             Optional<Uri> keyId = default;
             Optional<ServerExternalAdministrator> administrators = default;
             Optional<ServerNetworkAccessFlag> restrictOutboundNetworkAccess = default;
-            Optional<ServerNetworkAccessFlag> isIPv6Enabled = default;
             Optional<ExternalGovernanceStatus> externalGovernanceStatus = default;
             foreach (var property in element.EnumerateObject())
             {
@@ -305,15 +299,6 @@ namespace Azure.ResourceManager.Sql
                             restrictOutboundNetworkAccess = new ServerNetworkAccessFlag(property0.Value.GetString());
                             continue;
                         }
-                        if (property0.NameEquals("isIPv6Enabled"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            isIPv6Enabled = new ServerNetworkAccessFlag(property0.Value.GetString());
-                            continue;
-                        }
                         if (property0.NameEquals("externalGovernanceStatus"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -327,7 +312,7 @@ namespace Azure.ResourceManager.Sql
                     continue;
                 }
             }
-            return new SqlServerData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, identity, kind.Value, administratorLogin.Value, administratorLoginPassword.Value, version.Value, state.Value, fullyQualifiedDomainName.Value, Optional.ToList(privateEndpointConnections), minimalTlsVersion.Value, Optional.ToNullable(publicNetworkAccess), Optional.ToNullable(workspaceFeature), primaryUserAssignedIdentityId.Value, Optional.ToNullable(federatedClientId), keyId.Value, administrators.Value, Optional.ToNullable(restrictOutboundNetworkAccess), Optional.ToNullable(isIPv6Enabled), Optional.ToNullable(externalGovernanceStatus));
+            return new SqlServerData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, identity, kind.Value, administratorLogin.Value, administratorLoginPassword.Value, version.Value, state.Value, fullyQualifiedDomainName.Value, Optional.ToList(privateEndpointConnections), minimalTlsVersion.Value, Optional.ToNullable(publicNetworkAccess), Optional.ToNullable(workspaceFeature), primaryUserAssignedIdentityId.Value, Optional.ToNullable(federatedClientId), keyId.Value, administrators.Value, Optional.ToNullable(restrictOutboundNetworkAccess), Optional.ToNullable(externalGovernanceStatus));
         }
     }
 }
