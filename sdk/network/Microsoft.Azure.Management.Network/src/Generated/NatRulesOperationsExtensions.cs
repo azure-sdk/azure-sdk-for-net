@@ -136,9 +136,9 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='natRuleName'>
             /// The name of the nat rule.
             /// </param>
-            public static void Delete(this INatRulesOperations operations, string resourceGroupName, string gatewayName, string natRuleName)
+            public static NatRulesDeleteHeaders Delete(this INatRulesOperations operations, string resourceGroupName, string gatewayName, string natRuleName)
             {
-                operations.DeleteAsync(resourceGroupName, gatewayName, natRuleName).GetAwaiter().GetResult();
+                return operations.DeleteAsync(resourceGroupName, gatewayName, natRuleName).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -159,9 +159,12 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task DeleteAsync(this INatRulesOperations operations, string resourceGroupName, string gatewayName, string natRuleName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<NatRulesDeleteHeaders> DeleteAsync(this INatRulesOperations operations, string resourceGroupName, string gatewayName, string natRuleName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.DeleteWithHttpMessagesAsync(resourceGroupName, gatewayName, natRuleName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.DeleteWithHttpMessagesAsync(resourceGroupName, gatewayName, natRuleName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -273,9 +276,9 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='natRuleName'>
             /// The name of the nat rule.
             /// </param>
-            public static void BeginDelete(this INatRulesOperations operations, string resourceGroupName, string gatewayName, string natRuleName)
+            public static NatRulesDeleteHeaders BeginDelete(this INatRulesOperations operations, string resourceGroupName, string gatewayName, string natRuleName)
             {
-                operations.BeginDeleteAsync(resourceGroupName, gatewayName, natRuleName).GetAwaiter().GetResult();
+                return operations.BeginDeleteAsync(resourceGroupName, gatewayName, natRuleName).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -296,9 +299,12 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginDeleteAsync(this INatRulesOperations operations, string resourceGroupName, string gatewayName, string natRuleName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<NatRulesDeleteHeaders> BeginDeleteAsync(this INatRulesOperations operations, string resourceGroupName, string gatewayName, string natRuleName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, gatewayName, natRuleName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, gatewayName, natRuleName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>

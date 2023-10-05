@@ -136,9 +136,9 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='connectionName'>
             /// The name of the connection.
             /// </param>
-            public static void Delete(this IVirtualHubBgpConnectionOperations operations, string resourceGroupName, string virtualHubName, string connectionName)
+            public static VirtualHubBgpConnectionDeleteHeaders Delete(this IVirtualHubBgpConnectionOperations operations, string resourceGroupName, string virtualHubName, string connectionName)
             {
-                operations.DeleteAsync(resourceGroupName, virtualHubName, connectionName).GetAwaiter().GetResult();
+                return operations.DeleteAsync(resourceGroupName, virtualHubName, connectionName).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -159,9 +159,12 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task DeleteAsync(this IVirtualHubBgpConnectionOperations operations, string resourceGroupName, string virtualHubName, string connectionName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<VirtualHubBgpConnectionDeleteHeaders> DeleteAsync(this IVirtualHubBgpConnectionOperations operations, string resourceGroupName, string virtualHubName, string connectionName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.DeleteWithHttpMessagesAsync(resourceGroupName, virtualHubName, connectionName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.DeleteWithHttpMessagesAsync(resourceGroupName, virtualHubName, connectionName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -233,9 +236,9 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='connectionName'>
             /// The name of the connection.
             /// </param>
-            public static void BeginDelete(this IVirtualHubBgpConnectionOperations operations, string resourceGroupName, string virtualHubName, string connectionName)
+            public static VirtualHubBgpConnectionDeleteHeaders BeginDelete(this IVirtualHubBgpConnectionOperations operations, string resourceGroupName, string virtualHubName, string connectionName)
             {
-                operations.BeginDeleteAsync(resourceGroupName, virtualHubName, connectionName).GetAwaiter().GetResult();
+                return operations.BeginDeleteAsync(resourceGroupName, virtualHubName, connectionName).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -256,9 +259,12 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginDeleteAsync(this IVirtualHubBgpConnectionOperations operations, string resourceGroupName, string virtualHubName, string connectionName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<VirtualHubBgpConnectionDeleteHeaders> BeginDeleteAsync(this IVirtualHubBgpConnectionOperations operations, string resourceGroupName, string virtualHubName, string connectionName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, virtualHubName, connectionName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, virtualHubName, connectionName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
     }

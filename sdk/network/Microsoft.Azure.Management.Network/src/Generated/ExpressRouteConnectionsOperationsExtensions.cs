@@ -136,9 +136,9 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='connectionName'>
             /// The name of the connection subresource.
             /// </param>
-            public static void Delete(this IExpressRouteConnectionsOperations operations, string resourceGroupName, string expressRouteGatewayName, string connectionName)
+            public static ExpressRouteConnectionsDeleteHeaders Delete(this IExpressRouteConnectionsOperations operations, string resourceGroupName, string expressRouteGatewayName, string connectionName)
             {
-                operations.DeleteAsync(resourceGroupName, expressRouteGatewayName, connectionName).GetAwaiter().GetResult();
+                return operations.DeleteAsync(resourceGroupName, expressRouteGatewayName, connectionName).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -159,9 +159,12 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task DeleteAsync(this IExpressRouteConnectionsOperations operations, string resourceGroupName, string expressRouteGatewayName, string connectionName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ExpressRouteConnectionsDeleteHeaders> DeleteAsync(this IExpressRouteConnectionsOperations operations, string resourceGroupName, string expressRouteGatewayName, string connectionName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.DeleteWithHttpMessagesAsync(resourceGroupName, expressRouteGatewayName, connectionName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.DeleteWithHttpMessagesAsync(resourceGroupName, expressRouteGatewayName, connectionName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -273,9 +276,9 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='connectionName'>
             /// The name of the connection subresource.
             /// </param>
-            public static void BeginDelete(this IExpressRouteConnectionsOperations operations, string resourceGroupName, string expressRouteGatewayName, string connectionName)
+            public static ExpressRouteConnectionsDeleteHeaders BeginDelete(this IExpressRouteConnectionsOperations operations, string resourceGroupName, string expressRouteGatewayName, string connectionName)
             {
-                operations.BeginDeleteAsync(resourceGroupName, expressRouteGatewayName, connectionName).GetAwaiter().GetResult();
+                return operations.BeginDeleteAsync(resourceGroupName, expressRouteGatewayName, connectionName).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -296,9 +299,12 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginDeleteAsync(this IExpressRouteConnectionsOperations operations, string resourceGroupName, string expressRouteGatewayName, string connectionName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ExpressRouteConnectionsDeleteHeaders> BeginDeleteAsync(this IExpressRouteConnectionsOperations operations, string resourceGroupName, string expressRouteGatewayName, string connectionName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, expressRouteGatewayName, connectionName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, expressRouteGatewayName, connectionName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
     }

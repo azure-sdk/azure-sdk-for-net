@@ -92,9 +92,9 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='configurationPolicyGroupName'>
             /// The name of the ConfigurationPolicyGroup.
             /// </param>
-            public static void Delete(this IConfigurationPolicyGroupsOperations operations, string resourceGroupName, string vpnServerConfigurationName, string configurationPolicyGroupName)
+            public static ConfigurationPolicyGroupsDeleteHeaders Delete(this IConfigurationPolicyGroupsOperations operations, string resourceGroupName, string vpnServerConfigurationName, string configurationPolicyGroupName)
             {
-                operations.DeleteAsync(resourceGroupName, vpnServerConfigurationName, configurationPolicyGroupName).GetAwaiter().GetResult();
+                return operations.DeleteAsync(resourceGroupName, vpnServerConfigurationName, configurationPolicyGroupName).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -115,9 +115,12 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task DeleteAsync(this IConfigurationPolicyGroupsOperations operations, string resourceGroupName, string vpnServerConfigurationName, string configurationPolicyGroupName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ConfigurationPolicyGroupsDeleteHeaders> DeleteAsync(this IConfigurationPolicyGroupsOperations operations, string resourceGroupName, string vpnServerConfigurationName, string configurationPolicyGroupName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.DeleteWithHttpMessagesAsync(resourceGroupName, vpnServerConfigurationName, configurationPolicyGroupName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.DeleteWithHttpMessagesAsync(resourceGroupName, vpnServerConfigurationName, configurationPolicyGroupName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -279,9 +282,9 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='configurationPolicyGroupName'>
             /// The name of the ConfigurationPolicyGroup.
             /// </param>
-            public static void BeginDelete(this IConfigurationPolicyGroupsOperations operations, string resourceGroupName, string vpnServerConfigurationName, string configurationPolicyGroupName)
+            public static ConfigurationPolicyGroupsDeleteHeaders BeginDelete(this IConfigurationPolicyGroupsOperations operations, string resourceGroupName, string vpnServerConfigurationName, string configurationPolicyGroupName)
             {
-                operations.BeginDeleteAsync(resourceGroupName, vpnServerConfigurationName, configurationPolicyGroupName).GetAwaiter().GetResult();
+                return operations.BeginDeleteAsync(resourceGroupName, vpnServerConfigurationName, configurationPolicyGroupName).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -302,9 +305,12 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginDeleteAsync(this IConfigurationPolicyGroupsOperations operations, string resourceGroupName, string vpnServerConfigurationName, string configurationPolicyGroupName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ConfigurationPolicyGroupsDeleteHeaders> BeginDeleteAsync(this IConfigurationPolicyGroupsOperations operations, string resourceGroupName, string vpnServerConfigurationName, string configurationPolicyGroupName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, vpnServerConfigurationName, configurationPolicyGroupName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, vpnServerConfigurationName, configurationPolicyGroupName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>

@@ -49,7 +49,7 @@ namespace Microsoft.Azure.Management.Network
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse> DownloadWithHttpMessagesAsync(string resourceGroupName, string virtualWANName, GetVpnSitesConfigurationRequest request, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationHeaderResponse<VpnSitesConfigurationDownloadHeaders>> DownloadWithHttpMessagesAsync(string resourceGroupName, string virtualWANName, GetVpnSitesConfigurationRequest request, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Gives the sas-url to download the configurations for vpn-sites in a
         /// resource group.
@@ -76,6 +76,6 @@ namespace Microsoft.Azure.Management.Network
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse> BeginDownloadWithHttpMessagesAsync(string resourceGroupName, string virtualWANName, GetVpnSitesConfigurationRequest request, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationHeaderResponse<VpnSitesConfigurationDownloadHeaders>> BeginDownloadWithHttpMessagesAsync(string resourceGroupName, string virtualWANName, GetVpnSitesConfigurationRequest request, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
     }
 }

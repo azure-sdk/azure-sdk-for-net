@@ -167,9 +167,9 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='gatewayName'>
             /// The name of the gateway.
             /// </param>
-            public static void Delete(this IP2sVpnGatewaysOperations operations, string resourceGroupName, string gatewayName)
+            public static P2sVpnGatewaysDeleteHeaders Delete(this IP2sVpnGatewaysOperations operations, string resourceGroupName, string gatewayName)
             {
-                operations.DeleteAsync(resourceGroupName, gatewayName).GetAwaiter().GetResult();
+                return operations.DeleteAsync(resourceGroupName, gatewayName).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -187,9 +187,12 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task DeleteAsync(this IP2sVpnGatewaysOperations operations, string resourceGroupName, string gatewayName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<P2sVpnGatewaysDeleteHeaders> DeleteAsync(this IP2sVpnGatewaysOperations operations, string resourceGroupName, string gatewayName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.DeleteWithHttpMessagesAsync(resourceGroupName, gatewayName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.DeleteWithHttpMessagesAsync(resourceGroupName, gatewayName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -450,9 +453,9 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='request'>
             /// The parameters are supplied to disconnect p2s vpn connections.
             /// </param>
-            public static void DisconnectP2sVpnConnections(this IP2sVpnGatewaysOperations operations, string resourceGroupName, string p2sVpnGatewayName, P2SVpnConnectionRequest request)
+            public static P2sVpnGatewaysDisconnectP2sVpnConnectionsHeaders DisconnectP2sVpnConnections(this IP2sVpnGatewaysOperations operations, string resourceGroupName, string p2sVpnGatewayName, P2SVpnConnectionRequest request)
             {
-                operations.DisconnectP2sVpnConnectionsAsync(resourceGroupName, p2sVpnGatewayName, request).GetAwaiter().GetResult();
+                return operations.DisconnectP2sVpnConnectionsAsync(resourceGroupName, p2sVpnGatewayName, request).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -474,9 +477,12 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task DisconnectP2sVpnConnectionsAsync(this IP2sVpnGatewaysOperations operations, string resourceGroupName, string p2sVpnGatewayName, P2SVpnConnectionRequest request, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<P2sVpnGatewaysDisconnectP2sVpnConnectionsHeaders> DisconnectP2sVpnConnectionsAsync(this IP2sVpnGatewaysOperations operations, string resourceGroupName, string p2sVpnGatewayName, P2SVpnConnectionRequest request, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.DisconnectP2sVpnConnectionsWithHttpMessagesAsync(resourceGroupName, p2sVpnGatewayName, request, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.DisconnectP2sVpnConnectionsWithHttpMessagesAsync(resourceGroupName, p2sVpnGatewayName, request, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -585,9 +591,9 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='gatewayName'>
             /// The name of the gateway.
             /// </param>
-            public static void BeginDelete(this IP2sVpnGatewaysOperations operations, string resourceGroupName, string gatewayName)
+            public static P2sVpnGatewaysDeleteHeaders BeginDelete(this IP2sVpnGatewaysOperations operations, string resourceGroupName, string gatewayName)
             {
-                operations.BeginDeleteAsync(resourceGroupName, gatewayName).GetAwaiter().GetResult();
+                return operations.BeginDeleteAsync(resourceGroupName, gatewayName).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -605,9 +611,12 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginDeleteAsync(this IP2sVpnGatewaysOperations operations, string resourceGroupName, string gatewayName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<P2sVpnGatewaysDeleteHeaders> BeginDeleteAsync(this IP2sVpnGatewaysOperations operations, string resourceGroupName, string gatewayName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, gatewayName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, gatewayName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -806,9 +815,9 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='request'>
             /// The parameters are supplied to disconnect p2s vpn connections.
             /// </param>
-            public static void BeginDisconnectP2sVpnConnections(this IP2sVpnGatewaysOperations operations, string resourceGroupName, string p2sVpnGatewayName, P2SVpnConnectionRequest request)
+            public static P2sVpnGatewaysDisconnectP2sVpnConnectionsHeaders BeginDisconnectP2sVpnConnections(this IP2sVpnGatewaysOperations operations, string resourceGroupName, string p2sVpnGatewayName, P2SVpnConnectionRequest request)
             {
-                operations.BeginDisconnectP2sVpnConnectionsAsync(resourceGroupName, p2sVpnGatewayName, request).GetAwaiter().GetResult();
+                return operations.BeginDisconnectP2sVpnConnectionsAsync(resourceGroupName, p2sVpnGatewayName, request).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -830,9 +839,12 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginDisconnectP2sVpnConnectionsAsync(this IP2sVpnGatewaysOperations operations, string resourceGroupName, string p2sVpnGatewayName, P2SVpnConnectionRequest request, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<P2sVpnGatewaysDisconnectP2sVpnConnectionsHeaders> BeginDisconnectP2sVpnConnectionsAsync(this IP2sVpnGatewaysOperations operations, string resourceGroupName, string p2sVpnGatewayName, P2SVpnConnectionRequest request, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginDisconnectP2sVpnConnectionsWithHttpMessagesAsync(resourceGroupName, p2sVpnGatewayName, request, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginDisconnectP2sVpnConnectionsWithHttpMessagesAsync(resourceGroupName, p2sVpnGatewayName, request, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>

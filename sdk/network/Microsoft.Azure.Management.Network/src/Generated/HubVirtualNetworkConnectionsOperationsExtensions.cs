@@ -90,9 +90,9 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='connectionName'>
             /// The name of the HubVirtualNetworkConnection.
             /// </param>
-            public static void Delete(this IHubVirtualNetworkConnectionsOperations operations, string resourceGroupName, string virtualHubName, string connectionName)
+            public static HubVirtualNetworkConnectionsDeleteHeaders Delete(this IHubVirtualNetworkConnectionsOperations operations, string resourceGroupName, string virtualHubName, string connectionName)
             {
-                operations.DeleteAsync(resourceGroupName, virtualHubName, connectionName).GetAwaiter().GetResult();
+                return operations.DeleteAsync(resourceGroupName, virtualHubName, connectionName).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -113,9 +113,12 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task DeleteAsync(this IHubVirtualNetworkConnectionsOperations operations, string resourceGroupName, string virtualHubName, string connectionName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<HubVirtualNetworkConnectionsDeleteHeaders> DeleteAsync(this IHubVirtualNetworkConnectionsOperations operations, string resourceGroupName, string virtualHubName, string connectionName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.DeleteWithHttpMessagesAsync(resourceGroupName, virtualHubName, connectionName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.DeleteWithHttpMessagesAsync(resourceGroupName, virtualHubName, connectionName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -273,9 +276,9 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='connectionName'>
             /// The name of the HubVirtualNetworkConnection.
             /// </param>
-            public static void BeginDelete(this IHubVirtualNetworkConnectionsOperations operations, string resourceGroupName, string virtualHubName, string connectionName)
+            public static HubVirtualNetworkConnectionsDeleteHeaders BeginDelete(this IHubVirtualNetworkConnectionsOperations operations, string resourceGroupName, string virtualHubName, string connectionName)
             {
-                operations.BeginDeleteAsync(resourceGroupName, virtualHubName, connectionName).GetAwaiter().GetResult();
+                return operations.BeginDeleteAsync(resourceGroupName, virtualHubName, connectionName).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -296,9 +299,12 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginDeleteAsync(this IHubVirtualNetworkConnectionsOperations operations, string resourceGroupName, string virtualHubName, string connectionName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<HubVirtualNetworkConnectionsDeleteHeaders> BeginDeleteAsync(this IHubVirtualNetworkConnectionsOperations operations, string resourceGroupName, string virtualHubName, string connectionName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, virtualHubName, connectionName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, virtualHubName, connectionName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>

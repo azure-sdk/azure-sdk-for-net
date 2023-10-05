@@ -167,9 +167,9 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='virtualHubName'>
             /// The name of the VirtualHub.
             /// </param>
-            public static void Delete(this IVirtualHubsOperations operations, string resourceGroupName, string virtualHubName)
+            public static VirtualHubsDeleteHeaders Delete(this IVirtualHubsOperations operations, string resourceGroupName, string virtualHubName)
             {
-                operations.DeleteAsync(resourceGroupName, virtualHubName).GetAwaiter().GetResult();
+                return operations.DeleteAsync(resourceGroupName, virtualHubName).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -187,9 +187,12 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task DeleteAsync(this IVirtualHubsOperations operations, string resourceGroupName, string virtualHubName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<VirtualHubsDeleteHeaders> DeleteAsync(this IVirtualHubsOperations operations, string resourceGroupName, string virtualHubName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.DeleteWithHttpMessagesAsync(resourceGroupName, virtualHubName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.DeleteWithHttpMessagesAsync(resourceGroupName, virtualHubName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -270,9 +273,9 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='effectiveRoutesParameters'>
             /// Parameters supplied to get the effective routes for a specific resource.
             /// </param>
-            public static void GetEffectiveVirtualHubRoutes(this IVirtualHubsOperations operations, string resourceGroupName, string virtualHubName, EffectiveRoutesParameters effectiveRoutesParameters = default(EffectiveRoutesParameters))
+            public static VirtualHubEffectiveRouteList GetEffectiveVirtualHubRoutes(this IVirtualHubsOperations operations, string resourceGroupName, string virtualHubName, EffectiveRoutesParameters effectiveRoutesParameters = default(EffectiveRoutesParameters))
             {
-                operations.GetEffectiveVirtualHubRoutesAsync(resourceGroupName, virtualHubName, effectiveRoutesParameters).GetAwaiter().GetResult();
+                return operations.GetEffectiveVirtualHubRoutesAsync(resourceGroupName, virtualHubName, effectiveRoutesParameters).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -294,9 +297,12 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task GetEffectiveVirtualHubRoutesAsync(this IVirtualHubsOperations operations, string resourceGroupName, string virtualHubName, EffectiveRoutesParameters effectiveRoutesParameters = default(EffectiveRoutesParameters), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<VirtualHubEffectiveRouteList> GetEffectiveVirtualHubRoutesAsync(this IVirtualHubsOperations operations, string resourceGroupName, string virtualHubName, EffectiveRoutesParameters effectiveRoutesParameters = default(EffectiveRoutesParameters), CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.GetEffectiveVirtualHubRoutesWithHttpMessagesAsync(resourceGroupName, virtualHubName, effectiveRoutesParameters, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.GetEffectiveVirtualHubRoutesWithHttpMessagesAsync(resourceGroupName, virtualHubName, effectiveRoutesParameters, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
             }
 
             /// <summary>
@@ -315,9 +321,9 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='getInboundRoutesParameters'>
             /// Parameters supplied to get the inbound routes for a connection resource.
             /// </param>
-            public static void GetInboundRoutes(this IVirtualHubsOperations operations, string resourceGroupName, string virtualHubName, GetInboundRoutesParameters getInboundRoutesParameters)
+            public static EffectiveRouteMapRouteList GetInboundRoutes(this IVirtualHubsOperations operations, string resourceGroupName, string virtualHubName, GetInboundRoutesParameters getInboundRoutesParameters)
             {
-                operations.GetInboundRoutesAsync(resourceGroupName, virtualHubName, getInboundRoutesParameters).GetAwaiter().GetResult();
+                return operations.GetInboundRoutesAsync(resourceGroupName, virtualHubName, getInboundRoutesParameters).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -339,9 +345,12 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task GetInboundRoutesAsync(this IVirtualHubsOperations operations, string resourceGroupName, string virtualHubName, GetInboundRoutesParameters getInboundRoutesParameters, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<EffectiveRouteMapRouteList> GetInboundRoutesAsync(this IVirtualHubsOperations operations, string resourceGroupName, string virtualHubName, GetInboundRoutesParameters getInboundRoutesParameters, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.GetInboundRoutesWithHttpMessagesAsync(resourceGroupName, virtualHubName, getInboundRoutesParameters, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.GetInboundRoutesWithHttpMessagesAsync(resourceGroupName, virtualHubName, getInboundRoutesParameters, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
             }
 
             /// <summary>
@@ -360,9 +369,9 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='getOutboundRoutesParameters'>
             /// Parameters supplied to get the outbound routes for a connection resource.
             /// </param>
-            public static void GetOutboundRoutes(this IVirtualHubsOperations operations, string resourceGroupName, string virtualHubName, GetOutboundRoutesParameters getOutboundRoutesParameters)
+            public static EffectiveRouteMapRouteList GetOutboundRoutes(this IVirtualHubsOperations operations, string resourceGroupName, string virtualHubName, GetOutboundRoutesParameters getOutboundRoutesParameters)
             {
-                operations.GetOutboundRoutesAsync(resourceGroupName, virtualHubName, getOutboundRoutesParameters).GetAwaiter().GetResult();
+                return operations.GetOutboundRoutesAsync(resourceGroupName, virtualHubName, getOutboundRoutesParameters).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -384,9 +393,12 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task GetOutboundRoutesAsync(this IVirtualHubsOperations operations, string resourceGroupName, string virtualHubName, GetOutboundRoutesParameters getOutboundRoutesParameters, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<EffectiveRouteMapRouteList> GetOutboundRoutesAsync(this IVirtualHubsOperations operations, string resourceGroupName, string virtualHubName, GetOutboundRoutesParameters getOutboundRoutesParameters, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.GetOutboundRoutesWithHttpMessagesAsync(resourceGroupName, virtualHubName, getOutboundRoutesParameters, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.GetOutboundRoutesWithHttpMessagesAsync(resourceGroupName, virtualHubName, getOutboundRoutesParameters, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
             }
 
             /// <summary>
@@ -449,9 +461,9 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='virtualHubName'>
             /// The name of the VirtualHub.
             /// </param>
-            public static void BeginDelete(this IVirtualHubsOperations operations, string resourceGroupName, string virtualHubName)
+            public static VirtualHubsDeleteHeaders BeginDelete(this IVirtualHubsOperations operations, string resourceGroupName, string virtualHubName)
             {
-                operations.BeginDeleteAsync(resourceGroupName, virtualHubName).GetAwaiter().GetResult();
+                return operations.BeginDeleteAsync(resourceGroupName, virtualHubName).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -469,9 +481,12 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginDeleteAsync(this IVirtualHubsOperations operations, string resourceGroupName, string virtualHubName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<VirtualHubsDeleteHeaders> BeginDeleteAsync(this IVirtualHubsOperations operations, string resourceGroupName, string virtualHubName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, virtualHubName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, virtualHubName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -490,9 +505,9 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='effectiveRoutesParameters'>
             /// Parameters supplied to get the effective routes for a specific resource.
             /// </param>
-            public static void BeginGetEffectiveVirtualHubRoutes(this IVirtualHubsOperations operations, string resourceGroupName, string virtualHubName, EffectiveRoutesParameters effectiveRoutesParameters = default(EffectiveRoutesParameters))
+            public static VirtualHubEffectiveRouteList BeginGetEffectiveVirtualHubRoutes(this IVirtualHubsOperations operations, string resourceGroupName, string virtualHubName, EffectiveRoutesParameters effectiveRoutesParameters = default(EffectiveRoutesParameters))
             {
-                operations.BeginGetEffectiveVirtualHubRoutesAsync(resourceGroupName, virtualHubName, effectiveRoutesParameters).GetAwaiter().GetResult();
+                return operations.BeginGetEffectiveVirtualHubRoutesAsync(resourceGroupName, virtualHubName, effectiveRoutesParameters).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -514,9 +529,12 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginGetEffectiveVirtualHubRoutesAsync(this IVirtualHubsOperations operations, string resourceGroupName, string virtualHubName, EffectiveRoutesParameters effectiveRoutesParameters = default(EffectiveRoutesParameters), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<VirtualHubEffectiveRouteList> BeginGetEffectiveVirtualHubRoutesAsync(this IVirtualHubsOperations operations, string resourceGroupName, string virtualHubName, EffectiveRoutesParameters effectiveRoutesParameters = default(EffectiveRoutesParameters), CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginGetEffectiveVirtualHubRoutesWithHttpMessagesAsync(resourceGroupName, virtualHubName, effectiveRoutesParameters, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginGetEffectiveVirtualHubRoutesWithHttpMessagesAsync(resourceGroupName, virtualHubName, effectiveRoutesParameters, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
             }
 
             /// <summary>
@@ -535,9 +553,9 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='getInboundRoutesParameters'>
             /// Parameters supplied to get the inbound routes for a connection resource.
             /// </param>
-            public static void BeginGetInboundRoutes(this IVirtualHubsOperations operations, string resourceGroupName, string virtualHubName, GetInboundRoutesParameters getInboundRoutesParameters)
+            public static EffectiveRouteMapRouteList BeginGetInboundRoutes(this IVirtualHubsOperations operations, string resourceGroupName, string virtualHubName, GetInboundRoutesParameters getInboundRoutesParameters)
             {
-                operations.BeginGetInboundRoutesAsync(resourceGroupName, virtualHubName, getInboundRoutesParameters).GetAwaiter().GetResult();
+                return operations.BeginGetInboundRoutesAsync(resourceGroupName, virtualHubName, getInboundRoutesParameters).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -559,9 +577,12 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginGetInboundRoutesAsync(this IVirtualHubsOperations operations, string resourceGroupName, string virtualHubName, GetInboundRoutesParameters getInboundRoutesParameters, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<EffectiveRouteMapRouteList> BeginGetInboundRoutesAsync(this IVirtualHubsOperations operations, string resourceGroupName, string virtualHubName, GetInboundRoutesParameters getInboundRoutesParameters, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginGetInboundRoutesWithHttpMessagesAsync(resourceGroupName, virtualHubName, getInboundRoutesParameters, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginGetInboundRoutesWithHttpMessagesAsync(resourceGroupName, virtualHubName, getInboundRoutesParameters, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
             }
 
             /// <summary>
@@ -580,9 +601,9 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='getOutboundRoutesParameters'>
             /// Parameters supplied to get the outbound routes for a connection resource.
             /// </param>
-            public static void BeginGetOutboundRoutes(this IVirtualHubsOperations operations, string resourceGroupName, string virtualHubName, GetOutboundRoutesParameters getOutboundRoutesParameters)
+            public static EffectiveRouteMapRouteList BeginGetOutboundRoutes(this IVirtualHubsOperations operations, string resourceGroupName, string virtualHubName, GetOutboundRoutesParameters getOutboundRoutesParameters)
             {
-                operations.BeginGetOutboundRoutesAsync(resourceGroupName, virtualHubName, getOutboundRoutesParameters).GetAwaiter().GetResult();
+                return operations.BeginGetOutboundRoutesAsync(resourceGroupName, virtualHubName, getOutboundRoutesParameters).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -604,9 +625,12 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginGetOutboundRoutesAsync(this IVirtualHubsOperations operations, string resourceGroupName, string virtualHubName, GetOutboundRoutesParameters getOutboundRoutesParameters, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<EffectiveRouteMapRouteList> BeginGetOutboundRoutesAsync(this IVirtualHubsOperations operations, string resourceGroupName, string virtualHubName, GetOutboundRoutesParameters getOutboundRoutesParameters, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginGetOutboundRoutesWithHttpMessagesAsync(resourceGroupName, virtualHubName, getOutboundRoutesParameters, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginGetOutboundRoutesWithHttpMessagesAsync(resourceGroupName, virtualHubName, getOutboundRoutesParameters, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
             }
 
             /// <summary>

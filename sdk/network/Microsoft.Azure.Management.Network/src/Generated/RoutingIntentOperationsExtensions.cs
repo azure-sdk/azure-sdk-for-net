@@ -136,9 +136,9 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='routingIntentName'>
             /// The name of the RoutingIntent.
             /// </param>
-            public static void Delete(this IRoutingIntentOperations operations, string resourceGroupName, string virtualHubName, string routingIntentName)
+            public static RoutingIntentDeleteHeaders Delete(this IRoutingIntentOperations operations, string resourceGroupName, string virtualHubName, string routingIntentName)
             {
-                operations.DeleteAsync(resourceGroupName, virtualHubName, routingIntentName).GetAwaiter().GetResult();
+                return operations.DeleteAsync(resourceGroupName, virtualHubName, routingIntentName).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -159,9 +159,12 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task DeleteAsync(this IRoutingIntentOperations operations, string resourceGroupName, string virtualHubName, string routingIntentName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<RoutingIntentDeleteHeaders> DeleteAsync(this IRoutingIntentOperations operations, string resourceGroupName, string virtualHubName, string routingIntentName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.DeleteWithHttpMessagesAsync(resourceGroupName, virtualHubName, routingIntentName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.DeleteWithHttpMessagesAsync(resourceGroupName, virtualHubName, routingIntentName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -275,9 +278,9 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='routingIntentName'>
             /// The name of the RoutingIntent.
             /// </param>
-            public static void BeginDelete(this IRoutingIntentOperations operations, string resourceGroupName, string virtualHubName, string routingIntentName)
+            public static RoutingIntentDeleteHeaders BeginDelete(this IRoutingIntentOperations operations, string resourceGroupName, string virtualHubName, string routingIntentName)
             {
-                operations.BeginDeleteAsync(resourceGroupName, virtualHubName, routingIntentName).GetAwaiter().GetResult();
+                return operations.BeginDeleteAsync(resourceGroupName, virtualHubName, routingIntentName).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -298,9 +301,12 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginDeleteAsync(this IRoutingIntentOperations operations, string resourceGroupName, string virtualHubName, string routingIntentName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<RoutingIntentDeleteHeaders> BeginDeleteAsync(this IRoutingIntentOperations operations, string resourceGroupName, string virtualHubName, string routingIntentName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, virtualHubName, routingIntentName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, virtualHubName, routingIntentName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>

@@ -38,9 +38,9 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='request'>
             /// Parameters supplied to download vpn-sites configuration.
             /// </param>
-            public static void Download(this IVpnSitesConfigurationOperations operations, string resourceGroupName, string virtualWANName, GetVpnSitesConfigurationRequest request)
+            public static VpnSitesConfigurationDownloadHeaders Download(this IVpnSitesConfigurationOperations operations, string resourceGroupName, string virtualWANName, GetVpnSitesConfigurationRequest request)
             {
-                operations.DownloadAsync(resourceGroupName, virtualWANName, request).GetAwaiter().GetResult();
+                return operations.DownloadAsync(resourceGroupName, virtualWANName, request).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -63,9 +63,12 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task DownloadAsync(this IVpnSitesConfigurationOperations operations, string resourceGroupName, string virtualWANName, GetVpnSitesConfigurationRequest request, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<VpnSitesConfigurationDownloadHeaders> DownloadAsync(this IVpnSitesConfigurationOperations operations, string resourceGroupName, string virtualWANName, GetVpnSitesConfigurationRequest request, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.DownloadWithHttpMessagesAsync(resourceGroupName, virtualWANName, request, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.DownloadWithHttpMessagesAsync(resourceGroupName, virtualWANName, request, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -85,9 +88,9 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='request'>
             /// Parameters supplied to download vpn-sites configuration.
             /// </param>
-            public static void BeginDownload(this IVpnSitesConfigurationOperations operations, string resourceGroupName, string virtualWANName, GetVpnSitesConfigurationRequest request)
+            public static VpnSitesConfigurationDownloadHeaders BeginDownload(this IVpnSitesConfigurationOperations operations, string resourceGroupName, string virtualWANName, GetVpnSitesConfigurationRequest request)
             {
-                operations.BeginDownloadAsync(resourceGroupName, virtualWANName, request).GetAwaiter().GetResult();
+                return operations.BeginDownloadAsync(resourceGroupName, virtualWANName, request).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -110,9 +113,12 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginDownloadAsync(this IVpnSitesConfigurationOperations operations, string resourceGroupName, string virtualWANName, GetVpnSitesConfigurationRequest request, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<VpnSitesConfigurationDownloadHeaders> BeginDownloadAsync(this IVpnSitesConfigurationOperations operations, string resourceGroupName, string virtualWANName, GetVpnSitesConfigurationRequest request, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginDownloadWithHttpMessagesAsync(resourceGroupName, virtualWANName, request, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginDownloadWithHttpMessagesAsync(resourceGroupName, virtualWANName, request, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
     }

@@ -50,7 +50,7 @@ namespace Microsoft.Azure.Management.Network
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse> ResetConnectionWithHttpMessagesAsync(string resourceGroupName, string gatewayName, string connectionName, string linkConnectionName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationHeaderResponse<VpnLinkConnectionsResetConnectionHeaders>> ResetConnectionWithHttpMessagesAsync(string resourceGroupName, string gatewayName, string connectionName, string linkConnectionName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Lists IKE Security Associations for Vpn Site Link Connection in the
         /// specified resource group.
@@ -82,7 +82,7 @@ namespace Microsoft.Azure.Management.Network
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<string>> GetIkeSasWithHttpMessagesAsync(string resourceGroupName, string gatewayName, string connectionName, string linkConnectionName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<string,VpnLinkConnectionsGetIkeSasHeaders>> GetIkeSasWithHttpMessagesAsync(string resourceGroupName, string gatewayName, string connectionName, string linkConnectionName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Retrieves all vpn site link connections for a particular virtual
         /// wan vpn gateway vpn connection.
@@ -139,7 +139,7 @@ namespace Microsoft.Azure.Management.Network
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse> BeginResetConnectionWithHttpMessagesAsync(string resourceGroupName, string gatewayName, string connectionName, string linkConnectionName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationHeaderResponse<VpnLinkConnectionsResetConnectionHeaders>> BeginResetConnectionWithHttpMessagesAsync(string resourceGroupName, string gatewayName, string connectionName, string linkConnectionName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Lists IKE Security Associations for Vpn Site Link Connection in the
         /// specified resource group.
@@ -171,7 +171,7 @@ namespace Microsoft.Azure.Management.Network
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<string>> BeginGetIkeSasWithHttpMessagesAsync(string resourceGroupName, string gatewayName, string connectionName, string linkConnectionName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<string,VpnLinkConnectionsGetIkeSasHeaders>> BeginGetIkeSasWithHttpMessagesAsync(string resourceGroupName, string gatewayName, string connectionName, string linkConnectionName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Retrieves all vpn site link connections for a particular virtual
         /// wan vpn gateway vpn connection.

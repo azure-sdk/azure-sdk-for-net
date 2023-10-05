@@ -136,9 +136,9 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='ipConfigName'>
             /// The name of the ipconfig.
             /// </param>
-            public static void Delete(this IVirtualHubIpConfigurationOperations operations, string resourceGroupName, string virtualHubName, string ipConfigName)
+            public static VirtualHubIpConfigurationDeleteHeaders Delete(this IVirtualHubIpConfigurationOperations operations, string resourceGroupName, string virtualHubName, string ipConfigName)
             {
-                operations.DeleteAsync(resourceGroupName, virtualHubName, ipConfigName).GetAwaiter().GetResult();
+                return operations.DeleteAsync(resourceGroupName, virtualHubName, ipConfigName).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -159,9 +159,12 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task DeleteAsync(this IVirtualHubIpConfigurationOperations operations, string resourceGroupName, string virtualHubName, string ipConfigName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<VirtualHubIpConfigurationDeleteHeaders> DeleteAsync(this IVirtualHubIpConfigurationOperations operations, string resourceGroupName, string virtualHubName, string ipConfigName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.DeleteWithHttpMessagesAsync(resourceGroupName, virtualHubName, ipConfigName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.DeleteWithHttpMessagesAsync(resourceGroupName, virtualHubName, ipConfigName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -273,9 +276,9 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='ipConfigName'>
             /// The name of the ipconfig.
             /// </param>
-            public static void BeginDelete(this IVirtualHubIpConfigurationOperations operations, string resourceGroupName, string virtualHubName, string ipConfigName)
+            public static VirtualHubIpConfigurationDeleteHeaders BeginDelete(this IVirtualHubIpConfigurationOperations operations, string resourceGroupName, string virtualHubName, string ipConfigName)
             {
-                operations.BeginDeleteAsync(resourceGroupName, virtualHubName, ipConfigName).GetAwaiter().GetResult();
+                return operations.BeginDeleteAsync(resourceGroupName, virtualHubName, ipConfigName).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -296,9 +299,12 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginDeleteAsync(this IVirtualHubIpConfigurationOperations operations, string resourceGroupName, string virtualHubName, string ipConfigName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<VirtualHubIpConfigurationDeleteHeaders> BeginDeleteAsync(this IVirtualHubIpConfigurationOperations operations, string resourceGroupName, string virtualHubName, string ipConfigName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, virtualHubName, ipConfigName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, virtualHubName, ipConfigName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>

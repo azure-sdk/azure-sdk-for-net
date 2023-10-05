@@ -167,9 +167,9 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='gatewayName'>
             /// The name of the gateway.
             /// </param>
-            public static void Delete(this IVpnGatewaysOperations operations, string resourceGroupName, string gatewayName)
+            public static VpnGatewaysDeleteHeaders Delete(this IVpnGatewaysOperations operations, string resourceGroupName, string gatewayName)
             {
-                operations.DeleteAsync(resourceGroupName, gatewayName).GetAwaiter().GetResult();
+                return operations.DeleteAsync(resourceGroupName, gatewayName).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -187,9 +187,12 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task DeleteAsync(this IVpnGatewaysOperations operations, string resourceGroupName, string gatewayName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<VpnGatewaysDeleteHeaders> DeleteAsync(this IVpnGatewaysOperations operations, string resourceGroupName, string gatewayName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.DeleteWithHttpMessagesAsync(resourceGroupName, gatewayName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.DeleteWithHttpMessagesAsync(resourceGroupName, gatewayName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -502,9 +505,9 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='gatewayName'>
             /// The name of the gateway.
             /// </param>
-            public static void BeginDelete(this IVpnGatewaysOperations operations, string resourceGroupName, string gatewayName)
+            public static VpnGatewaysDeleteHeaders BeginDelete(this IVpnGatewaysOperations operations, string resourceGroupName, string gatewayName)
             {
-                operations.BeginDeleteAsync(resourceGroupName, gatewayName).GetAwaiter().GetResult();
+                return operations.BeginDeleteAsync(resourceGroupName, gatewayName).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -522,9 +525,12 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginDeleteAsync(this IVpnGatewaysOperations operations, string resourceGroupName, string gatewayName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<VpnGatewaysDeleteHeaders> BeginDeleteAsync(this IVpnGatewaysOperations operations, string resourceGroupName, string gatewayName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, gatewayName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, gatewayName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>

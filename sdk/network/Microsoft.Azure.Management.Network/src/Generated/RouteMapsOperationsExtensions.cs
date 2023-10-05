@@ -134,9 +134,9 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='routeMapName'>
             /// The name of the RouteMap.
             /// </param>
-            public static void Delete(this IRouteMapsOperations operations, string resourceGroupName, string virtualHubName, string routeMapName)
+            public static RouteMapsDeleteHeaders Delete(this IRouteMapsOperations operations, string resourceGroupName, string virtualHubName, string routeMapName)
             {
-                operations.DeleteAsync(resourceGroupName, virtualHubName, routeMapName).GetAwaiter().GetResult();
+                return operations.DeleteAsync(resourceGroupName, virtualHubName, routeMapName).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -157,9 +157,12 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task DeleteAsync(this IRouteMapsOperations operations, string resourceGroupName, string virtualHubName, string routeMapName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<RouteMapsDeleteHeaders> DeleteAsync(this IRouteMapsOperations operations, string resourceGroupName, string virtualHubName, string routeMapName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.DeleteWithHttpMessagesAsync(resourceGroupName, virtualHubName, routeMapName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.DeleteWithHttpMessagesAsync(resourceGroupName, virtualHubName, routeMapName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -269,9 +272,9 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='routeMapName'>
             /// The name of the RouteMap.
             /// </param>
-            public static void BeginDelete(this IRouteMapsOperations operations, string resourceGroupName, string virtualHubName, string routeMapName)
+            public static RouteMapsDeleteHeaders BeginDelete(this IRouteMapsOperations operations, string resourceGroupName, string virtualHubName, string routeMapName)
             {
-                operations.BeginDeleteAsync(resourceGroupName, virtualHubName, routeMapName).GetAwaiter().GetResult();
+                return operations.BeginDeleteAsync(resourceGroupName, virtualHubName, routeMapName).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -292,9 +295,12 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginDeleteAsync(this IRouteMapsOperations operations, string resourceGroupName, string virtualHubName, string routeMapName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<RouteMapsDeleteHeaders> BeginDeleteAsync(this IRouteMapsOperations operations, string resourceGroupName, string virtualHubName, string routeMapName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, virtualHubName, routeMapName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, virtualHubName, routeMapName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>

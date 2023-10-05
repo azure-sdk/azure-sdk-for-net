@@ -39,9 +39,9 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='linkConnectionName'>
             /// The name of the vpn link connection.
             /// </param>
-            public static void ResetConnection(this IVpnLinkConnectionsOperations operations, string resourceGroupName, string gatewayName, string connectionName, string linkConnectionName)
+            public static VpnLinkConnectionsResetConnectionHeaders ResetConnection(this IVpnLinkConnectionsOperations operations, string resourceGroupName, string gatewayName, string connectionName, string linkConnectionName)
             {
-                operations.ResetConnectionAsync(resourceGroupName, gatewayName, connectionName, linkConnectionName).GetAwaiter().GetResult();
+                return operations.ResetConnectionAsync(resourceGroupName, gatewayName, connectionName, linkConnectionName).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -65,9 +65,12 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task ResetConnectionAsync(this IVpnLinkConnectionsOperations operations, string resourceGroupName, string gatewayName, string connectionName, string linkConnectionName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<VpnLinkConnectionsResetConnectionHeaders> ResetConnectionAsync(this IVpnLinkConnectionsOperations operations, string resourceGroupName, string gatewayName, string connectionName, string linkConnectionName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.ResetConnectionWithHttpMessagesAsync(resourceGroupName, gatewayName, connectionName, linkConnectionName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.ResetConnectionWithHttpMessagesAsync(resourceGroupName, gatewayName, connectionName, linkConnectionName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -190,9 +193,9 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='linkConnectionName'>
             /// The name of the vpn link connection.
             /// </param>
-            public static void BeginResetConnection(this IVpnLinkConnectionsOperations operations, string resourceGroupName, string gatewayName, string connectionName, string linkConnectionName)
+            public static VpnLinkConnectionsResetConnectionHeaders BeginResetConnection(this IVpnLinkConnectionsOperations operations, string resourceGroupName, string gatewayName, string connectionName, string linkConnectionName)
             {
-                operations.BeginResetConnectionAsync(resourceGroupName, gatewayName, connectionName, linkConnectionName).GetAwaiter().GetResult();
+                return operations.BeginResetConnectionAsync(resourceGroupName, gatewayName, connectionName, linkConnectionName).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -216,9 +219,12 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginResetConnectionAsync(this IVpnLinkConnectionsOperations operations, string resourceGroupName, string gatewayName, string connectionName, string linkConnectionName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<VpnLinkConnectionsResetConnectionHeaders> BeginResetConnectionAsync(this IVpnLinkConnectionsOperations operations, string resourceGroupName, string gatewayName, string connectionName, string linkConnectionName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginResetConnectionWithHttpMessagesAsync(resourceGroupName, gatewayName, connectionName, linkConnectionName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginResetConnectionWithHttpMessagesAsync(resourceGroupName, gatewayName, connectionName, linkConnectionName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>

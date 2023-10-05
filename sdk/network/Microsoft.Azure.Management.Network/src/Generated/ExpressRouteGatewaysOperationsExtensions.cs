@@ -229,9 +229,9 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='expressRouteGatewayName'>
             /// The name of the ExpressRoute gateway.
             /// </param>
-            public static void Delete(this IExpressRouteGatewaysOperations operations, string resourceGroupName, string expressRouteGatewayName)
+            public static ExpressRouteGatewaysDeleteHeaders Delete(this IExpressRouteGatewaysOperations operations, string resourceGroupName, string expressRouteGatewayName)
             {
-                operations.DeleteAsync(resourceGroupName, expressRouteGatewayName).GetAwaiter().GetResult();
+                return operations.DeleteAsync(resourceGroupName, expressRouteGatewayName).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -251,9 +251,12 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task DeleteAsync(this IExpressRouteGatewaysOperations operations, string resourceGroupName, string expressRouteGatewayName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ExpressRouteGatewaysDeleteHeaders> DeleteAsync(this IExpressRouteGatewaysOperations operations, string resourceGroupName, string expressRouteGatewayName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.DeleteWithHttpMessagesAsync(resourceGroupName, expressRouteGatewayName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.DeleteWithHttpMessagesAsync(resourceGroupName, expressRouteGatewayName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -362,9 +365,9 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='expressRouteGatewayName'>
             /// The name of the ExpressRoute gateway.
             /// </param>
-            public static void BeginDelete(this IExpressRouteGatewaysOperations operations, string resourceGroupName, string expressRouteGatewayName)
+            public static ExpressRouteGatewaysDeleteHeaders BeginDelete(this IExpressRouteGatewaysOperations operations, string resourceGroupName, string expressRouteGatewayName)
             {
-                operations.BeginDeleteAsync(resourceGroupName, expressRouteGatewayName).GetAwaiter().GetResult();
+                return operations.BeginDeleteAsync(resourceGroupName, expressRouteGatewayName).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -384,9 +387,12 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginDeleteAsync(this IExpressRouteGatewaysOperations operations, string resourceGroupName, string expressRouteGatewayName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ExpressRouteGatewaysDeleteHeaders> BeginDeleteAsync(this IExpressRouteGatewaysOperations operations, string resourceGroupName, string expressRouteGatewayName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, expressRouteGatewayName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, expressRouteGatewayName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
     }

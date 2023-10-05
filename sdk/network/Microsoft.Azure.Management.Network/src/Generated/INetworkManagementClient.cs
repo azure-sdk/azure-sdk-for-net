@@ -701,6 +701,11 @@ namespace Microsoft.Azure.Management.Network
         IExpressRouteConnectionsOperations ExpressRouteConnections { get; }
 
         /// <summary>
+        /// Gets the INetworkVirtualApplianceConnectionsOperations.
+        /// </summary>
+        INetworkVirtualApplianceConnectionsOperations NetworkVirtualApplianceConnections { get; }
+
+        /// <summary>
         /// Gets the IVirtualHubBgpConnectionOperations.
         /// </summary>
         IVirtualHubBgpConnectionOperations VirtualHubBgpConnection { get; }
@@ -1001,7 +1006,7 @@ namespace Microsoft.Azure.Management.Network
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task<AzureOperationResponse<VpnProfileResponse>> GeneratevirtualwanvpnserverconfigurationvpnprofileWithHttpMessagesAsync(string resourceGroupName, string virtualWANName, VirtualWanVpnProfileParameters vpnClientParams, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<VpnProfileResponse,GeneratevirtualwanvpnserverconfigurationvpnprofileHeaders>> GeneratevirtualwanvpnserverconfigurationvpnprofileWithHttpMessagesAsync(string resourceGroupName, string virtualWANName, VirtualWanVpnProfileParameters vpnClientParams, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
         /// Creates a Bastion Shareable Links for all the VMs specified in the
@@ -1084,7 +1089,7 @@ namespace Microsoft.Azure.Management.Network
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task<AzureOperationResponse<VpnProfileResponse>> BeginGeneratevirtualwanvpnserverconfigurationvpnprofileWithHttpMessagesAsync(string resourceGroupName, string virtualWANName, VirtualWanVpnProfileParameters vpnClientParams, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<VpnProfileResponse,GeneratevirtualwanvpnserverconfigurationvpnprofileHeaders>> BeginGeneratevirtualwanvpnserverconfigurationvpnprofileWithHttpMessagesAsync(string resourceGroupName, string virtualWANName, VirtualWanVpnProfileParameters vpnClientParams, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
         /// Creates a Bastion Shareable Links for all the VMs specified in the
