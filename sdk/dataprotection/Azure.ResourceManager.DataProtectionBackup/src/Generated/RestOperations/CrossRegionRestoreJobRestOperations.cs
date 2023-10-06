@@ -16,20 +16,20 @@ using Azure.ResourceManager.DataProtectionBackup.Models;
 
 namespace Azure.ResourceManager.DataProtectionBackup
 {
-    internal partial class RestorableTimeRangesRestOperations
+    internal partial class CrossRegionRestoreJobRestOperations
     {
         private readonly TelemetryDetails _userAgent;
         private readonly HttpPipeline _pipeline;
         private readonly Uri _endpoint;
         private readonly string _apiVersion;
 
-        /// <summary> Initializes a new instance of RestorableTimeRangesRestOperations. </summary>
+        /// <summary> Initializes a new instance of CrossRegionRestoreJobRestOperations. </summary>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
         /// <param name="applicationId"> The application id to use for user agent. </param>
         /// <param name="endpoint"> server parameter. </param>
         /// <param name="apiVersion"> Api Version. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="pipeline"/> or <paramref name="apiVersion"/> is null. </exception>
-        public RestorableTimeRangesRestOperations(HttpPipeline pipeline, string applicationId, Uri endpoint = null, string apiVersion = default)
+        public CrossRegionRestoreJobRestOperations(HttpPipeline pipeline, string applicationId, Uri endpoint = null, string apiVersion = default)
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
@@ -37,7 +37,7 @@ namespace Azure.ResourceManager.DataProtectionBackup
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
-        internal HttpMessage CreateFindRequest(string subscriptionId, string resourceGroupName, string vaultName, string backupInstanceName, BackupFindRestorableTimeRangeContent content)
+        internal HttpMessage CreateGetRequest(string subscriptionId, string resourceGroupName, AzureLocation location, CrossRegionRestoreJobContent content)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -48,11 +48,9 @@ namespace Azure.ResourceManager.DataProtectionBackup
             uri.AppendPath(subscriptionId, true);
             uri.AppendPath("/resourceGroups/", false);
             uri.AppendPath(resourceGroupName, true);
-            uri.AppendPath("/providers/Microsoft.DataProtection/backupVaults/", false);
-            uri.AppendPath(vaultName, true);
-            uri.AppendPath("/backupInstances/", false);
-            uri.AppendPath(backupInstanceName, true);
-            uri.AppendPath("/findRestorableTimeRanges", false);
+            uri.AppendPath("/providers/Microsoft.DataProtection/locations/", false);
+            uri.AppendPath(location, true);
+            uri.AppendPath("/fetchCrossRegionRestoreJob", false);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
@@ -66,29 +64,26 @@ namespace Azure.ResourceManager.DataProtectionBackup
 
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
-        /// <param name="vaultName"> The name of the backup vault. </param>
-        /// <param name="backupInstanceName"> The name of the backup instance. </param>
+        /// <param name="location"> The String to use. </param>
         /// <param name="content"> Request body for operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="vaultName"/>, <paramref name="backupInstanceName"/> or <paramref name="content"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="vaultName"/> or <paramref name="backupInstanceName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<BackupFindRestorableTimeRangeResult>> FindAsync(string subscriptionId, string resourceGroupName, string vaultName, string backupInstanceName, BackupFindRestorableTimeRangeContent content, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> or <paramref name="resourceGroupName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<DataProtectionBackupJobData>> GetAsync(string subscriptionId, string resourceGroupName, AzureLocation location, CrossRegionRestoreJobContent content, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(vaultName, nameof(vaultName));
-            Argument.AssertNotNullOrEmpty(backupInstanceName, nameof(backupInstanceName));
             Argument.AssertNotNull(content, nameof(content));
 
-            using var message = CreateFindRequest(subscriptionId, resourceGroupName, vaultName, backupInstanceName, content);
+            using var message = CreateGetRequest(subscriptionId, resourceGroupName, location, content);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
                 case 200:
                     {
-                        BackupFindRestorableTimeRangeResult value = default;
+                        DataProtectionBackupJobData value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = BackupFindRestorableTimeRangeResult.DeserializeBackupFindRestorableTimeRangeResult(document.RootElement);
+                        value = DataProtectionBackupJobData.DeserializeDataProtectionBackupJobData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -98,29 +93,26 @@ namespace Azure.ResourceManager.DataProtectionBackup
 
         /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
-        /// <param name="vaultName"> The name of the backup vault. </param>
-        /// <param name="backupInstanceName"> The name of the backup instance. </param>
+        /// <param name="location"> The String to use. </param>
         /// <param name="content"> Request body for operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="vaultName"/>, <paramref name="backupInstanceName"/> or <paramref name="content"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="vaultName"/> or <paramref name="backupInstanceName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<BackupFindRestorableTimeRangeResult> Find(string subscriptionId, string resourceGroupName, string vaultName, string backupInstanceName, BackupFindRestorableTimeRangeContent content, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/> or <paramref name="resourceGroupName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<DataProtectionBackupJobData> Get(string subscriptionId, string resourceGroupName, AzureLocation location, CrossRegionRestoreJobContent content, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
-            Argument.AssertNotNullOrEmpty(vaultName, nameof(vaultName));
-            Argument.AssertNotNullOrEmpty(backupInstanceName, nameof(backupInstanceName));
             Argument.AssertNotNull(content, nameof(content));
 
-            using var message = CreateFindRequest(subscriptionId, resourceGroupName, vaultName, backupInstanceName, content);
+            using var message = CreateGetRequest(subscriptionId, resourceGroupName, location, content);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
                 case 200:
                     {
-                        BackupFindRestorableTimeRangeResult value = default;
+                        DataProtectionBackupJobData value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = BackupFindRestorableTimeRangeResult.DeserializeBackupFindRestorableTimeRangeResult(document.RootElement);
+                        value = DataProtectionBackupJobData.DeserializeDataProtectionBackupJobData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
