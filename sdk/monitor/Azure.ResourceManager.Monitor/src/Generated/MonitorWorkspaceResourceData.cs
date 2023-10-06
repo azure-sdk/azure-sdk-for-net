@@ -34,12 +34,12 @@ namespace Azure.ResourceManager.Monitor
         /// <param name="tags"> The tags. </param>
         /// <param name="location"> The location. </param>
         /// <param name="etag"> Resource entity tag (ETag). </param>
-        /// <param name="accountId"> The immutable ID of the Azure Monitor workspace. This property is read-only. </param>
-        /// <param name="metrics"> Information about metrics for the Azure Monitor workspace. </param>
-        /// <param name="provisioningState"> The provisioning state of the Azure Monitor workspace. Set to Succeeded if everything is healthy. </param>
+        /// <param name="accountId"> The immutable Id of the Azure Monitor Workspace. This property is read-only. </param>
+        /// <param name="metrics"> Properties related to the metrics container in the Azure Monitor Workspace. </param>
+        /// <param name="provisioningState"> The provisioning state of the Azure Monitor Workspace. Set to Succeeded if everything is healthy. </param>
         /// <param name="defaultIngestionSettings"> The Data Collection Rule and Endpoint used for ingestion by default. </param>
         /// <param name="privateEndpointConnections"> List of private endpoint connections. </param>
-        /// <param name="publicNetworkAccess"> Gets or sets allow or disallow public network access to workspace. </param>
+        /// <param name="publicNetworkAccess"> Gets or sets allow or disallow public network access to Azure Monitor Workspace. </param>
         internal MonitorWorkspaceResourceData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ETag? etag, string accountId, MonitorWorkspaceMetrics metrics, MonitorProvisioningState? provisioningState, MonitorWorkspaceDefaultIngestionSettings defaultIngestionSettings, IReadOnlyList<MonitorWorkspacePrivateEndpointConnection> privateEndpointConnections, MonitorWorkspacePublicNetworkAccess? publicNetworkAccess) : base(id, name, resourceType, systemData, tags, location)
         {
             ETag = etag;
@@ -53,17 +53,17 @@ namespace Azure.ResourceManager.Monitor
 
         /// <summary> Resource entity tag (ETag). </summary>
         public ETag? ETag { get; }
-        /// <summary> The immutable ID of the Azure Monitor workspace. This property is read-only. </summary>
+        /// <summary> The immutable Id of the Azure Monitor Workspace. This property is read-only. </summary>
         public string AccountId { get; }
-        /// <summary> Information about metrics for the Azure Monitor workspace. </summary>
+        /// <summary> Properties related to the metrics container in the Azure Monitor Workspace. </summary>
         public MonitorWorkspaceMetrics Metrics { get; }
-        /// <summary> The provisioning state of the Azure Monitor workspace. Set to Succeeded if everything is healthy. </summary>
+        /// <summary> The provisioning state of the Azure Monitor Workspace. Set to Succeeded if everything is healthy. </summary>
         public MonitorProvisioningState? ProvisioningState { get; }
         /// <summary> The Data Collection Rule and Endpoint used for ingestion by default. </summary>
         public MonitorWorkspaceDefaultIngestionSettings DefaultIngestionSettings { get; }
         /// <summary> List of private endpoint connections. </summary>
         public IReadOnlyList<MonitorWorkspacePrivateEndpointConnection> PrivateEndpointConnections { get; }
-        /// <summary> Gets or sets allow or disallow public network access to workspace. </summary>
+        /// <summary> Gets or sets allow or disallow public network access to Azure Monitor Workspace. </summary>
         public MonitorWorkspacePublicNetworkAccess? PublicNetworkAccess { get; }
     }
 }

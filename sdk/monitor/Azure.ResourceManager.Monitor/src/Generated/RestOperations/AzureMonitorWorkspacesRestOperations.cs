@@ -56,7 +56,7 @@ namespace Azure.ResourceManager.Monitor
             return message;
         }
 
-        /// <summary> Lists all workspaces in the specified resource group. </summary>
+        /// <summary> Lists all Azure Monitor Workspaces in the specified resource group. </summary>
         /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -83,7 +83,7 @@ namespace Azure.ResourceManager.Monitor
             }
         }
 
-        /// <summary> Lists all workspaces in the specified resource group. </summary>
+        /// <summary> Lists all Azure Monitor Workspaces in the specified resource group. </summary>
         /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -127,7 +127,7 @@ namespace Azure.ResourceManager.Monitor
             return message;
         }
 
-        /// <summary> Lists all workspaces in the specified subscription. </summary>
+        /// <summary> Lists all Azure Monitor Workspaces in the specified subscription. </summary>
         /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> is null. </exception>
@@ -152,7 +152,7 @@ namespace Azure.ResourceManager.Monitor
             }
         }
 
-        /// <summary> Lists all workspaces in the specified subscription. </summary>
+        /// <summary> Lists all Azure Monitor Workspaces in the specified subscription. </summary>
         /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> is null. </exception>
@@ -197,10 +197,10 @@ namespace Azure.ResourceManager.Monitor
             return message;
         }
 
-        /// <summary> Returns the specific Azure Monitor workspace. </summary>
+        /// <summary> Returns the specified Azure Monitor Workspace. </summary>
         /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
-        /// <param name="azureMonitorWorkspaceName"> The name of the Azure Monitor workspace.  The name is case insensitive. </param>
+        /// <param name="azureMonitorWorkspaceName"> The name of the Azure Monitor Workspace. The name is case insensitive. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="azureMonitorWorkspaceName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="azureMonitorWorkspaceName"/> is an empty string, and was expected to be non-empty. </exception>
@@ -228,10 +228,10 @@ namespace Azure.ResourceManager.Monitor
             }
         }
 
-        /// <summary> Returns the specific Azure Monitor workspace. </summary>
+        /// <summary> Returns the specified Azure Monitor Workspace. </summary>
         /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
-        /// <param name="azureMonitorWorkspaceName"> The name of the Azure Monitor workspace.  The name is case insensitive. </param>
+        /// <param name="azureMonitorWorkspaceName"> The name of the Azure Monitor Workspace. The name is case insensitive. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="azureMonitorWorkspaceName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="azureMonitorWorkspaceName"/> is an empty string, and was expected to be non-empty. </exception>
@@ -283,11 +283,11 @@ namespace Azure.ResourceManager.Monitor
             return message;
         }
 
-        /// <summary> Create or update a workspace. </summary>
+        /// <summary> Creates or updates an Azure Monitor Workspace. </summary>
         /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
-        /// <param name="azureMonitorWorkspaceName"> The name of the Azure Monitor workspace.  The name is case insensitive. </param>
-        /// <param name="data"> Properties that need to be specified to create a new workspace. </param>
+        /// <param name="azureMonitorWorkspaceName"> The name of the Azure Monitor Workspace. The name is case insensitive. </param>
+        /// <param name="data"> Properties that need to be specified to create a new Azure Monitor Workspace. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="azureMonitorWorkspaceName"/> or <paramref name="data"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="azureMonitorWorkspaceName"/> is an empty string, and was expected to be non-empty. </exception>
@@ -315,11 +315,11 @@ namespace Azure.ResourceManager.Monitor
             }
         }
 
-        /// <summary> Create or update a workspace. </summary>
+        /// <summary> Creates or updates an Azure Monitor Workspace. </summary>
         /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
-        /// <param name="azureMonitorWorkspaceName"> The name of the Azure Monitor workspace.  The name is case insensitive. </param>
-        /// <param name="data"> Properties that need to be specified to create a new workspace. </param>
+        /// <param name="azureMonitorWorkspaceName"> The name of the Azure Monitor Workspace. The name is case insensitive. </param>
+        /// <param name="data"> Properties that need to be specified to create a new Azure Monitor Workspace. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="azureMonitorWorkspaceName"/> or <paramref name="data"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="azureMonitorWorkspaceName"/> is an empty string, and was expected to be non-empty. </exception>
@@ -371,10 +371,10 @@ namespace Azure.ResourceManager.Monitor
             return message;
         }
 
-        /// <summary> Updates part of a workspace. </summary>
+        /// <summary> Updates part of an Azure Monitor Workspace. </summary>
         /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
-        /// <param name="azureMonitorWorkspaceName"> The name of the Azure Monitor workspace.  The name is case insensitive. </param>
+        /// <param name="azureMonitorWorkspaceName"> The name of the Azure Monitor Workspace. The name is case insensitive. </param>
         /// <param name="patch"> The payload. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="azureMonitorWorkspaceName"/> or <paramref name="patch"/> is null. </exception>
@@ -402,10 +402,10 @@ namespace Azure.ResourceManager.Monitor
             }
         }
 
-        /// <summary> Updates part of a workspace. </summary>
+        /// <summary> Updates part of an Azure Monitor Workspace. </summary>
         /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
-        /// <param name="azureMonitorWorkspaceName"> The name of the Azure Monitor workspace.  The name is case insensitive. </param>
+        /// <param name="azureMonitorWorkspaceName"> The name of the Azure Monitor Workspace. The name is case insensitive. </param>
         /// <param name="patch"> The payload. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="azureMonitorWorkspaceName"/> or <paramref name="patch"/> is null. </exception>
@@ -453,10 +453,10 @@ namespace Azure.ResourceManager.Monitor
             return message;
         }
 
-        /// <summary> Delete a workspace. </summary>
+        /// <summary> Deletes an Azure Monitor Workspace. </summary>
         /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
-        /// <param name="azureMonitorWorkspaceName"> The name of the Azure Monitor workspace.  The name is case insensitive. </param>
+        /// <param name="azureMonitorWorkspaceName"> The name of the Azure Monitor Workspace. The name is case insensitive. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="azureMonitorWorkspaceName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="azureMonitorWorkspaceName"/> is an empty string, and was expected to be non-empty. </exception>
@@ -478,10 +478,10 @@ namespace Azure.ResourceManager.Monitor
             }
         }
 
-        /// <summary> Delete a workspace. </summary>
+        /// <summary> Deletes an Azure Monitor Workspace. </summary>
         /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
-        /// <param name="azureMonitorWorkspaceName"> The name of the Azure Monitor workspace.  The name is case insensitive. </param>
+        /// <param name="azureMonitorWorkspaceName"> The name of the Azure Monitor Workspace. The name is case insensitive. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="azureMonitorWorkspaceName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="azureMonitorWorkspaceName"/> is an empty string, and was expected to be non-empty. </exception>
@@ -517,7 +517,7 @@ namespace Azure.ResourceManager.Monitor
             return message;
         }
 
-        /// <summary> Lists all workspaces in the specified resource group. </summary>
+        /// <summary> Lists all Azure Monitor Workspaces in the specified resource group. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
@@ -546,7 +546,7 @@ namespace Azure.ResourceManager.Monitor
             }
         }
 
-        /// <summary> Lists all workspaces in the specified resource group. </summary>
+        /// <summary> Lists all Azure Monitor Workspaces in the specified resource group. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
@@ -589,7 +589,7 @@ namespace Azure.ResourceManager.Monitor
             return message;
         }
 
-        /// <summary> Lists all workspaces in the specified subscription. </summary>
+        /// <summary> Lists all Azure Monitor Workspaces in the specified subscription. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -616,7 +616,7 @@ namespace Azure.ResourceManager.Monitor
             }
         }
 
-        /// <summary> Lists all workspaces in the specified subscription. </summary>
+        /// <summary> Lists all Azure Monitor Workspaces in the specified subscription. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
         /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>

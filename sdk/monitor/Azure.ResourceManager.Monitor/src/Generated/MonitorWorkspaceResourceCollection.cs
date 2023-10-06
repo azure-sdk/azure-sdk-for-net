@@ -55,7 +55,7 @@ namespace Azure.ResourceManager.Monitor
         }
 
         /// <summary>
-        /// Create or update a workspace
+        /// Creates or updates an Azure Monitor Workspace
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -68,8 +68,8 @@ namespace Azure.ResourceManager.Monitor
         /// </list>
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
-        /// <param name="azureMonitorWorkspaceName"> The name of the Azure Monitor workspace.  The name is case insensitive. </param>
-        /// <param name="data"> Properties that need to be specified to create a new workspace. </param>
+        /// <param name="azureMonitorWorkspaceName"> The name of the Azure Monitor Workspace. The name is case insensitive. </param>
+        /// <param name="data"> Properties that need to be specified to create a new Azure Monitor Workspace. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="azureMonitorWorkspaceName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="azureMonitorWorkspaceName"/> or <paramref name="data"/> is null. </exception>
@@ -96,7 +96,7 @@ namespace Azure.ResourceManager.Monitor
         }
 
         /// <summary>
-        /// Create or update a workspace
+        /// Creates or updates an Azure Monitor Workspace
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -109,8 +109,8 @@ namespace Azure.ResourceManager.Monitor
         /// </list>
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
-        /// <param name="azureMonitorWorkspaceName"> The name of the Azure Monitor workspace.  The name is case insensitive. </param>
-        /// <param name="data"> Properties that need to be specified to create a new workspace. </param>
+        /// <param name="azureMonitorWorkspaceName"> The name of the Azure Monitor Workspace. The name is case insensitive. </param>
+        /// <param name="data"> Properties that need to be specified to create a new Azure Monitor Workspace. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="azureMonitorWorkspaceName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="azureMonitorWorkspaceName"/> or <paramref name="data"/> is null. </exception>
@@ -137,7 +137,7 @@ namespace Azure.ResourceManager.Monitor
         }
 
         /// <summary>
-        /// Returns the specific Azure Monitor workspace
+        /// Returns the specified Azure Monitor Workspace
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -149,7 +149,7 @@ namespace Azure.ResourceManager.Monitor
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="azureMonitorWorkspaceName"> The name of the Azure Monitor workspace.  The name is case insensitive. </param>
+        /// <param name="azureMonitorWorkspaceName"> The name of the Azure Monitor Workspace. The name is case insensitive. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="azureMonitorWorkspaceName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="azureMonitorWorkspaceName"/> is null. </exception>
@@ -174,7 +174,7 @@ namespace Azure.ResourceManager.Monitor
         }
 
         /// <summary>
-        /// Returns the specific Azure Monitor workspace
+        /// Returns the specified Azure Monitor Workspace
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -186,7 +186,7 @@ namespace Azure.ResourceManager.Monitor
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="azureMonitorWorkspaceName"> The name of the Azure Monitor workspace.  The name is case insensitive. </param>
+        /// <param name="azureMonitorWorkspaceName"> The name of the Azure Monitor Workspace. The name is case insensitive. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="azureMonitorWorkspaceName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="azureMonitorWorkspaceName"/> is null. </exception>
@@ -211,7 +211,7 @@ namespace Azure.ResourceManager.Monitor
         }
 
         /// <summary>
-        /// Lists all workspaces in the specified resource group
+        /// Lists all Azure Monitor Workspaces in the specified resource group
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -233,7 +233,7 @@ namespace Azure.ResourceManager.Monitor
         }
 
         /// <summary>
-        /// Lists all workspaces in the specified resource group
+        /// Lists all Azure Monitor Workspaces in the specified resource group
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -267,7 +267,7 @@ namespace Azure.ResourceManager.Monitor
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="azureMonitorWorkspaceName"> The name of the Azure Monitor workspace.  The name is case insensitive. </param>
+        /// <param name="azureMonitorWorkspaceName"> The name of the Azure Monitor Workspace. The name is case insensitive. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="azureMonitorWorkspaceName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="azureMonitorWorkspaceName"/> is null. </exception>
@@ -302,7 +302,7 @@ namespace Azure.ResourceManager.Monitor
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="azureMonitorWorkspaceName"> The name of the Azure Monitor workspace.  The name is case insensitive. </param>
+        /// <param name="azureMonitorWorkspaceName"> The name of the Azure Monitor Workspace. The name is case insensitive. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="azureMonitorWorkspaceName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="azureMonitorWorkspaceName"/> is null. </exception>
@@ -337,7 +337,7 @@ namespace Azure.ResourceManager.Monitor
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="azureMonitorWorkspaceName"> The name of the Azure Monitor workspace.  The name is case insensitive. </param>
+        /// <param name="azureMonitorWorkspaceName"> The name of the Azure Monitor Workspace. The name is case insensitive. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="azureMonitorWorkspaceName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="azureMonitorWorkspaceName"/> is null. </exception>
@@ -374,7 +374,7 @@ namespace Azure.ResourceManager.Monitor
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="azureMonitorWorkspaceName"> The name of the Azure Monitor workspace.  The name is case insensitive. </param>
+        /// <param name="azureMonitorWorkspaceName"> The name of the Azure Monitor Workspace. The name is case insensitive. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="azureMonitorWorkspaceName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="ArgumentNullException"> <paramref name="azureMonitorWorkspaceName"/> is null. </exception>

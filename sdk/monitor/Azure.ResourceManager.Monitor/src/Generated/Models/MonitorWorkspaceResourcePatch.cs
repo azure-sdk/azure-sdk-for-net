@@ -10,7 +10,7 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.Monitor.Models
 {
-    /// <summary> Definition of ARM tracked top level resource properties for update operation. </summary>
+    /// <summary> Definition of ARM tracked top level resource properties for the Update operation. </summary>
     public partial class MonitorWorkspaceResourcePatch
     {
         /// <summary> Initializes a new instance of MonitorWorkspaceResourcePatch. </summary>
