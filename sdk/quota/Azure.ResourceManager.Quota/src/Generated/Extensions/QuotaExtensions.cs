@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Azure;
 using Azure.Core;
 using Azure.ResourceManager;
+using Azure.ResourceManager.ManagementGroups;
 using Azure.ResourceManager.Quota.Models;
 using Azure.ResourceManager.Resources;
 
@@ -35,6 +36,22 @@ namespace Azure.ResourceManager.Quota
             });
         }
 
+        private static ManagementGroupResourceExtensionClient GetManagementGroupResourceExtensionClient(ArmResource resource)
+        {
+            return resource.GetCachedClient(client =>
+            {
+                return new ManagementGroupResourceExtensionClient(client, resource.Id);
+            });
+        }
+
+        private static ManagementGroupResourceExtensionClient GetManagementGroupResourceExtensionClient(ArmClient client, ResourceIdentifier scope)
+        {
+            return client.GetResourceClient(() =>
+            {
+                return new ManagementGroupResourceExtensionClient(client, scope);
+            });
+        }
+
         private static TenantResourceExtensionClient GetTenantResourceExtensionClient(ArmResource resource)
         {
             return resource.GetCachedClient(client =>
@@ -50,6 +67,101 @@ namespace Azure.ResourceManager.Quota
                 return new TenantResourceExtensionClient(client, scope);
             });
         }
+        #region GroupQuotasEntityResource
+        /// <summary>
+        /// Gets an object representing a <see cref="GroupQuotasEntityResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="GroupQuotasEntityResource.CreateResourceIdentifier" /> to create a <see cref="GroupQuotasEntityResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="GroupQuotasEntityResource" /> object. </returns>
+        public static GroupQuotasEntityResource GetGroupQuotasEntityResource(this ArmClient client, ResourceIdentifier id)
+        {
+            return client.GetResourceClient(() =>
+            {
+                GroupQuotasEntityResource.ValidateResourceId(id);
+                return new GroupQuotasEntityResource(client, id);
+            }
+            );
+        }
+        #endregion
+
+        #region GroupQuotaSubscriptionResource
+        /// <summary>
+        /// Gets an object representing a <see cref="GroupQuotaSubscriptionResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="GroupQuotaSubscriptionResource.CreateResourceIdentifier" /> to create a <see cref="GroupQuotaSubscriptionResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="GroupQuotaSubscriptionResource" /> object. </returns>
+        public static GroupQuotaSubscriptionResource GetGroupQuotaSubscriptionResource(this ArmClient client, ResourceIdentifier id)
+        {
+            return client.GetResourceClient(() =>
+            {
+                GroupQuotaSubscriptionResource.ValidateResourceId(id);
+                return new GroupQuotaSubscriptionResource(client, id);
+            }
+            );
+        }
+        #endregion
+
+        #region GroupQuotaSubscriptionRequestResource
+        /// <summary>
+        /// Gets an object representing a <see cref="GroupQuotaSubscriptionRequestResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="GroupQuotaSubscriptionRequestResource.CreateResourceIdentifier" /> to create a <see cref="GroupQuotaSubscriptionRequestResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="GroupQuotaSubscriptionRequestResource" /> object. </returns>
+        public static GroupQuotaSubscriptionRequestResource GetGroupQuotaSubscriptionRequestResource(this ArmClient client, ResourceIdentifier id)
+        {
+            return client.GetResourceClient(() =>
+            {
+                GroupQuotaSubscriptionRequestResource.ValidateResourceId(id);
+                return new GroupQuotaSubscriptionRequestResource(client, id);
+            }
+            );
+        }
+        #endregion
+
+        #region GroupQuotaLimitResource
+        /// <summary>
+        /// Gets an object representing a <see cref="GroupQuotaLimitResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="GroupQuotaLimitResource.CreateResourceIdentifier" /> to create a <see cref="GroupQuotaLimitResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="GroupQuotaLimitResource" /> object. </returns>
+        public static GroupQuotaLimitResource GetGroupQuotaLimitResource(this ArmClient client, ResourceIdentifier id)
+        {
+            return client.GetResourceClient(() =>
+            {
+                GroupQuotaLimitResource.ValidateResourceId(id);
+                return new GroupQuotaLimitResource(client, id);
+            }
+            );
+        }
+        #endregion
+
+        #region SubscriptionQuotaAllocationResource
+        /// <summary>
+        /// Gets an object representing a <see cref="SubscriptionQuotaAllocationResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="SubscriptionQuotaAllocationResource.CreateResourceIdentifier" /> to create a <see cref="SubscriptionQuotaAllocationResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="SubscriptionQuotaAllocationResource" /> object. </returns>
+        public static SubscriptionQuotaAllocationResource GetSubscriptionQuotaAllocationResource(this ArmClient client, ResourceIdentifier id)
+        {
+            return client.GetResourceClient(() =>
+            {
+                SubscriptionQuotaAllocationResource.ValidateResourceId(id);
+                return new SubscriptionQuotaAllocationResource(client, id);
+            }
+            );
+        }
+        #endregion
+
         #region CurrentUsagesBaseResource
         /// <summary>
         /// Gets an object representing a <see cref="CurrentUsagesBaseResource" /> along with the instance operations that can be performed on it but with no data.
@@ -302,6 +414,436 @@ namespace Azure.ResourceManager.Quota
         public static Response<QuotaRequestDetailResource> GetQuotaRequestDetail(this ArmClient client, ResourceIdentifier scope, string id, CancellationToken cancellationToken = default)
         {
             return client.GetQuotaRequestDetails(scope).Get(id, cancellationToken);
+        }
+
+        /// <summary> Gets a collection of GroupQuotasEntityResources in the ManagementGroupResource. </summary>
+        /// <param name="managementGroupResource"> The <see cref="ManagementGroupResource" /> instance the method will execute against. </param>
+        /// <returns> An object representing collection of GroupQuotasEntityResources and their operations over a GroupQuotasEntityResource. </returns>
+        public static GroupQuotasEntityCollection GetGroupQuotasEntities(this ManagementGroupResource managementGroupResource)
+        {
+            return GetManagementGroupResourceExtensionClient(managementGroupResource).GetGroupQuotasEntities();
+        }
+
+        /// <summary>
+        /// Gets the GroupQuotas for the name passed. It will return the GroupQuotas properties only. The details on groupQuota can be access from the groupQuota APIs.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/providers/Microsoft.Management/managementGroups/{mgId}/providers/Microsoft.Quota/groupQuotas/{groupQuotaName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>GroupQuotas_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="managementGroupResource"> The <see cref="ManagementGroupResource" /> instance the method will execute against. </param>
+        /// <param name="groupQuotaName"> The GroupQuota name. The name should be unique for the provided context tenantId/MgId. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="groupQuotaName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="groupQuotaName"/> is null. </exception>
+        [ForwardsClientCalls]
+        public static async Task<Response<GroupQuotasEntityResource>> GetGroupQuotasEntityAsync(this ManagementGroupResource managementGroupResource, string groupQuotaName, CancellationToken cancellationToken = default)
+        {
+            return await managementGroupResource.GetGroupQuotasEntities().GetAsync(groupQuotaName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets the GroupQuotas for the name passed. It will return the GroupQuotas properties only. The details on groupQuota can be access from the groupQuota APIs.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/providers/Microsoft.Management/managementGroups/{mgId}/providers/Microsoft.Quota/groupQuotas/{groupQuotaName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>GroupQuotas_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="managementGroupResource"> The <see cref="ManagementGroupResource" /> instance the method will execute against. </param>
+        /// <param name="groupQuotaName"> The GroupQuota name. The name should be unique for the provided context tenantId/MgId. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="groupQuotaName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="groupQuotaName"/> is null. </exception>
+        [ForwardsClientCalls]
+        public static Response<GroupQuotasEntityResource> GetGroupQuotasEntity(this ManagementGroupResource managementGroupResource, string groupQuotaName, CancellationToken cancellationToken = default)
+        {
+            return managementGroupResource.GetGroupQuotasEntities().Get(groupQuotaName, cancellationToken);
+        }
+
+        /// <summary> Gets a collection of GroupQuotaLimitResources in the ManagementGroupResource. </summary>
+        /// <param name="managementGroupResource"> The <see cref="ManagementGroupResource" /> instance the method will execute against. </param>
+        /// <param name="resourceProviderScope"> Scope for the resource. Some resources do not require location parameter, such as CosmosDb, so can be skipped in scope. For most of the resources require - providers/Microsoft.Compute/locations/{locationName}. Some Rps such as Batch requires batchAccountName - providers/Microsoft.Batch/locations/{locationName}/accountName/{batchAccountName}. This extension enables to specify resources for any all the RPs. </param>
+        /// <param name="groupQuotaName"> The GroupQuota name. The name should be unique for the provided context tenantId/MgId. </param>
+        /// <exception cref="ArgumentException"> <paramref name="resourceProviderScope"/> or <paramref name="groupQuotaName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceProviderScope"/> or <paramref name="groupQuotaName"/> is null. </exception>
+        /// <returns> An object representing collection of GroupQuotaLimitResources and their operations over a GroupQuotaLimitResource. </returns>
+        public static GroupQuotaLimitCollection GetGroupQuotaLimits(this ManagementGroupResource managementGroupResource, string resourceProviderScope, string groupQuotaName)
+        {
+            Argument.AssertNotNullOrEmpty(resourceProviderScope, nameof(resourceProviderScope));
+            Argument.AssertNotNullOrEmpty(groupQuotaName, nameof(groupQuotaName));
+
+            return GetManagementGroupResourceExtensionClient(managementGroupResource).GetGroupQuotaLimits(resourceProviderScope, groupQuotaName);
+        }
+
+        /// <summary>
+        /// Gets the resource groupQuotaLimits for the MGId. It will include the limits, availableLimits, assignedToSubscriptions: Quotas assigned to subscriptions from the groupQuota.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/providers/Microsoft.Management/managementGroups/{mgId}/{resourceProviderScope}/providers/Microsoft.Quota/groupQuotas/{groupQuotaName}/groupQuotaLimits/{resourceName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>GroupQuotaLimits_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="managementGroupResource"> The <see cref="ManagementGroupResource" /> instance the method will execute against. </param>
+        /// <param name="resourceProviderScope"> Scope for the resource. Some resources do not require location parameter, such as CosmosDb, so can be skipped in scope. For most of the resources require - providers/Microsoft.Compute/locations/{locationName}. Some Rps such as Batch requires batchAccountName - providers/Microsoft.Batch/locations/{locationName}/accountName/{batchAccountName}. This extension enables to specify resources for any all the RPs. </param>
+        /// <param name="groupQuotaName"> The GroupQuota name. The name should be unique for the provided context tenantId/MgId. </param>
+        /// <param name="resourceName"> Resource name. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="resourceProviderScope"/>, <paramref name="groupQuotaName"/> or <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceProviderScope"/>, <paramref name="groupQuotaName"/> or <paramref name="resourceName"/> is null. </exception>
+        [ForwardsClientCalls]
+        public static async Task<Response<GroupQuotaLimitResource>> GetGroupQuotaLimitAsync(this ManagementGroupResource managementGroupResource, string resourceProviderScope, string groupQuotaName, string resourceName, CancellationToken cancellationToken = default)
+        {
+            return await managementGroupResource.GetGroupQuotaLimits(resourceProviderScope, groupQuotaName).GetAsync(resourceName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets the resource groupQuotaLimits for the MGId. It will include the limits, availableLimits, assignedToSubscriptions: Quotas assigned to subscriptions from the groupQuota.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/providers/Microsoft.Management/managementGroups/{mgId}/{resourceProviderScope}/providers/Microsoft.Quota/groupQuotas/{groupQuotaName}/groupQuotaLimits/{resourceName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>GroupQuotaLimits_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="managementGroupResource"> The <see cref="ManagementGroupResource" /> instance the method will execute against. </param>
+        /// <param name="resourceProviderScope"> Scope for the resource. Some resources do not require location parameter, such as CosmosDb, so can be skipped in scope. For most of the resources require - providers/Microsoft.Compute/locations/{locationName}. Some Rps such as Batch requires batchAccountName - providers/Microsoft.Batch/locations/{locationName}/accountName/{batchAccountName}. This extension enables to specify resources for any all the RPs. </param>
+        /// <param name="groupQuotaName"> The GroupQuota name. The name should be unique for the provided context tenantId/MgId. </param>
+        /// <param name="resourceName"> Resource name. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="resourceProviderScope"/>, <paramref name="groupQuotaName"/> or <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceProviderScope"/>, <paramref name="groupQuotaName"/> or <paramref name="resourceName"/> is null. </exception>
+        [ForwardsClientCalls]
+        public static Response<GroupQuotaLimitResource> GetGroupQuotaLimit(this ManagementGroupResource managementGroupResource, string resourceProviderScope, string groupQuotaName, string resourceName, CancellationToken cancellationToken = default)
+        {
+            return managementGroupResource.GetGroupQuotaLimits(resourceProviderScope, groupQuotaName).Get(resourceName, cancellationToken);
+        }
+
+        /// <summary> Gets a collection of SubscriptionQuotaAllocationResources in the ManagementGroupResource. </summary>
+        /// <param name="managementGroupResource"> The <see cref="ManagementGroupResource" /> instance the method will execute against. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="resourceProviderScope"> Scope for the resource. Some resources do not require location parameter, such as CosmosDb, so can be skipped in scope. For most of the resources require - providers/Microsoft.Compute/locations/{locationName}. Some Rps such as Batch requires batchAccountName - providers/Microsoft.Batch/locations/{locationName}/accountName/{batchAccountName}. This extension enables to specify resources for any all the RPs. </param>
+        /// <param name="groupQuotaName"> The GroupQuota name. The name should be unique for the provided context tenantId/MgId. </param>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceProviderScope"/> or <paramref name="groupQuotaName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceProviderScope"/> or <paramref name="groupQuotaName"/> is null. </exception>
+        /// <returns> An object representing collection of SubscriptionQuotaAllocationResources and their operations over a SubscriptionQuotaAllocationResource. </returns>
+        public static SubscriptionQuotaAllocationCollection GetSubscriptionQuotaAllocations(this ManagementGroupResource managementGroupResource, string subscriptionId, string resourceProviderScope, string groupQuotaName)
+        {
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(resourceProviderScope, nameof(resourceProviderScope));
+            Argument.AssertNotNullOrEmpty(groupQuotaName, nameof(groupQuotaName));
+
+            return GetManagementGroupResourceExtensionClient(managementGroupResource).GetSubscriptionQuotaAllocations(subscriptionId, resourceProviderScope, groupQuotaName);
+        }
+
+        /// <summary>
+        /// Gets Quota assigned to a subscription for the specific Resource Provider, Location, ResourceName. This will include the GroupQuota and total quota assigned to the subscription. Only the Group quota assigned to the subscription can be assigned back to the MG Group Quota.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/providers/Microsoft.Management/managementGroups/{mgId}/subscriptions/{subscriptionId}/{resourceProviderScope}/providers/Microsoft.Quota/groupQuotas/{groupQuotaName}/quotaAllocations/{resourceName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>GroupQuotaSubscriptionQuotaAllocation_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="managementGroupResource"> The <see cref="ManagementGroupResource" /> instance the method will execute against. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="resourceProviderScope"> Scope for the resource. Some resources do not require location parameter, such as CosmosDb, so can be skipped in scope. For most of the resources require - providers/Microsoft.Compute/locations/{locationName}. Some Rps such as Batch requires batchAccountName - providers/Microsoft.Batch/locations/{locationName}/accountName/{batchAccountName}. This extension enables to specify resources for any all the RPs. </param>
+        /// <param name="groupQuotaName"> The GroupQuota name. The name should be unique for the provided context tenantId/MgId. </param>
+        /// <param name="resourceName"> Resource name. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceProviderScope"/>, <paramref name="groupQuotaName"/> or <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceProviderScope"/>, <paramref name="groupQuotaName"/> or <paramref name="resourceName"/> is null. </exception>
+        [ForwardsClientCalls]
+        public static async Task<Response<SubscriptionQuotaAllocationResource>> GetSubscriptionQuotaAllocationAsync(this ManagementGroupResource managementGroupResource, string subscriptionId, string resourceProviderScope, string groupQuotaName, string resourceName, CancellationToken cancellationToken = default)
+        {
+            return await managementGroupResource.GetSubscriptionQuotaAllocations(subscriptionId, resourceProviderScope, groupQuotaName).GetAsync(resourceName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets Quota assigned to a subscription for the specific Resource Provider, Location, ResourceName. This will include the GroupQuota and total quota assigned to the subscription. Only the Group quota assigned to the subscription can be assigned back to the MG Group Quota.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/providers/Microsoft.Management/managementGroups/{mgId}/subscriptions/{subscriptionId}/{resourceProviderScope}/providers/Microsoft.Quota/groupQuotas/{groupQuotaName}/quotaAllocations/{resourceName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>GroupQuotaSubscriptionQuotaAllocation_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="managementGroupResource"> The <see cref="ManagementGroupResource" /> instance the method will execute against. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="resourceProviderScope"> Scope for the resource. Some resources do not require location parameter, such as CosmosDb, so can be skipped in scope. For most of the resources require - providers/Microsoft.Compute/locations/{locationName}. Some Rps such as Batch requires batchAccountName - providers/Microsoft.Batch/locations/{locationName}/accountName/{batchAccountName}. This extension enables to specify resources for any all the RPs. </param>
+        /// <param name="groupQuotaName"> The GroupQuota name. The name should be unique for the provided context tenantId/MgId. </param>
+        /// <param name="resourceName"> Resource name. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceProviderScope"/>, <paramref name="groupQuotaName"/> or <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceProviderScope"/>, <paramref name="groupQuotaName"/> or <paramref name="resourceName"/> is null. </exception>
+        [ForwardsClientCalls]
+        public static Response<SubscriptionQuotaAllocationResource> GetSubscriptionQuotaAllocation(this ManagementGroupResource managementGroupResource, string subscriptionId, string resourceProviderScope, string groupQuotaName, string resourceName, CancellationToken cancellationToken = default)
+        {
+            return managementGroupResource.GetSubscriptionQuotaAllocations(subscriptionId, resourceProviderScope, groupQuotaName).Get(resourceName, cancellationToken);
+        }
+
+        /// <summary>
+        /// List API to check the status of a GroupQuota requests by requestId. The groupQuotaRequest history is maintained for 1 year.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/providers/Microsoft.Management/managementGroups/{mgId}/{resourceProviderScope}/providers/Microsoft.Quota/groupQuotas/{groupQuotaName}/groupQuotaRequests</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>GroupQuotaLimitsRequests_List</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="managementGroupResource"> The <see cref="ManagementGroupResource" /> instance the method will execute against. </param>
+        /// <param name="resourceProviderScope"> Scope for the resource. Some resources do not require location parameter, such as CosmosDb, so can be skipped in scope. For most of the resources require - providers/Microsoft.Compute/locations/{locationName}. Some Rps such as Batch requires batchAccountName - providers/Microsoft.Batch/locations/{locationName}/accountName/{batchAccountName}. This extension enables to specify resources for any all the RPs. </param>
+        /// <param name="groupQuotaName"> The GroupQuota name. The name should be unique for the provided context tenantId/MgId. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="resourceProviderScope"/> or <paramref name="groupQuotaName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceProviderScope"/> or <paramref name="groupQuotaName"/> is null. </exception>
+        /// <returns> An async collection of <see cref="SubmittedResourceRequestStatus" /> that may take multiple service requests to iterate over. </returns>
+        public static AsyncPageable<SubmittedResourceRequestStatus> GetGroupQuotaLimitsRequestsAsync(this ManagementGroupResource managementGroupResource, string resourceProviderScope, string groupQuotaName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(resourceProviderScope, nameof(resourceProviderScope));
+            Argument.AssertNotNullOrEmpty(groupQuotaName, nameof(groupQuotaName));
+
+            return GetManagementGroupResourceExtensionClient(managementGroupResource).GetGroupQuotaLimitsRequestsAsync(resourceProviderScope, groupQuotaName, cancellationToken);
+        }
+
+        /// <summary>
+        /// List API to check the status of a GroupQuota requests by requestId. The groupQuotaRequest history is maintained for 1 year.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/providers/Microsoft.Management/managementGroups/{mgId}/{resourceProviderScope}/providers/Microsoft.Quota/groupQuotas/{groupQuotaName}/groupQuotaRequests</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>GroupQuotaLimitsRequests_List</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="managementGroupResource"> The <see cref="ManagementGroupResource" /> instance the method will execute against. </param>
+        /// <param name="resourceProviderScope"> Scope for the resource. Some resources do not require location parameter, such as CosmosDb, so can be skipped in scope. For most of the resources require - providers/Microsoft.Compute/locations/{locationName}. Some Rps such as Batch requires batchAccountName - providers/Microsoft.Batch/locations/{locationName}/accountName/{batchAccountName}. This extension enables to specify resources for any all the RPs. </param>
+        /// <param name="groupQuotaName"> The GroupQuota name. The name should be unique for the provided context tenantId/MgId. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="resourceProviderScope"/> or <paramref name="groupQuotaName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceProviderScope"/> or <paramref name="groupQuotaName"/> is null. </exception>
+        /// <returns> A collection of <see cref="SubmittedResourceRequestStatus" /> that may take multiple service requests to iterate over. </returns>
+        public static Pageable<SubmittedResourceRequestStatus> GetGroupQuotaLimitsRequests(this ManagementGroupResource managementGroupResource, string resourceProviderScope, string groupQuotaName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(resourceProviderScope, nameof(resourceProviderScope));
+            Argument.AssertNotNullOrEmpty(groupQuotaName, nameof(groupQuotaName));
+
+            return GetManagementGroupResourceExtensionClient(managementGroupResource).GetGroupQuotaLimitsRequests(resourceProviderScope, groupQuotaName, cancellationToken);
+        }
+
+        /// <summary>
+        /// Get API to check the status of a GroupQuota request by requestId.  Use the polling API - OperationsStatus URI specified in Azure-AsyncOperation header field, with retry-after duration in seconds to check the intermediate status. This API provides the finals status with the request details and status.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/providers/Microsoft.Management/managementGroups/{mgId}/{resourceProviderScope}/providers/Microsoft.Quota/groupQuotas/{groupQuotaName}/groupQuotaRequests/{requestId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>GroupQuotaLimitsRequests_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="managementGroupResource"> The <see cref="ManagementGroupResource" /> instance the method will execute against. </param>
+        /// <param name="resourceProviderScope"> Scope for the resource. Some resources do not require location parameter, such as CosmosDb, so can be skipped in scope. For most of the resources require - providers/Microsoft.Compute/locations/{locationName}. Some Rps such as Batch requires batchAccountName - providers/Microsoft.Batch/locations/{locationName}/accountName/{batchAccountName}. This extension enables to specify resources for any all the RPs. </param>
+        /// <param name="groupQuotaName"> The GroupQuota name. The name should be unique for the provided context tenantId/MgId. </param>
+        /// <param name="requestId"> Request Id. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="resourceProviderScope"/>, <paramref name="groupQuotaName"/> or <paramref name="requestId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceProviderScope"/>, <paramref name="groupQuotaName"/> or <paramref name="requestId"/> is null. </exception>
+        public static async Task<Response<SubmittedResourceRequestStatus>> GetGroupQuotaLimitsRequestAsync(this ManagementGroupResource managementGroupResource, string resourceProviderScope, string groupQuotaName, string requestId, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(resourceProviderScope, nameof(resourceProviderScope));
+            Argument.AssertNotNullOrEmpty(groupQuotaName, nameof(groupQuotaName));
+            Argument.AssertNotNullOrEmpty(requestId, nameof(requestId));
+
+            return await GetManagementGroupResourceExtensionClient(managementGroupResource).GetGroupQuotaLimitsRequestAsync(resourceProviderScope, groupQuotaName, requestId, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Get API to check the status of a GroupQuota request by requestId.  Use the polling API - OperationsStatus URI specified in Azure-AsyncOperation header field, with retry-after duration in seconds to check the intermediate status. This API provides the finals status with the request details and status.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/providers/Microsoft.Management/managementGroups/{mgId}/{resourceProviderScope}/providers/Microsoft.Quota/groupQuotas/{groupQuotaName}/groupQuotaRequests/{requestId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>GroupQuotaLimitsRequests_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="managementGroupResource"> The <see cref="ManagementGroupResource" /> instance the method will execute against. </param>
+        /// <param name="resourceProviderScope"> Scope for the resource. Some resources do not require location parameter, such as CosmosDb, so can be skipped in scope. For most of the resources require - providers/Microsoft.Compute/locations/{locationName}. Some Rps such as Batch requires batchAccountName - providers/Microsoft.Batch/locations/{locationName}/accountName/{batchAccountName}. This extension enables to specify resources for any all the RPs. </param>
+        /// <param name="groupQuotaName"> The GroupQuota name. The name should be unique for the provided context tenantId/MgId. </param>
+        /// <param name="requestId"> Request Id. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="resourceProviderScope"/>, <paramref name="groupQuotaName"/> or <paramref name="requestId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="resourceProviderScope"/>, <paramref name="groupQuotaName"/> or <paramref name="requestId"/> is null. </exception>
+        public static Response<SubmittedResourceRequestStatus> GetGroupQuotaLimitsRequest(this ManagementGroupResource managementGroupResource, string resourceProviderScope, string groupQuotaName, string requestId, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(resourceProviderScope, nameof(resourceProviderScope));
+            Argument.AssertNotNullOrEmpty(groupQuotaName, nameof(groupQuotaName));
+            Argument.AssertNotNullOrEmpty(requestId, nameof(requestId));
+
+            return GetManagementGroupResourceExtensionClient(managementGroupResource).GetGroupQuotaLimitsRequest(resourceProviderScope, groupQuotaName, requestId, cancellationToken);
+        }
+
+        /// <summary>
+        /// Get the quota allocation request status for the subscriptionId by allocationId.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/providers/Microsoft.Management/managementGroups/{mgId}/subscriptions/{subscriptionId}/{resourceProviderScope}/providers/Microsoft.Quota/groupQuotas/{groupQuotaName}/quotaAllocationRequests/{allocationId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>GroupQuotaSubscriptionQuotaAllocationRequests_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="managementGroupResource"> The <see cref="ManagementGroupResource" /> instance the method will execute against. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="resourceProviderScope"> Scope for the resource. Some resources do not require location parameter, such as CosmosDb, so can be skipped in scope. For most of the resources require - providers/Microsoft.Compute/locations/{locationName}. Some Rps such as Batch requires batchAccountName - providers/Microsoft.Batch/locations/{locationName}/accountName/{batchAccountName}. This extension enables to specify resources for any all the RPs. </param>
+        /// <param name="groupQuotaName"> The GroupQuota name. The name should be unique for the provided context tenantId/MgId. </param>
+        /// <param name="allocationId"> Resource allocation Id. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceProviderScope"/>, <paramref name="groupQuotaName"/> or <paramref name="allocationId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceProviderScope"/>, <paramref name="groupQuotaName"/> or <paramref name="allocationId"/> is null. </exception>
+        public static async Task<Response<SubscriptionQuotaAllocationRequest>> GetGroupQuotaSubscriptionQuotaAllocationRequestAsync(this ManagementGroupResource managementGroupResource, string subscriptionId, string resourceProviderScope, string groupQuotaName, string allocationId, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(resourceProviderScope, nameof(resourceProviderScope));
+            Argument.AssertNotNullOrEmpty(groupQuotaName, nameof(groupQuotaName));
+            Argument.AssertNotNullOrEmpty(allocationId, nameof(allocationId));
+
+            return await GetManagementGroupResourceExtensionClient(managementGroupResource).GetGroupQuotaSubscriptionQuotaAllocationRequestAsync(subscriptionId, resourceProviderScope, groupQuotaName, allocationId, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Get the quota allocation request status for the subscriptionId by allocationId.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/providers/Microsoft.Management/managementGroups/{mgId}/subscriptions/{subscriptionId}/{resourceProviderScope}/providers/Microsoft.Quota/groupQuotas/{groupQuotaName}/quotaAllocationRequests/{allocationId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>GroupQuotaSubscriptionQuotaAllocationRequests_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="managementGroupResource"> The <see cref="ManagementGroupResource" /> instance the method will execute against. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="resourceProviderScope"> Scope for the resource. Some resources do not require location parameter, such as CosmosDb, so can be skipped in scope. For most of the resources require - providers/Microsoft.Compute/locations/{locationName}. Some Rps such as Batch requires batchAccountName - providers/Microsoft.Batch/locations/{locationName}/accountName/{batchAccountName}. This extension enables to specify resources for any all the RPs. </param>
+        /// <param name="groupQuotaName"> The GroupQuota name. The name should be unique for the provided context tenantId/MgId. </param>
+        /// <param name="allocationId"> Resource allocation Id. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceProviderScope"/>, <paramref name="groupQuotaName"/> or <paramref name="allocationId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceProviderScope"/>, <paramref name="groupQuotaName"/> or <paramref name="allocationId"/> is null. </exception>
+        public static Response<SubscriptionQuotaAllocationRequest> GetGroupQuotaSubscriptionQuotaAllocationRequest(this ManagementGroupResource managementGroupResource, string subscriptionId, string resourceProviderScope, string groupQuotaName, string allocationId, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(resourceProviderScope, nameof(resourceProviderScope));
+            Argument.AssertNotNullOrEmpty(groupQuotaName, nameof(groupQuotaName));
+            Argument.AssertNotNullOrEmpty(allocationId, nameof(allocationId));
+
+            return GetManagementGroupResourceExtensionClient(managementGroupResource).GetGroupQuotaSubscriptionQuotaAllocationRequest(subscriptionId, resourceProviderScope, groupQuotaName, allocationId, cancellationToken);
+        }
+
+        /// <summary>
+        /// Lists all the allocation requests.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/providers/Microsoft.Management/managementGroups/{mgId}/subscriptions/{subscriptionId}/{resourceProviderScope}/providers/Microsoft.Quota/groupQuotas/{groupQuotaName}/quotaAllocationRequests</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>GroupQuotaSubscriptionQuotaAllocationRequests_List</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="managementGroupResource"> The <see cref="ManagementGroupResource" /> instance the method will execute against. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="resourceProviderScope"> Scope for the resource. Some resources do not require location parameter, such as CosmosDb, so can be skipped in scope. For most of the resources require - providers/Microsoft.Compute/locations/{locationName}. Some Rps such as Batch requires batchAccountName - providers/Microsoft.Batch/locations/{locationName}/accountName/{batchAccountName}. This extension enables to specify resources for any all the RPs. </param>
+        /// <param name="groupQuotaName"> The GroupQuota name. The name should be unique for the provided context tenantId/MgId. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceProviderScope"/> or <paramref name="groupQuotaName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceProviderScope"/> or <paramref name="groupQuotaName"/> is null. </exception>
+        /// <returns> An async collection of <see cref="SubscriptionQuotaAllocationRequest" /> that may take multiple service requests to iterate over. </returns>
+        public static AsyncPageable<SubscriptionQuotaAllocationRequest> GetGroupQuotaSubscriptionQuotaAllocationRequestsAsync(this ManagementGroupResource managementGroupResource, string subscriptionId, string resourceProviderScope, string groupQuotaName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(resourceProviderScope, nameof(resourceProviderScope));
+            Argument.AssertNotNullOrEmpty(groupQuotaName, nameof(groupQuotaName));
+
+            return GetManagementGroupResourceExtensionClient(managementGroupResource).GetGroupQuotaSubscriptionQuotaAllocationRequestsAsync(subscriptionId, resourceProviderScope, groupQuotaName, cancellationToken);
+        }
+
+        /// <summary>
+        /// Lists all the allocation requests.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/providers/Microsoft.Management/managementGroups/{mgId}/subscriptions/{subscriptionId}/{resourceProviderScope}/providers/Microsoft.Quota/groupQuotas/{groupQuotaName}/quotaAllocationRequests</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>GroupQuotaSubscriptionQuotaAllocationRequests_List</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="managementGroupResource"> The <see cref="ManagementGroupResource" /> instance the method will execute against. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. The value must be an UUID. </param>
+        /// <param name="resourceProviderScope"> Scope for the resource. Some resources do not require location parameter, such as CosmosDb, so can be skipped in scope. For most of the resources require - providers/Microsoft.Compute/locations/{locationName}. Some Rps such as Batch requires batchAccountName - providers/Microsoft.Batch/locations/{locationName}/accountName/{batchAccountName}. This extension enables to specify resources for any all the RPs. </param>
+        /// <param name="groupQuotaName"> The GroupQuota name. The name should be unique for the provided context tenantId/MgId. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceProviderScope"/> or <paramref name="groupQuotaName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceProviderScope"/> or <paramref name="groupQuotaName"/> is null. </exception>
+        /// <returns> A collection of <see cref="SubscriptionQuotaAllocationRequest" /> that may take multiple service requests to iterate over. </returns>
+        public static Pageable<SubscriptionQuotaAllocationRequest> GetGroupQuotaSubscriptionQuotaAllocationRequests(this ManagementGroupResource managementGroupResource, string subscriptionId, string resourceProviderScope, string groupQuotaName, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(resourceProviderScope, nameof(resourceProviderScope));
+            Argument.AssertNotNullOrEmpty(groupQuotaName, nameof(groupQuotaName));
+
+            return GetManagementGroupResourceExtensionClient(managementGroupResource).GetGroupQuotaSubscriptionQuotaAllocationRequests(subscriptionId, resourceProviderScope, groupQuotaName, cancellationToken);
         }
 
         /// <summary>
