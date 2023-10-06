@@ -331,7 +331,7 @@ namespace Azure.ResourceManager.DataMigration.Models
         /// <summary> Initializes a new instance of ResourceSku. </summary>
         /// <param name="resourceType"> The type of resource the SKU applies to. </param>
         /// <param name="name"> The name of SKU. </param>
-        /// <param name="tier"> Specifies the tier of DMS in a scale set. </param>
+        /// <param name="tier"> Specifies the tier of DMS (classic) in a scale set. </param>
         /// <param name="size"> The Size of the SKU. </param>
         /// <param name="family"> The Family of this particular SKU. </param>
         /// <param name="kind"> The Kind of resources that are supported in this SKU. </param>
