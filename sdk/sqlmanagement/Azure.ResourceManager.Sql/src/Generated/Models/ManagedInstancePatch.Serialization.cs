@@ -45,6 +45,11 @@ namespace Azure.ResourceManager.Sql.Models
                 writer.WritePropertyName("managedInstanceCreateMode"u8);
                 writer.WriteStringValue(ManagedInstanceCreateMode.Value.ToString());
             }
+            if (Optional.IsDefined(IsGeneralPurposeV2))
+            {
+                writer.WritePropertyName("isGeneralPurposeV2"u8);
+                writer.WriteBooleanValue(IsGeneralPurposeV2.Value);
+            }
             if (Optional.IsDefined(AdministratorLogin))
             {
                 writer.WritePropertyName("administratorLogin"u8);
@@ -65,6 +70,11 @@ namespace Azure.ResourceManager.Sql.Models
                 writer.WritePropertyName("licenseType"u8);
                 writer.WriteStringValue(LicenseType.Value.ToString());
             }
+            if (Optional.IsDefined(HybridSecondaryUsage))
+            {
+                writer.WritePropertyName("hybridSecondaryUsage"u8);
+                writer.WriteStringValue(HybridSecondaryUsage.Value.ToString());
+            }
             if (Optional.IsDefined(VCores))
             {
                 writer.WritePropertyName("vCores"u8);
@@ -74,6 +84,16 @@ namespace Azure.ResourceManager.Sql.Models
             {
                 writer.WritePropertyName("storageSizeInGB"u8);
                 writer.WriteNumberValue(StorageSizeInGB.Value);
+            }
+            if (Optional.IsDefined(StorageIOps))
+            {
+                writer.WritePropertyName("storageIOps"u8);
+                writer.WriteNumberValue(StorageIOps.Value);
+            }
+            if (Optional.IsDefined(StorageThroughputMBps))
+            {
+                writer.WritePropertyName("storageThroughputMBps"u8);
+                writer.WriteNumberValue(StorageThroughputMBps.Value);
             }
             if (Optional.IsDefined(Collation))
             {
@@ -154,6 +174,21 @@ namespace Azure.ResourceManager.Sql.Models
             {
                 writer.WritePropertyName("servicePrincipal"u8);
                 writer.WriteObjectValue(ServicePrincipal);
+            }
+            if (Optional.IsDefined(PricingModel))
+            {
+                writer.WritePropertyName("pricingModel"u8);
+                writer.WriteStringValue(PricingModel.Value.ToString());
+            }
+            if (Optional.IsDefined(AuthenticationMetadata))
+            {
+                writer.WritePropertyName("authenticationMetadata"u8);
+                writer.WriteStringValue(AuthenticationMetadata.Value.ToString());
+            }
+            if (Optional.IsDefined(DatabaseFormat))
+            {
+                writer.WritePropertyName("databaseFormat"u8);
+                writer.WriteStringValue(DatabaseFormat.Value.ToString());
             }
             writer.WriteEndObject();
             writer.WriteEndObject();

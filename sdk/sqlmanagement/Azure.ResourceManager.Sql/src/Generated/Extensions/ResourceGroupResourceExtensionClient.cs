@@ -96,18 +96,18 @@ namespace Azure.ResourceManager.Sql
             return new InstanceFailoverGroupCollection(Client, Id, locationName);
         }
 
-        /// <summary> Gets a collection of ManagedInstanceResources in the ResourceGroupResource. </summary>
-        /// <returns> An object representing collection of ManagedInstanceResources and their operations over a ManagedInstanceResource. </returns>
-        public virtual ManagedInstanceCollection GetManagedInstances()
-        {
-            return GetCachedClient(Client => new ManagedInstanceCollection(Client, Id));
-        }
-
         /// <summary> Gets a collection of SqlServerResources in the ResourceGroupResource. </summary>
         /// <returns> An object representing collection of SqlServerResources and their operations over a SqlServerResource. </returns>
         public virtual SqlServerCollection GetSqlServers()
         {
             return GetCachedClient(Client => new SqlServerCollection(Client, Id));
+        }
+
+        /// <summary> Gets a collection of ManagedInstanceResources in the ResourceGroupResource. </summary>
+        /// <returns> An object representing collection of ManagedInstanceResources and their operations over a ManagedInstanceResource. </returns>
+        public virtual ManagedInstanceCollection GetManagedInstances()
+        {
+            return GetCachedClient(Client => new ManagedInstanceCollection(Client, Id));
         }
 
         /// <summary>
