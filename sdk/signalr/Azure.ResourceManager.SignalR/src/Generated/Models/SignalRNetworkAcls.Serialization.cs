@@ -36,6 +36,16 @@ namespace Azure.ResourceManager.SignalR.Models
                 }
                 writer.WriteEndArray();
             }
+            if (Optional.IsCollectionDefined(IPRules))
+            {
+                writer.WritePropertyName("ipRules"u8);
+                writer.WriteStartArray();
+                foreach (var item in IPRules)
+                {
+                    writer.WriteObjectValue(item);
+                }
+                writer.WriteEndArray();
+            }
             writer.WriteEndObject();
         }
 
@@ -48,6 +58,7 @@ namespace Azure.ResourceManager.SignalR.Models
             Optional<SignalRNetworkAclAction> defaultAction = default;
             Optional<SignalRNetworkAcl> publicNetwork = default;
             Optional<IList<SignalRPrivateEndpointAcl>> privateEndpoints = default;
+            Optional<IList<IPRule>> ipRules = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("defaultAction"u8))
@@ -82,8 +93,22 @@ namespace Azure.ResourceManager.SignalR.Models
                     privateEndpoints = array;
                     continue;
                 }
+                if (property.NameEquals("ipRules"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<IPRule> array = new List<IPRule>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(IPRule.DeserializeIPRule(item));
+                    }
+                    ipRules = array;
+                    continue;
+                }
             }
-            return new SignalRNetworkAcls(Optional.ToNullable(defaultAction), publicNetwork.Value, Optional.ToList(privateEndpoints));
+            return new SignalRNetworkAcls(Optional.ToNullable(defaultAction), publicNetwork.Value, Optional.ToList(privateEndpoints), Optional.ToList(ipRules));
         }
     }
 }

@@ -78,6 +78,11 @@ namespace Azure.ResourceManager.SignalR
                 writer.WritePropertyName("cors"u8);
                 writer.WriteObjectValue(Cors);
             }
+            if (Optional.IsDefined(Serverless))
+            {
+                writer.WritePropertyName("serverless"u8);
+                writer.WriteObjectValue(Serverless);
+            }
             if (Optional.IsDefined(Upstream))
             {
                 writer.WritePropertyName("upstream"u8);
@@ -102,6 +107,16 @@ namespace Azure.ResourceManager.SignalR
             {
                 writer.WritePropertyName("disableAadAuth"u8);
                 writer.WriteBooleanValue(DisableAadAuth.Value);
+            }
+            if (Optional.IsDefined(RegionEndpointEnabled))
+            {
+                writer.WritePropertyName("regionEndpointEnabled"u8);
+                writer.WriteStringValue(RegionEndpointEnabled);
+            }
+            if (Optional.IsDefined(ResourceStopped))
+            {
+                writer.WritePropertyName("resourceStopped"u8);
+                writer.WriteStringValue(ResourceStopped);
             }
             writer.WriteEndObject();
             writer.WriteEndObject();
@@ -136,11 +151,14 @@ namespace Azure.ResourceManager.SignalR
             Optional<SignalRLiveTraceConfiguration> liveTraceConfiguration = default;
             Optional<SignalRResourceLogCategoryListResult> resourceLogConfiguration = default;
             Optional<SignalRCorsSettings> cors = default;
+            Optional<ServerlessSettings> serverless = default;
             Optional<ServerlessUpstreamSettings> upstream = default;
             Optional<SignalRNetworkAcls> networkACLs = default;
             Optional<string> publicNetworkAccess = default;
             Optional<bool> disableLocalAuth = default;
             Optional<bool> disableAadAuth = default;
+            Optional<string> regionEndpointEnabled = default;
+            Optional<string> resourceStopped = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("sku"u8))
@@ -347,6 +365,15 @@ namespace Azure.ResourceManager.SignalR
                             cors = SignalRCorsSettings.DeserializeSignalRCorsSettings(property0.Value);
                             continue;
                         }
+                        if (property0.NameEquals("serverless"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            serverless = ServerlessSettings.DeserializeServerlessSettings(property0.Value);
+                            continue;
+                        }
                         if (property0.NameEquals("upstream"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -388,11 +415,21 @@ namespace Azure.ResourceManager.SignalR
                             disableAadAuth = property0.Value.GetBoolean();
                             continue;
                         }
+                        if (property0.NameEquals("regionEndpointEnabled"u8))
+                        {
+                            regionEndpointEnabled = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("resourceStopped"u8))
+                        {
+                            resourceStopped = property0.Value.GetString();
+                            continue;
+                        }
                     }
                     continue;
                 }
             }
-            return new SignalRData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, sku.Value, Optional.ToNullable(kind), identity, Optional.ToNullable(provisioningState), externalIP.Value, hostName.Value, Optional.ToNullable(publicPort), Optional.ToNullable(serverPort), version.Value, Optional.ToList(privateEndpointConnections), Optional.ToList(sharedPrivateLinkResources), tls.Value, hostNamePrefix.Value, Optional.ToList(features), liveTraceConfiguration.Value, resourceLogConfiguration.Value, cors.Value, upstream.Value, networkACLs.Value, publicNetworkAccess.Value, Optional.ToNullable(disableLocalAuth), Optional.ToNullable(disableAadAuth));
+            return new SignalRData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, sku.Value, Optional.ToNullable(kind), identity, Optional.ToNullable(provisioningState), externalIP.Value, hostName.Value, Optional.ToNullable(publicPort), Optional.ToNullable(serverPort), version.Value, Optional.ToList(privateEndpointConnections), Optional.ToList(sharedPrivateLinkResources), tls.Value, hostNamePrefix.Value, Optional.ToList(features), liveTraceConfiguration.Value, resourceLogConfiguration.Value, cors.Value, serverless.Value, upstream.Value, networkACLs.Value, publicNetworkAccess.Value, Optional.ToNullable(disableLocalAuth), Optional.ToNullable(disableAadAuth), regionEndpointEnabled.Value, resourceStopped.Value);
         }
     }
 }
