@@ -29,13 +29,15 @@ namespace Azure.ResourceManager.LabServices
         /// <param name="systemData"> The systemData. </param>
         /// <param name="provisioningState"> Current provisioning state of the virtual machine. </param>
         /// <param name="state"> The current state of the virtual machine. </param>
+        /// <param name="resourceOperationError"> Error details of last operation done on lab plan. </param>
         /// <param name="connectionProfile"> Profile for information about connecting to the virtual machine. </param>
         /// <param name="claimedByUserId"> The lab user ID (not the PUID!) of who claimed the virtual machine. </param>
         /// <param name="vmType"> The type of this VM resource. </param>
-        internal LabVirtualMachineData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, LabServicesProvisioningState? provisioningState, LabVirtualMachineState? state, LabVirtualMachineConnectionProfile connectionProfile, string claimedByUserId, LabVirtualMachineType? vmType) : base(id, name, resourceType, systemData)
+        internal LabVirtualMachineData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, LabServicesProvisioningState? provisioningState, LabVirtualMachineState? state, ResourceOperationError resourceOperationError, LabVirtualMachineConnectionProfile connectionProfile, string claimedByUserId, LabVirtualMachineType? vmType) : base(id, name, resourceType, systemData)
         {
             ProvisioningState = provisioningState;
             State = state;
+            ResourceOperationError = resourceOperationError;
             ConnectionProfile = connectionProfile;
             ClaimedByUserId = claimedByUserId;
             VmType = vmType;
@@ -45,6 +47,8 @@ namespace Azure.ResourceManager.LabServices
         public LabServicesProvisioningState? ProvisioningState { get; }
         /// <summary> The current state of the virtual machine. </summary>
         public LabVirtualMachineState? State { get; }
+        /// <summary> Error details of last operation done on lab plan. </summary>
+        public ResourceOperationError ResourceOperationError { get; }
         /// <summary> Profile for information about connecting to the virtual machine. </summary>
         public LabVirtualMachineConnectionProfile ConnectionProfile { get; }
         /// <summary> The lab user ID (not the PUID!) of who claimed the virtual machine. </summary>
