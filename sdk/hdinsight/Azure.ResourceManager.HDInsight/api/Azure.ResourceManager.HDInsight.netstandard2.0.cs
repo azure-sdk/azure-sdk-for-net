@@ -608,6 +608,7 @@ namespace Azure.ResourceManager.HDInsight.Models
     public partial class HDInsightClusterNetworkProperties
     {
         public HDInsightClusterNetworkProperties() { }
+        public Azure.ResourceManager.HDInsight.Models.OutboundDependenciesManagedType? OutboundDependenciesManagedType { get { throw null; } set { } }
         public Azure.ResourceManager.HDInsight.Models.HDInsightPrivateLinkState? PrivateLink { get { throw null; } set { } }
         public Azure.ResourceManager.HDInsight.Models.HDInsightResourceProviderConnection? ResourceProviderConnection { get { throw null; } set { } }
     }
@@ -1108,6 +1109,24 @@ namespace Azure.ResourceManager.HDInsight.Models
         public KafkaRestProperties() { }
         public Azure.ResourceManager.HDInsight.Models.ClientGroupInfo ClientGroupInfo { get { throw null; } set { } }
         public System.Collections.Generic.IDictionary<string, string> ConfigurationOverride { get { throw null; } }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct OutboundDependenciesManagedType : System.IEquatable<Azure.ResourceManager.HDInsight.Models.OutboundDependenciesManagedType>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public OutboundDependenciesManagedType(string value) { throw null; }
+        public static Azure.ResourceManager.HDInsight.Models.OutboundDependenciesManagedType External { get { throw null; } }
+        public static Azure.ResourceManager.HDInsight.Models.OutboundDependenciesManagedType Managed { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.HDInsight.Models.OutboundDependenciesManagedType other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.HDInsight.Models.OutboundDependenciesManagedType left, Azure.ResourceManager.HDInsight.Models.OutboundDependenciesManagedType right) { throw null; }
+        public static implicit operator Azure.ResourceManager.HDInsight.Models.OutboundDependenciesManagedType (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.HDInsight.Models.OutboundDependenciesManagedType left, Azure.ResourceManager.HDInsight.Models.OutboundDependenciesManagedType right) { throw null; }
+        public override string ToString() { throw null; }
     }
     public partial class QuotaCapability
     {

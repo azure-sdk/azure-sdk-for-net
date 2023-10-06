@@ -25,7 +25,7 @@ namespace Azure.ResourceManager.HDInsight.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreateHDInsightClusterWithAutoscaleConfiguration()
         {
-            // Generated from example definition: specification/hdinsight/resource-manager/Microsoft.HDInsight/preview/2023-04-15-preview/examples/CreateHDInsightClusterWithAutoscaleConfig.json
+            // Generated from example definition: specification/hdinsight/resource-manager/Microsoft.HDInsight/preview/2023-08-15-preview/examples/CreateHDInsightClusterWithAutoscaleConfig.json
             // this example is just showing the usage of "Clusters_Create" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -178,7 +178,7 @@ EnableSecureChannel = true,
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreateHadoopClusterWithAzureDataLakeStorageGen2()
         {
-            // Generated from example definition: specification/hdinsight/resource-manager/Microsoft.HDInsight/preview/2023-04-15-preview/examples/CreateLinuxHadoopAdlsGen2.json
+            // Generated from example definition: specification/hdinsight/resource-manager/Microsoft.HDInsight/preview/2023-08-15-preview/examples/CreateLinuxHadoopAdlsGen2.json
             // this example is just showing the usage of "Clusters_Create" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -287,7 +287,7 @@ EnableSecureChannel = true,
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreateHadoopOnLinuxClusterWithSSHPassword()
         {
-            // Generated from example definition: specification/hdinsight/resource-manager/Microsoft.HDInsight/preview/2023-04-15-preview/examples/CreateLinuxHadoopSshPassword.json
+            // Generated from example definition: specification/hdinsight/resource-manager/Microsoft.HDInsight/preview/2023-08-15-preview/examples/CreateLinuxHadoopSshPassword.json
             // this example is just showing the usage of "Clusters_Create" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -396,7 +396,7 @@ EnableSecureChannel = true,
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreateHadoopOnLinuxClusterWithSSHPublicKey()
         {
-            // Generated from example definition: specification/hdinsight/resource-manager/Microsoft.HDInsight/preview/2023-04-15-preview/examples/CreateLinuxHadoopSshPublicKey.json
+            // Generated from example definition: specification/hdinsight/resource-manager/Microsoft.HDInsight/preview/2023-08-15-preview/examples/CreateLinuxHadoopSshPublicKey.json
             // this example is just showing the usage of "Clusters_Create" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -511,7 +511,7 @@ EnableSecureChannel = true,
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreateKafkaClusterWithKafkaRestProxy()
         {
-            // Generated from example definition: specification/hdinsight/resource-manager/Microsoft.HDInsight/preview/2023-04-15-preview/examples/CreateKafkaClusterWithKafkaRestProxy.json
+            // Generated from example definition: specification/hdinsight/resource-manager/Microsoft.HDInsight/preview/2023-08-15-preview/examples/CreateKafkaClusterWithKafkaRestProxy.json
             // this example is just showing the usage of "Clusters_Create" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -642,7 +642,7 @@ EnableSecureChannel = true,
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreateSecureHadoopCluster()
         {
-            // Generated from example definition: specification/hdinsight/resource-manager/Microsoft.HDInsight/preview/2023-04-15-preview/examples/CreateLinuxHadoopSecureHadoop.json
+            // Generated from example definition: specification/hdinsight/resource-manager/Microsoft.HDInsight/preview/2023-08-15-preview/examples/CreateLinuxHadoopSecureHadoop.json
             // this example is just showing the usage of "Clusters_Create" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -812,7 +812,7 @@ EnableSecureChannel = true,
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreateSparkOnLinuxClusterWithSSHPassword()
         {
-            // Generated from example definition: specification/hdinsight/resource-manager/Microsoft.HDInsight/preview/2023-04-15-preview/examples/CreateLinuxSparkSshPassword.json
+            // Generated from example definition: specification/hdinsight/resource-manager/Microsoft.HDInsight/preview/2023-08-15-preview/examples/CreateLinuxSparkSshPassword.json
             // this example is just showing the usage of "Clusters_Create" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -914,7 +914,7 @@ EnableSecureChannel = true,
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreateClusterWithTLS12()
         {
-            // Generated from example definition: specification/hdinsight/resource-manager/Microsoft.HDInsight/preview/2023-04-15-preview/examples/CreateHDInsightClusterWithTLS12.json
+            // Generated from example definition: specification/hdinsight/resource-manager/Microsoft.HDInsight/preview/2023-08-15-preview/examples/CreateHDInsightClusterWithTLS12.json
             // this example is just showing the usage of "Clusters_Create" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -1017,7 +1017,7 @@ EnableSecureChannel = true,
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreateClusterWithAvailabilityZones()
         {
-            // Generated from example definition: specification/hdinsight/resource-manager/Microsoft.HDInsight/preview/2023-04-15-preview/examples/CreateHDInsightClusterWithAvailabilityZones.json
+            // Generated from example definition: specification/hdinsight/resource-manager/Microsoft.HDInsight/preview/2023-08-15-preview/examples/CreateHDInsightClusterWithAvailabilityZones.json
             // this example is just showing the usage of "Clusters_Create" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -1176,7 +1176,7 @@ EnableSecureChannel = true,
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreateClusterWithComputeIsolationProperties()
         {
-            // Generated from example definition: specification/hdinsight/resource-manager/Microsoft.HDInsight/preview/2023-04-15-preview/examples/CreateHDInsightClusterWithComputeIsolationProperties.json
+            // Generated from example definition: specification/hdinsight/resource-manager/Microsoft.HDInsight/preview/2023-08-15-preview/examples/CreateHDInsightClusterWithComputeIsolationProperties.json
             // this example is just showing the usage of "Clusters_Create" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -1286,7 +1286,7 @@ EnableSecureChannel = true,
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreateClusterWithEncryptionAtHost()
         {
-            // Generated from example definition: specification/hdinsight/resource-manager/Microsoft.HDInsight/preview/2023-04-15-preview/examples/CreateHDInsightClusterWithEncryptionAtHost.json
+            // Generated from example definition: specification/hdinsight/resource-manager/Microsoft.HDInsight/preview/2023-08-15-preview/examples/CreateHDInsightClusterWithEncryptionAtHost.json
             // this example is just showing the usage of "Clusters_Create" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -1392,7 +1392,7 @@ EnableSecureChannel = true,
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreateClusterWithEncryptionInTransit()
         {
-            // Generated from example definition: specification/hdinsight/resource-manager/Microsoft.HDInsight/preview/2023-04-15-preview/examples/CreateHDInsightClusterWithEncryptionInTransit.json
+            // Generated from example definition: specification/hdinsight/resource-manager/Microsoft.HDInsight/preview/2023-08-15-preview/examples/CreateHDInsightClusterWithEncryptionInTransit.json
             // this example is just showing the usage of "Clusters_Create" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -1495,7 +1495,7 @@ EnableSecureChannel = true,
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreateClusterWithNetworkProperties()
         {
-            // Generated from example definition: specification/hdinsight/resource-manager/Microsoft.HDInsight/preview/2023-04-15-preview/examples/CreateHDInsightClusterWithCustomNetworkProperties.json
+            // Generated from example definition: specification/hdinsight/resource-manager/Microsoft.HDInsight/preview/2023-08-15-preview/examples/CreateHDInsightClusterWithCustomNetworkProperties.json
             // this example is just showing the usage of "Clusters_Create" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -1615,7 +1615,7 @@ EnableSecureChannel = true,
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetHadoopOnLinuxCluster()
         {
-            // Generated from example definition: specification/hdinsight/resource-manager/Microsoft.HDInsight/preview/2023-04-15-preview/examples/GetLinuxHadoopCluster.json
+            // Generated from example definition: specification/hdinsight/resource-manager/Microsoft.HDInsight/preview/2023-08-15-preview/examples/GetLinuxHadoopCluster.json
             // this example is just showing the usage of "Clusters_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -1649,7 +1649,7 @@ EnableSecureChannel = true,
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Exists_GetHadoopOnLinuxCluster()
         {
-            // Generated from example definition: specification/hdinsight/resource-manager/Microsoft.HDInsight/preview/2023-04-15-preview/examples/GetLinuxHadoopCluster.json
+            // Generated from example definition: specification/hdinsight/resource-manager/Microsoft.HDInsight/preview/2023-08-15-preview/examples/GetLinuxHadoopCluster.json
             // this example is just showing the usage of "Clusters_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -1679,7 +1679,7 @@ EnableSecureChannel = true,
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetIfExists_GetHadoopOnLinuxCluster()
         {
-            // Generated from example definition: specification/hdinsight/resource-manager/Microsoft.HDInsight/preview/2023-04-15-preview/examples/GetLinuxHadoopCluster.json
+            // Generated from example definition: specification/hdinsight/resource-manager/Microsoft.HDInsight/preview/2023-08-15-preview/examples/GetLinuxHadoopCluster.json
             // this example is just showing the usage of "Clusters_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -1721,7 +1721,7 @@ EnableSecureChannel = true,
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetSparkOnLinuxCluster()
         {
-            // Generated from example definition: specification/hdinsight/resource-manager/Microsoft.HDInsight/preview/2023-04-15-preview/examples/GetLinuxSparkCluster.json
+            // Generated from example definition: specification/hdinsight/resource-manager/Microsoft.HDInsight/preview/2023-08-15-preview/examples/GetLinuxSparkCluster.json
             // this example is just showing the usage of "Clusters_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -1755,7 +1755,7 @@ EnableSecureChannel = true,
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Exists_GetSparkOnLinuxCluster()
         {
-            // Generated from example definition: specification/hdinsight/resource-manager/Microsoft.HDInsight/preview/2023-04-15-preview/examples/GetLinuxSparkCluster.json
+            // Generated from example definition: specification/hdinsight/resource-manager/Microsoft.HDInsight/preview/2023-08-15-preview/examples/GetLinuxSparkCluster.json
             // this example is just showing the usage of "Clusters_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -1785,7 +1785,7 @@ EnableSecureChannel = true,
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetIfExists_GetSparkOnLinuxCluster()
         {
-            // Generated from example definition: specification/hdinsight/resource-manager/Microsoft.HDInsight/preview/2023-04-15-preview/examples/GetLinuxSparkCluster.json
+            // Generated from example definition: specification/hdinsight/resource-manager/Microsoft.HDInsight/preview/2023-08-15-preview/examples/GetLinuxSparkCluster.json
             // this example is just showing the usage of "Clusters_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -1827,7 +1827,7 @@ EnableSecureChannel = true,
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetAll_GetAllHadoopOnLinuxClustersInAResourceGroup()
         {
-            // Generated from example definition: specification/hdinsight/resource-manager/Microsoft.HDInsight/preview/2023-04-15-preview/examples/GetLinuxHadoopAllClustersInResourceGroup.json
+            // Generated from example definition: specification/hdinsight/resource-manager/Microsoft.HDInsight/preview/2023-08-15-preview/examples/GetLinuxHadoopAllClustersInResourceGroup.json
             // this example is just showing the usage of "Clusters_ListByResourceGroup" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
