@@ -17,5 +17,60 @@ namespace Azure.AI.OpenAI
     /// </summary>
     public partial class AzureCognitiveSearchChatExtensionConfiguration
     {
+        /// <summary> Initializes a new instance of AzureCognitiveSearchChatExtensionConfiguration. </summary>
+        /// <param name="type">
+        /// The type label to use when configuring Azure OpenAI chat extensions. This should typically not be changed from its
+        /// default value for Azure Cognitive Search.
+        /// </param>
+        /// <param name="searchEndpoint"> The absolute endpoint path for the Azure Cognitive Search resource to use. </param>
+        /// <param name="indexName"> The name of the index to use as available in the referenced Azure Cognitive Search resource. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="searchEndpoint"/> or <paramref name="indexName"/> is null. </exception>
+        internal AzureCognitiveSearchChatExtensionConfiguration(AzureChatExtensionType type, Uri searchEndpoint, string indexName)
+        {
+            Argument.AssertNotNull(searchEndpoint, nameof(searchEndpoint));
+            Argument.AssertNotNull(indexName, nameof(indexName));
+
+            Type = type;
+            SearchEndpoint = searchEndpoint;
+            IndexName = indexName;
+        }
+
+        /// <summary> Initializes a new instance of AzureCognitiveSearchChatExtensionConfiguration. </summary>
+        /// <param name="type">
+        /// The type label to use when configuring Azure OpenAI chat extensions. This should typically not be changed from its
+        /// default value for Azure Cognitive Search.
+        /// </param>
+        /// <param name="searchEndpoint"> The absolute endpoint path for the Azure Cognitive Search resource to use. </param>
+        /// <param name="searchKey"> The API admin key to use with the specified Azure Cognitive Search endpoint. If not specified, the service will try to use managed identity. If specified, the clientId cannot be set in the request. </param>
+        /// <param name="clientId"> The client id of the user assigned managed identity, which is to be used to access Azure Cognitive Service. Cannot be used together with key. If key is not specified, and clientId is also not specified, the service will try to use system assigned managed identity. </param>
+        /// <param name="indexName"> The name of the index to use as available in the referenced Azure Cognitive Search resource. </param>
+        /// <param name="fieldMappingOptions"> Customized field mapping behavior to use when interacting with the search index. </param>
+        /// <param name="documentCount"> The configured top number of documents to feature for the configured query. </param>
+        /// <param name="queryType"> The query type to use with Azure Cognitive Search. </param>
+        /// <param name="shouldRestrictResultScope"> Whether queries should be restricted to use of indexed data. </param>
+        /// <param name="semanticConfiguration"> The additional semantic configuration for the query. </param>
+        /// <param name="embeddingEndpoint"> When using embeddings for search, specifies the resource URL from which embeddings should be retrieved. </param>
+        /// <param name="embeddingKey"> When using embeddings, specifies the API key to use with the provided embeddings endpoint. </param>
+        /// <param name="embeddingDeploymentName"> The embedding model deployment name in the same Azure OpenAI resource. Used for vector search. Should be used exclusively with embeddingEndpoint and embeddingKey. When embeddingDeploymentName parameter is provided, the service will evaluate embedding model directly internally, and no additional authentication information is needed. If embeddingDeploymentName is not provided, the service will use the provided embeddingEndpoint and embeddingKey to retrieve embeddings from the specified endpoint, and the embeddingKey will be used as the authentication information, and the AAD is not supported to access the external embeddingEndpoint, and if the external Azure OpenAI service has network restriction, the external API call will fail. </param>
+        internal AzureCognitiveSearchChatExtensionConfiguration(AzureChatExtensionType type, Uri searchEndpoint, AzureKeyCredential searchKey, string clientId, string indexName, AzureCognitiveSearchIndexFieldMappingOptions fieldMappingOptions, int? documentCount, AzureCognitiveSearchQueryType? queryType, bool? shouldRestrictResultScope, string semanticConfiguration, Uri embeddingEndpoint, AzureKeyCredential embeddingKey, string embeddingDeploymentName)
+        {
+            Type = type;
+            SearchEndpoint = searchEndpoint;
+            SearchKey = searchKey;
+            ClientId = clientId;
+            IndexName = indexName;
+            FieldMappingOptions = fieldMappingOptions;
+            DocumentCount = documentCount;
+            QueryType = queryType;
+            ShouldRestrictResultScope = shouldRestrictResultScope;
+            SemanticConfiguration = semanticConfiguration;
+            EmbeddingEndpoint = embeddingEndpoint;
+            EmbeddingKey = embeddingKey;
+            EmbeddingDeploymentName = embeddingDeploymentName;
+        }
+        /// <summary> The client id of the user assigned managed identity, which is to be used to access Azure Cognitive Service. Cannot be used together with key. If key is not specified, and clientId is also not specified, the service will try to use system assigned managed identity. </summary>
+        public string ClientId { get; }
+        /// <summary> The embedding model deployment name in the same Azure OpenAI resource. Used for vector search. Should be used exclusively with embeddingEndpoint and embeddingKey. When embeddingDeploymentName parameter is provided, the service will evaluate embedding model directly internally, and no additional authentication information is needed. If embeddingDeploymentName is not provided, the service will use the provided embeddingEndpoint and embeddingKey to retrieve embeddings from the specified endpoint, and the embeddingKey will be used as the authentication information, and the AAD is not supported to access the external embeddingEndpoint, and if the external Azure OpenAI service has network restriction, the external API call will fail. </summary>
+        public string EmbeddingDeploymentName { get; }
     }
 }

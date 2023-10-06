@@ -127,6 +127,9 @@ namespace Azure.AI.OpenAI
         private readonly int _dummyPrimitive;
         public AzureChatExtensionType(string value) { throw null; }
         public static Azure.AI.OpenAI.AzureChatExtensionType AzureCognitiveSearch { get { throw null; } }
+        public static Azure.AI.OpenAI.AzureChatExtensionType AzureCosmosDB { get { throw null; } }
+        public static Azure.AI.OpenAI.AzureChatExtensionType AzureMachineLearningIndex { get { throw null; } }
+        public static Azure.AI.OpenAI.AzureChatExtensionType Elasticsearch { get { throw null; } }
         public bool Equals(Azure.AI.OpenAI.AzureChatExtensionType other) { throw null; }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public override bool Equals(object obj) { throw null; }
@@ -141,7 +144,9 @@ namespace Azure.AI.OpenAI
     {
         public AzureCognitiveSearchChatExtensionConfiguration() { }
         public AzureCognitiveSearchChatExtensionConfiguration(Azure.AI.OpenAI.AzureChatExtensionType type, System.Uri searchEndpoint, Azure.AzureKeyCredential searchKey, string indexName) { }
+        public string ClientId { get { throw null; } }
         public int? DocumentCount { get { throw null; } set { } }
+        public string EmbeddingDeploymentName { get { throw null; } }
         public System.Uri EmbeddingEndpoint { get { throw null; } set { } }
         public Azure.AzureKeyCredential EmbeddingKey { get { throw null; } set { } }
         public Azure.AI.OpenAI.AzureCognitiveSearchIndexFieldMappingOptions FieldMappingOptions { get { throw null; } set { } }
@@ -158,7 +163,9 @@ namespace Azure.AI.OpenAI
         public AzureCognitiveSearchIndexFieldMappingOptions() { }
         public System.Collections.Generic.IList<string> ContentFieldNames { get { throw null; } }
         public string ContentFieldSeparator { get { throw null; } set { } }
+        public string ContentFieldsSeparator { get { throw null; } }
         public string FilepathFieldName { get { throw null; } set { } }
+        public System.Collections.Generic.IReadOnlyList<string> ImageVectorFieldNames { get { throw null; } }
         public string TitleFieldName { get { throw null; } set { } }
         public string UrlFieldName { get { throw null; } set { } }
         public System.Collections.Generic.IList<string> VectorFieldNames { get { throw null; } }
@@ -493,7 +500,7 @@ namespace Azure.AI.OpenAI
     }
     public partial class OpenAIClientOptions : Azure.Core.ClientOptions
     {
-        public OpenAIClientOptions(Azure.AI.OpenAI.OpenAIClientOptions.ServiceVersion version = Azure.AI.OpenAI.OpenAIClientOptions.ServiceVersion.V2023_09_01_Preview) { }
+        public OpenAIClientOptions(Azure.AI.OpenAI.OpenAIClientOptions.ServiceVersion version = Azure.AI.OpenAI.OpenAIClientOptions.ServiceVersion.V2023_11_01_Preview) { }
         public enum ServiceVersion
         {
             V2022_12_01 = 1,
@@ -502,6 +509,8 @@ namespace Azure.AI.OpenAI
             V2023_07_01_Preview = 4,
             V2023_08_01_Preview = 5,
             V2023_09_01_Preview = 6,
+            V2023_10_01_Preview = 7,
+            V2023_11_01_Preview = 8,
         }
     }
     public partial class PromptFilterResult

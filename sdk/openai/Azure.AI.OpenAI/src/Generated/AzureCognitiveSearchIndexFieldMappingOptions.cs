@@ -13,5 +13,27 @@ namespace Azure.AI.OpenAI
     /// <summary> Optional settings to control how fields are processed when using a configured Azure Cognitive Search resource. </summary>
     public partial class AzureCognitiveSearchIndexFieldMappingOptions
     {
+        /// <summary> Initializes a new instance of AzureCognitiveSearchIndexFieldMappingOptions. </summary>
+        /// <param name="titleFieldName"> The name of the index field to use as a title. </param>
+        /// <param name="urlFieldName"> The name of the index field to use as a URL. </param>
+        /// <param name="filepathFieldName"> The name of the index field to use as a filepath. </param>
+        /// <param name="contentFieldNames"> The names of index fields that should be treated as content. YT: it was a typo in the original typespec, should be 'contentFields'. </param>
+        /// <param name="contentFieldsSeparator"> The separator pattern that content fields should use. YT: it was a typo in the original typespec, should be 'contentFieldsSeparator'. </param>
+        /// <param name="vectorFieldNames"> The names of fields that represent vector data. </param>
+        /// <param name="imageVectorFieldNames"> TBD Yasu. </param>
+        internal AzureCognitiveSearchIndexFieldMappingOptions(string titleFieldName, string urlFieldName, string filepathFieldName, IList<string> contentFieldNames, string contentFieldsSeparator, IList<string> vectorFieldNames, IReadOnlyList<string> imageVectorFieldNames)
+        {
+            TitleFieldName = titleFieldName;
+            UrlFieldName = urlFieldName;
+            FilepathFieldName = filepathFieldName;
+            ContentFieldNames = contentFieldNames;
+            ContentFieldsSeparator = contentFieldsSeparator;
+            VectorFieldNames = vectorFieldNames;
+            ImageVectorFieldNames = imageVectorFieldNames;
+        }
+        /// <summary> The separator pattern that content fields should use. YT: it was a typo in the original typespec, should be 'contentFieldsSeparator'. </summary>
+        public string ContentFieldsSeparator { get; }
+        /// <summary> TBD Yasu. </summary>
+        public IReadOnlyList<string> ImageVectorFieldNames { get; }
     }
 }

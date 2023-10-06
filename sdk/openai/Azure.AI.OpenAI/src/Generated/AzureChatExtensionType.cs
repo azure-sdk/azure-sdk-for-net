@@ -27,9 +27,18 @@ namespace Azure.AI.OpenAI
         }
 
         private const string AzureCognitiveSearchValue = "AzureCognitiveSearch";
+        private const string AzureMachineLearningIndexValue = "AzureMLIndex";
+        private const string AzureCosmosDBValue = "AzureCosmosDB";
+        private const string ElasticsearchValue = "Elasticsearch";
 
         /// <summary> Represents the use of Azure Cognitive Search as an Azure OpenAI chat extension. </summary>
         public static AzureChatExtensionType AzureCognitiveSearch { get; } = new AzureChatExtensionType(AzureCognitiveSearchValue);
+        /// <summary> Represents the use of Azure Machine Learning index as an Azure OpenAI chat extension. </summary>
+        public static AzureChatExtensionType AzureMachineLearningIndex { get; } = new AzureChatExtensionType(AzureMachineLearningIndexValue);
+        /// <summary> Represents the use of Azure Cosmos DB as an Azure OpenAI chat extension. </summary>
+        public static AzureChatExtensionType AzureCosmosDB { get; } = new AzureChatExtensionType(AzureCosmosDBValue);
+        /// <summary> Represents the use of Elasticsearch as an Azure OpenAI chat extension. (Elasticsearch is a brand name, so we cannot call it ElasticSearch). </summary>
+        public static AzureChatExtensionType Elasticsearch { get; } = new AzureChatExtensionType(ElasticsearchValue);
         /// <summary> Determines if two <see cref="AzureChatExtensionType"/> values are the same. </summary>
         public static bool operator ==(AzureChatExtensionType left, AzureChatExtensionType right) => left.Equals(right);
         /// <summary> Determines if two <see cref="AzureChatExtensionType"/> values are not the same. </summary>
