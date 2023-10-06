@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="GetSignRootCertificateAsync(string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetSignRootCertificateAsync.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+CodeSigningClient client = new CodeSigningClient("<region>", credential);
+
+Response<BinaryData> response = await client.GetSignRootCertificateAsync("<codeSigningAccountName>", "<certificateProfileName>");
+]]></code>
+This sample shows how to call GetSignRootCertificateAsync with all parameters.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+CodeSigningClient client = new CodeSigningClient("<region>", credential);
+
+Response<BinaryData> response = await client.GetSignRootCertificateAsync("<codeSigningAccountName>", "<certificateProfileName>");
+]]></code></example>
+    </member>
+    <member name="GetSignRootCertificate(string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetSignRootCertificate.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+CodeSigningClient client = new CodeSigningClient("<region>", credential);
+
+Response<BinaryData> response = client.GetSignRootCertificate("<codeSigningAccountName>", "<certificateProfileName>");
+]]></code>
+This sample shows how to call GetSignRootCertificate with all parameters.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+CodeSigningClient client = new CodeSigningClient("<region>", credential);
+
+Response<BinaryData> response = client.GetSignRootCertificate("<codeSigningAccountName>", "<certificateProfileName>");
+]]></code></example>
+    </member>
+    <member name="GetSignRootCertificateAsync(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetSignRootCertificateAsync and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+CodeSigningClient client = new CodeSigningClient("<region>", credential);
+
+Response response = await client.GetSignRootCertificateAsync("<codeSigningAccountName>", "<certificateProfileName>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code>
+This sample shows how to call GetSignRootCertificateAsync with all parameters and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+CodeSigningClient client = new CodeSigningClient("<region>", credential);
+
+Response response = await client.GetSignRootCertificateAsync("<codeSigningAccountName>", "<certificateProfileName>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code></example>
+    </member>
+    <member name="GetSignRootCertificate(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetSignRootCertificate and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+CodeSigningClient client = new CodeSigningClient("<region>", credential);
+
+Response response = client.GetSignRootCertificate("<codeSigningAccountName>", "<certificateProfileName>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code>
+This sample shows how to call GetSignRootCertificate with all parameters and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+CodeSigningClient client = new CodeSigningClient("<region>", credential);
+
+Response response = client.GetSignRootCertificate("<codeSigningAccountName>", "<certificateProfileName>", null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code></example>
+    </member>
+    <member name="GetSignEkusAsync(string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetSignEkusAsync.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+CodeSigningClient client = new CodeSigningClient("<region>", credential);
+
+await foreach (ExtendedKeyUsage item in client.GetSignEkusAsync("<codeSigningAccountName>", "<certificateProfileName>"))
+{
+}
+]]></code>
+This sample shows how to call GetSignEkusAsync with all parameters.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+CodeSigningClient client = new CodeSigningClient("<region>", credential);
+
+await foreach (ExtendedKeyUsage item in client.GetSignEkusAsync("<codeSigningAccountName>", "<certificateProfileName>"))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetSignEkus(string,string,CancellationToken)">
+      <example>
+This sample shows how to call GetSignEkus.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+CodeSigningClient client = new CodeSigningClient("<region>", credential);
+
+foreach (ExtendedKeyUsage item in client.GetSignEkus("<codeSigningAccountName>", "<certificateProfileName>"))
+{
+}
+]]></code>
+This sample shows how to call GetSignEkus with all parameters.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+CodeSigningClient client = new CodeSigningClient("<region>", credential);
+
+foreach (ExtendedKeyUsage item in client.GetSignEkus("<codeSigningAccountName>", "<certificateProfileName>"))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetSignEkusAsync(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetSignEkusAsync and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+CodeSigningClient client = new CodeSigningClient("<region>", credential);
+
+await foreach (BinaryData item in client.GetSignEkusAsync("<codeSigningAccountName>", "<certificateProfileName>", null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("ekus")[0].ToString());
+}
+]]></code>
+This sample shows how to call GetSignEkusAsync with all parameters and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+CodeSigningClient client = new CodeSigningClient("<region>", credential);
+
+await foreach (BinaryData item in client.GetSignEkusAsync("<codeSigningAccountName>", "<certificateProfileName>", null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("ekus")[0].ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetSignEkus(string,string,RequestContext)">
+      <example>
+This sample shows how to call GetSignEkus and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+CodeSigningClient client = new CodeSigningClient("<region>", credential);
+
+foreach (BinaryData item in client.GetSignEkus("<codeSigningAccountName>", "<certificateProfileName>", null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("ekus")[0].ToString());
+}
+]]></code>
+This sample shows how to call GetSignEkus with all parameters and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+CodeSigningClient client = new CodeSigningClient("<region>", credential);
+
+foreach (BinaryData item in client.GetSignEkus("<codeSigningAccountName>", "<certificateProfileName>", null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("ekus")[0].ToString());
+}
+]]></code></example>
+    </member>
+    <member name="SignAsync(WaitUntil,string,string,CodeSigningSubmissionOptions,CancellationToken)">
+      <example>
+This sample shows how to call SignAsync.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+CodeSigningClient client = new CodeSigningClient("<region>", credential);
+
+CodeSigningSubmissionOptions codeSigningSubmissionOptions = new CodeSigningSubmissionOptions(SignatureAlgorithm.RS256, BinaryData.FromObjectAsJson(new object()));
+Operation<ResourceOperationStatusCertificateProfileCodeSignOperationStatusError> operation = await client.SignAsync(WaitUntil.Completed, "<codeSigningAccountName>", "<certificateProfileName>", codeSigningSubmissionOptions);
+ResourceOperationStatusCertificateProfileCodeSignOperationStatusError responseData = operation.Value;
+]]></code>
+This sample shows how to call SignAsync with all parameters.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+CodeSigningClient client = new CodeSigningClient("<region>", credential);
+
+CodeSigningSubmissionOptions codeSigningSubmissionOptions = new CodeSigningSubmissionOptions(SignatureAlgorithm.RS256, BinaryData.FromObjectAsJson(new object()))
+{
+    FileHashList = { BinaryData.FromObjectAsJson(new object()) },
+    AuthenticodeHashList = { BinaryData.FromObjectAsJson(new object()) },
+};
+Operation<ResourceOperationStatusCertificateProfileCodeSignOperationStatusError> operation = await client.SignAsync(WaitUntil.Completed, "<codeSigningAccountName>", "<certificateProfileName>", codeSigningSubmissionOptions);
+ResourceOperationStatusCertificateProfileCodeSignOperationStatusError responseData = operation.Value;
+]]></code></example>
+    </member>
+    <member name="Sign(WaitUntil,string,string,CodeSigningSubmissionOptions,CancellationToken)">
+      <example>
+This sample shows how to call Sign.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+CodeSigningClient client = new CodeSigningClient("<region>", credential);
+
+CodeSigningSubmissionOptions codeSigningSubmissionOptions = new CodeSigningSubmissionOptions(SignatureAlgorithm.RS256, BinaryData.FromObjectAsJson(new object()));
+Operation<ResourceOperationStatusCertificateProfileCodeSignOperationStatusError> operation = client.Sign(WaitUntil.Completed, "<codeSigningAccountName>", "<certificateProfileName>", codeSigningSubmissionOptions);
+ResourceOperationStatusCertificateProfileCodeSignOperationStatusError responseData = operation.Value;
+]]></code>
+This sample shows how to call Sign with all parameters.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+CodeSigningClient client = new CodeSigningClient("<region>", credential);
+
+CodeSigningSubmissionOptions codeSigningSubmissionOptions = new CodeSigningSubmissionOptions(SignatureAlgorithm.RS256, BinaryData.FromObjectAsJson(new object()))
+{
+    FileHashList = { BinaryData.FromObjectAsJson(new object()) },
+    AuthenticodeHashList = { BinaryData.FromObjectAsJson(new object()) },
+};
+Operation<ResourceOperationStatusCertificateProfileCodeSignOperationStatusError> operation = client.Sign(WaitUntil.Completed, "<codeSigningAccountName>", "<certificateProfileName>", codeSigningSubmissionOptions);
+ResourceOperationStatusCertificateProfileCodeSignOperationStatusError responseData = operation.Value;
+]]></code></example>
+    </member>
+    <member name="SignAsync(WaitUntil,string,string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call SignAsync and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+CodeSigningClient client = new CodeSigningClient("<region>", credential);
+
+RequestContent content = RequestContent.Create(new
+{
+    signatureAlgorithm = "RS256",
+    digest = new object(),
+});
+Operation<BinaryData> operation = await client.SignAsync(WaitUntil.Completed, "<codeSigningAccountName>", "<certificateProfileName>", content);
+BinaryData responseData = operation.Value;
+
+JsonElement result = JsonDocument.Parse(responseData.ToStream()).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+]]></code>
+This sample shows how to call SignAsync with all parameters and request content and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+CodeSigningClient client = new CodeSigningClient("<region>", credential);
+
+RequestContent content = RequestContent.Create(new
+{
+    signatureAlgorithm = "RS256",
+    digest = new object(),
+    fileHashList = new object[]
+    {
+        new object()
+    },
+    authenticodeHashList = new object[]
+    {
+        new object()
+    },
+});
+Operation<BinaryData> operation = await client.SignAsync(WaitUntil.Completed, "<codeSigningAccountName>", "<certificateProfileName>", content);
+BinaryData responseData = operation.Value;
+
+JsonElement result = JsonDocument.Parse(responseData.ToStream()).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("innererror").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("signResult").GetProperty("operationId").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("signResult").GetProperty("signature").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("signResult").GetProperty("signingCertificate").ToString());
+]]></code></example>
+    </member>
+    <member name="Sign(WaitUntil,string,string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call Sign and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+CodeSigningClient client = new CodeSigningClient("<region>", credential);
+
+RequestContent content = RequestContent.Create(new
+{
+    signatureAlgorithm = "RS256",
+    digest = new object(),
+});
+Operation<BinaryData> operation = client.Sign(WaitUntil.Completed, "<codeSigningAccountName>", "<certificateProfileName>", content);
+BinaryData responseData = operation.Value;
+
+JsonElement result = JsonDocument.Parse(responseData.ToStream()).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+]]></code>
+This sample shows how to call Sign with all parameters and request content and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+CodeSigningClient client = new CodeSigningClient("<region>", credential);
+
+RequestContent content = RequestContent.Create(new
+{
+    signatureAlgorithm = "RS256",
+    digest = new object(),
+    fileHashList = new object[]
+    {
+        new object()
+    },
+    authenticodeHashList = new object[]
+    {
+        new object()
+    },
+});
+Operation<BinaryData> operation = client.Sign(WaitUntil.Completed, "<codeSigningAccountName>", "<certificateProfileName>", content);
+BinaryData responseData = operation.Value;
+
+JsonElement result = JsonDocument.Parse(responseData.ToStream()).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("status").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("message").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("target").ToString());
+Console.WriteLine(result.GetProperty("error").GetProperty("innererror").GetProperty("code").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("signResult").GetProperty("operationId").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("signResult").GetProperty("signature").ToString());
+Console.WriteLine(result.GetProperty("result").GetProperty("signResult").GetProperty("signingCertificate").ToString());
+]]></code></example>
+    </member>
+  </members>
+</doc>
