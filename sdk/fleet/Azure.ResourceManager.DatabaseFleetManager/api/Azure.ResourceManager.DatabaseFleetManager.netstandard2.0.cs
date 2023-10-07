@@ -21,7 +21,6 @@ namespace Azure.ResourceManager.DatabaseFleetManager
     {
         public DatabaseFleetData(Azure.Core.AzureLocation location) : base (default(Azure.Core.AzureLocation)) { }
         public Azure.ETag? ETag { get { throw null; } }
-        public Azure.ResourceManager.DatabaseFleetManager.Models.FleetHubProfile HubProfile { get { throw null; } set { } }
         public Azure.ResourceManager.Models.ManagedServiceIdentity Identity { get { throw null; } set { } }
         public Azure.ResourceManager.DatabaseFleetManager.Models.FleetProvisioningState? ProvisioningState { get { throw null; } }
     }
@@ -35,6 +34,7 @@ namespace Azure.ResourceManager.DatabaseFleetManager
         public static Azure.Pageable<Azure.ResourceManager.DatabaseFleetManager.DatabaseFleetResource> GetDatabaseFleets(this Azure.ResourceManager.Resources.SubscriptionResource subscriptionResource, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static Azure.AsyncPageable<Azure.ResourceManager.DatabaseFleetManager.DatabaseFleetResource> GetDatabaseFleetsAsync(this Azure.ResourceManager.Resources.SubscriptionResource subscriptionResource, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static Azure.ResourceManager.DatabaseFleetManager.DatabaseFleetUpdateRunResource GetDatabaseFleetUpdateRunResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
+        public static Azure.ResourceManager.DatabaseFleetManager.FleetUpdateStrategyResource GetFleetUpdateStrategyResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
     }
     public partial class DatabaseFleetMemberCollection : Azure.ResourceManager.ArmCollection, System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.DatabaseFleetManager.DatabaseFleetMemberResource>, System.Collections.Generic.IEnumerable<Azure.ResourceManager.DatabaseFleetManager.DatabaseFleetMemberResource>, System.Collections.IEnumerable
     {
@@ -96,6 +96,9 @@ namespace Azure.ResourceManager.DatabaseFleetManager
         public virtual Azure.Response<Azure.ResourceManager.DatabaseFleetManager.DatabaseFleetUpdateRunResource> GetDatabaseFleetUpdateRun(string updateRunName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.DatabaseFleetManager.DatabaseFleetUpdateRunResource>> GetDatabaseFleetUpdateRunAsync(string updateRunName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.ResourceManager.DatabaseFleetManager.DatabaseFleetUpdateRunCollection GetDatabaseFleetUpdateRuns() { throw null; }
+        public virtual Azure.ResourceManager.DatabaseFleetManager.FleetUpdateStrategyCollection GetFleetUpdateStrategies() { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.DatabaseFleetManager.FleetUpdateStrategyResource> GetFleetUpdateStrategy(string updateStrategyName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.DatabaseFleetManager.FleetUpdateStrategyResource>> GetFleetUpdateStrategyAsync(string updateStrategyName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.DatabaseFleetManager.DatabaseFleetResource> RemoveTag(string key, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.DatabaseFleetManager.DatabaseFleetResource>> RemoveTagAsync(string key, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.DatabaseFleetManager.DatabaseFleetResource> SetTags(System.Collections.Generic.IDictionary<string, string> tags, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
@@ -128,6 +131,7 @@ namespace Azure.ResourceManager.DatabaseFleetManager
         public Azure.ResourceManager.DatabaseFleetManager.Models.FleetUpdateRunProvisioningState? ProvisioningState { get { throw null; } }
         public Azure.ResourceManager.DatabaseFleetManager.Models.FleetUpdateRunStatus Status { get { throw null; } }
         public System.Collections.Generic.IList<Azure.ResourceManager.DatabaseFleetManager.Models.FleetUpdateStage> StrategyStages { get { throw null; } set { } }
+        public Azure.Core.ResourceIdentifier UpdateStrategyId { get { throw null; } set { } }
     }
     public partial class DatabaseFleetUpdateRunResource : Azure.ResourceManager.ArmResource
     {
@@ -147,21 +151,59 @@ namespace Azure.ResourceManager.DatabaseFleetManager
         public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.DatabaseFleetManager.DatabaseFleetUpdateRunResource> Update(Azure.WaitUntil waitUntil, Azure.ResourceManager.DatabaseFleetManager.DatabaseFleetUpdateRunData data, string ifMatch = null, string ifNoneMatch = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.DatabaseFleetManager.DatabaseFleetUpdateRunResource>> UpdateAsync(Azure.WaitUntil waitUntil, Azure.ResourceManager.DatabaseFleetManager.DatabaseFleetUpdateRunData data, string ifMatch = null, string ifNoneMatch = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
     }
+    public partial class FleetUpdateStrategyCollection : Azure.ResourceManager.ArmCollection, System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.DatabaseFleetManager.FleetUpdateStrategyResource>, System.Collections.Generic.IEnumerable<Azure.ResourceManager.DatabaseFleetManager.FleetUpdateStrategyResource>, System.Collections.IEnumerable
+    {
+        protected FleetUpdateStrategyCollection() { }
+        public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.DatabaseFleetManager.FleetUpdateStrategyResource> CreateOrUpdate(Azure.WaitUntil waitUntil, string updateStrategyName, Azure.ResourceManager.DatabaseFleetManager.FleetUpdateStrategyData data, string ifMatch = null, string ifNoneMatch = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.DatabaseFleetManager.FleetUpdateStrategyResource>> CreateOrUpdateAsync(Azure.WaitUntil waitUntil, string updateStrategyName, Azure.ResourceManager.DatabaseFleetManager.FleetUpdateStrategyData data, string ifMatch = null, string ifNoneMatch = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<bool> Exists(string updateStrategyName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<bool>> ExistsAsync(string updateStrategyName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.DatabaseFleetManager.FleetUpdateStrategyResource> Get(string updateStrategyName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Pageable<Azure.ResourceManager.DatabaseFleetManager.FleetUpdateStrategyResource> GetAll(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.AsyncPageable<Azure.ResourceManager.DatabaseFleetManager.FleetUpdateStrategyResource> GetAllAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.DatabaseFleetManager.FleetUpdateStrategyResource>> GetAsync(string updateStrategyName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.NullableResponse<Azure.ResourceManager.DatabaseFleetManager.FleetUpdateStrategyResource> GetIfExists(string updateStrategyName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.NullableResponse<Azure.ResourceManager.DatabaseFleetManager.FleetUpdateStrategyResource>> GetIfExistsAsync(string updateStrategyName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        System.Collections.Generic.IAsyncEnumerator<Azure.ResourceManager.DatabaseFleetManager.FleetUpdateStrategyResource> System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.DatabaseFleetManager.FleetUpdateStrategyResource>.GetAsyncEnumerator(System.Threading.CancellationToken cancellationToken) { throw null; }
+        System.Collections.Generic.IEnumerator<Azure.ResourceManager.DatabaseFleetManager.FleetUpdateStrategyResource> System.Collections.Generic.IEnumerable<Azure.ResourceManager.DatabaseFleetManager.FleetUpdateStrategyResource>.GetEnumerator() { throw null; }
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() { throw null; }
+    }
+    public partial class FleetUpdateStrategyData : Azure.ResourceManager.Models.ResourceData
+    {
+        public FleetUpdateStrategyData() { }
+        public Azure.ETag? ETag { get { throw null; } }
+        public Azure.ResourceManager.DatabaseFleetManager.Models.FleetUpdateStrategyProvisioningState? ProvisioningState { get { throw null; } }
+        public System.Collections.Generic.IList<Azure.ResourceManager.DatabaseFleetManager.Models.FleetUpdateStage> StrategyStages { get { throw null; } set { } }
+    }
+    public partial class FleetUpdateStrategyResource : Azure.ResourceManager.ArmResource
+    {
+        public static readonly Azure.Core.ResourceType ResourceType;
+        protected FleetUpdateStrategyResource() { }
+        public virtual Azure.ResourceManager.DatabaseFleetManager.FleetUpdateStrategyData Data { get { throw null; } }
+        public virtual bool HasData { get { throw null; } }
+        public static Azure.Core.ResourceIdentifier CreateResourceIdentifier(string subscriptionId, string resourceGroupName, string fleetName, string updateStrategyName) { throw null; }
+        public virtual Azure.ResourceManager.ArmOperation Delete(Azure.WaitUntil waitUntil, string ifMatch = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation> DeleteAsync(Azure.WaitUntil waitUntil, string ifMatch = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.DatabaseFleetManager.FleetUpdateStrategyResource> Get(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.DatabaseFleetManager.FleetUpdateStrategyResource>> GetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.DatabaseFleetManager.FleetUpdateStrategyResource> Update(Azure.WaitUntil waitUntil, Azure.ResourceManager.DatabaseFleetManager.FleetUpdateStrategyData data, string ifMatch = null, string ifNoneMatch = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.DatabaseFleetManager.FleetUpdateStrategyResource>> UpdateAsync(Azure.WaitUntil waitUntil, Azure.ResourceManager.DatabaseFleetManager.FleetUpdateStrategyData data, string ifMatch = null, string ifNoneMatch = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+    }
 }
 namespace Azure.ResourceManager.DatabaseFleetManager.Models
 {
     public static partial class ArmDatabaseFleetManagerModelFactory
     {
-        public static Azure.ResourceManager.DatabaseFleetManager.DatabaseFleetData DatabaseFleetData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, System.Collections.Generic.IDictionary<string, string> tags = null, Azure.Core.AzureLocation location = default(Azure.Core.AzureLocation), Azure.ETag? eTag = default(Azure.ETag?), Azure.ResourceManager.Models.ManagedServiceIdentity identity = null, Azure.ResourceManager.DatabaseFleetManager.Models.FleetProvisioningState? provisioningState = default(Azure.ResourceManager.DatabaseFleetManager.Models.FleetProvisioningState?), Azure.ResourceManager.DatabaseFleetManager.Models.FleetHubProfile hubProfile = null) { throw null; }
+        public static Azure.ResourceManager.DatabaseFleetManager.DatabaseFleetData DatabaseFleetData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, System.Collections.Generic.IDictionary<string, string> tags = null, Azure.Core.AzureLocation location = default(Azure.Core.AzureLocation), Azure.ETag? eTag = default(Azure.ETag?), Azure.ResourceManager.Models.ManagedServiceIdentity identity = null, Azure.ResourceManager.DatabaseFleetManager.Models.FleetProvisioningState? provisioningState = default(Azure.ResourceManager.DatabaseFleetManager.Models.FleetProvisioningState?)) { throw null; }
         public static Azure.ResourceManager.DatabaseFleetManager.DatabaseFleetMemberData DatabaseFleetMemberData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.ETag? eTag = default(Azure.ETag?), Azure.Core.ResourceIdentifier clusterResourceId = null, string group = null, Azure.ResourceManager.DatabaseFleetManager.Models.FleetMemberProvisioningState? provisioningState = default(Azure.ResourceManager.DatabaseFleetManager.Models.FleetMemberProvisioningState?)) { throw null; }
-        public static Azure.ResourceManager.DatabaseFleetManager.DatabaseFleetUpdateRunData DatabaseFleetUpdateRunData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.ETag? eTag = default(Azure.ETag?), Azure.ResourceManager.DatabaseFleetManager.Models.FleetUpdateRunProvisioningState? provisioningState = default(Azure.ResourceManager.DatabaseFleetManager.Models.FleetUpdateRunProvisioningState?), System.Collections.Generic.IEnumerable<Azure.ResourceManager.DatabaseFleetManager.Models.FleetUpdateStage> strategyStages = null, Azure.ResourceManager.DatabaseFleetManager.Models.FleetManagedClusterUpdate managedClusterUpdate = null, Azure.ResourceManager.DatabaseFleetManager.Models.FleetUpdateRunStatus status = null) { throw null; }
+        public static Azure.ResourceManager.DatabaseFleetManager.DatabaseFleetUpdateRunData DatabaseFleetUpdateRunData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.ETag? eTag = default(Azure.ETag?), Azure.ResourceManager.DatabaseFleetManager.Models.FleetUpdateRunProvisioningState? provisioningState = default(Azure.ResourceManager.DatabaseFleetManager.Models.FleetUpdateRunProvisioningState?), Azure.Core.ResourceIdentifier updateStrategyId = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.DatabaseFleetManager.Models.FleetUpdateStage> strategyStages = null, Azure.ResourceManager.DatabaseFleetManager.Models.FleetManagedClusterUpdate managedClusterUpdate = null, Azure.ResourceManager.DatabaseFleetManager.Models.FleetUpdateRunStatus status = null) { throw null; }
         public static Azure.ResourceManager.DatabaseFleetManager.Models.FleetCredentialResult FleetCredentialResult(string name = null, byte[] value = null) { throw null; }
         public static Azure.ResourceManager.DatabaseFleetManager.Models.FleetCredentialResults FleetCredentialResults(System.Collections.Generic.IEnumerable<Azure.ResourceManager.DatabaseFleetManager.Models.FleetCredentialResult> kubeconfigs = null) { throw null; }
-        public static Azure.ResourceManager.DatabaseFleetManager.Models.FleetHubProfile FleetHubProfile(string dnsPrefix = null, Azure.ResourceManager.DatabaseFleetManager.Models.FleetApiServerAccessProfile apiServerAccessProfile = null, Azure.Core.ResourceIdentifier agentSubnetId = null, string fqdn = null, string kubernetesVersion = null) { throw null; }
         public static Azure.ResourceManager.DatabaseFleetManager.Models.FleetUpdateGroupStatus FleetUpdateGroupStatus(Azure.ResourceManager.DatabaseFleetManager.Models.FleetUpdateOperationStatus status = null, string name = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.DatabaseFleetManager.Models.MemberUpdateStatus> members = null) { throw null; }
         public static Azure.ResourceManager.DatabaseFleetManager.Models.FleetUpdateOperationStatus FleetUpdateOperationStatus(System.DateTimeOffset? startOn = default(System.DateTimeOffset?), System.DateTimeOffset? completedOn = default(System.DateTimeOffset?), Azure.ResourceManager.DatabaseFleetManager.Models.FleetUpdateState? state = default(Azure.ResourceManager.DatabaseFleetManager.Models.FleetUpdateState?), Azure.ResponseError error = null) { throw null; }
         public static Azure.ResourceManager.DatabaseFleetManager.Models.FleetUpdateRunStatus FleetUpdateRunStatus(Azure.ResourceManager.DatabaseFleetManager.Models.FleetUpdateOperationStatus status = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.DatabaseFleetManager.Models.FleetUpdateStageStatus> stages = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.DatabaseFleetManager.Models.NodeImageVersion> selectedNodeImageVersions = null) { throw null; }
         public static Azure.ResourceManager.DatabaseFleetManager.Models.FleetUpdateStageStatus FleetUpdateStageStatus(Azure.ResourceManager.DatabaseFleetManager.Models.FleetUpdateOperationStatus status = null, string name = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.DatabaseFleetManager.Models.FleetUpdateGroupStatus> groups = null, Azure.ResourceManager.DatabaseFleetManager.Models.FleetWaitStatus afterStageWaitStatus = null) { throw null; }
+        public static Azure.ResourceManager.DatabaseFleetManager.FleetUpdateStrategyData FleetUpdateStrategyData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.ETag? eTag = default(Azure.ETag?), Azure.ResourceManager.DatabaseFleetManager.Models.FleetUpdateStrategyProvisioningState? provisioningState = default(Azure.ResourceManager.DatabaseFleetManager.Models.FleetUpdateStrategyProvisioningState?), System.Collections.Generic.IEnumerable<Azure.ResourceManager.DatabaseFleetManager.Models.FleetUpdateStage> strategyStages = null) { throw null; }
         public static Azure.ResourceManager.DatabaseFleetManager.Models.FleetWaitStatus FleetWaitStatus(Azure.ResourceManager.DatabaseFleetManager.Models.FleetUpdateOperationStatus status = null, int? waitDurationInSeconds = default(int?)) { throw null; }
         public static Azure.ResourceManager.DatabaseFleetManager.Models.MemberUpdateStatus MemberUpdateStatus(Azure.ResourceManager.DatabaseFleetManager.Models.FleetUpdateOperationStatus status = null, string name = null, Azure.Core.ResourceIdentifier clusterResourceId = null, string operationId = null, string message = null) { throw null; }
         public static Azure.ResourceManager.DatabaseFleetManager.Models.NodeImageVersion NodeImageVersion(string version = null) { throw null; }
@@ -177,13 +219,6 @@ namespace Azure.ResourceManager.DatabaseFleetManager.Models
         public Azure.ResourceManager.Models.ManagedServiceIdentity Identity { get { throw null; } set { } }
         public System.Collections.Generic.IDictionary<string, string> Tags { get { throw null; } }
     }
-    public partial class FleetApiServerAccessProfile
-    {
-        public FleetApiServerAccessProfile() { }
-        public bool? EnablePrivateCluster { get { throw null; } set { } }
-        public bool? EnableVnetIntegration { get { throw null; } set { } }
-        public Azure.Core.ResourceIdentifier SubnetId { get { throw null; } set { } }
-    }
     public partial class FleetCredentialResult
     {
         internal FleetCredentialResult() { }
@@ -194,15 +229,6 @@ namespace Azure.ResourceManager.DatabaseFleetManager.Models
     {
         internal FleetCredentialResults() { }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.DatabaseFleetManager.Models.FleetCredentialResult> Kubeconfigs { get { throw null; } }
-    }
-    public partial class FleetHubProfile
-    {
-        public FleetHubProfile() { }
-        public Azure.Core.ResourceIdentifier AgentSubnetId { get { throw null; } set { } }
-        public Azure.ResourceManager.DatabaseFleetManager.Models.FleetApiServerAccessProfile ApiServerAccessProfile { get { throw null; } set { } }
-        public string DnsPrefix { get { throw null; } set { } }
-        public string Fqdn { get { throw null; } }
-        public string KubernetesVersion { get { throw null; } }
     }
     public partial class FleetManagedClusterUpdate
     {
@@ -360,6 +386,25 @@ namespace Azure.ResourceManager.DatabaseFleetManager.Models
         public static bool operator ==(Azure.ResourceManager.DatabaseFleetManager.Models.FleetUpdateState left, Azure.ResourceManager.DatabaseFleetManager.Models.FleetUpdateState right) { throw null; }
         public static implicit operator Azure.ResourceManager.DatabaseFleetManager.Models.FleetUpdateState (string value) { throw null; }
         public static bool operator !=(Azure.ResourceManager.DatabaseFleetManager.Models.FleetUpdateState left, Azure.ResourceManager.DatabaseFleetManager.Models.FleetUpdateState right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct FleetUpdateStrategyProvisioningState : System.IEquatable<Azure.ResourceManager.DatabaseFleetManager.Models.FleetUpdateStrategyProvisioningState>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public FleetUpdateStrategyProvisioningState(string value) { throw null; }
+        public static Azure.ResourceManager.DatabaseFleetManager.Models.FleetUpdateStrategyProvisioningState Canceled { get { throw null; } }
+        public static Azure.ResourceManager.DatabaseFleetManager.Models.FleetUpdateStrategyProvisioningState Failed { get { throw null; } }
+        public static Azure.ResourceManager.DatabaseFleetManager.Models.FleetUpdateStrategyProvisioningState Succeeded { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.DatabaseFleetManager.Models.FleetUpdateStrategyProvisioningState other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.DatabaseFleetManager.Models.FleetUpdateStrategyProvisioningState left, Azure.ResourceManager.DatabaseFleetManager.Models.FleetUpdateStrategyProvisioningState right) { throw null; }
+        public static implicit operator Azure.ResourceManager.DatabaseFleetManager.Models.FleetUpdateStrategyProvisioningState (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.DatabaseFleetManager.Models.FleetUpdateStrategyProvisioningState left, Azure.ResourceManager.DatabaseFleetManager.Models.FleetUpdateStrategyProvisioningState right) { throw null; }
         public override string ToString() { throw null; }
     }
     public partial class FleetWaitStatus

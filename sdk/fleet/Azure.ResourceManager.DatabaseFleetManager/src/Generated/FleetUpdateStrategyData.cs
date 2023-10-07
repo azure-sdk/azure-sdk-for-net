@@ -14,39 +14,42 @@ using Azure.ResourceManager.Models;
 namespace Azure.ResourceManager.DatabaseFleetManager
 {
     /// <summary>
-    /// A class representing the DatabaseFleet data model.
-    /// The Fleet resource.
+    /// A class representing the FleetUpdateStrategy data model.
+    /// Defines a multi-stage process to perform update operations across members of a Fleet.
     /// </summary>
-    public partial class DatabaseFleetData : TrackedResourceData
+    public partial class FleetUpdateStrategyData : ResourceData
     {
-        /// <summary> Initializes a new instance of DatabaseFleetData. </summary>
-        /// <param name="location"> The location. </param>
-        public DatabaseFleetData(AzureLocation location) : base(location)
+        /// <summary> Initializes a new instance of FleetUpdateStrategyData. </summary>
+        public FleetUpdateStrategyData()
         {
         }
 
-        /// <summary> Initializes a new instance of DatabaseFleetData. </summary>
+        /// <summary> Initializes a new instance of FleetUpdateStrategyData. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="tags"> The tags. </param>
-        /// <param name="location"> The location. </param>
         /// <param name="eTag"> If eTag is provided in the response body, it may also be provided as a header per the normal etag convention.  Entity tags are used for comparing two or more entities from the same requested resource. HTTP/1.1 uses entity tags in the etag (section 14.19), If-Match (section 14.24), If-None-Match (section 14.26), and If-Range (section 14.27) header fields. </param>
-        /// <param name="identity"> Managed identity. </param>
-        /// <param name="provisioningState"> The status of the last operation. </param>
-        internal DatabaseFleetData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ETag? eTag, ManagedServiceIdentity identity, FleetProvisioningState? provisioningState) : base(id, name, resourceType, systemData, tags, location)
+        /// <param name="provisioningState"> The provisioning state of the UpdateStrategy resource. </param>
+        /// <param name="strategy"> Defines the update sequence of the clusters. </param>
+        internal FleetUpdateStrategyData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, ETag? eTag, FleetUpdateStrategyProvisioningState? provisioningState, FleetUpdateRunStrategy strategy) : base(id, name, resourceType, systemData)
         {
             ETag = eTag;
-            Identity = identity;
             ProvisioningState = provisioningState;
+            Strategy = strategy;
         }
 
         /// <summary> If eTag is provided in the response body, it may also be provided as a header per the normal etag convention.  Entity tags are used for comparing two or more entities from the same requested resource. HTTP/1.1 uses entity tags in the etag (section 14.19), If-Match (section 14.24), If-None-Match (section 14.26), and If-Range (section 14.27) header fields. </summary>
         public ETag? ETag { get; }
-        /// <summary> Managed identity. </summary>
-        public ManagedServiceIdentity Identity { get; set; }
-        /// <summary> The status of the last operation. </summary>
-        public FleetProvisioningState? ProvisioningState { get; }
+        /// <summary> The provisioning state of the UpdateStrategy resource. </summary>
+        public FleetUpdateStrategyProvisioningState? ProvisioningState { get; }
+        /// <summary> Defines the update sequence of the clusters. </summary>
+        internal FleetUpdateRunStrategy Strategy { get; set; }
+        /// <summary> The list of stages that compose this update run. Min size: 1. </summary>
+        public IList<FleetUpdateStage> StrategyStages
+        {
+            get => Strategy is null ? default : Strategy.Stages;
+            set => Strategy = new FleetUpdateRunStrategy(value);
+        }
     }
 }
