@@ -412,7 +412,7 @@ Value = BinaryData.FromString("/subscriptions/12341234-1234-1234-1234-1234123412
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetOperationalInsightsWorkspaces_WorkspacesSubscriptionList()
         {
-            // Generated from example definition: specification/operationalinsights/resource-manager/Microsoft.OperationalInsights/stable/2022-10-01/examples/WorkspacesSubscriptionList.json
+            // Generated from example definition: specification/operationalinsights/resource-manager/Microsoft.OperationalInsights/stable/2023-09-01/examples/WorkspacesSubscriptionList.json
             // this example is just showing the usage of "Workspaces_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -444,7 +444,7 @@ Value = BinaryData.FromString("/subscriptions/12341234-1234-1234-1234-1234123412
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Delete_WorkspacesDelete()
         {
-            // Generated from example definition: specification/operationalinsights/resource-manager/Microsoft.OperationalInsights/stable/2022-10-01/examples/WorkspacesDelete.json
+            // Generated from example definition: specification/operationalinsights/resource-manager/Microsoft.OperationalInsights/stable/2023-09-01/examples/WorkspacesDelete.json
             // this example is just showing the usage of "Workspaces_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -471,7 +471,7 @@ Value = BinaryData.FromString("/subscriptions/12341234-1234-1234-1234-1234123412
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_WorkspaceGet()
         {
-            // Generated from example definition: specification/operationalinsights/resource-manager/Microsoft.OperationalInsights/stable/2022-10-01/examples/WorkspacesGet.json
+            // Generated from example definition: specification/operationalinsights/resource-manager/Microsoft.OperationalInsights/stable/2023-09-01/examples/WorkspacesGet.json
             // this example is just showing the usage of "Workspaces_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -502,7 +502,7 @@ Value = BinaryData.FromString("/subscriptions/12341234-1234-1234-1234-1234123412
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_WorkspacesPatch()
         {
-            // Generated from example definition: specification/operationalinsights/resource-manager/Microsoft.OperationalInsights/stable/2022-10-01/examples/WorkspacesUpdate.json
+            // Generated from example definition: specification/operationalinsights/resource-manager/Microsoft.OperationalInsights/stable/2023-09-01/examples/WorkspacesUpdate.json
             // this example is just showing the usage of "Workspaces_Update" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line

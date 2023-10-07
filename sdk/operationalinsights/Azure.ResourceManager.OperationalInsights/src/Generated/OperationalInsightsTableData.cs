@@ -28,7 +28,7 @@ namespace Azure.ResourceManager.OperationalInsights
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
         /// <param name="retentionInDays"> The table retention in days, between 4 and 730. Setting this property to -1 will default to the workspace retention. </param>
-        /// <param name="totalRetentionInDays"> The table total retention in days, between 4 and 2555. Setting this property to -1 will default to table retention. </param>
+        /// <param name="totalRetentionInDays"> The table total retention in days, between 4 and 4383. Setting this property to -1 will default to table retention. </param>
         /// <param name="archiveRetentionInDays"> The table data archive retention in days. Calculated as (totalRetentionInDays-retentionInDays). </param>
         /// <param name="searchResults"> Parameters of the search job that initiated this table. </param>
         /// <param name="restoredLogs"> Parameters of the restore operation that initiated this table. </param>
@@ -39,7 +39,7 @@ namespace Azure.ResourceManager.OperationalInsights
         /// <param name="provisioningState"> Table's current provisioning state. If set to 'updating', indicates a resource lock due to ongoing operation, forbidding any update to the table until the ongoing operation is concluded. </param>
         /// <param name="retentionInDaysAsDefault"> True - Value originates from workspace retention in days, False - Customer specific. </param>
         /// <param name="totalRetentionInDaysAsDefault"> True - Value originates from retention in days, False - Customer specific. </param>
-        internal OperationalInsightsTableData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, int? retentionInDays, int? totalRetentionInDays, int? archiveRetentionInDays, OperationalInsightsTableSearchResults searchResults, OperationalInsightsTableRestoredLogs restoredLogs, OperationalInsightsTableResultStatistics resultStatistics, OperationalInsightsTablePlan? plan, string lastPlanModifiedDate, OperationalInsightsSchema schema, OperationalInsightsTableProvisioningState? provisioningState, RetentionInDaysAsDefaultState? retentionInDaysAsDefault, TotalRetentionInDaysAsDefaultState? totalRetentionInDaysAsDefault) : base(id, name, resourceType, systemData)
+        internal OperationalInsightsTableData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, int? retentionInDays, int? totalRetentionInDays, int? archiveRetentionInDays, OperationalInsightsTableSearchResults searchResults, OperationalInsightsTableRestoredLogs restoredLogs, OperationalInsightsTableResultStatistics resultStatistics, OperationalInsightsTablePlan? plan, string lastPlanModifiedDate, OperationalInsightsSchema schema, OperationalInsightsTableProvisioningState? provisioningState, bool? retentionInDaysAsDefault, bool? totalRetentionInDaysAsDefault) : base(id, name, resourceType, systemData)
         {
             RetentionInDays = retentionInDays;
             TotalRetentionInDays = totalRetentionInDays;
@@ -57,7 +57,7 @@ namespace Azure.ResourceManager.OperationalInsights
 
         /// <summary> The table retention in days, between 4 and 730. Setting this property to -1 will default to the workspace retention. </summary>
         public int? RetentionInDays { get; set; }
-        /// <summary> The table total retention in days, between 4 and 2555. Setting this property to -1 will default to table retention. </summary>
+        /// <summary> The table total retention in days, between 4 and 4383. Setting this property to -1 will default to table retention. </summary>
         public int? TotalRetentionInDays { get; set; }
         /// <summary> The table data archive retention in days. Calculated as (totalRetentionInDays-retentionInDays). </summary>
         public int? ArchiveRetentionInDays { get; }
@@ -76,8 +76,8 @@ namespace Azure.ResourceManager.OperationalInsights
         /// <summary> Table's current provisioning state. If set to 'updating', indicates a resource lock due to ongoing operation, forbidding any update to the table until the ongoing operation is concluded. </summary>
         public OperationalInsightsTableProvisioningState? ProvisioningState { get; }
         /// <summary> True - Value originates from workspace retention in days, False - Customer specific. </summary>
-        public RetentionInDaysAsDefaultState? RetentionInDaysAsDefault { get; }
+        public bool? RetentionInDaysAsDefault { get; }
         /// <summary> True - Value originates from retention in days, False - Customer specific. </summary>
-        public TotalRetentionInDaysAsDefaultState? TotalRetentionInDaysAsDefault { get; }
+        public bool? TotalRetentionInDaysAsDefault { get; }
     }
 }
