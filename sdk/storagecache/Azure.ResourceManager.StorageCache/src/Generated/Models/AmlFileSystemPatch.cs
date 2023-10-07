@@ -37,5 +37,7 @@ namespace Azure.ResourceManager.StorageCache.Models
 
         /// <summary> Start time of a 30-minute weekly maintenance window. </summary>
         public AmlFileSystemUpdatePropertiesMaintenanceWindow MaintenanceWindow { get; set; }
+        /// <summary> Specifies root squash settings of the AML file system. </summary>
+        public AmlFileSystemRootSquashSettings RootSquashSettings { get; set; }
     }
 }
