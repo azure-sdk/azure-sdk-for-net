@@ -30,7 +30,7 @@ namespace Azure.ResourceManager.Compute.Models
         public Uri PrivacyStatementUri { get; set; }
         /// <summary> The release note uri. </summary>
         public Uri ReleaseNoteUri { get; set; }
-        /// <summary> This property allows you to specify the type of the OS that is included in the disk when creating a VM from a managed image. &lt;br&gt;&lt;br&gt; Possible values are: &lt;br&gt;&lt;br&gt; **Windows** &lt;br&gt;&lt;br&gt; **Linux**. </summary>
+        /// <summary> This property allows you to specify the type of the OS that is included in the disk when creating a VM from a managed image. Possible values are: **Windows,** **Linux.**. </summary>
         public SupportedOperatingSystemType? OSType { get; set; }
         /// <summary> This property allows the user to specify whether the virtual machines created under this image are 'Generalized' or 'Specialized'. </summary>
         public OperatingSystemStateType? OSState { get; set; }
@@ -61,7 +61,7 @@ namespace Azure.ResourceManager.Compute.Models
         public GalleryProvisioningState? ProvisioningState { get; }
         /// <summary> A list of gallery image features. </summary>
         public IList<GalleryImageFeature> Features { get; }
-        /// <summary> The architecture of the image. Applicable to OS disks only. </summary>
+        /// <summary> CPU architecture supported by an OS disk. </summary>
         public ArchitectureType? Architecture { get; set; }
         /// <summary> Resource tags. </summary>
         public IDictionary<string, string> Tags { get; }

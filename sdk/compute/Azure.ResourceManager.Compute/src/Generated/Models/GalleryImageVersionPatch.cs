@@ -30,6 +30,8 @@ namespace Azure.ResourceManager.Compute.Models
         public GalleryImageVersionSafetyProfile SafetyProfile { get; set; }
         /// <summary> This is the replication status of the gallery image version. </summary>
         public ReplicationStatus ReplicationStatus { get; }
+        /// <summary> This is the validations profile of a Gallery Image Version. </summary>
+        public ValidationsProfile ValidationsProfile { get; }
         /// <summary> Resource tags. </summary>
         public IDictionary<string, string> Tags { get; }
     }
