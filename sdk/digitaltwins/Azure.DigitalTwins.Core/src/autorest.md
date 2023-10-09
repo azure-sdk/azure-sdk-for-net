@@ -9,7 +9,7 @@ Run `generate.ps1` in this directory or run `dotnet build /t:GenerateCode` to ge
 ``` yaml
 tag: package-2023-06-30
 require:
-  - https://github.com/Azure/azure-rest-api-specs/blob/2c0f2c7d585b99af7428435aa065d5ea4276119a/specification/digitaltwins/data-plane/readme.md
+- /mnt/vss/_work/1/s/azure-rest-api-specs/specification/digitaltwins/data-plane/readme.md
 generation1-convenience-client: true
 ```
 
@@ -32,3 +32,4 @@ directive:
   where: $..[?(@.name=='If-None-Match')]
   transform: delete $.enum;
 ```
+
