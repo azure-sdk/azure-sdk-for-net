@@ -32,9 +32,11 @@ namespace Microsoft.Azure.Management.DevTestLabs.Models
         /// Initializes a new instance of the UpdateResource class.
         /// </summary>
         /// <param name="tags">The tags of the resource.</param>
-        public UpdateResource(IDictionary<string, string> tags = default(IDictionary<string, string>))
+        /// <param name="identity">The identity of the resource.</param>
+        public UpdateResource(IDictionary<string, string> tags = default(IDictionary<string, string>), IdentityProperties identity = default(IdentityProperties))
         {
             Tags = tags;
+            Identity = identity;
             CustomInit();
         }
 
@@ -48,6 +50,12 @@ namespace Microsoft.Azure.Management.DevTestLabs.Models
         /// </summary>
         [JsonProperty(PropertyName = "tags")]
         public IDictionary<string, string> Tags { get; set; }
+
+        /// <summary>
+        /// Gets or sets the identity of the resource.
+        /// </summary>
+        [JsonProperty(PropertyName = "identity")]
+        public IdentityProperties Identity { get; set; }
 
     }
 }

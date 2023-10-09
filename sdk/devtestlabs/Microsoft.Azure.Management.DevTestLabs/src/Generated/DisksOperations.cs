@@ -55,7 +55,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// List disks in a given user profile.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -89,17 +89,39 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// </return>
         public async Task<AzureOperationResponse<IPage<Disk>>> ListWithHttpMessagesAsync(string resourceGroupName, string labName, string userName, ODataQuery<Disk> odataQuery = default(ODataQuery<Disk>), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (Client.SubscriptionId == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.SubscriptionId");
-            }
             if (resourceGroupName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "resourceGroupName");
             }
+            if (resourceGroupName != null)
+            {
+                if (resourceGroupName.Length > 90)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "resourceGroupName", 90);
+                }
+                if (resourceGroupName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "resourceGroupName", 1);
+                }
+            }
             if (labName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "labName");
+            }
+            if (labName != null)
+            {
+                if (labName.Length > 50)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "labName", 50);
+                }
+                if (labName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "labName", 1);
+                }
+                if (!System.Text.RegularExpressions.Regex.IsMatch(labName, "^[a-zA-Z0-9_\\-]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "labName", "^[a-zA-Z0-9_\\-]+$");
+                }
             }
             if (userName == null)
             {
@@ -108,6 +130,13 @@ namespace Microsoft.Azure.Management.DevTestLabs
             if (Client.ApiVersion == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.ApiVersion");
+            }
+            if (Client.ApiVersion != null)
+            {
+                if (Client.ApiVersion.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "Client.ApiVersion", 1);
+                }
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -126,7 +155,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             // Construct URL
             var _baseUrl = Client.BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/users/{userName}/disks").ToString();
-            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Client.SubscriptionId));
+            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Rest.Serialization.SafeJsonConvert.SerializeObject(Client.SubscriptionId, Client.SerializationSettings).Trim('"')));
             _url = _url.Replace("{resourceGroupName}", System.Uri.EscapeDataString(resourceGroupName));
             _url = _url.Replace("{labName}", System.Uri.EscapeDataString(labName));
             _url = _url.Replace("{userName}", System.Uri.EscapeDataString(userName));
@@ -272,7 +301,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// Get disk.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -309,17 +338,39 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// </return>
         public async Task<AzureOperationResponse<Disk>> GetWithHttpMessagesAsync(string resourceGroupName, string labName, string userName, string name, string expand = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (Client.SubscriptionId == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.SubscriptionId");
-            }
             if (resourceGroupName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "resourceGroupName");
             }
+            if (resourceGroupName != null)
+            {
+                if (resourceGroupName.Length > 90)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "resourceGroupName", 90);
+                }
+                if (resourceGroupName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "resourceGroupName", 1);
+                }
+            }
             if (labName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "labName");
+            }
+            if (labName != null)
+            {
+                if (labName.Length > 50)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "labName", 50);
+                }
+                if (labName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "labName", 1);
+                }
+                if (!System.Text.RegularExpressions.Regex.IsMatch(labName, "^[a-zA-Z0-9_\\-]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "labName", "^[a-zA-Z0-9_\\-]+$");
+                }
             }
             if (userName == null)
             {
@@ -332,6 +383,13 @@ namespace Microsoft.Azure.Management.DevTestLabs
             if (Client.ApiVersion == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.ApiVersion");
+            }
+            if (Client.ApiVersion != null)
+            {
+                if (Client.ApiVersion.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "Client.ApiVersion", 1);
+                }
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -351,7 +409,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             // Construct URL
             var _baseUrl = Client.BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/users/{userName}/disks/{name}").ToString();
-            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Client.SubscriptionId));
+            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Rest.Serialization.SafeJsonConvert.SerializeObject(Client.SubscriptionId, Client.SerializationSettings).Trim('"')));
             _url = _url.Replace("{resourceGroupName}", System.Uri.EscapeDataString(resourceGroupName));
             _url = _url.Replace("{labName}", System.Uri.EscapeDataString(labName));
             _url = _url.Replace("{userName}", System.Uri.EscapeDataString(userName));
@@ -495,7 +553,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// complete.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -526,7 +584,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// Delete disk. This operation can take a while to complete.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -543,18 +601,18 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        public async Task<AzureOperationResponse> DeleteWithHttpMessagesAsync(string resourceGroupName, string labName, string userName, string name, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<AzureOperationHeaderResponse<DisksDeleteHeaders>> DeleteWithHttpMessagesAsync(string resourceGroupName, string labName, string userName, string name, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             // Send request
-            AzureOperationResponse _response = await BeginDeleteWithHttpMessagesAsync(resourceGroupName, labName, userName, name, customHeaders, cancellationToken).ConfigureAwait(false);
+            AzureOperationHeaderResponse<DisksDeleteHeaders> _response = await BeginDeleteWithHttpMessagesAsync(resourceGroupName, labName, userName, name, customHeaders, cancellationToken).ConfigureAwait(false);
             return await Client.GetPostOrDeleteOperationResultAsync(_response, customHeaders, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
-        /// Modify properties of disks.
+        /// Allows modifying tags of disks. All other properties will be ignored.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -566,7 +624,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// The name of the disk.
         /// </param>
         /// <param name='disk'>
-        /// A Disk.
+        /// Allows modifying tags of disks. All other properties will be ignored.
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -591,17 +649,39 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// </return>
         public async Task<AzureOperationResponse<Disk>> UpdateWithHttpMessagesAsync(string resourceGroupName, string labName, string userName, string name, DiskFragment disk, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (Client.SubscriptionId == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.SubscriptionId");
-            }
             if (resourceGroupName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "resourceGroupName");
             }
+            if (resourceGroupName != null)
+            {
+                if (resourceGroupName.Length > 90)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "resourceGroupName", 90);
+                }
+                if (resourceGroupName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "resourceGroupName", 1);
+                }
+            }
             if (labName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "labName");
+            }
+            if (labName != null)
+            {
+                if (labName.Length > 50)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "labName", 50);
+                }
+                if (labName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "labName", 1);
+                }
+                if (!System.Text.RegularExpressions.Regex.IsMatch(labName, "^[a-zA-Z0-9_\\-]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "labName", "^[a-zA-Z0-9_\\-]+$");
+                }
             }
             if (userName == null)
             {
@@ -618,6 +698,13 @@ namespace Microsoft.Azure.Management.DevTestLabs
             if (Client.ApiVersion == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.ApiVersion");
+            }
+            if (Client.ApiVersion != null)
+            {
+                if (Client.ApiVersion.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "Client.ApiVersion", 1);
+                }
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -637,7 +724,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             // Construct URL
             var _baseUrl = Client.BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/users/{userName}/disks/{name}").ToString();
-            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Client.SubscriptionId));
+            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Rest.Serialization.SafeJsonConvert.SerializeObject(Client.SubscriptionId, Client.SerializationSettings).Trim('"')));
             _url = _url.Replace("{resourceGroupName}", System.Uri.EscapeDataString(resourceGroupName));
             _url = _url.Replace("{labName}", System.Uri.EscapeDataString(labName));
             _url = _url.Replace("{userName}", System.Uri.EscapeDataString(userName));
@@ -783,7 +870,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// operation can take a while to complete.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -803,10 +890,10 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        public async Task<AzureOperationResponse> AttachWithHttpMessagesAsync(string resourceGroupName, string labName, string userName, string name, AttachDiskProperties attachDiskProperties, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<AzureOperationHeaderResponse<DisksAttachHeaders>> AttachWithHttpMessagesAsync(string resourceGroupName, string labName, string userName, string name, AttachDiskProperties attachDiskProperties, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             // Send request
-            AzureOperationResponse _response = await BeginAttachWithHttpMessagesAsync(resourceGroupName, labName, userName, name, attachDiskProperties, customHeaders, cancellationToken).ConfigureAwait(false);
+            AzureOperationHeaderResponse<DisksAttachHeaders> _response = await BeginAttachWithHttpMessagesAsync(resourceGroupName, labName, userName, name, attachDiskProperties, customHeaders, cancellationToken).ConfigureAwait(false);
             return await Client.GetPostOrDeleteOperationResultAsync(_response, customHeaders, cancellationToken).ConfigureAwait(false);
         }
 
@@ -815,7 +902,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// This operation can take a while to complete.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -835,10 +922,10 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        public async Task<AzureOperationResponse> DetachWithHttpMessagesAsync(string resourceGroupName, string labName, string userName, string name, DetachDiskProperties detachDiskProperties, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<AzureOperationHeaderResponse<DisksDetachHeaders>> DetachWithHttpMessagesAsync(string resourceGroupName, string labName, string userName, string name, DetachDiskProperties detachDiskProperties, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             // Send request
-            AzureOperationResponse _response = await BeginDetachWithHttpMessagesAsync(resourceGroupName, labName, userName, name, detachDiskProperties, customHeaders, cancellationToken).ConfigureAwait(false);
+            AzureOperationHeaderResponse<DisksDetachHeaders> _response = await BeginDetachWithHttpMessagesAsync(resourceGroupName, labName, userName, name, detachDiskProperties, customHeaders, cancellationToken).ConfigureAwait(false);
             return await Client.GetPostOrDeleteOperationResultAsync(_response, customHeaders, cancellationToken).ConfigureAwait(false);
         }
 
@@ -847,7 +934,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// complete.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -884,17 +971,39 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// </return>
         public async Task<AzureOperationResponse<Disk>> BeginCreateOrUpdateWithHttpMessagesAsync(string resourceGroupName, string labName, string userName, string name, Disk disk, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (Client.SubscriptionId == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.SubscriptionId");
-            }
             if (resourceGroupName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "resourceGroupName");
             }
+            if (resourceGroupName != null)
+            {
+                if (resourceGroupName.Length > 90)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "resourceGroupName", 90);
+                }
+                if (resourceGroupName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "resourceGroupName", 1);
+                }
+            }
             if (labName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "labName");
+            }
+            if (labName != null)
+            {
+                if (labName.Length > 50)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "labName", 50);
+                }
+                if (labName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "labName", 1);
+                }
+                if (!System.Text.RegularExpressions.Regex.IsMatch(labName, "^[a-zA-Z0-9_\\-]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "labName", "^[a-zA-Z0-9_\\-]+$");
+                }
             }
             if (userName == null)
             {
@@ -908,9 +1017,20 @@ namespace Microsoft.Azure.Management.DevTestLabs
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "disk");
             }
+            if (disk != null)
+            {
+                disk.Validate();
+            }
             if (Client.ApiVersion == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.ApiVersion");
+            }
+            if (Client.ApiVersion != null)
+            {
+                if (Client.ApiVersion.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "Client.ApiVersion", 1);
+                }
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -930,7 +1050,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             // Construct URL
             var _baseUrl = Client.BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/users/{userName}/disks/{name}").ToString();
-            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Client.SubscriptionId));
+            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Rest.Serialization.SafeJsonConvert.SerializeObject(Client.SubscriptionId, Client.SerializationSettings).Trim('"')));
             _url = _url.Replace("{resourceGroupName}", System.Uri.EscapeDataString(resourceGroupName));
             _url = _url.Replace("{labName}", System.Uri.EscapeDataString(labName));
             _url = _url.Replace("{userName}", System.Uri.EscapeDataString(userName));
@@ -1093,7 +1213,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// Delete disk. This operation can take a while to complete.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -1122,19 +1242,41 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<AzureOperationResponse> BeginDeleteWithHttpMessagesAsync(string resourceGroupName, string labName, string userName, string name, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<AzureOperationHeaderResponse<DisksDeleteHeaders>> BeginDeleteWithHttpMessagesAsync(string resourceGroupName, string labName, string userName, string name, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (Client.SubscriptionId == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.SubscriptionId");
-            }
             if (resourceGroupName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "resourceGroupName");
             }
+            if (resourceGroupName != null)
+            {
+                if (resourceGroupName.Length > 90)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "resourceGroupName", 90);
+                }
+                if (resourceGroupName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "resourceGroupName", 1);
+                }
+            }
             if (labName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "labName");
+            }
+            if (labName != null)
+            {
+                if (labName.Length > 50)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "labName", 50);
+                }
+                if (labName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "labName", 1);
+                }
+                if (!System.Text.RegularExpressions.Regex.IsMatch(labName, "^[a-zA-Z0-9_\\-]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "labName", "^[a-zA-Z0-9_\\-]+$");
+                }
             }
             if (userName == null)
             {
@@ -1147,6 +1289,13 @@ namespace Microsoft.Azure.Management.DevTestLabs
             if (Client.ApiVersion == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.ApiVersion");
+            }
+            if (Client.ApiVersion != null)
+            {
+                if (Client.ApiVersion.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "Client.ApiVersion", 1);
+                }
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -1165,7 +1314,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             // Construct URL
             var _baseUrl = Client.BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/users/{userName}/disks/{name}").ToString();
-            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Client.SubscriptionId));
+            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Rest.Serialization.SafeJsonConvert.SerializeObject(Client.SubscriptionId, Client.SerializationSettings).Trim('"')));
             _url = _url.Replace("{resourceGroupName}", System.Uri.EscapeDataString(resourceGroupName));
             _url = _url.Replace("{labName}", System.Uri.EscapeDataString(labName));
             _url = _url.Replace("{userName}", System.Uri.EscapeDataString(userName));
@@ -1268,12 +1417,25 @@ namespace Microsoft.Azure.Management.DevTestLabs
                 throw ex;
             }
             // Create Result
-            var _result = new AzureOperationResponse();
+            var _result = new AzureOperationHeaderResponse<DisksDeleteHeaders>();
             _result.Request = _httpRequest;
             _result.Response = _httpResponse;
             if (_httpResponse.Headers.Contains("x-ms-request-id"))
             {
                 _result.RequestId = _httpResponse.Headers.GetValues("x-ms-request-id").FirstOrDefault();
+            }
+            try
+            {
+                _result.Headers = _httpResponse.GetHeadersAsJson().ToObject<DisksDeleteHeaders>(JsonSerializer.Create(Client.DeserializationSettings));
+            }
+            catch (JsonException ex)
+            {
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw new SerializationException("Unable to deserialize the headers.", _httpResponse.GetHeadersAsJson().ToString(), ex);
             }
             if (_shouldTrace)
             {
@@ -1287,7 +1449,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// operation can take a while to complete.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -1319,19 +1481,41 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<AzureOperationResponse> BeginAttachWithHttpMessagesAsync(string resourceGroupName, string labName, string userName, string name, AttachDiskProperties attachDiskProperties, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<AzureOperationHeaderResponse<DisksAttachHeaders>> BeginAttachWithHttpMessagesAsync(string resourceGroupName, string labName, string userName, string name, AttachDiskProperties attachDiskProperties, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (Client.SubscriptionId == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.SubscriptionId");
-            }
             if (resourceGroupName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "resourceGroupName");
             }
+            if (resourceGroupName != null)
+            {
+                if (resourceGroupName.Length > 90)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "resourceGroupName", 90);
+                }
+                if (resourceGroupName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "resourceGroupName", 1);
+                }
+            }
             if (labName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "labName");
+            }
+            if (labName != null)
+            {
+                if (labName.Length > 50)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "labName", 50);
+                }
+                if (labName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "labName", 1);
+                }
+                if (!System.Text.RegularExpressions.Regex.IsMatch(labName, "^[a-zA-Z0-9_\\-]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "labName", "^[a-zA-Z0-9_\\-]+$");
+                }
             }
             if (userName == null)
             {
@@ -1348,6 +1532,13 @@ namespace Microsoft.Azure.Management.DevTestLabs
             if (Client.ApiVersion == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.ApiVersion");
+            }
+            if (Client.ApiVersion != null)
+            {
+                if (Client.ApiVersion.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "Client.ApiVersion", 1);
+                }
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -1367,7 +1558,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             // Construct URL
             var _baseUrl = Client.BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/users/{userName}/disks/{name}/attach").ToString();
-            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Client.SubscriptionId));
+            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Rest.Serialization.SafeJsonConvert.SerializeObject(Client.SubscriptionId, Client.SerializationSettings).Trim('"')));
             _url = _url.Replace("{resourceGroupName}", System.Uri.EscapeDataString(resourceGroupName));
             _url = _url.Replace("{labName}", System.Uri.EscapeDataString(labName));
             _url = _url.Replace("{userName}", System.Uri.EscapeDataString(userName));
@@ -1476,12 +1667,25 @@ namespace Microsoft.Azure.Management.DevTestLabs
                 throw ex;
             }
             // Create Result
-            var _result = new AzureOperationResponse();
+            var _result = new AzureOperationHeaderResponse<DisksAttachHeaders>();
             _result.Request = _httpRequest;
             _result.Response = _httpResponse;
             if (_httpResponse.Headers.Contains("x-ms-request-id"))
             {
                 _result.RequestId = _httpResponse.Headers.GetValues("x-ms-request-id").FirstOrDefault();
+            }
+            try
+            {
+                _result.Headers = _httpResponse.GetHeadersAsJson().ToObject<DisksAttachHeaders>(JsonSerializer.Create(Client.DeserializationSettings));
+            }
+            catch (JsonException ex)
+            {
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw new SerializationException("Unable to deserialize the headers.", _httpResponse.GetHeadersAsJson().ToString(), ex);
             }
             if (_shouldTrace)
             {
@@ -1495,7 +1699,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// This operation can take a while to complete.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -1527,19 +1731,41 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<AzureOperationResponse> BeginDetachWithHttpMessagesAsync(string resourceGroupName, string labName, string userName, string name, DetachDiskProperties detachDiskProperties, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<AzureOperationHeaderResponse<DisksDetachHeaders>> BeginDetachWithHttpMessagesAsync(string resourceGroupName, string labName, string userName, string name, DetachDiskProperties detachDiskProperties, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (Client.SubscriptionId == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.SubscriptionId");
-            }
             if (resourceGroupName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "resourceGroupName");
             }
+            if (resourceGroupName != null)
+            {
+                if (resourceGroupName.Length > 90)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "resourceGroupName", 90);
+                }
+                if (resourceGroupName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "resourceGroupName", 1);
+                }
+            }
             if (labName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "labName");
+            }
+            if (labName != null)
+            {
+                if (labName.Length > 50)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "labName", 50);
+                }
+                if (labName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "labName", 1);
+                }
+                if (!System.Text.RegularExpressions.Regex.IsMatch(labName, "^[a-zA-Z0-9_\\-]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "labName", "^[a-zA-Z0-9_\\-]+$");
+                }
             }
             if (userName == null)
             {
@@ -1556,6 +1782,13 @@ namespace Microsoft.Azure.Management.DevTestLabs
             if (Client.ApiVersion == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.ApiVersion");
+            }
+            if (Client.ApiVersion != null)
+            {
+                if (Client.ApiVersion.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "Client.ApiVersion", 1);
+                }
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -1575,7 +1808,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             // Construct URL
             var _baseUrl = Client.BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/users/{userName}/disks/{name}/detach").ToString();
-            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Client.SubscriptionId));
+            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Rest.Serialization.SafeJsonConvert.SerializeObject(Client.SubscriptionId, Client.SerializationSettings).Trim('"')));
             _url = _url.Replace("{resourceGroupName}", System.Uri.EscapeDataString(resourceGroupName));
             _url = _url.Replace("{labName}", System.Uri.EscapeDataString(labName));
             _url = _url.Replace("{userName}", System.Uri.EscapeDataString(userName));
@@ -1684,12 +1917,25 @@ namespace Microsoft.Azure.Management.DevTestLabs
                 throw ex;
             }
             // Create Result
-            var _result = new AzureOperationResponse();
+            var _result = new AzureOperationHeaderResponse<DisksDetachHeaders>();
             _result.Request = _httpRequest;
             _result.Response = _httpResponse;
             if (_httpResponse.Headers.Contains("x-ms-request-id"))
             {
                 _result.RequestId = _httpResponse.Headers.GetValues("x-ms-request-id").FirstOrDefault();
+            }
+            try
+            {
+                _result.Headers = _httpResponse.GetHeadersAsJson().ToObject<DisksDetachHeaders>(JsonSerializer.Create(Client.DeserializationSettings));
+            }
+            catch (JsonException ex)
+            {
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw new SerializationException("Unable to deserialize the headers.", _httpResponse.GetHeadersAsJson().ToString(), ex);
             }
             if (_shouldTrace)
             {

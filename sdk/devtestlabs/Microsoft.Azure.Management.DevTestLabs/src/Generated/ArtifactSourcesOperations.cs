@@ -55,7 +55,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// List artifact sources in a given lab.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -86,21 +86,50 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// </return>
         public async Task<AzureOperationResponse<IPage<ArtifactSource>>> ListWithHttpMessagesAsync(string resourceGroupName, string labName, ODataQuery<ArtifactSource> odataQuery = default(ODataQuery<ArtifactSource>), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (Client.SubscriptionId == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.SubscriptionId");
-            }
             if (resourceGroupName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "resourceGroupName");
+            }
+            if (resourceGroupName != null)
+            {
+                if (resourceGroupName.Length > 90)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "resourceGroupName", 90);
+                }
+                if (resourceGroupName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "resourceGroupName", 1);
+                }
             }
             if (labName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "labName");
             }
+            if (labName != null)
+            {
+                if (labName.Length > 50)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "labName", 50);
+                }
+                if (labName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "labName", 1);
+                }
+                if (!System.Text.RegularExpressions.Regex.IsMatch(labName, "^[a-zA-Z0-9_\\-]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "labName", "^[a-zA-Z0-9_\\-]+$");
+                }
+            }
             if (Client.ApiVersion == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.ApiVersion");
+            }
+            if (Client.ApiVersion != null)
+            {
+                if (Client.ApiVersion.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "Client.ApiVersion", 1);
+                }
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -118,7 +147,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             // Construct URL
             var _baseUrl = Client.BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/artifactsources").ToString();
-            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Client.SubscriptionId));
+            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Rest.Serialization.SafeJsonConvert.SerializeObject(Client.SubscriptionId, Client.SerializationSettings).Trim('"')));
             _url = _url.Replace("{resourceGroupName}", System.Uri.EscapeDataString(resourceGroupName));
             _url = _url.Replace("{labName}", System.Uri.EscapeDataString(labName));
             List<string> _queryParameters = new List<string>();
@@ -263,7 +292,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// Get artifact source.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -297,17 +326,39 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// </return>
         public async Task<AzureOperationResponse<ArtifactSource>> GetWithHttpMessagesAsync(string resourceGroupName, string labName, string name, string expand = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (Client.SubscriptionId == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.SubscriptionId");
-            }
             if (resourceGroupName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "resourceGroupName");
             }
+            if (resourceGroupName != null)
+            {
+                if (resourceGroupName.Length > 90)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "resourceGroupName", 90);
+                }
+                if (resourceGroupName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "resourceGroupName", 1);
+                }
+            }
             if (labName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "labName");
+            }
+            if (labName != null)
+            {
+                if (labName.Length > 50)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "labName", 50);
+                }
+                if (labName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "labName", 1);
+                }
+                if (!System.Text.RegularExpressions.Regex.IsMatch(labName, "^[a-zA-Z0-9_\\-]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "labName", "^[a-zA-Z0-9_\\-]+$");
+                }
             }
             if (name == null)
             {
@@ -316,6 +367,13 @@ namespace Microsoft.Azure.Management.DevTestLabs
             if (Client.ApiVersion == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.ApiVersion");
+            }
+            if (Client.ApiVersion != null)
+            {
+                if (Client.ApiVersion.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "Client.ApiVersion", 1);
+                }
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -334,7 +392,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             // Construct URL
             var _baseUrl = Client.BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/artifactsources/{name}").ToString();
-            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Client.SubscriptionId));
+            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Rest.Serialization.SafeJsonConvert.SerializeObject(Client.SubscriptionId, Client.SerializationSettings).Trim('"')));
             _url = _url.Replace("{resourceGroupName}", System.Uri.EscapeDataString(resourceGroupName));
             _url = _url.Replace("{labName}", System.Uri.EscapeDataString(labName));
             _url = _url.Replace("{name}", System.Uri.EscapeDataString(name));
@@ -476,7 +534,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// Create or replace an existing artifact source.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -510,17 +568,39 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// </return>
         public async Task<AzureOperationResponse<ArtifactSource>> CreateOrUpdateWithHttpMessagesAsync(string resourceGroupName, string labName, string name, ArtifactSource artifactSource, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (Client.SubscriptionId == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.SubscriptionId");
-            }
             if (resourceGroupName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "resourceGroupName");
             }
+            if (resourceGroupName != null)
+            {
+                if (resourceGroupName.Length > 90)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "resourceGroupName", 90);
+                }
+                if (resourceGroupName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "resourceGroupName", 1);
+                }
+            }
             if (labName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "labName");
+            }
+            if (labName != null)
+            {
+                if (labName.Length > 50)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "labName", 50);
+                }
+                if (labName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "labName", 1);
+                }
+                if (!System.Text.RegularExpressions.Regex.IsMatch(labName, "^[a-zA-Z0-9_\\-]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "labName", "^[a-zA-Z0-9_\\-]+$");
+                }
             }
             if (name == null)
             {
@@ -530,9 +610,20 @@ namespace Microsoft.Azure.Management.DevTestLabs
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "artifactSource");
             }
+            if (artifactSource != null)
+            {
+                artifactSource.Validate();
+            }
             if (Client.ApiVersion == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.ApiVersion");
+            }
+            if (Client.ApiVersion != null)
+            {
+                if (Client.ApiVersion.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "Client.ApiVersion", 1);
+                }
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -551,7 +642,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             // Construct URL
             var _baseUrl = Client.BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/artifactsources/{name}").ToString();
-            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Client.SubscriptionId));
+            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Rest.Serialization.SafeJsonConvert.SerializeObject(Client.SubscriptionId, Client.SerializationSettings).Trim('"')));
             _url = _url.Replace("{resourceGroupName}", System.Uri.EscapeDataString(resourceGroupName));
             _url = _url.Replace("{labName}", System.Uri.EscapeDataString(labName));
             _url = _url.Replace("{name}", System.Uri.EscapeDataString(name));
@@ -713,7 +804,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// Delete artifact source.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -741,17 +832,39 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// </return>
         public async Task<AzureOperationResponse> DeleteWithHttpMessagesAsync(string resourceGroupName, string labName, string name, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (Client.SubscriptionId == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.SubscriptionId");
-            }
             if (resourceGroupName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "resourceGroupName");
             }
+            if (resourceGroupName != null)
+            {
+                if (resourceGroupName.Length > 90)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "resourceGroupName", 90);
+                }
+                if (resourceGroupName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "resourceGroupName", 1);
+                }
+            }
             if (labName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "labName");
+            }
+            if (labName != null)
+            {
+                if (labName.Length > 50)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "labName", 50);
+                }
+                if (labName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "labName", 1);
+                }
+                if (!System.Text.RegularExpressions.Regex.IsMatch(labName, "^[a-zA-Z0-9_\\-]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "labName", "^[a-zA-Z0-9_\\-]+$");
+                }
             }
             if (name == null)
             {
@@ -760,6 +873,13 @@ namespace Microsoft.Azure.Management.DevTestLabs
             if (Client.ApiVersion == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.ApiVersion");
+            }
+            if (Client.ApiVersion != null)
+            {
+                if (Client.ApiVersion.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "Client.ApiVersion", 1);
+                }
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -777,7 +897,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             // Construct URL
             var _baseUrl = Client.BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/artifactsources/{name}").ToString();
-            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Client.SubscriptionId));
+            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Rest.Serialization.SafeJsonConvert.SerializeObject(Client.SubscriptionId, Client.SerializationSettings).Trim('"')));
             _url = _url.Replace("{resourceGroupName}", System.Uri.EscapeDataString(resourceGroupName));
             _url = _url.Replace("{labName}", System.Uri.EscapeDataString(labName));
             _url = _url.Replace("{name}", System.Uri.EscapeDataString(name));
@@ -894,10 +1014,11 @@ namespace Microsoft.Azure.Management.DevTestLabs
         }
 
         /// <summary>
-        /// Modify properties of artifact sources.
+        /// Allows modifying tags of artifact sources. All other properties will be
+        /// ignored.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -906,7 +1027,8 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// The name of the artifact source.
         /// </param>
         /// <param name='artifactSource'>
-        /// Properties of an artifact source.
+        /// Allows modifying tags of artifact sources. All other properties will be
+        /// ignored.
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -931,17 +1053,39 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// </return>
         public async Task<AzureOperationResponse<ArtifactSource>> UpdateWithHttpMessagesAsync(string resourceGroupName, string labName, string name, ArtifactSourceFragment artifactSource, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (Client.SubscriptionId == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.SubscriptionId");
-            }
             if (resourceGroupName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "resourceGroupName");
             }
+            if (resourceGroupName != null)
+            {
+                if (resourceGroupName.Length > 90)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "resourceGroupName", 90);
+                }
+                if (resourceGroupName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "resourceGroupName", 1);
+                }
+            }
             if (labName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "labName");
+            }
+            if (labName != null)
+            {
+                if (labName.Length > 50)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "labName", 50);
+                }
+                if (labName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "labName", 1);
+                }
+                if (!System.Text.RegularExpressions.Regex.IsMatch(labName, "^[a-zA-Z0-9_\\-]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "labName", "^[a-zA-Z0-9_\\-]+$");
+                }
             }
             if (name == null)
             {
@@ -954,6 +1098,13 @@ namespace Microsoft.Azure.Management.DevTestLabs
             if (Client.ApiVersion == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.ApiVersion");
+            }
+            if (Client.ApiVersion != null)
+            {
+                if (Client.ApiVersion.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "Client.ApiVersion", 1);
+                }
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -972,7 +1123,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             // Construct URL
             var _baseUrl = Client.BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/artifactsources/{name}").ToString();
-            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Client.SubscriptionId));
+            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Rest.Serialization.SafeJsonConvert.SerializeObject(Client.SubscriptionId, Client.SerializationSettings).Trim('"')));
             _url = _url.Replace("{resourceGroupName}", System.Uri.EscapeDataString(resourceGroupName));
             _url = _url.Replace("{labName}", System.Uri.EscapeDataString(labName));
             _url = _url.Replace("{name}", System.Uri.EscapeDataString(name));

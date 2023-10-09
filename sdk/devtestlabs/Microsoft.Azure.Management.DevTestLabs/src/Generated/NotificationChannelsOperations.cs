@@ -52,10 +52,10 @@ namespace Microsoft.Azure.Management.DevTestLabs
         public DevTestLabsClient Client { get; private set; }
 
         /// <summary>
-        /// List notificationchannels in a given lab.
+        /// List notification channels in a given lab.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -86,21 +86,50 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// </return>
         public async Task<AzureOperationResponse<IPage<NotificationChannel>>> ListWithHttpMessagesAsync(string resourceGroupName, string labName, ODataQuery<NotificationChannel> odataQuery = default(ODataQuery<NotificationChannel>), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (Client.SubscriptionId == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.SubscriptionId");
-            }
             if (resourceGroupName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "resourceGroupName");
+            }
+            if (resourceGroupName != null)
+            {
+                if (resourceGroupName.Length > 90)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "resourceGroupName", 90);
+                }
+                if (resourceGroupName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "resourceGroupName", 1);
+                }
             }
             if (labName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "labName");
             }
+            if (labName != null)
+            {
+                if (labName.Length > 50)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "labName", 50);
+                }
+                if (labName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "labName", 1);
+                }
+                if (!System.Text.RegularExpressions.Regex.IsMatch(labName, "^[a-zA-Z0-9_\\-]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "labName", "^[a-zA-Z0-9_\\-]+$");
+                }
+            }
             if (Client.ApiVersion == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.ApiVersion");
+            }
+            if (Client.ApiVersion != null)
+            {
+                if (Client.ApiVersion.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "Client.ApiVersion", 1);
+                }
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -118,7 +147,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             // Construct URL
             var _baseUrl = Client.BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/notificationchannels").ToString();
-            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Client.SubscriptionId));
+            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Rest.Serialization.SafeJsonConvert.SerializeObject(Client.SubscriptionId, Client.SerializationSettings).Trim('"')));
             _url = _url.Replace("{resourceGroupName}", System.Uri.EscapeDataString(resourceGroupName));
             _url = _url.Replace("{labName}", System.Uri.EscapeDataString(labName));
             List<string> _queryParameters = new List<string>();
@@ -260,16 +289,16 @@ namespace Microsoft.Azure.Management.DevTestLabs
         }
 
         /// <summary>
-        /// Get notificationchannel.
+        /// Get notification channel.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
         /// </param>
         /// <param name='name'>
-        /// The name of the notificationChannel.
+        /// The name of the notification channel.
         /// </param>
         /// <param name='expand'>
         /// Specify the $expand query. Example: 'properties($select=webHookUrl)'
@@ -297,17 +326,39 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// </return>
         public async Task<AzureOperationResponse<NotificationChannel>> GetWithHttpMessagesAsync(string resourceGroupName, string labName, string name, string expand = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (Client.SubscriptionId == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.SubscriptionId");
-            }
             if (resourceGroupName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "resourceGroupName");
             }
+            if (resourceGroupName != null)
+            {
+                if (resourceGroupName.Length > 90)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "resourceGroupName", 90);
+                }
+                if (resourceGroupName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "resourceGroupName", 1);
+                }
+            }
             if (labName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "labName");
+            }
+            if (labName != null)
+            {
+                if (labName.Length > 50)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "labName", 50);
+                }
+                if (labName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "labName", 1);
+                }
+                if (!System.Text.RegularExpressions.Regex.IsMatch(labName, "^[a-zA-Z0-9_\\-]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "labName", "^[a-zA-Z0-9_\\-]+$");
+                }
             }
             if (name == null)
             {
@@ -316,6 +367,13 @@ namespace Microsoft.Azure.Management.DevTestLabs
             if (Client.ApiVersion == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.ApiVersion");
+            }
+            if (Client.ApiVersion != null)
+            {
+                if (Client.ApiVersion.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "Client.ApiVersion", 1);
+                }
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -334,7 +392,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             // Construct URL
             var _baseUrl = Client.BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/notificationchannels/{name}").ToString();
-            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Client.SubscriptionId));
+            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Rest.Serialization.SafeJsonConvert.SerializeObject(Client.SubscriptionId, Client.SerializationSettings).Trim('"')));
             _url = _url.Replace("{resourceGroupName}", System.Uri.EscapeDataString(resourceGroupName));
             _url = _url.Replace("{labName}", System.Uri.EscapeDataString(labName));
             _url = _url.Replace("{name}", System.Uri.EscapeDataString(name));
@@ -473,16 +531,16 @@ namespace Microsoft.Azure.Management.DevTestLabs
         }
 
         /// <summary>
-        /// Create or replace an existing notificationChannel.
+        /// Create or replace an existing Notification Channel.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
         /// </param>
         /// <param name='name'>
-        /// The name of the notificationChannel.
+        /// The name of the notification channel.
         /// </param>
         /// <param name='notificationChannel'>
         /// A notification.
@@ -510,17 +568,39 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// </return>
         public async Task<AzureOperationResponse<NotificationChannel>> CreateOrUpdateWithHttpMessagesAsync(string resourceGroupName, string labName, string name, NotificationChannel notificationChannel, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (Client.SubscriptionId == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.SubscriptionId");
-            }
             if (resourceGroupName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "resourceGroupName");
             }
+            if (resourceGroupName != null)
+            {
+                if (resourceGroupName.Length > 90)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "resourceGroupName", 90);
+                }
+                if (resourceGroupName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "resourceGroupName", 1);
+                }
+            }
             if (labName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "labName");
+            }
+            if (labName != null)
+            {
+                if (labName.Length > 50)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "labName", 50);
+                }
+                if (labName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "labName", 1);
+                }
+                if (!System.Text.RegularExpressions.Regex.IsMatch(labName, "^[a-zA-Z0-9_\\-]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "labName", "^[a-zA-Z0-9_\\-]+$");
+                }
             }
             if (name == null)
             {
@@ -530,9 +610,20 @@ namespace Microsoft.Azure.Management.DevTestLabs
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "notificationChannel");
             }
+            if (notificationChannel != null)
+            {
+                notificationChannel.Validate();
+            }
             if (Client.ApiVersion == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.ApiVersion");
+            }
+            if (Client.ApiVersion != null)
+            {
+                if (Client.ApiVersion.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "Client.ApiVersion", 1);
+                }
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -551,7 +642,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             // Construct URL
             var _baseUrl = Client.BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/notificationchannels/{name}").ToString();
-            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Client.SubscriptionId));
+            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Rest.Serialization.SafeJsonConvert.SerializeObject(Client.SubscriptionId, Client.SerializationSettings).Trim('"')));
             _url = _url.Replace("{resourceGroupName}", System.Uri.EscapeDataString(resourceGroupName));
             _url = _url.Replace("{labName}", System.Uri.EscapeDataString(labName));
             _url = _url.Replace("{name}", System.Uri.EscapeDataString(name));
@@ -710,16 +801,16 @@ namespace Microsoft.Azure.Management.DevTestLabs
         }
 
         /// <summary>
-        /// Delete notificationchannel.
+        /// Delete notification channel.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
         /// </param>
         /// <param name='name'>
-        /// The name of the notificationChannel.
+        /// The name of the notification channel.
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -741,17 +832,39 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// </return>
         public async Task<AzureOperationResponse> DeleteWithHttpMessagesAsync(string resourceGroupName, string labName, string name, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (Client.SubscriptionId == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.SubscriptionId");
-            }
             if (resourceGroupName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "resourceGroupName");
             }
+            if (resourceGroupName != null)
+            {
+                if (resourceGroupName.Length > 90)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "resourceGroupName", 90);
+                }
+                if (resourceGroupName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "resourceGroupName", 1);
+                }
+            }
             if (labName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "labName");
+            }
+            if (labName != null)
+            {
+                if (labName.Length > 50)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "labName", 50);
+                }
+                if (labName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "labName", 1);
+                }
+                if (!System.Text.RegularExpressions.Regex.IsMatch(labName, "^[a-zA-Z0-9_\\-]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "labName", "^[a-zA-Z0-9_\\-]+$");
+                }
             }
             if (name == null)
             {
@@ -760,6 +873,13 @@ namespace Microsoft.Azure.Management.DevTestLabs
             if (Client.ApiVersion == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.ApiVersion");
+            }
+            if (Client.ApiVersion != null)
+            {
+                if (Client.ApiVersion.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "Client.ApiVersion", 1);
+                }
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -777,7 +897,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             // Construct URL
             var _baseUrl = Client.BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/notificationchannels/{name}").ToString();
-            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Client.SubscriptionId));
+            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Rest.Serialization.SafeJsonConvert.SerializeObject(Client.SubscriptionId, Client.SerializationSettings).Trim('"')));
             _url = _url.Replace("{resourceGroupName}", System.Uri.EscapeDataString(resourceGroupName));
             _url = _url.Replace("{labName}", System.Uri.EscapeDataString(labName));
             _url = _url.Replace("{name}", System.Uri.EscapeDataString(name));
@@ -894,19 +1014,21 @@ namespace Microsoft.Azure.Management.DevTestLabs
         }
 
         /// <summary>
-        /// Modify properties of notificationchannels.
+        /// Allows modifying tags of notification channels. All other properties will
+        /// be ignored.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
         /// </param>
         /// <param name='name'>
-        /// The name of the notificationChannel.
+        /// The name of the notification channel.
         /// </param>
         /// <param name='notificationChannel'>
-        /// A notification.
+        /// Allows modifying tags of notification channels. All other properties will
+        /// be ignored.
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -931,17 +1053,39 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// </return>
         public async Task<AzureOperationResponse<NotificationChannel>> UpdateWithHttpMessagesAsync(string resourceGroupName, string labName, string name, NotificationChannelFragment notificationChannel, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (Client.SubscriptionId == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.SubscriptionId");
-            }
             if (resourceGroupName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "resourceGroupName");
             }
+            if (resourceGroupName != null)
+            {
+                if (resourceGroupName.Length > 90)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "resourceGroupName", 90);
+                }
+                if (resourceGroupName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "resourceGroupName", 1);
+                }
+            }
             if (labName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "labName");
+            }
+            if (labName != null)
+            {
+                if (labName.Length > 50)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "labName", 50);
+                }
+                if (labName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "labName", 1);
+                }
+                if (!System.Text.RegularExpressions.Regex.IsMatch(labName, "^[a-zA-Z0-9_\\-]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "labName", "^[a-zA-Z0-9_\\-]+$");
+                }
             }
             if (name == null)
             {
@@ -954,6 +1098,13 @@ namespace Microsoft.Azure.Management.DevTestLabs
             if (Client.ApiVersion == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.ApiVersion");
+            }
+            if (Client.ApiVersion != null)
+            {
+                if (Client.ApiVersion.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "Client.ApiVersion", 1);
+                }
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -972,7 +1123,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             // Construct URL
             var _baseUrl = Client.BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/notificationchannels/{name}").ToString();
-            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Client.SubscriptionId));
+            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Rest.Serialization.SafeJsonConvert.SerializeObject(Client.SubscriptionId, Client.SerializationSettings).Trim('"')));
             _url = _url.Replace("{resourceGroupName}", System.Uri.EscapeDataString(resourceGroupName));
             _url = _url.Replace("{labName}", System.Uri.EscapeDataString(labName));
             _url = _url.Replace("{name}", System.Uri.EscapeDataString(name));
@@ -1116,13 +1267,13 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// Send notification to provided channel.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
         /// </param>
         /// <param name='name'>
-        /// The name of the notificationChannel.
+        /// The name of the notification channel.
         /// </param>
         /// <param name='notifyParameters'>
         /// Properties for generating a Notification.
@@ -1147,17 +1298,39 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// </return>
         public async Task<AzureOperationResponse> NotifyWithHttpMessagesAsync(string resourceGroupName, string labName, string name, NotifyParameters notifyParameters, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (Client.SubscriptionId == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.SubscriptionId");
-            }
             if (resourceGroupName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "resourceGroupName");
             }
+            if (resourceGroupName != null)
+            {
+                if (resourceGroupName.Length > 90)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "resourceGroupName", 90);
+                }
+                if (resourceGroupName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "resourceGroupName", 1);
+                }
+            }
             if (labName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "labName");
+            }
+            if (labName != null)
+            {
+                if (labName.Length > 50)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "labName", 50);
+                }
+                if (labName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "labName", 1);
+                }
+                if (!System.Text.RegularExpressions.Regex.IsMatch(labName, "^[a-zA-Z0-9_\\-]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "labName", "^[a-zA-Z0-9_\\-]+$");
+                }
             }
             if (name == null)
             {
@@ -1170,6 +1343,13 @@ namespace Microsoft.Azure.Management.DevTestLabs
             if (Client.ApiVersion == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.ApiVersion");
+            }
+            if (Client.ApiVersion != null)
+            {
+                if (Client.ApiVersion.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "Client.ApiVersion", 1);
+                }
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -1188,7 +1368,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             // Construct URL
             var _baseUrl = Client.BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/notificationchannels/{name}/notify").ToString();
-            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Client.SubscriptionId));
+            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Rest.Serialization.SafeJsonConvert.SerializeObject(Client.SubscriptionId, Client.SerializationSettings).Trim('"')));
             _url = _url.Replace("{resourceGroupName}", System.Uri.EscapeDataString(resourceGroupName));
             _url = _url.Replace("{labName}", System.Uri.EscapeDataString(labName));
             _url = _url.Replace("{name}", System.Uri.EscapeDataString(name));
@@ -1311,7 +1491,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         }
 
         /// <summary>
-        /// List notificationchannels in a given lab.
+        /// List notification channels in a given lab.
         /// </summary>
         /// <param name='nextPageLink'>
         /// The NextLink from the previous successful call to List operation.

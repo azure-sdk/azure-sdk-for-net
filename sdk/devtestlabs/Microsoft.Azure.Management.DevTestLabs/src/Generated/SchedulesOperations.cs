@@ -55,7 +55,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// List schedules in a given lab.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -86,21 +86,50 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// </return>
         public async Task<AzureOperationResponse<IPage<Schedule>>> ListWithHttpMessagesAsync(string resourceGroupName, string labName, ODataQuery<Schedule> odataQuery = default(ODataQuery<Schedule>), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (Client.SubscriptionId == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.SubscriptionId");
-            }
             if (resourceGroupName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "resourceGroupName");
+            }
+            if (resourceGroupName != null)
+            {
+                if (resourceGroupName.Length > 90)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "resourceGroupName", 90);
+                }
+                if (resourceGroupName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "resourceGroupName", 1);
+                }
             }
             if (labName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "labName");
             }
+            if (labName != null)
+            {
+                if (labName.Length > 50)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "labName", 50);
+                }
+                if (labName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "labName", 1);
+                }
+                if (!System.Text.RegularExpressions.Regex.IsMatch(labName, "^[a-zA-Z0-9_\\-]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "labName", "^[a-zA-Z0-9_\\-]+$");
+                }
+            }
             if (Client.ApiVersion == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.ApiVersion");
+            }
+            if (Client.ApiVersion != null)
+            {
+                if (Client.ApiVersion.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "Client.ApiVersion", 1);
+                }
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -118,7 +147,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             // Construct URL
             var _baseUrl = Client.BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/schedules").ToString();
-            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Client.SubscriptionId));
+            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Rest.Serialization.SafeJsonConvert.SerializeObject(Client.SubscriptionId, Client.SerializationSettings).Trim('"')));
             _url = _url.Replace("{resourceGroupName}", System.Uri.EscapeDataString(resourceGroupName));
             _url = _url.Replace("{labName}", System.Uri.EscapeDataString(labName));
             List<string> _queryParameters = new List<string>();
@@ -263,7 +292,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// Get schedule.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -297,17 +326,39 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// </return>
         public async Task<AzureOperationResponse<Schedule>> GetWithHttpMessagesAsync(string resourceGroupName, string labName, string name, string expand = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (Client.SubscriptionId == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.SubscriptionId");
-            }
             if (resourceGroupName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "resourceGroupName");
             }
+            if (resourceGroupName != null)
+            {
+                if (resourceGroupName.Length > 90)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "resourceGroupName", 90);
+                }
+                if (resourceGroupName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "resourceGroupName", 1);
+                }
+            }
             if (labName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "labName");
+            }
+            if (labName != null)
+            {
+                if (labName.Length > 50)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "labName", 50);
+                }
+                if (labName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "labName", 1);
+                }
+                if (!System.Text.RegularExpressions.Regex.IsMatch(labName, "^[a-zA-Z0-9_\\-]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "labName", "^[a-zA-Z0-9_\\-]+$");
+                }
             }
             if (name == null)
             {
@@ -316,6 +367,13 @@ namespace Microsoft.Azure.Management.DevTestLabs
             if (Client.ApiVersion == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.ApiVersion");
+            }
+            if (Client.ApiVersion != null)
+            {
+                if (Client.ApiVersion.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "Client.ApiVersion", 1);
+                }
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -334,7 +392,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             // Construct URL
             var _baseUrl = Client.BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/schedules/{name}").ToString();
-            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Client.SubscriptionId));
+            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Rest.Serialization.SafeJsonConvert.SerializeObject(Client.SubscriptionId, Client.SerializationSettings).Trim('"')));
             _url = _url.Replace("{resourceGroupName}", System.Uri.EscapeDataString(resourceGroupName));
             _url = _url.Replace("{labName}", System.Uri.EscapeDataString(labName));
             _url = _url.Replace("{name}", System.Uri.EscapeDataString(name));
@@ -476,7 +534,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// Create or replace an existing schedule.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -510,17 +568,39 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// </return>
         public async Task<AzureOperationResponse<Schedule>> CreateOrUpdateWithHttpMessagesAsync(string resourceGroupName, string labName, string name, Schedule schedule, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (Client.SubscriptionId == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.SubscriptionId");
-            }
             if (resourceGroupName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "resourceGroupName");
             }
+            if (resourceGroupName != null)
+            {
+                if (resourceGroupName.Length > 90)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "resourceGroupName", 90);
+                }
+                if (resourceGroupName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "resourceGroupName", 1);
+                }
+            }
             if (labName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "labName");
+            }
+            if (labName != null)
+            {
+                if (labName.Length > 50)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "labName", 50);
+                }
+                if (labName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "labName", 1);
+                }
+                if (!System.Text.RegularExpressions.Regex.IsMatch(labName, "^[a-zA-Z0-9_\\-]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "labName", "^[a-zA-Z0-9_\\-]+$");
+                }
             }
             if (name == null)
             {
@@ -530,9 +610,20 @@ namespace Microsoft.Azure.Management.DevTestLabs
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "schedule");
             }
+            if (schedule != null)
+            {
+                schedule.Validate();
+            }
             if (Client.ApiVersion == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.ApiVersion");
+            }
+            if (Client.ApiVersion != null)
+            {
+                if (Client.ApiVersion.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "Client.ApiVersion", 1);
+                }
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -551,7 +642,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             // Construct URL
             var _baseUrl = Client.BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/schedules/{name}").ToString();
-            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Client.SubscriptionId));
+            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Rest.Serialization.SafeJsonConvert.SerializeObject(Client.SubscriptionId, Client.SerializationSettings).Trim('"')));
             _url = _url.Replace("{resourceGroupName}", System.Uri.EscapeDataString(resourceGroupName));
             _url = _url.Replace("{labName}", System.Uri.EscapeDataString(labName));
             _url = _url.Replace("{name}", System.Uri.EscapeDataString(name));
@@ -713,7 +804,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// Delete schedule.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -741,17 +832,39 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// </return>
         public async Task<AzureOperationResponse> DeleteWithHttpMessagesAsync(string resourceGroupName, string labName, string name, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (Client.SubscriptionId == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.SubscriptionId");
-            }
             if (resourceGroupName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "resourceGroupName");
             }
+            if (resourceGroupName != null)
+            {
+                if (resourceGroupName.Length > 90)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "resourceGroupName", 90);
+                }
+                if (resourceGroupName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "resourceGroupName", 1);
+                }
+            }
             if (labName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "labName");
+            }
+            if (labName != null)
+            {
+                if (labName.Length > 50)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "labName", 50);
+                }
+                if (labName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "labName", 1);
+                }
+                if (!System.Text.RegularExpressions.Regex.IsMatch(labName, "^[a-zA-Z0-9_\\-]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "labName", "^[a-zA-Z0-9_\\-]+$");
+                }
             }
             if (name == null)
             {
@@ -760,6 +873,13 @@ namespace Microsoft.Azure.Management.DevTestLabs
             if (Client.ApiVersion == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.ApiVersion");
+            }
+            if (Client.ApiVersion != null)
+            {
+                if (Client.ApiVersion.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "Client.ApiVersion", 1);
+                }
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -777,7 +897,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             // Construct URL
             var _baseUrl = Client.BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/schedules/{name}").ToString();
-            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Client.SubscriptionId));
+            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Rest.Serialization.SafeJsonConvert.SerializeObject(Client.SubscriptionId, Client.SerializationSettings).Trim('"')));
             _url = _url.Replace("{resourceGroupName}", System.Uri.EscapeDataString(resourceGroupName));
             _url = _url.Replace("{labName}", System.Uri.EscapeDataString(labName));
             _url = _url.Replace("{name}", System.Uri.EscapeDataString(name));
@@ -894,10 +1014,10 @@ namespace Microsoft.Azure.Management.DevTestLabs
         }
 
         /// <summary>
-        /// Modify properties of schedules.
+        /// Allows modifying tags of schedules. All other properties will be ignored.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -906,7 +1026,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// The name of the schedule.
         /// </param>
         /// <param name='schedule'>
-        /// A schedule.
+        /// Allows modifying tags of schedules. All other properties will be ignored.
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -931,17 +1051,39 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// </return>
         public async Task<AzureOperationResponse<Schedule>> UpdateWithHttpMessagesAsync(string resourceGroupName, string labName, string name, ScheduleFragment schedule, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (Client.SubscriptionId == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.SubscriptionId");
-            }
             if (resourceGroupName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "resourceGroupName");
             }
+            if (resourceGroupName != null)
+            {
+                if (resourceGroupName.Length > 90)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "resourceGroupName", 90);
+                }
+                if (resourceGroupName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "resourceGroupName", 1);
+                }
+            }
             if (labName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "labName");
+            }
+            if (labName != null)
+            {
+                if (labName.Length > 50)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "labName", 50);
+                }
+                if (labName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "labName", 1);
+                }
+                if (!System.Text.RegularExpressions.Regex.IsMatch(labName, "^[a-zA-Z0-9_\\-]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "labName", "^[a-zA-Z0-9_\\-]+$");
+                }
             }
             if (name == null)
             {
@@ -954,6 +1096,13 @@ namespace Microsoft.Azure.Management.DevTestLabs
             if (Client.ApiVersion == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.ApiVersion");
+            }
+            if (Client.ApiVersion != null)
+            {
+                if (Client.ApiVersion.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "Client.ApiVersion", 1);
+                }
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -972,7 +1121,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             // Construct URL
             var _baseUrl = Client.BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/schedules/{name}").ToString();
-            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Client.SubscriptionId));
+            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Rest.Serialization.SafeJsonConvert.SerializeObject(Client.SubscriptionId, Client.SerializationSettings).Trim('"')));
             _url = _url.Replace("{resourceGroupName}", System.Uri.EscapeDataString(resourceGroupName));
             _url = _url.Replace("{labName}", System.Uri.EscapeDataString(labName));
             _url = _url.Replace("{name}", System.Uri.EscapeDataString(name));
@@ -1116,7 +1265,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// Execute a schedule. This operation can take a while to complete.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -1130,10 +1279,10 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        public async Task<AzureOperationResponse> ExecuteWithHttpMessagesAsync(string resourceGroupName, string labName, string name, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<AzureOperationHeaderResponse<SchedulesExecuteHeaders>> ExecuteWithHttpMessagesAsync(string resourceGroupName, string labName, string name, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             // Send request
-            AzureOperationResponse _response = await BeginExecuteWithHttpMessagesAsync(resourceGroupName, labName, name, customHeaders, cancellationToken).ConfigureAwait(false);
+            AzureOperationHeaderResponse<SchedulesExecuteHeaders> _response = await BeginExecuteWithHttpMessagesAsync(resourceGroupName, labName, name, customHeaders, cancellationToken).ConfigureAwait(false);
             return await Client.GetPostOrDeleteOperationResultAsync(_response, customHeaders, cancellationToken).ConfigureAwait(false);
         }
 
@@ -1141,7 +1290,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// Lists all applicable schedules
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -1172,17 +1321,39 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// </return>
         public async Task<AzureOperationResponse<IPage<Schedule>>> ListApplicableWithHttpMessagesAsync(string resourceGroupName, string labName, string name, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (Client.SubscriptionId == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.SubscriptionId");
-            }
             if (resourceGroupName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "resourceGroupName");
             }
+            if (resourceGroupName != null)
+            {
+                if (resourceGroupName.Length > 90)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "resourceGroupName", 90);
+                }
+                if (resourceGroupName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "resourceGroupName", 1);
+                }
+            }
             if (labName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "labName");
+            }
+            if (labName != null)
+            {
+                if (labName.Length > 50)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "labName", 50);
+                }
+                if (labName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "labName", 1);
+                }
+                if (!System.Text.RegularExpressions.Regex.IsMatch(labName, "^[a-zA-Z0-9_\\-]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "labName", "^[a-zA-Z0-9_\\-]+$");
+                }
             }
             if (name == null)
             {
@@ -1191,6 +1362,13 @@ namespace Microsoft.Azure.Management.DevTestLabs
             if (Client.ApiVersion == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.ApiVersion");
+            }
+            if (Client.ApiVersion != null)
+            {
+                if (Client.ApiVersion.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "Client.ApiVersion", 1);
+                }
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -1208,7 +1386,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             // Construct URL
             var _baseUrl = Client.BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/schedules/{name}/listApplicable").ToString();
-            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Client.SubscriptionId));
+            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Rest.Serialization.SafeJsonConvert.SerializeObject(Client.SubscriptionId, Client.SerializationSettings).Trim('"')));
             _url = _url.Replace("{resourceGroupName}", System.Uri.EscapeDataString(resourceGroupName));
             _url = _url.Replace("{labName}", System.Uri.EscapeDataString(labName));
             _url = _url.Replace("{name}", System.Uri.EscapeDataString(name));
@@ -1346,7 +1524,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// Execute a schedule. This operation can take a while to complete.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -1372,19 +1550,41 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<AzureOperationResponse> BeginExecuteWithHttpMessagesAsync(string resourceGroupName, string labName, string name, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<AzureOperationHeaderResponse<SchedulesExecuteHeaders>> BeginExecuteWithHttpMessagesAsync(string resourceGroupName, string labName, string name, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (Client.SubscriptionId == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.SubscriptionId");
-            }
             if (resourceGroupName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "resourceGroupName");
             }
+            if (resourceGroupName != null)
+            {
+                if (resourceGroupName.Length > 90)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "resourceGroupName", 90);
+                }
+                if (resourceGroupName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "resourceGroupName", 1);
+                }
+            }
             if (labName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "labName");
+            }
+            if (labName != null)
+            {
+                if (labName.Length > 50)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "labName", 50);
+                }
+                if (labName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "labName", 1);
+                }
+                if (!System.Text.RegularExpressions.Regex.IsMatch(labName, "^[a-zA-Z0-9_\\-]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "labName", "^[a-zA-Z0-9_\\-]+$");
+                }
             }
             if (name == null)
             {
@@ -1393,6 +1593,13 @@ namespace Microsoft.Azure.Management.DevTestLabs
             if (Client.ApiVersion == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.ApiVersion");
+            }
+            if (Client.ApiVersion != null)
+            {
+                if (Client.ApiVersion.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "Client.ApiVersion", 1);
+                }
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -1410,7 +1617,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             // Construct URL
             var _baseUrl = Client.BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/schedules/{name}/execute").ToString();
-            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Client.SubscriptionId));
+            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Rest.Serialization.SafeJsonConvert.SerializeObject(Client.SubscriptionId, Client.SerializationSettings).Trim('"')));
             _url = _url.Replace("{resourceGroupName}", System.Uri.EscapeDataString(resourceGroupName));
             _url = _url.Replace("{labName}", System.Uri.EscapeDataString(labName));
             _url = _url.Replace("{name}", System.Uri.EscapeDataString(name));
@@ -1512,12 +1719,25 @@ namespace Microsoft.Azure.Management.DevTestLabs
                 throw ex;
             }
             // Create Result
-            var _result = new AzureOperationResponse();
+            var _result = new AzureOperationHeaderResponse<SchedulesExecuteHeaders>();
             _result.Request = _httpRequest;
             _result.Response = _httpResponse;
             if (_httpResponse.Headers.Contains("x-ms-request-id"))
             {
                 _result.RequestId = _httpResponse.Headers.GetValues("x-ms-request-id").FirstOrDefault();
+            }
+            try
+            {
+                _result.Headers = _httpResponse.GetHeadersAsJson().ToObject<SchedulesExecuteHeaders>(JsonSerializer.Create(Client.DeserializationSettings));
+            }
+            catch (JsonException ex)
+            {
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw new SerializationException("Unable to deserialize the headers.", _httpResponse.GetHeadersAsJson().ToString(), ex);
             }
             if (_shouldTrace)
             {

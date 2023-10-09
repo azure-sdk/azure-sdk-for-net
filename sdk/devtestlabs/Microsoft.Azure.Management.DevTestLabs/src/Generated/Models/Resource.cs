@@ -18,8 +18,12 @@ namespace Microsoft.Azure.Management.DevTestLabs.Models
     using System.Linq;
 
     /// <summary>
-    /// An Azure resource.
+    /// Resource
     /// </summary>
+    /// <remarks>
+    /// Common fields that are returned in the response for all Azure Resource
+    /// Manager resources
+    /// </remarks>
     public partial class Resource : IResource
     {
         /// <summary>
@@ -33,18 +37,22 @@ namespace Microsoft.Azure.Management.DevTestLabs.Models
         /// <summary>
         /// Initializes a new instance of the Resource class.
         /// </summary>
-        /// <param name="id">The identifier of the resource.</param>
-        /// <param name="name">The name of the resource.</param>
-        /// <param name="type">The type of the resource.</param>
-        /// <param name="location">The location of the resource.</param>
-        /// <param name="tags">The tags of the resource.</param>
-        public Resource(string id = default(string), string name = default(string), string type = default(string), string location = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>))
+        /// <param name="location">The geo-location where the resource
+        /// lives</param>
+        /// <param name="id">Fully qualified resource ID for the resource. E.g.
+        /// "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"</param>
+        /// <param name="name">The name of the resource</param>
+        /// <param name="type">The type of the resource. E.g.
+        /// "Microsoft.Compute/virtualMachines" or
+        /// "Microsoft.Storage/storageAccounts"</param>
+        /// <param name="tags">Resource tags.</param>
+        public Resource(string location, string id = default(string), string name = default(string), string type = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>))
         {
             Id = id;
             Name = name;
             Type = type;
-            Location = location;
             Tags = tags;
+            Location = location;
             CustomInit();
         }
 
@@ -54,34 +62,50 @@ namespace Microsoft.Azure.Management.DevTestLabs.Models
         partial void CustomInit();
 
         /// <summary>
-        /// Gets the identifier of the resource.
+        /// Gets fully qualified resource ID for the resource. E.g.
+        /// "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"
         /// </summary>
         [JsonProperty(PropertyName = "id")]
         public string Id { get; private set; }
 
         /// <summary>
-        /// Gets the name of the resource.
+        /// Gets the name of the resource
         /// </summary>
         [JsonProperty(PropertyName = "name")]
         public string Name { get; private set; }
 
         /// <summary>
-        /// Gets the type of the resource.
+        /// Gets the type of the resource. E.g.
+        /// "Microsoft.Compute/virtualMachines" or
+        /// "Microsoft.Storage/storageAccounts"
         /// </summary>
         [JsonProperty(PropertyName = "type")]
         public string Type { get; private set; }
 
         /// <summary>
-        /// Gets or sets the location of the resource.
+        /// Gets or sets resource tags.
+        /// </summary>
+        [JsonProperty(PropertyName = "tags")]
+        public IDictionary<string, string> Tags { get; set; }
+
+        /// <summary>
+        /// Gets or sets the geo-location where the resource lives
         /// </summary>
         [JsonProperty(PropertyName = "location")]
         public string Location { get; set; }
 
         /// <summary>
-        /// Gets or sets the tags of the resource.
+        /// Validate the object.
         /// </summary>
-        [JsonProperty(PropertyName = "tags")]
-        public IDictionary<string, string> Tags { get; set; }
-
+        /// <exception cref="ValidationException">
+        /// Thrown if validation fails
+        /// </exception>
+        public virtual void Validate()
+        {
+            if (Location == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "Location");
+            }
+        }
     }
 }

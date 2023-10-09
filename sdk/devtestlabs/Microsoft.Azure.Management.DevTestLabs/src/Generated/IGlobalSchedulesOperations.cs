@@ -50,7 +50,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// List schedules in a resource group.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='odataQuery'>
         /// OData parameters to apply to the operation.
@@ -75,7 +75,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// Get schedule.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='name'>
         /// The name of the schedule.
@@ -103,7 +103,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// Create or replace an existing schedule.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='name'>
         /// The name of the schedule.
@@ -131,7 +131,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// Delete schedule.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='name'>
         /// The name of the schedule.
@@ -150,16 +150,18 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// </exception>
         Task<AzureOperationResponse> DeleteWithHttpMessagesAsync(string resourceGroupName, string name, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Modify properties of schedules.
+        /// Allows modifying tags of schedules. All other properties will be
+        /// ignored.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='name'>
         /// The name of the schedule.
         /// </param>
         /// <param name='schedule'>
-        /// A schedule.
+        /// Allows modifying tags of schedules. All other properties will be
+        /// ignored.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -181,7 +183,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// Execute a schedule. This operation can take a while to complete.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='name'>
         /// The name of the schedule.
@@ -198,13 +200,13 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse> ExecuteWithHttpMessagesAsync(string resourceGroupName, string name, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationHeaderResponse<GlobalSchedulesExecuteHeaders>> ExecuteWithHttpMessagesAsync(string resourceGroupName, string name, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Updates a schedule's target resource Id. This operation can take a
         /// while to complete.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='name'>
         /// The name of the schedule.
@@ -224,12 +226,12 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse> RetargetWithHttpMessagesAsync(string resourceGroupName, string name, RetargetScheduleProperties retargetScheduleProperties, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationHeaderResponse<GlobalSchedulesRetargetHeaders>> RetargetWithHttpMessagesAsync(string resourceGroupName, string name, RetargetScheduleProperties retargetScheduleProperties, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Execute a schedule. This operation can take a while to complete.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='name'>
         /// The name of the schedule.
@@ -246,13 +248,13 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse> BeginExecuteWithHttpMessagesAsync(string resourceGroupName, string name, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationHeaderResponse<GlobalSchedulesExecuteHeaders>> BeginExecuteWithHttpMessagesAsync(string resourceGroupName, string name, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Updates a schedule's target resource Id. This operation can take a
         /// while to complete.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='name'>
         /// The name of the schedule.
@@ -272,7 +274,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse> BeginRetargetWithHttpMessagesAsync(string resourceGroupName, string name, RetargetScheduleProperties retargetScheduleProperties, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationHeaderResponse<GlobalSchedulesRetargetHeaders>> BeginRetargetWithHttpMessagesAsync(string resourceGroupName, string name, RetargetScheduleProperties retargetScheduleProperties, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// List schedules in a subscription.
         /// </summary>

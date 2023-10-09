@@ -28,7 +28,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// List artifacts in a given artifact source.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -59,7 +59,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// Get artifact.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -95,7 +95,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// artifact.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.

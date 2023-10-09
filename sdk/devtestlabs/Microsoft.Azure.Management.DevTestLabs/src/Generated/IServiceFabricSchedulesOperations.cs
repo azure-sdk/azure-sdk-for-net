@@ -28,7 +28,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// List schedules in a given service fabric.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -37,7 +37,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// The name of the user profile.
         /// </param>
         /// <param name='serviceFabricName'>
-        /// The name of the service Fabric.
+        /// The name of the service fabric.
         /// </param>
         /// <param name='odataQuery'>
         /// OData parameters to apply to the operation.
@@ -62,7 +62,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// Get schedule.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -71,7 +71,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// The name of the user profile.
         /// </param>
         /// <param name='serviceFabricName'>
-        /// The name of the service Fabric.
+        /// The name of the service fabric.
         /// </param>
         /// <param name='name'>
         /// The name of the schedule.
@@ -99,7 +99,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// Create or replace an existing schedule.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -108,7 +108,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// The name of the user profile.
         /// </param>
         /// <param name='serviceFabricName'>
-        /// The name of the service Fabric.
+        /// The name of the service fabric.
         /// </param>
         /// <param name='name'>
         /// The name of the schedule.
@@ -136,7 +136,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// Delete schedule.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -145,7 +145,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// The name of the user profile.
         /// </param>
         /// <param name='serviceFabricName'>
-        /// The name of the service Fabric.
+        /// The name of the service fabric.
         /// </param>
         /// <param name='name'>
         /// The name of the schedule.
@@ -164,10 +164,11 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// </exception>
         Task<AzureOperationResponse> DeleteWithHttpMessagesAsync(string resourceGroupName, string labName, string userName, string serviceFabricName, string name, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Modify properties of schedules.
+        /// Allows modifying tags of schedules. All other properties will be
+        /// ignored.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -176,13 +177,14 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// The name of the user profile.
         /// </param>
         /// <param name='serviceFabricName'>
-        /// The name of the service Fabric.
+        /// The name of the service fabric.
         /// </param>
         /// <param name='name'>
         /// The name of the schedule.
         /// </param>
         /// <param name='schedule'>
-        /// A schedule.
+        /// Allows modifying tags of schedules. All other properties will be
+        /// ignored.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -204,7 +206,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// Execute a schedule. This operation can take a while to complete.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -213,7 +215,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// The name of the user profile.
         /// </param>
         /// <param name='serviceFabricName'>
-        /// The name of the service Fabric.
+        /// The name of the service fabric.
         /// </param>
         /// <param name='name'>
         /// The name of the schedule.
@@ -230,12 +232,12 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse> ExecuteWithHttpMessagesAsync(string resourceGroupName, string labName, string userName, string serviceFabricName, string name, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationHeaderResponse<ServiceFabricSchedulesExecuteHeaders>> ExecuteWithHttpMessagesAsync(string resourceGroupName, string labName, string userName, string serviceFabricName, string name, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Execute a schedule. This operation can take a while to complete.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -244,7 +246,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// The name of the user profile.
         /// </param>
         /// <param name='serviceFabricName'>
-        /// The name of the service Fabric.
+        /// The name of the service fabric.
         /// </param>
         /// <param name='name'>
         /// The name of the schedule.
@@ -261,7 +263,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse> BeginExecuteWithHttpMessagesAsync(string resourceGroupName, string labName, string userName, string serviceFabricName, string name, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationHeaderResponse<ServiceFabricSchedulesExecuteHeaders>> BeginExecuteWithHttpMessagesAsync(string resourceGroupName, string labName, string userName, string serviceFabricName, string name, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// List schedules in a given service fabric.
         /// </summary>

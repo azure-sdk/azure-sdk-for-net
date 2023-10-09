@@ -29,7 +29,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -52,7 +52,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -81,7 +81,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -108,7 +108,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -142,7 +142,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -169,7 +169,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -201,7 +201,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -212,9 +212,9 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='name'>
             /// The name of the environment.
             /// </param>
-            public static void Delete(this IEnvironmentsOperations operations, string resourceGroupName, string labName, string userName, string name)
+            public static EnvironmentsDeleteHeaders Delete(this IEnvironmentsOperations operations, string resourceGroupName, string labName, string userName, string name)
             {
-                operations.DeleteAsync(resourceGroupName, labName, userName, name).GetAwaiter().GetResult();
+                return operations.DeleteAsync(resourceGroupName, labName, userName, name).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -224,7 +224,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -238,19 +238,23 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task DeleteAsync(this IEnvironmentsOperations operations, string resourceGroupName, string labName, string userName, string name, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<EnvironmentsDeleteHeaders> DeleteAsync(this IEnvironmentsOperations operations, string resourceGroupName, string labName, string userName, string name, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.DeleteWithHttpMessagesAsync(resourceGroupName, labName, userName, name, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.DeleteWithHttpMessagesAsync(resourceGroupName, labName, userName, name, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
-            /// Modify properties of environments.
+            /// Allows modifying tags of environments. All other properties will be
+            /// ignored.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -262,7 +266,8 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the environment.
             /// </param>
             /// <param name='dtlEnvironment'>
-            /// An environment, which is essentially an ARM template deployment.
+            /// Allows modifying tags of environments. All other properties will be
+            /// ignored.
             /// </param>
             public static DtlEnvironment Update(this IEnvironmentsOperations operations, string resourceGroupName, string labName, string userName, string name, DtlEnvironmentFragment dtlEnvironment)
             {
@@ -270,13 +275,14 @@ namespace Microsoft.Azure.Management.DevTestLabs
             }
 
             /// <summary>
-            /// Modify properties of environments.
+            /// Allows modifying tags of environments. All other properties will be
+            /// ignored.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -288,7 +294,8 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the environment.
             /// </param>
             /// <param name='dtlEnvironment'>
-            /// An environment, which is essentially an ARM template deployment.
+            /// Allows modifying tags of environments. All other properties will be
+            /// ignored.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -309,7 +316,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -336,7 +343,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -368,7 +375,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -379,9 +386,9 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='name'>
             /// The name of the environment.
             /// </param>
-            public static void BeginDelete(this IEnvironmentsOperations operations, string resourceGroupName, string labName, string userName, string name)
+            public static EnvironmentsDeleteHeaders BeginDelete(this IEnvironmentsOperations operations, string resourceGroupName, string labName, string userName, string name)
             {
-                operations.BeginDeleteAsync(resourceGroupName, labName, userName, name).GetAwaiter().GetResult();
+                return operations.BeginDeleteAsync(resourceGroupName, labName, userName, name).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -391,7 +398,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -405,9 +412,12 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginDeleteAsync(this IEnvironmentsOperations operations, string resourceGroupName, string labName, string userName, string name, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<EnvironmentsDeleteHeaders> BeginDeleteAsync(this IEnvironmentsOperations operations, string resourceGroupName, string labName, string userName, string name, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, labName, userName, name, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, labName, userName, name, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>

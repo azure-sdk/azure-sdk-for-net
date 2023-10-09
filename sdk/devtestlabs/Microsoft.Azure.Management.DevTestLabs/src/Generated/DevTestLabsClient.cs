@@ -47,14 +47,14 @@ namespace Microsoft.Azure.Management.DevTestLabs
         public ServiceClientCredentials Credentials { get; private set; }
 
         /// <summary>
-        /// Client API version.
+        /// The API version to use for this operation.
         /// </summary>
         public string ApiVersion { get; private set; }
 
         /// <summary>
-        /// The subscription ID.
+        /// The ID of the target subscription. The value must be an UUID.
         /// </summary>
-        public string SubscriptionId { get; set; }
+        public System.Guid SubscriptionId { get; set; }
 
         /// <summary>
         /// The preferred language for the response.
@@ -110,11 +110,6 @@ namespace Microsoft.Azure.Management.DevTestLabs
         public virtual IArtifactsOperations Artifacts { get; private set; }
 
         /// <summary>
-        /// Gets the ICostsOperations.
-        /// </summary>
-        public virtual ICostsOperations Costs { get; private set; }
-
-        /// <summary>
         /// Gets the ICustomImagesOperations.
         /// </summary>
         public virtual ICustomImagesOperations CustomImages { get; private set; }
@@ -150,9 +145,24 @@ namespace Microsoft.Azure.Management.DevTestLabs
         public virtual ISchedulesOperations Schedules { get; private set; }
 
         /// <summary>
+        /// Gets the ILabSecretsOperations.
+        /// </summary>
+        public virtual ILabSecretsOperations LabSecrets { get; private set; }
+
+        /// <summary>
         /// Gets the IServiceRunnersOperations.
         /// </summary>
         public virtual IServiceRunnersOperations ServiceRunners { get; private set; }
+
+        /// <summary>
+        /// Gets the ISharedGalleriesOperations.
+        /// </summary>
+        public virtual ISharedGalleriesOperations SharedGalleries { get; private set; }
+
+        /// <summary>
+        /// Gets the ISharedImagesOperations.
+        /// </summary>
+        public virtual ISharedImagesOperations SharedImages { get; private set; }
 
         /// <summary>
         /// Gets the IUsersOperations.
@@ -198,6 +208,11 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// Gets the IVirtualNetworksOperations.
         /// </summary>
         public virtual IVirtualNetworksOperations VirtualNetworks { get; private set; }
+
+        /// <summary>
+        /// Gets the IBastionHostsOperations.
+        /// </summary>
+        public virtual IBastionHostsOperations BastionHosts { get; private set; }
 
         /// <summary>
         /// Initializes a new instance of the DevTestLabsClient class.
@@ -447,7 +462,6 @@ namespace Microsoft.Azure.Management.DevTestLabs
             ArtifactSources = new ArtifactSourcesOperations(this);
             ArmTemplates = new ArmTemplatesOperations(this);
             Artifacts = new ArtifactsOperations(this);
-            Costs = new CostsOperations(this);
             CustomImages = new CustomImagesOperations(this);
             Formulas = new FormulasOperations(this);
             GalleryImages = new GalleryImagesOperations(this);
@@ -455,7 +469,10 @@ namespace Microsoft.Azure.Management.DevTestLabs
             PolicySets = new PolicySetsOperations(this);
             Policies = new PoliciesOperations(this);
             Schedules = new SchedulesOperations(this);
+            LabSecrets = new LabSecretsOperations(this);
             ServiceRunners = new ServiceRunnersOperations(this);
+            SharedGalleries = new SharedGalleriesOperations(this);
+            SharedImages = new SharedImagesOperations(this);
             Users = new UsersOperations(this);
             Disks = new DisksOperations(this);
             Environments = new EnvironmentsOperations(this);
@@ -465,8 +482,9 @@ namespace Microsoft.Azure.Management.DevTestLabs
             VirtualMachines = new VirtualMachinesOperations(this);
             VirtualMachineSchedules = new VirtualMachineSchedulesOperations(this);
             VirtualNetworks = new VirtualNetworksOperations(this);
+            BastionHosts = new BastionHostsOperations(this);
             BaseUri = new System.Uri("https://management.azure.com");
-            ApiVersion = "2018-09-15";
+            ApiVersion = "2021-09-01";
             AcceptLanguage = "en-US";
             LongRunningOperationRetryTimeout = 30;
             GenerateClientRequestId = true;

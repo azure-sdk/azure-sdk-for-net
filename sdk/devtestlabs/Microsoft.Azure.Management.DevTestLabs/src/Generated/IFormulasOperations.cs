@@ -28,7 +28,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// List formulas in a given lab.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -56,7 +56,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// Get formula.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -89,7 +89,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// while to complete.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -121,7 +121,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// Delete formula.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -143,10 +143,11 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// </exception>
         Task<AzureOperationResponse> DeleteWithHttpMessagesAsync(string resourceGroupName, string labName, string name, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Modify properties of formulas.
+        /// Allows modifying tags of formulas. All other properties will be
+        /// ignored.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -155,8 +156,8 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// The name of the formula.
         /// </param>
         /// <param name='formula'>
-        /// A formula for creating a VM, specifying an image base and other
-        /// parameters
+        /// Allows modifying tags of formulas. All other properties will be
+        /// ignored.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -179,7 +180,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// while to complete.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.

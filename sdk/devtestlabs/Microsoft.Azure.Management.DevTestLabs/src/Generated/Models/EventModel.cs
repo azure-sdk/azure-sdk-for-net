@@ -30,8 +30,8 @@ namespace Microsoft.Azure.Management.DevTestLabs.Models
         /// Initializes a new instance of the EventModel class.
         /// </summary>
         /// <param name="eventName">The event type for which this notification
-        /// is enabled (i.e. AutoShutdown, Cost). Possible values include:
-        /// 'AutoShutdown', 'Cost'</param>
+        /// is enabled (i.e. AutoShutdown). Possible values include:
+        /// 'AutoShutdown'</param>
         public EventModel(string eventName = default(string))
         {
             EventName = eventName;
@@ -45,8 +45,7 @@ namespace Microsoft.Azure.Management.DevTestLabs.Models
 
         /// <summary>
         /// Gets or sets the event type for which this notification is enabled
-        /// (i.e. AutoShutdown, Cost). Possible values include: 'AutoShutdown',
-        /// 'Cost'
+        /// (i.e. AutoShutdown). Possible values include: 'AutoShutdown'
         /// </summary>
         [JsonProperty(PropertyName = "eventName")]
         public string EventName { get; set; }

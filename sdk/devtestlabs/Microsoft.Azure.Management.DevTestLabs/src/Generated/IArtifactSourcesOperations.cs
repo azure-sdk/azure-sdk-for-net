@@ -28,7 +28,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// List artifact sources in a given lab.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -56,7 +56,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// Get artifact source.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -88,7 +88,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// Create or replace an existing artifact source.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -119,7 +119,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// Delete artifact source.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -141,10 +141,11 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// </exception>
         Task<AzureOperationResponse> DeleteWithHttpMessagesAsync(string resourceGroupName, string labName, string name, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Modify properties of artifact sources.
+        /// Allows modifying tags of artifact sources. All other properties
+        /// will be ignored.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -153,7 +154,8 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// The name of the artifact source.
         /// </param>
         /// <param name='artifactSource'>
-        /// Properties of an artifact source.
+        /// Allows modifying tags of artifact sources. All other properties
+        /// will be ignored.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.

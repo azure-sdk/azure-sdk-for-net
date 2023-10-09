@@ -55,7 +55,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// List azure resource manager templates in a given artifact source.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -89,25 +89,69 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// </return>
         public async Task<AzureOperationResponse<IPage<ArmTemplate>>> ListWithHttpMessagesAsync(string resourceGroupName, string labName, string artifactSourceName, ODataQuery<ArmTemplate> odataQuery = default(ODataQuery<ArmTemplate>), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (Client.SubscriptionId == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.SubscriptionId");
-            }
             if (resourceGroupName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "resourceGroupName");
+            }
+            if (resourceGroupName != null)
+            {
+                if (resourceGroupName.Length > 90)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "resourceGroupName", 90);
+                }
+                if (resourceGroupName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "resourceGroupName", 1);
+                }
             }
             if (labName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "labName");
             }
+            if (labName != null)
+            {
+                if (labName.Length > 50)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "labName", 50);
+                }
+                if (labName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "labName", 1);
+                }
+                if (!System.Text.RegularExpressions.Regex.IsMatch(labName, "^[a-zA-Z0-9_\\-]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "labName", "^[a-zA-Z0-9_\\-]+$");
+                }
+            }
             if (artifactSourceName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "artifactSourceName");
             }
+            if (artifactSourceName != null)
+            {
+                if (artifactSourceName.Length > 260)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "artifactSourceName", 260);
+                }
+                if (artifactSourceName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "artifactSourceName", 1);
+                }
+                if (!System.Text.RegularExpressions.Regex.IsMatch(artifactSourceName, "^[a-zA-Z0-9_\\-]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "artifactSourceName", "^[a-zA-Z0-9_\\-]+$");
+                }
+            }
             if (Client.ApiVersion == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.ApiVersion");
+            }
+            if (Client.ApiVersion != null)
+            {
+                if (Client.ApiVersion.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "Client.ApiVersion", 1);
+                }
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -126,7 +170,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             // Construct URL
             var _baseUrl = Client.BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/artifactsources/{artifactSourceName}/armtemplates").ToString();
-            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Client.SubscriptionId));
+            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Rest.Serialization.SafeJsonConvert.SerializeObject(Client.SubscriptionId, Client.SerializationSettings).Trim('"')));
             _url = _url.Replace("{resourceGroupName}", System.Uri.EscapeDataString(resourceGroupName));
             _url = _url.Replace("{labName}", System.Uri.EscapeDataString(labName));
             _url = _url.Replace("{artifactSourceName}", System.Uri.EscapeDataString(artifactSourceName));
@@ -272,7 +316,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// Get azure resource manager template.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -281,7 +325,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// The name of the artifact source.
         /// </param>
         /// <param name='name'>
-        /// The name of the azure Resource Manager template.
+        /// The name of the azure resource manager template.
         /// </param>
         /// <param name='expand'>
         /// Specify the $expand query. Example: 'properties($select=displayName)'
@@ -309,21 +353,58 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// </return>
         public async Task<AzureOperationResponse<ArmTemplate>> GetWithHttpMessagesAsync(string resourceGroupName, string labName, string artifactSourceName, string name, string expand = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (Client.SubscriptionId == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.SubscriptionId");
-            }
             if (resourceGroupName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "resourceGroupName");
+            }
+            if (resourceGroupName != null)
+            {
+                if (resourceGroupName.Length > 90)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "resourceGroupName", 90);
+                }
+                if (resourceGroupName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "resourceGroupName", 1);
+                }
             }
             if (labName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "labName");
             }
+            if (labName != null)
+            {
+                if (labName.Length > 50)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "labName", 50);
+                }
+                if (labName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "labName", 1);
+                }
+                if (!System.Text.RegularExpressions.Regex.IsMatch(labName, "^[a-zA-Z0-9_\\-]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "labName", "^[a-zA-Z0-9_\\-]+$");
+                }
+            }
             if (artifactSourceName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "artifactSourceName");
+            }
+            if (artifactSourceName != null)
+            {
+                if (artifactSourceName.Length > 260)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "artifactSourceName", 260);
+                }
+                if (artifactSourceName.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "artifactSourceName", 1);
+                }
+                if (!System.Text.RegularExpressions.Regex.IsMatch(artifactSourceName, "^[a-zA-Z0-9_\\-]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "artifactSourceName", "^[a-zA-Z0-9_\\-]+$");
+                }
             }
             if (name == null)
             {
@@ -332,6 +413,13 @@ namespace Microsoft.Azure.Management.DevTestLabs
             if (Client.ApiVersion == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.ApiVersion");
+            }
+            if (Client.ApiVersion != null)
+            {
+                if (Client.ApiVersion.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "Client.ApiVersion", 1);
+                }
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -351,7 +439,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             // Construct URL
             var _baseUrl = Client.BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DevTestLab/labs/{labName}/artifactsources/{artifactSourceName}/armtemplates/{name}").ToString();
-            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Client.SubscriptionId));
+            _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(Rest.Serialization.SafeJsonConvert.SerializeObject(Client.SubscriptionId, Client.SerializationSettings).Trim('"')));
             _url = _url.Replace("{resourceGroupName}", System.Uri.EscapeDataString(resourceGroupName));
             _url = _url.Replace("{labName}", System.Uri.EscapeDataString(labName));
             _url = _url.Replace("{artifactSourceName}", System.Uri.EscapeDataString(artifactSourceName));

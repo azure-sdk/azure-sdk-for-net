@@ -29,8 +29,8 @@ namespace Microsoft.Azure.Management.DevTestLabs.Models
         /// <summary>
         /// Initializes a new instance of the NotifyParameters class.
         /// </summary>
-        /// <param name="eventName">The type of event (i.e. AutoShutdown,
-        /// Cost). Possible values include: 'AutoShutdown', 'Cost'</param>
+        /// <param name="eventName">The type of event (i.e. AutoShutdown).
+        /// Possible values include: 'AutoShutdown'</param>
         /// <param name="jsonPayload">Properties for the notification in json
         /// format.</param>
         public NotifyParameters(string eventName = default(string), string jsonPayload = default(string))
@@ -46,8 +46,8 @@ namespace Microsoft.Azure.Management.DevTestLabs.Models
         partial void CustomInit();
 
         /// <summary>
-        /// Gets or sets the type of event (i.e. AutoShutdown, Cost). Possible
-        /// values include: 'AutoShutdown', 'Cost'
+        /// Gets or sets the type of event (i.e. AutoShutdown). Possible values
+        /// include: 'AutoShutdown'
         /// </summary>
         [JsonProperty(PropertyName = "eventName")]
         public string EventName { get; set; }

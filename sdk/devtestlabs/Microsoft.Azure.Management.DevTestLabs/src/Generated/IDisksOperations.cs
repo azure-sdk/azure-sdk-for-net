@@ -28,7 +28,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// List disks in a given user profile.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -59,7 +59,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// Get disk.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -94,7 +94,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// to complete.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -128,7 +128,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// Delete disk. This operation can take a while to complete.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -151,12 +151,13 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse> DeleteWithHttpMessagesAsync(string resourceGroupName, string labName, string userName, string name, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationHeaderResponse<DisksDeleteHeaders>> DeleteWithHttpMessagesAsync(string resourceGroupName, string labName, string userName, string name, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Modify properties of disks.
+        /// Allows modifying tags of disks. All other properties will be
+        /// ignored.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -168,7 +169,8 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// The name of the disk.
         /// </param>
         /// <param name='disk'>
-        /// A Disk.
+        /// Allows modifying tags of disks. All other properties will be
+        /// ignored.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -191,7 +193,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// This operation can take a while to complete.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -217,13 +219,13 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse> AttachWithHttpMessagesAsync(string resourceGroupName, string labName, string userName, string name, AttachDiskProperties attachDiskProperties, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationHeaderResponse<DisksAttachHeaders>> AttachWithHttpMessagesAsync(string resourceGroupName, string labName, string userName, string name, AttachDiskProperties attachDiskProperties, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Detach and break the lease of the disk attached to the virtual
         /// machine. This operation can take a while to complete.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -249,13 +251,13 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse> DetachWithHttpMessagesAsync(string resourceGroupName, string labName, string userName, string name, DetachDiskProperties detachDiskProperties, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationHeaderResponse<DisksDetachHeaders>> DetachWithHttpMessagesAsync(string resourceGroupName, string labName, string userName, string name, DetachDiskProperties detachDiskProperties, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Create or replace an existing disk. This operation can take a while
         /// to complete.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -289,7 +291,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// Delete disk. This operation can take a while to complete.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -312,13 +314,13 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse> BeginDeleteWithHttpMessagesAsync(string resourceGroupName, string labName, string userName, string name, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationHeaderResponse<DisksDeleteHeaders>> BeginDeleteWithHttpMessagesAsync(string resourceGroupName, string labName, string userName, string name, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Attach and create the lease of the disk to the virtual machine.
         /// This operation can take a while to complete.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -344,13 +346,13 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse> BeginAttachWithHttpMessagesAsync(string resourceGroupName, string labName, string userName, string name, AttachDiskProperties attachDiskProperties, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationHeaderResponse<DisksAttachHeaders>> BeginAttachWithHttpMessagesAsync(string resourceGroupName, string labName, string userName, string name, AttachDiskProperties attachDiskProperties, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Detach and break the lease of the disk attached to the virtual
         /// machine. This operation can take a while to complete.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -376,7 +378,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse> BeginDetachWithHttpMessagesAsync(string resourceGroupName, string labName, string userName, string name, DetachDiskProperties detachDiskProperties, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationHeaderResponse<DisksDetachHeaders>> BeginDetachWithHttpMessagesAsync(string resourceGroupName, string labName, string userName, string name, DetachDiskProperties detachDiskProperties, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// List disks in a given user profile.
         /// </summary>

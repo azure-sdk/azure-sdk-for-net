@@ -29,7 +29,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -49,7 +49,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -75,7 +75,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -98,7 +98,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -128,7 +128,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -139,7 +139,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='user'>
             /// Profile of a lab user.
             /// </param>
-            public static User CreateOrUpdate(this IUsersOperations operations, string resourceGroupName, string labName, string name, User user)
+            public static User CreateOrUpdate(this IUsersOperations operations, string resourceGroupName, string labName, string name, User user = default(User))
             {
                 return operations.CreateOrUpdateAsync(resourceGroupName, labName, name, user).GetAwaiter().GetResult();
             }
@@ -152,7 +152,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -166,7 +166,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<User> CreateOrUpdateAsync(this IUsersOperations operations, string resourceGroupName, string labName, string name, User user, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<User> CreateOrUpdateAsync(this IUsersOperations operations, string resourceGroupName, string labName, string name, User user = default(User), CancellationToken cancellationToken = default(CancellationToken))
             {
                 using (var _result = await operations.CreateOrUpdateWithHttpMessagesAsync(resourceGroupName, labName, name, user, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -181,7 +181,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -189,9 +189,9 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='name'>
             /// The name of the user profile.
             /// </param>
-            public static void Delete(this IUsersOperations operations, string resourceGroupName, string labName, string name)
+            public static UsersDeleteHeaders Delete(this IUsersOperations operations, string resourceGroupName, string labName, string name)
             {
-                operations.DeleteAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
+                return operations.DeleteAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -201,7 +201,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -212,19 +212,23 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task DeleteAsync(this IUsersOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<UsersDeleteHeaders> DeleteAsync(this IUsersOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.DeleteWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.DeleteWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
-            /// Modify properties of user profiles.
+            /// Allows modifying tags of user profiles. All other properties will be
+            /// ignored.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -233,7 +237,8 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the user profile.
             /// </param>
             /// <param name='user'>
-            /// Profile of a lab user.
+            /// Allows modifying tags of user profiles. All other properties will be
+            /// ignored.
             /// </param>
             public static User Update(this IUsersOperations operations, string resourceGroupName, string labName, string name, UserFragment user)
             {
@@ -241,13 +246,14 @@ namespace Microsoft.Azure.Management.DevTestLabs
             }
 
             /// <summary>
-            /// Modify properties of user profiles.
+            /// Allows modifying tags of user profiles. All other properties will be
+            /// ignored.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -256,7 +262,8 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the user profile.
             /// </param>
             /// <param name='user'>
-            /// Profile of a lab user.
+            /// Allows modifying tags of user profiles. All other properties will be
+            /// ignored.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -277,7 +284,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -288,7 +295,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='user'>
             /// Profile of a lab user.
             /// </param>
-            public static User BeginCreateOrUpdate(this IUsersOperations operations, string resourceGroupName, string labName, string name, User user)
+            public static User BeginCreateOrUpdate(this IUsersOperations operations, string resourceGroupName, string labName, string name, User user = default(User))
             {
                 return operations.BeginCreateOrUpdateAsync(resourceGroupName, labName, name, user).GetAwaiter().GetResult();
             }
@@ -301,7 +308,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -315,7 +322,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<User> BeginCreateOrUpdateAsync(this IUsersOperations operations, string resourceGroupName, string labName, string name, User user, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<User> BeginCreateOrUpdateAsync(this IUsersOperations operations, string resourceGroupName, string labName, string name, User user = default(User), CancellationToken cancellationToken = default(CancellationToken))
             {
                 using (var _result = await operations.BeginCreateOrUpdateWithHttpMessagesAsync(resourceGroupName, labName, name, user, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -330,7 +337,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -338,9 +345,9 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='name'>
             /// The name of the user profile.
             /// </param>
-            public static void BeginDelete(this IUsersOperations operations, string resourceGroupName, string labName, string name)
+            public static UsersDeleteHeaders BeginDelete(this IUsersOperations operations, string resourceGroupName, string labName, string name)
             {
-                operations.BeginDeleteAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
+                return operations.BeginDeleteAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -350,7 +357,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -361,9 +368,12 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginDeleteAsync(this IUsersOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<UsersDeleteHeaders> BeginDeleteAsync(this IUsersOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>

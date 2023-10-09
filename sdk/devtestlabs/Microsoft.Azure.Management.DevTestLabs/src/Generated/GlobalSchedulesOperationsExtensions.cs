@@ -63,7 +63,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='odataQuery'>
             /// OData parameters to apply to the operation.
@@ -80,7 +80,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='odataQuery'>
             /// OData parameters to apply to the operation.
@@ -103,7 +103,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='name'>
             /// The name of the schedule.
@@ -123,7 +123,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='name'>
             /// The name of the schedule.
@@ -149,7 +149,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='name'>
             /// The name of the schedule.
@@ -169,7 +169,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='name'>
             /// The name of the schedule.
@@ -195,7 +195,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='name'>
             /// The name of the schedule.
@@ -212,7 +212,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='name'>
             /// The name of the schedule.
@@ -226,19 +226,19 @@ namespace Microsoft.Azure.Management.DevTestLabs
             }
 
             /// <summary>
-            /// Modify properties of schedules.
+            /// Allows modifying tags of schedules. All other properties will be ignored.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='name'>
             /// The name of the schedule.
             /// </param>
             /// <param name='schedule'>
-            /// A schedule.
+            /// Allows modifying tags of schedules. All other properties will be ignored.
             /// </param>
             public static Schedule Update(this IGlobalSchedulesOperations operations, string resourceGroupName, string name, ScheduleFragment schedule)
             {
@@ -246,19 +246,19 @@ namespace Microsoft.Azure.Management.DevTestLabs
             }
 
             /// <summary>
-            /// Modify properties of schedules.
+            /// Allows modifying tags of schedules. All other properties will be ignored.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='name'>
             /// The name of the schedule.
             /// </param>
             /// <param name='schedule'>
-            /// A schedule.
+            /// Allows modifying tags of schedules. All other properties will be ignored.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -278,14 +278,14 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='name'>
             /// The name of the schedule.
             /// </param>
-            public static void Execute(this IGlobalSchedulesOperations operations, string resourceGroupName, string name)
+            public static GlobalSchedulesExecuteHeaders Execute(this IGlobalSchedulesOperations operations, string resourceGroupName, string name)
             {
-                operations.ExecuteAsync(resourceGroupName, name).GetAwaiter().GetResult();
+                return operations.ExecuteAsync(resourceGroupName, name).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -295,7 +295,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='name'>
             /// The name of the schedule.
@@ -303,9 +303,12 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task ExecuteAsync(this IGlobalSchedulesOperations operations, string resourceGroupName, string name, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<GlobalSchedulesExecuteHeaders> ExecuteAsync(this IGlobalSchedulesOperations operations, string resourceGroupName, string name, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.ExecuteWithHttpMessagesAsync(resourceGroupName, name, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.ExecuteWithHttpMessagesAsync(resourceGroupName, name, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -316,7 +319,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='name'>
             /// The name of the schedule.
@@ -324,9 +327,9 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='retargetScheduleProperties'>
             /// Properties for retargeting a virtual machine schedule.
             /// </param>
-            public static void Retarget(this IGlobalSchedulesOperations operations, string resourceGroupName, string name, RetargetScheduleProperties retargetScheduleProperties)
+            public static GlobalSchedulesRetargetHeaders Retarget(this IGlobalSchedulesOperations operations, string resourceGroupName, string name, RetargetScheduleProperties retargetScheduleProperties)
             {
-                operations.RetargetAsync(resourceGroupName, name, retargetScheduleProperties).GetAwaiter().GetResult();
+                return operations.RetargetAsync(resourceGroupName, name, retargetScheduleProperties).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -337,7 +340,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='name'>
             /// The name of the schedule.
@@ -348,9 +351,12 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task RetargetAsync(this IGlobalSchedulesOperations operations, string resourceGroupName, string name, RetargetScheduleProperties retargetScheduleProperties, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<GlobalSchedulesRetargetHeaders> RetargetAsync(this IGlobalSchedulesOperations operations, string resourceGroupName, string name, RetargetScheduleProperties retargetScheduleProperties, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.RetargetWithHttpMessagesAsync(resourceGroupName, name, retargetScheduleProperties, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.RetargetWithHttpMessagesAsync(resourceGroupName, name, retargetScheduleProperties, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -360,14 +366,14 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='name'>
             /// The name of the schedule.
             /// </param>
-            public static void BeginExecute(this IGlobalSchedulesOperations operations, string resourceGroupName, string name)
+            public static GlobalSchedulesExecuteHeaders BeginExecute(this IGlobalSchedulesOperations operations, string resourceGroupName, string name)
             {
-                operations.BeginExecuteAsync(resourceGroupName, name).GetAwaiter().GetResult();
+                return operations.BeginExecuteAsync(resourceGroupName, name).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -377,7 +383,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='name'>
             /// The name of the schedule.
@@ -385,9 +391,12 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginExecuteAsync(this IGlobalSchedulesOperations operations, string resourceGroupName, string name, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<GlobalSchedulesExecuteHeaders> BeginExecuteAsync(this IGlobalSchedulesOperations operations, string resourceGroupName, string name, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginExecuteWithHttpMessagesAsync(resourceGroupName, name, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginExecuteWithHttpMessagesAsync(resourceGroupName, name, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -398,7 +407,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='name'>
             /// The name of the schedule.
@@ -406,9 +415,9 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='retargetScheduleProperties'>
             /// Properties for retargeting a virtual machine schedule.
             /// </param>
-            public static void BeginRetarget(this IGlobalSchedulesOperations operations, string resourceGroupName, string name, RetargetScheduleProperties retargetScheduleProperties)
+            public static GlobalSchedulesRetargetHeaders BeginRetarget(this IGlobalSchedulesOperations operations, string resourceGroupName, string name, RetargetScheduleProperties retargetScheduleProperties)
             {
-                operations.BeginRetargetAsync(resourceGroupName, name, retargetScheduleProperties).GetAwaiter().GetResult();
+                return operations.BeginRetargetAsync(resourceGroupName, name, retargetScheduleProperties).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -419,7 +428,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='name'>
             /// The name of the schedule.
@@ -430,9 +439,12 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginRetargetAsync(this IGlobalSchedulesOperations operations, string resourceGroupName, string name, RetargetScheduleProperties retargetScheduleProperties, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<GlobalSchedulesRetargetHeaders> BeginRetargetAsync(this IGlobalSchedulesOperations operations, string resourceGroupName, string name, RetargetScheduleProperties retargetScheduleProperties, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginRetargetWithHttpMessagesAsync(resourceGroupName, name, retargetScheduleProperties, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginRetargetWithHttpMessagesAsync(resourceGroupName, name, retargetScheduleProperties, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>

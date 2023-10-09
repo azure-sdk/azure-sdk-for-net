@@ -23,7 +23,6 @@ namespace Microsoft.Azure.Management.DevTestLabs.Models
         public const string LabVmSize = "LabVmSize";
         public const string GalleryImage = "GalleryImage";
         public const string UserOwnedLabVmCountInSubnet = "UserOwnedLabVmCountInSubnet";
-        public const string LabTargetCost = "LabTargetCost";
         public const string EnvironmentTemplate = "EnvironmentTemplate";
         public const string ScheduleEditPermission = "ScheduleEditPermission";
     }
