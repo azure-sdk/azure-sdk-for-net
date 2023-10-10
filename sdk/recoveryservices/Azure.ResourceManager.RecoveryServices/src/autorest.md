@@ -8,7 +8,7 @@ azure-arm: true
 csharp: true
 library-name: RecoveryServices
 namespace: Azure.ResourceManager.RecoveryServices
-require: https://github.com/Azure/azure-rest-api-specs/blob/95c0363e4cae8756c6a33b58add67776db427bbc/specification/recoveryservices/resource-manager/readme.md
+require: https://github.com/Azure/azure-rest-api-specs/blob/943efffaa88e88dab034e398b13e23c3248b8e0f/specification/recoveryservices/resource-manager/readme.md
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
 sample-gen:
