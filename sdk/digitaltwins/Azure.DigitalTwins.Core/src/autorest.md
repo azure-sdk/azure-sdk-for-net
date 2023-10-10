@@ -9,7 +9,7 @@ Run `generate.ps1` in this directory or run `dotnet build /t:GenerateCode` to ge
 ``` yaml
 tag: package-2023-06-30
 require:
-  - https://github.com/Azure/azure-rest-api-specs/blob/2c0f2c7d585b99af7428435aa065d5ea4276119a/specification/digitaltwins/data-plane/readme.md
+  - https://github.com/Azure/azure-rest-api-specs/blob/943efffaa88e88dab034e398b13e23c3248b8e0f/specification/digitaltwins/data-plane/readme.md
 generation1-convenience-client: true
 ```
 
