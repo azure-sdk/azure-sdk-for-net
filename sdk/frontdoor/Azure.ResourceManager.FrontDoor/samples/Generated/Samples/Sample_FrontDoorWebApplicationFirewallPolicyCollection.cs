@@ -186,7 +186,7 @@ namespace Azure.ResourceManager.FrontDoor.Samples
 
             // invoke the operation
             string policyName = "Policy1";
-            FrontDoorWebApplicationFirewallPolicyData data = new FrontDoorWebApplicationFirewallPolicyData(new AzureLocation("placeholder"))
+            FrontDoorWebApplicationFirewallPolicyData data = new FrontDoorWebApplicationFirewallPolicyData(new AzureLocation("WestUs"))
             {
                 SkuName = FrontDoorSkuName.ClassicAzureFrontDoor,
                 PolicySettings = new FrontDoorWebApplicationFirewallPolicySettings()
@@ -194,7 +194,7 @@ namespace Azure.ResourceManager.FrontDoor.Samples
                     EnabledState = PolicyEnabledState.Enabled,
                     Mode = FrontDoorWebApplicationFirewallPolicyMode.Prevention,
                     RedirectUri = new Uri("http://www.bing.com"),
-                    CustomBlockResponseStatusCode = 499,
+                    CustomBlockResponseStatusCode = 429,
                     CustomBlockResponseBody = "PGh0bWw+CjxoZWFkZXI+PHRpdGxlPkhlbGxvPC90aXRsZT48L2hlYWRlcj4KPGJvZHk+CkhlbGxvIHdvcmxkCjwvYm9keT4KPC9odG1sPg==",
                     RequestBodyCheck = PolicyRequestBodyCheck.Disabled,
                 },
