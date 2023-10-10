@@ -16,20 +16,20 @@ using Azure.ResourceManager.Automation.Models;
 
 namespace Azure.ResourceManager.Automation
 {
-    internal partial class HybridRunbookWorkerGroupRestOperations
+    internal partial class Python3PackageRestOperations
     {
         private readonly TelemetryDetails _userAgent;
         private readonly HttpPipeline _pipeline;
         private readonly Uri _endpoint;
         private readonly string _apiVersion;
 
-        /// <summary> Initializes a new instance of HybridRunbookWorkerGroupRestOperations. </summary>
+        /// <summary> Initializes a new instance of Python3PackageRestOperations. </summary>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
         /// <param name="applicationId"> The application id to use for user agent. </param>
         /// <param name="endpoint"> server parameter. </param>
         /// <param name="apiVersion"> Api Version. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="pipeline"/> or <paramref name="apiVersion"/> is null. </exception>
-        public HybridRunbookWorkerGroupRestOperations(HttpPipeline pipeline, string applicationId, Uri endpoint = null, string apiVersion = default)
+        public Python3PackageRestOperations(HttpPipeline pipeline, string applicationId, Uri endpoint = null, string apiVersion = default)
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
@@ -37,7 +37,7 @@ namespace Azure.ResourceManager.Automation
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
-        internal HttpMessage CreateDeleteRequest(string subscriptionId, string resourceGroupName, string automationAccountName, string hybridRunbookWorkerGroupName)
+        internal HttpMessage CreateDeleteRequest(string subscriptionId, string resourceGroupName, string automationAccountName, string packageName)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -50,8 +50,8 @@ namespace Azure.ResourceManager.Automation
             uri.AppendPath(resourceGroupName, true);
             uri.AppendPath("/providers/Microsoft.Automation/automationAccounts/", false);
             uri.AppendPath(automationAccountName, true);
-            uri.AppendPath("/hybridRunbookWorkerGroups/", false);
-            uri.AppendPath(hybridRunbookWorkerGroupName, true);
+            uri.AppendPath("/python3Packages/", false);
+            uri.AppendPath(packageName, true);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
@@ -59,59 +59,61 @@ namespace Azure.ResourceManager.Automation
             return message;
         }
 
-        /// <summary> Delete a hybrid runbook worker group. </summary>
+        /// <summary> Delete the python 3 package by name. </summary>
         /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
         /// <param name="resourceGroupName"> Name of an Azure Resource group. </param>
         /// <param name="automationAccountName"> The name of the automation account. </param>
-        /// <param name="hybridRunbookWorkerGroupName"> The hybrid runbook worker group name. </param>
+        /// <param name="packageName"> The python package name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/> or <paramref name="hybridRunbookWorkerGroupName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/> or <paramref name="hybridRunbookWorkerGroupName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response> DeleteAsync(string subscriptionId, string resourceGroupName, string automationAccountName, string hybridRunbookWorkerGroupName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/> or <paramref name="packageName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/> or <paramref name="packageName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response> DeleteAsync(string subscriptionId, string resourceGroupName, string automationAccountName, string packageName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(automationAccountName, nameof(automationAccountName));
-            Argument.AssertNotNullOrEmpty(hybridRunbookWorkerGroupName, nameof(hybridRunbookWorkerGroupName));
+            Argument.AssertNotNullOrEmpty(packageName, nameof(packageName));
 
-            using var message = CreateDeleteRequest(subscriptionId, resourceGroupName, automationAccountName, hybridRunbookWorkerGroupName);
+            using var message = CreateDeleteRequest(subscriptionId, resourceGroupName, automationAccountName, packageName);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
                 case 200:
+                case 204:
                     return message.Response;
                 default:
                     throw new RequestFailedException(message.Response);
             }
         }
 
-        /// <summary> Delete a hybrid runbook worker group. </summary>
+        /// <summary> Delete the python 3 package by name. </summary>
         /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
         /// <param name="resourceGroupName"> Name of an Azure Resource group. </param>
         /// <param name="automationAccountName"> The name of the automation account. </param>
-        /// <param name="hybridRunbookWorkerGroupName"> The hybrid runbook worker group name. </param>
+        /// <param name="packageName"> The python package name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/> or <paramref name="hybridRunbookWorkerGroupName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/> or <paramref name="hybridRunbookWorkerGroupName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response Delete(string subscriptionId, string resourceGroupName, string automationAccountName, string hybridRunbookWorkerGroupName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/> or <paramref name="packageName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/> or <paramref name="packageName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response Delete(string subscriptionId, string resourceGroupName, string automationAccountName, string packageName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(automationAccountName, nameof(automationAccountName));
-            Argument.AssertNotNullOrEmpty(hybridRunbookWorkerGroupName, nameof(hybridRunbookWorkerGroupName));
+            Argument.AssertNotNullOrEmpty(packageName, nameof(packageName));
 
-            using var message = CreateDeleteRequest(subscriptionId, resourceGroupName, automationAccountName, hybridRunbookWorkerGroupName);
+            using var message = CreateDeleteRequest(subscriptionId, resourceGroupName, automationAccountName, packageName);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
                 case 200:
+                case 204:
                     return message.Response;
                 default:
                     throw new RequestFailedException(message.Response);
             }
         }
 
-        internal HttpMessage CreateGetRequest(string subscriptionId, string resourceGroupName, string automationAccountName, string hybridRunbookWorkerGroupName)
+        internal HttpMessage CreateGetRequest(string subscriptionId, string resourceGroupName, string automationAccountName, string packageName)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -124,8 +126,8 @@ namespace Azure.ResourceManager.Automation
             uri.AppendPath(resourceGroupName, true);
             uri.AppendPath("/providers/Microsoft.Automation/automationAccounts/", false);
             uri.AppendPath(automationAccountName, true);
-            uri.AppendPath("/hybridRunbookWorkerGroups/", false);
-            uri.AppendPath(hybridRunbookWorkerGroupName, true);
+            uri.AppendPath("/python3Packages/", false);
+            uri.AppendPath(packageName, true);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
@@ -133,73 +135,73 @@ namespace Azure.ResourceManager.Automation
             return message;
         }
 
-        /// <summary> Retrieve a hybrid runbook worker group. </summary>
+        /// <summary> Retrieve the python 3 package identified by package name. </summary>
         /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
         /// <param name="resourceGroupName"> Name of an Azure Resource group. </param>
         /// <param name="automationAccountName"> The name of the automation account. </param>
-        /// <param name="hybridRunbookWorkerGroupName"> The hybrid runbook worker group name. </param>
+        /// <param name="packageName"> The python package name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/> or <paramref name="hybridRunbookWorkerGroupName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/> or <paramref name="hybridRunbookWorkerGroupName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<HybridRunbookWorkerGroupData>> GetAsync(string subscriptionId, string resourceGroupName, string automationAccountName, string hybridRunbookWorkerGroupName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/> or <paramref name="packageName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/> or <paramref name="packageName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<AutomationModuleData>> GetAsync(string subscriptionId, string resourceGroupName, string automationAccountName, string packageName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(automationAccountName, nameof(automationAccountName));
-            Argument.AssertNotNullOrEmpty(hybridRunbookWorkerGroupName, nameof(hybridRunbookWorkerGroupName));
+            Argument.AssertNotNullOrEmpty(packageName, nameof(packageName));
 
-            using var message = CreateGetRequest(subscriptionId, resourceGroupName, automationAccountName, hybridRunbookWorkerGroupName);
+            using var message = CreateGetRequest(subscriptionId, resourceGroupName, automationAccountName, packageName);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
                 case 200:
                     {
-                        HybridRunbookWorkerGroupData value = default;
+                        AutomationModuleData value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = HybridRunbookWorkerGroupData.DeserializeHybridRunbookWorkerGroupData(document.RootElement);
+                        value = AutomationModuleData.DeserializeAutomationModuleData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 case 404:
-                    return Response.FromValue((HybridRunbookWorkerGroupData)null, message.Response);
+                    return Response.FromValue((AutomationModuleData)null, message.Response);
                 default:
                     throw new RequestFailedException(message.Response);
             }
         }
 
-        /// <summary> Retrieve a hybrid runbook worker group. </summary>
+        /// <summary> Retrieve the python 3 package identified by package name. </summary>
         /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
         /// <param name="resourceGroupName"> Name of an Azure Resource group. </param>
         /// <param name="automationAccountName"> The name of the automation account. </param>
-        /// <param name="hybridRunbookWorkerGroupName"> The hybrid runbook worker group name. </param>
+        /// <param name="packageName"> The python package name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/> or <paramref name="hybridRunbookWorkerGroupName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/> or <paramref name="hybridRunbookWorkerGroupName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<HybridRunbookWorkerGroupData> Get(string subscriptionId, string resourceGroupName, string automationAccountName, string hybridRunbookWorkerGroupName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/> or <paramref name="packageName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/> or <paramref name="packageName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<AutomationModuleData> Get(string subscriptionId, string resourceGroupName, string automationAccountName, string packageName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(automationAccountName, nameof(automationAccountName));
-            Argument.AssertNotNullOrEmpty(hybridRunbookWorkerGroupName, nameof(hybridRunbookWorkerGroupName));
+            Argument.AssertNotNullOrEmpty(packageName, nameof(packageName));
 
-            using var message = CreateGetRequest(subscriptionId, resourceGroupName, automationAccountName, hybridRunbookWorkerGroupName);
+            using var message = CreateGetRequest(subscriptionId, resourceGroupName, automationAccountName, packageName);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
                 case 200:
                     {
-                        HybridRunbookWorkerGroupData value = default;
+                        AutomationModuleData value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = HybridRunbookWorkerGroupData.DeserializeHybridRunbookWorkerGroupData(document.RootElement);
+                        value = AutomationModuleData.DeserializeAutomationModuleData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 case 404:
-                    return Response.FromValue((HybridRunbookWorkerGroupData)null, message.Response);
+                    return Response.FromValue((AutomationModuleData)null, message.Response);
                 default:
                     throw new RequestFailedException(message.Response);
             }
         }
 
-        internal HttpMessage CreateCreateRequest(string subscriptionId, string resourceGroupName, string automationAccountName, string hybridRunbookWorkerGroupName, HybridRunbookWorkerGroupCreateOrUpdateContent content)
+        internal HttpMessage CreateCreateOrUpdateRequest(string subscriptionId, string resourceGroupName, string automationAccountName, string packageName, PythonPackageCreateParameters pythonPackageCreateParameters)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -212,46 +214,46 @@ namespace Azure.ResourceManager.Automation
             uri.AppendPath(resourceGroupName, true);
             uri.AppendPath("/providers/Microsoft.Automation/automationAccounts/", false);
             uri.AppendPath(automationAccountName, true);
-            uri.AppendPath("/hybridRunbookWorkerGroups/", false);
-            uri.AppendPath(hybridRunbookWorkerGroupName, true);
+            uri.AppendPath("/python3Packages/", false);
+            uri.AppendPath(packageName, true);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
             request.Headers.Add("Content-Type", "application/json");
-            var content0 = new Utf8JsonRequestContent();
-            content0.JsonWriter.WriteObjectValue(content);
-            request.Content = content0;
+            var content = new Utf8JsonRequestContent();
+            content.JsonWriter.WriteObjectValue(pythonPackageCreateParameters);
+            request.Content = content;
             _userAgent.Apply(message);
             return message;
         }
 
-        /// <summary> Create a hybrid runbook worker group. </summary>
+        /// <summary> Create or Update the python 3 package identified by package name. </summary>
         /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
         /// <param name="resourceGroupName"> Name of an Azure Resource group. </param>
         /// <param name="automationAccountName"> The name of the automation account. </param>
-        /// <param name="hybridRunbookWorkerGroupName"> The hybrid runbook worker group name. </param>
-        /// <param name="content"> The create or update parameters for hybrid runbook worker group. </param>
+        /// <param name="packageName"> The name of python package. </param>
+        /// <param name="pythonPackageCreateParameters"> The create or update parameters for python package. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/>, <paramref name="hybridRunbookWorkerGroupName"/> or <paramref name="content"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/> or <paramref name="hybridRunbookWorkerGroupName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<HybridRunbookWorkerGroupData>> CreateAsync(string subscriptionId, string resourceGroupName, string automationAccountName, string hybridRunbookWorkerGroupName, HybridRunbookWorkerGroupCreateOrUpdateContent content, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/>, <paramref name="packageName"/> or <paramref name="pythonPackageCreateParameters"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/> or <paramref name="packageName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<AutomationModuleData>> CreateOrUpdateAsync(string subscriptionId, string resourceGroupName, string automationAccountName, string packageName, PythonPackageCreateParameters pythonPackageCreateParameters, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(automationAccountName, nameof(automationAccountName));
-            Argument.AssertNotNullOrEmpty(hybridRunbookWorkerGroupName, nameof(hybridRunbookWorkerGroupName));
-            Argument.AssertNotNull(content, nameof(content));
+            Argument.AssertNotNullOrEmpty(packageName, nameof(packageName));
+            Argument.AssertNotNull(pythonPackageCreateParameters, nameof(pythonPackageCreateParameters));
 
-            using var message = CreateCreateRequest(subscriptionId, resourceGroupName, automationAccountName, hybridRunbookWorkerGroupName, content);
+            using var message = CreateCreateOrUpdateRequest(subscriptionId, resourceGroupName, automationAccountName, packageName, pythonPackageCreateParameters);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
                 case 200:
                 case 201:
                     {
-                        HybridRunbookWorkerGroupData value = default;
+                        AutomationModuleData value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = HybridRunbookWorkerGroupData.DeserializeHybridRunbookWorkerGroupData(document.RootElement);
+                        value = AutomationModuleData.DeserializeAutomationModuleData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -259,33 +261,33 @@ namespace Azure.ResourceManager.Automation
             }
         }
 
-        /// <summary> Create a hybrid runbook worker group. </summary>
+        /// <summary> Create or Update the python 3 package identified by package name. </summary>
         /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
         /// <param name="resourceGroupName"> Name of an Azure Resource group. </param>
         /// <param name="automationAccountName"> The name of the automation account. </param>
-        /// <param name="hybridRunbookWorkerGroupName"> The hybrid runbook worker group name. </param>
-        /// <param name="content"> The create or update parameters for hybrid runbook worker group. </param>
+        /// <param name="packageName"> The name of python package. </param>
+        /// <param name="pythonPackageCreateParameters"> The create or update parameters for python package. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/>, <paramref name="hybridRunbookWorkerGroupName"/> or <paramref name="content"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/> or <paramref name="hybridRunbookWorkerGroupName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<HybridRunbookWorkerGroupData> Create(string subscriptionId, string resourceGroupName, string automationAccountName, string hybridRunbookWorkerGroupName, HybridRunbookWorkerGroupCreateOrUpdateContent content, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/>, <paramref name="packageName"/> or <paramref name="pythonPackageCreateParameters"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/> or <paramref name="packageName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<AutomationModuleData> CreateOrUpdate(string subscriptionId, string resourceGroupName, string automationAccountName, string packageName, PythonPackageCreateParameters pythonPackageCreateParameters, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(automationAccountName, nameof(automationAccountName));
-            Argument.AssertNotNullOrEmpty(hybridRunbookWorkerGroupName, nameof(hybridRunbookWorkerGroupName));
-            Argument.AssertNotNull(content, nameof(content));
+            Argument.AssertNotNullOrEmpty(packageName, nameof(packageName));
+            Argument.AssertNotNull(pythonPackageCreateParameters, nameof(pythonPackageCreateParameters));
 
-            using var message = CreateCreateRequest(subscriptionId, resourceGroupName, automationAccountName, hybridRunbookWorkerGroupName, content);
+            using var message = CreateCreateOrUpdateRequest(subscriptionId, resourceGroupName, automationAccountName, packageName, pythonPackageCreateParameters);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
                 case 200:
                 case 201:
                     {
-                        HybridRunbookWorkerGroupData value = default;
+                        AutomationModuleData value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = HybridRunbookWorkerGroupData.DeserializeHybridRunbookWorkerGroupData(document.RootElement);
+                        value = AutomationModuleData.DeserializeAutomationModuleData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -293,7 +295,7 @@ namespace Azure.ResourceManager.Automation
             }
         }
 
-        internal HttpMessage CreateUpdateRequest(string subscriptionId, string resourceGroupName, string automationAccountName, string hybridRunbookWorkerGroupName, HybridRunbookWorkerGroupCreateOrUpdateContent content)
+        internal HttpMessage CreateUpdateRequest(string subscriptionId, string resourceGroupName, string automationAccountName, string packageName, PythonPackageUpdateParameters pythonPackageUpdateParameters)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -306,45 +308,45 @@ namespace Azure.ResourceManager.Automation
             uri.AppendPath(resourceGroupName, true);
             uri.AppendPath("/providers/Microsoft.Automation/automationAccounts/", false);
             uri.AppendPath(automationAccountName, true);
-            uri.AppendPath("/hybridRunbookWorkerGroups/", false);
-            uri.AppendPath(hybridRunbookWorkerGroupName, true);
+            uri.AppendPath("/python3Packages/", false);
+            uri.AppendPath(packageName, true);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
             request.Headers.Add("Content-Type", "application/json");
-            var content0 = new Utf8JsonRequestContent();
-            content0.JsonWriter.WriteObjectValue(content);
-            request.Content = content0;
+            var content = new Utf8JsonRequestContent();
+            content.JsonWriter.WriteObjectValue(pythonPackageUpdateParameters);
+            request.Content = content;
             _userAgent.Apply(message);
             return message;
         }
 
-        /// <summary> Update a hybrid runbook worker group. </summary>
+        /// <summary> Update the python 3 package identified by package name. </summary>
         /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
         /// <param name="resourceGroupName"> Name of an Azure Resource group. </param>
         /// <param name="automationAccountName"> The name of the automation account. </param>
-        /// <param name="hybridRunbookWorkerGroupName"> The hybrid runbook worker group name. </param>
-        /// <param name="content"> The hybrid runbook worker group. </param>
+        /// <param name="packageName"> The name of python package. </param>
+        /// <param name="pythonPackageUpdateParameters"> The update parameters for python package. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/>, <paramref name="hybridRunbookWorkerGroupName"/> or <paramref name="content"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/> or <paramref name="hybridRunbookWorkerGroupName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<HybridRunbookWorkerGroupData>> UpdateAsync(string subscriptionId, string resourceGroupName, string automationAccountName, string hybridRunbookWorkerGroupName, HybridRunbookWorkerGroupCreateOrUpdateContent content, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/>, <paramref name="packageName"/> or <paramref name="pythonPackageUpdateParameters"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/> or <paramref name="packageName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<AutomationModuleData>> UpdateAsync(string subscriptionId, string resourceGroupName, string automationAccountName, string packageName, PythonPackageUpdateParameters pythonPackageUpdateParameters, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(automationAccountName, nameof(automationAccountName));
-            Argument.AssertNotNullOrEmpty(hybridRunbookWorkerGroupName, nameof(hybridRunbookWorkerGroupName));
-            Argument.AssertNotNull(content, nameof(content));
+            Argument.AssertNotNullOrEmpty(packageName, nameof(packageName));
+            Argument.AssertNotNull(pythonPackageUpdateParameters, nameof(pythonPackageUpdateParameters));
 
-            using var message = CreateUpdateRequest(subscriptionId, resourceGroupName, automationAccountName, hybridRunbookWorkerGroupName, content);
+            using var message = CreateUpdateRequest(subscriptionId, resourceGroupName, automationAccountName, packageName, pythonPackageUpdateParameters);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
                 case 200:
                     {
-                        HybridRunbookWorkerGroupData value = default;
+                        AutomationModuleData value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = HybridRunbookWorkerGroupData.DeserializeHybridRunbookWorkerGroupData(document.RootElement);
+                        value = AutomationModuleData.DeserializeAutomationModuleData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -352,32 +354,32 @@ namespace Azure.ResourceManager.Automation
             }
         }
 
-        /// <summary> Update a hybrid runbook worker group. </summary>
+        /// <summary> Update the python 3 package identified by package name. </summary>
         /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
         /// <param name="resourceGroupName"> Name of an Azure Resource group. </param>
         /// <param name="automationAccountName"> The name of the automation account. </param>
-        /// <param name="hybridRunbookWorkerGroupName"> The hybrid runbook worker group name. </param>
-        /// <param name="content"> The hybrid runbook worker group. </param>
+        /// <param name="packageName"> The name of python package. </param>
+        /// <param name="pythonPackageUpdateParameters"> The update parameters for python package. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/>, <paramref name="hybridRunbookWorkerGroupName"/> or <paramref name="content"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/> or <paramref name="hybridRunbookWorkerGroupName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<HybridRunbookWorkerGroupData> Update(string subscriptionId, string resourceGroupName, string automationAccountName, string hybridRunbookWorkerGroupName, HybridRunbookWorkerGroupCreateOrUpdateContent content, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/>, <paramref name="packageName"/> or <paramref name="pythonPackageUpdateParameters"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/> or <paramref name="packageName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<AutomationModuleData> Update(string subscriptionId, string resourceGroupName, string automationAccountName, string packageName, PythonPackageUpdateParameters pythonPackageUpdateParameters, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(automationAccountName, nameof(automationAccountName));
-            Argument.AssertNotNullOrEmpty(hybridRunbookWorkerGroupName, nameof(hybridRunbookWorkerGroupName));
-            Argument.AssertNotNull(content, nameof(content));
+            Argument.AssertNotNullOrEmpty(packageName, nameof(packageName));
+            Argument.AssertNotNull(pythonPackageUpdateParameters, nameof(pythonPackageUpdateParameters));
 
-            using var message = CreateUpdateRequest(subscriptionId, resourceGroupName, automationAccountName, hybridRunbookWorkerGroupName, content);
+            using var message = CreateUpdateRequest(subscriptionId, resourceGroupName, automationAccountName, packageName, pythonPackageUpdateParameters);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
                 case 200:
                     {
-                        HybridRunbookWorkerGroupData value = default;
+                        AutomationModuleData value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = HybridRunbookWorkerGroupData.DeserializeHybridRunbookWorkerGroupData(document.RootElement);
+                        value = AutomationModuleData.DeserializeAutomationModuleData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -385,7 +387,7 @@ namespace Azure.ResourceManager.Automation
             }
         }
 
-        internal HttpMessage CreateListByAutomationAccountRequest(string subscriptionId, string resourceGroupName, string automationAccountName, string filter)
+        internal HttpMessage CreateListByAutomationAccountRequest(string subscriptionId, string resourceGroupName, string automationAccountName)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -398,11 +400,7 @@ namespace Azure.ResourceManager.Automation
             uri.AppendPath(resourceGroupName, true);
             uri.AppendPath("/providers/Microsoft.Automation/automationAccounts/", false);
             uri.AppendPath(automationAccountName, true);
-            uri.AppendPath("/hybridRunbookWorkerGroups", false);
-            if (filter != null)
-            {
-                uri.AppendQuery("$filter", filter, true);
-            }
+            uri.AppendPath("/python3Packages", false);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
@@ -410,29 +408,28 @@ namespace Azure.ResourceManager.Automation
             return message;
         }
 
-        /// <summary> Retrieve a list of hybrid runbook worker groups. </summary>
+        /// <summary> Retrieve a list of python 3 packages. </summary>
         /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
         /// <param name="resourceGroupName"> Name of an Azure Resource group. </param>
         /// <param name="automationAccountName"> The name of the automation account. </param>
-        /// <param name="filter"> The filter to apply on the operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="automationAccountName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="automationAccountName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<HybridRunbookWorkerGroupsListResult>> ListByAutomationAccountAsync(string subscriptionId, string resourceGroupName, string automationAccountName, string filter = null, CancellationToken cancellationToken = default)
+        public async Task<Response<AutomationModuleListResult>> ListByAutomationAccountAsync(string subscriptionId, string resourceGroupName, string automationAccountName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(automationAccountName, nameof(automationAccountName));
 
-            using var message = CreateListByAutomationAccountRequest(subscriptionId, resourceGroupName, automationAccountName, filter);
+            using var message = CreateListByAutomationAccountRequest(subscriptionId, resourceGroupName, automationAccountName);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
                 case 200:
                     {
-                        HybridRunbookWorkerGroupsListResult value = default;
+                        AutomationModuleListResult value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = HybridRunbookWorkerGroupsListResult.DeserializeHybridRunbookWorkerGroupsListResult(document.RootElement);
+                        value = AutomationModuleListResult.DeserializeAutomationModuleListResult(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -440,29 +437,28 @@ namespace Azure.ResourceManager.Automation
             }
         }
 
-        /// <summary> Retrieve a list of hybrid runbook worker groups. </summary>
+        /// <summary> Retrieve a list of python 3 packages. </summary>
         /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
         /// <param name="resourceGroupName"> Name of an Azure Resource group. </param>
         /// <param name="automationAccountName"> The name of the automation account. </param>
-        /// <param name="filter"> The filter to apply on the operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="automationAccountName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="automationAccountName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<HybridRunbookWorkerGroupsListResult> ListByAutomationAccount(string subscriptionId, string resourceGroupName, string automationAccountName, string filter = null, CancellationToken cancellationToken = default)
+        public Response<AutomationModuleListResult> ListByAutomationAccount(string subscriptionId, string resourceGroupName, string automationAccountName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(automationAccountName, nameof(automationAccountName));
 
-            using var message = CreateListByAutomationAccountRequest(subscriptionId, resourceGroupName, automationAccountName, filter);
+            using var message = CreateListByAutomationAccountRequest(subscriptionId, resourceGroupName, automationAccountName);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
                 case 200:
                     {
-                        HybridRunbookWorkerGroupsListResult value = default;
+                        AutomationModuleListResult value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = HybridRunbookWorkerGroupsListResult.DeserializeHybridRunbookWorkerGroupsListResult(document.RootElement);
+                        value = AutomationModuleListResult.DeserializeAutomationModuleListResult(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -470,7 +466,7 @@ namespace Azure.ResourceManager.Automation
             }
         }
 
-        internal HttpMessage CreateListByAutomationAccountNextPageRequest(string nextLink, string subscriptionId, string resourceGroupName, string automationAccountName, string filter)
+        internal HttpMessage CreateListByAutomationAccountNextPageRequest(string nextLink, string subscriptionId, string resourceGroupName, string automationAccountName)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -484,31 +480,30 @@ namespace Azure.ResourceManager.Automation
             return message;
         }
 
-        /// <summary> Retrieve a list of hybrid runbook worker groups. </summary>
+        /// <summary> Retrieve a list of python 3 packages. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
         /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
         /// <param name="resourceGroupName"> Name of an Azure Resource group. </param>
         /// <param name="automationAccountName"> The name of the automation account. </param>
-        /// <param name="filter"> The filter to apply on the operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="automationAccountName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="automationAccountName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<HybridRunbookWorkerGroupsListResult>> ListByAutomationAccountNextPageAsync(string nextLink, string subscriptionId, string resourceGroupName, string automationAccountName, string filter = null, CancellationToken cancellationToken = default)
+        public async Task<Response<AutomationModuleListResult>> ListByAutomationAccountNextPageAsync(string nextLink, string subscriptionId, string resourceGroupName, string automationAccountName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(nextLink, nameof(nextLink));
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(automationAccountName, nameof(automationAccountName));
 
-            using var message = CreateListByAutomationAccountNextPageRequest(nextLink, subscriptionId, resourceGroupName, automationAccountName, filter);
+            using var message = CreateListByAutomationAccountNextPageRequest(nextLink, subscriptionId, resourceGroupName, automationAccountName);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
                 case 200:
                     {
-                        HybridRunbookWorkerGroupsListResult value = default;
+                        AutomationModuleListResult value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = HybridRunbookWorkerGroupsListResult.DeserializeHybridRunbookWorkerGroupsListResult(document.RootElement);
+                        value = AutomationModuleListResult.DeserializeAutomationModuleListResult(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -516,31 +511,30 @@ namespace Azure.ResourceManager.Automation
             }
         }
 
-        /// <summary> Retrieve a list of hybrid runbook worker groups. </summary>
+        /// <summary> Retrieve a list of python 3 packages. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
         /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
         /// <param name="resourceGroupName"> Name of an Azure Resource group. </param>
         /// <param name="automationAccountName"> The name of the automation account. </param>
-        /// <param name="filter"> The filter to apply on the operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="automationAccountName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="automationAccountName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<HybridRunbookWorkerGroupsListResult> ListByAutomationAccountNextPage(string nextLink, string subscriptionId, string resourceGroupName, string automationAccountName, string filter = null, CancellationToken cancellationToken = default)
+        public Response<AutomationModuleListResult> ListByAutomationAccountNextPage(string nextLink, string subscriptionId, string resourceGroupName, string automationAccountName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(nextLink, nameof(nextLink));
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(automationAccountName, nameof(automationAccountName));
 
-            using var message = CreateListByAutomationAccountNextPageRequest(nextLink, subscriptionId, resourceGroupName, automationAccountName, filter);
+            using var message = CreateListByAutomationAccountNextPageRequest(nextLink, subscriptionId, resourceGroupName, automationAccountName);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
                 case 200:
                     {
-                        HybridRunbookWorkerGroupsListResult value = default;
+                        AutomationModuleListResult value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = HybridRunbookWorkerGroupsListResult.DeserializeHybridRunbookWorkerGroupsListResult(document.RootElement);
+                        value = AutomationModuleListResult.DeserializeAutomationModuleListResult(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
