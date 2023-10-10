@@ -350,7 +350,7 @@ namespace Azure.ResourceManager.Cdn
         }
 
         /// <summary>
-        /// Checks the quota and actual usage of the given AzureFrontDoor origin group under the given CDN profile.
+        /// Checks the quota and actual usage of endpoints under the given Azure Front Door profile..
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -372,7 +372,7 @@ namespace Azure.ResourceManager.Cdn
         }
 
         /// <summary>
-        /// Checks the quota and actual usage of the given AzureFrontDoor origin group under the given CDN profile.
+        /// Checks the quota and actual usage of endpoints under the given Azure Front Door profile..
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
