@@ -12,7 +12,7 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.DataMigration.Models
 {
-    /// <summary> The DMS List SKUs operation response. </summary>
+    /// <summary> The DMS (classic) List SKUs operation response. </summary>
     internal partial class ResourceSkusResult
     {
         /// <summary> Initializes a new instance of ResourceSkusResult. </summary>
@@ -27,7 +27,7 @@ namespace Azure.ResourceManager.DataMigration.Models
 
         /// <summary> Initializes a new instance of ResourceSkusResult. </summary>
         /// <param name="value"> The list of SKUs available for the subscription. </param>
-        /// <param name="nextLink"> The uri to fetch the next page of DMS SKUs. Call ListNext() with this to fetch the next page of DMS SKUs. </param>
+        /// <param name="nextLink"> The uri to fetch the next page of DMS (classic) SKUs. Call ListNext() with this to fetch the next page of DMS (classic) SKUs. </param>
         internal ResourceSkusResult(IReadOnlyList<ResourceSku> value, string nextLink)
         {
             Value = value;
@@ -36,7 +36,7 @@ namespace Azure.ResourceManager.DataMigration.Models
 
         /// <summary> The list of SKUs available for the subscription. </summary>
         public IReadOnlyList<ResourceSku> Value { get; }
-        /// <summary> The uri to fetch the next page of DMS SKUs. Call ListNext() with this to fetch the next page of DMS SKUs. </summary>
+        /// <summary> The uri to fetch the next page of DMS (classic) SKUs. Call ListNext() with this to fetch the next page of DMS (classic) SKUs. </summary>
         public string NextLink { get; }
     }
 }
