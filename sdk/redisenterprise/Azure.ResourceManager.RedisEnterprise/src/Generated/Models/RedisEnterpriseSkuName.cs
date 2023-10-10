@@ -22,14 +22,19 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
             _value = value ?? throw new ArgumentNullException(nameof(value));
         }
 
+        private const string EnterpriseE5Value = "Enterprise_E5";
         private const string EnterpriseE10Value = "Enterprise_E10";
         private const string EnterpriseE20Value = "Enterprise_E20";
         private const string EnterpriseE50Value = "Enterprise_E50";
         private const string EnterpriseE100Value = "Enterprise_E100";
+        private const string EnterpriseE200Value = "Enterprise_E200";
+        private const string EnterpriseE400Value = "Enterprise_E400";
         private const string EnterpriseFlashF300Value = "EnterpriseFlash_F300";
         private const string EnterpriseFlashF700Value = "EnterpriseFlash_F700";
         private const string EnterpriseFlashF1500Value = "EnterpriseFlash_F1500";
 
+        /// <summary> Enterprise_E5. </summary>
+        public static RedisEnterpriseSkuName EnterpriseE5 { get; } = new RedisEnterpriseSkuName(EnterpriseE5Value);
         /// <summary> Enterprise_E10. </summary>
         public static RedisEnterpriseSkuName EnterpriseE10 { get; } = new RedisEnterpriseSkuName(EnterpriseE10Value);
         /// <summary> Enterprise_E20. </summary>
@@ -38,6 +43,10 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
         public static RedisEnterpriseSkuName EnterpriseE50 { get; } = new RedisEnterpriseSkuName(EnterpriseE50Value);
         /// <summary> Enterprise_E100. </summary>
         public static RedisEnterpriseSkuName EnterpriseE100 { get; } = new RedisEnterpriseSkuName(EnterpriseE100Value);
+        /// <summary> Enterprise_E200. </summary>
+        public static RedisEnterpriseSkuName EnterpriseE200 { get; } = new RedisEnterpriseSkuName(EnterpriseE200Value);
+        /// <summary> Enterprise_E400. </summary>
+        public static RedisEnterpriseSkuName EnterpriseE400 { get; } = new RedisEnterpriseSkuName(EnterpriseE400Value);
         /// <summary> EnterpriseFlash_F300. </summary>
         public static RedisEnterpriseSkuName EnterpriseFlashF300 { get; } = new RedisEnterpriseSkuName(EnterpriseFlashF300Value);
         /// <summary> EnterpriseFlash_F700. </summary>
