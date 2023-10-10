@@ -8,6 +8,7 @@
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
+using Azure.ResourceManager.Resources.Models;
 
 namespace Azure.ResourceManager.Cdn.Models
 {
@@ -16,6 +17,11 @@ namespace Azure.ResourceManager.Cdn.Models
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
+            if (Optional.IsDefined(IsProfileLevel))
+            {
+                writer.WritePropertyName("IsProfileLevel"u8);
+                writer.WriteStringValue(IsProfileLevel.Value.ToString());
+            }
             if (Optional.IsCollectionDefined(Domains))
             {
                 writer.WritePropertyName("domains"u8);
@@ -23,6 +29,16 @@ namespace Azure.ResourceManager.Cdn.Models
                 foreach (var item in Domains)
                 {
                     writer.WriteObjectValue(item);
+                }
+                writer.WriteEndArray();
+            }
+            if (Optional.IsCollectionDefined(Routes))
+            {
+                writer.WritePropertyName("routes"u8);
+                writer.WriteStartArray();
+                foreach (var item in Routes)
+                {
+                    JsonSerializer.Serialize(writer, item);
                 }
                 writer.WriteEndArray();
             }
@@ -45,10 +61,21 @@ namespace Azure.ResourceManager.Cdn.Models
             {
                 return null;
             }
+            Optional<SecurityPolicyWebApplicationFirewallAssociationIsProfileLevel> isProfileLevel = default;
             Optional<IList<FrontDoorActivatedResourceInfo>> domains = default;
+            Optional<IList<WritableSubResource>> routes = default;
             Optional<IList<string>> patternsToMatch = default;
             foreach (var property in element.EnumerateObject())
             {
+                if (property.NameEquals("IsProfileLevel"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    isProfileLevel = new SecurityPolicyWebApplicationFirewallAssociationIsProfileLevel(property.Value.GetString());
+                    continue;
+                }
                 if (property.NameEquals("domains"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -61,6 +88,20 @@ namespace Azure.ResourceManager.Cdn.Models
                         array.Add(FrontDoorActivatedResourceInfo.DeserializeFrontDoorActivatedResourceInfo(item));
                     }
                     domains = array;
+                    continue;
+                }
+                if (property.NameEquals("routes"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<WritableSubResource> array = new List<WritableSubResource>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(JsonSerializer.Deserialize<WritableSubResource>(item.GetRawText()));
+                    }
+                    routes = array;
                     continue;
                 }
                 if (property.NameEquals("patternsToMatch"u8))
@@ -78,7 +119,7 @@ namespace Azure.ResourceManager.Cdn.Models
                     continue;
                 }
             }
-            return new SecurityPolicyWebApplicationFirewallAssociation(Optional.ToList(domains), Optional.ToList(patternsToMatch));
+            return new SecurityPolicyWebApplicationFirewallAssociation(Optional.ToNullable(isProfileLevel), Optional.ToList(domains), Optional.ToList(routes), Optional.ToList(patternsToMatch));
         }
     }
 }

@@ -7,6 +7,7 @@
 
 using System.Collections.Generic;
 using Azure.Core;
+using Azure.ResourceManager.Resources.Models;
 
 namespace Azure.ResourceManager.Cdn.Models
 {
@@ -17,20 +18,29 @@ namespace Azure.ResourceManager.Cdn.Models
         public SecurityPolicyWebApplicationFirewallAssociation()
         {
             Domains = new ChangeTrackingList<FrontDoorActivatedResourceInfo>();
+            Routes = new ChangeTrackingList<WritableSubResource>();
             PatternsToMatch = new ChangeTrackingList<string>();
         }
 
         /// <summary> Initializes a new instance of SecurityPolicyWebApplicationFirewallAssociation. </summary>
+        /// <param name="isProfileLevel"> Flag to signal whether the WAF policy association is at the default Profile level. </param>
         /// <param name="domains"> List of domains. </param>
+        /// <param name="routes"> List of routes. </param>
         /// <param name="patternsToMatch"> List of paths. </param>
-        internal SecurityPolicyWebApplicationFirewallAssociation(IList<FrontDoorActivatedResourceInfo> domains, IList<string> patternsToMatch)
+        internal SecurityPolicyWebApplicationFirewallAssociation(SecurityPolicyWebApplicationFirewallAssociationIsProfileLevel? isProfileLevel, IList<FrontDoorActivatedResourceInfo> domains, IList<WritableSubResource> routes, IList<string> patternsToMatch)
         {
+            IsProfileLevel = isProfileLevel;
             Domains = domains;
+            Routes = routes;
             PatternsToMatch = patternsToMatch;
         }
 
+        /// <summary> Flag to signal whether the WAF policy association is at the default Profile level. </summary>
+        public SecurityPolicyWebApplicationFirewallAssociationIsProfileLevel? IsProfileLevel { get; set; }
         /// <summary> List of domains. </summary>
         public IList<FrontDoorActivatedResourceInfo> Domains { get; }
+        /// <summary> List of routes. </summary>
+        public IList<WritableSubResource> Routes { get; }
         /// <summary> List of paths. </summary>
         public IList<string> PatternsToMatch { get; }
     }
