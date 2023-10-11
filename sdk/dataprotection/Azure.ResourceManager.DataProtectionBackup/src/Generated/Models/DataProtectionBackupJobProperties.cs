@@ -93,6 +93,7 @@ namespace Azure.ResourceManager.DataProtectionBackup.Models
         /// <param name="progressUri"> Url which contains job's progress. </param>
         /// <param name="rehydrationPriority"> Priority to be used for rehydration. </param>
         /// <param name="restoreType"> It indicates the sub type of operation i.e. in case of Restore it can be ALR/OLR. </param>
+        /// <param name="sourceDataStoreType"> The type of the source data store. </param>
         /// <param name="sourceResourceGroup"> Resource Group Name of the Datasource. </param>
         /// <param name="sourceSubscriptionId"> SubscriptionId corresponding to the DataSource. </param>
         /// <param name="startOn"> StartTime of the job(in UTC). </param>
@@ -103,7 +104,7 @@ namespace Azure.ResourceManager.DataProtectionBackup.Models
         /// <param name="eTag"></param>
         /// <param name="sourceDataStoreName"></param>
         /// <param name="destinationDataStoreName"></param>
-        internal DataProtectionBackupJobProperties(string activityId, string backupInstanceFriendlyName, ResourceIdentifier backupInstanceId, ResourceIdentifier dataSourceId, AzureLocation dataSourceLocation, string dataSourceName, string dataSourceSetName, string dataSourceType, TimeSpan? duration, DateTimeOffset? endOn, IReadOnlyList<ResponseError> errorDetails, BackupJobExtendedInfo extendedInfo, bool isUserTriggered, string operation, string operationCategory, ResourceIdentifier policyId, string policyName, bool isProgressEnabled, Uri progressUri, string rehydrationPriority, string restoreType, string sourceResourceGroup, string sourceSubscriptionId, DateTimeOffset startOn, string status, string subscriptionId, IList<string> supportedActions, string vaultName, ETag? eTag, string sourceDataStoreName, string destinationDataStoreName)
+        internal DataProtectionBackupJobProperties(string activityId, string backupInstanceFriendlyName, ResourceIdentifier backupInstanceId, ResourceIdentifier dataSourceId, AzureLocation dataSourceLocation, string dataSourceName, string dataSourceSetName, string dataSourceType, TimeSpan? duration, DateTimeOffset? endOn, IReadOnlyList<ResponseError> errorDetails, BackupJobExtendedInfo extendedInfo, bool isUserTriggered, string operation, string operationCategory, ResourceIdentifier policyId, string policyName, bool isProgressEnabled, Uri progressUri, string rehydrationPriority, string restoreType, string sourceDataStoreType, string sourceResourceGroup, string sourceSubscriptionId, DateTimeOffset startOn, string status, string subscriptionId, IList<string> supportedActions, string vaultName, ETag? eTag, string sourceDataStoreName, string destinationDataStoreName)
         {
             ActivityId = activityId;
             BackupInstanceFriendlyName = backupInstanceFriendlyName;
@@ -126,6 +127,7 @@ namespace Azure.ResourceManager.DataProtectionBackup.Models
             ProgressUri = progressUri;
             RehydrationPriority = rehydrationPriority;
             RestoreType = restoreType;
+            SourceDataStoreType = sourceDataStoreType;
             SourceResourceGroup = sourceResourceGroup;
             SourceSubscriptionId = sourceSubscriptionId;
             StartOn = startOn;
@@ -180,6 +182,8 @@ namespace Azure.ResourceManager.DataProtectionBackup.Models
         public string RehydrationPriority { get; }
         /// <summary> It indicates the sub type of operation i.e. in case of Restore it can be ALR/OLR. </summary>
         public string RestoreType { get; }
+        /// <summary> The type of the source data store. </summary>
+        public string SourceDataStoreType { get; }
         /// <summary> Resource Group Name of the Datasource. </summary>
         public string SourceResourceGroup { get; set; }
         /// <summary> SubscriptionId corresponding to the DataSource. </summary>
