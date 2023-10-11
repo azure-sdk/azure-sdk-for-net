@@ -14,13 +14,12 @@ using Azure.Core.Pipeline;
 namespace Azure.AI.Language.Conversations
 {
     // Data plane generated client.
-    /// <summary> The ConversationAnalysis service client. </summary>
-    public partial class ConversationAnalysisClient
+    /// <summary> The Conversations service client. </summary>
+    public partial class ConversationsClient
     {
         private const string AuthorizationHeader = "Ocp-Apim-Subscription-Key";
         private readonly AzureKeyCredential _keyCredential;
         private readonly HttpPipeline _pipeline;
-        private readonly Uri _endpoint;
         private readonly string _apiVersion;
 
         /// <summary> The ClientDiagnostics is used to provide tracing support for the client library. </summary>
@@ -29,9 +28,31 @@ namespace Azure.AI.Language.Conversations
         /// <summary> The HTTP pipeline for sending and receiving REST requests and responses. </summary>
         public virtual HttpPipeline Pipeline => _pipeline;
 
-        /// <summary> Initializes a new instance of ConversationAnalysisClient for mocking. </summary>
-        protected ConversationAnalysisClient()
+        /// <summary> Initializes a new instance of ConversationsClient for mocking. </summary>
+        protected ConversationsClient()
         {
+        }
+
+        /// <summary> Initializes a new instance of ConversationsClient. </summary>
+        /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="credential"/> is null. </exception>
+        public ConversationsClient(AzureKeyCredential credential) : this(credential, new ConversationsClientOptions())
+        {
+        }
+
+        /// <summary> Initializes a new instance of ConversationsClient. </summary>
+        /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
+        /// <param name="options"> The options for configuring the client. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="credential"/> is null. </exception>
+        public ConversationsClient(AzureKeyCredential credential, ConversationsClientOptions options)
+        {
+            Argument.AssertNotNull(credential, nameof(credential));
+            options ??= new ConversationsClientOptions();
+
+            ClientDiagnostics = new ClientDiagnostics(options, true);
+            _keyCredential = credential;
+            _pipeline = HttpPipelineBuilder.Build(options, Array.Empty<HttpPipelinePolicy>(), new HttpPipelinePolicy[] { new AzureKeyCredentialPolicy(_keyCredential, AuthorizationHeader) }, new ResponseClassifier());
+            _apiVersion = options.Version;
         }
 
         /// <summary>
@@ -44,21 +65,24 @@ namespace Azure.AI.Language.Conversations
         /// </item>
         /// </list>
         /// </summary>
+        /// <param name="endpoint"> Supported Cognitive Services endpoint (e.g., https://&lt;resource-name&gt;.api.cognitiveservices.azure.com). </param>
         /// <param name="content"> The content to send as the body of the request. </param>
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="endpoint"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/ConversationAnalysisClient.xml" path="doc/members/member[@name='AnalyzeConversationAsync(RequestContent,RequestContext)']/*" />
-        public virtual async Task<Response> AnalyzeConversationAsync(RequestContent content, RequestContext context = null)
+        /// <include file="Docs/ConversationsClient.xml" path="doc/members/member[@name='AnalyzeConversationAsync(string,RequestContent,RequestContext)']/*" />
+        public virtual async Task<Response> AnalyzeConversationAsync(string endpoint, RequestContent content, RequestContext context = null)
         {
+            Argument.AssertNotNullOrEmpty(endpoint, nameof(endpoint));
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = ClientDiagnostics.CreateScope("ConversationAnalysisClient.AnalyzeConversation");
+            using var scope = ClientDiagnostics.CreateScope("ConversationsClient.AnalyzeConversation");
             scope.Start();
             try
             {
-                using HttpMessage message = CreateAnalyzeConversationRequest(content, context);
+                using HttpMessage message = CreateAnalyzeConversationRequest(endpoint, content, context);
                 return await _pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
             }
             catch (Exception e)
@@ -78,21 +102,24 @@ namespace Azure.AI.Language.Conversations
         /// </item>
         /// </list>
         /// </summary>
+        /// <param name="endpoint"> Supported Cognitive Services endpoint (e.g., https://&lt;resource-name&gt;.api.cognitiveservices.azure.com). </param>
         /// <param name="content"> The content to send as the body of the request. </param>
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="endpoint"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/ConversationAnalysisClient.xml" path="doc/members/member[@name='AnalyzeConversation(RequestContent,RequestContext)']/*" />
-        public virtual Response AnalyzeConversation(RequestContent content, RequestContext context = null)
+        /// <include file="Docs/ConversationsClient.xml" path="doc/members/member[@name='AnalyzeConversation(string,RequestContent,RequestContext)']/*" />
+        public virtual Response AnalyzeConversation(string endpoint, RequestContent content, RequestContext context = null)
         {
+            Argument.AssertNotNullOrEmpty(endpoint, nameof(endpoint));
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = ClientDiagnostics.CreateScope("ConversationAnalysisClient.AnalyzeConversation");
+            using var scope = ClientDiagnostics.CreateScope("ConversationsClient.AnalyzeConversation");
             scope.Start();
             try
             {
-                using HttpMessage message = CreateAnalyzeConversationRequest(content, context);
+                using HttpMessage message = CreateAnalyzeConversationRequest(endpoint, content, context);
                 return _pipeline.ProcessMessage(message, context);
             }
             catch (Exception e)
@@ -112,19 +139,25 @@ namespace Azure.AI.Language.Conversations
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="jobId"> Job ID. </param>
+        /// <param name="endpoint"> Supported Cognitive Services endpoint (e.g., https://&lt;resource-name&gt;.api.cognitiveservices.azure.com). </param>
+        /// <param name="jobId"> job ID. </param>
         /// <param name="showStats"> (Optional) if set to true, response will contain request and document level statistics. </param>
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> or <paramref name="jobId"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="endpoint"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/ConversationAnalysisClient.xml" path="doc/members/member[@name='GetAnalyzeConversationJobStatusAsync(Guid,bool?,RequestContext)']/*" />
-        public virtual async Task<Response> GetAnalyzeConversationJobStatusAsync(Guid jobId, bool? showStats = null, RequestContext context = null)
+        /// <include file="Docs/ConversationsClient.xml" path="doc/members/member[@name='JobStatusAsync(string,string,bool?,RequestContext)']/*" />
+        public virtual async Task<Response> JobStatusAsync(string endpoint, string jobId, bool? showStats = null, RequestContext context = null)
         {
-            using var scope = ClientDiagnostics.CreateScope("ConversationAnalysisClient.GetAnalyzeConversationJobStatus");
+            Argument.AssertNotNullOrEmpty(endpoint, nameof(endpoint));
+            Argument.AssertNotNullOrEmpty(jobId, nameof(jobId));
+
+            using var scope = ClientDiagnostics.CreateScope("ConversationsClient.JobStatus");
             scope.Start();
             try
             {
-                using HttpMessage message = CreateGetAnalyzeConversationJobStatusRequest(jobId, showStats, context);
+                using HttpMessage message = CreateJobStatusRequest(endpoint, jobId, showStats, context);
                 return await _pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
             }
             catch (Exception e)
@@ -144,19 +177,25 @@ namespace Azure.AI.Language.Conversations
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="jobId"> Job ID. </param>
+        /// <param name="endpoint"> Supported Cognitive Services endpoint (e.g., https://&lt;resource-name&gt;.api.cognitiveservices.azure.com). </param>
+        /// <param name="jobId"> job ID. </param>
         /// <param name="showStats"> (Optional) if set to true, response will contain request and document level statistics. </param>
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> or <paramref name="jobId"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="endpoint"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/ConversationAnalysisClient.xml" path="doc/members/member[@name='GetAnalyzeConversationJobStatus(Guid,bool?,RequestContext)']/*" />
-        public virtual Response GetAnalyzeConversationJobStatus(Guid jobId, bool? showStats = null, RequestContext context = null)
+        /// <include file="Docs/ConversationsClient.xml" path="doc/members/member[@name='JobStatus(string,string,bool?,RequestContext)']/*" />
+        public virtual Response JobStatus(string endpoint, string jobId, bool? showStats = null, RequestContext context = null)
         {
-            using var scope = ClientDiagnostics.CreateScope("ConversationAnalysisClient.GetAnalyzeConversationJobStatus");
+            Argument.AssertNotNullOrEmpty(endpoint, nameof(endpoint));
+            Argument.AssertNotNullOrEmpty(jobId, nameof(jobId));
+
+            using var scope = ClientDiagnostics.CreateScope("ConversationsClient.JobStatus");
             scope.Start();
             try
             {
-                using HttpMessage message = CreateGetAnalyzeConversationJobStatusRequest(jobId, showStats, context);
+                using HttpMessage message = CreateJobStatusRequest(endpoint, jobId, showStats, context);
                 return _pipeline.ProcessMessage(message, context);
             }
             catch (Exception e)
@@ -167,7 +206,7 @@ namespace Azure.AI.Language.Conversations
         }
 
         /// <summary>
-        /// [Protocol Method] Submit analysis job for conversations
+        /// [Protocol Method] Analyzes the input conversation utterance.
         /// <list type="bullet">
         /// <item>
         /// <description>
@@ -177,22 +216,25 @@ namespace Azure.AI.Language.Conversations
         /// </list>
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="endpoint"> Supported Cognitive Services endpoint (e.g., https://&lt;resource-name&gt;.api.cognitiveservices.azure.com). </param>
         /// <param name="content"> The content to send as the body of the request. </param>
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="endpoint"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Operation"/> representing an asynchronous operation on the service. </returns>
-        /// <include file="Docs/ConversationAnalysisClient.xml" path="doc/members/member[@name='AnalyzeConversationsAsync(WaitUntil,RequestContent,RequestContext)']/*" />
-        public virtual async Task<Operation<BinaryData>> AnalyzeConversationsAsync(WaitUntil waitUntil, RequestContent content, RequestContext context = null)
+        /// <include file="Docs/ConversationsClient.xml" path="doc/members/member[@name='SubmitJobAsync(WaitUntil,string,RequestContent,RequestContext)']/*" />
+        public virtual async Task<Operation> SubmitJobAsync(WaitUntil waitUntil, string endpoint, RequestContent content, RequestContext context = null)
         {
+            Argument.AssertNotNullOrEmpty(endpoint, nameof(endpoint));
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = ClientDiagnostics.CreateScope("ConversationAnalysisClient.AnalyzeConversations");
+            using var scope = ClientDiagnostics.CreateScope("ConversationsClient.SubmitJob");
             scope.Start();
             try
             {
-                using HttpMessage message = CreateAnalyzeConversationsRequest(content, context);
-                return await ProtocolOperationHelpers.ProcessMessageAsync(_pipeline, message, ClientDiagnostics, "ConversationAnalysisClient.AnalyzeConversations", OperationFinalStateVia.Location, context, waitUntil).ConfigureAwait(false);
+                using HttpMessage message = CreateSubmitJobRequest(endpoint, content, context);
+                return await ProtocolOperationHelpers.ProcessMessageWithoutResponseValueAsync(_pipeline, message, ClientDiagnostics, "ConversationsClient.SubmitJob", OperationFinalStateVia.Location, context, waitUntil).ConfigureAwait(false);
             }
             catch (Exception e)
             {
@@ -202,7 +244,7 @@ namespace Azure.AI.Language.Conversations
         }
 
         /// <summary>
-        /// [Protocol Method] Submit analysis job for conversations
+        /// [Protocol Method] Analyzes the input conversation utterance.
         /// <list type="bullet">
         /// <item>
         /// <description>
@@ -212,22 +254,25 @@ namespace Azure.AI.Language.Conversations
         /// </list>
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="endpoint"> Supported Cognitive Services endpoint (e.g., https://&lt;resource-name&gt;.api.cognitiveservices.azure.com). </param>
         /// <param name="content"> The content to send as the body of the request. </param>
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> or <paramref name="content"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="endpoint"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Operation"/> representing an asynchronous operation on the service. </returns>
-        /// <include file="Docs/ConversationAnalysisClient.xml" path="doc/members/member[@name='AnalyzeConversations(WaitUntil,RequestContent,RequestContext)']/*" />
-        public virtual Operation<BinaryData> AnalyzeConversations(WaitUntil waitUntil, RequestContent content, RequestContext context = null)
+        /// <include file="Docs/ConversationsClient.xml" path="doc/members/member[@name='SubmitJob(WaitUntil,string,RequestContent,RequestContext)']/*" />
+        public virtual Operation SubmitJob(WaitUntil waitUntil, string endpoint, RequestContent content, RequestContext context = null)
         {
+            Argument.AssertNotNullOrEmpty(endpoint, nameof(endpoint));
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = ClientDiagnostics.CreateScope("ConversationAnalysisClient.AnalyzeConversations");
+            using var scope = ClientDiagnostics.CreateScope("ConversationsClient.SubmitJob");
             scope.Start();
             try
             {
-                using HttpMessage message = CreateAnalyzeConversationsRequest(content, context);
-                return ProtocolOperationHelpers.ProcessMessage(_pipeline, message, ClientDiagnostics, "ConversationAnalysisClient.AnalyzeConversations", OperationFinalStateVia.Location, context, waitUntil);
+                using HttpMessage message = CreateSubmitJobRequest(endpoint, content, context);
+                return ProtocolOperationHelpers.ProcessMessageWithoutResponseValue(_pipeline, message, ClientDiagnostics, "ConversationsClient.SubmitJob", OperationFinalStateVia.Location, context, waitUntil);
             }
             catch (Exception e)
             {
@@ -247,19 +292,25 @@ namespace Azure.AI.Language.Conversations
         /// </list>
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
-        /// <param name="jobId"> Job ID. </param>
+        /// <param name="endpoint"> Supported Cognitive Services endpoint (e.g., https://&lt;resource-name&gt;.api.cognitiveservices.azure.com). </param>
+        /// <param name="jobId"> job ID. </param>
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> or <paramref name="jobId"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="endpoint"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Operation"/> representing an asynchronous operation on the service. </returns>
-        /// <include file="Docs/ConversationAnalysisClient.xml" path="doc/members/member[@name='CancelAnalyzeConversationsAsync(WaitUntil,Guid,RequestContext)']/*" />
-        public virtual async Task<Operation> CancelAnalyzeConversationsAsync(WaitUntil waitUntil, Guid jobId, RequestContext context = null)
+        /// <include file="Docs/ConversationsClient.xml" path="doc/members/member[@name='CancelAsync(WaitUntil,string,string,RequestContext)']/*" />
+        public virtual async Task<Operation> CancelAsync(WaitUntil waitUntil, string endpoint, string jobId, RequestContext context = null)
         {
-            using var scope = ClientDiagnostics.CreateScope("ConversationAnalysisClient.CancelAnalyzeConversations");
+            Argument.AssertNotNullOrEmpty(endpoint, nameof(endpoint));
+            Argument.AssertNotNullOrEmpty(jobId, nameof(jobId));
+
+            using var scope = ClientDiagnostics.CreateScope("ConversationsClient.Cancel");
             scope.Start();
             try
             {
-                using HttpMessage message = CreateCancelAnalyzeConversationsRequest(jobId, context);
-                return await ProtocolOperationHelpers.ProcessMessageWithoutResponseValueAsync(_pipeline, message, ClientDiagnostics, "ConversationAnalysisClient.CancelAnalyzeConversations", OperationFinalStateVia.Location, context, waitUntil).ConfigureAwait(false);
+                using HttpMessage message = CreateCancelRequest(endpoint, jobId, context);
+                return await ProtocolOperationHelpers.ProcessMessageWithoutResponseValueAsync(_pipeline, message, ClientDiagnostics, "ConversationsClient.Cancel", OperationFinalStateVia.Location, context, waitUntil).ConfigureAwait(false);
             }
             catch (Exception e)
             {
@@ -279,19 +330,25 @@ namespace Azure.AI.Language.Conversations
         /// </list>
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
-        /// <param name="jobId"> Job ID. </param>
+        /// <param name="endpoint"> Supported Cognitive Services endpoint (e.g., https://&lt;resource-name&gt;.api.cognitiveservices.azure.com). </param>
+        /// <param name="jobId"> job ID. </param>
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> or <paramref name="jobId"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="endpoint"/> or <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The <see cref="Operation"/> representing an asynchronous operation on the service. </returns>
-        /// <include file="Docs/ConversationAnalysisClient.xml" path="doc/members/member[@name='CancelAnalyzeConversations(WaitUntil,Guid,RequestContext)']/*" />
-        public virtual Operation CancelAnalyzeConversations(WaitUntil waitUntil, Guid jobId, RequestContext context = null)
+        /// <include file="Docs/ConversationsClient.xml" path="doc/members/member[@name='Cancel(WaitUntil,string,string,RequestContext)']/*" />
+        public virtual Operation Cancel(WaitUntil waitUntil, string endpoint, string jobId, RequestContext context = null)
         {
-            using var scope = ClientDiagnostics.CreateScope("ConversationAnalysisClient.CancelAnalyzeConversations");
+            Argument.AssertNotNullOrEmpty(endpoint, nameof(endpoint));
+            Argument.AssertNotNullOrEmpty(jobId, nameof(jobId));
+
+            using var scope = ClientDiagnostics.CreateScope("ConversationsClient.Cancel");
             scope.Start();
             try
             {
-                using HttpMessage message = CreateCancelAnalyzeConversationsRequest(jobId, context);
-                return ProtocolOperationHelpers.ProcessMessageWithoutResponseValue(_pipeline, message, ClientDiagnostics, "ConversationAnalysisClient.CancelAnalyzeConversations", OperationFinalStateVia.Location, context, waitUntil);
+                using HttpMessage message = CreateCancelRequest(endpoint, jobId, context);
+                return ProtocolOperationHelpers.ProcessMessageWithoutResponseValue(_pipeline, message, ClientDiagnostics, "ConversationsClient.Cancel", OperationFinalStateVia.Location, context, waitUntil);
             }
             catch (Exception e)
             {
@@ -300,15 +357,14 @@ namespace Azure.AI.Language.Conversations
             }
         }
 
-        internal HttpMessage CreateAnalyzeConversationRequest(RequestContent content, RequestContext context)
+        internal HttpMessage CreateAnalyzeConversationRequest(string endpoint, RequestContent content, RequestContext context)
         {
             var message = _pipeline.CreateMessage(context, ResponseClassifier200);
             var request = message.Request;
             request.Method = RequestMethod.Post;
             var uri = new RawRequestUriBuilder();
-            uri.Reset(_endpoint);
-            uri.AppendRaw("/language", false);
-            uri.AppendPath("/:analyze-conversations", false);
+            uri.AppendRaw(endpoint, true);
+            uri.AppendPath("/language/:analyze-conversations", false);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
@@ -317,15 +373,14 @@ namespace Azure.AI.Language.Conversations
             return message;
         }
 
-        internal HttpMessage CreateAnalyzeConversationsRequest(RequestContent content, RequestContext context)
+        internal HttpMessage CreateSubmitJobRequest(string endpoint, RequestContent content, RequestContext context)
         {
-            var message = _pipeline.CreateMessage(context, ResponseClassifier200202);
+            var message = _pipeline.CreateMessage(context, ResponseClassifier202);
             var request = message.Request;
             request.Method = RequestMethod.Post;
             var uri = new RawRequestUriBuilder();
-            uri.Reset(_endpoint);
-            uri.AppendRaw("/language", false);
-            uri.AppendPath("/analyze-conversations/jobs", false);
+            uri.AppendRaw(endpoint, true);
+            uri.AppendPath("/language/analyze-conversations/jobs", false);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
@@ -334,15 +389,14 @@ namespace Azure.AI.Language.Conversations
             return message;
         }
 
-        internal HttpMessage CreateGetAnalyzeConversationJobStatusRequest(Guid jobId, bool? showStats, RequestContext context)
+        internal HttpMessage CreateJobStatusRequest(string endpoint, string jobId, bool? showStats, RequestContext context)
         {
             var message = _pipeline.CreateMessage(context, ResponseClassifier200);
             var request = message.Request;
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
-            uri.Reset(_endpoint);
-            uri.AppendRaw("/language", false);
-            uri.AppendPath("/analyze-conversations/jobs/", false);
+            uri.AppendRaw(endpoint, true);
+            uri.AppendPath("/language/analyze-conversations/jobs/", false);
             uri.AppendPath(jobId, true);
             uri.AppendQuery("api-version", _apiVersion, true);
             if (showStats != null)
@@ -354,15 +408,14 @@ namespace Azure.AI.Language.Conversations
             return message;
         }
 
-        internal HttpMessage CreateCancelAnalyzeConversationsRequest(Guid jobId, RequestContext context)
+        internal HttpMessage CreateCancelRequest(string endpoint, string jobId, RequestContext context)
         {
             var message = _pipeline.CreateMessage(context, ResponseClassifier202);
             var request = message.Request;
             request.Method = RequestMethod.Post;
             var uri = new RawRequestUriBuilder();
-            uri.Reset(_endpoint);
-            uri.AppendRaw("/language", false);
-            uri.AppendPath("/analyze-conversations/jobs/", false);
+            uri.AppendRaw(endpoint, true);
+            uri.AppendPath("/language/analyze-conversations/jobs/", false);
             uri.AppendPath(jobId, true);
             uri.AppendPath(":cancel", false);
             uri.AppendQuery("api-version", _apiVersion, true);
@@ -373,8 +426,6 @@ namespace Azure.AI.Language.Conversations
 
         private static ResponseClassifier _responseClassifier200;
         private static ResponseClassifier ResponseClassifier200 => _responseClassifier200 ??= new StatusCodeClassifier(stackalloc ushort[] { 200 });
-        private static ResponseClassifier _responseClassifier200202;
-        private static ResponseClassifier ResponseClassifier200202 => _responseClassifier200202 ??= new StatusCodeClassifier(stackalloc ushort[] { 200, 202 });
         private static ResponseClassifier _responseClassifier202;
         private static ResponseClassifier ResponseClassifier202 => _responseClassifier202 ??= new StatusCodeClassifier(stackalloc ushort[] { 202 });
     }
