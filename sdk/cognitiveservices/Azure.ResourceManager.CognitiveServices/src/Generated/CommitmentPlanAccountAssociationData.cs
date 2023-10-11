@@ -5,6 +5,7 @@
 
 #nullable disable
 
+using System.Collections.Generic;
 using Azure;
 using Azure.Core;
 using Azure.ResourceManager.Models;
@@ -20,6 +21,7 @@ namespace Azure.ResourceManager.CognitiveServices
         /// <summary> Initializes a new instance of CommitmentPlanAccountAssociationData. </summary>
         public CommitmentPlanAccountAssociationData()
         {
+            Tags = new ChangeTrackingDictionary<string, string>();
         }
 
         /// <summary> Initializes a new instance of CommitmentPlanAccountAssociationData. </summary>
@@ -28,15 +30,19 @@ namespace Azure.ResourceManager.CognitiveServices
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
         /// <param name="etag"> Resource Etag. </param>
+        /// <param name="tags"> Resource tags. </param>
         /// <param name="accountId"> The Azure resource id of the account. </param>
-        internal CommitmentPlanAccountAssociationData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, ETag? etag, string accountId) : base(id, name, resourceType, systemData)
+        internal CommitmentPlanAccountAssociationData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, ETag? etag, IDictionary<string, string> tags, string accountId) : base(id, name, resourceType, systemData)
         {
             ETag = etag;
+            Tags = tags;
             AccountId = accountId;
         }
 
         /// <summary> Resource Etag. </summary>
         public ETag? ETag { get; }
+        /// <summary> Resource tags. </summary>
+        public IDictionary<string, string> Tags { get; }
         /// <summary> The Azure resource id of the account. </summary>
         public string AccountId { get; set; }
     }
