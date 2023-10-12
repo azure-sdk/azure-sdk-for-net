@@ -42,6 +42,8 @@ namespace Azure.ResourceManager.Synapse.Models
             Optional<DateTimeOffset> autoUpdateEta = default;
             Optional<string> serviceRegion = default;
             Optional<IReadOnlyList<string>> newerVersions = default;
+            Optional<int> osType = default;
+            Optional<int> targetFramework = default;
             IReadOnlyDictionary<string, BinaryData> additionalProperties = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -234,13 +236,31 @@ namespace Azure.ResourceManager.Synapse.Models
                             newerVersions = array;
                             continue;
                         }
+                        if (property0.NameEquals("osType"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            osType = property0.Value.GetInt32();
+                            continue;
+                        }
+                        if (property0.NameEquals("targetFramework"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            targetFramework = property0.Value.GetInt32();
+                            continue;
+                        }
                     }
                     continue;
                 }
                 additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
             }
             additionalProperties = additionalPropertiesDictionary;
-            return new SynapseSelfHostedIntegrationRuntimeStatus(type, dataFactoryName.Value, Optional.ToNullable(state), additionalProperties, Optional.ToNullable(createTime), taskQueueId.Value, nodeCommunicationChannelEncryptionMode.Value, Optional.ToNullable(internalChannelEncryption), version.Value, Optional.ToList(nodes), Optional.ToNullable(scheduledUpdateDate), updateDelayOffset.Value, localTimeZoneOffset.Value, Optional.ToDictionary(capabilities), Optional.ToList(serviceUrls), Optional.ToNullable(autoUpdate), versionStatus.Value, Optional.ToList(links), pushedVersion.Value, latestVersion.Value, Optional.ToNullable(autoUpdateEta), serviceRegion.Value, Optional.ToList(newerVersions));
+            return new SynapseSelfHostedIntegrationRuntimeStatus(type, dataFactoryName.Value, Optional.ToNullable(state), additionalProperties, Optional.ToNullable(createTime), taskQueueId.Value, nodeCommunicationChannelEncryptionMode.Value, Optional.ToNullable(internalChannelEncryption), version.Value, Optional.ToList(nodes), Optional.ToNullable(scheduledUpdateDate), updateDelayOffset.Value, localTimeZoneOffset.Value, Optional.ToDictionary(capabilities), Optional.ToList(serviceUrls), Optional.ToNullable(autoUpdate), versionStatus.Value, Optional.ToList(links), pushedVersion.Value, latestVersion.Value, Optional.ToNullable(autoUpdateEta), serviceRegion.Value, Optional.ToList(newerVersions), Optional.ToNullable(osType), Optional.ToNullable(targetFramework));
         }
     }
 }
