@@ -210,6 +210,7 @@ namespace Azure.ResourceManager.DataProtectionBackup.Models
         /// <param name="progressUri"> Url which contains job's progress. </param>
         /// <param name="rehydrationPriority"> Priority to be used for rehydration. </param>
         /// <param name="restoreType"> It indicates the sub type of operation i.e. in case of Restore it can be ALR/OLR. </param>
+        /// <param name="sourceDataStoreType"> The type of the source data store. </param>
         /// <param name="sourceResourceGroup"> Resource Group Name of the Datasource. </param>
         /// <param name="sourceSubscriptionId"> SubscriptionId corresponding to the DataSource. </param>
         /// <param name="startOn"> StartTime of the job(in UTC). </param>
@@ -221,12 +222,12 @@ namespace Azure.ResourceManager.DataProtectionBackup.Models
         /// <param name="sourceDataStoreName"></param>
         /// <param name="destinationDataStoreName"></param>
         /// <returns> A new <see cref="Models.DataProtectionBackupJobProperties"/> instance for mocking. </returns>
-        public static DataProtectionBackupJobProperties DataProtectionBackupJobProperties(string activityId = null, string backupInstanceFriendlyName = null, ResourceIdentifier backupInstanceId = null, ResourceIdentifier dataSourceId = null, AzureLocation dataSourceLocation = default, string dataSourceName = null, string dataSourceSetName = null, string dataSourceType = null, TimeSpan? duration = null, DateTimeOffset? endOn = null, IEnumerable<ResponseError> errorDetails = null, BackupJobExtendedInfo extendedInfo = null, bool isUserTriggered = default, string operation = null, string operationCategory = null, ResourceIdentifier policyId = null, string policyName = null, bool isProgressEnabled = default, Uri progressUri = null, string rehydrationPriority = null, string restoreType = null, string sourceResourceGroup = null, string sourceSubscriptionId = null, DateTimeOffset startOn = default, string status = null, string subscriptionId = null, IEnumerable<string> supportedActions = null, string vaultName = null, ETag? eTag = null, string sourceDataStoreName = null, string destinationDataStoreName = null)
+        public static DataProtectionBackupJobProperties DataProtectionBackupJobProperties(string activityId = null, string backupInstanceFriendlyName = null, ResourceIdentifier backupInstanceId = null, ResourceIdentifier dataSourceId = null, AzureLocation dataSourceLocation = default, string dataSourceName = null, string dataSourceSetName = null, string dataSourceType = null, TimeSpan? duration = null, DateTimeOffset? endOn = null, IEnumerable<ResponseError> errorDetails = null, BackupJobExtendedInfo extendedInfo = null, bool isUserTriggered = default, string operation = null, string operationCategory = null, ResourceIdentifier policyId = null, string policyName = null, bool isProgressEnabled = default, Uri progressUri = null, string rehydrationPriority = null, string restoreType = null, string sourceDataStoreType = null, string sourceResourceGroup = null, string sourceSubscriptionId = null, DateTimeOffset startOn = default, string status = null, string subscriptionId = null, IEnumerable<string> supportedActions = null, string vaultName = null, ETag? eTag = null, string sourceDataStoreName = null, string destinationDataStoreName = null)
         {
             errorDetails ??= new List<ResponseError>();
             supportedActions ??= new List<string>();
 
-            return new DataProtectionBackupJobProperties(activityId, backupInstanceFriendlyName, backupInstanceId, dataSourceId, dataSourceLocation, dataSourceName, dataSourceSetName, dataSourceType, duration, endOn, errorDetails?.ToList(), extendedInfo, isUserTriggered, operation, operationCategory, policyId, policyName, isProgressEnabled, progressUri, rehydrationPriority, restoreType, sourceResourceGroup, sourceSubscriptionId, startOn, status, subscriptionId, supportedActions?.ToList(), vaultName, eTag, sourceDataStoreName, destinationDataStoreName);
+            return new DataProtectionBackupJobProperties(activityId, backupInstanceFriendlyName, backupInstanceId, dataSourceId, dataSourceLocation, dataSourceName, dataSourceSetName, dataSourceType, duration, endOn, errorDetails?.ToList(), extendedInfo, isUserTriggered, operation, operationCategory, policyId, policyName, isProgressEnabled, progressUri, rehydrationPriority, restoreType, sourceDataStoreType, sourceResourceGroup, sourceSubscriptionId, startOn, status, subscriptionId, supportedActions?.ToList(), vaultName, eTag, sourceDataStoreName, destinationDataStoreName);
         }
 
         /// <summary> Initializes a new instance of BackupJobExtendedInfo. </summary>
@@ -237,13 +238,15 @@ namespace Azure.ResourceManager.DataProtectionBackup.Models
         /// <param name="sourceRecoverPoint"> Details of the Source Recovery Point. </param>
         /// <param name="subTasks"> List of Sub Tasks of the job. </param>
         /// <param name="targetRecoverPoint"> Details of the Target Recovery Point. </param>
+        /// <param name="warningDetails"> A List, detailing the warnings related to the job. </param>
         /// <returns> A new <see cref="Models.BackupJobExtendedInfo"/> instance for mocking. </returns>
-        public static BackupJobExtendedInfo BackupJobExtendedInfo(IReadOnlyDictionary<string, string> additionalDetails = null, string backupInstanceState = null, double? dataTransferredInBytes = null, string recoveryDestination = null, RestoreJobRecoveryPointDetails sourceRecoverPoint = null, IEnumerable<BackupJobSubTask> subTasks = null, RestoreJobRecoveryPointDetails targetRecoverPoint = null)
+        public static BackupJobExtendedInfo BackupJobExtendedInfo(IReadOnlyDictionary<string, string> additionalDetails = null, string backupInstanceState = null, double? dataTransferredInBytes = null, string recoveryDestination = null, RestoreJobRecoveryPointDetails sourceRecoverPoint = null, IEnumerable<BackupJobSubTask> subTasks = null, RestoreJobRecoveryPointDetails targetRecoverPoint = null, IEnumerable<UserFacingWarningDetail> warningDetails = null)
         {
             additionalDetails ??= new Dictionary<string, string>();
             subTasks ??= new List<BackupJobSubTask>();
+            warningDetails ??= new List<UserFacingWarningDetail>();
 
-            return new BackupJobExtendedInfo(additionalDetails, backupInstanceState, dataTransferredInBytes, recoveryDestination, sourceRecoverPoint, subTasks?.ToList(), targetRecoverPoint);
+            return new BackupJobExtendedInfo(additionalDetails, backupInstanceState, dataTransferredInBytes, recoveryDestination, sourceRecoverPoint, subTasks?.ToList(), targetRecoverPoint, warningDetails?.ToList());
         }
 
         /// <summary> Initializes a new instance of RestoreJobRecoveryPointDetails. </summary>
@@ -269,6 +272,15 @@ namespace Azure.ResourceManager.DataProtectionBackup.Models
             return new BackupJobSubTask(additionalDetails, taskId, taskName, taskProgress, taskStatus);
         }
 
+        /// <summary> Initializes a new instance of UserFacingWarningDetail. </summary>
+        /// <param name="resourceName"> Name of resource for which warning is raised. </param>
+        /// <param name="warning"> Error details for the warning. </param>
+        /// <returns> A new <see cref="Models.UserFacingWarningDetail"/> instance for mocking. </returns>
+        public static UserFacingWarningDetail UserFacingWarningDetail(string resourceName = null, ResponseError warning = null)
+        {
+            return new UserFacingWarningDetail(resourceName, warning);
+        }
+
         /// <summary> Initializes a new instance of BackupFindRestorableTimeRangeResult. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
@@ -279,6 +291,14 @@ namespace Azure.ResourceManager.DataProtectionBackup.Models
         public static BackupFindRestorableTimeRangeResult BackupFindRestorableTimeRangeResult(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, BackupFindRestorableTimeRangeResultProperties properties = null)
         {
             return new BackupFindRestorableTimeRangeResult(id, name, resourceType, systemData, properties);
+        }
+
+        /// <summary> Initializes a new instance of AzureBackupJobProgressUri. </summary>
+        /// <param name="progressUri"> Read SAS URI for a blob from which current job progress can be read. </param>
+        /// <returns> A new <see cref="Models.AzureBackupJobProgressUri"/> instance for mocking. </returns>
+        public static AzureBackupJobProgressUri AzureBackupJobProgressUri(Uri progressUri = null)
+        {
+            return new AzureBackupJobProgressUri(progressUri);
         }
 
         /// <summary> Initializes a new instance of DeletedDataProtectionBackupInstanceData. </summary>
