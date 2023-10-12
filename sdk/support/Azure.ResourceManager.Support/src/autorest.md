@@ -8,7 +8,7 @@ azure-arm: true
 csharp: true
 library-name: Support
 namespace: Azure.ResourceManager.Support
-require: https://github.com/Azure/azure-rest-api-specs/blob/6b08774c89877269e73e11ac3ecbd1bd4e14f5a0/specification/support/resource-manager/readme.md
+require: https://github.com/Azure/azure-rest-api-specs/blob/d443f27041b91a1be4ba384adac53d7f994bae77/specification/support/resource-manager/readme.md
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
 sample-gen:
