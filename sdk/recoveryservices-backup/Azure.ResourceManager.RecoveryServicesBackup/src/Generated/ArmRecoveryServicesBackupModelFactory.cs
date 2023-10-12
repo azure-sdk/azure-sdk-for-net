@@ -61,10 +61,12 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
         /// <param name="errorMessage"> ErrorMessage in case of intent failed. </param>
         /// <param name="policyName"> Specifies the policy name which is used for protection. </param>
         /// <param name="registrationStatus"> Container registration status. </param>
+        /// <param name="protectedItemsCount"> Number of protected items. </param>
+        /// <param name="acquireStorageAccountLock"> Specifies whether the storage account lock has been acquired or not. </param>
         /// <returns> A new <see cref="Models.BackupStatusResult"/> instance for mocking. </returns>
-        public static BackupStatusResult BackupStatusResult(BackupProtectionStatus? protectionStatus = null, ResourceIdentifier vaultId = null, BackupFabricName? fabricName = null, string containerName = null, string protectedItemName = null, string errorCode = null, string errorMessage = null, string policyName = null, string registrationStatus = null)
+        public static BackupStatusResult BackupStatusResult(BackupProtectionStatus? protectionStatus = null, ResourceIdentifier vaultId = null, BackupFabricName? fabricName = null, string containerName = null, string protectedItemName = null, string errorCode = null, string errorMessage = null, string policyName = null, string registrationStatus = null, int? protectedItemsCount = null, AcquireStorageAccountLock? acquireStorageAccountLock = null)
         {
-            return new BackupStatusResult(protectionStatus, vaultId, fabricName, containerName, protectedItemName, errorCode, errorMessage, policyName, registrationStatus);
+            return new BackupStatusResult(protectionStatus, vaultId, fabricName, containerName, protectedItemName, errorCode, errorMessage, policyName, registrationStatus, protectedItemsCount, acquireStorageAccountLock);
         }
 
         /// <summary> Initializes a new instance of VmResourceFeatureSupportResult. </summary>
