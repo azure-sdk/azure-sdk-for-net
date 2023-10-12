@@ -10,7 +10,7 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.Datadog.Models
 {
-    internal partial class MonitorUpdateProperties : IUtf8JsonSerializable
+    public partial class MonitorUpdateProperties : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
@@ -19,6 +19,11 @@ namespace Azure.ResourceManager.Datadog.Models
             {
                 writer.WritePropertyName("monitoringStatus"u8);
                 writer.WriteStringValue(MonitoringStatus.Value.ToString());
+            }
+            if (Optional.IsDefined(Cspm))
+            {
+                writer.WritePropertyName("cspm"u8);
+                writer.WriteBooleanValue(Cspm.Value);
             }
             writer.WriteEndObject();
         }
