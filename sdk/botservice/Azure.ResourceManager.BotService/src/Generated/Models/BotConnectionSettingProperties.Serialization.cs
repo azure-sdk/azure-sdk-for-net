@@ -16,6 +16,16 @@ namespace Azure.ResourceManager.BotService.Models
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
+            if (Optional.IsDefined(Id))
+            {
+                writer.WritePropertyName("id"u8);
+                writer.WriteStringValue(Id);
+            }
+            if (Optional.IsDefined(Name))
+            {
+                writer.WritePropertyName("name"u8);
+                writer.WriteStringValue(Name);
+            }
             if (Optional.IsDefined(ClientId))
             {
                 writer.WritePropertyName("clientId"u8);
@@ -65,6 +75,8 @@ namespace Azure.ResourceManager.BotService.Models
             {
                 return null;
             }
+            Optional<string> id = default;
+            Optional<string> name = default;
             Optional<string> clientId = default;
             Optional<string> settingId = default;
             Optional<string> clientSecret = default;
@@ -75,6 +87,16 @@ namespace Azure.ResourceManager.BotService.Models
             Optional<string> provisioningState = default;
             foreach (var property in element.EnumerateObject())
             {
+                if (property.NameEquals("id"u8))
+                {
+                    id = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("name"u8))
+                {
+                    name = property.Value.GetString();
+                    continue;
+                }
                 if (property.NameEquals("clientId"u8))
                 {
                     clientId = property.Value.GetString();
@@ -125,7 +147,7 @@ namespace Azure.ResourceManager.BotService.Models
                     continue;
                 }
             }
-            return new BotConnectionSettingProperties(clientId.Value, settingId.Value, clientSecret.Value, scopes.Value, serviceProviderId.Value, serviceProviderDisplayName.Value, Optional.ToList(parameters), provisioningState.Value);
+            return new BotConnectionSettingProperties(id.Value, name.Value, clientId.Value, settingId.Value, clientSecret.Value, scopes.Value, serviceProviderId.Value, serviceProviderDisplayName.Value, Optional.ToList(parameters), provisioningState.Value);
         }
     }
 }
