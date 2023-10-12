@@ -25,13 +25,13 @@ namespace Azure.ResourceManager.ManagedNetworkFabric.Models
         /// <param name="layer4Protocol"> Layer4 protocol type that needs to be matched. </param>
         /// <param name="ports"> List of the Ports that need to be matched. </param>
         /// <param name="portGroupNames"> List of the port Group Names that need to be matched. </param>
-        /// <param name="flags"> List of protocol flags that need to be matched. </param>
+        /// <param name="flags"> List of protocol flags that need to be matched. Example: established | initial | &lt;List-of-TCP-flags&gt;. List of eligible TCP Flags are ack, fin, not-ack, not-fin, not-psh, not-rst, not-syn, not-urg, psh, rst, syn, urg. </param>
         internal AccessControlListPortCondition(NetworkFabricPortType? portType, Layer4Protocol layer4Protocol, IList<string> ports, IList<string> portGroupNames, IList<string> flags) : base(portType, layer4Protocol, ports, portGroupNames)
         {
             Flags = flags;
         }
 
-        /// <summary> List of protocol flags that need to be matched. </summary>
+        /// <summary> List of protocol flags that need to be matched. Example: established | initial | &lt;List-of-TCP-flags&gt;. List of eligible TCP Flags are ack, fin, not-ack, not-fin, not-psh, not-rst, not-syn, not-urg, psh, rst, syn, urg. </summary>
         public IList<string> Flags { get; }
     }
 }
