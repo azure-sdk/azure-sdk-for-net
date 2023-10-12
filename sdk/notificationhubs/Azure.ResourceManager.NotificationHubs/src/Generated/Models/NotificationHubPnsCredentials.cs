@@ -11,7 +11,10 @@ using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.NotificationHubs.Models
 {
-    /// <summary> Description of a NotificationHub PNS Credentials. </summary>
+    /// <summary>
+    /// Description of a NotificationHub PNS Credentials. This is a response of the POST requests that return namespace or hubs
+    /// PNS credentials.
+    /// </summary>
     public partial class NotificationHubPnsCredentials : TrackedResourceData
     {
         /// <summary> Initializes a new instance of NotificationHubPnsCredentials. </summary>
@@ -27,37 +30,13 @@ namespace Azure.ResourceManager.NotificationHubs.Models
         /// <param name="systemData"> The systemData. </param>
         /// <param name="tags"> The tags. </param>
         /// <param name="location"> The location. </param>
-        /// <param name="apnsCredential"> The ApnsCredential of the created NotificationHub. </param>
-        /// <param name="wnsCredential"> The WnsCredential of the created NotificationHub. </param>
-        /// <param name="gcmCredential"> The GcmCredential of the created NotificationHub. </param>
-        /// <param name="mpnsCredential"> The MpnsCredential of the created NotificationHub. </param>
-        /// <param name="admCredential"> The AdmCredential of the created NotificationHub. </param>
-        /// <param name="baiduCredential"> The BaiduCredential of the created NotificationHub. </param>
-        /// <param name="sku"> The sku of the created namespace. </param>
-        internal NotificationHubPnsCredentials(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, NotificationHubApnsCredential apnsCredential, NotificationHubWnsCredential wnsCredential, NotificationHubGcmCredential gcmCredential, NotificationHubMpnsCredential mpnsCredential, NotificationHubAdmCredential admCredential, NotificationHubBaiduCredential baiduCredential, NotificationHubSku sku) : base(id, name, resourceType, systemData, tags, location)
+        /// <param name="properties"> Collection of Notification Hub or Notification Hub Namespace PNS credentials. </param>
+        internal NotificationHubPnsCredentials(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, PnsCredentials properties) : base(id, name, resourceType, systemData, tags, location)
         {
-            ApnsCredential = apnsCredential;
-            WnsCredential = wnsCredential;
-            GcmCredential = gcmCredential;
-            MpnsCredential = mpnsCredential;
-            AdmCredential = admCredential;
-            BaiduCredential = baiduCredential;
-            Sku = sku;
+            Properties = properties;
         }
 
-        /// <summary> The ApnsCredential of the created NotificationHub. </summary>
-        public NotificationHubApnsCredential ApnsCredential { get; set; }
-        /// <summary> The WnsCredential of the created NotificationHub. </summary>
-        public NotificationHubWnsCredential WnsCredential { get; set; }
-        /// <summary> The GcmCredential of the created NotificationHub. </summary>
-        public NotificationHubGcmCredential GcmCredential { get; set; }
-        /// <summary> The MpnsCredential of the created NotificationHub. </summary>
-        public NotificationHubMpnsCredential MpnsCredential { get; set; }
-        /// <summary> The AdmCredential of the created NotificationHub. </summary>
-        public NotificationHubAdmCredential AdmCredential { get; set; }
-        /// <summary> The BaiduCredential of the created NotificationHub. </summary>
-        public NotificationHubBaiduCredential BaiduCredential { get; set; }
-        /// <summary> The sku of the created namespace. </summary>
-        public NotificationHubSku Sku { get; set; }
+        /// <summary> Collection of Notification Hub or Notification Hub Namespace PNS credentials. </summary>
+        public PnsCredentials Properties { get; set; }
     }
 }

@@ -6,33 +6,24 @@
 #nullable disable
 
 using System;
+using Azure.Core;
 
 namespace Azure.ResourceManager.NotificationHubs.Models
 {
     /// <summary> Description of a NotificationHub BaiduCredential. </summary>
-    public partial class NotificationHubBaiduCredential
+    internal partial class NotificationHubBaiduCredential
     {
         /// <summary> Initializes a new instance of NotificationHubBaiduCredential. </summary>
-        public NotificationHubBaiduCredential()
+        /// <param name="properties"> Description of a NotificationHub BaiduCredential. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="properties"/> is null. </exception>
+        public NotificationHubBaiduCredential(BaiduCredentialProperties properties)
         {
+            Argument.AssertNotNull(properties, nameof(properties));
+
+            Properties = properties;
         }
 
-        /// <summary> Initializes a new instance of NotificationHubBaiduCredential. </summary>
-        /// <param name="baiduApiKey"> Baidu Api Key. </param>
-        /// <param name="baiduEndpoint"> Baidu Endpoint. </param>
-        /// <param name="baiduSecretKey"> Baidu Secret Key. </param>
-        internal NotificationHubBaiduCredential(string baiduApiKey, Uri baiduEndpoint, string baiduSecretKey)
-        {
-            BaiduApiKey = baiduApiKey;
-            BaiduEndpoint = baiduEndpoint;
-            BaiduSecretKey = baiduSecretKey;
-        }
-
-        /// <summary> Baidu Api Key. </summary>
-        public string BaiduApiKey { get; set; }
-        /// <summary> Baidu Endpoint. </summary>
-        public Uri BaiduEndpoint { get; set; }
-        /// <summary> Baidu Secret Key. </summary>
-        public string BaiduSecretKey { get; set; }
+        /// <summary> Description of a NotificationHub BaiduCredential. </summary>
+        public BaiduCredentialProperties Properties { get; set; }
     }
 }

@@ -5,7 +5,6 @@
 
 #nullable disable
 
-using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
@@ -19,10 +18,10 @@ namespace Azure.ResourceManager.NotificationHubs
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
-            if (Optional.IsDefined(Sku))
+            if (Optional.IsDefined(Properties))
             {
-                writer.WritePropertyName("sku"u8);
-                writer.WriteObjectValue(Sku);
+                writer.WritePropertyName("properties"u8);
+                writer.WriteObjectValue(Properties);
             }
             if (Optional.IsCollectionDefined(Tags))
             {
@@ -37,19 +36,6 @@ namespace Azure.ResourceManager.NotificationHubs
             }
             writer.WritePropertyName("location"u8);
             writer.WriteStringValue(Location);
-            writer.WritePropertyName("properties"u8);
-            writer.WriteStartObject();
-            if (Optional.IsCollectionDefined(Rights))
-            {
-                writer.WritePropertyName("rights"u8);
-                writer.WriteStartArray();
-                foreach (var item in Rights)
-                {
-                    writer.WriteStringValue(item.ToSerialString());
-                }
-                writer.WriteEndArray();
-            }
-            writer.WriteEndObject();
             writer.WriteEndObject();
         }
 
@@ -59,31 +45,22 @@ namespace Azure.ResourceManager.NotificationHubs
             {
                 return null;
             }
-            Optional<NotificationHubSku> sku = default;
+            Optional<SharedAccessAuthorizationRuleProperties> properties = default;
             Optional<IDictionary<string, string>> tags = default;
             AzureLocation location = default;
             ResourceIdentifier id = default;
             string name = default;
             ResourceType type = default;
             Optional<SystemData> systemData = default;
-            Optional<IList<AuthorizationRuleAccessRight>> rights = default;
-            Optional<string> primaryKey = default;
-            Optional<string> secondaryKey = default;
-            Optional<string> keyName = default;
-            Optional<string> claimType = default;
-            Optional<string> claimValue = default;
-            Optional<DateTimeOffset> modifiedTime = default;
-            Optional<DateTimeOffset> createdTime = default;
-            Optional<int> revision = default;
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("sku"u8))
+                if (property.NameEquals("properties"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    sku = NotificationHubSku.DeserializeNotificationHubSku(property.Value);
+                    properties = SharedAccessAuthorizationRuleProperties.DeserializeSharedAccessAuthorizationRuleProperties(property.Value);
                     continue;
                 }
                 if (property.NameEquals("tags"u8))
@@ -129,86 +106,8 @@ namespace Azure.ResourceManager.NotificationHubs
                     systemData = JsonSerializer.Deserialize<SystemData>(property.Value.GetRawText());
                     continue;
                 }
-                if (property.NameEquals("properties"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
-                    foreach (var property0 in property.Value.EnumerateObject())
-                    {
-                        if (property0.NameEquals("rights"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            List<AuthorizationRuleAccessRight> array = new List<AuthorizationRuleAccessRight>();
-                            foreach (var item in property0.Value.EnumerateArray())
-                            {
-                                array.Add(item.GetString().ToAuthorizationRuleAccessRight());
-                            }
-                            rights = array;
-                            continue;
-                        }
-                        if (property0.NameEquals("primaryKey"u8))
-                        {
-                            primaryKey = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("secondaryKey"u8))
-                        {
-                            secondaryKey = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("keyName"u8))
-                        {
-                            keyName = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("claimType"u8))
-                        {
-                            claimType = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("claimValue"u8))
-                        {
-                            claimValue = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("modifiedTime"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            modifiedTime = property0.Value.GetDateTimeOffset("O");
-                            continue;
-                        }
-                        if (property0.NameEquals("createdTime"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            createdTime = property0.Value.GetDateTimeOffset("O");
-                            continue;
-                        }
-                        if (property0.NameEquals("revision"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            revision = property0.Value.GetInt32();
-                            continue;
-                        }
-                    }
-                    continue;
-                }
             }
-            return new NotificationHubAuthorizationRuleData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, Optional.ToList(rights), primaryKey.Value, secondaryKey.Value, keyName.Value, claimType.Value, claimValue.Value, Optional.ToNullable(modifiedTime), Optional.ToNullable(createdTime), Optional.ToNullable(revision), sku.Value);
+            return new NotificationHubAuthorizationRuleData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, properties.Value);
         }
     }
 }

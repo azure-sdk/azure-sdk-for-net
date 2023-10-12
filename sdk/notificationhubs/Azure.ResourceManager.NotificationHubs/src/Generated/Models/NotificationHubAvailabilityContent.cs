@@ -10,7 +10,10 @@ using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.NotificationHubs.Models
 {
-    /// <summary> Parameters supplied to the Check Name Availability for Namespace and NotificationHubs. </summary>
+    /// <summary>
+    /// Parameters supplied to the Check Name Availability for Namespace and
+    /// NotificationHubs.
+    /// </summary>
     public partial class NotificationHubAvailabilityContent : TrackedResourceData
     {
         /// <summary> Initializes a new instance of NotificationHubAvailabilityContent. </summary>
@@ -19,9 +22,9 @@ namespace Azure.ResourceManager.NotificationHubs.Models
         {
         }
 
-        /// <summary> The sku of the created namespace. </summary>
-        public NotificationHubSku Sku { get; set; }
-        /// <summary> True if the name is available and can be used to create new Namespace/NotificationHub. Otherwise false. </summary>
+        /// <summary> Not used and deprecated since API version 2023-09-01. </summary>
         public bool? IsAvailiable { get; set; }
+        /// <summary> The Sku description for a namespace. </summary>
+        public NotificationHubSku Sku { get; set; }
     }
 }
