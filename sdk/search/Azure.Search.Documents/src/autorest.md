@@ -2,7 +2,7 @@
 
 Run `dotnet build /t:GenerateCode` in the `src` directory to generate SDK code.
 
-See the [Contributing guidelines](https://github.com/Azure/azure-sdk-for-net/blob/fe0bf0e7e84a406ec2102c194ea05ccd5011a141/sdk/search/CONTRIBUTING.md) for more details.
+See the [Contributing guidelines](https://github.com/Azure/azure-rest-api-specs/blob/d443f27041b91a1be4ba384adac53d7f994bae77/sdk/search/CONTRIBUTING.md) for more details.
 
 ## AutoRest Configuration
 > see https://aka.ms/autorest
@@ -11,8 +11,8 @@ See the [Contributing guidelines](https://github.com/Azure/azure-sdk-for-net/blo
 ```yaml
 title: SearchServiceClient
 input-file:
- - https://github.com/Azure/azure-rest-api-specs/blob/b62ddd0ffb844fbfb688a04546800d60645a18ef/specification/search/data-plane/Azure.Search/preview/2023-10-01-Preview/searchindex.json
- - https://github.com/Azure/azure-rest-api-specs/blob/b62ddd0ffb844fbfb688a04546800d60645a18ef/specification/search/data-plane/Azure.Search/preview/2023-10-01-Preview/searchservice.json
+ - https://github.com/Azure/azure-rest-api-specs/blob/d443f27041b91a1be4ba384adac53d7f994bae77/specification/search/data-plane/Azure.Search/preview/2023-10-01-Preview/searchindex.json
+ - https://github.com/Azure/azure-rest-api-specs/blob/d443f27041b91a1be4ba384adac53d7f994bae77/specification/search/data-plane/Azure.Search/preview/2023-10-01-Preview/searchservice.json
 generation1-convenience-client: true
 deserialize-null-collection-as-null-value: true
 ```
