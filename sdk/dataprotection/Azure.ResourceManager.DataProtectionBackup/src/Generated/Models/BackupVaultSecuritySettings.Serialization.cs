@@ -25,6 +25,11 @@ namespace Azure.ResourceManager.DataProtectionBackup.Models
                 writer.WritePropertyName("immutabilitySettings"u8);
                 writer.WriteObjectValue(ImmutabilitySettings);
             }
+            if (Optional.IsDefined(EncryptionSettings))
+            {
+                writer.WritePropertyName("encryptionSettings"u8);
+                writer.WriteObjectValue(EncryptionSettings);
+            }
             writer.WriteEndObject();
         }
 
@@ -36,6 +41,7 @@ namespace Azure.ResourceManager.DataProtectionBackup.Models
             }
             Optional<BackupVaultSoftDeleteSettings> softDeleteSettings = default;
             Optional<ImmutabilitySettings> immutabilitySettings = default;
+            Optional<EncryptionSettings> encryptionSettings = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("softDeleteSettings"u8))
@@ -56,8 +62,17 @@ namespace Azure.ResourceManager.DataProtectionBackup.Models
                     immutabilitySettings = ImmutabilitySettings.DeserializeImmutabilitySettings(property.Value);
                     continue;
                 }
+                if (property.NameEquals("encryptionSettings"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    encryptionSettings = EncryptionSettings.DeserializeEncryptionSettings(property.Value);
+                    continue;
+                }
             }
-            return new BackupVaultSecuritySettings(softDeleteSettings.Value, immutabilitySettings.Value);
+            return new BackupVaultSecuritySettings(softDeleteSettings.Value, immutabilitySettings.Value, encryptionSettings.Value);
         }
     }
 }
