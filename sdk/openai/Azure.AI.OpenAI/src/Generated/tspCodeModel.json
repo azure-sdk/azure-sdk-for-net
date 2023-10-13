@@ -1,0 +1,4532 @@
+{
+ "$id": "1",
+ "Name": "Azure.OpenAI",
+ "Description": "Azure OpenAI APIs for completions and search",
+ "ApiVersions": [
+  "2022-12-01",
+  "2023-05-15",
+  "2023-06-01-preview",
+  "2023-07-01-preview",
+  "2023-08-01-preview",
+  "2023-09-01-preview"
+ ],
+ "Enums": [
+  {
+   "$id": "2",
+   "Name": "AudioTranscriptionFormat",
+   "EnumValueType": "String",
+   "AllowedValues": [
+    {
+     "$id": "3",
+     "Name": "json",
+     "Value": "json",
+     "Description": "Use a response body that is a JSON object containing a single 'text' field for the transcription."
+    },
+    {
+     "$id": "4",
+     "Name": "verbose_json",
+     "Value": "verbose_json",
+     "Description": "Use a response body that is a JSON object containing transcription text along with timing, segments, and other\nmetadata."
+    },
+    {
+     "$id": "5",
+     "Name": "text",
+     "Value": "text",
+     "Description": "Use a response body that is plain text containing the raw, unannotated transcription."
+    },
+    {
+     "$id": "6",
+     "Name": "srt",
+     "Value": "srt",
+     "Description": "Use a response body that is plain text in SubRip (SRT) format that also includes timing information."
+    },
+    {
+     "$id": "7",
+     "Name": "vtt",
+     "Value": "vtt",
+     "Description": "Use a response body that is plain text in Web Video Text Tracks (VTT) format that also includes timing information."
+    }
+   ],
+   "Namespace": "Azure.OpenAI",
+   "Description": "Defines available options for the underlying response format of output transcription information.",
+   "IsExtensible": true,
+   "IsNullable": false,
+   "Usage": "Input"
+  },
+  {
+   "$id": "8",
+   "Name": "AudioTaskLabel",
+   "EnumValueType": "String",
+   "AllowedValues": [
+    {
+     "$id": "9",
+     "Name": "transcribe",
+     "Value": "transcribe",
+     "Description": "Accompanying response data resulted from an audio transcription task."
+    },
+    {
+     "$id": "10",
+     "Name": "translate",
+     "Value": "translate",
+     "Description": "Accompanying response data resulted from an audio translation task."
+    }
+   ],
+   "Namespace": "Azure.OpenAI",
+   "Description": "Defines the possible descriptors for available audio operation responses.",
+   "IsExtensible": true,
+   "IsNullable": false,
+   "Usage": "Output"
+  },
+  {
+   "$id": "11",
+   "Name": "AudioTranslationFormat",
+   "EnumValueType": "String",
+   "AllowedValues": [
+    {
+     "$id": "12",
+     "Name": "json",
+     "Value": "json",
+     "Description": "Use a response body that is a JSON object containing a single 'text' field for the translation."
+    },
+    {
+     "$id": "13",
+     "Name": "verbose_json",
+     "Value": "verbose_json",
+     "Description": "Use a response body that is a JSON object containing translation text along with timing, segments, and other\nmetadata."
+    },
+    {
+     "$id": "14",
+     "Name": "text",
+     "Value": "text",
+     "Description": "Use a response body that is plain text containing the raw, unannotated translation."
+    },
+    {
+     "$id": "15",
+     "Name": "srt",
+     "Value": "srt",
+     "Description": "Use a response body that is plain text in SubRip (SRT) format that also includes timing information."
+    },
+    {
+     "$id": "16",
+     "Name": "vtt",
+     "Value": "vtt",
+     "Description": "Use a response body that is plain text in Web Video Text Tracks (VTT) format that also includes timing information."
+    }
+   ],
+   "Namespace": "Azure.OpenAI",
+   "Description": "Defines available options for the underlying response format of output translation information.",
+   "IsExtensible": true,
+   "IsNullable": false,
+   "Usage": "Input"
+  },
+  {
+   "$id": "17",
+   "Name": "ContentFilterSeverity",
+   "EnumValueType": "String",
+   "AllowedValues": [
+    {
+     "$id": "18",
+     "Name": "safe",
+     "Value": "safe",
+     "Description": "Content may be related to violence, self-harm, sexual, or hate categories but the terms \nare used in general, journalistic, scientific, medical, and similar professional contexts, \nwhich are appropriate for most audiences."
+    },
+    {
+     "$id": "19",
+     "Name": "low",
+     "Value": "low",
+     "Description": "Content that expresses prejudiced, judgmental, or opinionated views, includes offensive \nuse of language, stereotyping, use cases exploring a fictional world (for example, gaming,\nliterature) and depictions at low intensity."
+    },
+    {
+     "$id": "20",
+     "Name": "medium",
+     "Value": "medium",
+     "Description": "Content that uses offensive, insulting, mocking, intimidating, or demeaning language \ntowards specific identity groups, includes depictions of seeking and executing harmful \ninstructions, fantasies, glorification, promotion of harm at medium intensity."
+    },
+    {
+     "$id": "21",
+     "Name": "high",
+     "Value": "high",
+     "Description": "Content that displays explicit and severe harmful instructions, actions, \ndamage, or abuse; includes endorsement, glorification, or promotion of severe \nharmful acts, extreme or illegal forms of harm, radicalization, or non-consensual \npower exchange or abuse."
+    }
+   ],
+   "Namespace": "Azure.OpenAI",
+   "Description": "Ratings for the intensity and risk level of harmful content.",
+   "IsExtensible": true,
+   "IsNullable": false,
+   "Usage": "Output"
+  },
+  {
+   "$id": "22",
+   "Name": "CompletionsFinishReason",
+   "EnumValueType": "String",
+   "AllowedValues": [
+    {
+     "$id": "23",
+     "Name": "stopped",
+     "Value": "stop",
+     "Description": "Completions ended normally and reached its end of token generation."
+    },
+    {
+     "$id": "24",
+     "Name": "tokenLimitReached",
+     "Value": "length",
+     "Description": "Completions exhausted available token limits before generation could complete."
+    },
+    {
+     "$id": "25",
+     "Name": "contentFiltered",
+     "Value": "content_filter",
+     "Description": "Completions generated a response that was identified as potentially sensitive per content\nmoderation policies."
+    },
+    {
+     "$id": "26",
+     "Name": "functionCall",
+     "Value": "function_call",
+     "Description": "Completion ended normally, with the model requesting a function to be called."
+    }
+   ],
+   "Namespace": "Azure.OpenAI",
+   "Description": "Representation of the manner in which a completions response concluded.",
+   "IsExtensible": true,
+   "IsNullable": true,
+   "Usage": "Output"
+  },
+  {
+   "$id": "27",
+   "Name": "ChatRole",
+   "EnumValueType": "String",
+   "AllowedValues": [
+    {
+     "$id": "28",
+     "Name": "system",
+     "Value": "system",
+     "Description": "The role that instructs or sets the behavior of the assistant."
+    },
+    {
+     "$id": "29",
+     "Name": "assistant",
+     "Value": "assistant",
+     "Description": "The role that provides responses to system-instructed, user-prompted input."
+    },
+    {
+     "$id": "30",
+     "Name": "user",
+     "Value": "user",
+     "Description": "The role that provides input for chat completions."
+    },
+    {
+     "$id": "31",
+     "Name": "function",
+     "Value": "function",
+     "Description": "The role that provides function results for chat completions."
+    },
+    {
+     "$id": "32",
+     "Name": "tool",
+     "Value": "tool",
+     "Description": "The role that represents extension tool activity within a chat completions operation."
+    }
+   ],
+   "Namespace": "Azure.OpenAI",
+   "Description": "A description of the intended purpose of a message within a chat completions interaction.",
+   "IsExtensible": true,
+   "IsNullable": false,
+   "Usage": "RoundTrip"
+  },
+  {
+   "$id": "33",
+   "Name": "FunctionCallPreset",
+   "EnumValueType": "String",
+   "AllowedValues": [
+    {
+     "$id": "34",
+     "Name": "auto",
+     "Value": "auto",
+     "Description": "Specifies that the model may either use any of the functions provided in this chat completions request or\ninstead return a standard chat completions response as if no functions were provided."
+    },
+    {
+     "$id": "35",
+     "Name": "none",
+     "Value": "none",
+     "Description": "Specifies that the model should not respond with a function call and should instead provide a standard chat\ncompletions response. Response content may still be influenced by the provided function information."
+    }
+   ],
+   "Namespace": "Azure.OpenAI",
+   "Description": "The collection of predefined behaviors for handling request-provided function information in a chat completions\noperation.",
+   "IsExtensible": true,
+   "IsNullable": false,
+   "Usage": "Input"
+  },
+  {
+   "$id": "36",
+   "Name": "AzureChatExtensionType",
+   "EnumValueType": "String",
+   "AllowedValues": [
+    {
+     "$id": "37",
+     "Name": "azureCognitiveSearch",
+     "Value": "AzureCognitiveSearch",
+     "Description": "Represents the use of Azure Cognitive Search as an Azure OpenAI chat extension."
+    }
+   ],
+   "Namespace": "Azure.OpenAI",
+   "Description": "  A representation of configuration data for a single Azure OpenAI chat extension. This will be used by a chat\n  completions request that should use Azure OpenAI chat extensions to augment the response behavior.\n  The use of this configuration is compatible only with Azure OpenAI.",
+   "IsExtensible": true,
+   "IsNullable": false,
+   "Usage": "Input"
+  },
+  {
+   "$id": "38",
+   "Name": "ImageSize",
+   "EnumValueType": "String",
+   "AllowedValues": [
+    {
+     "$id": "39",
+     "Name": "Size256x256",
+     "Value": "256x256",
+     "Description": "Image size of 256x256."
+    },
+    {
+     "$id": "40",
+     "Name": "Size512x512",
+     "Value": "512x512",
+     "Description": "Image size of 512x512."
+    },
+    {
+     "$id": "41",
+     "Name": "Size1024x1024",
+     "Value": "1024x1024",
+     "Description": "Image size of 1024x1024."
+    }
+   ],
+   "Namespace": "Azure.OpenAI",
+   "Accessibility": "public",
+   "Description": "The desired size of the generated images. Must be one of 256x256, 512x512, or 1024x1024.",
+   "IsExtensible": true,
+   "IsNullable": false,
+   "Usage": "Input"
+  },
+  {
+   "$id": "42",
+   "Name": "ImageGenerationResponseFormat",
+   "EnumValueType": "String",
+   "AllowedValues": [
+    {
+     "$id": "43",
+     "Name": "Url",
+     "Value": "url",
+     "Description": "Image generation response items should provide a URL from which the image may be retrieved."
+    },
+    {
+     "$id": "44",
+     "Name": "Base64",
+     "Value": "b64_json",
+     "Description": "Image generation response items should provide image data as a base64-encoded string."
+    }
+   ],
+   "Namespace": "Azure.OpenAI",
+   "Accessibility": "internal",
+   "Description": "The format in which the generated images are returned.",
+   "IsExtensible": true,
+   "IsNullable": false,
+   "Usage": "Input"
+  },
+  {
+   "$id": "45",
+   "Name": "AzureOpenAIOperationState",
+   "EnumValueType": "String",
+   "AllowedValues": [
+    {
+     "$id": "46",
+     "Name": "notRunning",
+     "Value": "notRunning",
+     "Description": "The operation was created and is queued to be processed in the future."
+    },
+    {
+     "$id": "47",
+     "Name": "running",
+     "Value": "running",
+     "Description": "The operation has started to be processed."
+    },
+    {
+     "$id": "48",
+     "Name": "succeeded",
+     "Value": "succeeded",
+     "Description": "The operation has successfully be processed and is ready for consumption."
+    },
+    {
+     "$id": "49",
+     "Name": "canceled",
+     "Value": "canceled",
+     "Description": "The operation has been canceled and is incomplete."
+    },
+    {
+     "$id": "50",
+     "Name": "failed",
+     "Value": "failed",
+     "Description": "The operation has completed processing with a failure and cannot be further consumed."
+    }
+   ],
+   "Namespace": "Azure.OpenAI",
+   "Accessibility": "internal",
+   "Description": "The state of a job or item.",
+   "IsExtensible": true,
+   "IsNullable": false,
+   "Usage": "Output"
+  },
+  {
+   "$id": "51",
+   "Name": "AzureCognitiveSearchQueryType",
+   "EnumValueType": "String",
+   "AllowedValues": [
+    {
+     "$id": "52",
+     "Name": "simple",
+     "Value": "simple",
+     "Description": "Represents the default, simple query parser."
+    },
+    {
+     "$id": "53",
+     "Name": "semantic",
+     "Value": "semantic",
+     "Description": "Represents the semantic query parser for advanced semantic modeling."
+    },
+    {
+     "$id": "54",
+     "Name": "vector",
+     "Value": "vector",
+     "Description": "Represents vector search over computed data."
+    },
+    {
+     "$id": "55",
+     "Name": "vectorSimpleHybrid",
+     "Value": "vectorSimpleHybrid",
+     "Description": "Represents a combination of the simple query strategy with vector data."
+    },
+    {
+     "$id": "56",
+     "Name": "vectorSemanticHybrid",
+     "Value": "vectorSemanticHybrid",
+     "Description": "Represents a combination of semantic search and vector data querying."
+    }
+   ],
+   "Namespace": "Azure.OpenAI",
+   "Accessibility": "public",
+   "Description": "The type of Azure Cognitive Search retrieval query that should be executed when using it as an Azure OpenAI chat extension.",
+   "IsExtensible": true,
+   "IsNullable": false,
+   "Usage": "Input"
+  },
+  {
+   "$id": "57",
+   "Name": "ServiceApiVersions",
+   "EnumValueType": "String",
+   "AllowedValues": [
+    {
+     "$id": "58",
+     "Name": "v2022_12_01",
+     "Value": "2022-12-01"
+    },
+    {
+     "$id": "59",
+     "Name": "v2023_05_15",
+     "Value": "2023-05-15"
+    },
+    {
+     "$id": "60",
+     "Name": "v2023_06_01_Preview",
+     "Value": "2023-06-01-preview"
+    },
+    {
+     "$id": "61",
+     "Name": "v2023_07_01_Preview",
+     "Value": "2023-07-01-preview"
+    },
+    {
+     "$id": "62",
+     "Name": "v2023_08_01_Preview",
+     "Value": "2023-08-01-preview"
+    },
+    {
+     "$id": "63",
+     "Name": "v2023_09_01_Preview",
+     "Value": "2023-09-01-preview"
+    }
+   ],
+   "Namespace": "Azure.OpenAI",
+   "Description": "",
+   "IsExtensible": true,
+   "IsNullable": false,
+   "Usage": "None"
+  }
+ ],
+ "Models": [
+  {
+   "$id": "64",
+   "Name": "AudioTranscriptionOptions",
+   "Namespace": "Azure.OpenAI",
+   "Description": "The configuration information for an audio transcription request.",
+   "IsNullable": false,
+   "Usage": "Input",
+   "Properties": [
+    {
+     "$id": "65",
+     "Name": "AudioData",
+     "SerializedName": "file",
+     "Description": "The audio data to transcribe. This must be the binary content of a file in one of the supported media formats:\n flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, webm.",
+     "Type": {
+      "$id": "66",
+      "Name": "bytes",
+      "Kind": "Bytes",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "67",
+     "Name": "responseFormat",
+     "SerializedName": "response_format",
+     "Description": "The requested format of the transcription response data, which will influence the content and detail of the result.",
+     "Type": {
+      "$ref": "2"
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "68",
+     "Name": "language",
+     "SerializedName": "language",
+     "Description": "The primary spoken language of the audio data to be transcribed, supplied as a two-letter ISO-639-1 language code\nsuch as 'en' or 'fr'.\nProviding this known input language is optional but may improve the accuracy and/or latency of transcription.",
+     "Type": {
+      "$id": "69",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "70",
+     "Name": "prompt",
+     "SerializedName": "prompt",
+     "Description": "An optional hint to guide the model's style or continue from a prior audio segment. The written language of the\nprompt should match the primary spoken language of the audio data.",
+     "Type": {
+      "$id": "71",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "72",
+     "Name": "temperature",
+     "SerializedName": "temperature",
+     "Description": "The sampling temperature, between 0 and 1.\nHigher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.\nIf set to 0, the model will use log probability to automatically increase the temperature until certain thresholds are hit.",
+     "Type": {
+      "$id": "73",
+      "Name": "float32",
+      "Kind": "Float32",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "74",
+     "Name": "InternalNonAzureModelName",
+     "SerializedName": "model",
+     "Description": "The model to use for this transcription request.",
+     "Type": {
+      "$id": "75",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    }
+   ]
+  },
+  {
+   "$id": "76",
+   "Name": "AudioTranscription",
+   "Namespace": "Azure.OpenAI",
+   "Description": "Result information for an operation that transcribed spoken audio into written text.",
+   "IsNullable": false,
+   "Usage": "Output",
+   "Properties": [
+    {
+     "$id": "77",
+     "Name": "text",
+     "SerializedName": "text",
+     "Description": "The transcribed text for the provided audio data.",
+     "Type": {
+      "$id": "78",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "79",
+     "Name": "InternalAudioTaskLabel",
+     "SerializedName": "task",
+     "Description": "The label that describes which operation type generated the accompanying response data.",
+     "Type": {
+      "$ref": "8"
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "80",
+     "Name": "language",
+     "SerializedName": "language",
+     "Description": "The spoken language that was detected in the transcribed audio data.\nThis is expressed as a two-letter ISO-639-1 language code like 'en' or 'fr'.",
+     "Type": {
+      "$id": "81",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "82",
+     "Name": "duration",
+     "SerializedName": "duration",
+     "Description": "The total duration of the audio processed to produce accompanying transcription information.",
+     "Type": {
+      "$id": "83",
+      "Name": "duration",
+      "Kind": "DurationSecondsFloat",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "84",
+     "Name": "segments",
+     "SerializedName": "segments",
+     "Description": "A collection of information about the timing, probabilities, and other detail of each processed audio segment.",
+     "Type": {
+      "$id": "85",
+      "Name": "Array",
+      "ElementType": {
+       "$id": "86",
+       "Name": "AudioTranscriptionSegment",
+       "Namespace": "Azure.OpenAI",
+       "Description": "Extended information about a single segment of transcribed audio data.\nSegments generally represent roughly 5-10 seconds of speech. Segment boundaries typically occur between words but not\nnecessarily sentences.",
+       "IsNullable": false,
+       "Usage": "Output",
+       "Properties": [
+        {
+         "$id": "87",
+         "Name": "id",
+         "SerializedName": "id",
+         "Description": "The 0-based index of this segment within a transcription.",
+         "Type": {
+          "$id": "88",
+          "Name": "int32",
+          "Kind": "Int32",
+          "IsNullable": false
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "89",
+         "Name": "start",
+         "SerializedName": "start",
+         "Description": "The time at which this segment started relative to the beginning of the transcribed audio.",
+         "Type": {
+          "$id": "90",
+          "Name": "duration",
+          "Kind": "DurationSecondsFloat",
+          "IsNullable": false
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "91",
+         "Name": "end",
+         "SerializedName": "end",
+         "Description": "The time at which this segment ended relative to the beginning of the transcribed audio.",
+         "Type": {
+          "$id": "92",
+          "Name": "duration",
+          "Kind": "DurationSecondsFloat",
+          "IsNullable": false
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "93",
+         "Name": "text",
+         "SerializedName": "text",
+         "Description": "The transcribed text that was part of this audio segment.",
+         "Type": {
+          "$id": "94",
+          "Name": "string",
+          "Kind": "String",
+          "IsNullable": false
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "95",
+         "Name": "temperature",
+         "SerializedName": "temperature",
+         "Description": "The temperature score associated with this audio segment.",
+         "Type": {
+          "$id": "96",
+          "Name": "float32",
+          "Kind": "Float32",
+          "IsNullable": false
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "97",
+         "Name": "AverageLogProbability",
+         "SerializedName": "avg_logprob",
+         "Description": "The average log probability associated with this audio segment.",
+         "Type": {
+          "$id": "98",
+          "Name": "float32",
+          "Kind": "Float32",
+          "IsNullable": false
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "99",
+         "Name": "compressionRatio",
+         "SerializedName": "compression_ratio",
+         "Description": "The compression ratio of this audio segment.",
+         "Type": {
+          "$id": "100",
+          "Name": "float32",
+          "Kind": "Float32",
+          "IsNullable": false
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "101",
+         "Name": "NoSpeechProbability",
+         "SerializedName": "no_speech_prob",
+         "Description": "The probability of no speech detection within this audio segment.",
+         "Type": {
+          "$id": "102",
+          "Name": "float32",
+          "Kind": "Float32",
+          "IsNullable": false
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "103",
+         "Name": "tokens",
+         "SerializedName": "tokens",
+         "Description": "The token IDs matching the transcribed text in this audio segment.",
+         "Type": {
+          "$id": "104",
+          "Name": "Array",
+          "ElementType": {
+           "$id": "105",
+           "Name": "int32",
+           "Kind": "Int32",
+           "IsNullable": false
+          },
+          "IsNullable": false
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "106",
+         "Name": "seek",
+         "SerializedName": "seek",
+         "Description": "The seek position associated with the processing of this audio segment.\nSeek positions are expressed as hundredths of seconds.\nThe model may process several segments from a single seek position, so while the seek position will never represent\na later time than the segment's start, the segment's start may represent a significantly later time than the\nsegment's associated seek position.",
+         "Type": {
+          "$id": "107",
+          "Name": "int32",
+          "Kind": "Int32",
+          "IsNullable": false
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        }
+       ]
+      },
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    }
+   ]
+  },
+  {
+   "$ref": "86"
+  },
+  {
+   "$id": "108",
+   "Name": "AudioTranslationOptions",
+   "Namespace": "Azure.OpenAI",
+   "Description": "The configuration information for an audio translation request.",
+   "IsNullable": false,
+   "Usage": "Input",
+   "Properties": [
+    {
+     "$id": "109",
+     "Name": "AudioData",
+     "SerializedName": "file",
+     "Description": "The audio data to translate. This must be the binary content of a file in one of the supported media formats:\n flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, webm.",
+     "Type": {
+      "$id": "110",
+      "Name": "bytes",
+      "Kind": "Bytes",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "111",
+     "Name": "responseFormat",
+     "SerializedName": "response_format",
+     "Description": "The requested format of the translation response data, which will influence the content and detail of the result.",
+     "Type": {
+      "$ref": "11"
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "112",
+     "Name": "prompt",
+     "SerializedName": "prompt",
+     "Description": "An optional hint to guide the model's style or continue from a prior audio segment. The written language of the\nprompt should match the primary spoken language of the audio data.",
+     "Type": {
+      "$id": "113",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "114",
+     "Name": "temperature",
+     "SerializedName": "temperature",
+     "Description": "The sampling temperature, between 0 and 1.\nHigher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.\nIf set to 0, the model will use log probability to automatically increase the temperature until certain thresholds are hit.",
+     "Type": {
+      "$id": "115",
+      "Name": "float32",
+      "Kind": "Float32",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "116",
+     "Name": "InternalNonAzureModelName",
+     "SerializedName": "model",
+     "Description": "The model to use for this translation request.",
+     "Type": {
+      "$id": "117",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    }
+   ]
+  },
+  {
+   "$id": "118",
+   "Name": "AudioTranslation",
+   "Namespace": "Azure.OpenAI",
+   "Description": "Result information for an operation that translated spoken audio into written text.",
+   "IsNullable": false,
+   "Usage": "Output",
+   "Properties": [
+    {
+     "$id": "119",
+     "Name": "text",
+     "SerializedName": "text",
+     "Description": "The translated text for the provided audio data.",
+     "Type": {
+      "$id": "120",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "121",
+     "Name": "InternalAudioTaskLabel",
+     "SerializedName": "task",
+     "Description": "The label that describes which operation type generated the accompanying response data.",
+     "Type": {
+      "$ref": "8"
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "122",
+     "Name": "language",
+     "SerializedName": "language",
+     "Description": "The spoken language that was detected in the translated audio data.\nThis is expressed as a two-letter ISO-639-1 language code like 'en' or 'fr'.",
+     "Type": {
+      "$id": "123",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "124",
+     "Name": "duration",
+     "SerializedName": "duration",
+     "Description": "The total duration of the audio processed to produce accompanying translation information.",
+     "Type": {
+      "$id": "125",
+      "Name": "duration",
+      "Kind": "DurationSecondsFloat",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "126",
+     "Name": "segments",
+     "SerializedName": "segments",
+     "Description": "A collection of information about the timing, probabilities, and other detail of each processed audio segment.",
+     "Type": {
+      "$id": "127",
+      "Name": "Array",
+      "ElementType": {
+       "$id": "128",
+       "Name": "AudioTranslationSegment",
+       "Namespace": "Azure.OpenAI",
+       "Description": "Extended information about a single segment of translated audio data.\nSegments generally represent roughly 5-10 seconds of speech. Segment boundaries typically occur between words but not\nnecessarily sentences.",
+       "IsNullable": false,
+       "Usage": "Output",
+       "Properties": [
+        {
+         "$id": "129",
+         "Name": "id",
+         "SerializedName": "id",
+         "Description": "The 0-based index of this segment within a translation.",
+         "Type": {
+          "$id": "130",
+          "Name": "int32",
+          "Kind": "Int32",
+          "IsNullable": false
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "131",
+         "Name": "start",
+         "SerializedName": "start",
+         "Description": "The time at which this segment started relative to the beginning of the translated audio.",
+         "Type": {
+          "$id": "132",
+          "Name": "duration",
+          "Kind": "DurationSecondsFloat",
+          "IsNullable": false
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "133",
+         "Name": "end",
+         "SerializedName": "end",
+         "Description": "The time at which this segment ended relative to the beginning of the translated audio.",
+         "Type": {
+          "$id": "134",
+          "Name": "duration",
+          "Kind": "DurationSecondsFloat",
+          "IsNullable": false
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "135",
+         "Name": "text",
+         "SerializedName": "text",
+         "Description": "The translated text that was part of this audio segment.",
+         "Type": {
+          "$id": "136",
+          "Name": "string",
+          "Kind": "String",
+          "IsNullable": false
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "137",
+         "Name": "temperature",
+         "SerializedName": "temperature",
+         "Description": "The temperature score associated with this audio segment.",
+         "Type": {
+          "$id": "138",
+          "Name": "float32",
+          "Kind": "Float32",
+          "IsNullable": false
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "139",
+         "Name": "AverageLogProbability",
+         "SerializedName": "avg_logprob",
+         "Description": "The average log probability associated with this audio segment.",
+         "Type": {
+          "$id": "140",
+          "Name": "float32",
+          "Kind": "Float32",
+          "IsNullable": false
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "141",
+         "Name": "compressionRatio",
+         "SerializedName": "compression_ratio",
+         "Description": "The compression ratio of this audio segment.",
+         "Type": {
+          "$id": "142",
+          "Name": "float32",
+          "Kind": "Float32",
+          "IsNullable": false
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "143",
+         "Name": "NoSpeechProbability",
+         "SerializedName": "no_speech_prob",
+         "Description": "The probability of no speech detection within this audio segment.",
+         "Type": {
+          "$id": "144",
+          "Name": "float32",
+          "Kind": "Float32",
+          "IsNullable": false
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "145",
+         "Name": "tokens",
+         "SerializedName": "tokens",
+         "Description": "The token IDs matching the translated text in this audio segment.",
+         "Type": {
+          "$id": "146",
+          "Name": "Array",
+          "ElementType": {
+           "$id": "147",
+           "Name": "int32",
+           "Kind": "Int32",
+           "IsNullable": false
+          },
+          "IsNullable": false
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "148",
+         "Name": "seek",
+         "SerializedName": "seek",
+         "Description": "The seek position associated with the processing of this audio segment.\nSeek positions are expressed as hundredths of seconds.\nThe model may process several segments from a single seek position, so while the seek position will never represent\na later time than the segment's start, the segment's start may represent a significantly later time than the\nsegment's associated seek position.",
+         "Type": {
+          "$id": "149",
+          "Name": "int32",
+          "Kind": "Int32",
+          "IsNullable": false
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        }
+       ]
+      },
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    }
+   ]
+  },
+  {
+   "$ref": "128"
+  },
+  {
+   "$id": "150",
+   "Name": "CompletionsOptions",
+   "Namespace": "Azure.OpenAI",
+   "Description": "The configuration information for a completions request.\nCompletions support a wide variety of tasks and generate text that continues from or \"completes\"\nprovided prompt data.",
+   "IsNullable": false,
+   "Usage": "Input",
+   "Properties": [
+    {
+     "$id": "151",
+     "Name": "Prompts",
+     "SerializedName": "prompt",
+     "Description": "The prompts to generate completions from.",
+     "Type": {
+      "$id": "152",
+      "Name": "Array",
+      "ElementType": {
+       "$id": "153",
+       "Name": "string",
+       "Kind": "String",
+       "IsNullable": false
+      },
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "154",
+     "Name": "maxTokens",
+     "SerializedName": "max_tokens",
+     "Description": "The maximum number of tokens to generate.",
+     "Type": {
+      "$id": "155",
+      "Name": "int32",
+      "Kind": "Int32",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "156",
+     "Name": "temperature",
+     "SerializedName": "temperature",
+     "Description": "The sampling temperature to use that controls the apparent creativity of generated completions.\nHigher values will make output more random while lower values will make results more focused\nand deterministic.\nIt is not recommended to modify temperature and top_p for the same completions request as the\ninteraction of these two settings is difficult to predict.",
+     "Type": {
+      "$id": "157",
+      "Name": "float32",
+      "Kind": "Float32",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "158",
+     "Name": "NucleusSamplingFactor",
+     "SerializedName": "top_p",
+     "Description": "An alternative to sampling with temperature called nucleus sampling. This value causes the\nmodel to consider the results of tokens with the provided probability mass. As an example, a\nvalue of 0.15 will cause only the tokens comprising the top 15% of probability mass to be\nconsidered.\nIt is not recommended to modify temperature and top_p for the same completions request as the\ninteraction of these two settings is difficult to predict.",
+     "Type": {
+      "$id": "159",
+      "Name": "float32",
+      "Kind": "Float32",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "160",
+     "Name": "InternalStringKeyedTokenSelectionBiases",
+     "SerializedName": "logit_bias",
+     "Description": "A map between GPT token IDs and bias scores that influences the probability of specific tokens\nappearing in a completions response. Token IDs are computed via external tokenizer tools, while\nbias scores reside in the range of -100 to 100 with minimum and maximum values corresponding to\na full ban or exclusive selection of a token, respectively. The exact behavior of a given bias\nscore varies by model.",
+     "Type": {
+      "$id": "161",
+      "Name": "Dictionary",
+      "KeyType": {
+       "$id": "162",
+       "Name": "string",
+       "Kind": "String",
+       "IsNullable": false
+      },
+      "ValueType": {
+       "$id": "163",
+       "Name": "int32",
+       "Kind": "Int32",
+       "IsNullable": false
+      },
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "164",
+     "Name": "user",
+     "SerializedName": "user",
+     "Description": "An identifier for the caller or end user of the operation. This may be used for tracking\nor rate-limiting purposes.",
+     "Type": {
+      "$id": "165",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "166",
+     "Name": "ChoicesPerPrompt",
+     "SerializedName": "n",
+     "Description": "The number of completions choices that should be generated per provided prompt as part of an\noverall completions response.\nBecause this setting can generate many completions, it may quickly consume your token quota.\nUse carefully and ensure reasonable settings for max_tokens and stop.",
+     "Type": {
+      "$id": "167",
+      "Name": "int32",
+      "Kind": "Int32",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "168",
+     "Name": "LogProbabilityCount",
+     "SerializedName": "logprobs",
+     "Description": "A value that controls the emission of log probabilities for the provided number of most likely\ntokens within a completions response.",
+     "Type": {
+      "$id": "169",
+      "Name": "int32",
+      "Kind": "Int32",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "170",
+     "Name": "echo",
+     "SerializedName": "echo",
+     "Description": "A value specifying whether completions responses should include input prompts as prefixes to\ntheir generated output.",
+     "Type": {
+      "$id": "171",
+      "Name": "boolean",
+      "Kind": "Boolean",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "172",
+     "Name": "StopSequences",
+     "SerializedName": "stop",
+     "Description": "A collection of textual sequences that will end completions generation.",
+     "Type": {
+      "$id": "173",
+      "Name": "Array",
+      "ElementType": {
+       "$id": "174",
+       "Name": "string",
+       "Kind": "String",
+       "IsNullable": false
+      },
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "175",
+     "Name": "presencePenalty",
+     "SerializedName": "presence_penalty",
+     "Description": "A value that influences the probability of generated tokens appearing based on their existing\npresence in generated text.\nPositive values will make tokens less likely to appear when they already exist and increase the\nmodel's likelihood to output new topics.",
+     "Type": {
+      "$id": "176",
+      "Name": "float32",
+      "Kind": "Float32",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "177",
+     "Name": "frequencyPenalty",
+     "SerializedName": "frequency_penalty",
+     "Description": "A value that influences the probability of generated tokens appearing based on their cumulative\nfrequency in generated text.\nPositive values will make tokens less likely to appear as their frequency increases and\ndecrease the likelihood of the model repeating the same statements verbatim.",
+     "Type": {
+      "$id": "178",
+      "Name": "float32",
+      "Kind": "Float32",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "179",
+     "Name": "GenerationSampleCount",
+     "SerializedName": "best_of",
+     "Description": "A value that controls how many completions will be internally generated prior to response\nformulation.\nWhen used together with n, best_of controls the number of candidate completions and must be\ngreater than n.\nBecause this setting can generate many completions, it may quickly consume your token quota.\nUse carefully and ensure reasonable settings for max_tokens and stop.",
+     "Type": {
+      "$id": "180",
+      "Name": "int32",
+      "Kind": "Int32",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "181",
+     "Name": "InternalShouldStreamResponse",
+     "SerializedName": "stream",
+     "Description": "A value indicating whether chat completions should be streamed for this request.",
+     "Type": {
+      "$id": "182",
+      "Name": "boolean",
+      "Kind": "Boolean",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "183",
+     "Name": "InternalNonAzureModelName",
+     "SerializedName": "model",
+     "Description": "The model name to provide as part of this completions request.\nNot applicable to Azure OpenAI, where deployment information should be included in the Azure\nresource URI that's connected to.",
+     "Type": {
+      "$id": "184",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    }
+   ]
+  },
+  {
+   "$id": "185",
+   "Name": "Completions",
+   "Namespace": "Azure.OpenAI",
+   "Description": "Representation of the response data from a completions request.\nCompletions support a wide variety of tasks and generate text that continues from or \"completes\"\nprovided prompt data.",
+   "IsNullable": false,
+   "Usage": "Output",
+   "Properties": [
+    {
+     "$id": "186",
+     "Name": "id",
+     "SerializedName": "id",
+     "Description": "A unique identifier associated with this completions response.",
+     "Type": {
+      "$id": "187",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "188",
+     "Name": "created",
+     "SerializedName": "created",
+     "Description": "The first timestamp associated with generation activity for this completions response,\nrepresented as seconds since the beginning of the Unix epoch of 00:00 on 1 Jan 1970.",
+     "Type": {
+      "$id": "189",
+      "Name": "utcDateTime",
+      "Kind": "DateTimeUnix",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "190",
+     "Name": "promptFilterResults",
+     "SerializedName": "prompt_filter_results",
+     "Description": "Content filtering results for zero or more prompts in the request. In a streaming request,\nresults for different prompts may arrive at different times or in different orders.",
+     "Type": {
+      "$id": "191",
+      "Name": "Array",
+      "ElementType": {
+       "$id": "192",
+       "Name": "PromptFilterResult",
+       "Namespace": "Azure.OpenAI",
+       "Description": "Content filtering results for a single prompt in the request.",
+       "IsNullable": false,
+       "Usage": "Output",
+       "Properties": [
+        {
+         "$id": "193",
+         "Name": "promptIndex",
+         "SerializedName": "prompt_index",
+         "Description": "The index of this prompt in the set of prompt results",
+         "Type": {
+          "$id": "194",
+          "Name": "int32",
+          "Kind": "Int32",
+          "IsNullable": false
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "195",
+         "Name": "contentFilterResults",
+         "SerializedName": "content_filter_results",
+         "Description": "Content filtering results for this prompt",
+         "Type": {
+          "$id": "196",
+          "Name": "ContentFilterResults",
+          "Namespace": "Azure.OpenAI",
+          "Description": "Information about the content filtering category, if it has been detected.",
+          "IsNullable": false,
+          "Usage": "Output",
+          "Properties": [
+           {
+            "$id": "197",
+            "Name": "sexual",
+            "SerializedName": "sexual",
+            "Description": "Describes language related to anatomical organs and genitals, romantic relationships,\n acts portrayed in erotic or affectionate terms, physical sexual acts, including \n those portrayed as an assault or a forced sexual violent act against one’s will, \n prostitution, pornography, and abuse.",
+            "Type": {
+             "$id": "198",
+             "Name": "ContentFilterResult",
+             "Namespace": "Azure.OpenAI",
+             "Description": "Information about filtered content severity level and if it has been filtered or not.",
+             "IsNullable": false,
+             "Usage": "Output",
+             "Properties": [
+              {
+               "$id": "199",
+               "Name": "severity",
+               "SerializedName": "severity",
+               "Description": "Ratings for the intensity and risk level of filtered content.",
+               "Type": {
+                "$ref": "17"
+               },
+               "IsRequired": true,
+               "IsReadOnly": false
+              },
+              {
+               "$id": "200",
+               "Name": "filtered",
+               "SerializedName": "filtered",
+               "Description": "A value indicating whether or not the content has been filtered.",
+               "Type": {
+                "$id": "201",
+                "Name": "boolean",
+                "Kind": "Boolean",
+                "IsNullable": false
+               },
+               "IsRequired": true,
+               "IsReadOnly": false
+              }
+             ]
+            },
+            "IsRequired": false,
+            "IsReadOnly": false
+           },
+           {
+            "$id": "202",
+            "Name": "violence",
+            "SerializedName": "violence",
+            "Description": "Describes language related to physical actions intended to hurt, injure, damage, or \nkill someone or something; describes weapons, etc.",
+            "Type": {
+             "$ref": "198"
+            },
+            "IsRequired": false,
+            "IsReadOnly": false
+           },
+           {
+            "$id": "203",
+            "Name": "hate",
+            "SerializedName": "hate",
+            "Description": "Describes language attacks or uses that include pejorative or discriminatory language \nwith reference to a person or identity group on the basis of certain differentiating \nattributes of these groups including but not limited to race, ethnicity, nationality,\ngender identity and expression, sexual orientation, religion, immigration status, ability\nstatus, personal appearance, and body size.",
+            "Type": {
+             "$ref": "198"
+            },
+            "IsRequired": false,
+            "IsReadOnly": false
+           },
+           {
+            "$id": "204",
+            "Name": "selfHarm",
+            "SerializedName": "self_harm",
+            "Description": "Describes language related to physical actions intended to purposely hurt, injure,\nor damage one’s body, or kill oneself.",
+            "Type": {
+             "$ref": "198"
+            },
+            "IsRequired": false,
+            "IsReadOnly": false
+           },
+           {
+            "$id": "205",
+            "Name": "error",
+            "SerializedName": "error",
+            "Description": "Describes an error returned if the content filtering system is\ndown or otherwise unable to complete the operation in time.",
+            "Type": {
+             "$id": "206",
+             "Name": "Error",
+             "Namespace": "Azure.Core.Foundations",
+             "Description": "The error object.",
+             "IsNullable": false,
+             "Usage": "Output",
+             "Properties": [
+              {
+               "$id": "207",
+               "Name": "code",
+               "SerializedName": "code",
+               "Description": "One of a server-defined set of error codes.",
+               "Type": {
+                "$id": "208",
+                "Name": "string",
+                "Kind": "String",
+                "IsNullable": false
+               },
+               "IsRequired": true,
+               "IsReadOnly": false
+              },
+              {
+               "$id": "209",
+               "Name": "message",
+               "SerializedName": "message",
+               "Description": "A human-readable representation of the error.",
+               "Type": {
+                "$id": "210",
+                "Name": "string",
+                "Kind": "String",
+                "IsNullable": false
+               },
+               "IsRequired": true,
+               "IsReadOnly": false
+              },
+              {
+               "$id": "211",
+               "Name": "target",
+               "SerializedName": "target",
+               "Description": "The target of the error.",
+               "Type": {
+                "$id": "212",
+                "Name": "string",
+                "Kind": "String",
+                "IsNullable": false
+               },
+               "IsRequired": false,
+               "IsReadOnly": false
+              },
+              {
+               "$id": "213",
+               "Name": "details",
+               "SerializedName": "details",
+               "Description": "An array of details about specific errors that led to this reported error.",
+               "Type": {
+                "$id": "214",
+                "Name": "Array",
+                "ElementType": {
+                 "$ref": "206"
+                },
+                "IsNullable": false
+               },
+               "IsRequired": false,
+               "IsReadOnly": false
+              },
+              {
+               "$id": "215",
+               "Name": "innererror",
+               "SerializedName": "innererror",
+               "Description": "An object containing more specific information than the current object about the error.",
+               "Type": {
+                "$id": "216",
+                "Name": "InnerError",
+                "Namespace": "Azure.Core.Foundations",
+                "Description": "An object containing more specific information about the error. As per Microsoft One API guidelines - https://github.com/Microsoft/api-guidelines/blob/vNext/Guidelines.md#7102-error-condition-responses.",
+                "IsNullable": false,
+                "Usage": "Output",
+                "Properties": [
+                 {
+                  "$id": "217",
+                  "Name": "code",
+                  "SerializedName": "code",
+                  "Description": "One of a server-defined set of error codes.",
+                  "Type": {
+                   "$id": "218",
+                   "Name": "string",
+                   "Kind": "String",
+                   "IsNullable": false
+                  },
+                  "IsRequired": false,
+                  "IsReadOnly": false
+                 },
+                 {
+                  "$id": "219",
+                  "Name": "InnerErrorObject",
+                  "SerializedName": "innererror",
+                  "Description": "Inner error.",
+                  "Type": {
+                   "$ref": "216"
+                  },
+                  "IsRequired": false,
+                  "IsReadOnly": false
+                 }
+                ]
+               },
+               "IsRequired": false,
+               "IsReadOnly": false
+              }
+             ]
+            },
+            "IsRequired": false,
+            "IsReadOnly": false
+           }
+          ]
+         },
+         "IsRequired": false,
+         "IsReadOnly": false
+        }
+       ]
+      },
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "220",
+     "Name": "choices",
+     "SerializedName": "choices",
+     "Description": "The collection of completions choices associated with this completions response.\nGenerally, `n` choices are generated per provided prompt with a default value of 1.\nToken limits and other settings may limit the number of choices generated.",
+     "Type": {
+      "$id": "221",
+      "Name": "Array",
+      "ElementType": {
+       "$id": "222",
+       "Name": "Choice",
+       "Namespace": "Azure.OpenAI",
+       "Description": "The representation of a single prompt completion as part of an overall completions request.\nGenerally, `n` choices are generated per provided prompt with a default value of 1.\nToken limits and other settings may limit the number of choices generated.",
+       "IsNullable": false,
+       "Usage": "Output",
+       "Properties": [
+        {
+         "$id": "223",
+         "Name": "text",
+         "SerializedName": "text",
+         "Description": "The generated text for a given completions prompt.",
+         "Type": {
+          "$id": "224",
+          "Name": "string",
+          "Kind": "String",
+          "IsNullable": false
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "225",
+         "Name": "index",
+         "SerializedName": "index",
+         "Description": "The ordered index associated with this completions choice.",
+         "Type": {
+          "$id": "226",
+          "Name": "int32",
+          "Kind": "Int32",
+          "IsNullable": false
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "227",
+         "Name": "contentFilterResults",
+         "SerializedName": "content_filter_results",
+         "Description": "Information about the content filtering category (hate, sexual, violence, self_harm), if it\nhas been detected, as well as the severity level (very_low, low, medium, high-scale that\ndetermines the intensity and risk level of harmful content) and if it has been filtered or not.",
+         "Type": {
+          "$ref": "196"
+         },
+         "IsRequired": false,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "228",
+         "Name": "LogProbabilityModel",
+         "SerializedName": "logprobs",
+         "Description": "The log probabilities model for tokens associated with this completions choice.",
+         "Type": {
+          "$id": "229",
+          "Name": "CompletionsLogProbabilityModel",
+          "Namespace": "Azure.OpenAI",
+          "Description": "Representation of a log probabilities model for a completions generation.",
+          "IsNullable": true,
+          "Usage": "Output",
+          "Properties": [
+           {
+            "$id": "230",
+            "Name": "tokens",
+            "SerializedName": "tokens",
+            "Description": "The textual forms of tokens evaluated in this probability model.",
+            "Type": {
+             "$id": "231",
+             "Name": "Array",
+             "ElementType": {
+              "$id": "232",
+              "Name": "string",
+              "Kind": "String",
+              "IsNullable": false
+             },
+             "IsNullable": false
+            },
+            "IsRequired": true,
+            "IsReadOnly": false
+           },
+           {
+            "$id": "233",
+            "Name": "TokenLogProbabilities",
+            "SerializedName": "token_logprobs",
+            "Description": "A collection of log probability values for the tokens in this completions data.",
+            "Type": {
+             "$id": "234",
+             "Name": "Array",
+             "ElementType": {
+              "$id": "235",
+              "Name": "float32",
+              "Kind": "Float32",
+              "IsNullable": true
+             },
+             "IsNullable": false
+            },
+            "IsRequired": true,
+            "IsReadOnly": false
+           },
+           {
+            "$id": "236",
+            "Name": "TopLogProbabilities",
+            "SerializedName": "top_logprobs",
+            "Description": "A mapping of tokens to maximum log probability values in this completions data.",
+            "Type": {
+             "$id": "237",
+             "Name": "Array",
+             "ElementType": {
+              "$id": "238",
+              "Name": "Dictionary",
+              "KeyType": {
+               "$id": "239",
+               "Name": "string",
+               "Kind": "String",
+               "IsNullable": false
+              },
+              "ValueType": {
+               "$id": "240",
+               "Name": "float32",
+               "Kind": "Float32",
+               "IsNullable": true
+              },
+              "IsNullable": false
+             },
+             "IsNullable": false
+            },
+            "IsRequired": true,
+            "IsReadOnly": false
+           },
+           {
+            "$id": "241",
+            "Name": "TextOffsets",
+            "SerializedName": "text_offset",
+            "Description": "The text offsets associated with tokens in this completions data.",
+            "Type": {
+             "$id": "242",
+             "Name": "Array",
+             "ElementType": {
+              "$id": "243",
+              "Name": "int32",
+              "Kind": "Int32",
+              "IsNullable": false
+             },
+             "IsNullable": false
+            },
+            "IsRequired": true,
+            "IsReadOnly": false
+           }
+          ]
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "244",
+         "Name": "finishReason",
+         "SerializedName": "finish_reason",
+         "Description": "Reason for finishing",
+         "Type": {
+          "$ref": "22"
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        }
+       ]
+      },
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "245",
+     "Name": "usage",
+     "SerializedName": "usage",
+     "Description": "Usage information for tokens processed and generated as part of this completions operation.",
+     "Type": {
+      "$id": "246",
+      "Name": "CompletionsUsage",
+      "Namespace": "Azure.OpenAI",
+      "Description": "Representation of the token counts processed for a completions request.\nCounts consider all tokens across prompts, choices, choice alternates, best_of generations, and\nother consumers.",
+      "IsNullable": false,
+      "Usage": "Output",
+      "Properties": [
+       {
+        "$id": "247",
+        "Name": "completionTokens",
+        "SerializedName": "completion_tokens",
+        "Description": "The number of tokens generated across all completions emissions.",
+        "Type": {
+         "$id": "248",
+         "Name": "int32",
+         "Kind": "Int32",
+         "IsNullable": false
+        },
+        "IsRequired": true,
+        "IsReadOnly": false
+       },
+       {
+        "$id": "249",
+        "Name": "promptTokens",
+        "SerializedName": "prompt_tokens",
+        "Description": "The number of tokens in the provided prompts for the completions request.",
+        "Type": {
+         "$id": "250",
+         "Name": "int32",
+         "Kind": "Int32",
+         "IsNullable": false
+        },
+        "IsRequired": true,
+        "IsReadOnly": false
+       },
+       {
+        "$id": "251",
+        "Name": "totalTokens",
+        "SerializedName": "total_tokens",
+        "Description": "The total number of tokens processed for the completions request and response.",
+        "Type": {
+         "$id": "252",
+         "Name": "int32",
+         "Kind": "Int32",
+         "IsNullable": false
+        },
+        "IsRequired": true,
+        "IsReadOnly": false
+       }
+      ]
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    }
+   ]
+  },
+  {
+   "$ref": "192"
+  },
+  {
+   "$ref": "196"
+  },
+  {
+   "$ref": "198"
+  },
+  {
+   "$ref": "206"
+  },
+  {
+   "$ref": "216"
+  },
+  {
+   "$ref": "222"
+  },
+  {
+   "$ref": "229"
+  },
+  {
+   "$ref": "246"
+  },
+  {
+   "$id": "253",
+   "Name": "ChatCompletionsOptions",
+   "Namespace": "Azure.OpenAI",
+   "Description": "The configuration information for a chat completions request.\nCompletions support a wide variety of tasks and generate text that continues from or \"completes\"\nprovided prompt data.",
+   "IsNullable": false,
+   "Usage": "Input",
+   "Properties": [
+    {
+     "$id": "254",
+     "Name": "messages",
+     "SerializedName": "messages",
+     "Description": "The collection of context messages associated with this chat completions request.\nTypical usage begins with a chat message for the System role that provides instructions for\nthe behavior of the assistant, followed by alternating messages between the User and\nAssistant roles.",
+     "Type": {
+      "$id": "255",
+      "Name": "Array",
+      "ElementType": {
+       "$id": "256",
+       "Name": "ChatMessage",
+       "Namespace": "Azure.OpenAI",
+       "Description": "A single, role-attributed message within a chat completion interaction.",
+       "IsNullable": false,
+       "Usage": "RoundTrip",
+       "Properties": [
+        {
+         "$id": "257",
+         "Name": "role",
+         "SerializedName": "role",
+         "Description": "The role associated with this message payload.",
+         "Type": {
+          "$ref": "27"
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "258",
+         "Name": "content",
+         "SerializedName": "content",
+         "Description": "The text associated with this message payload.",
+         "Type": {
+          "$id": "259",
+          "Name": "string",
+          "Kind": "String",
+          "IsNullable": true
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "260",
+         "Name": "name",
+         "SerializedName": "name",
+         "Description": "The name of the author of this message. `name` is required if role is `function`, and it should be the name of the\nfunction whose response is in the `content`. May contain a-z, A-Z, 0-9, and underscores, with a maximum length of\n64 characters.",
+         "Type": {
+          "$id": "261",
+          "Name": "string",
+          "Kind": "String",
+          "IsNullable": false
+         },
+         "IsRequired": false,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "262",
+         "Name": "functionCall",
+         "SerializedName": "function_call",
+         "Description": "The name and arguments of a function that should be called, as generated by the model.",
+         "Type": {
+          "$id": "263",
+          "Name": "FunctionCall",
+          "Namespace": "Azure.OpenAI",
+          "Description": "The name and arguments of a function that should be called, as generated by the model.",
+          "IsNullable": false,
+          "Usage": "RoundTrip",
+          "Properties": [
+           {
+            "$id": "264",
+            "Name": "name",
+            "SerializedName": "name",
+            "Description": "The name of the function to call.",
+            "Type": {
+             "$id": "265",
+             "Name": "string",
+             "Kind": "String",
+             "IsNullable": false
+            },
+            "IsRequired": true,
+            "IsReadOnly": false
+           },
+           {
+            "$id": "266",
+            "Name": "arguments",
+            "SerializedName": "arguments",
+            "Description": "The arguments to call the function with, as generated by the model in JSON format.\nNote that the model does not always generate valid JSON, and may hallucinate parameters\nnot defined by your function schema. Validate the arguments in your code before calling\nyour function.",
+            "Type": {
+             "$id": "267",
+             "Name": "string",
+             "Kind": "String",
+             "IsNullable": false
+            },
+            "IsRequired": true,
+            "IsReadOnly": false
+           }
+          ]
+         },
+         "IsRequired": false,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "268",
+         "Name": "AzureExtensionsContext",
+         "SerializedName": "context",
+         "Description": "  Additional context data associated with a chat message when requesting chat completions using compatible Azure\n  OpenAI chat extensions. This includes information like the intermediate data source retrievals used to service a\n  request.\n  This context information is only populated when using Azure OpenAI with chat extensions capabilities configured.",
+         "Type": {
+          "$id": "269",
+          "Name": "AzureChatExtensionsMessageContext",
+          "Namespace": "Azure.OpenAI",
+          "Description": "  A representation of the additional context information available when Azure OpenAI chat extensions are involved\n  in the generation of a corresponding chat completions response. This context information is only populated when\n  using an Azure OpenAI request configured to use a matching extension.",
+          "IsNullable": false,
+          "Usage": "RoundTrip",
+          "Properties": [
+           {
+            "$id": "270",
+            "Name": "messages",
+            "SerializedName": "messages",
+            "Description": "  The contextual message payload associated with the Azure chat extensions used for a chat completions request.\n  These messages describe the data source retrievals, plugin invocations, and other intermediate steps taken in the\n  course of generating a chat completions response that was augmented by capabilities from Azure OpenAI chat\n  extensions.",
+            "Type": {
+             "$id": "271",
+             "Name": "Array",
+             "ElementType": {
+              "$ref": "256"
+             },
+             "IsNullable": false
+            },
+            "IsRequired": false,
+            "IsReadOnly": false
+           }
+          ]
+         },
+         "IsRequired": false,
+         "IsReadOnly": false
+        }
+       ]
+      },
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "272",
+     "Name": "functions",
+     "SerializedName": "functions",
+     "Description": "A list of functions the model may generate JSON inputs for.",
+     "Type": {
+      "$id": "273",
+      "Name": "Array",
+      "ElementType": {
+       "$id": "274",
+       "Name": "FunctionDefinition",
+       "Namespace": "Azure.OpenAI",
+       "Description": "The definition of a caller-specified function that chat completions may invoke in response to matching user input.",
+       "IsNullable": false,
+       "Usage": "Input",
+       "Properties": [
+        {
+         "$id": "275",
+         "Name": "name",
+         "SerializedName": "name",
+         "Description": "The name of the function to be called.",
+         "Type": {
+          "$id": "276",
+          "Name": "string",
+          "Kind": "String",
+          "IsNullable": false
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "277",
+         "Name": "description",
+         "SerializedName": "description",
+         "Description": "A description of what the function does. The model will use this description when selecting the function and\ninterpreting its parameters.",
+         "Type": {
+          "$id": "278",
+          "Name": "string",
+          "Kind": "String",
+          "IsNullable": false
+         },
+         "IsRequired": false,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "279",
+         "Name": "parameters",
+         "SerializedName": "parameters",
+         "Description": "The parameters the functions accepts, described as a JSON Schema object.",
+         "Type": {
+          "$id": "280",
+          "Name": "Intrinsic",
+          "Kind": "unknown",
+          "IsNullable": false
+         },
+         "IsRequired": false,
+         "IsReadOnly": false
+        }
+       ]
+      },
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "281",
+     "Name": "functionCall",
+     "SerializedName": "function_call",
+     "Description": "Controls how the model responds to function calls. \"none\" means the model does not call a function,\nand responds to the end-user. \"auto\" means the model can pick between an end-user or calling a function.\n Specifying a particular function via `{\"name\": \"my_function\"}` forces the model to call that function.\n \"none\" is the default when no functions are present. \"auto\" is the default if functions are present.",
+     "Type": {
+      "$id": "282",
+      "Name": "Union",
+      "UnionItemTypes": [
+       {
+        "$ref": "33"
+       },
+       {
+        "$id": "283",
+        "Name": "FunctionName",
+        "Namespace": "Azure.OpenAI",
+        "Description": "A structure that specifies the exact name of a specific, request-provided function to use when processing a chat\ncompletions operation.",
+        "IsNullable": false,
+        "Usage": "Input",
+        "Properties": [
+         {
+          "$id": "284",
+          "Name": "name",
+          "SerializedName": "name",
+          "Description": "The name of the function to call.",
+          "Type": {
+           "$id": "285",
+           "Name": "string",
+           "Kind": "String",
+           "IsNullable": false
+          },
+          "IsRequired": true,
+          "IsReadOnly": false
+         }
+        ]
+       }
+      ],
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "286",
+     "Name": "maxTokens",
+     "SerializedName": "max_tokens",
+     "Description": "The maximum number of tokens to generate.",
+     "Type": {
+      "$id": "287",
+      "Name": "int32",
+      "Kind": "Int32",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "288",
+     "Name": "temperature",
+     "SerializedName": "temperature",
+     "Description": "The sampling temperature to use that controls the apparent creativity of generated completions.\nHigher values will make output more random while lower values will make results more focused\nand deterministic.\nIt is not recommended to modify temperature and top_p for the same completions request as the\ninteraction of these two settings is difficult to predict.",
+     "Type": {
+      "$id": "289",
+      "Name": "float32",
+      "Kind": "Float32",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "290",
+     "Name": "NucleusSamplingFactor",
+     "SerializedName": "top_p",
+     "Description": "An alternative to sampling with temperature called nucleus sampling. This value causes the\nmodel to consider the results of tokens with the provided probability mass. As an example, a\nvalue of 0.15 will cause only the tokens comprising the top 15% of probability mass to be\nconsidered.\nIt is not recommended to modify temperature and top_p for the same completions request as the\ninteraction of these two settings is difficult to predict.",
+     "Type": {
+      "$id": "291",
+      "Name": "float32",
+      "Kind": "Float32",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "292",
+     "Name": "InternalStringKeyedTokenSelectionBiases",
+     "SerializedName": "logit_bias",
+     "Description": "A map between GPT token IDs and bias scores that influences the probability of specific tokens\nappearing in a completions response. Token IDs are computed via external tokenizer tools, while\nbias scores reside in the range of -100 to 100 with minimum and maximum values corresponding to\na full ban or exclusive selection of a token, respectively. The exact behavior of a given bias\nscore varies by model.",
+     "Type": {
+      "$id": "293",
+      "Name": "Dictionary",
+      "KeyType": {
+       "$id": "294",
+       "Name": "string",
+       "Kind": "String",
+       "IsNullable": false
+      },
+      "ValueType": {
+       "$id": "295",
+       "Name": "int32",
+       "Kind": "Int32",
+       "IsNullable": false
+      },
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "296",
+     "Name": "user",
+     "SerializedName": "user",
+     "Description": "An identifier for the caller or end user of the operation. This may be used for tracking\nor rate-limiting purposes.",
+     "Type": {
+      "$id": "297",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "298",
+     "Name": "ChoiceCount",
+     "SerializedName": "n",
+     "Description": "The number of chat completions choices that should be generated for a chat completions\nresponse.\nBecause this setting can generate many completions, it may quickly consume your token quota.\nUse carefully and ensure reasonable settings for max_tokens and stop.",
+     "Type": {
+      "$id": "299",
+      "Name": "int32",
+      "Kind": "Int32",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "300",
+     "Name": "StopSequences",
+     "SerializedName": "stop",
+     "Description": "A collection of textual sequences that will end completions generation.",
+     "Type": {
+      "$id": "301",
+      "Name": "Array",
+      "ElementType": {
+       "$id": "302",
+       "Name": "string",
+       "Kind": "String",
+       "IsNullable": false
+      },
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "303",
+     "Name": "presencePenalty",
+     "SerializedName": "presence_penalty",
+     "Description": "A value that influences the probability of generated tokens appearing based on their existing\npresence in generated text.\nPositive values will make tokens less likely to appear when they already exist and increase the\nmodel's likelihood to output new topics.",
+     "Type": {
+      "$id": "304",
+      "Name": "float32",
+      "Kind": "Float32",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "305",
+     "Name": "frequencyPenalty",
+     "SerializedName": "frequency_penalty",
+     "Description": "A value that influences the probability of generated tokens appearing based on their cumulative\nfrequency in generated text.\nPositive values will make tokens less likely to appear as their frequency increases and\ndecrease the likelihood of the model repeating the same statements verbatim.",
+     "Type": {
+      "$id": "306",
+      "Name": "float32",
+      "Kind": "Float32",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "307",
+     "Name": "InternalShouldStreamResponse",
+     "SerializedName": "stream",
+     "Description": "A value indicating whether chat completions should be streamed for this request.",
+     "Type": {
+      "$id": "308",
+      "Name": "boolean",
+      "Kind": "Boolean",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "309",
+     "Name": "InternalNonAzureModelName",
+     "SerializedName": "model",
+     "Description": "The model name to provide as part of this completions request.\nNot applicable to Azure OpenAI, where deployment information should be included in the Azure\nresource URI that's connected to.",
+     "Type": {
+      "$id": "310",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "311",
+     "Name": "InternalAzureExtensionsDataSources",
+     "SerializedName": "dataSources",
+     "Description": "  The configuration entries for Azure OpenAI chat extensions that use them.\n  This additional specification is only compatible with Azure OpenAI.",
+     "Type": {
+      "$id": "312",
+      "Name": "Array",
+      "ElementType": {
+       "$id": "313",
+       "Name": "AzureChatExtensionConfiguration",
+       "Namespace": "Azure.OpenAI",
+       "Description": "  A representation of configuration data for a single Azure OpenAI chat extension. This will be used by a chat\n  completions request that should use Azure OpenAI chat extensions to augment the response behavior.\n  The use of this configuration is compatible only with Azure OpenAI.",
+       "IsNullable": false,
+       "Usage": "Input",
+       "Properties": [
+        {
+         "$id": "314",
+         "Name": "type",
+         "SerializedName": "type",
+         "Description": "  The label for the type of an Azure chat extension. This typically corresponds to a matching Azure resource.\n  Azure chat extensions are only compatible with Azure OpenAI.",
+         "Type": {
+          "$ref": "36"
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "315",
+         "Name": "parameters",
+         "SerializedName": "parameters",
+         "Description": "  The configuration payload used for the Azure chat extension. The structure payload details are specific to the\n  extension being configured.\n  Azure chat extensions are only compatible with Azure OpenAI.",
+         "Type": {
+          "$id": "316",
+          "Name": "Intrinsic",
+          "Kind": "unknown",
+          "IsNullable": false
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        }
+       ]
+      },
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    }
+   ]
+  },
+  {
+   "$ref": "256"
+  },
+  {
+   "$ref": "263"
+  },
+  {
+   "$ref": "269"
+  },
+  {
+   "$ref": "274"
+  },
+  {
+   "$ref": "283"
+  },
+  {
+   "$ref": "313"
+  },
+  {
+   "$id": "317",
+   "Name": "ChatCompletions",
+   "Namespace": "Azure.OpenAI",
+   "Description": "Representation of the response data from a chat completions request.\nCompletions support a wide variety of tasks and generate text that continues from or \"completes\"\nprovided prompt data.",
+   "IsNullable": false,
+   "Usage": "Output",
+   "Properties": [
+    {
+     "$id": "318",
+     "Name": "id",
+     "SerializedName": "id",
+     "Description": "A unique identifier associated with this chat completions response.",
+     "Type": {
+      "$id": "319",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "320",
+     "Name": "created",
+     "SerializedName": "created",
+     "Description": "The first timestamp associated with generation activity for this completions response,\nrepresented as seconds since the beginning of the Unix epoch of 00:00 on 1 Jan 1970.",
+     "Type": {
+      "$id": "321",
+      "Name": "utcDateTime",
+      "Kind": "DateTimeUnix",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "322",
+     "Name": "choices",
+     "SerializedName": "choices",
+     "Description": "The collection of completions choices associated with this completions response.\nGenerally, `n` choices are generated per provided prompt with a default value of 1.\nToken limits and other settings may limit the number of choices generated.",
+     "Type": {
+      "$id": "323",
+      "Name": "Array",
+      "ElementType": {
+       "$id": "324",
+       "Name": "ChatChoice",
+       "Namespace": "Azure.OpenAI",
+       "Description": "The representation of a single prompt completion as part of an overall chat completions request.\nGenerally, `n` choices are generated per provided prompt with a default value of 1.\nToken limits and other settings may limit the number of choices generated.",
+       "IsNullable": false,
+       "Usage": "Output",
+       "Properties": [
+        {
+         "$id": "325",
+         "Name": "message",
+         "SerializedName": "message",
+         "Description": "The chat message for a given chat completions prompt.",
+         "Type": {
+          "$ref": "256"
+         },
+         "IsRequired": false,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "326",
+         "Name": "index",
+         "SerializedName": "index",
+         "Description": "The ordered index associated with this chat completions choice.",
+         "Type": {
+          "$id": "327",
+          "Name": "int32",
+          "Kind": "Int32",
+          "IsNullable": false
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "328",
+         "Name": "finishReason",
+         "SerializedName": "finish_reason",
+         "Description": "The reason that this chat completions choice completed its generated.",
+         "Type": {
+          "$ref": "22"
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "329",
+         "Name": "InternalStreamingDeltaMessage",
+         "SerializedName": "delta",
+         "Description": "The delta message content for a streaming response.",
+         "Type": {
+          "$ref": "256"
+         },
+         "IsRequired": false,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "330",
+         "Name": "contentFilterResults",
+         "SerializedName": "content_filter_results",
+         "Description": "Information about the content filtering category (hate, sexual, violence, self_harm), if it\nhas been detected, as well as the severity level (very_low, low, medium, high-scale that\ndetermines the intensity and risk level of harmful content) and if it has been filtered or not.",
+         "Type": {
+          "$ref": "196"
+         },
+         "IsRequired": false,
+         "IsReadOnly": false
+        }
+       ]
+      },
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "331",
+     "Name": "promptFilterResults",
+     "SerializedName": "prompt_filter_results",
+     "Description": "Content filtering results for zero or more prompts in the request. In a streaming request,\nresults for different prompts may arrive at different times or in different orders.",
+     "Type": {
+      "$id": "332",
+      "Name": "Array",
+      "ElementType": {
+       "$ref": "192"
+      },
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "333",
+     "Name": "usage",
+     "SerializedName": "usage",
+     "Description": "Usage information for tokens processed and generated as part of this completions operation.",
+     "Type": {
+      "$ref": "246"
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    }
+   ]
+  },
+  {
+   "$ref": "324"
+  },
+  {
+   "$id": "334",
+   "Name": "ImageGenerationOptions",
+   "Namespace": "Azure.OpenAI",
+   "Accessibility": "public",
+   "Description": "Represents the request data used to generate images.",
+   "IsNullable": false,
+   "Usage": "Input",
+   "Properties": [
+    {
+     "$id": "335",
+     "Name": "prompt",
+     "SerializedName": "prompt",
+     "Description": "A description of the desired images.",
+     "Type": {
+      "$id": "336",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "337",
+     "Name": "ImageCount",
+     "SerializedName": "n",
+     "Description": "The number of images to generate (defaults to 1).",
+     "Type": {
+      "$id": "338",
+      "Name": "int32",
+      "Kind": "Int32",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "339",
+     "Name": "size",
+     "SerializedName": "size",
+     "Description": "The desired size of the generated images. Must be one of 256x256, 512x512, or 1024x1024 (defaults to 1024x1024).",
+     "Type": {
+      "$ref": "38"
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "340",
+     "Name": "responseFormat",
+     "SerializedName": "response_format",
+     "Description": "  The format in which image generation response items should be presented.\n  Azure OpenAI only supports URL response items.",
+     "Type": {
+      "$ref": "42"
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "341",
+     "Name": "user",
+     "SerializedName": "user",
+     "Description": "A unique identifier representing your end-user, which can help to monitor and detect abuse.",
+     "Type": {
+      "$id": "342",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    }
+   ]
+  },
+  {
+   "$id": "343",
+   "Name": "BatchImageGenerationOperationResponse",
+   "Namespace": "Azure.OpenAI",
+   "Accessibility": "internal",
+   "Description": "A polling status update or final response payload for an image operation.",
+   "IsNullable": false,
+   "Usage": "Output",
+   "Properties": [
+    {
+     "$id": "344",
+     "Name": "id",
+     "SerializedName": "id",
+     "Description": "The ID of the operation.",
+     "Type": {
+      "$id": "345",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "346",
+     "Name": "created",
+     "SerializedName": "created",
+     "Description": "A timestamp when this job or item was created (in unix epochs).",
+     "Type": {
+      "$id": "347",
+      "Name": "utcDateTime",
+      "Kind": "DateTimeUnix",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "348",
+     "Name": "expires",
+     "SerializedName": "expires",
+     "Description": "A timestamp when this operation and its associated images expire and will be deleted (in unix epochs).",
+     "Type": {
+      "$id": "349",
+      "Name": "int64",
+      "Kind": "Int64",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "350",
+     "Name": "result",
+     "SerializedName": "result",
+     "Description": "The result of the operation if the operation succeeded.",
+     "Type": {
+      "$id": "351",
+      "Name": "ImageGenerations",
+      "Namespace": "Azure.OpenAI",
+      "Accessibility": "public",
+      "Description": "The result of the operation if the operation succeeded.",
+      "IsNullable": false,
+      "Usage": "Output",
+      "Properties": [
+       {
+        "$id": "352",
+        "Name": "created",
+        "SerializedName": "created",
+        "Description": "A timestamp when this job or item was created (in unix epochs).",
+        "Type": {
+         "$id": "353",
+         "Name": "utcDateTime",
+         "Kind": "DateTimeUnix",
+         "IsNullable": false
+        },
+        "IsRequired": true,
+        "IsReadOnly": false
+       },
+       {
+        "$id": "354",
+        "Name": "data",
+        "SerializedName": "data",
+        "Description": "The images generated by the operator.",
+        "Type": {
+         "$id": "355",
+         "Name": "Union",
+         "UnionItemTypes": [
+          {
+           "$id": "356",
+           "Name": "Array",
+           "ElementType": {
+            "$id": "357",
+            "Name": "ImageLocation",
+            "Namespace": "Azure.OpenAI",
+            "Accessibility": "public",
+            "Description": "An image response item that provides a URL from which an image may be accessed.",
+            "IsNullable": false,
+            "Usage": "Output",
+            "Properties": [
+             {
+              "$id": "358",
+              "Name": "url",
+              "SerializedName": "url",
+              "Description": "The URL that provides temporary access to download the generated image.",
+              "Type": {
+               "$id": "359",
+               "Name": "url",
+               "Kind": "Uri",
+               "IsNullable": false
+              },
+              "IsRequired": true,
+              "IsReadOnly": false
+             }
+            ]
+           },
+           "IsNullable": false
+          },
+          {
+           "$id": "360",
+           "Name": "Array",
+           "ElementType": {
+            "$id": "361",
+            "Name": "ImagePayload",
+            "Namespace": "Azure.OpenAI",
+            "Description": "An image response item that directly represents the image data as a base64-encoded string.",
+            "IsNullable": false,
+            "Usage": "Output",
+            "Properties": [
+             {
+              "$id": "362",
+              "Name": "base64Data",
+              "SerializedName": "b64_json",
+              "Description": "The complete data for an image represented as a base64-encoded string.",
+              "Type": {
+               "$id": "363",
+               "Name": "string",
+               "Kind": "String",
+               "IsNullable": false
+              },
+              "IsRequired": true,
+              "IsReadOnly": false
+             }
+            ]
+           },
+           "IsNullable": false
+          }
+         ],
+         "IsNullable": false
+        },
+        "IsRequired": true,
+        "IsReadOnly": false
+       }
+      ]
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "364",
+     "Name": "status",
+     "SerializedName": "status",
+     "Description": "The status of the operation",
+     "Type": {
+      "$ref": "45"
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "365",
+     "Name": "error",
+     "SerializedName": "error",
+     "Description": "The error if the operation failed.",
+     "Type": {
+      "$ref": "206"
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    }
+   ]
+  },
+  {
+   "$ref": "351"
+  },
+  {
+   "$ref": "357"
+  },
+  {
+   "$ref": "361"
+  },
+  {
+   "$id": "366",
+   "Name": "EmbeddingsOptions",
+   "Namespace": "Azure.OpenAI",
+   "Description": "The configuration information for an embeddings request.\nEmbeddings measure the relatedness of text strings and are commonly used for search, clustering,\nrecommendations, and other similar scenarios.",
+   "IsNullable": false,
+   "Usage": "Input",
+   "Properties": [
+    {
+     "$id": "367",
+     "Name": "user",
+     "SerializedName": "user",
+     "Description": "An identifier for the caller or end user of the operation. This may be used for tracking\nor rate-limiting purposes.",
+     "Type": {
+      "$id": "368",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "369",
+     "Name": "InternalNonAzureModelName",
+     "SerializedName": "model",
+     "Description": "The model name to provide as part of this embeddings request.\nNot applicable to Azure OpenAI, where deployment information should be included in the Azure\nresource URI that's connected to.",
+     "Type": {
+      "$id": "370",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "371",
+     "Name": "input",
+     "SerializedName": "input",
+     "Description": "Input texts to get embeddings for, encoded as a an array of strings.\nEach input must not exceed 2048 tokens in length.\n\nUnless you are embedding code, we suggest replacing newlines (\\n) in your input with a single space,\nas we have observed inferior results when newlines are present.",
+     "Type": {
+      "$id": "372",
+      "Name": "Array",
+      "ElementType": {
+       "$id": "373",
+       "Name": "string",
+       "Kind": "String",
+       "IsNullable": false
+      },
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    }
+   ]
+  },
+  {
+   "$id": "374",
+   "Name": "Embeddings",
+   "Namespace": "Azure.OpenAI",
+   "Description": "Representation of the response data from an embeddings request.\nEmbeddings measure the relatedness of text strings and are commonly used for search, clustering,\nrecommendations, and other similar scenarios.",
+   "IsNullable": false,
+   "Usage": "Output",
+   "Properties": [
+    {
+     "$id": "375",
+     "Name": "data",
+     "SerializedName": "data",
+     "Description": "Embedding values for the prompts submitted in the request.",
+     "Type": {
+      "$id": "376",
+      "Name": "Array",
+      "ElementType": {
+       "$id": "377",
+       "Name": "EmbeddingItem",
+       "Namespace": "Azure.OpenAI",
+       "Description": "Representation of a single embeddings relatedness comparison.",
+       "IsNullable": false,
+       "Usage": "Output",
+       "Properties": [
+        {
+         "$id": "378",
+         "Name": "embedding",
+         "SerializedName": "embedding",
+         "Description": "List of embeddings value for the input prompt. These represent a measurement of the\nvector-based relatedness of the provided input.",
+         "Type": {
+          "$id": "379",
+          "Name": "Array",
+          "ElementType": {
+           "$id": "380",
+           "Name": "float32",
+           "Kind": "Float32",
+           "IsNullable": false
+          },
+          "IsNullable": false
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        },
+        {
+         "$id": "381",
+         "Name": "index",
+         "SerializedName": "index",
+         "Description": "Index of the prompt to which the EmbeddingItem corresponds.",
+         "Type": {
+          "$id": "382",
+          "Name": "int32",
+          "Kind": "Int32",
+          "IsNullable": false
+         },
+         "IsRequired": true,
+         "IsReadOnly": false
+        }
+       ]
+      },
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "383",
+     "Name": "usage",
+     "SerializedName": "usage",
+     "Description": "Usage counts for tokens input using the embeddings API.",
+     "Type": {
+      "$id": "384",
+      "Name": "EmbeddingsUsage",
+      "Namespace": "Azure.OpenAI",
+      "Description": "Measurement of the amount of tokens used in this request and response.",
+      "IsNullable": false,
+      "Usage": "Output",
+      "Properties": [
+       {
+        "$id": "385",
+        "Name": "promptTokens",
+        "SerializedName": "prompt_tokens",
+        "Description": "Number of tokens sent in the original request.",
+        "Type": {
+         "$id": "386",
+         "Name": "int32",
+         "Kind": "Int32",
+         "IsNullable": false
+        },
+        "IsRequired": true,
+        "IsReadOnly": false
+       },
+       {
+        "$id": "387",
+        "Name": "totalTokens",
+        "SerializedName": "total_tokens",
+        "Description": "Total number of tokens transacted in this request/response.",
+        "Type": {
+         "$id": "388",
+         "Name": "int32",
+         "Kind": "Int32",
+         "IsNullable": false
+        },
+        "IsRequired": true,
+        "IsReadOnly": false
+       }
+      ]
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    }
+   ]
+  },
+  {
+   "$ref": "377"
+  },
+  {
+   "$ref": "384"
+  },
+  {
+   "$id": "389",
+   "Name": "AzureCognitiveSearchIndexFieldMappingOptions",
+   "Namespace": "Azure.OpenAI",
+   "Accessibility": "public",
+   "Description": "Optional settings to control how fields are processed when using a configured Azure Cognitive Search resource.",
+   "IsNullable": false,
+   "Usage": "Input",
+   "Properties": [
+    {
+     "$id": "390",
+     "Name": "TitleFieldName",
+     "SerializedName": "titleField",
+     "Description": "The name of the index field to use as a title.",
+     "Type": {
+      "$id": "391",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "392",
+     "Name": "UrlFieldName",
+     "SerializedName": "urlField",
+     "Description": "The name of the index field to use as a URL.",
+     "Type": {
+      "$id": "393",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "394",
+     "Name": "FilepathFieldName",
+     "SerializedName": "filepathField",
+     "Description": "The name of the index field to use as a filepath.",
+     "Type": {
+      "$id": "395",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "396",
+     "Name": "ContentFieldNames",
+     "SerializedName": "contentFieldNames",
+     "Description": "The names of index fields that should be treated as content.",
+     "Type": {
+      "$id": "397",
+      "Name": "Array",
+      "ElementType": {
+       "$id": "398",
+       "Name": "string",
+       "Kind": "String",
+       "IsNullable": false
+      },
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "399",
+     "Name": "ContentFieldSeparator",
+     "SerializedName": "contentFieldSeparator",
+     "Description": "The separator pattern that content fields should use.",
+     "Type": {
+      "$id": "400",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "401",
+     "Name": "VectorFieldNames",
+     "SerializedName": "vectorFields",
+     "Description": "The names of fields that represent vector data.",
+     "Type": {
+      "$id": "402",
+      "Name": "Array",
+      "ElementType": {
+       "$id": "403",
+       "Name": "string",
+       "Kind": "String",
+       "IsNullable": false
+      },
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    }
+   ]
+  },
+  {
+   "$id": "404",
+   "Name": "AzureCognitiveSearchChatExtensionConfiguration",
+   "Namespace": "Azure.OpenAI",
+   "Accessibility": "public",
+   "Description": "A specific representation of configurable options for Azure Cognitive Search when using it as an Azure OpenAI chat\nextension.",
+   "IsNullable": false,
+   "Usage": "Input",
+   "Properties": [
+    {
+     "$id": "405",
+     "Name": "type",
+     "SerializedName": "type",
+     "Description": "The type label to use when configuring Azure OpenAI chat extensions. This should typically not be changed from its\ndefault value for Azure Cognitive Search.",
+     "Type": {
+      "$ref": "36"
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "406",
+     "Name": "SearchEndpoint",
+     "SerializedName": "endpoint",
+     "Description": "The absolute endpoint path for the Azure Cognitive Search resource to use.",
+     "Type": {
+      "$id": "407",
+      "Name": "url",
+      "Kind": "Uri",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "408",
+     "Name": "SearchKey",
+     "SerializedName": "key",
+     "Description": "The API admin key to use with the specified Azure Cognitive Search endpoint.",
+     "Type": {
+      "$id": "409",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "410",
+     "Name": "indexName",
+     "SerializedName": "indexName",
+     "Description": "The name of the index to use as available in the referenced Azure Cognitive Search resource.",
+     "Type": {
+      "$id": "411",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": true,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "412",
+     "Name": "FieldMappingOptions",
+     "SerializedName": "fieldsMapping",
+     "Description": "Customized field mapping behavior to use when interacting with the search index.",
+     "Type": {
+      "$ref": "389"
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "413",
+     "Name": "DocumentCount",
+     "SerializedName": "topNDocuments",
+     "Description": "The configured top number of documents to feature for the configured query.",
+     "Type": {
+      "$id": "414",
+      "Name": "int32",
+      "Kind": "Int32",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "415",
+     "Name": "queryType",
+     "SerializedName": "queryType",
+     "Description": "The query type to use with Azure Cognitive Search.",
+     "Type": {
+      "$ref": "51"
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "416",
+     "Name": "ShouldRestrictResultScope",
+     "SerializedName": "inScope",
+     "Description": "Whether queries should be restricted to use of indexed data.",
+     "Type": {
+      "$id": "417",
+      "Name": "boolean",
+      "Kind": "Boolean",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "418",
+     "Name": "semanticConfiguration",
+     "SerializedName": "semanticConfiguration",
+     "Description": "The additional semantic configuration for the query.",
+     "Type": {
+      "$id": "419",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "420",
+     "Name": "embeddingEndpoint",
+     "SerializedName": "embeddingEndpoint",
+     "Description": "When using embeddings for search, specifies the resource URL from which embeddings should be retrieved.",
+     "Type": {
+      "$id": "421",
+      "Name": "url",
+      "Kind": "Uri",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    },
+    {
+     "$id": "422",
+     "Name": "embeddingKey",
+     "SerializedName": "embeddingKey",
+     "Description": "When using embeddings, specifies the API key to use with the provided embeddings endpoint.",
+     "Type": {
+      "$id": "423",
+      "Name": "string",
+      "Kind": "String",
+      "IsNullable": false
+     },
+     "IsRequired": false,
+     "IsReadOnly": false
+    }
+   ]
+  }
+ ],
+ "Clients": [
+  {
+   "$id": "424",
+   "Name": "OpenAIClient",
+   "Description": "Azure OpenAI APIs for completions and search",
+   "Operations": [
+    {
+     "$id": "425",
+     "Name": "getAudioTranscriptionAsPlainText",
+     "ResourceName": "OpenAI",
+     "Description": "Gets transcribed text and associated metadata from provided spoken audio data. Audio will be transcribed in the\nwritten language corresponding to the language it was spoken in.",
+     "Parameters": [
+      {
+       "$id": "426",
+       "Name": "endpoint",
+       "NameInRequest": "endpoint",
+       "Description": "Supported Cognitive Services endpoints (protocol and hostname, for example:\nhttps://westus.api.cognitive.microsoft.com).",
+       "Type": {
+        "$id": "427",
+        "Name": "Uri",
+        "Kind": "Uri",
+        "IsNullable": false
+       },
+       "Location": "Uri",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsRequired": true,
+       "IsEndpoint": true,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Client"
+      },
+      {
+       "$id": "428",
+       "Name": "apiVersion",
+       "NameInRequest": "api-version",
+       "Description": "",
+       "Type": {
+        "$id": "429",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Query",
+       "IsRequired": true,
+       "IsApiVersion": true,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "IsResourceParameter": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Client",
+       "DefaultValue": {
+        "$id": "430",
+        "Type": {
+         "$id": "431",
+         "Name": "String",
+         "Kind": "String",
+         "IsNullable": false
+        },
+        "Value": "2023-09-01-preview"
+       }
+      },
+      {
+       "$id": "432",
+       "Name": "deploymentId",
+       "NameInRequest": "deploymentId",
+       "Description": "Specifies either the model deployment name (when using Azure OpenAI) or model name (when using non-Azure OpenAI) to use for this request.",
+       "Type": {
+        "$id": "433",
+        "Name": "string",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Path",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "434",
+       "Name": "AudioTranscriptionOptions",
+       "NameInRequest": "AudioTranscriptionOptions",
+       "Description": "The configuration information for an audio transcription request.",
+       "Type": {
+        "$ref": "64"
+       },
+       "Location": "Body",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "435",
+       "Name": "contentType",
+       "NameInRequest": "Content-Type",
+       "Type": {
+        "$id": "436",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": true,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "437",
+        "Type": {
+         "$ref": "436"
+        },
+        "Value": "application/json"
+       }
+      },
+      {
+       "$id": "438",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "439",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "440",
+        "Type": {
+         "$ref": "439"
+        },
+        "Value": "application/json"
+       }
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "441",
+       "StatusCodes": [
+        200
+       ],
+       "BodyType": {
+        "$id": "442",
+        "Name": "string",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "BodyMediaType": "Json",
+       "Headers": [],
+       "IsErrorResponse": false
+      }
+     ],
+     "HttpMethod": "POST",
+     "RequestBodyMediaType": "Json",
+     "Uri": "{endpoint}/openai",
+     "Path": "/deployments/{deploymentId}/audio/transcriptions",
+     "RequestMediaTypes": [
+      "application/json"
+     ],
+     "BufferResponse": true,
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true
+    },
+    {
+     "$id": "443",
+     "Name": "getAudioTranscriptionAsResponseObject",
+     "ResourceName": "OpenAI",
+     "Description": "Gets transcribed text and associated metadata from provided spoken audio data. Audio will be transcribed in the\nwritten language corresponding to the language it was spoken in.",
+     "Parameters": [
+      {
+       "$ref": "426"
+      },
+      {
+       "$ref": "428"
+      },
+      {
+       "$id": "444",
+       "Name": "deploymentId",
+       "NameInRequest": "deploymentId",
+       "Description": "Specifies either the model deployment name (when using Azure OpenAI) or model name (when using non-Azure OpenAI) to use for this request.",
+       "Type": {
+        "$id": "445",
+        "Name": "string",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Path",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "446",
+       "Name": "contentType",
+       "NameInRequest": "content-type",
+       "Description": "The content type for the operation. Always multipart/form-data for this operation.",
+       "Type": {
+        "$id": "447",
+        "Name": "Literal",
+        "LiteralValueType": {
+         "$id": "448",
+         "Name": "String",
+         "Kind": "String",
+         "IsNullable": false
+        },
+        "Value": "multipart/form-data",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "DefaultValue": {
+        "$id": "449",
+        "Type": {
+         "$ref": "447"
+        },
+        "Value": "multipart/form-data"
+       },
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant"
+      },
+      {
+       "$id": "450",
+       "Name": "AudioTranscriptionOptions",
+       "NameInRequest": "AudioTranscriptionOptions",
+       "Description": "The configuration information for an audio transcription request.",
+       "Type": {
+        "$ref": "64"
+       },
+       "Location": "Body",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "451",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "452",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "453",
+        "Type": {
+         "$ref": "452"
+        },
+        "Value": "application/json"
+       }
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "454",
+       "StatusCodes": [
+        200
+       ],
+       "BodyType": {
+        "$ref": "76"
+       },
+       "BodyMediaType": "Json",
+       "Headers": [],
+       "IsErrorResponse": false
+      }
+     ],
+     "HttpMethod": "POST",
+     "RequestBodyMediaType": "Json",
+     "Uri": "{endpoint}/openai",
+     "Path": "/deployments/{deploymentId}/audio/transcriptions",
+     "RequestMediaTypes": [
+      "multipart/form-data"
+     ],
+     "BufferResponse": true,
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true
+    },
+    {
+     "$id": "455",
+     "Name": "getAudioTranslationAsPlainText",
+     "ResourceName": "OpenAI",
+     "Description": "Gets English language transcribed text and associated metadata from provided spoken audio data.",
+     "Parameters": [
+      {
+       "$ref": "426"
+      },
+      {
+       "$ref": "428"
+      },
+      {
+       "$id": "456",
+       "Name": "deploymentId",
+       "NameInRequest": "deploymentId",
+       "Description": "Specifies either the model deployment name (when using Azure OpenAI) or model name (when using non-Azure OpenAI) to use for this request.",
+       "Type": {
+        "$id": "457",
+        "Name": "string",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Path",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "458",
+       "Name": "AudioTranslationOptions",
+       "NameInRequest": "AudioTranslationOptions",
+       "Description": "The configuration information for an audio translation request.",
+       "Type": {
+        "$ref": "108"
+       },
+       "Location": "Body",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "459",
+       "Name": "contentType",
+       "NameInRequest": "Content-Type",
+       "Type": {
+        "$id": "460",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": true,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "461",
+        "Type": {
+         "$ref": "460"
+        },
+        "Value": "application/json"
+       }
+      },
+      {
+       "$id": "462",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "463",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "464",
+        "Type": {
+         "$ref": "463"
+        },
+        "Value": "application/json"
+       }
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "465",
+       "StatusCodes": [
+        200
+       ],
+       "BodyType": {
+        "$id": "466",
+        "Name": "string",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "BodyMediaType": "Json",
+       "Headers": [],
+       "IsErrorResponse": false
+      }
+     ],
+     "HttpMethod": "POST",
+     "RequestBodyMediaType": "Json",
+     "Uri": "{endpoint}/openai",
+     "Path": "/deployments/{deploymentId}/audio/translations",
+     "RequestMediaTypes": [
+      "application/json"
+     ],
+     "BufferResponse": true,
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true
+    },
+    {
+     "$id": "467",
+     "Name": "getAudioTranslationAsResponseObject",
+     "ResourceName": "OpenAI",
+     "Description": "Gets English language transcribed text and associated metadata from provided spoken audio data.",
+     "Parameters": [
+      {
+       "$ref": "426"
+      },
+      {
+       "$ref": "428"
+      },
+      {
+       "$id": "468",
+       "Name": "deploymentId",
+       "NameInRequest": "deploymentId",
+       "Description": "Specifies either the model deployment name (when using Azure OpenAI) or model name (when using non-Azure OpenAI) to use for this request.",
+       "Type": {
+        "$id": "469",
+        "Name": "string",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Path",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "470",
+       "Name": "contentType",
+       "NameInRequest": "content-type",
+       "Description": "The content type for the operation. Always multipart/form-data for this operation.",
+       "Type": {
+        "$id": "471",
+        "Name": "Literal",
+        "LiteralValueType": {
+         "$id": "472",
+         "Name": "String",
+         "Kind": "String",
+         "IsNullable": false
+        },
+        "Value": "multipart/form-data",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "DefaultValue": {
+        "$id": "473",
+        "Type": {
+         "$ref": "471"
+        },
+        "Value": "multipart/form-data"
+       },
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant"
+      },
+      {
+       "$id": "474",
+       "Name": "AudioTranslationOptions",
+       "NameInRequest": "AudioTranslationOptions",
+       "Description": "The configuration information for an audio translation request.",
+       "Type": {
+        "$ref": "108"
+       },
+       "Location": "Body",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "475",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "476",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "477",
+        "Type": {
+         "$ref": "476"
+        },
+        "Value": "application/json"
+       }
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "478",
+       "StatusCodes": [
+        200
+       ],
+       "BodyType": {
+        "$ref": "118"
+       },
+       "BodyMediaType": "Json",
+       "Headers": [],
+       "IsErrorResponse": false
+      }
+     ],
+     "HttpMethod": "POST",
+     "RequestBodyMediaType": "Json",
+     "Uri": "{endpoint}/openai",
+     "Path": "/deployments/{deploymentId}/audio/translations",
+     "RequestMediaTypes": [
+      "multipart/form-data"
+     ],
+     "BufferResponse": true,
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true
+    },
+    {
+     "$id": "479",
+     "Name": "getCompletions",
+     "ResourceName": "OpenAI",
+     "Description": "Gets completions for the provided input prompts.\nCompletions support a wide variety of tasks and generate text that continues from or \"completes\"\nprovided prompt data.",
+     "Parameters": [
+      {
+       "$ref": "426"
+      },
+      {
+       "$ref": "428"
+      },
+      {
+       "$id": "480",
+       "Name": "deploymentId",
+       "NameInRequest": "deploymentId",
+       "Description": "Specifies either the model deployment name (when using Azure OpenAI) or model name (when using non-Azure OpenAI) to use for this request.",
+       "Type": {
+        "$id": "481",
+        "Name": "string",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Path",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "482",
+       "Name": "CompletionsOptions",
+       "NameInRequest": "CompletionsOptions",
+       "Description": "The configuration information for a completions request.\nCompletions support a wide variety of tasks and generate text that continues from or \"completes\"\nprovided prompt data.",
+       "Type": {
+        "$ref": "150"
+       },
+       "Location": "Body",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "483",
+       "Name": "contentType",
+       "NameInRequest": "Content-Type",
+       "Type": {
+        "$id": "484",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": true,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "485",
+        "Type": {
+         "$ref": "484"
+        },
+        "Value": "application/json"
+       }
+      },
+      {
+       "$id": "486",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "487",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "488",
+        "Type": {
+         "$ref": "487"
+        },
+        "Value": "application/json"
+       }
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "489",
+       "StatusCodes": [
+        200
+       ],
+       "BodyType": {
+        "$ref": "185"
+       },
+       "BodyMediaType": "Json",
+       "Headers": [],
+       "IsErrorResponse": false
+      }
+     ],
+     "HttpMethod": "POST",
+     "RequestBodyMediaType": "Json",
+     "Uri": "{endpoint}/openai",
+     "Path": "/deployments/{deploymentId}/completions",
+     "RequestMediaTypes": [
+      "application/json"
+     ],
+     "BufferResponse": true,
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true
+    },
+    {
+     "$id": "490",
+     "Name": "getChatCompletions",
+     "ResourceName": "OpenAI",
+     "Description": "Gets chat completions for the provided chat messages.\nCompletions support a wide variety of tasks and generate text that continues from or \"completes\"\nprovided prompt data.",
+     "Parameters": [
+      {
+       "$ref": "426"
+      },
+      {
+       "$ref": "428"
+      },
+      {
+       "$id": "491",
+       "Name": "deploymentId",
+       "NameInRequest": "deploymentId",
+       "Description": "Specifies either the model deployment name (when using Azure OpenAI) or model name (when using non-Azure OpenAI) to use for this request.",
+       "Type": {
+        "$id": "492",
+        "Name": "string",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Path",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "493",
+       "Name": "ChatCompletionsOptions",
+       "NameInRequest": "ChatCompletionsOptions",
+       "Description": "The configuration information for a chat completions request.\nCompletions support a wide variety of tasks and generate text that continues from or \"completes\"\nprovided prompt data.",
+       "Type": {
+        "$ref": "253"
+       },
+       "Location": "Body",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "494",
+       "Name": "contentType",
+       "NameInRequest": "Content-Type",
+       "Type": {
+        "$id": "495",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": true,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "496",
+        "Type": {
+         "$ref": "495"
+        },
+        "Value": "application/json"
+       }
+      },
+      {
+       "$id": "497",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "498",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "499",
+        "Type": {
+         "$ref": "498"
+        },
+        "Value": "application/json"
+       }
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "500",
+       "StatusCodes": [
+        200
+       ],
+       "BodyType": {
+        "$ref": "317"
+       },
+       "BodyMediaType": "Json",
+       "Headers": [],
+       "IsErrorResponse": false
+      }
+     ],
+     "HttpMethod": "POST",
+     "RequestBodyMediaType": "Json",
+     "Uri": "{endpoint}/openai",
+     "Path": "/deployments/{deploymentId}/chat/completions",
+     "RequestMediaTypes": [
+      "application/json"
+     ],
+     "BufferResponse": true,
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true
+    },
+    {
+     "$id": "501",
+     "Name": "getChatCompletionsWithAzureExtensions",
+     "ResourceName": "OpenAI",
+     "Description": "Gets chat completions for the provided chat messages.\nThis is an Azure-specific version of chat completions that supports integration with configured data sources and\nother augmentations to the base chat completions capabilities.",
+     "Accessibility": "internal",
+     "Parameters": [
+      {
+       "$ref": "426"
+      },
+      {
+       "$ref": "428"
+      },
+      {
+       "$id": "502",
+       "Name": "deploymentId",
+       "NameInRequest": "deploymentId",
+       "Description": "Specifies either the model deployment name (when using Azure OpenAI) or model name (when using non-Azure OpenAI) to use for this request.",
+       "Type": {
+        "$id": "503",
+        "Name": "string",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Path",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "504",
+       "Name": "ChatCompletionsOptions",
+       "NameInRequest": "ChatCompletionsOptions",
+       "Description": "The configuration information for a chat completions request.\nCompletions support a wide variety of tasks and generate text that continues from or \"completes\"\nprovided prompt data.",
+       "Type": {
+        "$ref": "253"
+       },
+       "Location": "Body",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "505",
+       "Name": "contentType",
+       "NameInRequest": "Content-Type",
+       "Type": {
+        "$id": "506",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": true,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "507",
+        "Type": {
+         "$ref": "506"
+        },
+        "Value": "application/json"
+       }
+      },
+      {
+       "$id": "508",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "509",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "510",
+        "Type": {
+         "$ref": "509"
+        },
+        "Value": "application/json"
+       }
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "511",
+       "StatusCodes": [
+        200
+       ],
+       "BodyType": {
+        "$ref": "317"
+       },
+       "BodyMediaType": "Json",
+       "Headers": [],
+       "IsErrorResponse": false
+      }
+     ],
+     "HttpMethod": "POST",
+     "RequestBodyMediaType": "Json",
+     "Uri": "{endpoint}/openai",
+     "Path": "/deployments/{deploymentId}/extensions/chat/completions",
+     "RequestMediaTypes": [
+      "application/json"
+     ],
+     "BufferResponse": true,
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true
+    },
+    {
+     "$id": "512",
+     "Name": "beginAzureBatchImageGeneration",
+     "ResourceName": "OpenAI",
+     "Description": "Starts the generation of a batch of images from a text caption",
+     "Accessibility": "internal",
+     "Parameters": [
+      {
+       "$ref": "426"
+      },
+      {
+       "$ref": "428"
+      },
+      {
+       "$id": "513",
+       "Name": "ImageGenerationOptions",
+       "NameInRequest": "ImageGenerationOptions",
+       "Description": "Represents the request data used to generate images.",
+       "Type": {
+        "$ref": "334"
+       },
+       "Location": "Body",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "514",
+       "Name": "contentType",
+       "NameInRequest": "Content-Type",
+       "Type": {
+        "$id": "515",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": true,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "516",
+        "Type": {
+         "$ref": "515"
+        },
+        "Value": "application/json"
+       }
+      },
+      {
+       "$id": "517",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "518",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "519",
+        "Type": {
+         "$ref": "518"
+        },
+        "Value": "application/json"
+       }
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "520",
+       "StatusCodes": [
+        202
+       ],
+       "BodyType": {
+        "$ref": "343"
+       },
+       "BodyMediaType": "Json",
+       "Headers": [
+        {
+         "$id": "521",
+         "Name": "Operation-Location",
+         "NameInResponse": "operationLocation",
+         "Description": "The location for monitoring the operation state.",
+         "Type": {
+          "$id": "522",
+          "Name": "ResourceLocation",
+          "Kind": "Uri",
+          "IsNullable": false
+         }
+        }
+       ],
+       "IsErrorResponse": false
+      }
+     ],
+     "HttpMethod": "POST",
+     "RequestBodyMediaType": "Json",
+     "Uri": "{endpoint}/openai",
+     "Path": "/images/generations:submit",
+     "RequestMediaTypes": [
+      "application/json"
+     ],
+     "BufferResponse": true,
+     "LongRunning": {
+      "$id": "523",
+      "FinalStateVia": 1,
+      "FinalResponse": {
+       "$id": "524",
+       "StatusCodes": [
+        202
+       ],
+       "BodyType": {
+        "$ref": "343"
+       },
+       "BodyMediaType": "Json",
+       "Headers": [
+        {
+         "$id": "525",
+         "Name": "Operation-Location",
+         "NameInResponse": "operationLocation",
+         "Description": "The location for monitoring the operation state.",
+         "Type": {
+          "$id": "526",
+          "Name": "ResourceLocation",
+          "Kind": "Uri",
+          "IsNullable": false
+         }
+        }
+       ],
+       "IsErrorResponse": false
+      }
+     },
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true
+    },
+    {
+     "$id": "527",
+     "Name": "getEmbeddings",
+     "ResourceName": "OpenAI",
+     "Description": "Return the embeddings for a given prompt.",
+     "Parameters": [
+      {
+       "$ref": "426"
+      },
+      {
+       "$ref": "428"
+      },
+      {
+       "$id": "528",
+       "Name": "deploymentId",
+       "NameInRequest": "deploymentId",
+       "Description": "Specifies either the model deployment name (when using Azure OpenAI) or model name (when using non-Azure OpenAI) to use for this request.",
+       "Type": {
+        "$id": "529",
+        "Name": "string",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Path",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "530",
+       "Name": "EmbeddingsOptions",
+       "NameInRequest": "EmbeddingsOptions",
+       "Description": "The configuration information for an embeddings request.\nEmbeddings measure the relatedness of text strings and are commonly used for search, clustering,\nrecommendations, and other similar scenarios.",
+       "Type": {
+        "$ref": "366"
+       },
+       "Location": "Body",
+       "IsRequired": true,
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Method"
+      },
+      {
+       "$id": "531",
+       "Name": "contentType",
+       "NameInRequest": "Content-Type",
+       "Type": {
+        "$id": "532",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": true,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "533",
+        "Type": {
+         "$ref": "532"
+        },
+        "Value": "application/json"
+       }
+      },
+      {
+       "$id": "534",
+       "Name": "accept",
+       "NameInRequest": "Accept",
+       "Type": {
+        "$id": "535",
+        "Name": "String",
+        "Kind": "String",
+        "IsNullable": false
+       },
+       "Location": "Header",
+       "IsApiVersion": false,
+       "IsResourceParameter": false,
+       "IsContentType": false,
+       "IsRequired": true,
+       "IsEndpoint": false,
+       "SkipUrlEncoding": false,
+       "Explode": false,
+       "Kind": "Constant",
+       "DefaultValue": {
+        "$id": "536",
+        "Type": {
+         "$ref": "535"
+        },
+        "Value": "application/json"
+       }
+      }
+     ],
+     "Responses": [
+      {
+       "$id": "537",
+       "StatusCodes": [
+        200
+       ],
+       "BodyType": {
+        "$ref": "374"
+       },
+       "BodyMediaType": "Json",
+       "Headers": [],
+       "IsErrorResponse": false
+      }
+     ],
+     "HttpMethod": "POST",
+     "RequestBodyMediaType": "Json",
+     "Uri": "{endpoint}/openai",
+     "Path": "/deployments/{deploymentId}/embeddings",
+     "RequestMediaTypes": [
+      "application/json"
+     ],
+     "BufferResponse": true,
+     "GenerateProtocolMethod": true,
+     "GenerateConvenienceMethod": true
+    }
+   ],
+   "Protocol": {
+    "$id": "538"
+   },
+   "Creatable": true
+  }
+ ],
+ "Auth": {
+  "$id": "539",
+  "ApiKey": {
+   "$id": "540",
+   "Name": "api-key"
+  },
+  "OAuth2": {
+   "$id": "541",
+   "Scopes": [
+    "https://cognitiveservices.azure.com/.default"
+   ]
+  }
+ }
+}
