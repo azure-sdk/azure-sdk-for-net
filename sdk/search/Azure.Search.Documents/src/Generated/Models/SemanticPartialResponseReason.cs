@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace Azure.Search.Documents.Models
 {
-    /// <summary> Reason that a partial response was returned for a semantic search request. </summary>
+    /// <summary> Reason that a partial response was returned for a semantic ranking request. </summary>
     public readonly partial struct SemanticPartialResponseReason : IEquatable<SemanticPartialResponseReason>
     {
         private readonly string _value;

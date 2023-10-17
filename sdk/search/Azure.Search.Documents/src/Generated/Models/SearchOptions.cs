@@ -40,7 +40,7 @@ namespace Azure.Search.Documents
         /// <param name="semanticConfigurationName"> The name of a semantic configuration that will be used when processing documents for queries of type semantic. </param>
         /// <param name="semanticErrorHandling"> Allows the user to choose whether a semantic call should fail completely, or to return partial results (default). </param>
         /// <param name="semanticMaxWaitInMilliseconds"> Allows the user to set an upper bound on the amount of time it takes for semantic enrichment to finish processing before the request fails. </param>
-        /// <param name="debug"> Enables a debugging tool that can be used to further explore your Semantic search results. </param>
+        /// <param name="debug"> Enables a debugging tool that can be used to further explore your reranked results. </param>
         /// <param name="searchText"> A full-text search query expression; Use "*" or omit this parameter to match all documents. </param>
         /// <param name="searchFieldsRaw"> The comma-separated list of field names to which to scope the full-text search. When using fielded search (fieldName:searchExpression) in a full Lucene query, the field names of each fielded search expression take precedence over any field names listed in this parameter. </param>
         /// <param name="searchMode"> A value that specifies whether any or all of the search terms must be matched in order to count the document as a match. </param>
@@ -51,7 +51,7 @@ namespace Azure.Search.Documents
         /// <param name="skip"> The number of search results to skip. This value cannot be greater than 100,000. If you need to scan documents in sequence, but cannot use skip due to this limitation, consider using orderby on a totally-ordered key and filter with a range query instead. </param>
         /// <param name="size"> The number of search results to retrieve. This can be used in conjunction with $skip to implement client-side paging of search results. If results are truncated due to server-side paging, the response will include a continuation token that can be used to issue another Search request for the next page of results. </param>
         /// <param name="queryCaptionRaw"> A value that specifies whether captions should be returned as part of the search response. </param>
-        /// <param name="semanticFieldsRaw"> The comma-separated list of field names used for semantic search. </param>
+        /// <param name="semanticFieldsRaw"> The comma-separated list of field names used for semantic ranking. </param>
         /// <param name="vectorQueries">
         /// The query parameters for vector and hybrid search queries.
         /// Please note <see cref="VectorQuery"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
@@ -112,7 +112,7 @@ namespace Azure.Search.Documents
         public SemanticErrorHandling? SemanticErrorHandling { get; set; }
         /// <summary> Allows the user to set an upper bound on the amount of time it takes for semantic enrichment to finish processing before the request fails. </summary>
         public int? SemanticMaxWaitInMilliseconds { get; set; }
-        /// <summary> Enables a debugging tool that can be used to further explore your Semantic search results. </summary>
+        /// <summary> Enables a debugging tool that can be used to further explore your reranked results. </summary>
         public QueryDebugMode? Debug { get; set; }
         /// <summary> A value that specifies whether any or all of the search terms must be matched in order to count the document as a match. </summary>
         public SearchMode? SearchMode { get; set; }
