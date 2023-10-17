@@ -15,6 +15,7 @@ using Azure.ResourceManager.Models;
 using Azure.ResourceManager.Network;
 using Azure.ResourceManager.Network.Models;
 using Azure.ResourceManager.Resources;
+using Azure.ResourceManager.Resources.Models;
 
 namespace Azure.ResourceManager.Network.Samples
 {
@@ -183,6 +184,10 @@ new VirtualApplianceAdditionalNicProperties()
 Name = "exrsdwan",
 HasPublicIP = true,
 }
+},
+                InternetIngressPublicIPs =
+{
+new WritableSubResource()
 },
                 Location = new AzureLocation("West US"),
                 Tags =
