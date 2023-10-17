@@ -36,6 +36,16 @@ namespace Azure.ResourceManager.CognitiveServices.Models
                 writer.WritePropertyName("versionUpgradeOption"u8);
                 writer.WriteStringValue(VersionUpgradeOption.Value.ToString());
             }
+            if (Optional.IsDefined(CurrentCapacity))
+            {
+                writer.WritePropertyName("currentCapacity"u8);
+                writer.WriteNumberValue(CurrentCapacity.Value);
+            }
+            if (Optional.IsDefined(CapacitySettings))
+            {
+                writer.WritePropertyName("capacitySettings"u8);
+                writer.WriteObjectValue(CapacitySettings);
+            }
             writer.WriteEndObject();
         }
 
@@ -53,6 +63,9 @@ namespace Azure.ResourceManager.CognitiveServices.Models
             Optional<ServiceAccountCallRateLimit> callRateLimit = default;
             Optional<IReadOnlyList<ServiceAccountThrottlingRule>> rateLimits = default;
             Optional<DeploymentModelVersionUpgradeOption> versionUpgradeOption = default;
+            Optional<bool> dynamicThrottlingEnabled = default;
+            Optional<int> currentCapacity = default;
+            Optional<DeploymentCapacitySettings> capacitySettings = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("provisioningState"u8))
@@ -133,8 +146,35 @@ namespace Azure.ResourceManager.CognitiveServices.Models
                     versionUpgradeOption = new DeploymentModelVersionUpgradeOption(property.Value.GetString());
                     continue;
                 }
+                if (property.NameEquals("dynamicThrottlingEnabled"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    dynamicThrottlingEnabled = property.Value.GetBoolean();
+                    continue;
+                }
+                if (property.NameEquals("currentCapacity"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    currentCapacity = property.Value.GetInt32();
+                    continue;
+                }
+                if (property.NameEquals("capacitySettings"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    capacitySettings = DeploymentCapacitySettings.DeserializeDeploymentCapacitySettings(property.Value);
+                    continue;
+                }
             }
-            return new CognitiveServicesAccountDeploymentProperties(Optional.ToNullable(provisioningState), model.Value, scaleSettings.Value, Optional.ToDictionary(capabilities), raiPolicyName.Value, callRateLimit.Value, Optional.ToList(rateLimits), Optional.ToNullable(versionUpgradeOption));
+            return new CognitiveServicesAccountDeploymentProperties(Optional.ToNullable(provisioningState), model.Value, scaleSettings.Value, Optional.ToDictionary(capabilities), raiPolicyName.Value, callRateLimit.Value, Optional.ToList(rateLimits), Optional.ToNullable(versionUpgradeOption), Optional.ToNullable(dynamicThrottlingEnabled), Optional.ToNullable(currentCapacity), capacitySettings.Value);
         }
     }
 }

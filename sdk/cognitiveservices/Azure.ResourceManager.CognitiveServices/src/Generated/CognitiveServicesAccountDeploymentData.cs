@@ -5,6 +5,7 @@
 
 #nullable disable
 
+using System.Collections.Generic;
 using Azure;
 using Azure.Core;
 using Azure.ResourceManager.CognitiveServices.Models;
@@ -21,6 +22,7 @@ namespace Azure.ResourceManager.CognitiveServices
         /// <summary> Initializes a new instance of CognitiveServicesAccountDeploymentData. </summary>
         public CognitiveServicesAccountDeploymentData()
         {
+            Tags = new ChangeTrackingDictionary<string, string>();
         }
 
         /// <summary> Initializes a new instance of CognitiveServicesAccountDeploymentData. </summary>
@@ -30,11 +32,13 @@ namespace Azure.ResourceManager.CognitiveServices
         /// <param name="systemData"> The systemData. </param>
         /// <param name="sku"> The resource model definition representing SKU. </param>
         /// <param name="etag"> Resource Etag. </param>
+        /// <param name="tags"> Resource tags. </param>
         /// <param name="properties"> Properties of Cognitive Services account deployment. </param>
-        internal CognitiveServicesAccountDeploymentData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, CognitiveServicesSku sku, ETag? etag, CognitiveServicesAccountDeploymentProperties properties) : base(id, name, resourceType, systemData)
+        internal CognitiveServicesAccountDeploymentData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, CognitiveServicesSku sku, ETag? etag, IDictionary<string, string> tags, CognitiveServicesAccountDeploymentProperties properties) : base(id, name, resourceType, systemData)
         {
             Sku = sku;
             ETag = etag;
+            Tags = tags;
             Properties = properties;
         }
 
@@ -42,6 +46,8 @@ namespace Azure.ResourceManager.CognitiveServices
         public CognitiveServicesSku Sku { get; set; }
         /// <summary> Resource Etag. </summary>
         public ETag? ETag { get; }
+        /// <summary> Resource tags. </summary>
+        public IDictionary<string, string> Tags { get; }
         /// <summary> Properties of Cognitive Services account deployment. </summary>
         public CognitiveServicesAccountDeploymentProperties Properties { get; set; }
     }

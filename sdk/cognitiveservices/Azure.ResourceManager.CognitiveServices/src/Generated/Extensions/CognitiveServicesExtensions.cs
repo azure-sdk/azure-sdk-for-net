@@ -183,6 +183,82 @@ namespace Azure.ResourceManager.CognitiveServices
         }
         #endregion
 
+        #region EncryptionScopeResource
+        /// <summary>
+        /// Gets an object representing an <see cref="EncryptionScopeResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="EncryptionScopeResource.CreateResourceIdentifier" /> to create an <see cref="EncryptionScopeResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="EncryptionScopeResource" /> object. </returns>
+        public static EncryptionScopeResource GetEncryptionScopeResource(this ArmClient client, ResourceIdentifier id)
+        {
+            return client.GetResourceClient(() =>
+            {
+                EncryptionScopeResource.ValidateResourceId(id);
+                return new EncryptionScopeResource(client, id);
+            }
+            );
+        }
+        #endregion
+
+        #region RaiPolicyResource
+        /// <summary>
+        /// Gets an object representing a <see cref="RaiPolicyResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="RaiPolicyResource.CreateResourceIdentifier" /> to create a <see cref="RaiPolicyResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="RaiPolicyResource" /> object. </returns>
+        public static RaiPolicyResource GetRaiPolicyResource(this ArmClient client, ResourceIdentifier id)
+        {
+            return client.GetResourceClient(() =>
+            {
+                RaiPolicyResource.ValidateResourceId(id);
+                return new RaiPolicyResource(client, id);
+            }
+            );
+        }
+        #endregion
+
+        #region RaiBlocklistResource
+        /// <summary>
+        /// Gets an object representing a <see cref="RaiBlocklistResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="RaiBlocklistResource.CreateResourceIdentifier" /> to create a <see cref="RaiBlocklistResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="RaiBlocklistResource" /> object. </returns>
+        public static RaiBlocklistResource GetRaiBlocklistResource(this ArmClient client, ResourceIdentifier id)
+        {
+            return client.GetResourceClient(() =>
+            {
+                RaiBlocklistResource.ValidateResourceId(id);
+                return new RaiBlocklistResource(client, id);
+            }
+            );
+        }
+        #endregion
+
+        #region RaiBlocklistItemResource
+        /// <summary>
+        /// Gets an object representing a <see cref="RaiBlocklistItemResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="RaiBlocklistItemResource.CreateResourceIdentifier" /> to create a <see cref="RaiBlocklistItemResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="RaiBlocklistItemResource" /> object. </returns>
+        public static RaiBlocklistItemResource GetRaiBlocklistItemResource(this ArmClient client, ResourceIdentifier id)
+        {
+            return client.GetResourceClient(() =>
+            {
+                RaiBlocklistItemResource.ValidateResourceId(id);
+                return new RaiBlocklistItemResource(client, id);
+            }
+            );
+        }
+        #endregion
+
         /// <summary> Gets a collection of CognitiveServicesAccountResources in the ResourceGroupResource. </summary>
         /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
         /// <returns> An object representing collection of CognitiveServicesAccountResources and their operations over a CognitiveServicesAccountResource. </returns>
@@ -755,6 +831,50 @@ namespace Azure.ResourceManager.CognitiveServices
         public static Pageable<CognitiveServicesCommitmentPlanResource> GetCognitiveServicesCommitmentPlans(this SubscriptionResource subscriptionResource, CancellationToken cancellationToken = default)
         {
             return GetSubscriptionResourceExtensionClient(subscriptionResource).GetCognitiveServicesCommitmentPlans(cancellationToken);
+        }
+
+        /// <summary>
+        /// List Content Filters types.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.CognitiveServices/locations/{location}/raiContentFilters</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>RaiContentFilters_List</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
+        /// <param name="location"> Resource location. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> An async collection of <see cref="RaiContentFilter" /> that may take multiple service requests to iterate over. </returns>
+        public static AsyncPageable<RaiContentFilter> GetRaiContentFiltersAsync(this SubscriptionResource subscriptionResource, AzureLocation location, CancellationToken cancellationToken = default)
+        {
+            return GetSubscriptionResourceExtensionClient(subscriptionResource).GetRaiContentFiltersAsync(location, cancellationToken);
+        }
+
+        /// <summary>
+        /// List Content Filters types.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.CognitiveServices/locations/{location}/raiContentFilters</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>RaiContentFilters_List</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
+        /// <param name="location"> Resource location. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="RaiContentFilter" /> that may take multiple service requests to iterate over. </returns>
+        public static Pageable<RaiContentFilter> GetRaiContentFilters(this SubscriptionResource subscriptionResource, AzureLocation location, CancellationToken cancellationToken = default)
+        {
+            return GetSubscriptionResourceExtensionClient(subscriptionResource).GetRaiContentFilters(location, cancellationToken);
         }
     }
 }

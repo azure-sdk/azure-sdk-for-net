@@ -5,6 +5,9 @@
 
 #nullable disable
 
+using System.Collections.Generic;
+using Azure.Core;
+
 namespace Azure.ResourceManager.CognitiveServices.Models
 {
     /// <summary> The capacity configuration. </summary>
@@ -13,6 +16,7 @@ namespace Azure.ResourceManager.CognitiveServices.Models
         /// <summary> Initializes a new instance of CognitiveServicesCapacityConfig. </summary>
         public CognitiveServicesCapacityConfig()
         {
+            AllowedValues = new ChangeTrackingList<int>();
         }
 
         /// <summary> Initializes a new instance of CognitiveServicesCapacityConfig. </summary>
@@ -20,12 +24,14 @@ namespace Azure.ResourceManager.CognitiveServices.Models
         /// <param name="maximum"> The maximum capacity. </param>
         /// <param name="step"> The minimal incremental between allowed values for capacity. </param>
         /// <param name="default"> The default capacity. </param>
-        internal CognitiveServicesCapacityConfig(int? minimum, int? maximum, int? step, int? @default)
+        /// <param name="allowedValues"> The array of allowed values for capacity. </param>
+        internal CognitiveServicesCapacityConfig(int? minimum, int? maximum, int? step, int? @default, IList<int> allowedValues)
         {
             Minimum = minimum;
             Maximum = maximum;
             Step = step;
             Default = @default;
+            AllowedValues = allowedValues;
         }
 
         /// <summary> The minimum capacity. </summary>
@@ -36,5 +42,7 @@ namespace Azure.ResourceManager.CognitiveServices.Models
         public int? Step { get; set; }
         /// <summary> The default capacity. </summary>
         public int? Default { get; set; }
+        /// <summary> The array of allowed values for capacity. </summary>
+        public IList<int> AllowedValues { get; }
     }
 }
