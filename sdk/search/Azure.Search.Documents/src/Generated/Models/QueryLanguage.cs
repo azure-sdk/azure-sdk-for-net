@@ -217,7 +217,7 @@ namespace Azure.Search.Documents.Models
         public static QueryLanguage BnIn { get; } = new QueryLanguage(BnInValue);
         /// <summary> Query language value for Basque (Spain). </summary>
         public static QueryLanguage EuEs { get; } = new QueryLanguage(EuEsValue);
-        /// <summary> Query language value for Galician (Spain). </summary>
+        /// <summary> Query language value for Galician. </summary>
         public static QueryLanguage GlEs { get; } = new QueryLanguage(GlEsValue);
         /// <summary> Query language value for Gujarati (India). </summary>
         public static QueryLanguage GuIn { get; } = new QueryLanguage(GuInValue);
