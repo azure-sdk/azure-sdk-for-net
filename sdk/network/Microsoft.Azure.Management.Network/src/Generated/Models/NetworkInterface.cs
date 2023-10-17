@@ -86,10 +86,13 @@ namespace Microsoft.Azure.Management.Network.Models
         /// 'Abort', 'Committed'</param>
         /// <param name="auxiliaryMode">Auxiliary mode of Network Interface
         /// resource. Possible values include: 'None', 'MaxConnections',
-        /// 'Floating'</param>
+        /// 'Floating', 'AcceleratedConnections'</param>
+        /// <param name="auxiliarySku">Auxiliary sku of Network Interface
+        /// resource. Possible values include: 'None', 'A1', 'A2', 'A4',
+        /// 'A8'</param>
         /// <param name="etag">A unique read-only string that changes whenever
         /// the resource is updated.</param>
-        public NetworkInterface(string id = default(string), string name = default(string), string type = default(string), string location = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), ExtendedLocation extendedLocation = default(ExtendedLocation), SubResource virtualMachine = default(SubResource), NetworkSecurityGroup networkSecurityGroup = default(NetworkSecurityGroup), PrivateEndpoint privateEndpoint = default(PrivateEndpoint), IList<NetworkInterfaceIPConfiguration> ipConfigurations = default(IList<NetworkInterfaceIPConfiguration>), IList<NetworkInterfaceTapConfiguration> tapConfigurations = default(IList<NetworkInterfaceTapConfiguration>), NetworkInterfaceDnsSettings dnsSettings = default(NetworkInterfaceDnsSettings), string macAddress = default(string), bool? primary = default(bool?), bool? vnetEncryptionSupported = default(bool?), bool? enableAcceleratedNetworking = default(bool?), bool? disableTcpStateTracking = default(bool?), bool? enableIPForwarding = default(bool?), IList<string> hostedWorkloads = default(IList<string>), SubResource dscpConfiguration = default(SubResource), string resourceGuid = default(string), string provisioningState = default(string), string workloadType = default(string), string nicType = default(string), PrivateLinkService privateLinkService = default(PrivateLinkService), string migrationPhase = default(string), string auxiliaryMode = default(string), string etag = default(string))
+        public NetworkInterface(string id = default(string), string name = default(string), string type = default(string), string location = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), ExtendedLocation extendedLocation = default(ExtendedLocation), SubResource virtualMachine = default(SubResource), NetworkSecurityGroup networkSecurityGroup = default(NetworkSecurityGroup), PrivateEndpoint privateEndpoint = default(PrivateEndpoint), IList<NetworkInterfaceIPConfiguration> ipConfigurations = default(IList<NetworkInterfaceIPConfiguration>), IList<NetworkInterfaceTapConfiguration> tapConfigurations = default(IList<NetworkInterfaceTapConfiguration>), NetworkInterfaceDnsSettings dnsSettings = default(NetworkInterfaceDnsSettings), string macAddress = default(string), bool? primary = default(bool?), bool? vnetEncryptionSupported = default(bool?), bool? enableAcceleratedNetworking = default(bool?), bool? disableTcpStateTracking = default(bool?), bool? enableIPForwarding = default(bool?), IList<string> hostedWorkloads = default(IList<string>), SubResource dscpConfiguration = default(SubResource), string resourceGuid = default(string), string provisioningState = default(string), string workloadType = default(string), string nicType = default(string), PrivateLinkService privateLinkService = default(PrivateLinkService), string migrationPhase = default(string), string auxiliaryMode = default(string), string auxiliarySku = default(string), string etag = default(string))
             : base(id, name, type, location, tags)
         {
             ExtendedLocation = extendedLocation;
@@ -114,6 +117,7 @@ namespace Microsoft.Azure.Management.Network.Models
             PrivateLinkService = privateLinkService;
             MigrationPhase = migrationPhase;
             AuxiliaryMode = auxiliaryMode;
+            AuxiliarySku = auxiliarySku;
             Etag = etag;
             CustomInit();
         }
@@ -264,10 +268,18 @@ namespace Microsoft.Azure.Management.Network.Models
 
         /// <summary>
         /// Gets or sets auxiliary mode of Network Interface resource. Possible
-        /// values include: 'None', 'MaxConnections', 'Floating'
+        /// values include: 'None', 'MaxConnections', 'Floating',
+        /// 'AcceleratedConnections'
         /// </summary>
         [JsonProperty(PropertyName = "properties.auxiliaryMode")]
         public string AuxiliaryMode { get; set; }
+
+        /// <summary>
+        /// Gets or sets auxiliary sku of Network Interface resource. Possible
+        /// values include: 'None', 'A1', 'A2', 'A4', 'A8'
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.auxiliarySku")]
+        public string AuxiliarySku { get; set; }
 
         /// <summary>
         /// Gets a unique read-only string that changes whenever the resource
