@@ -7,7 +7,7 @@ azure-arm: true
 csharp: true
 library-name: ContainerServiceFleet
 namespace: Azure.ResourceManager.ContainerServiceFleet
-require: https://github.com/Azure/azure-rest-api-specs/blob/e1017d9ab49f41296177b4f4c9ac741fb7de044d/specification/containerservice/resource-manager/Microsoft.ContainerService/fleet/readme.md
+require: https://github.com/Azure/azure-rest-api-specs/blob/00a198a1af26dbb0954d3215c948c0ec0a018de0/specification/containerservice/resource-manager/Microsoft.ContainerService/fleet/readme.md
 #tag: package-2023-08-preview
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
