@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="BatchAsync(Guid,string,IEnumerable{string},RequestContent,string,string,string,string,int?,string,string,bool?,RequestContext)">
+      <example>
+This sample shows how to call BatchAsync and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+MetricsClient client = new MetricsClient("<Endpoint>", credential);
+
+using RequestContent content = RequestContent.Create(new object());
+Response response = await client.BatchAsync(Guid.Parse("73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a"), "<metricnamespace>", new string[] { "<metricnames>" }, content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code>
+This sample shows how to call BatchAsync with all parameters and request content and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+MetricsClient client = new MetricsClient("<Endpoint>", credential);
+
+using RequestContent content = RequestContent.Create(new
+{
+    resourceids = new object[]
+    {
+        new object()
+    },
+});
+Response response = await client.BatchAsync(Guid.Parse("73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a"), "<metricnamespace>", new string[] { "<metricnames>" }, content, starttime: "<starttime>", endtime: "<endtime>", interval: "<interval>", aggregation: "<aggregation>", top: 1234, orderby: "<orderby>", filter: "<filter>", autoAdjustTimegrain: true);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("values")[0].GetProperty("starttime").ToString());
+Console.WriteLine(result.GetProperty("values")[0].GetProperty("endtime").ToString());
+Console.WriteLine(result.GetProperty("values")[0].GetProperty("interval").ToString());
+Console.WriteLine(result.GetProperty("values")[0].GetProperty("namespace").ToString());
+Console.WriteLine(result.GetProperty("values")[0].GetProperty("resourceregion").ToString());
+Console.WriteLine(result.GetProperty("values")[0].GetProperty("resourceid").ToString());
+Console.WriteLine(result.GetProperty("values")[0].GetProperty("value")[0].GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("values")[0].GetProperty("value")[0].GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("values")[0].GetProperty("value")[0].GetProperty("name").GetProperty("value").ToString());
+Console.WriteLine(result.GetProperty("values")[0].GetProperty("value")[0].GetProperty("name").GetProperty("localizedValue").ToString());
+Console.WriteLine(result.GetProperty("values")[0].GetProperty("value")[0].GetProperty("displayDescription").ToString());
+Console.WriteLine(result.GetProperty("values")[0].GetProperty("value")[0].GetProperty("errorCode").ToString());
+Console.WriteLine(result.GetProperty("values")[0].GetProperty("value")[0].GetProperty("errorMessage").ToString());
+Console.WriteLine(result.GetProperty("values")[0].GetProperty("value")[0].GetProperty("unit").ToString());
+Console.WriteLine(result.GetProperty("values")[0].GetProperty("value")[0].GetProperty("timeseries")[0].GetProperty("metadatavalues")[0].GetProperty("name").GetProperty("value").ToString());
+Console.WriteLine(result.GetProperty("values")[0].GetProperty("value")[0].GetProperty("timeseries")[0].GetProperty("metadatavalues")[0].GetProperty("name").GetProperty("localizedValue").ToString());
+Console.WriteLine(result.GetProperty("values")[0].GetProperty("value")[0].GetProperty("timeseries")[0].GetProperty("metadatavalues")[0].GetProperty("value").ToString());
+Console.WriteLine(result.GetProperty("values")[0].GetProperty("value")[0].GetProperty("timeseries")[0].GetProperty("data")[0].GetProperty("timeStamp").ToString());
+Console.WriteLine(result.GetProperty("values")[0].GetProperty("value")[0].GetProperty("timeseries")[0].GetProperty("data")[0].GetProperty("average").ToString());
+Console.WriteLine(result.GetProperty("values")[0].GetProperty("value")[0].GetProperty("timeseries")[0].GetProperty("data")[0].GetProperty("minimum").ToString());
+Console.WriteLine(result.GetProperty("values")[0].GetProperty("value")[0].GetProperty("timeseries")[0].GetProperty("data")[0].GetProperty("maximum").ToString());
+Console.WriteLine(result.GetProperty("values")[0].GetProperty("value")[0].GetProperty("timeseries")[0].GetProperty("data")[0].GetProperty("total").ToString());
+Console.WriteLine(result.GetProperty("values")[0].GetProperty("value")[0].GetProperty("timeseries")[0].GetProperty("data")[0].GetProperty("count").ToString());
+]]></code></example>
+    </member>
+    <member name="Batch(Guid,string,IEnumerable{string},RequestContent,string,string,string,string,int?,string,string,bool?,RequestContext)">
+      <example>
+This sample shows how to call Batch and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+MetricsClient client = new MetricsClient("<Endpoint>", credential);
+
+using RequestContent content = RequestContent.Create(new object());
+Response response = client.Batch(Guid.Parse("73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a"), "<metricnamespace>", new string[] { "<metricnames>" }, content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code>
+This sample shows how to call Batch with all parameters and request content and parse the result.
+<code><![CDATA[
+TokenCredential credential = new DefaultAzureCredential();
+MetricsClient client = new MetricsClient("<Endpoint>", credential);
+
+using RequestContent content = RequestContent.Create(new
+{
+    resourceids = new object[]
+    {
+        new object()
+    },
+});
+Response response = client.Batch(Guid.Parse("73f411fe-4f43-4b4b-9cbd-6828d8f4cf9a"), "<metricnamespace>", new string[] { "<metricnames>" }, content, starttime: "<starttime>", endtime: "<endtime>", interval: "<interval>", aggregation: "<aggregation>", top: 1234, orderby: "<orderby>", filter: "<filter>", autoAdjustTimegrain: true);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("values")[0].GetProperty("starttime").ToString());
+Console.WriteLine(result.GetProperty("values")[0].GetProperty("endtime").ToString());
+Console.WriteLine(result.GetProperty("values")[0].GetProperty("interval").ToString());
+Console.WriteLine(result.GetProperty("values")[0].GetProperty("namespace").ToString());
+Console.WriteLine(result.GetProperty("values")[0].GetProperty("resourceregion").ToString());
+Console.WriteLine(result.GetProperty("values")[0].GetProperty("resourceid").ToString());
+Console.WriteLine(result.GetProperty("values")[0].GetProperty("value")[0].GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("values")[0].GetProperty("value")[0].GetProperty("type").ToString());
+Console.WriteLine(result.GetProperty("values")[0].GetProperty("value")[0].GetProperty("name").GetProperty("value").ToString());
+Console.WriteLine(result.GetProperty("values")[0].GetProperty("value")[0].GetProperty("name").GetProperty("localizedValue").ToString());
+Console.WriteLine(result.GetProperty("values")[0].GetProperty("value")[0].GetProperty("displayDescription").ToString());
+Console.WriteLine(result.GetProperty("values")[0].GetProperty("value")[0].GetProperty("errorCode").ToString());
+Console.WriteLine(result.GetProperty("values")[0].GetProperty("value")[0].GetProperty("errorMessage").ToString());
+Console.WriteLine(result.GetProperty("values")[0].GetProperty("value")[0].GetProperty("unit").ToString());
+Console.WriteLine(result.GetProperty("values")[0].GetProperty("value")[0].GetProperty("timeseries")[0].GetProperty("metadatavalues")[0].GetProperty("name").GetProperty("value").ToString());
+Console.WriteLine(result.GetProperty("values")[0].GetProperty("value")[0].GetProperty("timeseries")[0].GetProperty("metadatavalues")[0].GetProperty("name").GetProperty("localizedValue").ToString());
+Console.WriteLine(result.GetProperty("values")[0].GetProperty("value")[0].GetProperty("timeseries")[0].GetProperty("metadatavalues")[0].GetProperty("value").ToString());
+Console.WriteLine(result.GetProperty("values")[0].GetProperty("value")[0].GetProperty("timeseries")[0].GetProperty("data")[0].GetProperty("timeStamp").ToString());
+Console.WriteLine(result.GetProperty("values")[0].GetProperty("value")[0].GetProperty("timeseries")[0].GetProperty("data")[0].GetProperty("average").ToString());
+Console.WriteLine(result.GetProperty("values")[0].GetProperty("value")[0].GetProperty("timeseries")[0].GetProperty("data")[0].GetProperty("minimum").ToString());
+Console.WriteLine(result.GetProperty("values")[0].GetProperty("value")[0].GetProperty("timeseries")[0].GetProperty("data")[0].GetProperty("maximum").ToString());
+Console.WriteLine(result.GetProperty("values")[0].GetProperty("value")[0].GetProperty("timeseries")[0].GetProperty("data")[0].GetProperty("total").ToString());
+Console.WriteLine(result.GetProperty("values")[0].GetProperty("value")[0].GetProperty("timeseries")[0].GetProperty("data")[0].GetProperty("count").ToString());
+]]></code></example>
+    </member>
+  </members>
+</doc>
