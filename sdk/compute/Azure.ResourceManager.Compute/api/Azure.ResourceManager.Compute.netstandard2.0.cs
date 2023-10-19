@@ -5323,6 +5323,7 @@ namespace Azure.ResourceManager.Compute.Models
         private readonly int _dummyPrimitive;
         public SecurityEncryptionType(string value) { throw null; }
         public static Azure.ResourceManager.Compute.Models.SecurityEncryptionType DiskWithVmGuestState { get { throw null; } }
+        public static Azure.ResourceManager.Compute.Models.SecurityEncryptionType NonPersistedTPM { get { throw null; } }
         public static Azure.ResourceManager.Compute.Models.SecurityEncryptionType VmGuestStateOnly { get { throw null; } }
         public bool Equals(Azure.ResourceManager.Compute.Models.SecurityEncryptionType other) { throw null; }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
