@@ -24,7 +24,7 @@ namespace Azure.ResourceManager.Logic.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetMapByName()
         {
-            // Generated from example definition: specification/logic/resource-manager/Microsoft.Logic/stable/2019-05-01/examples/IntegrationAccountMaps_Get.json
+            // Generated from example definition: specification/logic/resource-manager/Microsoft.Logic/preview/2022-09-01-preview/examples/IntegrationAccountMaps_Get.json
             // this example is just showing the usage of "IntegrationAccountMaps_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -56,7 +56,7 @@ namespace Azure.ResourceManager.Logic.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_CreateOrUpdateAMap()
         {
-            // Generated from example definition: specification/logic/resource-manager/Microsoft.Logic/stable/2019-05-01/examples/IntegrationAccountMaps_CreateOrUpdate.json
+            // Generated from example definition: specification/logic/resource-manager/Microsoft.Logic/preview/2022-09-01-preview/examples/IntegrationAccountMaps_CreateOrUpdate.json
             // this example is just showing the usage of "IntegrationAccountMaps_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -97,7 +97,7 @@ namespace Azure.ResourceManager.Logic.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_CreateOrUpdateAMapLargerThan4MB()
         {
-            // Generated from example definition: specification/logic/resource-manager/Microsoft.Logic/stable/2019-05-01/examples/IntegrationAccountLargeMaps_CreateOrUpdate.json
+            // Generated from example definition: specification/logic/resource-manager/Microsoft.Logic/preview/2022-09-01-preview/examples/IntegrationAccountLargeMaps_CreateOrUpdate.json
             // this example is just showing the usage of "IntegrationAccountMaps_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -137,7 +137,7 @@ namespace Azure.ResourceManager.Logic.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Delete_DeleteAMap()
         {
-            // Generated from example definition: specification/logic/resource-manager/Microsoft.Logic/stable/2019-05-01/examples/IntegrationAccountMaps_Delete.json
+            // Generated from example definition: specification/logic/resource-manager/Microsoft.Logic/preview/2022-09-01-preview/examples/IntegrationAccountMaps_Delete.json
             // this example is just showing the usage of "IntegrationAccountMaps_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -165,7 +165,7 @@ namespace Azure.ResourceManager.Logic.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetContentCallbackUrl_GetTheContentCallbackUrl()
         {
-            // Generated from example definition: specification/logic/resource-manager/Microsoft.Logic/stable/2019-05-01/examples/IntegrationAccountMaps_ListContentCallbackUrl.json
+            // Generated from example definition: specification/logic/resource-manager/Microsoft.Logic/preview/2022-09-01-preview/examples/IntegrationAccountMaps_ListContentCallbackUrl.json
             // this example is just showing the usage of "IntegrationAccountMaps_ListContentCallbackUrl" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line

@@ -607,6 +607,10 @@ namespace Azure.ResourceManager.Logic
         public static Azure.ResourceManager.Logic.LogicWorkflowVersionResource GetLogicWorkflowVersionResource(this Azure.ResourceManager.ArmClient client, Azure.Core.ResourceIdentifier id) { throw null; }
         public static Azure.Response ValidateByLocationWorkflow(this Azure.ResourceManager.Resources.ResourceGroupResource resourceGroupResource, Azure.Core.AzureLocation location, string workflowName, Azure.ResourceManager.Logic.LogicWorkflowData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static System.Threading.Tasks.Task<Azure.Response> ValidateByLocationWorkflowAsync(this Azure.ResourceManager.Resources.ResourceGroupResource resourceGroupResource, Azure.Core.AzureLocation location, string workflowName, Azure.ResourceManager.Logic.LogicWorkflowData data, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public static Azure.Response<Azure.ResourceManager.Logic.Models.WorkflowExportValidityResult> ValidateWorkflowExportLocation(this Azure.ResourceManager.Resources.SubscriptionResource subscriptionResource, Azure.Core.AzureLocation location, Azure.ResourceManager.Logic.Models.WorkflowExportRequest workflowExportRequest, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public static System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Logic.Models.WorkflowExportValidityResult>> ValidateWorkflowExportLocationAsync(this Azure.ResourceManager.Resources.SubscriptionResource subscriptionResource, Azure.Core.AzureLocation location, Azure.ResourceManager.Logic.Models.WorkflowExportRequest workflowExportRequest, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public static Azure.Response<Azure.ResourceManager.Logic.Models.WorkflowExportResult> WorkflowExportLocation(this Azure.ResourceManager.Resources.SubscriptionResource subscriptionResource, Azure.Core.AzureLocation location, Azure.ResourceManager.Logic.Models.WorkflowExportRequest workflowExportRequest, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public static System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Logic.Models.WorkflowExportResult>> WorkflowExportLocationAsync(this Azure.ResourceManager.Resources.SubscriptionResource subscriptionResource, Azure.Core.AzureLocation location, Azure.ResourceManager.Logic.Models.WorkflowExportRequest workflowExportRequest, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
     }
     public partial class LogicWorkflowCollection : Azure.ResourceManager.ArmCollection, System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.Logic.LogicWorkflowResource>, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Logic.LogicWorkflowResource>, System.Collections.IEnumerable
     {
@@ -1085,6 +1089,8 @@ namespace Azure.ResourceManager.Logic.Models
 {
     public static partial class ArmLogicModelFactory
     {
+        public static Azure.ResourceManager.Logic.Models.ConnectionExportValidity ConnectionExportValidity(Azure.ResourceManager.Logic.Models.ValidationState? validationState = default(Azure.ResourceManager.Logic.Models.ValidationState?), Azure.ResourceManager.Logic.Models.LogicErrorResponse details = null, string displayName = null) { throw null; }
+        public static Azure.ResourceManager.Logic.Models.ExportDetail ExportDetail(Azure.ResourceManager.Logic.Models.ExportDetailCategory? exportDetailCategory = default(Azure.ResourceManager.Logic.Models.ExportDetailCategory?), Azure.ResourceManager.Logic.Models.ExportDetailCode? exportDetailCode = default(Azure.ResourceManager.Logic.Models.ExportDetailCode?), string exportDetailMessage = null) { throw null; }
         public static Azure.ResourceManager.Logic.IntegrationAccountAgreementData IntegrationAccountAgreementData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, System.Collections.Generic.IDictionary<string, string> tags = null, Azure.Core.AzureLocation location = default(Azure.Core.AzureLocation), System.DateTimeOffset? createdOn = default(System.DateTimeOffset?), System.DateTimeOffset? changedOn = default(System.DateTimeOffset?), System.BinaryData metadata = null, Azure.ResourceManager.Logic.Models.IntegrationAccountAgreementType agreementType = Azure.ResourceManager.Logic.Models.IntegrationAccountAgreementType.NotSpecified, string hostPartner = null, string guestPartner = null, Azure.ResourceManager.Logic.Models.IntegrationAccountBusinessIdentity hostIdentity = null, Azure.ResourceManager.Logic.Models.IntegrationAccountBusinessIdentity guestIdentity = null, Azure.ResourceManager.Logic.Models.IntegrationAccountAgreementContent content = null) { throw null; }
         public static Azure.ResourceManager.Logic.IntegrationAccountAssemblyDefinitionData IntegrationAccountAssemblyDefinitionData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, System.Collections.Generic.IDictionary<string, string> tags = null, Azure.Core.AzureLocation location = default(Azure.Core.AzureLocation), Azure.ResourceManager.Logic.Models.IntegrationAccountAssemblyProperties properties = null) { throw null; }
         public static Azure.ResourceManager.Logic.IntegrationAccountBatchConfigurationData IntegrationAccountBatchConfigurationData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, System.Collections.Generic.IDictionary<string, string> tags = null, Azure.Core.AzureLocation location = default(Azure.Core.AzureLocation), Azure.ResourceManager.Logic.Models.IntegrationAccountBatchConfigurationProperties properties = null) { throw null; }
@@ -1140,6 +1146,10 @@ namespace Azure.ResourceManager.Logic.Models
         public static Azure.ResourceManager.Logic.Models.LogicWorkflowTriggerReference LogicWorkflowTriggerReference(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType? resourceType = default(Azure.Core.ResourceType?), string flowName = null, string triggerName = null) { throw null; }
         public static Azure.ResourceManager.Logic.LogicWorkflowVersionData LogicWorkflowVersionData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, System.Collections.Generic.IDictionary<string, string> tags = null, Azure.Core.AzureLocation location = default(Azure.Core.AzureLocation), Azure.ResourceManager.Logic.Models.LogicWorkflowProvisioningState? provisioningState = default(Azure.ResourceManager.Logic.Models.LogicWorkflowProvisioningState?), System.DateTimeOffset? createdOn = default(System.DateTimeOffset?), System.DateTimeOffset? changedOn = default(System.DateTimeOffset?), Azure.ResourceManager.Logic.Models.LogicWorkflowState? state = default(Azure.ResourceManager.Logic.Models.LogicWorkflowState?), string version = null, string accessEndpoint = null, Azure.ResourceManager.Logic.Models.FlowEndpointsConfiguration endpointsConfiguration = null, Azure.ResourceManager.Logic.Models.FlowAccessControlConfiguration accessControl = null, Azure.ResourceManager.Logic.Models.LogicSku sku = null, Azure.ResourceManager.Logic.Models.LogicResourceReference integrationAccount = null, System.BinaryData definition = null, System.Collections.Generic.IDictionary<string, Azure.ResourceManager.Logic.Models.LogicWorkflowParameterInfo> parameters = null) { throw null; }
         public static Azure.ResourceManager.Logic.Models.LogicWsdlService LogicWsdlService(string qualifiedName = null, System.Collections.Generic.IEnumerable<string> endpointQualifiedNames = null) { throw null; }
+        public static Azure.ResourceManager.Logic.Models.ResourceExportValidity ResourceExportValidity(Azure.ResourceManager.Logic.Models.ValidationState? validationState = default(Azure.ResourceManager.Logic.Models.ValidationState?), Azure.ResourceManager.Logic.Models.LogicErrorResponse details = null) { throw null; }
+        public static Azure.ResourceManager.Logic.Models.WorkflowExportResult WorkflowExportResult(System.Collections.Generic.IEnumerable<Azure.ResourceManager.Logic.Models.ExportDetail> details = null, Azure.ResourceManager.Logic.Models.LogicContentLink packageLink = null) { throw null; }
+        public static Azure.ResourceManager.Logic.Models.WorkflowExportValidity WorkflowExportValidity(Azure.ResourceManager.Logic.Models.ValidationState? validationState = default(Azure.ResourceManager.Logic.Models.ValidationState?), System.Collections.Generic.IReadOnlyDictionary<string, Azure.ResourceManager.Logic.Models.ResourceExportValidity> workflowOperations = null, System.Collections.Generic.IReadOnlyDictionary<string, Azure.ResourceManager.Logic.Models.ConnectionExportValidity> connections = null, System.Collections.Generic.IReadOnlyDictionary<string, Azure.ResourceManager.Logic.Models.ResourceExportValidity> parameters = null) { throw null; }
+        public static Azure.ResourceManager.Logic.Models.WorkflowExportValidityResult WorkflowExportValidityResult(Azure.ResourceManager.Logic.Models.ValidationState? validationState = default(Azure.ResourceManager.Logic.Models.ValidationState?), System.Collections.Generic.IReadOnlyDictionary<string, Azure.ResourceManager.Logic.Models.WorkflowExportValidity> workflows = null) { throw null; }
     }
     public partial class ArtifactContentProperties : Azure.ResourceManager.Logic.Models.ArtifactProperties
     {
@@ -1318,6 +1328,13 @@ namespace Azure.ResourceManager.Logic.Models
         public bool OverrideMessageProperties { get { throw null; } set { } }
         public Azure.ResourceManager.Logic.Models.AS2SigningAlgorithm? SigningAlgorithm { get { throw null; } set { } }
         public bool SignMessage { get { throw null; } set { } }
+    }
+    public partial class ConnectionExportValidity
+    {
+        internal ConnectionExportValidity() { }
+        public Azure.ResourceManager.Logic.Models.LogicErrorResponse Details { get { throw null; } }
+        public string DisplayName { get { throw null; } }
+        public Azure.ResourceManager.Logic.Models.ValidationState? ValidationState { get { throw null; } }
     }
     public partial class EdifactAcknowledgementSettings
     {
@@ -1548,6 +1565,50 @@ namespace Azure.ResourceManager.Logic.Models
         public bool ValidateCharacterSet { get { throw null; } set { } }
         public bool ValidateEdiTypes { get { throw null; } set { } }
         public bool ValidateXsdTypes { get { throw null; } set { } }
+    }
+    public partial class ExportDetail
+    {
+        internal ExportDetail() { }
+        public Azure.ResourceManager.Logic.Models.ExportDetailCategory? ExportDetailCategory { get { throw null; } }
+        public Azure.ResourceManager.Logic.Models.ExportDetailCode? ExportDetailCode { get { throw null; } }
+        public string ExportDetailMessage { get { throw null; } }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct ExportDetailCategory : System.IEquatable<Azure.ResourceManager.Logic.Models.ExportDetailCategory>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public ExportDetailCategory(string value) { throw null; }
+        public static Azure.ResourceManager.Logic.Models.ExportDetailCategory Information { get { throw null; } }
+        public static Azure.ResourceManager.Logic.Models.ExportDetailCategory NotSpecified { get { throw null; } }
+        public static Azure.ResourceManager.Logic.Models.ExportDetailCategory RequiredStep { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.Logic.Models.ExportDetailCategory other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.Logic.Models.ExportDetailCategory left, Azure.ResourceManager.Logic.Models.ExportDetailCategory right) { throw null; }
+        public static implicit operator Azure.ResourceManager.Logic.Models.ExportDetailCategory (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.Logic.Models.ExportDetailCategory left, Azure.ResourceManager.Logic.Models.ExportDetailCategory right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct ExportDetailCode : System.IEquatable<Azure.ResourceManager.Logic.Models.ExportDetailCode>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public ExportDetailCode(string value) { throw null; }
+        public static Azure.ResourceManager.Logic.Models.ExportDetailCode ConnectionCloningUnsupported { get { throw null; } }
+        public static Azure.ResourceManager.Logic.Models.ExportDetailCode NotSpecified { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.Logic.Models.ExportDetailCode other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.Logic.Models.ExportDetailCode left, Azure.ResourceManager.Logic.Models.ExportDetailCode right) { throw null; }
+        public static implicit operator Azure.ResourceManager.Logic.Models.ExportDetailCode (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.Logic.Models.ExportDetailCode left, Azure.ResourceManager.Logic.Models.ExportDetailCode right) { throw null; }
+        public override string ToString() { throw null; }
     }
     public partial class FlowAccessControlConfiguration
     {
@@ -2734,6 +2795,12 @@ namespace Azure.ResourceManager.Logic.Models
         public static bool operator !=(Azure.ResourceManager.Logic.Models.OpenAuthenticationProviderType left, Azure.ResourceManager.Logic.Models.OpenAuthenticationProviderType right) { throw null; }
         public override string ToString() { throw null; }
     }
+    public partial class ResourceExportValidity
+    {
+        internal ResourceExportValidity() { }
+        public Azure.ResourceManager.Logic.Models.LogicErrorResponse Details { get { throw null; } }
+        public Azure.ResourceManager.Logic.Models.ValidationState? ValidationState { get { throw null; } }
+    }
     public enum SegmentTerminatorSuffix
     {
         None = 0,
@@ -2903,6 +2970,71 @@ namespace Azure.ResourceManager.Logic.Models
         public static implicit operator Azure.ResourceManager.Logic.Models.UsageIndicator (string value) { throw null; }
         public static bool operator !=(Azure.ResourceManager.Logic.Models.UsageIndicator left, Azure.ResourceManager.Logic.Models.UsageIndicator right) { throw null; }
         public override string ToString() { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct ValidationState : System.IEquatable<Azure.ResourceManager.Logic.Models.ValidationState>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public ValidationState(string value) { throw null; }
+        public static Azure.ResourceManager.Logic.Models.ValidationState Failed { get { throw null; } }
+        public static Azure.ResourceManager.Logic.Models.ValidationState NotSpecified { get { throw null; } }
+        public static Azure.ResourceManager.Logic.Models.ValidationState Succeeded { get { throw null; } }
+        public static Azure.ResourceManager.Logic.Models.ValidationState SucceededWithWarning { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.Logic.Models.ValidationState other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.Logic.Models.ValidationState left, Azure.ResourceManager.Logic.Models.ValidationState right) { throw null; }
+        public static implicit operator Azure.ResourceManager.Logic.Models.ValidationState (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.Logic.Models.ValidationState left, Azure.ResourceManager.Logic.Models.ValidationState right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct WorkflowExportOption : System.IEquatable<Azure.ResourceManager.Logic.Models.WorkflowExportOption>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public WorkflowExportOption(string value) { throw null; }
+        public static Azure.ResourceManager.Logic.Models.WorkflowExportOption CloneConnections { get { throw null; } }
+        public static Azure.ResourceManager.Logic.Models.WorkflowExportOption CloneConnectionsGenerateInfrastructureTemplates { get { throw null; } }
+        public static Azure.ResourceManager.Logic.Models.WorkflowExportOption GenerateInfrastructureTemplates { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.Logic.Models.WorkflowExportOption other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.Logic.Models.WorkflowExportOption left, Azure.ResourceManager.Logic.Models.WorkflowExportOption right) { throw null; }
+        public static implicit operator Azure.ResourceManager.Logic.Models.WorkflowExportOption (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.Logic.Models.WorkflowExportOption left, Azure.ResourceManager.Logic.Models.WorkflowExportOption right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    public partial class WorkflowExportRequest
+    {
+        public WorkflowExportRequest(System.Collections.Generic.IEnumerable<Azure.ResourceManager.Logic.Models.LogicResourceReference> workflows, Azure.ResourceManager.Logic.Models.WorkflowExportOption workflowExportOptions) { }
+        public Azure.ResourceManager.Logic.Models.WorkflowExportOption WorkflowExportOptions { get { throw null; } }
+        public System.Collections.Generic.IList<Azure.ResourceManager.Logic.Models.LogicResourceReference> Workflows { get { throw null; } }
+    }
+    public partial class WorkflowExportResult
+    {
+        internal WorkflowExportResult() { }
+        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.Logic.Models.ExportDetail> Details { get { throw null; } }
+        public Azure.ResourceManager.Logic.Models.LogicContentLink PackageLink { get { throw null; } }
+    }
+    public partial class WorkflowExportValidity
+    {
+        internal WorkflowExportValidity() { }
+        public System.Collections.Generic.IReadOnlyDictionary<string, Azure.ResourceManager.Logic.Models.ConnectionExportValidity> Connections { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, Azure.ResourceManager.Logic.Models.ResourceExportValidity> Parameters { get { throw null; } }
+        public Azure.ResourceManager.Logic.Models.ValidationState? ValidationState { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, Azure.ResourceManager.Logic.Models.ResourceExportValidity> WorkflowOperations { get { throw null; } }
+    }
+    public partial class WorkflowExportValidityResult
+    {
+        internal WorkflowExportValidityResult() { }
+        public Azure.ResourceManager.Logic.Models.ValidationState? ValidationState { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyDictionary<string, Azure.ResourceManager.Logic.Models.WorkflowExportValidity> Workflows { get { throw null; } }
     }
     public partial class X12AcknowledgementSettings
     {

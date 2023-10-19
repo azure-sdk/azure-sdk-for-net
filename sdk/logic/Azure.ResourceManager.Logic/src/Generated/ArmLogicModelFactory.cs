@@ -878,5 +878,71 @@ namespace Azure.ResourceManager.Logic.Models
         {
             return new LogicApiReference(id, name, resourceType, displayName, description, iconUri, swagger, brandColor, category, integrationServiceEnvironment);
         }
+
+        /// <summary> Initializes a new instance of WorkflowExportValidityResult. </summary>
+        /// <param name="validationState"> The validation state for the workflow export. </param>
+        /// <param name="workflows"> The workflows export validity. </param>
+        /// <returns> A new <see cref="Models.WorkflowExportValidityResult"/> instance for mocking. </returns>
+        public static WorkflowExportValidityResult WorkflowExportValidityResult(ValidationState? validationState = null, IReadOnlyDictionary<string, WorkflowExportValidity> workflows = null)
+        {
+            workflows ??= new Dictionary<string, WorkflowExportValidity>();
+
+            return new WorkflowExportValidityResult(validationState, workflows);
+        }
+
+        /// <summary> Initializes a new instance of WorkflowExportValidity. </summary>
+        /// <param name="validationState"> The validation state for the workflow. </param>
+        /// <param name="workflowOperations"> The workflow operations export validity. </param>
+        /// <param name="connections"> The connections export validity. </param>
+        /// <param name="parameters"> The parameters export validity. </param>
+        /// <returns> A new <see cref="Models.WorkflowExportValidity"/> instance for mocking. </returns>
+        public static WorkflowExportValidity WorkflowExportValidity(ValidationState? validationState = null, IReadOnlyDictionary<string, ResourceExportValidity> workflowOperations = null, IReadOnlyDictionary<string, ConnectionExportValidity> connections = null, IReadOnlyDictionary<string, ResourceExportValidity> parameters = null)
+        {
+            workflowOperations ??= new Dictionary<string, ResourceExportValidity>();
+            connections ??= new Dictionary<string, ConnectionExportValidity>();
+            parameters ??= new Dictionary<string, ResourceExportValidity>();
+
+            return new WorkflowExportValidity(validationState, workflowOperations, connections, parameters);
+        }
+
+        /// <summary> Initializes a new instance of ResourceExportValidity. </summary>
+        /// <param name="validationState"> The validation state for the resource. </param>
+        /// <param name="details"> Error response describing why the operation failed. </param>
+        /// <returns> A new <see cref="Models.ResourceExportValidity"/> instance for mocking. </returns>
+        public static ResourceExportValidity ResourceExportValidity(ValidationState? validationState = null, LogicErrorResponse details = null)
+        {
+            return new ResourceExportValidity(validationState, details);
+        }
+
+        /// <summary> Initializes a new instance of ConnectionExportValidity. </summary>
+        /// <param name="validationState"> The validation state for the connection. </param>
+        /// <param name="details"> Error response describing why the operation failed. </param>
+        /// <param name="displayName"> The display name of the connection. </param>
+        /// <returns> A new <see cref="Models.ConnectionExportValidity"/> instance for mocking. </returns>
+        public static ConnectionExportValidity ConnectionExportValidity(ValidationState? validationState = null, LogicErrorResponse details = null, string displayName = null)
+        {
+            return new ConnectionExportValidity(validationState, details, displayName);
+        }
+
+        /// <summary> Initializes a new instance of WorkflowExportResult. </summary>
+        /// <param name="details"> The export details. </param>
+        /// <param name="packageLink"> The link for the export package. </param>
+        /// <returns> A new <see cref="Models.WorkflowExportResult"/> instance for mocking. </returns>
+        public static WorkflowExportResult WorkflowExportResult(IEnumerable<ExportDetail> details = null, LogicContentLink packageLink = null)
+        {
+            details ??= new List<ExportDetail>();
+
+            return new WorkflowExportResult(details?.ToList(), packageLink);
+        }
+
+        /// <summary> Initializes a new instance of ExportDetail. </summary>
+        /// <param name="exportDetailCategory"> The export detail category. </param>
+        /// <param name="exportDetailCode"> The export detail code. </param>
+        /// <param name="exportDetailMessage"> The export detail message. </param>
+        /// <returns> A new <see cref="Models.ExportDetail"/> instance for mocking. </returns>
+        public static ExportDetail ExportDetail(ExportDetailCategory? exportDetailCategory = null, ExportDetailCode? exportDetailCode = null, string exportDetailMessage = null)
+        {
+            return new ExportDetail(exportDetailCategory, exportDetailCode, exportDetailMessage);
+        }
     }
 }

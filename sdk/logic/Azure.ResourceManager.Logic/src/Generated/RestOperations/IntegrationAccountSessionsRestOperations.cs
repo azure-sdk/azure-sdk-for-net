@@ -33,7 +33,7 @@ namespace Azure.ResourceManager.Logic
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2019-05-01";
+            _apiVersion = apiVersion ?? "2022-09-01-preview";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
@@ -67,7 +67,7 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Gets a list of integration account sessions. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The resource group name. </param>
         /// <param name="integrationAccountName"> The integration account name. </param>
         /// <param name="top"> The number of items to be included in the result. </param>
@@ -98,7 +98,7 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Gets a list of integration account sessions. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The resource group name. </param>
         /// <param name="integrationAccountName"> The integration account name. </param>
         /// <param name="top"> The number of items to be included in the result. </param>
@@ -151,7 +151,7 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Gets an integration account session. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The resource group name. </param>
         /// <param name="integrationAccountName"> The integration account name. </param>
         /// <param name="sessionName"> The integration account session name. </param>
@@ -184,7 +184,7 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Gets an integration account session. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The resource group name. </param>
         /// <param name="integrationAccountName"> The integration account name. </param>
         /// <param name="sessionName"> The integration account session name. </param>
@@ -243,7 +243,7 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Creates or updates an integration account session. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The resource group name. </param>
         /// <param name="integrationAccountName"> The integration account name. </param>
         /// <param name="sessionName"> The integration account session name. </param>
@@ -277,7 +277,7 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Creates or updates an integration account session. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The resource group name. </param>
         /// <param name="integrationAccountName"> The integration account name. </param>
         /// <param name="sessionName"> The integration account session name. </param>
@@ -333,7 +333,7 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Deletes an integration account session. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The resource group name. </param>
         /// <param name="integrationAccountName"> The integration account name. </param>
         /// <param name="sessionName"> The integration account session name. </param>
@@ -360,7 +360,7 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Deletes an integration account session. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The resource group name. </param>
         /// <param name="integrationAccountName"> The integration account name. </param>
         /// <param name="sessionName"> The integration account session name. </param>
@@ -402,7 +402,7 @@ namespace Azure.ResourceManager.Logic
 
         /// <summary> Gets a list of integration account sessions. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
-        /// <param name="subscriptionId"> The subscription id. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The resource group name. </param>
         /// <param name="integrationAccountName"> The integration account name. </param>
         /// <param name="top"> The number of items to be included in the result. </param>
@@ -435,7 +435,7 @@ namespace Azure.ResourceManager.Logic
 
         /// <summary> Gets a list of integration account sessions. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
-        /// <param name="subscriptionId"> The subscription id. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The resource group name. </param>
         /// <param name="integrationAccountName"> The integration account name. </param>
         /// <param name="top"> The number of items to be included in the result. </param>

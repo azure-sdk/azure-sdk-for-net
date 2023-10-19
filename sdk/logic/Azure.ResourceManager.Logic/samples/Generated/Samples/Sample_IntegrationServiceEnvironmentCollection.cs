@@ -24,7 +24,7 @@ namespace Azure.ResourceManager.Logic.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetAll_ListIntegrationServiceEnvironmentsByResourceGroupName()
         {
-            // Generated from example definition: specification/logic/resource-manager/Microsoft.Logic/stable/2019-05-01/examples/IntegrationServiceEnvironments_ListByResourceGroup.json
+            // Generated from example definition: specification/logic/resource-manager/Microsoft.Logic/preview/2022-09-01-preview/examples/IntegrationServiceEnvironments_ListByResourceGroup.json
             // this example is just showing the usage of "IntegrationServiceEnvironments_ListByResourceGroup" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -60,7 +60,7 @@ namespace Azure.ResourceManager.Logic.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetIntegrationServiceEnvironmentByName()
         {
-            // Generated from example definition: specification/logic/resource-manager/Microsoft.Logic/stable/2019-05-01/examples/IntegrationServiceEnvironments_Get.json
+            // Generated from example definition: specification/logic/resource-manager/Microsoft.Logic/preview/2022-09-01-preview/examples/IntegrationServiceEnvironments_Get.json
             // this example is just showing the usage of "IntegrationServiceEnvironments_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -94,7 +94,7 @@ namespace Azure.ResourceManager.Logic.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Exists_GetIntegrationServiceEnvironmentByName()
         {
-            // Generated from example definition: specification/logic/resource-manager/Microsoft.Logic/stable/2019-05-01/examples/IntegrationServiceEnvironments_Get.json
+            // Generated from example definition: specification/logic/resource-manager/Microsoft.Logic/preview/2022-09-01-preview/examples/IntegrationServiceEnvironments_Get.json
             // this example is just showing the usage of "IntegrationServiceEnvironments_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -124,7 +124,7 @@ namespace Azure.ResourceManager.Logic.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetIfExists_GetIntegrationServiceEnvironmentByName()
         {
-            // Generated from example definition: specification/logic/resource-manager/Microsoft.Logic/stable/2019-05-01/examples/IntegrationServiceEnvironments_Get.json
+            // Generated from example definition: specification/logic/resource-manager/Microsoft.Logic/preview/2022-09-01-preview/examples/IntegrationServiceEnvironments_Get.json
             // this example is just showing the usage of "IntegrationServiceEnvironments_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -166,7 +166,7 @@ namespace Azure.ResourceManager.Logic.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreateOrUpdateAnIntegrationServiceEnvironment()
         {
-            // Generated from example definition: specification/logic/resource-manager/Microsoft.Logic/stable/2019-05-01/examples/IntegrationServiceEnvironments_Put.json
+            // Generated from example definition: specification/logic/resource-manager/Microsoft.Logic/preview/2022-09-01-preview/examples/IntegrationServiceEnvironments_Put.json
             // this example is just showing the usage of "IntegrationServiceEnvironments_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line

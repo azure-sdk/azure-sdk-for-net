@@ -33,7 +33,7 @@ namespace Azure.ResourceManager.Logic
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2019-05-01";
+            _apiVersion = apiVersion ?? "2022-09-01-preview";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
@@ -61,7 +61,7 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Gets the managed Api operations. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroup"> The resource group. </param>
         /// <param name="integrationServiceEnvironmentName"> The integration service environment name. </param>
         /// <param name="apiName"> The api name. </param>
@@ -92,7 +92,7 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Gets the managed Api operations. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroup"> The resource group. </param>
         /// <param name="integrationServiceEnvironmentName"> The integration service environment name. </param>
         /// <param name="apiName"> The api name. </param>
@@ -138,7 +138,7 @@ namespace Azure.ResourceManager.Logic
 
         /// <summary> Gets the managed Api operations. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
-        /// <param name="subscriptionId"> The subscription id. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroup"> The resource group. </param>
         /// <param name="integrationServiceEnvironmentName"> The integration service environment name. </param>
         /// <param name="apiName"> The api name. </param>
@@ -171,7 +171,7 @@ namespace Azure.ResourceManager.Logic
 
         /// <summary> Gets the managed Api operations. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
-        /// <param name="subscriptionId"> The subscription id. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroup"> The resource group. </param>
         /// <param name="integrationServiceEnvironmentName"> The integration service environment name. </param>
         /// <param name="apiName"> The api name. </param>

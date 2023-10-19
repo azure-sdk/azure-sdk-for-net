@@ -33,7 +33,7 @@ namespace Azure.ResourceManager.Logic
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2019-05-01";
+            _apiVersion = apiVersion ?? "2022-09-01-preview";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
@@ -63,7 +63,7 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Gets a list of workflows by subscription. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="top"> The number of items to be included in the result. </param>
         /// <param name="filter"> The filter to apply on the operation. Options for filters include: State, Trigger, and ReferencedResourceId. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -90,7 +90,7 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Gets a list of workflows by subscription. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="top"> The number of items to be included in the result. </param>
         /// <param name="filter"> The filter to apply on the operation. Options for filters include: State, Trigger, and ReferencedResourceId. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -144,7 +144,7 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Gets a list of workflows by resource group. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The resource group name. </param>
         /// <param name="top"> The number of items to be included in the result. </param>
         /// <param name="filter"> The filter to apply on the operation. Options for filters include: State, Trigger, and ReferencedResourceId. </param>
@@ -173,7 +173,7 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Gets a list of workflows by resource group. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The resource group name. </param>
         /// <param name="top"> The number of items to be included in the result. </param>
         /// <param name="filter"> The filter to apply on the operation. Options for filters include: State, Trigger, and ReferencedResourceId. </param>
@@ -222,7 +222,7 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Gets a workflow. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The resource group name. </param>
         /// <param name="workflowName"> The workflow name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -253,7 +253,7 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Gets a workflow. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The resource group name. </param>
         /// <param name="workflowName"> The workflow name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -308,7 +308,7 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Creates or updates a workflow. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The resource group name. </param>
         /// <param name="workflowName"> The workflow name. </param>
         /// <param name="data"> The workflow. </param>
@@ -340,7 +340,7 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Creates or updates a workflow. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The resource group name. </param>
         /// <param name="workflowName"> The workflow name. </param>
         /// <param name="data"> The workflow. </param>
@@ -392,7 +392,7 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Deletes a workflow. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The resource group name. </param>
         /// <param name="workflowName"> The workflow name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -417,7 +417,7 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Deletes a workflow. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The resource group name. </param>
         /// <param name="workflowName"> The workflow name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -463,7 +463,7 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Disables a workflow. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The resource group name. </param>
         /// <param name="workflowName"> The workflow name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -487,7 +487,7 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Disables a workflow. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The resource group name. </param>
         /// <param name="workflowName"> The workflow name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -532,7 +532,7 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Enables a workflow. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The resource group name. </param>
         /// <param name="workflowName"> The workflow name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -556,7 +556,7 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Enables a workflow. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The resource group name. </param>
         /// <param name="workflowName"> The workflow name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -605,7 +605,7 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Generates the upgraded definition for a workflow. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The resource group name. </param>
         /// <param name="workflowName"> The workflow name. </param>
         /// <param name="content"> Parameters for generating an upgraded definition. </param>
@@ -635,7 +635,7 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Generates the upgraded definition for a workflow. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The resource group name. </param>
         /// <param name="workflowName"> The workflow name. </param>
         /// <param name="content"> Parameters for generating an upgraded definition. </param>
@@ -690,7 +690,7 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Get the workflow callback Url. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The resource group name. </param>
         /// <param name="workflowName"> The workflow name. </param>
         /// <param name="info"> Which callback url to list. </param>
@@ -721,7 +721,7 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Get the workflow callback Url. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The resource group name. </param>
         /// <param name="workflowName"> The workflow name. </param>
         /// <param name="info"> Which callback url to list. </param>
@@ -773,7 +773,7 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Gets an OpenAPI definition for the workflow. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The resource group name. </param>
         /// <param name="workflowName"> The workflow name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -801,7 +801,7 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Gets an OpenAPI definition for the workflow. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The resource group name. </param>
         /// <param name="workflowName"> The workflow name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -854,7 +854,7 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Moves an existing workflow. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The resource group name. </param>
         /// <param name="workflowName"> The workflow name. </param>
         /// <param name="move"> The workflow to move. </param>
@@ -881,7 +881,7 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Moves an existing workflow. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The resource group name. </param>
         /// <param name="workflowName"> The workflow name. </param>
         /// <param name="move"> The workflow to move. </param>
@@ -933,7 +933,7 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Regenerates the callback URL access key for request triggers. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The resource group name. </param>
         /// <param name="workflowName"> The workflow name. </param>
         /// <param name="content"> The access key type. </param>
@@ -959,7 +959,7 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Regenerates the callback URL access key for request triggers. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The resource group name. </param>
         /// <param name="workflowName"> The workflow name. </param>
         /// <param name="content"> The access key type. </param>
@@ -1010,7 +1010,7 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Validates the workflow. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The resource group name. </param>
         /// <param name="workflowName"> The workflow name. </param>
         /// <param name="data"> The workflow. </param>
@@ -1036,7 +1036,7 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Validates the workflow. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The resource group name. </param>
         /// <param name="workflowName"> The workflow name. </param>
         /// <param name="data"> The workflow. </param>
@@ -1089,7 +1089,7 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Validates the workflow definition. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The resource group name. </param>
         /// <param name="location"> The workflow location. </param>
         /// <param name="workflowName"> The workflow name. </param>
@@ -1116,7 +1116,7 @@ namespace Azure.ResourceManager.Logic
         }
 
         /// <summary> Validates the workflow definition. </summary>
-        /// <param name="subscriptionId"> The subscription id. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The resource group name. </param>
         /// <param name="location"> The workflow location. </param>
         /// <param name="workflowName"> The workflow name. </param>
@@ -1158,7 +1158,7 @@ namespace Azure.ResourceManager.Logic
 
         /// <summary> Gets a list of workflows by subscription. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
-        /// <param name="subscriptionId"> The subscription id. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="top"> The number of items to be included in the result. </param>
         /// <param name="filter"> The filter to apply on the operation. Options for filters include: State, Trigger, and ReferencedResourceId. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -1187,7 +1187,7 @@ namespace Azure.ResourceManager.Logic
 
         /// <summary> Gets a list of workflows by subscription. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
-        /// <param name="subscriptionId"> The subscription id. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="top"> The number of items to be included in the result. </param>
         /// <param name="filter"> The filter to apply on the operation. Options for filters include: State, Trigger, and ReferencedResourceId. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
@@ -1230,7 +1230,7 @@ namespace Azure.ResourceManager.Logic
 
         /// <summary> Gets a list of workflows by resource group. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
-        /// <param name="subscriptionId"> The subscription id. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The resource group name. </param>
         /// <param name="top"> The number of items to be included in the result. </param>
         /// <param name="filter"> The filter to apply on the operation. Options for filters include: State, Trigger, and ReferencedResourceId. </param>
@@ -1261,7 +1261,7 @@ namespace Azure.ResourceManager.Logic
 
         /// <summary> Gets a list of workflows by resource group. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
-        /// <param name="subscriptionId"> The subscription id. </param>
+        /// <param name="subscriptionId"> The ID of the target subscription. </param>
         /// <param name="resourceGroupName"> The resource group name. </param>
         /// <param name="top"> The number of items to be included in the result. </param>
         /// <param name="filter"> The filter to apply on the operation. Options for filters include: State, Trigger, and ReferencedResourceId. </param>

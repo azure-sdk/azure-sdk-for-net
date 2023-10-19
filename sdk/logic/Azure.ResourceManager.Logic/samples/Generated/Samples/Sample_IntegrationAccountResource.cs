@@ -25,7 +25,7 @@ namespace Azure.ResourceManager.Logic.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetIntegrationAccounts_ListIntegrationAccountsBySubscription()
         {
-            // Generated from example definition: specification/logic/resource-manager/Microsoft.Logic/stable/2019-05-01/examples/IntegrationAccounts_ListBySubscription.json
+            // Generated from example definition: specification/logic/resource-manager/Microsoft.Logic/preview/2022-09-01-preview/examples/IntegrationAccounts_ListBySubscription.json
             // this example is just showing the usage of "IntegrationAccounts_ListBySubscription" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -57,7 +57,7 @@ namespace Azure.ResourceManager.Logic.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetIntegrationAccountByName()
         {
-            // Generated from example definition: specification/logic/resource-manager/Microsoft.Logic/stable/2019-05-01/examples/IntegrationAccounts_Get.json
+            // Generated from example definition: specification/logic/resource-manager/Microsoft.Logic/preview/2022-09-01-preview/examples/IntegrationAccounts_Get.json
             // this example is just showing the usage of "IntegrationAccounts_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -88,7 +88,7 @@ namespace Azure.ResourceManager.Logic.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_PatchAnIntegrationAccount()
         {
-            // Generated from example definition: specification/logic/resource-manager/Microsoft.Logic/stable/2019-05-01/examples/IntegrationAccounts_Update.json
+            // Generated from example definition: specification/logic/resource-manager/Microsoft.Logic/preview/2022-09-01-preview/examples/IntegrationAccounts_Update.json
             // this example is just showing the usage of "IntegrationAccounts_Update" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -123,7 +123,7 @@ namespace Azure.ResourceManager.Logic.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Delete_DeleteAnIntegrationAccount()
         {
-            // Generated from example definition: specification/logic/resource-manager/Microsoft.Logic/stable/2019-05-01/examples/IntegrationAccounts_Delete.json
+            // Generated from example definition: specification/logic/resource-manager/Microsoft.Logic/preview/2022-09-01-preview/examples/IntegrationAccounts_Delete.json
             // this example is just showing the usage of "IntegrationAccounts_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -150,7 +150,7 @@ namespace Azure.ResourceManager.Logic.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetCallbackUrl_ListIntegrationAccountCallbackURL()
         {
-            // Generated from example definition: specification/logic/resource-manager/Microsoft.Logic/stable/2019-05-01/examples/IntegrationAccounts_ListCallbackUrl.json
+            // Generated from example definition: specification/logic/resource-manager/Microsoft.Logic/preview/2022-09-01-preview/examples/IntegrationAccounts_ListCallbackUrl.json
             // this example is just showing the usage of "IntegrationAccounts_ListCallbackUrl" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -182,7 +182,7 @@ namespace Azure.ResourceManager.Logic.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetKeyVaultKeys_GetIntegrationAccountCallbackURL()
         {
-            // Generated from example definition: specification/logic/resource-manager/Microsoft.Logic/stable/2019-05-01/examples/IntegrationAccounts_ListKeyVaultKeys.json
+            // Generated from example definition: specification/logic/resource-manager/Microsoft.Logic/preview/2022-09-01-preview/examples/IntegrationAccounts_ListKeyVaultKeys.json
             // this example is just showing the usage of "IntegrationAccounts_ListKeyVaultKeys" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -219,7 +219,7 @@ namespace Azure.ResourceManager.Logic.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task LogTrackingEvents_LogATrackedEvent()
         {
-            // Generated from example definition: specification/logic/resource-manager/Microsoft.Logic/stable/2019-05-01/examples/IntegrationAccounts_LogTrackingEvents.json
+            // Generated from example definition: specification/logic/resource-manager/Microsoft.Logic/preview/2022-09-01-preview/examples/IntegrationAccounts_LogTrackingEvents.json
             // this example is just showing the usage of "IntegrationAccounts_LogTrackingEvents" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -280,7 +280,7 @@ Code = "NotFound",
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task RegenerateAccessKey_RegenerateAccessKey()
         {
-            // Generated from example definition: specification/logic/resource-manager/Microsoft.Logic/stable/2019-05-01/examples/IntegrationAccounts_RegenerateAccessKey.json
+            // Generated from example definition: specification/logic/resource-manager/Microsoft.Logic/preview/2022-09-01-preview/examples/IntegrationAccounts_RegenerateAccessKey.json
             // this example is just showing the usage of "IntegrationAccounts_RegenerateAccessKey" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line

@@ -21,7 +21,7 @@ namespace Azure.ResourceManager.Logic.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetARunForAWorkflow()
         {
-            // Generated from example definition: specification/logic/resource-manager/Microsoft.Logic/stable/2019-05-01/examples/WorkflowRuns_Get.json
+            // Generated from example definition: specification/logic/resource-manager/Microsoft.Logic/preview/2022-09-01-preview/examples/WorkflowRuns_Get.json
             // this example is just showing the usage of "WorkflowRuns_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -53,7 +53,7 @@ namespace Azure.ResourceManager.Logic.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Cancel_CancelAWorkflowRun()
         {
-            // Generated from example definition: specification/logic/resource-manager/Microsoft.Logic/stable/2019-05-01/examples/WorkflowRuns_Cancel.json
+            // Generated from example definition: specification/logic/resource-manager/Microsoft.Logic/preview/2022-09-01-preview/examples/WorkflowRuns_Cancel.json
             // this example is just showing the usage of "WorkflowRuns_Cancel" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
