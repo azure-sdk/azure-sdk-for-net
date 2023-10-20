@@ -8,7 +8,7 @@ azure-arm: true
 csharp: true
 library-name: FluidRelay
 namespace: Azure.ResourceManager.FluidRelay
-require: https://github.com/Azure/azure-rest-api-specs/blob/fbe071bba84e3e724573b3fc4efdeb041174d547/specification/fluidrelay/resource-manager/readme.md
+require: /mnt/vss/_work/1/s/azure-rest-api-specs/specification/fluidrelay/resource-manager/readme.md
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
 sample-gen:
