@@ -27,11 +27,15 @@ namespace Azure.ResourceManager.Confluent.Models
         /// <param name="firstName"> First name. </param>
         /// <param name="lastName"> Last name. </param>
         /// <param name="emailAddress"> Email address. </param>
-        internal ConfluentUserDetail(string firstName, string lastName, string emailAddress)
+        /// <param name="userPrincipalName"> User principal name. </param>
+        /// <param name="aadEmail"> AAD email address. </param>
+        internal ConfluentUserDetail(string firstName, string lastName, string emailAddress, string userPrincipalName, string aadEmail)
         {
             FirstName = firstName;
             LastName = lastName;
             EmailAddress = emailAddress;
+            UserPrincipalName = userPrincipalName;
+            AadEmail = aadEmail;
         }
 
         /// <summary> First name. </summary>
@@ -40,5 +44,9 @@ namespace Azure.ResourceManager.Confluent.Models
         public string LastName { get; set; }
         /// <summary> Email address. </summary>
         public string EmailAddress { get; set; }
+        /// <summary> User principal name. </summary>
+        public string UserPrincipalName { get; set; }
+        /// <summary> AAD email address. </summary>
+        public string AadEmail { get; set; }
     }
 }
