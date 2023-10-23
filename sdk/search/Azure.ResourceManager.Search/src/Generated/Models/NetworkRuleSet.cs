@@ -10,7 +10,7 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.Search.Models
 {
-    /// <summary> Network specific rules that determine how the Azure Cognitive Search service may be reached. </summary>
+    /// <summary> Network-specific rules that determine how the search service can be reached. </summary>
     internal partial class NetworkRuleSet
     {
         /// <summary> Initializes a new instance of NetworkRuleSet. </summary>
@@ -20,13 +20,13 @@ namespace Azure.ResourceManager.Search.Models
         }
 
         /// <summary> Initializes a new instance of NetworkRuleSet. </summary>
-        /// <param name="ipRules"> A list of IP restriction rules that defines the inbound network(s) with allowing access to the search service endpoint. At the meantime, all other public IP networks are blocked by the firewall. These restriction rules are applied only when the 'publicNetworkAccess' of the search service is 'enabled'; otherwise, traffic over public interface is not allowed even with any public IP rules, and private endpoint connections would be the exclusive access method. </param>
+        /// <param name="ipRules"> A list of IP restriction rules used for an IP firewall. Any IPs that do not match the rules are blocked by the firewall. These rules are only applied when the 'publicNetworkAccess' of the search service is 'enabled'. </param>
         internal NetworkRuleSet(IList<SearchServiceIPRule> ipRules)
         {
             IPRules = ipRules;
         }
 
-        /// <summary> A list of IP restriction rules that defines the inbound network(s) with allowing access to the search service endpoint. At the meantime, all other public IP networks are blocked by the firewall. These restriction rules are applied only when the 'publicNetworkAccess' of the search service is 'enabled'; otherwise, traffic over public interface is not allowed even with any public IP rules, and private endpoint connections would be the exclusive access method. </summary>
+        /// <summary> A list of IP restriction rules used for an IP firewall. Any IPs that do not match the rules are blocked by the firewall. These rules are only applied when the 'publicNetworkAccess' of the search service is 'enabled'. </summary>
         public IList<SearchServiceIPRule> IPRules { get; }
     }
 }
