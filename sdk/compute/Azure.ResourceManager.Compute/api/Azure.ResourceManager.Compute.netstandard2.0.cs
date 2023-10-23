@@ -4622,6 +4622,24 @@ namespace Azure.ResourceManager.Compute.Models
         public string Tier { get { throw null; } set { } }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct Mode : System.IEquatable<Azure.ResourceManager.Compute.Models.Mode>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public Mode(string value) { throw null; }
+        public static Azure.ResourceManager.Compute.Models.Mode Audit { get { throw null; } }
+        public static Azure.ResourceManager.Compute.Models.Mode Enforce { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.Compute.Models.Mode other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.Compute.Models.Mode left, Azure.ResourceManager.Compute.Models.Mode right) { throw null; }
+        public static implicit operator Azure.ResourceManager.Compute.Models.Mode (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.Compute.Models.Mode left, Azure.ResourceManager.Compute.Models.Mode right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct NetworkAccessPolicy : System.IEquatable<Azure.ResourceManager.Compute.Models.NetworkAccessPolicy>
     {
         private readonly object _dummy;
@@ -4933,6 +4951,13 @@ namespace Azure.ResourceManager.Compute.Models
         public static implicit operator Azure.ResourceManager.Compute.Models.ProximityPlacementGroupType (string value) { throw null; }
         public static bool operator !=(Azure.ResourceManager.Compute.Models.ProximityPlacementGroupType left, Azure.ResourceManager.Compute.Models.ProximityPlacementGroupType right) { throw null; }
         public override string ToString() { throw null; }
+    }
+    public partial class ProxyAgentSettings
+    {
+        public ProxyAgentSettings() { }
+        public bool? Enabled { get { throw null; } set { } }
+        public int? KeyIncarnationId { get { throw null; } set { } }
+        public Azure.ResourceManager.Compute.Models.Mode? Mode { get { throw null; } set { } }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct PublicIPAllocationMethod : System.IEquatable<Azure.ResourceManager.Compute.Models.PublicIPAllocationMethod>
@@ -5338,6 +5363,7 @@ namespace Azure.ResourceManager.Compute.Models
     {
         public SecurityProfile() { }
         public bool? EncryptionAtHost { get { throw null; } set { } }
+        public Azure.ResourceManager.Compute.Models.ProxyAgentSettings ProxyAgentSettings { get { throw null; } set { } }
         public Azure.ResourceManager.Compute.Models.SecurityType? SecurityType { get { throw null; } set { } }
         public Azure.ResourceManager.Compute.Models.UefiSettings UefiSettings { get { throw null; } set { } }
     }

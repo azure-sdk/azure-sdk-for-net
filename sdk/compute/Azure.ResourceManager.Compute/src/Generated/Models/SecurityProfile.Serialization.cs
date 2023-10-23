@@ -30,6 +30,11 @@ namespace Azure.ResourceManager.Compute.Models
                 writer.WritePropertyName("securityType"u8);
                 writer.WriteStringValue(SecurityType.Value.ToString());
             }
+            if (Optional.IsDefined(ProxyAgentSettings))
+            {
+                writer.WritePropertyName("proxyAgentSettings"u8);
+                writer.WriteObjectValue(ProxyAgentSettings);
+            }
             writer.WriteEndObject();
         }
 
@@ -42,6 +47,7 @@ namespace Azure.ResourceManager.Compute.Models
             Optional<UefiSettings> uefiSettings = default;
             Optional<bool> encryptionAtHost = default;
             Optional<SecurityType> securityType = default;
+            Optional<ProxyAgentSettings> proxyAgentSettings = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("uefiSettings"u8))
@@ -71,8 +77,17 @@ namespace Azure.ResourceManager.Compute.Models
                     securityType = new SecurityType(property.Value.GetString());
                     continue;
                 }
+                if (property.NameEquals("proxyAgentSettings"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    proxyAgentSettings = ProxyAgentSettings.DeserializeProxyAgentSettings(property.Value);
+                    continue;
+                }
             }
-            return new SecurityProfile(uefiSettings.Value, Optional.ToNullable(encryptionAtHost), Optional.ToNullable(securityType));
+            return new SecurityProfile(uefiSettings.Value, Optional.ToNullable(encryptionAtHost), Optional.ToNullable(securityType), proxyAgentSettings.Value);
         }
     }
 }
