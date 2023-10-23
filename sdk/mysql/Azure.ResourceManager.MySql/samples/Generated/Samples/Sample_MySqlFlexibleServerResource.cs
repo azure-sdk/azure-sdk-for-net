@@ -154,6 +154,10 @@ Value = "8",
                     AutoGrow = MySqlFlexibleServerEnableStatusEnum.Disabled,
                     AutoIoScaling = MySqlFlexibleServerEnableStatusEnum.Disabled,
                 },
+                Network = new MySqlFlexibleServerNetwork()
+                {
+                    PublicNetworkAccess = MySqlFlexibleServerEnableStatusEnum.Disabled,
+                },
             };
             ArmOperation<MySqlFlexibleServerResource> lro = await mySqlFlexibleServer.UpdateAsync(WaitUntil.Completed, patch);
             MySqlFlexibleServerResource result = lro.Value;
