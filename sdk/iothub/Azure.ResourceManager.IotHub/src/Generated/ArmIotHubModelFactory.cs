@@ -59,11 +59,15 @@ namespace Azure.ResourceManager.IotHub.Models
         /// <param name="enableFileUploadNotifications"> If True, file upload notifications are enabled. </param>
         /// <param name="cloudToDevice"> The IoT hub cloud-to-device messaging properties. </param>
         /// <param name="comments"> IoT hub comments. </param>
+        /// <param name="deviceStreamsStreamingEndpoints"> The device streams properties of iothub. </param>
         /// <param name="features"> The capabilities and features enabled for the IoT hub. </param>
+        /// <param name="encryption"> The encryption properties for the IoT hub. </param>
         /// <param name="locations"> Primary and secondary location for iot hub. </param>
         /// <param name="enableDataResidency"> This property when set to true, will enable data residency, thus, disabling disaster recovery. </param>
+        /// <param name="rootCertificate"> This property store root certificate related information. </param>
+        /// <param name="ipVersion"> This property specifies the IP Version the hub is currently utilizing. </param>
         /// <returns> A new <see cref="Models.IotHubProperties"/> instance for mocking. </returns>
-        public static IotHubProperties IotHubProperties(IEnumerable<SharedAccessSignatureAuthorizationRule> authorizationPolicies = null, bool? disableLocalAuth = null, bool? disableDeviceSas = null, bool? disableModuleSas = null, bool? restrictOutboundNetworkAccess = null, IEnumerable<string> allowedFqdns = null, IotHubPublicNetworkAccess? publicNetworkAccess = null, IEnumerable<IotHubIPFilterRule> ipFilterRules = null, IotHubNetworkRuleSetProperties networkRuleSets = null, string minTlsVersion = null, IEnumerable<IotHubPrivateEndpointConnectionData> privateEndpointConnections = null, string provisioningState = null, string state = null, string hostName = null, IDictionary<string, EventHubCompatibleEndpointProperties> eventHubEndpoints = null, IotHubRoutingProperties routing = null, IDictionary<string, IotHubStorageEndpointProperties> storageEndpoints = null, IDictionary<string, MessagingEndpointProperties> messagingEndpoints = null, bool? enableFileUploadNotifications = null, CloudToDeviceProperties cloudToDevice = null, string comments = null, IotHubCapability? features = null, IEnumerable<IotHubLocationDescription> locations = null, bool? enableDataResidency = null)
+        public static IotHubProperties IotHubProperties(IEnumerable<SharedAccessSignatureAuthorizationRule> authorizationPolicies = null, bool? disableLocalAuth = null, bool? disableDeviceSas = null, bool? disableModuleSas = null, bool? restrictOutboundNetworkAccess = null, IEnumerable<string> allowedFqdns = null, IotHubPublicNetworkAccess? publicNetworkAccess = null, IEnumerable<IotHubIPFilterRule> ipFilterRules = null, IotHubNetworkRuleSetProperties networkRuleSets = null, string minTlsVersion = null, IEnumerable<IotHubPrivateEndpointConnectionData> privateEndpointConnections = null, string provisioningState = null, string state = null, string hostName = null, IDictionary<string, EventHubCompatibleEndpointProperties> eventHubEndpoints = null, IotHubRoutingProperties routing = null, IDictionary<string, IotHubStorageEndpointProperties> storageEndpoints = null, IDictionary<string, MessagingEndpointProperties> messagingEndpoints = null, bool? enableFileUploadNotifications = null, CloudToDeviceProperties cloudToDevice = null, string comments = null, IEnumerable<string> deviceStreamsStreamingEndpoints = null, IotHubCapability? features = null, EncryptionPropertiesDescription encryption = null, IEnumerable<IotHubLocationDescription> locations = null, bool? enableDataResidency = null, RootCertificateProperties rootCertificate = null, IPVersion? ipVersion = null)
         {
             authorizationPolicies ??= new List<SharedAccessSignatureAuthorizationRule>();
             allowedFqdns ??= new List<string>();
@@ -72,9 +76,10 @@ namespace Azure.ResourceManager.IotHub.Models
             eventHubEndpoints ??= new Dictionary<string, EventHubCompatibleEndpointProperties>();
             storageEndpoints ??= new Dictionary<string, IotHubStorageEndpointProperties>();
             messagingEndpoints ??= new Dictionary<string, MessagingEndpointProperties>();
+            deviceStreamsStreamingEndpoints ??= new List<string>();
             locations ??= new List<IotHubLocationDescription>();
 
-            return new IotHubProperties(authorizationPolicies?.ToList(), disableLocalAuth, disableDeviceSas, disableModuleSas, restrictOutboundNetworkAccess, allowedFqdns?.ToList(), publicNetworkAccess, ipFilterRules?.ToList(), networkRuleSets, minTlsVersion, privateEndpointConnections?.ToList(), provisioningState, state, hostName, eventHubEndpoints, routing, storageEndpoints, messagingEndpoints, enableFileUploadNotifications, cloudToDevice, comments, features, locations?.ToList(), enableDataResidency);
+            return new IotHubProperties(authorizationPolicies?.ToList(), disableLocalAuth, disableDeviceSas, disableModuleSas, restrictOutboundNetworkAccess, allowedFqdns?.ToList(), publicNetworkAccess, ipFilterRules?.ToList(), networkRuleSets, minTlsVersion, privateEndpointConnections?.ToList(), provisioningState, state, hostName, eventHubEndpoints, routing, storageEndpoints, messagingEndpoints, enableFileUploadNotifications, cloudToDevice, comments, deviceStreamsStreamingEndpoints != null ? new IotHubPropertiesDeviceStreams(deviceStreamsStreamingEndpoints?.ToList()) : null, features, encryption, locations?.ToList(), enableDataResidency, rootCertificate, ipVersion);
         }
 
         /// <summary> Initializes a new instance of IotHubPrivateEndpointConnectionData. </summary>
@@ -103,26 +108,6 @@ namespace Azure.ResourceManager.IotHub.Models
             return new EventHubCompatibleEndpointProperties(retentionTimeInDays, partitionCount, partitionIds?.ToList(), eventHubCompatibleName, endpoint);
         }
 
-        /// <summary> Initializes a new instance of RoutingCosmosDBSqlApiProperties. </summary>
-        /// <param name="name"> The name that identifies this endpoint. The name can only include alphanumeric characters, periods, underscores, hyphens and has a maximum length of 64 characters. The following names are reserved:  events, fileNotifications, $default. Endpoint names must be unique across endpoint types. </param>
-        /// <param name="id"> Id of the cosmos DB sql container endpoint. </param>
-        /// <param name="subscriptionId"> The subscription identifier of the cosmos DB account. </param>
-        /// <param name="resourceGroup"> The name of the resource group of the cosmos DB account. </param>
-        /// <param name="endpointUri"> The url of the cosmos DB account. It must include the protocol https://. </param>
-        /// <param name="authenticationType"> Method used to authenticate against the cosmos DB sql container endpoint. </param>
-        /// <param name="userAssignedIdentity"> Managed identity properties of routing cosmos DB container endpoint. </param>
-        /// <param name="primaryKey"> The primary key of the cosmos DB account. </param>
-        /// <param name="secondaryKey"> The secondary key of the cosmos DB account. </param>
-        /// <param name="databaseName"> The name of the cosmos DB database in the cosmos DB account. </param>
-        /// <param name="containerName"> The name of the cosmos DB sql container in the cosmos DB database. </param>
-        /// <param name="partitionKeyName"> The name of the partition key associated with this cosmos DB sql container if one exists. This is an optional parameter. </param>
-        /// <param name="partitionKeyTemplate"> The template for generating a synthetic partition key value for use with this cosmos DB sql container. The template must include at least one of the following placeholders: {iothub}, {deviceid}, {DD}, {MM}, and {YYYY}. Any one placeholder may be specified at most once, but order and non-placeholder components are arbitrary. This parameter is only required if PartitionKeyName is specified. </param>
-        /// <returns> A new <see cref="Models.RoutingCosmosDBSqlApiProperties"/> instance for mocking. </returns>
-        public static RoutingCosmosDBSqlApiProperties RoutingCosmosDBSqlApiProperties(string name = null, string id = null, string subscriptionId = null, string resourceGroup = null, Uri endpointUri = null, IotHubAuthenticationType? authenticationType = null, ResourceIdentifier userAssignedIdentity = null, string primaryKey = null, string secondaryKey = null, string databaseName = null, string containerName = null, string partitionKeyName = null, string partitionKeyTemplate = null)
-        {
-            return new RoutingCosmosDBSqlApiProperties(name, id, subscriptionId, resourceGroup, endpointUri, authenticationType, userAssignedIdentity != null ? new ManagedIdentity(userAssignedIdentity) : null, primaryKey, secondaryKey, databaseName, containerName, partitionKeyName, partitionKeyTemplate);
-        }
-
         /// <summary> Initializes a new instance of IotHubLocationDescription. </summary>
         /// <param name="location"> The name of the Azure region. </param>
         /// <param name="role"> The role of the region, can be either primary or secondary. The primary region is where the IoT hub is currently provisioned. The secondary region is the Azure disaster recovery (DR) paired region and also the region where the IoT hub can failover to. </param>
@@ -130,6 +115,15 @@ namespace Azure.ResourceManager.IotHub.Models
         public static IotHubLocationDescription IotHubLocationDescription(AzureLocation? location = null, IotHubReplicaRoleType? role = null)
         {
             return new IotHubLocationDescription(location, role);
+        }
+
+        /// <summary> Initializes a new instance of RootCertificateProperties. </summary>
+        /// <param name="isRootCertificateV2Enabled"> This property when set to true, hub will use G2 cert; while it's set to false, hub uses Baltimore Cert. </param>
+        /// <param name="lastUpdatedOn"> the last update time to root certificate flag. </param>
+        /// <returns> A new <see cref="Models.RootCertificateProperties"/> instance for mocking. </returns>
+        public static RootCertificateProperties RootCertificateProperties(bool? isRootCertificateV2Enabled = null, DateTimeOffset? lastUpdatedOn = null)
+        {
+            return new RootCertificateProperties(isRootCertificateV2Enabled, lastUpdatedOn);
         }
 
         /// <summary> Initializes a new instance of IotHubSkuInfo. </summary>
@@ -393,6 +387,116 @@ namespace Azure.ResourceManager.IotHub.Models
             requiredDnsZoneNames ??= new List<string>();
 
             return new IotHubPrivateEndpointGroupInformationProperties(groupId, requiredMembers?.ToList(), requiredDnsZoneNames?.ToList());
+        }
+
+        /// <summary> Initializes a new instance of NetworkSecurityPerimeterConfigurationData. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="provisioningState"></param>
+        /// <param name="networkSecurityPerimeter"></param>
+        /// <param name="resourceAssociation"></param>
+        /// <param name="profile"></param>
+        /// <param name="provisioningIssues"></param>
+        /// <param name="location"> The geo-location where the resource lives. </param>
+        /// <returns> A new <see cref="IotHub.NetworkSecurityPerimeterConfigurationData"/> instance for mocking. </returns>
+        public static NetworkSecurityPerimeterConfigurationData NetworkSecurityPerimeterConfigurationData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string provisioningState = null, NSPConfigPerimeter networkSecurityPerimeter = null, NSPConfigAssociation resourceAssociation = null, NSPConfigProfile profile = null, IEnumerable<NSPProvisioningIssue> provisioningIssues = null, AzureLocation? location = null)
+        {
+            provisioningIssues ??= new List<NSPProvisioningIssue>();
+
+            return new NetworkSecurityPerimeterConfigurationData(id, name, resourceType, systemData, provisioningState, networkSecurityPerimeter, resourceAssociation, profile, provisioningIssues?.ToList(), location);
+        }
+
+        /// <summary> Initializes a new instance of NSPConfigPerimeter. </summary>
+        /// <param name="id"></param>
+        /// <param name="perimeterGuid"></param>
+        /// <param name="location"></param>
+        /// <returns> A new <see cref="Models.NSPConfigPerimeter"/> instance for mocking. </returns>
+        public static NSPConfigPerimeter NSPConfigPerimeter(string id = null, string perimeterGuid = null, AzureLocation? location = null)
+        {
+            return new NSPConfigPerimeter(id, perimeterGuid, location);
+        }
+
+        /// <summary> Initializes a new instance of NSPConfigAssociation. </summary>
+        /// <param name="name"></param>
+        /// <param name="accessMode"></param>
+        /// <returns> A new <see cref="Models.NSPConfigAssociation"/> instance for mocking. </returns>
+        public static NSPConfigAssociation NSPConfigAssociation(string name = null, string accessMode = null)
+        {
+            return new NSPConfigAssociation(name, accessMode);
+        }
+
+        /// <summary> Initializes a new instance of NSPConfigProfile. </summary>
+        /// <param name="name"></param>
+        /// <param name="accessRulesVersion"></param>
+        /// <param name="accessRules"></param>
+        /// <returns> A new <see cref="Models.NSPConfigProfile"/> instance for mocking. </returns>
+        public static NSPConfigProfile NSPConfigProfile(string name = null, string accessRulesVersion = null, IEnumerable<NSPConfigAccessRule> accessRules = null)
+        {
+            accessRules ??= new List<NSPConfigAccessRule>();
+
+            return new NSPConfigProfile(name, accessRulesVersion, accessRules?.ToList());
+        }
+
+        /// <summary> Initializes a new instance of NSPConfigAccessRule. </summary>
+        /// <param name="name"></param>
+        /// <param name="properties"></param>
+        /// <returns> A new <see cref="Models.NSPConfigAccessRule"/> instance for mocking. </returns>
+        public static NSPConfigAccessRule NSPConfigAccessRule(string name = null, NSPConfigAccessRuleProperties properties = null)
+        {
+            return new NSPConfigAccessRule(name, properties);
+        }
+
+        /// <summary> Initializes a new instance of NSPConfigAccessRuleProperties. </summary>
+        /// <param name="direction"></param>
+        /// <param name="addressPrefixes"></param>
+        /// <param name="fullyQualifiedDomainNames"></param>
+        /// <param name="subscriptions"></param>
+        /// <param name="networkSecurityPerimeters"></param>
+        /// <returns> A new <see cref="Models.NSPConfigAccessRuleProperties"/> instance for mocking. </returns>
+        public static NSPConfigAccessRuleProperties NSPConfigAccessRuleProperties(string direction = null, IEnumerable<string> addressPrefixes = null, IEnumerable<string> fullyQualifiedDomainNames = null, IEnumerable<string> subscriptions = null, IEnumerable<NSPConfigNetworkSecurityPerimeterRule> networkSecurityPerimeters = null)
+        {
+            addressPrefixes ??= new List<string>();
+            fullyQualifiedDomainNames ??= new List<string>();
+            subscriptions ??= new List<string>();
+            networkSecurityPerimeters ??= new List<NSPConfigNetworkSecurityPerimeterRule>();
+
+            return new NSPConfigAccessRuleProperties(direction, addressPrefixes?.ToList(), fullyQualifiedDomainNames?.ToList(), subscriptions?.ToList(), networkSecurityPerimeters?.ToList());
+        }
+
+        /// <summary> Initializes a new instance of NSPConfigNetworkSecurityPerimeterRule. </summary>
+        /// <param name="id"></param>
+        /// <param name="perimeterGuid"></param>
+        /// <param name="location"></param>
+        /// <returns> A new <see cref="Models.NSPConfigNetworkSecurityPerimeterRule"/> instance for mocking. </returns>
+        public static NSPConfigNetworkSecurityPerimeterRule NSPConfigNetworkSecurityPerimeterRule(string id = null, string perimeterGuid = null, AzureLocation? location = null)
+        {
+            return new NSPConfigNetworkSecurityPerimeterRule(id, perimeterGuid, location);
+        }
+
+        /// <summary> Initializes a new instance of NSPProvisioningIssue. </summary>
+        /// <param name="name"></param>
+        /// <param name="properties"></param>
+        /// <returns> A new <see cref="Models.NSPProvisioningIssue"/> instance for mocking. </returns>
+        public static NSPProvisioningIssue NSPProvisioningIssue(string name = null, NSPProvisioningIssueProperties properties = null)
+        {
+            return new NSPProvisioningIssue(name, properties);
+        }
+
+        /// <summary> Initializes a new instance of NSPProvisioningIssueProperties. </summary>
+        /// <param name="issueType"></param>
+        /// <param name="severity"></param>
+        /// <param name="description"></param>
+        /// <param name="suggestedResourceIds"></param>
+        /// <param name="suggestedAccessRules"></param>
+        /// <returns> A new <see cref="Models.NSPProvisioningIssueProperties"/> instance for mocking. </returns>
+        public static NSPProvisioningIssueProperties NSPProvisioningIssueProperties(string issueType = null, string severity = null, string description = null, IEnumerable<string> suggestedResourceIds = null, IEnumerable<string> suggestedAccessRules = null)
+        {
+            suggestedResourceIds ??= new List<string>();
+            suggestedAccessRules ??= new List<string>();
+
+            return new NSPProvisioningIssueProperties(issueType, severity, description, suggestedResourceIds?.ToList(), suggestedAccessRules?.ToList());
         }
     }
 }

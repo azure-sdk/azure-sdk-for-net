@@ -24,11 +24,14 @@ namespace Azure.ResourceManager.IotHub.Models
 
         private const string EnabledValue = "Enabled";
         private const string DisabledValue = "Disabled";
+        private const string SecuredByPerimeterValue = "SecuredByPerimeter";
 
         /// <summary> Enabled. </summary>
         public static IotHubPublicNetworkAccess Enabled { get; } = new IotHubPublicNetworkAccess(EnabledValue);
         /// <summary> Disabled. </summary>
         public static IotHubPublicNetworkAccess Disabled { get; } = new IotHubPublicNetworkAccess(DisabledValue);
+        /// <summary> SecuredByPerimeter. </summary>
+        public static IotHubPublicNetworkAccess SecuredByPerimeter { get; } = new IotHubPublicNetworkAccess(SecuredByPerimeterValue);
         /// <summary> Determines if two <see cref="IotHubPublicNetworkAccess"/> values are the same. </summary>
         public static bool operator ==(IotHubPublicNetworkAccess left, IotHubPublicNetworkAccess right) => left.Equals(right);
         /// <summary> Determines if two <see cref="IotHubPublicNetworkAccess"/> values are not the same. </summary>
