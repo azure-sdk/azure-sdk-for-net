@@ -13,7 +13,7 @@ namespace Azure.ResourceManager.Search
 {
     /// <summary>
     /// A class representing the SearchPrivateEndpointConnection data model.
-    /// Describes an existing Private Endpoint connection to the Azure Cognitive Search service.
+    /// Describes an existing private endpoint connection to the search service.
     /// </summary>
     public partial class SearchPrivateEndpointConnectionData : ResourceData
     {
@@ -27,13 +27,13 @@ namespace Azure.ResourceManager.Search
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="properties"> Describes the properties of an existing Private Endpoint connection to the Azure Cognitive Search service. </param>
+        /// <param name="properties"> Describes the properties of an existing private endpoint connection to the search service. </param>
         internal SearchPrivateEndpointConnectionData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, SearchServicePrivateEndpointConnectionProperties properties) : base(id, name, resourceType, systemData)
         {
             Properties = properties;
         }
 
-        /// <summary> Describes the properties of an existing Private Endpoint connection to the Azure Cognitive Search service. </summary>
+        /// <summary> Describes the properties of an existing private endpoint connection to the search service. </summary>
         public SearchServicePrivateEndpointConnectionProperties Properties { get; set; }
     }
 }

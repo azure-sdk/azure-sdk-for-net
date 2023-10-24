@@ -7,7 +7,7 @@
 
 namespace Azure.ResourceManager.Search.Models
 {
-    /// <summary> Describes an API key for a given Azure Cognitive Search service that has permissions for query operations only. </summary>
+    /// <summary> Describes an API key for a given search service that has permissions for query operations only. </summary>
     public partial class SearchServiceQueryKey
     {
         /// <summary> Initializes a new instance of SearchServiceQueryKey. </summary>

@@ -10,7 +10,7 @@ using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.Search.Models
 {
-    /// <summary> Describes a supported private link resource for the Azure Cognitive Search service. </summary>
+    /// <summary> Describes a supported private link resource for the search service. </summary>
     public partial class SearchPrivateLinkResource : ResourceData
     {
         /// <summary> Initializes a new instance of SearchPrivateLinkResource. </summary>
@@ -23,13 +23,13 @@ namespace Azure.ResourceManager.Search.Models
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="properties"> Describes the properties of a supported private link resource for the Azure Cognitive Search service. </param>
+        /// <param name="properties"> Describes the properties of a supported private link resource for the search service. </param>
         internal SearchPrivateLinkResource(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, SearchPrivateLinkResourceProperties properties) : base(id, name, resourceType, systemData)
         {
             Properties = properties;
         }
 
-        /// <summary> Describes the properties of a supported private link resource for the Azure Cognitive Search service. </summary>
+        /// <summary> Describes the properties of a supported private link resource for the search service. </summary>
         public SearchPrivateLinkResourceProperties Properties { get; }
     }
 }
