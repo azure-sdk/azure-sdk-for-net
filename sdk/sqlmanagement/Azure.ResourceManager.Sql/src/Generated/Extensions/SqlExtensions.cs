@@ -640,6 +640,25 @@ namespace Azure.ResourceManager.Sql
         }
         #endregion
 
+        #region JobPrivateEndpointResource
+        /// <summary>
+        /// Gets an object representing a <see cref="JobPrivateEndpointResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="JobPrivateEndpointResource.CreateResourceIdentifier" /> to create a <see cref="JobPrivateEndpointResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="JobPrivateEndpointResource" /> object. </returns>
+        public static JobPrivateEndpointResource GetJobPrivateEndpointResource(this ArmClient client, ResourceIdentifier id)
+        {
+            return client.GetResourceClient(() =>
+            {
+                JobPrivateEndpointResource.ValidateResourceId(id);
+                return new JobPrivateEndpointResource(client, id);
+            }
+            );
+        }
+        #endregion
+
         #region SqlServerJobResource
         /// <summary>
         /// Gets an object representing a <see cref="SqlServerJobResource" /> along with the instance operations that can be performed on it but with no data.
