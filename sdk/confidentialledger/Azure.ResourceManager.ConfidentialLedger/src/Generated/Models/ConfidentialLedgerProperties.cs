@@ -29,9 +29,10 @@ namespace Azure.ResourceManager.ConfidentialLedger.Models
         /// <param name="runningState"> Object representing RunningState for Ledger. </param>
         /// <param name="ledgerType"> Type of Confidential Ledger. </param>
         /// <param name="provisioningState"> Provisioning state of Ledger Resource. </param>
+        /// <param name="ledgerSku"> SKU associated with the ledger. </param>
         /// <param name="aadBasedSecurityPrincipals"> Array of all AAD based Security Principals. </param>
         /// <param name="certBasedSecurityPrincipals"> Array of all cert based Security Principals. </param>
-        internal ConfidentialLedgerProperties(string ledgerName, Uri ledgerUri, Uri identityServiceUri, string ledgerInternalNamespace, ConfidentialLedgerRunningState? runningState, ConfidentialLedgerType? ledgerType, ConfidentialLedgerProvisioningState? provisioningState, IList<AadBasedSecurityPrincipal> aadBasedSecurityPrincipals, IList<CertBasedSecurityPrincipal> certBasedSecurityPrincipals)
+        internal ConfidentialLedgerProperties(string ledgerName, Uri ledgerUri, Uri identityServiceUri, string ledgerInternalNamespace, ConfidentialLedgerRunningState? runningState, ConfidentialLedgerType? ledgerType, ConfidentialLedgerProvisioningState? provisioningState, LedgerSku? ledgerSku, IList<AadBasedSecurityPrincipal> aadBasedSecurityPrincipals, IList<CertBasedSecurityPrincipal> certBasedSecurityPrincipals)
         {
             LedgerName = ledgerName;
             LedgerUri = ledgerUri;
@@ -40,6 +41,7 @@ namespace Azure.ResourceManager.ConfidentialLedger.Models
             RunningState = runningState;
             LedgerType = ledgerType;
             ProvisioningState = provisioningState;
+            LedgerSku = ledgerSku;
             AadBasedSecurityPrincipals = aadBasedSecurityPrincipals;
             CertBasedSecurityPrincipals = certBasedSecurityPrincipals;
         }
@@ -58,6 +60,8 @@ namespace Azure.ResourceManager.ConfidentialLedger.Models
         public ConfidentialLedgerType? LedgerType { get; set; }
         /// <summary> Provisioning state of Ledger Resource. </summary>
         public ConfidentialLedgerProvisioningState? ProvisioningState { get; }
+        /// <summary> SKU associated with the ledger. </summary>
+        public LedgerSku? LedgerSku { get; set; }
         /// <summary> Array of all AAD based Security Principals. </summary>
         public IList<AadBasedSecurityPrincipal> AadBasedSecurityPrincipals { get; }
         /// <summary> Array of all cert based Security Principals. </summary>
