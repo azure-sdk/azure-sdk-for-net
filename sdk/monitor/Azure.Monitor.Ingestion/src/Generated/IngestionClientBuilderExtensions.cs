@@ -11,25 +11,25 @@ using Azure.Monitor.Ingestion;
 
 namespace Microsoft.Extensions.Azure
 {
-    /// <summary> Extension methods to add <see cref="LogsIngestionClient"/> to client builder. </summary>
+    /// <summary> Extension methods to add <see cref="MetricsBatchClient"/> to client builder. </summary>
     public static partial class IngestionClientBuilderExtensions
     {
-        /// <summary> Registers a <see cref="LogsIngestionClient"/> instance. </summary>
+        /// <summary> Registers a <see cref="MetricsBatchClient"/> instance. </summary>
         /// <param name="builder"> The builder to register with. </param>
-        /// <param name="endpoint"> The Data Collection Endpoint for the Data Collection Rule, for example https://dce-name.eastus-2.ingest.monitor.azure.com. </param>
-        public static IAzureClientBuilder<LogsIngestionClient, LogsIngestionClientOptions> AddLogsIngestionClient<TBuilder>(this TBuilder builder, Uri endpoint)
+        /// <param name="endpoint"> The regional endpoint to use, for example https://eastus.metrics.monitor.azure.com. The region should match the region of the requested resources. For global resources, the region should be 'global'. </param>
+        public static IAzureClientBuilder<MetricsBatchClient, MetricsBatchClientOptions> AddMetricsBatchClient<TBuilder>(this TBuilder builder, Uri endpoint)
         where TBuilder : IAzureClientFactoryBuilderWithCredential
         {
-            return builder.RegisterClientFactory<LogsIngestionClient, LogsIngestionClientOptions>((options, cred) => new LogsIngestionClient(endpoint, cred, options));
+            return builder.RegisterClientFactory<MetricsBatchClient, MetricsBatchClientOptions>((options, cred) => new MetricsBatchClient(endpoint, cred, options));
         }
 
-        /// <summary> Registers a <see cref="LogsIngestionClient"/> instance. </summary>
+        /// <summary> Registers a <see cref="MetricsBatchClient"/> instance. </summary>
         /// <param name="builder"> The builder to register with. </param>
         /// <param name="configuration"> The configuration values. </param>
-        public static IAzureClientBuilder<LogsIngestionClient, LogsIngestionClientOptions> AddLogsIngestionClient<TBuilder, TConfiguration>(this TBuilder builder, TConfiguration configuration)
+        public static IAzureClientBuilder<MetricsBatchClient, MetricsBatchClientOptions> AddMetricsBatchClient<TBuilder, TConfiguration>(this TBuilder builder, TConfiguration configuration)
         where TBuilder : IAzureClientFactoryBuilderWithConfiguration<TConfiguration>
         {
-            return builder.RegisterClientFactory<LogsIngestionClient, LogsIngestionClientOptions>(configuration);
+            return builder.RegisterClientFactory<MetricsBatchClient, MetricsBatchClientOptions>(configuration);
         }
     }
 }
