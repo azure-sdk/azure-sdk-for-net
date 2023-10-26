@@ -5339,6 +5339,11 @@ namespace Azure.ResourceManager.DataFactory.Models
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> CompressionCodec { get { throw null; } set { } }
         public Azure.ResourceManager.DataFactory.Models.DatasetLocation DataLocation { get { throw null; } set { } }
     }
+    public partial class ParquetReadSettings : Azure.ResourceManager.DataFactory.Models.FormatReadSettings
+    {
+        public ParquetReadSettings() { }
+        public Azure.ResourceManager.DataFactory.Models.CompressionReadSettings CompressionProperties { get { throw null; } set { } }
+    }
     public partial class ParquetSink : Azure.ResourceManager.DataFactory.Models.CopySink
     {
         public ParquetSink() { }
@@ -5349,6 +5354,7 @@ namespace Azure.ResourceManager.DataFactory.Models
     {
         public ParquetSource() { }
         public System.BinaryData AdditionalColumns { get { throw null; } set { } }
+        public Azure.ResourceManager.DataFactory.Models.ParquetReadSettings FormatSettings { get { throw null; } set { } }
         public Azure.ResourceManager.DataFactory.Models.StoreReadSettings StoreSettings { get { throw null; } set { } }
     }
     public partial class ParquetWriteSettings : Azure.ResourceManager.DataFactory.Models.FormatWriteSettings
@@ -7517,6 +7523,7 @@ namespace Azure.ResourceManager.DataFactory.Models
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> Body { get { throw null; } set { } }
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> Headers { get { throw null; } set { } }
         public Azure.ResourceManager.DataFactory.Models.WebHookActivityMethod Method { get { throw null; } set { } }
+        public Azure.ResourceManager.DataFactory.Models.SecureInputOutputPolicy Policy { get { throw null; } set { } }
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<bool> ReportStatusOnCallBack { get { throw null; } set { } }
         public string Timeout { get { throw null; } set { } }
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> Uri { get { throw null; } set { } }
