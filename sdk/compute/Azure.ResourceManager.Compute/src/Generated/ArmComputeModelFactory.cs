@@ -1168,17 +1168,30 @@ namespace Azure.ResourceManager.Compute.Models
         /// <param name="zones"> Availability Zones to use for this capacity reservation group. The zones can be assigned only during creation. If not provided, the group supports only regional resources in the region. If provided, enforces each capacity reservation in the group to be in one of the zones. </param>
         /// <param name="capacityReservations"> A list of all capacity reservation resource ids that belong to capacity reservation group. </param>
         /// <param name="virtualMachinesAssociated"> A list of references to all virtual machines associated to the capacity reservation group. </param>
-        /// <param name="instanceViewCapacityReservations"> The capacity reservation group instance view which has the list of instance views for all the capacity reservations that belong to the capacity reservation group. </param>
+        /// <param name="instanceView"> The capacity reservation group instance view which has the list of instance views for all the capacity reservations that belong to the capacity reservation group. </param>
+        /// <param name="sharingSubscriptionIds"> A list of all subscriptions that the capacity reservation group is shared with. Minimum api-version: 2023-09-01. Please refer to https://aka.ms/computereservationsharing for more details. </param>
         /// <returns> A new <see cref="Compute.CapacityReservationGroupData"/> instance for mocking. </returns>
-        public static CapacityReservationGroupData CapacityReservationGroupData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, IEnumerable<string> zones = null, IEnumerable<SubResource> capacityReservations = null, IEnumerable<SubResource> virtualMachinesAssociated = null, IEnumerable<CapacityReservationInstanceViewWithName> instanceViewCapacityReservations = null)
+        public static CapacityReservationGroupData CapacityReservationGroupData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, IEnumerable<string> zones = null, IEnumerable<SubResource> capacityReservations = null, IEnumerable<SubResource> virtualMachinesAssociated = null, CapacityReservationGroupInstanceView instanceView = null, IEnumerable<WritableSubResource> sharingSubscriptionIds = null)
         {
             tags ??= new Dictionary<string, string>();
             zones ??= new List<string>();
             capacityReservations ??= new List<SubResource>();
             virtualMachinesAssociated ??= new List<SubResource>();
-            instanceViewCapacityReservations ??= new List<CapacityReservationInstanceViewWithName>();
+            sharingSubscriptionIds ??= new List<WritableSubResource>();
 
-            return new CapacityReservationGroupData(id, name, resourceType, systemData, tags, location, zones?.ToList(), capacityReservations?.ToList(), virtualMachinesAssociated?.ToList(), instanceViewCapacityReservations != null ? new CapacityReservationGroupInstanceView(instanceViewCapacityReservations?.ToList()) : null);
+            return new CapacityReservationGroupData(id, name, resourceType, systemData, tags, location, zones?.ToList(), capacityReservations?.ToList(), virtualMachinesAssociated?.ToList(), instanceView, sharingSubscriptionIds != null ? new ResourceSharingProfile(sharingSubscriptionIds?.ToList()) : null);
+        }
+
+        /// <summary> Initializes a new instance of CapacityReservationGroupInstanceView. </summary>
+        /// <param name="capacityReservations"> List of instance view of the capacity reservations under the capacity reservation group. </param>
+        /// <param name="sharedSubscriptionIds"> List of the subscriptions that the capacity reservation group is shared with. Minimum api-version: 2023-09-01. Please refer to https://aka.ms/computereservationsharing for more details. </param>
+        /// <returns> A new <see cref="Models.CapacityReservationGroupInstanceView"/> instance for mocking. </returns>
+        public static CapacityReservationGroupInstanceView CapacityReservationGroupInstanceView(IEnumerable<CapacityReservationInstanceViewWithName> capacityReservations = null, IEnumerable<SubResource> sharedSubscriptionIds = null)
+        {
+            capacityReservations ??= new List<CapacityReservationInstanceViewWithName>();
+            sharedSubscriptionIds ??= new List<SubResource>();
+
+            return new CapacityReservationGroupInstanceView(capacityReservations?.ToList(), sharedSubscriptionIds?.ToList());
         }
 
         /// <summary> Initializes a new instance of CapacityReservationInstanceViewWithName. </summary>

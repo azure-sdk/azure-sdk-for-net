@@ -26,11 +26,18 @@ namespace Azure.ResourceManager.Compute.Models
         /// <summary> A list of references to all virtual machines associated to the capacity reservation group. </summary>
         public IReadOnlyList<SubResource> VirtualMachinesAssociated { get; }
         /// <summary> The capacity reservation group instance view which has the list of instance views for all the capacity reservations that belong to the capacity reservation group. </summary>
-        internal CapacityReservationGroupInstanceView InstanceView { get; }
-        /// <summary> List of instance view of the capacity reservations under the capacity reservation group. </summary>
-        public IReadOnlyList<CapacityReservationInstanceViewWithName> InstanceViewCapacityReservations
+        public CapacityReservationGroupInstanceView InstanceView { get; }
+        /// <summary> A list of all subscriptions that the capacity reservation group is shared with. Minimum api-version: 2023-09-01. Please refer to https://aka.ms/computereservationsharing for more details. </summary>
+        internal ResourceSharingProfile SharingProfile { get; set; }
+        /// <summary> Specifies an array of references to subscriptionIds. Minimum api-version: 2023-09-01. Please refer to https://aka.ms/computereservationsharing for more details. </summary>
+        public IList<WritableSubResource> SharingSubscriptionIds
         {
-            get => InstanceView?.CapacityReservations;
+            get
+            {
+                if (SharingProfile is null)
+                    SharingProfile = new ResourceSharingProfile();
+                return SharingProfile.SubscriptionIds;
+            }
         }
     }
 }
