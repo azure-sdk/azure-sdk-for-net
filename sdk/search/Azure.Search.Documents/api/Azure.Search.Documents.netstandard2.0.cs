@@ -659,11 +659,11 @@ namespace Azure.Search.Documents.Indexes.Models
     public partial class CustomVectorizer : Azure.Search.Documents.Indexes.Models.VectorSearchVectorizer
     {
         public CustomVectorizer(string name) : base (default(string)) { }
-        public Azure.Search.Documents.Indexes.Models.CustomVectorizerParameters CustomVectorizerParameters { get { throw null; } set { } }
+        public Azure.Search.Documents.Indexes.Models.CustomWebApiParameters CustomWebApiParameters { get { throw null; } set { } }
     }
-    public partial class CustomVectorizerParameters
+    public partial class CustomWebApiParameters
     {
-        public CustomVectorizerParameters() { }
+        public CustomWebApiParameters() { }
         public Azure.Search.Documents.Indexes.Models.SearchIndexerDataIdentity AuthIdentity { get { throw null; } set { } }
         public string AuthResourceId { get { throw null; } set { } }
         public System.Collections.Generic.IDictionary<string, string> HttpHeaders { get { throw null; } }
@@ -2541,15 +2541,39 @@ namespace Azure.Search.Documents.Indexes.Models
         private readonly object _dummy;
         private readonly int _dummyPrimitive;
         public SplitSkillLanguage(string value) { throw null; }
+        public static Azure.Search.Documents.Indexes.Models.SplitSkillLanguage Am { get { throw null; } }
+        public static Azure.Search.Documents.Indexes.Models.SplitSkillLanguage Bs { get { throw null; } }
+        public static Azure.Search.Documents.Indexes.Models.SplitSkillLanguage Cs { get { throw null; } }
         public static Azure.Search.Documents.Indexes.Models.SplitSkillLanguage Da { get { throw null; } }
         public static Azure.Search.Documents.Indexes.Models.SplitSkillLanguage De { get { throw null; } }
         public static Azure.Search.Documents.Indexes.Models.SplitSkillLanguage En { get { throw null; } }
         public static Azure.Search.Documents.Indexes.Models.SplitSkillLanguage Es { get { throw null; } }
+        public static Azure.Search.Documents.Indexes.Models.SplitSkillLanguage Et { get { throw null; } }
         public static Azure.Search.Documents.Indexes.Models.SplitSkillLanguage Fi { get { throw null; } }
         public static Azure.Search.Documents.Indexes.Models.SplitSkillLanguage Fr { get { throw null; } }
+        public static Azure.Search.Documents.Indexes.Models.SplitSkillLanguage He { get { throw null; } }
+        public static Azure.Search.Documents.Indexes.Models.SplitSkillLanguage Hi { get { throw null; } }
+        public static Azure.Search.Documents.Indexes.Models.SplitSkillLanguage Hr { get { throw null; } }
+        public static Azure.Search.Documents.Indexes.Models.SplitSkillLanguage Hu { get { throw null; } }
+        public static Azure.Search.Documents.Indexes.Models.SplitSkillLanguage Id { get { throw null; } }
+        public static Azure.Search.Documents.Indexes.Models.SplitSkillLanguage Is { get { throw null; } }
         public static Azure.Search.Documents.Indexes.Models.SplitSkillLanguage It { get { throw null; } }
+        public static Azure.Search.Documents.Indexes.Models.SplitSkillLanguage Ja { get { throw null; } }
         public static Azure.Search.Documents.Indexes.Models.SplitSkillLanguage Ko { get { throw null; } }
+        public static Azure.Search.Documents.Indexes.Models.SplitSkillLanguage Lv { get { throw null; } }
+        public static Azure.Search.Documents.Indexes.Models.SplitSkillLanguage Nb { get { throw null; } }
+        public static Azure.Search.Documents.Indexes.Models.SplitSkillLanguage Nl { get { throw null; } }
+        public static Azure.Search.Documents.Indexes.Models.SplitSkillLanguage Pl { get { throw null; } }
         public static Azure.Search.Documents.Indexes.Models.SplitSkillLanguage Pt { get { throw null; } }
+        public static Azure.Search.Documents.Indexes.Models.SplitSkillLanguage PtBr { get { throw null; } }
+        public static Azure.Search.Documents.Indexes.Models.SplitSkillLanguage Ru { get { throw null; } }
+        public static Azure.Search.Documents.Indexes.Models.SplitSkillLanguage Sk { get { throw null; } }
+        public static Azure.Search.Documents.Indexes.Models.SplitSkillLanguage Sl { get { throw null; } }
+        public static Azure.Search.Documents.Indexes.Models.SplitSkillLanguage Sr { get { throw null; } }
+        public static Azure.Search.Documents.Indexes.Models.SplitSkillLanguage Sv { get { throw null; } }
+        public static Azure.Search.Documents.Indexes.Models.SplitSkillLanguage Tr { get { throw null; } }
+        public static Azure.Search.Documents.Indexes.Models.SplitSkillLanguage Ur { get { throw null; } }
+        public static Azure.Search.Documents.Indexes.Models.SplitSkillLanguage Zh { get { throw null; } }
         public bool Equals(Azure.Search.Documents.Indexes.Models.SplitSkillLanguage other) { throw null; }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public override bool Equals(object obj) { throw null; }
