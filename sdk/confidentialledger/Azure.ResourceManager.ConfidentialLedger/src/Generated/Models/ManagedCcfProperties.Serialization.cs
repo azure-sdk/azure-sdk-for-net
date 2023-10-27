@@ -32,6 +32,11 @@ namespace Azure.ResourceManager.ConfidentialLedger.Models
                 writer.WritePropertyName("deploymentType"u8);
                 writer.WriteObjectValue(DeploymentType);
             }
+            if (Optional.IsDefined(RunningState))
+            {
+                writer.WritePropertyName("runningState"u8);
+                writer.WriteStringValue(RunningState.Value.ToString());
+            }
             if (Optional.IsDefined(NodeCount))
             {
                 writer.WritePropertyName("nodeCount"u8);
@@ -51,6 +56,7 @@ namespace Azure.ResourceManager.ConfidentialLedger.Models
             Optional<Uri> identityServiceUri = default;
             Optional<IList<ConfidentialLedgerMemberIdentityCertificate>> memberIdentityCertificates = default;
             Optional<ConfidentialLedgerDeploymentType> deploymentType = default;
+            Optional<ConfidentialLedgerRunningState> runningState = default;
             Optional<ConfidentialLedgerProvisioningState> provisioningState = default;
             Optional<int> nodeCount = default;
             foreach (var property in element.EnumerateObject())
@@ -101,6 +107,15 @@ namespace Azure.ResourceManager.ConfidentialLedger.Models
                     deploymentType = ConfidentialLedgerDeploymentType.DeserializeConfidentialLedgerDeploymentType(property.Value);
                     continue;
                 }
+                if (property.NameEquals("runningState"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    runningState = new ConfidentialLedgerRunningState(property.Value.GetString());
+                    continue;
+                }
                 if (property.NameEquals("provisioningState"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -120,7 +135,7 @@ namespace Azure.ResourceManager.ConfidentialLedger.Models
                     continue;
                 }
             }
-            return new ManagedCcfProperties(appName.Value, appUri.Value, identityServiceUri.Value, Optional.ToList(memberIdentityCertificates), deploymentType.Value, Optional.ToNullable(provisioningState), Optional.ToNullable(nodeCount));
+            return new ManagedCcfProperties(appName.Value, appUri.Value, identityServiceUri.Value, Optional.ToList(memberIdentityCertificates), deploymentType.Value, Optional.ToNullable(runningState), Optional.ToNullable(provisioningState), Optional.ToNullable(nodeCount));
         }
     }
 }
