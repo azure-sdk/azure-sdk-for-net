@@ -65,18 +65,6 @@ namespace Azure.ResourceManager.DataFactory.Models
             }
             writer.WritePropertyName("typeProperties"u8);
             writer.WriteStartObject();
-            if (Optional.IsDefined(ConnectionProperties))
-            {
-                writer.WritePropertyName("connectionProperties"u8);
-#if NET6_0_OR_GREATER
-				writer.WriteRawValue(ConnectionProperties);
-#else
-                using (JsonDocument document = JsonDocument.Parse(ConnectionProperties))
-                {
-                    JsonSerializer.Serialize(writer, document.RootElement);
-                }
-#endif
-            }
             if (Optional.IsDefined(ClientCustomerId))
             {
                 writer.WritePropertyName("clientCustomerID"u8);
@@ -112,20 +100,25 @@ namespace Azure.ResourceManager.DataFactory.Models
                 writer.WritePropertyName("email"u8);
                 JsonSerializer.Serialize(writer, Email);
             }
-            if (Optional.IsDefined(KeyFilePath))
+            if (Optional.IsDefined(PrivateKey))
             {
-                writer.WritePropertyName("keyFilePath"u8);
-                JsonSerializer.Serialize(writer, KeyFilePath);
+                writer.WritePropertyName("privateKey"u8);
+                JsonSerializer.Serialize(writer, PrivateKey);
             }
-            if (Optional.IsDefined(TrustedCertPath))
+            if (Optional.IsDefined(LoginCustomerId))
             {
-                writer.WritePropertyName("trustedCertPath"u8);
-                JsonSerializer.Serialize(writer, TrustedCertPath);
+                writer.WritePropertyName("loginCustomerID"u8);
+                JsonSerializer.Serialize(writer, LoginCustomerId);
             }
-            if (Optional.IsDefined(UseSystemTrustStore))
+            if (Optional.IsDefined(GoogleAdsApiVersion))
             {
-                writer.WritePropertyName("useSystemTrustStore"u8);
-                JsonSerializer.Serialize(writer, UseSystemTrustStore);
+                writer.WritePropertyName("googleAdsApiVersion"u8);
+                JsonSerializer.Serialize(writer, GoogleAdsApiVersion);
+            }
+            if (Optional.IsDefined(SupportLegacyDataTypes))
+            {
+                writer.WritePropertyName("supportLegacyDataTypes"u8);
+                JsonSerializer.Serialize(writer, SupportLegacyDataTypes);
             }
             if (Optional.IsDefined(EncryptedCredential))
             {
@@ -159,7 +152,6 @@ namespace Azure.ResourceManager.DataFactory.Models
             Optional<string> description = default;
             Optional<IDictionary<string, EntityParameterSpecification>> parameters = default;
             Optional<IList<BinaryData>> annotations = default;
-            Optional<BinaryData> connectionProperties = default;
             Optional<DataFactoryElement<string>> clientCustomerId = default;
             Optional<DataFactorySecretBaseDefinition> developerToken = default;
             Optional<GoogleAdWordsAuthenticationType> authenticationType = default;
@@ -167,9 +159,10 @@ namespace Azure.ResourceManager.DataFactory.Models
             Optional<DataFactoryElement<string>> clientId = default;
             Optional<DataFactorySecretBaseDefinition> clientSecret = default;
             Optional<DataFactoryElement<string>> email = default;
-            Optional<DataFactoryElement<string>> keyFilePath = default;
-            Optional<DataFactoryElement<string>> trustedCertPath = default;
-            Optional<DataFactoryElement<bool>> useSystemTrustStore = default;
+            Optional<DataFactorySecretBaseDefinition> privateKey = default;
+            Optional<DataFactoryElement<string>> loginCustomerId = default;
+            Optional<DataFactoryElement<string>> googleAdsApiVersion = default;
+            Optional<DataFactoryElement<bool>> supportLegacyDataTypes = default;
             Optional<string> encryptedCredential = default;
             IDictionary<string, BinaryData> additionalProperties = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
@@ -238,15 +231,6 @@ namespace Azure.ResourceManager.DataFactory.Models
                     }
                     foreach (var property0 in property.Value.EnumerateObject())
                     {
-                        if (property0.NameEquals("connectionProperties"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            connectionProperties = BinaryData.FromString(property0.Value.GetRawText());
-                            continue;
-                        }
                         if (property0.NameEquals("clientCustomerID"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -310,31 +294,40 @@ namespace Azure.ResourceManager.DataFactory.Models
                             email = JsonSerializer.Deserialize<DataFactoryElement<string>>(property0.Value.GetRawText());
                             continue;
                         }
-                        if (property0.NameEquals("keyFilePath"u8))
+                        if (property0.NameEquals("privateKey"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
                                 continue;
                             }
-                            keyFilePath = JsonSerializer.Deserialize<DataFactoryElement<string>>(property0.Value.GetRawText());
+                            privateKey = JsonSerializer.Deserialize<DataFactorySecretBaseDefinition>(property0.Value.GetRawText());
                             continue;
                         }
-                        if (property0.NameEquals("trustedCertPath"u8))
+                        if (property0.NameEquals("loginCustomerID"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
                                 continue;
                             }
-                            trustedCertPath = JsonSerializer.Deserialize<DataFactoryElement<string>>(property0.Value.GetRawText());
+                            loginCustomerId = JsonSerializer.Deserialize<DataFactoryElement<string>>(property0.Value.GetRawText());
                             continue;
                         }
-                        if (property0.NameEquals("useSystemTrustStore"u8))
+                        if (property0.NameEquals("googleAdsApiVersion"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
                                 continue;
                             }
-                            useSystemTrustStore = JsonSerializer.Deserialize<DataFactoryElement<bool>>(property0.Value.GetRawText());
+                            googleAdsApiVersion = JsonSerializer.Deserialize<DataFactoryElement<string>>(property0.Value.GetRawText());
+                            continue;
+                        }
+                        if (property0.NameEquals("supportLegacyDataTypes"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            supportLegacyDataTypes = JsonSerializer.Deserialize<DataFactoryElement<bool>>(property0.Value.GetRawText());
                             continue;
                         }
                         if (property0.NameEquals("encryptedCredential"u8))
@@ -348,7 +341,7 @@ namespace Azure.ResourceManager.DataFactory.Models
                 additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
             }
             additionalProperties = additionalPropertiesDictionary;
-            return new GoogleAdWordsLinkedService(type, connectVia.Value, description.Value, Optional.ToDictionary(parameters), Optional.ToList(annotations), additionalProperties, connectionProperties.Value, clientCustomerId.Value, developerToken, Optional.ToNullable(authenticationType), refreshToken, clientId.Value, clientSecret, email.Value, keyFilePath.Value, trustedCertPath.Value, useSystemTrustStore.Value, encryptedCredential.Value);
+            return new GoogleAdWordsLinkedService(type, connectVia.Value, description.Value, Optional.ToDictionary(parameters), Optional.ToList(annotations), additionalProperties, clientCustomerId.Value, developerToken, Optional.ToNullable(authenticationType), refreshToken, clientId.Value, clientSecret, email.Value, privateKey, loginCustomerId.Value, googleAdsApiVersion.Value, supportLegacyDataTypes.Value, encryptedCredential.Value);
         }
     }
 }
