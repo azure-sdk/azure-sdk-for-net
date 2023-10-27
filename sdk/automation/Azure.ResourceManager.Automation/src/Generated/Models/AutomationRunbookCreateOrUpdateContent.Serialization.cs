@@ -48,6 +48,11 @@ namespace Azure.ResourceManager.Automation.Models
                 writer.WritePropertyName("logProgress"u8);
                 writer.WriteBooleanValue(IsLogProgressEnabled.Value);
             }
+            if (Optional.IsDefined(RuntimeEnvironment))
+            {
+                writer.WritePropertyName("runtimeEnvironment"u8);
+                writer.WriteStringValue(RuntimeEnvironment);
+            }
             writer.WritePropertyName("runbookType"u8);
             writer.WriteStringValue(RunbookType.ToString());
             if (Optional.IsDefined(Draft))

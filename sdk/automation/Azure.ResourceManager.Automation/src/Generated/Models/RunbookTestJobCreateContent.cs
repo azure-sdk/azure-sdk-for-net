@@ -23,5 +23,7 @@ namespace Azure.ResourceManager.Automation.Models
         public IDictionary<string, string> Parameters { get; }
         /// <summary> Gets or sets the runOn which specifies the group name where the job is to be executed. </summary>
         public string RunOn { get; set; }
+        /// <summary> The runtime Environment Name on which job needs to be tested. </summary>
+        public string RuntimeEnvironment { get; set; }
     }
 }

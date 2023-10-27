@@ -19,6 +19,11 @@ namespace Azure.ResourceManager.Automation.Models
             writer.WriteStartObject();
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
+            if (Optional.IsDefined(JobRuntimeEnvironment))
+            {
+                writer.WritePropertyName("jobRuntimeEnvironment"u8);
+                writer.WriteObjectValue(JobRuntimeEnvironment);
+            }
             if (Optional.IsDefined(RunOn))
             {
                 writer.WritePropertyName("runOn"u8);
@@ -40,12 +45,14 @@ namespace Azure.ResourceManager.Automation.Models
             Optional<SystemData> systemData = default;
             Optional<RunbookAssociationProperty> runbook = default;
             Optional<Guid> jobId = default;
+            Optional<string> startedBy = default;
             Optional<DateTimeOffset> creationTime = default;
             Optional<AutomationJobStatus> status = default;
             Optional<DateTimeOffset?> startTime = default;
             Optional<DateTimeOffset?> endTime = default;
             Optional<DateTimeOffset?> lastModifiedTime = default;
             Optional<string> provisioningState = default;
+            Optional<JobRuntimeEnvironment> jobRuntimeEnvironment = default;
             Optional<string> runOn = default;
             foreach (var property in element.EnumerateObject())
             {
@@ -98,6 +105,16 @@ namespace Azure.ResourceManager.Automation.Models
                                 continue;
                             }
                             jobId = property0.Value.GetGuid();
+                            continue;
+                        }
+                        if (property0.NameEquals("startedBy"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                startedBy = null;
+                                continue;
+                            }
+                            startedBy = property0.Value.GetString();
                             continue;
                         }
                         if (property0.NameEquals("creationTime"u8))
@@ -153,6 +170,15 @@ namespace Azure.ResourceManager.Automation.Models
                             provisioningState = property0.Value.GetString();
                             continue;
                         }
+                        if (property0.NameEquals("jobRuntimeEnvironment"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            jobRuntimeEnvironment = JobRuntimeEnvironment.DeserializeJobRuntimeEnvironment(property0.Value);
+                            continue;
+                        }
                         if (property0.NameEquals("runOn"u8))
                         {
                             runOn = property0.Value.GetString();
@@ -162,7 +188,7 @@ namespace Azure.ResourceManager.Automation.Models
                     continue;
                 }
             }
-            return new AutomationJobCollectionItemData(id, name, type, systemData.Value, runbook.Value, Optional.ToNullable(jobId), Optional.ToNullable(creationTime), Optional.ToNullable(status), Optional.ToNullable(startTime), Optional.ToNullable(endTime), Optional.ToNullable(lastModifiedTime), provisioningState.Value, runOn.Value);
+            return new AutomationJobCollectionItemData(id, name, type, systemData.Value, runbook.Value, Optional.ToNullable(jobId), startedBy.Value, Optional.ToNullable(creationTime), Optional.ToNullable(status), Optional.ToNullable(startTime), Optional.ToNullable(endTime), Optional.ToNullable(lastModifiedTime), provisioningState.Value, jobRuntimeEnvironment.Value, runOn.Value);
         }
     }
 }

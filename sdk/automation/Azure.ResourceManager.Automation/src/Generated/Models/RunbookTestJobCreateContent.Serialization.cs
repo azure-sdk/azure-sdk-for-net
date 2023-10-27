@@ -31,6 +31,11 @@ namespace Azure.ResourceManager.Automation.Models
                 writer.WritePropertyName("runOn"u8);
                 writer.WriteStringValue(RunOn);
             }
+            if (Optional.IsDefined(RuntimeEnvironment))
+            {
+                writer.WritePropertyName("runtimeEnvironment"u8);
+                writer.WriteStringValue(RuntimeEnvironment);
+            }
             writer.WriteEndObject();
         }
     }

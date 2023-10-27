@@ -36,6 +36,11 @@ namespace Azure.ResourceManager.Automation
                 writer.WritePropertyName("runOn"u8);
                 writer.WriteStringValue(RunOn);
             }
+            if (Optional.IsDefined(JobRuntimeEnvironment))
+            {
+                writer.WritePropertyName("jobRuntimeEnvironment"u8);
+                writer.WriteObjectValue(JobRuntimeEnvironment);
+            }
             if (Optional.IsDefined(JobId))
             {
                 writer.WritePropertyName("jobId"u8);
@@ -142,6 +147,7 @@ namespace Azure.ResourceManager.Automation
             Optional<RunbookAssociationProperty> runbook = default;
             Optional<string> startedBy = default;
             Optional<string> runOn = default;
+            Optional<JobRuntimeEnvironment> jobRuntimeEnvironment = default;
             Optional<Guid> jobId = default;
             Optional<DateTimeOffset> creationTime = default;
             Optional<AutomationJobStatus> status = default;
@@ -205,6 +211,15 @@ namespace Azure.ResourceManager.Automation
                         if (property0.NameEquals("runOn"u8))
                         {
                             runOn = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("jobRuntimeEnvironment"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            jobRuntimeEnvironment = JobRuntimeEnvironment.DeserializeJobRuntimeEnvironment(property0.Value);
                             continue;
                         }
                         if (property0.NameEquals("jobId"u8))
@@ -311,7 +326,7 @@ namespace Azure.ResourceManager.Automation
                     continue;
                 }
             }
-            return new AutomationJobData(id, name, type, systemData.Value, runbook.Value, startedBy.Value, runOn.Value, Optional.ToNullable(jobId), Optional.ToNullable(creationTime), Optional.ToNullable(status), statusDetails.Value, Optional.ToNullable(startTime), Optional.ToNullable(endTime), exception.Value, Optional.ToNullable(lastModifiedTime), Optional.ToNullable(lastStatusModifiedTime), Optional.ToDictionary(parameters), Optional.ToNullable(provisioningState));
+            return new AutomationJobData(id, name, type, systemData.Value, runbook.Value, startedBy.Value, runOn.Value, jobRuntimeEnvironment.Value, Optional.ToNullable(jobId), Optional.ToNullable(creationTime), Optional.ToNullable(status), statusDetails.Value, Optional.ToNullable(startTime), Optional.ToNullable(endTime), exception.Value, Optional.ToNullable(lastModifiedTime), Optional.ToNullable(lastStatusModifiedTime), Optional.ToDictionary(parameters), Optional.ToNullable(provisioningState));
         }
     }
 }

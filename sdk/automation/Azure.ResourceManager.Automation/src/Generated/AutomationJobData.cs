@@ -33,6 +33,7 @@ namespace Azure.ResourceManager.Automation
         /// <param name="runbook"> Gets or sets the runbook. </param>
         /// <param name="startedBy"> Gets or sets the job started by. </param>
         /// <param name="runOn"> Gets or sets the runOn which specifies the group name where the job is to be executed. </param>
+        /// <param name="jobRuntimeEnvironment"> Runtime Environment Property. </param>
         /// <param name="jobId"> Gets or sets the id of the job. </param>
         /// <param name="createdOn"> Gets or sets the creation time of the job. </param>
         /// <param name="status"> Gets or sets the status of the job. </param>
@@ -44,11 +45,12 @@ namespace Azure.ResourceManager.Automation
         /// <param name="lastStatusModifiedOn"> Gets or sets the last status modified time of the job. </param>
         /// <param name="parameters"> Gets or sets the parameters of the job. </param>
         /// <param name="provisioningState"> The current provisioning state of the job. </param>
-        internal AutomationJobData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, RunbookAssociationProperty runbook, string startedBy, string runOn, Guid? jobId, DateTimeOffset? createdOn, AutomationJobStatus? status, string statusDetails, DateTimeOffset? startOn, DateTimeOffset? endOn, string exception, DateTimeOffset? lastModifiedOn, DateTimeOffset? lastStatusModifiedOn, IDictionary<string, string> parameters, JobProvisioningState? provisioningState) : base(id, name, resourceType, systemData)
+        internal AutomationJobData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, RunbookAssociationProperty runbook, string startedBy, string runOn, JobRuntimeEnvironment jobRuntimeEnvironment, Guid? jobId, DateTimeOffset? createdOn, AutomationJobStatus? status, string statusDetails, DateTimeOffset? startOn, DateTimeOffset? endOn, string exception, DateTimeOffset? lastModifiedOn, DateTimeOffset? lastStatusModifiedOn, IDictionary<string, string> parameters, JobProvisioningState? provisioningState) : base(id, name, resourceType, systemData)
         {
             Runbook = runbook;
             StartedBy = startedBy;
             RunOn = runOn;
+            JobRuntimeEnvironment = jobRuntimeEnvironment;
             JobId = jobId;
             CreatedOn = createdOn;
             Status = status;
@@ -80,6 +82,20 @@ namespace Azure.ResourceManager.Automation
         public string StartedBy { get; set; }
         /// <summary> Gets or sets the runOn which specifies the group name where the job is to be executed. </summary>
         public string RunOn { get; set; }
+        /// <summary> Runtime Environment Property. </summary>
+        internal JobRuntimeEnvironment JobRuntimeEnvironment { get; set; }
+        /// <summary> Name of Runtime Environment. </summary>
+        public string RuntimeEnvironmentName
+        {
+            get => JobRuntimeEnvironment is null ? default : JobRuntimeEnvironment.RuntimeEnvironmentName;
+            set
+            {
+                if (JobRuntimeEnvironment is null)
+                    JobRuntimeEnvironment = new JobRuntimeEnvironment();
+                JobRuntimeEnvironment.RuntimeEnvironmentName = value;
+            }
+        }
+
         /// <summary> Gets or sets the id of the job. </summary>
         public Guid? JobId { get; set; }
         /// <summary> Gets or sets the creation time of the job. </summary>
