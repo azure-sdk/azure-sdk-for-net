@@ -5,7 +5,9 @@
 
 #nullable disable
 
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Azure.Core;
 
 namespace Azure.Search.Documents.Models
@@ -14,9 +16,13 @@ namespace Azure.Search.Documents.Models
     public partial class RawVectorQuery : VectorQuery
     {
         /// <summary> Initializes a new instance of RawVectorQuery. </summary>
-        public RawVectorQuery()
+        /// <param name="vector"> The vector representation of a search query. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="vector"/> is null. </exception>
+        public RawVectorQuery(IEnumerable<float> vector)
         {
-            Vector = new ChangeTrackingList<float>();
+            Argument.AssertNotNull(vector, nameof(vector));
+
+            Vector = vector.ToList();
             Kind = VectorQueryKind.Vector;
         }
 

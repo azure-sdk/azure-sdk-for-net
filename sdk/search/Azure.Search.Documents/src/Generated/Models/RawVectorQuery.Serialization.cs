@@ -16,16 +16,13 @@ namespace Azure.Search.Documents.Models
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
-            if (Optional.IsCollectionDefined(Vector))
+            writer.WritePropertyName("vector"u8);
+            writer.WriteStartArray();
+            foreach (var item in Vector)
             {
-                writer.WritePropertyName("vector"u8);
-                writer.WriteStartArray();
-                foreach (var item in Vector)
-                {
-                    writer.WriteNumberValue(item);
-                }
-                writer.WriteEndArray();
+                writer.WriteNumberValue(item);
             }
+            writer.WriteEndArray();
             writer.WritePropertyName("kind"u8);
             writer.WriteStringValue(Kind.ToString());
             if (Optional.IsDefined(KNearestNeighborsCount))
@@ -52,7 +49,7 @@ namespace Azure.Search.Documents.Models
             {
                 return null;
             }
-            Optional<IReadOnlyList<float>> vector = default;
+            IReadOnlyList<float> vector = default;
             VectorQueryKind kind = default;
             Optional<int> k = default;
             Optional<string> fields = default;
@@ -61,10 +58,6 @@ namespace Azure.Search.Documents.Models
             {
                 if (property.NameEquals("vector"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
                     List<float> array = new List<float>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
@@ -102,7 +95,7 @@ namespace Azure.Search.Documents.Models
                     continue;
                 }
             }
-            return new RawVectorQuery(kind, Optional.ToNullable(k), fields.Value, Optional.ToNullable(exhaustive), Optional.ToList(vector));
+            return new RawVectorQuery(kind, Optional.ToNullable(k), fields.Value, Optional.ToNullable(exhaustive), vector);
         }
     }
 }

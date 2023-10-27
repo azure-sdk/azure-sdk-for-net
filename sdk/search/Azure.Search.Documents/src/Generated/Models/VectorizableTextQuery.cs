@@ -5,14 +5,22 @@
 
 #nullable disable
 
+using System;
+using Azure.Core;
+
 namespace Azure.Search.Documents.Models
 {
     /// <summary> The query parameters to use for vector search when a text value that needs to be vectorized is provided. </summary>
     public partial class VectorizableTextQuery : VectorQuery
     {
         /// <summary> Initializes a new instance of VectorizableTextQuery. </summary>
-        public VectorizableTextQuery()
+        /// <param name="text"> The text to be vectorized to perform a vector search query. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="text"/> is null. </exception>
+        public VectorizableTextQuery(string text)
         {
+            Argument.AssertNotNull(text, nameof(text));
+
+            Text = text;
             Kind = VectorQueryKind.Text;
         }
 
