@@ -21,17 +21,17 @@ namespace Azure.ResourceManager.NotificationHubs.Models
         }
 
         /// <summary> Initializes a new instance of NotificationHubListResult. </summary>
-        /// <param name="value"> Result of the List NotificationHub operation. </param>
-        /// <param name="nextLink"> Link to the next set of results. Not empty if Value contains incomplete list of NotificationHub. </param>
+        /// <param name="value"> Gets or sets result of the List AuthorizationRules operation. </param>
+        /// <param name="nextLink"> Gets or sets link to the next set of results. </param>
         internal NotificationHubListResult(IReadOnlyList<NotificationHubData> value, string nextLink)
         {
             Value = value;
             NextLink = nextLink;
         }
 
-        /// <summary> Result of the List NotificationHub operation. </summary>
+        /// <summary> Gets or sets result of the List AuthorizationRules operation. </summary>
         public IReadOnlyList<NotificationHubData> Value { get; }
-        /// <summary> Link to the next set of results. Not empty if Value contains incomplete list of NotificationHub. </summary>
+        /// <summary> Gets or sets link to the next set of results. </summary>
         public string NextLink { get; }
     }
 }
