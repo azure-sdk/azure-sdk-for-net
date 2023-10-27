@@ -30,6 +30,18 @@ namespace Microsoft.Extensions.Azure
 
         /// <summary> Registers a <see cref="ContentSafetyClient"/> instance. </summary>
         /// <param name="builder"> The builder to register with. </param>
+        /// <param name="endpoint">
+        /// Supported Cognitive Services endpoints (protocol and hostname, for example:
+        /// https://&lt;resource-name&gt;.cognitiveservices.azure.com).
+        /// </param>
+        public static IAzureClientBuilder<ContentSafetyClient, ContentSafetyClientOptions> AddContentSafetyClient<TBuilder>(this TBuilder builder, Uri endpoint)
+        where TBuilder : IAzureClientFactoryBuilderWithCredential
+        {
+            return builder.RegisterClientFactory<ContentSafetyClient, ContentSafetyClientOptions>((options, cred) => new ContentSafetyClient(endpoint, cred, options));
+        }
+
+        /// <summary> Registers a <see cref="ContentSafetyClient"/> instance. </summary>
+        /// <param name="builder"> The builder to register with. </param>
         /// <param name="configuration"> The configuration values. </param>
         public static IAzureClientBuilder<ContentSafetyClient, ContentSafetyClientOptions> AddContentSafetyClient<TBuilder, TConfiguration>(this TBuilder builder, TConfiguration configuration)
         where TBuilder : IAzureClientFactoryBuilderWithConfiguration<TConfiguration>

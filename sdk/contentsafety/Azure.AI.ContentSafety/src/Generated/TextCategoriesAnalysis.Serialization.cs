@@ -7,19 +7,21 @@
 
 using System.Text.Json;
 using Azure;
+using Azure.Core;
 
 namespace Azure.AI.ContentSafety
 {
-    public partial class TextAnalyzeSeverityResult
+    public partial class TextCategoriesAnalysis
     {
-        internal static TextAnalyzeSeverityResult DeserializeTextAnalyzeSeverityResult(JsonElement element)
+        internal static TextCategoriesAnalysis DeserializeTextCategoriesAnalysis(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
                 return null;
             }
             TextCategory category = default;
-            int severity = default;
+            Optional<int> severity = default;
+            Optional<bool> accepted = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("category"u8))
@@ -29,19 +31,32 @@ namespace Azure.AI.ContentSafety
                 }
                 if (property.NameEquals("severity"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     severity = property.Value.GetInt32();
                     continue;
                 }
+                if (property.NameEquals("accepted"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    accepted = property.Value.GetBoolean();
+                    continue;
+                }
             }
-            return new TextAnalyzeSeverityResult(category, severity);
+            return new TextCategoriesAnalysis(category, Optional.ToNullable(severity), Optional.ToNullable(accepted));
         }
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static TextAnalyzeSeverityResult FromResponse(Response response)
+        internal static TextCategoriesAnalysis FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content);
-            return DeserializeTextAnalyzeSeverityResult(document.RootElement);
+            return DeserializeTextCategoriesAnalysis(document.RootElement);
         }
     }
 }

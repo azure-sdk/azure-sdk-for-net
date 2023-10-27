@@ -21,6 +21,8 @@ namespace Azure.AI.ContentSafety
     {
         private const string AuthorizationHeader = "Ocp-Apim-Subscription-Key";
         private readonly AzureKeyCredential _keyCredential;
+        private static readonly string[] AuthorizationScopes = new string[] { "https://cognitiveservices.azure.com/.default" };
+        private readonly TokenCredential _tokenCredential;
         private readonly HttpPipeline _pipeline;
         private readonly Uri _endpoint;
         private readonly string _apiVersion;
@@ -53,6 +55,17 @@ namespace Azure.AI.ContentSafety
         /// https://&lt;resource-name&gt;.cognitiveservices.azure.com).
         /// </param>
         /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> or <paramref name="credential"/> is null. </exception>
+        public ContentSafetyClient(Uri endpoint, TokenCredential credential) : this(endpoint, credential, new ContentSafetyClientOptions())
+        {
+        }
+
+        /// <summary> Initializes a new instance of ContentSafetyClient. </summary>
+        /// <param name="endpoint">
+        /// Supported Cognitive Services endpoints (protocol and hostname, for example:
+        /// https://&lt;resource-name&gt;.cognitiveservices.azure.com).
+        /// </param>
+        /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
         /// <param name="options"> The options for configuring the client. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> or <paramref name="credential"/> is null. </exception>
         public ContentSafetyClient(Uri endpoint, AzureKeyCredential credential, ContentSafetyClientOptions options)
@@ -68,11 +81,32 @@ namespace Azure.AI.ContentSafety
             _apiVersion = options.Version;
         }
 
+        /// <summary> Initializes a new instance of ContentSafetyClient. </summary>
+        /// <param name="endpoint">
+        /// Supported Cognitive Services endpoints (protocol and hostname, for example:
+        /// https://&lt;resource-name&gt;.cognitiveservices.azure.com).
+        /// </param>
+        /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
+        /// <param name="options"> The options for configuring the client. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> or <paramref name="credential"/> is null. </exception>
+        public ContentSafetyClient(Uri endpoint, TokenCredential credential, ContentSafetyClientOptions options)
+        {
+            Argument.AssertNotNull(endpoint, nameof(endpoint));
+            Argument.AssertNotNull(credential, nameof(credential));
+            options ??= new ContentSafetyClientOptions();
+
+            ClientDiagnostics = new ClientDiagnostics(options, true);
+            _tokenCredential = credential;
+            _pipeline = HttpPipelineBuilder.Build(options, Array.Empty<HttpPipelinePolicy>(), new HttpPipelinePolicy[] { new BearerTokenAuthenticationPolicy(_tokenCredential, AuthorizationScopes) }, new ResponseClassifier());
+            _endpoint = endpoint;
+            _apiVersion = options.Version;
+        }
+
         /// <summary> Analyze Text. </summary>
-        /// <param name="body"> The request of text analysis. </param>
+        /// <param name="body"> The text analysis request. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="body"/> is null. </exception>
-        /// <remarks> A sync API for harmful content analysis for text. Currently, we support four categories: Hate, SelfHarm, Sexual, Violence. </remarks>
+        /// <remarks> A synchronous API for the analysis of potentially harmful text content. Currently, it supports four categories: Hate, SelfHarm, Sexual, and Violence. </remarks>
         /// <include file="Docs/ContentSafetyClient.xml" path="doc/members/member[@name='AnalyzeTextAsync(AnalyzeTextOptions,CancellationToken)']/*" />
         public virtual async Task<Response<AnalyzeTextResult>> AnalyzeTextAsync(AnalyzeTextOptions body, CancellationToken cancellationToken = default)
         {
@@ -85,10 +119,10 @@ namespace Azure.AI.ContentSafety
         }
 
         /// <summary> Analyze Text. </summary>
-        /// <param name="body"> The request of text analysis. </param>
+        /// <param name="body"> The text analysis request. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="body"/> is null. </exception>
-        /// <remarks> A sync API for harmful content analysis for text. Currently, we support four categories: Hate, SelfHarm, Sexual, Violence. </remarks>
+        /// <remarks> A synchronous API for the analysis of potentially harmful text content. Currently, it supports four categories: Hate, SelfHarm, Sexual, and Violence. </remarks>
         /// <include file="Docs/ContentSafetyClient.xml" path="doc/members/member[@name='AnalyzeText(AnalyzeTextOptions,CancellationToken)']/*" />
         public virtual Response<AnalyzeTextResult> AnalyzeText(AnalyzeTextOptions body, CancellationToken cancellationToken = default)
         {
@@ -178,11 +212,231 @@ namespace Azure.AI.ContentSafety
             }
         }
 
-        /// <summary> Analyze Image. </summary>
-        /// <param name="body"> The analysis request of the image. </param>
+        /// <summary> Analyze Text Jailbreak. </summary>
+        /// <param name="body"> The text jailbreak analysis request. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="body"/> is null. </exception>
-        /// <remarks> A sync API for harmful content analysis for image. Currently, we support four categories: Hate, SelfHarm, Sexual, Violence. </remarks>
+        /// <remarks> A synchronous API for the analysis of text jailbreak. </remarks>
+        /// <include file="Docs/ContentSafetyClient.xml" path="doc/members/member[@name='DetectTextJailbreakAsync(AnalyzeTextJailbreakOptions,CancellationToken)']/*" />
+        public virtual async Task<Response<AnalyzeTextJailbreakResult>> DetectTextJailbreakAsync(AnalyzeTextJailbreakOptions body, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(body, nameof(body));
+
+            RequestContext context = FromCancellationToken(cancellationToken);
+            using RequestContent content = body.ToRequestContent();
+            Response response = await DetectTextJailbreakAsync(content, context).ConfigureAwait(false);
+            return Response.FromValue(AnalyzeTextJailbreakResult.FromResponse(response), response);
+        }
+
+        /// <summary> Analyze Text Jailbreak. </summary>
+        /// <param name="body"> The text jailbreak analysis request. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="body"/> is null. </exception>
+        /// <remarks> A synchronous API for the analysis of text jailbreak. </remarks>
+        /// <include file="Docs/ContentSafetyClient.xml" path="doc/members/member[@name='DetectTextJailbreak(AnalyzeTextJailbreakOptions,CancellationToken)']/*" />
+        public virtual Response<AnalyzeTextJailbreakResult> DetectTextJailbreak(AnalyzeTextJailbreakOptions body, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(body, nameof(body));
+
+            RequestContext context = FromCancellationToken(cancellationToken);
+            using RequestContent content = body.ToRequestContent();
+            Response response = DetectTextJailbreak(content, context);
+            return Response.FromValue(AnalyzeTextJailbreakResult.FromResponse(response), response);
+        }
+
+        /// <summary>
+        /// [Protocol Method] Analyze Text Jailbreak
+        /// <list type="bullet">
+        /// <item>
+        /// <description>
+        /// This <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/ProtocolMethods.md">protocol method</see> allows explicit creation of the request and processing of the response for advanced scenarios.
+        /// </description>
+        /// </item>
+        /// <item>
+        /// <description>
+        /// Please try the simpler <see cref="DetectTextJailbreakAsync(AnalyzeTextJailbreakOptions,CancellationToken)"/> convenience overload with strongly typed models first.
+        /// </description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="content"> The content to send as the body of the request. </param>
+        /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
+        /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
+        /// <returns> The response returned from the service. </returns>
+        /// <include file="Docs/ContentSafetyClient.xml" path="doc/members/member[@name='DetectTextJailbreakAsync(RequestContent,RequestContext)']/*" />
+        public virtual async Task<Response> DetectTextJailbreakAsync(RequestContent content, RequestContext context = null)
+        {
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var scope = ClientDiagnostics.CreateScope("ContentSafetyClient.DetectTextJailbreak");
+            scope.Start();
+            try
+            {
+                using HttpMessage message = CreateDetectTextJailbreakRequest(content, context);
+                return await _pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// [Protocol Method] Analyze Text Jailbreak
+        /// <list type="bullet">
+        /// <item>
+        /// <description>
+        /// This <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/ProtocolMethods.md">protocol method</see> allows explicit creation of the request and processing of the response for advanced scenarios.
+        /// </description>
+        /// </item>
+        /// <item>
+        /// <description>
+        /// Please try the simpler <see cref="DetectTextJailbreak(AnalyzeTextJailbreakOptions,CancellationToken)"/> convenience overload with strongly typed models first.
+        /// </description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="content"> The content to send as the body of the request. </param>
+        /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
+        /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
+        /// <returns> The response returned from the service. </returns>
+        /// <include file="Docs/ContentSafetyClient.xml" path="doc/members/member[@name='DetectTextJailbreak(RequestContent,RequestContext)']/*" />
+        public virtual Response DetectTextJailbreak(RequestContent content, RequestContext context = null)
+        {
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var scope = ClientDiagnostics.CreateScope("ContentSafetyClient.DetectTextJailbreak");
+            scope.Start();
+            try
+            {
+                using HttpMessage message = CreateDetectTextJailbreakRequest(content, context);
+                return _pipeline.ProcessMessage(message, context);
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary> Analyze Protected Material. </summary>
+        /// <param name="body"> The text analysis request. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="body"/> is null. </exception>
+        /// <remarks> A synchronous API for the analysis of protected material. </remarks>
+        /// <include file="Docs/ContentSafetyClient.xml" path="doc/members/member[@name='DetectTextProtectedMaterialAsync(AnalyzeTextProtectedMaterialOptions,CancellationToken)']/*" />
+        public virtual async Task<Response<AnalyzeTextProtectedMaterialResult>> DetectTextProtectedMaterialAsync(AnalyzeTextProtectedMaterialOptions body, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(body, nameof(body));
+
+            RequestContext context = FromCancellationToken(cancellationToken);
+            using RequestContent content = body.ToRequestContent();
+            Response response = await DetectTextProtectedMaterialAsync(content, context).ConfigureAwait(false);
+            return Response.FromValue(AnalyzeTextProtectedMaterialResult.FromResponse(response), response);
+        }
+
+        /// <summary> Analyze Protected Material. </summary>
+        /// <param name="body"> The text analysis request. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="body"/> is null. </exception>
+        /// <remarks> A synchronous API for the analysis of protected material. </remarks>
+        /// <include file="Docs/ContentSafetyClient.xml" path="doc/members/member[@name='DetectTextProtectedMaterial(AnalyzeTextProtectedMaterialOptions,CancellationToken)']/*" />
+        public virtual Response<AnalyzeTextProtectedMaterialResult> DetectTextProtectedMaterial(AnalyzeTextProtectedMaterialOptions body, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(body, nameof(body));
+
+            RequestContext context = FromCancellationToken(cancellationToken);
+            using RequestContent content = body.ToRequestContent();
+            Response response = DetectTextProtectedMaterial(content, context);
+            return Response.FromValue(AnalyzeTextProtectedMaterialResult.FromResponse(response), response);
+        }
+
+        /// <summary>
+        /// [Protocol Method] Analyze Protected Material
+        /// <list type="bullet">
+        /// <item>
+        /// <description>
+        /// This <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/ProtocolMethods.md">protocol method</see> allows explicit creation of the request and processing of the response for advanced scenarios.
+        /// </description>
+        /// </item>
+        /// <item>
+        /// <description>
+        /// Please try the simpler <see cref="DetectTextProtectedMaterialAsync(AnalyzeTextProtectedMaterialOptions,CancellationToken)"/> convenience overload with strongly typed models first.
+        /// </description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="content"> The content to send as the body of the request. </param>
+        /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
+        /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
+        /// <returns> The response returned from the service. </returns>
+        /// <include file="Docs/ContentSafetyClient.xml" path="doc/members/member[@name='DetectTextProtectedMaterialAsync(RequestContent,RequestContext)']/*" />
+        public virtual async Task<Response> DetectTextProtectedMaterialAsync(RequestContent content, RequestContext context = null)
+        {
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var scope = ClientDiagnostics.CreateScope("ContentSafetyClient.DetectTextProtectedMaterial");
+            scope.Start();
+            try
+            {
+                using HttpMessage message = CreateDetectTextProtectedMaterialRequest(content, context);
+                return await _pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// [Protocol Method] Analyze Protected Material
+        /// <list type="bullet">
+        /// <item>
+        /// <description>
+        /// This <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/ProtocolMethods.md">protocol method</see> allows explicit creation of the request and processing of the response for advanced scenarios.
+        /// </description>
+        /// </item>
+        /// <item>
+        /// <description>
+        /// Please try the simpler <see cref="DetectTextProtectedMaterial(AnalyzeTextProtectedMaterialOptions,CancellationToken)"/> convenience overload with strongly typed models first.
+        /// </description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="content"> The content to send as the body of the request. </param>
+        /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
+        /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
+        /// <returns> The response returned from the service. </returns>
+        /// <include file="Docs/ContentSafetyClient.xml" path="doc/members/member[@name='DetectTextProtectedMaterial(RequestContent,RequestContext)']/*" />
+        public virtual Response DetectTextProtectedMaterial(RequestContent content, RequestContext context = null)
+        {
+            Argument.AssertNotNull(content, nameof(content));
+
+            using var scope = ClientDiagnostics.CreateScope("ContentSafetyClient.DetectTextProtectedMaterial");
+            scope.Start();
+            try
+            {
+                using HttpMessage message = CreateDetectTextProtectedMaterialRequest(content, context);
+                return _pipeline.ProcessMessage(message, context);
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary> Analyze Image. </summary>
+        /// <param name="body"> The image analysis request. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="body"/> is null. </exception>
+        /// <remarks> A synchronous API for the analysis of potentially harmful image content. Currently, it supports four categories: Hate, SelfHarm, Sexual, and Violence. </remarks>
         /// <include file="Docs/ContentSafetyClient.xml" path="doc/members/member[@name='AnalyzeImageAsync(AnalyzeImageOptions,CancellationToken)']/*" />
         public virtual async Task<Response<AnalyzeImageResult>> AnalyzeImageAsync(AnalyzeImageOptions body, CancellationToken cancellationToken = default)
         {
@@ -195,10 +449,10 @@ namespace Azure.AI.ContentSafety
         }
 
         /// <summary> Analyze Image. </summary>
-        /// <param name="body"> The analysis request of the image. </param>
+        /// <param name="body"> The image analysis request. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="body"/> is null. </exception>
-        /// <remarks> A sync API for harmful content analysis for image. Currently, we support four categories: Hate, SelfHarm, Sexual, Violence. </remarks>
+        /// <remarks> A synchronous API for the analysis of potentially harmful image content. Currently, it supports four categories: Hate, SelfHarm, Sexual, and Violence. </remarks>
         /// <include file="Docs/ContentSafetyClient.xml" path="doc/members/member[@name='AnalyzeImage(AnalyzeImageOptions,CancellationToken)']/*" />
         public virtual Response<AnalyzeImageResult> AnalyzeImage(AnalyzeImageOptions body, CancellationToken cancellationToken = default)
         {
@@ -546,46 +800,46 @@ namespace Azure.AI.ContentSafety
             }
         }
 
-        /// <summary> Add BlockItems To Text Blocklist. </summary>
+        /// <summary> Add or update BlocklistItems To Text Blocklist. </summary>
         /// <param name="blocklistName"> Text blocklist name. </param>
-        /// <param name="addBlockItemsOptions"> The request of adding blockItems to text blocklist. </param>
+        /// <param name="addOrUpdateTextBlocklistItemsOptions"> The request to add blocklistItems to a text blocklist. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="blocklistName"/> or <paramref name="addBlockItemsOptions"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="blocklistName"/> or <paramref name="addOrUpdateTextBlocklistItemsOptions"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="blocklistName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <remarks> Add blockItems to a text blocklist. You can add at most 100 BlockItems in one request. </remarks>
-        /// <include file="Docs/ContentSafetyClient.xml" path="doc/members/member[@name='AddBlockItemsAsync(string,AddBlockItemsOptions,CancellationToken)']/*" />
-        public virtual async Task<Response<AddBlockItemsResult>> AddBlockItemsAsync(string blocklistName, AddBlockItemsOptions addBlockItemsOptions, CancellationToken cancellationToken = default)
+        /// <remarks> Add or update blocklistItems to a text blocklist. You can add or update at most 100 blocklistItems in one request. </remarks>
+        /// <include file="Docs/ContentSafetyClient.xml" path="doc/members/member[@name='AddOrUpdateBlocklistItemsAsync(string,AddOrUpdateTextBlocklistItemsOptions,CancellationToken)']/*" />
+        public virtual async Task<Response<AddOrUpdateTextBlocklistItemsResult>> AddOrUpdateBlocklistItemsAsync(string blocklistName, AddOrUpdateTextBlocklistItemsOptions addOrUpdateTextBlocklistItemsOptions, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(blocklistName, nameof(blocklistName));
-            Argument.AssertNotNull(addBlockItemsOptions, nameof(addBlockItemsOptions));
+            Argument.AssertNotNull(addOrUpdateTextBlocklistItemsOptions, nameof(addOrUpdateTextBlocklistItemsOptions));
 
             RequestContext context = FromCancellationToken(cancellationToken);
-            using RequestContent content = addBlockItemsOptions.ToRequestContent();
-            Response response = await AddBlockItemsAsync(blocklistName, content, context).ConfigureAwait(false);
-            return Response.FromValue(AddBlockItemsResult.FromResponse(response), response);
+            using RequestContent content = addOrUpdateTextBlocklistItemsOptions.ToRequestContent();
+            Response response = await AddOrUpdateBlocklistItemsAsync(blocklistName, content, context).ConfigureAwait(false);
+            return Response.FromValue(AddOrUpdateTextBlocklistItemsResult.FromResponse(response), response);
         }
 
-        /// <summary> Add BlockItems To Text Blocklist. </summary>
+        /// <summary> Add or update BlocklistItems To Text Blocklist. </summary>
         /// <param name="blocklistName"> Text blocklist name. </param>
-        /// <param name="addBlockItemsOptions"> The request of adding blockItems to text blocklist. </param>
+        /// <param name="addOrUpdateTextBlocklistItemsOptions"> The request to add blocklistItems to a text blocklist. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="blocklistName"/> or <paramref name="addBlockItemsOptions"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="blocklistName"/> or <paramref name="addOrUpdateTextBlocklistItemsOptions"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="blocklistName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <remarks> Add blockItems to a text blocklist. You can add at most 100 BlockItems in one request. </remarks>
-        /// <include file="Docs/ContentSafetyClient.xml" path="doc/members/member[@name='AddBlockItems(string,AddBlockItemsOptions,CancellationToken)']/*" />
-        public virtual Response<AddBlockItemsResult> AddBlockItems(string blocklistName, AddBlockItemsOptions addBlockItemsOptions, CancellationToken cancellationToken = default)
+        /// <remarks> Add or update blocklistItems to a text blocklist. You can add or update at most 100 blocklistItems in one request. </remarks>
+        /// <include file="Docs/ContentSafetyClient.xml" path="doc/members/member[@name='AddOrUpdateBlocklistItems(string,AddOrUpdateTextBlocklistItemsOptions,CancellationToken)']/*" />
+        public virtual Response<AddOrUpdateTextBlocklistItemsResult> AddOrUpdateBlocklistItems(string blocklistName, AddOrUpdateTextBlocklistItemsOptions addOrUpdateTextBlocklistItemsOptions, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(blocklistName, nameof(blocklistName));
-            Argument.AssertNotNull(addBlockItemsOptions, nameof(addBlockItemsOptions));
+            Argument.AssertNotNull(addOrUpdateTextBlocklistItemsOptions, nameof(addOrUpdateTextBlocklistItemsOptions));
 
             RequestContext context = FromCancellationToken(cancellationToken);
-            using RequestContent content = addBlockItemsOptions.ToRequestContent();
-            Response response = AddBlockItems(blocklistName, content, context);
-            return Response.FromValue(AddBlockItemsResult.FromResponse(response), response);
+            using RequestContent content = addOrUpdateTextBlocklistItemsOptions.ToRequestContent();
+            Response response = AddOrUpdateBlocklistItems(blocklistName, content, context);
+            return Response.FromValue(AddOrUpdateTextBlocklistItemsResult.FromResponse(response), response);
         }
 
         /// <summary>
-        /// [Protocol Method] Add BlockItems To Text Blocklist
+        /// [Protocol Method] Add or update BlocklistItems To Text Blocklist
         /// <list type="bullet">
         /// <item>
         /// <description>
@@ -594,7 +848,7 @@ namespace Azure.AI.ContentSafety
         /// </item>
         /// <item>
         /// <description>
-        /// Please try the simpler <see cref="AddBlockItemsAsync(string,AddBlockItemsOptions,CancellationToken)"/> convenience overload with strongly typed models first.
+        /// Please try the simpler <see cref="AddOrUpdateBlocklistItemsAsync(string,AddOrUpdateTextBlocklistItemsOptions,CancellationToken)"/> convenience overload with strongly typed models first.
         /// </description>
         /// </item>
         /// </list>
@@ -606,17 +860,17 @@ namespace Azure.AI.ContentSafety
         /// <exception cref="ArgumentException"> <paramref name="blocklistName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/ContentSafetyClient.xml" path="doc/members/member[@name='AddBlockItemsAsync(string,RequestContent,RequestContext)']/*" />
-        public virtual async Task<Response> AddBlockItemsAsync(string blocklistName, RequestContent content, RequestContext context = null)
+        /// <include file="Docs/ContentSafetyClient.xml" path="doc/members/member[@name='AddOrUpdateBlocklistItemsAsync(string,RequestContent,RequestContext)']/*" />
+        public virtual async Task<Response> AddOrUpdateBlocklistItemsAsync(string blocklistName, RequestContent content, RequestContext context = null)
         {
             Argument.AssertNotNullOrEmpty(blocklistName, nameof(blocklistName));
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = ClientDiagnostics.CreateScope("ContentSafetyClient.AddBlockItems");
+            using var scope = ClientDiagnostics.CreateScope("ContentSafetyClient.AddOrUpdateBlocklistItems");
             scope.Start();
             try
             {
-                using HttpMessage message = CreateAddBlockItemsRequest(blocklistName, content, context);
+                using HttpMessage message = CreateAddOrUpdateBlocklistItemsRequest(blocklistName, content, context);
                 return await _pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
             }
             catch (Exception e)
@@ -627,7 +881,7 @@ namespace Azure.AI.ContentSafety
         }
 
         /// <summary>
-        /// [Protocol Method] Add BlockItems To Text Blocklist
+        /// [Protocol Method] Add or update BlocklistItems To Text Blocklist
         /// <list type="bullet">
         /// <item>
         /// <description>
@@ -636,7 +890,7 @@ namespace Azure.AI.ContentSafety
         /// </item>
         /// <item>
         /// <description>
-        /// Please try the simpler <see cref="AddBlockItems(string,AddBlockItemsOptions,CancellationToken)"/> convenience overload with strongly typed models first.
+        /// Please try the simpler <see cref="AddOrUpdateBlocklistItems(string,AddOrUpdateTextBlocklistItemsOptions,CancellationToken)"/> convenience overload with strongly typed models first.
         /// </description>
         /// </item>
         /// </list>
@@ -648,17 +902,17 @@ namespace Azure.AI.ContentSafety
         /// <exception cref="ArgumentException"> <paramref name="blocklistName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/ContentSafetyClient.xml" path="doc/members/member[@name='AddBlockItems(string,RequestContent,RequestContext)']/*" />
-        public virtual Response AddBlockItems(string blocklistName, RequestContent content, RequestContext context = null)
+        /// <include file="Docs/ContentSafetyClient.xml" path="doc/members/member[@name='AddOrUpdateBlocklistItems(string,RequestContent,RequestContext)']/*" />
+        public virtual Response AddOrUpdateBlocklistItems(string blocklistName, RequestContent content, RequestContext context = null)
         {
             Argument.AssertNotNullOrEmpty(blocklistName, nameof(blocklistName));
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = ClientDiagnostics.CreateScope("ContentSafetyClient.AddBlockItems");
+            using var scope = ClientDiagnostics.CreateScope("ContentSafetyClient.AddOrUpdateBlocklistItems");
             scope.Start();
             try
             {
-                using HttpMessage message = CreateAddBlockItemsRequest(blocklistName, content, context);
+                using HttpMessage message = CreateAddOrUpdateBlocklistItemsRequest(blocklistName, content, context);
                 return _pipeline.ProcessMessage(message, context);
             }
             catch (Exception e)
@@ -668,46 +922,46 @@ namespace Azure.AI.ContentSafety
             }
         }
 
-        /// <summary> Remove BlockItems From Text Blocklist. </summary>
+        /// <summary> Remove BlocklistItems From Text Blocklist. </summary>
         /// <param name="blocklistName"> Text blocklist name. </param>
-        /// <param name="removeBlockItemsOptions"> The request of removing blockItems from text blocklist. </param>
+        /// <param name="removeTextBlocklistItemsOptions"> The request to remove blocklistItems from a text blocklist. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="blocklistName"/> or <paramref name="removeBlockItemsOptions"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="blocklistName"/> or <paramref name="removeTextBlocklistItemsOptions"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="blocklistName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <remarks> Remove blockItems from a text blocklist. You can remove at most 100 BlockItems in one request. </remarks>
-        /// <include file="Docs/ContentSafetyClient.xml" path="doc/members/member[@name='RemoveBlockItemsAsync(string,RemoveBlockItemsOptions,CancellationToken)']/*" />
-        public virtual async Task<Response> RemoveBlockItemsAsync(string blocklistName, RemoveBlockItemsOptions removeBlockItemsOptions, CancellationToken cancellationToken = default)
+        /// <remarks> Remove blocklistItems from a text blocklist. You can remove at most 100 BlocklistItems in one request. </remarks>
+        /// <include file="Docs/ContentSafetyClient.xml" path="doc/members/member[@name='RemoveBlocklistItemsAsync(string,RemoveTextBlocklistItemsOptions,CancellationToken)']/*" />
+        public virtual async Task<Response> RemoveBlocklistItemsAsync(string blocklistName, RemoveTextBlocklistItemsOptions removeTextBlocklistItemsOptions, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(blocklistName, nameof(blocklistName));
-            Argument.AssertNotNull(removeBlockItemsOptions, nameof(removeBlockItemsOptions));
+            Argument.AssertNotNull(removeTextBlocklistItemsOptions, nameof(removeTextBlocklistItemsOptions));
 
             RequestContext context = FromCancellationToken(cancellationToken);
-            using RequestContent content = removeBlockItemsOptions.ToRequestContent();
-            Response response = await RemoveBlockItemsAsync(blocklistName, content, context).ConfigureAwait(false);
+            using RequestContent content = removeTextBlocklistItemsOptions.ToRequestContent();
+            Response response = await RemoveBlocklistItemsAsync(blocklistName, content, context).ConfigureAwait(false);
             return response;
         }
 
-        /// <summary> Remove BlockItems From Text Blocklist. </summary>
+        /// <summary> Remove BlocklistItems From Text Blocklist. </summary>
         /// <param name="blocklistName"> Text blocklist name. </param>
-        /// <param name="removeBlockItemsOptions"> The request of removing blockItems from text blocklist. </param>
+        /// <param name="removeTextBlocklistItemsOptions"> The request to remove blocklistItems from a text blocklist. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="blocklistName"/> or <paramref name="removeBlockItemsOptions"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="blocklistName"/> or <paramref name="removeTextBlocklistItemsOptions"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="blocklistName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <remarks> Remove blockItems from a text blocklist. You can remove at most 100 BlockItems in one request. </remarks>
-        /// <include file="Docs/ContentSafetyClient.xml" path="doc/members/member[@name='RemoveBlockItems(string,RemoveBlockItemsOptions,CancellationToken)']/*" />
-        public virtual Response RemoveBlockItems(string blocklistName, RemoveBlockItemsOptions removeBlockItemsOptions, CancellationToken cancellationToken = default)
+        /// <remarks> Remove blocklistItems from a text blocklist. You can remove at most 100 BlocklistItems in one request. </remarks>
+        /// <include file="Docs/ContentSafetyClient.xml" path="doc/members/member[@name='RemoveBlocklistItems(string,RemoveTextBlocklistItemsOptions,CancellationToken)']/*" />
+        public virtual Response RemoveBlocklistItems(string blocklistName, RemoveTextBlocklistItemsOptions removeTextBlocklistItemsOptions, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(blocklistName, nameof(blocklistName));
-            Argument.AssertNotNull(removeBlockItemsOptions, nameof(removeBlockItemsOptions));
+            Argument.AssertNotNull(removeTextBlocklistItemsOptions, nameof(removeTextBlocklistItemsOptions));
 
             RequestContext context = FromCancellationToken(cancellationToken);
-            using RequestContent content = removeBlockItemsOptions.ToRequestContent();
-            Response response = RemoveBlockItems(blocklistName, content, context);
+            using RequestContent content = removeTextBlocklistItemsOptions.ToRequestContent();
+            Response response = RemoveBlocklistItems(blocklistName, content, context);
             return response;
         }
 
         /// <summary>
-        /// [Protocol Method] Remove BlockItems From Text Blocklist
+        /// [Protocol Method] Remove BlocklistItems From Text Blocklist
         /// <list type="bullet">
         /// <item>
         /// <description>
@@ -716,7 +970,7 @@ namespace Azure.AI.ContentSafety
         /// </item>
         /// <item>
         /// <description>
-        /// Please try the simpler <see cref="RemoveBlockItemsAsync(string,RemoveBlockItemsOptions,CancellationToken)"/> convenience overload with strongly typed models first.
+        /// Please try the simpler <see cref="RemoveBlocklistItemsAsync(string,RemoveTextBlocklistItemsOptions,CancellationToken)"/> convenience overload with strongly typed models first.
         /// </description>
         /// </item>
         /// </list>
@@ -728,17 +982,17 @@ namespace Azure.AI.ContentSafety
         /// <exception cref="ArgumentException"> <paramref name="blocklistName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/ContentSafetyClient.xml" path="doc/members/member[@name='RemoveBlockItemsAsync(string,RequestContent,RequestContext)']/*" />
-        public virtual async Task<Response> RemoveBlockItemsAsync(string blocklistName, RequestContent content, RequestContext context = null)
+        /// <include file="Docs/ContentSafetyClient.xml" path="doc/members/member[@name='RemoveBlocklistItemsAsync(string,RequestContent,RequestContext)']/*" />
+        public virtual async Task<Response> RemoveBlocklistItemsAsync(string blocklistName, RequestContent content, RequestContext context = null)
         {
             Argument.AssertNotNullOrEmpty(blocklistName, nameof(blocklistName));
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = ClientDiagnostics.CreateScope("ContentSafetyClient.RemoveBlockItems");
+            using var scope = ClientDiagnostics.CreateScope("ContentSafetyClient.RemoveBlocklistItems");
             scope.Start();
             try
             {
-                using HttpMessage message = CreateRemoveBlockItemsRequest(blocklistName, content, context);
+                using HttpMessage message = CreateRemoveBlocklistItemsRequest(blocklistName, content, context);
                 return await _pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
             }
             catch (Exception e)
@@ -749,7 +1003,7 @@ namespace Azure.AI.ContentSafety
         }
 
         /// <summary>
-        /// [Protocol Method] Remove BlockItems From Text Blocklist
+        /// [Protocol Method] Remove BlocklistItems From Text Blocklist
         /// <list type="bullet">
         /// <item>
         /// <description>
@@ -758,7 +1012,7 @@ namespace Azure.AI.ContentSafety
         /// </item>
         /// <item>
         /// <description>
-        /// Please try the simpler <see cref="RemoveBlockItems(string,RemoveBlockItemsOptions,CancellationToken)"/> convenience overload with strongly typed models first.
+        /// Please try the simpler <see cref="RemoveBlocklistItems(string,RemoveTextBlocklistItemsOptions,CancellationToken)"/> convenience overload with strongly typed models first.
         /// </description>
         /// </item>
         /// </list>
@@ -770,17 +1024,17 @@ namespace Azure.AI.ContentSafety
         /// <exception cref="ArgumentException"> <paramref name="blocklistName"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/ContentSafetyClient.xml" path="doc/members/member[@name='RemoveBlockItems(string,RequestContent,RequestContext)']/*" />
-        public virtual Response RemoveBlockItems(string blocklistName, RequestContent content, RequestContext context = null)
+        /// <include file="Docs/ContentSafetyClient.xml" path="doc/members/member[@name='RemoveBlocklistItems(string,RequestContent,RequestContext)']/*" />
+        public virtual Response RemoveBlocklistItems(string blocklistName, RequestContent content, RequestContext context = null)
         {
             Argument.AssertNotNullOrEmpty(blocklistName, nameof(blocklistName));
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = ClientDiagnostics.CreateScope("ContentSafetyClient.RemoveBlockItems");
+            using var scope = ClientDiagnostics.CreateScope("ContentSafetyClient.RemoveBlocklistItems");
             scope.Start();
             try
             {
-                using HttpMessage message = CreateRemoveBlockItemsRequest(blocklistName, content, context);
+                using HttpMessage message = CreateRemoveBlocklistItemsRequest(blocklistName, content, context);
                 return _pipeline.ProcessMessage(message, context);
             }
             catch (Exception e)
@@ -790,44 +1044,44 @@ namespace Azure.AI.ContentSafety
             }
         }
 
-        /// <summary> Get BlockItem By blocklistName And blockItemId. </summary>
+        /// <summary> Get BlocklistItem By blocklistName And blocklistItemId. </summary>
         /// <param name="blocklistName"> Text blocklist name. </param>
-        /// <param name="blockItemId"> Block Item Id. It will be uuid. </param>
+        /// <param name="blocklistItemId"> The service will generate a BlocklistItemId, which will be a UUID. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="blocklistName"/> or <paramref name="blockItemId"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="blocklistName"/> or <paramref name="blockItemId"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <remarks> Get blockItem By blockItemId from a text blocklist. </remarks>
+        /// <exception cref="ArgumentNullException"> <paramref name="blocklistName"/> or <paramref name="blocklistItemId"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="blocklistName"/> or <paramref name="blocklistItemId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <remarks> Get blocklistItem by blocklistName and blocklistItemId from a text blocklist. </remarks>
         /// <include file="Docs/ContentSafetyClient.xml" path="doc/members/member[@name='GetTextBlocklistItemAsync(string,string,CancellationToken)']/*" />
-        public virtual async Task<Response<TextBlockItem>> GetTextBlocklistItemAsync(string blocklistName, string blockItemId, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<TextBlocklistItem>> GetTextBlocklistItemAsync(string blocklistName, string blocklistItemId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(blocklistName, nameof(blocklistName));
-            Argument.AssertNotNullOrEmpty(blockItemId, nameof(blockItemId));
+            Argument.AssertNotNullOrEmpty(blocklistItemId, nameof(blocklistItemId));
 
             RequestContext context = FromCancellationToken(cancellationToken);
-            Response response = await GetTextBlocklistItemAsync(blocklistName, blockItemId, context).ConfigureAwait(false);
-            return Response.FromValue(TextBlockItem.FromResponse(response), response);
+            Response response = await GetTextBlocklistItemAsync(blocklistName, blocklistItemId, context).ConfigureAwait(false);
+            return Response.FromValue(TextBlocklistItem.FromResponse(response), response);
         }
 
-        /// <summary> Get BlockItem By blocklistName And blockItemId. </summary>
+        /// <summary> Get BlocklistItem By blocklistName And blocklistItemId. </summary>
         /// <param name="blocklistName"> Text blocklist name. </param>
-        /// <param name="blockItemId"> Block Item Id. It will be uuid. </param>
+        /// <param name="blocklistItemId"> The service will generate a BlocklistItemId, which will be a UUID. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="blocklistName"/> or <paramref name="blockItemId"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="blocklistName"/> or <paramref name="blockItemId"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <remarks> Get blockItem By blockItemId from a text blocklist. </remarks>
+        /// <exception cref="ArgumentNullException"> <paramref name="blocklistName"/> or <paramref name="blocklistItemId"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="blocklistName"/> or <paramref name="blocklistItemId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <remarks> Get blocklistItem by blocklistName and blocklistItemId from a text blocklist. </remarks>
         /// <include file="Docs/ContentSafetyClient.xml" path="doc/members/member[@name='GetTextBlocklistItem(string,string,CancellationToken)']/*" />
-        public virtual Response<TextBlockItem> GetTextBlocklistItem(string blocklistName, string blockItemId, CancellationToken cancellationToken = default)
+        public virtual Response<TextBlocklistItem> GetTextBlocklistItem(string blocklistName, string blocklistItemId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(blocklistName, nameof(blocklistName));
-            Argument.AssertNotNullOrEmpty(blockItemId, nameof(blockItemId));
+            Argument.AssertNotNullOrEmpty(blocklistItemId, nameof(blocklistItemId));
 
             RequestContext context = FromCancellationToken(cancellationToken);
-            Response response = GetTextBlocklistItem(blocklistName, blockItemId, context);
-            return Response.FromValue(TextBlockItem.FromResponse(response), response);
+            Response response = GetTextBlocklistItem(blocklistName, blocklistItemId, context);
+            return Response.FromValue(TextBlocklistItem.FromResponse(response), response);
         }
 
         /// <summary>
-        /// [Protocol Method] Get BlockItem By blocklistName And blockItemId
+        /// [Protocol Method] Get BlocklistItem By blocklistName And blocklistItemId
         /// <list type="bullet">
         /// <item>
         /// <description>
@@ -842,23 +1096,23 @@ namespace Azure.AI.ContentSafety
         /// </list>
         /// </summary>
         /// <param name="blocklistName"> Text blocklist name. </param>
-        /// <param name="blockItemId"> Block Item Id. It will be uuid. </param>
+        /// <param name="blocklistItemId"> The service will generate a BlocklistItemId, which will be a UUID. </param>
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="blocklistName"/> or <paramref name="blockItemId"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="blocklistName"/> or <paramref name="blockItemId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="blocklistName"/> or <paramref name="blocklistItemId"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="blocklistName"/> or <paramref name="blocklistItemId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
         /// <include file="Docs/ContentSafetyClient.xml" path="doc/members/member[@name='GetTextBlocklistItemAsync(string,string,RequestContext)']/*" />
-        public virtual async Task<Response> GetTextBlocklistItemAsync(string blocklistName, string blockItemId, RequestContext context)
+        public virtual async Task<Response> GetTextBlocklistItemAsync(string blocklistName, string blocklistItemId, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(blocklistName, nameof(blocklistName));
-            Argument.AssertNotNullOrEmpty(blockItemId, nameof(blockItemId));
+            Argument.AssertNotNullOrEmpty(blocklistItemId, nameof(blocklistItemId));
 
             using var scope = ClientDiagnostics.CreateScope("ContentSafetyClient.GetTextBlocklistItem");
             scope.Start();
             try
             {
-                using HttpMessage message = CreateGetTextBlocklistItemRequest(blocklistName, blockItemId, context);
+                using HttpMessage message = CreateGetTextBlocklistItemRequest(blocklistName, blocklistItemId, context);
                 return await _pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
             }
             catch (Exception e)
@@ -869,7 +1123,7 @@ namespace Azure.AI.ContentSafety
         }
 
         /// <summary>
-        /// [Protocol Method] Get BlockItem By blocklistName And blockItemId
+        /// [Protocol Method] Get BlocklistItem By blocklistName And blocklistItemId
         /// <list type="bullet">
         /// <item>
         /// <description>
@@ -884,23 +1138,23 @@ namespace Azure.AI.ContentSafety
         /// </list>
         /// </summary>
         /// <param name="blocklistName"> Text blocklist name. </param>
-        /// <param name="blockItemId"> Block Item Id. It will be uuid. </param>
+        /// <param name="blocklistItemId"> The service will generate a BlocklistItemId, which will be a UUID. </param>
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="blocklistName"/> or <paramref name="blockItemId"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="blocklistName"/> or <paramref name="blockItemId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="blocklistName"/> or <paramref name="blocklistItemId"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="blocklistName"/> or <paramref name="blocklistItemId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
         /// <include file="Docs/ContentSafetyClient.xml" path="doc/members/member[@name='GetTextBlocklistItem(string,string,RequestContext)']/*" />
-        public virtual Response GetTextBlocklistItem(string blocklistName, string blockItemId, RequestContext context)
+        public virtual Response GetTextBlocklistItem(string blocklistName, string blocklistItemId, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(blocklistName, nameof(blocklistName));
-            Argument.AssertNotNullOrEmpty(blockItemId, nameof(blockItemId));
+            Argument.AssertNotNullOrEmpty(blocklistItemId, nameof(blocklistItemId));
 
             using var scope = ClientDiagnostics.CreateScope("ContentSafetyClient.GetTextBlocklistItem");
             scope.Start();
             try
             {
-                using HttpMessage message = CreateGetTextBlocklistItemRequest(blocklistName, blockItemId, context);
+                using HttpMessage message = CreateGetTextBlocklistItemRequest(blocklistName, blocklistItemId, context);
                 return _pipeline.ProcessMessage(message, context);
             }
             catch (Exception e)
@@ -986,7 +1240,7 @@ namespace Azure.AI.ContentSafety
             return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => BinaryData.FromString(e.GetRawText()), ClientDiagnostics, _pipeline, "ContentSafetyClient.GetTextBlocklists", "value", "nextLink", context);
         }
 
-        /// <summary> Get All BlockItems By blocklistName. </summary>
+        /// <summary> Get All BlocklistItems By blocklistName. </summary>
         /// <param name="blocklistName"> Text blocklist name. </param>
         /// <param name="maxCount"> The number of result items to return. </param>
         /// <param name="skip"> The number of result items to skip. </param>
@@ -994,19 +1248,19 @@ namespace Azure.AI.ContentSafety
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="blocklistName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="blocklistName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <remarks> Get all blockItems in a text blocklist. </remarks>
+        /// <remarks> Get all blocklistItems in a text blocklist. </remarks>
         /// <include file="Docs/ContentSafetyClient.xml" path="doc/members/member[@name='GetTextBlocklistItemsAsync(string,int?,int?,int?,CancellationToken)']/*" />
-        public virtual AsyncPageable<TextBlockItem> GetTextBlocklistItemsAsync(string blocklistName, int? maxCount = null, int? skip = null, int? maxpagesize = null, CancellationToken cancellationToken = default)
+        public virtual AsyncPageable<TextBlocklistItem> GetTextBlocklistItemsAsync(string blocklistName, int? maxCount = null, int? skip = null, int? maxpagesize = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(blocklistName, nameof(blocklistName));
 
             RequestContext context = cancellationToken.CanBeCanceled ? new RequestContext { CancellationToken = cancellationToken } : null;
             HttpMessage FirstPageRequest(int? pageSizeHint) => CreateGetTextBlocklistItemsRequest(blocklistName, maxCount, skip, maxpagesize, context);
             HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => CreateGetTextBlocklistItemsNextPageRequest(nextLink, blocklistName, maxCount, skip, maxpagesize, context);
-            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, TextBlockItem.DeserializeTextBlockItem, ClientDiagnostics, _pipeline, "ContentSafetyClient.GetTextBlocklistItems", "value", "nextLink", context);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, TextBlocklistItem.DeserializeTextBlocklistItem, ClientDiagnostics, _pipeline, "ContentSafetyClient.GetTextBlocklistItems", "value", "nextLink", context);
         }
 
-        /// <summary> Get All BlockItems By blocklistName. </summary>
+        /// <summary> Get All BlocklistItems By blocklistName. </summary>
         /// <param name="blocklistName"> Text blocklist name. </param>
         /// <param name="maxCount"> The number of result items to return. </param>
         /// <param name="skip"> The number of result items to skip. </param>
@@ -1014,20 +1268,20 @@ namespace Azure.AI.ContentSafety
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="blocklistName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="blocklistName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <remarks> Get all blockItems in a text blocklist. </remarks>
+        /// <remarks> Get all blocklistItems in a text blocklist. </remarks>
         /// <include file="Docs/ContentSafetyClient.xml" path="doc/members/member[@name='GetTextBlocklistItems(string,int?,int?,int?,CancellationToken)']/*" />
-        public virtual Pageable<TextBlockItem> GetTextBlocklistItems(string blocklistName, int? maxCount = null, int? skip = null, int? maxpagesize = null, CancellationToken cancellationToken = default)
+        public virtual Pageable<TextBlocklistItem> GetTextBlocklistItems(string blocklistName, int? maxCount = null, int? skip = null, int? maxpagesize = null, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(blocklistName, nameof(blocklistName));
 
             RequestContext context = cancellationToken.CanBeCanceled ? new RequestContext { CancellationToken = cancellationToken } : null;
             HttpMessage FirstPageRequest(int? pageSizeHint) => CreateGetTextBlocklistItemsRequest(blocklistName, maxCount, skip, maxpagesize, context);
             HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => CreateGetTextBlocklistItemsNextPageRequest(nextLink, blocklistName, maxCount, skip, maxpagesize, context);
-            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, TextBlockItem.DeserializeTextBlockItem, ClientDiagnostics, _pipeline, "ContentSafetyClient.GetTextBlocklistItems", "value", "nextLink", context);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, TextBlocklistItem.DeserializeTextBlocklistItem, ClientDiagnostics, _pipeline, "ContentSafetyClient.GetTextBlocklistItems", "value", "nextLink", context);
         }
 
         /// <summary>
-        /// [Protocol Method] Get All BlockItems By blocklistName
+        /// [Protocol Method] Get All BlocklistItems By blocklistName
         /// <list type="bullet">
         /// <item>
         /// <description>
@@ -1061,7 +1315,7 @@ namespace Azure.AI.ContentSafety
         }
 
         /// <summary>
-        /// [Protocol Method] Get All BlockItems By blocklistName
+        /// [Protocol Method] Get All BlocklistItems By blocklistName
         /// <list type="bullet">
         /// <item>
         /// <description>
@@ -1103,6 +1357,40 @@ namespace Azure.AI.ContentSafety
             uri.Reset(_endpoint);
             uri.AppendRaw("/contentsafety", false);
             uri.AppendPath("/text:analyze", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            request.Headers.Add("Content-Type", "application/json");
+            request.Content = content;
+            return message;
+        }
+
+        internal HttpMessage CreateDetectTextJailbreakRequest(RequestContent content, RequestContext context)
+        {
+            var message = _pipeline.CreateMessage(context, ResponseClassifier200);
+            var request = message.Request;
+            request.Method = RequestMethod.Post;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendRaw("/contentsafety", false);
+            uri.AppendPath("/text:detectJailbreak", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            request.Headers.Add("Content-Type", "application/json");
+            request.Content = content;
+            return message;
+        }
+
+        internal HttpMessage CreateDetectTextProtectedMaterialRequest(RequestContent content, RequestContext context)
+        {
+            var message = _pipeline.CreateMessage(context, ResponseClassifier200);
+            var request = message.Request;
+            request.Method = RequestMethod.Post;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendRaw("/contentsafety", false);
+            uri.AppendPath("/text:detectProtectedMaterial", false);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
@@ -1193,7 +1481,7 @@ namespace Azure.AI.ContentSafety
             return message;
         }
 
-        internal HttpMessage CreateAddBlockItemsRequest(string blocklistName, RequestContent content, RequestContext context)
+        internal HttpMessage CreateAddOrUpdateBlocklistItemsRequest(string blocklistName, RequestContent content, RequestContext context)
         {
             var message = _pipeline.CreateMessage(context, ResponseClassifier200);
             var request = message.Request;
@@ -1203,7 +1491,7 @@ namespace Azure.AI.ContentSafety
             uri.AppendRaw("/contentsafety", false);
             uri.AppendPath("/text/blocklists/", false);
             uri.AppendPath(blocklistName, true);
-            uri.AppendPath(":addBlockItems", false);
+            uri.AppendPath(":addOrUpdateBlocklistItems", false);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
@@ -1212,7 +1500,7 @@ namespace Azure.AI.ContentSafety
             return message;
         }
 
-        internal HttpMessage CreateRemoveBlockItemsRequest(string blocklistName, RequestContent content, RequestContext context)
+        internal HttpMessage CreateRemoveBlocklistItemsRequest(string blocklistName, RequestContent content, RequestContext context)
         {
             var message = _pipeline.CreateMessage(context, ResponseClassifier204);
             var request = message.Request;
@@ -1222,7 +1510,7 @@ namespace Azure.AI.ContentSafety
             uri.AppendRaw("/contentsafety", false);
             uri.AppendPath("/text/blocklists/", false);
             uri.AppendPath(blocklistName, true);
-            uri.AppendPath(":removeBlockItems", false);
+            uri.AppendPath(":removeBlocklistItems", false);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
@@ -1231,7 +1519,7 @@ namespace Azure.AI.ContentSafety
             return message;
         }
 
-        internal HttpMessage CreateGetTextBlocklistItemRequest(string blocklistName, string blockItemId, RequestContext context)
+        internal HttpMessage CreateGetTextBlocklistItemRequest(string blocklistName, string blocklistItemId, RequestContext context)
         {
             var message = _pipeline.CreateMessage(context, ResponseClassifier200);
             var request = message.Request;
@@ -1241,8 +1529,8 @@ namespace Azure.AI.ContentSafety
             uri.AppendRaw("/contentsafety", false);
             uri.AppendPath("/text/blocklists/", false);
             uri.AppendPath(blocklistName, true);
-            uri.AppendPath("/blockItems/", false);
-            uri.AppendPath(blockItemId, true);
+            uri.AppendPath("/blocklistItems/", false);
+            uri.AppendPath(blocklistItemId, true);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
@@ -1259,7 +1547,7 @@ namespace Azure.AI.ContentSafety
             uri.AppendRaw("/contentsafety", false);
             uri.AppendPath("/text/blocklists/", false);
             uri.AppendPath(blocklistName, true);
-            uri.AppendPath("/blockItems", false);
+            uri.AppendPath("/blocklistItems", false);
             uri.AppendQuery("api-version", _apiVersion, true);
             if (maxCount != null)
             {

@@ -8,45 +8,40 @@
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure;
-using Azure.Core;
 
 namespace Azure.AI.ContentSafety
 {
-    public partial class AddBlockItemsResult
+    public partial class AddOrUpdateTextBlocklistItemsResult
     {
-        internal static AddBlockItemsResult DeserializeAddBlockItemsResult(JsonElement element)
+        internal static AddOrUpdateTextBlocklistItemsResult DeserializeAddOrUpdateTextBlocklistItemsResult(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
                 return null;
             }
-            Optional<IReadOnlyList<TextBlockItem>> value = default;
+            IReadOnlyList<TextBlocklistItem> blocklistItems = default;
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("value"u8))
+                if (property.NameEquals("blocklistItems"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    List<TextBlockItem> array = new List<TextBlockItem>();
+                    List<TextBlocklistItem> array = new List<TextBlocklistItem>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(TextBlockItem.DeserializeTextBlockItem(item));
+                        array.Add(TextBlocklistItem.DeserializeTextBlocklistItem(item));
                     }
-                    value = array;
+                    blocklistItems = array;
                     continue;
                 }
             }
-            return new AddBlockItemsResult(Optional.ToList(value));
+            return new AddOrUpdateTextBlocklistItemsResult(blocklistItems);
         }
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static AddBlockItemsResult FromResponse(Response response)
+        internal static AddOrUpdateTextBlocklistItemsResult FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content);
-            return DeserializeAddBlockItemsResult(document.RootElement);
+            return DeserializeAddOrUpdateTextBlocklistItemsResult(document.RootElement);
         }
     }
 }

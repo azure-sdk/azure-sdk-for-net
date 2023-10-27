@@ -10,18 +10,13 @@ using Azure.Core;
 
 namespace Azure.AI.ContentSafety
 {
-    public partial class AddBlockItemsOptions : IUtf8JsonSerializable
+    public partial class AnalyzeTextProtectedMaterialOptions : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
-            writer.WritePropertyName("blockItems"u8);
-            writer.WriteStartArray();
-            foreach (var item in BlockItems)
-            {
-                writer.WriteObjectValue(item);
-            }
-            writer.WriteEndArray();
+            writer.WritePropertyName("text"u8);
+            writer.WriteStringValue(Text);
             writer.WriteEndObject();
         }
 

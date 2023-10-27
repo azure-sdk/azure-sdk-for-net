@@ -15,72 +15,115 @@ namespace Azure.AI.ContentSafety
     public static partial class AIContentSafetyModelFactory
     {
         /// <summary> Initializes a new instance of AnalyzeTextResult. </summary>
-        /// <param name="blocklistsMatchResults"> The details of blocklist match. </param>
-        /// <param name="hateResult"> Analysis result for Hate category. </param>
-        /// <param name="selfHarmResult"> Analysis result for SelfHarm category. </param>
-        /// <param name="sexualResult"> Analysis result for Sexual category. </param>
-        /// <param name="violenceResult"> Analysis result for Violence category. </param>
+        /// <param name="blocklistsMatch"> The blocklist match details. </param>
+        /// <param name="categoriesAnalysis"> Analysis result for categories. </param>
+        /// <param name="accepted"> The accept decision made by service. </param>
         /// <returns> A new <see cref="ContentSafety.AnalyzeTextResult"/> instance for mocking. </returns>
-        public static AnalyzeTextResult AnalyzeTextResult(IEnumerable<TextBlocklistMatchResult> blocklistsMatchResults = null, TextAnalyzeSeverityResult hateResult = null, TextAnalyzeSeverityResult selfHarmResult = null, TextAnalyzeSeverityResult sexualResult = null, TextAnalyzeSeverityResult violenceResult = null)
+        public static AnalyzeTextResult AnalyzeTextResult(IEnumerable<TextBlocklistMatch> blocklistsMatch = null, IEnumerable<TextCategoriesAnalysis> categoriesAnalysis = null, bool? accepted = null)
         {
-            blocklistsMatchResults ??= new List<TextBlocklistMatchResult>();
+            blocklistsMatch ??= new List<TextBlocklistMatch>();
+            categoriesAnalysis ??= new List<TextCategoriesAnalysis>();
 
-            return new AnalyzeTextResult(blocklistsMatchResults?.ToList(), hateResult, selfHarmResult, sexualResult, violenceResult);
+            return new AnalyzeTextResult(blocklistsMatch?.ToList(), categoriesAnalysis?.ToList(), accepted);
         }
 
-        /// <summary> Initializes a new instance of TextBlocklistMatchResult. </summary>
-        /// <param name="blocklistName"> The name of matched blocklist. </param>
-        /// <param name="blockItemId"> The id of matched item. </param>
-        /// <param name="blockItemText"> The content of matched item. </param>
-        /// <param name="offset"> The character offset of matched text in original input. </param>
-        /// <param name="length"> The length of matched text in original input. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="blocklistName"/>, <paramref name="blockItemId"/> or <paramref name="blockItemText"/> is null. </exception>
-        /// <returns> A new <see cref="ContentSafety.TextBlocklistMatchResult"/> instance for mocking. </returns>
-        public static TextBlocklistMatchResult TextBlocklistMatchResult(string blocklistName = null, string blockItemId = null, string blockItemText = null, int offset = default, int length = default)
+        /// <summary> Initializes a new instance of TextBlocklistMatch. </summary>
+        /// <param name="blocklistName"> The name of the matched blocklist. </param>
+        /// <param name="blocklistItemId"> The ID of the matched item. </param>
+        /// <param name="blocklistItemText"> The content of the matched item. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="blocklistName"/>, <paramref name="blocklistItemId"/> or <paramref name="blocklistItemText"/> is null. </exception>
+        /// <returns> A new <see cref="ContentSafety.TextBlocklistMatch"/> instance for mocking. </returns>
+        public static TextBlocklistMatch TextBlocklistMatch(string blocklistName = null, string blocklistItemId = null, string blocklistItemText = null)
         {
             if (blocklistName == null)
             {
                 throw new ArgumentNullException(nameof(blocklistName));
             }
-            if (blockItemId == null)
+            if (blocklistItemId == null)
             {
-                throw new ArgumentNullException(nameof(blockItemId));
+                throw new ArgumentNullException(nameof(blocklistItemId));
             }
-            if (blockItemText == null)
+            if (blocklistItemText == null)
             {
-                throw new ArgumentNullException(nameof(blockItemText));
+                throw new ArgumentNullException(nameof(blocklistItemText));
             }
 
-            return new TextBlocklistMatchResult(blocklistName, blockItemId, blockItemText, offset, length);
+            return new TextBlocklistMatch(blocklistName, blocklistItemId, blocklistItemText);
         }
 
-        /// <summary> Initializes a new instance of TextAnalyzeSeverityResult. </summary>
-        /// <param name="category"> The text category. </param>
-        /// <param name="severity"> The higher the severity of input content, the larger this value is. The values could be: 0,2,4,6. </param>
-        /// <returns> A new <see cref="ContentSafety.TextAnalyzeSeverityResult"/> instance for mocking. </returns>
-        public static TextAnalyzeSeverityResult TextAnalyzeSeverityResult(TextCategory category = default, int severity = default)
+        /// <summary> Initializes a new instance of TextCategoriesAnalysis. </summary>
+        /// <param name="category"> The text analysis category. </param>
+        /// <param name="severity"> The value increases with the severity of the input content. The value of this field is determined by the output type specified in the request. The output type could be ‘FourSeverityLevels’ or ‘EightSeverity Levels’, and the output value can be 0, 2, 4, 6 or 0, 1, 2, 3, 4, 5, 6, or 7. </param>
+        /// <param name="accepted"> The decision made by service. </param>
+        /// <returns> A new <see cref="ContentSafety.TextCategoriesAnalysis"/> instance for mocking. </returns>
+        public static TextCategoriesAnalysis TextCategoriesAnalysis(TextCategory category = default, int? severity = null, bool? accepted = null)
         {
-            return new TextAnalyzeSeverityResult(category, severity);
+            return new TextCategoriesAnalysis(category, severity, accepted);
+        }
+
+        /// <summary> Initializes a new instance of AnalyzeTextJailbreakResult. </summary>
+        /// <param name="jailbreakAnalysis"> Analysis result for jailbreak. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="jailbreakAnalysis"/> is null. </exception>
+        /// <returns> A new <see cref="ContentSafety.AnalyzeTextJailbreakResult"/> instance for mocking. </returns>
+        public static AnalyzeTextJailbreakResult AnalyzeTextJailbreakResult(JailbreakAnalysisResult jailbreakAnalysis = null)
+        {
+            if (jailbreakAnalysis == null)
+            {
+                throw new ArgumentNullException(nameof(jailbreakAnalysis));
+            }
+
+            return new AnalyzeTextJailbreakResult(jailbreakAnalysis);
+        }
+
+        /// <summary> Initializes a new instance of JailbreakAnalysisResult. </summary>
+        /// <param name="detected"> Analysis result for jailbreak. </param>
+        /// <returns> A new <see cref="ContentSafety.JailbreakAnalysisResult"/> instance for mocking. </returns>
+        public static JailbreakAnalysisResult JailbreakAnalysisResult(bool detected = default)
+        {
+            return new JailbreakAnalysisResult(detected);
+        }
+
+        /// <summary> Initializes a new instance of AnalyzeTextProtectedMaterialResult. </summary>
+        /// <param name="protectedMaterialAnalysis"> Analysis result for protected material. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="protectedMaterialAnalysis"/> is null. </exception>
+        /// <returns> A new <see cref="ContentSafety.AnalyzeTextProtectedMaterialResult"/> instance for mocking. </returns>
+        public static AnalyzeTextProtectedMaterialResult AnalyzeTextProtectedMaterialResult(ProtectedMaterialAnalysisResult protectedMaterialAnalysis = null)
+        {
+            if (protectedMaterialAnalysis == null)
+            {
+                throw new ArgumentNullException(nameof(protectedMaterialAnalysis));
+            }
+
+            return new AnalyzeTextProtectedMaterialResult(protectedMaterialAnalysis);
+        }
+
+        /// <summary> Initializes a new instance of ProtectedMaterialAnalysisResult. </summary>
+        /// <param name="detected"> Analysis result for protected material.. </param>
+        /// <returns> A new <see cref="ContentSafety.ProtectedMaterialAnalysisResult"/> instance for mocking. </returns>
+        public static ProtectedMaterialAnalysisResult ProtectedMaterialAnalysisResult(bool detected = default)
+        {
+            return new ProtectedMaterialAnalysisResult(detected);
         }
 
         /// <summary> Initializes a new instance of AnalyzeImageResult. </summary>
-        /// <param name="hateResult"> Analysis result for Hate category. </param>
-        /// <param name="selfHarmResult"> Analysis result for SelfHarm category. </param>
-        /// <param name="sexualResult"> Analysis result for Sexual category. </param>
-        /// <param name="violenceResult"> Analysis result for Violence category. </param>
+        /// <param name="categoriesAnalysis"> Analysis result for categories. </param>
+        /// <param name="accepted"> The decision made by service. </param>
         /// <returns> A new <see cref="ContentSafety.AnalyzeImageResult"/> instance for mocking. </returns>
-        public static AnalyzeImageResult AnalyzeImageResult(ImageAnalyzeSeverityResult hateResult = null, ImageAnalyzeSeverityResult selfHarmResult = null, ImageAnalyzeSeverityResult sexualResult = null, ImageAnalyzeSeverityResult violenceResult = null)
+        public static AnalyzeImageResult AnalyzeImageResult(IEnumerable<ImageCategoriesAnalysis> categoriesAnalysis = null, bool? accepted = null)
         {
-            return new AnalyzeImageResult(hateResult, selfHarmResult, sexualResult, violenceResult);
+            categoriesAnalysis ??= new List<ImageCategoriesAnalysis>();
+
+            return new AnalyzeImageResult(categoriesAnalysis?.ToList(), accepted);
         }
 
-        /// <summary> Initializes a new instance of ImageAnalyzeSeverityResult. </summary>
-        /// <param name="category"> The image category. </param>
-        /// <param name="severity"> The higher the severity of input content, the larger this value, currently its value could be: 0,2,4,6. </param>
-        /// <returns> A new <see cref="ContentSafety.ImageAnalyzeSeverityResult"/> instance for mocking. </returns>
-        public static ImageAnalyzeSeverityResult ImageAnalyzeSeverityResult(ImageCategory category = default, int severity = default)
+        /// <summary> Initializes a new instance of ImageCategoriesAnalysis. </summary>
+        /// <param name="category"> The image analysis category. </param>
+        /// <param name="severity"> The value increases with the severity of the input content. The value of this field is determined by the output type specified in the request. The output type could be ‘FourSeverityLevels’, and the output value can be 0, 2, 4, 6. </param>
+        /// <param name="accepted"> The decision made by service. </param>
+        /// <returns> A new <see cref="ContentSafety.ImageCategoriesAnalysis"/> instance for mocking. </returns>
+        public static ImageCategoriesAnalysis ImageCategoriesAnalysis(ImageCategory category = default, int? severity = null, bool? accepted = null)
         {
-            return new ImageAnalyzeSeverityResult(category, severity);
+            return new ImageCategoriesAnalysis(category, severity, accepted);
         }
 
         /// <summary> Initializes a new instance of TextBlocklist. </summary>
@@ -92,24 +135,24 @@ namespace Azure.AI.ContentSafety
             return new TextBlocklist(blocklistName, description);
         }
 
-        /// <summary> Initializes a new instance of AddBlockItemsResult. </summary>
-        /// <param name="value"> Array of blockItems added. </param>
-        /// <returns> A new <see cref="ContentSafety.AddBlockItemsResult"/> instance for mocking. </returns>
-        public static AddBlockItemsResult AddBlockItemsResult(IEnumerable<TextBlockItem> value = null)
+        /// <summary> Initializes a new instance of TextBlocklistItem. </summary>
+        /// <param name="blocklistItemId"> The service will generate a BlocklistItemId, which will be a UUID. </param>
+        /// <param name="description"> BlocklistItem description. </param>
+        /// <param name="text"> BlocklistItem content. </param>
+        /// <returns> A new <see cref="ContentSafety.TextBlocklistItem"/> instance for mocking. </returns>
+        public static TextBlocklistItem TextBlocklistItem(string blocklistItemId = null, string description = null, string text = null)
         {
-            value ??= new List<TextBlockItem>();
-
-            return new AddBlockItemsResult(value?.ToList());
+            return new TextBlocklistItem(blocklistItemId, description, text);
         }
 
-        /// <summary> Initializes a new instance of TextBlockItem. </summary>
-        /// <param name="blockItemId"> Block Item Id. It will be uuid. </param>
-        /// <param name="description"> Block item description. </param>
-        /// <param name="text"> Block item content. </param>
-        /// <returns> A new <see cref="ContentSafety.TextBlockItem"/> instance for mocking. </returns>
-        public static TextBlockItem TextBlockItem(string blockItemId = null, string description = null, string text = null)
+        /// <summary> Initializes a new instance of AddOrUpdateTextBlocklistItemsResult. </summary>
+        /// <param name="blocklistItems"> Array of blocklistItems have been added. </param>
+        /// <returns> A new <see cref="ContentSafety.AddOrUpdateTextBlocklistItemsResult"/> instance for mocking. </returns>
+        public static AddOrUpdateTextBlocklistItemsResult AddOrUpdateTextBlocklistItemsResult(IEnumerable<TextBlocklistItem> blocklistItems = null)
         {
-            return new TextBlockItem(blockItemId, description, text);
+            blocklistItems ??= new List<TextBlocklistItem>();
+
+            return new AddOrUpdateTextBlocklistItemsResult(blocklistItems?.ToList());
         }
     }
 }
