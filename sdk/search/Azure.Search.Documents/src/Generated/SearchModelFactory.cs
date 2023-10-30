@@ -42,7 +42,7 @@ namespace Azure.Search.Documents.Models
         }
 
         /// <summary> Initializes a new instance of DocumentDebugInfo. </summary>
-        /// <param name="semantic"> Contains debugging information specific to semantic search queries. </param>
+        /// <param name="semantic"> Contains debugging information specific to semantic ranking requests. </param>
         /// <returns> A new <see cref="Models.DocumentDebugInfo"/> instance for mocking. </returns>
         public static DocumentDebugInfo DocumentDebugInfo(SemanticDebugInfo semantic = null)
         {
