@@ -36,6 +36,8 @@ namespace Azure.ResourceManager.Confluent
 
         private readonly ClientDiagnostics _confluentOrganizationOrganizationClientDiagnostics;
         private readonly OrganizationRestOperations _confluentOrganizationOrganizationRestClient;
+        private readonly ClientDiagnostics _accessClientDiagnostics;
+        private readonly AccessRestOperations _accessRestClient;
         private readonly ConfluentOrganizationData _data;
 
         /// <summary> Initializes a new instance of the <see cref="ConfluentOrganizationResource"/> class for mocking. </summary>
@@ -60,6 +62,8 @@ namespace Azure.ResourceManager.Confluent
             _confluentOrganizationOrganizationClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Confluent", ResourceType.Namespace, Diagnostics);
             TryGetApiVersion(ResourceType, out string confluentOrganizationOrganizationApiVersion);
             _confluentOrganizationOrganizationRestClient = new OrganizationRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, confluentOrganizationOrganizationApiVersion);
+            _accessClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.Confluent", ProviderConstants.DefaultProviderNamespace, Diagnostics);
+            _accessRestClient = new AccessRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -281,6 +285,482 @@ namespace Azure.ResourceManager.Confluent
             {
                 var response = _confluentOrganizationOrganizationRestClient.Update(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, patch, cancellationToken);
                 return Response.FromValue(new ConfluentOrganizationResource(Client, response.Value), response.GetRawResponse());
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Organization users details
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/access/default/listUsers</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Access_ListUsers</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="body"> List Access Request Model. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="body"/> is null. </exception>
+        public virtual async Task<Response<AccessListUsersSuccessResponse>> GetUsersAccesAsync(ListAccessRequestModel body, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(body, nameof(body));
+
+            using var scope = _accessClientDiagnostics.CreateScope("ConfluentOrganizationResource.GetUsersAcces");
+            scope.Start();
+            try
+            {
+                var response = await _accessRestClient.ListUsersAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, body, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Organization users details
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/access/default/listUsers</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Access_ListUsers</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="body"> List Access Request Model. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="body"/> is null. </exception>
+        public virtual Response<AccessListUsersSuccessResponse> GetUsersAcces(ListAccessRequestModel body, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(body, nameof(body));
+
+            using var scope = _accessClientDiagnostics.CreateScope("ConfluentOrganizationResource.GetUsersAcces");
+            scope.Start();
+            try
+            {
+                var response = _accessRestClient.ListUsers(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, body, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Organization service accounts details
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/access/default/listServiceAccounts</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Access_ListServiceAccounts</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="body"> List Access Request Model. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="body"/> is null. </exception>
+        public virtual async Task<Response<AccessListServiceAccountsSuccessResponse>> GetServiceAccountsAccesAsync(ListAccessRequestModel body, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(body, nameof(body));
+
+            using var scope = _accessClientDiagnostics.CreateScope("ConfluentOrganizationResource.GetServiceAccountsAcces");
+            scope.Start();
+            try
+            {
+                var response = await _accessRestClient.ListServiceAccountsAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, body, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Organization service accounts details
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/access/default/listServiceAccounts</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Access_ListServiceAccounts</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="body"> List Access Request Model. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="body"/> is null. </exception>
+        public virtual Response<AccessListServiceAccountsSuccessResponse> GetServiceAccountsAcces(ListAccessRequestModel body, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(body, nameof(body));
+
+            using var scope = _accessClientDiagnostics.CreateScope("ConfluentOrganizationResource.GetServiceAccountsAcces");
+            scope.Start();
+            try
+            {
+                var response = _accessRestClient.ListServiceAccounts(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, body, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Organization accounts invitation details
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/access/default/listInvitations</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Access_ListInvitations</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="body"> List Access Request Model. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="body"/> is null. </exception>
+        public virtual async Task<Response<AccessListInvitationsSuccessResponse>> GetInvitationsAccesAsync(ListAccessRequestModel body, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(body, nameof(body));
+
+            using var scope = _accessClientDiagnostics.CreateScope("ConfluentOrganizationResource.GetInvitationsAcces");
+            scope.Start();
+            try
+            {
+                var response = await _accessRestClient.ListInvitationsAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, body, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Organization accounts invitation details
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/access/default/listInvitations</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Access_ListInvitations</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="body"> List Access Request Model. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="body"/> is null. </exception>
+        public virtual Response<AccessListInvitationsSuccessResponse> GetInvitationsAcces(ListAccessRequestModel body, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(body, nameof(body));
+
+            using var scope = _accessClientDiagnostics.CreateScope("ConfluentOrganizationResource.GetInvitationsAcces");
+            scope.Start();
+            try
+            {
+                var response = _accessRestClient.ListInvitations(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, body, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Invite user to the organization
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/access/default/createInvitation</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Access_InviteUser</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="body"> Invite user account model. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="body"/> is null. </exception>
+        public virtual async Task<Response<InvitationRecord>> InviteUserAccesAsync(AccessInviteUserAccountModel body, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(body, nameof(body));
+
+            using var scope = _accessClientDiagnostics.CreateScope("ConfluentOrganizationResource.InviteUserAcces");
+            scope.Start();
+            try
+            {
+                var response = await _accessRestClient.InviteUserAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, body, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Invite user to the organization
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/access/default/createInvitation</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Access_InviteUser</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="body"> Invite user account model. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="body"/> is null. </exception>
+        public virtual Response<InvitationRecord> InviteUserAcces(AccessInviteUserAccountModel body, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(body, nameof(body));
+
+            using var scope = _accessClientDiagnostics.CreateScope("ConfluentOrganizationResource.InviteUserAcces");
+            scope.Start();
+            try
+            {
+                var response = _accessRestClient.InviteUser(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, body, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Environment list of an organization
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/access/default/listEnvironments</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Access_ListEnvironments</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="body"> List Access Request Model. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="body"/> is null. </exception>
+        public virtual async Task<Response<AccessListEnvironmentsSuccessResponse>> GetEnvironmentsAccesAsync(ListAccessRequestModel body, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(body, nameof(body));
+
+            using var scope = _accessClientDiagnostics.CreateScope("ConfluentOrganizationResource.GetEnvironmentsAcces");
+            scope.Start();
+            try
+            {
+                var response = await _accessRestClient.ListEnvironmentsAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, body, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Environment list of an organization
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/access/default/listEnvironments</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Access_ListEnvironments</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="body"> List Access Request Model. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="body"/> is null. </exception>
+        public virtual Response<AccessListEnvironmentsSuccessResponse> GetEnvironmentsAcces(ListAccessRequestModel body, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(body, nameof(body));
+
+            using var scope = _accessClientDiagnostics.CreateScope("ConfluentOrganizationResource.GetEnvironmentsAcces");
+            scope.Start();
+            try
+            {
+                var response = _accessRestClient.ListEnvironments(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, body, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Cluster details
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/access/default/listClusters</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Access_ListClusters</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="body"> List Access Request Model. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="body"/> is null. </exception>
+        public virtual async Task<Response<AccessListClusterSuccessResponse>> GetClustersAccesAsync(ListAccessRequestModel body, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(body, nameof(body));
+
+            using var scope = _accessClientDiagnostics.CreateScope("ConfluentOrganizationResource.GetClustersAcces");
+            scope.Start();
+            try
+            {
+                var response = await _accessRestClient.ListClustersAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, body, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Cluster details
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/access/default/listClusters</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Access_ListClusters</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="body"> List Access Request Model. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="body"/> is null. </exception>
+        public virtual Response<AccessListClusterSuccessResponse> GetClustersAcces(ListAccessRequestModel body, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(body, nameof(body));
+
+            using var scope = _accessClientDiagnostics.CreateScope("ConfluentOrganizationResource.GetClustersAcces");
+            scope.Start();
+            try
+            {
+                var response = _accessRestClient.ListClusters(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, body, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Organization role bindings
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/access/default/listRoleBindings</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Access_ListRoleBindings</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="body"> List Access Request Model. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="body"/> is null. </exception>
+        public virtual async Task<Response<AccessListRoleBindingsSuccessResponse>> GetRoleBindingsAccesAsync(ListAccessRequestModel body, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(body, nameof(body));
+
+            using var scope = _accessClientDiagnostics.CreateScope("ConfluentOrganizationResource.GetRoleBindingsAcces");
+            scope.Start();
+            try
+            {
+                var response = await _accessRestClient.ListRoleBindingsAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, body, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Organization role bindings
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/organizations/{organizationName}/access/default/listRoleBindings</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Access_ListRoleBindings</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="body"> List Access Request Model. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="body"/> is null. </exception>
+        public virtual Response<AccessListRoleBindingsSuccessResponse> GetRoleBindingsAcces(ListAccessRequestModel body, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(body, nameof(body));
+
+            using var scope = _accessClientDiagnostics.CreateScope("ConfluentOrganizationResource.GetRoleBindingsAcces");
+            scope.Start();
+            try
+            {
+                var response = _accessRestClient.ListRoleBindings(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, body, cancellationToken);
+                return response;
             }
             catch (Exception e)
             {
