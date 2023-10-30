@@ -15,6 +15,11 @@ namespace Azure.ResourceManager.HDInsight.Models
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
+            if (Optional.IsDefined(OutboundDependenciesManagedType))
+            {
+                writer.WritePropertyName("outboundDependenciesManagedType"u8);
+                writer.WriteStringValue(OutboundDependenciesManagedType.Value.ToString());
+            }
             if (Optional.IsDefined(ResourceProviderConnection))
             {
                 writer.WritePropertyName("resourceProviderConnection"u8);
@@ -34,10 +39,20 @@ namespace Azure.ResourceManager.HDInsight.Models
             {
                 return null;
             }
+            Optional<OutboundDependenciesManagedType> outboundDependenciesManagedType = default;
             Optional<HDInsightResourceProviderConnection> resourceProviderConnection = default;
             Optional<HDInsightPrivateLinkState> privateLink = default;
             foreach (var property in element.EnumerateObject())
             {
+                if (property.NameEquals("outboundDependenciesManagedType"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    outboundDependenciesManagedType = new OutboundDependenciesManagedType(property.Value.GetString());
+                    continue;
+                }
                 if (property.NameEquals("resourceProviderConnection"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -57,7 +72,7 @@ namespace Azure.ResourceManager.HDInsight.Models
                     continue;
                 }
             }
-            return new HDInsightClusterNetworkProperties(Optional.ToNullable(resourceProviderConnection), Optional.ToNullable(privateLink));
+            return new HDInsightClusterNetworkProperties(Optional.ToNullable(outboundDependenciesManagedType), Optional.ToNullable(resourceProviderConnection), Optional.ToNullable(privateLink));
         }
     }
 }
