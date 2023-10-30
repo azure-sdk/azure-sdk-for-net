@@ -42,7 +42,8 @@ namespace Azure.ResourceManager.LabServices
         /// <param name="supportInfo"> Support contact information and instructions for users of the lab plan. This information is displayed to lab owners and virtual machine users for all labs in the lab plan. </param>
         /// <param name="linkedLmsInstance"> Base Url of the lms instance this lab plan can link lab rosters against. </param>
         /// <param name="provisioningState"> Current provisioning state of the lab plan. </param>
-        internal LabPlanData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ManagedServiceIdentity identity, LabConnectionProfile defaultConnectionProfile, LabAutoShutdownProfile defaultAutoShutdownProfile, LabPlanNetworkProfile defaultNetworkProfile, IList<AzureLocation> allowedRegions, ResourceIdentifier sharedGalleryId, LabPlanSupportInfo supportInfo, Uri linkedLmsInstance, LabServicesProvisioningState? provisioningState) : base(id, name, resourceType, systemData, tags, location)
+        /// <param name="resourceOperationError"> Error details of last operation done on lab plan. </param>
+        internal LabPlanData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ManagedServiceIdentity identity, LabConnectionProfile defaultConnectionProfile, LabAutoShutdownProfile defaultAutoShutdownProfile, LabPlanNetworkProfile defaultNetworkProfile, IList<AzureLocation> allowedRegions, ResourceIdentifier sharedGalleryId, LabPlanSupportInfo supportInfo, Uri linkedLmsInstance, LabServicesProvisioningState? provisioningState, ResourceOperationError resourceOperationError) : base(id, name, resourceType, systemData, tags, location)
         {
             Identity = identity;
             DefaultConnectionProfile = defaultConnectionProfile;
@@ -53,6 +54,7 @@ namespace Azure.ResourceManager.LabServices
             SupportInfo = supportInfo;
             LinkedLmsInstance = linkedLmsInstance;
             ProvisioningState = provisioningState;
+            ResourceOperationError = resourceOperationError;
         }
 
         /// <summary> Managed Identity Information. Current supported identity types: SystemAssigned. </summary>
@@ -85,5 +87,7 @@ namespace Azure.ResourceManager.LabServices
         public Uri LinkedLmsInstance { get; set; }
         /// <summary> Current provisioning state of the lab plan. </summary>
         public LabServicesProvisioningState? ProvisioningState { get; }
+        /// <summary> Error details of last operation done on lab plan. </summary>
+        public ResourceOperationError ResourceOperationError { get; }
     }
 }

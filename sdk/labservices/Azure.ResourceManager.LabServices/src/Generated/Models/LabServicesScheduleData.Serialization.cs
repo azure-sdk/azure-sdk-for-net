@@ -72,6 +72,7 @@ namespace Azure.ResourceManager.LabServices
             Optional<string> timeZoneId = default;
             Optional<BinaryData> notes = default;
             Optional<LabServicesProvisioningState> provisioningState = default;
+            Optional<ResourceOperationError> resourceOperationError = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("id"u8))
@@ -157,11 +158,20 @@ namespace Azure.ResourceManager.LabServices
                             provisioningState = property0.Value.GetString().ToLabServicesProvisioningState();
                             continue;
                         }
+                        if (property0.NameEquals("resourceOperationError"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            resourceOperationError = ResourceOperationError.DeserializeResourceOperationError(property0.Value);
+                            continue;
+                        }
                     }
                     continue;
                 }
             }
-            return new LabServicesScheduleData(id, name, type, systemData.Value, Optional.ToNullable(startAt), Optional.ToNullable(stopAt), recurrencePattern.Value, timeZoneId.Value, notes.Value, Optional.ToNullable(provisioningState));
+            return new LabServicesScheduleData(id, name, type, systemData.Value, Optional.ToNullable(startAt), Optional.ToNullable(stopAt), recurrencePattern.Value, timeZoneId.Value, notes.Value, Optional.ToNullable(provisioningState), resourceOperationError.Value);
         }
     }
 }
