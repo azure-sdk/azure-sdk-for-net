@@ -5,35 +5,18 @@
 
 #nullable disable
 
-using System;
 using System.Text.Json;
 using Azure.Core;
 
 namespace Azure.ResourceManager.NotificationHubs.Models
 {
-    public partial class NotificationHubAdmCredential : IUtf8JsonSerializable
+    internal partial class NotificationHubAdmCredential : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
             writer.WritePropertyName("properties"u8);
-            writer.WriteStartObject();
-            if (Optional.IsDefined(ClientId))
-            {
-                writer.WritePropertyName("clientId"u8);
-                writer.WriteStringValue(ClientId);
-            }
-            if (Optional.IsDefined(ClientSecret))
-            {
-                writer.WritePropertyName("clientSecret"u8);
-                writer.WriteStringValue(ClientSecret);
-            }
-            if (Optional.IsDefined(AuthTokenUri))
-            {
-                writer.WritePropertyName("authTokenUrl"u8);
-                writer.WriteStringValue(AuthTokenUri.AbsoluteUri);
-            }
-            writer.WriteEndObject();
+            writer.WriteObjectValue(Properties);
             writer.WriteEndObject();
         }
 
@@ -43,44 +26,16 @@ namespace Azure.ResourceManager.NotificationHubs.Models
             {
                 return null;
             }
-            Optional<string> clientId = default;
-            Optional<string> clientSecret = default;
-            Optional<Uri> authTokenUrl = default;
+            AdmCredentialProperties properties = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("properties"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
-                    foreach (var property0 in property.Value.EnumerateObject())
-                    {
-                        if (property0.NameEquals("clientId"u8))
-                        {
-                            clientId = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("clientSecret"u8))
-                        {
-                            clientSecret = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("authTokenUrl"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            authTokenUrl = new Uri(property0.Value.GetString());
-                            continue;
-                        }
-                    }
+                    properties = AdmCredentialProperties.DeserializeAdmCredentialProperties(property.Value);
                     continue;
                 }
             }
-            return new NotificationHubAdmCredential(clientId.Value, clientSecret.Value, authTokenUrl.Value);
+            return new NotificationHubAdmCredential(properties);
         }
     }
 }

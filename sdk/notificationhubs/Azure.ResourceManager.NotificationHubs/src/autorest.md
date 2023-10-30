@@ -8,7 +8,7 @@ azure-arm: true
 csharp: true
 library-name: NotificationHubs
 namespace: Azure.ResourceManager.NotificationHubs
-require: https://github.com/Azure/azure-rest-api-specs/blob/bab2f4389eb5ca73cdf366ec0a4af3f3eb6e1f6d/specification/notificationhubs/resource-manager/readme.md
+require: https://github.com/Azure/azure-rest-api-specs/blob/5a773d4e7fdb8bca2a509f0f5aec2fbb9187ef62/specification/notificationhubs/resource-manager/readme.md
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
 sample-gen:
