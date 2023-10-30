@@ -8,7 +8,7 @@ azure-arm: true
 csharp: true
 library-name: ApplicationInsights
 namespace: Azure.ResourceManager.ApplicationInsights
-require: https://github.com/Azure/azure-rest-api-specs/blob/1fea23ac36b111293dc3efc30f725e9ebb790f7f/specification/applicationinsights/resource-manager/readme.md
+require: https://github.com/Azure/azure-rest-api-specs/blob/5a773d4e7fdb8bca2a509f0f5aec2fbb9187ef62/specification/applicationinsights/resource-manager/readme.md
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
 sample-gen:
