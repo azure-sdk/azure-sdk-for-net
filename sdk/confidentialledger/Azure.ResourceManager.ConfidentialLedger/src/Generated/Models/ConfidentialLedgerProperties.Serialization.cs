@@ -27,6 +27,11 @@ namespace Azure.ResourceManager.ConfidentialLedger.Models
                 writer.WritePropertyName("ledgerType"u8);
                 writer.WriteStringValue(LedgerType.Value.ToString());
             }
+            if (Optional.IsDefined(LedgerSku))
+            {
+                writer.WritePropertyName("ledgerSku"u8);
+                writer.WriteStringValue(LedgerSku.Value.ToString());
+            }
             if (Optional.IsCollectionDefined(AadBasedSecurityPrincipals))
             {
                 writer.WritePropertyName("aadBasedSecurityPrincipals"u8);
@@ -63,6 +68,7 @@ namespace Azure.ResourceManager.ConfidentialLedger.Models
             Optional<ConfidentialLedgerRunningState> runningState = default;
             Optional<ConfidentialLedgerType> ledgerType = default;
             Optional<ConfidentialLedgerProvisioningState> provisioningState = default;
+            Optional<LedgerSku> ledgerSku = default;
             Optional<IList<AadBasedSecurityPrincipal>> aadBasedSecurityPrincipals = default;
             Optional<IList<CertBasedSecurityPrincipal>> certBasedSecurityPrincipals = default;
             foreach (var property in element.EnumerateObject())
@@ -122,6 +128,15 @@ namespace Azure.ResourceManager.ConfidentialLedger.Models
                     provisioningState = new ConfidentialLedgerProvisioningState(property.Value.GetString());
                     continue;
                 }
+                if (property.NameEquals("ledgerSku"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    ledgerSku = new LedgerSku(property.Value.GetString());
+                    continue;
+                }
                 if (property.NameEquals("aadBasedSecurityPrincipals"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -151,7 +166,7 @@ namespace Azure.ResourceManager.ConfidentialLedger.Models
                     continue;
                 }
             }
-            return new ConfidentialLedgerProperties(ledgerName.Value, ledgerUri.Value, identityServiceUri.Value, ledgerInternalNamespace.Value, Optional.ToNullable(runningState), Optional.ToNullable(ledgerType), Optional.ToNullable(provisioningState), Optional.ToList(aadBasedSecurityPrincipals), Optional.ToList(certBasedSecurityPrincipals));
+            return new ConfidentialLedgerProperties(ledgerName.Value, ledgerUri.Value, identityServiceUri.Value, ledgerInternalNamespace.Value, Optional.ToNullable(runningState), Optional.ToNullable(ledgerType), Optional.ToNullable(provisioningState), Optional.ToNullable(ledgerSku), Optional.ToList(aadBasedSecurityPrincipals), Optional.ToList(certBasedSecurityPrincipals));
         }
     }
 }
