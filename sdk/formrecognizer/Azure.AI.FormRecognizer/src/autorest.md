@@ -18,7 +18,7 @@ These settings apply only when `--tag=release_2_1` is specified on the command l
 
 ``` yaml $(tag) == 'release_2_1'
 require:
-  - https://github.com/Azure/azure-rest-api-specs/blob/64484dc8760571a2de7f5cfbc96861e4a0985a54/specification/cognitiveservices/data-plane/FormRecognizer/readme.md
+  - https://github.com/Azure/azure-rest-api-specs/blob/5a773d4e7fdb8bca2a509f0f5aec2fbb9187ef62/specification/cognitiveservices/data-plane/FormRecognizer/readme.md
 
 generate-model-factory: false
 generation1-convenience-client: true
@@ -110,7 +110,7 @@ These settings apply only when `--tag=2023-02-28-preview` is specified on the co
 
 ``` yaml $(tag) == '2023-02-28-preview'
 input-file:
-  - https://github.com/Azure/azure-rest-api-specs/blob/f6bf6555a71cb3167dcff04cc7964bda9ae36a88/specification/cognitiveservices/data-plane/FormRecognizer/stable/2023-07-31/FormRecognizer.json
+  - https://github.com/Azure/azure-rest-api-specs/blob/5a773d4e7fdb8bca2a509f0f5aec2fbb9187ef62/specification/cognitiveservices/data-plane/FormRecognizer/stable/2023-07-31/FormRecognizer.json
 
 generate-model-factory: false
 generation1-convenience-client: true
