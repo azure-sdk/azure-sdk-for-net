@@ -21,11 +21,13 @@ namespace Azure.ResourceManager.Datadog.Models
         /// <param name="provisioningState"></param>
         /// <param name="logRules"> Set of rules for sending logs for the Monitor resource. </param>
         /// <param name="metricRules"> Set of rules for sending metrics for the Monitor resource. </param>
-        internal MonitoringTagRulesProperties(ProvisioningState? provisioningState, LogRules logRules, MetricRules metricRules)
+        /// <param name="automuting"> Configuration to enable/disable auto-muting flag. </param>
+        internal MonitoringTagRulesProperties(ProvisioningState? provisioningState, LogRules logRules, MetricRules metricRules, bool? automuting)
         {
             ProvisioningState = provisioningState;
             LogRules = logRules;
             MetricRules = metricRules;
+            Automuting = automuting;
         }
 
         /// <summary> Gets the provisioning state. </summary>
@@ -44,5 +46,8 @@ namespace Azure.ResourceManager.Datadog.Models
                 return MetricRules.FilteringTags;
             }
         }
+
+        /// <summary> Configuration to enable/disable auto-muting flag. </summary>
+        public bool? Automuting { get; set; }
     }
 }
