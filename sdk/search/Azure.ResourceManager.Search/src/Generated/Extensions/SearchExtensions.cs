@@ -129,7 +129,7 @@ namespace Azure.ResourceManager.Search
         /// </list>
         /// </summary>
         /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
-        /// <param name="searchServiceName"> The name of the Azure Cognitive Search service associated with the specified resource group. </param>
+        /// <param name="searchServiceName"> The name of the search service associated with the specified resource group. </param>
         /// <param name="searchManagementRequestOptions"> Parameter group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="searchServiceName"/> is an empty string, and was expected to be non-empty. </exception>
@@ -154,7 +154,7 @@ namespace Azure.ResourceManager.Search
         /// </list>
         /// </summary>
         /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
-        /// <param name="searchServiceName"> The name of the Azure Cognitive Search service associated with the specified resource group. </param>
+        /// <param name="searchServiceName"> The name of the search service associated with the specified resource group. </param>
         /// <param name="searchManagementRequestOptions"> Parameter group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="searchServiceName"/> is an empty string, and was expected to be non-empty. </exception>
@@ -306,7 +306,7 @@ namespace Azure.ResourceManager.Search
         }
 
         /// <summary>
-        /// Gets the quota usage for a search sku in the given subscription.
+        /// Gets the quota usage for a search SKU in the given subscription.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -320,7 +320,7 @@ namespace Azure.ResourceManager.Search
         /// </summary>
         /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
         /// <param name="location"> The unique location name for a Microsoft Azure geographic region. </param>
-        /// <param name="skuName"> The unique search service sku name supported by Azure Cognitive Search. </param>
+        /// <param name="skuName"> The unique SKU name that identifies a billable tier. </param>
         /// <param name="searchManagementRequestOptions"> Parameter group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="skuName"/> is an empty string, and was expected to be non-empty. </exception>
@@ -333,7 +333,7 @@ namespace Azure.ResourceManager.Search
         }
 
         /// <summary>
-        /// Gets the quota usage for a search sku in the given subscription.
+        /// Gets the quota usage for a search SKU in the given subscription.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -347,7 +347,7 @@ namespace Azure.ResourceManager.Search
         /// </summary>
         /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
         /// <param name="location"> The unique location name for a Microsoft Azure geographic region. </param>
-        /// <param name="skuName"> The unique search service sku name supported by Azure Cognitive Search. </param>
+        /// <param name="skuName"> The unique SKU name that identifies a billable tier. </param>
         /// <param name="searchManagementRequestOptions"> Parameter group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="skuName"/> is an empty string, and was expected to be non-empty. </exception>

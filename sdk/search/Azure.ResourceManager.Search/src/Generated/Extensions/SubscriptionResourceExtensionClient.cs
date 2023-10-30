@@ -211,7 +211,7 @@ namespace Azure.ResourceManager.Search
         }
 
         /// <summary>
-        /// Gets the quota usage for a search sku in the given subscription.
+        /// Gets the quota usage for a search SKU in the given subscription.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -224,7 +224,7 @@ namespace Azure.ResourceManager.Search
         /// </list>
         /// </summary>
         /// <param name="location"> The unique location name for a Microsoft Azure geographic region. </param>
-        /// <param name="skuName"> The unique search service sku name supported by Azure Cognitive Search. </param>
+        /// <param name="skuName"> The unique SKU name that identifies a billable tier. </param>
         /// <param name="searchManagementRequestOptions"> Parameter group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual async Task<Response<QuotaUsageResult>> UsageBySubscriptionSkuAsync(AzureLocation location, string skuName, SearchManagementRequestOptions searchManagementRequestOptions = null, CancellationToken cancellationToken = default)
@@ -244,7 +244,7 @@ namespace Azure.ResourceManager.Search
         }
 
         /// <summary>
-        /// Gets the quota usage for a search sku in the given subscription.
+        /// Gets the quota usage for a search SKU in the given subscription.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -257,7 +257,7 @@ namespace Azure.ResourceManager.Search
         /// </list>
         /// </summary>
         /// <param name="location"> The unique location name for a Microsoft Azure geographic region. </param>
-        /// <param name="skuName"> The unique search service sku name supported by Azure Cognitive Search. </param>
+        /// <param name="skuName"> The unique SKU name that identifies a billable tier. </param>
         /// <param name="searchManagementRequestOptions"> Parameter group. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual Response<QuotaUsageResult> UsageBySubscriptionSku(AzureLocation location, string skuName, SearchManagementRequestOptions searchManagementRequestOptions = null, CancellationToken cancellationToken = default)

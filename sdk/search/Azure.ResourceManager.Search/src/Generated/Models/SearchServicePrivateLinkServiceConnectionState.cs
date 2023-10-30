@@ -16,7 +16,7 @@ namespace Azure.ResourceManager.Search.Models
         }
 
         /// <summary> Initializes a new instance of SearchServicePrivateLinkServiceConnectionState. </summary>
-        /// <param name="status"> Status of the the private link service connection. Can be Pending, Approved, Rejected, or Disconnected. </param>
+        /// <param name="status"> Status of the the private link service connection. Valid values are Pending, Approved, Rejected, or Disconnected. </param>
         /// <param name="description"> The description for the private link service connection state. </param>
         /// <param name="actionsRequired"> A description of any extra actions that may be required. </param>
         internal SearchServicePrivateLinkServiceConnectionState(SearchServicePrivateLinkServiceConnectionStatus? status, string description, string actionsRequired)
@@ -26,7 +26,7 @@ namespace Azure.ResourceManager.Search.Models
             ActionsRequired = actionsRequired;
         }
 
-        /// <summary> Status of the the private link service connection. Can be Pending, Approved, Rejected, or Disconnected. </summary>
+        /// <summary> Status of the the private link service connection. Valid values are Pending, Approved, Rejected, or Disconnected. </summary>
         public SearchServicePrivateLinkServiceConnectionStatus? Status { get; set; }
         /// <summary> The description for the private link service connection state. </summary>
         public string Description { get; set; }
