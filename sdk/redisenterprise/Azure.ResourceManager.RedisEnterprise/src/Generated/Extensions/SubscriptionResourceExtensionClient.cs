@@ -24,8 +24,6 @@ namespace Azure.ResourceManager.RedisEnterprise
         private OperationsStatusRestOperations _operationsStatusRestClient;
         private ClientDiagnostics _redisEnterpriseClusterRedisEnterpriseClientDiagnostics;
         private RedisEnterpriseRestOperations _redisEnterpriseClusterRedisEnterpriseRestClient;
-        private ClientDiagnostics _skusClientDiagnostics;
-        private SkusRestOperations _skusRestClient;
 
         /// <summary> Initializes a new instance of the <see cref="SubscriptionResourceExtensionClient"/> class for mocking. </summary>
         protected SubscriptionResourceExtensionClient()
@@ -43,8 +41,6 @@ namespace Azure.ResourceManager.RedisEnterprise
         private OperationsStatusRestOperations OperationsStatusRestClient => _operationsStatusRestClient ??= new OperationsStatusRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
         private ClientDiagnostics RedisEnterpriseClusterRedisEnterpriseClientDiagnostics => _redisEnterpriseClusterRedisEnterpriseClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.RedisEnterprise", RedisEnterpriseClusterResource.ResourceType.Namespace, Diagnostics);
         private RedisEnterpriseRestOperations RedisEnterpriseClusterRedisEnterpriseRestClient => _redisEnterpriseClusterRedisEnterpriseRestClient ??= new RedisEnterpriseRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(RedisEnterpriseClusterResource.ResourceType));
-        private ClientDiagnostics SkusClientDiagnostics => _skusClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.RedisEnterprise", ProviderConstants.DefaultProviderNamespace, Diagnostics);
-        private SkusRestOperations SkusRestClient => _skusRestClient ??= new SkusRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
 
         private string GetApiVersionOrNull(ResourceType resourceType)
         {
@@ -161,47 +157,65 @@ namespace Azure.ResourceManager.RedisEnterprise
         }
 
         /// <summary>
-        /// Gets information about skus in specified location for the given subscription id
+        /// Checks that the Redis Enterprise cache name is valid and is not already in use.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Cache/locations/{location}/skus</description>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Cache/checkNameAvailability</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Skus_List</description>
+        /// <description>RedisEnterprise_CheckNameAvailability</description>
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="location"> The name of Azure region. </param>
+        /// <param name="content"> Parameters supplied to the CheckNameAvailability Redis operation. The only supported resource type is 'Microsoft.Cache/redisenterprise'. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> An async collection of <see cref="RedisEnterpriseRegionSkuDetail" /> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<RedisEnterpriseRegionSkuDetail> GetRedisEnterpriseSkusAsync(AzureLocation location, CancellationToken cancellationToken = default)
+        public virtual async Task<Response> CheckNameAvailabilityRedisEnterpriseAsync(CheckNameAvailabilityContent content, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => SkusRestClient.CreateListRequest(Id.SubscriptionId, location);
-            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, null, RedisEnterpriseRegionSkuDetail.DeserializeRedisEnterpriseRegionSkuDetail, SkusClientDiagnostics, Pipeline, "SubscriptionResourceExtensionClient.GetRedisEnterpriseSkus", "value", null, cancellationToken);
+            using var scope = RedisEnterpriseClusterRedisEnterpriseClientDiagnostics.CreateScope("SubscriptionResourceExtensionClient.CheckNameAvailabilityRedisEnterprise");
+            scope.Start();
+            try
+            {
+                var response = await RedisEnterpriseClusterRedisEnterpriseRestClient.CheckNameAvailabilityAsync(Id.SubscriptionId, content, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
-        /// Gets information about skus in specified location for the given subscription id
+        /// Checks that the Redis Enterprise cache name is valid and is not already in use.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Cache/locations/{location}/skus</description>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Cache/checkNameAvailability</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>Skus_List</description>
+        /// <description>RedisEnterprise_CheckNameAvailability</description>
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="location"> The name of Azure region. </param>
+        /// <param name="content"> Parameters supplied to the CheckNameAvailability Redis operation. The only supported resource type is 'Microsoft.Cache/redisenterprise'. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="RedisEnterpriseRegionSkuDetail" /> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<RedisEnterpriseRegionSkuDetail> GetRedisEnterpriseSkus(AzureLocation location, CancellationToken cancellationToken = default)
+        public virtual Response CheckNameAvailabilityRedisEnterprise(CheckNameAvailabilityContent content, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => SkusRestClient.CreateListRequest(Id.SubscriptionId, location);
-            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, null, RedisEnterpriseRegionSkuDetail.DeserializeRedisEnterpriseRegionSkuDetail, SkusClientDiagnostics, Pipeline, "SubscriptionResourceExtensionClient.GetRedisEnterpriseSkus", "value", null, cancellationToken);
+            using var scope = RedisEnterpriseClusterRedisEnterpriseClientDiagnostics.CreateScope("SubscriptionResourceExtensionClient.CheckNameAvailabilityRedisEnterprise");
+            scope.Start();
+            try
+            {
+                var response = RedisEnterpriseClusterRedisEnterpriseRestClient.CheckNameAvailability(Id.SubscriptionId, content, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
     }
 }
