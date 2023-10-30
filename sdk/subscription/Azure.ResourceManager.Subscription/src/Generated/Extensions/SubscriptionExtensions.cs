@@ -460,5 +460,55 @@ namespace Azure.ResourceManager.Subscription
 
             return GetTenantResourceExtensionClient(tenantResource).GetAcceptOwnershipStatus(subscriptionId, cancellationToken);
         }
+
+        /// <summary>
+        /// Get the status of the pending Microsoft.Subscription API operations.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/providers/Microsoft.Subscription/subscriptionOperations/{operationId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>SubscriptionOperation_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
+        /// <param name="operationId"> The operation ID, which can be found from the Location field in the generate recommendation response header. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="operationId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="operationId"/> is null. </exception>
+        public static async Task<Response<SubscriptionCreationResult>> GetSubscriptionOperationAsync(this TenantResource tenantResource, string operationId, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(operationId, nameof(operationId));
+
+            return await GetTenantResourceExtensionClient(tenantResource).GetSubscriptionOperationAsync(operationId, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Get the status of the pending Microsoft.Subscription API operations.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/providers/Microsoft.Subscription/subscriptionOperations/{operationId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>SubscriptionOperation_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="tenantResource"> The <see cref="TenantResource" /> instance the method will execute against. </param>
+        /// <param name="operationId"> The operation ID, which can be found from the Location field in the generate recommendation response header. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="operationId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="operationId"/> is null. </exception>
+        public static Response<SubscriptionCreationResult> GetSubscriptionOperation(this TenantResource tenantResource, string operationId, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(operationId, nameof(operationId));
+
+            return GetTenantResourceExtensionClient(tenantResource).GetSubscriptionOperation(operationId, cancellationToken);
+        }
     }
 }

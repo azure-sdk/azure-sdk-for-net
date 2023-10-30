@@ -21,6 +21,8 @@ namespace Azure.ResourceManager.Subscription
     {
         private ClientDiagnostics _subscriptionClientDiagnostics;
         private SubscriptionRestOperations _subscriptionRestClient;
+        private ClientDiagnostics _subscriptionOperationClientDiagnostics;
+        private SubscriptionOperationRestOperations _subscriptionOperationRestClient;
 
         /// <summary> Initializes a new instance of the <see cref="TenantResourceExtensionClient"/> class for mocking. </summary>
         protected TenantResourceExtensionClient()
@@ -36,6 +38,8 @@ namespace Azure.ResourceManager.Subscription
 
         private ClientDiagnostics SubscriptionClientDiagnostics => _subscriptionClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.Subscription", ProviderConstants.DefaultProviderNamespace, Diagnostics);
         private SubscriptionRestOperations SubscriptionRestClient => _subscriptionRestClient ??= new SubscriptionRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
+        private ClientDiagnostics SubscriptionOperationClientDiagnostics => _subscriptionOperationClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.Subscription", ProviderConstants.DefaultProviderNamespace, Diagnostics);
+        private SubscriptionOperationRestOperations SubscriptionOperationRestClient => _subscriptionOperationRestClient ??= new SubscriptionOperationRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
 
         private string GetApiVersionOrNull(ResourceType resourceType)
         {
@@ -189,6 +193,68 @@ namespace Azure.ResourceManager.Subscription
             try
             {
                 var response = SubscriptionRestClient.AcceptOwnershipStatus(subscriptionId, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get the status of the pending Microsoft.Subscription API operations.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/providers/Microsoft.Subscription/subscriptionOperations/{operationId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>SubscriptionOperation_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="operationId"> The operation ID, which can be found from the Location field in the generate recommendation response header. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual async Task<Response<SubscriptionCreationResult>> GetSubscriptionOperationAsync(string operationId, CancellationToken cancellationToken = default)
+        {
+            using var scope = SubscriptionOperationClientDiagnostics.CreateScope("TenantResourceExtensionClient.GetSubscriptionOperation");
+            scope.Start();
+            try
+            {
+                var response = await SubscriptionOperationRestClient.GetAsync(operationId, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get the status of the pending Microsoft.Subscription API operations.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/providers/Microsoft.Subscription/subscriptionOperations/{operationId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>SubscriptionOperation_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="operationId"> The operation ID, which can be found from the Location field in the generate recommendation response header. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual Response<SubscriptionCreationResult> GetSubscriptionOperation(string operationId, CancellationToken cancellationToken = default)
+        {
+            using var scope = SubscriptionOperationClientDiagnostics.CreateScope("TenantResourceExtensionClient.GetSubscriptionOperation");
+            scope.Start();
+            try
+            {
+                var response = SubscriptionOperationRestClient.Get(operationId, cancellationToken);
                 return response;
             }
             catch (Exception e)
