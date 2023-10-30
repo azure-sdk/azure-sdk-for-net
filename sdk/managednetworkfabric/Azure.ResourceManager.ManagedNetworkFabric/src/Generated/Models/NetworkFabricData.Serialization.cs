@@ -40,6 +40,11 @@ namespace Azure.ResourceManager.ManagedNetworkFabric
             }
             writer.WritePropertyName("networkFabricSku"u8);
             writer.WriteStringValue(NetworkFabricSku);
+            if (Optional.IsDefined(FabricVersion))
+            {
+                writer.WritePropertyName("fabricVersion"u8);
+                writer.WriteStringValue(FabricVersion);
+            }
             writer.WritePropertyName("networkFabricControllerId"u8);
             writer.WriteStringValue(NetworkFabricControllerId);
             if (Optional.IsDefined(RackCount))
