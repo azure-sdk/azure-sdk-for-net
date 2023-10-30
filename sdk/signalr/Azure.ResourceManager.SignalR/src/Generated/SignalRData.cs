@@ -35,7 +35,7 @@ namespace Azure.ResourceManager.SignalR
         /// <param name="tags"> The tags. </param>
         /// <param name="location"> The location. </param>
         /// <param name="sku"> The billing information of the resource. </param>
-        /// <param name="kind"> The kind of the service, it can be SignalR or RawWebSockets. </param>
+        /// <param name="kind"> The kind of the service. </param>
         /// <param name="identity"> A class represent managed identities used for request and response. Current supported identity types: None, SystemAssigned, UserAssigned. </param>
         /// <param name="provisioningState"> Provisioning state of the resource. </param>
         /// <param name="externalIP"> The publicly accessible IP of the resource. </param>
@@ -58,6 +58,7 @@ namespace Azure.ResourceManager.SignalR
         /// <param name="liveTraceConfiguration"> Live trace configuration of a Microsoft.SignalRService resource. </param>
         /// <param name="resourceLogConfiguration"> Resource log configuration of a Microsoft.SignalRService resource. </param>
         /// <param name="cors"> Cross-Origin Resource Sharing (CORS) settings. </param>
+        /// <param name="serverless"> Serverless settings. </param>
         /// <param name="upstream"> The settings for the Upstream when the service is in server-less mode. </param>
         /// <param name="networkACLs"> Network ACLs for the resource. </param>
         /// <param name="publicNetworkAccess">
@@ -75,7 +76,17 @@ namespace Azure.ResourceManager.SignalR
         /// Enable or disable aad auth
         /// When set as true, connection with AuthType=aad won't work.
         /// </param>
-        internal SignalRData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, SignalRResourceSku sku, SignalRServiceKind? kind, ManagedServiceIdentity identity, SignalRProvisioningState? provisioningState, string externalIP, string hostName, int? publicPort, int? serverPort, string version, IReadOnlyList<SignalRPrivateEndpointConnectionData> privateEndpointConnections, IReadOnlyList<SignalRSharedPrivateLinkResourceData> sharedPrivateLinkResources, SignalRTlsSettings tls, string hostNamePrefix, IList<SignalRFeature> features, SignalRLiveTraceConfiguration liveTraceConfiguration, SignalRResourceLogCategoryListResult resourceLogConfiguration, SignalRCorsSettings cors, ServerlessUpstreamSettings upstream, SignalRNetworkAcls networkACLs, string publicNetworkAccess, bool? disableLocalAuth, bool? disableAadAuth) : base(id, name, resourceType, systemData, tags, location)
+        /// <param name="regionEndpointEnabled">
+        /// Enable or disable the regional endpoint. Default to "Enabled".
+        /// When it's Disabled, new connections will not be routed to this endpoint, however existing connections will not be affected.
+        /// This property is replica specific. Disable the regional endpoint without replica is not allowed.
+        /// </param>
+        /// <param name="resourceStopped">
+        /// Stop or start the resource.  Default to "False".
+        /// When it's true, the data plane of the resource is shutdown.
+        /// When it's false, the data plane of the resource is started.
+        /// </param>
+        internal SignalRData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, SignalRResourceSku sku, SignalRServiceKind? kind, ManagedServiceIdentity identity, SignalRProvisioningState? provisioningState, string externalIP, string hostName, int? publicPort, int? serverPort, string version, IReadOnlyList<SignalRPrivateEndpointConnectionData> privateEndpointConnections, IReadOnlyList<SignalRSharedPrivateLinkResourceData> sharedPrivateLinkResources, SignalRTlsSettings tls, string hostNamePrefix, IList<SignalRFeature> features, SignalRLiveTraceConfiguration liveTraceConfiguration, SignalRResourceLogCategoryListResult resourceLogConfiguration, SignalRCorsSettings cors, ServerlessSettings serverless, ServerlessUpstreamSettings upstream, SignalRNetworkAcls networkACLs, string publicNetworkAccess, bool? disableLocalAuth, bool? disableAadAuth, string regionEndpointEnabled, string resourceStopped) : base(id, name, resourceType, systemData, tags, location)
         {
             Sku = sku;
             Kind = kind;
@@ -94,16 +105,19 @@ namespace Azure.ResourceManager.SignalR
             LiveTraceConfiguration = liveTraceConfiguration;
             ResourceLogConfiguration = resourceLogConfiguration;
             Cors = cors;
+            Serverless = serverless;
             Upstream = upstream;
             NetworkACLs = networkACLs;
             PublicNetworkAccess = publicNetworkAccess;
             DisableLocalAuth = disableLocalAuth;
             DisableAadAuth = disableAadAuth;
+            RegionEndpointEnabled = regionEndpointEnabled;
+            ResourceStopped = resourceStopped;
         }
 
         /// <summary> The billing information of the resource. </summary>
         public SignalRResourceSku Sku { get; set; }
-        /// <summary> The kind of the service, it can be SignalR or RawWebSockets. </summary>
+        /// <summary> The kind of the service. </summary>
         public SignalRServiceKind? Kind { get; set; }
         /// <summary> A class represent managed identities used for request and response. Current supported identity types: None, SystemAssigned, UserAssigned. </summary>
         public ManagedServiceIdentity Identity { get; set; }
@@ -125,7 +139,7 @@ namespace Azure.ResourceManager.SignalR
         public IReadOnlyList<SignalRSharedPrivateLinkResourceData> SharedPrivateLinkResources { get; }
         /// <summary> TLS settings for the resource. </summary>
         internal SignalRTlsSettings Tls { get; set; }
-        /// <summary> Request client certificate during TLS handshake if enabled. </summary>
+        /// <summary> Request client certificate during TLS handshake if enabled. Not supported for free tier. Any input will be ignored for free tier. </summary>
         public bool? IsClientCertEnabled
         {
             get => Tls is null ? default : Tls.IsClientCertEnabled;
@@ -176,6 +190,29 @@ namespace Azure.ResourceManager.SignalR
             }
         }
 
+        /// <summary> Serverless settings. </summary>
+        internal ServerlessSettings Serverless { get; set; }
+        /// <summary>
+        /// Gets or sets Client Connection Timeout. Optional to be set.
+        /// Value in seconds.
+        /// Default value is 30 seconds.
+        /// Customer should set the timeout to a shorter period if messages are expected to be sent in shorter intervals,
+        /// and want the client to disconnect more quickly after the last message is sent.
+        /// You can set the timeout to a longer period if messages are expected to be sent in longer intervals,
+        /// and they want to keep the same client connection alive during this session.
+        /// The service considers the client disconnected if it hasn't received a message (including keep-alive) in this interval.
+        /// </summary>
+        public int? ServerlessConnectionTimeoutInSeconds
+        {
+            get => Serverless is null ? default : Serverless.ConnectionTimeoutInSeconds;
+            set
+            {
+                if (Serverless is null)
+                    Serverless = new ServerlessSettings();
+                Serverless.ConnectionTimeoutInSeconds = value;
+            }
+        }
+
         /// <summary> The settings for the Upstream when the service is in server-less mode. </summary>
         internal ServerlessUpstreamSettings Upstream { get; set; }
         /// <summary> Gets or sets the list of Upstream URL templates. Order matters, and the first matching template takes effects. </summary>
@@ -209,5 +246,17 @@ namespace Azure.ResourceManager.SignalR
         /// When set as true, connection with AuthType=aad won't work.
         /// </summary>
         public bool? DisableAadAuth { get; set; }
+        /// <summary>
+        /// Enable or disable the regional endpoint. Default to "Enabled".
+        /// When it's Disabled, new connections will not be routed to this endpoint, however existing connections will not be affected.
+        /// This property is replica specific. Disable the regional endpoint without replica is not allowed.
+        /// </summary>
+        public string RegionEndpointEnabled { get; set; }
+        /// <summary>
+        /// Stop or start the resource.  Default to "False".
+        /// When it's true, the data plane of the resource is shutdown.
+        /// When it's false, the data plane of the resource is started.
+        /// </summary>
+        public string ResourceStopped { get; set; }
     }
 }
