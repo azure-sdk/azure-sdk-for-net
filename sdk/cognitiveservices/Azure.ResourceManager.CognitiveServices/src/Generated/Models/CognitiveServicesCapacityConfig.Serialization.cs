@@ -5,6 +5,7 @@
 
 #nullable disable
 
+using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
 
@@ -35,6 +36,16 @@ namespace Azure.ResourceManager.CognitiveServices.Models
                 writer.WritePropertyName("default"u8);
                 writer.WriteNumberValue(Default.Value);
             }
+            if (Optional.IsCollectionDefined(AllowedValues))
+            {
+                writer.WritePropertyName("allowedValues"u8);
+                writer.WriteStartArray();
+                foreach (var item in AllowedValues)
+                {
+                    writer.WriteNumberValue(item);
+                }
+                writer.WriteEndArray();
+            }
             writer.WriteEndObject();
         }
 
@@ -48,6 +59,7 @@ namespace Azure.ResourceManager.CognitiveServices.Models
             Optional<int> maximum = default;
             Optional<int> step = default;
             Optional<int> @default = default;
+            Optional<IList<int>> allowedValues = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("minimum"u8))
@@ -86,8 +98,22 @@ namespace Azure.ResourceManager.CognitiveServices.Models
                     @default = property.Value.GetInt32();
                     continue;
                 }
+                if (property.NameEquals("allowedValues"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<int> array = new List<int>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(item.GetInt32());
+                    }
+                    allowedValues = array;
+                    continue;
+                }
             }
-            return new CognitiveServicesCapacityConfig(Optional.ToNullable(minimum), Optional.ToNullable(maximum), Optional.ToNullable(step), Optional.ToNullable(@default));
+            return new CognitiveServicesCapacityConfig(Optional.ToNullable(minimum), Optional.ToNullable(maximum), Optional.ToNullable(step), Optional.ToNullable(@default), Optional.ToList(allowedValues));
         }
     }
 }

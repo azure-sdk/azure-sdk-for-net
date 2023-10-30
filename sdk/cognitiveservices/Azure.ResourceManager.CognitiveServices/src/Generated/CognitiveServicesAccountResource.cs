@@ -253,6 +253,165 @@ namespace Azure.ResourceManager.CognitiveServices
             return GetCommitmentPlans().Get(commitmentPlanName, cancellationToken);
         }
 
+        /// <summary> Gets a collection of EncryptionScopeResources in the CognitiveServicesAccount. </summary>
+        /// <returns> An object representing collection of EncryptionScopeResources and their operations over a EncryptionScopeResource. </returns>
+        public virtual EncryptionScopeCollection GetEncryptionScopes()
+        {
+            return GetCachedClient(Client => new EncryptionScopeCollection(Client, Id));
+        }
+
+        /// <summary>
+        /// Gets the specified EncryptionScope associated with the Cognitive Services account.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CognitiveServices/accounts/{accountName}/encryptionScopes/{encryptionScopeName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>EncryptionScopes_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="encryptionScopeName"> The name of the encryptionScope associated with the Cognitive Services Account. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="encryptionScopeName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="encryptionScopeName"/> is null. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<EncryptionScopeResource>> GetEncryptionScopeAsync(string encryptionScopeName, CancellationToken cancellationToken = default)
+        {
+            return await GetEncryptionScopes().GetAsync(encryptionScopeName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets the specified EncryptionScope associated with the Cognitive Services account.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CognitiveServices/accounts/{accountName}/encryptionScopes/{encryptionScopeName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>EncryptionScopes_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="encryptionScopeName"> The name of the encryptionScope associated with the Cognitive Services Account. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="encryptionScopeName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="encryptionScopeName"/> is null. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<EncryptionScopeResource> GetEncryptionScope(string encryptionScopeName, CancellationToken cancellationToken = default)
+        {
+            return GetEncryptionScopes().Get(encryptionScopeName, cancellationToken);
+        }
+
+        /// <summary> Gets a collection of RaiPolicyResources in the CognitiveServicesAccount. </summary>
+        /// <returns> An object representing collection of RaiPolicyResources and their operations over a RaiPolicyResource. </returns>
+        public virtual RaiPolicyCollection GetRaiPolicies()
+        {
+            return GetCachedClient(Client => new RaiPolicyCollection(Client, Id));
+        }
+
+        /// <summary>
+        /// Gets the specified Content Filters associated with the Azure OpenAI account.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CognitiveServices/accounts/{accountName}/raiPolicies/{raiPolicyName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>RaiPolicies_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="raiPolicyName"> The name of the RaiPolicy associated with the Cognitive Services Account. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="raiPolicyName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="raiPolicyName"/> is null. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<RaiPolicyResource>> GetRaiPolicyAsync(string raiPolicyName, CancellationToken cancellationToken = default)
+        {
+            return await GetRaiPolicies().GetAsync(raiPolicyName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets the specified Content Filters associated with the Azure OpenAI account.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CognitiveServices/accounts/{accountName}/raiPolicies/{raiPolicyName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>RaiPolicies_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="raiPolicyName"> The name of the RaiPolicy associated with the Cognitive Services Account. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="raiPolicyName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="raiPolicyName"/> is null. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<RaiPolicyResource> GetRaiPolicy(string raiPolicyName, CancellationToken cancellationToken = default)
+        {
+            return GetRaiPolicies().Get(raiPolicyName, cancellationToken);
+        }
+
+        /// <summary> Gets a collection of RaiBlocklistResources in the CognitiveServicesAccount. </summary>
+        /// <returns> An object representing collection of RaiBlocklistResources and their operations over a RaiBlocklistResource. </returns>
+        public virtual RaiBlocklistCollection GetRaiBlocklists()
+        {
+            return GetCachedClient(Client => new RaiBlocklistCollection(Client, Id));
+        }
+
+        /// <summary>
+        /// Gets the specified custom blocklist associated with the Azure OpenAI account.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CognitiveServices/accounts/{accountName}/raiBlocklists/{raiBlocklistName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>RaiBlocklists_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="raiBlocklistName"> The name of the RaiBlocklist associated with the Cognitive Services Account. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="raiBlocklistName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="raiBlocklistName"/> is null. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<RaiBlocklistResource>> GetRaiBlocklistAsync(string raiBlocklistName, CancellationToken cancellationToken = default)
+        {
+            return await GetRaiBlocklists().GetAsync(raiBlocklistName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets the specified custom blocklist associated with the Azure OpenAI account.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CognitiveServices/accounts/{accountName}/raiBlocklists/{raiBlocklistName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>RaiBlocklists_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="raiBlocklistName"> The name of the RaiBlocklist associated with the Cognitive Services Account. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="raiBlocklistName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="raiBlocklistName"/> is null. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<RaiBlocklistResource> GetRaiBlocklist(string raiBlocklistName, CancellationToken cancellationToken = default)
+        {
+            return GetRaiBlocklists().Get(raiBlocklistName, cancellationToken);
+        }
+
         /// <summary>
         /// Returns a Cognitive Services account specified by the parameters.
         /// <list type="bullet">

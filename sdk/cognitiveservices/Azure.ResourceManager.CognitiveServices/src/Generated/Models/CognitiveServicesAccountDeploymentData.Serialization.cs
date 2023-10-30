@@ -5,6 +5,7 @@
 
 #nullable disable
 
+using System.Collections.Generic;
 using System.Text.Json;
 using Azure;
 using Azure.Core;
@@ -23,6 +24,17 @@ namespace Azure.ResourceManager.CognitiveServices
                 writer.WritePropertyName("sku"u8);
                 writer.WriteObjectValue(Sku);
             }
+            if (Optional.IsCollectionDefined(Tags))
+            {
+                writer.WritePropertyName("tags"u8);
+                writer.WriteStartObject();
+                foreach (var item in Tags)
+                {
+                    writer.WritePropertyName(item.Key);
+                    writer.WriteStringValue(item.Value);
+                }
+                writer.WriteEndObject();
+            }
             if (Optional.IsDefined(Properties))
             {
                 writer.WritePropertyName("properties"u8);
@@ -39,6 +51,7 @@ namespace Azure.ResourceManager.CognitiveServices
             }
             Optional<CognitiveServicesSku> sku = default;
             Optional<ETag> etag = default;
+            Optional<IDictionary<string, string>> tags = default;
             Optional<CognitiveServicesAccountDeploymentProperties> properties = default;
             ResourceIdentifier id = default;
             string name = default;
@@ -62,6 +75,20 @@ namespace Azure.ResourceManager.CognitiveServices
                         continue;
                     }
                     etag = new ETag(property.Value.GetString());
+                    continue;
+                }
+                if (property.NameEquals("tags"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    Dictionary<string, string> dictionary = new Dictionary<string, string>();
+                    foreach (var property0 in property.Value.EnumerateObject())
+                    {
+                        dictionary.Add(property0.Name, property0.Value.GetString());
+                    }
+                    tags = dictionary;
                     continue;
                 }
                 if (property.NameEquals("properties"u8))
@@ -98,7 +125,7 @@ namespace Azure.ResourceManager.CognitiveServices
                     continue;
                 }
             }
-            return new CognitiveServicesAccountDeploymentData(id, name, type, systemData.Value, sku.Value, Optional.ToNullable(etag), properties.Value);
+            return new CognitiveServicesAccountDeploymentData(id, name, type, systemData.Value, sku.Value, Optional.ToNullable(etag), Optional.ToDictionary(tags), properties.Value);
         }
     }
 }
