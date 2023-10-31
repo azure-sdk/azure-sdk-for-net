@@ -23,7 +23,7 @@ namespace Azure.ResourceManager.VoiceServices.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetTestLineResource()
         {
-            // Generated from example definition: specification/voiceservices/resource-manager/Microsoft.VoiceServices/stable/2023-01-31/examples/TestLines_Get.json
+            // Generated from example definition: specification/voiceservices/resource-manager/Microsoft.VoiceServices/stable/2023-09-01/examples/TestLines_Get.json
             // this example is just showing the usage of "TestLines_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -50,40 +50,12 @@ namespace Azure.ResourceManager.VoiceServices.Samples
             Console.WriteLine($"Succeeded on id: {resourceData.Id}");
         }
 
-        // DeleteTestLineResource
-        [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task Delete_DeleteTestLineResource()
-        {
-            // Generated from example definition: specification/voiceservices/resource-manager/Microsoft.VoiceServices/stable/2023-01-31/examples/TestLines_Delete.json
-            // this example is just showing the usage of "TestLines_Delete" operation, for the dependent resources, they will have to be created separately.
-
-            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
-            TokenCredential cred = new DefaultAzureCredential();
-            // authenticate your client
-            ArmClient client = new ArmClient(cred);
-
-            // this example assumes you already have this VoiceServicesTestLineResource created on azure
-            // for more information of creating VoiceServicesTestLineResource, please refer to the document of VoiceServicesTestLineResource
-            string subscriptionId = "00000000-0000-0000-0000-000000000000";
-            string resourceGroupName = "testrg";
-            string communicationsGatewayName = "myname";
-            string testLineName = "myline";
-            ResourceIdentifier voiceServicesTestLineResourceId = VoiceServicesTestLineResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, communicationsGatewayName, testLineName);
-            VoiceServicesTestLineResource voiceServicesTestLine = client.GetVoiceServicesTestLineResource(voiceServicesTestLineResourceId);
-
-            // invoke the operation
-            await voiceServicesTestLine.DeleteAsync(WaitUntil.Completed);
-
-            Console.WriteLine($"Succeeded");
-        }
-
         // UpdateTestLineResource
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_UpdateTestLineResource()
         {
-            // Generated from example definition: specification/voiceservices/resource-manager/Microsoft.VoiceServices/stable/2023-01-31/examples/TestLines_Update.json
+            // Generated from example definition: specification/voiceservices/resource-manager/Microsoft.VoiceServices/stable/2023-09-01/examples/TestLines_Update.json
             // this example is just showing the usage of "TestLines_Update" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -109,6 +81,34 @@ namespace Azure.ResourceManager.VoiceServices.Samples
             VoiceServicesTestLineData resourceData = result.Data;
             // for demo we just print out the id
             Console.WriteLine($"Succeeded on id: {resourceData.Id}");
+        }
+
+        // DeleteTestLineResource
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task Delete_DeleteTestLineResource()
+        {
+            // Generated from example definition: specification/voiceservices/resource-manager/Microsoft.VoiceServices/stable/2023-09-01/examples/TestLines_Delete.json
+            // this example is just showing the usage of "TestLines_Delete" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this VoiceServicesTestLineResource created on azure
+            // for more information of creating VoiceServicesTestLineResource, please refer to the document of VoiceServicesTestLineResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "testrg";
+            string communicationsGatewayName = "myname";
+            string testLineName = "myline";
+            ResourceIdentifier voiceServicesTestLineResourceId = VoiceServicesTestLineResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, communicationsGatewayName, testLineName);
+            VoiceServicesTestLineResource voiceServicesTestLine = client.GetVoiceServicesTestLineResource(voiceServicesTestLineResourceId);
+
+            // invoke the operation
+            await voiceServicesTestLine.DeleteAsync(WaitUntil.Completed);
+
+            Console.WriteLine($"Succeeded");
         }
     }
 }
