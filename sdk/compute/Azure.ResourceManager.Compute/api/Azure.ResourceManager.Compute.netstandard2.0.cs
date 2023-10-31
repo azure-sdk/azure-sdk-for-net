@@ -1911,6 +1911,8 @@ namespace Azure.ResourceManager.Compute
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Compute.VirtualMachineResource>> AddTagAsync(string key, string value, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Compute.Models.VirtualMachineAssessPatchesResult> AssessPatches(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Compute.Models.VirtualMachineAssessPatchesResult>> AssessPatchesAsync(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Compute.VirtualMachineResource> AttachDetachDataDisks(Azure.WaitUntil waitUntil, Azure.ResourceManager.Compute.Models.AttachDetachDataDisksRequest attachDetachDataDisksRequest, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Compute.VirtualMachineResource>> AttachDetachDataDisksAsync(Azure.WaitUntil waitUntil, Azure.ResourceManager.Compute.Models.AttachDetachDataDisksRequest attachDetachDataDisksRequest, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Compute.Models.VirtualMachineCaptureResult> Capture(Azure.WaitUntil waitUntil, Azure.ResourceManager.Compute.Models.VirtualMachineCaptureContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Compute.Models.VirtualMachineCaptureResult>> CaptureAsync(Azure.WaitUntil waitUntil, Azure.ResourceManager.Compute.Models.VirtualMachineCaptureContent content, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.ResourceManager.ArmOperation ConvertToManagedDisks(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
@@ -2324,6 +2326,8 @@ namespace Azure.ResourceManager.Compute
         public virtual bool HasData { get { throw null; } }
         public virtual Azure.Response<Azure.ResourceManager.Compute.VirtualMachineScaleSetVmResource> AddTag(string key, string value, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Compute.VirtualMachineScaleSetVmResource>> AddTagAsync(string key, string value, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Compute.VirtualMachineScaleSetVmResource> AttachDetachDataDisks(Azure.WaitUntil waitUntil, Azure.ResourceManager.Compute.Models.AttachDetachDataDisksRequest attachDetachDataDisksRequest, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation<Azure.ResourceManager.Compute.VirtualMachineScaleSetVmResource>> AttachDetachDataDisksAsync(Azure.WaitUntil waitUntil, Azure.ResourceManager.Compute.Models.AttachDetachDataDisksRequest attachDetachDataDisksRequest, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static Azure.Core.ResourceIdentifier CreateResourceIdentifier(string subscriptionId, string resourceGroupName, string virtualMachineScaleSetName, string instanceId) { throw null; }
         public virtual Azure.ResourceManager.ArmOperation Deallocate(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation> DeallocateAsync(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
@@ -2632,6 +2636,12 @@ namespace Azure.ResourceManager.Compute.Models
         public static Azure.ResourceManager.Compute.Models.VirtualMachineSize VirtualMachineSize(string name = null, int? numberOfCores = default(int?), int? osDiskSizeInMB = default(int?), int? resourceDiskSizeInMB = default(int?), int? memoryInMB = default(int?), int? maxDataDiskCount = default(int?)) { throw null; }
         public static Azure.ResourceManager.Compute.Models.VirtualMachineSoftwarePatchProperties VirtualMachineSoftwarePatchProperties(string patchId = null, string name = null, string version = null, string kbId = null, System.Collections.Generic.IEnumerable<string> classifications = null, Azure.ResourceManager.Compute.Models.VmGuestPatchRebootBehavior? rebootBehavior = default(Azure.ResourceManager.Compute.Models.VmGuestPatchRebootBehavior?), string activityId = null, System.DateTimeOffset? publishedOn = default(System.DateTimeOffset?), System.DateTimeOffset? lastModifiedOn = default(System.DateTimeOffset?), Azure.ResourceManager.Compute.Models.PatchAssessmentState? assessmentState = default(Azure.ResourceManager.Compute.Models.PatchAssessmentState?)) { throw null; }
         public static Azure.ResourceManager.Compute.Models.VirtualMachineStatusCodeCount VirtualMachineStatusCodeCount(string code = null, int? count = default(int?)) { throw null; }
+    }
+    public partial class AttachDetachDataDisksRequest
+    {
+        public AttachDetachDataDisksRequest() { }
+        public System.Collections.Generic.IList<Azure.ResourceManager.Compute.Models.DataDisksToAttach> DataDisksToAttach { get { throw null; } }
+        public System.Collections.Generic.IList<Azure.ResourceManager.Compute.Models.DataDisksToDetach> DataDisksToDetach { get { throw null; } }
     }
     public partial class AutomaticOSUpgradePolicy
     {
@@ -3357,6 +3367,18 @@ namespace Azure.ResourceManager.Compute.Models
     {
         public DataDiskImageEncryption(int lun) { }
         public int Lun { get { throw null; } set { } }
+    }
+    public partial class DataDisksToAttach
+    {
+        public DataDisksToAttach(string diskId) { }
+        public string DiskId { get { throw null; } }
+        public int? Lun { get { throw null; } set { } }
+    }
+    public partial class DataDisksToDetach
+    {
+        public DataDisksToDetach(string diskId) { }
+        public Azure.ResourceManager.Compute.Models.DiskDetachOptionType? DetachOption { get { throw null; } set { } }
+        public string DiskId { get { throw null; } }
     }
     public partial class DedicatedHostAllocatableVm
     {
