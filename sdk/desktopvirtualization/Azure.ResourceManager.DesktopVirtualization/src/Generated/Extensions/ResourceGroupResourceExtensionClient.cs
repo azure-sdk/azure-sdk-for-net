@@ -58,5 +58,12 @@ namespace Azure.ResourceManager.DesktopVirtualization
         {
             return GetCachedClient(Client => new HostPoolCollection(Client, Id));
         }
+
+        /// <summary> Gets a collection of AppAttachPackageResources in the ResourceGroupResource. </summary>
+        /// <returns> An object representing collection of AppAttachPackageResources and their operations over a AppAttachPackageResource. </returns>
+        public virtual AppAttachPackageCollection GetAppAttachPackages()
+        {
+            return GetCachedClient(Client => new AppAttachPackageCollection(Client, Id));
+        }
     }
 }
