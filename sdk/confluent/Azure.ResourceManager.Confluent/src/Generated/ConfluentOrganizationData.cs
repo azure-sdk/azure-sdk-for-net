@@ -46,7 +46,8 @@ namespace Azure.ResourceManager.Confluent
         /// <param name="ssoUri"> SSO url for the Confluent organization. </param>
         /// <param name="offerDetail"> Confluent offer detail. </param>
         /// <param name="userDetail"> Subscriber detail. </param>
-        internal ConfluentOrganizationData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, DateTimeOffset? createdOn, ConfluentProvisionState? provisioningState, Guid? organizationId, Uri ssoUri, ConfluentOfferDetail offerDetail, ConfluentUserDetail userDetail) : base(id, name, resourceType, systemData, tags, location)
+        /// <param name="linkOrganization"> Link an existing Confluent organization. </param>
+        internal ConfluentOrganizationData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, DateTimeOffset? createdOn, ConfluentProvisionState? provisioningState, Guid? organizationId, Uri ssoUri, ConfluentOfferDetail offerDetail, ConfluentUserDetail userDetail, LinkOrganization linkOrganization) : base(id, name, resourceType, systemData, tags, location)
         {
             CreatedOn = createdOn;
             ProvisioningState = provisioningState;
@@ -54,6 +55,7 @@ namespace Azure.ResourceManager.Confluent
             SsoUri = ssoUri;
             OfferDetail = offerDetail;
             UserDetail = userDetail;
+            LinkOrganization = linkOrganization;
         }
 
         /// <summary> The creation time of the resource. </summary>
@@ -68,5 +70,13 @@ namespace Azure.ResourceManager.Confluent
         public ConfluentOfferDetail OfferDetail { get; set; }
         /// <summary> Subscriber detail. </summary>
         public ConfluentUserDetail UserDetail { get; set; }
+        /// <summary> Link an existing Confluent organization. </summary>
+        internal LinkOrganization LinkOrganization { get; set; }
+        /// <summary> User auth token. </summary>
+        public string LinkOrganizationToken
+        {
+            get => LinkOrganization is null ? default : LinkOrganization.Token;
+            set => LinkOrganization = new LinkOrganization(value);
+        }
     }
 }

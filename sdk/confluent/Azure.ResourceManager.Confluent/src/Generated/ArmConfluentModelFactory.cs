@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Azure.Core;
 using Azure.ResourceManager.Confluent;
 using Azure.ResourceManager.Models;
@@ -48,25 +49,256 @@ namespace Azure.ResourceManager.Confluent.Models
         /// <param name="ssoUri"> SSO url for the Confluent organization. </param>
         /// <param name="offerDetail"> Confluent offer detail. </param>
         /// <param name="userDetail"> Subscriber detail. </param>
+        /// <param name="linkOrganizationToken"> Link an existing Confluent organization. </param>
         /// <returns> A new <see cref="Confluent.ConfluentOrganizationData"/> instance for mocking. </returns>
-        public static ConfluentOrganizationData ConfluentOrganizationData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, DateTimeOffset? createdOn = null, ConfluentProvisionState? provisioningState = null, Guid? organizationId = null, Uri ssoUri = null, ConfluentOfferDetail offerDetail = null, ConfluentUserDetail userDetail = null)
+        public static ConfluentOrganizationData ConfluentOrganizationData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, DateTimeOffset? createdOn = null, ConfluentProvisionState? provisioningState = null, Guid? organizationId = null, Uri ssoUri = null, ConfluentOfferDetail offerDetail = null, ConfluentUserDetail userDetail = null, string linkOrganizationToken = null)
         {
             tags ??= new Dictionary<string, string>();
 
-            return new ConfluentOrganizationData(id, name, resourceType, systemData, tags, location, createdOn, provisioningState, organizationId, ssoUri, offerDetail, userDetail);
+            return new ConfluentOrganizationData(id, name, resourceType, systemData, tags, location, createdOn, provisioningState, organizationId, ssoUri, offerDetail, userDetail, linkOrganizationToken != null ? new LinkOrganization(linkOrganizationToken) : null);
         }
 
-        /// <summary> Initializes a new instance of ConfluentOfferDetail. </summary>
-        /// <param name="publisherId"> Publisher Id. </param>
-        /// <param name="id"> Offer Id. </param>
-        /// <param name="planId"> Offer Plan Id. </param>
-        /// <param name="planName"> Offer Plan Name. </param>
-        /// <param name="termUnit"> Offer Plan Term unit. </param>
-        /// <param name="status"> SaaS Offer Status. </param>
-        /// <returns> A new <see cref="Models.ConfluentOfferDetail"/> instance for mocking. </returns>
-        public static ConfluentOfferDetail ConfluentOfferDetail(string publisherId = null, string id = null, string planId = null, string planName = null, string termUnit = null, ConfluentSaaSOfferStatus? status = null)
+        /// <summary> Initializes a new instance of ValidationResponse. </summary>
+        /// <param name="info"> Info from the response. </param>
+        /// <returns> A new <see cref="Models.ValidationResponse"/> instance for mocking. </returns>
+        public static ValidationResponse ValidationResponse(IReadOnlyDictionary<string, string> info = null)
         {
-            return new ConfluentOfferDetail(publisherId, id, planId, planName, termUnit, status);
+            info ??= new Dictionary<string, string>();
+
+            return new ValidationResponse(info);
+        }
+
+        /// <summary> Initializes a new instance of AccessListUsersSuccessResponse. </summary>
+        /// <param name="kind"> Type of response. </param>
+        /// <param name="metadata"> Metadata of the list. </param>
+        /// <param name="data"> Data of the users list. </param>
+        /// <returns> A new <see cref="Models.AccessListUsersSuccessResponse"/> instance for mocking. </returns>
+        public static AccessListUsersSuccessResponse AccessListUsersSuccessResponse(string kind = null, ConfluentListMetadata metadata = null, IEnumerable<UserRecord> data = null)
+        {
+            data ??= new List<UserRecord>();
+
+            return new AccessListUsersSuccessResponse(kind, metadata, data?.ToList());
+        }
+
+        /// <summary> Initializes a new instance of ConfluentListMetadata. </summary>
+        /// <param name="first"> First page of the list. </param>
+        /// <param name="last"> Last page of the list. </param>
+        /// <param name="prev"> Previous page of the list. </param>
+        /// <param name="next"> Next page of the list. </param>
+        /// <param name="totalSize"> Total size of the list. </param>
+        /// <returns> A new <see cref="Models.ConfluentListMetadata"/> instance for mocking. </returns>
+        public static ConfluentListMetadata ConfluentListMetadata(string first = null, string last = null, string prev = null, string next = null, int? totalSize = null)
+        {
+            return new ConfluentListMetadata(first, last, prev, next, totalSize);
+        }
+
+        /// <summary> Initializes a new instance of UserRecord. </summary>
+        /// <param name="kind"> Type of account. </param>
+        /// <param name="id"> Id of the user. </param>
+        /// <param name="metadata"> Metadata of the record. </param>
+        /// <param name="email"> Email of the user. </param>
+        /// <param name="fullName"> Name of the user. </param>
+        /// <param name="authType"> Auth type of the user. </param>
+        /// <returns> A new <see cref="Models.UserRecord"/> instance for mocking. </returns>
+        public static UserRecord UserRecord(string kind = null, string id = null, MetadataEntity metadata = null, string email = null, string fullName = null, string authType = null)
+        {
+            return new UserRecord(kind, id, metadata, email, fullName, authType);
+        }
+
+        /// <summary> Initializes a new instance of MetadataEntity. </summary>
+        /// <param name="self"> Self lookup url. </param>
+        /// <param name="resourceName"> Resource name of the record. </param>
+        /// <param name="createdAt"> Created Date Time. </param>
+        /// <param name="updatedAt"> Updated Date time. </param>
+        /// <param name="deletedAt"> Deleted Date time. </param>
+        /// <returns> A new <see cref="Models.MetadataEntity"/> instance for mocking. </returns>
+        public static MetadataEntity MetadataEntity(string self = null, string resourceName = null, string createdAt = null, string updatedAt = null, string deletedAt = null)
+        {
+            return new MetadataEntity(self, resourceName, createdAt, updatedAt, deletedAt);
+        }
+
+        /// <summary> Initializes a new instance of AccessListServiceAccountsSuccessResponse. </summary>
+        /// <param name="kind"> Type of response. </param>
+        /// <param name="metadata"> Metadata of the list. </param>
+        /// <param name="data"> Data of the service accounts list. </param>
+        /// <returns> A new <see cref="Models.AccessListServiceAccountsSuccessResponse"/> instance for mocking. </returns>
+        public static AccessListServiceAccountsSuccessResponse AccessListServiceAccountsSuccessResponse(string kind = null, ConfluentListMetadata metadata = null, IEnumerable<ServiceAccountRecord> data = null)
+        {
+            data ??= new List<ServiceAccountRecord>();
+
+            return new AccessListServiceAccountsSuccessResponse(kind, metadata, data?.ToList());
+        }
+
+        /// <summary> Initializes a new instance of ServiceAccountRecord. </summary>
+        /// <param name="kind"> Type of account. </param>
+        /// <param name="id"> Id of the service account. </param>
+        /// <param name="metadata"> Metadata of the record. </param>
+        /// <param name="displayName"> Name of the service account. </param>
+        /// <param name="description"> Description of the service account. </param>
+        /// <returns> A new <see cref="Models.ServiceAccountRecord"/> instance for mocking. </returns>
+        public static ServiceAccountRecord ServiceAccountRecord(string kind = null, string id = null, MetadataEntity metadata = null, string displayName = null, string description = null)
+        {
+            return new ServiceAccountRecord(kind, id, metadata, displayName, description);
+        }
+
+        /// <summary> Initializes a new instance of AccessListInvitationsSuccessResponse. </summary>
+        /// <param name="kind"> Type of response. </param>
+        /// <param name="metadata"> Metadata of the list. </param>
+        /// <param name="data"> Data of the invitations list. </param>
+        /// <returns> A new <see cref="Models.AccessListInvitationsSuccessResponse"/> instance for mocking. </returns>
+        public static AccessListInvitationsSuccessResponse AccessListInvitationsSuccessResponse(string kind = null, ConfluentListMetadata metadata = null, IEnumerable<InvitationRecord> data = null)
+        {
+            data ??= new List<InvitationRecord>();
+
+            return new AccessListInvitationsSuccessResponse(kind, metadata, data?.ToList());
+        }
+
+        /// <summary> Initializes a new instance of InvitationRecord. </summary>
+        /// <param name="kind"> Type of account. </param>
+        /// <param name="id"> Id of the invitation. </param>
+        /// <param name="metadata"> Metadata of the record. </param>
+        /// <param name="email"> Email of the user. </param>
+        /// <param name="authType"> Auth type of the user. </param>
+        /// <param name="status"> Status of the invitation. </param>
+        /// <param name="acceptedAt"> Accepted date time of the invitation. </param>
+        /// <param name="expiresAt"> Expiration date time of the invitation. </param>
+        /// <returns> A new <see cref="Models.InvitationRecord"/> instance for mocking. </returns>
+        public static InvitationRecord InvitationRecord(string kind = null, string id = null, MetadataEntity metadata = null, string email = null, string authType = null, string status = null, string acceptedAt = null, string expiresAt = null)
+        {
+            return new InvitationRecord(kind, id, metadata, email, authType, status, acceptedAt, expiresAt);
+        }
+
+        /// <summary> Initializes a new instance of AccessListEnvironmentsSuccessResponse. </summary>
+        /// <param name="kind"> Type of response. </param>
+        /// <param name="metadata"> Metadata of the list. </param>
+        /// <param name="data"> Data of the environments list. </param>
+        /// <returns> A new <see cref="Models.AccessListEnvironmentsSuccessResponse"/> instance for mocking. </returns>
+        public static AccessListEnvironmentsSuccessResponse AccessListEnvironmentsSuccessResponse(string kind = null, ConfluentListMetadata metadata = null, IEnumerable<EnvironmentRecord> data = null)
+        {
+            data ??= new List<EnvironmentRecord>();
+
+            return new AccessListEnvironmentsSuccessResponse(kind, metadata, data?.ToList());
+        }
+
+        /// <summary> Initializes a new instance of EnvironmentRecord. </summary>
+        /// <param name="kind"> Type of environment. </param>
+        /// <param name="id"> Id of the environment. </param>
+        /// <param name="metadata"> Metadata of the record. </param>
+        /// <param name="displayName"> Display name of the user. </param>
+        /// <returns> A new <see cref="Models.EnvironmentRecord"/> instance for mocking. </returns>
+        public static EnvironmentRecord EnvironmentRecord(string kind = null, string id = null, MetadataEntity metadata = null, string displayName = null)
+        {
+            return new EnvironmentRecord(kind, id, metadata, displayName);
+        }
+
+        /// <summary> Initializes a new instance of AccessListClusterSuccessResponse. </summary>
+        /// <param name="kind"> Type of response. </param>
+        /// <param name="metadata"> Metadata of the list. </param>
+        /// <param name="data"> Data of the environments list. </param>
+        /// <returns> A new <see cref="Models.AccessListClusterSuccessResponse"/> instance for mocking. </returns>
+        public static AccessListClusterSuccessResponse AccessListClusterSuccessResponse(string kind = null, ConfluentListMetadata metadata = null, IEnumerable<ClusterRecord> data = null)
+        {
+            data ??= new List<ClusterRecord>();
+
+            return new AccessListClusterSuccessResponse(kind, metadata, data?.ToList());
+        }
+
+        /// <summary> Initializes a new instance of ClusterRecord. </summary>
+        /// <param name="kind"> Type of environment. </param>
+        /// <param name="id"> Id of the environment. </param>
+        /// <param name="metadata"> Metadata of the record. </param>
+        /// <param name="displayName"> Display name of the user. </param>
+        /// <param name="spec"> Specification of the cluster. </param>
+        /// <param name="status"> Specification of the cluster. </param>
+        /// <returns> A new <see cref="Models.ClusterRecord"/> instance for mocking. </returns>
+        public static ClusterRecord ClusterRecord(string kind = null, string id = null, MetadataEntity metadata = null, string displayName = null, ClusterSpecEntity spec = null, ClusterStatusEntity status = null)
+        {
+            return new ClusterRecord(kind, id, metadata, displayName, spec, status);
+        }
+
+        /// <summary> Initializes a new instance of ClusterSpecEntity. </summary>
+        /// <param name="displayName"> The name of the cluster. </param>
+        /// <param name="availability"> The availability zone configuration of the cluster. </param>
+        /// <param name="cloud"> The cloud service provider. </param>
+        /// <param name="zone"> type of zone availability. </param>
+        /// <param name="region"> The cloud service provider region. </param>
+        /// <param name="kafkaBootstrapEndpoint"> The bootstrap endpoint used by Kafka clients to connect to the cluster. </param>
+        /// <param name="httpEndpoint"> The cluster HTTP request URL. </param>
+        /// <param name="apiEndpoint"> The Kafka API cluster endpoint. </param>
+        /// <param name="configKind"> Specification of the cluster. </param>
+        /// <param name="environment"> Specification of the cluster. </param>
+        /// <param name="network"> Specification of the cluster. </param>
+        /// <param name="byok"> Specification of the cluster. </param>
+        /// <returns> A new <see cref="Models.ClusterSpecEntity"/> instance for mocking. </returns>
+        public static ClusterSpecEntity ClusterSpecEntity(string displayName = null, string availability = null, string cloud = null, string zone = null, string region = null, string kafkaBootstrapEndpoint = null, string httpEndpoint = null, string apiEndpoint = null, string configKind = null, ClusterEnvironmentEntity environment = null, ClusterNetworkEntity network = null, ClusterByokEntity byok = null)
+        {
+            return new ClusterSpecEntity(displayName, availability, cloud, zone, region, kafkaBootstrapEndpoint, httpEndpoint, apiEndpoint, configKind != null ? new ClusterConfigEntity(configKind) : null, environment, network, byok);
+        }
+
+        /// <summary> Initializes a new instance of ClusterEnvironmentEntity. </summary>
+        /// <param name="id"> ID of the referred resource. </param>
+        /// <param name="environment"> Environment of the referred resource. </param>
+        /// <param name="related"> API URL for accessing or modifying the referred object. </param>
+        /// <param name="resourceName"> CRN reference to the referred resource. </param>
+        /// <returns> A new <see cref="Models.ClusterEnvironmentEntity"/> instance for mocking. </returns>
+        public static ClusterEnvironmentEntity ClusterEnvironmentEntity(string id = null, string environment = null, string related = null, string resourceName = null)
+        {
+            return new ClusterEnvironmentEntity(id, environment, related, resourceName);
+        }
+
+        /// <summary> Initializes a new instance of ClusterNetworkEntity. </summary>
+        /// <param name="id"> ID of the referred resource. </param>
+        /// <param name="environment"> Environment of the referred resource. </param>
+        /// <param name="related"> API URL for accessing or modifying the referred object. </param>
+        /// <param name="resourceName"> CRN reference to the referred resource. </param>
+        /// <returns> A new <see cref="Models.ClusterNetworkEntity"/> instance for mocking. </returns>
+        public static ClusterNetworkEntity ClusterNetworkEntity(string id = null, string environment = null, string related = null, string resourceName = null)
+        {
+            return new ClusterNetworkEntity(id, environment, related, resourceName);
+        }
+
+        /// <summary> Initializes a new instance of ClusterByokEntity. </summary>
+        /// <param name="id"> ID of the referred resource. </param>
+        /// <param name="related"> API URL for accessing or modifying the referred object. </param>
+        /// <param name="resourceName"> CRN reference to the referred resource. </param>
+        /// <returns> A new <see cref="Models.ClusterByokEntity"/> instance for mocking. </returns>
+        public static ClusterByokEntity ClusterByokEntity(string id = null, string related = null, string resourceName = null)
+        {
+            return new ClusterByokEntity(id, related, resourceName);
+        }
+
+        /// <summary> Initializes a new instance of ClusterStatusEntity. </summary>
+        /// <param name="phase"> The lifecycle phase of the cluster. </param>
+        /// <param name="cku"> The number of Confluent Kafka Units. </param>
+        /// <returns> A new <see cref="Models.ClusterStatusEntity"/> instance for mocking. </returns>
+        public static ClusterStatusEntity ClusterStatusEntity(string phase = null, int? cku = null)
+        {
+            return new ClusterStatusEntity(phase, cku);
+        }
+
+        /// <summary> Initializes a new instance of AccessListRoleBindingsSuccessResponse. </summary>
+        /// <param name="kind"> Type of response. </param>
+        /// <param name="metadata"> Metadata of the list. </param>
+        /// <param name="data"> Data of the environments list. </param>
+        /// <returns> A new <see cref="Models.AccessListRoleBindingsSuccessResponse"/> instance for mocking. </returns>
+        public static AccessListRoleBindingsSuccessResponse AccessListRoleBindingsSuccessResponse(string kind = null, ConfluentListMetadata metadata = null, IEnumerable<RoleBindingRecord> data = null)
+        {
+            data ??= new List<RoleBindingRecord>();
+
+            return new AccessListRoleBindingsSuccessResponse(kind, metadata, data?.ToList());
+        }
+
+        /// <summary> Initializes a new instance of RoleBindingRecord. </summary>
+        /// <param name="kind"> The type of the resource. </param>
+        /// <param name="id"> Id of the role. </param>
+        /// <param name="metadata"> Metadata of the record. </param>
+        /// <param name="principal"> The principal User or Group to bind the role to. </param>
+        /// <param name="roleName"> The name of the role to bind to the principal. </param>
+        /// <param name="crnPattern"> A CRN that specifies the scope and resource patterns necessary for the role to bind. </param>
+        /// <returns> A new <see cref="Models.RoleBindingRecord"/> instance for mocking. </returns>
+        public static RoleBindingRecord RoleBindingRecord(string kind = null, string id = null, MetadataEntity metadata = null, string principal = null, string roleName = null, string crnPattern = null)
+        {
+            return new RoleBindingRecord(kind, id, metadata, principal, roleName, crnPattern);
         }
     }
 }

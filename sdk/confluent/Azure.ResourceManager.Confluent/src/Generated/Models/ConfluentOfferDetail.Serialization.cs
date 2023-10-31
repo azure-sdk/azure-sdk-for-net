@@ -5,6 +5,7 @@
 
 #nullable disable
 
+using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
 
@@ -25,6 +26,31 @@ namespace Azure.ResourceManager.Confluent.Models
             writer.WriteStringValue(PlanName);
             writer.WritePropertyName("termUnit"u8);
             writer.WriteStringValue(TermUnit);
+            if (Optional.IsDefined(TermId))
+            {
+                writer.WritePropertyName("termId"u8);
+                writer.WriteStringValue(TermId);
+            }
+            if (Optional.IsDefined(PrivateOfferId))
+            {
+                writer.WritePropertyName("privateOfferId"u8);
+                writer.WriteStringValue(PrivateOfferId);
+            }
+            if (Optional.IsCollectionDefined(PrivateOfferIds))
+            {
+                writer.WritePropertyName("privateOfferIds"u8);
+                writer.WriteStartArray();
+                foreach (var item in PrivateOfferIds)
+                {
+                    writer.WriteStringValue(item);
+                }
+                writer.WriteEndArray();
+            }
+            if (Optional.IsDefined(Status))
+            {
+                writer.WritePropertyName("status"u8);
+                writer.WriteStringValue(Status.Value.ToString());
+            }
             writer.WriteEndObject();
         }
 
@@ -39,6 +65,9 @@ namespace Azure.ResourceManager.Confluent.Models
             string planId = default;
             string planName = default;
             string termUnit = default;
+            Optional<string> termId = default;
+            Optional<string> privateOfferId = default;
+            Optional<IList<string>> privateOfferIds = default;
             Optional<ConfluentSaaSOfferStatus> status = default;
             foreach (var property in element.EnumerateObject())
             {
@@ -67,6 +96,30 @@ namespace Azure.ResourceManager.Confluent.Models
                     termUnit = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("termId"u8))
+                {
+                    termId = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("privateOfferId"u8))
+                {
+                    privateOfferId = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("privateOfferIds"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<string> array = new List<string>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(item.GetString());
+                    }
+                    privateOfferIds = array;
+                    continue;
+                }
                 if (property.NameEquals("status"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -77,7 +130,7 @@ namespace Azure.ResourceManager.Confluent.Models
                     continue;
                 }
             }
-            return new ConfluentOfferDetail(publisherId, id, planId, planName, termUnit, Optional.ToNullable(status));
+            return new ConfluentOfferDetail(publisherId, id, planId, planName, termUnit, termId.Value, privateOfferId.Value, Optional.ToList(privateOfferIds), Optional.ToNullable(status));
         }
     }
 }

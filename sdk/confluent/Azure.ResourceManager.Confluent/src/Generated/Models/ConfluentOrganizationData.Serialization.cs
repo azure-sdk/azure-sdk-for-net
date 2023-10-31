@@ -38,6 +38,11 @@ namespace Azure.ResourceManager.Confluent
             writer.WriteObjectValue(OfferDetail);
             writer.WritePropertyName("userDetail"u8);
             writer.WriteObjectValue(UserDetail);
+            if (Optional.IsDefined(LinkOrganization))
+            {
+                writer.WritePropertyName("linkOrganization"u8);
+                writer.WriteObjectValue(LinkOrganization);
+            }
             writer.WriteEndObject();
             writer.WriteEndObject();
         }
@@ -60,6 +65,7 @@ namespace Azure.ResourceManager.Confluent
             Optional<Uri> ssoUrl = default;
             ConfluentOfferDetail offerDetail = default;
             ConfluentUserDetail userDetail = default;
+            Optional<LinkOrganization> linkOrganization = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("tags"u8))
@@ -160,11 +166,20 @@ namespace Azure.ResourceManager.Confluent
                             userDetail = ConfluentUserDetail.DeserializeConfluentUserDetail(property0.Value);
                             continue;
                         }
+                        if (property0.NameEquals("linkOrganization"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            linkOrganization = LinkOrganization.DeserializeLinkOrganization(property0.Value);
+                            continue;
+                        }
                     }
                     continue;
                 }
             }
-            return new ConfluentOrganizationData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, Optional.ToNullable(createdTime), Optional.ToNullable(provisioningState), Optional.ToNullable(organizationId), ssoUrl.Value, offerDetail, userDetail);
+            return new ConfluentOrganizationData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, Optional.ToNullable(createdTime), Optional.ToNullable(provisioningState), Optional.ToNullable(organizationId), ssoUrl.Value, offerDetail, userDetail, linkOrganization.Value);
         }
     }
 }
