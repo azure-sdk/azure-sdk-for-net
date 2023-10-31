@@ -33,7 +33,7 @@ namespace Azure.AI.ContentSafety.Samples
             Response response = client.AnalyzeText(content);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-            Console.WriteLine(result.ToString());
+            Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("category").ToString());
         }
 
         [Test]
@@ -51,7 +51,7 @@ namespace Azure.AI.ContentSafety.Samples
             Response response = await client.AnalyzeTextAsync(content);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-            Console.WriteLine(result.ToString());
+            Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("category").ToString());
         }
 
         [Test]
@@ -97,24 +97,17 @@ namespace Azure.AI.ContentSafety.Samples
             {
 "<blocklistNames>"
             },
-                breakByBlocklists = true,
+                haltOnBlocklistHit = true,
+                outputType = "FourSeverityLevels",
             });
             Response response = client.AnalyzeText(content);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-            Console.WriteLine(result.GetProperty("blocklistsMatchResults")[0].GetProperty("blocklistName").ToString());
-            Console.WriteLine(result.GetProperty("blocklistsMatchResults")[0].GetProperty("blockItemId").ToString());
-            Console.WriteLine(result.GetProperty("blocklistsMatchResults")[0].GetProperty("blockItemText").ToString());
-            Console.WriteLine(result.GetProperty("blocklistsMatchResults")[0].GetProperty("offset").ToString());
-            Console.WriteLine(result.GetProperty("blocklistsMatchResults")[0].GetProperty("length").ToString());
-            Console.WriteLine(result.GetProperty("hateResult").GetProperty("category").ToString());
-            Console.WriteLine(result.GetProperty("hateResult").GetProperty("severity").ToString());
-            Console.WriteLine(result.GetProperty("selfHarmResult").GetProperty("category").ToString());
-            Console.WriteLine(result.GetProperty("selfHarmResult").GetProperty("severity").ToString());
-            Console.WriteLine(result.GetProperty("sexualResult").GetProperty("category").ToString());
-            Console.WriteLine(result.GetProperty("sexualResult").GetProperty("severity").ToString());
-            Console.WriteLine(result.GetProperty("violenceResult").GetProperty("category").ToString());
-            Console.WriteLine(result.GetProperty("violenceResult").GetProperty("severity").ToString());
+            Console.WriteLine(result.GetProperty("blocklistsMatch")[0].GetProperty("blocklistName").ToString());
+            Console.WriteLine(result.GetProperty("blocklistsMatch")[0].GetProperty("blocklistItemId").ToString());
+            Console.WriteLine(result.GetProperty("blocklistsMatch")[0].GetProperty("blocklistItemText").ToString());
+            Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("category").ToString());
+            Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("severity").ToString());
         }
 
         [Test]
@@ -136,24 +129,17 @@ namespace Azure.AI.ContentSafety.Samples
             {
 "<blocklistNames>"
             },
-                breakByBlocklists = true,
+                haltOnBlocklistHit = true,
+                outputType = "FourSeverityLevels",
             });
             Response response = await client.AnalyzeTextAsync(content);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-            Console.WriteLine(result.GetProperty("blocklistsMatchResults")[0].GetProperty("blocklistName").ToString());
-            Console.WriteLine(result.GetProperty("blocklistsMatchResults")[0].GetProperty("blockItemId").ToString());
-            Console.WriteLine(result.GetProperty("blocklistsMatchResults")[0].GetProperty("blockItemText").ToString());
-            Console.WriteLine(result.GetProperty("blocklistsMatchResults")[0].GetProperty("offset").ToString());
-            Console.WriteLine(result.GetProperty("blocklistsMatchResults")[0].GetProperty("length").ToString());
-            Console.WriteLine(result.GetProperty("hateResult").GetProperty("category").ToString());
-            Console.WriteLine(result.GetProperty("hateResult").GetProperty("severity").ToString());
-            Console.WriteLine(result.GetProperty("selfHarmResult").GetProperty("category").ToString());
-            Console.WriteLine(result.GetProperty("selfHarmResult").GetProperty("severity").ToString());
-            Console.WriteLine(result.GetProperty("sexualResult").GetProperty("category").ToString());
-            Console.WriteLine(result.GetProperty("sexualResult").GetProperty("severity").ToString());
-            Console.WriteLine(result.GetProperty("violenceResult").GetProperty("category").ToString());
-            Console.WriteLine(result.GetProperty("violenceResult").GetProperty("severity").ToString());
+            Console.WriteLine(result.GetProperty("blocklistsMatch")[0].GetProperty("blocklistName").ToString());
+            Console.WriteLine(result.GetProperty("blocklistsMatch")[0].GetProperty("blocklistItemId").ToString());
+            Console.WriteLine(result.GetProperty("blocklistsMatch")[0].GetProperty("blocklistItemText").ToString());
+            Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("category").ToString());
+            Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("severity").ToString());
         }
 
         [Test]
@@ -168,7 +154,8 @@ namespace Azure.AI.ContentSafety.Samples
             {
                 Categories = { TextCategory.Hate },
                 BlocklistNames = { "<blocklistNames>" },
-                BreakByBlocklists = true,
+                HaltOnBlocklistHit = true,
+                OutputType = AnalyzeTextOutputType.FourSeverityLevels,
             };
             Response<AnalyzeTextResult> response = client.AnalyzeText(body);
         }
@@ -185,7 +172,8 @@ namespace Azure.AI.ContentSafety.Samples
             {
                 Categories = { TextCategory.Hate },
                 BlocklistNames = { "<blocklistNames>" },
-                BreakByBlocklists = true,
+                HaltOnBlocklistHit = true,
+                OutputType = AnalyzeTextOutputType.FourSeverityLevels,
             };
             Response<AnalyzeTextResult> response = await client.AnalyzeTextAsync(body);
         }
@@ -205,7 +193,7 @@ namespace Azure.AI.ContentSafety.Samples
             Response response = client.AnalyzeImage(content);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-            Console.WriteLine(result.ToString());
+            Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("category").ToString());
         }
 
         [Test]
@@ -223,7 +211,7 @@ namespace Azure.AI.ContentSafety.Samples
             Response response = await client.AnalyzeImageAsync(content);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-            Console.WriteLine(result.ToString());
+            Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("category").ToString());
         }
 
         [Test]
@@ -269,18 +257,13 @@ namespace Azure.AI.ContentSafety.Samples
             {
 "Hate"
             },
+                outputType = "FourSeverityLevels",
             });
             Response response = client.AnalyzeImage(content);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-            Console.WriteLine(result.GetProperty("hateResult").GetProperty("category").ToString());
-            Console.WriteLine(result.GetProperty("hateResult").GetProperty("severity").ToString());
-            Console.WriteLine(result.GetProperty("selfHarmResult").GetProperty("category").ToString());
-            Console.WriteLine(result.GetProperty("selfHarmResult").GetProperty("severity").ToString());
-            Console.WriteLine(result.GetProperty("sexualResult").GetProperty("category").ToString());
-            Console.WriteLine(result.GetProperty("sexualResult").GetProperty("severity").ToString());
-            Console.WriteLine(result.GetProperty("violenceResult").GetProperty("category").ToString());
-            Console.WriteLine(result.GetProperty("violenceResult").GetProperty("severity").ToString());
+            Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("category").ToString());
+            Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("severity").ToString());
         }
 
         [Test]
@@ -302,18 +285,13 @@ namespace Azure.AI.ContentSafety.Samples
             {
 "Hate"
             },
+                outputType = "FourSeverityLevels",
             });
             Response response = await client.AnalyzeImageAsync(content);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-            Console.WriteLine(result.GetProperty("hateResult").GetProperty("category").ToString());
-            Console.WriteLine(result.GetProperty("hateResult").GetProperty("severity").ToString());
-            Console.WriteLine(result.GetProperty("selfHarmResult").GetProperty("category").ToString());
-            Console.WriteLine(result.GetProperty("selfHarmResult").GetProperty("severity").ToString());
-            Console.WriteLine(result.GetProperty("sexualResult").GetProperty("category").ToString());
-            Console.WriteLine(result.GetProperty("sexualResult").GetProperty("severity").ToString());
-            Console.WriteLine(result.GetProperty("violenceResult").GetProperty("category").ToString());
-            Console.WriteLine(result.GetProperty("violenceResult").GetProperty("severity").ToString());
+            Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("category").ToString());
+            Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("severity").ToString());
         }
 
         [Test]
@@ -331,6 +309,7 @@ namespace Azure.AI.ContentSafety.Samples
             })
             {
                 Categories = { ImageCategory.Hate },
+                OutputType = AnalyzeImageOutputType.FourSeverityLevels,
             };
             Response<AnalyzeImageResult> response = client.AnalyzeImage(body);
         }
@@ -350,6 +329,7 @@ namespace Azure.AI.ContentSafety.Samples
             })
             {
                 Categories = { ImageCategory.Hate },
+                OutputType = AnalyzeImageOutputType.FourSeverityLevels,
             };
             Response<AnalyzeImageResult> response = await client.AnalyzeImageAsync(body);
         }
@@ -586,7 +566,7 @@ namespace Azure.AI.ContentSafety.Samples
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_AddBlockItems_ShortVersion()
+        public void Example_AddOrUpdateBlocklistItems_ShortVersion()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
@@ -594,7 +574,7 @@ namespace Azure.AI.ContentSafety.Samples
 
             using RequestContent content = RequestContent.Create(new
             {
-                blockItems = new object[]
+                blocklistItems = new object[]
             {
 new
 {
@@ -602,15 +582,16 @@ text = "<text>",
 }
             },
             });
-            Response response = client.AddBlockItems("<blocklistName>", content);
+            Response response = client.AddOrUpdateBlocklistItems("<blocklistName>", content);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-            Console.WriteLine(result.ToString());
+            Console.WriteLine(result.GetProperty("blocklistItems")[0].GetProperty("blocklistItemId").ToString());
+            Console.WriteLine(result.GetProperty("blocklistItems")[0].GetProperty("text").ToString());
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_AddBlockItems_ShortVersion_Async()
+        public async Task Example_AddOrUpdateBlocklistItems_ShortVersion_Async()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
@@ -618,7 +599,7 @@ text = "<text>",
 
             using RequestContent content = RequestContent.Create(new
             {
-                blockItems = new object[]
+                blocklistItems = new object[]
             {
 new
 {
@@ -626,45 +607,46 @@ text = "<text>",
 }
             },
             });
-            Response response = await client.AddBlockItemsAsync("<blocklistName>", content);
+            Response response = await client.AddOrUpdateBlocklistItemsAsync("<blocklistName>", content);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-            Console.WriteLine(result.ToString());
+            Console.WriteLine(result.GetProperty("blocklistItems")[0].GetProperty("blocklistItemId").ToString());
+            Console.WriteLine(result.GetProperty("blocklistItems")[0].GetProperty("text").ToString());
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_AddBlockItems_ShortVersion_Convenience()
+        public void Example_AddOrUpdateBlocklistItems_ShortVersion_Convenience()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
 
-            AddBlockItemsOptions addBlockItemsOptions = new AddBlockItemsOptions(new TextBlockItemInfo[]
+            AddOrUpdateTextBlocklistItemsOptions addOrUpdateTextBlocklistItemsOptions = new AddOrUpdateTextBlocklistItemsOptions(new TextBlocklistItem[]
             {
-new TextBlockItemInfo("<text>")
+new TextBlocklistItem("<text>")
             });
-            Response<AddBlockItemsResult> response = client.AddBlockItems("<blocklistName>", addBlockItemsOptions);
+            Response<AddOrUpdateTextBlocklistItemsResult> response = client.AddOrUpdateBlocklistItems("<blocklistName>", addOrUpdateTextBlocklistItemsOptions);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_AddBlockItems_ShortVersion_Convenience_Async()
+        public async Task Example_AddOrUpdateBlocklistItems_ShortVersion_Convenience_Async()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
 
-            AddBlockItemsOptions addBlockItemsOptions = new AddBlockItemsOptions(new TextBlockItemInfo[]
+            AddOrUpdateTextBlocklistItemsOptions addOrUpdateTextBlocklistItemsOptions = new AddOrUpdateTextBlocklistItemsOptions(new TextBlocklistItem[]
             {
-new TextBlockItemInfo("<text>")
+new TextBlocklistItem("<text>")
             });
-            Response<AddBlockItemsResult> response = await client.AddBlockItemsAsync("<blocklistName>", addBlockItemsOptions);
+            Response<AddOrUpdateTextBlocklistItemsResult> response = await client.AddOrUpdateBlocklistItemsAsync("<blocklistName>", addOrUpdateTextBlocklistItemsOptions);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_AddBlockItems_AllParameters()
+        public void Example_AddOrUpdateBlocklistItems_AllParameters()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
@@ -672,34 +654,7 @@ new TextBlockItemInfo("<text>")
 
             using RequestContent content = RequestContent.Create(new
             {
-                blockItems = new object[]
-            {
-new
-{
-description = "<description>",
-text = "<text>",
-}
-            },
-            });
-            Response response = client.AddBlockItems("<blocklistName>", content);
-
-            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-            Console.WriteLine(result.GetProperty("value")[0].GetProperty("blockItemId").ToString());
-            Console.WriteLine(result.GetProperty("value")[0].GetProperty("description").ToString());
-            Console.WriteLine(result.GetProperty("value")[0].GetProperty("text").ToString());
-        }
-
-        [Test]
-        [Ignore("Only validating compilation of examples")]
-        public async Task Example_AddBlockItems_AllParameters_Async()
-        {
-            Uri endpoint = new Uri("<https://my-service.azure.com>");
-            AzureKeyCredential credential = new AzureKeyCredential("<key>");
-            ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
-
-            using RequestContent content = RequestContent.Create(new
-            {
-                blockItems = new object[]
+                blocklistItems = new object[]
             {
 new
 {
@@ -708,53 +663,80 @@ text = "<text>",
 }
             },
             });
-            Response response = await client.AddBlockItemsAsync("<blocklistName>", content);
+            Response response = client.AddOrUpdateBlocklistItems("<blocklistName>", content);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-            Console.WriteLine(result.GetProperty("value")[0].GetProperty("blockItemId").ToString());
-            Console.WriteLine(result.GetProperty("value")[0].GetProperty("description").ToString());
-            Console.WriteLine(result.GetProperty("value")[0].GetProperty("text").ToString());
+            Console.WriteLine(result.GetProperty("blocklistItems")[0].GetProperty("blocklistItemId").ToString());
+            Console.WriteLine(result.GetProperty("blocklistItems")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("blocklistItems")[0].GetProperty("text").ToString());
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_AddBlockItems_AllParameters_Convenience()
+        public async Task Example_AddOrUpdateBlocklistItems_AllParameters_Async()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
 
-            AddBlockItemsOptions addBlockItemsOptions = new AddBlockItemsOptions(new TextBlockItemInfo[]
+            using RequestContent content = RequestContent.Create(new
             {
-new TextBlockItemInfo("<text>")
+                blocklistItems = new object[]
+            {
+new
+{
+description = "<description>",
+text = "<text>",
+}
+            },
+            });
+            Response response = await client.AddOrUpdateBlocklistItemsAsync("<blocklistName>", content);
+
+            JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+            Console.WriteLine(result.GetProperty("blocklistItems")[0].GetProperty("blocklistItemId").ToString());
+            Console.WriteLine(result.GetProperty("blocklistItems")[0].GetProperty("description").ToString());
+            Console.WriteLine(result.GetProperty("blocklistItems")[0].GetProperty("text").ToString());
+        }
+
+        [Test]
+        [Ignore("Only validating compilation of examples")]
+        public void Example_AddOrUpdateBlocklistItems_AllParameters_Convenience()
+        {
+            Uri endpoint = new Uri("<https://my-service.azure.com>");
+            AzureKeyCredential credential = new AzureKeyCredential("<key>");
+            ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
+
+            AddOrUpdateTextBlocklistItemsOptions addOrUpdateTextBlocklistItemsOptions = new AddOrUpdateTextBlocklistItemsOptions(new TextBlocklistItem[]
+            {
+new TextBlocklistItem("<text>")
 {
 Description = "<description>",
 }
             });
-            Response<AddBlockItemsResult> response = client.AddBlockItems("<blocklistName>", addBlockItemsOptions);
+            Response<AddOrUpdateTextBlocklistItemsResult> response = client.AddOrUpdateBlocklistItems("<blocklistName>", addOrUpdateTextBlocklistItemsOptions);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_AddBlockItems_AllParameters_Convenience_Async()
+        public async Task Example_AddOrUpdateBlocklistItems_AllParameters_Convenience_Async()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
 
-            AddBlockItemsOptions addBlockItemsOptions = new AddBlockItemsOptions(new TextBlockItemInfo[]
+            AddOrUpdateTextBlocklistItemsOptions addOrUpdateTextBlocklistItemsOptions = new AddOrUpdateTextBlocklistItemsOptions(new TextBlocklistItem[]
             {
-new TextBlockItemInfo("<text>")
+new TextBlocklistItem("<text>")
 {
 Description = "<description>",
 }
             });
-            Response<AddBlockItemsResult> response = await client.AddBlockItemsAsync("<blocklistName>", addBlockItemsOptions);
+            Response<AddOrUpdateTextBlocklistItemsResult> response = await client.AddOrUpdateBlocklistItemsAsync("<blocklistName>", addOrUpdateTextBlocklistItemsOptions);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_RemoveBlockItems_ShortVersion()
+        public void Example_RemoveBlocklistItems_ShortVersion()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
@@ -762,19 +744,19 @@ Description = "<description>",
 
             using RequestContent content = RequestContent.Create(new
             {
-                blockItemIds = new object[]
+                blocklistItemIds = new object[]
             {
-"<blockItemIds>"
+"<blocklistItemIds>"
             },
             });
-            Response response = client.RemoveBlockItems("<blocklistName>", content);
+            Response response = client.RemoveBlocklistItems("<blocklistName>", content);
 
             Console.WriteLine(response.Status);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_RemoveBlockItems_ShortVersion_Async()
+        public async Task Example_RemoveBlocklistItems_ShortVersion_Async()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
@@ -782,43 +764,43 @@ Description = "<description>",
 
             using RequestContent content = RequestContent.Create(new
             {
-                blockItemIds = new object[]
+                blocklistItemIds = new object[]
             {
-"<blockItemIds>"
+"<blocklistItemIds>"
             },
             });
-            Response response = await client.RemoveBlockItemsAsync("<blocklistName>", content);
+            Response response = await client.RemoveBlocklistItemsAsync("<blocklistName>", content);
 
             Console.WriteLine(response.Status);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_RemoveBlockItems_ShortVersion_Convenience()
+        public void Example_RemoveBlocklistItems_ShortVersion_Convenience()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
 
-            RemoveBlockItemsOptions removeBlockItemsOptions = new RemoveBlockItemsOptions(new string[] { "<blockItemIds>" });
-            Response response = client.RemoveBlockItems("<blocklistName>", removeBlockItemsOptions);
+            RemoveTextBlocklistItemsOptions removeTextBlocklistItemsOptions = new RemoveTextBlocklistItemsOptions(new string[] { "<blocklistItemIds>" });
+            Response response = client.RemoveBlocklistItems("<blocklistName>", removeTextBlocklistItemsOptions);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_RemoveBlockItems_ShortVersion_Convenience_Async()
+        public async Task Example_RemoveBlocklistItems_ShortVersion_Convenience_Async()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
 
-            RemoveBlockItemsOptions removeBlockItemsOptions = new RemoveBlockItemsOptions(new string[] { "<blockItemIds>" });
-            Response response = await client.RemoveBlockItemsAsync("<blocklistName>", removeBlockItemsOptions);
+            RemoveTextBlocklistItemsOptions removeTextBlocklistItemsOptions = new RemoveTextBlocklistItemsOptions(new string[] { "<blocklistItemIds>" });
+            Response response = await client.RemoveBlocklistItemsAsync("<blocklistName>", removeTextBlocklistItemsOptions);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_RemoveBlockItems_AllParameters()
+        public void Example_RemoveBlocklistItems_AllParameters()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
@@ -826,19 +808,19 @@ Description = "<description>",
 
             using RequestContent content = RequestContent.Create(new
             {
-                blockItemIds = new object[]
+                blocklistItemIds = new object[]
             {
-"<blockItemIds>"
+"<blocklistItemIds>"
             },
             });
-            Response response = client.RemoveBlockItems("<blocklistName>", content);
+            Response response = client.RemoveBlocklistItems("<blocklistName>", content);
 
             Console.WriteLine(response.Status);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_RemoveBlockItems_AllParameters_Async()
+        public async Task Example_RemoveBlocklistItems_AllParameters_Async()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
@@ -846,38 +828,38 @@ Description = "<description>",
 
             using RequestContent content = RequestContent.Create(new
             {
-                blockItemIds = new object[]
+                blocklistItemIds = new object[]
             {
-"<blockItemIds>"
+"<blocklistItemIds>"
             },
             });
-            Response response = await client.RemoveBlockItemsAsync("<blocklistName>", content);
+            Response response = await client.RemoveBlocklistItemsAsync("<blocklistName>", content);
 
             Console.WriteLine(response.Status);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public void Example_RemoveBlockItems_AllParameters_Convenience()
+        public void Example_RemoveBlocklistItems_AllParameters_Convenience()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
 
-            RemoveBlockItemsOptions removeBlockItemsOptions = new RemoveBlockItemsOptions(new string[] { "<blockItemIds>" });
-            Response response = client.RemoveBlockItems("<blocklistName>", removeBlockItemsOptions);
+            RemoveTextBlocklistItemsOptions removeTextBlocklistItemsOptions = new RemoveTextBlocklistItemsOptions(new string[] { "<blocklistItemIds>" });
+            Response response = client.RemoveBlocklistItems("<blocklistName>", removeTextBlocklistItemsOptions);
         }
 
         [Test]
         [Ignore("Only validating compilation of examples")]
-        public async Task Example_RemoveBlockItems_AllParameters_Convenience_Async()
+        public async Task Example_RemoveBlocklistItems_AllParameters_Convenience_Async()
         {
             Uri endpoint = new Uri("<https://my-service.azure.com>");
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
 
-            RemoveBlockItemsOptions removeBlockItemsOptions = new RemoveBlockItemsOptions(new string[] { "<blockItemIds>" });
-            Response response = await client.RemoveBlockItemsAsync("<blocklistName>", removeBlockItemsOptions);
+            RemoveTextBlocklistItemsOptions removeTextBlocklistItemsOptions = new RemoveTextBlocklistItemsOptions(new string[] { "<blocklistItemIds>" });
+            Response response = await client.RemoveBlocklistItemsAsync("<blocklistName>", removeTextBlocklistItemsOptions);
         }
 
         [Test]
@@ -888,10 +870,10 @@ Description = "<description>",
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
 
-            Response response = client.GetTextBlocklistItem("<blocklistName>", "<blockItemId>", null);
+            Response response = client.GetTextBlocklistItem("<blocklistName>", "<blocklistItemId>", null);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-            Console.WriteLine(result.GetProperty("blockItemId").ToString());
+            Console.WriteLine(result.GetProperty("blocklistItemId").ToString());
             Console.WriteLine(result.GetProperty("text").ToString());
         }
 
@@ -903,10 +885,10 @@ Description = "<description>",
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
 
-            Response response = await client.GetTextBlocklistItemAsync("<blocklistName>", "<blockItemId>", null);
+            Response response = await client.GetTextBlocklistItemAsync("<blocklistName>", "<blocklistItemId>", null);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-            Console.WriteLine(result.GetProperty("blockItemId").ToString());
+            Console.WriteLine(result.GetProperty("blocklistItemId").ToString());
             Console.WriteLine(result.GetProperty("text").ToString());
         }
 
@@ -918,7 +900,7 @@ Description = "<description>",
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
 
-            Response<TextBlockItem> response = client.GetTextBlocklistItem("<blocklistName>", "<blockItemId>");
+            Response<TextBlocklistItem> response = client.GetTextBlocklistItem("<blocklistName>", "<blocklistItemId>");
         }
 
         [Test]
@@ -929,7 +911,7 @@ Description = "<description>",
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
 
-            Response<TextBlockItem> response = await client.GetTextBlocklistItemAsync("<blocklistName>", "<blockItemId>");
+            Response<TextBlocklistItem> response = await client.GetTextBlocklistItemAsync("<blocklistName>", "<blocklistItemId>");
         }
 
         [Test]
@@ -940,10 +922,10 @@ Description = "<description>",
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
 
-            Response response = client.GetTextBlocklistItem("<blocklistName>", "<blockItemId>", null);
+            Response response = client.GetTextBlocklistItem("<blocklistName>", "<blocklistItemId>", null);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-            Console.WriteLine(result.GetProperty("blockItemId").ToString());
+            Console.WriteLine(result.GetProperty("blocklistItemId").ToString());
             Console.WriteLine(result.GetProperty("description").ToString());
             Console.WriteLine(result.GetProperty("text").ToString());
         }
@@ -956,10 +938,10 @@ Description = "<description>",
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
 
-            Response response = await client.GetTextBlocklistItemAsync("<blocklistName>", "<blockItemId>", null);
+            Response response = await client.GetTextBlocklistItemAsync("<blocklistName>", "<blocklistItemId>", null);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-            Console.WriteLine(result.GetProperty("blockItemId").ToString());
+            Console.WriteLine(result.GetProperty("blocklistItemId").ToString());
             Console.WriteLine(result.GetProperty("description").ToString());
             Console.WriteLine(result.GetProperty("text").ToString());
         }
@@ -972,7 +954,7 @@ Description = "<description>",
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
 
-            Response<TextBlockItem> response = client.GetTextBlocklistItem("<blocklistName>", "<blockItemId>");
+            Response<TextBlocklistItem> response = client.GetTextBlocklistItem("<blocklistName>", "<blocklistItemId>");
         }
 
         [Test]
@@ -983,7 +965,7 @@ Description = "<description>",
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
 
-            Response<TextBlockItem> response = await client.GetTextBlocklistItemAsync("<blocklistName>", "<blockItemId>");
+            Response<TextBlocklistItem> response = await client.GetTextBlocklistItemAsync("<blocklistName>", "<blocklistItemId>");
         }
 
         [Test]
@@ -1111,7 +1093,7 @@ Description = "<description>",
             foreach (BinaryData item in client.GetTextBlocklistItems("<blocklistName>", null, null, null, null))
             {
                 JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
-                Console.WriteLine(result.GetProperty("blockItemId").ToString());
+                Console.WriteLine(result.GetProperty("blocklistItemId").ToString());
                 Console.WriteLine(result.GetProperty("text").ToString());
             }
         }
@@ -1127,7 +1109,7 @@ Description = "<description>",
             await foreach (BinaryData item in client.GetTextBlocklistItemsAsync("<blocklistName>", null, null, null, null))
             {
                 JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
-                Console.WriteLine(result.GetProperty("blockItemId").ToString());
+                Console.WriteLine(result.GetProperty("blocklistItemId").ToString());
                 Console.WriteLine(result.GetProperty("text").ToString());
             }
         }
@@ -1140,7 +1122,7 @@ Description = "<description>",
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
 
-            foreach (TextBlockItem item in client.GetTextBlocklistItems("<blocklistName>"))
+            foreach (TextBlocklistItem item in client.GetTextBlocklistItems("<blocklistName>"))
             {
             }
         }
@@ -1153,7 +1135,7 @@ Description = "<description>",
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
 
-            await foreach (TextBlockItem item in client.GetTextBlocklistItemsAsync("<blocklistName>"))
+            await foreach (TextBlocklistItem item in client.GetTextBlocklistItemsAsync("<blocklistName>"))
             {
             }
         }
@@ -1169,7 +1151,7 @@ Description = "<description>",
             foreach (BinaryData item in client.GetTextBlocklistItems("<blocklistName>", 1234, 1234, 1234, null))
             {
                 JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
-                Console.WriteLine(result.GetProperty("blockItemId").ToString());
+                Console.WriteLine(result.GetProperty("blocklistItemId").ToString());
                 Console.WriteLine(result.GetProperty("description").ToString());
                 Console.WriteLine(result.GetProperty("text").ToString());
             }
@@ -1186,7 +1168,7 @@ Description = "<description>",
             await foreach (BinaryData item in client.GetTextBlocklistItemsAsync("<blocklistName>", 1234, 1234, 1234, null))
             {
                 JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
-                Console.WriteLine(result.GetProperty("blockItemId").ToString());
+                Console.WriteLine(result.GetProperty("blocklistItemId").ToString());
                 Console.WriteLine(result.GetProperty("description").ToString());
                 Console.WriteLine(result.GetProperty("text").ToString());
             }
@@ -1200,7 +1182,7 @@ Description = "<description>",
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
 
-            foreach (TextBlockItem item in client.GetTextBlocklistItems("<blocklistName>", maxCount: 1234, skip: 1234, maxpagesize: 1234))
+            foreach (TextBlocklistItem item in client.GetTextBlocklistItems("<blocklistName>", maxCount: 1234, skip: 1234, maxpagesize: 1234))
             {
             }
         }
@@ -1213,7 +1195,7 @@ Description = "<description>",
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             ContentSafetyClient client = new ContentSafetyClient(endpoint, credential);
 
-            await foreach (TextBlockItem item in client.GetTextBlocklistItemsAsync("<blocklistName>", maxCount: 1234, skip: 1234, maxpagesize: 1234))
+            await foreach (TextBlocklistItem item in client.GetTextBlocklistItemsAsync("<blocklistName>", maxCount: 1234, skip: 1234, maxpagesize: 1234))
             {
             }
         }
