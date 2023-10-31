@@ -45,12 +45,12 @@ namespace Azure.Search.Documents.Indexes.Models
                 writer.WritePropertyName("maskingMode"u8);
                 writer.WriteStringValue(MaskingMode.Value.ToString());
             }
-            if (Optional.IsDefined(MaskingCharacter))
+            if (Optional.IsDefined(Mask))
             {
-                if (MaskingCharacter != null)
+                if (Mask != null)
                 {
                     writer.WritePropertyName("maskingCharacter"u8);
-                    writer.WriteStringValue(MaskingCharacter);
+                    writer.WriteStringValue(Mask);
                 }
                 else
                 {
