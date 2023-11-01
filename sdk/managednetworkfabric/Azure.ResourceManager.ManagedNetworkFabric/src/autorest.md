@@ -7,7 +7,7 @@ azure-arm: true
 csharp: true
 library-name: Azure.ResourceManager.ManagedNetworkFabric
 namespace: Azure.ResourceManager.ManagedNetworkFabric
-require: https://github.com/Azure/azure-rest-api-specs/blob/0baf811c3c76c87b3c127d098519bd97141222dd/specification/managednetworkfabric/resource-manager/readme.md
+require: https://github.com/Azure/azure-rest-api-specs/blob/fbb9cef29fe948636ef8a08560361b3a7e36ef30/specification/managednetworkfabric/resource-manager/readme.md
 #tag: package-2023-06-15
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
