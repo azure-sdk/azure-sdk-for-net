@@ -17,17 +17,20 @@ namespace Azure.ResourceManager.SignalR.Models
         public SignalRNetworkAcls()
         {
             PrivateEndpoints = new ChangeTrackingList<SignalRPrivateEndpointAcl>();
+            IPRules = new ChangeTrackingList<IPRule>();
         }
 
         /// <summary> Initializes a new instance of SignalRNetworkAcls. </summary>
         /// <param name="defaultAction"> Azure Networking ACL Action. </param>
         /// <param name="publicNetwork"> Network ACL. </param>
         /// <param name="privateEndpoints"> ACLs for requests from private endpoints. </param>
-        internal SignalRNetworkAcls(SignalRNetworkAclAction? defaultAction, SignalRNetworkAcl publicNetwork, IList<SignalRPrivateEndpointAcl> privateEndpoints)
+        /// <param name="ipRules"> IP rules for filtering public traffic. </param>
+        internal SignalRNetworkAcls(SignalRNetworkAclAction? defaultAction, SignalRNetworkAcl publicNetwork, IList<SignalRPrivateEndpointAcl> privateEndpoints, IList<IPRule> ipRules)
         {
             DefaultAction = defaultAction;
             PublicNetwork = publicNetwork;
             PrivateEndpoints = privateEndpoints;
+            IPRules = ipRules;
         }
 
         /// <summary> Azure Networking ACL Action. </summary>
@@ -36,5 +39,7 @@ namespace Azure.ResourceManager.SignalR.Models
         public SignalRNetworkAcl PublicNetwork { get; set; }
         /// <summary> ACLs for requests from private endpoints. </summary>
         public IList<SignalRPrivateEndpointAcl> PrivateEndpoints { get; }
+        /// <summary> IP rules for filtering public traffic. </summary>
+        public IList<IPRule> IPRules { get; }
     }
 }
