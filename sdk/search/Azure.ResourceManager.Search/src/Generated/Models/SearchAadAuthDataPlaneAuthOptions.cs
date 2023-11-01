@@ -9,7 +9,7 @@ using System;
 
 namespace Azure.ResourceManager.Search.Models
 {
-    /// <summary> Defines the options for how the data plane API of a Search service authenticates requests. This cannot be set if 'disableLocalAuth' is set to true. </summary>
+    /// <summary> Defines the options for how the search service authenticates a data plane request. This cannot be set if 'disableLocalAuth' is set to true. </summary>
     public partial class SearchAadAuthDataPlaneAuthOptions
     {
         /// <summary> Initializes a new instance of SearchAadAuthDataPlaneAuthOptions. </summary>
@@ -18,8 +18,8 @@ namespace Azure.ResourceManager.Search.Models
         }
 
         /// <summary> Initializes a new instance of SearchAadAuthDataPlaneAuthOptions. </summary>
-        /// <param name="apiKeyOnly"> Indicates that only the API key needs to be used for authentication. </param>
-        /// <param name="aadOrApiKey"> Indicates that either the API key or an access token from Azure Active Directory can be used for authentication. </param>
+        /// <param name="apiKeyOnly"> Indicates that only the API key can be used for authentication. </param>
+        /// <param name="aadOrApiKey"> Indicates that either the API key or an access token from a Microsoft Entra ID tenant can be used for authentication. </param>
         internal SearchAadAuthDataPlaneAuthOptions(BinaryData apiKeyOnly, DataPlaneAadOrApiKeyAuthOption aadOrApiKey)
         {
             ApiKeyOnly = apiKeyOnly;
@@ -27,7 +27,7 @@ namespace Azure.ResourceManager.Search.Models
         }
 
         /// <summary>
-        /// Indicates that only the API key needs to be used for authentication.
+        /// Indicates that only the API key can be used for authentication.
         /// <para>
         /// To assign an object to this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
         /// </para>
@@ -57,9 +57,9 @@ namespace Azure.ResourceManager.Search.Models
         /// </para>
         /// </summary>
         public BinaryData ApiKeyOnly { get; set; }
-        /// <summary> Indicates that either the API key or an access token from Azure Active Directory can be used for authentication. </summary>
+        /// <summary> Indicates that either the API key or an access token from a Microsoft Entra ID tenant can be used for authentication. </summary>
         internal DataPlaneAadOrApiKeyAuthOption AadOrApiKey { get; set; }
-        /// <summary> Describes what response the data plane API of a Search service would send for requests that failed authentication. </summary>
+        /// <summary> Describes what response the data plane API of a search service would send for requests that failed authentication. </summary>
         public SearchAadAuthFailureMode? AadAuthFailureMode
         {
             get => AadOrApiKey is null ? default : AadOrApiKey.AadAuthFailureMode;
