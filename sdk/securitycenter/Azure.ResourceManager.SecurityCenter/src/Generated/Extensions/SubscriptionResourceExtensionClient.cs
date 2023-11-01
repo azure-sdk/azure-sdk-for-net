@@ -193,13 +193,6 @@ namespace Azure.ResourceManager.SecurityCenter
             return GetCachedClient(Client => new SecuritySettingCollection(Client, Id));
         }
 
-        /// <summary> Gets a collection of IngestionSettingResources in the SubscriptionResource. </summary>
-        /// <returns> An object representing collection of IngestionSettingResources and their operations over a IngestionSettingResource. </returns>
-        public virtual IngestionSettingCollection GetIngestionSettings()
-        {
-            return GetCachedClient(Client => new IngestionSettingCollection(Client, Id));
-        }
-
         /// <summary> Gets a collection of SubscriptionSecurityApplicationResources in the SubscriptionResource. </summary>
         /// <returns> An object representing collection of SubscriptionSecurityApplicationResources and their operations over a SubscriptionSecurityApplicationResource. </returns>
         public virtual SubscriptionSecurityApplicationCollection GetSubscriptionSecurityApplications()
