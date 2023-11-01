@@ -63,6 +63,11 @@ namespace Azure.ResourceManager.Maps.Models
                 writer.WritePropertyName("cors"u8);
                 writer.WriteObjectValue(Cors);
             }
+            if (Optional.IsDefined(Encryption))
+            {
+                writer.WritePropertyName("encryption"u8);
+                writer.WriteObjectValue(Encryption);
+            }
             writer.WriteEndObject();
             writer.WriteEndObject();
         }

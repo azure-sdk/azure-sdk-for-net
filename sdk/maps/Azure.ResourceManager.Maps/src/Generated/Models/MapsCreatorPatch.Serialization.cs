@@ -33,6 +33,16 @@ namespace Azure.ResourceManager.Maps.Models
                 writer.WritePropertyName("storageUnits"u8);
                 writer.WriteNumberValue(StorageUnits.Value);
             }
+            if (Optional.IsDefined(TotalStorageUnitSizeInBytes))
+            {
+                writer.WritePropertyName("totalStorageUnitSizeInBytes"u8);
+                writer.WriteNumberValue(TotalStorageUnitSizeInBytes.Value);
+            }
+            if (Optional.IsDefined(ConsumedStorageUnitSizeInBytes))
+            {
+                writer.WritePropertyName("consumedStorageUnitSizeInBytes"u8);
+                writer.WriteNumberValue(ConsumedStorageUnitSizeInBytes.Value);
+            }
             writer.WriteEndObject();
             writer.WriteEndObject();
         }
