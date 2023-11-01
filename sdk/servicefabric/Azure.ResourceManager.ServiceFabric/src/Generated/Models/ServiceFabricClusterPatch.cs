@@ -38,7 +38,7 @@ namespace Azure.ResourceManager.ServiceFabric.Models
         public IList<ClusterClientCertificateCommonName> ClientCertificateCommonNames { get; }
         /// <summary> The list of client certificates referenced by thumbprint that are allowed to manage the cluster. This will overwrite the existing list. </summary>
         public IList<ClusterClientCertificateThumbprint> ClientCertificateThumbprints { get; }
-        /// <summary> The Service Fabric runtime version of the cluster. This property can only by set the user when **upgradeMode** is set to 'Manual'. To get list of available Service Fabric versions for new clusters use [ClusterVersion API](./ClusterVersion.md). To get the list of available version for existing clusters use **availableClusterVersions**. </summary>
+        /// <summary> The Service Fabric runtime version of the cluster. This property can only by set the user when **upgradeMode** is set to 'Manual'. To get list of available Service Fabric versions for new clusters use [ClusterVersion API](https://learn.microsoft.com/rest/api/servicefabric/cluster-versions/list). To get the list of available version for existing clusters use **availableClusterVersions**. </summary>
         public string ClusterCodeVersion { get; set; }
         /// <summary> Indicates if the event store service is enabled. </summary>
         public bool? IsEventStoreServiceEnabled { get; set; }
