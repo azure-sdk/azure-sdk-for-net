@@ -3937,6 +3937,7 @@
    "$id": "480",
    "Name": "ListClassificationPoliciesQueryParams",
    "Namespace": "AzureCommunicationRoutingService",
+   "Description": "List classification policies query parameters",
    "IsNullable": false,
    "Usage": "None",
    "Properties": []
@@ -3945,6 +3946,7 @@
    "$id": "481",
    "Name": "ListDistributionPoliciesQueryParams",
    "Namespace": "AzureCommunicationRoutingService",
+   "Description": "List distribution policies query parameters",
    "IsNullable": false,
    "Usage": "None",
    "Properties": []
@@ -3953,6 +3955,7 @@
    "$id": "482",
    "Name": "ListExceptionPoliciesQueryParams",
    "Namespace": "AzureCommunicationRoutingService",
+   "Description": "List exception policies query parameters",
    "IsNullable": false,
    "Usage": "None",
    "Properties": []
@@ -3961,6 +3964,7 @@
    "$id": "483",
    "Name": "ListQueuesQueryParams",
    "Namespace": "AzureCommunicationRoutingService",
+   "Description": "List queues query parameters",
    "IsNullable": false,
    "Usage": "None",
    "Properties": []
@@ -4005,6 +4009,7 @@
    "$id": "488",
    "Name": "ListJobQueryParams",
    "Namespace": "AzureCommunicationRoutingService",
+   "Description": "List jobs query parameters",
    "IsNullable": false,
    "Usage": "None",
    "Properties": []
@@ -4022,6 +4027,7 @@
    "$id": "490",
    "Name": "ListWorkerQueryParams",
    "Namespace": "AzureCommunicationRoutingService",
+   "Description": "List workers query parameters",
    "IsNullable": false,
    "Usage": "None",
    "Properties": []
@@ -4314,7 +4320,7 @@
      "HttpMethod": "PATCH",
      "RequestBodyMediaType": "Json",
      "Uri": "{endpoint}",
-     "Path": "/routing/distributionPolicies/{distributionPolicyId}",
+     "Path": "/distributionPolicies/{distributionPolicyId}",
      "RequestMediaTypes": [
       "application/merge-patch+json"
      ],
@@ -4426,7 +4432,7 @@
      "HttpMethod": "GET",
      "RequestBodyMediaType": "None",
      "Uri": "{endpoint}",
-     "Path": "/routing/distributionPolicies/{distributionPolicyId}",
+     "Path": "/distributionPolicies/{distributionPolicyId}",
      "BufferResponse": true,
      "GenerateProtocolMethod": true,
      "GenerateConvenienceMethod": true
@@ -4510,7 +4516,7 @@
      "HttpMethod": "GET",
      "RequestBodyMediaType": "None",
      "Uri": "{endpoint}",
-     "Path": "/routing/distributionPolicies",
+     "Path": "/distributionPolicies",
      "BufferResponse": true,
      "Paging": {
       "$id": "541",
@@ -4596,7 +4602,7 @@
      "HttpMethod": "DELETE",
      "RequestBodyMediaType": "None",
      "Uri": "{endpoint}",
-     "Path": "/routing/distributionPolicies/{distributionPolicyId}",
+     "Path": "/distributionPolicies/{distributionPolicyId}",
      "BufferResponse": true,
      "GenerateProtocolMethod": true,
      "GenerateConvenienceMethod": true
@@ -4837,7 +4843,7 @@
      "HttpMethod": "PATCH",
      "RequestBodyMediaType": "Json",
      "Uri": "{endpoint}",
-     "Path": "/routing/classificationPolicies/{classificationPolicyId}",
+     "Path": "/classificationPolicies/{classificationPolicyId}",
      "RequestMediaTypes": [
       "application/merge-patch+json"
      ],
@@ -4949,7 +4955,7 @@
      "HttpMethod": "GET",
      "RequestBodyMediaType": "None",
      "Uri": "{endpoint}",
-     "Path": "/routing/classificationPolicies/{classificationPolicyId}",
+     "Path": "/classificationPolicies/{classificationPolicyId}",
      "BufferResponse": true,
      "GenerateProtocolMethod": true,
      "GenerateConvenienceMethod": true
@@ -5033,7 +5039,7 @@
      "HttpMethod": "GET",
      "RequestBodyMediaType": "None",
      "Uri": "{endpoint}",
-     "Path": "/routing/classificationPolicies",
+     "Path": "/classificationPolicies",
      "BufferResponse": true,
      "Paging": {
       "$id": "592",
@@ -5119,7 +5125,7 @@
      "HttpMethod": "DELETE",
      "RequestBodyMediaType": "None",
      "Uri": "{endpoint}",
-     "Path": "/routing/classificationPolicies/{classificationPolicyId}",
+     "Path": "/classificationPolicies/{classificationPolicyId}",
      "BufferResponse": true,
      "GenerateProtocolMethod": true,
      "GenerateConvenienceMethod": true
@@ -5360,7 +5366,7 @@
      "HttpMethod": "PATCH",
      "RequestBodyMediaType": "Json",
      "Uri": "{endpoint}",
-     "Path": "/routing/exceptionPolicies/{exceptionPolicyId}",
+     "Path": "/exceptionPolicies/{exceptionPolicyId}",
      "RequestMediaTypes": [
       "application/merge-patch+json"
      ],
@@ -5472,7 +5478,7 @@
      "HttpMethod": "GET",
      "RequestBodyMediaType": "None",
      "Uri": "{endpoint}",
-     "Path": "/routing/exceptionPolicies/{exceptionPolicyId}",
+     "Path": "/exceptionPolicies/{exceptionPolicyId}",
      "BufferResponse": true,
      "GenerateProtocolMethod": true,
      "GenerateConvenienceMethod": true
@@ -5556,7 +5562,7 @@
      "HttpMethod": "GET",
      "RequestBodyMediaType": "None",
      "Uri": "{endpoint}",
-     "Path": "/routing/exceptionPolicies",
+     "Path": "/exceptionPolicies",
      "BufferResponse": true,
      "Paging": {
       "$id": "643",
@@ -5642,7 +5648,7 @@
      "HttpMethod": "DELETE",
      "RequestBodyMediaType": "None",
      "Uri": "{endpoint}",
-     "Path": "/routing/exceptionPolicies/{exceptionPolicyId}",
+     "Path": "/exceptionPolicies/{exceptionPolicyId}",
      "BufferResponse": true,
      "GenerateProtocolMethod": true,
      "GenerateConvenienceMethod": true
@@ -5883,7 +5889,7 @@
      "HttpMethod": "PATCH",
      "RequestBodyMediaType": "Json",
      "Uri": "{endpoint}",
-     "Path": "/routing/queues/{queueId}",
+     "Path": "/queues/{queueId}",
      "RequestMediaTypes": [
       "application/merge-patch+json"
      ],
@@ -5995,7 +6001,7 @@
      "HttpMethod": "GET",
      "RequestBodyMediaType": "None",
      "Uri": "{endpoint}",
-     "Path": "/routing/queues/{queueId}",
+     "Path": "/queues/{queueId}",
      "BufferResponse": true,
      "GenerateProtocolMethod": true,
      "GenerateConvenienceMethod": true
@@ -6079,7 +6085,7 @@
      "HttpMethod": "GET",
      "RequestBodyMediaType": "None",
      "Uri": "{endpoint}",
-     "Path": "/routing/queues",
+     "Path": "/queues",
      "BufferResponse": true,
      "Paging": {
       "$id": "694",
@@ -6165,7 +6171,7 @@
      "HttpMethod": "DELETE",
      "RequestBodyMediaType": "None",
      "Uri": "{endpoint}",
-     "Path": "/routing/queues/{queueId}",
+     "Path": "/queues/{queueId}",
      "BufferResponse": true,
      "GenerateProtocolMethod": true,
      "GenerateConvenienceMethod": true
@@ -6417,7 +6423,7 @@
      "HttpMethod": "PATCH",
      "RequestBodyMediaType": "Json",
      "Uri": "{endpoint}",
-     "Path": "/routing/jobs/{jobId}",
+     "Path": "/jobs/{jobId}",
      "RequestMediaTypes": [
       "application/merge-patch+json"
      ],
@@ -6529,7 +6535,7 @@
      "HttpMethod": "GET",
      "RequestBodyMediaType": "None",
      "Uri": "{endpoint}",
-     "Path": "/routing/jobs/{jobId}",
+     "Path": "/jobs/{jobId}",
      "BufferResponse": true,
      "GenerateProtocolMethod": true,
      "GenerateConvenienceMethod": true
@@ -6610,7 +6616,7 @@
      "HttpMethod": "DELETE",
      "RequestBodyMediaType": "None",
      "Uri": "{endpoint}",
-     "Path": "/routing/jobs/{jobId}",
+     "Path": "/jobs/{jobId}",
      "BufferResponse": true,
      "GenerateProtocolMethod": true,
      "GenerateConvenienceMethod": true
@@ -6751,7 +6757,7 @@
      "HttpMethod": "POST",
      "RequestBodyMediaType": "Json",
      "Uri": "{endpoint}",
-     "Path": "/routing/jobs/{jobId}:reclassify",
+     "Path": "/jobs/{jobId}:reclassify",
      "RequestMediaTypes": [
       "application/json"
      ],
@@ -6880,7 +6886,7 @@
      "HttpMethod": "POST",
      "RequestBodyMediaType": "Json",
      "Uri": "{endpoint}",
-     "Path": "/routing/jobs/{jobId}:cancel",
+     "Path": "/jobs/{jobId}:cancel",
      "RequestMediaTypes": [
       "application/json"
      ],
@@ -7009,7 +7015,7 @@
      "HttpMethod": "POST",
      "RequestBodyMediaType": "Json",
      "Uri": "{endpoint}",
-     "Path": "/routing/jobs/{jobId}:complete",
+     "Path": "/jobs/{jobId}:complete",
      "RequestMediaTypes": [
       "application/json"
      ],
@@ -7147,7 +7153,7 @@
      "HttpMethod": "POST",
      "RequestBodyMediaType": "Json",
      "Uri": "{endpoint}",
-     "Path": "/routing/jobs/{jobId}:close",
+     "Path": "/jobs/{jobId}:close",
      "RequestMediaTypes": [
       "application/json"
      ],
@@ -7357,7 +7363,7 @@
      "HttpMethod": "GET",
      "RequestBodyMediaType": "None",
      "Uri": "{endpoint}",
-     "Path": "/routing/jobs",
+     "Path": "/jobs",
      "BufferResponse": true,
      "Paging": {
       "$id": "813",
@@ -7446,7 +7452,7 @@
      "HttpMethod": "GET",
      "RequestBodyMediaType": "None",
      "Uri": "{endpoint}",
-     "Path": "/routing/jobs/{jobId}/position",
+     "Path": "/jobs/{jobId}/position",
      "BufferResponse": true,
      "GenerateProtocolMethod": true,
      "GenerateConvenienceMethod": true
@@ -7596,7 +7602,7 @@
      "HttpMethod": "POST",
      "RequestBodyMediaType": "Json",
      "Uri": "{endpoint}",
-     "Path": "/routing/jobs/{jobId}/assignments/{assignmentId}:unassign",
+     "Path": "/jobs/{jobId}/assignments/{assignmentId}:unassign",
      "RequestMediaTypes": [
       "application/json"
      ],
@@ -7704,7 +7710,7 @@
      "HttpMethod": "POST",
      "RequestBodyMediaType": "None",
      "Uri": "{endpoint}",
-     "Path": "/routing/workers/{workerId}/offers/{offerId}:accept",
+     "Path": "/workers/{workerId}/offers/{offerId}:accept",
      "BufferResponse": true,
      "GenerateProtocolMethod": true,
      "GenerateConvenienceMethod": true
@@ -7851,7 +7857,7 @@
      "HttpMethod": "POST",
      "RequestBodyMediaType": "Json",
      "Uri": "{endpoint}",
-     "Path": "/routing/workers/{workerId}/offers/{offerId}:decline",
+     "Path": "/workers/{workerId}/offers/{offerId}:decline",
      "RequestMediaTypes": [
       "application/json"
      ],
@@ -7938,7 +7944,7 @@
      "HttpMethod": "GET",
      "RequestBodyMediaType": "None",
      "Uri": "{endpoint}",
-     "Path": "/routing/queues/{queueId}/statistics",
+     "Path": "/queues/{queueId}/statistics",
      "BufferResponse": true,
      "GenerateProtocolMethod": true,
      "GenerateConvenienceMethod": true
@@ -8179,7 +8185,7 @@
      "HttpMethod": "PATCH",
      "RequestBodyMediaType": "Json",
      "Uri": "{endpoint}",
-     "Path": "/routing/workers/{workerId}",
+     "Path": "/workers/{workerId}",
      "RequestMediaTypes": [
       "application/merge-patch+json"
      ],
@@ -8291,7 +8297,7 @@
      "HttpMethod": "GET",
      "RequestBodyMediaType": "None",
      "Uri": "{endpoint}",
-     "Path": "/routing/workers/{workerId}",
+     "Path": "/workers/{workerId}",
      "BufferResponse": true,
      "GenerateProtocolMethod": true,
      "GenerateConvenienceMethod": true
@@ -8372,7 +8378,7 @@
      "HttpMethod": "DELETE",
      "RequestBodyMediaType": "None",
      "Uri": "{endpoint}",
-     "Path": "/routing/workers/{workerId}",
+     "Path": "/workers/{workerId}",
      "BufferResponse": true,
      "GenerateProtocolMethod": true,
      "GenerateConvenienceMethod": true
@@ -8537,7 +8543,7 @@
      "HttpMethod": "GET",
      "RequestBodyMediaType": "None",
      "Uri": "{endpoint}",
-     "Path": "/routing/workers",
+     "Path": "/workers",
      "BufferResponse": true,
      "Paging": {
       "$id": "920",

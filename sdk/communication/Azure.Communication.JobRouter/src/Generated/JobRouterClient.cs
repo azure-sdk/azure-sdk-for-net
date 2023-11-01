@@ -1893,7 +1893,7 @@ namespace Azure.Communication.JobRouter
             request.Method = RequestMethod.Patch;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendPath("/routing/jobs/", false);
+            uri.AppendPath("/jobs/", false);
             uri.AppendPath(jobId, true);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
@@ -1914,7 +1914,7 @@ namespace Azure.Communication.JobRouter
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendPath("/routing/jobs/", false);
+            uri.AppendPath("/jobs/", false);
             uri.AppendPath(jobId, true);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
@@ -1929,7 +1929,7 @@ namespace Azure.Communication.JobRouter
             request.Method = RequestMethod.Delete;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendPath("/routing/jobs/", false);
+            uri.AppendPath("/jobs/", false);
             uri.AppendPath(jobId, true);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
@@ -1944,7 +1944,7 @@ namespace Azure.Communication.JobRouter
             request.Method = RequestMethod.Post;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendPath("/routing/jobs/", false);
+            uri.AppendPath("/jobs/", false);
             uri.AppendPath(jobId, true);
             uri.AppendPath(":reclassify", false);
             uri.AppendQuery("api-version", _apiVersion, true);
@@ -1962,7 +1962,7 @@ namespace Azure.Communication.JobRouter
             request.Method = RequestMethod.Post;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendPath("/routing/jobs/", false);
+            uri.AppendPath("/jobs/", false);
             uri.AppendPath(jobId, true);
             uri.AppendPath(":cancel", false);
             uri.AppendQuery("api-version", _apiVersion, true);
@@ -1980,7 +1980,7 @@ namespace Azure.Communication.JobRouter
             request.Method = RequestMethod.Post;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendPath("/routing/jobs/", false);
+            uri.AppendPath("/jobs/", false);
             uri.AppendPath(jobId, true);
             uri.AppendPath(":complete", false);
             uri.AppendQuery("api-version", _apiVersion, true);
@@ -1998,7 +1998,7 @@ namespace Azure.Communication.JobRouter
             request.Method = RequestMethod.Post;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendPath("/routing/jobs/", false);
+            uri.AppendPath("/jobs/", false);
             uri.AppendPath(jobId, true);
             uri.AppendPath(":close", false);
             uri.AppendQuery("api-version", _apiVersion, true);
@@ -2016,7 +2016,7 @@ namespace Azure.Communication.JobRouter
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendPath("/routing/jobs", false);
+            uri.AppendPath("/jobs", false);
             uri.AppendQuery("api-version", _apiVersion, true);
             if (maxpagesize != null)
             {
@@ -2058,7 +2058,7 @@ namespace Azure.Communication.JobRouter
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendPath("/routing/jobs/", false);
+            uri.AppendPath("/jobs/", false);
             uri.AppendPath(jobId, true);
             uri.AppendPath("/position", false);
             uri.AppendQuery("api-version", _apiVersion, true);
@@ -2074,7 +2074,7 @@ namespace Azure.Communication.JobRouter
             request.Method = RequestMethod.Post;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendPath("/routing/jobs/", false);
+            uri.AppendPath("/jobs/", false);
             uri.AppendPath(jobId, true);
             uri.AppendPath("/assignments/", false);
             uri.AppendPath(assignmentId, true);
@@ -2094,7 +2094,7 @@ namespace Azure.Communication.JobRouter
             request.Method = RequestMethod.Post;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendPath("/routing/workers/", false);
+            uri.AppendPath("/workers/", false);
             uri.AppendPath(workerId, true);
             uri.AppendPath("/offers/", false);
             uri.AppendPath(offerId, true);
@@ -2112,7 +2112,7 @@ namespace Azure.Communication.JobRouter
             request.Method = RequestMethod.Post;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendPath("/routing/workers/", false);
+            uri.AppendPath("/workers/", false);
             uri.AppendPath(workerId, true);
             uri.AppendPath("/offers/", false);
             uri.AppendPath(offerId, true);
@@ -2132,7 +2132,7 @@ namespace Azure.Communication.JobRouter
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendPath("/routing/queues/", false);
+            uri.AppendPath("/queues/", false);
             uri.AppendPath(queueId, true);
             uri.AppendPath("/statistics", false);
             uri.AppendQuery("api-version", _apiVersion, true);
@@ -2148,7 +2148,7 @@ namespace Azure.Communication.JobRouter
             request.Method = RequestMethod.Patch;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendPath("/routing/workers/", false);
+            uri.AppendPath("/workers/", false);
             uri.AppendPath(workerId, true);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
@@ -2169,7 +2169,7 @@ namespace Azure.Communication.JobRouter
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendPath("/routing/workers/", false);
+            uri.AppendPath("/workers/", false);
             uri.AppendPath(workerId, true);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
@@ -2184,7 +2184,7 @@ namespace Azure.Communication.JobRouter
             request.Method = RequestMethod.Delete;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendPath("/routing/workers/", false);
+            uri.AppendPath("/workers/", false);
             uri.AppendPath(workerId, true);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
@@ -2199,7 +2199,7 @@ namespace Azure.Communication.JobRouter
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendPath("/routing/workers", false);
+            uri.AppendPath("/workers", false);
             uri.AppendQuery("api-version", _apiVersion, true);
             if (maxpagesize != null)
             {

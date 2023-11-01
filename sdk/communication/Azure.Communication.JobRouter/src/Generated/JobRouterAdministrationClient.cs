@@ -1418,7 +1418,7 @@ namespace Azure.Communication.JobRouter
             request.Method = RequestMethod.Patch;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendPath("/routing/distributionPolicies/", false);
+            uri.AppendPath("/distributionPolicies/", false);
             uri.AppendPath(distributionPolicyId, true);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
@@ -1439,7 +1439,7 @@ namespace Azure.Communication.JobRouter
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendPath("/routing/distributionPolicies/", false);
+            uri.AppendPath("/distributionPolicies/", false);
             uri.AppendPath(distributionPolicyId, true);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
@@ -1454,7 +1454,7 @@ namespace Azure.Communication.JobRouter
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendPath("/routing/distributionPolicies", false);
+            uri.AppendPath("/distributionPolicies", false);
             uri.AppendQuery("api-version", _apiVersion, true);
             if (maxpagesize != null)
             {
@@ -1472,7 +1472,7 @@ namespace Azure.Communication.JobRouter
             request.Method = RequestMethod.Delete;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendPath("/routing/distributionPolicies/", false);
+            uri.AppendPath("/distributionPolicies/", false);
             uri.AppendPath(distributionPolicyId, true);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
@@ -1487,7 +1487,7 @@ namespace Azure.Communication.JobRouter
             request.Method = RequestMethod.Patch;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendPath("/routing/classificationPolicies/", false);
+            uri.AppendPath("/classificationPolicies/", false);
             uri.AppendPath(classificationPolicyId, true);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
@@ -1508,7 +1508,7 @@ namespace Azure.Communication.JobRouter
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendPath("/routing/classificationPolicies/", false);
+            uri.AppendPath("/classificationPolicies/", false);
             uri.AppendPath(classificationPolicyId, true);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
@@ -1523,7 +1523,7 @@ namespace Azure.Communication.JobRouter
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendPath("/routing/classificationPolicies", false);
+            uri.AppendPath("/classificationPolicies", false);
             uri.AppendQuery("api-version", _apiVersion, true);
             if (maxpagesize != null)
             {
@@ -1541,7 +1541,7 @@ namespace Azure.Communication.JobRouter
             request.Method = RequestMethod.Delete;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendPath("/routing/classificationPolicies/", false);
+            uri.AppendPath("/classificationPolicies/", false);
             uri.AppendPath(classificationPolicyId, true);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
@@ -1556,7 +1556,7 @@ namespace Azure.Communication.JobRouter
             request.Method = RequestMethod.Patch;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendPath("/routing/exceptionPolicies/", false);
+            uri.AppendPath("/exceptionPolicies/", false);
             uri.AppendPath(exceptionPolicyId, true);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
@@ -1577,7 +1577,7 @@ namespace Azure.Communication.JobRouter
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendPath("/routing/exceptionPolicies/", false);
+            uri.AppendPath("/exceptionPolicies/", false);
             uri.AppendPath(exceptionPolicyId, true);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
@@ -1592,7 +1592,7 @@ namespace Azure.Communication.JobRouter
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendPath("/routing/exceptionPolicies", false);
+            uri.AppendPath("/exceptionPolicies", false);
             uri.AppendQuery("api-version", _apiVersion, true);
             if (maxpagesize != null)
             {
@@ -1610,7 +1610,7 @@ namespace Azure.Communication.JobRouter
             request.Method = RequestMethod.Delete;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendPath("/routing/exceptionPolicies/", false);
+            uri.AppendPath("/exceptionPolicies/", false);
             uri.AppendPath(exceptionPolicyId, true);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
@@ -1625,7 +1625,7 @@ namespace Azure.Communication.JobRouter
             request.Method = RequestMethod.Patch;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendPath("/routing/queues/", false);
+            uri.AppendPath("/queues/", false);
             uri.AppendPath(queueId, true);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
@@ -1646,7 +1646,7 @@ namespace Azure.Communication.JobRouter
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendPath("/routing/queues/", false);
+            uri.AppendPath("/queues/", false);
             uri.AppendPath(queueId, true);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
@@ -1661,7 +1661,7 @@ namespace Azure.Communication.JobRouter
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendPath("/routing/queues", false);
+            uri.AppendPath("/queues", false);
             uri.AppendQuery("api-version", _apiVersion, true);
             if (maxpagesize != null)
             {
@@ -1679,7 +1679,7 @@ namespace Azure.Communication.JobRouter
             request.Method = RequestMethod.Delete;
             var uri = new RawRequestUriBuilder();
             uri.Reset(_endpoint);
-            uri.AppendPath("/routing/queues/", false);
+            uri.AppendPath("/queues/", false);
             uri.AppendPath(queueId, true);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
