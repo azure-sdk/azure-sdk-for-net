@@ -18,10 +18,12 @@ namespace Azure.ResourceManager.DataProtectionBackup.Models
         /// <summary> Initializes a new instance of BackupVaultSecuritySettings. </summary>
         /// <param name="softDeleteSettings"> Soft delete related settings. </param>
         /// <param name="immutabilitySettings"> Immutability Settings at vault level. </param>
-        internal BackupVaultSecuritySettings(BackupVaultSoftDeleteSettings softDeleteSettings, ImmutabilitySettings immutabilitySettings)
+        /// <param name="encryptionSettings"> Customer Managed Key details of the resource. </param>
+        internal BackupVaultSecuritySettings(BackupVaultSoftDeleteSettings softDeleteSettings, ImmutabilitySettings immutabilitySettings, EncryptionSettings encryptionSettings)
         {
             SoftDeleteSettings = softDeleteSettings;
             ImmutabilitySettings = immutabilitySettings;
+            EncryptionSettings = encryptionSettings;
         }
 
         /// <summary> Soft delete related settings. </summary>
@@ -39,5 +41,8 @@ namespace Azure.ResourceManager.DataProtectionBackup.Models
                 ImmutabilitySettings.State = value;
             }
         }
+
+        /// <summary> Customer Managed Key details of the resource. </summary>
+        public EncryptionSettings EncryptionSettings { get; set; }
     }
 }
