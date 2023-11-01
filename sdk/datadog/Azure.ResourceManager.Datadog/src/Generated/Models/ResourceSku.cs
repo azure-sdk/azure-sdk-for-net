@@ -14,7 +14,7 @@ namespace Azure.ResourceManager.Datadog.Models
     internal partial class ResourceSku
     {
         /// <summary> Initializes a new instance of ResourceSku. </summary>
-        /// <param name="name"> Name of the SKU. </param>
+        /// <param name="name"> Name of the SKU in {PlanId} format. For Terraform, the only allowed value is 'linking'. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="name"/> is null. </exception>
         public ResourceSku(string name)
         {
@@ -23,7 +23,7 @@ namespace Azure.ResourceManager.Datadog.Models
             Name = name;
         }
 
-        /// <summary> Name of the SKU. </summary>
+        /// <summary> Name of the SKU in {PlanId} format. For Terraform, the only allowed value is 'linking'. </summary>
         public string Name { get; set; }
     }
 }
