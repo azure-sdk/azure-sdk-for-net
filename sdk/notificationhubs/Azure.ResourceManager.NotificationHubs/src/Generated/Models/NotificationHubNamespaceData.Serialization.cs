@@ -5,7 +5,6 @@
 
 #nullable disable
 
-using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
@@ -19,10 +18,12 @@ namespace Azure.ResourceManager.NotificationHubs
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
-            if (Optional.IsDefined(Sku))
+            writer.WritePropertyName("sku"u8);
+            writer.WriteObjectValue(Sku);
+            if (Optional.IsDefined(Properties))
             {
-                writer.WritePropertyName("sku"u8);
-                writer.WriteObjectValue(Sku);
+                writer.WritePropertyName("properties"u8);
+                writer.WriteObjectValue(Properties);
             }
             if (Optional.IsCollectionDefined(Tags))
             {
@@ -37,74 +38,6 @@ namespace Azure.ResourceManager.NotificationHubs
             }
             writer.WritePropertyName("location"u8);
             writer.WriteStringValue(Location);
-            writer.WritePropertyName("properties"u8);
-            writer.WriteStartObject();
-            if (Optional.IsDefined(NamespaceName))
-            {
-                writer.WritePropertyName("name"u8);
-                writer.WriteStringValue(NamespaceName);
-            }
-            if (Optional.IsDefined(ProvisioningState))
-            {
-                writer.WritePropertyName("provisioningState"u8);
-                writer.WriteStringValue(ProvisioningState);
-            }
-            if (Optional.IsDefined(Region))
-            {
-                writer.WritePropertyName("region"u8);
-                writer.WriteStringValue(Region);
-            }
-            if (Optional.IsDefined(Status))
-            {
-                writer.WritePropertyName("status"u8);
-                writer.WriteStringValue(Status);
-            }
-            if (Optional.IsDefined(CreatedOn))
-            {
-                writer.WritePropertyName("createdAt"u8);
-                writer.WriteStringValue(CreatedOn.Value, "O");
-            }
-            if (Optional.IsDefined(UpdatedOn))
-            {
-                writer.WritePropertyName("updatedAt"u8);
-                writer.WriteStringValue(UpdatedOn.Value, "O");
-            }
-            if (Optional.IsDefined(ServiceBusEndpoint))
-            {
-                writer.WritePropertyName("serviceBusEndpoint"u8);
-                writer.WriteStringValue(ServiceBusEndpoint.AbsoluteUri);
-            }
-            if (Optional.IsDefined(SubscriptionId))
-            {
-                writer.WritePropertyName("subscriptionId"u8);
-                writer.WriteStringValue(SubscriptionId);
-            }
-            if (Optional.IsDefined(ScaleUnit))
-            {
-                writer.WritePropertyName("scaleUnit"u8);
-                writer.WriteStringValue(ScaleUnit);
-            }
-            if (Optional.IsDefined(IsEnabled))
-            {
-                writer.WritePropertyName("enabled"u8);
-                writer.WriteBooleanValue(IsEnabled.Value);
-            }
-            if (Optional.IsDefined(IsCritical))
-            {
-                writer.WritePropertyName("critical"u8);
-                writer.WriteBooleanValue(IsCritical.Value);
-            }
-            if (Optional.IsDefined(DataCenter))
-            {
-                writer.WritePropertyName("dataCenter"u8);
-                writer.WriteStringValue(DataCenter);
-            }
-            if (Optional.IsDefined(NamespaceType))
-            {
-                writer.WritePropertyName("namespaceType"u8);
-                writer.WriteStringValue(NamespaceType.Value.ToSerialString());
-            }
-            writer.WriteEndObject();
             writer.WriteEndObject();
         }
 
@@ -114,36 +47,28 @@ namespace Azure.ResourceManager.NotificationHubs
             {
                 return null;
             }
-            Optional<NotificationHubSku> sku = default;
+            NotificationHubSku sku = default;
+            Optional<NamespaceProperties> properties = default;
             Optional<IDictionary<string, string>> tags = default;
             AzureLocation location = default;
             ResourceIdentifier id = default;
             string name = default;
             ResourceType type = default;
             Optional<SystemData> systemData = default;
-            Optional<string> name0 = default;
-            Optional<string> provisioningState = default;
-            Optional<string> region = default;
-            Optional<string> metricId = default;
-            Optional<string> status = default;
-            Optional<DateTimeOffset> createdAt = default;
-            Optional<DateTimeOffset> updatedAt = default;
-            Optional<Uri> serviceBusEndpoint = default;
-            Optional<string> subscriptionId = default;
-            Optional<string> scaleUnit = default;
-            Optional<bool> enabled = default;
-            Optional<bool> critical = default;
-            Optional<string> dataCenter = default;
-            Optional<NotificationHubNamespaceType> namespaceType = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("sku"u8))
+                {
+                    sku = NotificationHubSku.DeserializeNotificationHubSku(property.Value);
+                    continue;
+                }
+                if (property.NameEquals("properties"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    sku = NotificationHubSku.DeserializeNotificationHubSku(property.Value);
+                    properties = NamespaceProperties.DeserializeNamespaceProperties(property.Value);
                     continue;
                 }
                 if (property.NameEquals("tags"u8))
@@ -189,114 +114,8 @@ namespace Azure.ResourceManager.NotificationHubs
                     systemData = JsonSerializer.Deserialize<SystemData>(property.Value.GetRawText());
                     continue;
                 }
-                if (property.NameEquals("properties"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
-                    foreach (var property0 in property.Value.EnumerateObject())
-                    {
-                        if (property0.NameEquals("name"u8))
-                        {
-                            name0 = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("provisioningState"u8))
-                        {
-                            provisioningState = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("region"u8))
-                        {
-                            region = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("metricId"u8))
-                        {
-                            metricId = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("status"u8))
-                        {
-                            status = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("createdAt"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            createdAt = property0.Value.GetDateTimeOffset("O");
-                            continue;
-                        }
-                        if (property0.NameEquals("updatedAt"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            updatedAt = property0.Value.GetDateTimeOffset("O");
-                            continue;
-                        }
-                        if (property0.NameEquals("serviceBusEndpoint"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            serviceBusEndpoint = new Uri(property0.Value.GetString());
-                            continue;
-                        }
-                        if (property0.NameEquals("subscriptionId"u8))
-                        {
-                            subscriptionId = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("scaleUnit"u8))
-                        {
-                            scaleUnit = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("enabled"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            enabled = property0.Value.GetBoolean();
-                            continue;
-                        }
-                        if (property0.NameEquals("critical"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            critical = property0.Value.GetBoolean();
-                            continue;
-                        }
-                        if (property0.NameEquals("dataCenter"u8))
-                        {
-                            dataCenter = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("namespaceType"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            namespaceType = property0.Value.GetString().ToNotificationHubNamespaceType();
-                            continue;
-                        }
-                    }
-                    continue;
-                }
             }
-            return new NotificationHubNamespaceData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, name0.Value, provisioningState.Value, region.Value, metricId.Value, status.Value, Optional.ToNullable(createdAt), Optional.ToNullable(updatedAt), serviceBusEndpoint.Value, subscriptionId.Value, scaleUnit.Value, Optional.ToNullable(enabled), Optional.ToNullable(critical), dataCenter.Value, Optional.ToNullable(namespaceType), sku.Value);
+            return new NotificationHubNamespaceData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, sku, properties.Value);
         }
     }
 }

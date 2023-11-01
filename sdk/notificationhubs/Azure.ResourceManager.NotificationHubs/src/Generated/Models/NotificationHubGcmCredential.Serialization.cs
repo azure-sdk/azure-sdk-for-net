@@ -5,30 +5,18 @@
 
 #nullable disable
 
-using System;
 using System.Text.Json;
 using Azure.Core;
 
 namespace Azure.ResourceManager.NotificationHubs.Models
 {
-    public partial class NotificationHubGcmCredential : IUtf8JsonSerializable
+    internal partial class NotificationHubGcmCredential : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
             writer.WritePropertyName("properties"u8);
-            writer.WriteStartObject();
-            if (Optional.IsDefined(GcmEndpoint))
-            {
-                writer.WritePropertyName("gcmEndpoint"u8);
-                writer.WriteStringValue(GcmEndpoint.AbsoluteUri);
-            }
-            if (Optional.IsDefined(GcmApiKey))
-            {
-                writer.WritePropertyName("googleApiKey"u8);
-                writer.WriteStringValue(GcmApiKey);
-            }
-            writer.WriteEndObject();
+            writer.WriteObjectValue(Properties);
             writer.WriteEndObject();
         }
 
@@ -38,38 +26,16 @@ namespace Azure.ResourceManager.NotificationHubs.Models
             {
                 return null;
             }
-            Optional<Uri> gcmEndpoint = default;
-            Optional<string> googleApiKey = default;
+            GcmCredentialProperties properties = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("properties"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
-                    foreach (var property0 in property.Value.EnumerateObject())
-                    {
-                        if (property0.NameEquals("gcmEndpoint"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            gcmEndpoint = new Uri(property0.Value.GetString());
-                            continue;
-                        }
-                        if (property0.NameEquals("googleApiKey"u8))
-                        {
-                            googleApiKey = property0.Value.GetString();
-                            continue;
-                        }
-                    }
+                    properties = GcmCredentialProperties.DeserializeGcmCredentialProperties(property.Value);
                     continue;
                 }
             }
-            return new NotificationHubGcmCredential(gcmEndpoint.Value, googleApiKey.Value);
+            return new NotificationHubGcmCredential(properties);
         }
     }
 }
