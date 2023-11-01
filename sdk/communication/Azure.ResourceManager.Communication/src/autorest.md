@@ -8,7 +8,7 @@ azure-arm: true
 title: communication
 namespace: Azure.ResourceManager.Communication
 # default tag is a preview version
-require: https://github.com/Azure/azure-rest-api-specs/blob/d71132a3e8bf8ad22ab77991805e033ed1b66dff/specification/communication/resource-manager/readme.md
+require: https://github.com/Azure/azure-rest-api-specs/blob/fbb9cef29fe948636ef8a08560361b3a7e36ef30/specification/communication/resource-manager/readme.md
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
 sample-gen:
