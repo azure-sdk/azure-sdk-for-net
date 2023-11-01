@@ -1722,8 +1722,8 @@ namespace Azure.ResourceManager.Compute
         public static Azure.Core.ResourceIdentifier CreateResourceIdentifier(string subscriptionId, string resourceGroupName, string sshPublicKeyName) { throw null; }
         public virtual Azure.ResourceManager.ArmOperation Delete(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation> DeleteAsync(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual Azure.Response<Azure.ResourceManager.Compute.Models.SshPublicKeyGenerateKeyPairResult> GenerateKeyPair(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Compute.Models.SshPublicKeyGenerateKeyPairResult>> GenerateKeyPairAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response<Azure.ResourceManager.Compute.Models.SshPublicKeyGenerateKeyPairResult> GenerateKeyPair(Azure.ResourceManager.Compute.Models.SshGenerateKeyPairInputContent content = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Compute.Models.SshPublicKeyGenerateKeyPairResult>> GenerateKeyPairAsync(Azure.ResourceManager.Compute.Models.SshGenerateKeyPairInputContent content = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.Compute.SshPublicKeyResource> Get(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.Compute.SshPublicKeyResource>> GetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.Compute.SshPublicKeyResource> RemoveTag(string key, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
@@ -5572,6 +5572,29 @@ namespace Azure.ResourceManager.Compute.Models
         public SpotRestorePolicy() { }
         public bool? Enabled { get { throw null; } set { } }
         public string RestoreTimeout { get { throw null; } set { } }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct SshEncryptionType : System.IEquatable<Azure.ResourceManager.Compute.Models.SshEncryptionType>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public SshEncryptionType(string value) { throw null; }
+        public static Azure.ResourceManager.Compute.Models.SshEncryptionType Ed25519 { get { throw null; } }
+        public static Azure.ResourceManager.Compute.Models.SshEncryptionType RSA { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.Compute.Models.SshEncryptionType other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.Compute.Models.SshEncryptionType left, Azure.ResourceManager.Compute.Models.SshEncryptionType right) { throw null; }
+        public static implicit operator Azure.ResourceManager.Compute.Models.SshEncryptionType (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.Compute.Models.SshEncryptionType left, Azure.ResourceManager.Compute.Models.SshEncryptionType right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    public partial class SshGenerateKeyPairInputContent
+    {
+        public SshGenerateKeyPairInputContent() { }
+        public Azure.ResourceManager.Compute.Models.SshEncryptionType? EncryptionType { get { throw null; } set { } }
     }
     public partial class SshPublicKeyConfiguration
     {
