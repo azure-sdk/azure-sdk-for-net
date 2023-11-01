@@ -8,7 +8,7 @@ azure-arm: true
 csharp: true
 library-name: CognitiveServices
 namespace: Azure.ResourceManager.CognitiveServices
-require: https://github.com/Azure/azure-rest-api-specs/blob/ba1884683c35d1ea63d229a7106f207e507c3861/specification/cognitiveservices/resource-manager/readme.md
+require: https://github.com/Azure/azure-rest-api-specs/blob/fbb9cef29fe948636ef8a08560361b3a7e36ef30/specification/cognitiveservices/resource-manager/readme.md
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
 sample-gen:

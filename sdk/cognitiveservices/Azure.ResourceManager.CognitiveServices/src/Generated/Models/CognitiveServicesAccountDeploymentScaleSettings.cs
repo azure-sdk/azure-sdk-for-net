@@ -7,7 +7,7 @@
 
 namespace Azure.ResourceManager.CognitiveServices.Models
 {
-    /// <summary> Properties of Cognitive Services account deployment model. </summary>
+    /// <summary> Properties of Cognitive Services account deployment model. (Deprecated, please use Deployment.sku instead.). </summary>
     public partial class CognitiveServicesAccountDeploymentScaleSettings
     {
         /// <summary> Initializes a new instance of CognitiveServicesAccountDeploymentScaleSettings. </summary>

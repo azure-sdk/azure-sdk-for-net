@@ -21,6 +21,11 @@ namespace Azure.ResourceManager.CognitiveServices.Models
                 writer.WritePropertyName("defaultAction"u8);
                 writer.WriteStringValue(DefaultAction.Value.ToString());
             }
+            if (Optional.IsDefined(Bypass))
+            {
+                writer.WritePropertyName("bypass"u8);
+                writer.WriteStringValue(Bypass.Value.ToString());
+            }
             if (Optional.IsCollectionDefined(IPRules))
             {
                 writer.WritePropertyName("ipRules"u8);
@@ -51,6 +56,7 @@ namespace Azure.ResourceManager.CognitiveServices.Models
                 return null;
             }
             Optional<CognitiveServicesNetworkRuleAction> defaultAction = default;
+            Optional<ByPassSelection> bypass = default;
             Optional<IList<CognitiveServicesIPRule>> ipRules = default;
             Optional<IList<CognitiveServicesVirtualNetworkRule>> virtualNetworkRules = default;
             foreach (var property in element.EnumerateObject())
@@ -62,6 +68,15 @@ namespace Azure.ResourceManager.CognitiveServices.Models
                         continue;
                     }
                     defaultAction = new CognitiveServicesNetworkRuleAction(property.Value.GetString());
+                    continue;
+                }
+                if (property.NameEquals("bypass"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    bypass = new ByPassSelection(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("ipRules"u8))
@@ -93,7 +108,7 @@ namespace Azure.ResourceManager.CognitiveServices.Models
                     continue;
                 }
             }
-            return new CognitiveServicesNetworkRuleSet(Optional.ToNullable(defaultAction), Optional.ToList(ipRules), Optional.ToList(virtualNetworkRules));
+            return new CognitiveServicesNetworkRuleSet(Optional.ToNullable(defaultAction), Optional.ToNullable(bypass), Optional.ToList(ipRules), Optional.ToList(virtualNetworkRules));
         }
     }
 }
