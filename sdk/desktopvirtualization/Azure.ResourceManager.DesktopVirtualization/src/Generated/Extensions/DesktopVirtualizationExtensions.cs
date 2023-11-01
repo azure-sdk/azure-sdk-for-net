@@ -296,6 +296,25 @@ namespace Azure.ResourceManager.DesktopVirtualization
         }
         #endregion
 
+        #region AppAttachPackageResource
+        /// <summary>
+        /// Gets an object representing an <see cref="AppAttachPackageResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="AppAttachPackageResource.CreateResourceIdentifier" /> to create an <see cref="AppAttachPackageResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="AppAttachPackageResource" /> object. </returns>
+        public static AppAttachPackageResource GetAppAttachPackageResource(this ArmClient client, ResourceIdentifier id)
+        {
+            return client.GetResourceClient(() =>
+            {
+                AppAttachPackageResource.ValidateResourceId(id);
+                return new AppAttachPackageResource(client, id);
+            }
+            );
+        }
+        #endregion
+
         /// <summary> Gets a collection of VirtualWorkspaceResources in the ResourceGroupResource. </summary>
         /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
         /// <returns> An object representing collection of VirtualWorkspaceResources and their operations over a VirtualWorkspaceResource. </returns>
@@ -520,6 +539,62 @@ namespace Azure.ResourceManager.DesktopVirtualization
             return resourceGroupResource.GetHostPools().Get(hostPoolName, cancellationToken);
         }
 
+        /// <summary> Gets a collection of AppAttachPackageResources in the ResourceGroupResource. </summary>
+        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
+        /// <returns> An object representing collection of AppAttachPackageResources and their operations over a AppAttachPackageResource. </returns>
+        public static AppAttachPackageCollection GetAppAttachPackages(this ResourceGroupResource resourceGroupResource)
+        {
+            return GetResourceGroupResourceExtensionClient(resourceGroupResource).GetAppAttachPackages();
+        }
+
+        /// <summary>
+        /// Get an app attach package.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DesktopVirtualization/appAttachPackages/{appAttachPackageName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>AppAttachPackage_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
+        /// <param name="appAttachPackageName"> The name of the App Attach package arm object. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="appAttachPackageName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="appAttachPackageName"/> is null. </exception>
+        [ForwardsClientCalls]
+        public static async Task<Response<AppAttachPackageResource>> GetAppAttachPackageAsync(this ResourceGroupResource resourceGroupResource, string appAttachPackageName, CancellationToken cancellationToken = default)
+        {
+            return await resourceGroupResource.GetAppAttachPackages().GetAsync(appAttachPackageName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Get an app attach package.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DesktopVirtualization/appAttachPackages/{appAttachPackageName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>AppAttachPackage_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
+        /// <param name="appAttachPackageName"> The name of the App Attach package arm object. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="appAttachPackageName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="appAttachPackageName"/> is null. </exception>
+        [ForwardsClientCalls]
+        public static Response<AppAttachPackageResource> GetAppAttachPackage(this ResourceGroupResource resourceGroupResource, string appAttachPackageName, CancellationToken cancellationToken = default)
+        {
+            return resourceGroupResource.GetAppAttachPackages().Get(appAttachPackageName, cancellationToken);
+        }
+
         /// <summary>
         /// List workspaces in subscription.
         /// <list type="bullet">
@@ -700,6 +775,50 @@ namespace Azure.ResourceManager.DesktopVirtualization
         public static Pageable<HostPoolResource> GetHostPools(this SubscriptionResource subscriptionResource, int? pageSize = null, bool? isDescending = null, int? initialSkip = null, CancellationToken cancellationToken = default)
         {
             return GetSubscriptionResourceExtensionClient(subscriptionResource).GetHostPools(pageSize, isDescending, initialSkip, cancellationToken);
+        }
+
+        /// <summary>
+        /// List App Attach packages in subscription.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.DesktopVirtualization/appAttachPackages</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>AppAttachPackage_ListBySubscription</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
+        /// <param name="filter"> OData filter expression. Valid properties for filtering are package name, host pool, and resource group. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> An async collection of <see cref="AppAttachPackageResource" /> that may take multiple service requests to iterate over. </returns>
+        public static AsyncPageable<AppAttachPackageResource> GetAppAttachPackagesAsync(this SubscriptionResource subscriptionResource, string filter = null, CancellationToken cancellationToken = default)
+        {
+            return GetSubscriptionResourceExtensionClient(subscriptionResource).GetAppAttachPackagesAsync(filter, cancellationToken);
+        }
+
+        /// <summary>
+        /// List App Attach packages in subscription.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.DesktopVirtualization/appAttachPackages</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>AppAttachPackage_ListBySubscription</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
+        /// <param name="filter"> OData filter expression. Valid properties for filtering are package name, host pool, and resource group. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="AppAttachPackageResource" /> that may take multiple service requests to iterate over. </returns>
+        public static Pageable<AppAttachPackageResource> GetAppAttachPackages(this SubscriptionResource subscriptionResource, string filter = null, CancellationToken cancellationToken = default)
+        {
+            return GetSubscriptionResourceExtensionClient(subscriptionResource).GetAppAttachPackages(filter, cancellationToken);
         }
     }
 }

@@ -109,6 +109,30 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                 }
                 writer.WriteEndArray();
             }
+            if (Optional.IsDefined(CertificateName))
+            {
+                if (CertificateName != null)
+                {
+                    writer.WritePropertyName("certificateName"u8);
+                    writer.WriteStringValue(CertificateName);
+                }
+                else
+                {
+                    writer.WriteNull("certificateName");
+                }
+            }
+            if (Optional.IsDefined(CertificateExpiry))
+            {
+                if (CertificateExpiry != null)
+                {
+                    writer.WritePropertyName("certificateExpiry"u8);
+                    writer.WriteStringValue(CertificateExpiry.Value, "O");
+                }
+                else
+                {
+                    writer.WriteNull("certificateExpiry");
+                }
+            }
             writer.WriteEndObject();
             writer.WriteEndObject();
         }
@@ -136,6 +160,8 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
             Optional<string> version = default;
             Optional<DateTimeOffset> lastUpdated = default;
             Optional<IList<MsixPackageApplications>> packageApplications = default;
+            Optional<string> certificateName = default;
+            Optional<DateTimeOffset?> certificateExpiry = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("id"u8))
@@ -272,11 +298,31 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
                             packageApplications = array;
                             continue;
                         }
+                        if (property0.NameEquals("certificateName"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                certificateName = null;
+                                continue;
+                            }
+                            certificateName = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("certificateExpiry"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                certificateExpiry = null;
+                                continue;
+                            }
+                            certificateExpiry = property0.Value.GetDateTimeOffset("O");
+                            continue;
+                        }
                     }
                     continue;
                 }
             }
-            return new ExpandMsixImage(id, name, type, systemData.Value, packageAlias.Value, imagePath.Value, packageName.Value, packageFamilyName.Value, packageFullName.Value, displayName.Value, packageRelativePath.Value, Optional.ToNullable(isRegularRegistration), Optional.ToNullable(isActive), Optional.ToList(packageDependencies), version.Value, Optional.ToNullable(lastUpdated), Optional.ToList(packageApplications));
+            return new ExpandMsixImage(id, name, type, systemData.Value, packageAlias.Value, imagePath.Value, packageName.Value, packageFamilyName.Value, packageFullName.Value, displayName.Value, packageRelativePath.Value, Optional.ToNullable(isRegularRegistration), Optional.ToNullable(isActive), Optional.ToList(packageDependencies), version.Value, Optional.ToNullable(lastUpdated), Optional.ToList(packageApplications), certificateName.Value, Optional.ToNullable(certificateExpiry));
         }
     }
 }
