@@ -12,6 +12,7 @@ using Azure;
 using Azure.Core;
 using Azure.Core.Pipeline;
 using Azure.ResourceManager;
+using Azure.ResourceManager.Confluent.Models;
 
 namespace Azure.ResourceManager.Confluent
 {
@@ -105,6 +106,70 @@ namespace Azure.ResourceManager.Confluent
             {
                 var response = ValidationsRestClient.ValidateOrganization(Id.SubscriptionId, Id.ResourceGroupName, organizationName, data, cancellationToken);
                 return Response.FromValue(new ConfluentOrganizationResource(Client, response.Value), response.GetRawResponse());
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Organization Validate proxy resource
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/validations/{organizationName}/orgvalidateV2</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Validations_ValidateOrganizationV2</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="organizationName"> Organization resource name. </param>
+        /// <param name="data"> Organization resource model. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual async Task<Response<ValidationResponse>> ValidateOrganizationV2ValidationAsync(string organizationName, ConfluentOrganizationData data, CancellationToken cancellationToken = default)
+        {
+            using var scope = ValidationsClientDiagnostics.CreateScope("ResourceGroupResourceExtensionClient.ValidateOrganizationV2Validation");
+            scope.Start();
+            try
+            {
+                var response = await ValidationsRestClient.ValidateOrganizationV2Async(Id.SubscriptionId, Id.ResourceGroupName, organizationName, data, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Organization Validate proxy resource
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/validations/{organizationName}/orgvalidateV2</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Validations_ValidateOrganizationV2</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="organizationName"> Organization resource name. </param>
+        /// <param name="data"> Organization resource model. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual Response<ValidationResponse> ValidateOrganizationV2Validation(string organizationName, ConfluentOrganizationData data, CancellationToken cancellationToken = default)
+        {
+            using var scope = ValidationsClientDiagnostics.CreateScope("ResourceGroupResourceExtensionClient.ValidateOrganizationV2Validation");
+            scope.Start();
+            try
+            {
+                var response = ValidationsRestClient.ValidateOrganizationV2(Id.SubscriptionId, Id.ResourceGroupName, organizationName, data, cancellationToken);
+                return response;
             }
             catch (Exception e)
             {
