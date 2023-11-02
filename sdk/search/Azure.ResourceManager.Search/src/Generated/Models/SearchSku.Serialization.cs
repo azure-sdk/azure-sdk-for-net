@@ -18,7 +18,7 @@ namespace Azure.ResourceManager.Search.Models
             if (Optional.IsDefined(Name))
             {
                 writer.WritePropertyName("name"u8);
-                writer.WriteStringValue(Name.Value.ToSerialString());
+                writer.WriteStringValue(Name.Value.ToString());
             }
             writer.WriteEndObject();
         }
@@ -38,7 +38,7 @@ namespace Azure.ResourceManager.Search.Models
                     {
                         continue;
                     }
-                    name = property.Value.GetString().ToSearchSkuName();
+                    name = new SearchSkuName(property.Value.GetString());
                     continue;
                 }
             }

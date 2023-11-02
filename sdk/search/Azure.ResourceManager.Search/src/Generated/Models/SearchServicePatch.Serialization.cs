@@ -7,6 +7,7 @@
 
 using System.Collections.Generic;
 using System.Text.Json;
+using Azure;
 using Azure.Core;
 using Azure.ResourceManager.Models;
 using Azure.ResourceManager.Search;
@@ -61,12 +62,22 @@ namespace Azure.ResourceManager.Search.Models
             if (Optional.IsDefined(PublicNetworkAccess))
             {
                 writer.WritePropertyName("publicNetworkAccess"u8);
-                writer.WriteStringValue(PublicNetworkAccess.Value.ToSerialString());
+                writer.WriteStringValue(PublicNetworkAccess.Value.ToString());
             }
             if (Optional.IsDefined(NetworkRuleSet))
             {
                 writer.WritePropertyName("networkRuleSet"u8);
                 writer.WriteObjectValue(NetworkRuleSet);
+            }
+            if (Optional.IsCollectionDefined(DisabledDataExfiltrationOptions))
+            {
+                writer.WritePropertyName("disabledDataExfiltrationOptions"u8);
+                writer.WriteStartArray();
+                foreach (var item in DisabledDataExfiltrationOptions)
+                {
+                    writer.WriteStringValue(item.ToString());
+                }
+                writer.WriteEndArray();
             }
             if (Optional.IsDefined(EncryptionWithCmk))
             {
@@ -128,12 +139,14 @@ namespace Azure.ResourceManager.Search.Models
             Optional<string> statusDetails = default;
             Optional<SearchServiceProvisioningState> provisioningState = default;
             Optional<NetworkRuleSet> networkRuleSet = default;
+            Optional<IList<SearchDisabledDataExfiltrationOption>> disabledDataExfiltrationOptions = default;
             Optional<SearchEncryptionWithCmk> encryptionWithCmk = default;
             Optional<bool?> disableLocalAuth = default;
             Optional<SearchAadAuthDataPlaneAuthOptions> authOptions = default;
-            Optional<IReadOnlyList<SearchPrivateEndpointConnectionData>> privateEndpointConnections = default;
             Optional<SearchSemanticSearch?> semanticSearch = default;
+            Optional<IReadOnlyList<SearchPrivateEndpointConnectionData>> privateEndpointConnections = default;
             Optional<IReadOnlyList<SharedSearchServicePrivateLinkResourceData>> sharedPrivateLinkResources = default;
+            Optional<ETag> eTag = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("sku"u8))
@@ -239,7 +252,7 @@ namespace Azure.ResourceManager.Search.Models
                             {
                                 continue;
                             }
-                            publicNetworkAccess = property0.Value.GetString().ToSearchServicePublicNetworkAccess();
+                            publicNetworkAccess = new SearchServicePublicNetworkAccess(property0.Value.GetString());
                             continue;
                         }
                         if (property0.NameEquals("status"u8))
@@ -274,6 +287,20 @@ namespace Azure.ResourceManager.Search.Models
                             networkRuleSet = NetworkRuleSet.DeserializeNetworkRuleSet(property0.Value);
                             continue;
                         }
+                        if (property0.NameEquals("disabledDataExfiltrationOptions"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            List<SearchDisabledDataExfiltrationOption> array = new List<SearchDisabledDataExfiltrationOption>();
+                            foreach (var item in property0.Value.EnumerateArray())
+                            {
+                                array.Add(new SearchDisabledDataExfiltrationOption(item.GetString()));
+                            }
+                            disabledDataExfiltrationOptions = array;
+                            continue;
+                        }
                         if (property0.NameEquals("encryptionWithCmk"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -302,6 +329,16 @@ namespace Azure.ResourceManager.Search.Models
                             authOptions = SearchAadAuthDataPlaneAuthOptions.DeserializeSearchAadAuthDataPlaneAuthOptions(property0.Value);
                             continue;
                         }
+                        if (property0.NameEquals("semanticSearch"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                semanticSearch = null;
+                                continue;
+                            }
+                            semanticSearch = new SearchSemanticSearch(property0.Value.GetString());
+                            continue;
+                        }
                         if (property0.NameEquals("privateEndpointConnections"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -314,16 +351,6 @@ namespace Azure.ResourceManager.Search.Models
                                 array.Add(SearchPrivateEndpointConnectionData.DeserializeSearchPrivateEndpointConnectionData(item));
                             }
                             privateEndpointConnections = array;
-                            continue;
-                        }
-                        if (property0.NameEquals("semanticSearch"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                semanticSearch = null;
-                                continue;
-                            }
-                            semanticSearch = new SearchSemanticSearch(property0.Value.GetString());
                             continue;
                         }
                         if (property0.NameEquals("sharedPrivateLinkResources"u8))
@@ -340,11 +367,20 @@ namespace Azure.ResourceManager.Search.Models
                             sharedPrivateLinkResources = array;
                             continue;
                         }
+                        if (property0.NameEquals("eTag"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            eTag = new ETag(property0.Value.GetString());
+                            continue;
+                        }
                     }
                     continue;
                 }
             }
-            return new SearchServicePatch(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, sku.Value, identity, Optional.ToNullable(replicaCount), Optional.ToNullable(partitionCount), Optional.ToNullable(hostingMode), Optional.ToNullable(publicNetworkAccess), Optional.ToNullable(status), statusDetails.Value, Optional.ToNullable(provisioningState), networkRuleSet.Value, encryptionWithCmk.Value, Optional.ToNullable(disableLocalAuth), authOptions.Value, Optional.ToList(privateEndpointConnections), Optional.ToNullable(semanticSearch), Optional.ToList(sharedPrivateLinkResources));
+            return new SearchServicePatch(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, sku.Value, identity, Optional.ToNullable(replicaCount), Optional.ToNullable(partitionCount), Optional.ToNullable(hostingMode), Optional.ToNullable(publicNetworkAccess), Optional.ToNullable(status), statusDetails.Value, Optional.ToNullable(provisioningState), networkRuleSet.Value, Optional.ToList(disabledDataExfiltrationOptions), encryptionWithCmk.Value, Optional.ToNullable(disableLocalAuth), authOptions.Value, Optional.ToNullable(semanticSearch), Optional.ToList(privateEndpointConnections), Optional.ToList(sharedPrivateLinkResources), Optional.ToNullable(eTag));
         }
     }
 }

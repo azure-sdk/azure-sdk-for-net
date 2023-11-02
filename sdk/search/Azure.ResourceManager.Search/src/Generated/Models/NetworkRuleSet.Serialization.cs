@@ -11,7 +11,7 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.Search.Models
 {
-    internal partial class NetworkRuleSet : IUtf8JsonSerializable
+    public partial class NetworkRuleSet : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
@@ -26,6 +26,11 @@ namespace Azure.ResourceManager.Search.Models
                 }
                 writer.WriteEndArray();
             }
+            if (Optional.IsDefined(Bypass))
+            {
+                writer.WritePropertyName("bypass"u8);
+                writer.WriteStringValue(Bypass.Value.ToString());
+            }
             writer.WriteEndObject();
         }
 
@@ -36,6 +41,7 @@ namespace Azure.ResourceManager.Search.Models
                 return null;
             }
             Optional<IList<SearchServiceIPRule>> ipRules = default;
+            Optional<SearchBypass> bypass = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("ipRules"u8))
@@ -52,8 +58,17 @@ namespace Azure.ResourceManager.Search.Models
                     ipRules = array;
                     continue;
                 }
+                if (property.NameEquals("bypass"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    bypass = new SearchBypass(property.Value.GetString());
+                    continue;
+                }
             }
-            return new NetworkRuleSet(Optional.ToList(ipRules));
+            return new NetworkRuleSet(Optional.ToList(ipRules), Optional.ToNullable(bypass));
         }
     }
 }

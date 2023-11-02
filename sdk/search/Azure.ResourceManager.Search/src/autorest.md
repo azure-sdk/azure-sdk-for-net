@@ -8,7 +8,7 @@ azure-arm: true
 csharp: true
 library-name: Search
 namespace: Azure.ResourceManager.Search
-require: https://github.com/Azure/azure-rest-api-specs/blob/b934efa9501672e73686c2adbc7a4dcdd26e86c2/specification/search/resource-manager/readme.md
+require: /mnt/vss/_work/1/s/azure-rest-api-specs/specification/search/resource-manager/readme.md
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
 sample-gen:
