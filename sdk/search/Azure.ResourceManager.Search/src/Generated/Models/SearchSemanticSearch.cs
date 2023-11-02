@@ -26,9 +26,9 @@ namespace Azure.ResourceManager.Search.Models
         private const string FreeValue = "free";
         private const string StandardValue = "standard";
 
-        /// <summary> Indicates that semantic search is disabled for the search service. </summary>
+        /// <summary> Indicates that semantic search is disabled for the search service. This is the default. </summary>
         public static SearchSemanticSearch Disabled { get; } = new SearchSemanticSearch(DisabledValue);
-        /// <summary> Enables semantic search on a search service and indicates that it is to be used within the limits of the free tier. This would cap the volume of semantic search requests and is offered at no extra charge. This is the default for newly provisioned search services. </summary>
+        /// <summary> Enables semantic search on a search service and indicates that it is to be used within the limits of the free tier. This would cap the volume of semantic search requests and is offered at no extra charge. </summary>
         public static SearchSemanticSearch Free { get; } = new SearchSemanticSearch(FreeValue);
         /// <summary> Enables semantic search on a search service as a billable feature, with higher throughput and volume of semantic search queries. </summary>
         public static SearchSemanticSearch Standard { get; } = new SearchSemanticSearch(StandardValue);
