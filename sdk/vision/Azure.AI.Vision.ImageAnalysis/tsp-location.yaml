@@ -1,0 +1,5 @@
+repo: Azure/azure-rest-api-specs
+directory: specification/vision/ImageAnalysis
+commit: 70f43665ffb675a2a80d62bf68ec14b7f85d85fb
+additionalDirectories: []
+
