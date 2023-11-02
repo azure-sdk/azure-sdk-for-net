@@ -108,7 +108,7 @@ namespace Azure.ResourceManager.Automation.Samples
             // for more information of creating AutomationPrivateEndpointConnectionResource, please refer to the document of AutomationPrivateEndpointConnectionResource
             string subscriptionId = "00000000-1111-2222-3333-444444444444";
             string resourceGroupName = "rg1";
-            string automationAccountName = "ddb1";
+            string automationAccountName = "automationAccountName";
             string privateEndpointConnectionName = "privateEndpointConnectionName";
             ResourceIdentifier automationPrivateEndpointConnectionResourceId = AutomationPrivateEndpointConnectionResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, automationAccountName, privateEndpointConnectionName);
             AutomationPrivateEndpointConnectionResource automationPrivateEndpointConnection = client.GetAutomationPrivateEndpointConnectionResource(automationPrivateEndpointConnectionResourceId);

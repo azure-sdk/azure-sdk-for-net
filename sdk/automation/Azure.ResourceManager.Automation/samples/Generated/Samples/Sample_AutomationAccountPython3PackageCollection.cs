@@ -16,15 +16,15 @@ using Azure.ResourceManager.Automation.Models;
 
 namespace Azure.ResourceManager.Automation.Samples
 {
-    public partial class Sample_AutomationScheduleCollection
+    public partial class Sample_AutomationAccountPython3PackageCollection
     {
-        // Create or update a schedule
+        // Get a python 3 package
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task CreateOrUpdate_CreateOrUpdateASchedule()
+        public async Task Get_GetAPython3Package()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2022-08-08/examples/createOrUpdateSchedule.json
-            // this example is just showing the usage of "Schedule_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2022-08-08/examples/getPython3Package.json
+            // this example is just showing the usage of "Python3Package_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -39,35 +39,27 @@ namespace Azure.ResourceManager.Automation.Samples
             ResourceIdentifier automationAccountResourceId = AutomationAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, automationAccountName);
             AutomationAccountResource automationAccount = client.GetAutomationAccountResource(automationAccountResourceId);
 
-            // get the collection of this AutomationScheduleResource
-            AutomationScheduleCollection collection = automationAccount.GetAutomationSchedules();
+            // get the collection of this AutomationAccountPython3PackageResource
+            AutomationAccountPython3PackageCollection collection = automationAccount.GetAutomationAccountPython3Packages();
 
             // invoke the operation
-            string scheduleName = "mySchedule";
-            AutomationScheduleCreateOrUpdateContent content = new AutomationScheduleCreateOrUpdateContent("mySchedule", DateTimeOffset.Parse("2017-03-27T17:28:57.2494819Z"), AutomationScheduleFrequency.Hour)
-            {
-                Description = "my description of schedule goes here",
-                ExpireOn = DateTimeOffset.Parse("2017-04-01T17:28:57.2494819Z"),
-                Interval = BinaryData.FromString("1"),
-                AdvancedSchedule = new AutomationAdvancedSchedule(),
-            };
-            ArmOperation<AutomationScheduleResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, scheduleName, content);
-            AutomationScheduleResource result = lro.Value;
+            string packageName = "OmsCompositeResources";
+            AutomationAccountPython3PackageResource result = await collection.GetAsync(packageName);
 
             // the variable result is a resource, you could call other operations on this instance as well
             // but just for demo, we get its data from this resource instance
-            AutomationScheduleData resourceData = result.Data;
+            AutomationModuleData resourceData = result.Data;
             // for demo we just print out the id
             Console.WriteLine($"Succeeded on id: {resourceData.Id}");
         }
 
-        // Get a schedule
+        // Get a python 3 package
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task Get_GetASchedule()
+        public async Task Exists_GetAPython3Package()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2022-08-08/examples/getSchedule.json
-            // this example is just showing the usage of "Schedule_Get" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2022-08-08/examples/getPython3Package.json
+            // this example is just showing the usage of "Python3Package_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -82,58 +74,23 @@ namespace Azure.ResourceManager.Automation.Samples
             ResourceIdentifier automationAccountResourceId = AutomationAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, automationAccountName);
             AutomationAccountResource automationAccount = client.GetAutomationAccountResource(automationAccountResourceId);
 
-            // get the collection of this AutomationScheduleResource
-            AutomationScheduleCollection collection = automationAccount.GetAutomationSchedules();
+            // get the collection of this AutomationAccountPython3PackageResource
+            AutomationAccountPython3PackageCollection collection = automationAccount.GetAutomationAccountPython3Packages();
 
             // invoke the operation
-            string scheduleName = "mySchedule";
-            AutomationScheduleResource result = await collection.GetAsync(scheduleName);
-
-            // the variable result is a resource, you could call other operations on this instance as well
-            // but just for demo, we get its data from this resource instance
-            AutomationScheduleData resourceData = result.Data;
-            // for demo we just print out the id
-            Console.WriteLine($"Succeeded on id: {resourceData.Id}");
-        }
-
-        // Get a schedule
-        [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task Exists_GetASchedule()
-        {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2022-08-08/examples/getSchedule.json
-            // this example is just showing the usage of "Schedule_Get" operation, for the dependent resources, they will have to be created separately.
-
-            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
-            TokenCredential cred = new DefaultAzureCredential();
-            // authenticate your client
-            ArmClient client = new ArmClient(cred);
-
-            // this example assumes you already have this AutomationAccountResource created on azure
-            // for more information of creating AutomationAccountResource, please refer to the document of AutomationAccountResource
-            string subscriptionId = "subid";
-            string resourceGroupName = "rg";
-            string automationAccountName = "myAutomationAccount33";
-            ResourceIdentifier automationAccountResourceId = AutomationAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, automationAccountName);
-            AutomationAccountResource automationAccount = client.GetAutomationAccountResource(automationAccountResourceId);
-
-            // get the collection of this AutomationScheduleResource
-            AutomationScheduleCollection collection = automationAccount.GetAutomationSchedules();
-
-            // invoke the operation
-            string scheduleName = "mySchedule";
-            bool result = await collection.ExistsAsync(scheduleName);
+            string packageName = "OmsCompositeResources";
+            bool result = await collection.ExistsAsync(packageName);
 
             Console.WriteLine($"Succeeded: {result}");
         }
 
-        // Get a schedule
+        // Get a python 3 package
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task GetIfExists_GetASchedule()
+        public async Task GetIfExists_GetAPython3Package()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2022-08-08/examples/getSchedule.json
-            // this example is just showing the usage of "Schedule_Get" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2022-08-08/examples/getPython3Package.json
+            // this example is just showing the usage of "Python3Package_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -148,13 +105,13 @@ namespace Azure.ResourceManager.Automation.Samples
             ResourceIdentifier automationAccountResourceId = AutomationAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, automationAccountName);
             AutomationAccountResource automationAccount = client.GetAutomationAccountResource(automationAccountResourceId);
 
-            // get the collection of this AutomationScheduleResource
-            AutomationScheduleCollection collection = automationAccount.GetAutomationSchedules();
+            // get the collection of this AutomationAccountPython3PackageResource
+            AutomationAccountPython3PackageCollection collection = automationAccount.GetAutomationAccountPython3Packages();
 
             // invoke the operation
-            string scheduleName = "mySchedule";
-            NullableResponse<AutomationScheduleResource> response = await collection.GetIfExistsAsync(scheduleName);
-            AutomationScheduleResource result = response.HasValue ? response.Value : null;
+            string packageName = "OmsCompositeResources";
+            NullableResponse<AutomationAccountPython3PackageResource> response = await collection.GetIfExistsAsync(packageName);
+            AutomationAccountPython3PackageResource result = response.HasValue ? response.Value : null;
 
             if (result == null)
             {
@@ -164,19 +121,19 @@ namespace Azure.ResourceManager.Automation.Samples
             {
                 // the variable result is a resource, you could call other operations on this instance as well
                 // but just for demo, we get its data from this resource instance
-                AutomationScheduleData resourceData = result.Data;
+                AutomationModuleData resourceData = result.Data;
                 // for demo we just print out the id
                 Console.WriteLine($"Succeeded on id: {resourceData.Id}");
             }
         }
 
-        // List schedules by automation account, first 100
+        // Create or update a python 3 package
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task GetAll_ListSchedulesByAutomationAccountFirst100()
+        public async Task CreateOrUpdate_CreateOrUpdateAPython3Package()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2022-08-08/examples/listSchedulesByAutomationAccount_First100.json
-            // this example is just showing the usage of "Schedule_ListByAutomationAccount" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2022-08-08/examples/createOrUpdatePython3Package.json
+            // this example is just showing the usage of "Python3Package_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -191,29 +148,39 @@ namespace Azure.ResourceManager.Automation.Samples
             ResourceIdentifier automationAccountResourceId = AutomationAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, automationAccountName);
             AutomationAccountResource automationAccount = client.GetAutomationAccountResource(automationAccountResourceId);
 
-            // get the collection of this AutomationScheduleResource
-            AutomationScheduleCollection collection = automationAccount.GetAutomationSchedules();
+            // get the collection of this AutomationAccountPython3PackageResource
+            AutomationAccountPython3PackageCollection collection = automationAccount.GetAutomationAccountPython3Packages();
 
-            // invoke the operation and iterate over the result
-            await foreach (AutomationScheduleResource item in collection.GetAllAsync())
+            // invoke the operation
+            string packageName = "OmsCompositeResources";
+            PythonPackageCreateParameters pythonPackageCreateParameters = new PythonPackageCreateParameters(new AutomationContentLink()
             {
-                // the variable item is a resource, you could call other operations on this instance as well
-                // but just for demo, we get its data from this resource instance
-                AutomationScheduleData resourceData = item.Data;
-                // for demo we just print out the id
-                Console.WriteLine($"Succeeded on id: {resourceData.Id}");
-            }
+                Uri = new Uri("https://teststorage.blob.core.windows.net/dsccomposite/OmsCompositeResources.zip"),
+                ContentHash = new AutomationContentHash("sha265", "07E108A962B81DD9C9BAA89BB47C0F6EE52B29E83758B07795E408D258B2B87A"),
+                Version = "1.0.0.0",
+            })
+            {
+                Tags =
+{
+},
+            };
+            ArmOperation<AutomationAccountPython3PackageResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, packageName, pythonPackageCreateParameters);
+            AutomationAccountPython3PackageResource result = lro.Value;
 
-            Console.WriteLine($"Succeeded");
+            // the variable result is a resource, you could call other operations on this instance as well
+            // but just for demo, we get its data from this resource instance
+            AutomationModuleData resourceData = result.Data;
+            // for demo we just print out the id
+            Console.WriteLine($"Succeeded on id: {resourceData.Id}");
         }
 
-        // List schedules by automation account, next 100
+        // List python 3 packages by automation account
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task GetAll_ListSchedulesByAutomationAccountNext100()
+        public async Task GetAll_ListPython3PackagesByAutomationAccount()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2022-08-08/examples/listSchedulesByAutomationAccount_Next100.json
-            // this example is just showing the usage of "Schedule_ListByAutomationAccount" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2022-08-08/examples/listPython3PackagesByAutomationAccount.json
+            // this example is just showing the usage of "Python3Package_ListByAutomationAccount" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -228,15 +195,15 @@ namespace Azure.ResourceManager.Automation.Samples
             ResourceIdentifier automationAccountResourceId = AutomationAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, automationAccountName);
             AutomationAccountResource automationAccount = client.GetAutomationAccountResource(automationAccountResourceId);
 
-            // get the collection of this AutomationScheduleResource
-            AutomationScheduleCollection collection = automationAccount.GetAutomationSchedules();
+            // get the collection of this AutomationAccountPython3PackageResource
+            AutomationAccountPython3PackageCollection collection = automationAccount.GetAutomationAccountPython3Packages();
 
             // invoke the operation and iterate over the result
-            await foreach (AutomationScheduleResource item in collection.GetAllAsync())
+            await foreach (AutomationAccountPython3PackageResource item in collection.GetAllAsync())
             {
                 // the variable item is a resource, you could call other operations on this instance as well
                 // but just for demo, we get its data from this resource instance
-                AutomationScheduleData resourceData = item.Data;
+                AutomationModuleData resourceData = item.Data;
                 // for demo we just print out the id
                 Console.WriteLine($"Succeeded on id: {resourceData.Id}");
             }

@@ -23,7 +23,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreateOrUpdateASourceControl()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/preview/2020-01-13-preview/examples/sourceControl/createOrUpdateSourceControl.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2022-08-08/examples/sourceControl/createOrUpdateSourceControl.json
             // this example is just showing the usage of "SourceControl_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -54,7 +54,7 @@ namespace Azure.ResourceManager.Automation.Samples
                 SourceType = SourceControlSourceType.VsoGit,
                 SecurityToken = new SourceControlSecurityTokenProperties()
                 {
-                    AccessToken = "3a326f7a0dcd343ea58fee21f2fd5fb4c1234567",
+                    AccessToken = "******",
                     TokenType = SourceControlTokenType.PersonalAccessToken,
                 },
                 Description = "my description",
@@ -74,7 +74,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetASourceControl()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/preview/2020-01-13-preview/examples/sourceControl/getSourceControl.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2022-08-08/examples/sourceControl/getSourceControl.json
             // this example is just showing the usage of "SourceControl_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -109,7 +109,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Exists_GetASourceControl()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/preview/2020-01-13-preview/examples/sourceControl/getSourceControl.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2022-08-08/examples/sourceControl/getSourceControl.json
             // this example is just showing the usage of "SourceControl_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -140,7 +140,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetIfExists_GetASourceControl()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/preview/2020-01-13-preview/examples/sourceControl/getSourceControl.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2022-08-08/examples/sourceControl/getSourceControl.json
             // this example is just showing the usage of "SourceControl_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -183,7 +183,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetAll_ListSourceControls()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/preview/2020-01-13-preview/examples/sourceControl/getAllSourceControls.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2022-08-08/examples/sourceControl/getAllSourceControls.json
             // this example is just showing the usage of "SourceControl_ListByAutomationAccount" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
