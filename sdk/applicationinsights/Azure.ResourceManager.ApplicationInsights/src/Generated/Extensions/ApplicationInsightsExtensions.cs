@@ -124,25 +124,6 @@ namespace Azure.ResourceManager.ApplicationInsights
         }
         #endregion
 
-        #region MyWorkbookResource
-        /// <summary>
-        /// Gets an object representing a <see cref="MyWorkbookResource" /> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="MyWorkbookResource.CreateResourceIdentifier" /> to create a <see cref="MyWorkbookResource" /> <see cref="ResourceIdentifier" /> from its components.
-        /// </summary>
-        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="MyWorkbookResource" /> object. </returns>
-        public static MyWorkbookResource GetMyWorkbookResource(this ArmClient client, ResourceIdentifier id)
-        {
-            return client.GetResourceClient(() =>
-            {
-                MyWorkbookResource.ValidateResourceId(id);
-                return new MyWorkbookResource(client, id);
-            }
-            );
-        }
-        #endregion
-
         #region WorkbookResource
         /// <summary>
         /// Gets an object representing a <see cref="WorkbookResource" /> along with the instance operations that can be performed on it but with no data.
@@ -410,62 +391,6 @@ namespace Azure.ResourceManager.ApplicationInsights
             return resourceGroupResource.GetWorkbookTemplates().Get(resourceName, cancellationToken);
         }
 
-        /// <summary> Gets a collection of MyWorkbookResources in the ResourceGroupResource. </summary>
-        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
-        /// <returns> An object representing collection of MyWorkbookResources and their operations over a MyWorkbookResource. </returns>
-        public static MyWorkbookCollection GetMyWorkbooks(this ResourceGroupResource resourceGroupResource)
-        {
-            return GetResourceGroupResourceExtensionClient(resourceGroupResource).GetMyWorkbooks();
-        }
-
-        /// <summary>
-        /// Get a single private workbook by its resourceName.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Insights/myWorkbooks/{resourceName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>MyWorkbooks_Get</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
-        /// <param name="resourceName"> The name of the Application Insights component resource. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceName"/> is null. </exception>
-        [ForwardsClientCalls]
-        public static async Task<Response<MyWorkbookResource>> GetMyWorkbookAsync(this ResourceGroupResource resourceGroupResource, string resourceName, CancellationToken cancellationToken = default)
-        {
-            return await resourceGroupResource.GetMyWorkbooks().GetAsync(resourceName, cancellationToken).ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// Get a single private workbook by its resourceName.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Insights/myWorkbooks/{resourceName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>MyWorkbooks_Get</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
-        /// <param name="resourceName"> The name of the Application Insights component resource. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentException"> <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceName"/> is null. </exception>
-        [ForwardsClientCalls]
-        public static Response<MyWorkbookResource> GetMyWorkbook(this ResourceGroupResource resourceGroupResource, string resourceName, CancellationToken cancellationToken = default)
-        {
-            return resourceGroupResource.GetMyWorkbooks().Get(resourceName, cancellationToken);
-        }
-
         /// <summary> Gets a collection of WorkbookResources in the ResourceGroupResource. </summary>
         /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
         /// <returns> An object representing collection of WorkbookResources and their operations over a WorkbookResource. </returns>
@@ -488,7 +413,7 @@ namespace Azure.ResourceManager.ApplicationInsights
         /// </list>
         /// </summary>
         /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
-        /// <param name="resourceName"> The name of the resource. </param>
+        /// <param name="resourceName"> The name of the workbook resource. The value must be an UUID. </param>
         /// <param name="canFetchContent"> Flag indicating whether or not to return the full content for each applicable workbook. If false, only return summary content for workbooks. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
@@ -513,7 +438,7 @@ namespace Azure.ResourceManager.ApplicationInsights
         /// </list>
         /// </summary>
         /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
-        /// <param name="resourceName"> The name of the resource. </param>
+        /// <param name="resourceName"> The name of the workbook resource. The value must be an UUID. </param>
         /// <param name="canFetchContent"> Flag indicating whether or not to return the full content for each applicable workbook. If false, only return summary content for workbooks. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
@@ -606,54 +531,6 @@ namespace Azure.ResourceManager.ApplicationInsights
         public static Pageable<WebTestResource> GetWebTests(this SubscriptionResource subscriptionResource, CancellationToken cancellationToken = default)
         {
             return GetSubscriptionResourceExtensionClient(subscriptionResource).GetWebTests(cancellationToken);
-        }
-
-        /// <summary>
-        /// Get all private workbooks defined within a specified subscription and category.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Insights/myWorkbooks</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>MyWorkbooks_ListBySubscription</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
-        /// <param name="category"> Category of workbook to return. </param>
-        /// <param name="tags"> Tags presents on each workbook returned. </param>
-        /// <param name="canFetchContent"> Flag indicating whether or not to return the full content for each applicable workbook. If false, only return summary content for workbooks. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> An async collection of <see cref="MyWorkbookResource" /> that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<MyWorkbookResource> GetMyWorkbooksAsync(this SubscriptionResource subscriptionResource, CategoryType category, IEnumerable<string> tags = null, bool? canFetchContent = null, CancellationToken cancellationToken = default)
-        {
-            return GetSubscriptionResourceExtensionClient(subscriptionResource).GetMyWorkbooksAsync(category, tags, canFetchContent, cancellationToken);
-        }
-
-        /// <summary>
-        /// Get all private workbooks defined within a specified subscription and category.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Insights/myWorkbooks</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>MyWorkbooks_ListBySubscription</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
-        /// <param name="category"> Category of workbook to return. </param>
-        /// <param name="tags"> Tags presents on each workbook returned. </param>
-        /// <param name="canFetchContent"> Flag indicating whether or not to return the full content for each applicable workbook. If false, only return summary content for workbooks. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="MyWorkbookResource" /> that may take multiple service requests to iterate over. </returns>
-        public static Pageable<MyWorkbookResource> GetMyWorkbooks(this SubscriptionResource subscriptionResource, CategoryType category, IEnumerable<string> tags = null, bool? canFetchContent = null, CancellationToken cancellationToken = default)
-        {
-            return GetSubscriptionResourceExtensionClient(subscriptionResource).GetMyWorkbooks(category, tags, canFetchContent, cancellationToken);
         }
 
         /// <summary>

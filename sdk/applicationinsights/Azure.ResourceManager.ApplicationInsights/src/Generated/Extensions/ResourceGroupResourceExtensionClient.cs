@@ -52,13 +52,6 @@ namespace Azure.ResourceManager.ApplicationInsights
             return GetCachedClient(Client => new WorkbookTemplateCollection(Client, Id));
         }
 
-        /// <summary> Gets a collection of MyWorkbookResources in the ResourceGroupResource. </summary>
-        /// <returns> An object representing collection of MyWorkbookResources and their operations over a MyWorkbookResource. </returns>
-        public virtual MyWorkbookCollection GetMyWorkbooks()
-        {
-            return GetCachedClient(Client => new MyWorkbookCollection(Client, Id));
-        }
-
         /// <summary> Gets a collection of WorkbookResources in the ResourceGroupResource. </summary>
         /// <returns> An object representing collection of WorkbookResources and their operations over a WorkbookResource. </returns>
         public virtual WorkbookCollection GetWorkbooks()
