@@ -12,17 +12,16 @@ using Azure.Core;
 
 namespace Azure.Messaging.EventGrid.SystemEvents
 {
-    [JsonConverter(typeof(ResourceNotificationsResourceUpdatedEventDataConverter))]
-    public partial class ResourceNotificationsResourceUpdatedEventData
+    [JsonConverter(typeof(ResourceNotificationsResourceManagementDeletedEventDataConverter))]
+    public partial class ResourceNotificationsResourceManagementDeletedEventData
     {
-        internal static ResourceNotificationsResourceUpdatedEventData DeserializeResourceNotificationsResourceUpdatedEventData(JsonElement element)
+        internal static ResourceNotificationsResourceManagementDeletedEventData DeserializeResourceNotificationsResourceManagementDeletedEventData(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
                 return null;
             }
-            Optional<ResourceNotificationsResourceUpdatedDetails> resourceInfo = default;
-            Optional<string> apiVersion = default;
+            Optional<ResourceNotificationsResourceDeletedDetails> resourceInfo = default;
             Optional<ResourceNotificationsOperationalDetails> operationalInfo = default;
             foreach (var property in element.EnumerateObject())
             {
@@ -32,12 +31,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                     {
                         continue;
                     }
-                    resourceInfo = ResourceNotificationsResourceUpdatedDetails.DeserializeResourceNotificationsResourceUpdatedDetails(property.Value);
-                    continue;
-                }
-                if (property.NameEquals("apiVersion"u8))
-                {
-                    apiVersion = property.Value.GetString();
+                    resourceInfo = ResourceNotificationsResourceDeletedDetails.DeserializeResourceNotificationsResourceDeletedDetails(property.Value);
                     continue;
                 }
                 if (property.NameEquals("operationalInfo"u8))
@@ -50,19 +44,19 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                     continue;
                 }
             }
-            return new ResourceNotificationsResourceUpdatedEventData(resourceInfo.Value, apiVersion.Value, operationalInfo.Value);
+            return new ResourceNotificationsResourceManagementDeletedEventData(resourceInfo.Value, operationalInfo.Value);
         }
 
-        internal partial class ResourceNotificationsResourceUpdatedEventDataConverter : JsonConverter<ResourceNotificationsResourceUpdatedEventData>
+        internal partial class ResourceNotificationsResourceManagementDeletedEventDataConverter : JsonConverter<ResourceNotificationsResourceManagementDeletedEventData>
         {
-            public override void Write(Utf8JsonWriter writer, ResourceNotificationsResourceUpdatedEventData model, JsonSerializerOptions options)
+            public override void Write(Utf8JsonWriter writer, ResourceNotificationsResourceManagementDeletedEventData model, JsonSerializerOptions options)
             {
                 throw new NotImplementedException();
             }
-            public override ResourceNotificationsResourceUpdatedEventData Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+            public override ResourceNotificationsResourceManagementDeletedEventData Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
             {
                 using var document = JsonDocument.ParseValue(ref reader);
-                return DeserializeResourceNotificationsResourceUpdatedEventData(document.RootElement);
+                return DeserializeResourceNotificationsResourceManagementDeletedEventData(document.RootElement);
             }
         }
     }
