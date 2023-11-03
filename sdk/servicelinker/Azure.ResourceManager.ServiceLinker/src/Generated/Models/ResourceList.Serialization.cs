@@ -12,9 +12,9 @@ using Azure.ResourceManager.ServiceLinker;
 
 namespace Azure.ResourceManager.ServiceLinker.Models
 {
-    internal partial class LinkerList
+    internal partial class ResourceList
     {
-        internal static LinkerList DeserializeLinkerList(JsonElement element)
+        internal static ResourceList DeserializeResourceList(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
@@ -49,7 +49,7 @@ namespace Azure.ResourceManager.ServiceLinker.Models
                     continue;
                 }
             }
-            return new LinkerList(nextLink.Value, Optional.ToList(value));
+            return new ResourceList(nextLink.Value, Optional.ToList(value));
         }
     }
 }

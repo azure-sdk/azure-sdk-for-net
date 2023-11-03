@@ -10,7 +10,7 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.ServiceLinker.Models
 {
-    public partial class LinkerResourcePatch : IUtf8JsonSerializable
+    public partial class LinkerPatch : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
@@ -66,6 +66,30 @@ namespace Azure.ResourceManager.ServiceLinker.Models
                 else
                 {
                     writer.WriteNull("scope");
+                }
+            }
+            if (Optional.IsDefined(PublicNetworkSolution))
+            {
+                if (PublicNetworkSolution != null)
+                {
+                    writer.WritePropertyName("publicNetworkSolution"u8);
+                    writer.WriteObjectValue(PublicNetworkSolution);
+                }
+                else
+                {
+                    writer.WriteNull("publicNetworkSolution");
+                }
+            }
+            if (Optional.IsDefined(ConfigurationInfo))
+            {
+                if (ConfigurationInfo != null)
+                {
+                    writer.WritePropertyName("configurationInfo"u8);
+                    writer.WriteObjectValue(ConfigurationInfo);
+                }
+                else
+                {
+                    writer.WriteNull("configurationInfo");
                 }
             }
             writer.WriteEndObject();

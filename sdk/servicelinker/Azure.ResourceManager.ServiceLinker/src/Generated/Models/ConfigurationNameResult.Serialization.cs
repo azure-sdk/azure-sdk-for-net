@@ -11,33 +11,39 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.ServiceLinker.Models
 {
-    public partial class SourceConfigurationResult
+    internal partial class ConfigurationNameResult
     {
-        internal static SourceConfigurationResult DeserializeSourceConfigurationResult(JsonElement element)
+        internal static ConfigurationNameResult DeserializeConfigurationNameResult(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
                 return null;
             }
-            Optional<IReadOnlyList<SourceConfiguration>> configurations = default;
+            Optional<IReadOnlyList<ConfigurationNameItem>> value = default;
+            Optional<string> nextLink = default;
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("configurations"u8))
+                if (property.NameEquals("value"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    List<SourceConfiguration> array = new List<SourceConfiguration>();
+                    List<ConfigurationNameItem> array = new List<ConfigurationNameItem>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(SourceConfiguration.DeserializeSourceConfiguration(item));
+                        array.Add(ConfigurationNameItem.DeserializeConfigurationNameItem(item));
                     }
-                    configurations = array;
+                    value = array;
+                    continue;
+                }
+                if (property.NameEquals("nextLink"u8))
+                {
+                    nextLink = property.Value.GetString();
                     continue;
                 }
             }
-            return new SourceConfigurationResult(Optional.ToList(configurations));
+            return new ConfigurationNameResult(Optional.ToList(value), nextLink.Value);
         }
     }
 }

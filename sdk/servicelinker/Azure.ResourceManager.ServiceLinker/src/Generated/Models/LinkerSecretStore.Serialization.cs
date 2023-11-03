@@ -10,7 +10,7 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.ServiceLinker.Models
 {
-    internal partial class LinkerSecretStore : IUtf8JsonSerializable
+    public partial class LinkerSecretStore : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
@@ -27,6 +27,18 @@ namespace Azure.ResourceManager.ServiceLinker.Models
                     writer.WriteNull("keyVaultId");
                 }
             }
+            if (Optional.IsDefined(KeyVaultSecretName))
+            {
+                if (KeyVaultSecretName != null)
+                {
+                    writer.WritePropertyName("keyVaultSecretName"u8);
+                    writer.WriteStringValue(KeyVaultSecretName);
+                }
+                else
+                {
+                    writer.WriteNull("keyVaultSecretName");
+                }
+            }
             writer.WriteEndObject();
         }
 
@@ -37,6 +49,7 @@ namespace Azure.ResourceManager.ServiceLinker.Models
                 return null;
             }
             Optional<ResourceIdentifier> keyVaultId = default;
+            Optional<string> keyVaultSecretName = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("keyVaultId"u8))
@@ -49,8 +62,18 @@ namespace Azure.ResourceManager.ServiceLinker.Models
                     keyVaultId = new ResourceIdentifier(property.Value.GetString());
                     continue;
                 }
+                if (property.NameEquals("keyVaultSecretName"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        keyVaultSecretName = null;
+                        continue;
+                    }
+                    keyVaultSecretName = property.Value.GetString();
+                    continue;
+                }
             }
-            return new LinkerSecretStore(keyVaultId.Value);
+            return new LinkerSecretStore(keyVaultId.Value, keyVaultSecretName.Value);
         }
     }
 }
