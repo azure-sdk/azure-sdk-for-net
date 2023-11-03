@@ -22,8 +22,8 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                 return null;
             }
             Optional<ResourceNotificationsResourceUpdatedDetails> resourceInfo = default;
-            Optional<ResourceNotificationsOperationalDetails> operationalInfo = default;
             Optional<string> apiVersion = default;
+            Optional<ResourceNotificationsOperationalDetails> operationalInfo = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("resourceInfo"u8))
@@ -35,6 +35,11 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                     resourceInfo = ResourceNotificationsResourceUpdatedDetails.DeserializeResourceNotificationsResourceUpdatedDetails(property.Value);
                     continue;
                 }
+                if (property.NameEquals("apiVersion"u8))
+                {
+                    apiVersion = property.Value.GetString();
+                    continue;
+                }
                 if (property.NameEquals("operationalInfo"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -44,13 +49,8 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                     operationalInfo = ResourceNotificationsOperationalDetails.DeserializeResourceNotificationsOperationalDetails(property.Value);
                     continue;
                 }
-                if (property.NameEquals("apiVersion"u8))
-                {
-                    apiVersion = property.Value.GetString();
-                    continue;
-                }
             }
-            return new ResourceNotificationsHealthResourcesAnnotatedEventData(resourceInfo.Value, operationalInfo.Value, apiVersion.Value);
+            return new ResourceNotificationsHealthResourcesAnnotatedEventData(resourceInfo.Value, apiVersion.Value, operationalInfo.Value);
         }
 
         internal partial class ResourceNotificationsHealthResourcesAnnotatedEventDataConverter : JsonConverter<ResourceNotificationsHealthResourcesAnnotatedEventData>

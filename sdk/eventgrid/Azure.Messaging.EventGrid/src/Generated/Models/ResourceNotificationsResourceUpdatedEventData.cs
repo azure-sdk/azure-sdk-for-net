@@ -17,20 +17,20 @@ namespace Azure.Messaging.EventGrid.SystemEvents
 
         /// <summary> Initializes a new instance of ResourceNotificationsResourceUpdatedEventData. </summary>
         /// <param name="resourceDetails"> resourceInfo details for update event. </param>
-        /// <param name="operationalDetails"> details about operational info. </param>
         /// <param name="apiVersion"> api version of the resource properties bag. </param>
-        internal ResourceNotificationsResourceUpdatedEventData(ResourceNotificationsResourceUpdatedDetails resourceDetails, ResourceNotificationsOperationalDetails operationalDetails, string apiVersion)
+        /// <param name="operationalDetails"> details about operational info. </param>
+        internal ResourceNotificationsResourceUpdatedEventData(ResourceNotificationsResourceUpdatedDetails resourceDetails, string apiVersion, ResourceNotificationsOperationalDetails operationalDetails)
         {
             ResourceDetails = resourceDetails;
-            OperationalDetails = operationalDetails;
             ApiVersion = apiVersion;
+            OperationalDetails = operationalDetails;
         }
 
         /// <summary> resourceInfo details for update event. </summary>
         public ResourceNotificationsResourceUpdatedDetails ResourceDetails { get; }
-        /// <summary> details about operational info. </summary>
-        public ResourceNotificationsOperationalDetails OperationalDetails { get; }
         /// <summary> api version of the resource properties bag. </summary>
         public string ApiVersion { get; }
+        /// <summary> details about operational info. </summary>
+        public ResourceNotificationsOperationalDetails OperationalDetails { get; }
     }
 }

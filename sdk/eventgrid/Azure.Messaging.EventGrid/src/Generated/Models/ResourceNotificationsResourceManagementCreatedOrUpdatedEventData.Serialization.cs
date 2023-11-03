@@ -12,10 +12,10 @@ using Azure.Core;
 
 namespace Azure.Messaging.EventGrid.SystemEvents
 {
-    [JsonConverter(typeof(ResourceNotificationsResourceUpdatedEventDataConverter))]
-    public partial class ResourceNotificationsResourceUpdatedEventData
+    [JsonConverter(typeof(ResourceNotificationsResourceManagementCreatedOrUpdatedEventDataConverter))]
+    public partial class ResourceNotificationsResourceManagementCreatedOrUpdatedEventData
     {
-        internal static ResourceNotificationsResourceUpdatedEventData DeserializeResourceNotificationsResourceUpdatedEventData(JsonElement element)
+        internal static ResourceNotificationsResourceManagementCreatedOrUpdatedEventData DeserializeResourceNotificationsResourceManagementCreatedOrUpdatedEventData(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
@@ -50,19 +50,19 @@ namespace Azure.Messaging.EventGrid.SystemEvents
                     continue;
                 }
             }
-            return new ResourceNotificationsResourceUpdatedEventData(resourceInfo.Value, apiVersion.Value, operationalInfo.Value);
+            return new ResourceNotificationsResourceManagementCreatedOrUpdatedEventData(resourceInfo.Value, apiVersion.Value, operationalInfo.Value);
         }
 
-        internal partial class ResourceNotificationsResourceUpdatedEventDataConverter : JsonConverter<ResourceNotificationsResourceUpdatedEventData>
+        internal partial class ResourceNotificationsResourceManagementCreatedOrUpdatedEventDataConverter : JsonConverter<ResourceNotificationsResourceManagementCreatedOrUpdatedEventData>
         {
-            public override void Write(Utf8JsonWriter writer, ResourceNotificationsResourceUpdatedEventData model, JsonSerializerOptions options)
+            public override void Write(Utf8JsonWriter writer, ResourceNotificationsResourceManagementCreatedOrUpdatedEventData model, JsonSerializerOptions options)
             {
                 throw new NotImplementedException();
             }
-            public override ResourceNotificationsResourceUpdatedEventData Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+            public override ResourceNotificationsResourceManagementCreatedOrUpdatedEventData Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
             {
                 using var document = JsonDocument.ParseValue(ref reader);
-                return DeserializeResourceNotificationsResourceUpdatedEventData(document.RootElement);
+                return DeserializeResourceNotificationsResourceManagementCreatedOrUpdatedEventData(document.RootElement);
             }
         }
     }
