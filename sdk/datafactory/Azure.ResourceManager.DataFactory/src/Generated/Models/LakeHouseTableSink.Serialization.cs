@@ -13,44 +13,54 @@ using Azure.Core.Expressions.DataFactory;
 
 namespace Azure.ResourceManager.DataFactory.Models
 {
-    public partial class ParquetSource : IUtf8JsonSerializable
+    public partial class LakeHouseTableSink : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
-            if (Optional.IsDefined(StoreSettings))
+            if (Optional.IsDefined(TableActionOption))
             {
-                writer.WritePropertyName("storeSettings"u8);
-                writer.WriteObjectValue(StoreSettings);
+                writer.WritePropertyName("tableActionOption"u8);
+                JsonSerializer.Serialize(writer, TableActionOption);
             }
-            if (Optional.IsDefined(FormatSettings))
+            if (Optional.IsDefined(PartitionOption))
             {
-                writer.WritePropertyName("formatSettings"u8);
-                writer.WriteObjectValue(FormatSettings);
+                writer.WritePropertyName("partitionOption"u8);
+                JsonSerializer.Serialize(writer, PartitionOption);
             }
-            if (Optional.IsDefined(AdditionalColumns))
+            if (Optional.IsDefined(PartitionNameList))
             {
-                writer.WritePropertyName("additionalColumns"u8);
+                writer.WritePropertyName("partitionNameList"u8);
 #if NET6_0_OR_GREATER
-				writer.WriteRawValue(AdditionalColumns);
+				writer.WriteRawValue(PartitionNameList);
 #else
-                using (JsonDocument document = JsonDocument.Parse(AdditionalColumns))
+                using (JsonDocument document = JsonDocument.Parse(PartitionNameList))
                 {
                     JsonSerializer.Serialize(writer, document.RootElement);
                 }
 #endif
             }
             writer.WritePropertyName("type"u8);
-            writer.WriteStringValue(CopySourceType);
-            if (Optional.IsDefined(SourceRetryCount))
+            writer.WriteStringValue(CopySinkType);
+            if (Optional.IsDefined(WriteBatchSize))
             {
-                writer.WritePropertyName("sourceRetryCount"u8);
-                JsonSerializer.Serialize(writer, SourceRetryCount);
+                writer.WritePropertyName("writeBatchSize"u8);
+                JsonSerializer.Serialize(writer, WriteBatchSize);
             }
-            if (Optional.IsDefined(SourceRetryWait))
+            if (Optional.IsDefined(WriteBatchTimeout))
             {
-                writer.WritePropertyName("sourceRetryWait"u8);
-                JsonSerializer.Serialize(writer, SourceRetryWait);
+                writer.WritePropertyName("writeBatchTimeout"u8);
+                JsonSerializer.Serialize(writer, WriteBatchTimeout);
+            }
+            if (Optional.IsDefined(SinkRetryCount))
+            {
+                writer.WritePropertyName("sinkRetryCount"u8);
+                JsonSerializer.Serialize(writer, SinkRetryCount);
+            }
+            if (Optional.IsDefined(SinkRetryWait))
+            {
+                writer.WritePropertyName("sinkRetryWait"u8);
+                JsonSerializer.Serialize(writer, SinkRetryWait);
             }
             if (Optional.IsDefined(MaxConcurrentConnections))
             {
@@ -77,49 +87,51 @@ namespace Azure.ResourceManager.DataFactory.Models
             writer.WriteEndObject();
         }
 
-        internal static ParquetSource DeserializeParquetSource(JsonElement element)
+        internal static LakeHouseTableSink DeserializeLakeHouseTableSink(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
                 return null;
             }
-            Optional<StoreReadSettings> storeSettings = default;
-            Optional<ParquetReadSettings> formatSettings = default;
-            Optional<BinaryData> additionalColumns = default;
+            Optional<DataFactoryElement<string>> tableActionOption = default;
+            Optional<DataFactoryElement<string>> partitionOption = default;
+            Optional<BinaryData> partitionNameList = default;
             string type = default;
-            Optional<DataFactoryElement<int>> sourceRetryCount = default;
-            Optional<DataFactoryElement<string>> sourceRetryWait = default;
+            Optional<DataFactoryElement<int>> writeBatchSize = default;
+            Optional<DataFactoryElement<string>> writeBatchTimeout = default;
+            Optional<DataFactoryElement<int>> sinkRetryCount = default;
+            Optional<DataFactoryElement<string>> sinkRetryWait = default;
             Optional<DataFactoryElement<int>> maxConcurrentConnections = default;
             Optional<DataFactoryElement<bool>> disableMetricsCollection = default;
             IDictionary<string, BinaryData> additionalProperties = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("storeSettings"u8))
+                if (property.NameEquals("tableActionOption"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    storeSettings = StoreReadSettings.DeserializeStoreReadSettings(property.Value);
+                    tableActionOption = JsonSerializer.Deserialize<DataFactoryElement<string>>(property.Value.GetRawText());
                     continue;
                 }
-                if (property.NameEquals("formatSettings"u8))
+                if (property.NameEquals("partitionOption"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    formatSettings = ParquetReadSettings.DeserializeParquetReadSettings(property.Value);
+                    partitionOption = JsonSerializer.Deserialize<DataFactoryElement<string>>(property.Value.GetRawText());
                     continue;
                 }
-                if (property.NameEquals("additionalColumns"u8))
+                if (property.NameEquals("partitionNameList"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    additionalColumns = BinaryData.FromString(property.Value.GetRawText());
+                    partitionNameList = BinaryData.FromString(property.Value.GetRawText());
                     continue;
                 }
                 if (property.NameEquals("type"u8))
@@ -127,22 +139,40 @@ namespace Azure.ResourceManager.DataFactory.Models
                     type = property.Value.GetString();
                     continue;
                 }
-                if (property.NameEquals("sourceRetryCount"u8))
+                if (property.NameEquals("writeBatchSize"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    sourceRetryCount = JsonSerializer.Deserialize<DataFactoryElement<int>>(property.Value.GetRawText());
+                    writeBatchSize = JsonSerializer.Deserialize<DataFactoryElement<int>>(property.Value.GetRawText());
                     continue;
                 }
-                if (property.NameEquals("sourceRetryWait"u8))
+                if (property.NameEquals("writeBatchTimeout"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    sourceRetryWait = JsonSerializer.Deserialize<DataFactoryElement<string>>(property.Value.GetRawText());
+                    writeBatchTimeout = JsonSerializer.Deserialize<DataFactoryElement<string>>(property.Value.GetRawText());
+                    continue;
+                }
+                if (property.NameEquals("sinkRetryCount"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    sinkRetryCount = JsonSerializer.Deserialize<DataFactoryElement<int>>(property.Value.GetRawText());
+                    continue;
+                }
+                if (property.NameEquals("sinkRetryWait"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    sinkRetryWait = JsonSerializer.Deserialize<DataFactoryElement<string>>(property.Value.GetRawText());
                     continue;
                 }
                 if (property.NameEquals("maxConcurrentConnections"u8))
@@ -166,7 +196,7 @@ namespace Azure.ResourceManager.DataFactory.Models
                 additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
             }
             additionalProperties = additionalPropertiesDictionary;
-            return new ParquetSource(type, sourceRetryCount.Value, sourceRetryWait.Value, maxConcurrentConnections.Value, disableMetricsCollection.Value, additionalProperties, storeSettings.Value, formatSettings.Value, additionalColumns.Value);
+            return new LakeHouseTableSink(type, writeBatchSize.Value, writeBatchTimeout.Value, sinkRetryCount.Value, sinkRetryWait.Value, maxConcurrentConnections.Value, disableMetricsCollection.Value, additionalProperties, tableActionOption.Value, partitionOption.Value, partitionNameList.Value);
         }
     }
 }

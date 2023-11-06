@@ -13,20 +13,20 @@ using Azure.Core.Expressions.DataFactory;
 
 namespace Azure.ResourceManager.DataFactory.Models
 {
-    public partial class ParquetSource : IUtf8JsonSerializable
+    public partial class LakeHouseTableSource : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
-            if (Optional.IsDefined(StoreSettings))
+            if (Optional.IsDefined(TimestampAsOf))
             {
-                writer.WritePropertyName("storeSettings"u8);
-                writer.WriteObjectValue(StoreSettings);
+                writer.WritePropertyName("timestampAsOf"u8);
+                JsonSerializer.Serialize(writer, TimestampAsOf);
             }
-            if (Optional.IsDefined(FormatSettings))
+            if (Optional.IsDefined(VersionAsOf))
             {
-                writer.WritePropertyName("formatSettings"u8);
-                writer.WriteObjectValue(FormatSettings);
+                writer.WritePropertyName("versionAsOf"u8);
+                JsonSerializer.Serialize(writer, VersionAsOf);
             }
             if (Optional.IsDefined(AdditionalColumns))
             {
@@ -77,14 +77,14 @@ namespace Azure.ResourceManager.DataFactory.Models
             writer.WriteEndObject();
         }
 
-        internal static ParquetSource DeserializeParquetSource(JsonElement element)
+        internal static LakeHouseTableSource DeserializeLakeHouseTableSource(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
                 return null;
             }
-            Optional<StoreReadSettings> storeSettings = default;
-            Optional<ParquetReadSettings> formatSettings = default;
+            Optional<DataFactoryElement<string>> timestampAsOf = default;
+            Optional<DataFactoryElement<int>> versionAsOf = default;
             Optional<BinaryData> additionalColumns = default;
             string type = default;
             Optional<DataFactoryElement<int>> sourceRetryCount = default;
@@ -95,22 +95,22 @@ namespace Azure.ResourceManager.DataFactory.Models
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("storeSettings"u8))
+                if (property.NameEquals("timestampAsOf"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    storeSettings = StoreReadSettings.DeserializeStoreReadSettings(property.Value);
+                    timestampAsOf = JsonSerializer.Deserialize<DataFactoryElement<string>>(property.Value.GetRawText());
                     continue;
                 }
-                if (property.NameEquals("formatSettings"u8))
+                if (property.NameEquals("versionAsOf"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    formatSettings = ParquetReadSettings.DeserializeParquetReadSettings(property.Value);
+                    versionAsOf = JsonSerializer.Deserialize<DataFactoryElement<int>>(property.Value.GetRawText());
                     continue;
                 }
                 if (property.NameEquals("additionalColumns"u8))
@@ -166,7 +166,7 @@ namespace Azure.ResourceManager.DataFactory.Models
                 additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
             }
             additionalProperties = additionalPropertiesDictionary;
-            return new ParquetSource(type, sourceRetryCount.Value, sourceRetryWait.Value, maxConcurrentConnections.Value, disableMetricsCollection.Value, additionalProperties, storeSettings.Value, formatSettings.Value, additionalColumns.Value);
+            return new LakeHouseTableSource(type, sourceRetryCount.Value, sourceRetryWait.Value, maxConcurrentConnections.Value, disableMetricsCollection.Value, additionalProperties, timestampAsOf.Value, versionAsOf.Value, additionalColumns.Value);
         }
     }
 }
