@@ -16,6 +16,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <summary> Initializes a new instance of ResourceNotificationsResourceUpdatedDetails. </summary>
         internal ResourceNotificationsResourceUpdatedDetails()
         {
+            Tags = new ChangeTrackingDictionary<string, string>();
             Properties = new ChangeTrackingDictionary<string, object>();
         }
 
@@ -26,7 +27,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
         /// <param name="location"> the location of the resource for which the event is being emitted. </param>
         /// <param name="tags"> the tags on the resource for which the event is being emitted. </param>
         /// <param name="properties"> properties in the payload of the resource for which the event is being emitted. </param>
-        internal ResourceNotificationsResourceUpdatedDetails(string id, string name, string resourceType, string location, string tags, IReadOnlyDictionary<string, object> properties)
+        internal ResourceNotificationsResourceUpdatedDetails(string id, string name, string resourceType, string location, IReadOnlyDictionary<string, string> tags, IReadOnlyDictionary<string, object> properties)
         {
             Id = id;
             Name = name;
@@ -36,7 +37,7 @@ namespace Azure.Messaging.EventGrid.SystemEvents
             Properties = properties;
         }
         /// <summary> the tags on the resource for which the event is being emitted. </summary>
-        public string Tags { get; }
+        public IReadOnlyDictionary<string, string> Tags { get; }
         /// <summary> properties in the payload of the resource for which the event is being emitted. </summary>
         public IReadOnlyDictionary<string, object> Properties { get; }
     }

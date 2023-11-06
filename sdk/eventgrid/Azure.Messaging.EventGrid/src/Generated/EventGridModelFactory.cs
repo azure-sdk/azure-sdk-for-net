@@ -3036,8 +3036,9 @@ namespace Azure.Messaging.EventGrid
         /// <param name="tags"> the tags on the resource for which the event is being emitted. </param>
         /// <param name="properties"> properties in the payload of the resource for which the event is being emitted. </param>
         /// <returns> A new <see cref="SystemEvents.ResourceNotificationsResourceUpdatedDetails"/> instance for mocking. </returns>
-        public static ResourceNotificationsResourceUpdatedDetails ResourceNotificationsResourceUpdatedDetails(string id = null, string name = null, string resourceType = null, string location = null, string tags = null, IReadOnlyDictionary<string, object> properties = null)
+        public static ResourceNotificationsResourceUpdatedDetails ResourceNotificationsResourceUpdatedDetails(string id = null, string name = null, string resourceType = null, string location = null, IReadOnlyDictionary<string, string> tags = null, IReadOnlyDictionary<string, object> properties = null)
         {
+            tags ??= new Dictionary<string, string>();
             properties ??= new Dictionary<string, object>();
 
             return new ResourceNotificationsResourceUpdatedDetails(id, name, resourceType, location, tags, properties);
