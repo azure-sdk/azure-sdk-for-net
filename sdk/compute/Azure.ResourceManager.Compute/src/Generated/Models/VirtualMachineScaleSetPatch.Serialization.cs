@@ -53,6 +53,11 @@ namespace Azure.ResourceManager.Compute.Models
                 writer.WritePropertyName("automaticRepairsPolicy"u8);
                 writer.WriteObjectValue(AutomaticRepairsPolicy);
             }
+            if (Optional.IsDefined(ResiliencyPolicy))
+            {
+                writer.WritePropertyName("resiliencyPolicy"u8);
+                writer.WriteObjectValue(ResiliencyPolicy);
+            }
             if (Optional.IsDefined(VirtualMachineProfile))
             {
                 writer.WritePropertyName("virtualMachineProfile"u8);

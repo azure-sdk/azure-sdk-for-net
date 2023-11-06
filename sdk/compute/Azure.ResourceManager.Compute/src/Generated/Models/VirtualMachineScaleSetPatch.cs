@@ -29,6 +29,8 @@ namespace Azure.ResourceManager.Compute.Models
         public VirtualMachineScaleSetUpgradePolicy UpgradePolicy { get; set; }
         /// <summary> Policy for automatic repairs. </summary>
         public AutomaticRepairsPolicy AutomaticRepairsPolicy { get; set; }
+        /// <summary> Policy for Resiliency. </summary>
+        public ResiliencyPolicy ResiliencyPolicy { get; set; }
         /// <summary> The virtual machine profile. </summary>
         public VirtualMachineScaleSetUpdateVmProfile VirtualMachineProfile { get; set; }
         /// <summary> Specifies whether the Virtual Machine Scale Set should be overprovisioned. </summary>

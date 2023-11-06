@@ -75,6 +75,11 @@ namespace Azure.ResourceManager.Compute
                 writer.WritePropertyName("automaticRepairsPolicy"u8);
                 writer.WriteObjectValue(AutomaticRepairsPolicy);
             }
+            if (Optional.IsDefined(ResiliencyPolicy))
+            {
+                writer.WritePropertyName("resiliencyPolicy"u8);
+                writer.WriteObjectValue(ResiliencyPolicy);
+            }
             if (Optional.IsDefined(VirtualMachineProfile))
             {
                 writer.WritePropertyName("virtualMachineProfile"u8);
@@ -168,6 +173,7 @@ namespace Azure.ResourceManager.Compute
             Optional<SystemData> systemData = default;
             Optional<VirtualMachineScaleSetUpgradePolicy> upgradePolicy = default;
             Optional<AutomaticRepairsPolicy> automaticRepairsPolicy = default;
+            Optional<ResiliencyPolicy> resiliencyPolicy = default;
             Optional<VirtualMachineScaleSetVmProfile> virtualMachineProfile = default;
             Optional<string> provisioningState = default;
             Optional<bool> overprovision = default;
@@ -305,6 +311,15 @@ namespace Azure.ResourceManager.Compute
                                 continue;
                             }
                             automaticRepairsPolicy = AutomaticRepairsPolicy.DeserializeAutomaticRepairsPolicy(property0.Value);
+                            continue;
+                        }
+                        if (property0.NameEquals("resiliencyPolicy"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            resiliencyPolicy = ResiliencyPolicy.DeserializeResiliencyPolicy(property0.Value);
                             continue;
                         }
                         if (property0.NameEquals("virtualMachineProfile"u8))
@@ -456,7 +471,7 @@ namespace Azure.ResourceManager.Compute
                     continue;
                 }
             }
-            return new VirtualMachineScaleSetData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, sku.Value, plan.Value, identity, Optional.ToList(zones), extendedLocation, upgradePolicy.Value, automaticRepairsPolicy.Value, virtualMachineProfile.Value, provisioningState.Value, Optional.ToNullable(overprovision), Optional.ToNullable(doNotRunExtensionsOnOverprovisionedVms), uniqueId.Value, Optional.ToNullable(singlePlacementGroup), Optional.ToNullable(zoneBalance), Optional.ToNullable(platformFaultDomainCount), proximityPlacementGroup, hostGroup, additionalCapabilities.Value, scaleInPolicy.Value, Optional.ToNullable(orchestrationMode), spotRestorePolicy.Value, priorityMixPolicy.Value, Optional.ToNullable(timeCreated), Optional.ToNullable(constrainedMaximumCapacity));
+            return new VirtualMachineScaleSetData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, sku.Value, plan.Value, identity, Optional.ToList(zones), extendedLocation, upgradePolicy.Value, automaticRepairsPolicy.Value, resiliencyPolicy.Value, virtualMachineProfile.Value, provisioningState.Value, Optional.ToNullable(overprovision), Optional.ToNullable(doNotRunExtensionsOnOverprovisionedVms), uniqueId.Value, Optional.ToNullable(singlePlacementGroup), Optional.ToNullable(zoneBalance), Optional.ToNullable(platformFaultDomainCount), proximityPlacementGroup, hostGroup, additionalCapabilities.Value, scaleInPolicy.Value, Optional.ToNullable(orchestrationMode), spotRestorePolicy.Value, priorityMixPolicy.Value, Optional.ToNullable(timeCreated), Optional.ToNullable(constrainedMaximumCapacity));
         }
     }
 }
