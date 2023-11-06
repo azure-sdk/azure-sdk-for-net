@@ -1,0 +1,5 @@
+commit: 6aaa945505c71a9e23084230c48cc98ac40f9fb3
+repo: Azure/azure-rest-api-specs
+additionalDirectories: []
+directory: specification/eventgrid/Azure.Messaging.EventGrid
+
