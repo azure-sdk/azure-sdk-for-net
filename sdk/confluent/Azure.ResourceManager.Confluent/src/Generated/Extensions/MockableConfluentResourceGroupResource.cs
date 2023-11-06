@@ -13,6 +13,7 @@ using Azure.Core;
 using Azure.Core.Pipeline;
 using Azure.ResourceManager;
 using Azure.ResourceManager.Confluent;
+using Azure.ResourceManager.Confluent.Models;
 
 namespace Azure.ResourceManager.Confluent.Mocking
 {
@@ -162,6 +163,80 @@ namespace Azure.ResourceManager.Confluent.Mocking
             {
                 var response = ValidationsRestClient.ValidateOrganization(Id.SubscriptionId, Id.ResourceGroupName, organizationName, data, cancellationToken);
                 return Response.FromValue(new ConfluentOrganizationResource(Client, response.Value), response.GetRawResponse());
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Organization Validate proxy resource
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/validations/{organizationName}/orgvalidateV2</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Validations_ValidateOrganizationV2</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="organizationName"> Organization resource name. </param>
+        /// <param name="data"> Organization resource model. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="organizationName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="organizationName"/> or <paramref name="data"/> is null. </exception>
+        public virtual async Task<Response<ValidationResponse>> ValidateOrganizationV2ValidationAsync(string organizationName, ConfluentOrganizationData data, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(organizationName, nameof(organizationName));
+            Argument.AssertNotNull(data, nameof(data));
+
+            using var scope = ValidationsClientDiagnostics.CreateScope("MockableConfluentResourceGroupResource.ValidateOrganizationV2Validation");
+            scope.Start();
+            try
+            {
+                var response = await ValidationsRestClient.ValidateOrganizationV2Async(Id.SubscriptionId, Id.ResourceGroupName, organizationName, data, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Organization Validate proxy resource
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Confluent/validations/{organizationName}/orgvalidateV2</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Validations_ValidateOrganizationV2</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="organizationName"> Organization resource name. </param>
+        /// <param name="data"> Organization resource model. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="organizationName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="organizationName"/> or <paramref name="data"/> is null. </exception>
+        public virtual Response<ValidationResponse> ValidateOrganizationV2Validation(string organizationName, ConfluentOrganizationData data, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(organizationName, nameof(organizationName));
+            Argument.AssertNotNull(data, nameof(data));
+
+            using var scope = ValidationsClientDiagnostics.CreateScope("MockableConfluentResourceGroupResource.ValidateOrganizationV2Validation");
+            scope.Start();
+            try
+            {
+                var response = ValidationsRestClient.ValidateOrganizationV2(Id.SubscriptionId, Id.ResourceGroupName, organizationName, data, cancellationToken);
+                return response;
             }
             catch (Exception e)
             {

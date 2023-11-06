@@ -24,7 +24,7 @@ namespace Azure.ResourceManager.Confluent.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetConfluentOrganizations_OrganizationListBySubscription()
         {
-            // Generated from example definition: specification/confluent/resource-manager/Microsoft.Confluent/stable/2021-12-01/examples/Organization_ListBySubscription.json
+            // Generated from example definition: specification/confluent/resource-manager/Microsoft.Confluent/stable/2023-08-22/examples/Organization_ListBySubscription.json
             // this example is just showing the usage of "Organization_ListBySubscription" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -56,7 +56,7 @@ namespace Azure.ResourceManager.Confluent.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_OrganizationGet()
         {
-            // Generated from example definition: specification/confluent/resource-manager/Microsoft.Confluent/stable/2021-12-01/examples/Organization_Get.json
+            // Generated from example definition: specification/confluent/resource-manager/Microsoft.Confluent/stable/2023-08-22/examples/Organization_Get.json
             // this example is just showing the usage of "Organization_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -87,7 +87,7 @@ namespace Azure.ResourceManager.Confluent.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_ConfluentUpdate()
         {
-            // Generated from example definition: specification/confluent/resource-manager/Microsoft.Confluent/stable/2021-12-01/examples/Organization_Update.json
+            // Generated from example definition: specification/confluent/resource-manager/Microsoft.Confluent/stable/2023-08-22/examples/Organization_Update.json
             // this example is just showing the usage of "Organization_Update" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -126,7 +126,7 @@ namespace Azure.ResourceManager.Confluent.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Delete_ConfluentDelete()
         {
-            // Generated from example definition: specification/confluent/resource-manager/Microsoft.Confluent/stable/2021-12-01/examples/Organization_Delete.json
+            // Generated from example definition: specification/confluent/resource-manager/Microsoft.Confluent/stable/2023-08-22/examples/Organization_Delete.json
             // this example is just showing the usage of "Organization_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -146,6 +146,252 @@ namespace Azure.ResourceManager.Confluent.Samples
             await confluentOrganization.DeleteAsync(WaitUntil.Completed);
 
             Console.WriteLine($"Succeeded");
+        }
+
+        // Access_UsersList
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task GetUsersAcces_AccessUsersList()
+        {
+            // Generated from example definition: specification/confluent/resource-manager/Microsoft.Confluent/stable/2023-08-22/examples/Access_UsersList.json
+            // this example is just showing the usage of "Access_ListUsers" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ConfluentOrganizationResource created on azure
+            // for more information of creating ConfluentOrganizationResource, please refer to the document of ConfluentOrganizationResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "myResourceGroup";
+            string organizationName = "myOrganization";
+            ResourceIdentifier confluentOrganizationResourceId = ConfluentOrganizationResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, organizationName);
+            ConfluentOrganizationResource confluentOrganization = client.GetConfluentOrganizationResource(confluentOrganizationResourceId);
+
+            // invoke the operation
+            ListAccessRequestModel body = new ListAccessRequestModel()
+            {
+                SearchFilters =
+{
+["pageSize"] = "10",
+["pageToken"] = "asc4fts4ft",
+},
+            };
+            AccessListUsersSuccessResponse result = await confluentOrganization.GetUsersAccesAsync(body);
+
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
+        // Access_ServiceAccountsList
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task GetServiceAccountsAcces_AccessServiceAccountsList()
+        {
+            // Generated from example definition: specification/confluent/resource-manager/Microsoft.Confluent/stable/2023-08-22/examples/Access_ServiceAccountsList.json
+            // this example is just showing the usage of "Access_ListServiceAccounts" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ConfluentOrganizationResource created on azure
+            // for more information of creating ConfluentOrganizationResource, please refer to the document of ConfluentOrganizationResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "myResourceGroup";
+            string organizationName = "myOrganization";
+            ResourceIdentifier confluentOrganizationResourceId = ConfluentOrganizationResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, organizationName);
+            ConfluentOrganizationResource confluentOrganization = client.GetConfluentOrganizationResource(confluentOrganizationResourceId);
+
+            // invoke the operation
+            ListAccessRequestModel body = new ListAccessRequestModel()
+            {
+                SearchFilters =
+{
+["pageSize"] = "10",
+["pageToken"] = "asc4fts4ft",
+},
+            };
+            AccessListServiceAccountsSuccessResponse result = await confluentOrganization.GetServiceAccountsAccesAsync(body);
+
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
+        // Access_InvitationsList
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task GetInvitationsAcces_AccessInvitationsList()
+        {
+            // Generated from example definition: specification/confluent/resource-manager/Microsoft.Confluent/stable/2023-08-22/examples/Access_InvitationsList.json
+            // this example is just showing the usage of "Access_ListInvitations" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ConfluentOrganizationResource created on azure
+            // for more information of creating ConfluentOrganizationResource, please refer to the document of ConfluentOrganizationResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "myResourceGroup";
+            string organizationName = "myOrganization";
+            ResourceIdentifier confluentOrganizationResourceId = ConfluentOrganizationResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, organizationName);
+            ConfluentOrganizationResource confluentOrganization = client.GetConfluentOrganizationResource(confluentOrganizationResourceId);
+
+            // invoke the operation
+            ListAccessRequestModel body = new ListAccessRequestModel()
+            {
+                SearchFilters =
+{
+["pageSize"] = "10",
+["pageToken"] = "asc4fts4ft",
+["status"] = "INVITE_STATUS_SENT",
+},
+            };
+            AccessListInvitationsSuccessResponse result = await confluentOrganization.GetInvitationsAccesAsync(body);
+
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
+        // Access_InviteUser
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task InviteUserAcces_AccessInviteUser()
+        {
+            // Generated from example definition: specification/confluent/resource-manager/Microsoft.Confluent/stable/2023-08-22/examples/Access_InviteUser.json
+            // this example is just showing the usage of "Access_InviteUser" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ConfluentOrganizationResource created on azure
+            // for more information of creating ConfluentOrganizationResource, please refer to the document of ConfluentOrganizationResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "myResourceGroup";
+            string organizationName = "myOrganization";
+            ResourceIdentifier confluentOrganizationResourceId = ConfluentOrganizationResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, organizationName);
+            ConfluentOrganizationResource confluentOrganization = client.GetConfluentOrganizationResource(confluentOrganizationResourceId);
+
+            // invoke the operation
+            AccessInviteUserAccountModel body = new AccessInviteUserAccountModel()
+            {
+                InvitedUserDetails = new AccessInvitedUserDetails()
+                {
+                    InvitedEmail = "user2@onmicrosoft.com",
+                    AuthType = "AUTH_TYPE_SSO",
+                },
+            };
+            InvitationRecord result = await confluentOrganization.InviteUserAccesAsync(body);
+
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
+        // Access_EnvironmentList
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task GetEnvironmentsAcces_AccessEnvironmentList()
+        {
+            // Generated from example definition: specification/confluent/resource-manager/Microsoft.Confluent/stable/2023-08-22/examples/Access_EnvironmentList.json
+            // this example is just showing the usage of "Access_ListEnvironments" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ConfluentOrganizationResource created on azure
+            // for more information of creating ConfluentOrganizationResource, please refer to the document of ConfluentOrganizationResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "myResourceGroup";
+            string organizationName = "myOrganization";
+            ResourceIdentifier confluentOrganizationResourceId = ConfluentOrganizationResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, organizationName);
+            ConfluentOrganizationResource confluentOrganization = client.GetConfluentOrganizationResource(confluentOrganizationResourceId);
+
+            // invoke the operation
+            ListAccessRequestModel body = new ListAccessRequestModel()
+            {
+                SearchFilters =
+{
+["pageSize"] = "10",
+["pageToken"] = "asc4fts4ft",
+},
+            };
+            AccessListEnvironmentsSuccessResponse result = await confluentOrganization.GetEnvironmentsAccesAsync(body);
+
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
+        // Access_ClusterList
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task GetClustersAcces_AccessClusterList()
+        {
+            // Generated from example definition: specification/confluent/resource-manager/Microsoft.Confluent/stable/2023-08-22/examples/Access_ClusterList.json
+            // this example is just showing the usage of "Access_ListClusters" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ConfluentOrganizationResource created on azure
+            // for more information of creating ConfluentOrganizationResource, please refer to the document of ConfluentOrganizationResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "myResourceGroup";
+            string organizationName = "myOrganization";
+            ResourceIdentifier confluentOrganizationResourceId = ConfluentOrganizationResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, organizationName);
+            ConfluentOrganizationResource confluentOrganization = client.GetConfluentOrganizationResource(confluentOrganizationResourceId);
+
+            // invoke the operation
+            ListAccessRequestModel body = new ListAccessRequestModel()
+            {
+                SearchFilters =
+{
+["pageSize"] = "10",
+["pageToken"] = "asc4fts4ft",
+},
+            };
+            AccessListClusterSuccessResponse result = await confluentOrganization.GetClustersAccesAsync(body);
+
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
+        // Access_RoleBindingList
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task GetRoleBindingsAcces_AccessRoleBindingList()
+        {
+            // Generated from example definition: specification/confluent/resource-manager/Microsoft.Confluent/stable/2023-08-22/examples/Access_RoleBindingList.json
+            // this example is just showing the usage of "Access_ListRoleBindings" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this ConfluentOrganizationResource created on azure
+            // for more information of creating ConfluentOrganizationResource, please refer to the document of ConfluentOrganizationResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "myResourceGroup";
+            string organizationName = "myOrganization";
+            ResourceIdentifier confluentOrganizationResourceId = ConfluentOrganizationResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, organizationName);
+            ConfluentOrganizationResource confluentOrganization = client.GetConfluentOrganizationResource(confluentOrganizationResourceId);
+
+            // invoke the operation
+            ListAccessRequestModel body = new ListAccessRequestModel()
+            {
+                SearchFilters =
+{
+["pageSize"] = "10",
+["pageToken"] = "asc4fts4ft",
+},
+            };
+            AccessListRoleBindingsSuccessResponse result = await confluentOrganization.GetRoleBindingsAccesAsync(body);
+
+            Console.WriteLine($"Succeeded: {result}");
         }
     }
 }
