@@ -1089,6 +1089,18 @@ namespace Azure.ResourceManager.Compute.Models
             return new RestorePointSourceMetadata(hardwareProfile, storageProfile, osProfile, bootDiagnostics != null ? new DiagnosticsProfile(bootDiagnostics) : null, licenseType, vmId, securityProfile, location, userData, hyperVGeneration);
         }
 
+        /// <summary> Initializes a new instance of RestorePointSourceVmStorageProfile. </summary>
+        /// <param name="osDisk"> Gets the OS disk of the VM captured at the time of the restore point creation. </param>
+        /// <param name="dataDiskList"> Gets the data disks of the VM captured at the time of the restore point creation. </param>
+        /// <param name="diskControllerType"> Gets the disk controller type of the VM captured at the time of the restore point creation. </param>
+        /// <returns> A new <see cref="Models.RestorePointSourceVmStorageProfile"/> instance for mocking. </returns>
+        public static RestorePointSourceVmStorageProfile RestorePointSourceVmStorageProfile(RestorePointSourceVmOSDisk osDisk = null, IEnumerable<RestorePointSourceVmDataDisk> dataDiskList = null, DiskControllerType? diskControllerType = null)
+        {
+            dataDiskList ??= new List<RestorePointSourceVmDataDisk>();
+
+            return new RestorePointSourceVmStorageProfile(osDisk, dataDiskList?.ToList(), diskControllerType);
+        }
+
         /// <summary> Initializes a new instance of RestorePointSourceVmOSDisk. </summary>
         /// <param name="osType"> Gets the Operating System type. </param>
         /// <param name="encryptionSettings"> Gets the disk encryption settings. </param>
