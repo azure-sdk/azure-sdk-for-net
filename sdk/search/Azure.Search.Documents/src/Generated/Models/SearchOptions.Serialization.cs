@@ -218,7 +218,7 @@ namespace Azure.Search.Documents
             Optional<string> scoringProfile = default;
             Optional<string> semanticQuery = default;
             Optional<string> semanticConfiguration = default;
-            Optional<SemanticErrorHandling> semanticErrorHandling = default;
+            Optional<SemanticErrorMode> semanticErrorHandling = default;
             Optional<int?> semanticMaxWaitInMilliseconds = default;
             Optional<QueryDebugMode> debug = default;
             Optional<string> search = default;
@@ -351,7 +351,7 @@ namespace Azure.Search.Documents
                     {
                         continue;
                     }
-                    semanticErrorHandling = new SemanticErrorHandling(property.Value.GetString());
+                    semanticErrorHandling = new SemanticErrorMode(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("semanticMaxWaitInMilliseconds"u8))
