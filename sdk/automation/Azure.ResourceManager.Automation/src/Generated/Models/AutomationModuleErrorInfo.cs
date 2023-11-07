@@ -16,17 +16,17 @@ namespace Azure.ResourceManager.Automation.Models
         }
 
         /// <summary> Initializes a new instance of AutomationModuleErrorInfo. </summary>
-        /// <param name="code"> Gets or sets the error code. </param>
-        /// <param name="message"> Gets or sets the error message. </param>
+        /// <param name="code"> Gets the error code. </param>
+        /// <param name="message"> Gets the error message. </param>
         internal AutomationModuleErrorInfo(string code, string message)
         {
             Code = code;
             Message = message;
         }
 
-        /// <summary> Gets or sets the error code. </summary>
+        /// <summary> Gets the error code. </summary>
         public string Code { get; set; }
-        /// <summary> Gets or sets the error message. </summary>
+        /// <summary> Gets the error message. </summary>
         public string Message { get; set; }
     }
 }

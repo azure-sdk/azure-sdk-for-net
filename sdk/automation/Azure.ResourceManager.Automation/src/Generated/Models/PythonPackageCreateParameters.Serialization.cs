@@ -10,21 +10,11 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.Automation.Models
 {
-    public partial class AutomationAccountModulePatch : IUtf8JsonSerializable
+    public partial class PythonPackageCreateParameters : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
-            if (Optional.IsDefined(Name))
-            {
-                writer.WritePropertyName("name"u8);
-                writer.WriteStringValue(Name);
-            }
-            if (Optional.IsDefined(Location))
-            {
-                writer.WritePropertyName("location"u8);
-                writer.WriteStringValue(Location.Value);
-            }
             if (Optional.IsCollectionDefined(Tags))
             {
                 writer.WritePropertyName("tags"u8);
@@ -38,11 +28,8 @@ namespace Azure.ResourceManager.Automation.Models
             }
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
-            if (Optional.IsDefined(ContentLink))
-            {
-                writer.WritePropertyName("contentLink"u8);
-                writer.WriteObjectValue(ContentLink);
-            }
+            writer.WritePropertyName("contentLink"u8);
+            writer.WriteObjectValue(ContentLink);
             writer.WriteEndObject();
             writer.WriteEndObject();
         }

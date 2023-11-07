@@ -16,20 +16,20 @@ using Azure.ResourceManager.Automation.Models;
 
 namespace Azure.ResourceManager.Automation
 {
-    internal partial class ConnectionTypeRestOperations
+    internal partial class PowerShell72ModuleRestOperations
     {
         private readonly TelemetryDetails _userAgent;
         private readonly HttpPipeline _pipeline;
         private readonly Uri _endpoint;
         private readonly string _apiVersion;
 
-        /// <summary> Initializes a new instance of ConnectionTypeRestOperations. </summary>
+        /// <summary> Initializes a new instance of PowerShell72ModuleRestOperations. </summary>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
         /// <param name="applicationId"> The application id to use for user agent. </param>
         /// <param name="endpoint"> server parameter. </param>
         /// <param name="apiVersion"> Api Version. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="pipeline"/> or <paramref name="apiVersion"/> is null. </exception>
-        public ConnectionTypeRestOperations(HttpPipeline pipeline, string applicationId, Uri endpoint = null, string apiVersion = default)
+        public PowerShell72ModuleRestOperations(HttpPipeline pipeline, string applicationId, Uri endpoint = null, string apiVersion = default)
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
@@ -37,7 +37,7 @@ namespace Azure.ResourceManager.Automation
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
-        internal HttpMessage CreateDeleteRequest(string subscriptionId, string resourceGroupName, string automationAccountName, string connectionTypeName)
+        internal HttpMessage CreateDeleteRequest(string subscriptionId, string resourceGroupName, string automationAccountName, string moduleName)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -50,8 +50,8 @@ namespace Azure.ResourceManager.Automation
             uri.AppendPath(resourceGroupName, true);
             uri.AppendPath("/providers/Microsoft.Automation/automationAccounts/", false);
             uri.AppendPath(automationAccountName, true);
-            uri.AppendPath("/connectionTypes/", false);
-            uri.AppendPath(connectionTypeName, true);
+            uri.AppendPath("/powerShell72Modules/", false);
+            uri.AppendPath(moduleName, true);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
@@ -59,22 +59,22 @@ namespace Azure.ResourceManager.Automation
             return message;
         }
 
-        /// <summary> Delete the connection type. </summary>
+        /// <summary> Delete the module by name. </summary>
         /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
-        /// <param name="resourceGroupName"> Name of an Azure Resource group. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="automationAccountName"> The name of the automation account. </param>
-        /// <param name="connectionTypeName"> The name of connection type. </param>
+        /// <param name="moduleName"> The name of module. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/> or <paramref name="connectionTypeName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/> or <paramref name="connectionTypeName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response> DeleteAsync(string subscriptionId, string resourceGroupName, string automationAccountName, string connectionTypeName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/> or <paramref name="moduleName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/> or <paramref name="moduleName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response> DeleteAsync(string subscriptionId, string resourceGroupName, string automationAccountName, string moduleName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(automationAccountName, nameof(automationAccountName));
-            Argument.AssertNotNullOrEmpty(connectionTypeName, nameof(connectionTypeName));
+            Argument.AssertNotNullOrEmpty(moduleName, nameof(moduleName));
 
-            using var message = CreateDeleteRequest(subscriptionId, resourceGroupName, automationAccountName, connectionTypeName);
+            using var message = CreateDeleteRequest(subscriptionId, resourceGroupName, automationAccountName, moduleName);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
@@ -86,22 +86,22 @@ namespace Azure.ResourceManager.Automation
             }
         }
 
-        /// <summary> Delete the connection type. </summary>
+        /// <summary> Delete the module by name. </summary>
         /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
-        /// <param name="resourceGroupName"> Name of an Azure Resource group. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="automationAccountName"> The name of the automation account. </param>
-        /// <param name="connectionTypeName"> The name of connection type. </param>
+        /// <param name="moduleName"> The name of module. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/> or <paramref name="connectionTypeName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/> or <paramref name="connectionTypeName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response Delete(string subscriptionId, string resourceGroupName, string automationAccountName, string connectionTypeName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/> or <paramref name="moduleName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/> or <paramref name="moduleName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response Delete(string subscriptionId, string resourceGroupName, string automationAccountName, string moduleName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(automationAccountName, nameof(automationAccountName));
-            Argument.AssertNotNullOrEmpty(connectionTypeName, nameof(connectionTypeName));
+            Argument.AssertNotNullOrEmpty(moduleName, nameof(moduleName));
 
-            using var message = CreateDeleteRequest(subscriptionId, resourceGroupName, automationAccountName, connectionTypeName);
+            using var message = CreateDeleteRequest(subscriptionId, resourceGroupName, automationAccountName, moduleName);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
@@ -113,7 +113,7 @@ namespace Azure.ResourceManager.Automation
             }
         }
 
-        internal HttpMessage CreateGetRequest(string subscriptionId, string resourceGroupName, string automationAccountName, string connectionTypeName)
+        internal HttpMessage CreateGetRequest(string subscriptionId, string resourceGroupName, string automationAccountName, string moduleName)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -126,8 +126,8 @@ namespace Azure.ResourceManager.Automation
             uri.AppendPath(resourceGroupName, true);
             uri.AppendPath("/providers/Microsoft.Automation/automationAccounts/", false);
             uri.AppendPath(automationAccountName, true);
-            uri.AppendPath("/connectionTypes/", false);
-            uri.AppendPath(connectionTypeName, true);
+            uri.AppendPath("/powerShell72Modules/", false);
+            uri.AppendPath(moduleName, true);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
@@ -135,73 +135,73 @@ namespace Azure.ResourceManager.Automation
             return message;
         }
 
-        /// <summary> Retrieve the connection type identified by connection type name. </summary>
+        /// <summary> Retrieve the module identified by module name. </summary>
         /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
-        /// <param name="resourceGroupName"> Name of an Azure Resource group. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="automationAccountName"> The name of the automation account. </param>
-        /// <param name="connectionTypeName"> The name of connection type. </param>
+        /// <param name="moduleName"> The name of module. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/> or <paramref name="connectionTypeName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/> or <paramref name="connectionTypeName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<AutomationConnectionTypeData>> GetAsync(string subscriptionId, string resourceGroupName, string automationAccountName, string connectionTypeName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/> or <paramref name="moduleName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/> or <paramref name="moduleName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<AutomationModuleData>> GetAsync(string subscriptionId, string resourceGroupName, string automationAccountName, string moduleName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(automationAccountName, nameof(automationAccountName));
-            Argument.AssertNotNullOrEmpty(connectionTypeName, nameof(connectionTypeName));
+            Argument.AssertNotNullOrEmpty(moduleName, nameof(moduleName));
 
-            using var message = CreateGetRequest(subscriptionId, resourceGroupName, automationAccountName, connectionTypeName);
+            using var message = CreateGetRequest(subscriptionId, resourceGroupName, automationAccountName, moduleName);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
                 case 200:
                     {
-                        AutomationConnectionTypeData value = default;
+                        AutomationModuleData value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = AutomationConnectionTypeData.DeserializeAutomationConnectionTypeData(document.RootElement);
+                        value = AutomationModuleData.DeserializeAutomationModuleData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 case 404:
-                    return Response.FromValue((AutomationConnectionTypeData)null, message.Response);
+                    return Response.FromValue((AutomationModuleData)null, message.Response);
                 default:
                     throw new RequestFailedException(message.Response);
             }
         }
 
-        /// <summary> Retrieve the connection type identified by connection type name. </summary>
+        /// <summary> Retrieve the module identified by module name. </summary>
         /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
-        /// <param name="resourceGroupName"> Name of an Azure Resource group. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="automationAccountName"> The name of the automation account. </param>
-        /// <param name="connectionTypeName"> The name of connection type. </param>
+        /// <param name="moduleName"> The name of module. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/> or <paramref name="connectionTypeName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/> or <paramref name="connectionTypeName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<AutomationConnectionTypeData> Get(string subscriptionId, string resourceGroupName, string automationAccountName, string connectionTypeName, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/> or <paramref name="moduleName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/> or <paramref name="moduleName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<AutomationModuleData> Get(string subscriptionId, string resourceGroupName, string automationAccountName, string moduleName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(automationAccountName, nameof(automationAccountName));
-            Argument.AssertNotNullOrEmpty(connectionTypeName, nameof(connectionTypeName));
+            Argument.AssertNotNullOrEmpty(moduleName, nameof(moduleName));
 
-            using var message = CreateGetRequest(subscriptionId, resourceGroupName, automationAccountName, connectionTypeName);
+            using var message = CreateGetRequest(subscriptionId, resourceGroupName, automationAccountName, moduleName);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
                 case 200:
                     {
-                        AutomationConnectionTypeData value = default;
+                        AutomationModuleData value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = AutomationConnectionTypeData.DeserializeAutomationConnectionTypeData(document.RootElement);
+                        value = AutomationModuleData.DeserializeAutomationModuleData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 case 404:
-                    return Response.FromValue((AutomationConnectionTypeData)null, message.Response);
+                    return Response.FromValue((AutomationModuleData)null, message.Response);
                 default:
                     throw new RequestFailedException(message.Response);
             }
         }
 
-        internal HttpMessage CreateCreateOrUpdateRequest(string subscriptionId, string resourceGroupName, string automationAccountName, string connectionTypeName, AutomationConnectionTypeCreateOrUpdateContent content)
+        internal HttpMessage CreateCreateOrUpdateRequest(string subscriptionId, string resourceGroupName, string automationAccountName, string moduleName, ModuleCreateOrUpdateParameters moduleCreateOrUpdateParameters)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -214,45 +214,46 @@ namespace Azure.ResourceManager.Automation
             uri.AppendPath(resourceGroupName, true);
             uri.AppendPath("/providers/Microsoft.Automation/automationAccounts/", false);
             uri.AppendPath(automationAccountName, true);
-            uri.AppendPath("/connectionTypes/", false);
-            uri.AppendPath(connectionTypeName, true);
+            uri.AppendPath("/powerShell72Modules/", false);
+            uri.AppendPath(moduleName, true);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
             request.Headers.Add("Content-Type", "application/json");
-            var content0 = new Utf8JsonRequestContent();
-            content0.JsonWriter.WriteObjectValue(content);
-            request.Content = content0;
+            var content = new Utf8JsonRequestContent();
+            content.JsonWriter.WriteObjectValue(moduleCreateOrUpdateParameters);
+            request.Content = content;
             _userAgent.Apply(message);
             return message;
         }
 
-        /// <summary> Create a connection type. </summary>
+        /// <summary> Create or Update the module identified by module name. </summary>
         /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
-        /// <param name="resourceGroupName"> Name of an Azure Resource group. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="automationAccountName"> The name of the automation account. </param>
-        /// <param name="connectionTypeName"> The parameters supplied to the create or update connection type operation. </param>
-        /// <param name="content"> The parameters supplied to the create or update connection type operation. </param>
+        /// <param name="moduleName"> The name of module. </param>
+        /// <param name="moduleCreateOrUpdateParameters"> The create or update parameters for module. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/>, <paramref name="connectionTypeName"/> or <paramref name="content"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/> or <paramref name="connectionTypeName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<AutomationConnectionTypeData>> CreateOrUpdateAsync(string subscriptionId, string resourceGroupName, string automationAccountName, string connectionTypeName, AutomationConnectionTypeCreateOrUpdateContent content, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/>, <paramref name="moduleName"/> or <paramref name="moduleCreateOrUpdateParameters"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/> or <paramref name="moduleName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<AutomationModuleData>> CreateOrUpdateAsync(string subscriptionId, string resourceGroupName, string automationAccountName, string moduleName, ModuleCreateOrUpdateParameters moduleCreateOrUpdateParameters, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(automationAccountName, nameof(automationAccountName));
-            Argument.AssertNotNullOrEmpty(connectionTypeName, nameof(connectionTypeName));
-            Argument.AssertNotNull(content, nameof(content));
+            Argument.AssertNotNullOrEmpty(moduleName, nameof(moduleName));
+            Argument.AssertNotNull(moduleCreateOrUpdateParameters, nameof(moduleCreateOrUpdateParameters));
 
-            using var message = CreateCreateOrUpdateRequest(subscriptionId, resourceGroupName, automationAccountName, connectionTypeName, content);
+            using var message = CreateCreateOrUpdateRequest(subscriptionId, resourceGroupName, automationAccountName, moduleName, moduleCreateOrUpdateParameters);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
+                case 200:
                 case 201:
                     {
-                        AutomationConnectionTypeData value = default;
+                        AutomationModuleData value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = AutomationConnectionTypeData.DeserializeAutomationConnectionTypeData(document.RootElement);
+                        value = AutomationModuleData.DeserializeAutomationModuleData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -260,32 +261,125 @@ namespace Azure.ResourceManager.Automation
             }
         }
 
-        /// <summary> Create a connection type. </summary>
+        /// <summary> Create or Update the module identified by module name. </summary>
         /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
-        /// <param name="resourceGroupName"> Name of an Azure Resource group. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="automationAccountName"> The name of the automation account. </param>
-        /// <param name="connectionTypeName"> The parameters supplied to the create or update connection type operation. </param>
-        /// <param name="content"> The parameters supplied to the create or update connection type operation. </param>
+        /// <param name="moduleName"> The name of module. </param>
+        /// <param name="moduleCreateOrUpdateParameters"> The create or update parameters for module. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/>, <paramref name="connectionTypeName"/> or <paramref name="content"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/> or <paramref name="connectionTypeName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<AutomationConnectionTypeData> CreateOrUpdate(string subscriptionId, string resourceGroupName, string automationAccountName, string connectionTypeName, AutomationConnectionTypeCreateOrUpdateContent content, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/>, <paramref name="moduleName"/> or <paramref name="moduleCreateOrUpdateParameters"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/> or <paramref name="moduleName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<AutomationModuleData> CreateOrUpdate(string subscriptionId, string resourceGroupName, string automationAccountName, string moduleName, ModuleCreateOrUpdateParameters moduleCreateOrUpdateParameters, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
             Argument.AssertNotNullOrEmpty(automationAccountName, nameof(automationAccountName));
-            Argument.AssertNotNullOrEmpty(connectionTypeName, nameof(connectionTypeName));
-            Argument.AssertNotNull(content, nameof(content));
+            Argument.AssertNotNullOrEmpty(moduleName, nameof(moduleName));
+            Argument.AssertNotNull(moduleCreateOrUpdateParameters, nameof(moduleCreateOrUpdateParameters));
 
-            using var message = CreateCreateOrUpdateRequest(subscriptionId, resourceGroupName, automationAccountName, connectionTypeName, content);
+            using var message = CreateCreateOrUpdateRequest(subscriptionId, resourceGroupName, automationAccountName, moduleName, moduleCreateOrUpdateParameters);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
+                case 200:
                 case 201:
                     {
-                        AutomationConnectionTypeData value = default;
+                        AutomationModuleData value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = AutomationConnectionTypeData.DeserializeAutomationConnectionTypeData(document.RootElement);
+                        value = AutomationModuleData.DeserializeAutomationModuleData(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        internal HttpMessage CreateUpdateRequest(string subscriptionId, string resourceGroupName, string automationAccountName, string moduleName, ModuleUpdateParameters moduleUpdateParameters)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Patch;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/subscriptions/", false);
+            uri.AppendPath(subscriptionId, true);
+            uri.AppendPath("/resourceGroups/", false);
+            uri.AppendPath(resourceGroupName, true);
+            uri.AppendPath("/providers/Microsoft.Automation/automationAccounts/", false);
+            uri.AppendPath(automationAccountName, true);
+            uri.AppendPath("/powerShell72Modules/", false);
+            uri.AppendPath(moduleName, true);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            request.Headers.Add("Content-Type", "application/json");
+            var content = new Utf8JsonRequestContent();
+            content.JsonWriter.WriteObjectValue(moduleUpdateParameters);
+            request.Content = content;
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> Update the module identified by module name. </summary>
+        /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="automationAccountName"> The name of the automation account. </param>
+        /// <param name="moduleName"> The name of module. </param>
+        /// <param name="moduleUpdateParameters"> The update parameters for module. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/>, <paramref name="moduleName"/> or <paramref name="moduleUpdateParameters"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/> or <paramref name="moduleName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<AutomationModuleData>> UpdateAsync(string subscriptionId, string resourceGroupName, string automationAccountName, string moduleName, ModuleUpdateParameters moduleUpdateParameters, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(automationAccountName, nameof(automationAccountName));
+            Argument.AssertNotNullOrEmpty(moduleName, nameof(moduleName));
+            Argument.AssertNotNull(moduleUpdateParameters, nameof(moduleUpdateParameters));
+
+            using var message = CreateUpdateRequest(subscriptionId, resourceGroupName, automationAccountName, moduleName, moduleUpdateParameters);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        AutomationModuleData value = default;
+                        using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+                        value = AutomationModuleData.DeserializeAutomationModuleData(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> Update the module identified by module name. </summary>
+        /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
+        /// <param name="automationAccountName"> The name of the automation account. </param>
+        /// <param name="moduleName"> The name of module. </param>
+        /// <param name="moduleUpdateParameters"> The update parameters for module. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/>, <paramref name="moduleName"/> or <paramref name="moduleUpdateParameters"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="automationAccountName"/> or <paramref name="moduleName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<AutomationModuleData> Update(string subscriptionId, string resourceGroupName, string automationAccountName, string moduleName, ModuleUpdateParameters moduleUpdateParameters, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
+            Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
+            Argument.AssertNotNullOrEmpty(automationAccountName, nameof(automationAccountName));
+            Argument.AssertNotNullOrEmpty(moduleName, nameof(moduleName));
+            Argument.AssertNotNull(moduleUpdateParameters, nameof(moduleUpdateParameters));
+
+            using var message = CreateUpdateRequest(subscriptionId, resourceGroupName, automationAccountName, moduleName, moduleUpdateParameters);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        AutomationModuleData value = default;
+                        using var document = JsonDocument.Parse(message.Response.ContentStream);
+                        value = AutomationModuleData.DeserializeAutomationModuleData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -306,7 +400,7 @@ namespace Azure.ResourceManager.Automation
             uri.AppendPath(resourceGroupName, true);
             uri.AppendPath("/providers/Microsoft.Automation/automationAccounts/", false);
             uri.AppendPath(automationAccountName, true);
-            uri.AppendPath("/connectionTypes", false);
+            uri.AppendPath("/powerShell72Modules", false);
             uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
@@ -314,14 +408,14 @@ namespace Azure.ResourceManager.Automation
             return message;
         }
 
-        /// <summary> Retrieve a list of connection types. </summary>
+        /// <summary> Retrieve a list of PowerShell72 modules. </summary>
         /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
-        /// <param name="resourceGroupName"> Name of an Azure Resource group. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="automationAccountName"> The name of the automation account. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="automationAccountName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="automationAccountName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<AutomationConnectionTypeListResult>> ListByAutomationAccountAsync(string subscriptionId, string resourceGroupName, string automationAccountName, CancellationToken cancellationToken = default)
+        public async Task<Response<AutomationModuleListResult>> ListByAutomationAccountAsync(string subscriptionId, string resourceGroupName, string automationAccountName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
@@ -333,9 +427,9 @@ namespace Azure.ResourceManager.Automation
             {
                 case 200:
                     {
-                        AutomationConnectionTypeListResult value = default;
+                        AutomationModuleListResult value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = AutomationConnectionTypeListResult.DeserializeAutomationConnectionTypeListResult(document.RootElement);
+                        value = AutomationModuleListResult.DeserializeAutomationModuleListResult(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -343,14 +437,14 @@ namespace Azure.ResourceManager.Automation
             }
         }
 
-        /// <summary> Retrieve a list of connection types. </summary>
+        /// <summary> Retrieve a list of PowerShell72 modules. </summary>
         /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
-        /// <param name="resourceGroupName"> Name of an Azure Resource group. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="automationAccountName"> The name of the automation account. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="automationAccountName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="automationAccountName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<AutomationConnectionTypeListResult> ListByAutomationAccount(string subscriptionId, string resourceGroupName, string automationAccountName, CancellationToken cancellationToken = default)
+        public Response<AutomationModuleListResult> ListByAutomationAccount(string subscriptionId, string resourceGroupName, string automationAccountName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
             Argument.AssertNotNullOrEmpty(resourceGroupName, nameof(resourceGroupName));
@@ -362,9 +456,9 @@ namespace Azure.ResourceManager.Automation
             {
                 case 200:
                     {
-                        AutomationConnectionTypeListResult value = default;
+                        AutomationModuleListResult value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = AutomationConnectionTypeListResult.DeserializeAutomationConnectionTypeListResult(document.RootElement);
+                        value = AutomationModuleListResult.DeserializeAutomationModuleListResult(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -386,15 +480,15 @@ namespace Azure.ResourceManager.Automation
             return message;
         }
 
-        /// <summary> Retrieve a list of connection types. </summary>
+        /// <summary> Retrieve a list of PowerShell72 modules. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
         /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
-        /// <param name="resourceGroupName"> Name of an Azure Resource group. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="automationAccountName"> The name of the automation account. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="automationAccountName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="automationAccountName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<AutomationConnectionTypeListResult>> ListByAutomationAccountNextPageAsync(string nextLink, string subscriptionId, string resourceGroupName, string automationAccountName, CancellationToken cancellationToken = default)
+        public async Task<Response<AutomationModuleListResult>> ListByAutomationAccountNextPageAsync(string nextLink, string subscriptionId, string resourceGroupName, string automationAccountName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(nextLink, nameof(nextLink));
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
@@ -407,9 +501,9 @@ namespace Azure.ResourceManager.Automation
             {
                 case 200:
                     {
-                        AutomationConnectionTypeListResult value = default;
+                        AutomationModuleListResult value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = AutomationConnectionTypeListResult.DeserializeAutomationConnectionTypeListResult(document.RootElement);
+                        value = AutomationModuleListResult.DeserializeAutomationModuleListResult(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -417,15 +511,15 @@ namespace Azure.ResourceManager.Automation
             }
         }
 
-        /// <summary> Retrieve a list of connection types. </summary>
+        /// <summary> Retrieve a list of PowerShell72 modules. </summary>
         /// <param name="nextLink"> The URL to the next page of results. </param>
         /// <param name="subscriptionId"> Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
-        /// <param name="resourceGroupName"> Name of an Azure Resource group. </param>
+        /// <param name="resourceGroupName"> The name of the resource group. The name is case insensitive. </param>
         /// <param name="automationAccountName"> The name of the automation account. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="automationAccountName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="automationAccountName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<AutomationConnectionTypeListResult> ListByAutomationAccountNextPage(string nextLink, string subscriptionId, string resourceGroupName, string automationAccountName, CancellationToken cancellationToken = default)
+        public Response<AutomationModuleListResult> ListByAutomationAccountNextPage(string nextLink, string subscriptionId, string resourceGroupName, string automationAccountName, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(nextLink, nameof(nextLink));
             Argument.AssertNotNullOrEmpty(subscriptionId, nameof(subscriptionId));
@@ -438,9 +532,9 @@ namespace Azure.ResourceManager.Automation
             {
                 case 200:
                     {
-                        AutomationConnectionTypeListResult value = default;
+                        AutomationModuleListResult value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = AutomationConnectionTypeListResult.DeserializeAutomationConnectionTypeListResult(document.RootElement);
+                        value = AutomationModuleListResult.DeserializeAutomationModuleListResult(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:

@@ -16,15 +16,15 @@ using Azure.ResourceManager.Automation.Models;
 
 namespace Azure.ResourceManager.Automation.Samples
 {
-    public partial class Sample_AutomationSourceControlCollection
+    public partial class Sample_AutomationAccountPython3PackageCollection
     {
-        // Create or update a source control
+        // Get a python 3 package
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task CreateOrUpdate_CreateOrUpdateASourceControl()
+        public async Task Get_GetAPython3Package()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2023-11-01/examples/sourceControl/createOrUpdateSourceControl.json
-            // this example is just showing the usage of "SourceControl_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2023-11-01/examples/getPython3Package.json
+            // this example is just showing the usage of "Python3Package_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -35,47 +35,31 @@ namespace Azure.ResourceManager.Automation.Samples
             // for more information of creating AutomationAccountResource, please refer to the document of AutomationAccountResource
             string subscriptionId = "subid";
             string resourceGroupName = "rg";
-            string automationAccountName = "sampleAccount9";
+            string automationAccountName = "myAutomationAccount33";
             ResourceIdentifier automationAccountResourceId = AutomationAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, automationAccountName);
             AutomationAccountResource automationAccount = client.GetAutomationAccountResource(automationAccountResourceId);
 
-            // get the collection of this AutomationSourceControlResource
-            AutomationSourceControlCollection collection = automationAccount.GetAutomationSourceControls();
+            // get the collection of this AutomationAccountPython3PackageResource
+            AutomationAccountPython3PackageCollection collection = automationAccount.GetAutomationAccountPython3Packages();
 
             // invoke the operation
-            string sourceControlName = "sampleSourceControl";
-            AutomationSourceControlCreateOrUpdateContent content = new AutomationSourceControlCreateOrUpdateContent()
-            {
-                RepoUri = new Uri("https://sampleUser.visualstudio.com/myProject/_git/myRepository"),
-                Branch = "master",
-                FolderPath = "/folderOne/folderTwo",
-                IsAutoSyncEnabled = true,
-                IsAutoPublishRunbookEnabled = true,
-                SourceType = SourceControlSourceType.VsoGit,
-                SecurityToken = new SourceControlSecurityTokenProperties()
-                {
-                    AccessToken = "******",
-                    TokenType = SourceControlTokenType.PersonalAccessToken,
-                },
-                Description = "my description",
-            };
-            ArmOperation<AutomationSourceControlResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, sourceControlName, content);
-            AutomationSourceControlResource result = lro.Value;
+            string packageName = "OmsCompositeResources";
+            AutomationAccountPython3PackageResource result = await collection.GetAsync(packageName);
 
             // the variable result is a resource, you could call other operations on this instance as well
             // but just for demo, we get its data from this resource instance
-            AutomationSourceControlData resourceData = result.Data;
+            AutomationModuleData resourceData = result.Data;
             // for demo we just print out the id
             Console.WriteLine($"Succeeded on id: {resourceData.Id}");
         }
 
-        // Get a source control
+        // Get a python 3 package
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task Get_GetASourceControl()
+        public async Task Exists_GetAPython3Package()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2023-11-01/examples/sourceControl/getSourceControl.json
-            // this example is just showing the usage of "SourceControl_Get" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2023-11-01/examples/getPython3Package.json
+            // this example is just showing the usage of "Python3Package_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -86,62 +70,27 @@ namespace Azure.ResourceManager.Automation.Samples
             // for more information of creating AutomationAccountResource, please refer to the document of AutomationAccountResource
             string subscriptionId = "subid";
             string resourceGroupName = "rg";
-            string automationAccountName = "sampleAccount9";
+            string automationAccountName = "myAutomationAccount33";
             ResourceIdentifier automationAccountResourceId = AutomationAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, automationAccountName);
             AutomationAccountResource automationAccount = client.GetAutomationAccountResource(automationAccountResourceId);
 
-            // get the collection of this AutomationSourceControlResource
-            AutomationSourceControlCollection collection = automationAccount.GetAutomationSourceControls();
+            // get the collection of this AutomationAccountPython3PackageResource
+            AutomationAccountPython3PackageCollection collection = automationAccount.GetAutomationAccountPython3Packages();
 
             // invoke the operation
-            string sourceControlName = "sampleSourceControl";
-            AutomationSourceControlResource result = await collection.GetAsync(sourceControlName);
-
-            // the variable result is a resource, you could call other operations on this instance as well
-            // but just for demo, we get its data from this resource instance
-            AutomationSourceControlData resourceData = result.Data;
-            // for demo we just print out the id
-            Console.WriteLine($"Succeeded on id: {resourceData.Id}");
-        }
-
-        // Get a source control
-        [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task Exists_GetASourceControl()
-        {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2023-11-01/examples/sourceControl/getSourceControl.json
-            // this example is just showing the usage of "SourceControl_Get" operation, for the dependent resources, they will have to be created separately.
-
-            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
-            TokenCredential cred = new DefaultAzureCredential();
-            // authenticate your client
-            ArmClient client = new ArmClient(cred);
-
-            // this example assumes you already have this AutomationAccountResource created on azure
-            // for more information of creating AutomationAccountResource, please refer to the document of AutomationAccountResource
-            string subscriptionId = "subid";
-            string resourceGroupName = "rg";
-            string automationAccountName = "sampleAccount9";
-            ResourceIdentifier automationAccountResourceId = AutomationAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, automationAccountName);
-            AutomationAccountResource automationAccount = client.GetAutomationAccountResource(automationAccountResourceId);
-
-            // get the collection of this AutomationSourceControlResource
-            AutomationSourceControlCollection collection = automationAccount.GetAutomationSourceControls();
-
-            // invoke the operation
-            string sourceControlName = "sampleSourceControl";
-            bool result = await collection.ExistsAsync(sourceControlName);
+            string packageName = "OmsCompositeResources";
+            bool result = await collection.ExistsAsync(packageName);
 
             Console.WriteLine($"Succeeded: {result}");
         }
 
-        // Get a source control
+        // Get a python 3 package
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task GetIfExists_GetASourceControl()
+        public async Task GetIfExists_GetAPython3Package()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2023-11-01/examples/sourceControl/getSourceControl.json
-            // this example is just showing the usage of "SourceControl_Get" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2023-11-01/examples/getPython3Package.json
+            // this example is just showing the usage of "Python3Package_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -152,17 +101,17 @@ namespace Azure.ResourceManager.Automation.Samples
             // for more information of creating AutomationAccountResource, please refer to the document of AutomationAccountResource
             string subscriptionId = "subid";
             string resourceGroupName = "rg";
-            string automationAccountName = "sampleAccount9";
+            string automationAccountName = "myAutomationAccount33";
             ResourceIdentifier automationAccountResourceId = AutomationAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, automationAccountName);
             AutomationAccountResource automationAccount = client.GetAutomationAccountResource(automationAccountResourceId);
 
-            // get the collection of this AutomationSourceControlResource
-            AutomationSourceControlCollection collection = automationAccount.GetAutomationSourceControls();
+            // get the collection of this AutomationAccountPython3PackageResource
+            AutomationAccountPython3PackageCollection collection = automationAccount.GetAutomationAccountPython3Packages();
 
             // invoke the operation
-            string sourceControlName = "sampleSourceControl";
-            NullableResponse<AutomationSourceControlResource> response = await collection.GetIfExistsAsync(sourceControlName);
-            AutomationSourceControlResource result = response.HasValue ? response.Value : null;
+            string packageName = "OmsCompositeResources";
+            NullableResponse<AutomationAccountPython3PackageResource> response = await collection.GetIfExistsAsync(packageName);
+            AutomationAccountPython3PackageResource result = response.HasValue ? response.Value : null;
 
             if (result == null)
             {
@@ -172,19 +121,19 @@ namespace Azure.ResourceManager.Automation.Samples
             {
                 // the variable result is a resource, you could call other operations on this instance as well
                 // but just for demo, we get its data from this resource instance
-                AutomationSourceControlData resourceData = result.Data;
+                AutomationModuleData resourceData = result.Data;
                 // for demo we just print out the id
                 Console.WriteLine($"Succeeded on id: {resourceData.Id}");
             }
         }
 
-        // List sourceControls
+        // Create or update a python 3 package
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task GetAll_ListSourceControls()
+        public async Task CreateOrUpdate_CreateOrUpdateAPython3Package()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2023-11-01/examples/sourceControl/getAllSourceControls.json
-            // this example is just showing the usage of "SourceControl_ListByAutomationAccount" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2023-11-01/examples/createOrUpdatePython3Package.json
+            // this example is just showing the usage of "Python3Package_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -195,19 +144,66 @@ namespace Azure.ResourceManager.Automation.Samples
             // for more information of creating AutomationAccountResource, please refer to the document of AutomationAccountResource
             string subscriptionId = "subid";
             string resourceGroupName = "rg";
-            string automationAccountName = "sampleAccount9";
+            string automationAccountName = "myAutomationAccount33";
             ResourceIdentifier automationAccountResourceId = AutomationAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, automationAccountName);
             AutomationAccountResource automationAccount = client.GetAutomationAccountResource(automationAccountResourceId);
 
-            // get the collection of this AutomationSourceControlResource
-            AutomationSourceControlCollection collection = automationAccount.GetAutomationSourceControls();
+            // get the collection of this AutomationAccountPython3PackageResource
+            AutomationAccountPython3PackageCollection collection = automationAccount.GetAutomationAccountPython3Packages();
+
+            // invoke the operation
+            string packageName = "OmsCompositeResources";
+            PythonPackageCreateParameters pythonPackageCreateParameters = new PythonPackageCreateParameters(new AutomationContentLink()
+            {
+                Uri = new Uri("https://teststorage.blob.core.windows.net/dsccomposite/OmsCompositeResources.zip"),
+                ContentHash = new AutomationContentHash("sha265", "07E108A962B81DD9C9BAA89BB47C0F6EE52B29E83758B07795E408D258B2B87A"),
+                Version = "1.0.0.0",
+            })
+            {
+                Tags =
+{
+},
+            };
+            ArmOperation<AutomationAccountPython3PackageResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, packageName, pythonPackageCreateParameters);
+            AutomationAccountPython3PackageResource result = lro.Value;
+
+            // the variable result is a resource, you could call other operations on this instance as well
+            // but just for demo, we get its data from this resource instance
+            AutomationModuleData resourceData = result.Data;
+            // for demo we just print out the id
+            Console.WriteLine($"Succeeded on id: {resourceData.Id}");
+        }
+
+        // List python 3 packages by automation account
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task GetAll_ListPython3PackagesByAutomationAccount()
+        {
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2023-11-01/examples/listPython3PackagesByAutomationAccount.json
+            // this example is just showing the usage of "Python3Package_ListByAutomationAccount" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this AutomationAccountResource created on azure
+            // for more information of creating AutomationAccountResource, please refer to the document of AutomationAccountResource
+            string subscriptionId = "subid";
+            string resourceGroupName = "rg";
+            string automationAccountName = "myAutomationAccount33";
+            ResourceIdentifier automationAccountResourceId = AutomationAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, automationAccountName);
+            AutomationAccountResource automationAccount = client.GetAutomationAccountResource(automationAccountResourceId);
+
+            // get the collection of this AutomationAccountPython3PackageResource
+            AutomationAccountPython3PackageCollection collection = automationAccount.GetAutomationAccountPython3Packages();
 
             // invoke the operation and iterate over the result
-            await foreach (AutomationSourceControlResource item in collection.GetAllAsync())
+            await foreach (AutomationAccountPython3PackageResource item in collection.GetAllAsync())
             {
                 // the variable item is a resource, you could call other operations on this instance as well
                 // but just for demo, we get its data from this resource instance
-                AutomationSourceControlData resourceData = item.Data;
+                AutomationModuleData resourceData = item.Data;
                 // for demo we just print out the id
                 Console.WriteLine($"Succeeded on id: {resourceData.Id}");
             }
