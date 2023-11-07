@@ -247,5 +247,58 @@ namespace Azure.ResourceManager.DesktopVirtualization.Mocking
         {
             return GetHostPools().Get(hostPoolName, cancellationToken);
         }
+
+        /// <summary> Gets a collection of AppAttachPackageResources in the ResourceGroupResource. </summary>
+        /// <returns> An object representing collection of AppAttachPackageResources and their operations over a AppAttachPackageResource. </returns>
+        public virtual AppAttachPackageCollection GetAppAttachPackages()
+        {
+            return GetCachedClient(client => new AppAttachPackageCollection(client, Id));
+        }
+
+        /// <summary>
+        /// Get an app attach package.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DesktopVirtualization/appAttachPackages/{appAttachPackageName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>AppAttachPackage_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="appAttachPackageName"> The name of the App Attach package arm object. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="appAttachPackageName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="appAttachPackageName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<AppAttachPackageResource>> GetAppAttachPackageAsync(string appAttachPackageName, CancellationToken cancellationToken = default)
+        {
+            return await GetAppAttachPackages().GetAsync(appAttachPackageName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Get an app attach package.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DesktopVirtualization/appAttachPackages/{appAttachPackageName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>AppAttachPackage_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="appAttachPackageName"> The name of the App Attach package arm object. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="appAttachPackageName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="appAttachPackageName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<AppAttachPackageResource> GetAppAttachPackage(string appAttachPackageName, CancellationToken cancellationToken = default)
+        {
+            return GetAppAttachPackages().Get(appAttachPackageName, cancellationToken);
+        }
     }
 }
