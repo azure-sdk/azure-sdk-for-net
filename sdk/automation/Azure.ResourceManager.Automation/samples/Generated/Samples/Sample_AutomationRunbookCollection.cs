@@ -23,7 +23,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetRunbook()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2018-06-30/examples/getRunbook.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/preview/2023-05-15-preview/examples/runbook/getRunbook.json
             // this example is just showing the usage of "Runbook_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -58,7 +58,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Exists_GetRunbook()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2018-06-30/examples/getRunbook.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/preview/2023-05-15-preview/examples/runbook/getRunbook.json
             // this example is just showing the usage of "Runbook_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -89,7 +89,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetIfExists_GetRunbook()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2018-06-30/examples/getRunbook.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/preview/2023-05-15-preview/examples/runbook/getRunbook.json
             // this example is just showing the usage of "Runbook_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -132,7 +132,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreateOrUpdateRunbookAndPublishIt()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2018-06-30/examples/createOrUpdateRunbook.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/preview/2023-05-15-preview/examples/runbook/createOrUpdateRunbook.json
             // this example is just showing the usage of "Runbook_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -153,7 +153,7 @@ namespace Azure.ResourceManager.Automation.Samples
 
             // invoke the operation
             string runbookName = "Get-AzureVMTutorial";
-            AutomationRunbookCreateOrUpdateContent content = new AutomationRunbookCreateOrUpdateContent(AutomationRunbookType.PowerShellWorkflow)
+            AutomationRunbookCreateOrUpdateContent content = new AutomationRunbookCreateOrUpdateContent(AutomationRunbookType.PowerShell)
             {
                 Name = "Get-AzureVMTutorial",
                 Location = new AzureLocation("East US 2"),
@@ -164,6 +164,7 @@ namespace Azure.ResourceManager.Automation.Samples
 },
                 IsLogVerboseEnabled = false,
                 IsLogProgressEnabled = true,
+                RuntimeEnvironment = "environmentName",
                 PublishContentLink = new AutomationContentLink()
                 {
                     Uri = new Uri("https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/101-automation-runbook-getvms/Runbooks/Get-AzureVMTutorial.ps1"),
@@ -187,7 +188,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreateRunbookAsDraft()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2018-06-30/examples/createRunbookAsDraft.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/preview/2023-05-15-preview/examples/runbook/createRunbookAsDraft.json
             // this example is just showing the usage of "Runbook_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -208,7 +209,7 @@ namespace Azure.ResourceManager.Automation.Samples
 
             // invoke the operation
             string runbookName = "Get-AzureVMTutorial";
-            AutomationRunbookCreateOrUpdateContent content = new AutomationRunbookCreateOrUpdateContent(AutomationRunbookType.PowerShellWorkflow)
+            AutomationRunbookCreateOrUpdateContent content = new AutomationRunbookCreateOrUpdateContent(AutomationRunbookType.PowerShell)
             {
                 Name = "Get-AzureVMTutorial",
                 Location = new AzureLocation("East US 2"),
@@ -219,6 +220,7 @@ namespace Azure.ResourceManager.Automation.Samples
 },
                 IsLogVerboseEnabled = false,
                 IsLogProgressEnabled = false,
+                RuntimeEnvironment = "environmentName",
                 Draft = new AutomationRunbookDraft(),
                 Description = "Description of the Runbook",
             };
@@ -237,7 +239,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetAll_ListRunbooksByAutomationAccount()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2018-06-30/examples/listRunbooksByAutomationAccount.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/preview/2023-05-15-preview/examples/runbook/listRunbooksByAutomationAccount.json
             // this example is just showing the usage of "Runbook_ListByAutomationAccount" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line

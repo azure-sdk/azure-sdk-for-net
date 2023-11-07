@@ -6,6 +6,7 @@
 #nullable disable
 
 using System;
+using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
 using Azure.ResourceManager.Automation.Models;
@@ -18,6 +19,19 @@ namespace Azure.ResourceManager.Automation
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
+            if (Optional.IsCollectionDefined(Tags))
+            {
+                writer.WritePropertyName("tags"u8);
+                writer.WriteStartObject();
+                foreach (var item in Tags)
+                {
+                    writer.WritePropertyName(item.Key);
+                    writer.WriteStringValue(item.Value);
+                }
+                writer.WriteEndObject();
+            }
+            writer.WritePropertyName("location"u8);
+            writer.WriteStringValue(Location);
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
             if (Optional.IsDefined(IP))
@@ -60,6 +74,8 @@ namespace Azure.ResourceManager.Automation
             {
                 return null;
             }
+            Optional<IDictionary<string, string>> tags = default;
+            AzureLocation location = default;
             ResourceIdentifier id = default;
             string name = default;
             ResourceType type = default;
@@ -72,6 +88,25 @@ namespace Azure.ResourceManager.Automation
             Optional<string> workerName = default;
             foreach (var property in element.EnumerateObject())
             {
+                if (property.NameEquals("tags"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    Dictionary<string, string> dictionary = new Dictionary<string, string>();
+                    foreach (var property0 in property.Value.EnumerateObject())
+                    {
+                        dictionary.Add(property0.Name, property0.Value.GetString());
+                    }
+                    tags = dictionary;
+                    continue;
+                }
+                if (property.NameEquals("location"u8))
+                {
+                    location = new AzureLocation(property.Value.GetString());
+                    continue;
+                }
                 if (property.NameEquals("id"u8))
                 {
                     id = new ResourceIdentifier(property.Value.GetString());
@@ -155,7 +190,7 @@ namespace Azure.ResourceManager.Automation
                     continue;
                 }
             }
-            return new HybridRunbookWorkerData(id, name, type, systemData.Value, ip.Value, Optional.ToNullable(registeredDateTime), Optional.ToNullable(lastSeenDateTime), vmResourceId.Value, Optional.ToNullable(workerType), workerName.Value);
+            return new HybridRunbookWorkerData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, ip.Value, Optional.ToNullable(registeredDateTime), Optional.ToNullable(lastSeenDateTime), vmResourceId.Value, Optional.ToNullable(workerType), workerName.Value);
         }
     }
 }

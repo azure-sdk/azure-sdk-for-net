@@ -23,7 +23,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Delete_DeleteAPython2Package()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/preview/2020-01-13-preview/examples/deletePython2Package.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/preview/2023-05-15-preview/examples/deletePython2Package.json
             // this example is just showing the usage of "Python2Package_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -51,7 +51,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetAPython2Package()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/preview/2020-01-13-preview/examples/getPython2Package.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/preview/2023-05-15-preview/examples/getPython2Package.json
             // this example is just showing the usage of "Python2Package_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -83,7 +83,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_UpdateAModule()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/preview/2020-01-13-preview/examples/updatePython2Package.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/preview/2023-05-15-preview/examples/updatePython2Package.json
             // this example is just showing the usage of "Python2Package_Update" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -101,13 +101,13 @@ namespace Azure.ResourceManager.Automation.Samples
             AutomationAccountPython2PackageResource automationAccountPython2Package = client.GetAutomationAccountPython2PackageResource(automationAccountPython2PackageResourceId);
 
             // invoke the operation
-            AutomationAccountPython2PackagePatch patch = new AutomationAccountPython2PackagePatch()
+            PythonPackageUpdateParameters pythonPackageUpdateParameters = new PythonPackageUpdateParameters()
             {
                 Tags =
 {
 },
             };
-            AutomationAccountPython2PackageResource result = await automationAccountPython2Package.UpdateAsync(patch);
+            AutomationAccountPython2PackageResource result = await automationAccountPython2Package.UpdateAsync(pythonPackageUpdateParameters);
 
             // the variable result is a resource, you could call other operations on this instance as well
             // but just for demo, we get its data from this resource instance

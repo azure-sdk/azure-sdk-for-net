@@ -77,6 +77,11 @@ namespace Azure.ResourceManager.Automation.Models
                         }
                         if (property0.NameEquals("summary"u8))
                         {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                summary = null;
+                                continue;
+                            }
                             summary = property0.Value.GetString();
                             continue;
                         }

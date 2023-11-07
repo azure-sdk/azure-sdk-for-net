@@ -10,15 +10,15 @@ using Azure.Core;
 namespace Azure.ResourceManager.Automation.Models
 {
     /// <summary> The parameters supplied to the create hybrid runbook worker operation. </summary>
-    public partial class HybridRunbookWorkerCreateOrUpdateContent
+    public partial class HybridRunbookWorkerCreateParameters
     {
-        /// <summary> Initializes a new instance of HybridRunbookWorkerCreateOrUpdateContent. </summary>
-        public HybridRunbookWorkerCreateOrUpdateContent()
+        /// <summary> Initializes a new instance of HybridRunbookWorkerCreateParameters. </summary>
+        public HybridRunbookWorkerCreateParameters()
         {
         }
 
         /// <summary> Gets or sets the name of the resource. </summary>
-        public string Name { get; set; }
+        public string Name { get; }
         /// <summary> Azure Resource Manager Id for a virtual machine. </summary>
         public ResourceIdentifier VmResourceId { get; set; }
     }

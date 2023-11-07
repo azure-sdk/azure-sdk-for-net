@@ -40,6 +40,11 @@ namespace Azure.ResourceManager.Automation
             writer.WriteStringValue(Location);
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
+            if (Optional.IsDefined(RuntimeEnvironment))
+            {
+                writer.WritePropertyName("runtimeEnvironment"u8);
+                writer.WriteStringValue(RuntimeEnvironment);
+            }
             if (Optional.IsDefined(RunbookType))
             {
                 writer.WritePropertyName("runbookType"u8);
@@ -143,6 +148,7 @@ namespace Azure.ResourceManager.Automation
             string name = default;
             ResourceType type = default;
             Optional<SystemData> systemData = default;
+            Optional<string> runtimeEnvironment = default;
             Optional<AutomationRunbookType> runbookType = default;
             Optional<AutomationContentLink> publishContentLink = default;
             Optional<RunbookState> state = default;
@@ -221,6 +227,11 @@ namespace Azure.ResourceManager.Automation
                     }
                     foreach (var property0 in property.Value.EnumerateObject())
                     {
+                        if (property0.NameEquals("runtimeEnvironment"u8))
+                        {
+                            runtimeEnvironment = property0.Value.GetString();
+                            continue;
+                        }
                         if (property0.NameEquals("runbookType"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -362,7 +373,7 @@ namespace Azure.ResourceManager.Automation
                     continue;
                 }
             }
-            return new AutomationRunbookData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, Optional.ToNullable(etag), Optional.ToNullable(runbookType), publishContentLink.Value, Optional.ToNullable(state), Optional.ToNullable(logVerbose), Optional.ToNullable(logProgress), Optional.ToNullable(logActivityTrace), Optional.ToNullable(jobCount), Optional.ToDictionary(parameters), Optional.ToList(outputTypes), draft.Value, Optional.ToNullable(provisioningState), lastModifiedBy.Value, Optional.ToNullable(creationTime), Optional.ToNullable(lastModifiedTime), description.Value);
+            return new AutomationRunbookData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, Optional.ToNullable(etag), runtimeEnvironment.Value, Optional.ToNullable(runbookType), publishContentLink.Value, Optional.ToNullable(state), Optional.ToNullable(logVerbose), Optional.ToNullable(logProgress), Optional.ToNullable(logActivityTrace), Optional.ToNullable(jobCount), Optional.ToDictionary(parameters), Optional.ToList(outputTypes), draft.Value, Optional.ToNullable(provisioningState), lastModifiedBy.Value, Optional.ToNullable(creationTime), Optional.ToNullable(lastModifiedTime), description.Value);
         }
     }
 }

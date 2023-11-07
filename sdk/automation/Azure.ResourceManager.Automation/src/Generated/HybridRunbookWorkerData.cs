@@ -6,6 +6,7 @@
 #nullable disable
 
 using System;
+using System.Collections.Generic;
 using Azure.Core;
 using Azure.ResourceManager.Automation.Models;
 using Azure.ResourceManager.Models;
@@ -16,10 +17,11 @@ namespace Azure.ResourceManager.Automation
     /// A class representing the HybridRunbookWorker data model.
     /// Definition of hybrid runbook worker.
     /// </summary>
-    public partial class HybridRunbookWorkerData : ResourceData
+    public partial class HybridRunbookWorkerData : TrackedResourceData
     {
         /// <summary> Initializes a new instance of HybridRunbookWorkerData. </summary>
-        public HybridRunbookWorkerData()
+        /// <param name="location"> The location. </param>
+        public HybridRunbookWorkerData(AzureLocation location) : base(location)
         {
         }
 
@@ -28,13 +30,15 @@ namespace Azure.ResourceManager.Automation
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
+        /// <param name="tags"> The tags. </param>
+        /// <param name="location"> The location. </param>
         /// <param name="ip"> Gets or sets the assigned machine IP address. </param>
         /// <param name="registeredOn"> Gets or sets the registration time of the worker machine. </param>
         /// <param name="lastSeenOn"> Last Heartbeat from the Worker. </param>
         /// <param name="vmResourceId"> Azure Resource Manager Id for a virtual machine. </param>
         /// <param name="workerType"> Type of the HybridWorker. </param>
         /// <param name="workerName"> Name of the HybridWorker. </param>
-        internal HybridRunbookWorkerData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string ip, DateTimeOffset? registeredOn, DateTimeOffset? lastSeenOn, ResourceIdentifier vmResourceId, HybridWorkerType? workerType, string workerName) : base(id, name, resourceType, systemData)
+        internal HybridRunbookWorkerData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, string ip, DateTimeOffset? registeredOn, DateTimeOffset? lastSeenOn, ResourceIdentifier vmResourceId, HybridWorkerType? workerType, string workerName) : base(id, name, resourceType, systemData, tags, location)
         {
             IP = ip;
             RegisteredOn = registeredOn;

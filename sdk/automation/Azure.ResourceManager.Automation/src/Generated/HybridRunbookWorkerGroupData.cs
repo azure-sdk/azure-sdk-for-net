@@ -5,6 +5,7 @@
 
 #nullable disable
 
+using System.Collections.Generic;
 using Azure.Core;
 using Azure.ResourceManager.Automation.Models;
 using Azure.ResourceManager.Models;
@@ -15,10 +16,11 @@ namespace Azure.ResourceManager.Automation
     /// A class representing the HybridRunbookWorkerGroup data model.
     /// Definition of hybrid runbook worker group.
     /// </summary>
-    public partial class HybridRunbookWorkerGroupData : ResourceData
+    public partial class HybridRunbookWorkerGroupData : TrackedResourceData
     {
         /// <summary> Initializes a new instance of HybridRunbookWorkerGroupData. </summary>
-        public HybridRunbookWorkerGroupData()
+        /// <param name="location"> The location. </param>
+        public HybridRunbookWorkerGroupData(AzureLocation location) : base(location)
         {
         }
 
@@ -27,9 +29,11 @@ namespace Azure.ResourceManager.Automation
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
+        /// <param name="tags"> The tags. </param>
+        /// <param name="location"> The location. </param>
         /// <param name="groupType"> Type of the HybridWorkerGroup. </param>
         /// <param name="credential"> Sets the credential of a worker group. </param>
-        internal HybridRunbookWorkerGroupData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, HybridWorkerGroup? groupType, RunAsCredentialAssociationProperty credential) : base(id, name, resourceType, systemData)
+        internal HybridRunbookWorkerGroupData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, HybridWorkerGroup? groupType, RunAsCredentialAssociationProperty credential) : base(id, name, resourceType, systemData, tags, location)
         {
             GroupType = groupType;
             Credential = credential;

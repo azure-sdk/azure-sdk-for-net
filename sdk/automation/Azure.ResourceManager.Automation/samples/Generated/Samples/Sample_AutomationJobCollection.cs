@@ -23,7 +23,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetJob()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2019-06-01/examples/job/getJob.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/preview/2023-05-15-preview/examples/job/getJob.json
             // this example is just showing the usage of "Job_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -58,7 +58,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Exists_GetJob()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2019-06-01/examples/job/getJob.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/preview/2023-05-15-preview/examples/job/getJob.json
             // this example is just showing the usage of "Job_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -89,7 +89,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetIfExists_GetJob()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2019-06-01/examples/job/getJob.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/preview/2023-05-15-preview/examples/job/getJob.json
             // this example is just showing the usage of "Job_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -132,7 +132,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreateJob()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2019-06-01/examples/job/createJob.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/preview/2023-05-15-preview/examples/job/createJob.json
             // this example is just showing the usage of "Job_Create" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -178,7 +178,7 @@ namespace Azure.ResourceManager.Automation.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetAll_ListJobsByAutomationAccount()
         {
-            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/stable/2019-06-01/examples/job/listJobsByAutomationAccount.json
+            // Generated from example definition: specification/automation/resource-manager/Microsoft.Automation/preview/2023-05-15-preview/examples/job/listJobsByAutomationAccount.json
             // this example is just showing the usage of "Job_ListByAutomationAccount" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -190,7 +190,7 @@ namespace Azure.ResourceManager.Automation.Samples
             // for more information of creating AutomationAccountResource, please refer to the document of AutomationAccountResource
             string subscriptionId = "51766542-3ed7-4a72-a187-0c8ab644ddab";
             string resourceGroupName = "mygroup";
-            string automationAccountName = "ContoseAutomationAccount";
+            string automationAccountName = "ContosoAutomationAccount";
             ResourceIdentifier automationAccountResourceId = AutomationAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, automationAccountName);
             AutomationAccountResource automationAccount = client.GetAutomationAccountResource(automationAccountResourceId);
 
