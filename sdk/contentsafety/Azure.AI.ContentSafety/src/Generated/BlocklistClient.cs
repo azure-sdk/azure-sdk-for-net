@@ -45,7 +45,7 @@ namespace Azure.AI.ContentSafety
         /// </param>
         /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> or <paramref name="credential"/> is null. </exception>
-        public BlocklistClient(Uri endpoint, AzureKeyCredential credential) : this(endpoint, credential, new AzureAIContentSafetyClientOptions())
+        public BlocklistClient(Uri endpoint, AzureKeyCredential credential) : this(endpoint, credential, new ContentSafetyClientOptions())
         {
         }
 
@@ -56,7 +56,7 @@ namespace Azure.AI.ContentSafety
         /// </param>
         /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> or <paramref name="credential"/> is null. </exception>
-        public BlocklistClient(Uri endpoint, TokenCredential credential) : this(endpoint, credential, new AzureAIContentSafetyClientOptions())
+        public BlocklistClient(Uri endpoint, TokenCredential credential) : this(endpoint, credential, new ContentSafetyClientOptions())
         {
         }
 
@@ -68,11 +68,11 @@ namespace Azure.AI.ContentSafety
         /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
         /// <param name="options"> The options for configuring the client. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> or <paramref name="credential"/> is null. </exception>
-        public BlocklistClient(Uri endpoint, AzureKeyCredential credential, AzureAIContentSafetyClientOptions options)
+        public BlocklistClient(Uri endpoint, AzureKeyCredential credential, ContentSafetyClientOptions options)
         {
             Argument.AssertNotNull(endpoint, nameof(endpoint));
             Argument.AssertNotNull(credential, nameof(credential));
-            options ??= new AzureAIContentSafetyClientOptions();
+            options ??= new ContentSafetyClientOptions();
 
             ClientDiagnostics = new ClientDiagnostics(options, true);
             _keyCredential = credential;
@@ -89,11 +89,11 @@ namespace Azure.AI.ContentSafety
         /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
         /// <param name="options"> The options for configuring the client. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> or <paramref name="credential"/> is null. </exception>
-        public BlocklistClient(Uri endpoint, TokenCredential credential, AzureAIContentSafetyClientOptions options)
+        public BlocklistClient(Uri endpoint, TokenCredential credential, ContentSafetyClientOptions options)
         {
             Argument.AssertNotNull(endpoint, nameof(endpoint));
             Argument.AssertNotNull(credential, nameof(credential));
-            options ??= new AzureAIContentSafetyClientOptions();
+            options ??= new ContentSafetyClientOptions();
 
             ClientDiagnostics = new ClientDiagnostics(options, true);
             _tokenCredential = credential;
@@ -104,39 +104,39 @@ namespace Azure.AI.ContentSafety
 
         /// <summary> Add or update BlocklistItems To Text Blocklist. </summary>
         /// <param name="name"> Text blocklist name. </param>
-        /// <param name="addOrUpdateTextBlocklistItemsOptions"> The request to add blocklistItems to a text blocklist. </param>
+        /// <param name="options"> Options for adding or updating blocklist items. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="name"/> or <paramref name="addOrUpdateTextBlocklistItemsOptions"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="name"/> or <paramref name="options"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
         /// <remarks> Add or update blocklistItems to a text blocklist. You can add or update at most 100 blocklistItems in one request. </remarks>
         /// <include file="Docs/BlocklistClient.xml" path="doc/members/member[@name='AddOrUpdateBlocklistItemsAsync(string,AddOrUpdateTextBlocklistItemsOptions,CancellationToken)']/*" />
-        public virtual async Task<Response<AddOrUpdateTextBlocklistItemsResult>> AddOrUpdateBlocklistItemsAsync(string name, AddOrUpdateTextBlocklistItemsOptions addOrUpdateTextBlocklistItemsOptions, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<AddOrUpdateTextBlocklistItemsResult>> AddOrUpdateBlocklistItemsAsync(string name, AddOrUpdateTextBlocklistItemsOptions options, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(name, nameof(name));
-            Argument.AssertNotNull(addOrUpdateTextBlocklistItemsOptions, nameof(addOrUpdateTextBlocklistItemsOptions));
+            Argument.AssertNotNull(options, nameof(options));
 
             RequestContext context = FromCancellationToken(cancellationToken);
-            using RequestContent content = addOrUpdateTextBlocklistItemsOptions.ToRequestContent();
-            Response response = await AddOrUpdateBlocklistItemsAsync(name, content, context).ConfigureAwait(false);
+            AddOrUpdateBlocklistItemsRequest addOrUpdateBlocklistItemsRequest = new AddOrUpdateBlocklistItemsRequest(options);
+            Response response = await AddOrUpdateBlocklistItemsAsync(name, addOrUpdateBlocklistItemsRequest.ToRequestContent(), context).ConfigureAwait(false);
             return Response.FromValue(AddOrUpdateTextBlocklistItemsResult.FromResponse(response), response);
         }
 
         /// <summary> Add or update BlocklistItems To Text Blocklist. </summary>
         /// <param name="name"> Text blocklist name. </param>
-        /// <param name="addOrUpdateTextBlocklistItemsOptions"> The request to add blocklistItems to a text blocklist. </param>
+        /// <param name="options"> Options for adding or updating blocklist items. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="name"/> or <paramref name="addOrUpdateTextBlocklistItemsOptions"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="name"/> or <paramref name="options"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
         /// <remarks> Add or update blocklistItems to a text blocklist. You can add or update at most 100 blocklistItems in one request. </remarks>
         /// <include file="Docs/BlocklistClient.xml" path="doc/members/member[@name='AddOrUpdateBlocklistItems(string,AddOrUpdateTextBlocklistItemsOptions,CancellationToken)']/*" />
-        public virtual Response<AddOrUpdateTextBlocklistItemsResult> AddOrUpdateBlocklistItems(string name, AddOrUpdateTextBlocklistItemsOptions addOrUpdateTextBlocklistItemsOptions, CancellationToken cancellationToken = default)
+        public virtual Response<AddOrUpdateTextBlocklistItemsResult> AddOrUpdateBlocklistItems(string name, AddOrUpdateTextBlocklistItemsOptions options, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(name, nameof(name));
-            Argument.AssertNotNull(addOrUpdateTextBlocklistItemsOptions, nameof(addOrUpdateTextBlocklistItemsOptions));
+            Argument.AssertNotNull(options, nameof(options));
 
             RequestContext context = FromCancellationToken(cancellationToken);
-            using RequestContent content = addOrUpdateTextBlocklistItemsOptions.ToRequestContent();
-            Response response = AddOrUpdateBlocklistItems(name, content, context);
+            AddOrUpdateBlocklistItemsRequest addOrUpdateBlocklistItemsRequest = new AddOrUpdateBlocklistItemsRequest(options);
+            Response response = AddOrUpdateBlocklistItems(name, addOrUpdateBlocklistItemsRequest.ToRequestContent(), context);
             return Response.FromValue(AddOrUpdateTextBlocklistItemsResult.FromResponse(response), response);
         }
 
@@ -604,39 +604,39 @@ namespace Azure.AI.ContentSafety
 
         /// <summary> Remove BlocklistItems From Text Blocklist. </summary>
         /// <param name="name"> Text blocklist name. </param>
-        /// <param name="removeTextBlocklistItemsOptions"> The request to remove blocklistItems from a text blocklist. </param>
+        /// <param name="options"> Options for removing blocklist items. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="name"/> or <paramref name="removeTextBlocklistItemsOptions"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="name"/> or <paramref name="options"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
         /// <remarks> Remove blocklistItems from a text blocklist. You can remove at most 100 BlocklistItems in one request. </remarks>
         /// <include file="Docs/BlocklistClient.xml" path="doc/members/member[@name='RemoveBlocklistItemsAsync(string,RemoveTextBlocklistItemsOptions,CancellationToken)']/*" />
-        public virtual async Task<Response> RemoveBlocklistItemsAsync(string name, RemoveTextBlocklistItemsOptions removeTextBlocklistItemsOptions, CancellationToken cancellationToken = default)
+        public virtual async Task<Response> RemoveBlocklistItemsAsync(string name, RemoveTextBlocklistItemsOptions options, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(name, nameof(name));
-            Argument.AssertNotNull(removeTextBlocklistItemsOptions, nameof(removeTextBlocklistItemsOptions));
+            Argument.AssertNotNull(options, nameof(options));
 
             RequestContext context = FromCancellationToken(cancellationToken);
-            using RequestContent content = removeTextBlocklistItemsOptions.ToRequestContent();
-            Response response = await RemoveBlocklistItemsAsync(name, content, context).ConfigureAwait(false);
+            RemoveBlocklistItemsRequest removeBlocklistItemsRequest = new RemoveBlocklistItemsRequest(options);
+            Response response = await RemoveBlocklistItemsAsync(name, removeBlocklistItemsRequest.ToRequestContent(), context).ConfigureAwait(false);
             return response;
         }
 
         /// <summary> Remove BlocklistItems From Text Blocklist. </summary>
         /// <param name="name"> Text blocklist name. </param>
-        /// <param name="removeTextBlocklistItemsOptions"> The request to remove blocklistItems from a text blocklist. </param>
+        /// <param name="options"> Options for removing blocklist items. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="name"/> or <paramref name="removeTextBlocklistItemsOptions"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="name"/> or <paramref name="options"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
         /// <remarks> Remove blocklistItems from a text blocklist. You can remove at most 100 BlocklistItems in one request. </remarks>
         /// <include file="Docs/BlocklistClient.xml" path="doc/members/member[@name='RemoveBlocklistItems(string,RemoveTextBlocklistItemsOptions,CancellationToken)']/*" />
-        public virtual Response RemoveBlocklistItems(string name, RemoveTextBlocklistItemsOptions removeTextBlocklistItemsOptions, CancellationToken cancellationToken = default)
+        public virtual Response RemoveBlocklistItems(string name, RemoveTextBlocklistItemsOptions options, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(name, nameof(name));
-            Argument.AssertNotNull(removeTextBlocklistItemsOptions, nameof(removeTextBlocklistItemsOptions));
+            Argument.AssertNotNull(options, nameof(options));
 
             RequestContext context = FromCancellationToken(cancellationToken);
-            using RequestContent content = removeTextBlocklistItemsOptions.ToRequestContent();
-            Response response = RemoveBlocklistItems(name, content, context);
+            RemoveBlocklistItemsRequest removeBlocklistItemsRequest = new RemoveBlocklistItemsRequest(options);
+            Response response = RemoveBlocklistItems(name, removeBlocklistItemsRequest.ToRequestContent(), context);
             return response;
         }
 

@@ -28,13 +28,16 @@ namespace Azure.AI.ContentSafety.Samples
 
             using RequestContent content = RequestContent.Create(new
             {
-                blocklistItems = new object[]
+                options = new
+                {
+                    blocklistItems = new object[]
             {
 new
 {
 text = "<text>",
 }
             },
+                },
             });
             Response response = client.AddOrUpdateBlocklistItems("<Name>", content);
 
@@ -53,13 +56,16 @@ text = "<text>",
 
             using RequestContent content = RequestContent.Create(new
             {
-                blocklistItems = new object[]
+                options = new
+                {
+                    blocklistItems = new object[]
             {
 new
 {
 text = "<text>",
 }
             },
+                },
             });
             Response response = await client.AddOrUpdateBlocklistItemsAsync("<Name>", content);
 
@@ -76,11 +82,11 @@ text = "<text>",
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             BlocklistClient client = new BlocklistClient(endpoint, credential);
 
-            AddOrUpdateTextBlocklistItemsOptions addOrUpdateTextBlocklistItemsOptions = new AddOrUpdateTextBlocklistItemsOptions(new TextBlocklistItem[]
+            AddOrUpdateTextBlocklistItemsOptions options = new AddOrUpdateTextBlocklistItemsOptions(new TextBlocklistItem[]
             {
 new TextBlocklistItem("<text>")
             });
-            Response<AddOrUpdateTextBlocklistItemsResult> response = client.AddOrUpdateBlocklistItems("<Name>", addOrUpdateTextBlocklistItemsOptions);
+            Response<AddOrUpdateTextBlocklistItemsResult> response = client.AddOrUpdateBlocklistItems("<Name>", options);
         }
 
         [Test]
@@ -91,11 +97,11 @@ new TextBlocklistItem("<text>")
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             BlocklistClient client = new BlocklistClient(endpoint, credential);
 
-            AddOrUpdateTextBlocklistItemsOptions addOrUpdateTextBlocklistItemsOptions = new AddOrUpdateTextBlocklistItemsOptions(new TextBlocklistItem[]
+            AddOrUpdateTextBlocklistItemsOptions options = new AddOrUpdateTextBlocklistItemsOptions(new TextBlocklistItem[]
             {
 new TextBlocklistItem("<text>")
             });
-            Response<AddOrUpdateTextBlocklistItemsResult> response = await client.AddOrUpdateBlocklistItemsAsync("<Name>", addOrUpdateTextBlocklistItemsOptions);
+            Response<AddOrUpdateTextBlocklistItemsResult> response = await client.AddOrUpdateBlocklistItemsAsync("<Name>", options);
         }
 
         [Test]
@@ -108,7 +114,9 @@ new TextBlocklistItem("<text>")
 
             using RequestContent content = RequestContent.Create(new
             {
-                blocklistItems = new object[]
+                options = new
+                {
+                    blocklistItems = new object[]
             {
 new
 {
@@ -116,6 +124,7 @@ description = "<description>",
 text = "<text>",
 }
             },
+                },
             });
             Response response = client.AddOrUpdateBlocklistItems("<Name>", content);
 
@@ -135,7 +144,9 @@ text = "<text>",
 
             using RequestContent content = RequestContent.Create(new
             {
-                blocklistItems = new object[]
+                options = new
+                {
+                    blocklistItems = new object[]
             {
 new
 {
@@ -143,6 +154,7 @@ description = "<description>",
 text = "<text>",
 }
             },
+                },
             });
             Response response = await client.AddOrUpdateBlocklistItemsAsync("<Name>", content);
 
@@ -160,14 +172,14 @@ text = "<text>",
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             BlocklistClient client = new BlocklistClient(endpoint, credential);
 
-            AddOrUpdateTextBlocklistItemsOptions addOrUpdateTextBlocklistItemsOptions = new AddOrUpdateTextBlocklistItemsOptions(new TextBlocklistItem[]
+            AddOrUpdateTextBlocklistItemsOptions options = new AddOrUpdateTextBlocklistItemsOptions(new TextBlocklistItem[]
             {
 new TextBlocklistItem("<text>")
 {
 Description = "<description>",
 }
             });
-            Response<AddOrUpdateTextBlocklistItemsResult> response = client.AddOrUpdateBlocklistItems("<Name>", addOrUpdateTextBlocklistItemsOptions);
+            Response<AddOrUpdateTextBlocklistItemsResult> response = client.AddOrUpdateBlocklistItems("<Name>", options);
         }
 
         [Test]
@@ -178,14 +190,14 @@ Description = "<description>",
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             BlocklistClient client = new BlocklistClient(endpoint, credential);
 
-            AddOrUpdateTextBlocklistItemsOptions addOrUpdateTextBlocklistItemsOptions = new AddOrUpdateTextBlocklistItemsOptions(new TextBlocklistItem[]
+            AddOrUpdateTextBlocklistItemsOptions options = new AddOrUpdateTextBlocklistItemsOptions(new TextBlocklistItem[]
             {
 new TextBlocklistItem("<text>")
 {
 Description = "<description>",
 }
             });
-            Response<AddOrUpdateTextBlocklistItemsResult> response = await client.AddOrUpdateBlocklistItemsAsync("<Name>", addOrUpdateTextBlocklistItemsOptions);
+            Response<AddOrUpdateTextBlocklistItemsResult> response = await client.AddOrUpdateBlocklistItemsAsync("<Name>", options);
         }
 
         [Test]
@@ -534,10 +546,13 @@ Description = "<description>",
 
             using RequestContent content = RequestContent.Create(new
             {
-                blocklistItemIds = new object[]
+                options = new
+                {
+                    blocklistItemIds = new object[]
             {
 "<blocklistItemIds>"
             },
+                },
             });
             Response response = client.RemoveBlocklistItems("<Name>", content);
 
@@ -554,10 +569,13 @@ Description = "<description>",
 
             using RequestContent content = RequestContent.Create(new
             {
-                blocklistItemIds = new object[]
+                options = new
+                {
+                    blocklistItemIds = new object[]
             {
 "<blocklistItemIds>"
             },
+                },
             });
             Response response = await client.RemoveBlocklistItemsAsync("<Name>", content);
 
@@ -572,8 +590,8 @@ Description = "<description>",
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             BlocklistClient client = new BlocklistClient(endpoint, credential);
 
-            RemoveTextBlocklistItemsOptions removeTextBlocklistItemsOptions = new RemoveTextBlocklistItemsOptions(new string[] { "<blocklistItemIds>" });
-            Response response = client.RemoveBlocklistItems("<Name>", removeTextBlocklistItemsOptions);
+            RemoveTextBlocklistItemsOptions options = new RemoveTextBlocklistItemsOptions(new string[] { "<blocklistItemIds>" });
+            Response response = client.RemoveBlocklistItems("<Name>", options);
         }
 
         [Test]
@@ -584,8 +602,8 @@ Description = "<description>",
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             BlocklistClient client = new BlocklistClient(endpoint, credential);
 
-            RemoveTextBlocklistItemsOptions removeTextBlocklistItemsOptions = new RemoveTextBlocklistItemsOptions(new string[] { "<blocklistItemIds>" });
-            Response response = await client.RemoveBlocklistItemsAsync("<Name>", removeTextBlocklistItemsOptions);
+            RemoveTextBlocklistItemsOptions options = new RemoveTextBlocklistItemsOptions(new string[] { "<blocklistItemIds>" });
+            Response response = await client.RemoveBlocklistItemsAsync("<Name>", options);
         }
 
         [Test]
@@ -598,10 +616,13 @@ Description = "<description>",
 
             using RequestContent content = RequestContent.Create(new
             {
-                blocklistItemIds = new object[]
+                options = new
+                {
+                    blocklistItemIds = new object[]
             {
 "<blocklistItemIds>"
             },
+                },
             });
             Response response = client.RemoveBlocklistItems("<Name>", content);
 
@@ -618,10 +639,13 @@ Description = "<description>",
 
             using RequestContent content = RequestContent.Create(new
             {
-                blocklistItemIds = new object[]
+                options = new
+                {
+                    blocklistItemIds = new object[]
             {
 "<blocklistItemIds>"
             },
+                },
             });
             Response response = await client.RemoveBlocklistItemsAsync("<Name>", content);
 
@@ -636,8 +660,8 @@ Description = "<description>",
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             BlocklistClient client = new BlocklistClient(endpoint, credential);
 
-            RemoveTextBlocklistItemsOptions removeTextBlocklistItemsOptions = new RemoveTextBlocklistItemsOptions(new string[] { "<blocklistItemIds>" });
-            Response response = client.RemoveBlocklistItems("<Name>", removeTextBlocklistItemsOptions);
+            RemoveTextBlocklistItemsOptions options = new RemoveTextBlocklistItemsOptions(new string[] { "<blocklistItemIds>" });
+            Response response = client.RemoveBlocklistItems("<Name>", options);
         }
 
         [Test]
@@ -648,8 +672,8 @@ Description = "<description>",
             AzureKeyCredential credential = new AzureKeyCredential("<key>");
             BlocklistClient client = new BlocklistClient(endpoint, credential);
 
-            RemoveTextBlocklistItemsOptions removeTextBlocklistItemsOptions = new RemoveTextBlocklistItemsOptions(new string[] { "<blocklistItemIds>" });
-            Response response = await client.RemoveBlocklistItemsAsync("<Name>", removeTextBlocklistItemsOptions);
+            RemoveTextBlocklistItemsOptions options = new RemoveTextBlocklistItemsOptions(new string[] { "<blocklistItemIds>" });
+            Response response = await client.RemoveBlocklistItemsAsync("<Name>", options);
         }
 
         [Test]

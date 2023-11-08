@@ -9,11 +9,11 @@ Uri endpoint = new Uri("<https://my-service.azure.com>");
 AzureKeyCredential credential = new AzureKeyCredential("<key>");
 BlocklistClient client = new BlocklistClient(endpoint, credential);
 
-AddOrUpdateTextBlocklistItemsOptions addOrUpdateTextBlocklistItemsOptions = new AddOrUpdateTextBlocklistItemsOptions(new TextBlocklistItem[]
+AddOrUpdateTextBlocklistItemsOptions options = new AddOrUpdateTextBlocklistItemsOptions(new TextBlocklistItem[]
 {
     new TextBlocklistItem("<text>")
 });
-Response<AddOrUpdateTextBlocklistItemsResult> response = await client.AddOrUpdateBlocklistItemsAsync("<Name>", addOrUpdateTextBlocklistItemsOptions);
+Response<AddOrUpdateTextBlocklistItemsResult> response = await client.AddOrUpdateBlocklistItemsAsync("<Name>", options);
 ]]></code>
 This sample shows how to call AddOrUpdateBlocklistItemsAsync with all parameters.
 <code><![CDATA[
@@ -21,14 +21,14 @@ Uri endpoint = new Uri("<https://my-service.azure.com>");
 AzureKeyCredential credential = new AzureKeyCredential("<key>");
 BlocklistClient client = new BlocklistClient(endpoint, credential);
 
-AddOrUpdateTextBlocklistItemsOptions addOrUpdateTextBlocklistItemsOptions = new AddOrUpdateTextBlocklistItemsOptions(new TextBlocklistItem[]
+AddOrUpdateTextBlocklistItemsOptions options = new AddOrUpdateTextBlocklistItemsOptions(new TextBlocklistItem[]
 {
     new TextBlocklistItem("<text>")
     {
         Description = "<description>",
     }
 });
-Response<AddOrUpdateTextBlocklistItemsResult> response = await client.AddOrUpdateBlocklistItemsAsync("<Name>", addOrUpdateTextBlocklistItemsOptions);
+Response<AddOrUpdateTextBlocklistItemsResult> response = await client.AddOrUpdateBlocklistItemsAsync("<Name>", options);
 ]]></code></example>
     </member>
     <member name="AddOrUpdateBlocklistItems(string,AddOrUpdateTextBlocklistItemsOptions,CancellationToken)">
@@ -39,11 +39,11 @@ Uri endpoint = new Uri("<https://my-service.azure.com>");
 AzureKeyCredential credential = new AzureKeyCredential("<key>");
 BlocklistClient client = new BlocklistClient(endpoint, credential);
 
-AddOrUpdateTextBlocklistItemsOptions addOrUpdateTextBlocklistItemsOptions = new AddOrUpdateTextBlocklistItemsOptions(new TextBlocklistItem[]
+AddOrUpdateTextBlocklistItemsOptions options = new AddOrUpdateTextBlocklistItemsOptions(new TextBlocklistItem[]
 {
     new TextBlocklistItem("<text>")
 });
-Response<AddOrUpdateTextBlocklistItemsResult> response = client.AddOrUpdateBlocklistItems("<Name>", addOrUpdateTextBlocklistItemsOptions);
+Response<AddOrUpdateTextBlocklistItemsResult> response = client.AddOrUpdateBlocklistItems("<Name>", options);
 ]]></code>
 This sample shows how to call AddOrUpdateBlocklistItems with all parameters.
 <code><![CDATA[
@@ -51,14 +51,14 @@ Uri endpoint = new Uri("<https://my-service.azure.com>");
 AzureKeyCredential credential = new AzureKeyCredential("<key>");
 BlocklistClient client = new BlocklistClient(endpoint, credential);
 
-AddOrUpdateTextBlocklistItemsOptions addOrUpdateTextBlocklistItemsOptions = new AddOrUpdateTextBlocklistItemsOptions(new TextBlocklistItem[]
+AddOrUpdateTextBlocklistItemsOptions options = new AddOrUpdateTextBlocklistItemsOptions(new TextBlocklistItem[]
 {
     new TextBlocklistItem("<text>")
     {
         Description = "<description>",
     }
 });
-Response<AddOrUpdateTextBlocklistItemsResult> response = client.AddOrUpdateBlocklistItems("<Name>", addOrUpdateTextBlocklistItemsOptions);
+Response<AddOrUpdateTextBlocklistItemsResult> response = client.AddOrUpdateBlocklistItems("<Name>", options);
 ]]></code></example>
     </member>
     <member name="AddOrUpdateBlocklistItemsAsync(string,RequestContent,RequestContext)">
@@ -71,12 +71,15 @@ BlocklistClient client = new BlocklistClient(endpoint, credential);
 
 using RequestContent content = RequestContent.Create(new
 {
-    blocklistItems = new object[]
+    options = new
     {
-        new
+        blocklistItems = new object[]
         {
-            text = "<text>",
-        }
+            new
+            {
+                text = "<text>",
+            }
+        },
     },
 });
 Response response = await client.AddOrUpdateBlocklistItemsAsync("<Name>", content);
@@ -93,13 +96,16 @@ BlocklistClient client = new BlocklistClient(endpoint, credential);
 
 using RequestContent content = RequestContent.Create(new
 {
-    blocklistItems = new object[]
+    options = new
     {
-        new
+        blocklistItems = new object[]
         {
-            description = "<description>",
-            text = "<text>",
-        }
+            new
+            {
+                description = "<description>",
+                text = "<text>",
+            }
+        },
     },
 });
 Response response = await client.AddOrUpdateBlocklistItemsAsync("<Name>", content);
@@ -120,12 +126,15 @@ BlocklistClient client = new BlocklistClient(endpoint, credential);
 
 using RequestContent content = RequestContent.Create(new
 {
-    blocklistItems = new object[]
+    options = new
     {
-        new
+        blocklistItems = new object[]
         {
-            text = "<text>",
-        }
+            new
+            {
+                text = "<text>",
+            }
+        },
     },
 });
 Response response = client.AddOrUpdateBlocklistItems("<Name>", content);
@@ -142,13 +151,16 @@ BlocklistClient client = new BlocklistClient(endpoint, credential);
 
 using RequestContent content = RequestContent.Create(new
 {
-    blocklistItems = new object[]
+    options = new
     {
-        new
+        blocklistItems = new object[]
         {
-            description = "<description>",
-            text = "<text>",
-        }
+            new
+            {
+                description = "<description>",
+                text = "<text>",
+            }
+        },
     },
 });
 Response response = client.AddOrUpdateBlocklistItems("<Name>", content);
@@ -467,8 +479,8 @@ Uri endpoint = new Uri("<https://my-service.azure.com>");
 AzureKeyCredential credential = new AzureKeyCredential("<key>");
 BlocklistClient client = new BlocklistClient(endpoint, credential);
 
-RemoveTextBlocklistItemsOptions removeTextBlocklistItemsOptions = new RemoveTextBlocklistItemsOptions(new string[] { "<blocklistItemIds>" });
-Response response = await client.RemoveBlocklistItemsAsync("<Name>", removeTextBlocklistItemsOptions);
+RemoveTextBlocklistItemsOptions options = new RemoveTextBlocklistItemsOptions(new string[] { "<blocklistItemIds>" });
+Response response = await client.RemoveBlocklistItemsAsync("<Name>", options);
 ]]></code>
 This sample shows how to call RemoveBlocklistItemsAsync with all parameters.
 <code><![CDATA[
@@ -476,8 +488,8 @@ Uri endpoint = new Uri("<https://my-service.azure.com>");
 AzureKeyCredential credential = new AzureKeyCredential("<key>");
 BlocklistClient client = new BlocklistClient(endpoint, credential);
 
-RemoveTextBlocklistItemsOptions removeTextBlocklistItemsOptions = new RemoveTextBlocklistItemsOptions(new string[] { "<blocklistItemIds>" });
-Response response = await client.RemoveBlocklistItemsAsync("<Name>", removeTextBlocklistItemsOptions);
+RemoveTextBlocklistItemsOptions options = new RemoveTextBlocklistItemsOptions(new string[] { "<blocklistItemIds>" });
+Response response = await client.RemoveBlocklistItemsAsync("<Name>", options);
 ]]></code></example>
     </member>
     <member name="RemoveBlocklistItems(string,RemoveTextBlocklistItemsOptions,CancellationToken)">
@@ -488,8 +500,8 @@ Uri endpoint = new Uri("<https://my-service.azure.com>");
 AzureKeyCredential credential = new AzureKeyCredential("<key>");
 BlocklistClient client = new BlocklistClient(endpoint, credential);
 
-RemoveTextBlocklistItemsOptions removeTextBlocklistItemsOptions = new RemoveTextBlocklistItemsOptions(new string[] { "<blocklistItemIds>" });
-Response response = client.RemoveBlocklistItems("<Name>", removeTextBlocklistItemsOptions);
+RemoveTextBlocklistItemsOptions options = new RemoveTextBlocklistItemsOptions(new string[] { "<blocklistItemIds>" });
+Response response = client.RemoveBlocklistItems("<Name>", options);
 ]]></code>
 This sample shows how to call RemoveBlocklistItems with all parameters.
 <code><![CDATA[
@@ -497,8 +509,8 @@ Uri endpoint = new Uri("<https://my-service.azure.com>");
 AzureKeyCredential credential = new AzureKeyCredential("<key>");
 BlocklistClient client = new BlocklistClient(endpoint, credential);
 
-RemoveTextBlocklistItemsOptions removeTextBlocklistItemsOptions = new RemoveTextBlocklistItemsOptions(new string[] { "<blocklistItemIds>" });
-Response response = client.RemoveBlocklistItems("<Name>", removeTextBlocklistItemsOptions);
+RemoveTextBlocklistItemsOptions options = new RemoveTextBlocklistItemsOptions(new string[] { "<blocklistItemIds>" });
+Response response = client.RemoveBlocklistItems("<Name>", options);
 ]]></code></example>
     </member>
     <member name="RemoveBlocklistItemsAsync(string,RequestContent,RequestContext)">
@@ -511,9 +523,12 @@ BlocklistClient client = new BlocklistClient(endpoint, credential);
 
 using RequestContent content = RequestContent.Create(new
 {
-    blocklistItemIds = new object[]
+    options = new
     {
-        "<blocklistItemIds>"
+        blocklistItemIds = new object[]
+        {
+            "<blocklistItemIds>"
+        },
     },
 });
 Response response = await client.RemoveBlocklistItemsAsync("<Name>", content);
@@ -528,9 +543,12 @@ BlocklistClient client = new BlocklistClient(endpoint, credential);
 
 using RequestContent content = RequestContent.Create(new
 {
-    blocklistItemIds = new object[]
+    options = new
     {
-        "<blocklistItemIds>"
+        blocklistItemIds = new object[]
+        {
+            "<blocklistItemIds>"
+        },
     },
 });
 Response response = await client.RemoveBlocklistItemsAsync("<Name>", content);
@@ -548,9 +566,12 @@ BlocklistClient client = new BlocklistClient(endpoint, credential);
 
 using RequestContent content = RequestContent.Create(new
 {
-    blocklistItemIds = new object[]
+    options = new
     {
-        "<blocklistItemIds>"
+        blocklistItemIds = new object[]
+        {
+            "<blocklistItemIds>"
+        },
     },
 });
 Response response = client.RemoveBlocklistItems("<Name>", content);
@@ -565,9 +586,12 @@ BlocklistClient client = new BlocklistClient(endpoint, credential);
 
 using RequestContent content = RequestContent.Create(new
 {
-    blocklistItemIds = new object[]
+    options = new
     {
-        "<blocklistItemIds>"
+        blocklistItemIds = new object[]
+        {
+            "<blocklistItemIds>"
+        },
     },
 });
 Response response = client.RemoveBlocklistItems("<Name>", content);
