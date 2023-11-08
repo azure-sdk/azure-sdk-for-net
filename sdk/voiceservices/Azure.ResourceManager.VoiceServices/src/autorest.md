@@ -7,7 +7,7 @@ azure-arm: true
 csharp: true
 library-name: VoiceServices
 namespace: Azure.ResourceManager.VoiceServices
-require: https://github.com/Azure/azure-rest-api-specs/blob/7b47689d4efc098f25f46781f05f22179c153314/specification/voiceservices/resource-manager/readme.md
+require: https://github.com/Azure/azure-rest-api-specs/blob/d658fcffcdc7495b0a2a4e390773f1c1d23e78c0/specification/voiceservices/resource-manager/readme.md
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
 sample-gen:
