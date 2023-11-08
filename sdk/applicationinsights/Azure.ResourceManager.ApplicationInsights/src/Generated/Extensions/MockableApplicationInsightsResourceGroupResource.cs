@@ -195,59 +195,6 @@ namespace Azure.ResourceManager.ApplicationInsights.Mocking
             return GetWorkbookTemplates().Get(resourceName, cancellationToken);
         }
 
-        /// <summary> Gets a collection of MyWorkbookResources in the ResourceGroupResource. </summary>
-        /// <returns> An object representing collection of MyWorkbookResources and their operations over a MyWorkbookResource. </returns>
-        public virtual MyWorkbookCollection GetMyWorkbooks()
-        {
-            return GetCachedClient(client => new MyWorkbookCollection(client, Id));
-        }
-
-        /// <summary>
-        /// Get a single private workbook by its resourceName.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Insights/myWorkbooks/{resourceName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>MyWorkbooks_Get</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="resourceName"> The name of the Application Insights component resource. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual async Task<Response<MyWorkbookResource>> GetMyWorkbookAsync(string resourceName, CancellationToken cancellationToken = default)
-        {
-            return await GetMyWorkbooks().GetAsync(resourceName, cancellationToken).ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// Get a single private workbook by its resourceName.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Insights/myWorkbooks/{resourceName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>MyWorkbooks_Get</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="resourceName"> The name of the Application Insights component resource. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="resourceName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="resourceName"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual Response<MyWorkbookResource> GetMyWorkbook(string resourceName, CancellationToken cancellationToken = default)
-        {
-            return GetMyWorkbooks().Get(resourceName, cancellationToken);
-        }
-
         /// <summary> Gets a collection of WorkbookResources in the ResourceGroupResource. </summary>
         /// <returns> An object representing collection of WorkbookResources and their operations over a WorkbookResource. </returns>
         public virtual WorkbookCollection GetWorkbooks()
@@ -268,7 +215,7 @@ namespace Azure.ResourceManager.ApplicationInsights.Mocking
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="resourceName"> The name of the resource. </param>
+        /// <param name="resourceName"> The name of the workbook resource. The value must be an UUID. </param>
         /// <param name="canFetchContent"> Flag indicating whether or not to return the full content for each applicable workbook. If false, only return summary content for workbooks. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceName"/> is null. </exception>
@@ -292,7 +239,7 @@ namespace Azure.ResourceManager.ApplicationInsights.Mocking
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="resourceName"> The name of the resource. </param>
+        /// <param name="resourceName"> The name of the workbook resource. The value must be an UUID. </param>
         /// <param name="canFetchContent"> Flag indicating whether or not to return the full content for each applicable workbook. If false, only return summary content for workbooks. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceName"/> is null. </exception>
