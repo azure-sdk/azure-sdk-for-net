@@ -385,7 +385,7 @@ namespace Azure.ResourceManager.RedisEnterprise
             try
             {
                 var response = await _redisEnterpriseDatabaseDatabasesRestClient.RegenerateKeyAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, content, cancellationToken).ConfigureAwait(false);
-                var operation = new RedisEnterpriseArmOperation<RedisEnterpriseDataAccessKeys>(new RedisEnterpriseDataAccessKeysOperationSource(), _redisEnterpriseDatabaseDatabasesClientDiagnostics, Pipeline, _redisEnterpriseDatabaseDatabasesRestClient.CreateRegenerateKeyRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, content).Request, response, OperationFinalStateVia.Location);
+                var operation = new RedisEnterpriseArmOperation<RedisEnterpriseDataAccessKeys>(new RedisEnterpriseDataAccessKeysOperationSource(), _redisEnterpriseDatabaseDatabasesClientDiagnostics, Pipeline, _redisEnterpriseDatabaseDatabasesRestClient.CreateRegenerateKeyRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, content).Request, response, OperationFinalStateVia.AzureAsyncOperation);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -423,7 +423,7 @@ namespace Azure.ResourceManager.RedisEnterprise
             try
             {
                 var response = _redisEnterpriseDatabaseDatabasesRestClient.RegenerateKey(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, content, cancellationToken);
-                var operation = new RedisEnterpriseArmOperation<RedisEnterpriseDataAccessKeys>(new RedisEnterpriseDataAccessKeysOperationSource(), _redisEnterpriseDatabaseDatabasesClientDiagnostics, Pipeline, _redisEnterpriseDatabaseDatabasesRestClient.CreateRegenerateKeyRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, content).Request, response, OperationFinalStateVia.Location);
+                var operation = new RedisEnterpriseArmOperation<RedisEnterpriseDataAccessKeys>(new RedisEnterpriseDataAccessKeysOperationSource(), _redisEnterpriseDatabaseDatabasesClientDiagnostics, Pipeline, _redisEnterpriseDatabaseDatabasesRestClient.CreateRegenerateKeyRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, content).Request, response, OperationFinalStateVia.AzureAsyncOperation);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
