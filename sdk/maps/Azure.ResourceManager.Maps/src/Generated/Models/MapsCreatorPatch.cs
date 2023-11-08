@@ -25,5 +25,9 @@ namespace Azure.ResourceManager.Maps.Models
         public string ProvisioningState { get; }
         /// <summary> The storage units to be allocated. Integer values from 1 to 100, inclusive. </summary>
         public int? StorageUnits { get; set; }
+        /// <summary> The total allocated storage unit size in bytes for the creator resource. </summary>
+        public int? TotalStorageUnitSizeInBytes { get; set; }
+        /// <summary> The consumed storage unit size in bytes for the creator resource. </summary>
+        public int? ConsumedStorageUnitSizeInBytes { get; set; }
     }
 }
