@@ -21,6 +21,11 @@ namespace Azure.ResourceManager.Cdn
             writer.WriteStartObject();
             writer.WritePropertyName("sku"u8);
             writer.WriteObjectValue(Sku);
+            if (Optional.IsDefined(Identity))
+            {
+                writer.WritePropertyName("identity"u8);
+                JsonSerializer.Serialize(writer, Identity);
+            }
             if (Optional.IsCollectionDefined(Tags))
             {
                 writer.WritePropertyName("tags"u8);
@@ -48,6 +53,11 @@ namespace Azure.ResourceManager.Cdn
                     writer.WriteNull("originResponseTimeoutSeconds");
                 }
             }
+            if (Optional.IsDefined(LogScrubbing))
+            {
+                writer.WritePropertyName("logScrubbing"u8);
+                writer.WriteObjectValue(LogScrubbing);
+            }
             writer.WriteEndObject();
             writer.WriteEndObject();
         }
@@ -60,6 +70,7 @@ namespace Azure.ResourceManager.Cdn
             }
             CdnSku sku = default;
             Optional<string> kind = default;
+            Optional<ManagedServiceIdentity> identity = default;
             Optional<IDictionary<string, string>> tags = default;
             AzureLocation location = default;
             ResourceIdentifier id = default;
@@ -68,8 +79,10 @@ namespace Azure.ResourceManager.Cdn
             Optional<SystemData> systemData = default;
             Optional<ProfileResourceState> resourceState = default;
             Optional<ProfileProvisioningState> provisioningState = default;
+            Optional<IReadOnlyDictionary<string, string>> extendedProperties = default;
             Optional<Guid> frontDoorId = default;
             Optional<int?> originResponseTimeoutSeconds = default;
+            Optional<ProfilePropertiesLogScrubbing> logScrubbing = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("sku"u8))
@@ -80,6 +93,15 @@ namespace Azure.ResourceManager.Cdn
                 if (property.NameEquals("kind"u8))
                 {
                     kind = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("identity"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    identity = JsonSerializer.Deserialize<ManagedServiceIdentity>(property.Value.GetRawText());
                     continue;
                 }
                 if (property.NameEquals("tags"u8))
@@ -152,6 +174,20 @@ namespace Azure.ResourceManager.Cdn
                             provisioningState = new ProfileProvisioningState(property0.Value.GetString());
                             continue;
                         }
+                        if (property0.NameEquals("extendedProperties"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            Dictionary<string, string> dictionary = new Dictionary<string, string>();
+                            foreach (var property1 in property0.Value.EnumerateObject())
+                            {
+                                dictionary.Add(property1.Name, property1.Value.GetString());
+                            }
+                            extendedProperties = dictionary;
+                            continue;
+                        }
                         if (property0.NameEquals("frontDoorId"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -171,11 +207,20 @@ namespace Azure.ResourceManager.Cdn
                             originResponseTimeoutSeconds = property0.Value.GetInt32();
                             continue;
                         }
+                        if (property0.NameEquals("logScrubbing"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            logScrubbing = ProfilePropertiesLogScrubbing.DeserializeProfilePropertiesLogScrubbing(property0.Value);
+                            continue;
+                        }
                     }
                     continue;
                 }
             }
-            return new ProfileData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, sku, kind.Value, Optional.ToNullable(resourceState), Optional.ToNullable(provisioningState), Optional.ToNullable(frontDoorId), Optional.ToNullable(originResponseTimeoutSeconds));
+            return new ProfileData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, sku, kind.Value, identity, Optional.ToNullable(resourceState), Optional.ToNullable(provisioningState), Optional.ToDictionary(extendedProperties), Optional.ToNullable(frontDoorId), Optional.ToNullable(originResponseTimeoutSeconds), logScrubbing.Value);
         }
     }
 }
