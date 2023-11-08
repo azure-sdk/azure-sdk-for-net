@@ -1339,22 +1339,6 @@ namespace Azure.ResourceManager.SecurityCenter
         }
 
         /// <summary>
-        /// Gets an object representing an <see cref="IngestionSettingResource" /> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="IngestionSettingResource.CreateResourceIdentifier" /> to create an <see cref="IngestionSettingResource" /> <see cref="ResourceIdentifier" /> from its components.
-        /// <item>
-        /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableSecurityCenterArmClient.GetIngestionSettingResource(ResourceIdentifier)"/> instead.</description>
-        /// </item>
-        /// </summary>
-        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="IngestionSettingResource" /> object. </returns>
-        public static IngestionSettingResource GetIngestionSettingResource(this ArmClient client, ResourceIdentifier id)
-        {
-            return GetMockableSecurityCenterArmClient(client).GetIngestionSettingResource(id);
-        }
-
-        /// <summary>
         /// Gets an object representing a <see cref="SoftwareInventoryResource" /> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="SoftwareInventoryResource.CreateResourceIdentifier" /> to create a <see cref="SoftwareInventoryResource" /> <see cref="ResourceIdentifier" /> from its components.
         /// <item>
@@ -3428,76 +3412,6 @@ namespace Azure.ResourceManager.SecurityCenter
         public static Response<SecuritySettingResource> GetSecuritySetting(this SubscriptionResource subscriptionResource, SecuritySettingName settingName, CancellationToken cancellationToken = default)
         {
             return GetMockableSecurityCenterSubscriptionResource(subscriptionResource).GetSecuritySetting(settingName, cancellationToken);
-        }
-
-        /// <summary>
-        /// Gets a collection of IngestionSettingResources in the SubscriptionResource.
-        /// <item>
-        /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableSecurityCenterSubscriptionResource.GetIngestionSettings()"/> instead.</description>
-        /// </item>
-        /// </summary>
-        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
-        /// <returns> An object representing collection of IngestionSettingResources and their operations over a IngestionSettingResource. </returns>
-        public static IngestionSettingCollection GetIngestionSettings(this SubscriptionResource subscriptionResource)
-        {
-            return GetMockableSecurityCenterSubscriptionResource(subscriptionResource).GetIngestionSettings();
-        }
-
-        /// <summary>
-        /// Settings for ingesting security data and logs to correlate with resources associated with the subscription.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Security/ingestionSettings/{ingestionSettingName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>IngestionSettings_Get</description>
-        /// </item>
-        /// </list>
-        /// <item>
-        /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableSecurityCenterSubscriptionResource.GetIngestionSettingAsync(string,CancellationToken)"/> instead.</description>
-        /// </item>
-        /// </summary>
-        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
-        /// <param name="ingestionSettingName"> Name of the ingestion setting. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="ingestionSettingName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="ingestionSettingName"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public static async Task<Response<IngestionSettingResource>> GetIngestionSettingAsync(this SubscriptionResource subscriptionResource, string ingestionSettingName, CancellationToken cancellationToken = default)
-        {
-            return await GetMockableSecurityCenterSubscriptionResource(subscriptionResource).GetIngestionSettingAsync(ingestionSettingName, cancellationToken).ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// Settings for ingesting security data and logs to correlate with resources associated with the subscription.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Security/ingestionSettings/{ingestionSettingName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>IngestionSettings_Get</description>
-        /// </item>
-        /// </list>
-        /// <item>
-        /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableSecurityCenterSubscriptionResource.GetIngestionSetting(string,CancellationToken)"/> instead.</description>
-        /// </item>
-        /// </summary>
-        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
-        /// <param name="ingestionSettingName"> Name of the ingestion setting. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="ingestionSettingName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="ingestionSettingName"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public static Response<IngestionSettingResource> GetIngestionSetting(this SubscriptionResource subscriptionResource, string ingestionSettingName, CancellationToken cancellationToken = default)
-        {
-            return GetMockableSecurityCenterSubscriptionResource(subscriptionResource).GetIngestionSetting(ingestionSettingName, cancellationToken);
         }
 
         /// <summary>
