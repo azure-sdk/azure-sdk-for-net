@@ -243,6 +243,22 @@ namespace Azure.ResourceManager.DesktopVirtualization
         }
 
         /// <summary>
+        /// Gets an object representing an <see cref="AppAttachPackageResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="AppAttachPackageResource.CreateResourceIdentifier" /> to create an <see cref="AppAttachPackageResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableDesktopVirtualizationArmClient.GetAppAttachPackageResource(ResourceIdentifier)"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="AppAttachPackageResource" /> object. </returns>
+        public static AppAttachPackageResource GetAppAttachPackageResource(this ArmClient client, ResourceIdentifier id)
+        {
+            return GetMockableDesktopVirtualizationArmClient(client).GetAppAttachPackageResource(id);
+        }
+
+        /// <summary>
         /// Gets a collection of VirtualWorkspaceResources in the ResourceGroupResource.
         /// <item>
         /// <term>Mocking</term>
@@ -523,6 +539,76 @@ namespace Azure.ResourceManager.DesktopVirtualization
         }
 
         /// <summary>
+        /// Gets a collection of AppAttachPackageResources in the ResourceGroupResource.
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableDesktopVirtualizationResourceGroupResource.GetAppAttachPackages()"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
+        /// <returns> An object representing collection of AppAttachPackageResources and their operations over a AppAttachPackageResource. </returns>
+        public static AppAttachPackageCollection GetAppAttachPackages(this ResourceGroupResource resourceGroupResource)
+        {
+            return GetMockableDesktopVirtualizationResourceGroupResource(resourceGroupResource).GetAppAttachPackages();
+        }
+
+        /// <summary>
+        /// Get an app attach package.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DesktopVirtualization/appAttachPackages/{appAttachPackageName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>AppAttachPackage_Get</description>
+        /// </item>
+        /// </list>
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableDesktopVirtualizationResourceGroupResource.GetAppAttachPackageAsync(string,CancellationToken)"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
+        /// <param name="appAttachPackageName"> The name of the App Attach package arm object. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="appAttachPackageName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="appAttachPackageName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public static async Task<Response<AppAttachPackageResource>> GetAppAttachPackageAsync(this ResourceGroupResource resourceGroupResource, string appAttachPackageName, CancellationToken cancellationToken = default)
+        {
+            return await GetMockableDesktopVirtualizationResourceGroupResource(resourceGroupResource).GetAppAttachPackageAsync(appAttachPackageName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Get an app attach package.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DesktopVirtualization/appAttachPackages/{appAttachPackageName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>AppAttachPackage_Get</description>
+        /// </item>
+        /// </list>
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableDesktopVirtualizationResourceGroupResource.GetAppAttachPackage(string,CancellationToken)"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="resourceGroupResource"> The <see cref="ResourceGroupResource" /> instance the method will execute against. </param>
+        /// <param name="appAttachPackageName"> The name of the App Attach package arm object. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="appAttachPackageName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="appAttachPackageName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public static Response<AppAttachPackageResource> GetAppAttachPackage(this ResourceGroupResource resourceGroupResource, string appAttachPackageName, CancellationToken cancellationToken = default)
+        {
+            return GetMockableDesktopVirtualizationResourceGroupResource(resourceGroupResource).GetAppAttachPackage(appAttachPackageName, cancellationToken);
+        }
+
+        /// <summary>
         /// List workspaces in subscription.
         /// <list type="bullet">
         /// <item>
@@ -734,6 +820,58 @@ namespace Azure.ResourceManager.DesktopVirtualization
         public static Pageable<HostPoolResource> GetHostPools(this SubscriptionResource subscriptionResource, int? pageSize = null, bool? isDescending = null, int? initialSkip = null, CancellationToken cancellationToken = default)
         {
             return GetMockableDesktopVirtualizationSubscriptionResource(subscriptionResource).GetHostPools(pageSize, isDescending, initialSkip, cancellationToken);
+        }
+
+        /// <summary>
+        /// List App Attach packages in subscription.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.DesktopVirtualization/appAttachPackages</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>AppAttachPackage_ListBySubscription</description>
+        /// </item>
+        /// </list>
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableDesktopVirtualizationSubscriptionResource.GetAppAttachPackages(string,CancellationToken)"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
+        /// <param name="filter"> OData filter expression. Valid properties for filtering are package name, host pool, and resource group. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> An async collection of <see cref="AppAttachPackageResource" /> that may take multiple service requests to iterate over. </returns>
+        public static AsyncPageable<AppAttachPackageResource> GetAppAttachPackagesAsync(this SubscriptionResource subscriptionResource, string filter = null, CancellationToken cancellationToken = default)
+        {
+            return GetMockableDesktopVirtualizationSubscriptionResource(subscriptionResource).GetAppAttachPackagesAsync(filter, cancellationToken);
+        }
+
+        /// <summary>
+        /// List App Attach packages in subscription.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.DesktopVirtualization/appAttachPackages</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>AppAttachPackage_ListBySubscription</description>
+        /// </item>
+        /// </list>
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableDesktopVirtualizationSubscriptionResource.GetAppAttachPackages(string,CancellationToken)"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="subscriptionResource"> The <see cref="SubscriptionResource" /> instance the method will execute against. </param>
+        /// <param name="filter"> OData filter expression. Valid properties for filtering are package name, host pool, and resource group. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="AppAttachPackageResource" /> that may take multiple service requests to iterate over. </returns>
+        public static Pageable<AppAttachPackageResource> GetAppAttachPackages(this SubscriptionResource subscriptionResource, string filter = null, CancellationToken cancellationToken = default)
+        {
+            return GetMockableDesktopVirtualizationSubscriptionResource(subscriptionResource).GetAppAttachPackages(filter, cancellationToken);
         }
     }
 }

@@ -29,6 +29,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
             HostPoolType = hostPoolType;
             LoadBalancerType = loadBalancerType;
             ApplicationGroupReferences = new ChangeTrackingList<string>();
+            AppAttachPackageReferences = new ChangeTrackingList<string>();
             PreferredAppGroupType = preferredAppGroupType;
             PrivateEndpointConnections = new ChangeTrackingList<DesktopVirtualizationPrivateEndpointConnection>();
         }
@@ -53,6 +54,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// <param name="registrationInfo"> The registration info of HostPool. </param>
         /// <param name="vmTemplate"> VM template for sessionhosts configuration within hostpool. </param>
         /// <param name="applicationGroupReferences"> List of applicationGroup links. </param>
+        /// <param name="appAttachPackageReferences"> List of App Attach Package links. </param>
         /// <param name="ssoAdfsAuthority"> URL to customer ADFS server for signing WVD SSO certificates. </param>
         /// <param name="ssoClientId"> ClientId for the registered Relying Party used to issue WVD SSO certificates. </param>
         /// <param name="ssoClientSecretKeyVaultPath"> Path to Azure KeyVault storing the secret used for communication to ADFS. </param>
@@ -69,7 +71,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
         /// <param name="identity"> Gets or sets the identity. Current supported identity types: SystemAssigned. </param>
         /// <param name="sku"> The resource model definition representing SKU. </param>
         /// <param name="plan"> Gets or sets the plan. </param>
-        internal HostPoolData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, string objectId, string friendlyName, string description, HostPoolType hostPoolType, PersonalDesktopAssignmentType? personalDesktopAssignmentType, string customRdpProperty, int? maxSessionLimit, HostPoolLoadBalancerType loadBalancerType, int? ring, bool? isValidationEnvironment, HostPoolRegistrationInfo registrationInfo, string vmTemplate, IReadOnlyList<string> applicationGroupReferences, string ssoAdfsAuthority, string ssoClientId, string ssoClientSecretKeyVaultPath, HostPoolSsoSecretType? ssoSecretType, PreferredAppGroupType preferredAppGroupType, bool? startVmOnConnect, bool? isCloudPCResource, HostPoolPublicNetworkAccess? publicNetworkAccess, SessionHostAgentUpdateProperties agentUpdate, IReadOnlyList<DesktopVirtualizationPrivateEndpointConnection> privateEndpointConnections, ResourceIdentifier managedBy, string kind, ETag? etag, ManagedServiceIdentity identity, DesktopVirtualizationSku sku, ArmPlan plan) : base(id, name, resourceType, systemData, tags, location)
+        internal HostPoolData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, string objectId, string friendlyName, string description, HostPoolType hostPoolType, PersonalDesktopAssignmentType? personalDesktopAssignmentType, string customRdpProperty, int? maxSessionLimit, HostPoolLoadBalancerType loadBalancerType, int? ring, bool? isValidationEnvironment, HostPoolRegistrationInfo registrationInfo, string vmTemplate, IReadOnlyList<string> applicationGroupReferences, IReadOnlyList<string> appAttachPackageReferences, string ssoAdfsAuthority, string ssoClientId, string ssoClientSecretKeyVaultPath, HostPoolSsoSecretType? ssoSecretType, PreferredAppGroupType preferredAppGroupType, bool? startVmOnConnect, bool? isCloudPCResource, HostPoolPublicNetworkAccess? publicNetworkAccess, SessionHostAgentUpdateProperties agentUpdate, IReadOnlyList<DesktopVirtualizationPrivateEndpointConnection> privateEndpointConnections, ResourceIdentifier managedBy, string kind, ETag? etag, ManagedServiceIdentity identity, DesktopVirtualizationSku sku, ArmPlan plan) : base(id, name, resourceType, systemData, tags, location)
         {
             ObjectId = objectId;
             FriendlyName = friendlyName;
@@ -84,6 +86,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
             RegistrationInfo = registrationInfo;
             VmTemplate = vmTemplate;
             ApplicationGroupReferences = applicationGroupReferences;
+            AppAttachPackageReferences = appAttachPackageReferences;
             SsoAdfsAuthority = ssoAdfsAuthority;
             SsoClientId = ssoClientId;
             SsoClientSecretKeyVaultPath = ssoClientSecretKeyVaultPath;
@@ -128,6 +131,8 @@ namespace Azure.ResourceManager.DesktopVirtualization
         public string VmTemplate { get; set; }
         /// <summary> List of applicationGroup links. </summary>
         public IReadOnlyList<string> ApplicationGroupReferences { get; }
+        /// <summary> List of App Attach Package links. </summary>
+        public IReadOnlyList<string> AppAttachPackageReferences { get; }
         /// <summary> URL to customer ADFS server for signing WVD SSO certificates. </summary>
         public string SsoAdfsAuthority { get; set; }
         /// <summary> ClientId for the registered Relying Party used to issue WVD SSO certificates. </summary>
