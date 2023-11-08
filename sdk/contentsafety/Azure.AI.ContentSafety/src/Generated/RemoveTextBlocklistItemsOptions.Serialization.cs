@@ -10,21 +10,18 @@ using Azure.Core;
 
 namespace Azure.AI.ContentSafety
 {
-    public partial class ContentSafetyImageData : IUtf8JsonSerializable
+    public partial class RemoveTextBlocklistItemsOptions : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
-            if (Optional.IsDefined(Content))
+            writer.WritePropertyName("blocklistItemIds"u8);
+            writer.WriteStartArray();
+            foreach (var item in BlocklistItemIds)
             {
-                writer.WritePropertyName("content"u8);
-                writer.WriteBase64StringValue(Content.ToArray(), "D");
+                writer.WriteStringValue(item);
             }
-            if (Optional.IsDefined(BlobUri))
-            {
-                writer.WritePropertyName("blobUrl"u8);
-                writer.WriteStringValue(BlobUri.AbsoluteUri);
-            }
+            writer.WriteEndArray();
             writer.WriteEndObject();
         }
 

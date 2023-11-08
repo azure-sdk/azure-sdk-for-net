@@ -10,16 +10,16 @@ using Azure.Core;
 
 namespace Azure.AI.ContentSafety
 {
-    public partial class RemoveBlockItemsOptions : IUtf8JsonSerializable
+    public partial class AddOrUpdateTextBlocklistItemsOptions : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
-            writer.WritePropertyName("blockItemIds"u8);
+            writer.WritePropertyName("blocklistItems"u8);
             writer.WriteStartArray();
-            foreach (var item in BlockItemIds)
+            foreach (var item in BlocklistItems)
             {
-                writer.WriteStringValue(item);
+                writer.WriteObjectValue(item);
             }
             writer.WriteEndArray();
             writer.WriteEndObject();
