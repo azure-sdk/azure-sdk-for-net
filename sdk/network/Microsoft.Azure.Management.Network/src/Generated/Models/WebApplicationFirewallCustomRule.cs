@@ -37,10 +37,10 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <param name="priority">Priority of the rule. Rules with a lower
         /// value will be evaluated before rules with a higher value.</param>
         /// <param name="ruleType">The rule type. Possible values include:
-        /// 'MatchRule', 'Invalid'</param>
+        /// 'MatchRule', 'RateLimitRule', 'Invalid'</param>
         /// <param name="matchConditions">List of match conditions.</param>
         /// <param name="action">Type of Actions. Possible values include:
-        /// 'Allow', 'Block', 'Log'</param>
+        /// 'Allow', 'Block', 'Log', 'JSChallenge'</param>
         /// <param name="name">The name of the resource that is unique within a
         /// policy. This name can be used to access the resource.</param>
         /// <param name="etag">A unique read-only string that changes whenever
@@ -48,14 +48,26 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <param name="state">Describes if the custom rule is in enabled or
         /// disabled state. Defaults to Enabled if not specified. Possible
         /// values include: 'Disabled', 'Enabled'</param>
-        public WebApplicationFirewallCustomRule(int priority, string ruleType, IList<MatchCondition> matchConditions, string action, string name = default(string), string etag = default(string), string state = default(string))
+        /// <param name="rateLimitDuration">Duration over which Rate Limit
+        /// policy will be applied. Applies only when ruleType is
+        /// RateLimitRule. Possible values include: 'OneMin',
+        /// 'FiveMins'</param>
+        /// <param name="rateLimitThreshold">Rate Limit threshold to apply in
+        /// case ruleType is RateLimitRule. Must be greater than or equal to
+        /// 1</param>
+        /// <param name="groupByUserSession">List of user session identifier
+        /// group by clauses.</param>
+        public WebApplicationFirewallCustomRule(int priority, string ruleType, IList<MatchCondition> matchConditions, string action, string name = default(string), string etag = default(string), string state = default(string), string rateLimitDuration = default(string), int? rateLimitThreshold = default(int?), IList<GroupByUserSession> groupByUserSession = default(IList<GroupByUserSession>))
         {
             Name = name;
             Etag = etag;
             Priority = priority;
             State = state;
+            RateLimitDuration = rateLimitDuration;
+            RateLimitThreshold = rateLimitThreshold;
             RuleType = ruleType;
             MatchConditions = matchConditions;
+            GroupByUserSession = groupByUserSession;
             Action = action;
             CustomInit();
         }
@@ -95,8 +107,23 @@ namespace Microsoft.Azure.Management.Network.Models
         public string State { get; set; }
 
         /// <summary>
+        /// Gets or sets duration over which Rate Limit policy will be applied.
+        /// Applies only when ruleType is RateLimitRule. Possible values
+        /// include: 'OneMin', 'FiveMins'
+        /// </summary>
+        [JsonProperty(PropertyName = "rateLimitDuration")]
+        public string RateLimitDuration { get; set; }
+
+        /// <summary>
+        /// Gets or sets rate Limit threshold to apply in case ruleType is
+        /// RateLimitRule. Must be greater than or equal to 1
+        /// </summary>
+        [JsonProperty(PropertyName = "rateLimitThreshold")]
+        public int? RateLimitThreshold { get; set; }
+
+        /// <summary>
         /// Gets or sets the rule type. Possible values include: 'MatchRule',
-        /// 'Invalid'
+        /// 'RateLimitRule', 'Invalid'
         /// </summary>
         [JsonProperty(PropertyName = "ruleType")]
         public string RuleType { get; set; }
@@ -108,8 +135,14 @@ namespace Microsoft.Azure.Management.Network.Models
         public IList<MatchCondition> MatchConditions { get; set; }
 
         /// <summary>
+        /// Gets or sets list of user session identifier group by clauses.
+        /// </summary>
+        [JsonProperty(PropertyName = "groupByUserSession")]
+        public IList<GroupByUserSession> GroupByUserSession { get; set; }
+
+        /// <summary>
         /// Gets or sets type of Actions. Possible values include: 'Allow',
-        /// 'Block', 'Log'
+        /// 'Block', 'Log', 'JSChallenge'
         /// </summary>
         [JsonProperty(PropertyName = "action")]
         public string Action { get; set; }
@@ -148,6 +181,16 @@ namespace Microsoft.Azure.Management.Network.Models
                     if (element != null)
                     {
                         element.Validate();
+                    }
+                }
+            }
+            if (GroupByUserSession != null)
+            {
+                foreach (var element1 in GroupByUserSession)
+                {
+                    if (element1 != null)
+                    {
+                        element1.Validate();
                     }
                 }
             }
