@@ -1462,6 +1462,22 @@ namespace Azure.ResourceManager.DataProtectionBackup.Models
         public static bool operator !=(Azure.ResourceManager.DataProtectionBackup.Models.KubernetesClusterRestoreExistingResourcePolicy left, Azure.ResourceManager.DataProtectionBackup.Models.KubernetesClusterRestoreExistingResourcePolicy right) { throw null; }
         public override string ToString() { throw null; }
     }
+    public partial class KubernetesClusterVaultTierRestoreCriteria : Azure.ResourceManager.DataProtectionBackup.Models.ItemLevelRestoreCriteria
+    {
+        public KubernetesClusterVaultTierRestoreCriteria(bool includeClusterScopeResources) { }
+        public Azure.ResourceManager.DataProtectionBackup.Models.KubernetesClusterRestoreExistingResourcePolicy? ConflictPolicy { get { throw null; } set { } }
+        public System.Collections.Generic.IList<string> ExcludedNamespaces { get { throw null; } }
+        public System.Collections.Generic.IList<string> ExcludedResourceTypes { get { throw null; } }
+        public bool IncludeClusterScopeResources { get { throw null; } }
+        public System.Collections.Generic.IList<string> IncludedNamespaces { get { throw null; } }
+        public System.Collections.Generic.IList<string> IncludedResourceTypes { get { throw null; } }
+        public System.Collections.Generic.IList<string> LabelSelectors { get { throw null; } }
+        public System.Collections.Generic.IDictionary<string, string> NamespaceMappings { get { throw null; } }
+        public Azure.ResourceManager.DataProtectionBackup.Models.PersistentVolumeRestoreMode? PersistentVolumeRestoreMode { get { throw null; } set { } }
+        public System.Collections.Generic.IList<Azure.ResourceManager.DataProtectionBackup.Models.NamespacedName> RestoreHookReferences { get { throw null; } }
+        public Azure.Core.ResourceIdentifier StagingResourceGroupId { get { throw null; } set { } }
+        public Azure.Core.ResourceIdentifier StagingStorageAccountId { get { throw null; } set { } }
+    }
     public partial class KubernetesPVRestoreCriteria : Azure.ResourceManager.DataProtectionBackup.Models.ItemLevelRestoreCriteria
     {
         public KubernetesPVRestoreCriteria() { }
