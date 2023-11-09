@@ -23,7 +23,7 @@ namespace Azure.ResourceManager.AppService.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetAllResourceHealthMetadata_ListResourceHealthMetadataForASubscription()
         {
-            // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2021-02-01/examples/ListResourceHealthMetadataBySubscription.json
+            // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2023-01-01/examples/ListResourceHealthMetadataBySubscription.json
             // this example is just showing the usage of "ResourceHealthMetadata_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -47,12 +47,69 @@ namespace Azure.ResourceManager.AppService.Samples
             Console.WriteLine($"Succeeded");
         }
 
+        // Get custom hostnames under subscription
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task GetCustomHostNameSites_GetCustomHostnamesUnderSubscription()
+        {
+            // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2023-01-01/examples/ListCustomHostNameSites.json
+            // this example is just showing the usage of "ListCustomHostNameSites" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this SubscriptionResource created on azure
+            // for more information of creating SubscriptionResource, please refer to the document of SubscriptionResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            ResourceIdentifier subscriptionResourceId = SubscriptionResource.CreateResourceIdentifier(subscriptionId);
+            SubscriptionResource subscriptionResource = client.GetSubscriptionResource(subscriptionResourceId);
+
+            // invoke the operation and iterate over the result
+            await foreach (CustomHostnameSites item in subscriptionResource.GetCustomHostNameSitesAsync())
+            {
+                Console.WriteLine($"Succeeded: {item}");
+            }
+
+            Console.WriteLine($"Succeeded");
+        }
+
+        // Get specific custom hostname under subscription
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task GetCustomHostNameSites_GetSpecificCustomHostnameUnderSubscription()
+        {
+            // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2023-01-01/examples/ListCustomSpecificHostNameSites.json
+            // this example is just showing the usage of "ListCustomHostNameSites" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this SubscriptionResource created on azure
+            // for more information of creating SubscriptionResource, please refer to the document of SubscriptionResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            ResourceIdentifier subscriptionResourceId = SubscriptionResource.CreateResourceIdentifier(subscriptionId);
+            SubscriptionResource subscriptionResource = client.GetSubscriptionResource(subscriptionResourceId);
+
+            // invoke the operation and iterate over the result
+            string hostname = "www.example.com";
+            await foreach (CustomHostnameSites item in subscriptionResource.GetCustomHostNameSitesAsync(hostname: hostname))
+            {
+                Console.WriteLine($"Succeeded: {item}");
+            }
+
+            Console.WriteLine($"Succeeded");
+        }
+
         // VerifyHostingEnvironmentVnet
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task VerifyHostingEnvironmentVnet_VerifyHostingEnvironmentVnet()
         {
-            // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2021-02-01/examples/VerifyHostingEnvironmentVnet.json
+            // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2023-01-01/examples/VerifyHostingEnvironmentVnet.json
             // this example is just showing the usage of "VerifyHostingEnvironmentVnet" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -83,7 +140,7 @@ namespace Azure.ResourceManager.AppService.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task PreviewStaticSiteWorkflow_GeneratesAPreviewWorkflowFileForTheStaticSite()
         {
-            // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2021-02-01/examples/GenerateStaticSiteWorkflowPreview.json
+            // Generated from example definition: specification/web/resource-manager/Microsoft.Web/stable/2023-01-01/examples/GenerateStaticSiteWorkflowPreview.json
             // this example is just showing the usage of "StaticSites_PreviewWorkflow" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line

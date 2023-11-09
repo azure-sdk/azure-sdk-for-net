@@ -15,13 +15,6 @@ namespace Azure.ResourceManager.AppService.Models
         {
         }
 
-        /// <summary> Initializes a new instance of AppServiceDomainNameIdentifier. </summary>
-        /// <param name="name"> Name of the object. </param>
-        internal AppServiceDomainNameIdentifier(string name)
-        {
-            Name = name;
-        }
-
         /// <summary> Name of the object. </summary>
         public string Name { get; set; }
     }
