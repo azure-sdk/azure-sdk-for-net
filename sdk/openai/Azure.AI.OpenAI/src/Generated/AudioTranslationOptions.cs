@@ -16,7 +16,7 @@ namespace Azure.AI.OpenAI
         /// <summary> Initializes a new instance of AudioTranslationOptions. </summary>
         /// <param name="audioData">
         /// The audio data to translate. This must be the binary content of a file in one of the supported media formats:
-        /// flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, webm.
+        ///  flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, webm.
         /// </param>
         /// <param name="responseFormat"> The requested format of the translation response data, which will influence the content and detail of the result. </param>
         /// <param name="prompt">
@@ -28,14 +28,14 @@ namespace Azure.AI.OpenAI
         /// Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.
         /// If set to 0, the model will use log probability to automatically increase the temperature until certain thresholds are hit.
         /// </param>
-        /// <param name="deploymentName"> The model to use for this translation request. </param>
-        internal AudioTranslationOptions(BinaryData audioData, AudioTranslationFormat? responseFormat, string prompt, float? temperature, string deploymentName)
+        /// <param name="model"> The model to use for this translation request. </param>
+        internal AudioTranslationOptions(BinaryData audioData, AudioTranslationFormat? responseFormat, string prompt, float? temperature, string model)
         {
             AudioData = audioData;
             ResponseFormat = responseFormat;
             Prompt = prompt;
             Temperature = temperature;
-            DeploymentName = deploymentName;
+            Model = model;
         }
         /// <summary> The requested format of the translation response data, which will influence the content and detail of the result. </summary>
         public AudioTranslationFormat? ResponseFormat { get; set; }
@@ -50,5 +50,7 @@ namespace Azure.AI.OpenAI
         /// If set to 0, the model will use log probability to automatically increase the temperature until certain thresholds are hit.
         /// </summary>
         public float? Temperature { get; set; }
+        /// <summary> The model to use for this translation request. </summary>
+        public string Model { get; set; }
     }
 }

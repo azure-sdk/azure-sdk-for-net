@@ -32,10 +32,10 @@ namespace Azure.AI.OpenAI
                 writer.WritePropertyName("temperature"u8);
                 writer.WriteNumberValue(Temperature.Value);
             }
-            if (Optional.IsDefined(DeploymentName))
+            if (Optional.IsDefined(Model))
             {
                 writer.WritePropertyName("model"u8);
-                writer.WriteStringValue(DeploymentName);
+                writer.WriteStringValue(Model);
             }
             writer.WriteEndObject();
         }

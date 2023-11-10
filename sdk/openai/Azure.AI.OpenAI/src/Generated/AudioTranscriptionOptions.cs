@@ -16,7 +16,7 @@ namespace Azure.AI.OpenAI
         /// <summary> Initializes a new instance of AudioTranscriptionOptions. </summary>
         /// <param name="audioData">
         /// The audio data to transcribe. This must be the binary content of a file in one of the supported media formats:
-        /// flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, webm.
+        ///  flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, webm.
         /// </param>
         /// <param name="responseFormat"> The requested format of the transcription response data, which will influence the content and detail of the result. </param>
         /// <param name="language">
@@ -33,15 +33,15 @@ namespace Azure.AI.OpenAI
         /// Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.
         /// If set to 0, the model will use log probability to automatically increase the temperature until certain thresholds are hit.
         /// </param>
-        /// <param name="deploymentName"> The model to use for this transcription request. </param>
-        internal AudioTranscriptionOptions(BinaryData audioData, AudioTranscriptionFormat? responseFormat, string language, string prompt, float? temperature, string deploymentName)
+        /// <param name="model"> The model to use for this transcription request. </param>
+        internal AudioTranscriptionOptions(BinaryData audioData, AudioTranscriptionFormat? responseFormat, string language, string prompt, float? temperature, string model)
         {
             AudioData = audioData;
             ResponseFormat = responseFormat;
             Language = language;
             Prompt = prompt;
             Temperature = temperature;
-            DeploymentName = deploymentName;
+            Model = model;
         }
         /// <summary> The requested format of the transcription response data, which will influence the content and detail of the result. </summary>
         public AudioTranscriptionFormat? ResponseFormat { get; set; }
@@ -62,5 +62,7 @@ namespace Azure.AI.OpenAI
         /// If set to 0, the model will use log probability to automatically increase the temperature until certain thresholds are hit.
         /// </summary>
         public float? Temperature { get; set; }
+        /// <summary> The model to use for this transcription request. </summary>
+        public string Model { get; set; }
     }
 }
