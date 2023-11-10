@@ -25,7 +25,7 @@ namespace Azure.AI.OpenAI
         /// <param name="searchKey"> The API admin key to use with the specified Azure Cognitive Search endpoint. </param>
         /// <param name="indexName"> The name of the index to use as available in the referenced Azure Cognitive Search resource. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="searchEndpoint"/>, <paramref name="searchKey"/> or <paramref name="indexName"/> is null. </exception>
-        internal AzureCognitiveSearchChatExtensionConfiguration(AzureChatExtensionType type, Uri searchEndpoint, string searchKey, string indexName)
+        public AzureCognitiveSearchChatExtensionConfiguration(AzureChatExtensionType type, Uri searchEndpoint, string searchKey, string indexName)
         {
             Argument.AssertNotNull(searchEndpoint, nameof(searchEndpoint));
             Argument.AssertNotNull(searchKey, nameof(searchKey));
