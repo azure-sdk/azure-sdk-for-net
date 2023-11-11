@@ -75,41 +75,6 @@ namespace Azure.ResourceManager.Sphere.Models
             return new SphereCertificateData(id, name, resourceType, systemData, certificate, status, subject, thumbprint, expiryUtc, notBeforeUtc, provisioningState);
         }
 
-        /// <summary> Initializes a new instance of SphereCertificateProperties. </summary>
-        /// <param name="certificate">
-        /// The certificate as a UTF-8 encoded base 64 string.
-        /// Serialized Name: CertificateProperties.certificate
-        /// </param>
-        /// <param name="status">
-        /// The certificate status.
-        /// Serialized Name: CertificateProperties.status
-        /// </param>
-        /// <param name="subject">
-        /// The certificate subject.
-        /// Serialized Name: CertificateProperties.subject
-        /// </param>
-        /// <param name="thumbprint">
-        /// The certificate thumbprint.
-        /// Serialized Name: CertificateProperties.thumbprint
-        /// </param>
-        /// <param name="expiryUtc">
-        /// The certificate expiry date.
-        /// Serialized Name: CertificateProperties.expiryUtc
-        /// </param>
-        /// <param name="notBeforeUtc">
-        /// The certificate not before date.
-        /// Serialized Name: CertificateProperties.notBeforeUtc
-        /// </param>
-        /// <param name="provisioningState">
-        /// The status of the last operation.
-        /// Serialized Name: CertificateProperties.provisioningState
-        /// </param>
-        /// <returns> A new <see cref="Models.SphereCertificateProperties"/> instance for mocking. </returns>
-        public static SphereCertificateProperties SphereCertificateProperties(string certificate = null, SphereCertificateStatus? status = null, string subject = null, string thumbprint = null, DateTimeOffset? expiryUtc = null, DateTimeOffset? notBeforeUtc = null, SphereProvisioningState? provisioningState = null)
-        {
-            return new SphereCertificateProperties(certificate, status, subject, thumbprint, expiryUtc, notBeforeUtc, provisioningState);
-        }
-
         /// <summary> Initializes a new instance of SphereCertificateChainResult. </summary>
         /// <param name="certificateChain">
         /// The certificate chain.
@@ -124,31 +89,31 @@ namespace Azure.ResourceManager.Sphere.Models
         /// <summary> Initializes a new instance of ProofOfPossessionNonceResponse. </summary>
         /// <param name="certificate">
         /// The certificate as a UTF-8 encoded base 64 string.
-        /// Serialized Name: CertificateProperties.certificate
+        /// Serialized Name: ProofOfPossessionNonceResponse.certificate
         /// </param>
         /// <param name="status">
         /// The certificate status.
-        /// Serialized Name: CertificateProperties.status
+        /// Serialized Name: ProofOfPossessionNonceResponse.status
         /// </param>
         /// <param name="subject">
         /// The certificate subject.
-        /// Serialized Name: CertificateProperties.subject
+        /// Serialized Name: ProofOfPossessionNonceResponse.subject
         /// </param>
         /// <param name="thumbprint">
         /// The certificate thumbprint.
-        /// Serialized Name: CertificateProperties.thumbprint
+        /// Serialized Name: ProofOfPossessionNonceResponse.thumbprint
         /// </param>
         /// <param name="expiryUtc">
         /// The certificate expiry date.
-        /// Serialized Name: CertificateProperties.expiryUtc
+        /// Serialized Name: ProofOfPossessionNonceResponse.expiryUtc
         /// </param>
         /// <param name="notBeforeUtc">
         /// The certificate not before date.
-        /// Serialized Name: CertificateProperties.notBeforeUtc
+        /// Serialized Name: ProofOfPossessionNonceResponse.notBeforeUtc
         /// </param>
         /// <param name="provisioningState">
         /// The status of the last operation.
-        /// Serialized Name: CertificateProperties.provisioningState
+        /// Serialized Name: ProofOfPossessionNonceResponse.provisioningState
         /// </param>
         /// <returns> A new <see cref="Models.ProofOfPossessionNonceResponse"/> instance for mocking. </returns>
         public static ProofOfPossessionNonceResponse ProofOfPossessionNonceResponse(string certificate = null, SphereCertificateStatus? status = null, string subject = null, string thumbprint = null, DateTimeOffset? expiryUtc = null, DateTimeOffset? notBeforeUtc = null, SphereProvisioningState? provisioningState = null)
@@ -159,23 +124,12 @@ namespace Azure.ResourceManager.Sphere.Models
         /// <summary> Initializes a new instance of CountDeviceResult. </summary>
         /// <param name="value">
         /// Number of children resources in parent resource.
-        /// Serialized Name: CountElementsResponse.value
+        /// Serialized Name: CountDeviceResponse.value
         /// </param>
         /// <returns> A new <see cref="Models.CountDeviceResult"/> instance for mocking. </returns>
         public static CountDeviceResult CountDeviceResult(int value = default)
         {
             return new CountDeviceResult(value);
-        }
-
-        /// <summary> Initializes a new instance of CountElementsResult. </summary>
-        /// <param name="value">
-        /// Number of children resources in parent resource.
-        /// Serialized Name: CountElementsResponse.value
-        /// </param>
-        /// <returns> A new <see cref="Models.CountElementsResult"/> instance for mocking. </returns>
-        public static CountElementsResult CountElementsResult(int value = default)
-        {
-            return new CountElementsResult(value);
         }
 
         /// <summary> Initializes a new instance of SphereImageData. </summary>

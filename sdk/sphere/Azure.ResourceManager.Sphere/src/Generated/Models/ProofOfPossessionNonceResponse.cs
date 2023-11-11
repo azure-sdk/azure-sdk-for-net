@@ -13,7 +13,7 @@ namespace Azure.ResourceManager.Sphere.Models
     /// Result of the action to generate a proof of possession nonce
     /// Serialized Name: ProofOfPossessionNonceResponse
     /// </summary>
-    public partial class ProofOfPossessionNonceResponse : SphereCertificateProperties
+    public partial class ProofOfPossessionNonceResponse
     {
         /// <summary> Initializes a new instance of ProofOfPossessionNonceResponse. </summary>
         internal ProofOfPossessionNonceResponse()
@@ -23,34 +23,77 @@ namespace Azure.ResourceManager.Sphere.Models
         /// <summary> Initializes a new instance of ProofOfPossessionNonceResponse. </summary>
         /// <param name="certificate">
         /// The certificate as a UTF-8 encoded base 64 string.
-        /// Serialized Name: CertificateProperties.certificate
+        /// Serialized Name: ProofOfPossessionNonceResponse.certificate
         /// </param>
         /// <param name="status">
         /// The certificate status.
-        /// Serialized Name: CertificateProperties.status
+        /// Serialized Name: ProofOfPossessionNonceResponse.status
         /// </param>
         /// <param name="subject">
         /// The certificate subject.
-        /// Serialized Name: CertificateProperties.subject
+        /// Serialized Name: ProofOfPossessionNonceResponse.subject
         /// </param>
         /// <param name="thumbprint">
         /// The certificate thumbprint.
-        /// Serialized Name: CertificateProperties.thumbprint
+        /// Serialized Name: ProofOfPossessionNonceResponse.thumbprint
         /// </param>
         /// <param name="expiryUtc">
         /// The certificate expiry date.
-        /// Serialized Name: CertificateProperties.expiryUtc
+        /// Serialized Name: ProofOfPossessionNonceResponse.expiryUtc
         /// </param>
         /// <param name="notBeforeUtc">
         /// The certificate not before date.
-        /// Serialized Name: CertificateProperties.notBeforeUtc
+        /// Serialized Name: ProofOfPossessionNonceResponse.notBeforeUtc
         /// </param>
         /// <param name="provisioningState">
         /// The status of the last operation.
-        /// Serialized Name: CertificateProperties.provisioningState
+        /// Serialized Name: ProofOfPossessionNonceResponse.provisioningState
         /// </param>
-        internal ProofOfPossessionNonceResponse(string certificate, SphereCertificateStatus? status, string subject, string thumbprint, DateTimeOffset? expiryUtc, DateTimeOffset? notBeforeUtc, SphereProvisioningState? provisioningState) : base(certificate, status, subject, thumbprint, expiryUtc, notBeforeUtc, provisioningState)
+        internal ProofOfPossessionNonceResponse(string certificate, SphereCertificateStatus? status, string subject, string thumbprint, DateTimeOffset? expiryUtc, DateTimeOffset? notBeforeUtc, SphereProvisioningState? provisioningState)
         {
+            Certificate = certificate;
+            Status = status;
+            Subject = subject;
+            Thumbprint = thumbprint;
+            ExpiryUtc = expiryUtc;
+            NotBeforeUtc = notBeforeUtc;
+            ProvisioningState = provisioningState;
         }
+
+        /// <summary>
+        /// The certificate as a UTF-8 encoded base 64 string.
+        /// Serialized Name: ProofOfPossessionNonceResponse.certificate
+        /// </summary>
+        public string Certificate { get; }
+        /// <summary>
+        /// The certificate status.
+        /// Serialized Name: ProofOfPossessionNonceResponse.status
+        /// </summary>
+        public SphereCertificateStatus? Status { get; }
+        /// <summary>
+        /// The certificate subject.
+        /// Serialized Name: ProofOfPossessionNonceResponse.subject
+        /// </summary>
+        public string Subject { get; }
+        /// <summary>
+        /// The certificate thumbprint.
+        /// Serialized Name: ProofOfPossessionNonceResponse.thumbprint
+        /// </summary>
+        public string Thumbprint { get; }
+        /// <summary>
+        /// The certificate expiry date.
+        /// Serialized Name: ProofOfPossessionNonceResponse.expiryUtc
+        /// </summary>
+        public DateTimeOffset? ExpiryUtc { get; }
+        /// <summary>
+        /// The certificate not before date.
+        /// Serialized Name: ProofOfPossessionNonceResponse.notBeforeUtc
+        /// </summary>
+        public DateTimeOffset? NotBeforeUtc { get; }
+        /// <summary>
+        /// The status of the last operation.
+        /// Serialized Name: ProofOfPossessionNonceResponse.provisioningState
+        /// </summary>
+        public SphereProvisioningState? ProvisioningState { get; }
     }
 }

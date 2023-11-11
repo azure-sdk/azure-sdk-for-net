@@ -372,13 +372,11 @@ namespace Azure.ResourceManager.Sphere.Models
     public static partial class ArmSphereModelFactory
     {
         public static Azure.ResourceManager.Sphere.Models.CountDeviceResult CountDeviceResult(int value = 0) { throw null; }
-        public static Azure.ResourceManager.Sphere.Models.CountElementsResult CountElementsResult(int value = 0) { throw null; }
         public static Azure.ResourceManager.Sphere.Models.ProofOfPossessionNonceResponse ProofOfPossessionNonceResponse(string certificate = null, Azure.ResourceManager.Sphere.Models.SphereCertificateStatus? status = default(Azure.ResourceManager.Sphere.Models.SphereCertificateStatus?), string subject = null, string thumbprint = null, System.DateTimeOffset? expiryUtc = default(System.DateTimeOffset?), System.DateTimeOffset? notBeforeUtc = default(System.DateTimeOffset?), Azure.ResourceManager.Sphere.Models.SphereProvisioningState? provisioningState = default(Azure.ResourceManager.Sphere.Models.SphereProvisioningState?)) { throw null; }
         public static Azure.ResourceManager.Sphere.Models.SignedCapabilityImageResponse SignedCapabilityImageResponse(string image = null) { throw null; }
         public static Azure.ResourceManager.Sphere.SphereCatalogData SphereCatalogData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, System.Collections.Generic.IDictionary<string, string> tags = null, Azure.Core.AzureLocation location = default(Azure.Core.AzureLocation), Azure.ResourceManager.Sphere.Models.SphereProvisioningState? provisioningState = default(Azure.ResourceManager.Sphere.Models.SphereProvisioningState?)) { throw null; }
         public static Azure.ResourceManager.Sphere.Models.SphereCertificateChainResult SphereCertificateChainResult(string certificateChain = null) { throw null; }
         public static Azure.ResourceManager.Sphere.SphereCertificateData SphereCertificateData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, string certificate = null, Azure.ResourceManager.Sphere.Models.SphereCertificateStatus? status = default(Azure.ResourceManager.Sphere.Models.SphereCertificateStatus?), string subject = null, string thumbprint = null, System.DateTimeOffset? expiryUtc = default(System.DateTimeOffset?), System.DateTimeOffset? notBeforeUtc = default(System.DateTimeOffset?), Azure.ResourceManager.Sphere.Models.SphereProvisioningState? provisioningState = default(Azure.ResourceManager.Sphere.Models.SphereProvisioningState?)) { throw null; }
-        public static Azure.ResourceManager.Sphere.Models.SphereCertificateProperties SphereCertificateProperties(string certificate = null, Azure.ResourceManager.Sphere.Models.SphereCertificateStatus? status = default(Azure.ResourceManager.Sphere.Models.SphereCertificateStatus?), string subject = null, string thumbprint = null, System.DateTimeOffset? expiryUtc = default(System.DateTimeOffset?), System.DateTimeOffset? notBeforeUtc = default(System.DateTimeOffset?), Azure.ResourceManager.Sphere.Models.SphereProvisioningState? provisioningState = default(Azure.ResourceManager.Sphere.Models.SphereProvisioningState?)) { throw null; }
         public static Azure.ResourceManager.Sphere.SphereDeploymentData SphereDeploymentData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, string deploymentId = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.Sphere.SphereImageData> deployedImages = null, System.DateTimeOffset? deploymentDateUtc = default(System.DateTimeOffset?), Azure.ResourceManager.Sphere.Models.SphereProvisioningState? provisioningState = default(Azure.ResourceManager.Sphere.Models.SphereProvisioningState?)) { throw null; }
         public static Azure.ResourceManager.Sphere.SphereDeviceData SphereDeviceData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, string deviceId = null, string chipSku = null, string lastAvailableOSVersion = null, string lastInstalledOSVersion = null, System.DateTimeOffset? lastOSUpdateUtc = default(System.DateTimeOffset?), System.DateTimeOffset? lastUpdateRequestUtc = default(System.DateTimeOffset?), Azure.ResourceManager.Sphere.Models.SphereProvisioningState? provisioningState = default(Azure.ResourceManager.Sphere.Models.SphereProvisioningState?)) { throw null; }
         public static Azure.ResourceManager.Sphere.SphereDeviceGroupData SphereDeviceGroupData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, string description = null, Azure.ResourceManager.Sphere.Models.SphereOSFeedType? osFeedType = default(Azure.ResourceManager.Sphere.Models.SphereOSFeedType?), Azure.ResourceManager.Sphere.Models.SphereUpdatePolicy? updatePolicy = default(Azure.ResourceManager.Sphere.Models.SphereUpdatePolicy?), Azure.ResourceManager.Sphere.Models.SphereAllowCrashDumpCollectionStatus? allowCrashDumpsCollection = default(Azure.ResourceManager.Sphere.Models.SphereAllowCrashDumpCollectionStatus?), Azure.ResourceManager.Sphere.Models.RegionalDataBoundary? regionalDataBoundary = default(Azure.ResourceManager.Sphere.Models.RegionalDataBoundary?), bool? hasDeployment = default(bool?), Azure.ResourceManager.Sphere.Models.SphereProvisioningState? provisioningState = default(Azure.ResourceManager.Sphere.Models.SphereProvisioningState?)) { throw null; }
@@ -391,13 +389,9 @@ namespace Azure.ResourceManager.Sphere.Models
         public ClaimSphereDevicesContent(System.Collections.Generic.IEnumerable<string> deviceIdentifiers) { }
         public System.Collections.Generic.IList<string> DeviceIdentifiers { get { throw null; } }
     }
-    public partial class CountDeviceResult : Azure.ResourceManager.Sphere.Models.CountElementsResult
+    public partial class CountDeviceResult
     {
         internal CountDeviceResult() { }
-    }
-    public partial class CountElementsResult
-    {
-        internal CountElementsResult() { }
         public int Value { get { throw null; } }
     }
     public partial class GenerateCapabilityImageContent
@@ -415,9 +409,16 @@ namespace Azure.ResourceManager.Sphere.Models
         public ProofOfPossessionNonceContent(string proofOfPossessionNonce) { }
         public string ProofOfPossessionNonce { get { throw null; } }
     }
-    public partial class ProofOfPossessionNonceResponse : Azure.ResourceManager.Sphere.Models.SphereCertificateProperties
+    public partial class ProofOfPossessionNonceResponse
     {
         internal ProofOfPossessionNonceResponse() { }
+        public string Certificate { get { throw null; } }
+        public System.DateTimeOffset? ExpiryUtc { get { throw null; } }
+        public System.DateTimeOffset? NotBeforeUtc { get { throw null; } }
+        public Azure.ResourceManager.Sphere.Models.SphereProvisioningState? ProvisioningState { get { throw null; } }
+        public Azure.ResourceManager.Sphere.Models.SphereCertificateStatus? Status { get { throw null; } }
+        public string Subject { get { throw null; } }
+        public string Thumbprint { get { throw null; } }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct RegionalDataBoundary : System.IEquatable<Azure.ResourceManager.Sphere.Models.RegionalDataBoundary>
@@ -487,17 +488,6 @@ namespace Azure.ResourceManager.Sphere.Models
     {
         internal SphereCertificateChainResult() { }
         public string CertificateChain { get { throw null; } }
-    }
-    public partial class SphereCertificateProperties
-    {
-        internal SphereCertificateProperties() { }
-        public string Certificate { get { throw null; } }
-        public System.DateTimeOffset? ExpiryUtc { get { throw null; } }
-        public System.DateTimeOffset? NotBeforeUtc { get { throw null; } }
-        public Azure.ResourceManager.Sphere.Models.SphereProvisioningState? ProvisioningState { get { throw null; } }
-        public Azure.ResourceManager.Sphere.Models.SphereCertificateStatus? Status { get { throw null; } }
-        public string Subject { get { throw null; } }
-        public string Thumbprint { get { throw null; } }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct SphereCertificateStatus : System.IEquatable<Azure.ResourceManager.Sphere.Models.SphereCertificateStatus>
