@@ -17,7 +17,7 @@ namespace Azure.ResourceManager.IotHub.Models
     {
         /// <summary> Initializes a new instance of RoutingRuleProperties. </summary>
         /// <param name="name"> The name of the route. The name can only include alphanumeric characters, periods, underscores, hyphens, has a maximum length of 64 characters, and must be unique. </param>
-        /// <param name="source"> The source that the routing rule is to be applied to, such as DeviceMessages. </param>
+        /// <param name="source"> The source to which the routing rule is to be applied to. For example, DeviceMessages. </param>
         /// <param name="endpointNames"> The list of endpoints to which messages that satisfy the condition are routed. Currently only one endpoint is allowed. </param>
         /// <param name="isEnabled"> Used to specify whether a route is enabled. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="name"/> or <paramref name="endpointNames"/> is null. </exception>
@@ -34,7 +34,7 @@ namespace Azure.ResourceManager.IotHub.Models
 
         /// <summary> Initializes a new instance of RoutingRuleProperties. </summary>
         /// <param name="name"> The name of the route. The name can only include alphanumeric characters, periods, underscores, hyphens, has a maximum length of 64 characters, and must be unique. </param>
-        /// <param name="source"> The source that the routing rule is to be applied to, such as DeviceMessages. </param>
+        /// <param name="source"> The source to which the routing rule is to be applied to. For example, DeviceMessages. </param>
         /// <param name="condition"> The condition that is evaluated to apply the routing rule. If no condition is provided, it evaluates to true by default. For grammar, see: https://docs.microsoft.com/azure/iot-hub/iot-hub-devguide-query-language. </param>
         /// <param name="endpointNames"> The list of endpoints to which messages that satisfy the condition are routed. Currently only one endpoint is allowed. </param>
         /// <param name="isEnabled"> Used to specify whether a route is enabled. </param>
@@ -49,7 +49,7 @@ namespace Azure.ResourceManager.IotHub.Models
 
         /// <summary> The name of the route. The name can only include alphanumeric characters, periods, underscores, hyphens, has a maximum length of 64 characters, and must be unique. </summary>
         public string Name { get; set; }
-        /// <summary> The source that the routing rule is to be applied to, such as DeviceMessages. </summary>
+        /// <summary> The source to which the routing rule is to be applied to. For example, DeviceMessages. </summary>
         public IotHubRoutingSource Source { get; set; }
         /// <summary> The condition that is evaluated to apply the routing rule. If no condition is provided, it evaluates to true by default. For grammar, see: https://docs.microsoft.com/azure/iot-hub/iot-hub-devguide-query-language. </summary>
         public string Condition { get; set; }

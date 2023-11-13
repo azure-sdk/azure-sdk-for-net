@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace Azure.ResourceManager.IotHub.Models
 {
-    /// <summary> The source that the routing rule is to be applied to, such as DeviceMessages. </summary>
+    /// <summary> The source to which the routing rule is to be applied to. For example, DeviceMessages. </summary>
     public readonly partial struct IotHubRoutingSource : IEquatable<IotHubRoutingSource>
     {
         private readonly string _value;
@@ -22,17 +22,17 @@ namespace Azure.ResourceManager.IotHub.Models
             _value = value ?? throw new ArgumentNullException(nameof(value));
         }
 
-        private const string InvalidValue = "Invalid";
         private const string DeviceMessagesValue = "DeviceMessages";
+        private const string InvalidValue = "Invalid";
         private const string TwinChangeEventsValue = "TwinChangeEvents";
         private const string DeviceLifecycleEventsValue = "DeviceLifecycleEvents";
         private const string DeviceJobLifecycleEventsValue = "DeviceJobLifecycleEvents";
         private const string DeviceConnectionStateEventsValue = "DeviceConnectionStateEvents";
 
-        /// <summary> Invalid. </summary>
-        public static IotHubRoutingSource Invalid { get; } = new IotHubRoutingSource(InvalidValue);
         /// <summary> DeviceMessages. </summary>
         public static IotHubRoutingSource DeviceMessages { get; } = new IotHubRoutingSource(DeviceMessagesValue);
+        /// <summary> Invalid. </summary>
+        public static IotHubRoutingSource Invalid { get; } = new IotHubRoutingSource(InvalidValue);
         /// <summary> TwinChangeEvents. </summary>
         public static IotHubRoutingSource TwinChangeEvents { get; } = new IotHubRoutingSource(TwinChangeEventsValue);
         /// <summary> DeviceLifecycleEvents. </summary>

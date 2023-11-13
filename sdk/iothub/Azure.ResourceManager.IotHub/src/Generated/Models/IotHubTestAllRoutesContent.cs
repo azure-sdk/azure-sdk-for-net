@@ -15,7 +15,7 @@ namespace Azure.ResourceManager.IotHub.Models
         {
         }
 
-        /// <summary> Routing source. </summary>
+        /// <summary> The source to which the routing rule is to be applied to. For example, DeviceMessages. </summary>
         public IotHubRoutingSource? RoutingSource { get; set; }
         /// <summary> Routing message. </summary>
         public RoutingMessage Message { get; set; }
