@@ -80,7 +80,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
             try
             {
                 var response = await _backupProtectedItemProtectedItemsRestClient.CreateOrUpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, protectedItemName, data, cancellationToken).ConfigureAwait(false);
-                var operation = new RecoveryServicesBackupArmOperation<BackupProtectedItemResource>(new BackupProtectedItemOperationSource(Client), _backupProtectedItemProtectedItemsClientDiagnostics, Pipeline, _backupProtectedItemProtectedItemsRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, protectedItemName, data).Request, response, OperationFinalStateVia.Location);
+                var operation = new RecoveryServicesBackupArmOperation<BackupProtectedItemResource>(new BackupProtectedItemOperationSource(Client), _backupProtectedItemProtectedItemsClientDiagnostics, Pipeline, _backupProtectedItemProtectedItemsRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, protectedItemName, data).Request, response, OperationFinalStateVia.AzureAsyncOperation);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -122,7 +122,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup
             try
             {
                 var response = _backupProtectedItemProtectedItemsRestClient.CreateOrUpdate(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, protectedItemName, data, cancellationToken);
-                var operation = new RecoveryServicesBackupArmOperation<BackupProtectedItemResource>(new BackupProtectedItemOperationSource(Client), _backupProtectedItemProtectedItemsClientDiagnostics, Pipeline, _backupProtectedItemProtectedItemsRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, protectedItemName, data).Request, response, OperationFinalStateVia.Location);
+                var operation = new RecoveryServicesBackupArmOperation<BackupProtectedItemResource>(new BackupProtectedItemOperationSource(Client), _backupProtectedItemProtectedItemsClientDiagnostics, Pipeline, _backupProtectedItemProtectedItemsRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, protectedItemName, data).Request, response, OperationFinalStateVia.AzureAsyncOperation);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
