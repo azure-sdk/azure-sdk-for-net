@@ -17,5 +17,18 @@ namespace Azure.ResourceManager.RecoveryServices.Models
 
         /// <summary> Raw certificate data. </summary>
         public RawCertificateData Properties { get; set; }
+        /// <summary> Gets or sets the certificate create options. </summary>
+        internal CertificateRequestCertificateCreateOptions CertificateCreateOptions { get; set; }
+        /// <summary> Gets or sets the certificate create options validity in hours. </summary>
+        public long? CertificateCreateOptionsValidityInHours
+        {
+            get => CertificateCreateOptions is null ? default : CertificateCreateOptions.ValidityInHours;
+            set
+            {
+                if (CertificateCreateOptions is null)
+                    CertificateCreateOptions = new CertificateRequestCertificateCreateOptions();
+                CertificateCreateOptions.ValidityInHours = value;
+            }
+        }
     }
 }

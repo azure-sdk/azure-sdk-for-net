@@ -363,6 +363,7 @@ namespace Azure.ResourceManager.RecoveryServices.Models
     public partial class RecoveryServicesCertificateContent
     {
         public RecoveryServicesCertificateContent() { }
+        public long? CertificateCreateOptionsValidityInHours { get { throw null; } set { } }
         public Azure.ResourceManager.RecoveryServices.Models.RawCertificateData Properties { get { throw null; } set { } }
     }
     public partial class RecoveryServicesNameAvailabilityContent

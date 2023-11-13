@@ -20,6 +20,11 @@ namespace Azure.ResourceManager.RecoveryServices.Models
                 writer.WritePropertyName("properties"u8);
                 writer.WriteObjectValue(Properties);
             }
+            if (Optional.IsDefined(CertificateCreateOptions))
+            {
+                writer.WritePropertyName("certificateCreateOptions"u8);
+                writer.WriteObjectValue(CertificateCreateOptions);
+            }
             writer.WriteEndObject();
         }
     }
