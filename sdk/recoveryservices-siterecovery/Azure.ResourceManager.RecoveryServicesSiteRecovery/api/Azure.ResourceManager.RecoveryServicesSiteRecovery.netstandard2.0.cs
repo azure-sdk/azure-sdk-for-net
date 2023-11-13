@@ -390,6 +390,8 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery
         public static Azure.Core.ResourceIdentifier CreateResourceIdentifier(string subscriptionId, string resourceGroupName, string resourceName, string fabricName) { throw null; }
         public virtual Azure.ResourceManager.ArmOperation Delete(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation> DeleteAsync(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.ResourceManager.ArmOperation DeleteReplicationInfrastructure(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation> DeleteReplicationInfrastructureAsync(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.RecoveryServicesSiteRecovery.SiteRecoveryFabricResource> Get(string filter = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.RecoveryServicesSiteRecovery.SiteRecoveryFabricResource>> GetAsync(string filter = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.RecoveryServicesSiteRecovery.SiteRecoveryLogicalNetworkResource> GetSiteRecoveryLogicalNetwork(string logicalNetworkName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
@@ -1172,6 +1174,7 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
     public partial class A2AEnableProtectionContent : Azure.ResourceManager.RecoveryServicesSiteRecovery.Models.EnableProtectionProviderSpecificContent
     {
         public A2AEnableProtectionContent(Azure.Core.ResourceIdentifier fabricObjectId) { }
+        public Azure.ResourceManager.RecoveryServicesSiteRecovery.Models.AutoProtectionOfDataDisk? AutoProtectionOfDataDisk { get { throw null; } set { } }
         public Azure.ResourceManager.RecoveryServicesSiteRecovery.Models.SiteRecoveryDiskEncryptionInfo DiskEncryptionInfo { get { throw null; } set { } }
         public Azure.Core.ResourceIdentifier FabricObjectId { get { throw null; } }
         public string MultiVmGroupId { get { throw null; } set { } }

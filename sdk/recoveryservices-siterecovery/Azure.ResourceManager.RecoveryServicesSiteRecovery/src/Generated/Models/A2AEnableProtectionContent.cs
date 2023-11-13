@@ -63,5 +63,7 @@ namespace Azure.ResourceManager.RecoveryServicesSiteRecovery.Models
         public ResourceIdentifier RecoveryVirtualMachineScaleSetId { get; set; }
         /// <summary> The recovery capacity reservation group Id. </summary>
         public ResourceIdentifier RecoveryCapacityReservationGroupId { get; set; }
+        /// <summary> A value indicating whether the auto protection is enabled. </summary>
+        public AutoProtectionOfDataDisk? AutoProtectionOfDataDisk { get; set; }
     }
 }
