@@ -4,9 +4,8 @@ Run `dotnet build /t:GenerateCode` to generate code.
 
 ```yaml
 title: PurviewAdministration
-input-file:
-  - https://github.com/Azure/azure-rest-api-specs/blob/0ebd4949e8e1cd9537ca5a07384c7661162cc7a6/specification/purview/data-plane/Azure.Analytics.Purview.Account/preview/2019-11-01-preview/account.json
-  - https://github.com/Azure/azure-rest-api-specs/blob/0ebd4949e8e1cd9537ca5a07384c7661162cc7a6/specification/purview/data-plane/Azure.Analytics.Purview.MetadataPolicies/preview/2021-07-01-preview/purviewMetadataPolicy.json
+require:
+- /mnt/vss/_work/1/s/azure-rest-api-specs/specification/purview/data-plane/readme.md
 namespace: Azure.Analytics.Purview.Administration
 modelerfour:
     lenient-model-deduplication: true
@@ -83,3 +82,4 @@ directive:
           $.operationId = "Purview" + $.operationId;
       }
 ```
+
