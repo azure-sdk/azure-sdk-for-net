@@ -141,7 +141,7 @@ namespace Azure.ResourceManager.Sql
         }
 
         /// <summary>
-        /// Lists all long term retention backups for a database.
+        /// Lists all long term retention backups for a database based on a particular resource group.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -165,7 +165,7 @@ namespace Azure.ResourceManager.Sql
         }
 
         /// <summary>
-        /// Lists all long term retention backups for a database.
+        /// Lists all long term retention backups for a database based on a particular resource group.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
