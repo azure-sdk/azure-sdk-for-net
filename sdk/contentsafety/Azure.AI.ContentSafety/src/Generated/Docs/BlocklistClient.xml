@@ -71,15 +71,12 @@ BlocklistClient client = new BlocklistClient(endpoint, credential);
 
 using RequestContent content = RequestContent.Create(new
 {
-    options = new
+    blocklistItems = new object[]
     {
-        blocklistItems = new object[]
+        new
         {
-            new
-            {
-                text = "<text>",
-            }
-        },
+            text = "<text>",
+        }
     },
 });
 Response response = await client.AddOrUpdateBlocklistItemsAsync("<Name>", content);
@@ -96,16 +93,13 @@ BlocklistClient client = new BlocklistClient(endpoint, credential);
 
 using RequestContent content = RequestContent.Create(new
 {
-    options = new
+    blocklistItems = new object[]
     {
-        blocklistItems = new object[]
+        new
         {
-            new
-            {
-                description = "<description>",
-                text = "<text>",
-            }
-        },
+            description = "<description>",
+            text = "<text>",
+        }
     },
 });
 Response response = await client.AddOrUpdateBlocklistItemsAsync("<Name>", content);
@@ -126,15 +120,12 @@ BlocklistClient client = new BlocklistClient(endpoint, credential);
 
 using RequestContent content = RequestContent.Create(new
 {
-    options = new
+    blocklistItems = new object[]
     {
-        blocklistItems = new object[]
+        new
         {
-            new
-            {
-                text = "<text>",
-            }
-        },
+            text = "<text>",
+        }
     },
 });
 Response response = client.AddOrUpdateBlocklistItems("<Name>", content);
@@ -151,16 +142,13 @@ BlocklistClient client = new BlocklistClient(endpoint, credential);
 
 using RequestContent content = RequestContent.Create(new
 {
-    options = new
+    blocklistItems = new object[]
     {
-        blocklistItems = new object[]
+        new
         {
-            new
-            {
-                description = "<description>",
-                text = "<text>",
-            }
-        },
+            description = "<description>",
+            text = "<text>",
+        }
     },
 });
 Response response = client.AddOrUpdateBlocklistItems("<Name>", content);
@@ -523,12 +511,9 @@ BlocklistClient client = new BlocklistClient(endpoint, credential);
 
 using RequestContent content = RequestContent.Create(new
 {
-    options = new
+    blocklistItemIds = new object[]
     {
-        blocklistItemIds = new object[]
-        {
-            "<blocklistItemIds>"
-        },
+        "<blocklistItemIds>"
     },
 });
 Response response = await client.RemoveBlocklistItemsAsync("<Name>", content);
@@ -543,12 +528,9 @@ BlocklistClient client = new BlocklistClient(endpoint, credential);
 
 using RequestContent content = RequestContent.Create(new
 {
-    options = new
+    blocklistItemIds = new object[]
     {
-        blocklistItemIds = new object[]
-        {
-            "<blocklistItemIds>"
-        },
+        "<blocklistItemIds>"
     },
 });
 Response response = await client.RemoveBlocklistItemsAsync("<Name>", content);
@@ -566,12 +548,9 @@ BlocklistClient client = new BlocklistClient(endpoint, credential);
 
 using RequestContent content = RequestContent.Create(new
 {
-    options = new
+    blocklistItemIds = new object[]
     {
-        blocklistItemIds = new object[]
-        {
-            "<blocklistItemIds>"
-        },
+        "<blocklistItemIds>"
     },
 });
 Response response = client.RemoveBlocklistItems("<Name>", content);
@@ -586,12 +565,9 @@ BlocklistClient client = new BlocklistClient(endpoint, credential);
 
 using RequestContent content = RequestContent.Create(new
 {
-    options = new
+    blocklistItemIds = new object[]
     {
-        blocklistItemIds = new object[]
-        {
-            "<blocklistItemIds>"
-        },
+        "<blocklistItemIds>"
     },
 });
 Response response = client.RemoveBlocklistItems("<Name>", content);

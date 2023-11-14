@@ -116,8 +116,8 @@ namespace Azure.AI.ContentSafety
             Argument.AssertNotNull(options, nameof(options));
 
             RequestContext context = FromCancellationToken(cancellationToken);
-            AddOrUpdateBlocklistItemsRequest addOrUpdateBlocklistItemsRequest = new AddOrUpdateBlocklistItemsRequest(options);
-            Response response = await AddOrUpdateBlocklistItemsAsync(name, addOrUpdateBlocklistItemsRequest.ToRequestContent(), context).ConfigureAwait(false);
+            using RequestContent content = options.ToRequestContent();
+            Response response = await AddOrUpdateBlocklistItemsAsync(name, content, context).ConfigureAwait(false);
             return Response.FromValue(AddOrUpdateTextBlocklistItemsResult.FromResponse(response), response);
         }
 
@@ -135,8 +135,8 @@ namespace Azure.AI.ContentSafety
             Argument.AssertNotNull(options, nameof(options));
 
             RequestContext context = FromCancellationToken(cancellationToken);
-            AddOrUpdateBlocklistItemsRequest addOrUpdateBlocklistItemsRequest = new AddOrUpdateBlocklistItemsRequest(options);
-            Response response = AddOrUpdateBlocklistItems(name, addOrUpdateBlocklistItemsRequest.ToRequestContent(), context);
+            using RequestContent content = options.ToRequestContent();
+            Response response = AddOrUpdateBlocklistItems(name, content, context);
             return Response.FromValue(AddOrUpdateTextBlocklistItemsResult.FromResponse(response), response);
         }
 
@@ -616,8 +616,8 @@ namespace Azure.AI.ContentSafety
             Argument.AssertNotNull(options, nameof(options));
 
             RequestContext context = FromCancellationToken(cancellationToken);
-            RemoveBlocklistItemsRequest removeBlocklistItemsRequest = new RemoveBlocklistItemsRequest(options);
-            Response response = await RemoveBlocklistItemsAsync(name, removeBlocklistItemsRequest.ToRequestContent(), context).ConfigureAwait(false);
+            using RequestContent content = options.ToRequestContent();
+            Response response = await RemoveBlocklistItemsAsync(name, content, context).ConfigureAwait(false);
             return response;
         }
 
@@ -635,8 +635,8 @@ namespace Azure.AI.ContentSafety
             Argument.AssertNotNull(options, nameof(options));
 
             RequestContext context = FromCancellationToken(cancellationToken);
-            RemoveBlocklistItemsRequest removeBlocklistItemsRequest = new RemoveBlocklistItemsRequest(options);
-            Response response = RemoveBlocklistItems(name, removeBlocklistItemsRequest.ToRequestContent(), context);
+            using RequestContent content = options.ToRequestContent();
+            Response response = RemoveBlocklistItems(name, content, context);
             return response;
         }
 

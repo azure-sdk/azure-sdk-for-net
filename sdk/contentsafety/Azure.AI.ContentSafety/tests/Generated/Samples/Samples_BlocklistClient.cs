@@ -28,16 +28,13 @@ namespace Azure.AI.ContentSafety.Samples
 
             using RequestContent content = RequestContent.Create(new
             {
-                options = new
-                {
-                    blocklistItems = new object[]
+                blocklistItems = new object[]
             {
 new
 {
 text = "<text>",
 }
             },
-                },
             });
             Response response = client.AddOrUpdateBlocklistItems("<Name>", content);
 
@@ -56,16 +53,13 @@ text = "<text>",
 
             using RequestContent content = RequestContent.Create(new
             {
-                options = new
-                {
-                    blocklistItems = new object[]
+                blocklistItems = new object[]
             {
 new
 {
 text = "<text>",
 }
             },
-                },
             });
             Response response = await client.AddOrUpdateBlocklistItemsAsync("<Name>", content);
 
@@ -114,9 +108,7 @@ new TextBlocklistItem("<text>")
 
             using RequestContent content = RequestContent.Create(new
             {
-                options = new
-                {
-                    blocklistItems = new object[]
+                blocklistItems = new object[]
             {
 new
 {
@@ -124,7 +116,6 @@ description = "<description>",
 text = "<text>",
 }
             },
-                },
             });
             Response response = client.AddOrUpdateBlocklistItems("<Name>", content);
 
@@ -144,9 +135,7 @@ text = "<text>",
 
             using RequestContent content = RequestContent.Create(new
             {
-                options = new
-                {
-                    blocklistItems = new object[]
+                blocklistItems = new object[]
             {
 new
 {
@@ -154,7 +143,6 @@ description = "<description>",
 text = "<text>",
 }
             },
-                },
             });
             Response response = await client.AddOrUpdateBlocklistItemsAsync("<Name>", content);
 
@@ -546,13 +534,10 @@ Description = "<description>",
 
             using RequestContent content = RequestContent.Create(new
             {
-                options = new
-                {
-                    blocklistItemIds = new object[]
+                blocklistItemIds = new object[]
             {
 "<blocklistItemIds>"
             },
-                },
             });
             Response response = client.RemoveBlocklistItems("<Name>", content);
 
@@ -569,13 +554,10 @@ Description = "<description>",
 
             using RequestContent content = RequestContent.Create(new
             {
-                options = new
-                {
-                    blocklistItemIds = new object[]
+                blocklistItemIds = new object[]
             {
 "<blocklistItemIds>"
             },
-                },
             });
             Response response = await client.RemoveBlocklistItemsAsync("<Name>", content);
 
@@ -616,13 +598,10 @@ Description = "<description>",
 
             using RequestContent content = RequestContent.Create(new
             {
-                options = new
-                {
-                    blocklistItemIds = new object[]
+                blocklistItemIds = new object[]
             {
 "<blocklistItemIds>"
             },
-                },
             });
             Response response = client.RemoveBlocklistItems("<Name>", content);
 
@@ -639,13 +618,10 @@ Description = "<description>",
 
             using RequestContent content = RequestContent.Create(new
             {
-                options = new
-                {
-                    blocklistItemIds = new object[]
+                blocklistItemIds = new object[]
             {
 "<blocklistItemIds>"
             },
-                },
             });
             Response response = await client.RemoveBlocklistItemsAsync("<Name>", content);
 

@@ -6,6 +6,14 @@
 	<RunConfiguration>
 		<TargetPlatform>x64</TargetPlatform>
 
+		<EnvironmentVariables>
+            <AZURE_TEST_MODE>Live</AZURE_TEST_MODE>
+			<CONTENT_SAFETY_ENDPOINT>https://tee90eaece6f5eb76-contentsafety.cognitiveservices.azure.com/</CONTENT_SAFETY_ENDPOINT>
+			<AZURE_CLIENT_ID>3fe6146e-656a-4b7a-bdff-015be7c923f9</AZURE_CLIENT_ID>
+			<AZURE_TENANT_ID>72f988bf-86f1-41af-91ab-2d7cd011db47</AZURE_TENANT_ID>
+			<AZURE_CLIENT_SECRET>UMD8Q~bG-~9rf3baVK0OT2su~kxWXFgRHIDWvbwf</AZURE_CLIENT_SECRET>
+        </EnvironmentVariables>
+
 		<!-- Return non-zero exit code if a test run finds no tests -->
 		<!-- disable for now because there are a lot of test projects that don't find tests and would start failing -->
 		<!-- <TreatNoTestsAsError>true</TreatNoTestsAsError> -->
@@ -19,7 +27,7 @@
 		<!-- <Parameter name="DisableAutoRecording" value="true" /> -->
 
 		<!-- Change the test mode -->
-		<!-- <Parameter name="TestMode" value="Record" /> -->
+		<Parameter name="TestMode" value="Live" />
 
 		<!-- Enable running Fiddler -->
 		<!-- <Parameter name="EnableFiddler" value="true" /> -->
