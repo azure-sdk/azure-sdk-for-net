@@ -17,6 +17,16 @@ namespace Azure.ResourceManager.Maps.Models
             writer.WriteStartObject();
             writer.WritePropertyName("storageUnits"u8);
             writer.WriteNumberValue(StorageUnits);
+            if (Optional.IsDefined(TotalStorageUnitSizeInBytes))
+            {
+                writer.WritePropertyName("totalStorageUnitSizeInBytes"u8);
+                writer.WriteNumberValue(TotalStorageUnitSizeInBytes.Value);
+            }
+            if (Optional.IsDefined(ConsumedStorageUnitSizeInBytes))
+            {
+                writer.WritePropertyName("consumedStorageUnitSizeInBytes"u8);
+                writer.WriteNumberValue(ConsumedStorageUnitSizeInBytes.Value);
+            }
             writer.WriteEndObject();
         }
 
@@ -28,6 +38,8 @@ namespace Azure.ResourceManager.Maps.Models
             }
             Optional<string> provisioningState = default;
             int storageUnits = default;
+            Optional<int> totalStorageUnitSizeInBytes = default;
+            Optional<int> consumedStorageUnitSizeInBytes = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("provisioningState"u8))
@@ -40,8 +52,26 @@ namespace Azure.ResourceManager.Maps.Models
                     storageUnits = property.Value.GetInt32();
                     continue;
                 }
+                if (property.NameEquals("totalStorageUnitSizeInBytes"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    totalStorageUnitSizeInBytes = property.Value.GetInt32();
+                    continue;
+                }
+                if (property.NameEquals("consumedStorageUnitSizeInBytes"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    consumedStorageUnitSizeInBytes = property.Value.GetInt32();
+                    continue;
+                }
             }
-            return new MapsCreatorProperties(provisioningState.Value, storageUnits);
+            return new MapsCreatorProperties(provisioningState.Value, storageUnits, Optional.ToNullable(totalStorageUnitSizeInBytes), Optional.ToNullable(consumedStorageUnitSizeInBytes));
         }
     }
 }
