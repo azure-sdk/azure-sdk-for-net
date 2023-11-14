@@ -20,15 +20,23 @@ namespace Azure.ResourceManager.Maps.Models
         /// <summary> Initializes a new instance of MapsCreatorProperties. </summary>
         /// <param name="provisioningState"> The state of the resource provisioning, terminal states: Succeeded, Failed, Canceled. </param>
         /// <param name="storageUnits"> The storage units to be allocated. Integer values from 1 to 100, inclusive. </param>
-        internal MapsCreatorProperties(string provisioningState, int storageUnits)
+        /// <param name="totalStorageUnitSizeInBytes"> The total allocated storage unit size in bytes for the creator resource. </param>
+        /// <param name="consumedStorageUnitSizeInBytes"> The consumed storage unit size in bytes for the creator resource. </param>
+        internal MapsCreatorProperties(string provisioningState, int storageUnits, int? totalStorageUnitSizeInBytes, int? consumedStorageUnitSizeInBytes)
         {
             ProvisioningState = provisioningState;
             StorageUnits = storageUnits;
+            TotalStorageUnitSizeInBytes = totalStorageUnitSizeInBytes;
+            ConsumedStorageUnitSizeInBytes = consumedStorageUnitSizeInBytes;
         }
 
         /// <summary> The state of the resource provisioning, terminal states: Succeeded, Failed, Canceled. </summary>
         public string ProvisioningState { get; }
         /// <summary> The storage units to be allocated. Integer values from 1 to 100, inclusive. </summary>
         public int StorageUnits { get; set; }
+        /// <summary> The total allocated storage unit size in bytes for the creator resource. </summary>
+        public int? TotalStorageUnitSizeInBytes { get; set; }
+        /// <summary> The consumed storage unit size in bytes for the creator resource. </summary>
+        public int? ConsumedStorageUnitSizeInBytes { get; set; }
     }
 }

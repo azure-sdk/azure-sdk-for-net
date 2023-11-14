@@ -37,6 +37,21 @@ namespace Azure.ResourceManager.Maps.Models
                 writer.WritePropertyName("cors"u8);
                 writer.WriteObjectValue(Cors);
             }
+            if (Optional.IsDefined(Encryption))
+            {
+                writer.WritePropertyName("encryption"u8);
+                writer.WriteObjectValue(Encryption);
+            }
+            if (Optional.IsCollectionDefined(Locations))
+            {
+                writer.WritePropertyName("locations"u8);
+                writer.WriteStartArray();
+                foreach (var item in Locations)
+                {
+                    writer.WriteObjectValue(item);
+                }
+                writer.WriteEndArray();
+            }
             writer.WriteEndObject();
         }
 
@@ -51,6 +66,8 @@ namespace Azure.ResourceManager.Maps.Models
             Optional<string> provisioningState = default;
             Optional<IList<MapsLinkedResource>> linkedResources = default;
             Optional<CorsRules> cors = default;
+            Optional<Encryption> encryption = default;
+            Optional<IList<LocationsItem>> locations = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("uniqueId"u8))
@@ -99,8 +116,31 @@ namespace Azure.ResourceManager.Maps.Models
                     cors = CorsRules.DeserializeCorsRules(property.Value);
                     continue;
                 }
+                if (property.NameEquals("encryption"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    encryption = Encryption.DeserializeEncryption(property.Value);
+                    continue;
+                }
+                if (property.NameEquals("locations"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<LocationsItem> array = new List<LocationsItem>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(LocationsItem.DeserializeLocationsItem(item));
+                    }
+                    locations = array;
+                    continue;
+                }
             }
-            return new MapsAccountProperties(Optional.ToNullable(uniqueId), Optional.ToNullable(disableLocalAuth), provisioningState.Value, Optional.ToList(linkedResources), cors.Value);
+            return new MapsAccountProperties(Optional.ToNullable(uniqueId), Optional.ToNullable(disableLocalAuth), provisioningState.Value, Optional.ToList(linkedResources), cors.Value, encryption.Value, Optional.ToList(locations));
         }
     }
 }
