@@ -24,6 +24,11 @@ namespace Azure.ResourceManager.AppService.Models
                 writer.WritePropertyName("isFqdn"u8);
                 writer.WriteBooleanValue(IsFqdn.Value);
             }
+            if (Optional.IsDefined(EnvironmentId))
+            {
+                writer.WritePropertyName("environmentId"u8);
+                writer.WriteStringValue(EnvironmentId);
+            }
             writer.WriteEndObject();
         }
     }

@@ -31,5 +31,7 @@ namespace Azure.ResourceManager.AppService.Models
         public CheckNameResourceType ResourceType { get; }
         /// <summary> Is fully qualified domain name. </summary>
         public bool? IsFqdn { get; set; }
+        /// <summary> Azure Resource Manager ID of the customer's selected Container Apps Environment on which to host the Function app. This must be of the form /subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.App/managedEnvironments/{managedEnvironmentName}. </summary>
+        public string EnvironmentId { get; set; }
     }
 }
