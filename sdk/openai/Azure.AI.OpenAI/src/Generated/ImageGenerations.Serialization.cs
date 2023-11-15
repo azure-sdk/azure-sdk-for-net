@@ -9,11 +9,22 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure;
+using Azure.Core;
 
 namespace Azure.AI.OpenAI
 {
-    public partial class ImageGenerations
+    public partial class ImageGenerations : IUtf8JsonSerializable
     {
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
+        {
+            writer.WriteStartObject();
+            writer.WritePropertyName("created"u8);
+            writer.WriteNumberValue(Created, "U");
+            writer.WritePropertyName("data"u8);
+            SerializeDataProperty(writer);
+            writer.WriteEndObject();
+        }
+
         internal static ImageGenerations DeserializeImageGenerations(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
@@ -44,6 +55,14 @@ namespace Azure.AI.OpenAI
         {
             using var document = JsonDocument.Parse(response.Content);
             return DeserializeImageGenerations(document.RootElement);
+        }
+
+        /// <summary> Convert into a Utf8JsonRequestContent. </summary>
+        internal virtual RequestContent ToRequestContent()
+        {
+            var content = new Utf8JsonRequestContent();
+            content.JsonWriter.WriteObjectValue(this);
+            return content;
         }
     }
 }
