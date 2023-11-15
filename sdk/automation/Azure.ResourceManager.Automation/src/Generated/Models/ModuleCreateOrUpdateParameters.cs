@@ -12,12 +12,12 @@ using Azure.Core;
 namespace Azure.ResourceManager.Automation.Models
 {
     /// <summary> The parameters supplied to the create or update module operation. </summary>
-    public partial class AutomationAccountPython2PackageCreateOrUpdateContent
+    public partial class ModuleCreateOrUpdateParameters
     {
-        /// <summary> Initializes a new instance of AutomationAccountPython2PackageCreateOrUpdateContent. </summary>
-        /// <param name="contentLink"> Gets or sets the module content link. </param>
+        /// <summary> Initializes a new instance of ModuleCreateOrUpdateParameters. </summary>
+        /// <param name="contentLink"> Sets the hash. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="contentLink"/> is null. </exception>
-        public AutomationAccountPython2PackageCreateOrUpdateContent(AutomationContentLink contentLink)
+        public ModuleCreateOrUpdateParameters(AutomationContentLink contentLink)
         {
             Argument.AssertNotNull(contentLink, nameof(contentLink));
 
@@ -25,9 +25,13 @@ namespace Azure.ResourceManager.Automation.Models
             ContentLink = contentLink;
         }
 
-        /// <summary> Gets or sets the tags attached to the resource. </summary>
+        /// <summary> Sets name of the resource. </summary>
+        public string Name { get; set; }
+        /// <summary> Sets the location of the resource. </summary>
+        public AzureLocation? Location { get; set; }
+        /// <summary> Sets the tags attached to the resource. </summary>
         public IDictionary<string, string> Tags { get; }
-        /// <summary> Gets or sets the module content link. </summary>
+        /// <summary> Sets the hash. </summary>
         public AutomationContentLink ContentLink { get; }
     }
 }
