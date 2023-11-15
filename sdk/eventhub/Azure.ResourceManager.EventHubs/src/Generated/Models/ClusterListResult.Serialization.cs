@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.EventHubs.Models
             {
                 return null;
             }
-            Optional<IReadOnlyList<EventHubsClusterData>> value = default;
+            Optional<IReadOnlyList<ClusterData>> value = default;
             Optional<string> nextLink = default;
             foreach (var property in element.EnumerateObject())
             {
@@ -30,10 +30,10 @@ namespace Azure.ResourceManager.EventHubs.Models
                     {
                         continue;
                     }
-                    List<EventHubsClusterData> array = new List<EventHubsClusterData>();
+                    List<ClusterData> array = new List<ClusterData>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(EventHubsClusterData.DeserializeEventHubsClusterData(item));
+                        array.Add(ClusterData.DeserializeClusterData(item));
                     }
                     value = array;
                     continue;
