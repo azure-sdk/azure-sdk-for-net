@@ -49,59 +49,6 @@ namespace Azure.ResourceManager.Sql.Mocking
             return apiVersion;
         }
 
-        /// <summary> Gets a collection of InstancePoolResources in the ResourceGroupResource. </summary>
-        /// <returns> An object representing collection of InstancePoolResources and their operations over a InstancePoolResource. </returns>
-        public virtual InstancePoolCollection GetInstancePools()
-        {
-            return GetCachedClient(client => new InstancePoolCollection(client, Id));
-        }
-
-        /// <summary>
-        /// Gets an instance pool.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Sql/instancePools/{instancePoolName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>InstancePools_Get</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="instancePoolName"> The name of the instance pool to be retrieved. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="instancePoolName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="instancePoolName"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual async Task<Response<InstancePoolResource>> GetInstancePoolAsync(string instancePoolName, CancellationToken cancellationToken = default)
-        {
-            return await GetInstancePools().GetAsync(instancePoolName, cancellationToken).ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// Gets an instance pool.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Sql/instancePools/{instancePoolName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>InstancePools_Get</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="instancePoolName"> The name of the instance pool to be retrieved. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="instancePoolName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="instancePoolName"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual Response<InstancePoolResource> GetInstancePool(string instancePoolName, CancellationToken cancellationToken = default)
-        {
-            return GetInstancePools().Get(instancePoolName, cancellationToken);
-        }
-
         /// <summary> Gets a collection of SqlServerTrustGroupResources in the ResourceGroupResource. </summary>
         /// <param name="locationName"> The name of the region where the resource is located. </param>
         /// <returns> An object representing collection of SqlServerTrustGroupResources and their operations over a SqlServerTrustGroupResource. </returns>
@@ -503,6 +450,59 @@ namespace Azure.ResourceManager.Sql.Mocking
         public virtual Response<SqlServerResource> GetSqlServer(string serverName, string expand = null, CancellationToken cancellationToken = default)
         {
             return GetSqlServers().Get(serverName, expand, cancellationToken);
+        }
+
+        /// <summary> Gets a collection of InstancePoolResources in the ResourceGroupResource. </summary>
+        /// <returns> An object representing collection of InstancePoolResources and their operations over a InstancePoolResource. </returns>
+        public virtual InstancePoolCollection GetInstancePools()
+        {
+            return GetCachedClient(client => new InstancePoolCollection(client, Id));
+        }
+
+        /// <summary>
+        /// Gets an instance pool.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Sql/instancePools/{instancePoolName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>InstancePools_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="instancePoolName"> The name of the instance pool to be retrieved. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="instancePoolName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="instancePoolName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<InstancePoolResource>> GetInstancePoolAsync(string instancePoolName, CancellationToken cancellationToken = default)
+        {
+            return await GetInstancePools().GetAsync(instancePoolName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets an instance pool.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Sql/instancePools/{instancePoolName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>InstancePools_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="instancePoolName"> The name of the instance pool to be retrieved. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="instancePoolName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="instancePoolName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<InstancePoolResource> GetInstancePool(string instancePoolName, CancellationToken cancellationToken = default)
+        {
+            return GetInstancePools().Get(instancePoolName, cancellationToken);
         }
 
         /// <summary>

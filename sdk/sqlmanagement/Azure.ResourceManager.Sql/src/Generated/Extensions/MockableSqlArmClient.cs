@@ -337,18 +337,6 @@ namespace Azure.ResourceManager.Sql.Mocking
         }
 
         /// <summary>
-        /// Gets an object representing an <see cref="InstancePoolResource" /> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="InstancePoolResource.CreateResourceIdentifier" /> to create an <see cref="InstancePoolResource" /> <see cref="ResourceIdentifier" /> from its components.
-        /// </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="InstancePoolResource" /> object. </returns>
-        public virtual InstancePoolResource GetInstancePoolResource(ResourceIdentifier id)
-        {
-            InstancePoolResource.ValidateResourceId(id);
-            return new InstancePoolResource(Client, id);
-        }
-
-        /// <summary>
         /// Gets an object representing a <see cref="SqlServerJobAgentResource" /> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="SqlServerJobAgentResource.CreateResourceIdentifier" /> to create a <see cref="SqlServerJobAgentResource" /> <see cref="ResourceIdentifier" /> from its components.
         /// </summary>
@@ -406,6 +394,18 @@ namespace Azure.ResourceManager.Sql.Mocking
         {
             SqlServerJobExecutionStepTargetResource.ValidateResourceId(id);
             return new SqlServerJobExecutionStepTargetResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="JobPrivateEndpointResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="JobPrivateEndpointResource.CreateResourceIdentifier" /> to create a <see cref="JobPrivateEndpointResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="JobPrivateEndpointResource" /> object. </returns>
+        public virtual JobPrivateEndpointResource GetJobPrivateEndpointResource(ResourceIdentifier id)
+        {
+            JobPrivateEndpointResource.ValidateResourceId(id);
+            return new JobPrivateEndpointResource(Client, id);
         }
 
         /// <summary>
@@ -1546,6 +1546,18 @@ namespace Azure.ResourceManager.Sql.Mocking
         {
             FailoverGroupResource.ValidateResourceId(id);
             return new FailoverGroupResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing an <see cref="InstancePoolResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="InstancePoolResource.CreateResourceIdentifier" /> to create an <see cref="InstancePoolResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="InstancePoolResource" /> object. </returns>
+        public virtual InstancePoolResource GetInstancePoolResource(ResourceIdentifier id)
+        {
+            InstancePoolResource.ValidateResourceId(id);
+            return new InstancePoolResource(Client, id);
         }
     }
 }

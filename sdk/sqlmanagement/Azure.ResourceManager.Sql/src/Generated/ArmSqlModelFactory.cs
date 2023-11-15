@@ -615,25 +615,6 @@ namespace Azure.ResourceManager.Sql.Models
             return new ResourceWithWritableName(id, name, resourceType);
         }
 
-        /// <summary> Initializes a new instance of InstancePoolData. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="tags"> The tags. </param>
-        /// <param name="location"> The location. </param>
-        /// <param name="sku"> The name and tier of the SKU. </param>
-        /// <param name="subnetId"> Resource ID of the subnet to place this instance pool in. </param>
-        /// <param name="vCores"> Count of vCores belonging to this instance pool. </param>
-        /// <param name="licenseType"> The license type. Possible values are 'LicenseIncluded' (price for SQL license is included) and 'BasePrice' (without SQL license price). </param>
-        /// <returns> A new <see cref="Sql.InstancePoolData"/> instance for mocking. </returns>
-        public static InstancePoolData InstancePoolData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, SqlSku sku = null, ResourceIdentifier subnetId = null, int? vCores = null, InstancePoolLicenseType? licenseType = null)
-        {
-            tags ??= new Dictionary<string, string>();
-
-            return new InstancePoolData(id, name, resourceType, systemData, tags, location, sku, subnetId, vCores, licenseType);
-        }
-
         /// <summary> Initializes a new instance of SqlServerJobAgentData. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
@@ -697,6 +678,19 @@ namespace Azure.ResourceManager.Sql.Models
         public static JobExecutionTarget JobExecutionTarget(JobTargetType? targetType = null, string serverName = null, string databaseName = null)
         {
             return new JobExecutionTarget(targetType, serverName, databaseName);
+        }
+
+        /// <summary> Initializes a new instance of JobPrivateEndpointData. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="targetServerAzureResourceId"> ARM resource id of the server the private endpoint will target. </param>
+        /// <param name="privateEndpointId"> Private endpoint id of the private endpoint. </param>
+        /// <returns> A new <see cref="Sql.JobPrivateEndpointData"/> instance for mocking. </returns>
+        public static JobPrivateEndpointData JobPrivateEndpointData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, ResourceIdentifier targetServerAzureResourceId = null, string privateEndpointId = null)
+        {
+            return new JobPrivateEndpointData(id, name, resourceType, systemData, targetServerAzureResourceId, privateEndpointId);
         }
 
         /// <summary> Initializes a new instance of SqlServerJobData. </summary>
@@ -3918,6 +3912,27 @@ namespace Azure.ResourceManager.Sql.Models
         public static PartnerServerInfo PartnerServerInfo(ResourceIdentifier id = null, AzureLocation? location = null, FailoverGroupReplicationRole? replicationRole = null)
         {
             return new PartnerServerInfo(id, location, replicationRole);
+        }
+
+        /// <summary> Initializes a new instance of InstancePoolData. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="tags"> The tags. </param>
+        /// <param name="location"> The location. </param>
+        /// <param name="sku"> The name and tier of the SKU. </param>
+        /// <param name="subnetId"> Resource ID of the subnet to place this instance pool in. </param>
+        /// <param name="vCores"> Count of vCores belonging to this instance pool. </param>
+        /// <param name="licenseType"> The license type. Possible values are 'LicenseIncluded' (price for SQL license is included) and 'BasePrice' (without SQL license price). </param>
+        /// <param name="dnsZone"> The Dns Zone that the managed instance pool is in. </param>
+        /// <param name="maintenanceConfigurationId"> Specifies maintenance configuration id to apply to this managed instance. </param>
+        /// <returns> A new <see cref="Sql.InstancePoolData"/> instance for mocking. </returns>
+        public static InstancePoolData InstancePoolData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, SqlSku sku = null, ResourceIdentifier subnetId = null, int? vCores = null, InstancePoolLicenseType? licenseType = null, string dnsZone = null, ResourceIdentifier maintenanceConfigurationId = null)
+        {
+            tags ??= new Dictionary<string, string>();
+
+            return new InstancePoolData(id, name, resourceType, systemData, tags, location, sku, subnetId, vCores, licenseType, dnsZone, maintenanceConfigurationId);
         }
     }
 }
