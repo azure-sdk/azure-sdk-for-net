@@ -17,19 +17,6 @@ namespace Azure.ResourceManager.EventHubs.Models
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
-            if (Optional.IsCollectionDefined(Tags))
-            {
-                writer.WritePropertyName("tags"u8);
-                writer.WriteStartObject();
-                foreach (var item in Tags)
-                {
-                    writer.WritePropertyName(item.Key);
-                    writer.WriteStringValue(item.Value);
-                }
-                writer.WriteEndObject();
-            }
-            writer.WritePropertyName("location"u8);
-            writer.WriteStringValue(Location);
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
             if (Optional.IsDefined(ProvisioningState))
@@ -57,8 +44,7 @@ namespace Azure.ResourceManager.EventHubs.Models
             {
                 return null;
             }
-            Optional<IDictionary<string, string>> tags = default;
-            AzureLocation location = default;
+            Optional<AzureLocation> location = default;
             ResourceIdentifier id = default;
             string name = default;
             ResourceType type = default;
@@ -68,24 +54,18 @@ namespace Azure.ResourceManager.EventHubs.Models
             Optional<EventHubsNetworkSecurityPerimeter> networkSecurityPerimeter = default;
             Optional<EventHubsNetworkSecurityPerimeterConfigurationPropertiesResourceAssociation> resourceAssociation = default;
             Optional<EventHubsNetworkSecurityPerimeterConfigurationPropertiesProfile> profile = default;
+            Optional<bool> isBackingResource = default;
+            Optional<IReadOnlyList<string>> applicableFeatures = default;
+            Optional<string> parentAssociationName = default;
+            Optional<string> sourceResourceId = default;
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("tags"u8))
+                if (property.NameEquals("location"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    Dictionary<string, string> dictionary = new Dictionary<string, string>();
-                    foreach (var property0 in property.Value.EnumerateObject())
-                    {
-                        dictionary.Add(property0.Name, property0.Value.GetString());
-                    }
-                    tags = dictionary;
-                    continue;
-                }
-                if (property.NameEquals("location"u8))
-                {
                     location = new AzureLocation(property.Value.GetString());
                     continue;
                 }
@@ -172,11 +152,44 @@ namespace Azure.ResourceManager.EventHubs.Models
                             profile = EventHubsNetworkSecurityPerimeterConfigurationPropertiesProfile.DeserializeEventHubsNetworkSecurityPerimeterConfigurationPropertiesProfile(property0.Value);
                             continue;
                         }
+                        if (property0.NameEquals("isBackingResource"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            isBackingResource = property0.Value.GetBoolean();
+                            continue;
+                        }
+                        if (property0.NameEquals("applicableFeatures"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            List<string> array = new List<string>();
+                            foreach (var item in property0.Value.EnumerateArray())
+                            {
+                                array.Add(item.GetString());
+                            }
+                            applicableFeatures = array;
+                            continue;
+                        }
+                        if (property0.NameEquals("parentAssociationName"u8))
+                        {
+                            parentAssociationName = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("sourceResourceId"u8))
+                        {
+                            sourceResourceId = property0.Value.GetString();
+                            continue;
+                        }
                     }
                     continue;
                 }
             }
-            return new EventHubsNetworkSecurityPerimeterConfiguration(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, Optional.ToNullable(provisioningState), Optional.ToList(provisioningIssues), networkSecurityPerimeter.Value, resourceAssociation.Value, profile.Value);
+            return new EventHubsNetworkSecurityPerimeterConfiguration(id, name, type, systemData.Value, Optional.ToNullable(provisioningState), Optional.ToList(provisioningIssues), networkSecurityPerimeter.Value, resourceAssociation.Value, profile.Value, Optional.ToNullable(isBackingResource), Optional.ToList(applicableFeatures), parentAssociationName.Value, sourceResourceId.Value, Optional.ToNullable(location));
         }
     }
 }

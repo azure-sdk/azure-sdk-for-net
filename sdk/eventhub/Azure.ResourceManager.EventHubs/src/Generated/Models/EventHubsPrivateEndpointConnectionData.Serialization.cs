@@ -51,8 +51,8 @@ namespace Azure.ResourceManager.EventHubs
             ResourceType type = default;
             Optional<SystemData> systemData = default;
             Optional<WritableSubResource> privateEndpoint = default;
-            Optional<EventHubsPrivateLinkServiceConnectionState> privateLinkServiceConnectionState = default;
-            Optional<EventHubsPrivateEndpointConnectionProvisioningState> provisioningState = default;
+            Optional<ConnectionState> privateLinkServiceConnectionState = default;
+            Optional<EndPointProvisioningState> provisioningState = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("location"u8))
@@ -112,7 +112,7 @@ namespace Azure.ResourceManager.EventHubs
                             {
                                 continue;
                             }
-                            privateLinkServiceConnectionState = EventHubsPrivateLinkServiceConnectionState.DeserializeEventHubsPrivateLinkServiceConnectionState(property0.Value);
+                            privateLinkServiceConnectionState = ConnectionState.DeserializeConnectionState(property0.Value);
                             continue;
                         }
                         if (property0.NameEquals("provisioningState"u8))
@@ -121,7 +121,7 @@ namespace Azure.ResourceManager.EventHubs
                             {
                                 continue;
                             }
-                            provisioningState = new EventHubsPrivateEndpointConnectionProvisioningState(property0.Value.GetString());
+                            provisioningState = new EndPointProvisioningState(property0.Value.GetString());
                             continue;
                         }
                     }

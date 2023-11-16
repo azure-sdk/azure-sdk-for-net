@@ -21,8 +21,8 @@ namespace Azure.ResourceManager.EventHubs
 {
     /// <summary>
     /// A class representing a collection of <see cref="EventHubsDisasterRecoveryResource" /> and their operations.
-    /// Each <see cref="EventHubsDisasterRecoveryResource" /> in the collection will belong to the same instance of <see cref="EventHubsNamespaceResource" />.
-    /// To get an <see cref="EventHubsDisasterRecoveryCollection" /> instance call the GetEventHubsDisasterRecoveries method from an instance of <see cref="EventHubsNamespaceResource" />.
+    /// Each <see cref="EventHubsDisasterRecoveryResource" /> in the collection will belong to the same instance of <see cref="EHNamespaceResource" />.
+    /// To get an <see cref="EventHubsDisasterRecoveryCollection" /> instance call the GetEventHubsDisasterRecoveries method from an instance of <see cref="EHNamespaceResource" />.
     /// </summary>
     public partial class EventHubsDisasterRecoveryCollection : ArmCollection, IEnumerable<EventHubsDisasterRecoveryResource>, IAsyncEnumerable<EventHubsDisasterRecoveryResource>
     {
@@ -49,8 +49,8 @@ namespace Azure.ResourceManager.EventHubs
 
         internal static void ValidateResourceId(ResourceIdentifier id)
         {
-            if (id.ResourceType != EventHubsNamespaceResource.ResourceType)
-                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, EventHubsNamespaceResource.ResourceType), nameof(id));
+            if (id.ResourceType != EHNamespaceResource.ResourceType)
+                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, EHNamespaceResource.ResourceType), nameof(id));
         }
 
         /// <summary>

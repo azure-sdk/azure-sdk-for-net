@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.EventHubs.Models
             {
                 return null;
             }
-            Optional<IReadOnlyList<EventHubsNetworkRuleSetData>> value = default;
+            Optional<IReadOnlyList<NetworkRuleSetData>> value = default;
             Optional<string> nextLink = default;
             foreach (var property in element.EnumerateObject())
             {
@@ -30,10 +30,10 @@ namespace Azure.ResourceManager.EventHubs.Models
                     {
                         continue;
                     }
-                    List<EventHubsNetworkRuleSetData> array = new List<EventHubsNetworkRuleSetData>();
+                    List<NetworkRuleSetData> array = new List<NetworkRuleSetData>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(EventHubsNetworkRuleSetData.DeserializeEventHubsNetworkRuleSetData(item));
+                        array.Add(NetworkRuleSetData.DeserializeNetworkRuleSetData(item));
                     }
                     value = array;
                     continue;
