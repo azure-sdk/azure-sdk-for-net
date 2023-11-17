@@ -24,6 +24,11 @@ namespace Azure.Analytics.Synapse.Artifacts.Models
                 writer.WritePropertyName("storeSettings"u8);
                 writer.WriteObjectValue(StoreSettings);
             }
+            if (Optional.IsDefined(FormatSettings))
+            {
+                writer.WritePropertyName("formatSettings"u8);
+                writer.WriteObjectValue(FormatSettings);
+            }
             if (Optional.IsDefined(AdditionalColumns))
             {
                 writer.WritePropertyName("additionalColumns"u8);
@@ -61,6 +66,7 @@ namespace Azure.Analytics.Synapse.Artifacts.Models
                 return null;
             }
             Optional<StoreReadSettings> storeSettings = default;
+            Optional<ParquetReadSettings> formatSettings = default;
             Optional<object> additionalColumns = default;
             string type = default;
             Optional<object> sourceRetryCount = default;
@@ -77,6 +83,15 @@ namespace Azure.Analytics.Synapse.Artifacts.Models
                         continue;
                     }
                     storeSettings = StoreReadSettings.DeserializeStoreReadSettings(property.Value);
+                    continue;
+                }
+                if (property.NameEquals("formatSettings"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    formatSettings = ParquetReadSettings.DeserializeParquetReadSettings(property.Value);
                     continue;
                 }
                 if (property.NameEquals("additionalColumns"u8))
@@ -123,7 +138,7 @@ namespace Azure.Analytics.Synapse.Artifacts.Models
                 additionalPropertiesDictionary.Add(property.Name, property.Value.GetObject());
             }
             additionalProperties = additionalPropertiesDictionary;
-            return new ParquetSource(type, sourceRetryCount.Value, sourceRetryWait.Value, maxConcurrentConnections.Value, additionalProperties, storeSettings.Value, additionalColumns.Value);
+            return new ParquetSource(type, sourceRetryCount.Value, sourceRetryWait.Value, maxConcurrentConnections.Value, additionalProperties, storeSettings.Value, formatSettings.Value, additionalColumns.Value);
         }
 
         internal partial class ParquetSourceConverter : JsonConverter<ParquetSource>

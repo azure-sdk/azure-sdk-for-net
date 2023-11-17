@@ -86,6 +86,7 @@ namespace Azure.Analytics.Synapse.Artifacts.Models
                     case "FileSystemSink": return FileSystemSink.DeserializeFileSystemSink(element);
                     case "InformixSink": return InformixSink.DeserializeInformixSink(element);
                     case "JsonSink": return JsonSink.DeserializeJsonSink(element);
+                    case "LakeHouseTableSink": return LakeHouseTableSink.DeserializeLakeHouseTableSink(element);
                     case "MicrosoftAccessSink": return MicrosoftAccessSink.DeserializeMicrosoftAccessSink(element);
                     case "OdbcSink": return OdbcSink.DeserializeOdbcSink(element);
                     case "OracleSink": return OracleSink.DeserializeOracleSink(element);

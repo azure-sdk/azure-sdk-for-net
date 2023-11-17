@@ -53,6 +53,7 @@ namespace Azure.Analytics.Synapse.Artifacts.Models
                     case "AzureDataLakeStoreWriteSettings": return AzureDataLakeStoreWriteSettings.DeserializeAzureDataLakeStoreWriteSettings(element);
                     case "AzureFileStorageWriteSettings": return AzureFileStorageWriteSettings.DeserializeAzureFileStorageWriteSettings(element);
                     case "FileServerWriteSettings": return FileServerWriteSettings.DeserializeFileServerWriteSettings(element);
+                    case "LakeHouseWriteSettings": return LakeHouseWriteSettings.DeserializeLakeHouseWriteSettings(element);
                     case "SftpWriteSettings": return SftpWriteSettings.DeserializeSftpWriteSettings(element);
                 }
             }

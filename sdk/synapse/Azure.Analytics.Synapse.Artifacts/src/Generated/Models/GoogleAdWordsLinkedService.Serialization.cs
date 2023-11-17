@@ -114,6 +114,26 @@ namespace Azure.Analytics.Synapse.Artifacts.Models
                 writer.WritePropertyName("useSystemTrustStore"u8);
                 writer.WriteObjectValue(UseSystemTrustStore);
             }
+            if (Optional.IsDefined(PrivateKey))
+            {
+                writer.WritePropertyName("privateKey"u8);
+                writer.WriteObjectValue(PrivateKey);
+            }
+            if (Optional.IsDefined(LoginCustomerID))
+            {
+                writer.WritePropertyName("loginCustomerID"u8);
+                writer.WriteObjectValue(LoginCustomerID);
+            }
+            if (Optional.IsDefined(GoogleAdsApiVersion))
+            {
+                writer.WritePropertyName("googleAdsApiVersion"u8);
+                writer.WriteObjectValue(GoogleAdsApiVersion);
+            }
+            if (Optional.IsDefined(SupportLegacyDataTypes))
+            {
+                writer.WritePropertyName("supportLegacyDataTypes"u8);
+                writer.WriteObjectValue(SupportLegacyDataTypes);
+            }
             if (Optional.IsDefined(EncryptedCredential))
             {
                 writer.WritePropertyName("encryptedCredential"u8);
@@ -150,6 +170,10 @@ namespace Azure.Analytics.Synapse.Artifacts.Models
             Optional<object> keyFilePath = default;
             Optional<object> trustedCertPath = default;
             Optional<object> useSystemTrustStore = default;
+            Optional<SecretBase> privateKey = default;
+            Optional<object> loginCustomerID = default;
+            Optional<object> googleAdsApiVersion = default;
+            Optional<object> supportLegacyDataTypes = default;
             Optional<object> encryptedCredential = default;
             IDictionary<string, object> additionalProperties = default;
             Dictionary<string, object> additionalPropertiesDictionary = new Dictionary<string, object>();
@@ -317,6 +341,42 @@ namespace Azure.Analytics.Synapse.Artifacts.Models
                             useSystemTrustStore = property0.Value.GetObject();
                             continue;
                         }
+                        if (property0.NameEquals("privateKey"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            privateKey = SecretBase.DeserializeSecretBase(property0.Value);
+                            continue;
+                        }
+                        if (property0.NameEquals("loginCustomerID"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            loginCustomerID = property0.Value.GetObject();
+                            continue;
+                        }
+                        if (property0.NameEquals("googleAdsApiVersion"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            googleAdsApiVersion = property0.Value.GetObject();
+                            continue;
+                        }
+                        if (property0.NameEquals("supportLegacyDataTypes"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            supportLegacyDataTypes = property0.Value.GetObject();
+                            continue;
+                        }
                         if (property0.NameEquals("encryptedCredential"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -332,7 +392,7 @@ namespace Azure.Analytics.Synapse.Artifacts.Models
                 additionalPropertiesDictionary.Add(property.Name, property.Value.GetObject());
             }
             additionalProperties = additionalPropertiesDictionary;
-            return new GoogleAdWordsLinkedService(type, connectVia.Value, description.Value, Optional.ToDictionary(parameters), Optional.ToList(annotations), additionalProperties, connectionProperties.Value, clientCustomerID.Value, developerToken.Value, Optional.ToNullable(authenticationType), refreshToken.Value, clientId.Value, clientSecret.Value, email.Value, keyFilePath.Value, trustedCertPath.Value, useSystemTrustStore.Value, encryptedCredential.Value);
+            return new GoogleAdWordsLinkedService(type, connectVia.Value, description.Value, Optional.ToDictionary(parameters), Optional.ToList(annotations), additionalProperties, connectionProperties.Value, clientCustomerID.Value, developerToken.Value, Optional.ToNullable(authenticationType), refreshToken.Value, clientId.Value, clientSecret.Value, email.Value, keyFilePath.Value, trustedCertPath.Value, useSystemTrustStore.Value, privateKey.Value, loginCustomerID.Value, googleAdsApiVersion.Value, supportLegacyDataTypes.Value, encryptedCredential.Value);
         }
 
         internal partial class GoogleAdWordsLinkedServiceConverter : JsonConverter<GoogleAdWordsLinkedService>
