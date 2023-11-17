@@ -28,7 +28,7 @@ namespace Azure.Analytics.Synapse.Spark
         }
 
         /// <summary> Initializes a new instance of SparkSessionClient. </summary>
-        /// <param name="endpoint"> The workspace development endpoint, for example https://myworkspace.dev.azuresynapse.net. </param>
+        /// <param name="endpoint"> The workspace development endpoint, for example `https://myworkspace.dev.azuresynapse.net`. </param>
         /// <param name="livyApiVersion"> Valid api-version for the request. The default value is "2019-11-01-preview". </param>
         /// <param name="sparkPoolName"> Name of the spark pool. </param>
         /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
@@ -62,7 +62,7 @@ namespace Azure.Analytics.Synapse.Spark
         /// <summary> Initializes a new instance of SparkSessionClient. </summary>
         /// <param name="clientDiagnostics"> The handler for diagnostic messaging in the client. </param>
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
-        /// <param name="endpoint"> The workspace development endpoint, for example https://myworkspace.dev.azuresynapse.net. </param>
+        /// <param name="endpoint"> The workspace development endpoint, for example `https://myworkspace.dev.azuresynapse.net`. </param>
         /// <param name="livyApiVersion"> Valid api-version for the request. The default value is "2019-11-01-preview". </param>
         /// <param name="sparkPoolName"> Name of the spark pool. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="clientDiagnostics"/>, <paramref name="pipeline"/>, <paramref name="endpoint"/>, <paramref name="livyApiVersion"/> or <paramref name="sparkPoolName"/> is null. </exception>
