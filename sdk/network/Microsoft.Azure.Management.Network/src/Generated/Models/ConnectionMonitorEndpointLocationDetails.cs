@@ -14,26 +14,28 @@ namespace Microsoft.Azure.Management.Network.Models
     using System.Linq;
 
     /// <summary>
-    /// Configuration of the protocol.
+    /// Connection monitor endpoint location details.
     /// </summary>
-    public partial class ProtocolConfiguration
+    public partial class ConnectionMonitorEndpointLocationDetails
     {
         /// <summary>
-        /// Initializes a new instance of the ProtocolConfiguration class.
+        /// Initializes a new instance of the
+        /// ConnectionMonitorEndpointLocationDetails class.
         /// </summary>
-        public ProtocolConfiguration()
+        public ConnectionMonitorEndpointLocationDetails()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the ProtocolConfiguration class.
+        /// Initializes a new instance of the
+        /// ConnectionMonitorEndpointLocationDetails class.
         /// </summary>
-        /// <param name="httpConfiguration">HTTP configuration of the
-        /// connectivity check.</param>
-        public ProtocolConfiguration(HTTPConfiguration httpConfiguration = default(HTTPConfiguration))
+        /// <param name="region">Region for connection monitor
+        /// endpoint.</param>
+        public ConnectionMonitorEndpointLocationDetails(string region = default(string))
         {
-            HttpConfiguration = httpConfiguration;
+            Region = region;
             CustomInit();
         }
 
@@ -43,10 +45,10 @@ namespace Microsoft.Azure.Management.Network.Models
         partial void CustomInit();
 
         /// <summary>
-        /// Gets or sets HTTP configuration of the connectivity check.
+        /// Gets or sets region for connection monitor endpoint.
         /// </summary>
-        [JsonProperty(PropertyName = "httpConfiguration")]
-        public HTTPConfiguration HttpConfiguration { get; set; }
+        [JsonProperty(PropertyName = "region")]
+        public string Region { get; set; }
 
     }
 }

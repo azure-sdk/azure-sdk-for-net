@@ -43,17 +43,17 @@ namespace Microsoft.Azure.Management.Network.Models
         /// request.</param>
         /// <param name="validStatusCodeRanges">HTTP status codes to consider
         /// successful. For instance, "2xx,301-304,418".</param>
-        /// <param name="preferHTTPS">Value indicating whether HTTPS is
+        /// <param name="preferHttps">Value indicating whether HTTPS is
         /// preferred over HTTP in cases where the choice is not
         /// explicit.</param>
-        public ConnectionMonitorHttpConfiguration(int? port = default(int?), string method = default(string), string path = default(string), IList<HTTPHeader> requestHeaders = default(IList<HTTPHeader>), IList<string> validStatusCodeRanges = default(IList<string>), bool? preferHTTPS = default(bool?))
+        public ConnectionMonitorHttpConfiguration(int? port = default(int?), string method = default(string), string path = default(string), IList<HTTPHeader> requestHeaders = default(IList<HTTPHeader>), IList<string> validStatusCodeRanges = default(IList<string>), bool? preferHttps = default(bool?))
         {
             Port = port;
             Method = method;
             Path = path;
             RequestHeaders = requestHeaders;
             ValidStatusCodeRanges = validStatusCodeRanges;
-            PreferHTTPS = preferHTTPS;
+            PreferHttps = preferHttps;
             CustomInit();
         }
 
@@ -99,8 +99,8 @@ namespace Microsoft.Azure.Management.Network.Models
         /// Gets or sets value indicating whether HTTPS is preferred over HTTP
         /// in cases where the choice is not explicit.
         /// </summary>
-        [JsonProperty(PropertyName = "preferHTTPS")]
-        public bool? PreferHTTPS { get; set; }
+        [JsonProperty(PropertyName = "preferHttps")]
+        public bool? PreferHttps { get; set; }
 
         /// <summary>
         /// Validate the object.
