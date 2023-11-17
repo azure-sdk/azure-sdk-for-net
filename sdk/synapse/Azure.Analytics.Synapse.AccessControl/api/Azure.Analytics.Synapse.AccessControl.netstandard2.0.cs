@@ -22,8 +22,8 @@ namespace Azure.Analytics.Synapse.AccessControl
         public virtual System.Threading.Tasks.Task<Azure.Response> DeleteRoleAssignmentByIdAsync(string roleAssignmentId, string scope = null, Azure.RequestContext context = null) { throw null; }
         public virtual Azure.Response GetRoleAssignmentById(string roleAssignmentId, Azure.RequestContext context) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response> GetRoleAssignmentByIdAsync(string roleAssignmentId, Azure.RequestContext context) { throw null; }
-        public virtual Azure.Response GetRoleAssignments(string roleId, string principalId, string scope, string continuationToken, Azure.RequestContext context) { throw null; }
-        public virtual System.Threading.Tasks.Task<Azure.Response> GetRoleAssignmentsAsync(string roleId, string principalId, string scope, string continuationToken, Azure.RequestContext context) { throw null; }
+        public virtual Azure.Pageable<System.BinaryData> GetRoleAssignments(string roleId, string principalId, string scope, string continuationToken, Azure.RequestContext context) { throw null; }
+        public virtual Azure.AsyncPageable<System.BinaryData> GetRoleAssignmentsAsync(string roleId, string principalId, string scope, string continuationToken, Azure.RequestContext context) { throw null; }
     }
     public partial class RoleDefinitionsClient
     {

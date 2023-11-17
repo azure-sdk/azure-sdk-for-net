@@ -7,6 +7,7 @@
 
 using System;
 using System.Threading.Tasks;
+using Autorest.CSharp.Core;
 using Azure;
 using Azure.Core;
 using Azure.Core.Pipeline;
@@ -35,7 +36,7 @@ namespace Azure.Analytics.Synapse.AccessControl
         }
 
         /// <summary> Initializes a new instance of RoleAssignmentsClient. </summary>
-        /// <param name="endpoint"> The workspace development endpoint, for example https://myworkspace.dev.azuresynapse.net. </param>
+        /// <param name="endpoint"> The workspace development endpoint, for example `https://myworkspace.dev.azuresynapse.net`. </param>
         /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> or <paramref name="credential"/> is null. </exception>
         public RoleAssignmentsClient(Uri endpoint, TokenCredential credential) : this(endpoint, credential, new AccessControlClientOptions())
@@ -43,7 +44,7 @@ namespace Azure.Analytics.Synapse.AccessControl
         }
 
         /// <summary> Initializes a new instance of RoleAssignmentsClient. </summary>
-        /// <param name="endpoint"> The workspace development endpoint, for example https://myworkspace.dev.azuresynapse.net. </param>
+        /// <param name="endpoint"> The workspace development endpoint, for example `https://myworkspace.dev.azuresynapse.net`. </param>
         /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
         /// <param name="options"> The options for configuring the client. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> or <paramref name="credential"/> is null. </exception>
@@ -126,74 +127,6 @@ namespace Azure.Analytics.Synapse.AccessControl
             catch (Exception e)
             {
                 scope.Failed(e);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// [Protocol Method] List role assignments.
-        /// <list type="bullet">
-        /// <item>
-        /// <description>
-        /// This <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/ProtocolMethods.md">protocol method</see> allows explicit creation of the request and processing of the response for advanced scenarios.
-        /// </description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="roleId"> Synapse Built-In Role Id. </param>
-        /// <param name="principalId"> Object ID of the AAD principal or security-group. </param>
-        /// <param name="scope"> Scope of the Synapse Built-in Role. </param>
-        /// <param name="continuationToken"> Continuation token. </param>
-        /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
-        /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/RoleAssignmentsClient.xml" path="doc/members/member[@name='GetRoleAssignmentsAsync(string,string,string,string,RequestContext)']/*" />
-        public virtual async Task<Response> GetRoleAssignmentsAsync(string roleId, string principalId, string scope, string continuationToken, RequestContext context)
-        {
-            using var scope0 = ClientDiagnostics.CreateScope("RoleAssignmentsClient.GetRoleAssignments");
-            scope0.Start();
-            try
-            {
-                using HttpMessage message = CreateGetRoleAssignmentsRequest(roleId, principalId, scope, continuationToken, context);
-                return await _pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
-            }
-            catch (Exception e)
-            {
-                scope0.Failed(e);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// [Protocol Method] List role assignments.
-        /// <list type="bullet">
-        /// <item>
-        /// <description>
-        /// This <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/ProtocolMethods.md">protocol method</see> allows explicit creation of the request and processing of the response for advanced scenarios.
-        /// </description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="roleId"> Synapse Built-In Role Id. </param>
-        /// <param name="principalId"> Object ID of the AAD principal or security-group. </param>
-        /// <param name="scope"> Scope of the Synapse Built-in Role. </param>
-        /// <param name="continuationToken"> Continuation token. </param>
-        /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
-        /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/RoleAssignmentsClient.xml" path="doc/members/member[@name='GetRoleAssignments(string,string,string,string,RequestContext)']/*" />
-        public virtual Response GetRoleAssignments(string roleId, string principalId, string scope, string continuationToken, RequestContext context)
-        {
-            using var scope0 = ClientDiagnostics.CreateScope("RoleAssignmentsClient.GetRoleAssignments");
-            scope0.Start();
-            try
-            {
-                using HttpMessage message = CreateGetRoleAssignmentsRequest(roleId, principalId, scope, continuationToken, context);
-                return _pipeline.ProcessMessage(message, context);
-            }
-            catch (Exception e)
-            {
-                scope0.Failed(e);
                 throw;
             }
         }
@@ -414,6 +347,54 @@ namespace Azure.Analytics.Synapse.AccessControl
                 scope0.Failed(e);
                 throw;
             }
+        }
+
+        /// <summary>
+        /// [Protocol Method] List role assignments.
+        /// <list type="bullet">
+        /// <item>
+        /// <description>
+        /// This <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/ProtocolMethods.md">protocol method</see> allows explicit creation of the request and processing of the response for advanced scenarios.
+        /// </description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="roleId"> Synapse Built-In Role Id. </param>
+        /// <param name="principalId"> Object ID of the AAD principal or security-group. </param>
+        /// <param name="scope"> Scope of the Synapse Built-in Role. </param>
+        /// <param name="continuationToken"> Continuation token. </param>
+        /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
+        /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
+        /// <returns> The <see cref="AsyncPageable{T}"/> from the service containing a list of <see cref="BinaryData"/> objects. Details of the body schema for each item in the collection are in the Remarks section below. </returns>
+        /// <include file="Docs/RoleAssignmentsClient.xml" path="doc/members/member[@name='GetRoleAssignmentsAsync(string,string,string,string,RequestContext)']/*" />
+        public virtual AsyncPageable<BinaryData> GetRoleAssignmentsAsync(string roleId, string principalId, string scope, string continuationToken, RequestContext context)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => CreateGetRoleAssignmentsRequest(roleId, principalId, scope, continuationToken, context);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, null, e => BinaryData.FromString(e.GetRawText()), ClientDiagnostics, _pipeline, "RoleAssignmentsClient.GetRoleAssignments", "value", null, context);
+        }
+
+        /// <summary>
+        /// [Protocol Method] List role assignments.
+        /// <list type="bullet">
+        /// <item>
+        /// <description>
+        /// This <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/ProtocolMethods.md">protocol method</see> allows explicit creation of the request and processing of the response for advanced scenarios.
+        /// </description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="roleId"> Synapse Built-In Role Id. </param>
+        /// <param name="principalId"> Object ID of the AAD principal or security-group. </param>
+        /// <param name="scope"> Scope of the Synapse Built-in Role. </param>
+        /// <param name="continuationToken"> Continuation token. </param>
+        /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
+        /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
+        /// <returns> The <see cref="Pageable{T}"/> from the service containing a list of <see cref="BinaryData"/> objects. Details of the body schema for each item in the collection are in the Remarks section below. </returns>
+        /// <include file="Docs/RoleAssignmentsClient.xml" path="doc/members/member[@name='GetRoleAssignments(string,string,string,string,RequestContext)']/*" />
+        public virtual Pageable<BinaryData> GetRoleAssignments(string roleId, string principalId, string scope, string continuationToken, RequestContext context)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => CreateGetRoleAssignmentsRequest(roleId, principalId, scope, continuationToken, context);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, null, e => BinaryData.FromString(e.GetRawText()), ClientDiagnostics, _pipeline, "RoleAssignmentsClient.GetRoleAssignments", "value", null, context);
         }
 
         internal HttpMessage CreateCheckPrincipalAccessRequest(RequestContent content, ContentType contentType, RequestContext context)

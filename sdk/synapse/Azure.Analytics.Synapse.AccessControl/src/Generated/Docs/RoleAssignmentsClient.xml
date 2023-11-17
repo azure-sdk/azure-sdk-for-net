@@ -59,13 +59,13 @@ using RequestContent content = RequestContent.Create(new
 Response response = await client.CheckPrincipalAccessAsync(content, new ContentType("application/json"));
 
 JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-Console.WriteLine(result.GetProperty("accessDecisions")[0].GetProperty("accessDecision").ToString());
-Console.WriteLine(result.GetProperty("accessDecisions")[0].GetProperty("actionId").ToString());
-Console.WriteLine(result.GetProperty("accessDecisions")[0].GetProperty("roleAssignment").GetProperty("id").ToString());
-Console.WriteLine(result.GetProperty("accessDecisions")[0].GetProperty("roleAssignment").GetProperty("roleDefinitionId").ToString());
-Console.WriteLine(result.GetProperty("accessDecisions")[0].GetProperty("roleAssignment").GetProperty("principalId").ToString());
-Console.WriteLine(result.GetProperty("accessDecisions")[0].GetProperty("roleAssignment").GetProperty("scope").ToString());
-Console.WriteLine(result.GetProperty("accessDecisions")[0].GetProperty("roleAssignment").GetProperty("principalType").ToString());
+Console.WriteLine(result.GetProperty("AccessDecisions")[0].GetProperty("accessDecision").ToString());
+Console.WriteLine(result.GetProperty("AccessDecisions")[0].GetProperty("actionId").ToString());
+Console.WriteLine(result.GetProperty("AccessDecisions")[0].GetProperty("roleAssignment").GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("AccessDecisions")[0].GetProperty("roleAssignment").GetProperty("roleDefinitionId").ToString());
+Console.WriteLine(result.GetProperty("AccessDecisions")[0].GetProperty("roleAssignment").GetProperty("principalId").ToString());
+Console.WriteLine(result.GetProperty("AccessDecisions")[0].GetProperty("roleAssignment").GetProperty("scope").ToString());
+Console.WriteLine(result.GetProperty("AccessDecisions")[0].GetProperty("roleAssignment").GetProperty("principalType").ToString());
 ]]></code></example>
     </member>
     <member name="CheckPrincipalAccess(RequestContent,ContentType,RequestContext)">
@@ -126,73 +126,13 @@ using RequestContent content = RequestContent.Create(new
 Response response = client.CheckPrincipalAccess(content, new ContentType("application/json"));
 
 JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-Console.WriteLine(result.GetProperty("accessDecisions")[0].GetProperty("accessDecision").ToString());
-Console.WriteLine(result.GetProperty("accessDecisions")[0].GetProperty("actionId").ToString());
-Console.WriteLine(result.GetProperty("accessDecisions")[0].GetProperty("roleAssignment").GetProperty("id").ToString());
-Console.WriteLine(result.GetProperty("accessDecisions")[0].GetProperty("roleAssignment").GetProperty("roleDefinitionId").ToString());
-Console.WriteLine(result.GetProperty("accessDecisions")[0].GetProperty("roleAssignment").GetProperty("principalId").ToString());
-Console.WriteLine(result.GetProperty("accessDecisions")[0].GetProperty("roleAssignment").GetProperty("scope").ToString());
-Console.WriteLine(result.GetProperty("accessDecisions")[0].GetProperty("roleAssignment").GetProperty("principalType").ToString());
-]]></code></example>
-    </member>
-    <member name="GetRoleAssignmentsAsync(string,string,string,string,RequestContext)">
-      <example>
-This sample shows how to call GetRoleAssignmentsAsync and parse the result.
-<code><![CDATA[
-Uri endpoint = new Uri("<endpoint>");
-TokenCredential credential = new DefaultAzureCredential();
-RoleAssignmentsClient client = new RoleAssignmentsClient(endpoint, credential);
-
-Response response = await client.GetRoleAssignmentsAsync(null, null, null, null, null);
-
-JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-Console.WriteLine(result.ToString());
-]]></code>
-This sample shows how to call GetRoleAssignmentsAsync with all parameters and parse the result.
-<code><![CDATA[
-Uri endpoint = new Uri("<endpoint>");
-TokenCredential credential = new DefaultAzureCredential();
-RoleAssignmentsClient client = new RoleAssignmentsClient(endpoint, credential);
-
-Response response = await client.GetRoleAssignmentsAsync("<roleId>", "<principalId>", "<scope>", "<continuationToken>", null);
-
-JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-Console.WriteLine(result.GetProperty("count").ToString());
-Console.WriteLine(result.GetProperty("value")[0].GetProperty("id").ToString());
-Console.WriteLine(result.GetProperty("value")[0].GetProperty("roleDefinitionId").ToString());
-Console.WriteLine(result.GetProperty("value")[0].GetProperty("principalId").ToString());
-Console.WriteLine(result.GetProperty("value")[0].GetProperty("scope").ToString());
-Console.WriteLine(result.GetProperty("value")[0].GetProperty("principalType").ToString());
-]]></code></example>
-    </member>
-    <member name="GetRoleAssignments(string,string,string,string,RequestContext)">
-      <example>
-This sample shows how to call GetRoleAssignments and parse the result.
-<code><![CDATA[
-Uri endpoint = new Uri("<endpoint>");
-TokenCredential credential = new DefaultAzureCredential();
-RoleAssignmentsClient client = new RoleAssignmentsClient(endpoint, credential);
-
-Response response = client.GetRoleAssignments(null, null, null, null, null);
-
-JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-Console.WriteLine(result.ToString());
-]]></code>
-This sample shows how to call GetRoleAssignments with all parameters and parse the result.
-<code><![CDATA[
-Uri endpoint = new Uri("<endpoint>");
-TokenCredential credential = new DefaultAzureCredential();
-RoleAssignmentsClient client = new RoleAssignmentsClient(endpoint, credential);
-
-Response response = client.GetRoleAssignments("<roleId>", "<principalId>", "<scope>", "<continuationToken>", null);
-
-JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
-Console.WriteLine(result.GetProperty("count").ToString());
-Console.WriteLine(result.GetProperty("value")[0].GetProperty("id").ToString());
-Console.WriteLine(result.GetProperty("value")[0].GetProperty("roleDefinitionId").ToString());
-Console.WriteLine(result.GetProperty("value")[0].GetProperty("principalId").ToString());
-Console.WriteLine(result.GetProperty("value")[0].GetProperty("scope").ToString());
-Console.WriteLine(result.GetProperty("value")[0].GetProperty("principalType").ToString());
+Console.WriteLine(result.GetProperty("AccessDecisions")[0].GetProperty("accessDecision").ToString());
+Console.WriteLine(result.GetProperty("AccessDecisions")[0].GetProperty("actionId").ToString());
+Console.WriteLine(result.GetProperty("AccessDecisions")[0].GetProperty("roleAssignment").GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("AccessDecisions")[0].GetProperty("roleAssignment").GetProperty("roleDefinitionId").ToString());
+Console.WriteLine(result.GetProperty("AccessDecisions")[0].GetProperty("roleAssignment").GetProperty("principalId").ToString());
+Console.WriteLine(result.GetProperty("AccessDecisions")[0].GetProperty("roleAssignment").GetProperty("scope").ToString());
+Console.WriteLine(result.GetProperty("AccessDecisions")[0].GetProperty("roleAssignment").GetProperty("principalType").ToString());
 ]]></code></example>
     </member>
     <member name="CreateRoleAssignmentAsync(string,RequestContent,ContentType,RequestContext)">
@@ -381,6 +321,68 @@ RoleAssignmentsClient client = new RoleAssignmentsClient(endpoint, credential);
 Response response = client.DeleteRoleAssignmentById("<roleAssignmentId>", scope: "<scope>");
 
 Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="GetRoleAssignmentsAsync(string,string,string,string,RequestContext)">
+      <example>
+This sample shows how to call GetRoleAssignmentsAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+RoleAssignmentsClient client = new RoleAssignmentsClient(endpoint, credential);
+
+await foreach (BinaryData item in client.GetRoleAssignmentsAsync(null, null, null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.ToString());
+}
+]]></code>
+This sample shows how to call GetRoleAssignmentsAsync with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+RoleAssignmentsClient client = new RoleAssignmentsClient(endpoint, credential);
+
+await foreach (BinaryData item in client.GetRoleAssignmentsAsync("<roleId>", "<principalId>", "<scope>", "<continuationToken>", null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("roleDefinitionId").ToString());
+    Console.WriteLine(result.GetProperty("principalId").ToString());
+    Console.WriteLine(result.GetProperty("scope").ToString());
+    Console.WriteLine(result.GetProperty("principalType").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetRoleAssignments(string,string,string,string,RequestContext)">
+      <example>
+This sample shows how to call GetRoleAssignments and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+RoleAssignmentsClient client = new RoleAssignmentsClient(endpoint, credential);
+
+foreach (BinaryData item in client.GetRoleAssignments(null, null, null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.ToString());
+}
+]]></code>
+This sample shows how to call GetRoleAssignments with all parameters and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<endpoint>");
+TokenCredential credential = new DefaultAzureCredential();
+RoleAssignmentsClient client = new RoleAssignmentsClient(endpoint, credential);
+
+foreach (BinaryData item in client.GetRoleAssignments("<roleId>", "<principalId>", "<scope>", "<continuationToken>", null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("roleDefinitionId").ToString());
+    Console.WriteLine(result.GetProperty("principalId").ToString());
+    Console.WriteLine(result.GetProperty("scope").ToString());
+    Console.WriteLine(result.GetProperty("principalType").ToString());
+}
 ]]></code></example>
     </member>
   </members>
