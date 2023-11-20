@@ -17,6 +17,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
         /// <summary> Initializes a new instance of AppPlatformGatewayProperties. </summary>
         public AppPlatformGatewayProperties()
         {
+            Apms = new ChangeTrackingList<ApmReference>();
             Instances = new ChangeTrackingList<AppPlatformGatewayInstance>();
         }
 
@@ -28,10 +29,13 @@ namespace Azure.ResourceManager.AppPlatform.Models
         /// <param name="ssoProperties"> Single sign-on related configuration. </param>
         /// <param name="apiMetadataProperties"> API metadata property for Spring Cloud Gateway. </param>
         /// <param name="corsProperties"> Cross-Origin Resource Sharing property. </param>
+        /// <param name="clientAuth"> Client-Certification Authentication. </param>
+        /// <param name="apms"> Collection of ApmReferences in service level. </param>
+        /// <param name="environmentVariables"> Environment variables of Spring Cloud Gateway. </param>
         /// <param name="resourceRequests"> The requested resource quantity for required CPU and Memory. </param>
         /// <param name="instances"> Collection of instances belong to Spring Cloud Gateway. </param>
         /// <param name="operatorProperties"> Properties of the Spring Cloud Gateway Operator. </param>
-        internal AppPlatformGatewayProperties(AppPlatformGatewayProvisioningState? provisioningState, bool? isPublic, Uri uri, bool? isHttpsOnly, AppPlatformSsoProperties ssoProperties, AppPlatformGatewayApiMetadataProperties apiMetadataProperties, AppPlatformGatewayCorsProperties corsProperties, AppPlatformGatewayResourceRequirements resourceRequests, IReadOnlyList<AppPlatformGatewayInstance> instances, AppPlatformGatewayOperatorProperties operatorProperties)
+        internal AppPlatformGatewayProperties(AppPlatformGatewayProvisioningState? provisioningState, bool? isPublic, Uri uri, bool? isHttpsOnly, AppPlatformSsoProperties ssoProperties, AppPlatformGatewayApiMetadataProperties apiMetadataProperties, AppPlatformGatewayCorsProperties corsProperties, GatewayPropertiesClientAuth clientAuth, IList<ApmReference> apms, GatewayPropertiesEnvironmentVariables environmentVariables, AppPlatformGatewayResourceRequirements resourceRequests, IReadOnlyList<AppPlatformGatewayInstance> instances, AppPlatformGatewayOperatorProperties operatorProperties)
         {
             ProvisioningState = provisioningState;
             IsPublic = isPublic;
@@ -40,6 +44,9 @@ namespace Azure.ResourceManager.AppPlatform.Models
             SsoProperties = ssoProperties;
             ApiMetadataProperties = apiMetadataProperties;
             CorsProperties = corsProperties;
+            ClientAuth = clientAuth;
+            Apms = apms;
+            EnvironmentVariables = environmentVariables;
             ResourceRequests = resourceRequests;
             Instances = instances;
             OperatorProperties = operatorProperties;
@@ -59,6 +66,12 @@ namespace Azure.ResourceManager.AppPlatform.Models
         public AppPlatformGatewayApiMetadataProperties ApiMetadataProperties { get; set; }
         /// <summary> Cross-Origin Resource Sharing property. </summary>
         public AppPlatformGatewayCorsProperties CorsProperties { get; set; }
+        /// <summary> Client-Certification Authentication. </summary>
+        public GatewayPropertiesClientAuth ClientAuth { get; set; }
+        /// <summary> Collection of ApmReferences in service level. </summary>
+        public IList<ApmReference> Apms { get; }
+        /// <summary> Environment variables of Spring Cloud Gateway. </summary>
+        public GatewayPropertiesEnvironmentVariables EnvironmentVariables { get; set; }
         /// <summary> The requested resource quantity for required CPU and Memory. </summary>
         public AppPlatformGatewayResourceRequirements ResourceRequests { get; set; }
         /// <summary> Collection of instances belong to Spring Cloud Gateway. </summary>

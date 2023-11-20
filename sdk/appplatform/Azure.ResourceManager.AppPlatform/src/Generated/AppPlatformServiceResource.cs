@@ -42,6 +42,8 @@ namespace Azure.ResourceManager.AppPlatform
         private readonly ServicesRestOperations _appPlatformServiceServicesRestClient;
         private readonly ClientDiagnostics _appPlatformConfigServerConfigServersClientDiagnostics;
         private readonly ConfigServersRestOperations _appPlatformConfigServerConfigServersRestClient;
+        private readonly ClientDiagnostics _appPlatformBuildpackBindingBuildpackBindingClientDiagnostics;
+        private readonly BuildpackBindingRestOperations _appPlatformBuildpackBindingBuildpackBindingRestClient;
         private readonly ClientDiagnostics _appPlatformDeploymentDeploymentsClientDiagnostics;
         private readonly DeploymentsRestOperations _appPlatformDeploymentDeploymentsRestClient;
         private readonly AppPlatformServiceData _data;
@@ -71,6 +73,9 @@ namespace Azure.ResourceManager.AppPlatform
             _appPlatformConfigServerConfigServersClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.AppPlatform", AppPlatformConfigServerResource.ResourceType.Namespace, Diagnostics);
             TryGetApiVersion(AppPlatformConfigServerResource.ResourceType, out string appPlatformConfigServerConfigServersApiVersion);
             _appPlatformConfigServerConfigServersRestClient = new ConfigServersRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, appPlatformConfigServerConfigServersApiVersion);
+            _appPlatformBuildpackBindingBuildpackBindingClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.AppPlatform", AppPlatformBuildpackBindingResource.ResourceType.Namespace, Diagnostics);
+            TryGetApiVersion(AppPlatformBuildpackBindingResource.ResourceType, out string appPlatformBuildpackBindingBuildpackBindingApiVersion);
+            _appPlatformBuildpackBindingBuildpackBindingRestClient = new BuildpackBindingRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, appPlatformBuildpackBindingBuildpackBindingApiVersion);
             _appPlatformDeploymentDeploymentsClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.AppPlatform", AppPlatformDeploymentResource.ResourceType.Namespace, Diagnostics);
             TryGetApiVersion(AppPlatformDeploymentResource.ResourceType, out string appPlatformDeploymentDeploymentsApiVersion);
             _appPlatformDeploymentDeploymentsRestClient = new DeploymentsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, appPlatformDeploymentDeploymentsApiVersion);
@@ -101,6 +106,59 @@ namespace Azure.ResourceManager.AppPlatform
         {
             if (id.ResourceType != ResourceType)
                 throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, ResourceType), nameof(id));
+        }
+
+        /// <summary> Gets a collection of ApmResources in the AppPlatformService. </summary>
+        /// <returns> An object representing collection of ApmResources and their operations over a ApmResource. </returns>
+        public virtual ApmResourceCollection GetApmResources()
+        {
+            return GetCachedClient(client => new ApmResourceCollection(client, Id));
+        }
+
+        /// <summary>
+        /// Get the APM by name.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/apms/{apmName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Apms_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="apmName"> The name of the APM. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="apmName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="apmName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<ApmResource>> GetApmResourceAsync(string apmName, CancellationToken cancellationToken = default)
+        {
+            return await GetApmResources().GetAsync(apmName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Get the APM by name.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/apms/{apmName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Apms_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="apmName"> The name of the APM. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="apmName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="apmName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<ApmResource> GetApmResource(string apmName, CancellationToken cancellationToken = default)
+        {
+            return GetApmResources().Get(apmName, cancellationToken);
         }
 
         /// <summary> Gets an object representing a AppPlatformConfigServerResource along with the instance operations that can be performed on it in the AppPlatformService. </summary>
@@ -214,6 +272,165 @@ namespace Azure.ResourceManager.AppPlatform
         public virtual Response<AppPlatformServiceRegistryResource> GetAppPlatformServiceRegistry(string serviceRegistryName, CancellationToken cancellationToken = default)
         {
             return GetAppPlatformServiceRegistries().Get(serviceRegistryName, cancellationToken);
+        }
+
+        /// <summary> Gets a collection of ApplicationLiveViewResources in the AppPlatformService. </summary>
+        /// <returns> An object representing collection of ApplicationLiveViewResources and their operations over a ApplicationLiveViewResource. </returns>
+        public virtual ApplicationLiveViewResourceCollection GetApplicationLiveViewResources()
+        {
+            return GetCachedClient(client => new ApplicationLiveViewResourceCollection(client, Id));
+        }
+
+        /// <summary>
+        /// Get the Application Live  and its properties.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/applicationLiveViews/{applicationLiveViewName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>ApplicationLiveViews_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="applicationLiveViewName"> The name of Application Live View. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="applicationLiveViewName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="applicationLiveViewName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<ApplicationLiveViewResource>> GetApplicationLiveViewResourceAsync(string applicationLiveViewName, CancellationToken cancellationToken = default)
+        {
+            return await GetApplicationLiveViewResources().GetAsync(applicationLiveViewName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Get the Application Live  and its properties.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/applicationLiveViews/{applicationLiveViewName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>ApplicationLiveViews_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="applicationLiveViewName"> The name of Application Live View. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="applicationLiveViewName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="applicationLiveViewName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<ApplicationLiveViewResource> GetApplicationLiveViewResource(string applicationLiveViewName, CancellationToken cancellationToken = default)
+        {
+            return GetApplicationLiveViewResources().Get(applicationLiveViewName, cancellationToken);
+        }
+
+        /// <summary> Gets a collection of DevToolPortalResources in the AppPlatformService. </summary>
+        /// <returns> An object representing collection of DevToolPortalResources and their operations over a DevToolPortalResource. </returns>
+        public virtual DevToolPortalResourceCollection GetDevToolPortalResources()
+        {
+            return GetCachedClient(client => new DevToolPortalResourceCollection(client, Id));
+        }
+
+        /// <summary>
+        /// Get the Application Live  and its properties.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/DevToolPortals/{devToolPortalName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>DevToolPortals_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="devToolPortalName"> The name of Dev Tool Portal. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="devToolPortalName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="devToolPortalName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<DevToolPortalResource>> GetDevToolPortalResourceAsync(string devToolPortalName, CancellationToken cancellationToken = default)
+        {
+            return await GetDevToolPortalResources().GetAsync(devToolPortalName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Get the Application Live  and its properties.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/DevToolPortals/{devToolPortalName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>DevToolPortals_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="devToolPortalName"> The name of Dev Tool Portal. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="devToolPortalName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="devToolPortalName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<DevToolPortalResource> GetDevToolPortalResource(string devToolPortalName, CancellationToken cancellationToken = default)
+        {
+            return GetDevToolPortalResources().Get(devToolPortalName, cancellationToken);
+        }
+
+        /// <summary> Gets a collection of ContainerRegistryResources in the AppPlatformService. </summary>
+        /// <returns> An object representing collection of ContainerRegistryResources and their operations over a ContainerRegistryResource. </returns>
+        public virtual ContainerRegistryResourceCollection GetContainerRegistryResources()
+        {
+            return GetCachedClient(client => new ContainerRegistryResourceCollection(client, Id));
+        }
+
+        /// <summary>
+        /// Get the container registries resource.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/containerRegistries/{containerRegistryName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>ContainerRegistries_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="containerRegistryName"> The name of the container registry. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="containerRegistryName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="containerRegistryName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<ContainerRegistryResource>> GetContainerRegistryResourceAsync(string containerRegistryName, CancellationToken cancellationToken = default)
+        {
+            return await GetContainerRegistryResources().GetAsync(containerRegistryName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Get the container registries resource.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/containerRegistries/{containerRegistryName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>ContainerRegistries_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="containerRegistryName"> The name of the container registry. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="containerRegistryName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="containerRegistryName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<ContainerRegistryResource> GetContainerRegistryResource(string containerRegistryName, CancellationToken cancellationToken = default)
+        {
+            return GetContainerRegistryResources().Get(containerRegistryName, cancellationToken);
         }
 
         /// <summary> Gets a collection of AppPlatformBuildServiceResources in the AppPlatformService. </summary>
@@ -541,6 +758,59 @@ namespace Azure.ResourceManager.AppPlatform
         public virtual Response<AppPlatformApiPortalResource> GetAppPlatformApiPortal(string apiPortalName, CancellationToken cancellationToken = default)
         {
             return GetAppPlatformApiPortals().Get(apiPortalName, cancellationToken);
+        }
+
+        /// <summary> Gets a collection of ApplicationAcceleratorResources in the AppPlatformService. </summary>
+        /// <returns> An object representing collection of ApplicationAcceleratorResources and their operations over a ApplicationAcceleratorResource. </returns>
+        public virtual ApplicationAcceleratorResourceCollection GetApplicationAcceleratorResources()
+        {
+            return GetCachedClient(client => new ApplicationAcceleratorResourceCollection(client, Id));
+        }
+
+        /// <summary>
+        /// Get the application accelerator.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/applicationAccelerators/{applicationAcceleratorName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>ApplicationAccelerators_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="applicationAcceleratorName"> The name of the application accelerator. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="applicationAcceleratorName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="applicationAcceleratorName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<ApplicationAcceleratorResource>> GetApplicationAcceleratorResourceAsync(string applicationAcceleratorName, CancellationToken cancellationToken = default)
+        {
+            return await GetApplicationAcceleratorResources().GetAsync(applicationAcceleratorName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Get the application accelerator.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/applicationAccelerators/{applicationAcceleratorName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>ApplicationAccelerators_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="applicationAcceleratorName"> The name of the application accelerator. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="applicationAcceleratorName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="applicationAcceleratorName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<ApplicationAcceleratorResource> GetApplicationAcceleratorResource(string applicationAcceleratorName, CancellationToken cancellationToken = default)
+        {
+            return GetApplicationAcceleratorResources().Get(applicationAcceleratorName, cancellationToken);
         }
 
         /// <summary>
@@ -1136,6 +1406,356 @@ namespace Azure.ResourceManager.AppPlatform
         }
 
         /// <summary>
+        /// Flush Virtual Network DNS settings for a VNET injected Service.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/flushVirtualNetworkDnsSettings</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Services_FlushVnetDnsSetting</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual async Task<ArmOperation> FlushVnetDnsSettingAsync(WaitUntil waitUntil, CancellationToken cancellationToken = default)
+        {
+            using var scope = _appPlatformServiceServicesClientDiagnostics.CreateScope("AppPlatformServiceResource.FlushVnetDnsSetting");
+            scope.Start();
+            try
+            {
+                var response = await _appPlatformServiceServicesRestClient.FlushVnetDnsSettingAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
+                var operation = new AppPlatformArmOperation(_appPlatformServiceServicesClientDiagnostics, Pipeline, _appPlatformServiceServicesRestClient.CreateFlushVnetDnsSettingRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Flush Virtual Network DNS settings for a VNET injected Service.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/flushVirtualNetworkDnsSettings</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Services_FlushVnetDnsSetting</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual ArmOperation FlushVnetDnsSetting(WaitUntil waitUntil, CancellationToken cancellationToken = default)
+        {
+            using var scope = _appPlatformServiceServicesClientDiagnostics.CreateScope("AppPlatformServiceResource.FlushVnetDnsSetting");
+            scope.Start();
+            try
+            {
+                var response = _appPlatformServiceServicesRestClient.FlushVnetDnsSetting(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
+                var operation = new AppPlatformArmOperation(_appPlatformServiceServicesClientDiagnostics, Pipeline, _appPlatformServiceServicesRestClient.CreateFlushVnetDnsSettingRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletionResponse(cancellationToken);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// List supported APM types for a Service.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/supportedApmTypes</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Services_ListSupportedApmTypes</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> An async collection of <see cref="SupportedApmType" /> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<SupportedApmType> GetSupportedApmTypesAsync(CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _appPlatformServiceServicesRestClient.CreateListSupportedApmTypesRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _appPlatformServiceServicesRestClient.CreateListSupportedApmTypesNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, SupportedApmType.DeserializeSupportedApmType, _appPlatformServiceServicesClientDiagnostics, Pipeline, "AppPlatformServiceResource.GetSupportedApmTypes", "value", "nextLink", cancellationToken);
+        }
+
+        /// <summary>
+        /// List supported APM types for a Service.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/supportedApmTypes</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Services_ListSupportedApmTypes</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="SupportedApmType" /> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<SupportedApmType> GetSupportedApmTypes(CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _appPlatformServiceServicesRestClient.CreateListSupportedApmTypesRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _appPlatformServiceServicesRestClient.CreateListSupportedApmTypesNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, SupportedApmType.DeserializeSupportedApmType, _appPlatformServiceServicesClientDiagnostics, Pipeline, "AppPlatformServiceResource.GetSupportedApmTypes", "value", "nextLink", cancellationToken);
+        }
+
+        /// <summary>
+        /// List globally enabled APMs for a Service.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/listGloballyEnabledApms</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Services_ListGloballyEnabledApms</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> An async collection of <see cref="string" /> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<string> GetGloballyEnabledApmsAsync(CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _appPlatformServiceServicesRestClient.CreateListGloballyEnabledApmsRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, null, e => e.GetString(), _appPlatformServiceServicesClientDiagnostics, Pipeline, "AppPlatformServiceResource.GetGloballyEnabledApms", "value", null, cancellationToken);
+        }
+
+        /// <summary>
+        /// List globally enabled APMs for a Service.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/listGloballyEnabledApms</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Services_ListGloballyEnabledApms</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="string" /> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<string> GetGloballyEnabledApms(CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _appPlatformServiceServicesRestClient.CreateListGloballyEnabledApmsRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, null, e => e.GetString(), _appPlatformServiceServicesClientDiagnostics, Pipeline, "AppPlatformServiceResource.GetGloballyEnabledApms", "value", null, cancellationToken);
+        }
+
+        /// <summary>
+        /// Enable an APM globally.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/enableApmGlobally</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Services_EnableApmGlobally</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="apm"> The target APM for the enable operation. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="apm"/> is null. </exception>
+        public virtual async Task<ArmOperation> EnableApmGloballyAsync(WaitUntil waitUntil, ApmReference apm, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(apm, nameof(apm));
+
+            using var scope = _appPlatformServiceServicesClientDiagnostics.CreateScope("AppPlatformServiceResource.EnableApmGlobally");
+            scope.Start();
+            try
+            {
+                var response = await _appPlatformServiceServicesRestClient.EnableApmGloballyAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, apm, cancellationToken).ConfigureAwait(false);
+                var operation = new AppPlatformArmOperation(_appPlatformServiceServicesClientDiagnostics, Pipeline, _appPlatformServiceServicesRestClient.CreateEnableApmGloballyRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, apm).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Enable an APM globally.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/enableApmGlobally</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Services_EnableApmGlobally</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="apm"> The target APM for the enable operation. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="apm"/> is null. </exception>
+        public virtual ArmOperation EnableApmGlobally(WaitUntil waitUntil, ApmReference apm, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(apm, nameof(apm));
+
+            using var scope = _appPlatformServiceServicesClientDiagnostics.CreateScope("AppPlatformServiceResource.EnableApmGlobally");
+            scope.Start();
+            try
+            {
+                var response = _appPlatformServiceServicesRestClient.EnableApmGlobally(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, apm, cancellationToken);
+                var operation = new AppPlatformArmOperation(_appPlatformServiceServicesClientDiagnostics, Pipeline, _appPlatformServiceServicesRestClient.CreateEnableApmGloballyRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, apm).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletionResponse(cancellationToken);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Disable an APM globally.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/disableApmGlobally</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Services_DisableApmGlobally</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="apm"> The target APM for the disable operation. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="apm"/> is null. </exception>
+        public virtual async Task<ArmOperation> DisableApmGloballyAsync(WaitUntil waitUntil, ApmReference apm, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(apm, nameof(apm));
+
+            using var scope = _appPlatformServiceServicesClientDiagnostics.CreateScope("AppPlatformServiceResource.DisableApmGlobally");
+            scope.Start();
+            try
+            {
+                var response = await _appPlatformServiceServicesRestClient.DisableApmGloballyAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, apm, cancellationToken).ConfigureAwait(false);
+                var operation = new AppPlatformArmOperation(_appPlatformServiceServicesClientDiagnostics, Pipeline, _appPlatformServiceServicesRestClient.CreateDisableApmGloballyRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, apm).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Disable an APM globally.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/disableApmGlobally</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Services_DisableApmGlobally</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="apm"> The target APM for the disable operation. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="apm"/> is null. </exception>
+        public virtual ArmOperation DisableApmGlobally(WaitUntil waitUntil, ApmReference apm, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(apm, nameof(apm));
+
+            using var scope = _appPlatformServiceServicesClientDiagnostics.CreateScope("AppPlatformServiceResource.DisableApmGlobally");
+            scope.Start();
+            try
+            {
+                var response = _appPlatformServiceServicesRestClient.DisableApmGlobally(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, apm, cancellationToken);
+                var operation = new AppPlatformArmOperation(_appPlatformServiceServicesClientDiagnostics, Pipeline, _appPlatformServiceServicesRestClient.CreateDisableApmGloballyRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, apm).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletionResponse(cancellationToken);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Lists all of the available server versions supported by Microsoft.AppPlatform provider.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/supportedServerVersions</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Services_ListSupportedServerVersions</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> An async collection of <see cref="SupportedServerVersion" /> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<SupportedServerVersion> GetSupportedServerVersionsAsync(CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _appPlatformServiceServicesRestClient.CreateListSupportedServerVersionsRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _appPlatformServiceServicesRestClient.CreateListSupportedServerVersionsNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, SupportedServerVersion.DeserializeSupportedServerVersion, _appPlatformServiceServicesClientDiagnostics, Pipeline, "AppPlatformServiceResource.GetSupportedServerVersions", "value", "nextLink", cancellationToken);
+        }
+
+        /// <summary>
+        /// Lists all of the available server versions supported by Microsoft.AppPlatform provider.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/supportedServerVersions</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Services_ListSupportedServerVersions</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="SupportedServerVersion" /> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<SupportedServerVersion> GetSupportedServerVersions(CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _appPlatformServiceServicesRestClient.CreateListSupportedServerVersionsRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _appPlatformServiceServicesRestClient.CreateListSupportedServerVersionsNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, SupportedServerVersion.DeserializeSupportedServerVersion, _appPlatformServiceServicesClientDiagnostics, Pipeline, "AppPlatformServiceResource.GetSupportedServerVersions", "value", "nextLink", cancellationToken);
+        }
+
+        /// <summary>
         /// Check if the config server settings are valid.
         /// <list type="bullet">
         /// <item>
@@ -1212,6 +1832,50 @@ namespace Azure.ResourceManager.AppPlatform
         }
 
         /// <summary>
+        /// Get collection of buildpack bindings under all builders.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/buildpackBindings</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>BuildpackBinding_ListForCluster</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> An async collection of <see cref="AppPlatformBuildpackBindingResource" /> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<AppPlatformBuildpackBindingResource> GetForClusterBuildpackBindingsAsync(CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _appPlatformBuildpackBindingBuildpackBindingRestClient.CreateListForClusterRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _appPlatformBuildpackBindingBuildpackBindingRestClient.CreateListForClusterNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new AppPlatformBuildpackBindingResource(Client, AppPlatformBuildpackBindingData.DeserializeAppPlatformBuildpackBindingData(e)), _appPlatformBuildpackBindingBuildpackBindingClientDiagnostics, Pipeline, "AppPlatformServiceResource.GetForClusterBuildpackBindings", "value", "nextLink", cancellationToken);
+        }
+
+        /// <summary>
+        /// Get collection of buildpack bindings under all builders.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/buildpackBindings</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>BuildpackBinding_ListForCluster</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <returns> A collection of <see cref="AppPlatformBuildpackBindingResource" /> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<AppPlatformBuildpackBindingResource> GetForClusterBuildpackBindings(CancellationToken cancellationToken = default)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _appPlatformBuildpackBindingBuildpackBindingRestClient.CreateListForClusterRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _appPlatformBuildpackBindingBuildpackBindingRestClient.CreateListForClusterNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new AppPlatformBuildpackBindingResource(Client, AppPlatformBuildpackBindingData.DeserializeAppPlatformBuildpackBindingData(e)), _appPlatformBuildpackBindingBuildpackBindingClientDiagnostics, Pipeline, "AppPlatformServiceResource.GetForClusterBuildpackBindings", "value", "nextLink", cancellationToken);
+        }
+
+        /// <summary>
         /// List deployments for a certain service
         /// <list type="bullet">
         /// <item>
@@ -1225,12 +1889,13 @@ namespace Azure.ResourceManager.AppPlatform
         /// </list>
         /// </summary>
         /// <param name="version"> Version of the deployments to be listed. </param>
+        /// <param name="expand"> The expand expression to apply on the operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> An async collection of <see cref="AppPlatformDeploymentResource" /> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<AppPlatformDeploymentResource> GetDeploymentsAsync(IEnumerable<string> version = null, CancellationToken cancellationToken = default)
+        public virtual AsyncPageable<AppPlatformDeploymentResource> GetDeploymentsAsync(IEnumerable<string> version = null, string expand = null, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _appPlatformDeploymentDeploymentsRestClient.CreateListForClusterRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, version);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _appPlatformDeploymentDeploymentsRestClient.CreateListForClusterNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, version);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _appPlatformDeploymentDeploymentsRestClient.CreateListForClusterRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, version, expand);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _appPlatformDeploymentDeploymentsRestClient.CreateListForClusterNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, version, expand);
             return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new AppPlatformDeploymentResource(Client, AppPlatformDeploymentData.DeserializeAppPlatformDeploymentData(e)), _appPlatformDeploymentDeploymentsClientDiagnostics, Pipeline, "AppPlatformServiceResource.GetDeployments", "value", "nextLink", cancellationToken);
         }
 
@@ -1248,12 +1913,13 @@ namespace Azure.ResourceManager.AppPlatform
         /// </list>
         /// </summary>
         /// <param name="version"> Version of the deployments to be listed. </param>
+        /// <param name="expand"> The expand expression to apply on the operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> A collection of <see cref="AppPlatformDeploymentResource" /> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<AppPlatformDeploymentResource> GetDeployments(IEnumerable<string> version = null, CancellationToken cancellationToken = default)
+        public virtual Pageable<AppPlatformDeploymentResource> GetDeployments(IEnumerable<string> version = null, string expand = null, CancellationToken cancellationToken = default)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => _appPlatformDeploymentDeploymentsRestClient.CreateListForClusterRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, version);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _appPlatformDeploymentDeploymentsRestClient.CreateListForClusterNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, version);
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _appPlatformDeploymentDeploymentsRestClient.CreateListForClusterRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, version, expand);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _appPlatformDeploymentDeploymentsRestClient.CreateListForClusterNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, version, expand);
             return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new AppPlatformDeploymentResource(Client, AppPlatformDeploymentData.DeserializeAppPlatformDeploymentData(e)), _appPlatformDeploymentDeploymentsClientDiagnostics, Pipeline, "AppPlatformServiceResource.GetDeployments", "value", "nextLink", cancellationToken);
         }
 
