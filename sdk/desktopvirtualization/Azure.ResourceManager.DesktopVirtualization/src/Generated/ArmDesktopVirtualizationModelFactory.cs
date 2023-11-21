@@ -346,6 +346,7 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         /// <param name="registrationInfo"> The registration info of HostPool. </param>
         /// <param name="vmTemplate"> VM template for sessionhosts configuration within hostpool. </param>
         /// <param name="applicationGroupReferences"> List of applicationGroup links. </param>
+        /// <param name="appAttachPackageReferences"> List of App Attach Package links. </param>
         /// <param name="ssoAdfsAuthority"> URL to customer ADFS server for signing WVD SSO certificates. </param>
         /// <param name="ssoClientId"> ClientId for the registered Relying Party used to issue WVD SSO certificates. </param>
         /// <param name="ssoClientSecretKeyVaultPath"> Path to Azure KeyVault storing the secret used for communication to ADFS. </param>
@@ -363,13 +364,14 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         /// <param name="sku"> The resource model definition representing SKU. </param>
         /// <param name="plan"> Gets or sets the plan. </param>
         /// <returns> A new <see cref="DesktopVirtualization.HostPoolData"/> instance for mocking. </returns>
-        public static HostPoolData HostPoolData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, string objectId = null, string friendlyName = null, string description = null, HostPoolType hostPoolType = default, PersonalDesktopAssignmentType? personalDesktopAssignmentType = null, string customRdpProperty = null, int? maxSessionLimit = null, HostPoolLoadBalancerType loadBalancerType = default, int? ring = null, bool? isValidationEnvironment = null, HostPoolRegistrationInfo registrationInfo = null, string vmTemplate = null, IEnumerable<string> applicationGroupReferences = null, string ssoAdfsAuthority = null, string ssoClientId = null, string ssoClientSecretKeyVaultPath = null, HostPoolSsoSecretType? ssoSecretType = null, PreferredAppGroupType preferredAppGroupType = default, bool? startVmOnConnect = null, bool? isCloudPCResource = null, HostPoolPublicNetworkAccess? publicNetworkAccess = null, SessionHostAgentUpdateProperties agentUpdate = null, IEnumerable<DesktopVirtualizationPrivateEndpointConnection> privateEndpointConnections = null, ResourceIdentifier managedBy = null, string kind = null, ETag? etag = null, ManagedServiceIdentity identity = null, DesktopVirtualizationSku sku = null, ArmPlan plan = null)
+        public static HostPoolData HostPoolData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, string objectId = null, string friendlyName = null, string description = null, HostPoolType hostPoolType = default, PersonalDesktopAssignmentType? personalDesktopAssignmentType = null, string customRdpProperty = null, int? maxSessionLimit = null, HostPoolLoadBalancerType loadBalancerType = default, int? ring = null, bool? isValidationEnvironment = null, HostPoolRegistrationInfo registrationInfo = null, string vmTemplate = null, IEnumerable<string> applicationGroupReferences = null, IEnumerable<string> appAttachPackageReferences = null, string ssoAdfsAuthority = null, string ssoClientId = null, string ssoClientSecretKeyVaultPath = null, HostPoolSsoSecretType? ssoSecretType = null, PreferredAppGroupType preferredAppGroupType = default, bool? startVmOnConnect = null, bool? isCloudPCResource = null, HostPoolPublicNetworkAccess? publicNetworkAccess = null, SessionHostAgentUpdateProperties agentUpdate = null, IEnumerable<DesktopVirtualizationPrivateEndpointConnection> privateEndpointConnections = null, ResourceIdentifier managedBy = null, string kind = null, ETag? etag = null, ManagedServiceIdentity identity = null, DesktopVirtualizationSku sku = null, ArmPlan plan = null)
         {
             tags ??= new Dictionary<string, string>();
             applicationGroupReferences ??= new List<string>();
+            appAttachPackageReferences ??= new List<string>();
             privateEndpointConnections ??= new List<DesktopVirtualizationPrivateEndpointConnection>();
 
-            return new HostPoolData(id, name, resourceType, systemData, tags, location, objectId, friendlyName, description, hostPoolType, personalDesktopAssignmentType, customRdpProperty, maxSessionLimit, loadBalancerType, ring, isValidationEnvironment, registrationInfo, vmTemplate, applicationGroupReferences?.ToList(), ssoAdfsAuthority, ssoClientId, ssoClientSecretKeyVaultPath, ssoSecretType, preferredAppGroupType, startVmOnConnect, isCloudPCResource, publicNetworkAccess, agentUpdate, privateEndpointConnections?.ToList(), managedBy, kind, etag, identity, sku, plan);
+            return new HostPoolData(id, name, resourceType, systemData, tags, location, objectId, friendlyName, description, hostPoolType, personalDesktopAssignmentType, customRdpProperty, maxSessionLimit, loadBalancerType, ring, isValidationEnvironment, registrationInfo, vmTemplate, applicationGroupReferences?.ToList(), appAttachPackageReferences?.ToList(), ssoAdfsAuthority, ssoClientId, ssoClientSecretKeyVaultPath, ssoSecretType, preferredAppGroupType, startVmOnConnect, isCloudPCResource, publicNetworkAccess, agentUpdate, privateEndpointConnections?.ToList(), managedBy, kind, etag, identity, sku, plan);
         }
 
         /// <summary> Initializes a new instance of HostPoolPatch. </summary>
@@ -524,6 +526,42 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
             return new MsixPackagePatch(id, name, resourceType, systemData, isActive, isRegularRegistration, displayName);
         }
 
+        /// <summary> Initializes a new instance of AppAttachPackageData. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="tags"> The tags. </param>
+        /// <param name="location"> The location. </param>
+        /// <param name="properties"> Detailed properties for App Attach Package. </param>
+        /// <param name="managedBy"> The fully qualified resource ID of the resource that manages this resource. Indicates if this resource is managed by another Azure resource. If this is present, complete mode deployment will not delete the resource if it is removed from the template since it is managed by another resource. </param>
+        /// <param name="kind"> Metadata used by portal/tooling/etc to render different UX experiences for resources of the same type; e.g. ApiApps are a kind of Microsoft.Web/sites type.  If supported, the resource provider must validate and persist this value. </param>
+        /// <param name="etag"> The etag field is *not* required. If it is provided in the response body, it must also be provided as a header per the normal etag convention.  Entity tags are used for comparing two or more entities from the same requested resource. HTTP/1.1 uses entity tags in the etag (section 14.19), If-Match (section 14.24), If-None-Match (section 14.26), and If-Range (section 14.27) header fields. </param>
+        /// <param name="identity"> Gets or sets the identity. Current supported identity types: SystemAssigned. </param>
+        /// <param name="sku"> The resource model definition representing SKU. </param>
+        /// <param name="plan"> Gets or sets the plan. </param>
+        /// <returns> A new <see cref="DesktopVirtualization.AppAttachPackageData"/> instance for mocking. </returns>
+        public static AppAttachPackageData AppAttachPackageData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, AppAttachPackageProperties properties = null, ResourceIdentifier managedBy = null, string kind = null, ETag? etag = null, ManagedServiceIdentity identity = null, DesktopVirtualizationSku sku = null, ArmPlan plan = null)
+        {
+            tags ??= new Dictionary<string, string>();
+
+            return new AppAttachPackageData(id, name, resourceType, systemData, tags, location, properties, managedBy, kind, etag, identity, sku, plan);
+        }
+
+        /// <summary> Initializes a new instance of AppAttachPackageProperties. </summary>
+        /// <param name="provisioningState"> The provisioning state of the App Attach Package. </param>
+        /// <param name="image"> Detailed properties for App Attach Package. </param>
+        /// <param name="hostPoolReferences"> List of Hostpool resource Ids. </param>
+        /// <param name="keyVaultURL"> URL of keyvault location to store certificate. </param>
+        /// <param name="failHealthCheckOnStagingFailure"> Parameter indicating how the health check should behave if this package fails staging. </param>
+        /// <returns> A new <see cref="Models.AppAttachPackageProperties"/> instance for mocking. </returns>
+        public static AppAttachPackageProperties AppAttachPackageProperties(ProvisioningState? provisioningState = null, AppAttachPackageInfoProperties image = null, IEnumerable<string> hostPoolReferences = null, string keyVaultURL = null, FailHealthCheckOnStagingFailure? failHealthCheckOnStagingFailure = null)
+        {
+            hostPoolReferences ??= new List<string>();
+
+            return new AppAttachPackageProperties(provisioningState, image, hostPoolReferences?.ToList(), keyVaultURL, failHealthCheckOnStagingFailure);
+        }
+
         /// <summary> Initializes a new instance of ExpandMsixImage. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
@@ -542,13 +580,30 @@ namespace Azure.ResourceManager.DesktopVirtualization.Models
         /// <param name="version"> Package Version found in the appxmanifest.xml. </param>
         /// <param name="lastUpdatedOn"> Date Package was last updated, found in the appxmanifest.xml. </param>
         /// <param name="packageApplications"> List of package applications. </param>
+        /// <param name="certificateName"> Certificate name found in the appxmanifest.xml. </param>
+        /// <param name="certificateExpiry"> Date certificate expires, found in the appxmanifest.xml. </param>
         /// <returns> A new <see cref="Models.ExpandMsixImage"/> instance for mocking. </returns>
-        public static ExpandMsixImage ExpandMsixImage(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string packageAlias = null, string imagePath = null, string packageName = null, string packageFamilyName = null, string packageFullName = null, string displayName = null, string packageRelativePath = null, bool? isRegularRegistration = null, bool? isActive = null, IEnumerable<MsixPackageDependencies> packageDependencies = null, string version = null, DateTimeOffset? lastUpdatedOn = null, IEnumerable<MsixPackageApplications> packageApplications = null)
+        public static ExpandMsixImage ExpandMsixImage(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string packageAlias = null, string imagePath = null, string packageName = null, string packageFamilyName = null, string packageFullName = null, string displayName = null, string packageRelativePath = null, bool? isRegularRegistration = null, bool? isActive = null, IEnumerable<MsixPackageDependencies> packageDependencies = null, string version = null, DateTimeOffset? lastUpdatedOn = null, IEnumerable<MsixPackageApplications> packageApplications = null, string certificateName = null, DateTimeOffset? certificateExpiry = null)
         {
             packageDependencies ??= new List<MsixPackageDependencies>();
             packageApplications ??= new List<MsixPackageApplications>();
 
-            return new ExpandMsixImage(id, name, resourceType, systemData, packageAlias, imagePath, packageName, packageFamilyName, packageFullName, displayName, packageRelativePath, isRegularRegistration, isActive, packageDependencies?.ToList(), version, lastUpdatedOn, packageApplications?.ToList());
+            return new ExpandMsixImage(id, name, resourceType, systemData, packageAlias, imagePath, packageName, packageFamilyName, packageFullName, displayName, packageRelativePath, isRegularRegistration, isActive, packageDependencies?.ToList(), version, lastUpdatedOn, packageApplications?.ToList(), certificateName, certificateExpiry);
+        }
+
+        /// <summary> Initializes a new instance of AppAttachPackagePatch. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="tags"> tags to be updated. </param>
+        /// <param name="properties"> Detailed properties for App Attach Package. </param>
+        /// <returns> A new <see cref="Models.AppAttachPackagePatch"/> instance for mocking. </returns>
+        public static AppAttachPackagePatch AppAttachPackagePatch(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AppAttachPackagePatchProperties properties = null)
+        {
+            tags ??= new Dictionary<string, string>();
+
+            return new AppAttachPackagePatch(id, name, resourceType, systemData, tags, properties);
         }
     }
 }
