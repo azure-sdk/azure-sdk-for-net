@@ -24,8 +24,6 @@ namespace Azure.ResourceManager.ApplicationInsights.Mocking
         private ComponentsRestOperations _applicationInsightsComponentComponentsRestClient;
         private ClientDiagnostics _webTestClientDiagnostics;
         private WebTestsRestOperations _webTestRestClient;
-        private ClientDiagnostics _myWorkbookClientDiagnostics;
-        private MyWorkbooksRestOperations _myWorkbookRestClient;
         private ClientDiagnostics _workbookClientDiagnostics;
         private WorkbooksRestOperations _workbookRestClient;
 
@@ -45,8 +43,6 @@ namespace Azure.ResourceManager.ApplicationInsights.Mocking
         private ComponentsRestOperations ApplicationInsightsComponentComponentsRestClient => _applicationInsightsComponentComponentsRestClient ??= new ComponentsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(ApplicationInsightsComponentResource.ResourceType));
         private ClientDiagnostics WebTestClientDiagnostics => _webTestClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.ApplicationInsights", WebTestResource.ResourceType.Namespace, Diagnostics);
         private WebTestsRestOperations WebTestRestClient => _webTestRestClient ??= new WebTestsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(WebTestResource.ResourceType));
-        private ClientDiagnostics MyWorkbookClientDiagnostics => _myWorkbookClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.ApplicationInsights", MyWorkbookResource.ResourceType.Namespace, Diagnostics);
-        private MyWorkbooksRestOperations MyWorkbookRestClient => _myWorkbookRestClient ??= new MyWorkbooksRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(MyWorkbookResource.ResourceType));
         private ClientDiagnostics WorkbookClientDiagnostics => _workbookClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.ApplicationInsights", WorkbookResource.ResourceType.Namespace, Diagnostics);
         private WorkbooksRestOperations WorkbookRestClient => _workbookRestClient ??= new WorkbooksRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(WorkbookResource.ResourceType));
 
@@ -142,56 +138,6 @@ namespace Azure.ResourceManager.ApplicationInsights.Mocking
             HttpMessage FirstPageRequest(int? pageSizeHint) => WebTestRestClient.CreateListRequest(Id.SubscriptionId);
             HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => WebTestRestClient.CreateListNextPageRequest(nextLink, Id.SubscriptionId);
             return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new WebTestResource(Client, WebTestData.DeserializeWebTestData(e)), WebTestClientDiagnostics, Pipeline, "MockableApplicationInsightsSubscriptionResource.GetWebTests", "value", "nextLink", cancellationToken);
-        }
-
-        /// <summary>
-        /// Get all private workbooks defined within a specified subscription and category.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Insights/myWorkbooks</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>MyWorkbooks_ListBySubscription</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="category"> Category of workbook to return. </param>
-        /// <param name="tags"> Tags presents on each workbook returned. </param>
-        /// <param name="canFetchContent"> Flag indicating whether or not to return the full content for each applicable workbook. If false, only return summary content for workbooks. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> An async collection of <see cref="MyWorkbookResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<MyWorkbookResource> GetMyWorkbooksAsync(CategoryType category, IEnumerable<string> tags = null, bool? canFetchContent = null, CancellationToken cancellationToken = default)
-        {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => MyWorkbookRestClient.CreateListBySubscriptionRequest(Id.SubscriptionId, category, tags, canFetchContent);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => MyWorkbookRestClient.CreateListBySubscriptionNextPageRequest(nextLink, Id.SubscriptionId, category, tags, canFetchContent);
-            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new MyWorkbookResource(Client, MyWorkbookData.DeserializeMyWorkbookData(e)), MyWorkbookClientDiagnostics, Pipeline, "MockableApplicationInsightsSubscriptionResource.GetMyWorkbooks", "value", "nextLink", cancellationToken);
-        }
-
-        /// <summary>
-        /// Get all private workbooks defined within a specified subscription and category.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Insights/myWorkbooks</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>MyWorkbooks_ListBySubscription</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="category"> Category of workbook to return. </param>
-        /// <param name="tags"> Tags presents on each workbook returned. </param>
-        /// <param name="canFetchContent"> Flag indicating whether or not to return the full content for each applicable workbook. If false, only return summary content for workbooks. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="MyWorkbookResource"/> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<MyWorkbookResource> GetMyWorkbooks(CategoryType category, IEnumerable<string> tags = null, bool? canFetchContent = null, CancellationToken cancellationToken = default)
-        {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => MyWorkbookRestClient.CreateListBySubscriptionRequest(Id.SubscriptionId, category, tags, canFetchContent);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => MyWorkbookRestClient.CreateListBySubscriptionNextPageRequest(nextLink, Id.SubscriptionId, category, tags, canFetchContent);
-            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new MyWorkbookResource(Client, MyWorkbookData.DeserializeMyWorkbookData(e)), MyWorkbookClientDiagnostics, Pipeline, "MockableApplicationInsightsSubscriptionResource.GetMyWorkbooks", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>
