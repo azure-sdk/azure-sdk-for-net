@@ -50,7 +50,7 @@ namespace Microsoft.Azure.Management.Network.Models
         /// set can override health probe so that Load Balancer will always
         /// forward new connections to backend, or deny new connections and
         /// reset existing connections. Possible values include: 'None', 'Up',
-        /// 'Down', 'Drain'</param>
+        /// 'Down'</param>
         /// <param name="name">Name of the backend address.</param>
         public LoadBalancerBackendAddress(SubResource virtualNetwork = default(SubResource), SubResource subnet = default(SubResource), string ipAddress = default(string), SubResource networkInterfaceIPConfiguration = default(SubResource), SubResource loadBalancerFrontendIPConfiguration = default(SubResource), IList<NatRulePortMapping> inboundNatRulesPortMapping = default(IList<NatRulePortMapping>), string adminState = default(string), string name = default(string))
         {
@@ -112,7 +112,7 @@ namespace Microsoft.Azure.Management.Network.Models
         /// Gets or sets a list of administrative states which once set can
         /// override health probe so that Load Balancer will always forward new
         /// connections to backend, or deny new connections and reset existing
-        /// connections. Possible values include: 'None', 'Up', 'Down', 'Drain'
+        /// connections. Possible values include: 'None', 'Up', 'Down'
         /// </summary>
         [JsonProperty(PropertyName = "properties.adminState")]
         public string AdminState { get; set; }
