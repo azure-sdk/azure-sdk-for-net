@@ -8,7 +8,7 @@ azure-arm: true
 csharp: true
 library-name: AlertsManagement
 namespace: Azure.ResourceManager.AlertsManagement
-require: https://github.com/Azure/azure-rest-api-specs/blob/0077b4a8c5071d3ab33fd9f9ba013581c9a66b8f/specification/alertsmanagement/resource-manager/readme.md
+require: https://github.com/Azure/azure-rest-api-specs/blob/93259c8e288a39b76fe6a58fabbbe850d3462d83/specification/alertsmanagement/resource-manager/readme.md
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
 sample-gen:
