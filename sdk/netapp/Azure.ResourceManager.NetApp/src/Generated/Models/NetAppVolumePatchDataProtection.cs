@@ -16,7 +16,6 @@ namespace Azure.ResourceManager.NetApp.Models
         public NetAppVolumePatchDataProtection()
         {
         }
-
         /// <summary> Snapshot properties. </summary>
         internal VolumeSnapshotProperties Snapshot { get; set; }
         /// <summary> Snapshot Policy ResourceId. </summary>

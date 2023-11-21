@@ -16,18 +16,6 @@ namespace Azure.ResourceManager.NetApp.Models
         public NetAppVolumeDataProtection()
         {
         }
-
-        /// <summary> Initializes a new instance of NetAppVolumeDataProtection. </summary>
-        /// <param name="replication"> Replication properties. </param>
-        /// <param name="snapshot"> Snapshot properties. </param>
-        /// <param name="volumeRelocation"> VolumeRelocation properties. </param>
-        internal NetAppVolumeDataProtection(NetAppReplicationObject replication, VolumeSnapshotProperties snapshot, NetAppVolumeRelocationProperties volumeRelocation)
-        {
-            Replication = replication;
-            Snapshot = snapshot;
-            VolumeRelocation = volumeRelocation;
-        }
-
         /// <summary> Replication properties. </summary>
         public NetAppReplicationObject Replication { get; set; }
         /// <summary> Snapshot properties. </summary>

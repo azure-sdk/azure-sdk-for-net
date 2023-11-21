@@ -31,5 +31,9 @@ namespace Azure.ResourceManager.NetApp.Models
         public NetAppAccountEncryption Encryption { get; set; }
         /// <summary> Shows the status of disableShowmount for all volumes under the subscription, null equals false. </summary>
         public bool? DisableShowmount { get; }
+        /// <summary> Domain for NFSv4 user ID mapping. This property will be set for all NetApp accounts in the subscription and region and only affect non ldap NFSv4 volumes. </summary>
+        public string NfsV4IdDomain { get; set; }
+        /// <summary> This will have true value only if account is Multiple AD enabled. </summary>
+        public bool? IsMultiAdEnabled { get; }
     }
 }
