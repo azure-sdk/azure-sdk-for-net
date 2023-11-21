@@ -8,7 +8,7 @@ azure-arm: true
 csharp: true
 library-name: Kubernetes
 namespace: Azure.ResourceManager.Kubernetes
-require: https://github.com/Azure/azure-rest-api-specs/blob/7d5d1db0c45d6fe0934c97b6a6f9bb34112d42d1/specification/hybridkubernetes/resource-manager/readme.md
+require: https://github.com/Azure/azure-rest-api-specs/blob/93259c8e288a39b76fe6a58fabbbe850d3462d83/specification/hybridkubernetes/resource-manager/readme.md
 tag: package-2022-05-01-preview
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
