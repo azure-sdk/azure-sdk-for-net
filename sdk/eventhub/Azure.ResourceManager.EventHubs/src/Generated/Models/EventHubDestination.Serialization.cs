@@ -21,6 +21,11 @@ namespace Azure.ResourceManager.EventHubs.Models
                 writer.WritePropertyName("name"u8);
                 writer.WriteStringValue(Name);
             }
+            if (Optional.IsDefined(Identity))
+            {
+                writer.WritePropertyName("identity"u8);
+                writer.WriteObjectValue(Identity);
+            }
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
             if (Optional.IsDefined(StorageAccountResourceId))
@@ -64,6 +69,7 @@ namespace Azure.ResourceManager.EventHubs.Models
                 return null;
             }
             Optional<string> name = default;
+            Optional<CaptureIdentity> identity = default;
             Optional<ResourceIdentifier> storageAccountResourceId = default;
             Optional<string> blobContainer = default;
             Optional<string> archiveNameFormat = default;
@@ -75,6 +81,15 @@ namespace Azure.ResourceManager.EventHubs.Models
                 if (property.NameEquals("name"u8))
                 {
                     name = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("identity"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    identity = CaptureIdentity.DeserializeCaptureIdentity(property.Value);
                     continue;
                 }
                 if (property.NameEquals("properties"u8))
@@ -128,7 +143,7 @@ namespace Azure.ResourceManager.EventHubs.Models
                     continue;
                 }
             }
-            return new EventHubDestination(name.Value, storageAccountResourceId.Value, blobContainer.Value, archiveNameFormat.Value, Optional.ToNullable(dataLakeSubscriptionId), dataLakeAccountName.Value, dataLakeFolderPath.Value);
+            return new EventHubDestination(name.Value, identity.Value, storageAccountResourceId.Value, blobContainer.Value, archiveNameFormat.Value, Optional.ToNullable(dataLakeSubscriptionId), dataLakeAccountName.Value, dataLakeFolderPath.Value);
         }
     }
 }

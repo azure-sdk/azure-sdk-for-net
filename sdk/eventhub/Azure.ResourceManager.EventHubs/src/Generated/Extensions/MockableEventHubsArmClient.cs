@@ -37,39 +37,39 @@ namespace Azure.ResourceManager.EventHubs.Mocking
         }
 
         /// <summary>
-        /// Gets an object representing an <see cref="EventHubsClusterResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="EventHubsClusterResource.CreateResourceIdentifier" /> to create an <see cref="EventHubsClusterResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// Gets an object representing a <see cref="ClusterResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="ClusterResource.CreateResourceIdentifier" /> to create a <see cref="ClusterResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>
         /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="EventHubsClusterResource"/> object. </returns>
-        public virtual EventHubsClusterResource GetEventHubsClusterResource(ResourceIdentifier id)
+        /// <returns> Returns a <see cref="ClusterResource"/> object. </returns>
+        public virtual ClusterResource GetClusterResource(ResourceIdentifier id)
         {
-            EventHubsClusterResource.ValidateResourceId(id);
-            return new EventHubsClusterResource(Client, id);
+            ClusterResource.ValidateResourceId(id);
+            return new ClusterResource(Client, id);
         }
 
         /// <summary>
-        /// Gets an object representing an <see cref="EventHubsNamespaceResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="EventHubsNamespaceResource.CreateResourceIdentifier" /> to create an <see cref="EventHubsNamespaceResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// Gets an object representing an <see cref="EHNamespaceResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="EHNamespaceResource.CreateResourceIdentifier" /> to create an <see cref="EHNamespaceResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>
         /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="EventHubsNamespaceResource"/> object. </returns>
-        public virtual EventHubsNamespaceResource GetEventHubsNamespaceResource(ResourceIdentifier id)
+        /// <returns> Returns a <see cref="EHNamespaceResource"/> object. </returns>
+        public virtual EHNamespaceResource GetEHNamespaceResource(ResourceIdentifier id)
         {
-            EventHubsNamespaceResource.ValidateResourceId(id);
-            return new EventHubsNamespaceResource(Client, id);
+            EHNamespaceResource.ValidateResourceId(id);
+            return new EHNamespaceResource(Client, id);
         }
 
         /// <summary>
-        /// Gets an object representing an <see cref="EventHubsNetworkRuleSetResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="EventHubsNetworkRuleSetResource.CreateResourceIdentifier" /> to create an <see cref="EventHubsNetworkRuleSetResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// Gets an object representing a <see cref="NetworkRuleSetResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="NetworkRuleSetResource.CreateResourceIdentifier" /> to create a <see cref="NetworkRuleSetResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>
         /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="EventHubsNetworkRuleSetResource"/> object. </returns>
-        public virtual EventHubsNetworkRuleSetResource GetEventHubsNetworkRuleSetResource(ResourceIdentifier id)
+        /// <returns> Returns a <see cref="NetworkRuleSetResource"/> object. </returns>
+        public virtual NetworkRuleSetResource GetNetworkRuleSetResource(ResourceIdentifier id)
         {
-            EventHubsNetworkRuleSetResource.ValidateResourceId(id);
-            return new EventHubsNetworkRuleSetResource(Client, id);
+            NetworkRuleSetResource.ValidateResourceId(id);
+            return new NetworkRuleSetResource(Client, id);
         }
 
         /// <summary>

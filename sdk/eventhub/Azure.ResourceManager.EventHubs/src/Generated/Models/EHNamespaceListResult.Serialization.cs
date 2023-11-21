@@ -20,7 +20,7 @@ namespace Azure.ResourceManager.EventHubs.Models
             {
                 return null;
             }
-            Optional<IReadOnlyList<EventHubsNamespaceData>> value = default;
+            Optional<IReadOnlyList<EHNamespaceData>> value = default;
             Optional<string> nextLink = default;
             foreach (var property in element.EnumerateObject())
             {
@@ -30,10 +30,10 @@ namespace Azure.ResourceManager.EventHubs.Models
                     {
                         continue;
                     }
-                    List<EventHubsNamespaceData> array = new List<EventHubsNamespaceData>();
+                    List<EHNamespaceData> array = new List<EHNamespaceData>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(EventHubsNamespaceData.DeserializeEventHubsNamespaceData(item));
+                        array.Add(EHNamespaceData.DeserializeEHNamespaceData(item));
                     }
                     value = array;
                     continue;

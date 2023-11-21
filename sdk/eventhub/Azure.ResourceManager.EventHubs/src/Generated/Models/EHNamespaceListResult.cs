@@ -17,20 +17,20 @@ namespace Azure.ResourceManager.EventHubs.Models
         /// <summary> Initializes a new instance of EHNamespaceListResult. </summary>
         internal EHNamespaceListResult()
         {
-            Value = new ChangeTrackingList<EventHubsNamespaceData>();
+            Value = new ChangeTrackingList<EHNamespaceData>();
         }
 
         /// <summary> Initializes a new instance of EHNamespaceListResult. </summary>
         /// <param name="value"> Result of the List Namespace operation. </param>
         /// <param name="nextLink"> Link to the next set of results. Not empty if Value contains incomplete list of namespaces. </param>
-        internal EHNamespaceListResult(IReadOnlyList<EventHubsNamespaceData> value, string nextLink)
+        internal EHNamespaceListResult(IReadOnlyList<EHNamespaceData> value, string nextLink)
         {
             Value = value;
             NextLink = nextLink;
         }
 
         /// <summary> Result of the List Namespace operation. </summary>
-        public IReadOnlyList<EventHubsNamespaceData> Value { get; }
+        public IReadOnlyList<EHNamespaceData> Value { get; }
         /// <summary> Link to the next set of results. Not empty if Value contains incomplete list of namespaces. </summary>
         public string NextLink { get; }
     }
