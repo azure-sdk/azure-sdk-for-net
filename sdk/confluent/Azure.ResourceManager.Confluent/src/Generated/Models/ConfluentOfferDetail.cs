@@ -6,6 +6,7 @@
 #nullable disable
 
 using System;
+using System.Collections.Generic;
 using Azure.Core;
 
 namespace Azure.ResourceManager.Confluent.Models
@@ -33,6 +34,7 @@ namespace Azure.ResourceManager.Confluent.Models
             PlanId = planId;
             PlanName = planName;
             TermUnit = termUnit;
+            PrivateOfferIds = new ChangeTrackingList<string>();
         }
 
         /// <summary> Initializes a new instance of ConfluentOfferDetail. </summary>
@@ -41,14 +43,20 @@ namespace Azure.ResourceManager.Confluent.Models
         /// <param name="planId"> Offer Plan Id. </param>
         /// <param name="planName"> Offer Plan Name. </param>
         /// <param name="termUnit"> Offer Plan Term unit. </param>
+        /// <param name="termId"> Offer Plan Term Id. </param>
+        /// <param name="privateOfferId"> Private Offer Id. </param>
+        /// <param name="privateOfferIds"> Array of Private Offer Ids. </param>
         /// <param name="status"> SaaS Offer Status. </param>
-        internal ConfluentOfferDetail(string publisherId, string id, string planId, string planName, string termUnit, ConfluentSaaSOfferStatus? status)
+        internal ConfluentOfferDetail(string publisherId, string id, string planId, string planName, string termUnit, string termId, string privateOfferId, IList<string> privateOfferIds, ConfluentSaaSOfferStatus? status)
         {
             PublisherId = publisherId;
             Id = id;
             PlanId = planId;
             PlanName = planName;
             TermUnit = termUnit;
+            TermId = termId;
+            PrivateOfferId = privateOfferId;
+            PrivateOfferIds = privateOfferIds;
             Status = status;
         }
 
@@ -62,7 +70,13 @@ namespace Azure.ResourceManager.Confluent.Models
         public string PlanName { get; set; }
         /// <summary> Offer Plan Term unit. </summary>
         public string TermUnit { get; set; }
+        /// <summary> Offer Plan Term Id. </summary>
+        public string TermId { get; set; }
+        /// <summary> Private Offer Id. </summary>
+        public string PrivateOfferId { get; set; }
+        /// <summary> Array of Private Offer Ids. </summary>
+        public IList<string> PrivateOfferIds { get; }
         /// <summary> SaaS Offer Status. </summary>
-        public ConfluentSaaSOfferStatus? Status { get; }
+        public ConfluentSaaSOfferStatus? Status { get; set; }
     }
 }

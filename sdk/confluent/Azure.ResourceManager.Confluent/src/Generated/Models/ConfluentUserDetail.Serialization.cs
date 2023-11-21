@@ -27,6 +27,16 @@ namespace Azure.ResourceManager.Confluent.Models
             }
             writer.WritePropertyName("emailAddress"u8);
             writer.WriteStringValue(EmailAddress);
+            if (Optional.IsDefined(UserPrincipalName))
+            {
+                writer.WritePropertyName("userPrincipalName"u8);
+                writer.WriteStringValue(UserPrincipalName);
+            }
+            if (Optional.IsDefined(AadEmail))
+            {
+                writer.WritePropertyName("aadEmail"u8);
+                writer.WriteStringValue(AadEmail);
+            }
             writer.WriteEndObject();
         }
 
@@ -39,6 +49,8 @@ namespace Azure.ResourceManager.Confluent.Models
             Optional<string> firstName = default;
             Optional<string> lastName = default;
             string emailAddress = default;
+            Optional<string> userPrincipalName = default;
+            Optional<string> aadEmail = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("firstName"u8))
@@ -56,8 +68,18 @@ namespace Azure.ResourceManager.Confluent.Models
                     emailAddress = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("userPrincipalName"u8))
+                {
+                    userPrincipalName = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("aadEmail"u8))
+                {
+                    aadEmail = property.Value.GetString();
+                    continue;
+                }
             }
-            return new ConfluentUserDetail(firstName.Value, lastName.Value, emailAddress);
+            return new ConfluentUserDetail(firstName.Value, lastName.Value, emailAddress, userPrincipalName.Value, aadEmail.Value);
         }
     }
 }
