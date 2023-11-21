@@ -8794,5 +8794,12 @@
    },
    "Creatable": true
   }
- ]
+ ],
+ "Auth": {
+  "$id": "946",
+  "ApiKey": {
+   "$id": "947",
+   "Name": "api-key"
+  }
+ }
 }

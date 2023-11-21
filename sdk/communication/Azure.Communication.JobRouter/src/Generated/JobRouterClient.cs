@@ -19,6 +19,8 @@ namespace Azure.Communication.JobRouter
     /// <summary> The JobRouter service client. </summary>
     public partial class JobRouterClient
     {
+        private const string AuthorizationHeader = "api-key";
+        private readonly AzureKeyCredential _keyCredential;
         private readonly HttpPipeline _pipeline;
         private readonly Uri _endpoint;
         private readonly string _apiVersion;
@@ -28,6 +30,14 @@ namespace Azure.Communication.JobRouter
 
         /// <summary> The HTTP pipeline for sending and receiving REST requests and responses. </summary>
         public virtual HttpPipeline Pipeline => _pipeline;
+
+        /// <summary> Initializes a new instance of JobRouterClient. </summary>
+        /// <param name="endpoint"> Uri of your Communication resource. </param>
+        /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="endpoint"/> or <paramref name="credential"/> is null. </exception>
+        public JobRouterClient(Uri endpoint, AzureKeyCredential credential) : this(endpoint, credential, new JobRouterClientOptions())
+        {
+        }
 
         /// <summary>
         /// [Protocol Method] Creates or updates a router job.
@@ -114,6 +124,7 @@ namespace Azure.Communication.JobRouter
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="jobId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <include file="Docs/JobRouterClient.xml" path="doc/members/member[@name='GetJobAsync(string,CancellationToken)']/*" />
         public virtual async Task<Response<RouterJob>> GetJobAsync(string jobId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(jobId, nameof(jobId));
@@ -128,6 +139,7 @@ namespace Azure.Communication.JobRouter
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="jobId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <include file="Docs/JobRouterClient.xml" path="doc/members/member[@name='GetJob(string,CancellationToken)']/*" />
         public virtual Response<RouterJob> GetJob(string jobId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(jobId, nameof(jobId));
@@ -158,6 +170,7 @@ namespace Azure.Communication.JobRouter
         /// <exception cref="ArgumentException"> <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
+        /// <include file="Docs/JobRouterClient.xml" path="doc/members/member[@name='GetJobAsync(string,RequestContext)']/*" />
         public virtual async Task<Response> GetJobAsync(string jobId, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(jobId, nameof(jobId));
@@ -197,6 +210,7 @@ namespace Azure.Communication.JobRouter
         /// <exception cref="ArgumentException"> <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
+        /// <include file="Docs/JobRouterClient.xml" path="doc/members/member[@name='GetJob(string,RequestContext)']/*" />
         public virtual Response GetJob(string jobId, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(jobId, nameof(jobId));
@@ -232,6 +246,7 @@ namespace Azure.Communication.JobRouter
         /// <exception cref="ArgumentException"> <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
+        /// <include file="Docs/JobRouterClient.xml" path="doc/members/member[@name='DeleteJobAsync(string,RequestContext)']/*" />
         public virtual async Task<Response> DeleteJobAsync(string jobId, RequestContext context = null)
         {
             Argument.AssertNotNullOrEmpty(jobId, nameof(jobId));
@@ -267,6 +282,7 @@ namespace Azure.Communication.JobRouter
         /// <exception cref="ArgumentException"> <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
+        /// <include file="Docs/JobRouterClient.xml" path="doc/members/member[@name='DeleteJob(string,RequestContext)']/*" />
         public virtual Response DeleteJob(string jobId, RequestContext context = null)
         {
             Argument.AssertNotNullOrEmpty(jobId, nameof(jobId));
@@ -426,6 +442,7 @@ namespace Azure.Communication.JobRouter
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="jobId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <include file="Docs/JobRouterClient.xml" path="doc/members/member[@name='GetQueuePositionAsync(string,CancellationToken)']/*" />
         public virtual async Task<Response<RouterJobPositionDetails>> GetQueuePositionAsync(string jobId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(jobId, nameof(jobId));
@@ -440,6 +457,7 @@ namespace Azure.Communication.JobRouter
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="jobId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <include file="Docs/JobRouterClient.xml" path="doc/members/member[@name='GetQueuePosition(string,CancellationToken)']/*" />
         public virtual Response<RouterJobPositionDetails> GetQueuePosition(string jobId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(jobId, nameof(jobId));
@@ -470,6 +488,7 @@ namespace Azure.Communication.JobRouter
         /// <exception cref="ArgumentException"> <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
+        /// <include file="Docs/JobRouterClient.xml" path="doc/members/member[@name='GetQueuePositionAsync(string,RequestContext)']/*" />
         public virtual async Task<Response> GetQueuePositionAsync(string jobId, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(jobId, nameof(jobId));
@@ -509,6 +528,7 @@ namespace Azure.Communication.JobRouter
         /// <exception cref="ArgumentException"> <paramref name="jobId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
+        /// <include file="Docs/JobRouterClient.xml" path="doc/members/member[@name='GetQueuePosition(string,RequestContext)']/*" />
         public virtual Response GetQueuePosition(string jobId, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(jobId, nameof(jobId));
@@ -569,6 +589,7 @@ namespace Azure.Communication.JobRouter
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="workerId"/> or <paramref name="offerId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="workerId"/> or <paramref name="offerId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <include file="Docs/JobRouterClient.xml" path="doc/members/member[@name='AcceptJobOfferAsync(string,string,CancellationToken)']/*" />
         public virtual async Task<Response<AcceptJobOfferResult>> AcceptJobOfferAsync(string workerId, string offerId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(workerId, nameof(workerId));
@@ -585,6 +606,7 @@ namespace Azure.Communication.JobRouter
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="workerId"/> or <paramref name="offerId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="workerId"/> or <paramref name="offerId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <include file="Docs/JobRouterClient.xml" path="doc/members/member[@name='AcceptJobOffer(string,string,CancellationToken)']/*" />
         public virtual Response<AcceptJobOfferResult> AcceptJobOffer(string workerId, string offerId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(workerId, nameof(workerId));
@@ -617,6 +639,7 @@ namespace Azure.Communication.JobRouter
         /// <exception cref="ArgumentException"> <paramref name="workerId"/> or <paramref name="offerId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
+        /// <include file="Docs/JobRouterClient.xml" path="doc/members/member[@name='AcceptJobOfferAsync(string,string,RequestContext)']/*" />
         public virtual async Task<Response> AcceptJobOfferAsync(string workerId, string offerId, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(workerId, nameof(workerId));
@@ -658,6 +681,7 @@ namespace Azure.Communication.JobRouter
         /// <exception cref="ArgumentException"> <paramref name="workerId"/> or <paramref name="offerId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
+        /// <include file="Docs/JobRouterClient.xml" path="doc/members/member[@name='AcceptJobOffer(string,string,RequestContext)']/*" />
         public virtual Response AcceptJobOffer(string workerId, string offerId, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(workerId, nameof(workerId));
@@ -718,6 +742,7 @@ namespace Azure.Communication.JobRouter
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="queueId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="queueId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <include file="Docs/JobRouterClient.xml" path="doc/members/member[@name='GetQueueStatisticsAsync(string,CancellationToken)']/*" />
         public virtual async Task<Response<RouterQueueStatistics>> GetQueueStatisticsAsync(string queueId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(queueId, nameof(queueId));
@@ -732,6 +757,7 @@ namespace Azure.Communication.JobRouter
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="queueId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="queueId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <include file="Docs/JobRouterClient.xml" path="doc/members/member[@name='GetQueueStatistics(string,CancellationToken)']/*" />
         public virtual Response<RouterQueueStatistics> GetQueueStatistics(string queueId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(queueId, nameof(queueId));
@@ -762,6 +788,7 @@ namespace Azure.Communication.JobRouter
         /// <exception cref="ArgumentException"> <paramref name="queueId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
+        /// <include file="Docs/JobRouterClient.xml" path="doc/members/member[@name='GetQueueStatisticsAsync(string,RequestContext)']/*" />
         public virtual async Task<Response> GetQueueStatisticsAsync(string queueId, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(queueId, nameof(queueId));
@@ -801,6 +828,7 @@ namespace Azure.Communication.JobRouter
         /// <exception cref="ArgumentException"> <paramref name="queueId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
+        /// <include file="Docs/JobRouterClient.xml" path="doc/members/member[@name='GetQueueStatistics(string,RequestContext)']/*" />
         public virtual Response GetQueueStatistics(string queueId, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(queueId, nameof(queueId));
@@ -904,6 +932,7 @@ namespace Azure.Communication.JobRouter
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="workerId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="workerId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <include file="Docs/JobRouterClient.xml" path="doc/members/member[@name='GetWorkerAsync(string,CancellationToken)']/*" />
         public virtual async Task<Response<RouterWorker>> GetWorkerAsync(string workerId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(workerId, nameof(workerId));
@@ -918,6 +947,7 @@ namespace Azure.Communication.JobRouter
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="workerId"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="workerId"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <include file="Docs/JobRouterClient.xml" path="doc/members/member[@name='GetWorker(string,CancellationToken)']/*" />
         public virtual Response<RouterWorker> GetWorker(string workerId, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(workerId, nameof(workerId));
@@ -948,6 +978,7 @@ namespace Azure.Communication.JobRouter
         /// <exception cref="ArgumentException"> <paramref name="workerId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
+        /// <include file="Docs/JobRouterClient.xml" path="doc/members/member[@name='GetWorkerAsync(string,RequestContext)']/*" />
         public virtual async Task<Response> GetWorkerAsync(string workerId, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(workerId, nameof(workerId));
@@ -987,6 +1018,7 @@ namespace Azure.Communication.JobRouter
         /// <exception cref="ArgumentException"> <paramref name="workerId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
+        /// <include file="Docs/JobRouterClient.xml" path="doc/members/member[@name='GetWorker(string,RequestContext)']/*" />
         public virtual Response GetWorker(string workerId, RequestContext context)
         {
             Argument.AssertNotNullOrEmpty(workerId, nameof(workerId));
@@ -1022,6 +1054,7 @@ namespace Azure.Communication.JobRouter
         /// <exception cref="ArgumentException"> <paramref name="workerId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
+        /// <include file="Docs/JobRouterClient.xml" path="doc/members/member[@name='DeleteWorkerAsync(string,RequestContext)']/*" />
         public virtual async Task<Response> DeleteWorkerAsync(string workerId, RequestContext context = null)
         {
             Argument.AssertNotNullOrEmpty(workerId, nameof(workerId));
@@ -1057,6 +1090,7 @@ namespace Azure.Communication.JobRouter
         /// <exception cref="ArgumentException"> <paramref name="workerId"/> is an empty string, and was expected to be non-empty. </exception>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
+        /// <include file="Docs/JobRouterClient.xml" path="doc/members/member[@name='DeleteWorker(string,RequestContext)']/*" />
         public virtual Response DeleteWorker(string workerId, RequestContext context = null)
         {
             Argument.AssertNotNullOrEmpty(workerId, nameof(workerId));

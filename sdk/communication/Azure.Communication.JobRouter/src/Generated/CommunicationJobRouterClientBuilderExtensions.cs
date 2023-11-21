@@ -6,6 +6,7 @@
 #nullable disable
 
 using System;
+using Azure;
 using Azure.Communication.JobRouter;
 using Azure.Core.Extensions;
 
@@ -17,19 +18,21 @@ namespace Azure.Communication.JobRouter.Models
         /// <summary> Registers a <see cref="JobRouterAdministrationClient"/> instance. </summary>
         /// <param name="builder"> The builder to register with. </param>
         /// <param name="endpoint"> Uri of your Communication resource. </param>
-        public static IAzureClientBuilder<JobRouterAdministrationClient, JobRouterClientOptions> AddJobRouterAdministrationClient<TBuilder>(this TBuilder builder, Uri endpoint)
+        /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
+        public static IAzureClientBuilder<JobRouterAdministrationClient, JobRouterClientOptions> AddJobRouterAdministrationClient<TBuilder>(this TBuilder builder, Uri endpoint, AzureKeyCredential credential)
         where TBuilder : IAzureClientFactoryBuilder
         {
-            return builder.RegisterClientFactory<JobRouterAdministrationClient, JobRouterClientOptions>((options) => new JobRouterAdministrationClient(endpoint, options));
+            return builder.RegisterClientFactory<JobRouterAdministrationClient, JobRouterClientOptions>((options) => new JobRouterAdministrationClient(endpoint, credential, options));
         }
 
         /// <summary> Registers a <see cref="JobRouterClient"/> instance. </summary>
         /// <param name="builder"> The builder to register with. </param>
         /// <param name="endpoint"> Uri of your Communication resource. </param>
-        public static IAzureClientBuilder<JobRouterClient, JobRouterClientOptions> AddJobRouterClient<TBuilder>(this TBuilder builder, Uri endpoint)
+        /// <param name="credential"> A credential used to authenticate to an Azure Service. </param>
+        public static IAzureClientBuilder<JobRouterClient, JobRouterClientOptions> AddJobRouterClient<TBuilder>(this TBuilder builder, Uri endpoint, AzureKeyCredential credential)
         where TBuilder : IAzureClientFactoryBuilder
         {
-            return builder.RegisterClientFactory<JobRouterClient, JobRouterClientOptions>((options) => new JobRouterClient(endpoint, options));
+            return builder.RegisterClientFactory<JobRouterClient, JobRouterClientOptions>((options) => new JobRouterClient(endpoint, credential, options));
         }
 
         /// <summary> Registers a <see cref="JobRouterAdministrationClient"/> instance. </summary>
