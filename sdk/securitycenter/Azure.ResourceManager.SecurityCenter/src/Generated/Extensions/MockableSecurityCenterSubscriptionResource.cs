@@ -692,59 +692,6 @@ namespace Azure.ResourceManager.SecurityCenter.Mocking
             return GetSecuritySettings().Get(settingName, cancellationToken);
         }
 
-        /// <summary> Gets a collection of IngestionSettingResources in the SubscriptionResource. </summary>
-        /// <returns> An object representing collection of IngestionSettingResources and their operations over a IngestionSettingResource. </returns>
-        public virtual IngestionSettingCollection GetIngestionSettings()
-        {
-            return GetCachedClient(client => new IngestionSettingCollection(client, Id));
-        }
-
-        /// <summary>
-        /// Settings for ingesting security data and logs to correlate with resources associated with the subscription.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Security/ingestionSettings/{ingestionSettingName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>IngestionSettings_Get</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="ingestionSettingName"> Name of the ingestion setting. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="ingestionSettingName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="ingestionSettingName"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual async Task<Response<IngestionSettingResource>> GetIngestionSettingAsync(string ingestionSettingName, CancellationToken cancellationToken = default)
-        {
-            return await GetIngestionSettings().GetAsync(ingestionSettingName, cancellationToken).ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// Settings for ingesting security data and logs to correlate with resources associated with the subscription.
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/providers/Microsoft.Security/ingestionSettings/{ingestionSettingName}</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>IngestionSettings_Get</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="ingestionSettingName"> Name of the ingestion setting. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="ingestionSettingName"/> is null. </exception>
-        /// <exception cref="ArgumentException"> <paramref name="ingestionSettingName"/> is an empty string, and was expected to be non-empty. </exception>
-        [ForwardsClientCalls]
-        public virtual Response<IngestionSettingResource> GetIngestionSetting(string ingestionSettingName, CancellationToken cancellationToken = default)
-        {
-            return GetIngestionSettings().Get(ingestionSettingName, cancellationToken);
-        }
-
         /// <summary> Gets a collection of SubscriptionSecurityApplicationResources in the SubscriptionResource. </summary>
         /// <returns> An object representing collection of SubscriptionSecurityApplicationResources and their operations over a SubscriptionSecurityApplicationResource. </returns>
         public virtual SubscriptionSecurityApplicationCollection GetSubscriptionSecurityApplications()
