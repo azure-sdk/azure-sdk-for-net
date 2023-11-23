@@ -21,17 +21,17 @@ namespace Azure.ResourceManager.Automation.Models
         }
 
         /// <summary> Initializes a new instance of AutomationModuleListResult. </summary>
-        /// <param name="value"> Gets or sets a list of modules. </param>
-        /// <param name="nextLink"> Gets or sets the next link. </param>
+        /// <param name="value"> Gets a list of modules. </param>
+        /// <param name="nextLink"> Gets the next link. </param>
         internal AutomationModuleListResult(IReadOnlyList<AutomationModuleData> value, string nextLink)
         {
             Value = value;
             NextLink = nextLink;
         }
 
-        /// <summary> Gets or sets a list of modules. </summary>
+        /// <summary> Gets a list of modules. </summary>
         public IReadOnlyList<AutomationModuleData> Value { get; }
-        /// <summary> Gets or sets the next link. </summary>
+        /// <summary> Gets the next link. </summary>
         public string NextLink { get; }
     }
 }
