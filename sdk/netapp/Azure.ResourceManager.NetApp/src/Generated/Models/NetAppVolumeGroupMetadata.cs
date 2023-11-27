@@ -24,15 +24,13 @@ namespace Azure.ResourceManager.NetApp.Models
         /// <param name="applicationType"> Application Type. </param>
         /// <param name="applicationIdentifier"> Application specific identifier. </param>
         /// <param name="globalPlacementRules"> Application specific placement rules for the volume group. </param>
-        /// <param name="deploymentSpecId"> Application specific identifier of deployment rules for the volume group. </param>
         /// <param name="volumesCount"> Number of volumes in volume group. </param>
-        internal NetAppVolumeGroupMetadata(string groupDescription, NetAppApplicationType? applicationType, string applicationIdentifier, IList<NetAppVolumePlacementRule> globalPlacementRules, string deploymentSpecId, long? volumesCount)
+        internal NetAppVolumeGroupMetadata(string groupDescription, NetAppApplicationType? applicationType, string applicationIdentifier, IList<NetAppVolumePlacementRule> globalPlacementRules, long? volumesCount)
         {
             GroupDescription = groupDescription;
             ApplicationType = applicationType;
             ApplicationIdentifier = applicationIdentifier;
             GlobalPlacementRules = globalPlacementRules;
-            DeploymentSpecId = deploymentSpecId;
             VolumesCount = volumesCount;
         }
 
@@ -44,8 +42,6 @@ namespace Azure.ResourceManager.NetApp.Models
         public string ApplicationIdentifier { get; set; }
         /// <summary> Application specific placement rules for the volume group. </summary>
         public IList<NetAppVolumePlacementRule> GlobalPlacementRules { get; }
-        /// <summary> Application specific identifier of deployment rules for the volume group. </summary>
-        public string DeploymentSpecId { get; set; }
         /// <summary> Number of volumes in volume group. </summary>
         public long? VolumesCount { get; }
     }
