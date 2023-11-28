@@ -7558,8 +7558,10 @@ namespace Azure.ResourceManager.DataFactory.Models
         public System.Collections.Generic.IList<Azure.ResourceManager.DataFactory.Models.DatasetReference> Datasets { get { throw null; } }
         public bool? DisableCertValidation { get { throw null; } set { } }
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> Headers { get { throw null; } set { } }
+        public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> HttpRequestTimeout { get { throw null; } set { } }
         public System.Collections.Generic.IList<Azure.Core.Expressions.DataFactory.DataFactoryLinkedServiceReference> LinkedServices { get { throw null; } }
         public Azure.ResourceManager.DataFactory.Models.WebActivityMethod Method { get { throw null; } set { } }
+        public bool? TurnOffAsync { get { throw null; } set { } }
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> Uri { get { throw null; } set { } }
     }
     public partial class WebActivityAuthentication

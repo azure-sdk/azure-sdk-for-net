@@ -93,6 +93,16 @@ namespace Azure.ResourceManager.DataFactory.Models
                 writer.WritePropertyName("disableCertValidation"u8);
                 writer.WriteBooleanValue(DisableCertValidation.Value);
             }
+            if (Optional.IsDefined(HttpRequestTimeout))
+            {
+                writer.WritePropertyName("httpRequestTimeout"u8);
+                JsonSerializer.Serialize(writer, HttpRequestTimeout);
+            }
+            if (Optional.IsDefined(TurnOffAsync))
+            {
+                writer.WritePropertyName("turnOffAsync"u8);
+                writer.WriteBooleanValue(TurnOffAsync.Value);
+            }
             if (Optional.IsCollectionDefined(Datasets))
             {
                 writer.WritePropertyName("datasets"u8);
@@ -155,6 +165,8 @@ namespace Azure.ResourceManager.DataFactory.Models
             Optional<DataFactoryElement<string>> body = default;
             Optional<WebActivityAuthentication> authentication = default;
             Optional<bool> disableCertValidation = default;
+            Optional<DataFactoryElement<string>> httpRequestTimeout = default;
+            Optional<bool> turnOffAsync = default;
             Optional<IList<DatasetReference>> datasets = default;
             Optional<IList<DataFactoryLinkedServiceReference>> linkedServices = default;
             Optional<IntegrationRuntimeReference> connectVia = default;
@@ -296,6 +308,24 @@ namespace Azure.ResourceManager.DataFactory.Models
                             disableCertValidation = property0.Value.GetBoolean();
                             continue;
                         }
+                        if (property0.NameEquals("httpRequestTimeout"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            httpRequestTimeout = JsonSerializer.Deserialize<DataFactoryElement<string>>(property0.Value.GetRawText());
+                            continue;
+                        }
+                        if (property0.NameEquals("turnOffAsync"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            turnOffAsync = property0.Value.GetBoolean();
+                            continue;
+                        }
                         if (property0.NameEquals("datasets"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -339,7 +369,7 @@ namespace Azure.ResourceManager.DataFactory.Models
                 additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
             }
             additionalProperties = additionalPropertiesDictionary;
-            return new WebActivity(name, type, description.Value, Optional.ToNullable(state), Optional.ToNullable(onInactiveMarkAs), Optional.ToList(dependsOn), Optional.ToList(userProperties), additionalProperties, linkedServiceName, policy.Value, method, url, headers.Value, body.Value, authentication.Value, Optional.ToNullable(disableCertValidation), Optional.ToList(datasets), Optional.ToList(linkedServices), connectVia.Value);
+            return new WebActivity(name, type, description.Value, Optional.ToNullable(state), Optional.ToNullable(onInactiveMarkAs), Optional.ToList(dependsOn), Optional.ToList(userProperties), additionalProperties, linkedServiceName, policy.Value, method, url, headers.Value, body.Value, authentication.Value, Optional.ToNullable(disableCertValidation), httpRequestTimeout.Value, Optional.ToNullable(turnOffAsync), Optional.ToList(datasets), Optional.ToList(linkedServices), connectVia.Value);
         }
     }
 }
