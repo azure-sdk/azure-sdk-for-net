@@ -14,26 +14,29 @@ namespace Microsoft.Azure.Management.Analysis.Models
     using System.Linq;
 
     /// <summary>
-    /// Status of gateway is live.
+    /// Defines headers for Create operation.
     /// </summary>
-    public partial class GatewayListStatusLive
+    public partial class AnalysisServicesServersCreateHeaders
     {
         /// <summary>
-        /// Initializes a new instance of the GatewayListStatusLive class.
+        /// Initializes a new instance of the
+        /// AnalysisServicesServersCreateHeaders class.
         /// </summary>
-        public GatewayListStatusLive()
+        public AnalysisServicesServersCreateHeaders()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the GatewayListStatusLive class.
+        /// Initializes a new instance of the
+        /// AnalysisServicesServersCreateHeaders class.
         /// </summary>
-        /// <param name="status">Live message of list gateway. Status: 0 -
-        /// Live</param>
-        public GatewayListStatusLive(double? status = default(double?))
+        /// <param name="retryAfter">The Retry-After header can indicate how
+        /// long the client should wait before polling the operation
+        /// status.</param>
+        public AnalysisServicesServersCreateHeaders(int? retryAfter = default(int?))
         {
-            Status = status;
+            RetryAfter = retryAfter;
             CustomInit();
         }
 
@@ -43,10 +46,11 @@ namespace Microsoft.Azure.Management.Analysis.Models
         partial void CustomInit();
 
         /// <summary>
-        /// Gets or sets live message of list gateway. Status: 0 - Live
+        /// Gets or sets the Retry-After header can indicate how long the
+        /// client should wait before polling the operation status.
         /// </summary>
-        [JsonProperty(PropertyName = "status")]
-        public double? Status { get; set; }
+        [JsonProperty(PropertyName = "Retry-After")]
+        public int? RetryAfter { get; set; }
 
     }
 }

@@ -10,34 +10,31 @@
 
 namespace Microsoft.Azure.Management.Analysis.Models
 {
-    using Newtonsoft.Json;
-    using System.Collections;
-    using System.Collections.Generic;
     using System.Linq;
 
-    /// <summary>
-    /// An object that represents enumerating SKUs for new resources.
-    /// </summary>
-    public partial class SkuEnumerationForNewResourceResult
+    public partial class ResourceModelWithAllowedPropertySetIdentity : Identity
     {
         /// <summary>
         /// Initializes a new instance of the
-        /// SkuEnumerationForNewResourceResult class.
+        /// ResourceModelWithAllowedPropertySetIdentity class.
         /// </summary>
-        public SkuEnumerationForNewResourceResult()
+        public ResourceModelWithAllowedPropertySetIdentity()
         {
             CustomInit();
         }
 
         /// <summary>
         /// Initializes a new instance of the
-        /// SkuEnumerationForNewResourceResult class.
+        /// ResourceModelWithAllowedPropertySetIdentity class.
         /// </summary>
-        /// <param name="value">The collection of available SKUs for new
-        /// resources.</param>
-        public SkuEnumerationForNewResourceResult(IList<ResourceSku> value = default(IList<ResourceSku>))
+        /// <param name="principalId">The principal ID of resource
+        /// identity.</param>
+        /// <param name="tenantId">The tenant ID of resource.</param>
+        /// <param name="type">The identity type. Possible values include:
+        /// 'SystemAssigned'</param>
+        public ResourceModelWithAllowedPropertySetIdentity(string principalId = default(string), string tenantId = default(string), ResourceIdentityType? type = default(ResourceIdentityType?))
+            : base(principalId, tenantId, type)
         {
-            Value = value;
             CustomInit();
         }
 
@@ -45,12 +42,6 @@ namespace Microsoft.Azure.Management.Analysis.Models
         /// An initialization method that performs custom operations like setting defaults
         /// </summary>
         partial void CustomInit();
-
-        /// <summary>
-        /// Gets or sets the collection of available SKUs for new resources.
-        /// </summary>
-        [JsonProperty(PropertyName = "value")]
-        public IList<ResourceSku> Value { get; set; }
 
     }
 }

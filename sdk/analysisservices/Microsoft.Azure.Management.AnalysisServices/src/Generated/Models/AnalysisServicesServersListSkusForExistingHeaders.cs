@@ -14,27 +14,28 @@ namespace Microsoft.Azure.Management.Analysis.Models
     using System.Linq;
 
     /// <summary>
-    /// Detail of gateway errors.
+    /// Defines headers for ListSkusForExisting operation.
     /// </summary>
-    public partial class GatewayError
+    public partial class AnalysisServicesServersListSkusForExistingHeaders
     {
         /// <summary>
-        /// Initializes a new instance of the GatewayError class.
+        /// Initializes a new instance of the
+        /// AnalysisServicesServersListSkusForExistingHeaders class.
         /// </summary>
-        public GatewayError()
+        public AnalysisServicesServersListSkusForExistingHeaders()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the GatewayError class.
+        /// Initializes a new instance of the
+        /// AnalysisServicesServersListSkusForExistingHeaders class.
         /// </summary>
-        /// <param name="code">Error code of list gateway.</param>
-        /// <param name="message">Error message of list gateway.</param>
-        public GatewayError(string code = default(string), string message = default(string))
+        /// <param name="xMsErrorCode">String error code indicating what went
+        /// wrong.</param>
+        public AnalysisServicesServersListSkusForExistingHeaders(string xMsErrorCode = default(string))
         {
-            Code = code;
-            Message = message;
+            XMsErrorCode = xMsErrorCode;
             CustomInit();
         }
 
@@ -44,16 +45,10 @@ namespace Microsoft.Azure.Management.Analysis.Models
         partial void CustomInit();
 
         /// <summary>
-        /// Gets or sets error code of list gateway.
+        /// Gets or sets string error code indicating what went wrong.
         /// </summary>
-        [JsonProperty(PropertyName = "code")]
-        public string Code { get; set; }
-
-        /// <summary>
-        /// Gets or sets error message of list gateway.
-        /// </summary>
-        [JsonProperty(PropertyName = "message")]
-        public string Message { get; set; }
+        [JsonProperty(PropertyName = "x-ms-error-code")]
+        public string XMsErrorCode { get; set; }
 
     }
 }

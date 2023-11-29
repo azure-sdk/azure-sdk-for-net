@@ -16,37 +16,37 @@ namespace Microsoft.Azure.Management.Analysis.Models
     using System.Runtime.Serialization;
 
     /// <summary>
-    /// Defines values for Status.
+    /// Defines values for ResourceIdentityType.
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum Status
+    public enum ResourceIdentityType
     {
-        [EnumMember(Value = "Live")]
-        Live
+        [EnumMember(Value = "SystemAssigned")]
+        SystemAssigned
     }
-    internal static class StatusEnumExtension
+    internal static class ResourceIdentityTypeEnumExtension
     {
-        internal static string ToSerializedValue(this Status? value)
+        internal static string ToSerializedValue(this ResourceIdentityType? value)
         {
-            return value == null ? null : ((Status)value).ToSerializedValue();
+            return value == null ? null : ((ResourceIdentityType)value).ToSerializedValue();
         }
 
-        internal static string ToSerializedValue(this Status value)
+        internal static string ToSerializedValue(this ResourceIdentityType value)
         {
             switch( value )
             {
-                case Status.Live:
-                    return "Live";
+                case ResourceIdentityType.SystemAssigned:
+                    return "SystemAssigned";
             }
             return null;
         }
 
-        internal static Status? ParseStatus(this string value)
+        internal static ResourceIdentityType? ParseResourceIdentityType(this string value)
         {
             switch( value )
             {
-                case "Live":
-                    return Status.Live;
+                case "SystemAssigned":
+                    return ResourceIdentityType.SystemAssigned;
             }
             return null;
         }

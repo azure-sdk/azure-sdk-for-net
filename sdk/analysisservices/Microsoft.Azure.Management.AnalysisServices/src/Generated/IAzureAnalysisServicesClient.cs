@@ -20,7 +20,7 @@ namespace Microsoft.Azure.Management.Analysis
     /// services that enables users to create, retrieve, update, and delete
     /// Analysis Services servers
     /// </summary>
-    public partial interface IAnalysisServicesManagementClient : System.IDisposable
+    public partial interface IAzureAnalysisServicesClient : System.IDisposable
     {
         /// <summary>
         /// The base URI of the service.
@@ -43,43 +43,43 @@ namespace Microsoft.Azure.Management.Analysis
         ServiceClientCredentials Credentials { get; }
 
         /// <summary>
-        /// A unique identifier for a Microsoft Azure subscription. The
-        /// subscription ID forms part of the URI for every service call.
+        /// The ID of the target subscription.
         /// </summary>
         string SubscriptionId { get; set; }
 
         /// <summary>
-        /// The client API version.
+        /// The API version to use for this operation.
         /// </summary>
-        string ApiVersion { get; }
+        string ApiVersion1 { get; }
 
         /// <summary>
-        /// Gets or sets the preferred language for the response.
+        /// The preferred language for the response.
         /// </summary>
         string AcceptLanguage { get; set; }
 
         /// <summary>
-        /// Gets or sets the retry timeout in seconds for Long Running
-        /// Operations. Default value is 30.
+        /// The retry timeout in seconds for Long Running Operations. Default
+        /// value is 30.
         /// </summary>
         int? LongRunningOperationRetryTimeout { get; set; }
 
         /// <summary>
-        /// When set to true a unique x-ms-client-request-id value is generated
-        /// and included in each request. Default is true.
+        /// Whether a unique x-ms-client-request-id should be generated. When
+        /// set to true a unique x-ms-client-request-id value is generated and
+        /// included in each request. Default is true.
         /// </summary>
         bool? GenerateClientRequestId { get; set; }
 
 
         /// <summary>
-        /// Gets the IServersOperations.
-        /// </summary>
-        IServersOperations Servers { get; }
-
-        /// <summary>
         /// Gets the IOperations.
         /// </summary>
         IOperations Operations { get; }
+
+        /// <summary>
+        /// Gets the IAnalysisServicesServersOperations.
+        /// </summary>
+        IAnalysisServicesServersOperations AnalysisServicesServers { get; }
 
     }
 }

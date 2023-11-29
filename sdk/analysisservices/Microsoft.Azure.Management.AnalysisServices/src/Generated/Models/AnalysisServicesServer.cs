@@ -21,7 +21,7 @@ namespace Microsoft.Azure.Management.Analysis.Models
     /// Represents an instance of an Analysis Services resource.
     /// </summary>
     [Rest.Serialization.JsonTransformation]
-    public partial class AnalysisServicesServer : Resource
+    public partial class AnalysisServicesServer : TrackedResource
     {
         /// <summary>
         /// Initializes a new instance of the AnalysisServicesServer class.
@@ -34,35 +34,17 @@ namespace Microsoft.Azure.Management.Analysis.Models
         /// <summary>
         /// Initializes a new instance of the AnalysisServicesServer class.
         /// </summary>
-        /// <param name="location">Location of the Analysis Services
-        /// resource.</param>
-        /// <param name="sku">The SKU of the Analysis Services
-        /// resource.</param>
-        /// <param name="id">An identifier that represents the Analysis
-        /// Services resource.</param>
-        /// <param name="name">The name of the Analysis Services
-        /// resource.</param>
-        /// <param name="type">The type of the Analysis Services
-        /// resource.</param>
-        /// <param name="tags">Key-value pairs of additional resource
-        /// provisioning properties.</param>
-        /// <param name="asAdministrators">A collection of AS server
-        /// administrators</param>
-        /// <param name="backupBlobContainerUri">The SAS container URI to the
-        /// backup container.</param>
-        /// <param name="gatewayDetails">The gateway details configured for the
-        /// AS server.</param>
-        /// <param name="ipV4FirewallSettings">The firewall settings for the AS
-        /// server.</param>
-        /// <param name="querypoolConnectionMode">How the read-write server's
-        /// participation in the query pool is controlled.&lt;br/&gt;It can
-        /// have the following values: &lt;ul&gt;&lt;li&gt;readOnly - indicates
-        /// that the read-write server is intended not to participate in query
-        /// operations&lt;/li&gt;&lt;li&gt;all - indicates that the read-write
-        /// server can participate in query
-        /// operations&lt;/li&gt;&lt;/ul&gt;Specifying readOnly when capacity
-        /// is 1 results in error. Possible values include: 'All',
-        /// 'ReadOnly'</param>
+        /// <param name="location">The geo-location where the resource
+        /// lives</param>
+        /// <param name="id">Fully qualified resource ID for the resource. Ex -
+        /// /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}</param>
+        /// <param name="name">The name of the resource</param>
+        /// <param name="type">The type of the resource. E.g.
+        /// "Microsoft.Compute/virtualMachines" or
+        /// "Microsoft.Storage/storageAccounts"</param>
+        /// <param name="systemData">Azure Resource Manager metadata containing
+        /// createdBy and modifiedBy information.</param>
+        /// <param name="tags">Resource tags.</param>
         /// <param name="state">The current state of Analysis Services
         /// resource. The state is to indicate more states outside of resource
         /// provisioning. Possible values include: 'Deleting', 'Succeeded',
@@ -76,17 +58,15 @@ namespace Microsoft.Azure.Management.Analysis.Models
         /// 'Preparing', 'Scaling'</param>
         /// <param name="serverFullName">The full name of the Analysis Services
         /// resource.</param>
-        public AnalysisServicesServer(string location, ResourceSku sku, string id = default(string), string name = default(string), string type = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), ServerAdministrators asAdministrators = default(ServerAdministrators), string backupBlobContainerUri = default(string), GatewayDetails gatewayDetails = default(GatewayDetails), IPv4FirewallSettings ipV4FirewallSettings = default(IPv4FirewallSettings), ConnectionMode? querypoolConnectionMode = default(ConnectionMode?), string state = default(string), string provisioningState = default(string), string serverFullName = default(string))
-            : base(location, sku, id, name, type, tags)
+        /// <param name="sku">The SKU of the Analysis Services
+        /// resource.</param>
+        public AnalysisServicesServer(string location, string id = default(string), string name = default(string), string type = default(string), SystemData systemData = default(SystemData), IDictionary<string, string> tags = default(IDictionary<string, string>), string state = default(string), string provisioningState = default(string), string serverFullName = default(string), AzureResourceManagerResourceSku sku = default(AzureResourceManagerResourceSku))
+            : base(location, id, name, type, systemData, tags)
         {
-            AsAdministrators = asAdministrators;
-            BackupBlobContainerUri = backupBlobContainerUri;
-            GatewayDetails = gatewayDetails;
-            IpV4FirewallSettings = ipV4FirewallSettings;
-            QuerypoolConnectionMode = querypoolConnectionMode;
             State = state;
             ProvisioningState = provisioningState;
             ServerFullName = serverFullName;
+            Sku = sku;
             CustomInit();
         }
 
@@ -94,44 +74,6 @@ namespace Microsoft.Azure.Management.Analysis.Models
         /// An initialization method that performs custom operations like setting defaults
         /// </summary>
         partial void CustomInit();
-
-        /// <summary>
-        /// Gets or sets a collection of AS server administrators
-        /// </summary>
-        [JsonProperty(PropertyName = "properties.asAdministrators")]
-        public ServerAdministrators AsAdministrators { get; set; }
-
-        /// <summary>
-        /// Gets or sets the SAS container URI to the backup container.
-        /// </summary>
-        [JsonProperty(PropertyName = "properties.backupBlobContainerUri")]
-        public string BackupBlobContainerUri { get; set; }
-
-        /// <summary>
-        /// Gets or sets the gateway details configured for the AS server.
-        /// </summary>
-        [JsonProperty(PropertyName = "properties.gatewayDetails")]
-        public GatewayDetails GatewayDetails { get; set; }
-
-        /// <summary>
-        /// Gets or sets the firewall settings for the AS server.
-        /// </summary>
-        [JsonProperty(PropertyName = "properties.ipV4FirewallSettings")]
-        public IPv4FirewallSettings IpV4FirewallSettings { get; set; }
-
-        /// <summary>
-        /// Gets or sets how the read-write server's participation in the query
-        /// pool is controlled.&amp;lt;br/&amp;gt;It can have the following
-        /// values: &amp;lt;ul&amp;gt;&amp;lt;li&amp;gt;readOnly - indicates
-        /// that the read-write server is intended not to participate in query
-        /// operations&amp;lt;/li&amp;gt;&amp;lt;li&amp;gt;all - indicates that
-        /// the read-write server can participate in query
-        /// operations&amp;lt;/li&amp;gt;&amp;lt;/ul&amp;gt;Specifying readOnly
-        /// when capacity is 1 results in error. Possible values include:
-        /// 'All', 'ReadOnly'
-        /// </summary>
-        [JsonProperty(PropertyName = "properties.querypoolConnectionMode")]
-        public ConnectionMode? QuerypoolConnectionMode { get; set; }
 
         /// <summary>
         /// Gets the current state of Analysis Services resource. The state is
@@ -160,6 +102,12 @@ namespace Microsoft.Azure.Management.Analysis.Models
         public string ServerFullName { get; private set; }
 
         /// <summary>
+        /// Gets or sets the SKU of the Analysis Services resource.
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.sku")]
+        public AzureResourceManagerResourceSku Sku { get; set; }
+
+        /// <summary>
         /// Validate the object.
         /// </summary>
         /// <exception cref="ValidationException">
@@ -168,6 +116,10 @@ namespace Microsoft.Azure.Management.Analysis.Models
         public override void Validate()
         {
             base.Validate();
+            if (Sku != null)
+            {
+                Sku.Validate();
+            }
         }
     }
 }

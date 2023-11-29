@@ -10,32 +10,30 @@
 
 namespace Microsoft.Azure.Management.Analysis.Models
 {
+    using Microsoft.Rest;
     using Newtonsoft.Json;
     using System.Linq;
 
     /// <summary>
-    /// Error response
+    /// A response containing error details.
     /// </summary>
-    /// <remarks>
-    /// Common error response for all Azure Resource Manager APIs to return
-    /// error details for failed operations. (This also follows the OData error
-    /// response format.).
-    /// </remarks>
-    public partial class ErrorResponse
+    public partial class AzureCoreFoundationsErrorResponse
     {
         /// <summary>
-        /// Initializes a new instance of the ErrorResponse class.
+        /// Initializes a new instance of the AzureCoreFoundationsErrorResponse
+        /// class.
         /// </summary>
-        public ErrorResponse()
+        public AzureCoreFoundationsErrorResponse()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the ErrorResponse class.
+        /// Initializes a new instance of the AzureCoreFoundationsErrorResponse
+        /// class.
         /// </summary>
         /// <param name="error">The error object.</param>
-        public ErrorResponse(ErrorDetail error = default(ErrorDetail))
+        public AzureCoreFoundationsErrorResponse(AzureCoreFoundationsError error)
         {
             Error = error;
             CustomInit();
@@ -50,7 +48,24 @@ namespace Microsoft.Azure.Management.Analysis.Models
         /// Gets or sets the error object.
         /// </summary>
         [JsonProperty(PropertyName = "error")]
-        public ErrorDetail Error { get; set; }
+        public AzureCoreFoundationsError Error { get; set; }
 
+        /// <summary>
+        /// Validate the object.
+        /// </summary>
+        /// <exception cref="ValidationException">
+        /// Thrown if validation fails
+        /// </exception>
+        public virtual void Validate()
+        {
+            if (Error == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "Error");
+            }
+            if (Error != null)
+            {
+                Error.Validate();
+            }
+        }
     }
 }

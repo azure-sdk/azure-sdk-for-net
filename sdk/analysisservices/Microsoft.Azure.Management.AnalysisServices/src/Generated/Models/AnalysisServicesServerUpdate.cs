@@ -10,34 +10,39 @@
 
 namespace Microsoft.Azure.Management.Analysis.Models
 {
+    using Microsoft.Rest;
+    using Microsoft.Rest.Serialization;
     using Newtonsoft.Json;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.Linq;
 
     /// <summary>
-    /// An object that represents SKU details for existing resources.
+    /// The type used for update operations of the AnalysisServicesServer.
     /// </summary>
-    public partial class SkuDetailsForExistingResource
+    [Rest.Serialization.JsonTransformation]
+    public partial class AnalysisServicesServerUpdate
     {
         /// <summary>
-        /// Initializes a new instance of the SkuDetailsForExistingResource
+        /// Initializes a new instance of the AnalysisServicesServerUpdate
         /// class.
         /// </summary>
-        public SkuDetailsForExistingResource()
+        public AnalysisServicesServerUpdate()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the SkuDetailsForExistingResource
+        /// Initializes a new instance of the AnalysisServicesServerUpdate
         /// class.
         /// </summary>
-        /// <param name="sku">The SKU in SKU details for existing
-        /// resources.</param>
-        /// <param name="resourceType">The resource type.</param>
-        public SkuDetailsForExistingResource(AzureResourceManagerResourceSku sku = default(AzureResourceManagerResourceSku), string resourceType = default(string))
+        /// <param name="tags">Resource tags.</param>
+        /// <param name="sku">The SKU of the Analysis Services
+        /// resource.</param>
+        public AnalysisServicesServerUpdate(IDictionary<string, string> tags = default(IDictionary<string, string>), AzureResourceManagerResourceSkuUpdate sku = default(AzureResourceManagerResourceSkuUpdate))
         {
+            Tags = tags;
             Sku = sku;
-            ResourceType = resourceType;
             CustomInit();
         }
 
@@ -47,21 +52,21 @@ namespace Microsoft.Azure.Management.Analysis.Models
         partial void CustomInit();
 
         /// <summary>
-        /// Gets or sets the SKU in SKU details for existing resources.
+        /// Gets or sets resource tags.
         /// </summary>
-        [JsonProperty(PropertyName = "sku")]
-        public AzureResourceManagerResourceSku Sku { get; set; }
+        [JsonProperty(PropertyName = "tags")]
+        public IDictionary<string, string> Tags { get; set; }
 
         /// <summary>
-        /// Gets or sets the resource type.
+        /// Gets or sets the SKU of the Analysis Services resource.
         /// </summary>
-        [JsonProperty(PropertyName = "resourceType")]
-        public string ResourceType { get; set; }
+        [JsonProperty(PropertyName = "properties.sku")]
+        public AzureResourceManagerResourceSkuUpdate Sku { get; set; }
 
         /// <summary>
         /// Validate the object.
         /// </summary>
-        /// <exception cref="Rest.ValidationException">
+        /// <exception cref="ValidationException">
         /// Thrown if validation fails
         /// </exception>
         public virtual void Validate()

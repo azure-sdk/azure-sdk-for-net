@@ -14,25 +14,27 @@ namespace Microsoft.Azure.Management.Analysis.Models
     using System.Linq;
 
     /// <summary>
-    /// Status of gateway is error.
+    /// Metric dimension.
     /// </summary>
-    public partial class GatewayListStatusError
+    public partial class MetricDimensions
     {
         /// <summary>
-        /// Initializes a new instance of the GatewayListStatusError class.
+        /// Initializes a new instance of the MetricDimensions class.
         /// </summary>
-        public GatewayListStatusError()
+        public MetricDimensions()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the GatewayListStatusError class.
+        /// Initializes a new instance of the MetricDimensions class.
         /// </summary>
-        /// <param name="error">Error of the list gateway status.</param>
-        public GatewayListStatusError(GatewayError error = default(GatewayError))
+        /// <param name="name">Dimension name.</param>
+        /// <param name="displayName">Dimension display name.</param>
+        public MetricDimensions(string name = default(string), string displayName = default(string))
         {
-            Error = error;
+            Name = name;
+            DisplayName = displayName;
             CustomInit();
         }
 
@@ -42,10 +44,16 @@ namespace Microsoft.Azure.Management.Analysis.Models
         partial void CustomInit();
 
         /// <summary>
-        /// Gets or sets error of the list gateway status.
+        /// Gets dimension name.
         /// </summary>
-        [JsonProperty(PropertyName = "error")]
-        public GatewayError Error { get; set; }
+        [JsonProperty(PropertyName = "name")]
+        public string Name { get; private set; }
+
+        /// <summary>
+        /// Gets dimension display name.
+        /// </summary>
+        [JsonProperty(PropertyName = "displayName")]
+        public string DisplayName { get; private set; }
 
     }
 }

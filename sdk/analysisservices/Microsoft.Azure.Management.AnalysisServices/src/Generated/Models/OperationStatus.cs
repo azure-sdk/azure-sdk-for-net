@@ -34,16 +34,13 @@ namespace Microsoft.Azure.Management.Analysis.Models
         /// <param name="startTime">The start time of the operation.</param>
         /// <param name="endTime">The end time of the operation.</param>
         /// <param name="status">The status of the operation.</param>
-        /// <param name="error">The error detail of the operation if
-        /// any.</param>
-        public OperationStatus(string id = default(string), string name = default(string), string startTime = default(string), string endTime = default(string), string status = default(string), ErrorResponse error = default(ErrorResponse))
+        public OperationStatus(string id = default(string), string name = default(string), string startTime = default(string), string endTime = default(string), string status = default(string))
         {
             Id = id;
             Name = name;
             StartTime = startTime;
             EndTime = endTime;
             Status = status;
-            Error = error;
             CustomInit();
         }
 
@@ -81,12 +78,6 @@ namespace Microsoft.Azure.Management.Analysis.Models
         /// </summary>
         [JsonProperty(PropertyName = "status")]
         public string Status { get; set; }
-
-        /// <summary>
-        /// Gets or sets the error detail of the operation if any.
-        /// </summary>
-        [JsonProperty(PropertyName = "error")]
-        public ErrorResponse Error { get; set; }
 
     }
 }

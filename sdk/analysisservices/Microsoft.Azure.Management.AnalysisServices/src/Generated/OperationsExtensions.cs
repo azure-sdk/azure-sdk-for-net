@@ -22,35 +22,41 @@ namespace Microsoft.Azure.Management.Analysis
     public static partial class OperationsExtensions
     {
             /// <summary>
-            /// Lists all of the available consumption REST API operations.
+            /// List the operations for the provider
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            public static IPage<Operation> List(this IOperations operations)
+            /// <param name='apiVersion'>
+            /// The API version to use for this operation.
+            /// </param>
+            public static IPage<Operation> List(this IOperations operations, string apiVersion)
             {
-                return operations.ListAsync().GetAwaiter().GetResult();
+                return operations.ListAsync(apiVersion).GetAwaiter().GetResult();
             }
 
             /// <summary>
-            /// Lists all of the available consumption REST API operations.
+            /// List the operations for the provider
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
+            /// </param>
+            /// <param name='apiVersion'>
+            /// The API version to use for this operation.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IPage<Operation>> ListAsync(this IOperations operations, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IPage<Operation>> ListAsync(this IOperations operations, string apiVersion, CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.ListWithHttpMessagesAsync(null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.ListWithHttpMessagesAsync(apiVersion, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
             }
 
             /// <summary>
-            /// Lists all of the available consumption REST API operations.
+            /// List the operations for the provider
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -64,7 +70,7 @@ namespace Microsoft.Azure.Management.Analysis
             }
 
             /// <summary>
-            /// Lists all of the available consumption REST API operations.
+            /// List the operations for the provider
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.

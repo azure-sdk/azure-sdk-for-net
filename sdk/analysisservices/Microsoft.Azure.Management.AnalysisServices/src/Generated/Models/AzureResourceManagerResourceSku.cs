@@ -14,30 +14,28 @@ namespace Microsoft.Azure.Management.Analysis.Models
     using System.Linq;
 
     /// <summary>
-    /// An object that represents SKU details for existing resources.
+    /// The SKU (Stock Keeping Unit) assigned to this resource.
     /// </summary>
-    public partial class SkuDetailsForExistingResource
+    public partial class AzureResourceManagerResourceSku
     {
         /// <summary>
-        /// Initializes a new instance of the SkuDetailsForExistingResource
+        /// Initializes a new instance of the AzureResourceManagerResourceSku
         /// class.
         /// </summary>
-        public SkuDetailsForExistingResource()
+        public AzureResourceManagerResourceSku()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the SkuDetailsForExistingResource
+        /// Initializes a new instance of the AzureResourceManagerResourceSku
         /// class.
         /// </summary>
-        /// <param name="sku">The SKU in SKU details for existing
-        /// resources.</param>
-        /// <param name="resourceType">The resource type.</param>
-        public SkuDetailsForExistingResource(AzureResourceManagerResourceSku sku = default(AzureResourceManagerResourceSku), string resourceType = default(string))
+        /// <param name="sku">The SKU (Stock Keeping Unit) assigned to this
+        /// resource.</param>
+        public AzureResourceManagerResourceSku(Sku sku = default(Sku))
         {
             Sku = sku;
-            ResourceType = resourceType;
             CustomInit();
         }
 
@@ -47,16 +45,11 @@ namespace Microsoft.Azure.Management.Analysis.Models
         partial void CustomInit();
 
         /// <summary>
-        /// Gets or sets the SKU in SKU details for existing resources.
+        /// Gets or sets the SKU (Stock Keeping Unit) assigned to this
+        /// resource.
         /// </summary>
         [JsonProperty(PropertyName = "sku")]
-        public AzureResourceManagerResourceSku Sku { get; set; }
-
-        /// <summary>
-        /// Gets or sets the resource type.
-        /// </summary>
-        [JsonProperty(PropertyName = "resourceType")]
-        public string ResourceType { get; set; }
+        public Sku Sku { get; set; }
 
         /// <summary>
         /// Validate the object.
