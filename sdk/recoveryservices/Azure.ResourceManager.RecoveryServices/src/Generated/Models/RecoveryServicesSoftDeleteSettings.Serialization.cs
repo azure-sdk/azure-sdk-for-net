@@ -25,6 +25,11 @@ namespace Azure.ResourceManager.RecoveryServices.Models
                 writer.WritePropertyName("softDeleteRetentionPeriodInDays"u8);
                 writer.WriteNumberValue(SoftDeleteRetentionPeriodInDays.Value);
             }
+            if (Optional.IsDefined(EnhancedSecurityState))
+            {
+                writer.WritePropertyName("enhancedSecurityState"u8);
+                writer.WriteStringValue(EnhancedSecurityState.Value.ToString());
+            }
             writer.WriteEndObject();
         }
 
@@ -36,6 +41,7 @@ namespace Azure.ResourceManager.RecoveryServices.Models
             }
             Optional<RecoveryServicesSoftDeleteState> softDeleteState = default;
             Optional<int> softDeleteRetentionPeriodInDays = default;
+            Optional<EnhancedSecurityState> enhancedSecurityState = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("softDeleteState"u8))
@@ -56,8 +62,17 @@ namespace Azure.ResourceManager.RecoveryServices.Models
                     softDeleteRetentionPeriodInDays = property.Value.GetInt32();
                     continue;
                 }
+                if (property.NameEquals("enhancedSecurityState"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    enhancedSecurityState = new EnhancedSecurityState(property.Value.GetString());
+                    continue;
+                }
             }
-            return new RecoveryServicesSoftDeleteSettings(Optional.ToNullable(softDeleteState), Optional.ToNullable(softDeleteRetentionPeriodInDays));
+            return new RecoveryServicesSoftDeleteSettings(Optional.ToNullable(softDeleteState), Optional.ToNullable(softDeleteRetentionPeriodInDays), Optional.ToNullable(enhancedSecurityState));
         }
     }
 }
