@@ -48,5 +48,7 @@ namespace Azure.ResourceManager.DataProtectionBackup.Models
         public IDictionary<string, string> NamespaceMappings { get; }
         /// <summary> Gets or sets the restore hook references. This property sets the hook reference to be executed during restore. </summary>
         public IList<NamespacedName> RestoreHookReferences { get; }
+        /// <summary> Gets or sets the resource modifier template. This property sets the template for resource modifier during restore. </summary>
+        public NamespacedName ResourceModifierTemplate { get; set; }
     }
 }

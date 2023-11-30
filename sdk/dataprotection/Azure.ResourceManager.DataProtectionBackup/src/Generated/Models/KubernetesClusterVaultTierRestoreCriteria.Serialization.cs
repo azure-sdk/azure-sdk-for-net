@@ -10,13 +10,13 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.DataProtectionBackup.Models
 {
-    public partial class KubernetesClusterRestoreCriteria : IUtf8JsonSerializable
+    public partial class KubernetesClusterVaultTierRestoreCriteria : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
             writer.WritePropertyName("includeClusterScopeResources"u8);
-            writer.WriteBooleanValue(IsClusterScopeResourcesIncluded);
+            writer.WriteBooleanValue(IncludeClusterScopeResources);
             if (Optional.IsCollectionDefined(IncludedNamespaces))
             {
                 writer.WritePropertyName("includedNamespaces"u8);
@@ -97,6 +97,16 @@ namespace Azure.ResourceManager.DataProtectionBackup.Models
                     writer.WriteObjectValue(item);
                 }
                 writer.WriteEndArray();
+            }
+            if (Optional.IsDefined(StagingResourceGroupId))
+            {
+                writer.WritePropertyName("stagingResourceGroupId"u8);
+                writer.WriteStringValue(StagingResourceGroupId);
+            }
+            if (Optional.IsDefined(StagingStorageAccountId))
+            {
+                writer.WritePropertyName("stagingStorageAccountId"u8);
+                writer.WriteStringValue(StagingStorageAccountId);
             }
             if (Optional.IsDefined(ResourceModifierTemplate))
             {
