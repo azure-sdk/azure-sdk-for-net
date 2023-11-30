@@ -7,7 +7,7 @@
 
 namespace Azure.ResourceManager.ServiceLinker.Models
 {
-    /// <summary> The validation item for a linker. </summary>
+    /// <summary> The validation item for a Linker. </summary>
     public partial class LinkerValidationResultItemInfo
     {
         /// <summary> Initializes a new instance of <see cref="LinkerValidationResultItemInfo"/>. </summary>

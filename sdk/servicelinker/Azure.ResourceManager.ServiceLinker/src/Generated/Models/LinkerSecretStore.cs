@@ -10,7 +10,7 @@ using Azure.Core;
 namespace Azure.ResourceManager.ServiceLinker.Models
 {
     /// <summary> An option to store secret value in secure place. </summary>
-    internal partial class LinkerSecretStore
+    public partial class LinkerSecretStore
     {
         /// <summary> Initializes a new instance of <see cref="LinkerSecretStore"/>. </summary>
         public LinkerSecretStore()
@@ -19,12 +19,16 @@ namespace Azure.ResourceManager.ServiceLinker.Models
 
         /// <summary> Initializes a new instance of <see cref="LinkerSecretStore"/>. </summary>
         /// <param name="keyVaultId"> The key vault id to store secret. </param>
-        internal LinkerSecretStore(ResourceIdentifier keyVaultId)
+        /// <param name="keyVaultSecretName"> The key vault secret name to store secret, only valid when storing one secret. </param>
+        internal LinkerSecretStore(ResourceIdentifier keyVaultId, string keyVaultSecretName)
         {
             KeyVaultId = keyVaultId;
+            KeyVaultSecretName = keyVaultSecretName;
         }
 
         /// <summary> The key vault id to store secret. </summary>
         public ResourceIdentifier KeyVaultId { get; set; }
+        /// <summary> The key vault secret name to store secret, only valid when storing one secret. </summary>
+        public string KeyVaultSecretName { get; set; }
     }
 }

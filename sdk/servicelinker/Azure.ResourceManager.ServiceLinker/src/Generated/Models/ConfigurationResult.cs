@@ -11,17 +11,17 @@ using Azure.Core;
 namespace Azure.ResourceManager.ServiceLinker.Models
 {
     /// <summary> Configurations for source resource, include appSettings, connectionString and serviceBindings. </summary>
-    public partial class SourceConfigurationResult
+    public partial class ConfigurationResult
     {
-        /// <summary> Initializes a new instance of <see cref="SourceConfigurationResult"/>. </summary>
-        internal SourceConfigurationResult()
+        /// <summary> Initializes a new instance of <see cref="ConfigurationResult"/>. </summary>
+        internal ConfigurationResult()
         {
             Configurations = new ChangeTrackingList<SourceConfiguration>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="SourceConfigurationResult"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="ConfigurationResult"/>. </summary>
         /// <param name="configurations"> The configuration properties for source resource. </param>
-        internal SourceConfigurationResult(IReadOnlyList<SourceConfiguration> configurations)
+        internal ConfigurationResult(IReadOnlyList<SourceConfiguration> configurations)
         {
             Configurations = configurations;
         }
