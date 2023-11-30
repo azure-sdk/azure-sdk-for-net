@@ -52,6 +52,11 @@ namespace Azure.ResourceManager.Network
                 writer.WritePropertyName("allowClassicOperations"u8);
                 writer.WriteBooleanValue(AllowClassicOperations.Value);
             }
+            if (Optional.IsDefined(EnableDirectPortRateLimit))
+            {
+                writer.WritePropertyName("enableDirectPortRateLimit"u8);
+                writer.WriteBooleanValue(EnableDirectPortRateLimit.Value);
+            }
             if (Optional.IsDefined(CircuitProvisioningState))
             {
                 writer.WritePropertyName("circuitProvisioningState"u8);
@@ -140,6 +145,7 @@ namespace Azure.ResourceManager.Network
             Optional<AzureLocation> location = default;
             Optional<IDictionary<string, string>> tags = default;
             Optional<bool> allowClassicOperations = default;
+            Optional<bool> enableDirectPortRateLimit = default;
             Optional<string> circuitProvisioningState = default;
             Optional<ServiceProviderProvisioningState> serviceProviderProvisioningState = default;
             Optional<IList<ExpressRouteCircuitAuthorizationData>> authorizations = default;
@@ -154,7 +160,6 @@ namespace Azure.ResourceManager.Network
             Optional<string> gatewayManagerETag = default;
             Optional<bool> globalReachEnabled = default;
             Optional<string> authorizationKey = default;
-            Optional<string> authorizationStatus = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("sku"u8))
@@ -237,6 +242,15 @@ namespace Azure.ResourceManager.Network
                                 continue;
                             }
                             allowClassicOperations = property0.Value.GetBoolean();
+                            continue;
+                        }
+                        if (property0.NameEquals("enableDirectPortRateLimit"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            enableDirectPortRateLimit = property0.Value.GetBoolean();
                             continue;
                         }
                         if (property0.NameEquals("circuitProvisioningState"u8))
@@ -355,16 +369,11 @@ namespace Azure.ResourceManager.Network
                             authorizationKey = property0.Value.GetString();
                             continue;
                         }
-                        if (property0.NameEquals("authorizationStatus"u8))
-                        {
-                            authorizationStatus = property0.Value.GetString();
-                            continue;
-                        }
                     }
                     continue;
                 }
             }
-            return new ExpressRouteCircuitData(id.Value, name.Value, Optional.ToNullable(type), Optional.ToNullable(location), Optional.ToDictionary(tags), sku.Value, Optional.ToNullable(etag), Optional.ToNullable(allowClassicOperations), circuitProvisioningState.Value, Optional.ToNullable(serviceProviderProvisioningState), Optional.ToList(authorizations), Optional.ToList(peerings), serviceKey.Value, serviceProviderNotes.Value, serviceProviderProperties.Value, expressRoutePort, Optional.ToNullable(bandwidthInGbps), Optional.ToNullable(stag), Optional.ToNullable(provisioningState), gatewayManagerETag.Value, Optional.ToNullable(globalReachEnabled), authorizationKey.Value, authorizationStatus.Value);
+            return new ExpressRouteCircuitData(id.Value, name.Value, Optional.ToNullable(type), Optional.ToNullable(location), Optional.ToDictionary(tags), sku.Value, Optional.ToNullable(etag), Optional.ToNullable(allowClassicOperations), Optional.ToNullable(enableDirectPortRateLimit), circuitProvisioningState.Value, Optional.ToNullable(serviceProviderProvisioningState), Optional.ToList(authorizations), Optional.ToList(peerings), serviceKey.Value, serviceProviderNotes.Value, serviceProviderProperties.Value, expressRoutePort, Optional.ToNullable(bandwidthInGbps), Optional.ToNullable(stag), Optional.ToNullable(provisioningState), gatewayManagerETag.Value, Optional.ToNullable(globalReachEnabled), authorizationKey.Value);
         }
     }
 }

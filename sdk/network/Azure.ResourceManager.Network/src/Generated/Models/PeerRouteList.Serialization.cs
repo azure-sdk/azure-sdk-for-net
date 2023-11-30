@@ -11,15 +11,15 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.Network.Models
 {
-    public partial class EffectiveRouteMapRouteList
+    public partial class PeerRouteList
     {
-        internal static EffectiveRouteMapRouteList DeserializeEffectiveRouteMapRouteList(JsonElement element)
+        internal static PeerRouteList DeserializePeerRouteList(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
                 return null;
             }
-            Optional<IReadOnlyList<EffectiveRouteMapRoute>> value = default;
+            Optional<IReadOnlyList<PeerRoute>> value = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("value"u8))
@@ -28,16 +28,16 @@ namespace Azure.ResourceManager.Network.Models
                     {
                         continue;
                     }
-                    List<EffectiveRouteMapRoute> array = new List<EffectiveRouteMapRoute>();
+                    List<PeerRoute> array = new List<PeerRoute>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(EffectiveRouteMapRoute.DeserializeEffectiveRouteMapRoute(item));
+                        array.Add(PeerRoute.DeserializePeerRoute(item));
                     }
                     value = array;
                     continue;
                 }
             }
-            return new EffectiveRouteMapRouteList(Optional.ToList(value));
+            return new PeerRouteList(Optional.ToList(value));
         }
     }
 }

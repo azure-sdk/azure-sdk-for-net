@@ -148,7 +148,6 @@ namespace Azure.ResourceManager.Network
             Optional<VirtualNetworkBgpCommunities> bgpCommunities = default;
             Optional<VirtualNetworkEncryption> encryption = default;
             Optional<IList<WritableSubResource>> ipAllocations = default;
-            Optional<IReadOnlyList<FlowLogData>> flowLogs = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("extendedLocation"u8))
@@ -356,25 +355,11 @@ namespace Azure.ResourceManager.Network
                             ipAllocations = array;
                             continue;
                         }
-                        if (property0.NameEquals("flowLogs"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            List<FlowLogData> array = new List<FlowLogData>();
-                            foreach (var item in property0.Value.EnumerateArray())
-                            {
-                                array.Add(FlowLogData.DeserializeFlowLogData(item));
-                            }
-                            flowLogs = array;
-                            continue;
-                        }
                     }
                     continue;
                 }
             }
-            return new VirtualNetworkData(id.Value, name.Value, Optional.ToNullable(type), Optional.ToNullable(location), Optional.ToDictionary(tags), extendedLocation, Optional.ToNullable(etag), addressSpace.Value, dhcpOptions.Value, Optional.ToNullable(flowTimeoutInMinutes), Optional.ToList(subnets), Optional.ToList(virtualNetworkPeerings), Optional.ToNullable(resourceGuid), Optional.ToNullable(provisioningState), Optional.ToNullable(enableDdosProtection), Optional.ToNullable(enableVmProtection), ddosProtectionPlan, bgpCommunities.Value, encryption.Value, Optional.ToList(ipAllocations), Optional.ToList(flowLogs));
+            return new VirtualNetworkData(id.Value, name.Value, Optional.ToNullable(type), Optional.ToNullable(location), Optional.ToDictionary(tags), extendedLocation, Optional.ToNullable(etag), addressSpace.Value, dhcpOptions.Value, Optional.ToNullable(flowTimeoutInMinutes), Optional.ToList(subnets), Optional.ToList(virtualNetworkPeerings), Optional.ToNullable(resourceGuid), Optional.ToNullable(provisioningState), Optional.ToNullable(enableDdosProtection), Optional.ToNullable(enableVmProtection), ddosProtectionPlan, bgpCommunities.Value, encryption.Value, Optional.ToList(ipAllocations));
         }
     }
 }

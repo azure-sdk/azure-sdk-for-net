@@ -9,7 +9,7 @@ using System;
 
 namespace Azure.ResourceManager.Network.Models
 {
-    /// <summary> Custom error of an application gateway. </summary>
+    /// <summary> Customer error of an application gateway. </summary>
     public partial class ApplicationGatewayCustomError
     {
         /// <summary> Initializes a new instance of <see cref="ApplicationGatewayCustomError"/>. </summary>
@@ -18,17 +18,17 @@ namespace Azure.ResourceManager.Network.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="ApplicationGatewayCustomError"/>. </summary>
-        /// <param name="statusCode"> Status code of the application gateway custom error. </param>
-        /// <param name="customErrorPageUri"> Error page URL of the application gateway custom error. </param>
+        /// <param name="statusCode"> Status code of the application gateway customer error. </param>
+        /// <param name="customErrorPageUri"> Error page URL of the application gateway customer error. </param>
         internal ApplicationGatewayCustomError(ApplicationGatewayCustomErrorStatusCode? statusCode, Uri customErrorPageUri)
         {
             StatusCode = statusCode;
             CustomErrorPageUri = customErrorPageUri;
         }
 
-        /// <summary> Status code of the application gateway custom error. </summary>
+        /// <summary> Status code of the application gateway customer error. </summary>
         public ApplicationGatewayCustomErrorStatusCode? StatusCode { get; set; }
-        /// <summary> Error page URL of the application gateway custom error. </summary>
+        /// <summary> Error page URL of the application gateway customer error. </summary>
         public Uri CustomErrorPageUri { get; set; }
     }
 }

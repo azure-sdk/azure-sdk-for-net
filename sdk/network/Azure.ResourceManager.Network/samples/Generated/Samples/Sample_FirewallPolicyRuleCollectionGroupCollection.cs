@@ -23,7 +23,7 @@ namespace Azure.ResourceManager.Network.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetFirewallPolicyNatRuleCollectionGroup()
         {
-            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-06-01/examples/FirewallPolicyNatRuleCollectionGroupGet.json
+            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2022-07-01/examples/FirewallPolicyNatRuleCollectionGroupGet.json
             // this example is just showing the usage of "FirewallPolicyRuleCollectionGroups_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -58,7 +58,7 @@ namespace Azure.ResourceManager.Network.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Exists_GetFirewallPolicyNatRuleCollectionGroup()
         {
-            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-06-01/examples/FirewallPolicyNatRuleCollectionGroupGet.json
+            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2022-07-01/examples/FirewallPolicyNatRuleCollectionGroupGet.json
             // this example is just showing the usage of "FirewallPolicyRuleCollectionGroups_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -89,7 +89,7 @@ namespace Azure.ResourceManager.Network.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetIfExists_GetFirewallPolicyNatRuleCollectionGroup()
         {
-            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-06-01/examples/FirewallPolicyNatRuleCollectionGroupGet.json
+            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2022-07-01/examples/FirewallPolicyNatRuleCollectionGroupGet.json
             // this example is just showing the usage of "FirewallPolicyRuleCollectionGroups_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -132,7 +132,7 @@ namespace Azure.ResourceManager.Network.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetFirewallPolicyRuleCollectionGroup()
         {
-            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-06-01/examples/FirewallPolicyRuleCollectionGroupGet.json
+            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2022-07-01/examples/FirewallPolicyRuleCollectionGroupGet.json
             // this example is just showing the usage of "FirewallPolicyRuleCollectionGroups_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -167,7 +167,7 @@ namespace Azure.ResourceManager.Network.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Exists_GetFirewallPolicyRuleCollectionGroup()
         {
-            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-06-01/examples/FirewallPolicyRuleCollectionGroupGet.json
+            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2022-07-01/examples/FirewallPolicyRuleCollectionGroupGet.json
             // this example is just showing the usage of "FirewallPolicyRuleCollectionGroups_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -198,7 +198,7 @@ namespace Azure.ResourceManager.Network.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetIfExists_GetFirewallPolicyRuleCollectionGroup()
         {
-            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-06-01/examples/FirewallPolicyRuleCollectionGroupGet.json
+            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2022-07-01/examples/FirewallPolicyRuleCollectionGroupGet.json
             // this example is just showing the usage of "FirewallPolicyRuleCollectionGroups_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -241,7 +241,7 @@ namespace Azure.ResourceManager.Network.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetFirewallPolicyRuleCollectionGroupWithIpGroups()
         {
-            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-06-01/examples/FirewallPolicyRuleCollectionGroupWithIpGroupsGet.json
+            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2022-07-01/examples/FirewallPolicyRuleCollectionGroupWithIpGroupsGet.json
             // this example is just showing the usage of "FirewallPolicyRuleCollectionGroups_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -276,7 +276,7 @@ namespace Azure.ResourceManager.Network.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Exists_GetFirewallPolicyRuleCollectionGroupWithIpGroups()
         {
-            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-06-01/examples/FirewallPolicyRuleCollectionGroupWithIpGroupsGet.json
+            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2022-07-01/examples/FirewallPolicyRuleCollectionGroupWithIpGroupsGet.json
             // this example is just showing the usage of "FirewallPolicyRuleCollectionGroups_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -307,7 +307,7 @@ namespace Azure.ResourceManager.Network.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetIfExists_GetFirewallPolicyRuleCollectionGroupWithIpGroups()
         {
-            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-06-01/examples/FirewallPolicyRuleCollectionGroupWithIpGroupsGet.json
+            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2022-07-01/examples/FirewallPolicyRuleCollectionGroupWithIpGroupsGet.json
             // this example is just showing the usage of "FirewallPolicyRuleCollectionGroups_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -350,7 +350,7 @@ namespace Azure.ResourceManager.Network.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetFirewallPolicyRuleCollectionGroupWithWebCategories()
         {
-            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-06-01/examples/FirewallPolicyRuleCollectionGroupWithWebCategoriesGet.json
+            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2022-07-01/examples/FirewallPolicyRuleCollectionGroupWithWebCategoriesGet.json
             // this example is just showing the usage of "FirewallPolicyRuleCollectionGroups_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -385,7 +385,7 @@ namespace Azure.ResourceManager.Network.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Exists_GetFirewallPolicyRuleCollectionGroupWithWebCategories()
         {
-            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-06-01/examples/FirewallPolicyRuleCollectionGroupWithWebCategoriesGet.json
+            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2022-07-01/examples/FirewallPolicyRuleCollectionGroupWithWebCategoriesGet.json
             // this example is just showing the usage of "FirewallPolicyRuleCollectionGroups_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -416,7 +416,7 @@ namespace Azure.ResourceManager.Network.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetIfExists_GetFirewallPolicyRuleCollectionGroupWithWebCategories()
         {
-            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-06-01/examples/FirewallPolicyRuleCollectionGroupWithWebCategoriesGet.json
+            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2022-07-01/examples/FirewallPolicyRuleCollectionGroupWithWebCategoriesGet.json
             // this example is just showing the usage of "FirewallPolicyRuleCollectionGroups_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -454,12 +454,12 @@ namespace Azure.ResourceManager.Network.Samples
             }
         }
 
-        // Create Firewall Policy Nat Rule Collection Group
+        // Create FirewallPolicyNatRuleCollectionGroup
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreateFirewallPolicyNatRuleCollectionGroup()
         {
-            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-06-01/examples/FirewallPolicyNatRuleCollectionGroupPut.json
+            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2022-07-01/examples/FirewallPolicyNatRuleCollectionGroupPut.json
             // this example is just showing the usage of "FirewallPolicyRuleCollectionGroups_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -531,12 +531,12 @@ Priority = 100,
             Console.WriteLine($"Succeeded on id: {resourceData.Id}");
         }
 
-        // Create Firewall Policy Rule Collection Group
+        // Create FirewallPolicyRuleCollectionGroup
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreateFirewallPolicyRuleCollectionGroup()
         {
-            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-06-01/examples/FirewallPolicyRuleCollectionGroupPut.json
+            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2022-07-01/examples/FirewallPolicyRuleCollectionGroupPut.json
             // this example is just showing the usage of "FirewallPolicyRuleCollectionGroups_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -603,12 +603,12 @@ Priority = 100,
             Console.WriteLine($"Succeeded on id: {resourceData.Id}");
         }
 
-        // Create Firewall Policy Rule Collection Group With IP Groups
+        // Create FirewallPolicyRuleCollectionGroup With IpGroups
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task CreateOrUpdate_CreateFirewallPolicyRuleCollectionGroupWithIPGroups()
+        public async Task CreateOrUpdate_CreateFirewallPolicyRuleCollectionGroupWithIpGroups()
         {
-            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-06-01/examples/FirewallPolicyRuleCollectionGroupWithIpGroupsPut.json
+            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2022-07-01/examples/FirewallPolicyRuleCollectionGroupWithIpGroupsPut.json
             // this example is just showing the usage of "FirewallPolicyRuleCollectionGroups_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -674,12 +674,12 @@ Name = "Example-Filter-Rule-Collection",
             Console.WriteLine($"Succeeded on id: {resourceData.Id}");
         }
 
-        // Create Firewall Policy Rule Collection Group With Web Categories
+        // Create FirewallPolicyRuleCollectionGroup With Web Categories
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreateFirewallPolicyRuleCollectionGroupWithWebCategories()
         {
-            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-06-01/examples/FirewallPolicyRuleCollectionGroupWithWebCategoriesPut.json
+            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2022-07-01/examples/FirewallPolicyRuleCollectionGroupWithWebCategoriesPut.json
             // this example is just showing the usage of "FirewallPolicyRuleCollectionGroups_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -746,92 +746,12 @@ Name = "Example-Filter-Rule-Collection",
             Console.WriteLine($"Succeeded on id: {resourceData.Id}");
         }
 
-        // Create Firewall Policy Rule Collection Group With http header to insert
-        [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task CreateOrUpdate_CreateFirewallPolicyRuleCollectionGroupWithHttpHeaderToInsert()
-        {
-            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-06-01/examples/FirewallPolicyRuleCollectionGroupWithHttpHeadersToInsert.json
-            // this example is just showing the usage of "FirewallPolicyRuleCollectionGroups_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
-
-            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
-            TokenCredential cred = new DefaultAzureCredential();
-            // authenticate your client
-            ArmClient client = new ArmClient(cred);
-
-            // this example assumes you already have this FirewallPolicyResource created on azure
-            // for more information of creating FirewallPolicyResource, please refer to the document of FirewallPolicyResource
-            string subscriptionId = "e747cc13-97d4-4a79-b463-42d7f4e558f2";
-            string resourceGroupName = "rg1";
-            string firewallPolicyName = "firewallPolicy";
-            ResourceIdentifier firewallPolicyResourceId = FirewallPolicyResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, firewallPolicyName);
-            FirewallPolicyResource firewallPolicy = client.GetFirewallPolicyResource(firewallPolicyResourceId);
-
-            // get the collection of this FirewallPolicyRuleCollectionGroupResource
-            FirewallPolicyRuleCollectionGroupCollection collection = firewallPolicy.GetFirewallPolicyRuleCollectionGroups();
-
-            // invoke the operation
-            string ruleCollectionGroupName = "ruleCollectionGroup1";
-            FirewallPolicyRuleCollectionGroupData data = new FirewallPolicyRuleCollectionGroupData()
-            {
-                Priority = 110,
-                RuleCollections =
-{
-new FirewallPolicyFilterRuleCollectionInfo()
-{
-ActionType = FirewallPolicyFilterRuleCollectionActionType.Allow,
-Rules =
-{
-new ApplicationRule()
-{
-SourceAddresses =
-{
-"216.58.216.164","10.0.0.0/24"
-},
-Protocols =
-{
-new FirewallPolicyRuleApplicationProtocol()
-{
-ProtocolType = FirewallPolicyRuleApplicationProtocolType.Http,
-Port = 80,
-}
-},
-FqdnTags =
-{
-"WindowsVirtualDesktop"
-},
-HttpHeadersToInsert =
-{
-new FirewallPolicyHttpHeaderToInsert()
-{
-HeaderName = "Restrict-Access-To-Tenants",
-HeaderValue = "contoso.com,fabrikam.onmicrosoft.com",
-}
-},
-Name = "rule1",
-Description = "Insert trusted tenants header",
-}
-},
-Name = "Example-Filter-Rule-Collection",
-}
-},
-            };
-            ArmOperation<FirewallPolicyRuleCollectionGroupResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, ruleCollectionGroupName, data);
-            FirewallPolicyRuleCollectionGroupResource result = lro.Value;
-
-            // the variable result is a resource, you could call other operations on this instance as well
-            // but just for demo, we get its data from this resource instance
-            FirewallPolicyRuleCollectionGroupData resourceData = result.Data;
-            // for demo we just print out the id
-            Console.WriteLine($"Succeeded on id: {resourceData.Id}");
-        }
-
         // List all FirewallPolicyRuleCollectionGroup With Web Categories
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetAll_ListAllFirewallPolicyRuleCollectionGroupWithWebCategories()
         {
-            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-06-01/examples/FirewallPolicyRuleCollectionGroupWithWebCategoriesList.json
+            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2022-07-01/examples/FirewallPolicyRuleCollectionGroupWithWebCategoriesList.json
             // this example is just showing the usage of "FirewallPolicyRuleCollectionGroups_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -868,7 +788,7 @@ Name = "Example-Filter-Rule-Collection",
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetAll_ListAllFirewallPolicyRuleCollectionGroupsForAGivenFirewallPolicy()
         {
-            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-06-01/examples/FirewallPolicyRuleCollectionGroupList.json
+            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2022-07-01/examples/FirewallPolicyRuleCollectionGroupList.json
             // this example is just showing the usage of "FirewallPolicyRuleCollectionGroups_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -905,7 +825,7 @@ Name = "Example-Filter-Rule-Collection",
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetAll_ListAllFirewallPolicyRuleCollectionGroupsWithIpGroupsForAGivenFirewallPolicy()
         {
-            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2023-06-01/examples/FirewallPolicyRuleCollectionGroupWithIpGroupsList.json
+            // Generated from example definition: specification/network/resource-manager/Microsoft.Network/stable/2022-07-01/examples/FirewallPolicyRuleCollectionGroupWithIpGroupsList.json
             // this example is just showing the usage of "FirewallPolicyRuleCollectionGroups_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line

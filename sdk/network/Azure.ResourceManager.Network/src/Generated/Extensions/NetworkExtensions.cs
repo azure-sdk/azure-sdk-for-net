@@ -1942,25 +1942,6 @@ namespace Azure.ResourceManager.Network
         }
 
         /// <summary>
-        /// Gets an object representing a <see cref="NetworkVirtualApplianceConnectionResource" /> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="NetworkVirtualApplianceConnectionResource.CreateResourceIdentifier" /> to create a <see cref="NetworkVirtualApplianceConnectionResource" /> <see cref="ResourceIdentifier" /> from its components.
-        /// <item>
-        /// <term>Mocking</term>
-        /// <description>To mock this method, please mock <see cref="MockableNetworkArmClient.GetNetworkVirtualApplianceConnectionResource(ResourceIdentifier)"/> instead.</description>
-        /// </item>
-        /// </summary>
-        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
-        /// <returns> Returns a <see cref="NetworkVirtualApplianceConnectionResource"/> object. </returns>
-        public static NetworkVirtualApplianceConnectionResource GetNetworkVirtualApplianceConnectionResource(this ArmClient client, ResourceIdentifier id)
-        {
-            Argument.AssertNotNull(client, nameof(client));
-
-            return GetMockableNetworkArmClient(client).GetNetworkVirtualApplianceConnectionResource(id);
-        }
-
-        /// <summary>
         /// Gets an object representing a <see cref="BgpConnectionResource" /> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="BgpConnectionResource.CreateResourceIdentifier" /> to create a <see cref="BgpConnectionResource" /> <see cref="ResourceIdentifier" /> from its components.
         /// <item>

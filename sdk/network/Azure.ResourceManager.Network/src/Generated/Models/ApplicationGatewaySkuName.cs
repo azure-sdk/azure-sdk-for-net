@@ -28,8 +28,8 @@ namespace Azure.ResourceManager.Network.Models
         private const string WAFMediumValue = "WAF_Medium";
         private const string WAFLargeValue = "WAF_Large";
         private const string StandardV2Value = "Standard_v2";
+        private const string StandardBasicValue = "Standard_Basic";
         private const string WAFV2Value = "WAF_v2";
-        private const string BasicValue = "Basic";
 
         /// <summary> Standard_Small. </summary>
         public static ApplicationGatewaySkuName StandardSmall { get; } = new ApplicationGatewaySkuName(StandardSmallValue);
@@ -43,10 +43,10 @@ namespace Azure.ResourceManager.Network.Models
         public static ApplicationGatewaySkuName WAFLarge { get; } = new ApplicationGatewaySkuName(WAFLargeValue);
         /// <summary> Standard_v2. </summary>
         public static ApplicationGatewaySkuName StandardV2 { get; } = new ApplicationGatewaySkuName(StandardV2Value);
+        /// <summary> Standard_Basic. </summary>
+        public static ApplicationGatewaySkuName StandardBasic { get; } = new ApplicationGatewaySkuName(StandardBasicValue);
         /// <summary> WAF_v2. </summary>
         public static ApplicationGatewaySkuName WAFV2 { get; } = new ApplicationGatewaySkuName(WAFV2Value);
-        /// <summary> Basic. </summary>
-        public static ApplicationGatewaySkuName Basic { get; } = new ApplicationGatewaySkuName(BasicValue);
         /// <summary> Determines if two <see cref="ApplicationGatewaySkuName"/> values are the same. </summary>
         public static bool operator ==(ApplicationGatewaySkuName left, ApplicationGatewaySkuName right) => left.Equals(right);
         /// <summary> Determines if two <see cref="ApplicationGatewaySkuName"/> values are not the same. </summary>

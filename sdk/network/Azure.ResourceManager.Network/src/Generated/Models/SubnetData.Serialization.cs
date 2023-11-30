@@ -118,18 +118,13 @@ namespace Azure.ResourceManager.Network
             }
             if (Optional.IsCollectionDefined(ApplicationGatewayIPConfigurations))
             {
-                writer.WritePropertyName("applicationGatewayIPConfigurations"u8);
+                writer.WritePropertyName("applicationGatewayIpConfigurations"u8);
                 writer.WriteStartArray();
                 foreach (var item in ApplicationGatewayIPConfigurations)
                 {
                     writer.WriteObjectValue(item);
                 }
                 writer.WriteEndArray();
-            }
-            if (Optional.IsDefined(DefaultOutboundAccess))
-            {
-                writer.WritePropertyName("defaultOutboundAccess"u8);
-                writer.WriteBooleanValue(DefaultOutboundAccess.Value);
             }
             writer.WriteEndObject();
             writer.WriteEndObject();
@@ -164,7 +159,6 @@ namespace Azure.ResourceManager.Network
             Optional<VirtualNetworkPrivateEndpointNetworkPolicy> privateEndpointNetworkPolicies = default;
             Optional<VirtualNetworkPrivateLinkServiceNetworkPolicy> privateLinkServiceNetworkPolicies = default;
             Optional<IList<ApplicationGatewayIPConfiguration>> applicationGatewayIPConfigurations = default;
-            Optional<bool> defaultOutboundAccess = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("etag"u8))
@@ -412,7 +406,7 @@ namespace Azure.ResourceManager.Network
                             privateLinkServiceNetworkPolicies = new VirtualNetworkPrivateLinkServiceNetworkPolicy(property0.Value.GetString());
                             continue;
                         }
-                        if (property0.NameEquals("applicationGatewayIPConfigurations"u8))
+                        if (property0.NameEquals("applicationGatewayIpConfigurations"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
                             {
@@ -426,20 +420,11 @@ namespace Azure.ResourceManager.Network
                             applicationGatewayIPConfigurations = array;
                             continue;
                         }
-                        if (property0.NameEquals("defaultOutboundAccess"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            defaultOutboundAccess = property0.Value.GetBoolean();
-                            continue;
-                        }
                     }
                     continue;
                 }
             }
-            return new SubnetData(id.Value, name.Value, Optional.ToNullable(type), Optional.ToNullable(etag), addressPrefix.Value, Optional.ToList(addressPrefixes), networkSecurityGroup.Value, routeTable.Value, natGateway, Optional.ToList(serviceEndpoints), Optional.ToList(serviceEndpointPolicies), Optional.ToList(privateEndpoints), Optional.ToList(ipConfigurations), Optional.ToList(ipConfigurationProfiles), Optional.ToList(ipAllocations), Optional.ToList(resourceNavigationLinks), Optional.ToList(serviceAssociationLinks), Optional.ToList(delegations), purpose.Value, Optional.ToNullable(provisioningState), Optional.ToNullable(privateEndpointNetworkPolicies), Optional.ToNullable(privateLinkServiceNetworkPolicies), Optional.ToList(applicationGatewayIPConfigurations), Optional.ToNullable(defaultOutboundAccess));
+            return new SubnetData(id.Value, name.Value, Optional.ToNullable(type), Optional.ToNullable(etag), addressPrefix.Value, Optional.ToList(addressPrefixes), networkSecurityGroup.Value, routeTable.Value, natGateway, Optional.ToList(serviceEndpoints), Optional.ToList(serviceEndpointPolicies), Optional.ToList(privateEndpoints), Optional.ToList(ipConfigurations), Optional.ToList(ipConfigurationProfiles), Optional.ToList(ipAllocations), Optional.ToList(resourceNavigationLinks), Optional.ToList(serviceAssociationLinks), Optional.ToList(delegations), purpose.Value, Optional.ToNullable(provisioningState), Optional.ToNullable(privateEndpointNetworkPolicies), Optional.ToNullable(privateLinkServiceNetworkPolicies), Optional.ToList(applicationGatewayIPConfigurations));
         }
     }
 }
