@@ -36,6 +36,25 @@ namespace Azure.ResourceManager.Dns
         }
 
         /// <summary>
+        /// Gets an object representing a <see cref="DnssecConfigResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="DnssecConfigResource.CreateResourceIdentifier" /> to create a <see cref="DnssecConfigResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableDnsArmClient.GetDnssecConfigResource(ResourceIdentifier)"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
+        /// <returns> Returns a <see cref="DnssecConfigResource"/> object. </returns>
+        public static DnssecConfigResource GetDnssecConfigResource(this ArmClient client, ResourceIdentifier id)
+        {
+            Argument.AssertNotNull(client, nameof(client));
+
+            return GetMockableDnsArmClient(client).GetDnssecConfigResource(id);
+        }
+
+        /// <summary>
         /// Gets an object representing a <see cref="DnsARecordResource" /> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="DnsARecordResource.CreateResourceIdentifier" /> to create a <see cref="DnsARecordResource" /> <see cref="ResourceIdentifier" /> from its components.
         /// <item>
@@ -223,6 +242,63 @@ namespace Azure.ResourceManager.Dns
             Argument.AssertNotNull(client, nameof(client));
 
             return GetMockableDnsArmClient(client).GetDnsTxtRecordResource(id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="DnsZoneTLSAResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="DnsZoneTLSAResource.CreateResourceIdentifier" /> to create a <see cref="DnsZoneTLSAResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableDnsArmClient.GetDnsZoneTLSAResource(ResourceIdentifier)"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
+        /// <returns> Returns a <see cref="DnsZoneTLSAResource"/> object. </returns>
+        public static DnsZoneTLSAResource GetDnsZoneTLSAResource(this ArmClient client, ResourceIdentifier id)
+        {
+            Argument.AssertNotNull(client, nameof(client));
+
+            return GetMockableDnsArmClient(client).GetDnsZoneTLSAResource(id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="DnsZoneDResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="DnsZoneDResource.CreateResourceIdentifier" /> to create a <see cref="DnsZoneDResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableDnsArmClient.GetDnsZoneDResource(ResourceIdentifier)"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
+        /// <returns> Returns a <see cref="DnsZoneDResource"/> object. </returns>
+        public static DnsZoneDResource GetDnsZoneDResource(this ArmClient client, ResourceIdentifier id)
+        {
+            Argument.AssertNotNull(client, nameof(client));
+
+            return GetMockableDnsArmClient(client).GetDnsZoneDResource(id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="DnsZoneNAPTRResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="DnsZoneNAPTRResource.CreateResourceIdentifier" /> to create a <see cref="DnsZoneNAPTRResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableDnsArmClient.GetDnsZoneNAPTRResource(ResourceIdentifier)"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
+        /// <returns> Returns a <see cref="DnsZoneNAPTRResource"/> object. </returns>
+        public static DnsZoneNAPTRResource GetDnsZoneNAPTRResource(this ArmClient client, ResourceIdentifier id)
+        {
+            Argument.AssertNotNull(client, nameof(client));
+
+            return GetMockableDnsArmClient(client).GetDnsZoneNAPTRResource(id);
         }
 
         /// <summary>
