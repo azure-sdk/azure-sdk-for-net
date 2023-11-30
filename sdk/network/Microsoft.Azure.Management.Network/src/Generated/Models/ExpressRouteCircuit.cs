@@ -42,6 +42,8 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <param name="sku">The SKU.</param>
         /// <param name="allowClassicOperations">Allow classic
         /// operations.</param>
+        /// <param name="enableDirectPortRateLimit">Flag denoting rate-limiting
+        /// status of the ExpressRoute direct-port circuit.</param>
         /// <param name="circuitProvisioningState">The CircuitProvisioningState
         /// state of the resource.</param>
         /// <param name="serviceProviderProvisioningState">The
@@ -69,15 +71,14 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <param name="globalReachEnabled">Flag denoting global reach
         /// status.</param>
         /// <param name="authorizationKey">The authorizationKey.</param>
-        /// <param name="authorizationStatus">The authorization status of the
-        /// Circuit.</param>
         /// <param name="etag">A unique read-only string that changes whenever
         /// the resource is updated.</param>
-        public ExpressRouteCircuit(string id = default(string), string name = default(string), string type = default(string), string location = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), ExpressRouteCircuitSku sku = default(ExpressRouteCircuitSku), bool? allowClassicOperations = default(bool?), string circuitProvisioningState = default(string), string serviceProviderProvisioningState = default(string), IList<ExpressRouteCircuitAuthorization> authorizations = default(IList<ExpressRouteCircuitAuthorization>), IList<ExpressRouteCircuitPeering> peerings = default(IList<ExpressRouteCircuitPeering>), string serviceKey = default(string), string serviceProviderNotes = default(string), ExpressRouteCircuitServiceProviderProperties serviceProviderProperties = default(ExpressRouteCircuitServiceProviderProperties), SubResource expressRoutePort = default(SubResource), double? bandwidthInGbps = default(double?), int? stag = default(int?), string provisioningState = default(string), string gatewayManagerEtag = default(string), bool? globalReachEnabled = default(bool?), string authorizationKey = default(string), string authorizationStatus = default(string), string etag = default(string))
+        public ExpressRouteCircuit(string id = default(string), string name = default(string), string type = default(string), string location = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), ExpressRouteCircuitSku sku = default(ExpressRouteCircuitSku), bool? allowClassicOperations = default(bool?), bool? enableDirectPortRateLimit = default(bool?), string circuitProvisioningState = default(string), string serviceProviderProvisioningState = default(string), IList<ExpressRouteCircuitAuthorization> authorizations = default(IList<ExpressRouteCircuitAuthorization>), IList<ExpressRouteCircuitPeering> peerings = default(IList<ExpressRouteCircuitPeering>), string serviceKey = default(string), string serviceProviderNotes = default(string), ExpressRouteCircuitServiceProviderProperties serviceProviderProperties = default(ExpressRouteCircuitServiceProviderProperties), SubResource expressRoutePort = default(SubResource), double? bandwidthInGbps = default(double?), int? stag = default(int?), string provisioningState = default(string), string gatewayManagerEtag = default(string), bool? globalReachEnabled = default(bool?), string authorizationKey = default(string), string etag = default(string))
             : base(id, name, type, location, tags)
         {
             Sku = sku;
             AllowClassicOperations = allowClassicOperations;
+            EnableDirectPortRateLimit = enableDirectPortRateLimit;
             CircuitProvisioningState = circuitProvisioningState;
             ServiceProviderProvisioningState = serviceProviderProvisioningState;
             Authorizations = authorizations;
@@ -92,7 +93,6 @@ namespace Microsoft.Azure.Management.Network.Models
             GatewayManagerEtag = gatewayManagerEtag;
             GlobalReachEnabled = globalReachEnabled;
             AuthorizationKey = authorizationKey;
-            AuthorizationStatus = authorizationStatus;
             Etag = etag;
             CustomInit();
         }
@@ -113,6 +113,13 @@ namespace Microsoft.Azure.Management.Network.Models
         /// </summary>
         [JsonProperty(PropertyName = "properties.allowClassicOperations")]
         public bool? AllowClassicOperations { get; set; }
+
+        /// <summary>
+        /// Gets or sets flag denoting rate-limiting status of the ExpressRoute
+        /// direct-port circuit.
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.enableDirectPortRateLimit")]
+        public bool? EnableDirectPortRateLimit { get; set; }
 
         /// <summary>
         /// Gets or sets the CircuitProvisioningState state of the resource.
@@ -204,12 +211,6 @@ namespace Microsoft.Azure.Management.Network.Models
         /// </summary>
         [JsonProperty(PropertyName = "properties.authorizationKey")]
         public string AuthorizationKey { get; set; }
-
-        /// <summary>
-        /// Gets the authorization status of the Circuit.
-        /// </summary>
-        [JsonProperty(PropertyName = "properties.authorizationStatus")]
-        public string AuthorizationStatus { get; private set; }
 
         /// <summary>
         /// Gets a unique read-only string that changes whenever the resource
