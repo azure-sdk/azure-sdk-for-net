@@ -92,11 +92,11 @@ namespace Azure.ResourceManager.NotificationHubs
                 throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, ResourceType), nameof(id));
         }
 
-        /// <summary> Gets a collection of NotificationHubAuthorizationRuleResources in the NotificationHub. </summary>
-        /// <returns> An object representing collection of NotificationHubAuthorizationRuleResources and their operations over a NotificationHubAuthorizationRuleResource. </returns>
-        public virtual NotificationHubAuthorizationRuleCollection GetNotificationHubAuthorizationRules()
+        /// <summary> Gets a collection of NamespaceNotificationHubAuthorizationRuleResources in the NotificationHub. </summary>
+        /// <returns> An object representing collection of NamespaceNotificationHubAuthorizationRuleResources and their operations over a NamespaceNotificationHubAuthorizationRuleResource. </returns>
+        public virtual NamespaceNotificationHubAuthorizationRuleCollection GetNamespaceNotificationHubAuthorizationRules()
         {
-            return GetCachedClient(client => new NotificationHubAuthorizationRuleCollection(client, Id));
+            return GetCachedClient(client => new NamespaceNotificationHubAuthorizationRuleCollection(client, Id));
         }
 
         /// <summary>
@@ -104,7 +104,7 @@ namespace Azure.ResourceManager.NotificationHubs
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NotificationHubs/namespaces/{namespaceName}/notificationHubs/{notificationHubName}/AuthorizationRules/{authorizationRuleName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NotificationHubs/namespaces/{namespaceName}/notificationHubs/{notificationHubName}/authorizationRules/{authorizationRuleName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
@@ -112,14 +112,14 @@ namespace Azure.ResourceManager.NotificationHubs
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="authorizationRuleName"> authorization rule name. </param>
+        /// <param name="authorizationRuleName"> Authorization Rule Name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="authorizationRuleName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="authorizationRuleName"/> is an empty string, and was expected to be non-empty. </exception>
         [ForwardsClientCalls]
-        public virtual async Task<Response<NotificationHubAuthorizationRuleResource>> GetNotificationHubAuthorizationRuleAsync(string authorizationRuleName, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<NamespaceNotificationHubAuthorizationRuleResource>> GetNamespaceNotificationHubAuthorizationRuleAsync(string authorizationRuleName, CancellationToken cancellationToken = default)
         {
-            return await GetNotificationHubAuthorizationRules().GetAsync(authorizationRuleName, cancellationToken).ConfigureAwait(false);
+            return await GetNamespaceNotificationHubAuthorizationRules().GetAsync(authorizationRuleName, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -127,7 +127,7 @@ namespace Azure.ResourceManager.NotificationHubs
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NotificationHubs/namespaces/{namespaceName}/notificationHubs/{notificationHubName}/AuthorizationRules/{authorizationRuleName}</description>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.NotificationHubs/namespaces/{namespaceName}/notificationHubs/{notificationHubName}/authorizationRules/{authorizationRuleName}</description>
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
@@ -135,18 +135,18 @@ namespace Azure.ResourceManager.NotificationHubs
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="authorizationRuleName"> authorization rule name. </param>
+        /// <param name="authorizationRuleName"> Authorization Rule Name. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="authorizationRuleName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="authorizationRuleName"/> is an empty string, and was expected to be non-empty. </exception>
         [ForwardsClientCalls]
-        public virtual Response<NotificationHubAuthorizationRuleResource> GetNotificationHubAuthorizationRule(string authorizationRuleName, CancellationToken cancellationToken = default)
+        public virtual Response<NamespaceNotificationHubAuthorizationRuleResource> GetNamespaceNotificationHubAuthorizationRule(string authorizationRuleName, CancellationToken cancellationToken = default)
         {
-            return GetNotificationHubAuthorizationRules().Get(authorizationRuleName, cancellationToken);
+            return GetNamespaceNotificationHubAuthorizationRules().Get(authorizationRuleName, cancellationToken);
         }
 
         /// <summary>
-        /// Lists the notification hubs associated with a namespace.
+        /// Gets the notification hub.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -178,7 +178,7 @@ namespace Azure.ResourceManager.NotificationHubs
         }
 
         /// <summary>
-        /// Lists the notification hubs associated with a namespace.
+        /// Gets the notification hub.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -286,11 +286,11 @@ namespace Azure.ResourceManager.NotificationHubs
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>NotificationHubs_Patch</description>
+        /// <description>NotificationHubs_Update</description>
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="patch"> Parameters supplied to patch a NotificationHub Resource. </param>
+        /// <param name="patch"> Request content. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="patch"/> is null. </exception>
         public virtual async Task<Response<NotificationHubResource>> UpdateAsync(NotificationHubPatch patch, CancellationToken cancellationToken = default)
@@ -301,7 +301,7 @@ namespace Azure.ResourceManager.NotificationHubs
             scope.Start();
             try
             {
-                var response = await _notificationHubRestClient.PatchAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, patch, cancellationToken).ConfigureAwait(false);
+                var response = await _notificationHubRestClient.UpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, patch, cancellationToken).ConfigureAwait(false);
                 return Response.FromValue(new NotificationHubResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
@@ -320,11 +320,11 @@ namespace Azure.ResourceManager.NotificationHubs
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>NotificationHubs_Patch</description>
+        /// <description>NotificationHubs_Update</description>
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="patch"> Parameters supplied to patch a NotificationHub Resource. </param>
+        /// <param name="patch"> Request content. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="patch"/> is null. </exception>
         public virtual Response<NotificationHubResource> Update(NotificationHubPatch patch, CancellationToken cancellationToken = default)
@@ -335,7 +335,7 @@ namespace Azure.ResourceManager.NotificationHubs
             scope.Start();
             try
             {
-                var response = _notificationHubRestClient.Patch(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, patch, cancellationToken);
+                var response = _notificationHubRestClient.Update(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, patch, cancellationToken);
                 return Response.FromValue(new NotificationHubResource(Client, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
@@ -346,7 +346,7 @@ namespace Azure.ResourceManager.NotificationHubs
         }
 
         /// <summary>
-        /// test send a push notification
+        /// Test send a push notification.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -358,15 +358,14 @@ namespace Azure.ResourceManager.NotificationHubs
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="anyObject"> Debug send parameters. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual async Task<Response<NotificationHubTestSendResult>> DebugSendAsync(BinaryData anyObject = null, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<NotificationHubTestSendResult>> DebugSendAsync(CancellationToken cancellationToken = default)
         {
             using var scope = _notificationHubClientDiagnostics.CreateScope("NotificationHubResource.DebugSend");
             scope.Start();
             try
             {
-                var response = await _notificationHubRestClient.DebugSendAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, anyObject, cancellationToken).ConfigureAwait(false);
+                var response = await _notificationHubRestClient.DebugSendAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
                 return response;
             }
             catch (Exception e)
@@ -377,7 +376,7 @@ namespace Azure.ResourceManager.NotificationHubs
         }
 
         /// <summary>
-        /// test send a push notification
+        /// Test send a push notification.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -389,15 +388,14 @@ namespace Azure.ResourceManager.NotificationHubs
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="anyObject"> Debug send parameters. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual Response<NotificationHubTestSendResult> DebugSend(BinaryData anyObject = null, CancellationToken cancellationToken = default)
+        public virtual Response<NotificationHubTestSendResult> DebugSend(CancellationToken cancellationToken = default)
         {
             using var scope = _notificationHubClientDiagnostics.CreateScope("NotificationHubResource.DebugSend");
             scope.Start();
             try
             {
-                var response = _notificationHubRestClient.DebugSend(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, anyObject, cancellationToken);
+                var response = _notificationHubRestClient.DebugSend(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken);
                 return response;
             }
             catch (Exception e)
@@ -408,7 +406,7 @@ namespace Azure.ResourceManager.NotificationHubs
         }
 
         /// <summary>
-        /// Lists the PNS Credentials associated with a notification hub .
+        /// Lists the PNS Credentials associated with a notification hub.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -438,7 +436,7 @@ namespace Azure.ResourceManager.NotificationHubs
         }
 
         /// <summary>
-        /// Lists the PNS Credentials associated with a notification hub .
+        /// Lists the PNS Credentials associated with a notification hub.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -504,7 +502,7 @@ namespace Azure.ResourceManager.NotificationHubs
                 else
                 {
                     var current = (await GetAsync(cancellationToken: cancellationToken).ConfigureAwait(false)).Value.Data;
-                    var patch = new NotificationHubPatch(current.Location);
+                    var patch = new NotificationHubPatch();
                     foreach (var tag in current.Tags)
                     {
                         patch.Tags.Add(tag);
@@ -558,7 +556,7 @@ namespace Azure.ResourceManager.NotificationHubs
                 else
                 {
                     var current = Get(cancellationToken: cancellationToken).Value.Data;
-                    var patch = new NotificationHubPatch(current.Location);
+                    var patch = new NotificationHubPatch();
                     foreach (var tag in current.Tags)
                     {
                         patch.Tags.Add(tag);
@@ -611,7 +609,7 @@ namespace Azure.ResourceManager.NotificationHubs
                 else
                 {
                     var current = (await GetAsync(cancellationToken: cancellationToken).ConfigureAwait(false)).Value.Data;
-                    var patch = new NotificationHubPatch(current.Location);
+                    var patch = new NotificationHubPatch();
                     patch.Tags.ReplaceWith(tags);
                     var result = await UpdateAsync(patch, cancellationToken: cancellationToken).ConfigureAwait(false);
                     return result;
@@ -660,7 +658,7 @@ namespace Azure.ResourceManager.NotificationHubs
                 else
                 {
                     var current = Get(cancellationToken: cancellationToken).Value.Data;
-                    var patch = new NotificationHubPatch(current.Location);
+                    var patch = new NotificationHubPatch();
                     patch.Tags.ReplaceWith(tags);
                     var result = Update(patch, cancellationToken: cancellationToken);
                     return result;
@@ -708,7 +706,7 @@ namespace Azure.ResourceManager.NotificationHubs
                 else
                 {
                     var current = (await GetAsync(cancellationToken: cancellationToken).ConfigureAwait(false)).Value.Data;
-                    var patch = new NotificationHubPatch(current.Location);
+                    var patch = new NotificationHubPatch();
                     foreach (var tag in current.Tags)
                     {
                         patch.Tags.Add(tag);
@@ -760,7 +758,7 @@ namespace Azure.ResourceManager.NotificationHubs
                 else
                 {
                     var current = Get(cancellationToken: cancellationToken).Value.Data;
-                    var patch = new NotificationHubPatch(current.Location);
+                    var patch = new NotificationHubPatch();
                     foreach (var tag in current.Tags)
                     {
                         patch.Tags.Add(tag);

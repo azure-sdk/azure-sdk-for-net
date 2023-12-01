@@ -6,6 +6,7 @@
 #nullable disable
 
 using System;
+using Azure.Core;
 
 namespace Azure.ResourceManager.NotificationHubs.Models
 {
@@ -13,46 +14,16 @@ namespace Azure.ResourceManager.NotificationHubs.Models
     public partial class NotificationHubApnsCredential
     {
         /// <summary> Initializes a new instance of <see cref="NotificationHubApnsCredential"/>. </summary>
-        public NotificationHubApnsCredential()
+        /// <param name="properties"> Description of a NotificationHub ApnsCredential. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="properties"/> is null. </exception>
+        public NotificationHubApnsCredential(ApnsCredentialProperties properties)
         {
+            Argument.AssertNotNull(properties, nameof(properties));
+
+            Properties = properties;
         }
 
-        /// <summary> Initializes a new instance of <see cref="NotificationHubApnsCredential"/>. </summary>
-        /// <param name="apnsCertificate"> The APNS certificate. Specify if using Certificate Authentication Mode. </param>
-        /// <param name="certificateKey"> The APNS certificate password if it exists. </param>
-        /// <param name="endpoint"> The APNS endpoint of this credential. If using Certificate Authentication Mode and Sandbox specify 'gateway.sandbox.push.apple.com'. If using Certificate Authentication Mode and Production specify 'gateway.push.apple.com'. If using Token Authentication Mode and Sandbox specify 'https://api.development.push.apple.com:443/3/device'. If using Token Authentication Mode and Production specify 'https://api.push.apple.com:443/3/device'. </param>
-        /// <param name="thumbprintString"> The APNS certificate thumbprint. Specify if using Certificate Authentication Mode. </param>
-        /// <param name="keyId"> A 10-character key identifier (kid) key, obtained from your developer account. Specify if using Token Authentication Mode. </param>
-        /// <param name="appName"> The name of the application or BundleId. Specify if using Token Authentication Mode. </param>
-        /// <param name="appId"> The issuer (iss) registered claim key. The value is a 10-character TeamId, obtained from your developer account. Specify if using Token Authentication Mode. </param>
-        /// <param name="token"> Provider Authentication Token, obtained through your developer account. Specify if using Token Authentication Mode. </param>
-        internal NotificationHubApnsCredential(string apnsCertificate, string certificateKey, Uri endpoint, string thumbprintString, string keyId, string appName, string appId, string token)
-        {
-            ApnsCertificate = apnsCertificate;
-            CertificateKey = certificateKey;
-            Endpoint = endpoint;
-            ThumbprintString = thumbprintString;
-            KeyId = keyId;
-            AppName = appName;
-            AppId = appId;
-            Token = token;
-        }
-
-        /// <summary> The APNS certificate. Specify if using Certificate Authentication Mode. </summary>
-        public string ApnsCertificate { get; set; }
-        /// <summary> The APNS certificate password if it exists. </summary>
-        public string CertificateKey { get; set; }
-        /// <summary> The APNS endpoint of this credential. If using Certificate Authentication Mode and Sandbox specify 'gateway.sandbox.push.apple.com'. If using Certificate Authentication Mode and Production specify 'gateway.push.apple.com'. If using Token Authentication Mode and Sandbox specify 'https://api.development.push.apple.com:443/3/device'. If using Token Authentication Mode and Production specify 'https://api.push.apple.com:443/3/device'. </summary>
-        public Uri Endpoint { get; set; }
-        /// <summary> The APNS certificate thumbprint. Specify if using Certificate Authentication Mode. </summary>
-        public string ThumbprintString { get; set; }
-        /// <summary> A 10-character key identifier (kid) key, obtained from your developer account. Specify if using Token Authentication Mode. </summary>
-        public string KeyId { get; set; }
-        /// <summary> The name of the application or BundleId. Specify if using Token Authentication Mode. </summary>
-        public string AppName { get; set; }
-        /// <summary> The issuer (iss) registered claim key. The value is a 10-character TeamId, obtained from your developer account. Specify if using Token Authentication Mode. </summary>
-        public string AppId { get; set; }
-        /// <summary> Provider Authentication Token, obtained through your developer account. Specify if using Token Authentication Mode. </summary>
-        public string Token { get; set; }
+        /// <summary> Description of a NotificationHub ApnsCredential. </summary>
+        public ApnsCredentialProperties Properties { get; set; }
     }
 }
