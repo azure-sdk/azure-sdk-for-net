@@ -46,6 +46,8 @@ namespace Azure.ResourceManager.DesktopVirtualization
         private readonly ScalingPlansRestOperations _scalingPlanRestClient;
         private readonly ClientDiagnostics _userSessionClientDiagnostics;
         private readonly UserSessionsRestOperations _userSessionRestClient;
+        private readonly ClientDiagnostics _appAttachPackageInfoClientDiagnostics;
+        private readonly AppAttachPackageInfoRestOperations _appAttachPackageInfoRestClient;
         private readonly ClientDiagnostics _msixImagesClientDiagnostics;
         private readonly MsixImagesRestOperations _msixImagesRestClient;
         private readonly HostPoolData _data;
@@ -80,6 +82,8 @@ namespace Azure.ResourceManager.DesktopVirtualization
             _userSessionClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.DesktopVirtualization", UserSessionResource.ResourceType.Namespace, Diagnostics);
             TryGetApiVersion(UserSessionResource.ResourceType, out string userSessionApiVersion);
             _userSessionRestClient = new UserSessionsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, userSessionApiVersion);
+            _appAttachPackageInfoClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.DesktopVirtualization", ProviderConstants.DefaultProviderNamespace, Diagnostics);
+            _appAttachPackageInfoRestClient = new AppAttachPackageInfoRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
             _msixImagesClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.DesktopVirtualization", ProviderConstants.DefaultProviderNamespace, Diagnostics);
             _msixImagesRestClient = new MsixImagesRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
 #if DEBUG
@@ -682,6 +686,58 @@ namespace Azure.ResourceManager.DesktopVirtualization
             HttpMessage FirstPageRequest(int? pageSizeHint) => _userSessionRestClient.CreateListByHostPoolRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, filter, pageSizeHint, isDescending, initialSkip);
             HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _userSessionRestClient.CreateListByHostPoolNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, filter, pageSizeHint, isDescending, initialSkip);
             return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new UserSessionResource(Client, UserSessionData.DeserializeUserSessionData(e)), _userSessionClientDiagnostics, Pipeline, "HostPoolResource.GetUserSessions", "value", "nextLink", cancellationToken);
+        }
+
+        /// <summary>
+        /// Gets information from a package given the path to the package.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DesktopVirtualization/hostPools/{hostPoolName}/importAppAttachPackageInfo</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>AppAttachPackageInfo_Import</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="content"> Object containing URI to package image and other optional properties. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
+        /// <returns> An async collection of <see cref="AppAttachPackageResource"/> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<AppAttachPackageResource> ImportAppAttachPackageInfosAsync(ImportPackageInfoContent content, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(content, nameof(content));
+
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _appAttachPackageInfoRestClient.CreateImportRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, content);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _appAttachPackageInfoRestClient.CreateImportNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, content);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => new AppAttachPackageResource(Client, AppAttachPackageData.DeserializeAppAttachPackageData(e)), _appAttachPackageInfoClientDiagnostics, Pipeline, "HostPoolResource.ImportAppAttachPackageInfos", "value", "nextLink", cancellationToken);
+        }
+
+        /// <summary>
+        /// Gets information from a package given the path to the package.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DesktopVirtualization/hostPools/{hostPoolName}/importAppAttachPackageInfo</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>AppAttachPackageInfo_Import</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="content"> Object containing URI to package image and other optional properties. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
+        /// <returns> A collection of <see cref="AppAttachPackageResource"/> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<AppAttachPackageResource> ImportAppAttachPackageInfos(ImportPackageInfoContent content, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(content, nameof(content));
+
+            HttpMessage FirstPageRequest(int? pageSizeHint) => _appAttachPackageInfoRestClient.CreateImportRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, content);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _appAttachPackageInfoRestClient.CreateImportNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, content);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => new AppAttachPackageResource(Client, AppAttachPackageData.DeserializeAppAttachPackageData(e)), _appAttachPackageInfoClientDiagnostics, Pipeline, "HostPoolResource.ImportAppAttachPackageInfos", "value", "nextLink", cancellationToken);
         }
 
         /// <summary>

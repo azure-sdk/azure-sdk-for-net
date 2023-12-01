@@ -180,6 +180,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
             Optional<HostPoolRegistrationInfo> registrationInfo = default;
             Optional<string> vmTemplate = default;
             Optional<IReadOnlyList<string>> applicationGroupReferences = default;
+            Optional<IReadOnlyList<string>> appAttachPackageReferences = default;
             Optional<string> ssoadfsAuthority = default;
             Optional<string> ssoClientId = default;
             Optional<string> ssoClientSecretKeyVaultPath = default;
@@ -388,6 +389,20 @@ namespace Azure.ResourceManager.DesktopVirtualization
                             applicationGroupReferences = array;
                             continue;
                         }
+                        if (property0.NameEquals("appAttachPackageReferences"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            List<string> array = new List<string>();
+                            foreach (var item in property0.Value.EnumerateArray())
+                            {
+                                array.Add(item.GetString());
+                            }
+                            appAttachPackageReferences = array;
+                            continue;
+                        }
                         if (property0.NameEquals("ssoadfsAuthority"u8))
                         {
                             ssoadfsAuthority = property0.Value.GetString();
@@ -471,7 +486,7 @@ namespace Azure.ResourceManager.DesktopVirtualization
                     continue;
                 }
             }
-            return new HostPoolData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, objectId.Value, friendlyName.Value, description.Value, hostPoolType, Optional.ToNullable(personalDesktopAssignmentType), customRdpProperty.Value, Optional.ToNullable(maxSessionLimit), loadBalancerType, Optional.ToNullable(ring), Optional.ToNullable(validationEnvironment), registrationInfo.Value, vmTemplate.Value, Optional.ToList(applicationGroupReferences), ssoadfsAuthority.Value, ssoClientId.Value, ssoClientSecretKeyVaultPath.Value, Optional.ToNullable(ssoSecretType), preferredAppGroupType, Optional.ToNullable(startVmOnConnect), Optional.ToNullable(cloudPCResource), Optional.ToNullable(publicNetworkAccess), agentUpdate.Value, Optional.ToList(privateEndpointConnections), managedBy.Value, kind.Value, Optional.ToNullable(etag), identity, sku.Value, plan);
+            return new HostPoolData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, objectId.Value, friendlyName.Value, description.Value, hostPoolType, Optional.ToNullable(personalDesktopAssignmentType), customRdpProperty.Value, Optional.ToNullable(maxSessionLimit), loadBalancerType, Optional.ToNullable(ring), Optional.ToNullable(validationEnvironment), registrationInfo.Value, vmTemplate.Value, Optional.ToList(applicationGroupReferences), Optional.ToList(appAttachPackageReferences), ssoadfsAuthority.Value, ssoClientId.Value, ssoClientSecretKeyVaultPath.Value, Optional.ToNullable(ssoSecretType), preferredAppGroupType, Optional.ToNullable(startVmOnConnect), Optional.ToNullable(cloudPCResource), Optional.ToNullable(publicNetworkAccess), agentUpdate.Value, Optional.ToList(privateEndpointConnections), managedBy.Value, kind.Value, Optional.ToNullable(etag), identity, sku.Value, plan);
         }
     }
 }
