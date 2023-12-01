@@ -102,8 +102,8 @@ namespace Azure.Monitor.Query
         /// </param>
         /// <param name="endtime"> The end time of the query. It is a string in the format 'yyyy-MM-ddTHH:mm:ss.fffZ'. </param>
         /// <param name="interval">
-        /// The interval (i.e. timegrain) of the query.
-        /// *Examples: PT15M, PT1H, P1D*
+        /// The interval (i.e. timegrain) of the query in ISO 8601 duration format. Defaults to PT1M. Special case for 'FULL' value that returns single datapoint for entire time span requested.
+        /// *Examples: PT15M, PT1H, P1D, FULL*
         /// </param>
         /// <param name="aggregation">
         /// The list of aggregation types (comma separated) to retrieve.
@@ -169,8 +169,8 @@ namespace Azure.Monitor.Query
         /// </param>
         /// <param name="endtime"> The end time of the query. It is a string in the format 'yyyy-MM-ddTHH:mm:ss.fffZ'. </param>
         /// <param name="interval">
-        /// The interval (i.e. timegrain) of the query.
-        /// *Examples: PT15M, PT1H, P1D*
+        /// The interval (i.e. timegrain) of the query in ISO 8601 duration format. Defaults to PT1M. Special case for 'FULL' value that returns single datapoint for entire time span requested.
+        /// *Examples: PT15M, PT1H, P1D, FULL*
         /// </param>
         /// <param name="aggregation">
         /// The list of aggregation types (comma separated) to retrieve.

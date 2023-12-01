@@ -22,7 +22,7 @@ namespace Azure.Monitor.Query.Models
             }
             DateTimeOffset starttime = default;
             DateTimeOffset endtime = default;
-            Optional<TimeSpan> interval = default;
+            Optional<string> interval = default;
             Optional<string> @namespace = default;
             Optional<string> resourceregion = default;
             Optional<ResourceIdentifier> resourceid = default;
@@ -41,11 +41,7 @@ namespace Azure.Monitor.Query.Models
                 }
                 if (property.NameEquals("interval"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    interval = property.Value.GetTimeSpan("P");
+                    interval = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("namespace"u8))
@@ -78,7 +74,7 @@ namespace Azure.Monitor.Query.Models
                     continue;
                 }
             }
-            return new MetricResultsResponseValuesItem(starttime, endtime, Optional.ToNullable(interval), @namespace.Value, resourceregion.Value, resourceid.Value, value);
+            return new MetricResultsResponseValuesItem(starttime, endtime, interval.Value, @namespace.Value, resourceregion.Value, resourceid.Value, value);
         }
     }
 }
