@@ -8,11 +8,20 @@
 using System;
 using System.Text.Json;
 using Azure;
+using Azure.Core;
 
 namespace Azure.AI.OpenAI
 {
-    public partial class ImageLocation
+    public partial class ImageLocation : IUtf8JsonSerializable
     {
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
+        {
+            writer.WriteStartObject();
+            writer.WritePropertyName("url"u8);
+            writer.WriteStringValue(Url.AbsoluteUri);
+            writer.WriteEndObject();
+        }
+
         internal static ImageLocation DeserializeImageLocation(JsonElement element)
         {
             if (element.ValueKind == JsonValueKind.Null)
@@ -37,6 +46,14 @@ namespace Azure.AI.OpenAI
         {
             using var document = JsonDocument.Parse(response.Content);
             return DeserializeImageLocation(document.RootElement);
+        }
+
+        /// <summary> Convert into a Utf8JsonRequestContent. </summary>
+        internal virtual RequestContent ToRequestContent()
+        {
+            var content = new Utf8JsonRequestContent();
+            content.JsonWriter.WriteObjectValue(this);
+            return content;
         }
     }
 }

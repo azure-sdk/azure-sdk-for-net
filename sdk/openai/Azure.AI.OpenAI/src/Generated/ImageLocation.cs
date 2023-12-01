@@ -16,7 +16,7 @@ namespace Azure.AI.OpenAI
         /// <summary> Initializes a new instance of <see cref="ImageLocation"/>. </summary>
         /// <param name="url"> The URL that provides temporary access to download the generated image. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="url"/> is null. </exception>
-        internal ImageLocation(Uri url)
+        public ImageLocation(Uri url)
         {
             Argument.AssertNotNull(url, nameof(url));
 
@@ -24,6 +24,6 @@ namespace Azure.AI.OpenAI
         }
 
         /// <summary> The URL that provides temporary access to download the generated image. </summary>
-        public Uri Url { get; }
+        public Uri Url { get; set; }
     }
 }
