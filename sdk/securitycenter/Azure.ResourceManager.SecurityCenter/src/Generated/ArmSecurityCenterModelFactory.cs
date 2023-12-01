@@ -692,7 +692,7 @@ namespace Azure.ResourceManager.SecurityCenter.Models
         /// <param name="systemData"> The systemData. </param>
         /// <param name="alertType"> Type of the alert to automatically suppress. For all alert types, use '*'. </param>
         /// <param name="lastModifiedOn"> The last time this rule was modified. </param>
-        /// <param name="expireOn"> Expiration date of the rule, if value is not provided or provided as null this field will default to the maximum allowed expiration date. </param>
+        /// <param name="expireOn"> Expiration date of the rule, if value is not provided or provided as null there will no expiration at all. </param>
         /// <param name="reason"> The reason for dismissing the alert. </param>
         /// <param name="state"> Possible states of the rule. </param>
         /// <param name="comment"> Any comment regarding the rule. </param>
@@ -1231,35 +1231,6 @@ namespace Azure.ResourceManager.SecurityCenter.Models
         public static SecuritySettingData SecuritySettingData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string kind = "Unknown")
         {
             return new SecuritySettingData(id, name, resourceType, systemData, kind);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="SecurityCenter.IngestionSettingData"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="properties"> Ingestion setting data. </param>
-        /// <returns> A new <see cref="SecurityCenter.IngestionSettingData"/> instance for mocking. </returns>
-        public static IngestionSettingData IngestionSettingData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, BinaryData properties = null)
-        {
-            return new IngestionSettingData(id, name, resourceType, systemData, properties);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.IngestionSettingToken"/>. </summary>
-        /// <param name="token"> The token is used for correlating security data and logs with the resources in the subscription. </param>
-        /// <returns> A new <see cref="Models.IngestionSettingToken"/> instance for mocking. </returns>
-        public static IngestionSettingToken IngestionSettingToken(string token = null)
-        {
-            return new IngestionSettingToken(token);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.IngestionConnectionString"/>. </summary>
-        /// <param name="location"> The region where ingested logs and data resides. </param>
-        /// <param name="value"> Connection string value. </param>
-        /// <returns> A new <see cref="Models.IngestionConnectionString"/> instance for mocking. </returns>
-        public static IngestionConnectionString IngestionConnectionString(AzureLocation? location = null, string value = null)
-        {
-            return new IngestionConnectionString(location, value);
         }
 
         /// <summary> Initializes a new instance of <see cref="SecurityCenter.SoftwareInventoryData"/>. </summary>
