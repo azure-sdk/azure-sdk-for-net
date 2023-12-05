@@ -29,11 +29,13 @@ namespace Azure.ResourceManager.AppService.Models
         /// <param name="name"> Resource name to verify. </param>
         /// <param name="resourceType"> Resource type used for verification. </param>
         /// <param name="isFqdn"> Is fully qualified domain name. </param>
-        internal ResourceNameAvailabilityContent(string name, CheckNameResourceType resourceType, bool? isFqdn)
+        /// <param name="environmentId"> Azure Resource Manager ID of the customer's selected Container Apps Environment on which to host the Function app. This must be of the form /subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.App/managedEnvironments/{managedEnvironmentName}. </param>
+        internal ResourceNameAvailabilityContent(string name, CheckNameResourceType resourceType, bool? isFqdn, string environmentId)
         {
             Name = name;
             ResourceType = resourceType;
             IsFqdn = isFqdn;
+            EnvironmentId = environmentId;
         }
 
         /// <summary> Resource name to verify. </summary>
@@ -42,5 +44,7 @@ namespace Azure.ResourceManager.AppService.Models
         public CheckNameResourceType ResourceType { get; }
         /// <summary> Is fully qualified domain name. </summary>
         public bool? IsFqdn { get; set; }
+        /// <summary> Azure Resource Manager ID of the customer's selected Container Apps Environment on which to host the Function app. This must be of the form /subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.App/managedEnvironments/{managedEnvironmentName}. </summary>
+        public string EnvironmentId { get; set; }
     }
 }
