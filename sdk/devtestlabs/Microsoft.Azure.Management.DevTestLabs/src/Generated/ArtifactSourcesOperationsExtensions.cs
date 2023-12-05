@@ -29,7 +29,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -49,7 +49,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -75,7 +75,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -98,7 +98,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -127,7 +127,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -150,7 +150,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -179,7 +179,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -199,7 +199,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -216,13 +216,14 @@ namespace Microsoft.Azure.Management.DevTestLabs
             }
 
             /// <summary>
-            /// Modify properties of artifact sources.
+            /// Allows modifying tags of artifact sources. All other properties will be
+            /// ignored.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -231,7 +232,8 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the artifact source.
             /// </param>
             /// <param name='artifactSource'>
-            /// Properties of an artifact source.
+            /// Allows modifying tags of artifact sources. All other properties will be
+            /// ignored.
             /// </param>
             public static ArtifactSource Update(this IArtifactSourcesOperations operations, string resourceGroupName, string labName, string name, ArtifactSourceFragment artifactSource)
             {
@@ -239,13 +241,14 @@ namespace Microsoft.Azure.Management.DevTestLabs
             }
 
             /// <summary>
-            /// Modify properties of artifact sources.
+            /// Allows modifying tags of artifact sources. All other properties will be
+            /// ignored.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -254,7 +257,8 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the artifact source.
             /// </param>
             /// <param name='artifactSource'>
-            /// Properties of an artifact source.
+            /// Allows modifying tags of artifact sources. All other properties will be
+            /// ignored.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.

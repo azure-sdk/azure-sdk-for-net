@@ -41,14 +41,14 @@ namespace Microsoft.Azure.Management.DevTestLabs
         ServiceClientCredentials Credentials { get; }
 
         /// <summary>
-        /// Client API version.
+        /// The API version to use for this operation.
         /// </summary>
         string ApiVersion { get; }
 
         /// <summary>
-        /// The subscription ID.
+        /// The ID of the target subscription. The value must be an UUID.
         /// </summary>
-        string SubscriptionId { get; set; }
+        System.Guid SubscriptionId { get; set; }
 
         /// <summary>
         /// The preferred language for the response.
@@ -105,11 +105,6 @@ namespace Microsoft.Azure.Management.DevTestLabs
         IArtifactsOperations Artifacts { get; }
 
         /// <summary>
-        /// Gets the ICostsOperations.
-        /// </summary>
-        ICostsOperations Costs { get; }
-
-        /// <summary>
         /// Gets the ICustomImagesOperations.
         /// </summary>
         ICustomImagesOperations CustomImages { get; }
@@ -145,9 +140,24 @@ namespace Microsoft.Azure.Management.DevTestLabs
         ISchedulesOperations Schedules { get; }
 
         /// <summary>
+        /// Gets the ILabSecretsOperations.
+        /// </summary>
+        ILabSecretsOperations LabSecrets { get; }
+
+        /// <summary>
         /// Gets the IServiceRunnersOperations.
         /// </summary>
         IServiceRunnersOperations ServiceRunners { get; }
+
+        /// <summary>
+        /// Gets the ISharedGalleriesOperations.
+        /// </summary>
+        ISharedGalleriesOperations SharedGalleries { get; }
+
+        /// <summary>
+        /// Gets the ISharedImagesOperations.
+        /// </summary>
+        ISharedImagesOperations SharedImages { get; }
 
         /// <summary>
         /// Gets the IUsersOperations.
@@ -193,6 +203,11 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// Gets the IVirtualNetworksOperations.
         /// </summary>
         IVirtualNetworksOperations VirtualNetworks { get; }
+
+        /// <summary>
+        /// Gets the IBastionHostsOperations.
+        /// </summary>
+        IBastionHostsOperations BastionHosts { get; }
 
     }
 }

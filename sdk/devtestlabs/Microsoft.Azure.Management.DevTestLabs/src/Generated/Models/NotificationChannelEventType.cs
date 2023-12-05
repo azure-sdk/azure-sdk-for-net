@@ -17,6 +17,5 @@ namespace Microsoft.Azure.Management.DevTestLabs.Models
     public static class NotificationChannelEventType
     {
         public const string AutoShutdown = "AutoShutdown";
-        public const string Cost = "Cost";
     }
 }

@@ -29,7 +29,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -52,7 +52,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -81,7 +81,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -107,7 +107,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -139,7 +139,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -165,7 +165,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -197,7 +197,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -220,7 +220,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -240,13 +240,13 @@ namespace Microsoft.Azure.Management.DevTestLabs
             }
 
             /// <summary>
-            /// Modify properties of policies.
+            /// Allows modifying tags of policies. All other properties will be ignored.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -258,7 +258,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the policy.
             /// </param>
             /// <param name='policy'>
-            /// A Policy.
+            /// Allows modifying tags of policies. All other properties will be ignored.
             /// </param>
             public static Policy Update(this IPoliciesOperations operations, string resourceGroupName, string labName, string policySetName, string name, PolicyFragment policy)
             {
@@ -266,13 +266,13 @@ namespace Microsoft.Azure.Management.DevTestLabs
             }
 
             /// <summary>
-            /// Modify properties of policies.
+            /// Allows modifying tags of policies. All other properties will be ignored.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -284,7 +284,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the policy.
             /// </param>
             /// <param name='policy'>
-            /// A Policy.
+            /// Allows modifying tags of policies. All other properties will be ignored.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.

@@ -29,7 +29,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -49,7 +49,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -75,7 +75,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -99,7 +99,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -130,7 +130,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -154,7 +154,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -183,7 +183,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -191,9 +191,9 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='name'>
             /// The name of the virtual machine.
             /// </param>
-            public static void Delete(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name)
+            public static VirtualMachinesDeleteHeaders Delete(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name)
             {
-                operations.DeleteAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
+                return operations.DeleteAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -203,7 +203,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -214,19 +214,23 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task DeleteAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<VirtualMachinesDeleteHeaders> DeleteAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.DeleteWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.DeleteWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
-            /// Modify properties of virtual machines.
+            /// Allows modifying tags of virtual machines. All other properties will be
+            /// ignored.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -235,7 +239,8 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the virtual machine.
             /// </param>
             /// <param name='labVirtualMachine'>
-            /// A virtual machine.
+            /// Allows modifying tags of virtual machines. All other properties will be
+            /// ignored.
             /// </param>
             public static LabVirtualMachine Update(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, LabVirtualMachineFragment labVirtualMachine)
             {
@@ -243,13 +248,14 @@ namespace Microsoft.Azure.Management.DevTestLabs
             }
 
             /// <summary>
-            /// Modify properties of virtual machines.
+            /// Allows modifying tags of virtual machines. All other properties will be
+            /// ignored.
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -258,7 +264,8 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The name of the virtual machine.
             /// </param>
             /// <param name='labVirtualMachine'>
-            /// A virtual machine.
+            /// Allows modifying tags of virtual machines. All other properties will be
+            /// ignored.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -279,7 +286,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -290,9 +297,9 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='dataDiskProperties'>
             /// Request body for adding a new or existing data disk to a virtual machine.
             /// </param>
-            public static void AddDataDisk(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, DataDiskProperties dataDiskProperties)
+            public static VirtualMachinesAddDataDiskHeaders AddDataDisk(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, DataDiskProperties dataDiskProperties)
             {
-                operations.AddDataDiskAsync(resourceGroupName, labName, name, dataDiskProperties).GetAwaiter().GetResult();
+                return operations.AddDataDiskAsync(resourceGroupName, labName, name, dataDiskProperties).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -303,7 +310,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -317,9 +324,12 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task AddDataDiskAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, DataDiskProperties dataDiskProperties, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<VirtualMachinesAddDataDiskHeaders> AddDataDiskAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, DataDiskProperties dataDiskProperties, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.AddDataDiskWithHttpMessagesAsync(resourceGroupName, labName, name, dataDiskProperties, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.AddDataDiskWithHttpMessagesAsync(resourceGroupName, labName, name, dataDiskProperties, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -330,7 +340,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -341,9 +351,9 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='applyArtifactsRequest'>
             /// Request body for applying artifacts to a virtual machine.
             /// </param>
-            public static void ApplyArtifacts(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, ApplyArtifactsRequest applyArtifactsRequest)
+            public static VirtualMachinesApplyArtifactsHeaders ApplyArtifacts(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, ApplyArtifactsRequest applyArtifactsRequest)
             {
-                operations.ApplyArtifactsAsync(resourceGroupName, labName, name, applyArtifactsRequest).GetAwaiter().GetResult();
+                return operations.ApplyArtifactsAsync(resourceGroupName, labName, name, applyArtifactsRequest).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -354,7 +364,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -368,9 +378,12 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task ApplyArtifactsAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, ApplyArtifactsRequest applyArtifactsRequest, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<VirtualMachinesApplyArtifactsHeaders> ApplyArtifactsAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, ApplyArtifactsRequest applyArtifactsRequest, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.ApplyArtifactsWithHttpMessagesAsync(resourceGroupName, labName, name, applyArtifactsRequest, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.ApplyArtifactsWithHttpMessagesAsync(resourceGroupName, labName, name, applyArtifactsRequest, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -381,7 +394,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -389,9 +402,9 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='name'>
             /// The name of the virtual machine.
             /// </param>
-            public static void Claim(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name)
+            public static VirtualMachinesClaimHeaders Claim(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name)
             {
-                operations.ClaimAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
+                return operations.ClaimAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -402,7 +415,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -413,9 +426,55 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task ClaimAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<VirtualMachinesClaimHeaders> ClaimAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.ClaimWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.ClaimWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
+            }
+
+            /// <summary>
+            /// Clears the artifact results of the virtual machine.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='labName'>
+            /// The name of the lab.
+            /// </param>
+            /// <param name='name'>
+            /// The name of the virtual machine.
+            /// </param>
+            public static void ClearArtifactResults(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name)
+            {
+                operations.ClearArtifactResultsAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Clears the artifact results of the virtual machine.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group. The name is case insensitive.
+            /// </param>
+            /// <param name='labName'>
+            /// The name of the lab.
+            /// </param>
+            /// <param name='name'>
+            /// The name of the virtual machine.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task ClearArtifactResultsAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                (await operations.ClearArtifactResultsWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false)).Dispose();
             }
 
             /// <summary>
@@ -426,7 +485,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -437,9 +496,9 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='detachDataDiskProperties'>
             /// Request body for detaching data disk from a virtual machine.
             /// </param>
-            public static void DetachDataDisk(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, DetachDataDiskProperties detachDataDiskProperties)
+            public static VirtualMachinesDetachDataDiskHeaders DetachDataDisk(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, DetachDataDiskProperties detachDataDiskProperties)
             {
-                operations.DetachDataDiskAsync(resourceGroupName, labName, name, detachDataDiskProperties).GetAwaiter().GetResult();
+                return operations.DetachDataDiskAsync(resourceGroupName, labName, name, detachDataDiskProperties).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -450,7 +509,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -464,9 +523,12 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task DetachDataDiskAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, DetachDataDiskProperties detachDataDiskProperties, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<VirtualMachinesDetachDataDiskHeaders> DetachDataDiskAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, DetachDataDiskProperties detachDataDiskProperties, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.DetachDataDiskWithHttpMessagesAsync(resourceGroupName, labName, name, detachDataDiskProperties, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.DetachDataDiskWithHttpMessagesAsync(resourceGroupName, labName, name, detachDataDiskProperties, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -477,7 +539,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -498,7 +560,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -524,7 +586,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -544,7 +606,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -570,7 +632,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -578,9 +640,9 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='name'>
             /// The name of the virtual machine.
             /// </param>
-            public static void Redeploy(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name)
+            public static VirtualMachinesRedeployHeaders Redeploy(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name)
             {
-                operations.RedeployAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
+                return operations.RedeployAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -590,7 +652,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -601,9 +663,12 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task RedeployAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<VirtualMachinesRedeployHeaders> RedeployAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.RedeployWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.RedeployWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -613,7 +678,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -624,9 +689,9 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='resizeLabVirtualMachineProperties'>
             /// Request body for resizing a virtual machine.
             /// </param>
-            public static void Resize(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, ResizeLabVirtualMachineProperties resizeLabVirtualMachineProperties)
+            public static VirtualMachinesResizeHeaders Resize(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, ResizeLabVirtualMachineProperties resizeLabVirtualMachineProperties)
             {
-                operations.ResizeAsync(resourceGroupName, labName, name, resizeLabVirtualMachineProperties).GetAwaiter().GetResult();
+                return operations.ResizeAsync(resourceGroupName, labName, name, resizeLabVirtualMachineProperties).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -636,7 +701,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -650,9 +715,12 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task ResizeAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, ResizeLabVirtualMachineProperties resizeLabVirtualMachineProperties, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<VirtualMachinesResizeHeaders> ResizeAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, ResizeLabVirtualMachineProperties resizeLabVirtualMachineProperties, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.ResizeWithHttpMessagesAsync(resourceGroupName, labName, name, resizeLabVirtualMachineProperties, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.ResizeWithHttpMessagesAsync(resourceGroupName, labName, name, resizeLabVirtualMachineProperties, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -662,7 +730,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -670,9 +738,9 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='name'>
             /// The name of the virtual machine.
             /// </param>
-            public static void Restart(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name)
+            public static VirtualMachinesRestartHeaders Restart(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name)
             {
-                operations.RestartAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
+                return operations.RestartAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -682,7 +750,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -693,9 +761,12 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task RestartAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<VirtualMachinesRestartHeaders> RestartAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.RestartWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.RestartWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -705,7 +776,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -713,9 +784,9 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='name'>
             /// The name of the virtual machine.
             /// </param>
-            public static void Start(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name)
+            public static VirtualMachinesStartHeaders Start(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name)
             {
-                operations.StartAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
+                return operations.StartAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -725,7 +796,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -736,9 +807,12 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task StartAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<VirtualMachinesStartHeaders> StartAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.StartWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.StartWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -748,7 +822,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -756,9 +830,9 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='name'>
             /// The name of the virtual machine.
             /// </param>
-            public static void Stop(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name)
+            public static VirtualMachinesStopHeaders Stop(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name)
             {
-                operations.StopAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
+                return operations.StopAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -768,7 +842,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -779,9 +853,12 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task StopAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<VirtualMachinesStopHeaders> StopAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.StopWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.StopWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -792,7 +869,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -800,9 +877,9 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='name'>
             /// The name of the virtual machine.
             /// </param>
-            public static void TransferDisks(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name)
+            public static VirtualMachinesTransferDisksHeaders TransferDisks(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name)
             {
-                operations.TransferDisksAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
+                return operations.TransferDisksAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -813,7 +890,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -824,9 +901,12 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task TransferDisksAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<VirtualMachinesTransferDisksHeaders> TransferDisksAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.TransferDisksWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.TransferDisksWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -837,7 +917,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -845,9 +925,9 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='name'>
             /// The name of the virtual machine.
             /// </param>
-            public static void UnClaim(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name)
+            public static VirtualMachinesUnClaimHeaders UnClaim(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name)
             {
-                operations.UnClaimAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
+                return operations.UnClaimAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -858,7 +938,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -869,9 +949,12 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task UnClaimAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<VirtualMachinesUnClaimHeaders> UnClaimAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.UnClaimWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.UnClaimWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -882,7 +965,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -906,7 +989,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -935,7 +1018,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -943,9 +1026,9 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='name'>
             /// The name of the virtual machine.
             /// </param>
-            public static void BeginDelete(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name)
+            public static VirtualMachinesDeleteHeaders BeginDelete(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name)
             {
-                operations.BeginDeleteAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
+                return operations.BeginDeleteAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -955,7 +1038,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -966,9 +1049,12 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginDeleteAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<VirtualMachinesDeleteHeaders> BeginDeleteAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -979,7 +1065,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -990,9 +1076,9 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='dataDiskProperties'>
             /// Request body for adding a new or existing data disk to a virtual machine.
             /// </param>
-            public static void BeginAddDataDisk(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, DataDiskProperties dataDiskProperties)
+            public static VirtualMachinesAddDataDiskHeaders BeginAddDataDisk(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, DataDiskProperties dataDiskProperties)
             {
-                operations.BeginAddDataDiskAsync(resourceGroupName, labName, name, dataDiskProperties).GetAwaiter().GetResult();
+                return operations.BeginAddDataDiskAsync(resourceGroupName, labName, name, dataDiskProperties).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -1003,7 +1089,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -1017,9 +1103,12 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginAddDataDiskAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, DataDiskProperties dataDiskProperties, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<VirtualMachinesAddDataDiskHeaders> BeginAddDataDiskAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, DataDiskProperties dataDiskProperties, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginAddDataDiskWithHttpMessagesAsync(resourceGroupName, labName, name, dataDiskProperties, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginAddDataDiskWithHttpMessagesAsync(resourceGroupName, labName, name, dataDiskProperties, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -1030,7 +1119,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -1041,9 +1130,9 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='applyArtifactsRequest'>
             /// Request body for applying artifacts to a virtual machine.
             /// </param>
-            public static void BeginApplyArtifacts(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, ApplyArtifactsRequest applyArtifactsRequest)
+            public static VirtualMachinesApplyArtifactsHeaders BeginApplyArtifacts(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, ApplyArtifactsRequest applyArtifactsRequest)
             {
-                operations.BeginApplyArtifactsAsync(resourceGroupName, labName, name, applyArtifactsRequest).GetAwaiter().GetResult();
+                return operations.BeginApplyArtifactsAsync(resourceGroupName, labName, name, applyArtifactsRequest).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -1054,7 +1143,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -1068,9 +1157,12 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginApplyArtifactsAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, ApplyArtifactsRequest applyArtifactsRequest, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<VirtualMachinesApplyArtifactsHeaders> BeginApplyArtifactsAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, ApplyArtifactsRequest applyArtifactsRequest, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginApplyArtifactsWithHttpMessagesAsync(resourceGroupName, labName, name, applyArtifactsRequest, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginApplyArtifactsWithHttpMessagesAsync(resourceGroupName, labName, name, applyArtifactsRequest, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -1081,7 +1173,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -1089,9 +1181,9 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='name'>
             /// The name of the virtual machine.
             /// </param>
-            public static void BeginClaim(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name)
+            public static VirtualMachinesClaimHeaders BeginClaim(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name)
             {
-                operations.BeginClaimAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
+                return operations.BeginClaimAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -1102,7 +1194,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -1113,9 +1205,12 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginClaimAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<VirtualMachinesClaimHeaders> BeginClaimAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginClaimWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginClaimWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -1126,7 +1221,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -1137,9 +1232,9 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='detachDataDiskProperties'>
             /// Request body for detaching data disk from a virtual machine.
             /// </param>
-            public static void BeginDetachDataDisk(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, DetachDataDiskProperties detachDataDiskProperties)
+            public static VirtualMachinesDetachDataDiskHeaders BeginDetachDataDisk(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, DetachDataDiskProperties detachDataDiskProperties)
             {
-                operations.BeginDetachDataDiskAsync(resourceGroupName, labName, name, detachDataDiskProperties).GetAwaiter().GetResult();
+                return operations.BeginDetachDataDiskAsync(resourceGroupName, labName, name, detachDataDiskProperties).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -1150,7 +1245,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -1164,9 +1259,12 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginDetachDataDiskAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, DetachDataDiskProperties detachDataDiskProperties, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<VirtualMachinesDetachDataDiskHeaders> BeginDetachDataDiskAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, DetachDataDiskProperties detachDataDiskProperties, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginDetachDataDiskWithHttpMessagesAsync(resourceGroupName, labName, name, detachDataDiskProperties, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginDetachDataDiskWithHttpMessagesAsync(resourceGroupName, labName, name, detachDataDiskProperties, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -1176,7 +1274,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -1184,9 +1282,9 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='name'>
             /// The name of the virtual machine.
             /// </param>
-            public static void BeginRedeploy(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name)
+            public static VirtualMachinesRedeployHeaders BeginRedeploy(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name)
             {
-                operations.BeginRedeployAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
+                return operations.BeginRedeployAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -1196,7 +1294,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -1207,9 +1305,12 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginRedeployAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<VirtualMachinesRedeployHeaders> BeginRedeployAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginRedeployWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginRedeployWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -1219,7 +1320,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -1230,9 +1331,9 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='resizeLabVirtualMachineProperties'>
             /// Request body for resizing a virtual machine.
             /// </param>
-            public static void BeginResize(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, ResizeLabVirtualMachineProperties resizeLabVirtualMachineProperties)
+            public static VirtualMachinesResizeHeaders BeginResize(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, ResizeLabVirtualMachineProperties resizeLabVirtualMachineProperties)
             {
-                operations.BeginResizeAsync(resourceGroupName, labName, name, resizeLabVirtualMachineProperties).GetAwaiter().GetResult();
+                return operations.BeginResizeAsync(resourceGroupName, labName, name, resizeLabVirtualMachineProperties).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -1242,7 +1343,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -1256,9 +1357,12 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginResizeAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, ResizeLabVirtualMachineProperties resizeLabVirtualMachineProperties, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<VirtualMachinesResizeHeaders> BeginResizeAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, ResizeLabVirtualMachineProperties resizeLabVirtualMachineProperties, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginResizeWithHttpMessagesAsync(resourceGroupName, labName, name, resizeLabVirtualMachineProperties, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginResizeWithHttpMessagesAsync(resourceGroupName, labName, name, resizeLabVirtualMachineProperties, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -1268,7 +1372,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -1276,9 +1380,9 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='name'>
             /// The name of the virtual machine.
             /// </param>
-            public static void BeginRestart(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name)
+            public static VirtualMachinesRestartHeaders BeginRestart(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name)
             {
-                operations.BeginRestartAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
+                return operations.BeginRestartAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -1288,7 +1392,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -1299,9 +1403,12 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginRestartAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<VirtualMachinesRestartHeaders> BeginRestartAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginRestartWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginRestartWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -1311,7 +1418,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -1319,9 +1426,9 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='name'>
             /// The name of the virtual machine.
             /// </param>
-            public static void BeginStart(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name)
+            public static VirtualMachinesStartHeaders BeginStart(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name)
             {
-                operations.BeginStartAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
+                return operations.BeginStartAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -1331,7 +1438,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -1342,9 +1449,12 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginStartAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<VirtualMachinesStartHeaders> BeginStartAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginStartWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginStartWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -1354,7 +1464,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -1362,9 +1472,9 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='name'>
             /// The name of the virtual machine.
             /// </param>
-            public static void BeginStop(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name)
+            public static VirtualMachinesStopHeaders BeginStop(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name)
             {
-                operations.BeginStopAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
+                return operations.BeginStopAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -1374,7 +1484,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -1385,9 +1495,12 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginStopAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<VirtualMachinesStopHeaders> BeginStopAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginStopWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginStopWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -1398,7 +1511,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -1406,9 +1519,9 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='name'>
             /// The name of the virtual machine.
             /// </param>
-            public static void BeginTransferDisks(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name)
+            public static VirtualMachinesTransferDisksHeaders BeginTransferDisks(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name)
             {
-                operations.BeginTransferDisksAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
+                return operations.BeginTransferDisksAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -1419,7 +1532,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -1430,9 +1543,12 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginTransferDisksAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<VirtualMachinesTransferDisksHeaders> BeginTransferDisksAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginTransferDisksWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginTransferDisksWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -1443,7 +1559,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -1451,9 +1567,9 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='name'>
             /// The name of the virtual machine.
             /// </param>
-            public static void BeginUnClaim(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name)
+            public static VirtualMachinesUnClaimHeaders BeginUnClaim(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name)
             {
-                operations.BeginUnClaimAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
+                return operations.BeginUnClaimAsync(resourceGroupName, labName, name).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -1464,7 +1580,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// The operations group for this extension method.
             /// </param>
             /// <param name='resourceGroupName'>
-            /// The name of the resource group.
+            /// The name of the resource group. The name is case insensitive.
             /// </param>
             /// <param name='labName'>
             /// The name of the lab.
@@ -1475,9 +1591,12 @@ namespace Microsoft.Azure.Management.DevTestLabs
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginUnClaimAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<VirtualMachinesUnClaimHeaders> BeginUnClaimAsync(this IVirtualMachinesOperations operations, string resourceGroupName, string labName, string name, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginUnClaimWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginUnClaimWithHttpMessagesAsync(resourceGroupName, labName, name, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>

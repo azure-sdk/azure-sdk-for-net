@@ -28,7 +28,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// List azure resource manager templates in a given artifact source.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -59,7 +59,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// Get azure resource manager template.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The name of the resource group.
+        /// The name of the resource group. The name is case insensitive.
         /// </param>
         /// <param name='labName'>
         /// The name of the lab.
@@ -68,7 +68,7 @@ namespace Microsoft.Azure.Management.DevTestLabs
         /// The name of the artifact source.
         /// </param>
         /// <param name='name'>
-        /// The name of the azure Resource Manager template.
+        /// The name of the azure resource manager template.
         /// </param>
         /// <param name='expand'>
         /// Specify the $expand query. Example:

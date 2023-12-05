@@ -10,17 +10,13 @@
 
 namespace Microsoft.Azure.Management.DevTestLabs.Models
 {
-    using Microsoft.Rest;
-    using Microsoft.Rest.Serialization;
-    using Newtonsoft.Json;
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
 
     /// <summary>
-    /// A Service Fabric.
+    /// Patch
     /// </summary>
-    [Rest.Serialization.JsonTransformation]
     public partial class ServiceFabricFragment : UpdateResource
     {
         /// <summary>
@@ -35,15 +31,10 @@ namespace Microsoft.Azure.Management.DevTestLabs.Models
         /// Initializes a new instance of the ServiceFabricFragment class.
         /// </summary>
         /// <param name="tags">The tags of the resource.</param>
-        /// <param name="externalServiceFabricId">The backing service fabric
-        /// resource's id</param>
-        /// <param name="environmentId">The resource id of the environment
-        /// under which the service fabric resource is present</param>
-        public ServiceFabricFragment(IDictionary<string, string> tags = default(IDictionary<string, string>), string externalServiceFabricId = default(string), string environmentId = default(string))
-            : base(tags)
+        /// <param name="identity">The identity of the resource.</param>
+        public ServiceFabricFragment(IDictionary<string, string> tags = default(IDictionary<string, string>), IdentityProperties identity = default(IdentityProperties))
+            : base(tags, identity)
         {
-            ExternalServiceFabricId = externalServiceFabricId;
-            EnvironmentId = environmentId;
             CustomInit();
         }
 
@@ -51,19 +42,6 @@ namespace Microsoft.Azure.Management.DevTestLabs.Models
         /// An initialization method that performs custom operations like setting defaults
         /// </summary>
         partial void CustomInit();
-
-        /// <summary>
-        /// Gets or sets the backing service fabric resource's id
-        /// </summary>
-        [JsonProperty(PropertyName = "properties.externalServiceFabricId")]
-        public string ExternalServiceFabricId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the resource id of the environment under which the
-        /// service fabric resource is present
-        /// </summary>
-        [JsonProperty(PropertyName = "properties.environmentId")]
-        public string EnvironmentId { get; set; }
 
     }
 }

@@ -10,6 +10,8 @@
 
 namespace Microsoft.Azure.Management.DevTestLabs.Models
 {
+    using Microsoft.Rest;
+    using Microsoft.Rest.Serialization;
     using Newtonsoft.Json;
     using System.Collections;
     using System.Collections.Generic;
@@ -18,6 +20,7 @@ namespace Microsoft.Azure.Management.DevTestLabs.Models
     /// <summary>
     /// A container for a managed identity to execute DevTest lab services.
     /// </summary>
+    [Rest.Serialization.JsonTransformation]
     public partial class ServiceRunner : Resource
     {
         /// <summary>
@@ -31,16 +34,33 @@ namespace Microsoft.Azure.Management.DevTestLabs.Models
         /// <summary>
         /// Initializes a new instance of the ServiceRunner class.
         /// </summary>
-        /// <param name="id">The identifier of the resource.</param>
-        /// <param name="name">The name of the resource.</param>
-        /// <param name="type">The type of the resource.</param>
-        /// <param name="location">The location of the resource.</param>
-        /// <param name="tags">The tags of the resource.</param>
+        /// <param name="location">The geo-location where the resource
+        /// lives</param>
+        /// <param name="id">Fully qualified resource ID for the resource. E.g.
+        /// "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}"</param>
+        /// <param name="name">The name of the resource</param>
+        /// <param name="type">The type of the resource. E.g.
+        /// "Microsoft.Compute/virtualMachines" or
+        /// "Microsoft.Storage/storageAccounts"</param>
+        /// <param name="tags">Resource tags.</param>
+        /// <param name="identityUsageType">The purpose of bringing the
+        /// identity to the lab. Ex: To use during Environment creation or to
+        /// deploy on the VMs.</param>
+        /// <param name="provisioningState">The provisioning status of the
+        /// resource.</param>
+        /// <param name="uniqueIdentifier">The unique immutable identifier of a
+        /// resource (Guid).</param>
         /// <param name="identity">The identity of the resource.</param>
-        public ServiceRunner(string id = default(string), string name = default(string), string type = default(string), string location = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), IdentityProperties identity = default(IdentityProperties))
-            : base(id, name, type, location, tags)
+        /// <param name="systemData">The system metadata relating to this
+        /// resource</param>
+        public ServiceRunner(string location, string id = default(string), string name = default(string), string type = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), string identityUsageType = default(string), string provisioningState = default(string), string uniqueIdentifier = default(string), IdentityProperties identity = default(IdentityProperties), SystemData systemData = default(SystemData))
+            : base(location, id, name, type, tags)
         {
+            IdentityUsageType = identityUsageType;
+            ProvisioningState = provisioningState;
+            UniqueIdentifier = uniqueIdentifier;
             Identity = identity;
+            SystemData = systemData;
             CustomInit();
         }
 
@@ -50,10 +70,45 @@ namespace Microsoft.Azure.Management.DevTestLabs.Models
         partial void CustomInit();
 
         /// <summary>
+        /// Gets or sets the purpose of bringing the identity to the lab. Ex:
+        /// To use during Environment creation or to deploy on the VMs.
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.identityUsageType")]
+        public string IdentityUsageType { get; set; }
+
+        /// <summary>
+        /// Gets the provisioning status of the resource.
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.provisioningState")]
+        public string ProvisioningState { get; private set; }
+
+        /// <summary>
+        /// Gets the unique immutable identifier of a resource (Guid).
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.uniqueIdentifier")]
+        public string UniqueIdentifier { get; private set; }
+
+        /// <summary>
         /// Gets or sets the identity of the resource.
         /// </summary>
         [JsonProperty(PropertyName = "identity")]
         public IdentityProperties Identity { get; set; }
 
+        /// <summary>
+        /// Gets the system metadata relating to this resource
+        /// </summary>
+        [JsonProperty(PropertyName = "systemData")]
+        public SystemData SystemData { get; private set; }
+
+        /// <summary>
+        /// Validate the object.
+        /// </summary>
+        /// <exception cref="ValidationException">
+        /// Thrown if validation fails
+        /// </exception>
+        public override void Validate()
+        {
+            base.Validate();
+        }
     }
 }
