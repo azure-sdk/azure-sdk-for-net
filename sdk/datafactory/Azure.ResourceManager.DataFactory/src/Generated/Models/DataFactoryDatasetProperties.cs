@@ -42,7 +42,7 @@ namespace Azure.ResourceManager.DataFactory.Models
         /// <param name="annotations"> List of tags that can be used for describing the Dataset. </param>
         /// <param name="folder"> The folder that this Dataset is in. If not specified, Dataset will appear at the root level. </param>
         /// <param name="additionalProperties"> Additional Properties. </param>
-        internal DataFactoryDatasetProperties(string datasetType, string description, DataFactoryElement<IList<DatasetDataElement>> structure, DataFactoryElement<IList<DatasetSchemaDataElement>> schema, DataFactoryLinkedServiceReference linkedServiceName, IDictionary<string, EntityParameterSpecification> parameters, IList<BinaryData> annotations, DatasetFolder folder, IDictionary<string, BinaryData> additionalProperties)
+        internal DataFactoryDatasetProperties(string datasetType, string description, DataFactoryElement<IList<DatasetDataElement>> structure, DataFactoryElement<BinaryData> schema, DataFactoryLinkedServiceReference linkedServiceName, IDictionary<string, EntityParameterSpecification> parameters, IList<BinaryData> annotations, DatasetFolder folder, IDictionary<string, BinaryData> additionalProperties)
         {
             DatasetType = datasetType;
             Description = description;
@@ -62,7 +62,7 @@ namespace Azure.ResourceManager.DataFactory.Models
         /// <summary> Columns that define the structure of the dataset. Type: array (or Expression with resultType array), itemType: DatasetDataElement. </summary>
         public DataFactoryElement<IList<DatasetDataElement>> Structure { get; set; }
         /// <summary> Columns that define the physical type schema of the dataset. Type: array (or Expression with resultType array), itemType: DatasetSchemaDataElement. </summary>
-        public DataFactoryElement<IList<DatasetSchemaDataElement>> Schema { get; set; }
+        public DataFactoryElement<BinaryData> Schema { get; set; }
         /// <summary> Linked service reference. </summary>
         public DataFactoryLinkedServiceReference LinkedServiceName { get; set; }
         /// <summary> Parameters for dataset. </summary>

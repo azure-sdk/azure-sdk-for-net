@@ -667,13 +667,9 @@ ColumnDelimiter = ",",
 QuoteChar = "\"",
 EscapeChar = "\\",
 FirstRowAsHeader = true,
-Schema = new DatasetSchemaDataElement[]
+Schema = BinaryData.FromObjectAsJson(new object[] { new Dictionary<string, object>()
 {
-new DatasetSchemaDataElement()
-{
-SchemaColumnType = "String",
-}
-},
+["type"] = "String"} }),
 Annotations =
 {
 },
