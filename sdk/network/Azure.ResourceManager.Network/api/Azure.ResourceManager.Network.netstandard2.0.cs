@@ -13029,6 +13029,8 @@ namespace Azure.ResourceManager.Network.Models
         public VirtualNetworkPrivateEndpointNetworkPolicy(string value) { throw null; }
         public static Azure.ResourceManager.Network.Models.VirtualNetworkPrivateEndpointNetworkPolicy Disabled { get { throw null; } }
         public static Azure.ResourceManager.Network.Models.VirtualNetworkPrivateEndpointNetworkPolicy Enabled { get { throw null; } }
+        public static Azure.ResourceManager.Network.Models.VirtualNetworkPrivateEndpointNetworkPolicy NetworkSecurityGroupEnabled { get { throw null; } }
+        public static Azure.ResourceManager.Network.Models.VirtualNetworkPrivateEndpointNetworkPolicy RouteTableEnabled { get { throw null; } }
         public bool Equals(Azure.ResourceManager.Network.Models.VirtualNetworkPrivateEndpointNetworkPolicy other) { throw null; }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public override bool Equals(object obj) { throw null; }
