@@ -32,13 +32,15 @@ namespace Azure.AI.ContentSafety
         /// <param name="blocklistNames"> The names of blocklists. </param>
         /// <param name="haltOnBlocklistHit"> When set to true, further analyses of harmful content will not be performed in cases where blocklists are hit. When set to false, all analyses of harmful content will be performed, whether or not blocklists are hit. </param>
         /// <param name="outputType"> This refers to the type of text analysis output. If no value is assigned, the default value will be "FourSeverityLevels". </param>
-        internal AnalyzeTextOptions(string text, IList<TextCategory> categories, IList<string> blocklistNames, bool? haltOnBlocklistHit, AnalyzeTextOutputType? outputType)
+        /// <param name="incidents"> The incidents to detect. </param>
+        internal AnalyzeTextOptions(string text, IList<TextCategory> categories, IList<string> blocklistNames, bool? haltOnBlocklistHit, AnalyzeTextOutputType? outputType, IncidentOptions incidents)
         {
             Text = text;
             Categories = categories;
             BlocklistNames = blocklistNames;
             HaltOnBlocklistHit = haltOnBlocklistHit;
             OutputType = outputType;
+            Incidents = incidents;
         }
 
         /// <summary> The text needs to be analyzed. We support a maximum of 10k Unicode characters (Unicode code points) in the text of one request. </summary>
@@ -51,5 +53,7 @@ namespace Azure.AI.ContentSafety
         public bool? HaltOnBlocklistHit { get; set; }
         /// <summary> This refers to the type of text analysis output. If no value is assigned, the default value will be "FourSeverityLevels". </summary>
         public AnalyzeTextOutputType? OutputType { get; set; }
+        /// <summary> The incidents to detect. </summary>
+        public IncidentOptions Incidents { get; set; }
     }
 }

@@ -22,6 +22,7 @@ namespace Azure.AI.ContentSafety
             }
             Optional<IReadOnlyList<TextBlocklistMatch>> blocklistsMatch = default;
             IReadOnlyList<TextCategoriesAnalysis> categoriesAnalysis = default;
+            Optional<IReadOnlyList<IncidentMatch>> incidentMatches = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("blocklistsMatch"u8))
@@ -48,8 +49,22 @@ namespace Azure.AI.ContentSafety
                     categoriesAnalysis = array;
                     continue;
                 }
+                if (property.NameEquals("incidentMatches"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<IncidentMatch> array = new List<IncidentMatch>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(IncidentMatch.DeserializeIncidentMatch(item));
+                    }
+                    incidentMatches = array;
+                    continue;
+                }
             }
-            return new AnalyzeTextResult(Optional.ToList(blocklistsMatch), categoriesAnalysis);
+            return new AnalyzeTextResult(Optional.ToList(blocklistsMatch), categoriesAnalysis, Optional.ToList(incidentMatches));
         }
 
         /// <summary> Deserializes the model from a raw response. </summary>

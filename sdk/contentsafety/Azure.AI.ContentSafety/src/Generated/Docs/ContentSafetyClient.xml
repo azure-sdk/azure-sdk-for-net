@@ -24,6 +24,11 @@ AnalyzeTextOptions options = new AnalyzeTextOptions("<text>")
     BlocklistNames = { "<blocklistNames>" },
     HaltOnBlocklistHit = true,
     OutputType = AnalyzeTextOutputType.FourSeverityLevels,
+    Incidents = new IncidentOptions
+    {
+        IncidentNames = { "<incidentNames>" },
+        HaltOnIncidentHit = true,
+    },
 };
 Response<AnalyzeTextResult> response = await client.AnalyzeTextAsync(options);
 ]]></code></example>
@@ -51,6 +56,11 @@ AnalyzeTextOptions options = new AnalyzeTextOptions("<text>")
     BlocklistNames = { "<blocklistNames>" },
     HaltOnBlocklistHit = true,
     OutputType = AnalyzeTextOutputType.FourSeverityLevels,
+    Incidents = new IncidentOptions
+    {
+        IncidentNames = { "<incidentNames>" },
+        HaltOnIncidentHit = true,
+    },
 };
 Response<AnalyzeTextResult> response = client.AnalyzeText(options);
 ]]></code></example>
@@ -91,6 +101,14 @@ using RequestContent content = RequestContent.Create(new
     },
     haltOnBlocklistHit = true,
     outputType = "FourSeverityLevels",
+    incidents = new
+    {
+        incidentNames = new object[]
+        {
+            "<incidentNames>"
+        },
+        haltOnIncidentHit = true,
+    },
 });
 Response response = await client.AnalyzeTextAsync(content);
 
@@ -100,6 +118,7 @@ Console.WriteLine(result.GetProperty("blocklistsMatch")[0].GetProperty("blocklis
 Console.WriteLine(result.GetProperty("blocklistsMatch")[0].GetProperty("blocklistItemText").ToString());
 Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("category").ToString());
 Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("severity").ToString());
+Console.WriteLine(result.GetProperty("incidentMatches")[0].GetProperty("incidentName").ToString());
 ]]></code></example>
     </member>
     <member name="AnalyzeText(RequestContent,RequestContext)">
@@ -138,6 +157,14 @@ using RequestContent content = RequestContent.Create(new
     },
     haltOnBlocklistHit = true,
     outputType = "FourSeverityLevels",
+    incidents = new
+    {
+        incidentNames = new object[]
+        {
+            "<incidentNames>"
+        },
+        haltOnIncidentHit = true,
+    },
 });
 Response response = client.AnalyzeText(content);
 
@@ -147,6 +174,7 @@ Console.WriteLine(result.GetProperty("blocklistsMatch")[0].GetProperty("blocklis
 Console.WriteLine(result.GetProperty("blocklistsMatch")[0].GetProperty("blocklistItemText").ToString());
 Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("category").ToString());
 Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("severity").ToString());
+Console.WriteLine(result.GetProperty("incidentMatches")[0].GetProperty("incidentName").ToString());
 ]]></code></example>
     </member>
     <member name="AnalyzeImageAsync(AnalyzeImageOptions,CancellationToken)">
@@ -170,6 +198,11 @@ AnalyzeImageOptions options = new AnalyzeImageOptions(new ContentSafetyImageData
 {
     Categories = { ImageCategory.Hate },
     OutputType = AnalyzeImageOutputType.FourSeverityLevels,
+    Incidents = new IncidentOptions
+    {
+        IncidentNames = { "<incidentNames>" },
+        HaltOnIncidentHit = true,
+    },
 };
 Response<AnalyzeImageResult> response = await client.AnalyzeImageAsync(options);
 ]]></code></example>
@@ -195,6 +228,11 @@ AnalyzeImageOptions options = new AnalyzeImageOptions(new ContentSafetyImageData
 {
     Categories = { ImageCategory.Hate },
     OutputType = AnalyzeImageOutputType.FourSeverityLevels,
+    Incidents = new IncidentOptions
+    {
+        IncidentNames = { "<incidentNames>" },
+        HaltOnIncidentHit = true,
+    },
 };
 Response<AnalyzeImageResult> response = client.AnalyzeImage(options);
 ]]></code></example>
@@ -234,12 +272,21 @@ using RequestContent content = RequestContent.Create(new
         "Hate"
     },
     outputType = "FourSeverityLevels",
+    incidents = new
+    {
+        incidentNames = new object[]
+        {
+            "<incidentNames>"
+        },
+        haltOnIncidentHit = true,
+    },
 });
 Response response = await client.AnalyzeImageAsync(content);
 
 JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
 Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("category").ToString());
 Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("severity").ToString());
+Console.WriteLine(result.GetProperty("incidentMatches")[0].GetProperty("incidentName").ToString());
 ]]></code></example>
     </member>
     <member name="AnalyzeImage(RequestContent,RequestContext)">
@@ -277,12 +324,21 @@ using RequestContent content = RequestContent.Create(new
         "Hate"
     },
     outputType = "FourSeverityLevels",
+    incidents = new
+    {
+        incidentNames = new object[]
+        {
+            "<incidentNames>"
+        },
+        haltOnIncidentHit = true,
+    },
 });
 Response response = client.AnalyzeImage(content);
 
 JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
 Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("category").ToString());
 Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("severity").ToString());
+Console.WriteLine(result.GetProperty("incidentMatches")[0].GetProperty("incidentName").ToString());
 ]]></code></example>
     </member>
   </members>

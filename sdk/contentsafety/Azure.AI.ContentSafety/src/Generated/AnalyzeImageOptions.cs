@@ -29,11 +29,13 @@ namespace Azure.AI.ContentSafety
         /// <param name="image"> The image needs to be analyzed. </param>
         /// <param name="categories"> The categories will be analyzed. If they are not assigned, a default set of analysis results for the categories will be returned. </param>
         /// <param name="outputType"> This refers to the type of image analysis output. If no value is assigned, the default value will be "FourSeverityLevels". </param>
-        internal AnalyzeImageOptions(ContentSafetyImageData image, IList<ImageCategory> categories, AnalyzeImageOutputType? outputType)
+        /// <param name="incidents"> The incidents to detect. </param>
+        internal AnalyzeImageOptions(ContentSafetyImageData image, IList<ImageCategory> categories, AnalyzeImageOutputType? outputType, IncidentOptions incidents)
         {
             Image = image;
             Categories = categories;
             OutputType = outputType;
+            Incidents = incidents;
         }
 
         /// <summary> The image needs to be analyzed. </summary>
@@ -42,5 +44,7 @@ namespace Azure.AI.ContentSafety
         public IList<ImageCategory> Categories { get; }
         /// <summary> This refers to the type of image analysis output. If no value is assigned, the default value will be "FourSeverityLevels". </summary>
         public AnalyzeImageOutputType? OutputType { get; set; }
+        /// <summary> The incidents to detect. </summary>
+        public IncidentOptions Incidents { get; set; }
     }
 }
