@@ -15,6 +15,7 @@ namespace Azure.AI.ContentSafety
         public AnalyzeImageOptions(Azure.AI.ContentSafety.ContentSafetyImageData image) { }
         public System.Collections.Generic.IList<Azure.AI.ContentSafety.ImageCategory> Categories { get { throw null; } }
         public Azure.AI.ContentSafety.ContentSafetyImageData Image { get { throw null; } }
+        public Azure.AI.ContentSafety.IncidentOptions Incidents { get { throw null; } set { } }
         public Azure.AI.ContentSafety.AnalyzeImageOutputType? OutputType { get { throw null; } set { } }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
@@ -38,6 +39,7 @@ namespace Azure.AI.ContentSafety
     {
         internal AnalyzeImageResult() { }
         public System.Collections.Generic.IReadOnlyList<Azure.AI.ContentSafety.ImageCategoriesAnalysis> CategoriesAnalysis { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyList<Azure.AI.ContentSafety.IncidentMatch> IncidentMatches { get { throw null; } }
     }
     public partial class AnalyzeTextOptions
     {
@@ -45,6 +47,7 @@ namespace Azure.AI.ContentSafety
         public System.Collections.Generic.IList<string> BlocklistNames { get { throw null; } }
         public System.Collections.Generic.IList<Azure.AI.ContentSafety.TextCategory> Categories { get { throw null; } }
         public bool? HaltOnBlocklistHit { get { throw null; } set { } }
+        public Azure.AI.ContentSafety.IncidentOptions Incidents { get { throw null; } set { } }
         public Azure.AI.ContentSafety.AnalyzeTextOutputType? OutputType { get { throw null; } set { } }
         public string Text { get { throw null; } }
     }
@@ -71,6 +74,8 @@ namespace Azure.AI.ContentSafety
         internal AnalyzeTextResult() { }
         public System.Collections.Generic.IReadOnlyList<Azure.AI.ContentSafety.TextBlocklistMatch> BlocklistsMatch { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.AI.ContentSafety.TextCategoriesAnalysis> CategoriesAnalysis { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyList<Azure.AI.ContentSafety.IncidentMatch> IncidentMatches { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyList<string> Reason { get { throw null; } }
     }
     public partial class BlocklistClient
     {
@@ -134,10 +139,13 @@ namespace Azure.AI.ContentSafety
     }
     public partial class ContentSafetyClientOptions : Azure.Core.ClientOptions
     {
-        public ContentSafetyClientOptions(Azure.AI.ContentSafety.ContentSafetyClientOptions.ServiceVersion version = Azure.AI.ContentSafety.ContentSafetyClientOptions.ServiceVersion.V2023_10_01) { }
+        public ContentSafetyClientOptions(Azure.AI.ContentSafety.ContentSafetyClientOptions.ServiceVersion version = Azure.AI.ContentSafety.ContentSafetyClientOptions.ServiceVersion.V2023_11_30_Preview) { }
         public enum ServiceVersion
         {
             V2023_10_01 = 1,
+            V2023_10_15_Preview = 2,
+            V2023_10_30_Preview = 3,
+            V2023_11_30_Preview = 4,
         }
     }
     public partial class ContentSafetyImageData
@@ -149,9 +157,10 @@ namespace Azure.AI.ContentSafety
     public static partial class ContentSafetyModelFactory
     {
         public static Azure.AI.ContentSafety.AddOrUpdateTextBlocklistItemsResult AddOrUpdateTextBlocklistItemsResult(System.Collections.Generic.IEnumerable<Azure.AI.ContentSafety.TextBlocklistItem> blocklistItems = null) { throw null; }
-        public static Azure.AI.ContentSafety.AnalyzeImageResult AnalyzeImageResult(System.Collections.Generic.IEnumerable<Azure.AI.ContentSafety.ImageCategoriesAnalysis> categoriesAnalysis = null) { throw null; }
-        public static Azure.AI.ContentSafety.AnalyzeTextResult AnalyzeTextResult(System.Collections.Generic.IEnumerable<Azure.AI.ContentSafety.TextBlocklistMatch> blocklistsMatch = null, System.Collections.Generic.IEnumerable<Azure.AI.ContentSafety.TextCategoriesAnalysis> categoriesAnalysis = null) { throw null; }
+        public static Azure.AI.ContentSafety.AnalyzeImageResult AnalyzeImageResult(System.Collections.Generic.IEnumerable<Azure.AI.ContentSafety.ImageCategoriesAnalysis> categoriesAnalysis = null, System.Collections.Generic.IEnumerable<Azure.AI.ContentSafety.IncidentMatch> incidentMatches = null) { throw null; }
+        public static Azure.AI.ContentSafety.AnalyzeTextResult AnalyzeTextResult(System.Collections.Generic.IEnumerable<Azure.AI.ContentSafety.TextBlocklistMatch> blocklistsMatch = null, System.Collections.Generic.IEnumerable<Azure.AI.ContentSafety.TextCategoriesAnalysis> categoriesAnalysis = null, System.Collections.Generic.IEnumerable<Azure.AI.ContentSafety.IncidentMatch> incidentMatches = null, System.Collections.Generic.IEnumerable<string> reason = null) { throw null; }
         public static Azure.AI.ContentSafety.ImageCategoriesAnalysis ImageCategoriesAnalysis(Azure.AI.ContentSafety.ImageCategory category = default(Azure.AI.ContentSafety.ImageCategory), int? severity = default(int?)) { throw null; }
+        public static Azure.AI.ContentSafety.IncidentMatch IncidentMatch(string incidentName = null) { throw null; }
         public static Azure.AI.ContentSafety.TextBlocklist TextBlocklist(string name = null, string description = null) { throw null; }
         public static Azure.AI.ContentSafety.TextBlocklistItem TextBlocklistItem(string blocklistItemId = null, string description = null, string text = null) { throw null; }
         public static Azure.AI.ContentSafety.TextBlocklistMatch TextBlocklistMatch(string blocklistName = null, string blocklistItemId = null, string blocklistItemText = null) { throw null; }
@@ -182,6 +191,17 @@ namespace Azure.AI.ContentSafety
         public static implicit operator Azure.AI.ContentSafety.ImageCategory (string value) { throw null; }
         public static bool operator !=(Azure.AI.ContentSafety.ImageCategory left, Azure.AI.ContentSafety.ImageCategory right) { throw null; }
         public override string ToString() { throw null; }
+    }
+    public partial class IncidentMatch
+    {
+        internal IncidentMatch() { }
+        public string IncidentName { get { throw null; } }
+    }
+    public partial class IncidentOptions
+    {
+        public IncidentOptions() { }
+        public bool? HaltOnIncidentHit { get { throw null; } set { } }
+        public System.Collections.Generic.IList<string> IncidentNames { get { throw null; } }
     }
     public partial class RemoveTextBlocklistItemsOptions
     {

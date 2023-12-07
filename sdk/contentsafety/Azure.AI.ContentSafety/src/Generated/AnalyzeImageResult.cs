@@ -23,16 +23,21 @@ namespace Azure.AI.ContentSafety
             Argument.AssertNotNull(categoriesAnalysis, nameof(categoriesAnalysis));
 
             CategoriesAnalysis = categoriesAnalysis.ToList();
+            IncidentMatches = new ChangeTrackingList<IncidentMatch>();
         }
 
         /// <summary> Initializes a new instance of <see cref="AnalyzeImageResult"/>. </summary>
         /// <param name="categoriesAnalysis"> Analysis result for categories. </param>
-        internal AnalyzeImageResult(IReadOnlyList<ImageCategoriesAnalysis> categoriesAnalysis)
+        /// <param name="incidentMatches"> The incident match details. </param>
+        internal AnalyzeImageResult(IReadOnlyList<ImageCategoriesAnalysis> categoriesAnalysis, IReadOnlyList<IncidentMatch> incidentMatches)
         {
             CategoriesAnalysis = categoriesAnalysis;
+            IncidentMatches = incidentMatches;
         }
 
         /// <summary> Analysis result for categories. </summary>
         public IReadOnlyList<ImageCategoriesAnalysis> CategoriesAnalysis { get; }
+        /// <summary> The incident match details. </summary>
+        public IReadOnlyList<IncidentMatch> IncidentMatches { get; }
     }
 }

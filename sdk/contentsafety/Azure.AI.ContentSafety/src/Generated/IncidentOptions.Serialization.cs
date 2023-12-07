@@ -10,32 +10,25 @@ using Azure.Core;
 
 namespace Azure.AI.ContentSafety
 {
-    public partial class AnalyzeImageOptions : IUtf8JsonSerializable
+    public partial class IncidentOptions : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
-            writer.WritePropertyName("image"u8);
-            writer.WriteObjectValue(Image);
-            if (Optional.IsCollectionDefined(Categories))
+            if (Optional.IsCollectionDefined(IncidentNames))
             {
-                writer.WritePropertyName("categories"u8);
+                writer.WritePropertyName("incidentNames"u8);
                 writer.WriteStartArray();
-                foreach (var item in Categories)
+                foreach (var item in IncidentNames)
                 {
-                    writer.WriteStringValue(item.ToString());
+                    writer.WriteStringValue(item);
                 }
                 writer.WriteEndArray();
             }
-            if (Optional.IsDefined(OutputType))
+            if (Optional.IsDefined(HaltOnIncidentHit))
             {
-                writer.WritePropertyName("outputType"u8);
-                writer.WriteStringValue(OutputType.Value.ToString());
-            }
-            if (Optional.IsDefined(Incidents))
-            {
-                writer.WritePropertyName("incidents"u8);
-                writer.WriteObjectValue(Incidents);
+                writer.WritePropertyName("haltOnIncidentHit"u8);
+                writer.WriteBooleanValue(HaltOnIncidentHit.Value);
             }
             writer.WriteEndObject();
         }

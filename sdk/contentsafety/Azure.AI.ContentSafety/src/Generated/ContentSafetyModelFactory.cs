@@ -17,13 +17,17 @@ namespace Azure.AI.ContentSafety
         /// <summary> Initializes a new instance of <see cref="ContentSafety.AnalyzeTextResult"/>. </summary>
         /// <param name="blocklistsMatch"> The blocklist match details. </param>
         /// <param name="categoriesAnalysis"> Analysis result for categories. </param>
+        /// <param name="incidentMatches"> The incident match details. </param>
+        /// <param name="reason"> Sentences detected as harmful content. </param>
         /// <returns> A new <see cref="ContentSafety.AnalyzeTextResult"/> instance for mocking. </returns>
-        public static AnalyzeTextResult AnalyzeTextResult(IEnumerable<TextBlocklistMatch> blocklistsMatch = null, IEnumerable<TextCategoriesAnalysis> categoriesAnalysis = null)
+        public static AnalyzeTextResult AnalyzeTextResult(IEnumerable<TextBlocklistMatch> blocklistsMatch = null, IEnumerable<TextCategoriesAnalysis> categoriesAnalysis = null, IEnumerable<IncidentMatch> incidentMatches = null, IEnumerable<string> reason = null)
         {
             blocklistsMatch ??= new List<TextBlocklistMatch>();
             categoriesAnalysis ??= new List<TextCategoriesAnalysis>();
+            incidentMatches ??= new List<IncidentMatch>();
+            reason ??= new List<string>();
 
-            return new AnalyzeTextResult(blocklistsMatch?.ToList(), categoriesAnalysis?.ToList());
+            return new AnalyzeTextResult(blocklistsMatch?.ToList(), categoriesAnalysis?.ToList(), incidentMatches?.ToList(), reason?.ToList());
         }
 
         /// <summary> Initializes a new instance of <see cref="ContentSafety.TextBlocklistMatch"/>. </summary>
@@ -59,14 +63,30 @@ namespace Azure.AI.ContentSafety
             return new TextCategoriesAnalysis(category, severity);
         }
 
+        /// <summary> Initializes a new instance of <see cref="ContentSafety.IncidentMatch"/>. </summary>
+        /// <param name="incidentName"> The name of the matched incident. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="incidentName"/> is null. </exception>
+        /// <returns> A new <see cref="ContentSafety.IncidentMatch"/> instance for mocking. </returns>
+        public static IncidentMatch IncidentMatch(string incidentName = null)
+        {
+            if (incidentName == null)
+            {
+                throw new ArgumentNullException(nameof(incidentName));
+            }
+
+            return new IncidentMatch(incidentName);
+        }
+
         /// <summary> Initializes a new instance of <see cref="ContentSafety.AnalyzeImageResult"/>. </summary>
         /// <param name="categoriesAnalysis"> Analysis result for categories. </param>
+        /// <param name="incidentMatches"> The incident match details. </param>
         /// <returns> A new <see cref="ContentSafety.AnalyzeImageResult"/> instance for mocking. </returns>
-        public static AnalyzeImageResult AnalyzeImageResult(IEnumerable<ImageCategoriesAnalysis> categoriesAnalysis = null)
+        public static AnalyzeImageResult AnalyzeImageResult(IEnumerable<ImageCategoriesAnalysis> categoriesAnalysis = null, IEnumerable<IncidentMatch> incidentMatches = null)
         {
             categoriesAnalysis ??= new List<ImageCategoriesAnalysis>();
+            incidentMatches ??= new List<IncidentMatch>();
 
-            return new AnalyzeImageResult(categoriesAnalysis?.ToList());
+            return new AnalyzeImageResult(categoriesAnalysis?.ToList(), incidentMatches?.ToList());
         }
 
         /// <summary> Initializes a new instance of <see cref="ContentSafety.ImageCategoriesAnalysis"/>. </summary>

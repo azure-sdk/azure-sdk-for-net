@@ -24,20 +24,30 @@ namespace Azure.AI.ContentSafety
 
             BlocklistsMatch = new ChangeTrackingList<TextBlocklistMatch>();
             CategoriesAnalysis = categoriesAnalysis.ToList();
+            IncidentMatches = new ChangeTrackingList<IncidentMatch>();
+            Reason = new ChangeTrackingList<string>();
         }
 
         /// <summary> Initializes a new instance of <see cref="AnalyzeTextResult"/>. </summary>
         /// <param name="blocklistsMatch"> The blocklist match details. </param>
         /// <param name="categoriesAnalysis"> Analysis result for categories. </param>
-        internal AnalyzeTextResult(IReadOnlyList<TextBlocklistMatch> blocklistsMatch, IReadOnlyList<TextCategoriesAnalysis> categoriesAnalysis)
+        /// <param name="incidentMatches"> The incident match details. </param>
+        /// <param name="reason"> Sentences detected as harmful content. </param>
+        internal AnalyzeTextResult(IReadOnlyList<TextBlocklistMatch> blocklistsMatch, IReadOnlyList<TextCategoriesAnalysis> categoriesAnalysis, IReadOnlyList<IncidentMatch> incidentMatches, IReadOnlyList<string> reason)
         {
             BlocklistsMatch = blocklistsMatch;
             CategoriesAnalysis = categoriesAnalysis;
+            IncidentMatches = incidentMatches;
+            Reason = reason;
         }
 
         /// <summary> The blocklist match details. </summary>
         public IReadOnlyList<TextBlocklistMatch> BlocklistsMatch { get; }
         /// <summary> Analysis result for categories. </summary>
         public IReadOnlyList<TextCategoriesAnalysis> CategoriesAnalysis { get; }
+        /// <summary> The incident match details. </summary>
+        public IReadOnlyList<IncidentMatch> IncidentMatches { get; }
+        /// <summary> Sentences detected as harmful content. </summary>
+        public IReadOnlyList<string> Reason { get; }
     }
 }
