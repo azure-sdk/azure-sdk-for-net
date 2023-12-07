@@ -25,7 +25,7 @@ namespace Azure.ResourceManager.Cdn.Models
         /// <param name="unit"></param>
         /// <param name="groups"></param>
         /// <param name="data"></param>
-        internal WafMetricsResponseSeriesItem(string metric, WafMetricsResponseSeriesItemUnit? unit, IReadOnlyList<WafMetricsResponseSeriesPropertiesItemsItem> groups, IReadOnlyList<Components18OrqelSchemasWafmetricsresponsePropertiesSeriesItemsPropertiesDataItems> data)
+        internal WafMetricsResponseSeriesItem(string metric, WafMetricsSeriesUnit? unit, IReadOnlyList<WafMetricsResponseSeriesPropertiesItemsItem> groups, IReadOnlyList<Components18OrqelSchemasWafmetricsresponsePropertiesSeriesItemsPropertiesDataItems> data)
         {
             Metric = metric;
             Unit = unit;
@@ -36,7 +36,7 @@ namespace Azure.ResourceManager.Cdn.Models
         /// <summary> Gets the metric. </summary>
         public string Metric { get; }
         /// <summary> Gets the unit. </summary>
-        public WafMetricsResponseSeriesItemUnit? Unit { get; }
+        public WafMetricsSeriesUnit? Unit { get; }
         /// <summary> Gets the groups. </summary>
         public IReadOnlyList<WafMetricsResponseSeriesPropertiesItemsItem> Groups { get; }
         /// <summary> Gets the data. </summary>
