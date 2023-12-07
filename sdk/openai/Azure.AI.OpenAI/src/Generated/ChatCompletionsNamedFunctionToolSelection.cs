@@ -5,26 +5,34 @@
 
 #nullable disable
 
+using System;
+using Azure.Core;
+
 namespace Azure.AI.OpenAI
 {
     /// <summary> A tool selection of a specific, named function tool that will limit chat completions to using the named function. </summary>
     internal partial class ChatCompletionsNamedFunctionToolSelection : ChatCompletionsNamedToolSelection
     {
         /// <summary> Initializes a new instance of <see cref="ChatCompletionsNamedFunctionToolSelection"/>. </summary>
-        public ChatCompletionsNamedFunctionToolSelection()
+        /// <param name="name"> The name of the function that should be called. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="name"/> is null. </exception>
+        public ChatCompletionsNamedFunctionToolSelection(string name)
         {
+            Argument.AssertNotNull(name, nameof(name));
+
             Type = "function";
+            Name = name;
         }
 
         /// <summary> Initializes a new instance of <see cref="ChatCompletionsNamedFunctionToolSelection"/>. </summary>
         /// <param name="type"> The object type. </param>
         /// <param name="name"> The name of the function that should be called. </param>
-        internal ChatCompletionsNamedFunctionToolSelection(string type, ChatCompletionsNamedFunctionToolSelectionName name) : base(type)
+        internal ChatCompletionsNamedFunctionToolSelection(string type, string name) : base(type)
         {
             Name = name;
         }
 
         /// <summary> The name of the function that should be called. </summary>
-        public ChatCompletionsNamedFunctionToolSelectionName Name { get; } = ChatCompletionsNamedFunctionToolSelectionName.String;
+        public string Name { get; }
     }
 }
