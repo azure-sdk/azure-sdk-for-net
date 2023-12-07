@@ -24,20 +24,30 @@ namespace Azure.AI.ContentSafety
 
             BlocklistsMatch = new ChangeTrackingList<TextBlocklistMatch>();
             CategoriesAnalysis = categoriesAnalysis.ToList();
+            IncidentMatches = new ChangeTrackingList<IncidentMatch>();
+            Citation = new ChangeTrackingList<string>();
         }
 
         /// <summary> Initializes a new instance of <see cref="AnalyzeTextResult"/>. </summary>
         /// <param name="blocklistsMatch"> The blocklist match details. </param>
         /// <param name="categoriesAnalysis"> Analysis result for categories. </param>
-        internal AnalyzeTextResult(IReadOnlyList<TextBlocklistMatch> blocklistsMatch, IReadOnlyList<TextCategoriesAnalysis> categoriesAnalysis)
+        /// <param name="incidentMatches"> The incident match details. </param>
+        /// <param name="citation"> Chunks in the original text detected as harmful content. Analysis result and scores are caused by these. </param>
+        internal AnalyzeTextResult(IReadOnlyList<TextBlocklistMatch> blocklistsMatch, IReadOnlyList<TextCategoriesAnalysis> categoriesAnalysis, IReadOnlyList<IncidentMatch> incidentMatches, IReadOnlyList<string> citation)
         {
             BlocklistsMatch = blocklistsMatch;
             CategoriesAnalysis = categoriesAnalysis;
+            IncidentMatches = incidentMatches;
+            Citation = citation;
         }
 
         /// <summary> The blocklist match details. </summary>
         public IReadOnlyList<TextBlocklistMatch> BlocklistsMatch { get; }
         /// <summary> Analysis result for categories. </summary>
         public IReadOnlyList<TextCategoriesAnalysis> CategoriesAnalysis { get; }
+        /// <summary> The incident match details. </summary>
+        public IReadOnlyList<IncidentMatch> IncidentMatches { get; }
+        /// <summary> Chunks in the original text detected as harmful content. Analysis result and scores are caused by these. </summary>
+        public IReadOnlyList<string> Citation { get; }
     }
 }

@@ -8,6 +8,7 @@
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure;
+using Azure.Core;
 
 namespace Azure.AI.ContentSafety
 {
@@ -20,6 +21,7 @@ namespace Azure.AI.ContentSafety
                 return null;
             }
             IReadOnlyList<ImageCategoriesAnalysis> categoriesAnalysis = default;
+            Optional<IReadOnlyList<IncidentMatch>> incidentMatches = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("categoriesAnalysis"u8))
@@ -32,8 +34,22 @@ namespace Azure.AI.ContentSafety
                     categoriesAnalysis = array;
                     continue;
                 }
+                if (property.NameEquals("incidentMatches"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<IncidentMatch> array = new List<IncidentMatch>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(IncidentMatch.DeserializeIncidentMatch(item));
+                    }
+                    incidentMatches = array;
+                    continue;
+                }
             }
-            return new AnalyzeImageResult(categoriesAnalysis);
+            return new AnalyzeImageResult(categoriesAnalysis, Optional.ToList(incidentMatches));
         }
 
         /// <summary> Deserializes the model from a raw response. </summary>

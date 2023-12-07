@@ -99,6 +99,14 @@ namespace Azure.AI.ContentSafety.Samples
             },
                 haltOnBlocklistHit = true,
                 outputType = "FourSeverityLevels",
+                incidents = new
+                {
+                    incidentNames = new object[]
+            {
+"<incidentNames>"
+            },
+                    haltOnIncidentHit = true,
+                },
             });
             Response response = client.AnalyzeText(content);
 
@@ -108,6 +116,8 @@ namespace Azure.AI.ContentSafety.Samples
             Console.WriteLine(result.GetProperty("blocklistsMatch")[0].GetProperty("blocklistItemText").ToString());
             Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("category").ToString());
             Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("severity").ToString());
+            Console.WriteLine(result.GetProperty("incidentMatches")[0].GetProperty("incidentName").ToString());
+            Console.WriteLine(result.GetProperty("citation")[0].ToString());
         }
 
         [Test]
@@ -131,6 +141,14 @@ namespace Azure.AI.ContentSafety.Samples
             },
                 haltOnBlocklistHit = true,
                 outputType = "FourSeverityLevels",
+                incidents = new
+                {
+                    incidentNames = new object[]
+            {
+"<incidentNames>"
+            },
+                    haltOnIncidentHit = true,
+                },
             });
             Response response = await client.AnalyzeTextAsync(content);
 
@@ -140,6 +158,8 @@ namespace Azure.AI.ContentSafety.Samples
             Console.WriteLine(result.GetProperty("blocklistsMatch")[0].GetProperty("blocklistItemText").ToString());
             Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("category").ToString());
             Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("severity").ToString());
+            Console.WriteLine(result.GetProperty("incidentMatches")[0].GetProperty("incidentName").ToString());
+            Console.WriteLine(result.GetProperty("citation")[0].ToString());
         }
 
         [Test]
@@ -156,6 +176,11 @@ namespace Azure.AI.ContentSafety.Samples
                 BlocklistNames = { "<blocklistNames>" },
                 HaltOnBlocklistHit = true,
                 OutputType = AnalyzeTextOutputType.FourSeverityLevels,
+                Incidents = new IncidentOptions
+                {
+                    IncidentNames = { "<incidentNames>" },
+                    HaltOnIncidentHit = true,
+                },
             };
             Response<AnalyzeTextResult> response = client.AnalyzeText(options);
         }
@@ -174,6 +199,11 @@ namespace Azure.AI.ContentSafety.Samples
                 BlocklistNames = { "<blocklistNames>" },
                 HaltOnBlocklistHit = true,
                 OutputType = AnalyzeTextOutputType.FourSeverityLevels,
+                Incidents = new IncidentOptions
+                {
+                    IncidentNames = { "<incidentNames>" },
+                    HaltOnIncidentHit = true,
+                },
             };
             Response<AnalyzeTextResult> response = await client.AnalyzeTextAsync(options);
         }
@@ -258,12 +288,21 @@ namespace Azure.AI.ContentSafety.Samples
 "Hate"
             },
                 outputType = "FourSeverityLevels",
+                incidents = new
+                {
+                    incidentNames = new object[]
+            {
+"<incidentNames>"
+            },
+                    haltOnIncidentHit = true,
+                },
             });
             Response response = client.AnalyzeImage(content);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("category").ToString());
             Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("severity").ToString());
+            Console.WriteLine(result.GetProperty("incidentMatches")[0].GetProperty("incidentName").ToString());
         }
 
         [Test]
@@ -286,12 +325,21 @@ namespace Azure.AI.ContentSafety.Samples
 "Hate"
             },
                 outputType = "FourSeverityLevels",
+                incidents = new
+                {
+                    incidentNames = new object[]
+            {
+"<incidentNames>"
+            },
+                    haltOnIncidentHit = true,
+                },
             });
             Response response = await client.AnalyzeImageAsync(content);
 
             JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
             Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("category").ToString());
             Console.WriteLine(result.GetProperty("categoriesAnalysis")[0].GetProperty("severity").ToString());
+            Console.WriteLine(result.GetProperty("incidentMatches")[0].GetProperty("incidentName").ToString());
         }
 
         [Test]
@@ -306,6 +354,11 @@ namespace Azure.AI.ContentSafety.Samples
             {
                 Categories = { ImageCategory.Hate },
                 OutputType = AnalyzeImageOutputType.FourSeverityLevels,
+                Incidents = new IncidentOptions
+                {
+                    IncidentNames = { "<incidentNames>" },
+                    HaltOnIncidentHit = true,
+                },
             };
             Response<AnalyzeImageResult> response = client.AnalyzeImage(options);
         }
@@ -322,6 +375,11 @@ namespace Azure.AI.ContentSafety.Samples
             {
                 Categories = { ImageCategory.Hate },
                 OutputType = AnalyzeImageOutputType.FourSeverityLevels,
+                Incidents = new IncidentOptions
+                {
+                    IncidentNames = { "<incidentNames>" },
+                    HaltOnIncidentHit = true,
+                },
             };
             Response<AnalyzeImageResult> response = await client.AnalyzeImageAsync(options);
         }

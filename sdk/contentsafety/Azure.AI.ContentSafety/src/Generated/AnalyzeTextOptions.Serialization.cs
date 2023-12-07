@@ -47,6 +47,11 @@ namespace Azure.AI.ContentSafety
                 writer.WritePropertyName("outputType"u8);
                 writer.WriteStringValue(OutputType.Value.ToString());
             }
+            if (Optional.IsDefined(Incidents))
+            {
+                writer.WritePropertyName("incidents"u8);
+                writer.WriteObjectValue(Incidents);
+            }
             writer.WriteEndObject();
         }
 
