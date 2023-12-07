@@ -17,7 +17,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
         /// <summary> Initializes a new instance of <see cref="AppPlatformAppProperties"/>. </summary>
         public AppPlatformAppProperties()
         {
-            AddonConfigs = new ChangeTrackingDictionary<string, IDictionary<string, BinaryData>>();
+            AddonConfigs = new ChangeTrackingDictionary<string, BinaryData>();
             CustomPersistentDisks = new ChangeTrackingList<AppCustomPersistentDisk>();
             LoadedCertificates = new ChangeTrackingList<AppLoadedCertificate>();
         }
@@ -36,7 +36,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
         /// <param name="loadedCertificates"> Collection of loaded certificates. </param>
         /// <param name="vnetAddons"> Additional App settings in vnet injection instance. </param>
         /// <param name="ingressSettings"> App ingress settings payload. </param>
-        internal AppPlatformAppProperties(bool? isPublic, string uriString, IDictionary<string, IDictionary<string, BinaryData>> addonConfigs, AppPlatformAppProvisioningState? provisioningState, string fqdn, bool? isHttpsOnly, AppTemporaryDisk temporaryDisk, AppPersistentDisk persistentDisk, IList<AppCustomPersistentDisk> customPersistentDisks, bool? isEndToEndTlsEnabled, IList<AppLoadedCertificate> loadedCertificates, AppVnetAddons vnetAddons, AppIngressSettings ingressSettings)
+        internal AppPlatformAppProperties(bool? isPublic, string uriString, IDictionary<string, BinaryData> addonConfigs, AppPlatformAppProvisioningState? provisioningState, string fqdn, bool? isHttpsOnly, AppTemporaryDisk temporaryDisk, AppPersistentDisk persistentDisk, IList<AppCustomPersistentDisk> customPersistentDisks, bool? isEndToEndTlsEnabled, IList<AppLoadedCertificate> loadedCertificates, AppVnetAddons vnetAddons, AppIngressSettings ingressSettings)
         {
             IsPublic = isPublic;
             UriString = uriString;
@@ -57,8 +57,37 @@ namespace Azure.ResourceManager.AppPlatform.Models
         public bool? IsPublic { get; set; }
         /// <summary> URL of the App. </summary>
         public string UriString { get; }
-        /// <summary> Collection of addons. </summary>
-        public IDictionary<string, IDictionary<string, BinaryData>> AddonConfigs { get; }
+        /// <summary>
+        /// Collection of addons
+        /// <para>
+        /// To assign an object to the value of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
+        /// </para>
+        /// <para>
+        /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
+        /// </para>
+        /// <para>
+        /// Examples:
+        /// <list type="bullet">
+        /// <item>
+        /// <term>BinaryData.FromObjectAsJson("foo")</term>
+        /// <description>Creates a payload of "foo".</description>
+        /// </item>
+        /// <item>
+        /// <term>BinaryData.FromString("\"foo\"")</term>
+        /// <description>Creates a payload of "foo".</description>
+        /// </item>
+        /// <item>
+        /// <term>BinaryData.FromObjectAsJson(new { key = "value" })</term>
+        /// <description>Creates a payload of { "key": "value" }.</description>
+        /// </item>
+        /// <item>
+        /// <term>BinaryData.FromString("{\"key\": \"value\"}")</term>
+        /// <description>Creates a payload of { "key": "value" }.</description>
+        /// </item>
+        /// </list>
+        /// </para>
+        /// </summary>
+        public IDictionary<string, BinaryData> AddonConfigs { get; }
         /// <summary> Provisioning state of the App. </summary>
         public AppPlatformAppProvisioningState? ProvisioningState { get; }
         /// <summary> Fully qualified dns Name. </summary>
