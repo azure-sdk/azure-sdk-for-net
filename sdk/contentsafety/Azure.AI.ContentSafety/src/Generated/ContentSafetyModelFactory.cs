@@ -78,6 +78,50 @@ namespace Azure.AI.ContentSafety
             return new ImageCategoriesAnalysis(category, severity);
         }
 
+        /// <summary> Initializes a new instance of <see cref="ContentSafety.AnalyzeTextJailbreakResult"/>. </summary>
+        /// <param name="jailbreakAnalysis"> Analysis result for jailbreak. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="jailbreakAnalysis"/> is null. </exception>
+        /// <returns> A new <see cref="ContentSafety.AnalyzeTextJailbreakResult"/> instance for mocking. </returns>
+        public static AnalyzeTextJailbreakResult AnalyzeTextJailbreakResult(JailbreakAnalysisResult jailbreakAnalysis = null)
+        {
+            if (jailbreakAnalysis == null)
+            {
+                throw new ArgumentNullException(nameof(jailbreakAnalysis));
+            }
+
+            return new AnalyzeTextJailbreakResult(jailbreakAnalysis);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="ContentSafety.JailbreakAnalysisResult"/>. </summary>
+        /// <param name="detected"> Analysis result for jailbreak. </param>
+        /// <returns> A new <see cref="ContentSafety.JailbreakAnalysisResult"/> instance for mocking. </returns>
+        public static JailbreakAnalysisResult JailbreakAnalysisResult(bool detected = default)
+        {
+            return new JailbreakAnalysisResult(detected);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="ContentSafety.AnalyzeTextProtectedMaterialResult"/>. </summary>
+        /// <param name="protectedMaterialAnalysis"> Analysis result for protected material. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="protectedMaterialAnalysis"/> is null. </exception>
+        /// <returns> A new <see cref="ContentSafety.AnalyzeTextProtectedMaterialResult"/> instance for mocking. </returns>
+        public static AnalyzeTextProtectedMaterialResult AnalyzeTextProtectedMaterialResult(ProtectedMaterialAnalysisResult protectedMaterialAnalysis = null)
+        {
+            if (protectedMaterialAnalysis == null)
+            {
+                throw new ArgumentNullException(nameof(protectedMaterialAnalysis));
+            }
+
+            return new AnalyzeTextProtectedMaterialResult(protectedMaterialAnalysis);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="ContentSafety.ProtectedMaterialAnalysisResult"/>. </summary>
+        /// <param name="detected"> Analysis result for protected material.. </param>
+        /// <returns> A new <see cref="ContentSafety.ProtectedMaterialAnalysisResult"/> instance for mocking. </returns>
+        public static ProtectedMaterialAnalysisResult ProtectedMaterialAnalysisResult(bool detected = default)
+        {
+            return new ProtectedMaterialAnalysisResult(detected);
+        }
+
         /// <summary> Initializes a new instance of <see cref="ContentSafety.TextBlocklistItem"/>. </summary>
         /// <param name="blocklistItemId"> The service will generate a BlocklistItemId, which will be a UUID. </param>
         /// <param name="description"> BlocklistItem description. </param>
