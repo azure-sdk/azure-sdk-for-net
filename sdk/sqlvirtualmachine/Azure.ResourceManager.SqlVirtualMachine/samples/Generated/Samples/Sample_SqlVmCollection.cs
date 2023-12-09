@@ -25,7 +25,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetsASQLVirtualMachine()
         {
-            // Generated from example definition: specification/sqlvirtualmachine/resource-manager/Microsoft.SqlVirtualMachine/stable/2022-02-01/examples/GetSqlVirtualMachine.json
+            // Generated from example definition: specification/sqlvirtualmachine/resource-manager/Microsoft.SqlVirtualMachine/preview/2023-10-01-preview/examples/GetSqlVirtualMachine.json
             // this example is just showing the usage of "SqlVirtualMachines_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -59,7 +59,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Exists_GetsASQLVirtualMachine()
         {
-            // Generated from example definition: specification/sqlvirtualmachine/resource-manager/Microsoft.SqlVirtualMachine/stable/2022-02-01/examples/GetSqlVirtualMachine.json
+            // Generated from example definition: specification/sqlvirtualmachine/resource-manager/Microsoft.SqlVirtualMachine/preview/2023-10-01-preview/examples/GetSqlVirtualMachine.json
             // this example is just showing the usage of "SqlVirtualMachines_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -89,7 +89,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetIfExists_GetsASQLVirtualMachine()
         {
-            // Generated from example definition: specification/sqlvirtualmachine/resource-manager/Microsoft.SqlVirtualMachine/stable/2022-02-01/examples/GetSqlVirtualMachine.json
+            // Generated from example definition: specification/sqlvirtualmachine/resource-manager/Microsoft.SqlVirtualMachine/preview/2023-10-01-preview/examples/GetSqlVirtualMachine.json
             // this example is just showing the usage of "SqlVirtualMachines_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -131,7 +131,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreatesOrUpdatesASQLVirtualMachineAndJoinsItToASQLVirtualMachineGroup()
         {
-            // Generated from example definition: specification/sqlvirtualmachine/resource-manager/Microsoft.SqlVirtualMachine/stable/2022-02-01/examples/CreateOrUpdateVirtualMachineWithVMGroup.json
+            // Generated from example definition: specification/sqlvirtualmachine/resource-manager/Microsoft.SqlVirtualMachine/preview/2023-10-01-preview/examples/CreateOrUpdateVirtualMachineWithVMGroup.json
             // this example is just showing the usage of "SqlVirtualMachines_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -178,7 +178,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreatesOrUpdatesASQLVirtualMachineForAutomatedBackUpSettingsWithWeeklyAndDaysOfTheWeekToRunTheBackUp()
         {
-            // Generated from example definition: specification/sqlvirtualmachine/resource-manager/Microsoft.SqlVirtualMachine/stable/2022-02-01/examples/CreateOrUpdateSqlVirtualMachineAutomatedBackupWeekly.json
+            // Generated from example definition: specification/sqlvirtualmachine/resource-manager/Microsoft.SqlVirtualMachine/preview/2023-10-01-preview/examples/CreateOrUpdateSqlVirtualMachineAutomatedBackupWeekly.json
             // this example is just showing the usage of "SqlVirtualMachines_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -202,7 +202,6 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Samples
             {
                 VirtualMachineResourceId = new ResourceIdentifier("/subscriptions/00000000-1111-2222-3333-444444444444/resourceGroups/testrg/providers/Microsoft.Compute/virtualMachines/testvm"),
                 SqlServerLicenseType = SqlServerLicenseType.Payg,
-                SqlManagement = SqlManagementMode.Full,
                 SqlImageSku = SqlImageSku.Enterprise,
                 AutoPatchingSettings = new SqlVmAutoPatchingSettings()
                 {
@@ -269,7 +268,7 @@ SqlVmAutoBackupDayOfWeek.Monday,SqlVmAutoBackupDayOfWeek.Friday
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreatesOrUpdatesASQLVirtualMachineForStorageConfigurationSettingsToEXTENDDataLogOrTempDBStoragePool()
         {
-            // Generated from example definition: specification/sqlvirtualmachine/resource-manager/Microsoft.SqlVirtualMachine/stable/2022-02-01/examples/CreateOrUpdateSqlVirtualMachineStorageConfigurationEXTEND.json
+            // Generated from example definition: specification/sqlvirtualmachine/resource-manager/Microsoft.SqlVirtualMachine/preview/2023-10-01-preview/examples/CreateOrUpdateSqlVirtualMachineStorageConfigurationEXTEND.json
             // this example is just showing the usage of "SqlVirtualMachines_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -319,7 +318,7 @@ SqlVmAutoBackupDayOfWeek.Monday,SqlVmAutoBackupDayOfWeek.Friday
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreatesOrUpdatesASQLVirtualMachineForStorageConfigurationSettingsToNEWDataLogAndTempDBStoragePool()
         {
-            // Generated from example definition: specification/sqlvirtualmachine/resource-manager/Microsoft.SqlVirtualMachine/stable/2022-02-01/examples/CreateOrUpdateSqlVirtualMachineStorageConfigurationNEW.json
+            // Generated from example definition: specification/sqlvirtualmachine/resource-manager/Microsoft.SqlVirtualMachine/preview/2023-10-01-preview/examples/CreateOrUpdateSqlVirtualMachineStorageConfigurationNEW.json
             // this example is just showing the usage of "SqlVirtualMachines_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -389,7 +388,7 @@ SqlVmAutoBackupDayOfWeek.Monday,SqlVmAutoBackupDayOfWeek.Friday
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreatesOrUpdatesASQLVirtualMachineWithMaxParameters()
         {
-            // Generated from example definition: specification/sqlvirtualmachine/resource-manager/Microsoft.SqlVirtualMachine/stable/2022-02-01/examples/CreateOrUpdateSqlVirtualMachineMAX.json
+            // Generated from example definition: specification/sqlvirtualmachine/resource-manager/Microsoft.SqlVirtualMachine/preview/2023-10-01-preview/examples/CreateOrUpdateSqlVirtualMachineMAX.json
             // this example is just showing the usage of "SqlVirtualMachines_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -413,7 +412,7 @@ SqlVmAutoBackupDayOfWeek.Monday,SqlVmAutoBackupDayOfWeek.Friday
             {
                 VirtualMachineResourceId = new ResourceIdentifier("/subscriptions/00000000-1111-2222-3333-444444444444/resourceGroups/testrg/providers/Microsoft.Compute/virtualMachines/testvm"),
                 SqlServerLicenseType = SqlServerLicenseType.Payg,
-                SqlManagement = SqlManagementMode.Full,
+                LeastPrivilegeMode = LeastPrivilegeMode.Enabled,
                 SqlImageSku = SqlImageSku.Enterprise,
                 AutoPatchingSettings = new SqlVmAutoPatchingSettings()
                 {
@@ -469,6 +468,46 @@ SqlVmAutoBackupDayOfWeek.Monday,SqlVmAutoBackupDayOfWeek.Friday
                         IsLpimEnabled = true,
                         IsIfiEnabled = true,
                     },
+                    AzureAdAuthenticationClientId = "11111111-2222-3333-4444-555555555555",
+                },
+                StorageConfigurationSettings = new SqlVmStorageConfigurationSettings()
+                {
+                    SqlDataSettings = new SqlStorageSettings()
+                    {
+                        Luns =
+{
+0
+},
+                        DefaultFilePath = "F:\\folderpath\\",
+                        UseStoragePool = false,
+                    },
+                    SqlLogSettings = new SqlStorageSettings()
+                    {
+                        Luns =
+{
+1
+},
+                        DefaultFilePath = "G:\\folderpath\\",
+                        UseStoragePool = false,
+                    },
+                    SqlTempDBSettings = new SqlTempDBSettings()
+                    {
+                        DataFileSize = 256,
+                        DataGrowth = 512,
+                        LogFileSize = 256,
+                        LogGrowth = 512,
+                        DataFileCount = 8,
+                        LogicalUnitNumbers =
+{
+2
+},
+                        DefaultFilePath = "D:\\TEMP",
+                        UseStoragePool = false,
+                    },
+                    IsSqlSystemDBOnDataDisk = true,
+                    DiskConfigurationType = SqlVmDiskConfigurationType.New,
+                    StorageWorkloadType = SqlVmStorageWorkloadType.Oltp,
+                    EnableStorageConfigBlade = true,
                 },
                 AssessmentSettings = new SqlVmAssessmentSettings()
                 {
@@ -483,6 +522,7 @@ SqlVmAutoBackupDayOfWeek.Monday,SqlVmAutoBackupDayOfWeek.Friday
                         StartTime = "23:17",
                     },
                 },
+                EnableAutomaticUpgrade = true,
             };
             ArmOperation<SqlVmResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, sqlVmName, data);
             SqlVmResource result = lro.Value;
@@ -499,7 +539,7 @@ SqlVmAutoBackupDayOfWeek.Monday,SqlVmAutoBackupDayOfWeek.Friday
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreatesOrUpdatesASQLVirtualMachineWithMinParameters()
         {
-            // Generated from example definition: specification/sqlvirtualmachine/resource-manager/Microsoft.SqlVirtualMachine/stable/2022-02-01/examples/CreateOrUpdateSqlVirtualMachineMIN.json
+            // Generated from example definition: specification/sqlvirtualmachine/resource-manager/Microsoft.SqlVirtualMachine/preview/2023-10-01-preview/examples/CreateOrUpdateSqlVirtualMachineMIN.json
             // this example is just showing the usage of "SqlVirtualMachines_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -538,7 +578,7 @@ SqlVmAutoBackupDayOfWeek.Monday,SqlVmAutoBackupDayOfWeek.Friday
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetAll_GetsAllSQLVirtualMachinesInAResourceGroup()
         {
-            // Generated from example definition: specification/sqlvirtualmachine/resource-manager/Microsoft.SqlVirtualMachine/stable/2022-02-01/examples/ListByResourceGroupSqlVirtualMachine.json
+            // Generated from example definition: specification/sqlvirtualmachine/resource-manager/Microsoft.SqlVirtualMachine/preview/2023-10-01-preview/examples/ListByResourceGroupSqlVirtualMachine.json
             // this example is just showing the usage of "SqlVirtualMachines_ListByResourceGroup" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line

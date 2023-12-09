@@ -26,6 +26,99 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
                 }
                 writer.WriteEndObject();
             }
+            writer.WritePropertyName("properties"u8);
+            writer.WriteStartObject();
+            if (Optional.IsDefined(VirtualMachineResourceId))
+            {
+                writer.WritePropertyName("virtualMachineResourceId"u8);
+                writer.WriteStringValue(VirtualMachineResourceId);
+            }
+            if (Optional.IsDefined(SqlImageOffer))
+            {
+                writer.WritePropertyName("sqlImageOffer"u8);
+                writer.WriteStringValue(SqlImageOffer);
+            }
+            if (Optional.IsDefined(SqlServerLicenseType))
+            {
+                writer.WritePropertyName("sqlServerLicenseType"u8);
+                writer.WriteStringValue(SqlServerLicenseType.Value.ToString());
+            }
+            if (Optional.IsDefined(SqlManagement))
+            {
+                writer.WritePropertyName("sqlManagement"u8);
+                writer.WriteStringValue(SqlManagement.Value.ToString());
+            }
+            if (Optional.IsDefined(LeastPrivilegeMode))
+            {
+                writer.WritePropertyName("leastPrivilegeMode"u8);
+                writer.WriteStringValue(LeastPrivilegeMode.Value.ToString());
+            }
+            if (Optional.IsDefined(SqlImageSku))
+            {
+                writer.WritePropertyName("sqlImageSku"u8);
+                writer.WriteStringValue(SqlImageSku.Value.ToString());
+            }
+            if (Optional.IsDefined(SqlVmGroupResourceId))
+            {
+                writer.WritePropertyName("sqlVirtualMachineGroupResourceId"u8);
+                writer.WriteStringValue(SqlVmGroupResourceId);
+            }
+            if (Optional.IsDefined(WindowsServerFailoverClusterDomainCredentials))
+            {
+                writer.WritePropertyName("wsfcDomainCredentials"u8);
+                writer.WriteObjectValue(WindowsServerFailoverClusterDomainCredentials);
+            }
+            if (Optional.IsDefined(WindowsServerFailoverClusterStaticIP))
+            {
+                writer.WritePropertyName("wsfcStaticIp"u8);
+                writer.WriteStringValue(WindowsServerFailoverClusterStaticIP.ToString());
+            }
+            if (Optional.IsDefined(AutoPatchingSettings))
+            {
+                writer.WritePropertyName("autoPatchingSettings"u8);
+                writer.WriteObjectValue(AutoPatchingSettings);
+            }
+            if (Optional.IsDefined(AutoBackupSettings))
+            {
+                writer.WritePropertyName("autoBackupSettings"u8);
+                writer.WriteObjectValue(AutoBackupSettings);
+            }
+            if (Optional.IsDefined(KeyVaultCredentialSettings))
+            {
+                writer.WritePropertyName("keyVaultCredentialSettings"u8);
+                writer.WriteObjectValue(KeyVaultCredentialSettings);
+            }
+            if (Optional.IsDefined(ServerConfigurationsManagementSettings))
+            {
+                writer.WritePropertyName("serverConfigurationsManagementSettings"u8);
+                writer.WriteObjectValue(ServerConfigurationsManagementSettings);
+            }
+            if (Optional.IsDefined(StorageConfigurationSettings))
+            {
+                writer.WritePropertyName("storageConfigurationSettings"u8);
+                writer.WriteObjectValue(StorageConfigurationSettings);
+            }
+            if (Optional.IsDefined(AssessmentSettings))
+            {
+                writer.WritePropertyName("assessmentSettings"u8);
+                writer.WriteObjectValue(AssessmentSettings);
+            }
+            if (Optional.IsDefined(EnableAutomaticUpgrade))
+            {
+                writer.WritePropertyName("enableAutomaticUpgrade"u8);
+                writer.WriteBooleanValue(EnableAutomaticUpgrade.Value);
+            }
+            if (Optional.IsDefined(AdditionalVmPatch))
+            {
+                writer.WritePropertyName("additionalVmPatch"u8);
+                writer.WriteStringValue(AdditionalVmPatch.Value.ToString());
+            }
+            if (Optional.IsDefined(VirtualMachineIdentitySettings))
+            {
+                writer.WritePropertyName("virtualMachineIdentitySettings"u8);
+                writer.WriteObjectValue(VirtualMachineIdentitySettings);
+            }
+            writer.WriteEndObject();
             writer.WriteEndObject();
         }
     }

@@ -35,6 +35,11 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
                 writer.WritePropertyName("maintenanceWindowDuration"u8);
                 writer.WriteNumberValue(MaintenanceWindowDurationInMinutes.Value);
             }
+            if (Optional.IsDefined(AdditionalVmPatch))
+            {
+                writer.WritePropertyName("additionalVmPatch"u8);
+                writer.WriteStringValue(AdditionalVmPatch.Value.ToString());
+            }
             writer.WriteEndObject();
         }
 
@@ -48,6 +53,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
             Optional<SqlVmAutoPatchingDayOfWeek> dayOfWeek = default;
             Optional<int> maintenanceWindowStartingHour = default;
             Optional<int> maintenanceWindowDuration = default;
+            Optional<AdditionalVmPatch> additionalVmPatch = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("enable"u8))
@@ -86,8 +92,17 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
                     maintenanceWindowDuration = property.Value.GetInt32();
                     continue;
                 }
+                if (property.NameEquals("additionalVmPatch"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    additionalVmPatch = new AdditionalVmPatch(property.Value.GetString());
+                    continue;
+                }
             }
-            return new SqlVmAutoPatchingSettings(Optional.ToNullable(enable), Optional.ToNullable(dayOfWeek), Optional.ToNullable(maintenanceWindowStartingHour), Optional.ToNullable(maintenanceWindowDuration));
+            return new SqlVmAutoPatchingSettings(Optional.ToNullable(enable), Optional.ToNullable(dayOfWeek), Optional.ToNullable(maintenanceWindowStartingHour), Optional.ToNullable(maintenanceWindowDuration), Optional.ToNullable(additionalVmPatch));
         }
     }
 }

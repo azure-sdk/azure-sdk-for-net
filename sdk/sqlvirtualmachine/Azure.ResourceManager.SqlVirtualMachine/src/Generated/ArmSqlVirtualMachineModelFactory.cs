@@ -69,12 +69,13 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
         /// <param name="systemData"> The systemData. </param>
         /// <param name="tags"> The tags. </param>
         /// <param name="location"> The location. </param>
-        /// <param name="identity"> Azure Active Directory identity of the server. Current supported identity types: None, SystemAssigned. </param>
+        /// <param name="identity"> DO NOT USE. This value will be deprecated. Azure Active Directory identity of the server. Current supported identity types: None, SystemAssigned. </param>
         /// <param name="virtualMachineResourceId"> ARM Resource id of underlying virtual machine created from SQL marketplace image. </param>
         /// <param name="provisioningState"> Provisioning state to track the async operation status. </param>
         /// <param name="sqlImageOffer"> SQL image offer. Examples include SQL2016-WS2016, SQL2017-WS2016. </param>
         /// <param name="sqlServerLicenseType"> SQL Server license type. </param>
-        /// <param name="sqlManagement"> SQL Server Management type. </param>
+        /// <param name="sqlManagement"> SQL Server Management type. NOTE: This parameter is not used anymore. API will automatically detect the Sql Management, refrain from using it. </param>
+        /// <param name="leastPrivilegeMode"> SQL IaaS Agent least privilege mode. </param>
         /// <param name="sqlImageSku"> SQL Server edition type. </param>
         /// <param name="sqlVmGroupResourceId"> ARM resource id of the SQL virtual machine group this SQL virtual machine is or will be part of. </param>
         /// <param name="windowsServerFailoverClusterDomainCredentials"> Domain credentials for setting up Windows Server Failover Cluster for SQL availability group. </param>
@@ -84,13 +85,42 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
         /// <param name="keyVaultCredentialSettings"> Key vault credential settings. </param>
         /// <param name="serverConfigurationsManagementSettings"> SQL Server configuration management settings. </param>
         /// <param name="storageConfigurationSettings"> Storage Configuration Settings. </param>
-        /// <param name="assessmentSettings"> Assessment Settings. </param>
+        /// <param name="troubleshootingStatus"> Troubleshooting status. </param>
+        /// <param name="assessmentSettings"> SQL best practices Assessment Settings. </param>
+        /// <param name="enableAutomaticUpgrade"> Enable automatic upgrade of Sql IaaS extension Agent. </param>
+        /// <param name="additionalVmPatch"> Additional VM Patching solution enabled on the Virtual Machine. </param>
+        /// <param name="virtualMachineIdentitySettings"> Virtual Machine Identity details used for Sql IaaS extension configurations. </param>
         /// <returns> A new <see cref="SqlVirtualMachine.SqlVmData"/> instance for mocking. </returns>
-        public static SqlVmData SqlVmData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, ManagedServiceIdentity identity = null, ResourceIdentifier virtualMachineResourceId = null, string provisioningState = null, string sqlImageOffer = null, SqlServerLicenseType? sqlServerLicenseType = null, SqlManagementMode? sqlManagement = null, SqlImageSku? sqlImageSku = null, ResourceIdentifier sqlVmGroupResourceId = null, WindowsServerFailoverClusterDomainCredentials windowsServerFailoverClusterDomainCredentials = null, IPAddress windowsServerFailoverClusterStaticIP = null, SqlVmAutoPatchingSettings autoPatchingSettings = null, SqlVmAutoBackupSettings autoBackupSettings = null, SqlVmKeyVaultCredentialSettings keyVaultCredentialSettings = null, SqlServerConfigurationsManagementSettings serverConfigurationsManagementSettings = null, SqlVmStorageConfigurationSettings storageConfigurationSettings = null, SqlVmAssessmentSettings assessmentSettings = null)
+        public static SqlVmData SqlVmData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, ManagedServiceIdentity identity = null, ResourceIdentifier virtualMachineResourceId = null, string provisioningState = null, string sqlImageOffer = null, SqlServerLicenseType? sqlServerLicenseType = null, SqlManagementMode? sqlManagement = null, LeastPrivilegeMode? leastPrivilegeMode = null, SqlImageSku? sqlImageSku = null, ResourceIdentifier sqlVmGroupResourceId = null, WindowsServerFailoverClusterDomainCredentials windowsServerFailoverClusterDomainCredentials = null, IPAddress windowsServerFailoverClusterStaticIP = null, SqlVmAutoPatchingSettings autoPatchingSettings = null, SqlVmAutoBackupSettings autoBackupSettings = null, SqlVmKeyVaultCredentialSettings keyVaultCredentialSettings = null, SqlServerConfigurationsManagementSettings serverConfigurationsManagementSettings = null, SqlVmStorageConfigurationSettings storageConfigurationSettings = null, TroubleshootingStatus troubleshootingStatus = null, SqlVmAssessmentSettings assessmentSettings = null, bool? enableAutomaticUpgrade = null, AdditionalOSPatch? additionalVmPatch = null, VirtualMachineIdentity virtualMachineIdentitySettings = null)
         {
             tags ??= new Dictionary<string, string>();
 
-            return new SqlVmData(id, name, resourceType, systemData, tags, location, identity, virtualMachineResourceId, provisioningState, sqlImageOffer, sqlServerLicenseType, sqlManagement, sqlImageSku, sqlVmGroupResourceId, windowsServerFailoverClusterDomainCredentials, windowsServerFailoverClusterStaticIP, autoPatchingSettings, autoBackupSettings, keyVaultCredentialSettings, serverConfigurationsManagementSettings, storageConfigurationSettings, assessmentSettings);
+            return new SqlVmData(id, name, resourceType, systemData, tags, location, identity, virtualMachineResourceId, provisioningState, sqlImageOffer, sqlServerLicenseType, sqlManagement, leastPrivilegeMode, sqlImageSku, sqlVmGroupResourceId, windowsServerFailoverClusterDomainCredentials, windowsServerFailoverClusterStaticIP, autoPatchingSettings, autoBackupSettings, keyVaultCredentialSettings, serverConfigurationsManagementSettings, storageConfigurationSettings, troubleshootingStatus, assessmentSettings, enableAutomaticUpgrade, additionalVmPatch, virtualMachineIdentitySettings);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.TroubleshootingStatus"/>. </summary>
+        /// <param name="rootCause"> Root cause of the issue. </param>
+        /// <param name="lastTriggerTimeUtc"> Last troubleshooting trigger time in UTC timezone. </param>
+        /// <param name="startTimeUtc"> Start time in UTC timezone. </param>
+        /// <param name="endTimeUtc"> End time in UTC timezone. </param>
+        /// <param name="troubleshootingScenario"> SQL VM troubleshooting scenario. </param>
+        /// <param name="unhealthyReplicaInfoAvailabilityGroupName"> Troubleshooting properties. </param>
+        /// <returns> A new <see cref="Models.TroubleshootingStatus"/> instance for mocking. </returns>
+        public static TroubleshootingStatus TroubleshootingStatus(string rootCause = null, DateTimeOffset? lastTriggerTimeUtc = null, DateTimeOffset? startTimeUtc = null, DateTimeOffset? endTimeUtc = null, TroubleshootingScenario? troubleshootingScenario = null, string unhealthyReplicaInfoAvailabilityGroupName = null)
+        {
+            return new TroubleshootingStatus(rootCause, lastTriggerTimeUtc, startTimeUtc, endTimeUtc, troubleshootingScenario, unhealthyReplicaInfoAvailabilityGroupName != null ? new TroubleshootingAdditionalProperties(new UnhealthyReplicaInfo(unhealthyReplicaInfoAvailabilityGroupName)) : null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.SqlVmTroubleshooting"/>. </summary>
+        /// <param name="startTimeUtc"> Start time in UTC timezone. </param>
+        /// <param name="endTimeUtc"> End time in UTC timezone. </param>
+        /// <param name="troubleshootingScenario"> SQL VM troubleshooting scenario. </param>
+        /// <param name="unhealthyReplicaInfoAvailabilityGroupName"> Troubleshooting properties. </param>
+        /// <param name="virtualMachineResourceId"> Virtual machine resource id for response. </param>
+        /// <returns> A new <see cref="Models.SqlVmTroubleshooting"/> instance for mocking. </returns>
+        public static SqlVmTroubleshooting SqlVmTroubleshooting(DateTimeOffset? startTimeUtc = null, DateTimeOffset? endTimeUtc = null, TroubleshootingScenario? troubleshootingScenario = null, string unhealthyReplicaInfoAvailabilityGroupName = null, ResourceIdentifier virtualMachineResourceId = null)
+        {
+            return new SqlVmTroubleshooting(startTimeUtc, endTimeUtc, troubleshootingScenario, unhealthyReplicaInfoAvailabilityGroupName != null ? new TroubleshootingAdditionalProperties(new UnhealthyReplicaInfo(unhealthyReplicaInfoAvailabilityGroupName)) : null, virtualMachineResourceId);
         }
     }
 }

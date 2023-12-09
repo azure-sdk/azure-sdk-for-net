@@ -21,13 +21,15 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
         /// <param name="sqlStorageUpdateSettings"> SQL storage update settings. </param>
         /// <param name="additionalFeaturesServerConfigurations"> Additional SQL feature settings. </param>
         /// <param name="sqlInstanceSettings"> SQL Instance settings. </param>
-        internal SqlServerConfigurationsManagementSettings(SqlConnectivityUpdateSettings sqlConnectivityUpdateSettings, SqlWorkloadTypeUpdateSettings sqlWorkloadTypeUpdateSettings, SqlStorageUpdateSettings sqlStorageUpdateSettings, AdditionalFeaturesServerConfigurations additionalFeaturesServerConfigurations, SqlInstanceSettings sqlInstanceSettings)
+        /// <param name="azureAdAuthenticationSettings"> Azure AD authentication Settings. </param>
+        internal SqlServerConfigurationsManagementSettings(SqlConnectivityUpdateSettings sqlConnectivityUpdateSettings, SqlWorkloadTypeUpdateSettings sqlWorkloadTypeUpdateSettings, SqlStorageUpdateSettings sqlStorageUpdateSettings, AdditionalFeaturesServerConfigurations additionalFeaturesServerConfigurations, SqlInstanceSettings sqlInstanceSettings, AADAuthenticationSettings azureAdAuthenticationSettings)
         {
             SqlConnectivityUpdateSettings = sqlConnectivityUpdateSettings;
             SqlWorkloadTypeUpdateSettings = sqlWorkloadTypeUpdateSettings;
             SqlStorageUpdateSettings = sqlStorageUpdateSettings;
             AdditionalFeaturesServerConfigurations = additionalFeaturesServerConfigurations;
             SqlInstanceSettings = sqlInstanceSettings;
+            AzureAdAuthenticationSettings = azureAdAuthenticationSettings;
         }
 
         /// <summary> SQL connectivity type settings. </summary>
@@ -64,5 +66,18 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
 
         /// <summary> SQL Instance settings. </summary>
         public SqlInstanceSettings SqlInstanceSettings { get; set; }
+        /// <summary> Azure AD authentication Settings. </summary>
+        internal AADAuthenticationSettings AzureAdAuthenticationSettings { get; set; }
+        /// <summary> The client Id of the Managed Identity to query Microsoft Graph API. An empty string must be used for the system assigned Managed Identity. </summary>
+        public string AzureAdAuthenticationClientId
+        {
+            get => AzureAdAuthenticationSettings is null ? default : AzureAdAuthenticationSettings.ClientId;
+            set
+            {
+                if (AzureAdAuthenticationSettings is null)
+                    AzureAdAuthenticationSettings = new AADAuthenticationSettings();
+                AzureAdAuthenticationSettings.ClientId = value;
+            }
+        }
     }
 }
