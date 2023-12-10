@@ -22,6 +22,11 @@ namespace Azure.ResourceManager.ManagedNetworkFabric.Models
                 writer.WritePropertyName("annotation"u8);
                 writer.WriteStringValue(Annotation);
             }
+            if (Optional.IsDefined(NetworkToNetworkInterconnectId))
+            {
+                writer.WritePropertyName("networkToNetworkInterconnectId"u8);
+                writer.WriteStringValue(NetworkToNetworkInterconnectId);
+            }
             if (Optional.IsDefined(ImportRoutePolicyId))
             {
                 writer.WritePropertyName("importRoutePolicyId"u8);
