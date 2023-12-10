@@ -33,7 +33,7 @@ namespace Azure.AI.OpenAI
 
             Messages = messages.ToList();
             Functions = new ChangeTrackingList<FunctionDefinition>();
-            InternalStringKeyedTokenSelectionBiases = new ChangeTrackingDictionary<string, int>();
+            TokenSelectionBiases = new ChangeTrackingDictionary<int, int>();
             StopSequences = new ChangeTrackingList<string>();
             InternalAzureExtensionsDataSources = new ChangeTrackingList<AzureChatExtensionConfiguration>();
             Tools = new ChangeTrackingList<ChatCompletionsToolDefinition>();
@@ -69,7 +69,7 @@ namespace Azure.AI.OpenAI
         /// It is not recommended to modify temperature and top_p for the same completions request as the
         /// interaction of these two settings is difficult to predict.
         /// </param>
-        /// <param name="internalStringKeyedTokenSelectionBiases">
+        /// <param name="tokenSelectionBiases">
         /// A map between GPT token IDs and bias scores that influences the probability of specific tokens
         /// appearing in a completions response. Token IDs are computed via external tokenizer tools, while
         /// bias scores reside in the range of -100 to 100 with minimum and maximum values corresponding to
@@ -118,7 +118,7 @@ namespace Azure.AI.OpenAI
         /// <param name="responseFormat"> An object specifying the format that the model must output. Used to enable JSON mode. </param>
         /// <param name="tools"> The available tool definitions that the chat completions request can use, including caller-defined functions. </param>
         /// <param name="internalSuppressedToolChoice"> If specified, the model will configure which of the provided tools it can use for the chat completions response. </param>
-        internal ChatCompletionsOptions(IList<ChatRequestMessage> messages, IList<FunctionDefinition> functions, FunctionDefinition functionCall, int? maxTokens, float? temperature, float? nucleusSamplingFactor, IDictionary<string, int> internalStringKeyedTokenSelectionBiases, string user, int? choiceCount, IList<string> stopSequences, float? presencePenalty, float? frequencyPenalty, bool? internalShouldStreamResponse, string deploymentName, IList<AzureChatExtensionConfiguration> internalAzureExtensionsDataSources, AzureChatEnhancementConfiguration enhancements, long? seed, ChatCompletionsResponseFormat responseFormat, IList<ChatCompletionsToolDefinition> tools, BinaryData internalSuppressedToolChoice)
+        internal ChatCompletionsOptions(IList<ChatRequestMessage> messages, IList<FunctionDefinition> functions, FunctionDefinition functionCall, int? maxTokens, float? temperature, float? nucleusSamplingFactor, IDictionary<int, int> tokenSelectionBiases, string user, int? choiceCount, IList<string> stopSequences, float? presencePenalty, float? frequencyPenalty, bool? internalShouldStreamResponse, string deploymentName, IList<AzureChatExtensionConfiguration> internalAzureExtensionsDataSources, AzureChatEnhancementConfiguration enhancements, long? seed, ChatCompletionsResponseFormat responseFormat, IList<ChatCompletionsToolDefinition> tools, BinaryData internalSuppressedToolChoice)
         {
             Messages = messages;
             Functions = functions;
@@ -126,7 +126,7 @@ namespace Azure.AI.OpenAI
             MaxTokens = maxTokens;
             Temperature = temperature;
             NucleusSamplingFactor = nucleusSamplingFactor;
-            InternalStringKeyedTokenSelectionBiases = internalStringKeyedTokenSelectionBiases;
+            TokenSelectionBiases = tokenSelectionBiases;
             User = user;
             ChoiceCount = choiceCount;
             StopSequences = stopSequences;
