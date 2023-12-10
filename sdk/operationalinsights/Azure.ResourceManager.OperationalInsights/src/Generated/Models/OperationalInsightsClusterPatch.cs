@@ -21,7 +21,7 @@ namespace Azure.ResourceManager.OperationalInsights.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="OperationalInsightsClusterPatch"/>. </summary>
-        /// <param name="identity"> The identity of the resource. Current supported identity types: None, SystemAssigned, UserAssigned. </param>
+        /// <param name="identity"> Resource's identity. </param>
         /// <param name="sku"> The sku properties. </param>
         /// <param name="tags"> Resource tags. </param>
         /// <param name="keyVaultProperties"> The associated key properties. </param>
@@ -35,7 +35,7 @@ namespace Azure.ResourceManager.OperationalInsights.Models
             BillingType = billingType;
         }
 
-        /// <summary> The identity of the resource. Current supported identity types: None, SystemAssigned, UserAssigned. </summary>
+        /// <summary> Resource's identity. </summary>
         public ManagedServiceIdentity Identity { get; set; }
         /// <summary> The sku properties. </summary>
         public OperationalInsightsClusterSku Sku { get; set; }

@@ -296,7 +296,7 @@ namespace Azure.ResourceManager.OperationalInsights.Models
         /// <param name="systemData"> The systemData. </param>
         /// <param name="tags"> The tags. </param>
         /// <param name="location"> The location. </param>
-        /// <param name="identity"> The identity of the resource. Current supported identity types: None, SystemAssigned, UserAssigned. </param>
+        /// <param name="identity"> Resource's identity. </param>
         /// <param name="sku"> The sku properties. </param>
         /// <param name="clusterId"> The ID associated with the cluster. </param>
         /// <param name="provisioningState"> The provisioning state of the cluster. </param>
@@ -318,9 +318,9 @@ namespace Azure.ResourceManager.OperationalInsights.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="Models.OperationalInsightsClusterAssociatedWorkspace"/>. </summary>
-        /// <param name="workspaceId"> The id of the assigned workspace. </param>
-        /// <param name="workspaceName"> The name id the assigned workspace. </param>
-        /// <param name="resourceId"> The ResourceId id the assigned workspace. </param>
+        /// <param name="workspaceId"> Associated workspace immutable id. </param>
+        /// <param name="workspaceName"> Associated workspace resource name. </param>
+        /// <param name="resourceId"> Associated workspace arm resource id, in the form of: '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}. </param>
         /// <param name="associatedOn"> The time of workspace association. </param>
         /// <returns> A new <see cref="Models.OperationalInsightsClusterAssociatedWorkspace"/> instance for mocking. </returns>
         public static OperationalInsightsClusterAssociatedWorkspace OperationalInsightsClusterAssociatedWorkspace(Guid? workspaceId = null, string workspaceName = null, ResourceIdentifier resourceId = null, DateTimeOffset? associatedOn = null)
@@ -330,7 +330,7 @@ namespace Azure.ResourceManager.OperationalInsights.Models
 
         /// <summary> Initializes a new instance of <see cref="Models.OperationalInsightsCapacityReservationProperties"/>. </summary>
         /// <param name="lastSkuUpdatedOn"> The last time Sku was updated. </param>
-        /// <param name="minCapacity"> Minimum CapacityReservation value in GB. </param>
+        /// <param name="minCapacity"> Minimum CapacityReservation value in Gigabytes. </param>
         /// <returns> A new <see cref="Models.OperationalInsightsCapacityReservationProperties"/> instance for mocking. </returns>
         public static OperationalInsightsCapacityReservationProperties OperationalInsightsCapacityReservationProperties(DateTimeOffset? lastSkuUpdatedOn = null, long? minCapacity = null)
         {
@@ -433,7 +433,7 @@ namespace Azure.ResourceManager.OperationalInsights.Models
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
         /// <param name="retentionInDays"> The table retention in days, between 4 and 730. Setting this property to -1 will default to the workspace retention. </param>
-        /// <param name="totalRetentionInDays"> The table total retention in days, between 4 and 2555. Setting this property to -1 will default to table retention. </param>
+        /// <param name="totalRetentionInDays"> The table total retention in days, between 4 and 4383. Setting this property to -1 will default to table retention. </param>
         /// <param name="archiveRetentionInDays"> The table data archive retention in days. Calculated as (totalRetentionInDays-retentionInDays). </param>
         /// <param name="searchResults"> Parameters of the search job that initiated this table. </param>
         /// <param name="restoredLogs"> Parameters of the restore operation that initiated this table. </param>
@@ -445,7 +445,7 @@ namespace Azure.ResourceManager.OperationalInsights.Models
         /// <param name="retentionInDaysAsDefault"> True - Value originates from workspace retention in days, False - Customer specific. </param>
         /// <param name="totalRetentionInDaysAsDefault"> True - Value originates from retention in days, False - Customer specific. </param>
         /// <returns> A new <see cref="OperationalInsights.OperationalInsightsTableData"/> instance for mocking. </returns>
-        public static OperationalInsightsTableData OperationalInsightsTableData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, int? retentionInDays = null, int? totalRetentionInDays = null, int? archiveRetentionInDays = null, OperationalInsightsTableSearchResults searchResults = null, OperationalInsightsTableRestoredLogs restoredLogs = null, OperationalInsightsTableResultStatistics resultStatistics = null, OperationalInsightsTablePlan? plan = null, string lastPlanModifiedDate = null, OperationalInsightsSchema schema = null, OperationalInsightsTableProvisioningState? provisioningState = null, RetentionInDaysAsDefaultState? retentionInDaysAsDefault = null, TotalRetentionInDaysAsDefaultState? totalRetentionInDaysAsDefault = null)
+        public static OperationalInsightsTableData OperationalInsightsTableData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, int? retentionInDays = null, int? totalRetentionInDays = null, int? archiveRetentionInDays = null, OperationalInsightsTableSearchResults searchResults = null, OperationalInsightsTableRestoredLogs restoredLogs = null, OperationalInsightsTableResultStatistics resultStatistics = null, OperationalInsightsTablePlan? plan = null, string lastPlanModifiedDate = null, OperationalInsightsSchema schema = null, OperationalInsightsTableProvisioningState? provisioningState = null, bool? retentionInDaysAsDefault = null, bool? totalRetentionInDaysAsDefault = null)
         {
             return new OperationalInsightsTableData(id, name, resourceType, systemData, retentionInDays, totalRetentionInDays, archiveRetentionInDays, searchResults, restoredLogs, resultStatistics, plan, lastPlanModifiedDate, schema, provisioningState, retentionInDaysAsDefault, totalRetentionInDaysAsDefault);
         }
