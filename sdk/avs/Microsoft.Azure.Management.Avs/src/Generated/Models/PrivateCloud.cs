@@ -35,6 +35,8 @@ namespace Microsoft.Azure.Management.Avs.Models
         /// Initializes a new instance of the PrivateCloud class.
         /// </summary>
         /// <param name="sku">The private cloud SKU</param>
+        /// <param name="managementCluster">The default cluster used for
+        /// management</param>
         /// <param name="networkBlock">The block of addresses should be unique
         /// across VNet in your subscription as well as on-premise. Make sure
         /// the CIDR format is conformed to (A.B.C.D/X) where A,B,C,D are
@@ -44,8 +46,6 @@ namespace Microsoft.Azure.Management.Avs.Models
         /// <param name="type">Resource type.</param>
         /// <param name="location">Resource location</param>
         /// <param name="tags">Resource tags</param>
-        /// <param name="managementCluster">The default cluster used for
-        /// management</param>
         /// <param name="internet">Connectivity to internet is enabled or
         /// disabled. Possible values include: 'Enabled', 'Disabled'</param>
         /// <param name="identitySources">vCenter Single Sign On Identity
@@ -56,7 +56,7 @@ namespace Microsoft.Azure.Management.Avs.Models
         /// enabled or disabled</param>
         /// <param name="provisioningState">The provisioning state. Possible
         /// values include: 'Succeeded', 'Failed', 'Cancelled', 'Pending',
-        /// 'Building', 'Deleting', 'Updating'</param>
+        /// 'Building', 'Deleting', 'Updating', 'Canceled'</param>
         /// <param name="circuit">An ExpressRoute Circuit</param>
         /// <param name="endpoints">The endpoints</param>
         /// <param name="managementNetwork">Network used to access vCenter
@@ -78,9 +78,18 @@ namespace Microsoft.Azure.Management.Avs.Models
         /// <param name="secondaryCircuit">A secondary expressRoute circuit
         /// from a separate AZ. Only present in a stretched private
         /// cloud</param>
+        /// <param name="nsxPublicIpQuotaRaised">Flag to indicate whether the
+        /// private cloud has the quota for provisioned NSX Public IP count
+        /// raised from 64 to 1024. Possible values include: 'Enabled',
+        /// 'Disabled'</param>
+        /// <param name="extendedNetworkBlocks">Array of additional networks
+        /// noncontiguous with networkBlock. Networks must be unique and
+        /// non-overlapping across VNet in your subscription, on-premise, and
+        /// this privateCloud networkBlock attribute. Make sure the CIDR format
+        /// conforms to (A.B.C.D/X).</param>
         /// <param name="identity">The identity of the private cloud, if
         /// configured.</param>
-        public PrivateCloud(Sku sku, string networkBlock, string id = default(string), string name = default(string), string type = default(string), string location = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), ManagementCluster managementCluster = default(ManagementCluster), string internet = default(string), IList<IdentitySource> identitySources = default(IList<IdentitySource>), AvailabilityProperties availability = default(AvailabilityProperties), Encryption encryption = default(Encryption), string provisioningState = default(string), Circuit circuit = default(Circuit), Endpoints endpoints = default(Endpoints), string managementNetwork = default(string), string provisioningNetwork = default(string), string vmotionNetwork = default(string), string vcenterPassword = default(string), string nsxtPassword = default(string), string vcenterCertificateThumbprint = default(string), string nsxtCertificateThumbprint = default(string), IList<string> externalCloudLinks = default(IList<string>), Circuit secondaryCircuit = default(Circuit), PrivateCloudIdentity identity = default(PrivateCloudIdentity))
+        public PrivateCloud(Sku sku, ManagementCluster managementCluster, string networkBlock, string id = default(string), string name = default(string), string type = default(string), string location = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), string internet = default(string), IList<IdentitySource> identitySources = default(IList<IdentitySource>), AvailabilityProperties availability = default(AvailabilityProperties), Encryption encryption = default(Encryption), string provisioningState = default(string), Circuit circuit = default(Circuit), Endpoints endpoints = default(Endpoints), string managementNetwork = default(string), string provisioningNetwork = default(string), string vmotionNetwork = default(string), string vcenterPassword = default(string), string nsxtPassword = default(string), string vcenterCertificateThumbprint = default(string), string nsxtCertificateThumbprint = default(string), IList<string> externalCloudLinks = default(IList<string>), Circuit secondaryCircuit = default(Circuit), string nsxPublicIpQuotaRaised = default(string), IList<string> extendedNetworkBlocks = default(IList<string>), PrivateCloudIdentity identity = default(PrivateCloudIdentity))
             : base(id, name, type, location, tags)
         {
             Sku = sku;
@@ -102,6 +111,8 @@ namespace Microsoft.Azure.Management.Avs.Models
             NsxtCertificateThumbprint = nsxtCertificateThumbprint;
             ExternalCloudLinks = externalCloudLinks;
             SecondaryCircuit = secondaryCircuit;
+            NsxPublicIpQuotaRaised = nsxPublicIpQuotaRaised;
+            ExtendedNetworkBlocks = extendedNetworkBlocks;
             Identity = identity;
             CustomInit();
         }
@@ -153,7 +164,7 @@ namespace Microsoft.Azure.Management.Avs.Models
         /// <summary>
         /// Gets the provisioning state. Possible values include: 'Succeeded',
         /// 'Failed', 'Cancelled', 'Pending', 'Building', 'Deleting',
-        /// 'Updating'
+        /// 'Updating', 'Canceled'
         /// </summary>
         [JsonProperty(PropertyName = "properties.provisioningState")]
         public string ProvisioningState { get; private set; }
@@ -239,6 +250,24 @@ namespace Microsoft.Azure.Management.Avs.Models
         public Circuit SecondaryCircuit { get; set; }
 
         /// <summary>
+        /// Gets flag to indicate whether the private cloud has the quota for
+        /// provisioned NSX Public IP count raised from 64 to 1024. Possible
+        /// values include: 'Enabled', 'Disabled'
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.nsxPublicIpQuotaRaised")]
+        public string NsxPublicIpQuotaRaised { get; private set; }
+
+        /// <summary>
+        /// Gets or sets array of additional networks noncontiguous with
+        /// networkBlock. Networks must be unique and non-overlapping across
+        /// VNet in your subscription, on-premise, and this privateCloud
+        /// networkBlock attribute. Make sure the CIDR format conforms to
+        /// (A.B.C.D/X).
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.extendedNetworkBlocks")]
+        public IList<string> ExtendedNetworkBlocks { get; set; }
+
+        /// <summary>
         /// Gets or sets the identity of the private cloud, if configured.
         /// </summary>
         [JsonProperty(PropertyName = "identity")]
@@ -255,6 +284,10 @@ namespace Microsoft.Azure.Management.Avs.Models
             if (Sku == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "Sku");
+            }
+            if (ManagementCluster == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "ManagementCluster");
             }
             if (NetworkBlock == null)
             {

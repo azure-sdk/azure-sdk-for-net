@@ -51,7 +51,7 @@ namespace Microsoft.Azure.Management.Avs
         public AvsClient Client { get; private set; }
 
         /// <summary>
-        /// List HCX Enterprise Sites in a private cloud
+        /// List HCX on-premises key in a private cloud
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -65,7 +65,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="SerializationException">
@@ -111,6 +111,13 @@ namespace Microsoft.Azure.Management.Avs
             if (privateCloudName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "privateCloudName");
+            }
+            if (privateCloudName != null)
+            {
+                if (!System.Text.RegularExpressions.Regex.IsMatch(privateCloudName, "^[-\\w\\._]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "privateCloudName", "^[-\\w\\._]+$");
+                }
             }
             if (Client.ApiVersion == null)
             {
@@ -206,14 +213,13 @@ namespace Microsoft.Azure.Management.Avs
             string _responseContent = null;
             if ((int)_statusCode != 200)
             {
-                var ex = new CloudException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                var ex = new ErrorResponseException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
                 try
                 {
                     _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    CloudError _errorBody =  Rest.Serialization.SafeJsonConvert.DeserializeObject<CloudError>(_responseContent, Client.DeserializationSettings);
+                    ErrorResponse _errorBody =  Rest.Serialization.SafeJsonConvert.DeserializeObject<ErrorResponse>(_responseContent, Client.DeserializationSettings);
                     if (_errorBody != null)
                     {
-                        ex = new CloudException(_errorBody.Message);
                         ex.Body = _errorBody;
                     }
                 }
@@ -223,10 +229,6 @@ namespace Microsoft.Azure.Management.Avs
                 }
                 ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
                 ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
-                if (_httpResponse.Headers.Contains("x-ms-request-id"))
-                {
-                    ex.RequestId = _httpResponse.Headers.GetValues("x-ms-request-id").FirstOrDefault();
-                }
                 if (_shouldTrace)
                 {
                     ServiceClientTracing.Error(_invocationId, ex);
@@ -272,7 +274,7 @@ namespace Microsoft.Azure.Management.Avs
         }
 
         /// <summary>
-        /// Get an HCX Enterprise Site by name in a private cloud
+        /// Get an HCX on-premises key by name in a private cloud
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -289,7 +291,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="SerializationException">
@@ -336,9 +338,23 @@ namespace Microsoft.Azure.Management.Avs
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "privateCloudName");
             }
+            if (privateCloudName != null)
+            {
+                if (!System.Text.RegularExpressions.Regex.IsMatch(privateCloudName, "^[-\\w\\._]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "privateCloudName", "^[-\\w\\._]+$");
+                }
+            }
             if (hcxEnterpriseSiteName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "hcxEnterpriseSiteName");
+            }
+            if (hcxEnterpriseSiteName != null)
+            {
+                if (!System.Text.RegularExpressions.Regex.IsMatch(hcxEnterpriseSiteName, "^[-\\w\\._]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "hcxEnterpriseSiteName", "^[-\\w\\._]+$");
+                }
             }
             if (Client.ApiVersion == null)
             {
@@ -436,14 +452,13 @@ namespace Microsoft.Azure.Management.Avs
             string _responseContent = null;
             if ((int)_statusCode != 200)
             {
-                var ex = new CloudException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                var ex = new ErrorResponseException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
                 try
                 {
                     _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    CloudError _errorBody =  Rest.Serialization.SafeJsonConvert.DeserializeObject<CloudError>(_responseContent, Client.DeserializationSettings);
+                    ErrorResponse _errorBody =  Rest.Serialization.SafeJsonConvert.DeserializeObject<ErrorResponse>(_responseContent, Client.DeserializationSettings);
                     if (_errorBody != null)
                     {
-                        ex = new CloudException(_errorBody.Message);
                         ex.Body = _errorBody;
                     }
                 }
@@ -453,10 +468,6 @@ namespace Microsoft.Azure.Management.Avs
                 }
                 ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
                 ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
-                if (_httpResponse.Headers.Contains("x-ms-request-id"))
-                {
-                    ex.RequestId = _httpResponse.Headers.GetValues("x-ms-request-id").FirstOrDefault();
-                }
                 if (_shouldTrace)
                 {
                     ServiceClientTracing.Error(_invocationId, ex);
@@ -502,7 +513,7 @@ namespace Microsoft.Azure.Management.Avs
         }
 
         /// <summary>
-        /// Create or update an HCX Enterprise Site in a private cloud
+        /// Create or update an activation key for on-premises HCX site
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -519,7 +530,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="SerializationException">
@@ -569,6 +580,13 @@ namespace Microsoft.Azure.Management.Avs
             if (hcxEnterpriseSiteName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "hcxEnterpriseSiteName");
+            }
+            if (hcxEnterpriseSiteName != null)
+            {
+                if (!System.Text.RegularExpressions.Regex.IsMatch(hcxEnterpriseSiteName, "^[-\\w\\._]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "hcxEnterpriseSiteName", "^[-\\w\\._]+$");
+                }
             }
             if (Client.ApiVersion == null)
             {
@@ -674,14 +692,13 @@ namespace Microsoft.Azure.Management.Avs
             string _responseContent = null;
             if ((int)_statusCode != 200 && (int)_statusCode != 201)
             {
-                var ex = new CloudException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                var ex = new ErrorResponseException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
                 try
                 {
                     _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    CloudError _errorBody =  Rest.Serialization.SafeJsonConvert.DeserializeObject<CloudError>(_responseContent, Client.DeserializationSettings);
+                    ErrorResponse _errorBody =  Rest.Serialization.SafeJsonConvert.DeserializeObject<ErrorResponse>(_responseContent, Client.DeserializationSettings);
                     if (_errorBody != null)
                     {
-                        ex = new CloudException(_errorBody.Message);
                         ex.Body = _errorBody;
                     }
                 }
@@ -691,10 +708,6 @@ namespace Microsoft.Azure.Management.Avs
                 }
                 ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
                 ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
-                if (_httpResponse.Headers.Contains("x-ms-request-id"))
-                {
-                    ex.RequestId = _httpResponse.Headers.GetValues("x-ms-request-id").FirstOrDefault();
-                }
                 if (_shouldTrace)
                 {
                     ServiceClientTracing.Error(_invocationId, ex);
@@ -758,7 +771,7 @@ namespace Microsoft.Azure.Management.Avs
         }
 
         /// <summary>
-        /// Delete an HCX Enterprise Site in a private cloud
+        /// Delete HCX on-premises key in a private cloud
         /// </summary>
         /// <param name='resourceGroupName'>
         /// The name of the resource group. The name is case insensitive.
@@ -775,7 +788,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="ValidationException">
@@ -819,9 +832,23 @@ namespace Microsoft.Azure.Management.Avs
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "privateCloudName");
             }
+            if (privateCloudName != null)
+            {
+                if (!System.Text.RegularExpressions.Regex.IsMatch(privateCloudName, "^[-\\w\\._]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "privateCloudName", "^[-\\w\\._]+$");
+                }
+            }
             if (hcxEnterpriseSiteName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "hcxEnterpriseSiteName");
+            }
+            if (hcxEnterpriseSiteName != null)
+            {
+                if (!System.Text.RegularExpressions.Regex.IsMatch(hcxEnterpriseSiteName, "^[-\\w\\._]+$"))
+                {
+                    throw new ValidationException(ValidationRules.Pattern, "hcxEnterpriseSiteName", "^[-\\w\\._]+$");
+                }
             }
             if (Client.ApiVersion == null)
             {
@@ -919,14 +946,13 @@ namespace Microsoft.Azure.Management.Avs
             string _responseContent = null;
             if ((int)_statusCode != 200 && (int)_statusCode != 204)
             {
-                var ex = new CloudException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                var ex = new ErrorResponseException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
                 try
                 {
                     _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    CloudError _errorBody =  Rest.Serialization.SafeJsonConvert.DeserializeObject<CloudError>(_responseContent, Client.DeserializationSettings);
+                    ErrorResponse _errorBody =  Rest.Serialization.SafeJsonConvert.DeserializeObject<ErrorResponse>(_responseContent, Client.DeserializationSettings);
                     if (_errorBody != null)
                     {
-                        ex = new CloudException(_errorBody.Message);
                         ex.Body = _errorBody;
                     }
                 }
@@ -936,10 +962,6 @@ namespace Microsoft.Azure.Management.Avs
                 }
                 ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
                 ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
-                if (_httpResponse.Headers.Contains("x-ms-request-id"))
-                {
-                    ex.RequestId = _httpResponse.Headers.GetValues("x-ms-request-id").FirstOrDefault();
-                }
                 if (_shouldTrace)
                 {
                     ServiceClientTracing.Error(_invocationId, ex);
@@ -967,7 +989,7 @@ namespace Microsoft.Azure.Management.Avs
         }
 
         /// <summary>
-        /// List HCX Enterprise Sites in a private cloud
+        /// List HCX on-premises key in a private cloud
         /// </summary>
         /// <param name='nextPageLink'>
         /// The NextLink from the previous successful call to List operation.
@@ -978,7 +1000,7 @@ namespace Microsoft.Azure.Management.Avs
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="CloudException">
+        /// <exception cref="ErrorResponseException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="SerializationException">
@@ -1074,14 +1096,13 @@ namespace Microsoft.Azure.Management.Avs
             string _responseContent = null;
             if ((int)_statusCode != 200)
             {
-                var ex = new CloudException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                var ex = new ErrorResponseException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
                 try
                 {
                     _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    CloudError _errorBody =  Rest.Serialization.SafeJsonConvert.DeserializeObject<CloudError>(_responseContent, Client.DeserializationSettings);
+                    ErrorResponse _errorBody =  Rest.Serialization.SafeJsonConvert.DeserializeObject<ErrorResponse>(_responseContent, Client.DeserializationSettings);
                     if (_errorBody != null)
                     {
-                        ex = new CloudException(_errorBody.Message);
                         ex.Body = _errorBody;
                     }
                 }
@@ -1091,10 +1112,6 @@ namespace Microsoft.Azure.Management.Avs
                 }
                 ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
                 ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
-                if (_httpResponse.Headers.Contains("x-ms-request-id"))
-                {
-                    ex.RequestId = _httpResponse.Headers.GetValues("x-ms-request-id").FirstOrDefault();
-                }
                 if (_shouldTrace)
                 {
                     ServiceClientTracing.Error(_invocationId, ex);
