@@ -42,13 +42,15 @@ namespace Azure.ResourceManager.Network
         /// <param name="privateIPAddress"> Private IP address of the IP configuration. </param>
         /// <param name="privateIPAllocationMethod"> The private IP address allocation method. </param>
         /// <param name="privateIPAddressVersion"> Whether the specific IP configuration is IPv4 or IPv6. Default is IPv4. </param>
+        /// <param name="privateIPAddressPrefix"> The prefix address in CIDR format. </param>
+        /// <param name="privateIPAddressPrefixLength"> The /n prefix length of the address prefix. Must be /28 or /32 for IPv4, and /80 or /128 for IPv6. </param>
         /// <param name="subnet"> Subnet bound to the IP configuration. </param>
         /// <param name="primary"> Whether this is a primary customer address on the network interface. </param>
         /// <param name="publicIPAddress"> Public IP address bound to the IP configuration. </param>
         /// <param name="applicationSecurityGroups"> Application security groups in which the IP configuration is included. </param>
         /// <param name="provisioningState"> The provisioning state of the network interface IP configuration. </param>
         /// <param name="privateLinkConnectionProperties"> PrivateLinkConnection properties for the network interface. </param>
-        internal NetworkInterfaceIPConfigurationData(ResourceIdentifier id, string name, ResourceType? resourceType, ETag? etag, WritableSubResource gatewayLoadBalancer, IList<VirtualNetworkTapData> virtualNetworkTaps, IList<ApplicationGatewayBackendAddressPool> applicationGatewayBackendAddressPools, IList<BackendAddressPoolData> loadBalancerBackendAddressPools, IList<InboundNatRuleData> loadBalancerInboundNatRules, string privateIPAddress, NetworkIPAllocationMethod? privateIPAllocationMethod, NetworkIPVersion? privateIPAddressVersion, SubnetData subnet, bool? primary, PublicIPAddressData publicIPAddress, IList<ApplicationSecurityGroupData> applicationSecurityGroups, NetworkProvisioningState? provisioningState, NetworkInterfaceIPConfigurationPrivateLinkConnectionProperties privateLinkConnectionProperties) : base(id, name, resourceType)
+        internal NetworkInterfaceIPConfigurationData(ResourceIdentifier id, string name, ResourceType? resourceType, ETag? etag, WritableSubResource gatewayLoadBalancer, IList<VirtualNetworkTapData> virtualNetworkTaps, IList<ApplicationGatewayBackendAddressPool> applicationGatewayBackendAddressPools, IList<BackendAddressPoolData> loadBalancerBackendAddressPools, IList<InboundNatRuleData> loadBalancerInboundNatRules, string privateIPAddress, NetworkIPAllocationMethod? privateIPAllocationMethod, NetworkIPVersion? privateIPAddressVersion, string privateIPAddressPrefix, int? privateIPAddressPrefixLength, SubnetData subnet, bool? primary, PublicIPAddressData publicIPAddress, IList<ApplicationSecurityGroupData> applicationSecurityGroups, NetworkProvisioningState? provisioningState, NetworkInterfaceIPConfigurationPrivateLinkConnectionProperties privateLinkConnectionProperties) : base(id, name, resourceType)
         {
             ETag = etag;
             GatewayLoadBalancer = gatewayLoadBalancer;
@@ -59,6 +61,8 @@ namespace Azure.ResourceManager.Network
             PrivateIPAddress = privateIPAddress;
             PrivateIPAllocationMethod = privateIPAllocationMethod;
             PrivateIPAddressVersion = privateIPAddressVersion;
+            PrivateIPAddressPrefix = privateIPAddressPrefix;
+            PrivateIPAddressPrefixLength = privateIPAddressPrefixLength;
             Subnet = subnet;
             Primary = primary;
             PublicIPAddress = publicIPAddress;
@@ -97,6 +101,10 @@ namespace Azure.ResourceManager.Network
         public NetworkIPAllocationMethod? PrivateIPAllocationMethod { get; set; }
         /// <summary> Whether the specific IP configuration is IPv4 or IPv6. Default is IPv4. </summary>
         public NetworkIPVersion? PrivateIPAddressVersion { get; set; }
+        /// <summary> The prefix address in CIDR format. </summary>
+        public string PrivateIPAddressPrefix { get; set; }
+        /// <summary> The /n prefix length of the address prefix. Must be /28 or /32 for IPv4, and /80 or /128 for IPv6. </summary>
+        public int? PrivateIPAddressPrefixLength { get; set; }
         /// <summary> Subnet bound to the IP configuration. </summary>
         public SubnetData Subnet { get; set; }
         /// <summary> Whether this is a primary customer address on the network interface. </summary>
