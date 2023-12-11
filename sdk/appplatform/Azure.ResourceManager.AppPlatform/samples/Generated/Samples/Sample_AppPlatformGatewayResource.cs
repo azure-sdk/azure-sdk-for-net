@@ -6,6 +6,7 @@
 #nullable disable
 
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Azure;
 using Azure.Core;
@@ -23,7 +24,7 @@ namespace Azure.ResourceManager.AppPlatform.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GatewaysGet()
         {
-            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2022-12-01/examples/Gateways_Get.json
+            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2023-12-01/examples/Gateways_Get.json
             // this example is just showing the usage of "Gateways_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -55,7 +56,7 @@ namespace Azure.ResourceManager.AppPlatform.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_GatewaysCreateOrUpdate()
         {
-            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2022-12-01/examples/Gateways_CreateOrUpdate.json
+            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2023-12-01/examples/Gateways_CreateOrUpdate.json
             // this example is just showing the usage of "Gateways_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -78,6 +79,10 @@ namespace Azure.ResourceManager.AppPlatform.Samples
                 Properties = new AppPlatformGatewayProperties()
                 {
                     IsPublic = true,
+                    Apms =
+{
+new ApmReference(new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.AppPlatform/Spring/myservice/apms/myappinsights"))
+},
                     ResourceRequests = new AppPlatformGatewayResourceRequirements()
                     {
                         Cpu = "1",
@@ -106,7 +111,7 @@ namespace Azure.ResourceManager.AppPlatform.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Delete_GatewaysDelete()
         {
-            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2022-12-01/examples/Gateways_Delete.json
+            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2023-12-01/examples/Gateways_Delete.json
             // this example is just showing the usage of "Gateways_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -129,12 +134,69 @@ namespace Azure.ResourceManager.AppPlatform.Samples
             Console.WriteLine($"Succeeded");
         }
 
+        // Gateways_ListEnvSecrets
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task GetEnvSecrets_GatewaysListEnvSecrets()
+        {
+            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2023-12-01/examples/Gateways_ListEnvSecrets.json
+            // this example is just showing the usage of "Gateways_ListEnvSecrets" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this AppPlatformGatewayResource created on azure
+            // for more information of creating AppPlatformGatewayResource, please refer to the document of AppPlatformGatewayResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "myResourceGroup";
+            string serviceName = "myservice";
+            string gatewayName = "default";
+            ResourceIdentifier appPlatformGatewayResourceId = AppPlatformGatewayResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, serviceName, gatewayName);
+            AppPlatformGatewayResource appPlatformGateway = client.GetAppPlatformGatewayResource(appPlatformGatewayResourceId);
+
+            // invoke the operation
+            Response<IReadOnlyDictionary<string, string>> response = await appPlatformGateway.GetEnvSecretsAsync();
+            IReadOnlyDictionary<string, string> result = response.Value;
+
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
+        // Gateways_Restart
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task Restart_GatewaysRestart()
+        {
+            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2023-12-01/examples/Gateways_Restart.json
+            // this example is just showing the usage of "Gateways_Restart" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this AppPlatformGatewayResource created on azure
+            // for more information of creating AppPlatformGatewayResource, please refer to the document of AppPlatformGatewayResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "myResourceGroup";
+            string serviceName = "myservice";
+            string gatewayName = "default";
+            ResourceIdentifier appPlatformGatewayResourceId = AppPlatformGatewayResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, serviceName, gatewayName);
+            AppPlatformGatewayResource appPlatformGateway = client.GetAppPlatformGatewayResource(appPlatformGatewayResourceId);
+
+            // invoke the operation
+            await appPlatformGateway.RestartAsync(WaitUntil.Completed);
+
+            Console.WriteLine($"Succeeded");
+        }
+
         // Gateways_ValidateDomain
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task ValidateDomain_GatewaysValidateDomain()
         {
-            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2022-12-01/examples/Gateways_ValidateDomain.json
+            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2023-12-01/examples/Gateways_ValidateDomain.json
             // this example is just showing the usage of "Gateways_ValidateDomain" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line

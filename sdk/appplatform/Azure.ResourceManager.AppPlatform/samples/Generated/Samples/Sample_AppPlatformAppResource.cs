@@ -24,7 +24,7 @@ namespace Azure.ResourceManager.AppPlatform.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_AppsGet()
         {
-            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2022-12-01/examples/Apps_Get.json
+            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2023-12-01/examples/Apps_Get.json
             // this example is just showing the usage of "Apps_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -56,7 +56,7 @@ namespace Azure.ResourceManager.AppPlatform.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_AppsGetVNetInjection()
         {
-            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2022-12-01/examples/Apps_Get_VNetInjection.json
+            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2023-12-01/examples/Apps_Get_VNetInjection.json
             // this example is just showing the usage of "Apps_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -88,7 +88,7 @@ namespace Azure.ResourceManager.AppPlatform.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Delete_AppsDelete()
         {
-            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2022-12-01/examples/Apps_Delete.json
+            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2023-12-01/examples/Apps_Delete.json
             // this example is just showing the usage of "Apps_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -116,7 +116,7 @@ namespace Azure.ResourceManager.AppPlatform.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_AppsUpdate()
         {
-            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2022-12-01/examples/Apps_Update.json
+            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2023-12-01/examples/Apps_Update.json
             // this example is just showing the usage of "Apps_Update" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -154,8 +154,9 @@ namespace Azure.ResourceManager.AppPlatform.Samples
 {
 new AppCustomPersistentDisk("myASCStorageID")
 {
-CustomPersistentDiskProperties = new AppPlatformAzureFileVolume("/mypath1/mypath2","myFileShare")
+CustomPersistentDiskProperties = new AppPlatformAzureFileVolume("/mypath1/mypath2")
 {
+ShareName = "myFileShare",
 MountOptions =
 {
 },
@@ -189,7 +190,7 @@ MountOptions =
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_AppsUpdateVNetInjection()
         {
-            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2022-12-01/examples/Apps_Update_VNetInjection.json
+            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2023-12-01/examples/Apps_Update_VNetInjection.json
             // this example is just showing the usage of "Apps_Update" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -227,8 +228,9 @@ MountOptions =
 {
 new AppCustomPersistentDisk("myASCStorageID")
 {
-CustomPersistentDiskProperties = new AppPlatformAzureFileVolume("/mypath1/mypath2","myFileShare")
+CustomPersistentDiskProperties = new AppPlatformAzureFileVolume("/mypath1/mypath2")
 {
+ShareName = "myFileShare",
 MountOptions =
 {
 },
@@ -266,7 +268,7 @@ MountOptions =
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetResourceUploadUri_AppsGetResourceUploadUrl()
         {
-            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2022-12-01/examples/Apps_GetResourceUploadUrl.json
+            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2023-12-01/examples/Apps_GetResourceUploadUrl.json
             // this example is just showing the usage of "Apps_GetResourceUploadUrl" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -294,7 +296,7 @@ MountOptions =
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task ActivateDeployments_AppsSetActiveDeployments()
         {
-            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2022-12-01/examples/Apps_SetActiveDeployments.json
+            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2023-12-01/examples/Apps_SetActiveDeployments.json
             // this example is just showing the usage of "Apps_SetActiveDeployments" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -334,7 +336,7 @@ MountOptions =
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task ValidateDomain_AppsValidateDomain()
         {
-            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2022-12-01/examples/Apps_ValidateDomain.json
+            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2023-12-01/examples/Apps_ValidateDomain.json
             // this example is just showing the usage of "Apps_ValidateDomain" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line

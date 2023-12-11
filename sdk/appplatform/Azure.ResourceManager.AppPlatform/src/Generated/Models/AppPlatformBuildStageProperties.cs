@@ -18,15 +18,23 @@ namespace Azure.ResourceManager.AppPlatform.Models
         /// <summary> Initializes a new instance of <see cref="AppPlatformBuildStageProperties"/>. </summary>
         /// <param name="name"> The name of this build stage resource. </param>
         /// <param name="status"> The provisioning state of this build stage resource. </param>
-        internal AppPlatformBuildStageProperties(string name, KPackBuildStageProvisioningState? status)
+        /// <param name="exitCode"> The exit code of this build init container. </param>
+        /// <param name="reason"> The reason of this build init container. </param>
+        internal AppPlatformBuildStageProperties(string name, KPackBuildStageProvisioningState? status, string exitCode, string reason)
         {
             Name = name;
             Status = status;
+            ExitCode = exitCode;
+            Reason = reason;
         }
 
         /// <summary> The name of this build stage resource. </summary>
         public string Name { get; }
         /// <summary> The provisioning state of this build stage resource. </summary>
         public KPackBuildStageProvisioningState? Status { get; }
+        /// <summary> The exit code of this build init container. </summary>
+        public string ExitCode { get; }
+        /// <summary> The reason of this build init container. </summary>
+        public string Reason { get; }
     }
 }

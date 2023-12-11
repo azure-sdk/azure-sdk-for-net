@@ -22,23 +22,31 @@ namespace Azure.ResourceManager.AppPlatform.Models
         /// <summary> Initializes a new instance of <see cref="AppPlatformBuildResultProperties"/>. </summary>
         /// <param name="name"> The name of this build result. </param>
         /// <param name="provisioningState"> Provisioning state of the KPack build result. </param>
+        /// <param name="error"> Error when build is failed. </param>
         /// <param name="buildPodName"> The build pod name which can be used to get the build log streaming. </param>
         /// <param name="buildStages"> All of the build stage (init-container and container) resources in build pod. </param>
-        internal AppPlatformBuildResultProperties(string name, AppPlatformBuildResultProvisioningState? provisioningState, string buildPodName, IReadOnlyList<AppPlatformBuildStageProperties> buildStages)
+        /// <param name="image"> The container registry image of this build result. </param>
+        internal AppPlatformBuildResultProperties(string name, AppPlatformBuildResultProvisioningState? provisioningState, AppPlatformErrorInfo error, string buildPodName, IReadOnlyList<AppPlatformBuildStageProperties> buildStages, string image)
         {
             Name = name;
             ProvisioningState = provisioningState;
+            Error = error;
             BuildPodName = buildPodName;
             BuildStages = buildStages;
+            Image = image;
         }
 
         /// <summary> The name of this build result. </summary>
         public string Name { get; set; }
         /// <summary> Provisioning state of the KPack build result. </summary>
         public AppPlatformBuildResultProvisioningState? ProvisioningState { get; }
+        /// <summary> Error when build is failed. </summary>
+        public AppPlatformErrorInfo Error { get; set; }
         /// <summary> The build pod name which can be used to get the build log streaming. </summary>
         public string BuildPodName { get; set; }
         /// <summary> All of the build stage (init-container and container) resources in build pod. </summary>
         public IReadOnlyList<AppPlatformBuildStageProperties> BuildStages { get; }
+        /// <summary> The container registry image of this build result. </summary>
+        public string Image { get; }
     }
 }
