@@ -244,6 +244,8 @@ namespace Azure.ResourceManager.Network.Models
         /// <param name="privateIPAddress"> Private IP address of the IP configuration. </param>
         /// <param name="privateIPAllocationMethod"> The private IP address allocation method. </param>
         /// <param name="privateIPAddressVersion"> Whether the specific IP configuration is IPv4 or IPv6. Default is IPv4. </param>
+        /// <param name="privateIPAddressPrefix"> The prefix address in CIDR format. </param>
+        /// <param name="privateIPAddressPrefixLength"> The /n prefix length of the address prefix. Must be /28 or /32 for IPv4, and /80 or /128 for IPv6. </param>
         /// <param name="subnet"> Subnet bound to the IP configuration. </param>
         /// <param name="primary"> Whether this is a primary customer address on the network interface. </param>
         /// <param name="publicIPAddress"> Public IP address bound to the IP configuration. </param>
@@ -251,7 +253,7 @@ namespace Azure.ResourceManager.Network.Models
         /// <param name="provisioningState"> The provisioning state of the network interface IP configuration. </param>
         /// <param name="privateLinkConnectionProperties"> PrivateLinkConnection properties for the network interface. </param>
         /// <returns> A new <see cref="Network.NetworkInterfaceIPConfigurationData"/> instance for mocking. </returns>
-        public static NetworkInterfaceIPConfigurationData NetworkInterfaceIPConfigurationData(ResourceIdentifier id = null, string name = null, ResourceType? resourceType = null, ETag? etag = null, ResourceIdentifier gatewayLoadBalancerId = null, IEnumerable<VirtualNetworkTapData> virtualNetworkTaps = null, IEnumerable<ApplicationGatewayBackendAddressPool> applicationGatewayBackendAddressPools = null, IEnumerable<BackendAddressPoolData> loadBalancerBackendAddressPools = null, IEnumerable<InboundNatRuleData> loadBalancerInboundNatRules = null, string privateIPAddress = null, NetworkIPAllocationMethod? privateIPAllocationMethod = null, NetworkIPVersion? privateIPAddressVersion = null, SubnetData subnet = null, bool? primary = null, PublicIPAddressData publicIPAddress = null, IEnumerable<ApplicationSecurityGroupData> applicationSecurityGroups = null, NetworkProvisioningState? provisioningState = null, NetworkInterfaceIPConfigurationPrivateLinkConnectionProperties privateLinkConnectionProperties = null)
+        public static NetworkInterfaceIPConfigurationData NetworkInterfaceIPConfigurationData(ResourceIdentifier id = null, string name = null, ResourceType? resourceType = null, ETag? etag = null, ResourceIdentifier gatewayLoadBalancerId = null, IEnumerable<VirtualNetworkTapData> virtualNetworkTaps = null, IEnumerable<ApplicationGatewayBackendAddressPool> applicationGatewayBackendAddressPools = null, IEnumerable<BackendAddressPoolData> loadBalancerBackendAddressPools = null, IEnumerable<InboundNatRuleData> loadBalancerInboundNatRules = null, string privateIPAddress = null, NetworkIPAllocationMethod? privateIPAllocationMethod = null, NetworkIPVersion? privateIPAddressVersion = null, string privateIPAddressPrefix = null, int? privateIPAddressPrefixLength = null, SubnetData subnet = null, bool? primary = null, PublicIPAddressData publicIPAddress = null, IEnumerable<ApplicationSecurityGroupData> applicationSecurityGroups = null, NetworkProvisioningState? provisioningState = null, NetworkInterfaceIPConfigurationPrivateLinkConnectionProperties privateLinkConnectionProperties = null)
         {
             virtualNetworkTaps ??= new List<VirtualNetworkTapData>();
             applicationGatewayBackendAddressPools ??= new List<ApplicationGatewayBackendAddressPool>();
@@ -259,7 +261,7 @@ namespace Azure.ResourceManager.Network.Models
             loadBalancerInboundNatRules ??= new List<InboundNatRuleData>();
             applicationSecurityGroups ??= new List<ApplicationSecurityGroupData>();
 
-            return new NetworkInterfaceIPConfigurationData(id, name, resourceType, etag, gatewayLoadBalancerId != null ? ResourceManagerModelFactory.WritableSubResource(gatewayLoadBalancerId) : null, virtualNetworkTaps?.ToList(), applicationGatewayBackendAddressPools?.ToList(), loadBalancerBackendAddressPools?.ToList(), loadBalancerInboundNatRules?.ToList(), privateIPAddress, privateIPAllocationMethod, privateIPAddressVersion, subnet, primary, publicIPAddress, applicationSecurityGroups?.ToList(), provisioningState, privateLinkConnectionProperties);
+            return new NetworkInterfaceIPConfigurationData(id, name, resourceType, etag, gatewayLoadBalancerId != null ? ResourceManagerModelFactory.WritableSubResource(gatewayLoadBalancerId) : null, virtualNetworkTaps?.ToList(), applicationGatewayBackendAddressPools?.ToList(), loadBalancerBackendAddressPools?.ToList(), loadBalancerInboundNatRules?.ToList(), privateIPAddress, privateIPAllocationMethod, privateIPAddressVersion, privateIPAddressPrefix, privateIPAddressPrefixLength, subnet, primary, publicIPAddress, applicationSecurityGroups?.ToList(), provisioningState, privateLinkConnectionProperties);
         }
 
         /// <summary> Initializes a new instance of <see cref="Network.VirtualNetworkTapData"/>. </summary>

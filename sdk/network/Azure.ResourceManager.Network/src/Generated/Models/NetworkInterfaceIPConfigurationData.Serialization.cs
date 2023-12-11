@@ -96,6 +96,16 @@ namespace Azure.ResourceManager.Network
                 writer.WritePropertyName("privateIPAddressVersion"u8);
                 writer.WriteStringValue(PrivateIPAddressVersion.Value.ToString());
             }
+            if (Optional.IsDefined(PrivateIPAddressPrefix))
+            {
+                writer.WritePropertyName("privateIPAddressPrefix"u8);
+                writer.WriteStringValue(PrivateIPAddressPrefix);
+            }
+            if (Optional.IsDefined(PrivateIPAddressPrefixLength))
+            {
+                writer.WritePropertyName("privateIPAddressPrefixLength"u8);
+                writer.WriteNumberValue(PrivateIPAddressPrefixLength.Value);
+            }
             if (Optional.IsDefined(Subnet))
             {
                 writer.WritePropertyName("subnet"u8);
@@ -143,6 +153,8 @@ namespace Azure.ResourceManager.Network
             Optional<string> privateIPAddress = default;
             Optional<NetworkIPAllocationMethod> privateIPAllocationMethod = default;
             Optional<NetworkIPVersion> privateIPAddressVersion = default;
+            Optional<string> privateIPAddressPrefix = default;
+            Optional<int> privateIPAddressPrefixLength = default;
             Optional<SubnetData> subnet = default;
             Optional<bool> primary = default;
             Optional<PublicIPAddressData> publicIPAddress = default;
@@ -280,6 +292,20 @@ namespace Azure.ResourceManager.Network
                             privateIPAddressVersion = new NetworkIPVersion(property0.Value.GetString());
                             continue;
                         }
+                        if (property0.NameEquals("privateIPAddressPrefix"u8))
+                        {
+                            privateIPAddressPrefix = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("privateIPAddressPrefixLength"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            privateIPAddressPrefixLength = property0.Value.GetInt32();
+                            continue;
+                        }
                         if (property0.NameEquals("subnet"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -343,7 +369,7 @@ namespace Azure.ResourceManager.Network
                     continue;
                 }
             }
-            return new NetworkInterfaceIPConfigurationData(id.Value, name.Value, Optional.ToNullable(type), Optional.ToNullable(etag), gatewayLoadBalancer, Optional.ToList(virtualNetworkTaps), Optional.ToList(applicationGatewayBackendAddressPools), Optional.ToList(loadBalancerBackendAddressPools), Optional.ToList(loadBalancerInboundNatRules), privateIPAddress.Value, Optional.ToNullable(privateIPAllocationMethod), Optional.ToNullable(privateIPAddressVersion), subnet.Value, Optional.ToNullable(primary), publicIPAddress.Value, Optional.ToList(applicationSecurityGroups), Optional.ToNullable(provisioningState), privateLinkConnectionProperties.Value);
+            return new NetworkInterfaceIPConfigurationData(id.Value, name.Value, Optional.ToNullable(type), Optional.ToNullable(etag), gatewayLoadBalancer, Optional.ToList(virtualNetworkTaps), Optional.ToList(applicationGatewayBackendAddressPools), Optional.ToList(loadBalancerBackendAddressPools), Optional.ToList(loadBalancerInboundNatRules), privateIPAddress.Value, Optional.ToNullable(privateIPAllocationMethod), Optional.ToNullable(privateIPAddressVersion), privateIPAddressPrefix.Value, Optional.ToNullable(privateIPAddressPrefixLength), subnet.Value, Optional.ToNullable(primary), publicIPAddress.Value, Optional.ToList(applicationSecurityGroups), Optional.ToNullable(provisioningState), privateLinkConnectionProperties.Value);
         }
     }
 }
