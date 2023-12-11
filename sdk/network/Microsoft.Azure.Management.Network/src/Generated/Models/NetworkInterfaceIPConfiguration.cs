@@ -55,6 +55,11 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <param name="privateIPAddressVersion">Whether the specific IP
         /// configuration is IPv4 or IPv6. Default is IPv4. Possible values
         /// include: 'IPv4', 'IPv6'</param>
+        /// <param name="privateIPAddressPrefix">The prefix address in CIDR
+        /// format.</param>
+        /// <param name="privateIPAddressPrefixLength">The /n prefix length of
+        /// the address prefix. Must be /28 or /32 for IPv4, and /80 or /128
+        /// for IPv6.</param>
         /// <param name="subnet">Subnet bound to the IP configuration.</param>
         /// <param name="primary">Whether this is a primary customer address on
         /// the network interface.</param>
@@ -73,7 +78,7 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <param name="etag">A unique read-only string that changes whenever
         /// the resource is updated.</param>
         /// <param name="type">Resource type.</param>
-        public NetworkInterfaceIPConfiguration(string id = default(string), SubResource gatewayLoadBalancer = default(SubResource), IList<VirtualNetworkTap> virtualNetworkTaps = default(IList<VirtualNetworkTap>), IList<ApplicationGatewayBackendAddressPool> applicationGatewayBackendAddressPools = default(IList<ApplicationGatewayBackendAddressPool>), IList<BackendAddressPool> loadBalancerBackendAddressPools = default(IList<BackendAddressPool>), IList<InboundNatRule> loadBalancerInboundNatRules = default(IList<InboundNatRule>), string privateIPAddress = default(string), string privateIPAllocationMethod = default(string), string privateIPAddressVersion = default(string), Subnet subnet = default(Subnet), bool? primary = default(bool?), PublicIPAddress publicIPAddress = default(PublicIPAddress), IList<ApplicationSecurityGroup> applicationSecurityGroups = default(IList<ApplicationSecurityGroup>), string provisioningState = default(string), NetworkInterfaceIPConfigurationPrivateLinkConnectionProperties privateLinkConnectionProperties = default(NetworkInterfaceIPConfigurationPrivateLinkConnectionProperties), string name = default(string), string etag = default(string), string type = default(string))
+        public NetworkInterfaceIPConfiguration(string id = default(string), SubResource gatewayLoadBalancer = default(SubResource), IList<VirtualNetworkTap> virtualNetworkTaps = default(IList<VirtualNetworkTap>), IList<ApplicationGatewayBackendAddressPool> applicationGatewayBackendAddressPools = default(IList<ApplicationGatewayBackendAddressPool>), IList<BackendAddressPool> loadBalancerBackendAddressPools = default(IList<BackendAddressPool>), IList<InboundNatRule> loadBalancerInboundNatRules = default(IList<InboundNatRule>), string privateIPAddress = default(string), string privateIPAllocationMethod = default(string), string privateIPAddressVersion = default(string), string privateIPAddressPrefix = default(string), int? privateIPAddressPrefixLength = default(int?), Subnet subnet = default(Subnet), bool? primary = default(bool?), PublicIPAddress publicIPAddress = default(PublicIPAddress), IList<ApplicationSecurityGroup> applicationSecurityGroups = default(IList<ApplicationSecurityGroup>), string provisioningState = default(string), NetworkInterfaceIPConfigurationPrivateLinkConnectionProperties privateLinkConnectionProperties = default(NetworkInterfaceIPConfigurationPrivateLinkConnectionProperties), string name = default(string), string etag = default(string), string type = default(string))
             : base(id)
         {
             GatewayLoadBalancer = gatewayLoadBalancer;
@@ -84,6 +89,8 @@ namespace Microsoft.Azure.Management.Network.Models
             PrivateIPAddress = privateIPAddress;
             PrivateIPAllocationMethod = privateIPAllocationMethod;
             PrivateIPAddressVersion = privateIPAddressVersion;
+            PrivateIPAddressPrefix = privateIPAddressPrefix;
+            PrivateIPAddressPrefixLength = privateIPAddressPrefixLength;
             Subnet = subnet;
             Primary = primary;
             PublicIPAddress = publicIPAddress;
@@ -152,6 +159,19 @@ namespace Microsoft.Azure.Management.Network.Models
         /// </summary>
         [JsonProperty(PropertyName = "properties.privateIPAddressVersion")]
         public string PrivateIPAddressVersion { get; set; }
+
+        /// <summary>
+        /// Gets or sets the prefix address in CIDR format.
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.privateIPAddressPrefix")]
+        public string PrivateIPAddressPrefix { get; set; }
+
+        /// <summary>
+        /// Gets or sets the /n prefix length of the address prefix. Must be
+        /// /28 or /32 for IPv4, and /80 or /128 for IPv6.
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.privateIPAddressPrefixLength")]
+        public int? PrivateIPAddressPrefixLength { get; set; }
 
         /// <summary>
         /// Gets or sets subnet bound to the IP configuration.
