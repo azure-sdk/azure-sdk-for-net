@@ -12,6 +12,7 @@ using Azure.Core;
 using Azure.Identity;
 using Azure.ResourceManager;
 using Azure.ResourceManager.Datadog;
+using Azure.ResourceManager.Datadog.Models;
 using Azure.ResourceManager.Resources;
 
 namespace Azure.ResourceManager.Datadog.Samples
@@ -23,7 +24,7 @@ namespace Azure.ResourceManager.Datadog.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetAll_MonitorsListByResourceGroup()
         {
-            // Generated from example definition: specification/datadog/resource-manager/Microsoft.Datadog/stable/2021-03-01/examples/Monitors_ListByResourceGroup.json
+            // Generated from example definition: specification/datadog/resource-manager/Microsoft.Datadog/stable/2023-01-01/examples/Monitors_ListByResourceGroup.json
             // this example is just showing the usage of "Monitors_ListByResourceGroup" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -59,7 +60,7 @@ namespace Azure.ResourceManager.Datadog.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_MonitorsGet()
         {
-            // Generated from example definition: specification/datadog/resource-manager/Microsoft.Datadog/stable/2021-03-01/examples/Monitors_Get.json
+            // Generated from example definition: specification/datadog/resource-manager/Microsoft.Datadog/stable/2023-01-01/examples/Monitors_Get.json
             // this example is just showing the usage of "Monitors_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -93,7 +94,7 @@ namespace Azure.ResourceManager.Datadog.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Exists_MonitorsGet()
         {
-            // Generated from example definition: specification/datadog/resource-manager/Microsoft.Datadog/stable/2021-03-01/examples/Monitors_Get.json
+            // Generated from example definition: specification/datadog/resource-manager/Microsoft.Datadog/stable/2023-01-01/examples/Monitors_Get.json
             // this example is just showing the usage of "Monitors_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -123,7 +124,7 @@ namespace Azure.ResourceManager.Datadog.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetIfExists_MonitorsGet()
         {
-            // Generated from example definition: specification/datadog/resource-manager/Microsoft.Datadog/stable/2021-03-01/examples/Monitors_Get.json
+            // Generated from example definition: specification/datadog/resource-manager/Microsoft.Datadog/stable/2023-01-01/examples/Monitors_Get.json
             // this example is just showing the usage of "Monitors_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -165,7 +166,7 @@ namespace Azure.ResourceManager.Datadog.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_MonitorsCreate()
         {
-            // Generated from example definition: specification/datadog/resource-manager/Microsoft.Datadog/stable/2021-03-01/examples/Monitors_Create.json
+            // Generated from example definition: specification/datadog/resource-manager/Microsoft.Datadog/stable/2023-01-01/examples/Monitors_Create.json
             // this example is just showing the usage of "Monitors_Create" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -185,7 +186,33 @@ namespace Azure.ResourceManager.Datadog.Samples
 
             // invoke the operation
             string monitorName = "myMonitor";
-            DatadogMonitorResourceData data = new DatadogMonitorResourceData(new AzureLocation("placeholder"));
+            DatadogMonitorResourceData data = new DatadogMonitorResourceData(new AzureLocation("West US"))
+            {
+                SkuName = "free_Monthly",
+                Properties = new MonitorProperties()
+                {
+                    MonitoringStatus = MonitoringStatus.Enabled,
+                    DatadogOrganizationProperties = new DatadogOrganizationProperties()
+                    {
+                        Name = "myOrg",
+                        Id = "myOrg123",
+                        LinkingAuthCode = "someAuthCode",
+                        LinkingClientId = "00000000-0000-0000-0000-000000000000",
+                        EnterpriseAppId = "00000000-0000-0000-0000-000000000000",
+                        Cspm = false,
+                    },
+                    UserInfo = new UserInfo()
+                    {
+                        Name = "Alice",
+                        EmailAddress = "alice@microsoft.com",
+                        PhoneNumber = "123-456-7890",
+                    },
+                },
+                Tags =
+{
+["Environment"] = "Dev",
+},
+            };
             ArmOperation<DatadogMonitorResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, monitorName, data);
             DatadogMonitorResource result = lro.Value;
 

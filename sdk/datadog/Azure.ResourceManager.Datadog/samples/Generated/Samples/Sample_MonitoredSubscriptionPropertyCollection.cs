@@ -16,15 +16,15 @@ using Azure.ResourceManager.Datadog.Models;
 
 namespace Azure.ResourceManager.Datadog.Samples
 {
-    public partial class Sample_DatadogSingleSignOnResourceCollection
+    public partial class Sample_MonitoredSubscriptionPropertyCollection
     {
-        // SingleSignOnConfigurations_List
+        // Monitors_GetMonitoredSubscriptions
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task GetAll_SingleSignOnConfigurationsList()
+        public async Task GetAll_MonitorsGetMonitoredSubscriptions()
         {
-            // Generated from example definition: specification/datadog/resource-manager/Microsoft.Datadog/stable/2023-01-01/examples/SingleSignOnConfigurations_List.json
-            // this example is just showing the usage of "SingleSignOnConfigurations_List" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/datadog/resource-manager/Microsoft.Datadog/stable/2023-01-01/examples/MonitoredSubscriptions_List.json
+            // this example is just showing the usage of "MonitoredSubscriptions_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -39,15 +39,15 @@ namespace Azure.ResourceManager.Datadog.Samples
             ResourceIdentifier datadogMonitorResourceId = DatadogMonitorResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, monitorName);
             DatadogMonitorResource datadogMonitorResource = client.GetDatadogMonitorResource(datadogMonitorResourceId);
 
-            // get the collection of this DatadogSingleSignOnResource
-            DatadogSingleSignOnResourceCollection collection = datadogMonitorResource.GetDatadogSingleSignOnResources();
+            // get the collection of this MonitoredSubscriptionPropertyResource
+            MonitoredSubscriptionPropertyCollection collection = datadogMonitorResource.GetMonitoredSubscriptionProperties();
 
             // invoke the operation and iterate over the result
-            await foreach (DatadogSingleSignOnResource item in collection.GetAllAsync())
+            await foreach (MonitoredSubscriptionPropertyResource item in collection.GetAllAsync())
             {
                 // the variable item is a resource, you could call other operations on this instance as well
                 // but just for demo, we get its data from this resource instance
-                DatadogSingleSignOnResourceData resourceData = item.Data;
+                MonitoredSubscriptionPropertyData resourceData = item.Data;
                 // for demo we just print out the id
                 Console.WriteLine($"Succeeded on id: {resourceData.Id}");
             }
@@ -55,13 +55,13 @@ namespace Azure.ResourceManager.Datadog.Samples
             Console.WriteLine($"Succeeded");
         }
 
-        // SingleSignOnConfigurations_CreateOrUpdate
+        // Monitors_GetMonitoredSubscriptions
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task CreateOrUpdate_SingleSignOnConfigurationsCreateOrUpdate()
+        public async Task Get_MonitorsGetMonitoredSubscriptions()
         {
-            // Generated from example definition: specification/datadog/resource-manager/Microsoft.Datadog/stable/2023-01-01/examples/SingleSignOnConfigurations_CreateOrUpdate.json
-            // this example is just showing the usage of "SingleSignOnConfigurations_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/datadog/resource-manager/Microsoft.Datadog/stable/2023-01-01/examples/MonitoredSubscriptions_Get.json
+            // this example is just showing the usage of "MonitoredSubscriptions_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -76,36 +76,27 @@ namespace Azure.ResourceManager.Datadog.Samples
             ResourceIdentifier datadogMonitorResourceId = DatadogMonitorResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, monitorName);
             DatadogMonitorResource datadogMonitorResource = client.GetDatadogMonitorResource(datadogMonitorResourceId);
 
-            // get the collection of this DatadogSingleSignOnResource
-            DatadogSingleSignOnResourceCollection collection = datadogMonitorResource.GetDatadogSingleSignOnResources();
+            // get the collection of this MonitoredSubscriptionPropertyResource
+            MonitoredSubscriptionPropertyCollection collection = datadogMonitorResource.GetMonitoredSubscriptionProperties();
 
             // invoke the operation
             string configurationName = "default";
-            DatadogSingleSignOnResourceData data = new DatadogSingleSignOnResourceData()
-            {
-                Properties = new DatadogSingleSignOnProperties()
-                {
-                    SingleSignOnState = SingleSignOnState.Enable,
-                    EnterpriseAppId = "00000000-0000-0000-0000-000000000000",
-                },
-            };
-            ArmOperation<DatadogSingleSignOnResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, configurationName, data);
-            DatadogSingleSignOnResource result = lro.Value;
+            MonitoredSubscriptionPropertyResource result = await collection.GetAsync(configurationName);
 
             // the variable result is a resource, you could call other operations on this instance as well
             // but just for demo, we get its data from this resource instance
-            DatadogSingleSignOnResourceData resourceData = result.Data;
+            MonitoredSubscriptionPropertyData resourceData = result.Data;
             // for demo we just print out the id
             Console.WriteLine($"Succeeded on id: {resourceData.Id}");
         }
 
-        // SingleSignOnConfigurations_Get
+        // Monitors_GetMonitoredSubscriptions
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task Get_SingleSignOnConfigurationsGet()
+        public async Task Exists_MonitorsGetMonitoredSubscriptions()
         {
-            // Generated from example definition: specification/datadog/resource-manager/Microsoft.Datadog/stable/2023-01-01/examples/SingleSignOnConfigurations_Get.json
-            // this example is just showing the usage of "SingleSignOnConfigurations_Get" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/datadog/resource-manager/Microsoft.Datadog/stable/2023-01-01/examples/MonitoredSubscriptions_Get.json
+            // this example is just showing the usage of "MonitoredSubscriptions_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -120,43 +111,8 @@ namespace Azure.ResourceManager.Datadog.Samples
             ResourceIdentifier datadogMonitorResourceId = DatadogMonitorResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, monitorName);
             DatadogMonitorResource datadogMonitorResource = client.GetDatadogMonitorResource(datadogMonitorResourceId);
 
-            // get the collection of this DatadogSingleSignOnResource
-            DatadogSingleSignOnResourceCollection collection = datadogMonitorResource.GetDatadogSingleSignOnResources();
-
-            // invoke the operation
-            string configurationName = "default";
-            DatadogSingleSignOnResource result = await collection.GetAsync(configurationName);
-
-            // the variable result is a resource, you could call other operations on this instance as well
-            // but just for demo, we get its data from this resource instance
-            DatadogSingleSignOnResourceData resourceData = result.Data;
-            // for demo we just print out the id
-            Console.WriteLine($"Succeeded on id: {resourceData.Id}");
-        }
-
-        // SingleSignOnConfigurations_Get
-        [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task Exists_SingleSignOnConfigurationsGet()
-        {
-            // Generated from example definition: specification/datadog/resource-manager/Microsoft.Datadog/stable/2023-01-01/examples/SingleSignOnConfigurations_Get.json
-            // this example is just showing the usage of "SingleSignOnConfigurations_Get" operation, for the dependent resources, they will have to be created separately.
-
-            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
-            TokenCredential cred = new DefaultAzureCredential();
-            // authenticate your client
-            ArmClient client = new ArmClient(cred);
-
-            // this example assumes you already have this DatadogMonitorResource created on azure
-            // for more information of creating DatadogMonitorResource, please refer to the document of DatadogMonitorResource
-            string subscriptionId = "00000000-0000-0000-0000-000000000000";
-            string resourceGroupName = "myResourceGroup";
-            string monitorName = "myMonitor";
-            ResourceIdentifier datadogMonitorResourceId = DatadogMonitorResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, monitorName);
-            DatadogMonitorResource datadogMonitorResource = client.GetDatadogMonitorResource(datadogMonitorResourceId);
-
-            // get the collection of this DatadogSingleSignOnResource
-            DatadogSingleSignOnResourceCollection collection = datadogMonitorResource.GetDatadogSingleSignOnResources();
+            // get the collection of this MonitoredSubscriptionPropertyResource
+            MonitoredSubscriptionPropertyCollection collection = datadogMonitorResource.GetMonitoredSubscriptionProperties();
 
             // invoke the operation
             string configurationName = "default";
@@ -165,13 +121,13 @@ namespace Azure.ResourceManager.Datadog.Samples
             Console.WriteLine($"Succeeded: {result}");
         }
 
-        // SingleSignOnConfigurations_Get
+        // Monitors_GetMonitoredSubscriptions
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task GetIfExists_SingleSignOnConfigurationsGet()
+        public async Task GetIfExists_MonitorsGetMonitoredSubscriptions()
         {
-            // Generated from example definition: specification/datadog/resource-manager/Microsoft.Datadog/stable/2023-01-01/examples/SingleSignOnConfigurations_Get.json
-            // this example is just showing the usage of "SingleSignOnConfigurations_Get" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/datadog/resource-manager/Microsoft.Datadog/stable/2023-01-01/examples/MonitoredSubscriptions_Get.json
+            // this example is just showing the usage of "MonitoredSubscriptions_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -186,13 +142,13 @@ namespace Azure.ResourceManager.Datadog.Samples
             ResourceIdentifier datadogMonitorResourceId = DatadogMonitorResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, monitorName);
             DatadogMonitorResource datadogMonitorResource = client.GetDatadogMonitorResource(datadogMonitorResourceId);
 
-            // get the collection of this DatadogSingleSignOnResource
-            DatadogSingleSignOnResourceCollection collection = datadogMonitorResource.GetDatadogSingleSignOnResources();
+            // get the collection of this MonitoredSubscriptionPropertyResource
+            MonitoredSubscriptionPropertyCollection collection = datadogMonitorResource.GetMonitoredSubscriptionProperties();
 
             // invoke the operation
             string configurationName = "default";
-            NullableResponse<DatadogSingleSignOnResource> response = await collection.GetIfExistsAsync(configurationName);
-            DatadogSingleSignOnResource result = response.HasValue ? response.Value : null;
+            NullableResponse<MonitoredSubscriptionPropertyResource> response = await collection.GetIfExistsAsync(configurationName);
+            MonitoredSubscriptionPropertyResource result = response.HasValue ? response.Value : null;
 
             if (result == null)
             {
@@ -202,10 +158,119 @@ namespace Azure.ResourceManager.Datadog.Samples
             {
                 // the variable result is a resource, you could call other operations on this instance as well
                 // but just for demo, we get its data from this resource instance
-                DatadogSingleSignOnResourceData resourceData = result.Data;
+                MonitoredSubscriptionPropertyData resourceData = result.Data;
                 // for demo we just print out the id
                 Console.WriteLine($"Succeeded on id: {resourceData.Id}");
             }
+        }
+
+        // Monitors_AddMonitoredSubscriptions
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task CreateOrUpdate_MonitorsAddMonitoredSubscriptions()
+        {
+            // Generated from example definition: specification/datadog/resource-manager/Microsoft.Datadog/stable/2023-01-01/examples/MonitoredSubscriptions_CreateorUpdate.json
+            // this example is just showing the usage of "MonitoredSubscriptions_CreateorUpdate" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this DatadogMonitorResource created on azure
+            // for more information of creating DatadogMonitorResource, please refer to the document of DatadogMonitorResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "myResourceGroup";
+            string monitorName = "myMonitor";
+            ResourceIdentifier datadogMonitorResourceId = DatadogMonitorResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, monitorName);
+            DatadogMonitorResource datadogMonitorResource = client.GetDatadogMonitorResource(datadogMonitorResourceId);
+
+            // get the collection of this MonitoredSubscriptionPropertyResource
+            MonitoredSubscriptionPropertyCollection collection = datadogMonitorResource.GetMonitoredSubscriptionProperties();
+
+            // invoke the operation
+            string configurationName = "default";
+            MonitoredSubscriptionPropertyData data = new MonitoredSubscriptionPropertyData()
+            {
+                Properties = new SubscriptionList()
+                {
+                    Operation = Operation.AddBegin,
+                    MonitoredSubscriptionList =
+{
+new MonitoredSubscription()
+{
+SubscriptionId = "/subscriptions/00000000-0000-0000-0000-000000000000",
+Status = Status.Active,
+TagRules = new MonitoringTagRulesProperties()
+{
+LogRules = new LogRules()
+{
+SendAadLogs = false,
+SendSubscriptionLogs = true,
+SendResourceLogs = true,
+FilteringTags =
+{
+new FilteringTag()
+{
+Name = "Environment",
+Value = "Prod",
+Action = TagAction.Include,
+},new FilteringTag()
+{
+Name = "Environment",
+Value = "Dev",
+Action = TagAction.Exclude,
+}
+},
+},
+MetricRulesFilteringTags =
+{
+},
+Automuting = true,
+},
+},new MonitoredSubscription()
+{
+SubscriptionId = "/subscriptions/00000000-0000-0000-0000-000000000001",
+Status = Status.Failed,
+TagRules = new MonitoringTagRulesProperties()
+{
+LogRules = new LogRules()
+{
+SendAadLogs = false,
+SendSubscriptionLogs = true,
+SendResourceLogs = true,
+FilteringTags =
+{
+new FilteringTag()
+{
+Name = "Environment",
+Value = "Prod",
+Action = TagAction.Include,
+},new FilteringTag()
+{
+Name = "Environment",
+Value = "Dev",
+Action = TagAction.Exclude,
+}
+},
+},
+MetricRulesFilteringTags =
+{
+},
+Automuting = true,
+},
+}
+},
+                },
+            };
+            ArmOperation<MonitoredSubscriptionPropertyResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, configurationName, data);
+            MonitoredSubscriptionPropertyResource result = lro.Value;
+
+            // the variable result is a resource, you could call other operations on this instance as well
+            // but just for demo, we get its data from this resource instance
+            MonitoredSubscriptionPropertyData resourceData = result.Data;
+            // for demo we just print out the id
+            Console.WriteLine($"Succeeded on id: {resourceData.Id}");
         }
     }
 }
