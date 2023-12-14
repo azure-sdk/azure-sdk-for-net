@@ -70,6 +70,16 @@ namespace Azure.ResourceManager.AppPlatform.Models
                 writer.WritePropertyName("strictHostKeyChecking"u8);
                 writer.WriteBooleanValue(IsHostKeyCheckingStrict.Value);
             }
+            if (Optional.IsDefined(GitImplementation))
+            {
+                writer.WritePropertyName("gitImplementation"u8);
+                writer.WriteStringValue(GitImplementation.Value.ToString());
+            }
+            if (Optional.IsDefined(CaCertResourceId))
+            {
+                writer.WritePropertyName("caCertResourceId"u8);
+                writer.WriteStringValue(CaCertResourceId);
+            }
             writer.WriteEndObject();
         }
 
@@ -90,6 +100,8 @@ namespace Azure.ResourceManager.AppPlatform.Models
             Optional<string> hostKeyAlgorithm = default;
             Optional<string> privateKey = default;
             Optional<bool> strictHostKeyChecking = default;
+            Optional<GitImplementation> gitImplementation = default;
+            Optional<string> caCertResourceId = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("name"u8))
@@ -165,8 +177,22 @@ namespace Azure.ResourceManager.AppPlatform.Models
                     strictHostKeyChecking = property.Value.GetBoolean();
                     continue;
                 }
+                if (property.NameEquals("gitImplementation"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    gitImplementation = new GitImplementation(property.Value.GetString());
+                    continue;
+                }
+                if (property.NameEquals("caCertResourceId"u8))
+                {
+                    caCertResourceId = property.Value.GetString();
+                    continue;
+                }
             }
-            return new AppPlatformConfigurationServiceGitRepository(name, patterns, uri, label, Optional.ToList(searchPaths), username.Value, password.Value, hostKey.Value, hostKeyAlgorithm.Value, privateKey.Value, Optional.ToNullable(strictHostKeyChecking));
+            return new AppPlatformConfigurationServiceGitRepository(name, patterns, uri, label, Optional.ToList(searchPaths), username.Value, password.Value, hostKey.Value, hostKeyAlgorithm.Value, privateKey.Value, Optional.ToNullable(strictHostKeyChecking), Optional.ToNullable(gitImplementation), caCertResourceId.Value);
         }
     }
 }
