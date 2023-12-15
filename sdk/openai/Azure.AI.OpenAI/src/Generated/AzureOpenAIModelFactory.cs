@@ -431,13 +431,5 @@ namespace Azure.AI.OpenAI
         {
             return new EmbeddingsUsage(promptTokens, totalTokens);
         }
-
-        /// <summary> Initializes a new instance of <see cref="OpenAI.StopFinishDetails"/>. </summary>
-        /// <param name="stop"> The token sequence that the model terminated with. </param>
-        /// <returns> A new <see cref="OpenAI.StopFinishDetails"/> instance for mocking. </returns>
-        public static StopFinishDetails StopFinishDetails(string stop = null)
-        {
-            return new StopFinishDetails("stop", stop);
-        }
     }
 }
