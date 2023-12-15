@@ -12,19 +12,18 @@ using Azure.Core;
 using Azure.Identity;
 using Azure.ResourceManager;
 using Azure.ResourceManager.Maps;
-using Azure.ResourceManager.Maps.Models;
 
 namespace Azure.ResourceManager.Maps.Samples
 {
-    public partial class Sample_MapsCreatorCollection
+    public partial class Sample_MapsPrivateLinkResourceCollection
     {
-        // List Creator Resources By Account
+        // PrivateLinkResources_List
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task GetAll_ListCreatorResourcesByAccount()
+        public async Task GetAll_PrivateLinkResourcesList()
         {
-            // Generated from example definition: specification/maps/resource-manager/Microsoft.Maps/preview/2023-12-01-preview/examples/ListMapsCreatorsByAccount.json
-            // this example is just showing the usage of "Creators_ListByAccount" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/maps/resource-manager/Microsoft.Maps/preview/2023-12-01-preview/examples/PrivateLinkResources_List.json
+            // this example is just showing the usage of "PrivateLinkResources_ListByAccount" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -39,15 +38,15 @@ namespace Azure.ResourceManager.Maps.Samples
             ResourceIdentifier mapsAccountResourceId = MapsAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
             MapsAccountResource mapsAccount = client.GetMapsAccountResource(mapsAccountResourceId);
 
-            // get the collection of this MapsCreatorResource
-            MapsCreatorCollection collection = mapsAccount.GetMapsCreators();
+            // get the collection of this MapsPrivateLinkResource
+            MapsPrivateLinkResourceCollection collection = mapsAccount.GetMapsPrivateLinkResources();
 
             // invoke the operation and iterate over the result
-            await foreach (MapsCreatorResource item in collection.GetAllAsync())
+            await foreach (MapsPrivateLinkResource item in collection.GetAllAsync())
             {
                 // the variable item is a resource, you could call other operations on this instance as well
                 // but just for demo, we get its data from this resource instance
-                MapsCreatorData resourceData = item.Data;
+                MapsPrivateLinkResourceData resourceData = item.Data;
                 // for demo we just print out the id
                 Console.WriteLine($"Succeeded on id: {resourceData.Id}");
             }
@@ -55,13 +54,13 @@ namespace Azure.ResourceManager.Maps.Samples
             Console.WriteLine($"Succeeded");
         }
 
-        // Create Creator Resource
+        // Get a private link resource.
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task CreateOrUpdate_CreateCreatorResource()
+        public async Task Get_GetAPrivateLinkResource()
         {
-            // Generated from example definition: specification/maps/resource-manager/Microsoft.Maps/preview/2023-12-01-preview/examples/CreateMapsCreator.json
-            // this example is just showing the usage of "Creators_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/maps/resource-manager/Microsoft.Maps/preview/2023-12-01-preview/examples/PrivateLinkResources_Get.json
+            // this example is just showing the usage of "PrivateLinkResources_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -76,35 +75,27 @@ namespace Azure.ResourceManager.Maps.Samples
             ResourceIdentifier mapsAccountResourceId = MapsAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
             MapsAccountResource mapsAccount = client.GetMapsAccountResource(mapsAccountResourceId);
 
-            // get the collection of this MapsCreatorResource
-            MapsCreatorCollection collection = mapsAccount.GetMapsCreators();
+            // get the collection of this MapsPrivateLinkResource
+            MapsPrivateLinkResourceCollection collection = mapsAccount.GetMapsPrivateLinkResources();
 
             // invoke the operation
-            string creatorName = "myCreator";
-            MapsCreatorData data = new MapsCreatorData(new AzureLocation("eastus2"), new MapsCreatorProperties(5))
-            {
-                Tags =
-{
-["test"] = "true",
-},
-            };
-            ArmOperation<MapsCreatorResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, creatorName, data);
-            MapsCreatorResource result = lro.Value;
+            string privateLinkResourceName = "mapsAccount";
+            MapsPrivateLinkResource result = await collection.GetAsync(privateLinkResourceName);
 
             // the variable result is a resource, you could call other operations on this instance as well
             // but just for demo, we get its data from this resource instance
-            MapsCreatorData resourceData = result.Data;
+            MapsPrivateLinkResourceData resourceData = result.Data;
             // for demo we just print out the id
             Console.WriteLine($"Succeeded on id: {resourceData.Id}");
         }
 
-        // Get Creator Resource
+        // Get a private link resource.
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task Get_GetCreatorResource()
+        public async Task Exists_GetAPrivateLinkResource()
         {
-            // Generated from example definition: specification/maps/resource-manager/Microsoft.Maps/preview/2023-12-01-preview/examples/GetMapsCreator.json
-            // this example is just showing the usage of "Creators_Get" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/maps/resource-manager/Microsoft.Maps/preview/2023-12-01-preview/examples/PrivateLinkResources_Get.json
+            // this example is just showing the usage of "PrivateLinkResources_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -119,58 +110,23 @@ namespace Azure.ResourceManager.Maps.Samples
             ResourceIdentifier mapsAccountResourceId = MapsAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
             MapsAccountResource mapsAccount = client.GetMapsAccountResource(mapsAccountResourceId);
 
-            // get the collection of this MapsCreatorResource
-            MapsCreatorCollection collection = mapsAccount.GetMapsCreators();
+            // get the collection of this MapsPrivateLinkResource
+            MapsPrivateLinkResourceCollection collection = mapsAccount.GetMapsPrivateLinkResources();
 
             // invoke the operation
-            string creatorName = "myCreator";
-            MapsCreatorResource result = await collection.GetAsync(creatorName);
-
-            // the variable result is a resource, you could call other operations on this instance as well
-            // but just for demo, we get its data from this resource instance
-            MapsCreatorData resourceData = result.Data;
-            // for demo we just print out the id
-            Console.WriteLine($"Succeeded on id: {resourceData.Id}");
-        }
-
-        // Get Creator Resource
-        [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task Exists_GetCreatorResource()
-        {
-            // Generated from example definition: specification/maps/resource-manager/Microsoft.Maps/preview/2023-12-01-preview/examples/GetMapsCreator.json
-            // this example is just showing the usage of "Creators_Get" operation, for the dependent resources, they will have to be created separately.
-
-            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
-            TokenCredential cred = new DefaultAzureCredential();
-            // authenticate your client
-            ArmClient client = new ArmClient(cred);
-
-            // this example assumes you already have this MapsAccountResource created on azure
-            // for more information of creating MapsAccountResource, please refer to the document of MapsAccountResource
-            string subscriptionId = "21a9967a-e8a9-4656-a70b-96ff1c4d05a0";
-            string resourceGroupName = "myResourceGroup";
-            string accountName = "myMapsAccount";
-            ResourceIdentifier mapsAccountResourceId = MapsAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
-            MapsAccountResource mapsAccount = client.GetMapsAccountResource(mapsAccountResourceId);
-
-            // get the collection of this MapsCreatorResource
-            MapsCreatorCollection collection = mapsAccount.GetMapsCreators();
-
-            // invoke the operation
-            string creatorName = "myCreator";
-            bool result = await collection.ExistsAsync(creatorName);
+            string privateLinkResourceName = "mapsAccount";
+            bool result = await collection.ExistsAsync(privateLinkResourceName);
 
             Console.WriteLine($"Succeeded: {result}");
         }
 
-        // Get Creator Resource
+        // Get a private link resource.
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task GetIfExists_GetCreatorResource()
+        public async Task GetIfExists_GetAPrivateLinkResource()
         {
-            // Generated from example definition: specification/maps/resource-manager/Microsoft.Maps/preview/2023-12-01-preview/examples/GetMapsCreator.json
-            // this example is just showing the usage of "Creators_Get" operation, for the dependent resources, they will have to be created separately.
+            // Generated from example definition: specification/maps/resource-manager/Microsoft.Maps/preview/2023-12-01-preview/examples/PrivateLinkResources_Get.json
+            // this example is just showing the usage of "PrivateLinkResources_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
             TokenCredential cred = new DefaultAzureCredential();
@@ -185,13 +141,13 @@ namespace Azure.ResourceManager.Maps.Samples
             ResourceIdentifier mapsAccountResourceId = MapsAccountResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, accountName);
             MapsAccountResource mapsAccount = client.GetMapsAccountResource(mapsAccountResourceId);
 
-            // get the collection of this MapsCreatorResource
-            MapsCreatorCollection collection = mapsAccount.GetMapsCreators();
+            // get the collection of this MapsPrivateLinkResource
+            MapsPrivateLinkResourceCollection collection = mapsAccount.GetMapsPrivateLinkResources();
 
             // invoke the operation
-            string creatorName = "myCreator";
-            NullableResponse<MapsCreatorResource> response = await collection.GetIfExistsAsync(creatorName);
-            MapsCreatorResource result = response.HasValue ? response.Value : null;
+            string privateLinkResourceName = "mapsAccount";
+            NullableResponse<MapsPrivateLinkResource> response = await collection.GetIfExistsAsync(privateLinkResourceName);
+            MapsPrivateLinkResource result = response.HasValue ? response.Value : null;
 
             if (result == null)
             {
@@ -201,7 +157,7 @@ namespace Azure.ResourceManager.Maps.Samples
             {
                 // the variable result is a resource, you could call other operations on this instance as well
                 // but just for demo, we get its data from this resource instance
-                MapsCreatorData resourceData = result.Data;
+                MapsPrivateLinkResourceData resourceData = result.Data;
                 // for demo we just print out the id
                 Console.WriteLine($"Succeeded on id: {resourceData.Id}");
             }
