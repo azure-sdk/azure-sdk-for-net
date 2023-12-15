@@ -19,7 +19,7 @@ namespace Azure.ResourceManager.AppService.Models
             {
                 return null;
             }
-            Optional<IPAddress> ipAddress = default;
+            Optional<System.Net.IPAddress> ipAddress = default;
             Optional<int> port = default;
             Optional<double> latency = default;
             Optional<bool> isAccessible = default;
@@ -31,7 +31,7 @@ namespace Azure.ResourceManager.AppService.Models
                     {
                         continue;
                     }
-                    ipAddress = IPAddress.Parse(property.Value.GetString());
+                    ipAddress = System.Net.IPAddress.Parse(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("port"u8))
