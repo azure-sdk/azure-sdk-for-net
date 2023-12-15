@@ -15,6 +15,16 @@ namespace Azure.ResourceManager.NotificationHubs.Models
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
+            if (Optional.IsDefined(Sku))
+            {
+                writer.WritePropertyName("sku"u8);
+                writer.WriteObjectValue(Sku);
+            }
+            if (Optional.IsDefined(Properties))
+            {
+                writer.WritePropertyName("properties"u8);
+                writer.WriteObjectValue(Properties);
+            }
             if (Optional.IsCollectionDefined(Tags))
             {
                 writer.WritePropertyName("tags"u8);
@@ -25,11 +35,6 @@ namespace Azure.ResourceManager.NotificationHubs.Models
                     writer.WriteStringValue(item.Value);
                 }
                 writer.WriteEndObject();
-            }
-            if (Optional.IsDefined(Sku))
-            {
-                writer.WritePropertyName("sku"u8);
-                writer.WriteObjectValue(Sku);
             }
             writer.WriteEndObject();
         }

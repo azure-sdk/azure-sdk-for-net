@@ -16,23 +16,7 @@ namespace Azure.ResourceManager.NotificationHubs.Models
         {
             writer.WriteStartObject();
             writer.WritePropertyName("properties"u8);
-            writer.WriteStartObject();
-            if (Optional.IsDefined(MpnsCertificate))
-            {
-                writer.WritePropertyName("mpnsCertificate"u8);
-                writer.WriteStringValue(MpnsCertificate);
-            }
-            if (Optional.IsDefined(CertificateKey))
-            {
-                writer.WritePropertyName("certificateKey"u8);
-                writer.WriteStringValue(CertificateKey);
-            }
-            if (Optional.IsDefined(ThumbprintString))
-            {
-                writer.WritePropertyName("thumbprint"u8);
-                writer.WriteStringValue(ThumbprintString);
-            }
-            writer.WriteEndObject();
+            writer.WriteObjectValue(Properties);
             writer.WriteEndObject();
         }
 
@@ -42,40 +26,16 @@ namespace Azure.ResourceManager.NotificationHubs.Models
             {
                 return null;
             }
-            Optional<string> mpnsCertificate = default;
-            Optional<string> certificateKey = default;
-            Optional<string> thumbprint = default;
+            MpnsCredentialProperties properties = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("properties"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
-                    foreach (var property0 in property.Value.EnumerateObject())
-                    {
-                        if (property0.NameEquals("mpnsCertificate"u8))
-                        {
-                            mpnsCertificate = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("certificateKey"u8))
-                        {
-                            certificateKey = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("thumbprint"u8))
-                        {
-                            thumbprint = property0.Value.GetString();
-                            continue;
-                        }
-                    }
+                    properties = MpnsCredentialProperties.DeserializeMpnsCredentialProperties(property.Value);
                     continue;
                 }
             }
-            return new NotificationHubMpnsCredential(mpnsCertificate.Value, certificateKey.Value, thumbprint.Value);
+            return new NotificationHubMpnsCredential(properties);
         }
     }
 }

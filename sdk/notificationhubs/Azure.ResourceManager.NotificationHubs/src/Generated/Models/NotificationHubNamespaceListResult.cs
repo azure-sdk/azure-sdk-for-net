@@ -21,17 +21,17 @@ namespace Azure.ResourceManager.NotificationHubs.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="NotificationHubNamespaceListResult"/>. </summary>
-        /// <param name="value"> Result of the List Namespace operation. </param>
-        /// <param name="nextLink"> Link to the next set of results. Not empty if Value contains incomplete list of Namespaces. </param>
+        /// <param name="value"> Gets or sets result of the List AuthorizationRules operation. </param>
+        /// <param name="nextLink"> Gets or sets link to the next set of results. </param>
         internal NotificationHubNamespaceListResult(IReadOnlyList<NotificationHubNamespaceData> value, string nextLink)
         {
             Value = value;
             NextLink = nextLink;
         }
 
-        /// <summary> Result of the List Namespace operation. </summary>
+        /// <summary> Gets or sets result of the List AuthorizationRules operation. </summary>
         public IReadOnlyList<NotificationHubNamespaceData> Value { get; }
-        /// <summary> Link to the next set of results. Not empty if Value contains incomplete list of Namespaces. </summary>
+        /// <summary> Gets or sets link to the next set of results. </summary>
         public string NextLink { get; }
     }
 }

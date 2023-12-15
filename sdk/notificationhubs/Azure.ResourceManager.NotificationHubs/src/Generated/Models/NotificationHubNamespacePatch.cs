@@ -10,7 +10,7 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.NotificationHubs.Models
 {
-    /// <summary> Parameters supplied to the Patch Namespace operation. </summary>
+    /// <summary> Patch parameter for NamespaceResource. </summary>
     public partial class NotificationHubNamespacePatch
     {
         /// <summary> Initializes a new instance of <see cref="NotificationHubNamespacePatch"/>. </summary>
@@ -20,17 +20,21 @@ namespace Azure.ResourceManager.NotificationHubs.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="NotificationHubNamespacePatch"/>. </summary>
-        /// <param name="tags"> Resource tags. </param>
-        /// <param name="sku"> The sku of the created namespace. </param>
-        internal NotificationHubNamespacePatch(IDictionary<string, string> tags, NotificationHubSku sku)
+        /// <param name="sku"> The Sku description for a namespace. </param>
+        /// <param name="properties"> Represents namespace properties. </param>
+        /// <param name="tags"> Dictionary of &lt;string&gt;. </param>
+        internal NotificationHubNamespacePatch(NotificationHubSku sku, NamespaceProperties properties, IDictionary<string, string> tags)
         {
-            Tags = tags;
             Sku = sku;
+            Properties = properties;
+            Tags = tags;
         }
 
-        /// <summary> Resource tags. </summary>
-        public IDictionary<string, string> Tags { get; }
-        /// <summary> The sku of the created namespace. </summary>
+        /// <summary> The Sku description for a namespace. </summary>
         public NotificationHubSku Sku { get; set; }
+        /// <summary> Represents namespace properties. </summary>
+        public NamespaceProperties Properties { get; set; }
+        /// <summary> Dictionary of &lt;string&gt;. </summary>
+        public IDictionary<string, string> Tags { get; }
     }
 }

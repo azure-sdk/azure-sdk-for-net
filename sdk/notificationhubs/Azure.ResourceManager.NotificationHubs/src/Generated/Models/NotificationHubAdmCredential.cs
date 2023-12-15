@@ -6,33 +6,24 @@
 #nullable disable
 
 using System;
+using Azure.Core;
 
 namespace Azure.ResourceManager.NotificationHubs.Models
 {
     /// <summary> Description of a NotificationHub AdmCredential. </summary>
-    public partial class NotificationHubAdmCredential
+    internal partial class NotificationHubAdmCredential
     {
         /// <summary> Initializes a new instance of <see cref="NotificationHubAdmCredential"/>. </summary>
-        public NotificationHubAdmCredential()
+        /// <param name="properties"> Description of a NotificationHub AdmCredential. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="properties"/> is null. </exception>
+        public NotificationHubAdmCredential(AdmCredentialProperties properties)
         {
+            Argument.AssertNotNull(properties, nameof(properties));
+
+            Properties = properties;
         }
 
-        /// <summary> Initializes a new instance of <see cref="NotificationHubAdmCredential"/>. </summary>
-        /// <param name="clientId"> The client identifier. </param>
-        /// <param name="clientSecret"> The credential secret access key. </param>
-        /// <param name="authTokenUri"> The URL of the authorization token. </param>
-        internal NotificationHubAdmCredential(string clientId, string clientSecret, Uri authTokenUri)
-        {
-            ClientId = clientId;
-            ClientSecret = clientSecret;
-            AuthTokenUri = authTokenUri;
-        }
-
-        /// <summary> The client identifier. </summary>
-        public string ClientId { get; set; }
-        /// <summary> The credential secret access key. </summary>
-        public string ClientSecret { get; set; }
-        /// <summary> The URL of the authorization token. </summary>
-        public Uri AuthTokenUri { get; set; }
+        /// <summary> Description of a NotificationHub AdmCredential. </summary>
+        public AdmCredentialProperties Properties { get; set; }
     }
 }
