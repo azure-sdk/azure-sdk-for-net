@@ -18,12 +18,13 @@ namespace Azure.ResourceManager.NetApp.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="NetAppVolumePatchDataProtection"/>. </summary>
+        /// <param name="backup"> Backup Properties. </param>
         /// <param name="snapshot"> Snapshot properties. </param>
-        internal NetAppVolumePatchDataProtection(VolumeSnapshotProperties snapshot)
+        internal NetAppVolumePatchDataProtection(NetAppVolumeBackupConfiguration backup, VolumeSnapshotProperties snapshot)
         {
+            Backup = backup;
             Snapshot = snapshot;
         }
-
         /// <summary> Snapshot properties. </summary>
         internal VolumeSnapshotProperties Snapshot { get; set; }
         /// <summary> Snapshot Policy ResourceId. </summary>

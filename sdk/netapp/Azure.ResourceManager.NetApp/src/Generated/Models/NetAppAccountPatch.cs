@@ -33,13 +33,17 @@ namespace Azure.ResourceManager.NetApp.Models
         /// <param name="activeDirectories"> Active Directories. </param>
         /// <param name="encryption"> Encryption settings. </param>
         /// <param name="disableShowmount"> Shows the status of disableShowmount for all volumes under the subscription, null equals false. </param>
-        internal NetAppAccountPatch(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ManagedServiceIdentity identity, string provisioningState, IList<NetAppAccountActiveDirectory> activeDirectories, NetAppAccountEncryption encryption, bool? disableShowmount) : base(id, name, resourceType, systemData, tags, location)
+        /// <param name="nfsV4IdDomain"> Domain for NFSv4 user ID mapping. This property will be set for all NetApp accounts in the subscription and region and only affect non ldap NFSv4 volumes. </param>
+        /// <param name="isMultiAdEnabled"> This will have true value only if account is Multiple AD enabled. </param>
+        internal NetAppAccountPatch(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ManagedServiceIdentity identity, string provisioningState, IList<NetAppAccountActiveDirectory> activeDirectories, NetAppAccountEncryption encryption, bool? disableShowmount, string nfsV4IdDomain, bool? isMultiAdEnabled) : base(id, name, resourceType, systemData, tags, location)
         {
             Identity = identity;
             ProvisioningState = provisioningState;
             ActiveDirectories = activeDirectories;
             Encryption = encryption;
             DisableShowmount = disableShowmount;
+            NfsV4IdDomain = nfsV4IdDomain;
+            IsMultiAdEnabled = isMultiAdEnabled;
         }
 
         /// <summary> The identity used for the resource. </summary>
@@ -52,5 +56,9 @@ namespace Azure.ResourceManager.NetApp.Models
         public NetAppAccountEncryption Encryption { get; set; }
         /// <summary> Shows the status of disableShowmount for all volumes under the subscription, null equals false. </summary>
         public bool? DisableShowmount { get; }
+        /// <summary> Domain for NFSv4 user ID mapping. This property will be set for all NetApp accounts in the subscription and region and only affect non ldap NFSv4 volumes. </summary>
+        public string NfsV4IdDomain { get; set; }
+        /// <summary> This will have true value only if account is Multiple AD enabled. </summary>
+        public bool? IsMultiAdEnabled { get; }
     }
 }
