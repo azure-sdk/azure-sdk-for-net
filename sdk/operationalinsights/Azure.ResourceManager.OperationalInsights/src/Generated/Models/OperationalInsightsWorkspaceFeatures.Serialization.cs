@@ -103,6 +103,7 @@ namespace Azure.ResourceManager.OperationalInsights.Models
             Optional<bool?> enableLogAccessUsingOnlyResourcePermissions = default;
             Optional<ResourceIdentifier> clusterResourceId = default;
             Optional<bool?> disableLocalAuth = default;
+            Optional<bool?> unifiedSentinelBillingOnly = default;
             IDictionary<string, BinaryData> additionalProperties = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -157,10 +158,20 @@ namespace Azure.ResourceManager.OperationalInsights.Models
                     disableLocalAuth = property.Value.GetBoolean();
                     continue;
                 }
+                if (property.NameEquals("unifiedSentinelBillingOnly"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        unifiedSentinelBillingOnly = null;
+                        continue;
+                    }
+                    unifiedSentinelBillingOnly = property.Value.GetBoolean();
+                    continue;
+                }
                 additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
             }
             additionalProperties = additionalPropertiesDictionary;
-            return new OperationalInsightsWorkspaceFeatures(Optional.ToNullable(enableDataExport), Optional.ToNullable(immediatePurgeDataOn30Days), Optional.ToNullable(enableLogAccessUsingOnlyResourcePermissions), clusterResourceId.Value, Optional.ToNullable(disableLocalAuth), additionalProperties);
+            return new OperationalInsightsWorkspaceFeatures(Optional.ToNullable(enableDataExport), Optional.ToNullable(immediatePurgeDataOn30Days), Optional.ToNullable(enableLogAccessUsingOnlyResourcePermissions), clusterResourceId.Value, Optional.ToNullable(disableLocalAuth), Optional.ToNullable(unifiedSentinelBillingOnly), additionalProperties);
         }
     }
 }

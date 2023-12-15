@@ -420,11 +420,11 @@ namespace Azure.ResourceManager.OperationalInsights
         public Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsTableRestoredLogs RestoredLogs { get { throw null; } set { } }
         public Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsTableResultStatistics ResultStatistics { get { throw null; } }
         public int? RetentionInDays { get { throw null; } set { } }
-        public Azure.ResourceManager.OperationalInsights.Models.RetentionInDaysAsDefaultState? RetentionInDaysAsDefault { get { throw null; } }
+        public bool? RetentionInDaysAsDefault { get { throw null; } }
         public Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsSchema Schema { get { throw null; } set { } }
         public Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsTableSearchResults SearchResults { get { throw null; } set { } }
         public int? TotalRetentionInDays { get { throw null; } set { } }
-        public Azure.ResourceManager.OperationalInsights.Models.TotalRetentionInDaysAsDefaultState? TotalRetentionInDaysAsDefault { get { throw null; } }
+        public bool? TotalRetentionInDaysAsDefault { get { throw null; } }
     }
     public partial class OperationalInsightsTableResource : Azure.ResourceManager.ArmResource
     {
@@ -662,13 +662,14 @@ namespace Azure.ResourceManager.OperationalInsights.Models
         public static Azure.ResourceManager.OperationalInsights.OperationalInsightsSavedSearchData OperationalInsightsSavedSearchData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.ETag? etag = default(Azure.ETag?), string category = null, string displayName = null, string query = null, string functionAlias = null, string functionParameters = null, long? version = default(long?), System.Collections.Generic.IEnumerable<Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsTag> tags = null) { throw null; }
         public static Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsSchema OperationalInsightsSchema(string name = null, string displayName = null, string description = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsColumn> columns = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsColumn> standardColumns = null, System.Collections.Generic.IEnumerable<string> categories = null, System.Collections.Generic.IEnumerable<string> labels = null, Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsTableCreator? source = default(Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsTableCreator?), Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsTableType? tableType = default(Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsTableType?), Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsTableSubType? tableSubType = default(Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsTableSubType?), System.Collections.Generic.IEnumerable<string> solutions = null) { throw null; }
         public static Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsSearchSchemaValue OperationalInsightsSearchSchemaValue(string name = null, string displayName = null, string searchSchemaValueType = null, bool indexed = false, bool stored = false, bool facet = false, System.Collections.Generic.IEnumerable<string> ownerType = null) { throw null; }
-        public static Azure.ResourceManager.OperationalInsights.OperationalInsightsTableData OperationalInsightsTableData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, int? retentionInDays = default(int?), int? totalRetentionInDays = default(int?), int? archiveRetentionInDays = default(int?), Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsTableSearchResults searchResults = null, Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsTableRestoredLogs restoredLogs = null, Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsTableResultStatistics resultStatistics = null, Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsTablePlan? plan = default(Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsTablePlan?), string lastPlanModifiedDate = null, Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsSchema schema = null, Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsTableProvisioningState? provisioningState = default(Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsTableProvisioningState?), Azure.ResourceManager.OperationalInsights.Models.RetentionInDaysAsDefaultState? retentionInDaysAsDefault = default(Azure.ResourceManager.OperationalInsights.Models.RetentionInDaysAsDefaultState?), Azure.ResourceManager.OperationalInsights.Models.TotalRetentionInDaysAsDefaultState? totalRetentionInDaysAsDefault = default(Azure.ResourceManager.OperationalInsights.Models.TotalRetentionInDaysAsDefaultState?)) { throw null; }
+        public static Azure.ResourceManager.OperationalInsights.OperationalInsightsTableData OperationalInsightsTableData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, int? retentionInDays = default(int?), int? totalRetentionInDays = default(int?), int? archiveRetentionInDays = default(int?), Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsTableSearchResults searchResults = null, Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsTableRestoredLogs restoredLogs = null, Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsTableResultStatistics resultStatistics = null, Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsTablePlan? plan = default(Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsTablePlan?), string lastPlanModifiedDate = null, Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsSchema schema = null, Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsTableProvisioningState? provisioningState = default(Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsTableProvisioningState?), bool? retentionInDaysAsDefault = default(bool?), bool? totalRetentionInDaysAsDefault = default(bool?)) { throw null; }
         public static Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsTableRestoredLogs OperationalInsightsTableRestoredLogs(System.DateTimeOffset? startRestoreOn = default(System.DateTimeOffset?), System.DateTimeOffset? endRestoreOn = default(System.DateTimeOffset?), string sourceTable = null, System.Guid? azureAsyncOperationId = default(System.Guid?)) { throw null; }
         public static Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsTableResultStatistics OperationalInsightsTableResultStatistics(float? progress = default(float?), int? ingestedRecords = default(int?), float? scannedGB = default(float?)) { throw null; }
         public static Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsTableSearchResults OperationalInsightsTableSearchResults(string query = null, string description = null, int? limit = default(int?), System.DateTimeOffset? startSearchOn = default(System.DateTimeOffset?), System.DateTimeOffset? endSearchOn = default(System.DateTimeOffset?), string sourceTable = null, System.Guid? azureAsyncOperationId = default(System.Guid?)) { throw null; }
         public static Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsUsageMetric OperationalInsightsUsageMetric(Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsMetricName name = null, string unit = null, double? currentValue = default(double?), double? limit = default(double?), System.DateTimeOffset? nextResetOn = default(System.DateTimeOffset?), string quotaPeriod = null) { throw null; }
         public static Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsWorkspaceCapping OperationalInsightsWorkspaceCapping(double? dailyQuotaInGB = default(double?), string quotaNextResetTime = null, Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsDataIngestionStatus? dataIngestionStatus = default(Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsDataIngestionStatus?)) { throw null; }
         public static Azure.ResourceManager.OperationalInsights.OperationalInsightsWorkspaceData OperationalInsightsWorkspaceData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, System.Collections.Generic.IDictionary<string, string> tags = null, Azure.Core.AzureLocation location = default(Azure.Core.AzureLocation), Azure.ResourceManager.Models.ManagedServiceIdentity identity = null, Azure.ETag? etag = default(Azure.ETag?), Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsWorkspaceEntityStatus? provisioningState = default(Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsWorkspaceEntityStatus?), System.Guid? customerId = default(System.Guid?), Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsWorkspaceSku sku = null, int? retentionInDays = default(int?), Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsWorkspaceCapping workspaceCapping = null, System.DateTimeOffset? createdOn = default(System.DateTimeOffset?), System.DateTimeOffset? modifiedOn = default(System.DateTimeOffset?), Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsPublicNetworkAccessType? publicNetworkAccessForIngestion = default(Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsPublicNetworkAccessType?), Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsPublicNetworkAccessType? publicNetworkAccessForQuery = default(Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsPublicNetworkAccessType?), bool? forceCmkForQuery = default(bool?), System.Collections.Generic.IEnumerable<Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsPrivateLinkScopedResourceInfo> privateLinkScopedResources = null, Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsWorkspaceFeatures features = null, Azure.Core.ResourceIdentifier defaultDataCollectionRuleResourceId = null) { throw null; }
+        public static Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsWorkspaceFeatures OperationalInsightsWorkspaceFeatures(bool? isDataExportEnabled = default(bool?), bool? immediatePurgeDataOn30Days = default(bool?), bool? isLogAccessUsingOnlyResourcePermissionsEnabled = default(bool?), Azure.Core.ResourceIdentifier clusterResourceId = null, bool? isLocalAuthDisabled = default(bool?), bool? unifiedSentinelBillingOnly = default(bool?), System.Collections.Generic.IDictionary<string, System.BinaryData> additionalProperties = null) { throw null; }
         public static Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsWorkspacePatch OperationalInsightsWorkspacePatch(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.ResourceManager.Models.ManagedServiceIdentity identity = null, System.Collections.Generic.IDictionary<string, string> tags = null, Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsWorkspaceEntityStatus? provisioningState = default(Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsWorkspaceEntityStatus?), System.Guid? customerId = default(System.Guid?), Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsWorkspaceSku sku = null, int? retentionInDays = default(int?), Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsWorkspaceCapping workspaceCapping = null, System.DateTimeOffset? createdOn = default(System.DateTimeOffset?), System.DateTimeOffset? modifiedOn = default(System.DateTimeOffset?), Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsPublicNetworkAccessType? publicNetworkAccessForIngestion = default(Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsPublicNetworkAccessType?), Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsPublicNetworkAccessType? publicNetworkAccessForQuery = default(Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsPublicNetworkAccessType?), bool? forceCmkForQuery = default(bool?), System.Collections.Generic.IEnumerable<Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsPrivateLinkScopedResourceInfo> privateLinkScopedResources = null, Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsWorkspaceFeatures features = null, Azure.Core.ResourceIdentifier defaultDataCollectionRuleResourceId = null, Azure.ETag? etag = default(Azure.ETag?)) { throw null; }
         public static Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsWorkspacePurgeResult OperationalInsightsWorkspacePurgeResult(string operationStringId = null) { throw null; }
         public static Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsWorkspacePurgeStatusResult OperationalInsightsWorkspacePurgeStatusResult(Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsWorkspacePurgeState status = default(Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsWorkspacePurgeState)) { throw null; }
@@ -1133,6 +1134,7 @@ namespace Azure.ResourceManager.OperationalInsights.Models
         private readonly object _dummy;
         private readonly int _dummyPrimitive;
         public OperationalInsightsTableProvisioningState(string value) { throw null; }
+        public static Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsTableProvisioningState Deleting { get { throw null; } }
         public static Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsTableProvisioningState InProgress { get { throw null; } }
         public static Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsTableProvisioningState Succeeded { get { throw null; } }
         public static Azure.ResourceManager.OperationalInsights.Models.OperationalInsightsTableProvisioningState Updating { get { throw null; } }
@@ -1237,6 +1239,9 @@ namespace Azure.ResourceManager.OperationalInsights.Models
         TenHundred = 1000,
         TwoThousand = 2000,
         FiveThousand = 5000,
+        TenThousand = 10000,
+        TwentyFiveThousand = 25000,
+        FiftyThousand = 50000,
     }
     public partial class OperationalInsightsWorkspaceCapping
     {
@@ -1277,6 +1282,7 @@ namespace Azure.ResourceManager.OperationalInsights.Models
         public bool? IsDataExportEnabled { get { throw null; } set { } }
         public bool? IsLocalAuthDisabled { get { throw null; } set { } }
         public bool? IsLogAccessUsingOnlyResourcePermissionsEnabled { get { throw null; } set { } }
+        public bool? UnifiedSentinelBillingOnly { get { throw null; } }
     }
     public partial class OperationalInsightsWorkspacePatch : Azure.ResourceManager.Models.ResourceData
     {
@@ -1381,24 +1387,6 @@ namespace Azure.ResourceManager.OperationalInsights.Models
         public override string ToString() { throw null; }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
-    public readonly partial struct RetentionInDaysAsDefaultState : System.IEquatable<Azure.ResourceManager.OperationalInsights.Models.RetentionInDaysAsDefaultState>
-    {
-        private readonly object _dummy;
-        private readonly int _dummyPrimitive;
-        public RetentionInDaysAsDefaultState(string value) { throw null; }
-        public static Azure.ResourceManager.OperationalInsights.Models.RetentionInDaysAsDefaultState False { get { throw null; } }
-        public static Azure.ResourceManager.OperationalInsights.Models.RetentionInDaysAsDefaultState True { get { throw null; } }
-        public bool Equals(Azure.ResourceManager.OperationalInsights.Models.RetentionInDaysAsDefaultState other) { throw null; }
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
-        public override bool Equals(object obj) { throw null; }
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
-        public override int GetHashCode() { throw null; }
-        public static bool operator ==(Azure.ResourceManager.OperationalInsights.Models.RetentionInDaysAsDefaultState left, Azure.ResourceManager.OperationalInsights.Models.RetentionInDaysAsDefaultState right) { throw null; }
-        public static implicit operator Azure.ResourceManager.OperationalInsights.Models.RetentionInDaysAsDefaultState (string value) { throw null; }
-        public static bool operator !=(Azure.ResourceManager.OperationalInsights.Models.RetentionInDaysAsDefaultState left, Azure.ResourceManager.OperationalInsights.Models.RetentionInDaysAsDefaultState right) { throw null; }
-        public override string ToString() { throw null; }
-    }
-    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct StorageInsightState : System.IEquatable<Azure.ResourceManager.OperationalInsights.Models.StorageInsightState>
     {
         private readonly object _dummy;
@@ -1421,23 +1409,5 @@ namespace Azure.ResourceManager.OperationalInsights.Models
         internal StorageInsightStatus() { }
         public string Description { get { throw null; } }
         public Azure.ResourceManager.OperationalInsights.Models.StorageInsightState State { get { throw null; } }
-    }
-    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
-    public readonly partial struct TotalRetentionInDaysAsDefaultState : System.IEquatable<Azure.ResourceManager.OperationalInsights.Models.TotalRetentionInDaysAsDefaultState>
-    {
-        private readonly object _dummy;
-        private readonly int _dummyPrimitive;
-        public TotalRetentionInDaysAsDefaultState(string value) { throw null; }
-        public static Azure.ResourceManager.OperationalInsights.Models.TotalRetentionInDaysAsDefaultState False { get { throw null; } }
-        public static Azure.ResourceManager.OperationalInsights.Models.TotalRetentionInDaysAsDefaultState True { get { throw null; } }
-        public bool Equals(Azure.ResourceManager.OperationalInsights.Models.TotalRetentionInDaysAsDefaultState other) { throw null; }
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
-        public override bool Equals(object obj) { throw null; }
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
-        public override int GetHashCode() { throw null; }
-        public static bool operator ==(Azure.ResourceManager.OperationalInsights.Models.TotalRetentionInDaysAsDefaultState left, Azure.ResourceManager.OperationalInsights.Models.TotalRetentionInDaysAsDefaultState right) { throw null; }
-        public static implicit operator Azure.ResourceManager.OperationalInsights.Models.TotalRetentionInDaysAsDefaultState (string value) { throw null; }
-        public static bool operator !=(Azure.ResourceManager.OperationalInsights.Models.TotalRetentionInDaysAsDefaultState left, Azure.ResourceManager.OperationalInsights.Models.TotalRetentionInDaysAsDefaultState right) { throw null; }
-        public override string ToString() { throw null; }
     }
 }
