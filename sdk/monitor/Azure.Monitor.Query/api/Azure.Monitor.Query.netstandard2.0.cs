@@ -312,7 +312,7 @@ namespace Azure.Monitor.Query.Models
     {
         internal MetricsBatchResultValues() { }
         public System.DateTimeOffset EndTime { get { throw null; } }
-        public System.TimeSpan? Interval { get { throw null; } }
+        public string Interval { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<Azure.Monitor.Query.Models.MetricResult> Metrics { get { throw null; } }
         public string Namespace { get { throw null; } }
         public Azure.Core.ResourceIdentifier ResourceId { get { throw null; } }
@@ -385,7 +385,7 @@ namespace Azure.Monitor.Query.Models
         public static Azure.Monitor.Query.Models.MetricAvailability MetricAvailability(System.TimeSpan? granularity = default(System.TimeSpan?), System.TimeSpan? retention = default(System.TimeSpan?)) { throw null; }
         public static Azure.Monitor.Query.Models.MetricResult MetricResult(string id, string resourceType, string name, Azure.Monitor.Query.Models.MetricUnit unit, System.Collections.Generic.IEnumerable<Azure.Monitor.Query.Models.MetricTimeSeriesElement> timeSeries) { throw null; }
         public static Azure.Monitor.Query.Models.MetricsBatchResult MetricsBatchResult(System.Collections.Generic.IEnumerable<Azure.Monitor.Query.Models.MetricsBatchResultValues> values = null) { throw null; }
-        public static Azure.Monitor.Query.Models.MetricsBatchResultValues MetricsBatchResultValues(System.DateTimeOffset startTime = default(System.DateTimeOffset), System.DateTimeOffset endTime = default(System.DateTimeOffset), System.TimeSpan? interval = default(System.TimeSpan?), string @namespace = null, Azure.Core.AzureLocation resourceRegion = default(Azure.Core.AzureLocation), Azure.Core.ResourceIdentifier resourceId = null, System.Collections.Generic.IEnumerable<Azure.Monitor.Query.Models.MetricResult> metrics = null) { throw null; }
+        public static Azure.Monitor.Query.Models.MetricsBatchResultValues MetricsBatchResultValues(System.DateTimeOffset startTime = default(System.DateTimeOffset), System.DateTimeOffset endTime = default(System.DateTimeOffset), string interval = null, string @namespace = null, Azure.Core.AzureLocation resourceRegion = default(Azure.Core.AzureLocation), Azure.Core.ResourceIdentifier resourceId = null, System.Collections.Generic.IEnumerable<Azure.Monitor.Query.Models.MetricResult> metrics = null) { throw null; }
         public static Azure.Monitor.Query.Models.MetricsQueryResult MetricsQueryResult(int? cost, string timespan, System.TimeSpan? granularity, string @namespace, string resourceRegion, System.Collections.Generic.IReadOnlyList<Azure.Monitor.Query.Models.MetricResult> metrics) { throw null; }
         public static Azure.Monitor.Query.Models.MetricTimeSeriesElement MetricTimeSeriesElement(System.Collections.Generic.IReadOnlyDictionary<string, string> metadataValues, System.Collections.Generic.IEnumerable<Azure.Monitor.Query.Models.MetricValue> values) { throw null; }
         public static Azure.Monitor.Query.Models.MetricValue MetricValue(System.DateTimeOffset timeStamp = default(System.DateTimeOffset), double? average = default(double?), double? minimum = default(double?), double? maximum = default(double?), double? total = default(double?), double? count = default(double?)) { throw null; }

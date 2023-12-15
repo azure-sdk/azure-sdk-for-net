@@ -5,11 +5,11 @@ Run `dotnet build /t:GenerateCode` to generate code.
 ``` yaml
 title: MonitorQuery
 input-file:
-    - https://raw.githubusercontent.com/Azure/azure-rest-api-specs/21f5332f2dc7437d1446edf240e9a3d4c90c6431/specification/operationalinsights/data-plane/Microsoft.OperationalInsights/stable/2022-10-27/OperationalInsights.json
-    - https://raw.githubusercontent.com/Azure/azure-rest-api-specs/21f5332f2dc7437d1446edf240e9a3d4c90c6431/specification/monitor/data-plane/Microsoft.Insights/preview/2023-05-01-preview/metricBatch.json
-    - https://raw.githubusercontent.com/Azure/azure-rest-api-specs/21f5332f2dc7437d1446edf240e9a3d4c90c6431/specification/monitor/resource-manager/Microsoft.Insights/stable/2018-01-01/metricDefinitions_API.json
-    - https://raw.githubusercontent.com/Azure/azure-rest-api-specs/21f5332f2dc7437d1446edf240e9a3d4c90c6431/specification/monitor/resource-manager/Microsoft.Insights/preview/2017-12-01-preview/metricNamespaces_API.json
-    - https://raw.githubusercontent.com/Azure/azure-rest-api-specs/21f5332f2dc7437d1446edf240e9a3d4c90c6431/specification/monitor/resource-manager/Microsoft.Insights/stable/2018-01-01/metrics_API.json
+    - https://github.com/Azure/azure-rest-api-specs/blob/ab9a77a2eb0aeb756931bf8a1e467d2ea4af6f65/specification/operationalinsights/data-plane/Microsoft.OperationalInsights/stable/2022-10-27/OperationalInsights.json
+    - https://github.com/Azure/azure-rest-api-specs/blob/ab9a77a2eb0aeb756931bf8a1e467d2ea4af6f65/specification/monitor/data-plane/Microsoft.Insights/preview/2023-05-01-preview/metricBatch.json
+    - https://github.com/Azure/azure-rest-api-specs/blob/ab9a77a2eb0aeb756931bf8a1e467d2ea4af6f65/specification/monitor/resource-manager/Microsoft.Insights/stable/2018-01-01/metricDefinitions_API.json
+    - https://github.com/Azure/azure-rest-api-specs/blob/ab9a77a2eb0aeb756931bf8a1e467d2ea4af6f65/specification/monitor/resource-manager/Microsoft.Insights/preview/2017-12-01-preview/metricNamespaces_API.json
+    - https://github.com/Azure/azure-rest-api-specs/blob/ab9a77a2eb0aeb756931bf8a1e467d2ea4af6f65/specification/monitor/resource-manager/Microsoft.Insights/stable/2018-01-01/metrics_API.json
 generation1-convenience-client: true
 modelerfour:
     lenient-model-deduplication: true
