@@ -155,6 +155,7 @@ namespace Azure.ResourceManager.DataFactory.Models
                     case "TabularSource": return TabularSource.DeserializeTabularSource(element);
                     case "TeradataSource": return TeradataSource.DeserializeTeradataSource(element);
                     case "VerticaSource": return VerticaSource.DeserializeVerticaSource(element);
+                    case "WarehouseSource": return WarehouseSource.DeserializeWarehouseSource(element);
                     case "WebSource": return WebSource.DeserializeWebSource(element);
                     case "XeroSource": return XeroSource.DeserializeXeroSource(element);
                     case "XmlSource": return XmlSource.DeserializeXmlSource(element);

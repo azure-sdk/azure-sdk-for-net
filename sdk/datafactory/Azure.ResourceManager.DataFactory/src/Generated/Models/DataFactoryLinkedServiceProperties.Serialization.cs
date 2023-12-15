@@ -195,6 +195,7 @@ namespace Azure.ResourceManager.DataFactory.Models
                     case "Teradata": return TeradataLinkedService.DeserializeTeradataLinkedService(element);
                     case "Twilio": return TwilioLinkedService.DeserializeTwilioLinkedService(element);
                     case "Vertica": return VerticaLinkedService.DeserializeVerticaLinkedService(element);
+                    case "Warehouse": return WarehouseLinkedService.DeserializeWarehouseLinkedService(element);
                     case "Web": return WebLinkedService.DeserializeWebLinkedService(element);
                     case "Xero": return XeroLinkedService.DeserializeXeroLinkedService(element);
                     case "Zendesk": return ZendeskLinkedService.DeserializeZendeskLinkedService(element);

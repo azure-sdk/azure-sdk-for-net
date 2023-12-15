@@ -190,6 +190,7 @@ namespace Azure.ResourceManager.DataFactory.Models
                     case "SybaseTable": return SybaseTableDataset.DeserializeSybaseTableDataset(element);
                     case "TeradataTable": return TeradataTableDataset.DeserializeTeradataTableDataset(element);
                     case "VerticaTable": return VerticaTableDataset.DeserializeVerticaTableDataset(element);
+                    case "WarehouseTable": return WarehouseTableDataset.DeserializeWarehouseTableDataset(element);
                     case "WebTable": return WebTableDataset.DeserializeWebTableDataset(element);
                     case "XeroObject": return XeroObjectDataset.DeserializeXeroObjectDataset(element);
                     case "Xml": return XmlDataset.DeserializeXmlDataset(element);
