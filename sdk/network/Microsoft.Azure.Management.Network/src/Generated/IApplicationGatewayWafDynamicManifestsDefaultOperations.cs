@@ -26,7 +26,7 @@ namespace Microsoft.Azure.Management.Network
         /// <summary>
         /// Gets the regional application gateway waf manifest.
         /// </summary>
-        /// <param name='location'>
+        /// <param name='locations'>
         /// The region where the nrp are located at.
         /// </param>
         /// <param name='customHeaders'>
@@ -44,6 +44,6 @@ namespace Microsoft.Azure.Management.Network
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<ApplicationGatewayWafDynamicManifestResult>> GetWithHttpMessagesAsync(string location, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<ApplicationGatewayWafDynamicManifestResult>> GetWithHttpMessagesAsync(string locations, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
     }
 }
