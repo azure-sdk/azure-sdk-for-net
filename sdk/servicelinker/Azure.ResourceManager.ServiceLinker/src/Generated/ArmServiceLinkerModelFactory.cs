@@ -17,6 +17,44 @@ namespace Azure.ResourceManager.ServiceLinker.Models
     /// <summary> Model factory for models. </summary>
     public static partial class ArmServiceLinkerModelFactory
     {
+        /// <summary> Initializes a new instance of <see cref="ServiceLinker.DryrunResourceData"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="parameters">
+        /// The parameters of the dryrun
+        /// Please note <see cref="DryrunParameters"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
+        /// The available derived classes include <see cref="Models.CreateOrUpdateDryrunParameters"/>.
+        /// </param>
+        /// <param name="prerequisiteResults">
+        /// the result of the dryrun
+        /// Please note <see cref="DryrunPrerequisiteResult"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
+        /// The available derived classes include <see cref="Models.BasicErrorDryrunPrerequisiteResult"/> and <see cref="Models.PermissionsMissingDryrunPrerequisiteResult"/>.
+        /// </param>
+        /// <param name="operationPreviews"> the preview of the operations for creation. </param>
+        /// <param name="provisioningState"> The provisioning state. </param>
+        /// <returns> A new <see cref="ServiceLinker.DryrunResourceData"/> instance for mocking. </returns>
+        public static DryrunResourceData DryrunResourceData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, DryrunParameters parameters = null, IEnumerable<DryrunPrerequisiteResult> prerequisiteResults = null, IEnumerable<DryrunOperationPreview> operationPreviews = null, string provisioningState = null)
+        {
+            prerequisiteResults ??= new List<DryrunPrerequisiteResult>();
+            operationPreviews ??= new List<DryrunOperationPreview>();
+
+            return new DryrunResourceData(id, name, resourceType, systemData, parameters, prerequisiteResults?.ToList(), operationPreviews?.ToList(), provisioningState);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.DryrunOperationPreview"/>. </summary>
+        /// <param name="name"> The operation name. </param>
+        /// <param name="operationType"> The operation type. </param>
+        /// <param name="description"> The description of the operation. </param>
+        /// <param name="action"> The action defined by RBAC, refer https://docs.microsoft.com/azure/role-based-access-control/role-definitions#actions-format. </param>
+        /// <param name="scope"> The scope of the operation, refer https://docs.microsoft.com/azure/role-based-access-control/scope-overview. </param>
+        /// <returns> A new <see cref="Models.DryrunOperationPreview"/> instance for mocking. </returns>
+        public static DryrunOperationPreview DryrunOperationPreview(string name = null, DryrunPreviewOperationType? operationType = null, string description = null, string action = null, string scope = null)
+        {
+            return new DryrunOperationPreview(name, operationType, description, action, scope);
+        }
+
         /// <summary> Initializes a new instance of <see cref="ServiceLinker.LinkerResourceData"/>. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
@@ -25,32 +63,34 @@ namespace Azure.ResourceManager.ServiceLinker.Models
         /// <param name="targetService">
         /// The target service properties
         /// Please note <see cref="TargetServiceBaseInfo"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-        /// The available derived classes include <see cref="AzureResourceInfo"/>, <see cref="ConfluentBootstrapServerInfo"/> and <see cref="ConfluentSchemaRegistryInfo"/>.
+        /// The available derived classes include <see cref="AzureResourceInfo"/>, <see cref="ConfluentBootstrapServerInfo"/>, <see cref="ConfluentSchemaRegistryInfo"/> and <see cref="SelfHostedServer"/>.
         /// </param>
         /// <param name="authInfo">
         /// The authentication type.
         /// Please note <see cref="AuthBaseInfo"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
-        /// The available derived classes include <see cref="SecretAuthInfo"/>, <see cref="ServicePrincipalCertificateAuthInfo"/>, <see cref="ServicePrincipalSecretAuthInfo"/>, <see cref="SystemAssignedIdentityAuthInfo"/> and <see cref="UserAssignedIdentityAuthInfo"/>.
+        /// The available derived classes include <see cref="AccessKeyInfoBase"/>, <see cref="SecretAuthInfo"/>, <see cref="ServicePrincipalCertificateAuthInfo"/>, <see cref="ServicePrincipalSecretAuthInfo"/>, <see cref="SystemAssignedIdentityAuthInfo"/>, <see cref="UserAccountAuthInfo"/> and <see cref="UserAssignedIdentityAuthInfo"/>.
         /// </param>
         /// <param name="clientType"> The application client type. </param>
         /// <param name="provisioningState"> The provisioning state. </param>
-        /// <param name="solutionType"> The VNet solution. </param>
-        /// <param name="secretStoreKeyVaultId"> An option to store secret value in secure place. </param>
+        /// <param name="vnetSolution"> The VNet solution. </param>
+        /// <param name="secretStore"> An option to store secret value in secure place. </param>
         /// <param name="scope"> connection scope in source service. </param>
+        /// <param name="publicNetworkSolution"> The network solution. </param>
+        /// <param name="configurationInfo"> The connection information consumed by applications, including secrets, connection strings. </param>
         /// <returns> A new <see cref="ServiceLinker.LinkerResourceData"/> instance for mocking. </returns>
-        public static LinkerResourceData LinkerResourceData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, TargetServiceBaseInfo targetService = null, AuthBaseInfo authInfo = null, LinkerClientType? clientType = null, string provisioningState = null, VnetSolutionType? solutionType = null, ResourceIdentifier secretStoreKeyVaultId = null, string scope = null)
+        public static LinkerResourceData LinkerResourceData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, TargetServiceBaseInfo targetService = null, AuthBaseInfo authInfo = null, LinkerClientType? clientType = null, string provisioningState = null, VnetSolution vnetSolution = null, LinkerSecretStore secretStore = null, string scope = null, PublicNetworkSolution publicNetworkSolution = null, ConfigurationInfo configurationInfo = null)
         {
-            return new LinkerResourceData(id, name, resourceType, systemData, targetService, authInfo, clientType, provisioningState, solutionType != null ? new VnetSolution(solutionType) : null, secretStoreKeyVaultId != null ? new LinkerSecretStore(secretStoreKeyVaultId) : null, scope);
+            return new LinkerResourceData(id, name, resourceType, systemData, targetService, authInfo, clientType, provisioningState, vnetSolution, secretStore, scope, publicNetworkSolution, configurationInfo);
         }
 
         /// <summary> Initializes a new instance of <see cref="Models.LinkerValidateOperationResult"/>. </summary>
-        /// <param name="resourceId"> Validated linker id. </param>
+        /// <param name="resourceId"> Validated Linker id. </param>
         /// <param name="status"> Validation operation status. </param>
         /// <param name="linkerName"> The linker name. </param>
         /// <param name="isConnectionAvailable"> A boolean value indicating whether the connection is available or not. </param>
         /// <param name="reportStartOn"> The start time of the validation report. </param>
         /// <param name="reportEndOn"> The end time of the validation report. </param>
-        /// <param name="sourceId"> The resource id of the linker source application. </param>
+        /// <param name="sourceId"> The resource id of the Linker source application. </param>
         /// <param name="targetId"> The resource Id of target service. </param>
         /// <param name="authType"> The authentication type. </param>
         /// <param name="validationDetail"> The detail of validation result. </param>
@@ -74,14 +114,14 @@ namespace Azure.ResourceManager.ServiceLinker.Models
             return new LinkerValidationResultItemInfo(name, description, result, errorMessage, errorCode);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.SourceConfigurationResult"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="Models.ConfigurationResult"/>. </summary>
         /// <param name="configurations"> The configuration properties for source resource. </param>
-        /// <returns> A new <see cref="Models.SourceConfigurationResult"/> instance for mocking. </returns>
-        public static SourceConfigurationResult SourceConfigurationResult(IEnumerable<SourceConfiguration> configurations = null)
+        /// <returns> A new <see cref="Models.ConfigurationResult"/> instance for mocking. </returns>
+        public static ConfigurationResult ConfigurationResult(IEnumerable<SourceConfiguration> configurations = null)
         {
             configurations ??= new List<SourceConfiguration>();
 
-            return new SourceConfigurationResult(configurations?.ToList());
+            return new ConfigurationResult(configurations?.ToList());
         }
 
         /// <summary> Initializes a new instance of <see cref="Models.SourceConfiguration"/>. </summary>
@@ -91,6 +131,75 @@ namespace Azure.ResourceManager.ServiceLinker.Models
         public static SourceConfiguration SourceConfiguration(string name = null, string value = null)
         {
             return new SourceConfiguration(name, value);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.ConfigurationNameItem"/>. </summary>
+        /// <param name="targetService"> The target service provider name and resource name. </param>
+        /// <param name="clientType"> The client type for configuration names. </param>
+        /// <param name="authType"> The auth type. </param>
+        /// <param name="daprProperties"> Indicates some additional properties for dapr client type. </param>
+        /// <param name="names"> The configuration names to be set in compute service environment. </param>
+        /// <returns> A new <see cref="Models.ConfigurationNameItem"/> instance for mocking. </returns>
+        public static ConfigurationNameItem ConfigurationNameItem(string targetService = null, LinkerClientType? clientType = null, LinkerAuthType? authType = null, DaprProperties daprProperties = null, IEnumerable<ConfigurationName> names = null)
+        {
+            names ??= new List<ConfigurationName>();
+
+            return new ConfigurationNameItem(targetService, clientType, authType, daprProperties, names?.ToList());
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.ConfigurationName"/>. </summary>
+        /// <param name="value"></param>
+        /// <param name="description"> Description for the configuration name. </param>
+        /// <param name="required"> Represent the configuration is required or not. </param>
+        /// <returns> A new <see cref="Models.ConfigurationName"/> instance for mocking. </returns>
+        public static ConfigurationName ConfigurationName(string value = null, string description = null, bool? required = null)
+        {
+            return new ConfigurationName(value, description, required);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.CreateOrUpdateDryrunParameters"/>. </summary>
+        /// <param name="targetService">
+        /// The target service properties
+        /// Please note <see cref="TargetServiceBaseInfo"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
+        /// The available derived classes include <see cref="AzureResourceInfo"/>, <see cref="ConfluentBootstrapServerInfo"/>, <see cref="ConfluentSchemaRegistryInfo"/> and <see cref="SelfHostedServer"/>.
+        /// </param>
+        /// <param name="authInfo">
+        /// The authentication type.
+        /// Please note <see cref="AuthBaseInfo"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
+        /// The available derived classes include <see cref="AccessKeyInfoBase"/>, <see cref="SecretAuthInfo"/>, <see cref="ServicePrincipalCertificateAuthInfo"/>, <see cref="ServicePrincipalSecretAuthInfo"/>, <see cref="SystemAssignedIdentityAuthInfo"/>, <see cref="UserAccountAuthInfo"/> and <see cref="UserAssignedIdentityAuthInfo"/>.
+        /// </param>
+        /// <param name="clientType"> The application client type. </param>
+        /// <param name="provisioningState"> The provisioning state. </param>
+        /// <param name="vnetSolution"> The VNet solution. </param>
+        /// <param name="secretStore"> An option to store secret value in secure place. </param>
+        /// <param name="scope"> connection scope in source service. </param>
+        /// <param name="publicNetworkSolution"> The network solution. </param>
+        /// <param name="configurationInfo"> The connection information consumed by applications, including secrets, connection strings. </param>
+        /// <returns> A new <see cref="Models.CreateOrUpdateDryrunParameters"/> instance for mocking. </returns>
+        public static CreateOrUpdateDryrunParameters CreateOrUpdateDryrunParameters(TargetServiceBaseInfo targetService = null, AuthBaseInfo authInfo = null, LinkerClientType? clientType = null, string provisioningState = null, VnetSolution vnetSolution = null, LinkerSecretStore secretStore = null, string scope = null, PublicNetworkSolution publicNetworkSolution = null, ConfigurationInfo configurationInfo = null)
+        {
+            return new CreateOrUpdateDryrunParameters(DryrunActionName.CreateOrUpdate, targetService, authInfo, clientType, provisioningState, vnetSolution, secretStore, scope, publicNetworkSolution, configurationInfo);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.BasicErrorDryrunPrerequisiteResult"/>. </summary>
+        /// <param name="code"> The error code. </param>
+        /// <param name="message"> The error message. </param>
+        /// <returns> A new <see cref="Models.BasicErrorDryrunPrerequisiteResult"/> instance for mocking. </returns>
+        public static BasicErrorDryrunPrerequisiteResult BasicErrorDryrunPrerequisiteResult(string code = null, string message = null)
+        {
+            return new BasicErrorDryrunPrerequisiteResult(DryrunPrerequisiteResultType.BasicError, code, message);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.PermissionsMissingDryrunPrerequisiteResult"/>. </summary>
+        /// <param name="scope"> The permission scope. </param>
+        /// <param name="permissions"> The permission list. </param>
+        /// <param name="recommendedRole"> The recommended role to resolve permissions missing. </param>
+        /// <returns> A new <see cref="Models.PermissionsMissingDryrunPrerequisiteResult"/> instance for mocking. </returns>
+        public static PermissionsMissingDryrunPrerequisiteResult PermissionsMissingDryrunPrerequisiteResult(string scope = null, IEnumerable<string> permissions = null, string recommendedRole = null)
+        {
+            permissions ??= new List<string>();
+
+            return new PermissionsMissingDryrunPrerequisiteResult(DryrunPrerequisiteResultType.PermissionsMissing, scope, permissions?.ToList(), recommendedRole);
         }
     }
 }
