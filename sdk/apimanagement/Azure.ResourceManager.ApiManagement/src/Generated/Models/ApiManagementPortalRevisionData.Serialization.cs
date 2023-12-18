@@ -50,6 +50,7 @@ namespace Azure.ResourceManager.ApiManagement
             Optional<bool> isCurrent = default;
             Optional<DateTimeOffset> createdDateTime = default;
             Optional<DateTimeOffset> updatedDateTime = default;
+            Optional<string> provisioningState = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("id"u8))
@@ -131,11 +132,16 @@ namespace Azure.ResourceManager.ApiManagement
                             updatedDateTime = property0.Value.GetDateTimeOffset("O");
                             continue;
                         }
+                        if (property0.NameEquals("provisioningState"u8))
+                        {
+                            provisioningState = property0.Value.GetString();
+                            continue;
+                        }
                     }
                     continue;
                 }
             }
-            return new ApiManagementPortalRevisionData(id, name, type, systemData.Value, description.Value, statusDetails.Value, Optional.ToNullable(status), Optional.ToNullable(isCurrent), Optional.ToNullable(createdDateTime), Optional.ToNullable(updatedDateTime));
+            return new ApiManagementPortalRevisionData(id, name, type, systemData.Value, description.Value, statusDetails.Value, Optional.ToNullable(status), Optional.ToNullable(isCurrent), Optional.ToNullable(createdDateTime), Optional.ToNullable(updatedDateTime), provisioningState.Value);
         }
     }
 }

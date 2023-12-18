@@ -21,8 +21,8 @@ namespace Azure.ResourceManager.ApiManagement
 {
     /// <summary>
     /// A class representing a collection of <see cref="ApiIssueResource"/> and their operations.
-    /// Each <see cref="ApiIssueResource"/> in the collection will belong to the same instance of <see cref="ApiResource"/>.
-    /// To get an <see cref="ApiIssueCollection"/> instance call the GetApiIssues method from an instance of <see cref="ApiResource"/>.
+    /// Each <see cref="ApiIssueResource"/> in the collection will belong to the same instance of <see cref="ServiceApiResource"/>.
+    /// To get an <see cref="ApiIssueCollection"/> instance call the GetApiIssues method from an instance of <see cref="ServiceApiResource"/>.
     /// </summary>
     public partial class ApiIssueCollection : ArmCollection, IEnumerable<ApiIssueResource>, IAsyncEnumerable<ApiIssueResource>
     {
@@ -49,8 +49,8 @@ namespace Azure.ResourceManager.ApiManagement
 
         internal static void ValidateResourceId(ResourceIdentifier id)
         {
-            if (id.ResourceType != ApiResource.ResourceType)
-                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, ApiResource.ResourceType), nameof(id));
+            if (id.ResourceType != ServiceApiResource.ResourceType)
+                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, "Invalid resource type {0} expected {1}", id.ResourceType, ServiceApiResource.ResourceType), nameof(id));
         }
 
         /// <summary>

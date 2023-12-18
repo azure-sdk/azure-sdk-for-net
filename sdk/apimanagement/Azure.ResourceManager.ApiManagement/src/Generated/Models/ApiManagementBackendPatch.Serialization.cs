@@ -52,6 +52,21 @@ namespace Azure.ResourceManager.ApiManagement.Models
                 writer.WritePropertyName("tls"u8);
                 writer.WriteObjectValue(Tls);
             }
+            if (Optional.IsDefined(CircuitBreaker))
+            {
+                writer.WritePropertyName("circuitBreaker"u8);
+                writer.WriteObjectValue(CircuitBreaker);
+            }
+            if (Optional.IsDefined(Pool))
+            {
+                writer.WritePropertyName("pool"u8);
+                writer.WriteObjectValue(Pool);
+            }
+            if (Optional.IsDefined(BackendType))
+            {
+                writer.WritePropertyName("type"u8);
+                writer.WriteStringValue(BackendType.Value.ToString());
+            }
             if (Optional.IsDefined(Uri))
             {
                 writer.WritePropertyName("url"u8);
