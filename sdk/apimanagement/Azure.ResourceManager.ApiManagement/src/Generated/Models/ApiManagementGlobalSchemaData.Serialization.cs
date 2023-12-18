@@ -72,6 +72,7 @@ namespace Azure.ResourceManager.ApiManagement
             Optional<string> description = default;
             Optional<BinaryData> value = default;
             Optional<BinaryData> document = default;
+            Optional<string> provisioningState = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("id"u8))
@@ -139,11 +140,16 @@ namespace Azure.ResourceManager.ApiManagement
                             document = BinaryData.FromString(property0.Value.GetRawText());
                             continue;
                         }
+                        if (property0.NameEquals("provisioningState"u8))
+                        {
+                            provisioningState = property0.Value.GetString();
+                            continue;
+                        }
                     }
                     continue;
                 }
             }
-            return new ApiManagementGlobalSchemaData(id, name, type, systemData.Value, Optional.ToNullable(schemaType), description.Value, value.Value, document.Value);
+            return new ApiManagementGlobalSchemaData(id, name, type, systemData.Value, Optional.ToNullable(schemaType), description.Value, value.Value, document.Value, provisioningState.Value);
         }
     }
 }

@@ -6,6 +6,7 @@
 #nullable disable
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
@@ -593,6 +594,202 @@ namespace Azure.ResourceManager.ApiManagement
             try
             {
                 var response = _apiManagementGatewayGatewayRestClient.GenerateToken(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, gatewayTokenRequestContract, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Action is invalidating all debug credentials issued for gateway.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/gateways/{gatewayId}/invalidateDebugCredentials</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Gateway_InvalidateDebugCredentials</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual async Task<Response> InvalidateDebugCredentialsAsync(CancellationToken cancellationToken = default)
+        {
+            using var scope = _apiManagementGatewayGatewayClientDiagnostics.CreateScope("ApiManagementGatewayResource.InvalidateDebugCredentials");
+            scope.Start();
+            try
+            {
+                var response = await _apiManagementGatewayGatewayRestClient.InvalidateDebugCredentialsAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Action is invalidating all debug credentials issued for gateway.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/gateways/{gatewayId}/invalidateDebugCredentials</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Gateway_InvalidateDebugCredentials</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual Response InvalidateDebugCredentials(CancellationToken cancellationToken = default)
+        {
+            using var scope = _apiManagementGatewayGatewayClientDiagnostics.CreateScope("ApiManagementGatewayResource.InvalidateDebugCredentials");
+            scope.Start();
+            try
+            {
+                var response = _apiManagementGatewayGatewayRestClient.InvalidateDebugCredentials(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Create new debug credentials for gateway.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/gateways/{gatewayId}/listDebugCredentials</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Gateway_ListDebugCredentials</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="gatewayListDebugCredentialsContract"> List debug credentials properties. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="gatewayListDebugCredentialsContract"/> is null. </exception>
+        public virtual async Task<Response<GatewayDebugCredentialsContract>> GetDebugCredentialsAsync(GatewayListDebugCredentialsContract gatewayListDebugCredentialsContract, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(gatewayListDebugCredentialsContract, nameof(gatewayListDebugCredentialsContract));
+
+            using var scope = _apiManagementGatewayGatewayClientDiagnostics.CreateScope("ApiManagementGatewayResource.GetDebugCredentials");
+            scope.Start();
+            try
+            {
+                var response = await _apiManagementGatewayGatewayRestClient.ListDebugCredentialsAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, gatewayListDebugCredentialsContract, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Create new debug credentials for gateway.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/gateways/{gatewayId}/listDebugCredentials</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Gateway_ListDebugCredentials</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="gatewayListDebugCredentialsContract"> List debug credentials properties. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="gatewayListDebugCredentialsContract"/> is null. </exception>
+        public virtual Response<GatewayDebugCredentialsContract> GetDebugCredentials(GatewayListDebugCredentialsContract gatewayListDebugCredentialsContract, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(gatewayListDebugCredentialsContract, nameof(gatewayListDebugCredentialsContract));
+
+            using var scope = _apiManagementGatewayGatewayClientDiagnostics.CreateScope("ApiManagementGatewayResource.GetDebugCredentials");
+            scope.Start();
+            try
+            {
+                var response = _apiManagementGatewayGatewayRestClient.ListDebugCredentials(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, gatewayListDebugCredentialsContract, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Fetches trace collected by gateway.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/gateways/{gatewayId}/listTrace</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Gateway_ListTrace</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="gatewayListTraceContract"> List trace properties. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="gatewayListTraceContract"/> is null. </exception>
+        public virtual async Task<Response<IReadOnlyDictionary<string, BinaryData>>> GetTraceAsync(GatewayListTraceContract gatewayListTraceContract, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(gatewayListTraceContract, nameof(gatewayListTraceContract));
+
+            using var scope = _apiManagementGatewayGatewayClientDiagnostics.CreateScope("ApiManagementGatewayResource.GetTrace");
+            scope.Start();
+            try
+            {
+                var response = await _apiManagementGatewayGatewayRestClient.ListTraceAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, gatewayListTraceContract, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Fetches trace collected by gateway.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/gateways/{gatewayId}/listTrace</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Gateway_ListTrace</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="gatewayListTraceContract"> List trace properties. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="gatewayListTraceContract"/> is null. </exception>
+        public virtual Response<IReadOnlyDictionary<string, BinaryData>> GetTrace(GatewayListTraceContract gatewayListTraceContract, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(gatewayListTraceContract, nameof(gatewayListTraceContract));
+
+            using var scope = _apiManagementGatewayGatewayClientDiagnostics.CreateScope("ApiManagementGatewayResource.GetTrace");
+            scope.Start();
+            try
+            {
+                var response = _apiManagementGatewayGatewayRestClient.ListTrace(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, gatewayListTraceContract, cancellationToken);
                 return response;
             }
             catch (Exception e)

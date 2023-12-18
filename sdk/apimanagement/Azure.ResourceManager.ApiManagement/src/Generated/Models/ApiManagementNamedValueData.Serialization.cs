@@ -69,6 +69,7 @@ namespace Azure.ResourceManager.ApiManagement
             Optional<string> displayName = default;
             Optional<string> value = default;
             Optional<KeyVaultContractProperties> keyVault = default;
+            Optional<string> provisioningState = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("id"u8))
@@ -146,11 +147,16 @@ namespace Azure.ResourceManager.ApiManagement
                             keyVault = KeyVaultContractProperties.DeserializeKeyVaultContractProperties(property0.Value);
                             continue;
                         }
+                        if (property0.NameEquals("provisioningState"u8))
+                        {
+                            provisioningState = property0.Value.GetString();
+                            continue;
+                        }
                     }
                     continue;
                 }
             }
-            return new ApiManagementNamedValueData(id, name, type, systemData.Value, Optional.ToList(tags), Optional.ToNullable(secret), displayName.Value, value.Value, keyVault.Value);
+            return new ApiManagementNamedValueData(id, name, type, systemData.Value, Optional.ToList(tags), Optional.ToNullable(secret), displayName.Value, value.Value, keyVault.Value, provisioningState.Value);
         }
     }
 }

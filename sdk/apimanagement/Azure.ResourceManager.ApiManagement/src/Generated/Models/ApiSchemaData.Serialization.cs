@@ -71,6 +71,7 @@ namespace Azure.ResourceManager.ApiManagement
             ResourceType type = default;
             Optional<SystemData> systemData = default;
             Optional<string> contentType = default;
+            Optional<string> provisioningState = default;
             Optional<string> value = default;
             Optional<BinaryData> definitions = default;
             Optional<BinaryData> components = default;
@@ -114,6 +115,11 @@ namespace Azure.ResourceManager.ApiManagement
                             contentType = property0.Value.GetString();
                             continue;
                         }
+                        if (property0.NameEquals("provisioningState"u8))
+                        {
+                            provisioningState = property0.Value.GetString();
+                            continue;
+                        }
                         if (property0.NameEquals("document"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -153,7 +159,7 @@ namespace Azure.ResourceManager.ApiManagement
                     continue;
                 }
             }
-            return new ApiSchemaData(id, name, type, systemData.Value, contentType.Value, value.Value, definitions.Value, components.Value);
+            return new ApiSchemaData(id, name, type, systemData.Value, contentType.Value, provisioningState.Value, value.Value, definitions.Value, components.Value);
         }
     }
 }
