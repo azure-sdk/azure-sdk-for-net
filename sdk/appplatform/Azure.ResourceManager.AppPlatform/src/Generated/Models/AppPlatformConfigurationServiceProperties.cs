@@ -21,12 +21,14 @@ namespace Azure.ResourceManager.AppPlatform.Models
 
         /// <summary> Initializes a new instance of <see cref="AppPlatformConfigurationServiceProperties"/>. </summary>
         /// <param name="provisioningState"> State of the Application Configuration Service. </param>
+        /// <param name="generation"> The generation of the Application Configuration Service. </param>
         /// <param name="resourceRequests"> The requested resource quantity for required CPU and Memory. </param>
         /// <param name="instances"> Collection of instances belong to Application Configuration Service. </param>
         /// <param name="settings"> The settings of Application Configuration Service. </param>
-        internal AppPlatformConfigurationServiceProperties(AppPlatformConfigurationServiceProvisioningState? provisioningState, AppPlatformConfigurationServiceRequirements resourceRequests, IReadOnlyList<AppPlatformConfigurationServiceInstance> instances, AppPlatformConfigurationServiceSettings settings)
+        internal AppPlatformConfigurationServiceProperties(AppPlatformConfigurationServiceProvisioningState? provisioningState, ConfigurationServiceGeneration? generation, AppPlatformConfigurationServiceRequirements resourceRequests, IReadOnlyList<AppPlatformConfigurationServiceInstance> instances, AppPlatformConfigurationServiceSettings settings)
         {
             ProvisioningState = provisioningState;
+            Generation = generation;
             ResourceRequests = resourceRequests;
             Instances = instances;
             Settings = settings;
@@ -34,6 +36,8 @@ namespace Azure.ResourceManager.AppPlatform.Models
 
         /// <summary> State of the Application Configuration Service. </summary>
         public AppPlatformConfigurationServiceProvisioningState? ProvisioningState { get; }
+        /// <summary> The generation of the Application Configuration Service. </summary>
+        public ConfigurationServiceGeneration? Generation { get; set; }
         /// <summary> The requested resource quantity for required CPU and Memory. </summary>
         public AppPlatformConfigurationServiceRequirements ResourceRequests { get; }
         /// <summary> Collection of instances belong to Application Configuration Service. </summary>

@@ -42,6 +42,26 @@ namespace Azure.ResourceManager.AppPlatform.Models
                 writer.WritePropertyName("corsProperties"u8);
                 writer.WriteObjectValue(CorsProperties);
             }
+            if (Optional.IsDefined(ClientAuth))
+            {
+                writer.WritePropertyName("clientAuth"u8);
+                writer.WriteObjectValue(ClientAuth);
+            }
+            if (Optional.IsCollectionDefined(Apms))
+            {
+                writer.WritePropertyName("apms"u8);
+                writer.WriteStartArray();
+                foreach (var item in Apms)
+                {
+                    writer.WriteObjectValue(item);
+                }
+                writer.WriteEndArray();
+            }
+            if (Optional.IsDefined(EnvironmentVariables))
+            {
+                writer.WritePropertyName("environmentVariables"u8);
+                writer.WriteObjectValue(EnvironmentVariables);
+            }
             if (Optional.IsDefined(ResourceRequests))
             {
                 writer.WritePropertyName("resourceRequests"u8);
@@ -63,6 +83,9 @@ namespace Azure.ResourceManager.AppPlatform.Models
             Optional<AppPlatformSsoProperties> ssoProperties = default;
             Optional<AppPlatformGatewayApiMetadataProperties> apiMetadataProperties = default;
             Optional<AppPlatformGatewayCorsProperties> corsProperties = default;
+            Optional<GatewayPropertiesClientAuth> clientAuth = default;
+            Optional<IList<ApmReference>> apms = default;
+            Optional<GatewayPropertiesEnvironmentVariables> environmentVariables = default;
             Optional<AppPlatformGatewayResourceRequirements> resourceRequests = default;
             Optional<IReadOnlyList<AppPlatformGatewayInstance>> instances = default;
             Optional<AppPlatformGatewayOperatorProperties> operatorProperties = default;
@@ -131,6 +154,38 @@ namespace Azure.ResourceManager.AppPlatform.Models
                     corsProperties = AppPlatformGatewayCorsProperties.DeserializeAppPlatformGatewayCorsProperties(property.Value);
                     continue;
                 }
+                if (property.NameEquals("clientAuth"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    clientAuth = GatewayPropertiesClientAuth.DeserializeGatewayPropertiesClientAuth(property.Value);
+                    continue;
+                }
+                if (property.NameEquals("apms"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<ApmReference> array = new List<ApmReference>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(ApmReference.DeserializeApmReference(item));
+                    }
+                    apms = array;
+                    continue;
+                }
+                if (property.NameEquals("environmentVariables"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    environmentVariables = GatewayPropertiesEnvironmentVariables.DeserializeGatewayPropertiesEnvironmentVariables(property.Value);
+                    continue;
+                }
                 if (property.NameEquals("resourceRequests"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -164,7 +219,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
                     continue;
                 }
             }
-            return new AppPlatformGatewayProperties(Optional.ToNullable(provisioningState), Optional.ToNullable(@public), uri.Value, Optional.ToNullable(httpsOnly), ssoProperties.Value, apiMetadataProperties.Value, corsProperties.Value, resourceRequests.Value, Optional.ToList(instances), operatorProperties.Value);
+            return new AppPlatformGatewayProperties(Optional.ToNullable(provisioningState), Optional.ToNullable(@public), uri.Value, Optional.ToNullable(httpsOnly), ssoProperties.Value, apiMetadataProperties.Value, corsProperties.Value, clientAuth.Value, Optional.ToList(apms), environmentVariables.Value, resourceRequests.Value, Optional.ToList(instances), operatorProperties.Value);
         }
     }
 }
