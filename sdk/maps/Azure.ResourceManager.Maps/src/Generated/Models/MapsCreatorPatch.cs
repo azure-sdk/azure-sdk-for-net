@@ -23,11 +23,15 @@ namespace Azure.ResourceManager.Maps.Models
         /// <param name="tags"> Gets or sets a list of key value pairs that describe the resource. These tags can be used in viewing and grouping this resource (across resource groups). A maximum of 15 tags can be provided for a resource. Each tag must have a key no greater than 128 characters and value no greater than 256 characters. </param>
         /// <param name="provisioningState"> The state of the resource provisioning, terminal states: Succeeded, Failed, Canceled. </param>
         /// <param name="storageUnits"> The storage units to be allocated. Integer values from 1 to 100, inclusive. </param>
-        internal MapsCreatorPatch(IDictionary<string, string> tags, string provisioningState, int? storageUnits)
+        /// <param name="totalStorageUnitSizeInBytes"> The total allocated storage unit size in bytes for the creator resource. </param>
+        /// <param name="consumedStorageUnitSizeInBytes"> The consumed storage unit size in bytes for the creator resource. </param>
+        internal MapsCreatorPatch(IDictionary<string, string> tags, string provisioningState, int? storageUnits, int? totalStorageUnitSizeInBytes, int? consumedStorageUnitSizeInBytes)
         {
             Tags = tags;
             ProvisioningState = provisioningState;
             StorageUnits = storageUnits;
+            TotalStorageUnitSizeInBytes = totalStorageUnitSizeInBytes;
+            ConsumedStorageUnitSizeInBytes = consumedStorageUnitSizeInBytes;
         }
 
         /// <summary> Gets or sets a list of key value pairs that describe the resource. These tags can be used in viewing and grouping this resource (across resource groups). A maximum of 15 tags can be provided for a resource. Each tag must have a key no greater than 128 characters and value no greater than 256 characters. </summary>
@@ -36,5 +40,9 @@ namespace Azure.ResourceManager.Maps.Models
         public string ProvisioningState { get; }
         /// <summary> The storage units to be allocated. Integer values from 1 to 100, inclusive. </summary>
         public int? StorageUnits { get; set; }
+        /// <summary> The total allocated storage unit size in bytes for the creator resource. </summary>
+        public int? TotalStorageUnitSizeInBytes { get; set; }
+        /// <summary> The consumed storage unit size in bytes for the creator resource. </summary>
+        public int? ConsumedStorageUnitSizeInBytes { get; set; }
     }
 }

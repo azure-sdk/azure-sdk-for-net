@@ -145,6 +145,112 @@ namespace Azure.ResourceManager.Maps
             return GetMapsCreators().Get(creatorName, cancellationToken);
         }
 
+        /// <summary> Gets a collection of MapsPrivateLinkResources in the MapsAccount. </summary>
+        /// <returns> An object representing collection of MapsPrivateLinkResources and their operations over a MapsPrivateLinkResource. </returns>
+        public virtual MapsPrivateLinkResourceCollection GetMapsPrivateLinkResources()
+        {
+            return GetCachedClient(client => new MapsPrivateLinkResourceCollection(client, Id));
+        }
+
+        /// <summary>
+        /// Gets a private link resource by name which can be used for the Maps Account.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Maps/accounts/{accountName}/privateLinkResources/{privateLinkResourceName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>PrivateLinkResources_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="privateLinkResourceName"> The name of the private link resource. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="privateLinkResourceName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="privateLinkResourceName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<MapsPrivateLinkResource>> GetMapsPrivateLinkResourceAsync(string privateLinkResourceName, CancellationToken cancellationToken = default)
+        {
+            return await GetMapsPrivateLinkResources().GetAsync(privateLinkResourceName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets a private link resource by name which can be used for the Maps Account.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Maps/accounts/{accountName}/privateLinkResources/{privateLinkResourceName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>PrivateLinkResources_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="privateLinkResourceName"> The name of the private link resource. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="privateLinkResourceName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="privateLinkResourceName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<MapsPrivateLinkResource> GetMapsPrivateLinkResource(string privateLinkResourceName, CancellationToken cancellationToken = default)
+        {
+            return GetMapsPrivateLinkResources().Get(privateLinkResourceName, cancellationToken);
+        }
+
+        /// <summary> Gets a collection of MapsPrivateEndpointConnectionResources in the MapsAccount. </summary>
+        /// <returns> An object representing collection of MapsPrivateEndpointConnectionResources and their operations over a MapsPrivateEndpointConnectionResource. </returns>
+        public virtual MapsPrivateEndpointConnectionCollection GetMapsPrivateEndpointConnections()
+        {
+            return GetCachedClient(client => new MapsPrivateEndpointConnectionCollection(client, Id));
+        }
+
+        /// <summary>
+        /// Gets the specified private endpoint connection associated with the Maps Account.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Maps/accounts/{accountName}/privateEndpointConnections/{privateEndpointConnectionName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>PrivateEndpointConnections_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="privateEndpointConnectionName"> The name of the Private Endpoint Connection. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="privateEndpointConnectionName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="privateEndpointConnectionName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<MapsPrivateEndpointConnectionResource>> GetMapsPrivateEndpointConnectionAsync(string privateEndpointConnectionName, CancellationToken cancellationToken = default)
+        {
+            return await GetMapsPrivateEndpointConnections().GetAsync(privateEndpointConnectionName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets the specified private endpoint connection associated with the Maps Account.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Maps/accounts/{accountName}/privateEndpointConnections/{privateEndpointConnectionName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>PrivateEndpointConnections_Get</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="privateEndpointConnectionName"> The name of the Private Endpoint Connection. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="privateEndpointConnectionName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="privateEndpointConnectionName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<MapsPrivateEndpointConnectionResource> GetMapsPrivateEndpointConnection(string privateEndpointConnectionName, CancellationToken cancellationToken = default)
+        {
+            return GetMapsPrivateEndpointConnections().Get(privateEndpointConnectionName, cancellationToken);
+        }
+
         /// <summary>
         /// Get a Maps Account.
         /// <list type="bullet">
@@ -350,7 +456,7 @@ namespace Azure.ResourceManager.Maps
         ///
         /// Prerequisites:
         /// 1. Create or have an existing User Assigned Managed Identity in the same Azure region as the account.
-        /// 2. Create or update an Azure Map account with the same Azure region as the User Assigned Managed Identity is placed.
+        /// 2. Create or update an Azure Maps account with the same Azure region as the User Assigned Managed Identity is placed.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -388,7 +494,7 @@ namespace Azure.ResourceManager.Maps
         ///
         /// Prerequisites:
         /// 1. Create or have an existing User Assigned Managed Identity in the same Azure region as the account.
-        /// 2. Create or update an Azure Map account with the same Azure region as the User Assigned Managed Identity is placed.
+        /// 2. Create or update an Azure Maps account with the same Azure region as the User Assigned Managed Identity is placed.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
