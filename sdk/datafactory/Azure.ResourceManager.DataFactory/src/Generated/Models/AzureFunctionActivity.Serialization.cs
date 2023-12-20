@@ -116,7 +116,7 @@ namespace Azure.ResourceManager.DataFactory.Models
             Optional<IList<PipelineActivityUserProperty>> userProperties = default;
             AzureFunctionActivityMethod method = default;
             DataFactoryElement<string> functionName = default;
-            Optional<DataFactoryElement<string>> headers = default;
+            Optional<DataFactoryElement<IDictionary<string, string>>> headers = default;
             Optional<DataFactoryElement<string>> body = default;
             IDictionary<string, BinaryData> additionalProperties = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
@@ -226,7 +226,7 @@ namespace Azure.ResourceManager.DataFactory.Models
                             {
                                 continue;
                             }
-                            headers = JsonSerializer.Deserialize<DataFactoryElement<string>>(property0.Value.GetRawText());
+                            headers = JsonSerializer.Deserialize<DataFactoryElement<IDictionary<string, string>>>(property0.Value.GetRawText());
                             continue;
                         }
                         if (property0.NameEquals("body"u8))

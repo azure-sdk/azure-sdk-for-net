@@ -126,7 +126,7 @@ namespace Azure.ResourceManager.DataFactory.Models
             WebHookActivityMethod method = default;
             DataFactoryElement<string> url = default;
             Optional<string> timeout = default;
-            Optional<DataFactoryElement<string>> headers = default;
+            Optional<DataFactoryElement<IDictionary<string, string>>> headers = default;
             Optional<DataFactoryElement<string>> body = default;
             Optional<WebActivityAuthentication> authentication = default;
             Optional<DataFactoryElement<bool>> reportStatusOnCallBack = default;
@@ -234,7 +234,7 @@ namespace Azure.ResourceManager.DataFactory.Models
                             {
                                 continue;
                             }
-                            headers = JsonSerializer.Deserialize<DataFactoryElement<string>>(property0.Value.GetRawText());
+                            headers = JsonSerializer.Deserialize<DataFactoryElement<IDictionary<string, string>>>(property0.Value.GetRawText());
                             continue;
                         }
                         if (property0.NameEquals("body"u8))

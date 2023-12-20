@@ -105,7 +105,9 @@ namespace Azure.ResourceManager.DataFactory.Models
                     case "ParquetSink": return ParquetSink.DeserializeParquetSink(element);
                     case "RestSink": return RestSink.DeserializeRestSink(element);
                     case "SalesforceServiceCloudSink": return SalesforceServiceCloudSink.DeserializeSalesforceServiceCloudSink(element);
+                    case "SalesforceServiceCloudV2Sink": return SalesforceServiceCloudV2Sink.DeserializeSalesforceServiceCloudV2Sink(element);
                     case "SalesforceSink": return SalesforceSink.DeserializeSalesforceSink(element);
+                    case "SalesforceV2Sink": return SalesforceV2Sink.DeserializeSalesforceV2Sink(element);
                     case "SapCloudForCustomerSink": return SapCloudForCustomerSink.DeserializeSapCloudForCustomerSink(element);
                     case "SnowflakeSink": return SnowflakeSink.DeserializeSnowflakeSink(element);
                     case "SqlDWSink": return SqlDWSink.DeserializeSqlDWSink(element);

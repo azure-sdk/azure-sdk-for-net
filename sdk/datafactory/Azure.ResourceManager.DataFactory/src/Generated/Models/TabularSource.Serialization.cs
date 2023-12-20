@@ -121,6 +121,7 @@ namespace Azure.ResourceManager.DataFactory.Models
                     case "ResponsysSource": return ResponsysSource.DeserializeResponsysSource(element);
                     case "SalesforceMarketingCloudSource": return SalesforceMarketingCloudSource.DeserializeSalesforceMarketingCloudSource(element);
                     case "SalesforceSource": return SalesforceSource.DeserializeSalesforceSource(element);
+                    case "SalesforceV2Source": return SalesforceV2Source.DeserializeSalesforceV2Source(element);
                     case "SapBwSource": return SapBWSource.DeserializeSapBWSource(element);
                     case "SapCloudForCustomerSource": return SapCloudForCustomerSource.DeserializeSapCloudForCustomerSource(element);
                     case "SapEccSource": return SapEccSource.DeserializeSapEccSource(element);
