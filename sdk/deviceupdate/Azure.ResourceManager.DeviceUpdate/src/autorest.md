@@ -6,7 +6,7 @@ Run `dotnet build /t:GenerateCode` to generate code.
 
 azure-arm: true
 namespace: Azure.ResourceManager.DeviceUpdate
-require: https://github.com/Azure/azure-rest-api-specs/blob/c577452bb8022521a87142bcaaf2e4bde92b64c8/specification/deviceupdate/resource-manager/readme.md
+require: /mnt/vss/_work/1/s/azure-rest-api-specs/specification/deviceupdate/resource-manager/readme.md
 #tag: package-2023-07-01
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
