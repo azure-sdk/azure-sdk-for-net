@@ -27,12 +27,12 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            /// <param name='location'>
+            /// <param name='locations'>
             /// The region where the nrp are located at.
             /// </param>
-            public static ApplicationGatewayWafDynamicManifestResult Get(this IApplicationGatewayWafDynamicManifestsDefaultOperations operations, string location)
+            public static ApplicationGatewayWafDynamicManifestResult Get(this IApplicationGatewayWafDynamicManifestsDefaultOperations operations, string locations)
             {
-                return operations.GetAsync(location).GetAwaiter().GetResult();
+                return operations.GetAsync(locations).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -41,15 +41,15 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            /// <param name='location'>
+            /// <param name='locations'>
             /// The region where the nrp are located at.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<ApplicationGatewayWafDynamicManifestResult> GetAsync(this IApplicationGatewayWafDynamicManifestsDefaultOperations operations, string location, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ApplicationGatewayWafDynamicManifestResult> GetAsync(this IApplicationGatewayWafDynamicManifestsDefaultOperations operations, string locations, CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.GetWithHttpMessagesAsync(location, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.GetWithHttpMessagesAsync(locations, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
