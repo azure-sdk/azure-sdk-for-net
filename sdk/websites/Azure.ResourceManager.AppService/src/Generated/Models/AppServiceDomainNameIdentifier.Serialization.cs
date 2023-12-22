@@ -22,23 +22,5 @@ namespace Azure.ResourceManager.AppService.Models
             }
             writer.WriteEndObject();
         }
-
-        internal static AppServiceDomainNameIdentifier DeserializeAppServiceDomainNameIdentifier(JsonElement element)
-        {
-            if (element.ValueKind == JsonValueKind.Null)
-            {
-                return null;
-            }
-            Optional<string> name = default;
-            foreach (var property in element.EnumerateObject())
-            {
-                if (property.NameEquals("name"u8))
-                {
-                    name = property.Value.GetString();
-                    continue;
-                }
-            }
-            return new AppServiceDomainNameIdentifier(name.Value);
-        }
     }
 }
