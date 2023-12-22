@@ -5,6 +5,9 @@
 
 #nullable disable
 
+using System.Collections.Generic;
+using Azure.Core;
+
 namespace Azure.ResourceManager.ServiceLinker.Models
 {
     /// <summary> The authentication info when authType is userAssignedIdentity. </summary>
@@ -13,6 +16,7 @@ namespace Azure.ResourceManager.ServiceLinker.Models
         /// <summary> Initializes a new instance of <see cref="UserAssignedIdentityAuthInfo"/>. </summary>
         public UserAssignedIdentityAuthInfo()
         {
+            Roles = new ChangeTrackingList<string>();
             AuthType = LinkerAuthType.UserAssignedIdentity;
         }
 
@@ -20,10 +24,16 @@ namespace Azure.ResourceManager.ServiceLinker.Models
         /// <param name="authType"> The authentication type. </param>
         /// <param name="clientId"> Client Id for userAssignedIdentity. </param>
         /// <param name="subscriptionId"> Subscription id for userAssignedIdentity. </param>
-        internal UserAssignedIdentityAuthInfo(LinkerAuthType authType, string clientId, string subscriptionId) : base(authType)
+        /// <param name="deleteOrUpdateBehavior"> Indicates whether to clean up previous operation when Linker is updating or deleting. </param>
+        /// <param name="roles"> Optional, this value specifies the Azure role to be assigned. </param>
+        /// <param name="userName"> Username created in the database which is mapped to a user in AAD. </param>
+        internal UserAssignedIdentityAuthInfo(LinkerAuthType authType, string clientId, string subscriptionId, DeleteOrUpdateBehavior? deleteOrUpdateBehavior, IList<string> roles, string userName) : base(authType)
         {
             ClientId = clientId;
             SubscriptionId = subscriptionId;
+            DeleteOrUpdateBehavior = deleteOrUpdateBehavior;
+            Roles = roles;
+            UserName = userName;
             AuthType = authType;
         }
 
@@ -31,5 +41,11 @@ namespace Azure.ResourceManager.ServiceLinker.Models
         public string ClientId { get; set; }
         /// <summary> Subscription id for userAssignedIdentity. </summary>
         public string SubscriptionId { get; set; }
+        /// <summary> Indicates whether to clean up previous operation when Linker is updating or deleting. </summary>
+        public DeleteOrUpdateBehavior? DeleteOrUpdateBehavior { get; set; }
+        /// <summary> Optional, this value specifies the Azure role to be assigned. </summary>
+        public IList<string> Roles { get; }
+        /// <summary> Username created in the database which is mapped to a user in AAD. </summary>
+        public string UserName { get; set; }
     }
 }

@@ -12,24 +12,24 @@ using Azure.ResourceManager.ServiceLinker;
 namespace Azure.ResourceManager.ServiceLinker.Models
 {
     /// <summary> The list of Linker. </summary>
-    internal partial class LinkerList
+    internal partial class ResourceList
     {
-        /// <summary> Initializes a new instance of <see cref="LinkerList"/>. </summary>
-        internal LinkerList()
+        /// <summary> Initializes a new instance of <see cref="ResourceList"/>. </summary>
+        internal ResourceList()
         {
             Value = new ChangeTrackingList<LinkerResourceData>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="LinkerList"/>. </summary>
-        /// <param name="nextLink"> The link used to get the next page of Linker list. </param>
+        /// <summary> Initializes a new instance of <see cref="ResourceList"/>. </summary>
+        /// <param name="nextLink"> The Linker used to get the next page of Linker list. </param>
         /// <param name="value"> The list of Linkers. </param>
-        internal LinkerList(string nextLink, IReadOnlyList<LinkerResourceData> value)
+        internal ResourceList(string nextLink, IReadOnlyList<LinkerResourceData> value)
         {
             NextLink = nextLink;
             Value = value;
         }
 
-        /// <summary> The link used to get the next page of Linker list. </summary>
+        /// <summary> The Linker used to get the next page of Linker list. </summary>
         public string NextLink { get; }
         /// <summary> The list of Linkers. </summary>
         public IReadOnlyList<LinkerResourceData> Value { get; }

@@ -18,10 +18,10 @@ using Azure.ResourceManager.ServiceLinker.Models;
 namespace Azure.ResourceManager.ServiceLinker
 {
     /// <summary>
-    /// A Class representing a LinkerResource along with the instance operations that can be performed on it.
+    /// A Class representing a Linker along with the instance operations that can be performed on it.
     /// If you have a <see cref="ResourceIdentifier"/> you can construct a <see cref="LinkerResource"/>
     /// from an instance of <see cref="ArmClient"/> using the GetLinkerResource method.
-    /// Otherwise you can get one from its parent resource <see cref="ArmResource"/> using the GetLinkerResource method.
+    /// Otherwise you can get one from its parent resource <see cref="ArmResource"/> using the GetLinker method.
     /// </summary>
     public partial class LinkerResource : ArmResource
     {
@@ -34,8 +34,10 @@ namespace Azure.ResourceManager.ServiceLinker
             return new ResourceIdentifier(resourceId);
         }
 
-        private readonly ClientDiagnostics _linkerResourceLinkerClientDiagnostics;
-        private readonly LinkerRestOperations _linkerResourceLinkerRestClient;
+        private readonly ClientDiagnostics _linkerClientDiagnostics;
+        private readonly LinkerRestOperations _linkerRestClient;
+        private readonly ClientDiagnostics _dryrunLinkersClientDiagnostics;
+        private readonly LinkersRestOperations _dryrunLinkersRestClient;
         private readonly LinkerResourceData _data;
 
         /// <summary> Gets the resource type for the operations. </summary>
@@ -60,9 +62,12 @@ namespace Azure.ResourceManager.ServiceLinker
         /// <param name="id"> The identifier of the resource that is the target of operations. </param>
         internal LinkerResource(ArmClient client, ResourceIdentifier id) : base(client, id)
         {
-            _linkerResourceLinkerClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.ServiceLinker", ResourceType.Namespace, Diagnostics);
-            TryGetApiVersion(ResourceType, out string linkerResourceLinkerApiVersion);
-            _linkerResourceLinkerRestClient = new LinkerRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, linkerResourceLinkerApiVersion);
+            _linkerClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.ServiceLinker", ResourceType.Namespace, Diagnostics);
+            TryGetApiVersion(ResourceType, out string linkerApiVersion);
+            _linkerRestClient = new LinkerRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, linkerApiVersion);
+            _dryrunLinkersClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.ServiceLinker", DryrunResource.ResourceType.Namespace, Diagnostics);
+            TryGetApiVersion(DryrunResource.ResourceType, out string dryrunLinkersApiVersion);
+            _dryrunLinkersRestClient = new LinkersRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, dryrunLinkersApiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -105,11 +110,11 @@ namespace Azure.ResourceManager.ServiceLinker
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual async Task<Response<LinkerResource>> GetAsync(CancellationToken cancellationToken = default)
         {
-            using var scope = _linkerResourceLinkerClientDiagnostics.CreateScope("LinkerResource.Get");
+            using var scope = _linkerClientDiagnostics.CreateScope("LinkerResource.Get");
             scope.Start();
             try
             {
-                var response = await _linkerResourceLinkerRestClient.GetAsync(Id.Parent, Id.Name, cancellationToken).ConfigureAwait(false);
+                var response = await _linkerRestClient.GetAsync(Id.Parent, Id.Name, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new LinkerResource(Client, response.Value), response.GetRawResponse());
@@ -137,11 +142,11 @@ namespace Azure.ResourceManager.ServiceLinker
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual Response<LinkerResource> Get(CancellationToken cancellationToken = default)
         {
-            using var scope = _linkerResourceLinkerClientDiagnostics.CreateScope("LinkerResource.Get");
+            using var scope = _linkerClientDiagnostics.CreateScope("LinkerResource.Get");
             scope.Start();
             try
             {
-                var response = _linkerResourceLinkerRestClient.Get(Id.Parent, Id.Name, cancellationToken);
+                var response = _linkerRestClient.Get(Id.Parent, Id.Name, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new LinkerResource(Client, response.Value), response.GetRawResponse());
@@ -154,7 +159,7 @@ namespace Azure.ResourceManager.ServiceLinker
         }
 
         /// <summary>
-        /// Delete a link.
+        /// Delete a Linker.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -170,12 +175,12 @@ namespace Azure.ResourceManager.ServiceLinker
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual async Task<ArmOperation> DeleteAsync(WaitUntil waitUntil, CancellationToken cancellationToken = default)
         {
-            using var scope = _linkerResourceLinkerClientDiagnostics.CreateScope("LinkerResource.Delete");
+            using var scope = _linkerClientDiagnostics.CreateScope("LinkerResource.Delete");
             scope.Start();
             try
             {
-                var response = await _linkerResourceLinkerRestClient.DeleteAsync(Id.Parent, Id.Name, cancellationToken).ConfigureAwait(false);
-                var operation = new ServiceLinkerArmOperation(_linkerResourceLinkerClientDiagnostics, Pipeline, _linkerResourceLinkerRestClient.CreateDeleteRequest(Id.Parent, Id.Name).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                var response = await _linkerRestClient.DeleteAsync(Id.Parent, Id.Name, cancellationToken).ConfigureAwait(false);
+                var operation = new ServiceLinkerArmOperation(_linkerClientDiagnostics, Pipeline, _linkerRestClient.CreateDeleteRequest(Id.Parent, Id.Name).Request, response, OperationFinalStateVia.AzureAsyncOperation);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -188,7 +193,7 @@ namespace Azure.ResourceManager.ServiceLinker
         }
 
         /// <summary>
-        /// Delete a link.
+        /// Delete a Linker.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -204,12 +209,12 @@ namespace Azure.ResourceManager.ServiceLinker
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual ArmOperation Delete(WaitUntil waitUntil, CancellationToken cancellationToken = default)
         {
-            using var scope = _linkerResourceLinkerClientDiagnostics.CreateScope("LinkerResource.Delete");
+            using var scope = _linkerClientDiagnostics.CreateScope("LinkerResource.Delete");
             scope.Start();
             try
             {
-                var response = _linkerResourceLinkerRestClient.Delete(Id.Parent, Id.Name, cancellationToken);
-                var operation = new ServiceLinkerArmOperation(_linkerResourceLinkerClientDiagnostics, Pipeline, _linkerResourceLinkerRestClient.CreateDeleteRequest(Id.Parent, Id.Name).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                var response = _linkerRestClient.Delete(Id.Parent, Id.Name, cancellationToken);
+                var operation = new ServiceLinkerArmOperation(_linkerClientDiagnostics, Pipeline, _linkerRestClient.CreateDeleteRequest(Id.Parent, Id.Name).Request, response, OperationFinalStateVia.AzureAsyncOperation);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletionResponse(cancellationToken);
                 return operation;
@@ -222,7 +227,7 @@ namespace Azure.ResourceManager.ServiceLinker
         }
 
         /// <summary>
-        /// Operation to update an existing link.
+        /// Operation to update an existing Linker.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -238,16 +243,16 @@ namespace Azure.ResourceManager.ServiceLinker
         /// <param name="patch"> Linker details. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="patch"/> is null. </exception>
-        public virtual async Task<ArmOperation<LinkerResource>> UpdateAsync(WaitUntil waitUntil, LinkerResourcePatch patch, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation<LinkerResource>> UpdateAsync(WaitUntil waitUntil, LinkerPatch patch, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(patch, nameof(patch));
 
-            using var scope = _linkerResourceLinkerClientDiagnostics.CreateScope("LinkerResource.Update");
+            using var scope = _linkerClientDiagnostics.CreateScope("LinkerResource.Update");
             scope.Start();
             try
             {
-                var response = await _linkerResourceLinkerRestClient.UpdateAsync(Id.Parent, Id.Name, patch, cancellationToken).ConfigureAwait(false);
-                var operation = new ServiceLinkerArmOperation<LinkerResource>(new LinkerResourceOperationSource(Client), _linkerResourceLinkerClientDiagnostics, Pipeline, _linkerResourceLinkerRestClient.CreateUpdateRequest(Id.Parent, Id.Name, patch).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                var response = await _linkerRestClient.UpdateAsync(Id.Parent, Id.Name, patch, cancellationToken).ConfigureAwait(false);
+                var operation = new ServiceLinkerArmOperation<LinkerResource>(new LinkerOperationSource(Client), _linkerClientDiagnostics, Pipeline, _linkerRestClient.CreateUpdateRequest(Id.Parent, Id.Name, patch).Request, response, OperationFinalStateVia.AzureAsyncOperation);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -260,7 +265,7 @@ namespace Azure.ResourceManager.ServiceLinker
         }
 
         /// <summary>
-        /// Operation to update an existing link.
+        /// Operation to update an existing Linker.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -276,16 +281,16 @@ namespace Azure.ResourceManager.ServiceLinker
         /// <param name="patch"> Linker details. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="patch"/> is null. </exception>
-        public virtual ArmOperation<LinkerResource> Update(WaitUntil waitUntil, LinkerResourcePatch patch, CancellationToken cancellationToken = default)
+        public virtual ArmOperation<LinkerResource> Update(WaitUntil waitUntil, LinkerPatch patch, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(patch, nameof(patch));
 
-            using var scope = _linkerResourceLinkerClientDiagnostics.CreateScope("LinkerResource.Update");
+            using var scope = _linkerClientDiagnostics.CreateScope("LinkerResource.Update");
             scope.Start();
             try
             {
-                var response = _linkerResourceLinkerRestClient.Update(Id.Parent, Id.Name, patch, cancellationToken);
-                var operation = new ServiceLinkerArmOperation<LinkerResource>(new LinkerResourceOperationSource(Client), _linkerResourceLinkerClientDiagnostics, Pipeline, _linkerResourceLinkerRestClient.CreateUpdateRequest(Id.Parent, Id.Name, patch).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                var response = _linkerRestClient.Update(Id.Parent, Id.Name, patch, cancellationToken);
+                var operation = new ServiceLinkerArmOperation<LinkerResource>(new LinkerOperationSource(Client), _linkerClientDiagnostics, Pipeline, _linkerRestClient.CreateUpdateRequest(Id.Parent, Id.Name, patch).Request, response, OperationFinalStateVia.AzureAsyncOperation);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -298,7 +303,7 @@ namespace Azure.ResourceManager.ServiceLinker
         }
 
         /// <summary>
-        /// Validate a link.
+        /// Validate a Linker.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -314,12 +319,12 @@ namespace Azure.ResourceManager.ServiceLinker
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual async Task<ArmOperation<LinkerValidateOperationResult>> ValidateAsync(WaitUntil waitUntil, CancellationToken cancellationToken = default)
         {
-            using var scope = _linkerResourceLinkerClientDiagnostics.CreateScope("LinkerResource.Validate");
+            using var scope = _linkerClientDiagnostics.CreateScope("LinkerResource.Validate");
             scope.Start();
             try
             {
-                var response = await _linkerResourceLinkerRestClient.ValidateAsync(Id.Parent, Id.Name, cancellationToken).ConfigureAwait(false);
-                var operation = new ServiceLinkerArmOperation<LinkerValidateOperationResult>(new LinkerValidateOperationResultOperationSource(), _linkerResourceLinkerClientDiagnostics, Pipeline, _linkerResourceLinkerRestClient.CreateValidateRequest(Id.Parent, Id.Name).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                var response = await _linkerRestClient.ValidateAsync(Id.Parent, Id.Name, cancellationToken).ConfigureAwait(false);
+                var operation = new ServiceLinkerArmOperation<LinkerValidateOperationResult>(new LinkerValidateOperationResultOperationSource(), _linkerClientDiagnostics, Pipeline, _linkerRestClient.CreateValidateRequest(Id.Parent, Id.Name).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -332,7 +337,7 @@ namespace Azure.ResourceManager.ServiceLinker
         }
 
         /// <summary>
-        /// Validate a link.
+        /// Validate a Linker.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -348,12 +353,12 @@ namespace Azure.ResourceManager.ServiceLinker
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual ArmOperation<LinkerValidateOperationResult> Validate(WaitUntil waitUntil, CancellationToken cancellationToken = default)
         {
-            using var scope = _linkerResourceLinkerClientDiagnostics.CreateScope("LinkerResource.Validate");
+            using var scope = _linkerClientDiagnostics.CreateScope("LinkerResource.Validate");
             scope.Start();
             try
             {
-                var response = _linkerResourceLinkerRestClient.Validate(Id.Parent, Id.Name, cancellationToken);
-                var operation = new ServiceLinkerArmOperation<LinkerValidateOperationResult>(new LinkerValidateOperationResultOperationSource(), _linkerResourceLinkerClientDiagnostics, Pipeline, _linkerResourceLinkerRestClient.CreateValidateRequest(Id.Parent, Id.Name).Request, response, OperationFinalStateVia.AzureAsyncOperation);
+                var response = _linkerRestClient.Validate(Id.Parent, Id.Name, cancellationToken);
+                var operation = new ServiceLinkerArmOperation<LinkerValidateOperationResult>(new LinkerValidateOperationResultOperationSource(), _linkerClientDiagnostics, Pipeline, _linkerRestClient.CreateValidateRequest(Id.Parent, Id.Name).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -366,7 +371,7 @@ namespace Azure.ResourceManager.ServiceLinker
         }
 
         /// <summary>
-        /// list source configurations for a linker.
+        /// list source configurations for a Linker.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -379,13 +384,13 @@ namespace Azure.ResourceManager.ServiceLinker
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual async Task<Response<SourceConfigurationResult>> GetConfigurationsAsync(CancellationToken cancellationToken = default)
+        public virtual async Task<Response<ConfigurationResult>> GetConfigurationsAsync(CancellationToken cancellationToken = default)
         {
-            using var scope = _linkerResourceLinkerClientDiagnostics.CreateScope("LinkerResource.GetConfigurations");
+            using var scope = _linkerClientDiagnostics.CreateScope("LinkerResource.GetConfigurations");
             scope.Start();
             try
             {
-                var response = await _linkerResourceLinkerRestClient.ListConfigurationsAsync(Id.Parent, Id.Name, cancellationToken).ConfigureAwait(false);
+                var response = await _linkerRestClient.ListConfigurationsAsync(Id.Parent, Id.Name, cancellationToken).ConfigureAwait(false);
                 return response;
             }
             catch (Exception e)
@@ -396,7 +401,7 @@ namespace Azure.ResourceManager.ServiceLinker
         }
 
         /// <summary>
-        /// list source configurations for a linker.
+        /// list source configurations for a Linker.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -409,13 +414,75 @@ namespace Azure.ResourceManager.ServiceLinker
         /// </list>
         /// </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual Response<SourceConfigurationResult> GetConfigurations(CancellationToken cancellationToken = default)
+        public virtual Response<ConfigurationResult> GetConfigurations(CancellationToken cancellationToken = default)
         {
-            using var scope = _linkerResourceLinkerClientDiagnostics.CreateScope("LinkerResource.GetConfigurations");
+            using var scope = _linkerClientDiagnostics.CreateScope("LinkerResource.GetConfigurations");
             scope.Start();
             try
             {
-                var response = _linkerResourceLinkerRestClient.ListConfigurations(Id.Parent, Id.Name, cancellationToken);
+                var response = _linkerRestClient.ListConfigurations(Id.Parent, Id.Name, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Generate configurations for a Linker.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/{resourceUri}/providers/Microsoft.ServiceLinker/linkers/{linkerName}/generateConfigurations</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Linkers_GenerateConfigurations</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="info"> Connection Info, including format, secret store, etc. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual async Task<Response<ConfigurationResult>> GenerateConfigurationsAsync(ConfigurationInfo info = null, CancellationToken cancellationToken = default)
+        {
+            using var scope = _dryrunLinkersClientDiagnostics.CreateScope("LinkerResource.GenerateConfigurations");
+            scope.Start();
+            try
+            {
+                var response = await _dryrunLinkersRestClient.GenerateConfigurationsAsync(Id.Parent, Id.Name, info, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Generate configurations for a Linker.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/{resourceUri}/providers/Microsoft.ServiceLinker/linkers/{linkerName}/generateConfigurations</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Linkers_GenerateConfigurations</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="info"> Connection Info, including format, secret store, etc. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual Response<ConfigurationResult> GenerateConfigurations(ConfigurationInfo info = null, CancellationToken cancellationToken = default)
+        {
+            using var scope = _dryrunLinkersClientDiagnostics.CreateScope("LinkerResource.GenerateConfigurations");
+            scope.Start();
+            try
+            {
+                var response = _dryrunLinkersRestClient.GenerateConfigurations(Id.Parent, Id.Name, info, cancellationToken);
                 return response;
             }
             catch (Exception e)

@@ -30,10 +30,12 @@ namespace Azure.ResourceManager.ServiceLinker.Models
             {
                 switch (discriminator.GetString())
                 {
+                    case "accessKey": return AccessKeyInfoBase.DeserializeAccessKeyInfoBase(element);
                     case "secret": return SecretAuthInfo.DeserializeSecretAuthInfo(element);
                     case "servicePrincipalCertificate": return ServicePrincipalCertificateAuthInfo.DeserializeServicePrincipalCertificateAuthInfo(element);
                     case "servicePrincipalSecret": return ServicePrincipalSecretAuthInfo.DeserializeServicePrincipalSecretAuthInfo(element);
                     case "systemAssignedIdentity": return SystemAssignedIdentityAuthInfo.DeserializeSystemAssignedIdentityAuthInfo(element);
+                    case "userAccount": return UserAccountAuthInfo.DeserializeUserAccountAuthInfo(element);
                     case "userAssignedIdentity": return UserAssignedIdentityAuthInfo.DeserializeUserAssignedIdentityAuthInfo(element);
                 }
             }
