@@ -173,6 +173,8 @@ namespace Azure.ResourceManager.DataFactory.Models
                     case "SalesforceMarketingCloudObject": return SalesforceMarketingCloudObjectDataset.DeserializeSalesforceMarketingCloudObjectDataset(element);
                     case "SalesforceObject": return SalesforceObjectDataset.DeserializeSalesforceObjectDataset(element);
                     case "SalesforceServiceCloudObject": return SalesforceServiceCloudObjectDataset.DeserializeSalesforceServiceCloudObjectDataset(element);
+                    case "SalesforceServiceCloudV2Object": return SalesforceServiceCloudV2ObjectDataset.DeserializeSalesforceServiceCloudV2ObjectDataset(element);
+                    case "SalesforceV2Object": return SalesforceV2ObjectDataset.DeserializeSalesforceV2ObjectDataset(element);
                     case "SapBwCube": return SapBWCubeDataset.DeserializeSapBWCubeDataset(element);
                     case "SapCloudForCustomerResource": return SapCloudForCustomerResourceDataset.DeserializeSapCloudForCustomerResourceDataset(element);
                     case "SapEccResource": return SapEccResourceDataset.DeserializeSapEccResourceDataset(element);

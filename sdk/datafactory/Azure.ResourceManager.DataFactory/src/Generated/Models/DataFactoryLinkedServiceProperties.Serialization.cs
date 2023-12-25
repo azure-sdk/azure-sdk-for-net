@@ -174,6 +174,8 @@ namespace Azure.ResourceManager.DataFactory.Models
                     case "Salesforce": return SalesforceLinkedService.DeserializeSalesforceLinkedService(element);
                     case "SalesforceMarketingCloud": return SalesforceMarketingCloudLinkedService.DeserializeSalesforceMarketingCloudLinkedService(element);
                     case "SalesforceServiceCloud": return SalesforceServiceCloudLinkedService.DeserializeSalesforceServiceCloudLinkedService(element);
+                    case "SalesforceServiceCloudV2": return SalesforceServiceCloudV2LinkedService.DeserializeSalesforceServiceCloudV2LinkedService(element);
+                    case "SalesforceV2": return SalesforceV2LinkedService.DeserializeSalesforceV2LinkedService(element);
                     case "SapBW": return SapBWLinkedService.DeserializeSapBWLinkedService(element);
                     case "SapCloudForCustomer": return SapCloudForCustomerLinkedService.DeserializeSapCloudForCustomerLinkedService(element);
                     case "SapEcc": return SapEccLinkedService.DeserializeSapEccLinkedService(element);
