@@ -6,6 +6,7 @@
 #nullable disable
 
 using System;
+using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
 
@@ -22,6 +23,33 @@ namespace Azure.ResourceManager.ServiceLinker.Models
             writer.WriteStringValue(PrincipalId);
             writer.WritePropertyName("secret"u8);
             writer.WriteStringValue(Secret);
+            if (Optional.IsDefined(DeleteOrUpdateBehavior))
+            {
+                writer.WritePropertyName("deleteOrUpdateBehavior"u8);
+                writer.WriteStringValue(DeleteOrUpdateBehavior.Value.ToString());
+            }
+            if (Optional.IsCollectionDefined(Roles))
+            {
+                writer.WritePropertyName("roles"u8);
+                writer.WriteStartArray();
+                foreach (var item in Roles)
+                {
+                    writer.WriteStringValue(item);
+                }
+                writer.WriteEndArray();
+            }
+            if (Optional.IsDefined(UserName))
+            {
+                if (UserName != null)
+                {
+                    writer.WritePropertyName("userName"u8);
+                    writer.WriteStringValue(UserName);
+                }
+                else
+                {
+                    writer.WriteNull("userName");
+                }
+            }
             writer.WritePropertyName("authType"u8);
             writer.WriteStringValue(AuthType.ToString());
             writer.WriteEndObject();
@@ -36,6 +64,9 @@ namespace Azure.ResourceManager.ServiceLinker.Models
             string clientId = default;
             Guid principalId = default;
             string secret = default;
+            Optional<DeleteOrUpdateBehavior> deleteOrUpdateBehavior = default;
+            Optional<IList<string>> roles = default;
+            Optional<string> userName = default;
             LinkerAuthType authType = default;
             foreach (var property in element.EnumerateObject())
             {
@@ -54,13 +85,46 @@ namespace Azure.ResourceManager.ServiceLinker.Models
                     secret = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("deleteOrUpdateBehavior"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    deleteOrUpdateBehavior = new DeleteOrUpdateBehavior(property.Value.GetString());
+                    continue;
+                }
+                if (property.NameEquals("roles"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<string> array = new List<string>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(item.GetString());
+                    }
+                    roles = array;
+                    continue;
+                }
+                if (property.NameEquals("userName"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        userName = null;
+                        continue;
+                    }
+                    userName = property.Value.GetString();
+                    continue;
+                }
                 if (property.NameEquals("authType"u8))
                 {
                     authType = new LinkerAuthType(property.Value.GetString());
                     continue;
                 }
             }
-            return new ServicePrincipalSecretAuthInfo(authType, clientId, principalId, secret);
+            return new ServicePrincipalSecretAuthInfo(authType, clientId, principalId, secret, Optional.ToNullable(deleteOrUpdateBehavior), Optional.ToList(roles), userName.Value);
         }
     }
 }
