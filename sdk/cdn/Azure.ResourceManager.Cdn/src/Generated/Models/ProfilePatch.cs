@@ -7,6 +7,7 @@
 
 using System.Collections.Generic;
 using Azure.Core;
+using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.Cdn.Models
 {
@@ -21,15 +22,19 @@ namespace Azure.ResourceManager.Cdn.Models
 
         /// <summary> Initializes a new instance of <see cref="ProfilePatch"/>. </summary>
         /// <param name="tags"> Profile tags. </param>
+        /// <param name="identity"> Managed service identity (system assigned and/or user assigned identities). </param>
         /// <param name="originResponseTimeoutSeconds"> Send and receive timeout on forwarding request to the origin. When timeout is reached, the request fails and returns. </param>
-        internal ProfilePatch(IDictionary<string, string> tags, int? originResponseTimeoutSeconds)
+        internal ProfilePatch(IDictionary<string, string> tags, ManagedServiceIdentity identity, int? originResponseTimeoutSeconds)
         {
             Tags = tags;
+            Identity = identity;
             OriginResponseTimeoutSeconds = originResponseTimeoutSeconds;
         }
 
         /// <summary> Profile tags. </summary>
         public IDictionary<string, string> Tags { get; }
+        /// <summary> Managed service identity (system assigned and/or user assigned identities). </summary>
+        public ManagedServiceIdentity Identity { get; set; }
         /// <summary> Send and receive timeout on forwarding request to the origin. When timeout is reached, the request fails and returns. </summary>
         public int? OriginResponseTimeoutSeconds { get; set; }
     }
