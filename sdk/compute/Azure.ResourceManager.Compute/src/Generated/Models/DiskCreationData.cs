@@ -33,7 +33,8 @@ namespace Azure.ResourceManager.Compute.Models
         /// <param name="securityDataUri"> If createOption is ImportSecure, this is the URI of a blob to be imported into VM guest state. </param>
         /// <param name="isPerformancePlusEnabled"> Set this flag to true to get a boost on the performance target of the disk deployed, see here on the respective performance target. This flag can only be set on disk creation time and cannot be disabled after enabled. </param>
         /// <param name="elasticSanResourceId"> Required if createOption is CopyFromSanSnapshot. This is the ARM id of the source elastic san volume snapshot. </param>
-        internal DiskCreationData(DiskCreateOption createOption, ResourceIdentifier storageAccountId, ImageDiskReference imageReference, ImageDiskReference galleryImageReference, Uri sourceUri, ResourceIdentifier sourceResourceId, string sourceUniqueId, long? uploadSizeBytes, int? logicalSectorSize, Uri securityDataUri, bool? isPerformancePlusEnabled, ResourceIdentifier elasticSanResourceId)
+        /// <param name="provisionedBandwidthCopySpeed"> If this field is set on a snapshot and createOption is CopyStart, the snapshot will be copied at a quicker speed. </param>
+        internal DiskCreationData(DiskCreateOption createOption, ResourceIdentifier storageAccountId, ImageDiskReference imageReference, ImageDiskReference galleryImageReference, Uri sourceUri, ResourceIdentifier sourceResourceId, string sourceUniqueId, long? uploadSizeBytes, int? logicalSectorSize, Uri securityDataUri, bool? isPerformancePlusEnabled, ResourceIdentifier elasticSanResourceId, ProvisionedBandwidthCopyOption? provisionedBandwidthCopySpeed)
         {
             CreateOption = createOption;
             StorageAccountId = storageAccountId;
@@ -47,6 +48,7 @@ namespace Azure.ResourceManager.Compute.Models
             SecurityDataUri = securityDataUri;
             IsPerformancePlusEnabled = isPerformancePlusEnabled;
             ElasticSanResourceId = elasticSanResourceId;
+            ProvisionedBandwidthCopySpeed = provisionedBandwidthCopySpeed;
         }
 
         /// <summary> This enumerates the possible sources of a disk's creation. </summary>
@@ -73,5 +75,7 @@ namespace Azure.ResourceManager.Compute.Models
         public bool? IsPerformancePlusEnabled { get; set; }
         /// <summary> Required if createOption is CopyFromSanSnapshot. This is the ARM id of the source elastic san volume snapshot. </summary>
         public ResourceIdentifier ElasticSanResourceId { get; set; }
+        /// <summary> If this field is set on a snapshot and createOption is CopyStart, the snapshot will be copied at a quicker speed. </summary>
+        public ProvisionedBandwidthCopyOption? ProvisionedBandwidthCopySpeed { get; set; }
     }
 }
