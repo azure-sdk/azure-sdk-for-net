@@ -1522,6 +1522,7 @@ namespace Azure.ResourceManager.DataProtectionBackup.Models
         public System.Collections.Generic.IList<string> LabelSelectors { get { throw null; } }
         public System.Collections.Generic.IDictionary<string, string> NamespaceMappings { get { throw null; } }
         public Azure.ResourceManager.DataProtectionBackup.Models.PersistentVolumeRestoreMode? PersistentVolumeRestoreMode { get { throw null; } set { } }
+        public Azure.ResourceManager.DataProtectionBackup.Models.NamespacedName ResourceModifierReference { get { throw null; } set { } }
         public System.Collections.Generic.IList<Azure.ResourceManager.DataProtectionBackup.Models.NamespacedName> RestoreHookReferences { get { throw null; } }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
@@ -1554,6 +1555,7 @@ namespace Azure.ResourceManager.DataProtectionBackup.Models
         public System.Collections.Generic.IList<string> LabelSelectors { get { throw null; } }
         public System.Collections.Generic.IDictionary<string, string> NamespaceMappings { get { throw null; } }
         public Azure.ResourceManager.DataProtectionBackup.Models.PersistentVolumeRestoreMode? PersistentVolumeRestoreMode { get { throw null; } set { } }
+        public Azure.ResourceManager.DataProtectionBackup.Models.NamespacedName ResourceModifierReference { get { throw null; } set { } }
         public System.Collections.Generic.IList<Azure.ResourceManager.DataProtectionBackup.Models.NamespacedName> RestoreHookReferences { get { throw null; } }
         public Azure.Core.ResourceIdentifier StagingResourceGroupId { get { throw null; } set { } }
         public Azure.Core.ResourceIdentifier StagingStorageAccountId { get { throw null; } set { } }
