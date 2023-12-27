@@ -19,9 +19,9 @@ namespace Azure.ResourceManager.OperationalInsights.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="OperationalInsightsClusterAssociatedWorkspace"/>. </summary>
-        /// <param name="workspaceId"> The id of the assigned workspace. </param>
-        /// <param name="workspaceName"> The name id the assigned workspace. </param>
-        /// <param name="resourceId"> The ResourceId id the assigned workspace. </param>
+        /// <param name="workspaceId"> Associated workspace immutable id. </param>
+        /// <param name="workspaceName"> Associated workspace resource name. </param>
+        /// <param name="resourceId"> Associated workspace arm resource id, in the form of: '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}. </param>
         /// <param name="associatedOn"> The time of workspace association. </param>
         internal OperationalInsightsClusterAssociatedWorkspace(Guid? workspaceId, string workspaceName, ResourceIdentifier resourceId, DateTimeOffset? associatedOn)
         {
@@ -31,11 +31,11 @@ namespace Azure.ResourceManager.OperationalInsights.Models
             AssociatedOn = associatedOn;
         }
 
-        /// <summary> The id of the assigned workspace. </summary>
+        /// <summary> Associated workspace immutable id. </summary>
         public Guid? WorkspaceId { get; }
-        /// <summary> The name id the assigned workspace. </summary>
+        /// <summary> Associated workspace resource name. </summary>
         public string WorkspaceName { get; }
-        /// <summary> The ResourceId id the assigned workspace. </summary>
+        /// <summary> Associated workspace arm resource id, in the form of: '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}. </summary>
         public ResourceIdentifier ResourceId { get; }
         /// <summary> The time of workspace association. </summary>
         public DateTimeOffset? AssociatedOn { get; }
