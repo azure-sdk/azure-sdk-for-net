@@ -28,6 +28,7 @@ namespace Azure.ResourceManager.Cdn
             Argument.AssertNotNull(sku, nameof(sku));
 
             Sku = sku;
+            ExtendedProperties = new ChangeTrackingDictionary<string, string>();
         }
 
         /// <summary> Initializes a new instance of <see cref="ProfileData"/>. </summary>
@@ -39,16 +40,20 @@ namespace Azure.ResourceManager.Cdn
         /// <param name="location"> The location. </param>
         /// <param name="sku"> The pricing tier (defines Azure Front Door Standard or Premium or a CDN provider, feature list and rate) of the profile. </param>
         /// <param name="kind"> Kind of the profile. Used by portal to differentiate traditional CDN profile and new AFD profile. </param>
+        /// <param name="identity"> Managed service identity (system assigned and/or user assigned identities). </param>
         /// <param name="resourceState"> Resource status of the profile. </param>
         /// <param name="provisioningState"> Provisioning status of the profile. </param>
+        /// <param name="extendedProperties"> Key-Value pair representing additional properties for profiles. </param>
         /// <param name="frontDoorId"> The Id of the frontdoor. </param>
         /// <param name="originResponseTimeoutSeconds"> Send and receive timeout on forwarding request to the origin. When timeout is reached, the request fails and returns. </param>
-        internal ProfileData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, CdnSku sku, string kind, ProfileResourceState? resourceState, ProfileProvisioningState? provisioningState, Guid? frontDoorId, int? originResponseTimeoutSeconds) : base(id, name, resourceType, systemData, tags, location)
+        internal ProfileData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, CdnSku sku, string kind, ManagedServiceIdentity identity, ProfileResourceState? resourceState, ProfileProvisioningState? provisioningState, IReadOnlyDictionary<string, string> extendedProperties, Guid? frontDoorId, int? originResponseTimeoutSeconds) : base(id, name, resourceType, systemData, tags, location)
         {
             Sku = sku;
             Kind = kind;
+            Identity = identity;
             ResourceState = resourceState;
             ProvisioningState = provisioningState;
+            ExtendedProperties = extendedProperties;
             FrontDoorId = frontDoorId;
             OriginResponseTimeoutSeconds = originResponseTimeoutSeconds;
         }
@@ -69,10 +74,14 @@ namespace Azure.ResourceManager.Cdn
 
         /// <summary> Kind of the profile. Used by portal to differentiate traditional CDN profile and new AFD profile. </summary>
         public string Kind { get; }
+        /// <summary> Managed service identity (system assigned and/or user assigned identities). </summary>
+        public ManagedServiceIdentity Identity { get; set; }
         /// <summary> Resource status of the profile. </summary>
         public ProfileResourceState? ResourceState { get; }
         /// <summary> Provisioning status of the profile. </summary>
         public ProfileProvisioningState? ProvisioningState { get; }
+        /// <summary> Key-Value pair representing additional properties for profiles. </summary>
+        public IReadOnlyDictionary<string, string> ExtendedProperties { get; }
         /// <summary> The Id of the frontdoor. </summary>
         public Guid? FrontDoorId { get; }
         /// <summary> Send and receive timeout on forwarding request to the origin. When timeout is reached, the request fails and returns. </summary>
