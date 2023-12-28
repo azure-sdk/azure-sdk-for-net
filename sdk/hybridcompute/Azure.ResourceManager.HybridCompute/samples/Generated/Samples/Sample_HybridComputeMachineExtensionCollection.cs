@@ -12,6 +12,7 @@ using Azure.Core;
 using Azure.Identity;
 using Azure.ResourceManager;
 using Azure.ResourceManager.HybridCompute;
+using Azure.ResourceManager.HybridCompute.Models;
 
 namespace Azure.ResourceManager.HybridCompute.Samples
 {
@@ -45,13 +46,16 @@ namespace Azure.ResourceManager.HybridCompute.Samples
             string extensionName = "CustomScriptExtension";
             HybridComputeMachineExtensionData data = new HybridComputeMachineExtensionData(new AzureLocation("eastus2euap"))
             {
-                Publisher = "Microsoft.Compute",
-                TypePropertiesType = "CustomScriptExtension",
-                TypeHandlerVersion = "1.10",
-                Settings =
+                Properties = new MachineExtensionProperties()
+                {
+                    Publisher = "Microsoft.Compute",
+                    MachineExtensionPropertiesType = "CustomScriptExtension",
+                    TypeHandlerVersion = "1.10",
+                    Settings =
 {
 ["commandToExecute"] = BinaryData.FromString("\"powershell.exe -c \"Get-Process | Where-Object { $_.CPU -gt 10000 }\"\""),
 },
+                },
             };
             ArmOperation<HybridComputeMachineExtensionResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, extensionName, data);
             HybridComputeMachineExtensionResource result = lro.Value;
