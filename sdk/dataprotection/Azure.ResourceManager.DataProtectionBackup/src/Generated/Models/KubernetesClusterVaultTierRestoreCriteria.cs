@@ -42,7 +42,8 @@ namespace Azure.ResourceManager.DataProtectionBackup.Models
         /// <param name="restoreHookReferences"> Gets or sets the restore hook references. This property sets the hook reference to be executed during restore from vault. </param>
         /// <param name="stagingResourceGroupId"> Gets or sets the staging RG Id for creating staging disks and snapshots during restore from vault. </param>
         /// <param name="stagingStorageAccountId"> Gets or sets the staging Storage Account Id for creating backup extension object store data during restore from vault. </param>
-        internal KubernetesClusterVaultTierRestoreCriteria(string objectType, bool includeClusterScopeResources, IList<string> includedNamespaces, IList<string> excludedNamespaces, IList<string> includedResourceTypes, IList<string> excludedResourceTypes, IList<string> labelSelectors, PersistentVolumeRestoreMode? persistentVolumeRestoreMode, KubernetesClusterRestoreExistingResourcePolicy? conflictPolicy, IDictionary<string, string> namespaceMappings, IList<NamespacedName> restoreHookReferences, ResourceIdentifier stagingResourceGroupId, ResourceIdentifier stagingStorageAccountId) : base(objectType)
+        /// <param name="resourceModifierReference"> Gets or sets the resource modifier reference. This property sets the reference for resource modifier during restore. </param>
+        internal KubernetesClusterVaultTierRestoreCriteria(string objectType, bool includeClusterScopeResources, IList<string> includedNamespaces, IList<string> excludedNamespaces, IList<string> includedResourceTypes, IList<string> excludedResourceTypes, IList<string> labelSelectors, PersistentVolumeRestoreMode? persistentVolumeRestoreMode, KubernetesClusterRestoreExistingResourcePolicy? conflictPolicy, IDictionary<string, string> namespaceMappings, IList<NamespacedName> restoreHookReferences, ResourceIdentifier stagingResourceGroupId, ResourceIdentifier stagingStorageAccountId, NamespacedName resourceModifierReference) : base(objectType)
         {
             IncludeClusterScopeResources = includeClusterScopeResources;
             IncludedNamespaces = includedNamespaces;
@@ -56,6 +57,7 @@ namespace Azure.ResourceManager.DataProtectionBackup.Models
             RestoreHookReferences = restoreHookReferences;
             StagingResourceGroupId = stagingResourceGroupId;
             StagingStorageAccountId = stagingStorageAccountId;
+            ResourceModifierReference = resourceModifierReference;
             ObjectType = objectType ?? "KubernetesClusterVaultTierRestoreCriteria";
         }
 
@@ -83,5 +85,7 @@ namespace Azure.ResourceManager.DataProtectionBackup.Models
         public ResourceIdentifier StagingResourceGroupId { get; set; }
         /// <summary> Gets or sets the staging Storage Account Id for creating backup extension object store data during restore from vault. </summary>
         public ResourceIdentifier StagingStorageAccountId { get; set; }
+        /// <summary> Gets or sets the resource modifier reference. This property sets the reference for resource modifier during restore. </summary>
+        public NamespacedName ResourceModifierReference { get; set; }
     }
 }

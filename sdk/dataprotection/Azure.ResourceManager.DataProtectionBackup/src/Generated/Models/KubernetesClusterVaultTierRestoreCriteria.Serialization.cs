@@ -108,6 +108,11 @@ namespace Azure.ResourceManager.DataProtectionBackup.Models
                 writer.WritePropertyName("stagingStorageAccountId"u8);
                 writer.WriteStringValue(StagingStorageAccountId);
             }
+            if (Optional.IsDefined(ResourceModifierReference))
+            {
+                writer.WritePropertyName("resourceModifierReference"u8);
+                writer.WriteObjectValue(ResourceModifierReference);
+            }
             writer.WritePropertyName("objectType"u8);
             writer.WriteStringValue(ObjectType);
             writer.WriteEndObject();
