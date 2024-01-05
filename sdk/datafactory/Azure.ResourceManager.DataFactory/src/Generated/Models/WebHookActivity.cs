@@ -43,11 +43,12 @@ namespace Azure.ResourceManager.DataFactory.Models
         /// <param name="method"> Rest API method for target endpoint. </param>
         /// <param name="uri"> WebHook activity target endpoint and path. Type: string (or Expression with resultType string). </param>
         /// <param name="timeout"> The timeout within which the webhook should be called back. If there is no value specified, it defaults to 10 minutes. Type: string. Pattern: ((\d+)\.)?(\d\d):(60|([0-5][0-9])):(60|([0-5][0-9])). </param>
-        /// <param name="headers"> Represents the headers that will be sent to the request. For example, to set the language and type on a request: "headers" : { "Accept-Language": "en-us", "Content-Type": "application/json" }. Type: string (or Expression with resultType string). </param>
+        /// <param name="headers"> Represents the headers that will be sent to the request. For example, to set the language and type on a request: "headers" : { "Accept-Language": "en-us", "Content-Type": "application/json" }. Type: dictionary (or Expression with resultType dictionary). </param>
         /// <param name="body"> Represents the payload that will be sent to the endpoint. Required for POST/PUT method, not allowed for GET method Type: string (or Expression with resultType string). </param>
         /// <param name="authentication"> Authentication method used for calling the endpoint. </param>
         /// <param name="reportStatusOnCallBack"> When set to true, statusCode, output and error in callback request body will be consumed by activity. The activity can be marked as failed by setting statusCode &gt;= 400 in callback request. Default is false. Type: boolean (or Expression with resultType boolean). </param>
-        internal WebHookActivity(string name, string activityType, string description, PipelineActivityState? state, ActivityOnInactiveMarkAs? onInactiveMarkAs, IList<PipelineActivityDependency> dependsOn, IList<PipelineActivityUserProperty> userProperties, IDictionary<string, BinaryData> additionalProperties, SecureInputOutputPolicy policy, WebHookActivityMethod method, DataFactoryElement<string> uri, string timeout, DataFactoryElement<string> headers, DataFactoryElement<string> body, WebActivityAuthentication authentication, DataFactoryElement<bool> reportStatusOnCallBack) : base(name, activityType, description, state, onInactiveMarkAs, dependsOn, userProperties, additionalProperties)
+        /// <param name="connectVia"> The integration runtime reference. </param>
+        internal WebHookActivity(string name, string activityType, string description, PipelineActivityState? state, ActivityOnInactiveMarkAs? onInactiveMarkAs, IList<PipelineActivityDependency> dependsOn, IList<PipelineActivityUserProperty> userProperties, IDictionary<string, BinaryData> additionalProperties, SecureInputOutputPolicy policy, WebHookActivityMethod method, DataFactoryElement<string> uri, string timeout, DataFactoryElement<IDictionary<string, string>> headers, DataFactoryElement<string> body, WebActivityAuthentication authentication, DataFactoryElement<bool> reportStatusOnCallBack, IntegrationRuntimeReference connectVia) : base(name, activityType, description, state, onInactiveMarkAs, dependsOn, userProperties, additionalProperties)
         {
             Policy = policy;
             Method = method;
@@ -57,6 +58,7 @@ namespace Azure.ResourceManager.DataFactory.Models
             Body = body;
             Authentication = authentication;
             ReportStatusOnCallBack = reportStatusOnCallBack;
+            ConnectVia = connectVia;
             ActivityType = activityType ?? "WebHook";
         }
 
@@ -68,13 +70,15 @@ namespace Azure.ResourceManager.DataFactory.Models
         public DataFactoryElement<string> Uri { get; set; }
         /// <summary> The timeout within which the webhook should be called back. If there is no value specified, it defaults to 10 minutes. Type: string. Pattern: ((\d+)\.)?(\d\d):(60|([0-5][0-9])):(60|([0-5][0-9])). </summary>
         public string Timeout { get; set; }
-        /// <summary> Represents the headers that will be sent to the request. For example, to set the language and type on a request: "headers" : { "Accept-Language": "en-us", "Content-Type": "application/json" }. Type: string (or Expression with resultType string). </summary>
-        public DataFactoryElement<string> Headers { get; set; }
+        /// <summary> Represents the headers that will be sent to the request. For example, to set the language and type on a request: "headers" : { "Accept-Language": "en-us", "Content-Type": "application/json" }. Type: dictionary (or Expression with resultType dictionary). </summary>
+        public DataFactoryElement<IDictionary<string, string>> Headers { get; set; }
         /// <summary> Represents the payload that will be sent to the endpoint. Required for POST/PUT method, not allowed for GET method Type: string (or Expression with resultType string). </summary>
         public DataFactoryElement<string> Body { get; set; }
         /// <summary> Authentication method used for calling the endpoint. </summary>
         public WebActivityAuthentication Authentication { get; set; }
         /// <summary> When set to true, statusCode, output and error in callback request body will be consumed by activity. The activity can be marked as failed by setting statusCode &gt;= 400 in callback request. Default is false. Type: boolean (or Expression with resultType boolean). </summary>
         public DataFactoryElement<bool> ReportStatusOnCallBack { get; set; }
+        /// <summary> The integration runtime reference. </summary>
+        public IntegrationRuntimeReference ConnectVia { get; set; }
     }
 }

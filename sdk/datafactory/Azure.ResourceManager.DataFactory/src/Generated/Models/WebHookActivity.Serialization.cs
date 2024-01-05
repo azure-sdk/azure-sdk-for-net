@@ -93,6 +93,11 @@ namespace Azure.ResourceManager.DataFactory.Models
                 writer.WritePropertyName("reportStatusOnCallBack"u8);
                 JsonSerializer.Serialize(writer, ReportStatusOnCallBack);
             }
+            if (Optional.IsDefined(ConnectVia))
+            {
+                writer.WritePropertyName("connectVia"u8);
+                writer.WriteObjectValue(ConnectVia);
+            }
             writer.WriteEndObject();
             foreach (var item in AdditionalProperties)
             {
@@ -126,10 +131,11 @@ namespace Azure.ResourceManager.DataFactory.Models
             WebHookActivityMethod method = default;
             DataFactoryElement<string> url = default;
             Optional<string> timeout = default;
-            Optional<DataFactoryElement<string>> headers = default;
+            Optional<DataFactoryElement<IDictionary<string, string>>> headers = default;
             Optional<DataFactoryElement<string>> body = default;
             Optional<WebActivityAuthentication> authentication = default;
             Optional<DataFactoryElement<bool>> reportStatusOnCallBack = default;
+            Optional<IntegrationRuntimeReference> connectVia = default;
             IDictionary<string, BinaryData> additionalProperties = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -234,7 +240,7 @@ namespace Azure.ResourceManager.DataFactory.Models
                             {
                                 continue;
                             }
-                            headers = JsonSerializer.Deserialize<DataFactoryElement<string>>(property0.Value.GetRawText());
+                            headers = JsonSerializer.Deserialize<DataFactoryElement<IDictionary<string, string>>>(property0.Value.GetRawText());
                             continue;
                         }
                         if (property0.NameEquals("body"u8))
@@ -264,13 +270,22 @@ namespace Azure.ResourceManager.DataFactory.Models
                             reportStatusOnCallBack = JsonSerializer.Deserialize<DataFactoryElement<bool>>(property0.Value.GetRawText());
                             continue;
                         }
+                        if (property0.NameEquals("connectVia"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            connectVia = IntegrationRuntimeReference.DeserializeIntegrationRuntimeReference(property0.Value);
+                            continue;
+                        }
                     }
                     continue;
                 }
                 additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
             }
             additionalProperties = additionalPropertiesDictionary;
-            return new WebHookActivity(name, type, description.Value, Optional.ToNullable(state), Optional.ToNullable(onInactiveMarkAs), Optional.ToList(dependsOn), Optional.ToList(userProperties), additionalProperties, policy.Value, method, url, timeout.Value, headers.Value, body.Value, authentication.Value, reportStatusOnCallBack.Value);
+            return new WebHookActivity(name, type, description.Value, Optional.ToNullable(state), Optional.ToNullable(onInactiveMarkAs), Optional.ToList(dependsOn), Optional.ToList(userProperties), additionalProperties, policy.Value, method, url, timeout.Value, headers.Value, body.Value, authentication.Value, reportStatusOnCallBack.Value, connectVia.Value);
         }
     }
 }
