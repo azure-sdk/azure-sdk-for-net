@@ -18,15 +18,19 @@ namespace Azure.ResourceManager.RecoveryServices.Models
         /// <summary> Initializes a new instance of <see cref="RecoveryServicesSoftDeleteSettings"/>. </summary>
         /// <param name="softDeleteState"></param>
         /// <param name="softDeleteRetentionPeriodInDays"> Soft delete retention period in days. </param>
-        internal RecoveryServicesSoftDeleteSettings(RecoveryServicesSoftDeleteState? softDeleteState, int? softDeleteRetentionPeriodInDays)
+        /// <param name="enhancedSecurityState"></param>
+        internal RecoveryServicesSoftDeleteSettings(RecoveryServicesSoftDeleteState? softDeleteState, int? softDeleteRetentionPeriodInDays, EnhancedSecurityState? enhancedSecurityState)
         {
             SoftDeleteState = softDeleteState;
             SoftDeleteRetentionPeriodInDays = softDeleteRetentionPeriodInDays;
+            EnhancedSecurityState = enhancedSecurityState;
         }
 
         /// <summary> Gets or sets the soft delete state. </summary>
         public RecoveryServicesSoftDeleteState? SoftDeleteState { get; set; }
         /// <summary> Soft delete retention period in days. </summary>
         public int? SoftDeleteRetentionPeriodInDays { get; set; }
+        /// <summary> Gets or sets the enhanced security state. </summary>
+        public EnhancedSecurityState? EnhancedSecurityState { get; set; }
     }
 }

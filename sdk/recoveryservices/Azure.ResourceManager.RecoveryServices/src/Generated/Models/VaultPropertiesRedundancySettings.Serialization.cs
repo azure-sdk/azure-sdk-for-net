@@ -15,6 +15,16 @@ namespace Azure.ResourceManager.RecoveryServices.Models
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
+            if (Optional.IsDefined(StandardTierStorageRedundancy))
+            {
+                writer.WritePropertyName("standardTierStorageRedundancy"u8);
+                writer.WriteStringValue(StandardTierStorageRedundancy.Value.ToString());
+            }
+            if (Optional.IsDefined(CrossRegionRestore))
+            {
+                writer.WritePropertyName("crossRegionRestore"u8);
+                writer.WriteStringValue(CrossRegionRestore.Value.ToString());
+            }
             writer.WriteEndObject();
         }
 

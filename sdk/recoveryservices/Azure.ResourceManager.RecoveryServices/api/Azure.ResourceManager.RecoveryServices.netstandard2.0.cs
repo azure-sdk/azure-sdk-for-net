@@ -177,7 +177,6 @@ namespace Azure.ResourceManager.RecoveryServices.Models
         public static Azure.ResourceManager.RecoveryServices.Models.VaultCertificateResult VaultCertificateResult(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.ResourceManager.RecoveryServices.Models.ResourceCertificateDetails properties = null) { throw null; }
         public static Azure.ResourceManager.RecoveryServices.Models.VaultMonitoringSummary VaultMonitoringSummary(int? unHealthyVmCount = default(int?), int? unHealthyProviderCount = default(int?), int? eventsCount = default(int?), int? deprecatedProviderCount = default(int?), int? supportedProviderCount = default(int?), int? unsupportedProviderCount = default(int?)) { throw null; }
         public static Azure.ResourceManager.RecoveryServices.Models.VaultPropertiesMoveDetails VaultPropertiesMoveDetails(string operationId = null, System.DateTimeOffset? startOn = default(System.DateTimeOffset?), System.DateTimeOffset? completedOn = default(System.DateTimeOffset?), Azure.Core.ResourceIdentifier sourceResourceId = null, Azure.Core.ResourceIdentifier targetResourceId = null) { throw null; }
-        public static Azure.ResourceManager.RecoveryServices.Models.VaultPropertiesRedundancySettings VaultPropertiesRedundancySettings(Azure.ResourceManager.RecoveryServices.Models.StandardTierStorageRedundancy? standardTierStorageRedundancy = default(Azure.ResourceManager.RecoveryServices.Models.StandardTierStorageRedundancy?), Azure.ResourceManager.RecoveryServices.Models.CrossRegionRestore? crossRegionRestore = default(Azure.ResourceManager.RecoveryServices.Models.CrossRegionRestore?)) { throw null; }
         public static Azure.ResourceManager.RecoveryServices.Models.VaultUpgradeDetails VaultUpgradeDetails(string operationId = null, System.DateTimeOffset? startOn = default(System.DateTimeOffset?), System.DateTimeOffset? lastUpdatedOn = default(System.DateTimeOffset?), System.DateTimeOffset? endOn = default(System.DateTimeOffset?), Azure.ResourceManager.RecoveryServices.Models.VaultUpgradeState? status = default(Azure.ResourceManager.RecoveryServices.Models.VaultUpgradeState?), string message = null, Azure.ResourceManager.RecoveryServices.Models.VaultUpgradeTriggerType? triggerType = default(Azure.ResourceManager.RecoveryServices.Models.VaultUpgradeTriggerType?), Azure.Core.ResourceIdentifier upgradedResourceId = null, Azure.Core.ResourceIdentifier previousResourceId = null) { throw null; }
         public static Azure.ResourceManager.RecoveryServices.Models.VaultUsage VaultUsage(Azure.ResourceManager.RecoveryServices.Models.VaultUsageUnit? unit = default(Azure.ResourceManager.RecoveryServices.Models.VaultUsageUnit?), string quotaPeriod = null, System.DateTimeOffset? nextResetOn = default(System.DateTimeOffset?), long? currentValue = default(long?), long? limit = default(long?), Azure.ResourceManager.RecoveryServices.Models.VaultUsageNameInfo name = null) { throw null; }
         public static Azure.ResourceManager.RecoveryServices.Models.VaultUsageNameInfo VaultUsageNameInfo(string value = null, string localizedValue = null) { throw null; }
@@ -258,6 +257,26 @@ namespace Azure.ResourceManager.RecoveryServices.Models
     {
         public DnsZoneResult() { }
         public System.Collections.Generic.IList<string> RequiredZoneNames { get { throw null; } }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct EnhancedSecurityState : System.IEquatable<Azure.ResourceManager.RecoveryServices.Models.EnhancedSecurityState>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public EnhancedSecurityState(string value) { throw null; }
+        public static Azure.ResourceManager.RecoveryServices.Models.EnhancedSecurityState AlwaysON { get { throw null; } }
+        public static Azure.ResourceManager.RecoveryServices.Models.EnhancedSecurityState Disabled { get { throw null; } }
+        public static Azure.ResourceManager.RecoveryServices.Models.EnhancedSecurityState Enabled { get { throw null; } }
+        public static Azure.ResourceManager.RecoveryServices.Models.EnhancedSecurityState Invalid { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.RecoveryServices.Models.EnhancedSecurityState other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.RecoveryServices.Models.EnhancedSecurityState left, Azure.ResourceManager.RecoveryServices.Models.EnhancedSecurityState right) { throw null; }
+        public static implicit operator Azure.ResourceManager.RecoveryServices.Models.EnhancedSecurityState (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.RecoveryServices.Models.EnhancedSecurityState left, Azure.ResourceManager.RecoveryServices.Models.EnhancedSecurityState right) { throw null; }
+        public override string ToString() { throw null; }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct ImmutabilityState : System.IEquatable<Azure.ResourceManager.RecoveryServices.Models.ImmutabilityState>
@@ -476,6 +495,7 @@ namespace Azure.ResourceManager.RecoveryServices.Models
     public partial class RecoveryServicesSoftDeleteSettings
     {
         public RecoveryServicesSoftDeleteSettings() { }
+        public Azure.ResourceManager.RecoveryServices.Models.EnhancedSecurityState? EnhancedSecurityState { get { throw null; } set { } }
         public int? SoftDeleteRetentionPeriodInDays { get { throw null; } set { } }
         public Azure.ResourceManager.RecoveryServices.Models.RecoveryServicesSoftDeleteState? SoftDeleteState { get { throw null; } set { } }
     }
@@ -638,6 +658,7 @@ namespace Azure.ResourceManager.RecoveryServices.Models
         private readonly int _dummyPrimitive;
         public StandardTierStorageRedundancy(string value) { throw null; }
         public static Azure.ResourceManager.RecoveryServices.Models.StandardTierStorageRedundancy GeoRedundant { get { throw null; } }
+        public static Azure.ResourceManager.RecoveryServices.Models.StandardTierStorageRedundancy Invalid { get { throw null; } }
         public static Azure.ResourceManager.RecoveryServices.Models.StandardTierStorageRedundancy LocallyRedundant { get { throw null; } }
         public static Azure.ResourceManager.RecoveryServices.Models.StandardTierStorageRedundancy ZoneRedundant { get { throw null; } }
         public bool Equals(Azure.ResourceManager.RecoveryServices.Models.StandardTierStorageRedundancy other) { throw null; }
@@ -708,8 +729,8 @@ namespace Azure.ResourceManager.RecoveryServices.Models
     public partial class VaultPropertiesRedundancySettings
     {
         public VaultPropertiesRedundancySettings() { }
-        public Azure.ResourceManager.RecoveryServices.Models.CrossRegionRestore? CrossRegionRestore { get { throw null; } }
-        public Azure.ResourceManager.RecoveryServices.Models.StandardTierStorageRedundancy? StandardTierStorageRedundancy { get { throw null; } }
+        public Azure.ResourceManager.RecoveryServices.Models.CrossRegionRestore? CrossRegionRestore { get { throw null; } set { } }
+        public Azure.ResourceManager.RecoveryServices.Models.StandardTierStorageRedundancy? StandardTierStorageRedundancy { get { throw null; } set { } }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct VaultPublicNetworkAccess : System.IEquatable<Azure.ResourceManager.RecoveryServices.Models.VaultPublicNetworkAccess>
