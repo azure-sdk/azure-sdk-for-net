@@ -59,5 +59,29 @@ namespace Azure.ResourceManager.Maps.Mocking
             MapsCreatorResource.ValidateResourceId(id);
             return new MapsCreatorResource(Client, id);
         }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="MapsPrivateLinkResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="MapsPrivateLinkResource.CreateResourceIdentifier" /> to create a <see cref="MapsPrivateLinkResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="MapsPrivateLinkResource"/> object. </returns>
+        public virtual MapsPrivateLinkResource GetMapsPrivateLinkResource(ResourceIdentifier id)
+        {
+            MapsPrivateLinkResource.ValidateResourceId(id);
+            return new MapsPrivateLinkResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="MapsPrivateEndpointConnectionResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="MapsPrivateEndpointConnectionResource.CreateResourceIdentifier" /> to create a <see cref="MapsPrivateEndpointConnectionResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="MapsPrivateEndpointConnectionResource"/> object. </returns>
+        public virtual MapsPrivateEndpointConnectionResource GetMapsPrivateEndpointConnectionResource(ResourceIdentifier id)
+        {
+            MapsPrivateEndpointConnectionResource.ValidateResourceId(id);
+            return new MapsPrivateEndpointConnectionResource(Client, id);
+        }
     }
 }
