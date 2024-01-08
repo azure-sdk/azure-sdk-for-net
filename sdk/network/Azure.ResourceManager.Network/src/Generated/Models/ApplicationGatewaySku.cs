@@ -19,11 +19,13 @@ namespace Azure.ResourceManager.Network.Models
         /// <param name="name"> Name of an application gateway SKU. </param>
         /// <param name="tier"> Tier of an application gateway. </param>
         /// <param name="capacity"> Capacity (instance count) of an application gateway. </param>
-        internal ApplicationGatewaySku(ApplicationGatewaySkuName? name, ApplicationGatewayTier? tier, int? capacity)
+        /// <param name="family"> Family of an application gateway SKU. </param>
+        internal ApplicationGatewaySku(ApplicationGatewaySkuName? name, ApplicationGatewayTier? tier, int? capacity, ApplicationGatewaySkuFamily? family)
         {
             Name = name;
             Tier = tier;
             Capacity = capacity;
+            Family = family;
         }
 
         /// <summary> Name of an application gateway SKU. </summary>
@@ -32,5 +34,7 @@ namespace Azure.ResourceManager.Network.Models
         public ApplicationGatewayTier? Tier { get; set; }
         /// <summary> Capacity (instance count) of an application gateway. </summary>
         public int? Capacity { get; set; }
+        /// <summary> Family of an application gateway SKU. </summary>
+        public ApplicationGatewaySkuFamily? Family { get; set; }
     }
 }
