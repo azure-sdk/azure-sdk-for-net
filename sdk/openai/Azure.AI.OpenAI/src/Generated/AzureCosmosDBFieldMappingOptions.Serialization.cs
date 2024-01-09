@@ -15,6 +15,33 @@ namespace Azure.AI.OpenAI
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
+            if (Optional.IsDefined(TitleFieldName))
+            {
+                writer.WritePropertyName("titleField"u8);
+                writer.WriteStringValue(TitleFieldName);
+            }
+            if (Optional.IsDefined(UrlFieldName))
+            {
+                writer.WritePropertyName("urlField"u8);
+                writer.WriteStringValue(UrlFieldName);
+            }
+            if (Optional.IsDefined(FilepathFieldName))
+            {
+                writer.WritePropertyName("filepathField"u8);
+                writer.WriteStringValue(FilepathFieldName);
+            }
+            writer.WritePropertyName("contentFields"u8);
+            writer.WriteStartArray();
+            foreach (var item in ContentFieldNames)
+            {
+                writer.WriteStringValue(item);
+            }
+            writer.WriteEndArray();
+            if (Optional.IsDefined(ContentFieldSeparator))
+            {
+                writer.WritePropertyName("contentFieldsSeparator"u8);
+                writer.WriteStringValue(ContentFieldSeparator);
+            }
             writer.WritePropertyName("vectorFields"u8);
             writer.WriteStartArray();
             foreach (var item in VectorFieldNames)
