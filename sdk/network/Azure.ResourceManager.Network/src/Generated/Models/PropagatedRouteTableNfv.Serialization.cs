@@ -10,18 +10,28 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.Network.Models
 {
-    public partial class BastionShareableLinkTokenListContent : IUtf8JsonSerializable
+    public partial class PropagatedRouteTableNfv : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
-            if (Optional.IsCollectionDefined(Tokens))
+            if (Optional.IsCollectionDefined(Labels))
             {
-                writer.WritePropertyName("tokens"u8);
+                writer.WritePropertyName("labels"u8);
                 writer.WriteStartArray();
-                foreach (var item in Tokens)
+                foreach (var item in Labels)
                 {
                     writer.WriteStringValue(item);
+                }
+                writer.WriteEndArray();
+            }
+            if (Optional.IsCollectionDefined(Ids))
+            {
+                writer.WritePropertyName("ids"u8);
+                writer.WriteStartArray();
+                foreach (var item in Ids)
+                {
+                    writer.WriteObjectValue(item);
                 }
                 writer.WriteEndArray();
             }

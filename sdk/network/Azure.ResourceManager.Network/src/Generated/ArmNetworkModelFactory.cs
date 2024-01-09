@@ -1068,26 +1068,6 @@ namespace Azure.ResourceManager.Network.Models
             return new ApplicationGatewayHttpListener(id, name, resourceType, etag, frontendIPConfigurationId != null ? ResourceManagerModelFactory.WritableSubResource(frontendIPConfigurationId) : null, frontendPortId != null ? ResourceManagerModelFactory.WritableSubResource(frontendPortId) : null, protocol, hostName, sslCertificateId != null ? ResourceManagerModelFactory.WritableSubResource(sslCertificateId) : null, sslProfileId != null ? ResourceManagerModelFactory.WritableSubResource(sslProfileId) : null, requireServerNameIndication, provisioningState, customErrorConfigurations?.ToList(), firewallPolicyId != null ? ResourceManagerModelFactory.WritableSubResource(firewallPolicyId) : null, hostNames?.ToList());
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.ApplicationGatewayListener"/>. </summary>
-        /// <param name="id"> Resource ID. </param>
-        /// <param name="name"> Resource name. </param>
-        /// <param name="resourceType"> Resource type. </param>
-        /// <param name="etag"> A unique read-only string that changes whenever the resource is updated. </param>
-        /// <param name="frontendIPConfigurationId"> Frontend IP configuration resource of an application gateway. </param>
-        /// <param name="frontendPortId"> Frontend port resource of an application gateway. </param>
-        /// <param name="protocol"> Protocol of the listener. </param>
-        /// <param name="sslCertificateId"> SSL certificate resource of an application gateway. </param>
-        /// <param name="sslProfileId"> SSL profile resource of the application gateway. </param>
-        /// <param name="provisioningState"> The provisioning state of the listener resource. </param>
-        /// <param name="hostNames"> List of Server Name Indications(SNI) for TLS Multi-site Listener that allows special wildcard characters as well. </param>
-        /// <returns> A new <see cref="Models.ApplicationGatewayListener"/> instance for mocking. </returns>
-        public static ApplicationGatewayListener ApplicationGatewayListener(ResourceIdentifier id = null, string name = null, ResourceType? resourceType = null, ETag? etag = null, ResourceIdentifier frontendIPConfigurationId = null, ResourceIdentifier frontendPortId = null, ApplicationGatewayProtocol? protocol = null, ResourceIdentifier sslCertificateId = null, ResourceIdentifier sslProfileId = null, NetworkProvisioningState? provisioningState = null, IEnumerable<string> hostNames = null)
-        {
-            hostNames ??= new List<string>();
-
-            return new ApplicationGatewayListener(id, name, resourceType, etag, frontendIPConfigurationId != null ? ResourceManagerModelFactory.WritableSubResource(frontendIPConfigurationId) : null, frontendPortId != null ? ResourceManagerModelFactory.WritableSubResource(frontendPortId) : null, protocol, sslCertificateId != null ? ResourceManagerModelFactory.WritableSubResource(sslCertificateId) : null, sslProfileId != null ? ResourceManagerModelFactory.WritableSubResource(sslProfileId) : null, provisioningState, hostNames?.ToList());
-        }
-
         /// <summary> Initializes a new instance of <see cref="Models.ApplicationGatewaySslProfile"/>. </summary>
         /// <param name="id"> Resource ID. </param>
         /// <param name="name"> Resource name. </param>
@@ -2312,8 +2292,8 @@ namespace Azure.ResourceManager.Network.Models
         /// <summary> Initializes a new instance of <see cref="Models.IdpsSignatureResult"/>. </summary>
         /// <param name="signatureId"> The ID of the signature. </param>
         /// <param name="mode"> The current mode enforced, 0 - Disabled, 1 - Alert, 2 -Deny. </param>
-        /// <param name="severity"> Describes the severity of signature: 1 - High, 2 - Medium, 3 - Low. </param>
-        /// <param name="direction"> Describes in which direction signature is being enforced: 0 - OutBound, 1 - InBound, 2 - Any, 3 - Internal, 4 - InternalOutbound. </param>
+        /// <param name="severity"> Describes the severity of signature: 1 - Low, 2 - Medium, 3 - High. </param>
+        /// <param name="direction"> Describes in which direction signature is being enforced: 0 - Inbound, 1 - OutBound, 2 - Bidirectional. </param>
         /// <param name="group"> Describes the groups the signature belongs to. </param>
         /// <param name="description"> Describes what is the signature enforces. </param>
         /// <param name="protocol"> Describes the protocol the signatures is being enforced in. </param>
@@ -2993,48 +2973,6 @@ namespace Azure.ResourceManager.Network.Models
         public static ContainerNetworkInterfaceIPConfiguration ContainerNetworkInterfaceIPConfiguration(string name = null, string containerNetworkInterfaceIPConfigurationType = null, ETag? etag = null, NetworkProvisioningState? provisioningState = null)
         {
             return new ContainerNetworkInterfaceIPConfiguration(name, containerNetworkInterfaceIPConfigurationType, etag, provisioningState);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Network.NetworkVirtualApplianceData"/>. </summary>
-        /// <param name="id"> Resource ID. </param>
-        /// <param name="name"> Resource name. </param>
-        /// <param name="resourceType"> Resource type. </param>
-        /// <param name="location"> Resource location. </param>
-        /// <param name="tags"> Resource tags. </param>
-        /// <param name="identity"> The service principal that has read access to cloud-init and config blob. </param>
-        /// <param name="etag"> A unique read-only string that changes whenever the resource is updated. </param>
-        /// <param name="nvaSku"> Network Virtual Appliance SKU. </param>
-        /// <param name="addressPrefix"> Address Prefix. </param>
-        /// <param name="bootStrapConfigurationBlobs"> BootStrapConfigurationBlobs storage URLs. </param>
-        /// <param name="virtualHubId"> The Virtual Hub where Network Virtual Appliance is being deployed. </param>
-        /// <param name="cloudInitConfigurationBlobs"> CloudInitConfigurationBlob storage URLs. </param>
-        /// <param name="cloudInitConfiguration"> CloudInitConfiguration string in plain text. </param>
-        /// <param name="virtualApplianceAsn"> VirtualAppliance ASN. Microsoft private, public and IANA reserved ASN are not supported. </param>
-        /// <param name="sshPublicKey"> Public key for SSH login. </param>
-        /// <param name="virtualApplianceNics"> List of Virtual Appliance Network Interfaces. </param>
-        /// <param name="additionalNics"> Details required for Additional Network Interface. </param>
-        /// <param name="internetIngressPublicIPs"> List of Resource Uri of Public IPs for Internet Ingress Scenario. </param>
-        /// <param name="virtualApplianceSites"> List of references to VirtualApplianceSite. </param>
-        /// <param name="virtualApplianceConnections"> List of references to VirtualApplianceConnections. </param>
-        /// <param name="inboundSecurityRules"> List of references to InboundSecurityRules. </param>
-        /// <param name="provisioningState"> The provisioning state of the resource. </param>
-        /// <param name="deploymentType"> The deployment type. PartnerManaged for the SaaS NVA. </param>
-        /// <param name="delegation"> The delegation for the Virtual Appliance. </param>
-        /// <param name="partnerManagedResource"> The delegation for the Virtual Appliance. </param>
-        /// <returns> A new <see cref="Network.NetworkVirtualApplianceData"/> instance for mocking. </returns>
-        public static NetworkVirtualApplianceData NetworkVirtualApplianceData(ResourceIdentifier id = null, string name = null, ResourceType? resourceType = null, AzureLocation? location = null, IDictionary<string, string> tags = null, ManagedServiceIdentity identity = null, ETag? etag = null, VirtualApplianceSkuProperties nvaSku = null, string addressPrefix = null, IEnumerable<string> bootStrapConfigurationBlobs = null, ResourceIdentifier virtualHubId = null, IEnumerable<string> cloudInitConfigurationBlobs = null, string cloudInitConfiguration = null, long? virtualApplianceAsn = null, string sshPublicKey = null, IEnumerable<VirtualApplianceNicProperties> virtualApplianceNics = null, IEnumerable<VirtualApplianceAdditionalNicProperties> additionalNics = null, IEnumerable<WritableSubResource> internetIngressPublicIPs = null, IEnumerable<WritableSubResource> virtualApplianceSites = null, IEnumerable<WritableSubResource> virtualApplianceConnections = null, IEnumerable<WritableSubResource> inboundSecurityRules = null, NetworkProvisioningState? provisioningState = null, string deploymentType = null, VirtualApplianceDelegationProperties delegation = null, PartnerManagedResourceProperties partnerManagedResource = null)
-        {
-            tags ??= new Dictionary<string, string>();
-            bootStrapConfigurationBlobs ??= new List<string>();
-            cloudInitConfigurationBlobs ??= new List<string>();
-            virtualApplianceNics ??= new List<VirtualApplianceNicProperties>();
-            additionalNics ??= new List<VirtualApplianceAdditionalNicProperties>();
-            internetIngressPublicIPs ??= new List<WritableSubResource>();
-            virtualApplianceSites ??= new List<WritableSubResource>();
-            virtualApplianceConnections ??= new List<WritableSubResource>();
-            inboundSecurityRules ??= new List<WritableSubResource>();
-
-            return new NetworkVirtualApplianceData(id, name, resourceType, location, tags, identity, etag, nvaSku, addressPrefix, bootStrapConfigurationBlobs?.ToList(), virtualHubId != null ? ResourceManagerModelFactory.WritableSubResource(virtualHubId) : null, cloudInitConfigurationBlobs?.ToList(), cloudInitConfiguration, virtualApplianceAsn, sshPublicKey, virtualApplianceNics?.ToList(), additionalNics?.ToList(), internetIngressPublicIPs?.ToList(), virtualApplianceSites?.ToList(), virtualApplianceConnections?.ToList(), inboundSecurityRules?.ToList(), provisioningState, deploymentType, delegation, partnerManagedResource);
         }
 
         /// <summary> Initializes a new instance of <see cref="Models.VirtualApplianceNicProperties"/>. </summary>
@@ -4901,25 +4839,6 @@ namespace Azure.ResourceManager.Network.Models
         public static ExpressRouteConnectionData ExpressRouteConnectionData(ResourceIdentifier id = null, string name = null, ResourceType? resourceType = null, NetworkProvisioningState? provisioningState = null, ResourceIdentifier expressRouteCircuitPeeringId = null, string authorizationKey = null, int? routingWeight = null, bool? enableInternetSecurity = null, bool? expressRouteGatewayBypass = null, bool? enablePrivateLinkFastPath = null, RoutingConfiguration routingConfiguration = null)
         {
             return new ExpressRouteConnectionData(id, name, resourceType, provisioningState, expressRouteCircuitPeeringId != null ? ResourceManagerModelFactory.WritableSubResource(expressRouteCircuitPeeringId) : null, authorizationKey, routingWeight, enableInternetSecurity, expressRouteGatewayBypass, enablePrivateLinkFastPath, routingConfiguration);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Network.NetworkVirtualApplianceConnectionData"/>. </summary>
-        /// <param name="id"> Resource ID. </param>
-        /// <param name="name"> Resource name. </param>
-        /// <param name="resourceType"> Resource type. </param>
-        /// <param name="namePropertiesName"> The name of the resource. </param>
-        /// <param name="provisioningState"> The provisioning state of the NetworkVirtualApplianceConnection resource. </param>
-        /// <param name="asn"> Network Virtual Appliance ASN. </param>
-        /// <param name="tunnelIdentifier"> Unique identifier for the connection. </param>
-        /// <param name="bgpPeerAddress"> List of bgpPeerAddresses for the NVA instances. </param>
-        /// <param name="enableInternetSecurity"> Enable internet security. </param>
-        /// <param name="connectionRoutingConfiguration"> The Routing Configuration indicating the associated and propagated route tables on this connection. </param>
-        /// <returns> A new <see cref="Network.NetworkVirtualApplianceConnectionData"/> instance for mocking. </returns>
-        public static NetworkVirtualApplianceConnectionData NetworkVirtualApplianceConnectionData(ResourceIdentifier id = null, string name = null, ResourceType? resourceType = null, string namePropertiesName = null, NetworkProvisioningState? provisioningState = null, long? asn = null, long? tunnelIdentifier = null, IEnumerable<string> bgpPeerAddress = null, bool? enableInternetSecurity = null, RoutingConfiguration connectionRoutingConfiguration = null)
-        {
-            bgpPeerAddress ??= new List<string>();
-
-            return new NetworkVirtualApplianceConnectionData(id, name, resourceType, namePropertiesName, provisioningState, asn, tunnelIdentifier, bgpPeerAddress?.ToList(), enableInternetSecurity, connectionRoutingConfiguration);
         }
 
         /// <summary> Initializes a new instance of <see cref="Network.BgpConnectionData"/>. </summary>
