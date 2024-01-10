@@ -108,13 +108,14 @@ namespace Azure.ResourceManager.DataBoxEdge.Models
         /// <param name="resourceMoveDetails"> The details of the move operation on this resource. </param>
         /// <param name="edgeSubscription"> The details of Edge Profile for this resource. </param>
         /// <param name="residencyType"> The details of data-residency related properties for this resource. </param>
+        /// <param name="kubernetesWorkloadProfile"> Kubernetes Workload Profile. </param>
         /// <returns> A new <see cref="DataBoxEdge.DataBoxEdgeDeviceData"/> instance for mocking. </returns>
-        public static DataBoxEdgeDeviceData DataBoxEdgeDeviceData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, DataBoxEdgeSku sku = null, ETag? etag = null, ManagedServiceIdentity identity = null, DataBoxEdgeDeviceKind? kind = null, DataBoxEdgeDeviceStatus? dataBoxEdgeDeviceStatus = null, string serialNumber = null, string description = null, string modelDescription = null, DataBoxEdgeDeviceType? deviceType = null, string friendlyName = null, string culture = null, string deviceModel = null, string deviceSoftwareVersion = null, long? deviceLocalCapacity = null, string timeZone = null, string deviceHcsVersion = null, IEnumerable<DataBoxEdgeRoleType> configuredRoleTypes = null, int? nodeCount = null, DataBoxEdgeResourceMoveDetails resourceMoveDetails = null, EdgeProfileSubscription edgeSubscription = null, DataBoxEdgeDataResidencyType? residencyType = null)
+        public static DataBoxEdgeDeviceData DataBoxEdgeDeviceData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, DataBoxEdgeSku sku = null, ETag? etag = null, ManagedServiceIdentity identity = null, DataBoxEdgeDeviceKind? kind = null, DataBoxEdgeDeviceStatus? dataBoxEdgeDeviceStatus = null, string serialNumber = null, string description = null, string modelDescription = null, DataBoxEdgeDeviceType? deviceType = null, string friendlyName = null, string culture = null, string deviceModel = null, string deviceSoftwareVersion = null, long? deviceLocalCapacity = null, string timeZone = null, string deviceHcsVersion = null, IEnumerable<DataBoxEdgeRoleType> configuredRoleTypes = null, int? nodeCount = null, DataBoxEdgeResourceMoveDetails resourceMoveDetails = null, EdgeProfileSubscription edgeSubscription = null, DataBoxEdgeDataResidencyType? residencyType = null, string kubernetesWorkloadProfile = null)
         {
             tags ??= new Dictionary<string, string>();
             configuredRoleTypes ??= new List<DataBoxEdgeRoleType>();
 
-            return new DataBoxEdgeDeviceData(id, name, resourceType, systemData, tags, location, sku, etag, identity, kind, dataBoxEdgeDeviceStatus, serialNumber, description, modelDescription, deviceType, friendlyName, culture, deviceModel, deviceSoftwareVersion, deviceLocalCapacity, timeZone, deviceHcsVersion, configuredRoleTypes?.ToList(), nodeCount, resourceMoveDetails, edgeSubscription != null ? new EdgeProfile(edgeSubscription) : null, residencyType != null ? new DataResidency(residencyType) : null);
+            return new DataBoxEdgeDeviceData(id, name, resourceType, systemData, tags, location, sku, etag, identity, kind, dataBoxEdgeDeviceStatus, serialNumber, description, modelDescription, deviceType, friendlyName, culture, deviceModel, deviceSoftwareVersion, deviceLocalCapacity, timeZone, deviceHcsVersion, configuredRoleTypes?.ToList(), nodeCount, resourceMoveDetails, edgeSubscription != null ? new EdgeProfile(edgeSubscription) : null, residencyType != null ? new DataResidency(residencyType) : null, kubernetesWorkloadProfile);
         }
 
         /// <summary> Initializes a new instance of <see cref="Models.DataBoxEdgeResourceMoveDetails"/>. </summary>
@@ -992,10 +993,13 @@ namespace Azure.ResourceManager.DataBoxEdge.Models
         /// <summary> Initializes a new instance of <see cref="Models.DataBoxEdgeLoadBalancerConfig"/>. </summary>
         /// <param name="loadBalancerConfigType"> Load balancer type. </param>
         /// <param name="version"> Load balancer version. </param>
+        /// <param name="ipRange"> Load balancer ipconfig. </param>
         /// <returns> A new <see cref="Models.DataBoxEdgeLoadBalancerConfig"/> instance for mocking. </returns>
-        public static DataBoxEdgeLoadBalancerConfig DataBoxEdgeLoadBalancerConfig(string loadBalancerConfigType = null, string version = null)
+        public static DataBoxEdgeLoadBalancerConfig DataBoxEdgeLoadBalancerConfig(string loadBalancerConfigType = null, string version = null, IEnumerable<string> ipRange = null)
         {
-            return new DataBoxEdgeLoadBalancerConfig(loadBalancerConfigType, version);
+            ipRange ??= new List<string>();
+
+            return new DataBoxEdgeLoadBalancerConfig(loadBalancerConfigType, version, ipRange?.ToList());
         }
 
         /// <summary> Initializes a new instance of <see cref="Models.MecRole"/>. </summary>

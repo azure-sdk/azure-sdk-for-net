@@ -5,6 +5,7 @@
 
 #nullable disable
 
+using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
 
@@ -20,6 +21,7 @@ namespace Azure.ResourceManager.DataBoxEdge.Models
             }
             Optional<string> type = default;
             Optional<string> version = default;
+            Optional<IReadOnlyList<string>> ipRange = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("type"u8))
@@ -32,8 +34,22 @@ namespace Azure.ResourceManager.DataBoxEdge.Models
                     version = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("ipRange"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<string> array = new List<string>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(item.GetString());
+                    }
+                    ipRange = array;
+                    continue;
+                }
             }
-            return new DataBoxEdgeLoadBalancerConfig(type.Value, version.Value);
+            return new DataBoxEdgeLoadBalancerConfig(type.Value, version.Value, Optional.ToList(ipRange));
         }
     }
 }
