@@ -1,0 +1,1993 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="GetRoleAsync(string,RequestConditions,CancellationToken)">
+      <example>
+This sample shows how to call GetRoleAsync.
+<code><![CDATA[
+Roles client = new IdentityClient().GetClient(apiVersion: "2023-08-30-preview");
+
+Response<Role> response = await client.GetRoleAsync("<id>");
+]]></code>
+This sample shows how to call GetRoleAsync with all parameters.
+<code><![CDATA[
+Roles client = new IdentityClient().GetClient(apiVersion: "2023-08-30-preview");
+
+Response<Role> response = await client.GetRoleAsync("<id>", requestConditions: null);
+]]></code></example>
+    </member>
+    <member name="GetRole(string,RequestConditions,CancellationToken)">
+      <example>
+This sample shows how to call GetRole.
+<code><![CDATA[
+Roles client = new IdentityClient().GetClient(apiVersion: "2023-08-30-preview");
+
+Response<Role> response = client.GetRole("<id>");
+]]></code>
+This sample shows how to call GetRole with all parameters.
+<code><![CDATA[
+Roles client = new IdentityClient().GetClient(apiVersion: "2023-08-30-preview");
+
+Response<Role> response = client.GetRole("<id>", requestConditions: null);
+]]></code></example>
+    </member>
+    <member name="GetRoleAsync(string,RequestConditions,RequestContext)">
+      <example>
+This sample shows how to call GetRoleAsync and parse the result.
+<code><![CDATA[
+Roles client = new IdentityClient().GetClient(apiVersion: "2023-08-30-preview");
+
+Response response = await client.GetRoleAsync("<id>", null, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("isEnabled").ToString());
+Console.WriteLine(result.GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("updatedAt").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("addParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("removeSelf").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("leaveChatThread").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("removeParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("listParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getOwnData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getOthersData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("updateOwnData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("updateOthersData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("shareHistory").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getChatThreadProperties").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("updateChatThreadProperties").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("deleteChatThread").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("sendMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getMessages").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("readMessages").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("editOwnMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("editOthersMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("editAnyMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("annotateOwnMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("replyOwnMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("annotateOthersMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("replyOthersMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("deleteOwnMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("deleteOthersMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("deleteAnyMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("recoverOwnMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("recoverOthersMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("recoverAnyMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getReadReceipts").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("sendReadReceipt").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("sendTypingNotification").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("addParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("addPstnParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removeSelf").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("leaveCall").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removeParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removePstnParticipant").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("listParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("getOwnData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("getOthersData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("updateOwnData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("updateOthersData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("getCallProperties").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("updateCallProperties").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("admitLobbyParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("denyLobbyParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("bypassLobby").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("deleteCall").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("joinMeeting").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("turnOnVideo").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("shareVideo").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("sendVideo").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("restrictOthersVideo").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("unrestrictOthersVideo").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("turnOnAudio").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("shareAudio").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("sendAudio").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("restrictOthersAudio").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("unrestrictOthersAudio").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("shareScreen").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("shareContent").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("muteSelf").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("unmuteSelf").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("muteOthers").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("spotlightParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removeSpotlights").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removeParticipantsSpotlight").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("startRecording").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("stopRecording").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("startLiveCaptions").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("stopLiveCaptions").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("raiseHand").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("sendReaction").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("hangUpForEveryOne").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("endCallForAll").ToString());
+]]></code>
+This sample shows how to call GetRoleAsync with all parameters and parse the result.
+<code><![CDATA[
+Roles client = new IdentityClient().GetClient(apiVersion: "2023-08-30-preview");
+
+Response response = await client.GetRoleAsync("<id>", null, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("isEnabled").ToString());
+Console.WriteLine(result.GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("updatedAt").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("addParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("removeSelf").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("leaveChatThread").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("removeParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("listParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getOwnData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getOthersData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("updateOwnData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("updateOthersData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("shareHistory").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getChatThreadProperties").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("updateChatThreadProperties").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("deleteChatThread").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("sendMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getMessages").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("readMessages").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("editOwnMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("editOthersMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("editAnyMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("annotateOwnMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("replyOwnMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("annotateOthersMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("replyOthersMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("deleteOwnMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("deleteOthersMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("deleteAnyMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("recoverOwnMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("recoverOthersMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("recoverAnyMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getReadReceipts").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("sendReadReceipt").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("sendTypingNotification").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("addParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("addPstnParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removeSelf").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("leaveCall").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removeParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removePstnParticipant").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("listParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("getOwnData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("getOthersData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("updateOwnData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("updateOthersData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("getCallProperties").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("updateCallProperties").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("admitLobbyParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("denyLobbyParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("bypassLobby").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("deleteCall").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("joinMeeting").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("turnOnVideo").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("shareVideo").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("sendVideo").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("restrictOthersVideo").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("unrestrictOthersVideo").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("turnOnAudio").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("shareAudio").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("sendAudio").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("restrictOthersAudio").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("unrestrictOthersAudio").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("shareScreen").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("shareContent").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("muteSelf").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("unmuteSelf").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("muteOthers").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("spotlightParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removeSpotlights").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removeParticipantsSpotlight").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("startRecording").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("stopRecording").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("startLiveCaptions").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("stopLiveCaptions").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("raiseHand").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("sendReaction").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("hangUpForEveryOne").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("endCallForAll").ToString());
+]]></code></example>
+    </member>
+    <member name="GetRole(string,RequestConditions,RequestContext)">
+      <example>
+This sample shows how to call GetRole and parse the result.
+<code><![CDATA[
+Roles client = new IdentityClient().GetClient(apiVersion: "2023-08-30-preview");
+
+Response response = client.GetRole("<id>", null, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("isEnabled").ToString());
+Console.WriteLine(result.GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("updatedAt").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("addParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("removeSelf").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("leaveChatThread").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("removeParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("listParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getOwnData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getOthersData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("updateOwnData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("updateOthersData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("shareHistory").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getChatThreadProperties").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("updateChatThreadProperties").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("deleteChatThread").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("sendMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getMessages").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("readMessages").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("editOwnMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("editOthersMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("editAnyMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("annotateOwnMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("replyOwnMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("annotateOthersMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("replyOthersMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("deleteOwnMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("deleteOthersMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("deleteAnyMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("recoverOwnMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("recoverOthersMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("recoverAnyMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getReadReceipts").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("sendReadReceipt").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("sendTypingNotification").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("addParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("addPstnParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removeSelf").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("leaveCall").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removeParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removePstnParticipant").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("listParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("getOwnData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("getOthersData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("updateOwnData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("updateOthersData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("getCallProperties").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("updateCallProperties").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("admitLobbyParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("denyLobbyParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("bypassLobby").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("deleteCall").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("joinMeeting").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("turnOnVideo").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("shareVideo").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("sendVideo").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("restrictOthersVideo").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("unrestrictOthersVideo").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("turnOnAudio").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("shareAudio").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("sendAudio").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("restrictOthersAudio").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("unrestrictOthersAudio").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("shareScreen").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("shareContent").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("muteSelf").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("unmuteSelf").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("muteOthers").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("spotlightParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removeSpotlights").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removeParticipantsSpotlight").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("startRecording").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("stopRecording").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("startLiveCaptions").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("stopLiveCaptions").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("raiseHand").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("sendReaction").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("hangUpForEveryOne").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("endCallForAll").ToString());
+]]></code>
+This sample shows how to call GetRole with all parameters and parse the result.
+<code><![CDATA[
+Roles client = new IdentityClient().GetClient(apiVersion: "2023-08-30-preview");
+
+Response response = client.GetRole("<id>", null, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("isEnabled").ToString());
+Console.WriteLine(result.GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("updatedAt").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("addParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("removeSelf").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("leaveChatThread").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("removeParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("listParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getOwnData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getOthersData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("updateOwnData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("updateOthersData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("shareHistory").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getChatThreadProperties").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("updateChatThreadProperties").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("deleteChatThread").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("sendMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getMessages").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("readMessages").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("editOwnMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("editOthersMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("editAnyMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("annotateOwnMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("replyOwnMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("annotateOthersMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("replyOthersMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("deleteOwnMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("deleteOthersMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("deleteAnyMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("recoverOwnMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("recoverOthersMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("recoverAnyMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getReadReceipts").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("sendReadReceipt").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("sendTypingNotification").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("addParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("addPstnParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removeSelf").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("leaveCall").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removeParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removePstnParticipant").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("listParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("getOwnData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("getOthersData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("updateOwnData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("updateOthersData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("getCallProperties").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("updateCallProperties").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("admitLobbyParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("denyLobbyParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("bypassLobby").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("deleteCall").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("joinMeeting").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("turnOnVideo").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("shareVideo").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("sendVideo").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("restrictOthersVideo").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("unrestrictOthersVideo").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("turnOnAudio").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("shareAudio").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("sendAudio").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("restrictOthersAudio").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("unrestrictOthersAudio").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("shareScreen").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("shareContent").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("muteSelf").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("unmuteSelf").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("muteOthers").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("spotlightParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removeSpotlights").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removeParticipantsSpotlight").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("startRecording").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("stopRecording").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("startLiveCaptions").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("stopLiveCaptions").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("raiseHand").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("sendReaction").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("hangUpForEveryOne").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("endCallForAll").ToString());
+]]></code></example>
+    </member>
+    <member name="CreateOrUpdateRoleAsync(string,RequestContent,RequestConditions,RequestContext)">
+      <example>
+This sample shows how to call CreateOrUpdateRoleAsync and parse the result.
+<code><![CDATA[
+Roles client = new IdentityClient().GetClient(apiVersion: "2023-08-30-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    name = "<name>",
+    isEnabled = true,
+    permissions = new
+    {
+        chat = new
+        {
+            addParticipants = true,
+            removeSelf = true,
+            leaveChatThread = true,
+            removeParticipants = true,
+            listParticipants = true,
+            getOwnData = true,
+            getOthersData = true,
+            updateOwnData = true,
+            updateOthersData = true,
+            shareHistory = true,
+            getChatThreadProperties = true,
+            updateChatThreadProperties = true,
+            deleteChatThread = true,
+            sendMessage = true,
+            getMessages = true,
+            readMessages = true,
+            editOwnMessage = true,
+            editOthersMessage = true,
+            editAnyMessage = true,
+            annotateOwnMessage = true,
+            replyOwnMessage = true,
+            annotateOthersMessage = true,
+            replyOthersMessage = true,
+            deleteOwnMessage = true,
+            deleteOthersMessage = true,
+            deleteAnyMessage = true,
+            recoverOwnMessage = true,
+            recoverOthersMessage = true,
+            recoverAnyMessage = true,
+            getReadReceipts = true,
+            sendReadReceipt = true,
+            sendTypingNotification = true,
+        },
+        calling = new
+        {
+            addParticipants = true,
+            addPstnParticipants = true,
+            removeSelf = true,
+            leaveCall = true,
+            removeParticipants = true,
+            removePstnParticipant = true,
+            listParticipants = true,
+            getOwnData = true,
+            getOthersData = true,
+            updateOwnData = true,
+            updateOthersData = true,
+            getCallProperties = true,
+            updateCallProperties = true,
+            admitLobbyParticipants = true,
+            denyLobbyParticipants = true,
+            bypassLobby = true,
+            deleteCall = true,
+            joinMeeting = true,
+            turnOnVideo = true,
+            shareVideo = true,
+            sendVideo = true,
+            restrictOthersVideo = true,
+            unrestrictOthersVideo = true,
+            turnOnAudio = true,
+            shareAudio = true,
+            sendAudio = true,
+            restrictOthersAudio = true,
+            unrestrictOthersAudio = true,
+            shareScreen = true,
+            shareContent = true,
+            muteSelf = true,
+            unmuteSelf = true,
+            muteOthers = true,
+            spotlightParticipants = true,
+            removeSpotlights = true,
+            removeParticipantsSpotlight = true,
+            startRecording = true,
+            stopRecording = true,
+            startLiveCaptions = true,
+            stopLiveCaptions = true,
+            raiseHand = true,
+            sendReaction = true,
+            hangUpForEveryOne = true,
+            endCallForAll = true,
+        },
+    },
+});
+Response response = await client.CreateOrUpdateRoleAsync("<id>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("isEnabled").ToString());
+Console.WriteLine(result.GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("updatedAt").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("addParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("removeSelf").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("leaveChatThread").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("removeParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("listParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getOwnData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getOthersData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("updateOwnData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("updateOthersData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("shareHistory").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getChatThreadProperties").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("updateChatThreadProperties").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("deleteChatThread").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("sendMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getMessages").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("readMessages").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("editOwnMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("editOthersMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("editAnyMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("annotateOwnMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("replyOwnMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("annotateOthersMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("replyOthersMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("deleteOwnMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("deleteOthersMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("deleteAnyMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("recoverOwnMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("recoverOthersMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("recoverAnyMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getReadReceipts").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("sendReadReceipt").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("sendTypingNotification").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("addParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("addPstnParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removeSelf").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("leaveCall").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removeParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removePstnParticipant").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("listParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("getOwnData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("getOthersData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("updateOwnData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("updateOthersData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("getCallProperties").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("updateCallProperties").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("admitLobbyParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("denyLobbyParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("bypassLobby").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("deleteCall").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("joinMeeting").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("turnOnVideo").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("shareVideo").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("sendVideo").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("restrictOthersVideo").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("unrestrictOthersVideo").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("turnOnAudio").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("shareAudio").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("sendAudio").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("restrictOthersAudio").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("unrestrictOthersAudio").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("shareScreen").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("shareContent").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("muteSelf").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("unmuteSelf").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("muteOthers").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("spotlightParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removeSpotlights").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removeParticipantsSpotlight").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("startRecording").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("stopRecording").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("startLiveCaptions").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("stopLiveCaptions").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("raiseHand").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("sendReaction").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("hangUpForEveryOne").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("endCallForAll").ToString());
+]]></code>
+This sample shows how to call CreateOrUpdateRoleAsync with all parameters and request content and parse the result.
+<code><![CDATA[
+Roles client = new IdentityClient().GetClient(apiVersion: "2023-08-30-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    name = "<name>",
+    isEnabled = true,
+    permissions = new
+    {
+        chat = new
+        {
+            addParticipants = true,
+            removeSelf = true,
+            leaveChatThread = true,
+            removeParticipants = true,
+            listParticipants = true,
+            getOwnData = true,
+            getOthersData = true,
+            updateOwnData = true,
+            updateOthersData = true,
+            shareHistory = true,
+            getChatThreadProperties = true,
+            updateChatThreadProperties = true,
+            deleteChatThread = true,
+            sendMessage = true,
+            getMessages = true,
+            readMessages = true,
+            editOwnMessage = true,
+            editOthersMessage = true,
+            editAnyMessage = true,
+            annotateOwnMessage = true,
+            replyOwnMessage = true,
+            annotateOthersMessage = true,
+            replyOthersMessage = true,
+            deleteOwnMessage = true,
+            deleteOthersMessage = true,
+            deleteAnyMessage = true,
+            recoverOwnMessage = true,
+            recoverOthersMessage = true,
+            recoverAnyMessage = true,
+            getReadReceipts = true,
+            sendReadReceipt = true,
+            sendTypingNotification = true,
+        },
+        calling = new
+        {
+            addParticipants = true,
+            addPstnParticipants = true,
+            removeSelf = true,
+            leaveCall = true,
+            removeParticipants = true,
+            removePstnParticipant = true,
+            listParticipants = true,
+            getOwnData = true,
+            getOthersData = true,
+            updateOwnData = true,
+            updateOthersData = true,
+            getCallProperties = true,
+            updateCallProperties = true,
+            admitLobbyParticipants = true,
+            denyLobbyParticipants = true,
+            bypassLobby = true,
+            deleteCall = true,
+            joinMeeting = true,
+            turnOnVideo = true,
+            shareVideo = true,
+            sendVideo = true,
+            restrictOthersVideo = true,
+            unrestrictOthersVideo = true,
+            turnOnAudio = true,
+            shareAudio = true,
+            sendAudio = true,
+            restrictOthersAudio = true,
+            unrestrictOthersAudio = true,
+            shareScreen = true,
+            shareContent = true,
+            muteSelf = true,
+            unmuteSelf = true,
+            muteOthers = true,
+            spotlightParticipants = true,
+            removeSpotlights = true,
+            removeParticipantsSpotlight = true,
+            startRecording = true,
+            stopRecording = true,
+            startLiveCaptions = true,
+            stopLiveCaptions = true,
+            raiseHand = true,
+            sendReaction = true,
+            hangUpForEveryOne = true,
+            endCallForAll = true,
+        },
+    },
+});
+Response response = await client.CreateOrUpdateRoleAsync("<id>", content, requestConditions: null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("isEnabled").ToString());
+Console.WriteLine(result.GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("updatedAt").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("addParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("removeSelf").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("leaveChatThread").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("removeParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("listParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getOwnData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getOthersData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("updateOwnData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("updateOthersData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("shareHistory").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getChatThreadProperties").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("updateChatThreadProperties").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("deleteChatThread").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("sendMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getMessages").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("readMessages").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("editOwnMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("editOthersMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("editAnyMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("annotateOwnMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("replyOwnMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("annotateOthersMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("replyOthersMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("deleteOwnMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("deleteOthersMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("deleteAnyMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("recoverOwnMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("recoverOthersMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("recoverAnyMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getReadReceipts").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("sendReadReceipt").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("sendTypingNotification").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("addParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("addPstnParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removeSelf").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("leaveCall").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removeParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removePstnParticipant").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("listParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("getOwnData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("getOthersData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("updateOwnData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("updateOthersData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("getCallProperties").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("updateCallProperties").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("admitLobbyParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("denyLobbyParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("bypassLobby").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("deleteCall").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("joinMeeting").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("turnOnVideo").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("shareVideo").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("sendVideo").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("restrictOthersVideo").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("unrestrictOthersVideo").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("turnOnAudio").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("shareAudio").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("sendAudio").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("restrictOthersAudio").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("unrestrictOthersAudio").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("shareScreen").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("shareContent").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("muteSelf").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("unmuteSelf").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("muteOthers").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("spotlightParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removeSpotlights").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removeParticipantsSpotlight").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("startRecording").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("stopRecording").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("startLiveCaptions").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("stopLiveCaptions").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("raiseHand").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("sendReaction").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("hangUpForEveryOne").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("endCallForAll").ToString());
+]]></code></example>
+    </member>
+    <member name="CreateOrUpdateRole(string,RequestContent,RequestConditions,RequestContext)">
+      <example>
+This sample shows how to call CreateOrUpdateRole and parse the result.
+<code><![CDATA[
+Roles client = new IdentityClient().GetClient(apiVersion: "2023-08-30-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    name = "<name>",
+    isEnabled = true,
+    permissions = new
+    {
+        chat = new
+        {
+            addParticipants = true,
+            removeSelf = true,
+            leaveChatThread = true,
+            removeParticipants = true,
+            listParticipants = true,
+            getOwnData = true,
+            getOthersData = true,
+            updateOwnData = true,
+            updateOthersData = true,
+            shareHistory = true,
+            getChatThreadProperties = true,
+            updateChatThreadProperties = true,
+            deleteChatThread = true,
+            sendMessage = true,
+            getMessages = true,
+            readMessages = true,
+            editOwnMessage = true,
+            editOthersMessage = true,
+            editAnyMessage = true,
+            annotateOwnMessage = true,
+            replyOwnMessage = true,
+            annotateOthersMessage = true,
+            replyOthersMessage = true,
+            deleteOwnMessage = true,
+            deleteOthersMessage = true,
+            deleteAnyMessage = true,
+            recoverOwnMessage = true,
+            recoverOthersMessage = true,
+            recoverAnyMessage = true,
+            getReadReceipts = true,
+            sendReadReceipt = true,
+            sendTypingNotification = true,
+        },
+        calling = new
+        {
+            addParticipants = true,
+            addPstnParticipants = true,
+            removeSelf = true,
+            leaveCall = true,
+            removeParticipants = true,
+            removePstnParticipant = true,
+            listParticipants = true,
+            getOwnData = true,
+            getOthersData = true,
+            updateOwnData = true,
+            updateOthersData = true,
+            getCallProperties = true,
+            updateCallProperties = true,
+            admitLobbyParticipants = true,
+            denyLobbyParticipants = true,
+            bypassLobby = true,
+            deleteCall = true,
+            joinMeeting = true,
+            turnOnVideo = true,
+            shareVideo = true,
+            sendVideo = true,
+            restrictOthersVideo = true,
+            unrestrictOthersVideo = true,
+            turnOnAudio = true,
+            shareAudio = true,
+            sendAudio = true,
+            restrictOthersAudio = true,
+            unrestrictOthersAudio = true,
+            shareScreen = true,
+            shareContent = true,
+            muteSelf = true,
+            unmuteSelf = true,
+            muteOthers = true,
+            spotlightParticipants = true,
+            removeSpotlights = true,
+            removeParticipantsSpotlight = true,
+            startRecording = true,
+            stopRecording = true,
+            startLiveCaptions = true,
+            stopLiveCaptions = true,
+            raiseHand = true,
+            sendReaction = true,
+            hangUpForEveryOne = true,
+            endCallForAll = true,
+        },
+    },
+});
+Response response = client.CreateOrUpdateRole("<id>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("isEnabled").ToString());
+Console.WriteLine(result.GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("updatedAt").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("addParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("removeSelf").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("leaveChatThread").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("removeParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("listParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getOwnData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getOthersData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("updateOwnData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("updateOthersData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("shareHistory").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getChatThreadProperties").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("updateChatThreadProperties").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("deleteChatThread").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("sendMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getMessages").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("readMessages").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("editOwnMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("editOthersMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("editAnyMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("annotateOwnMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("replyOwnMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("annotateOthersMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("replyOthersMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("deleteOwnMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("deleteOthersMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("deleteAnyMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("recoverOwnMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("recoverOthersMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("recoverAnyMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getReadReceipts").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("sendReadReceipt").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("sendTypingNotification").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("addParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("addPstnParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removeSelf").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("leaveCall").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removeParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removePstnParticipant").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("listParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("getOwnData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("getOthersData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("updateOwnData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("updateOthersData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("getCallProperties").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("updateCallProperties").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("admitLobbyParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("denyLobbyParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("bypassLobby").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("deleteCall").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("joinMeeting").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("turnOnVideo").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("shareVideo").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("sendVideo").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("restrictOthersVideo").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("unrestrictOthersVideo").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("turnOnAudio").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("shareAudio").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("sendAudio").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("restrictOthersAudio").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("unrestrictOthersAudio").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("shareScreen").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("shareContent").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("muteSelf").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("unmuteSelf").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("muteOthers").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("spotlightParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removeSpotlights").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removeParticipantsSpotlight").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("startRecording").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("stopRecording").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("startLiveCaptions").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("stopLiveCaptions").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("raiseHand").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("sendReaction").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("hangUpForEveryOne").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("endCallForAll").ToString());
+]]></code>
+This sample shows how to call CreateOrUpdateRole with all parameters and request content and parse the result.
+<code><![CDATA[
+Roles client = new IdentityClient().GetClient(apiVersion: "2023-08-30-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    name = "<name>",
+    isEnabled = true,
+    permissions = new
+    {
+        chat = new
+        {
+            addParticipants = true,
+            removeSelf = true,
+            leaveChatThread = true,
+            removeParticipants = true,
+            listParticipants = true,
+            getOwnData = true,
+            getOthersData = true,
+            updateOwnData = true,
+            updateOthersData = true,
+            shareHistory = true,
+            getChatThreadProperties = true,
+            updateChatThreadProperties = true,
+            deleteChatThread = true,
+            sendMessage = true,
+            getMessages = true,
+            readMessages = true,
+            editOwnMessage = true,
+            editOthersMessage = true,
+            editAnyMessage = true,
+            annotateOwnMessage = true,
+            replyOwnMessage = true,
+            annotateOthersMessage = true,
+            replyOthersMessage = true,
+            deleteOwnMessage = true,
+            deleteOthersMessage = true,
+            deleteAnyMessage = true,
+            recoverOwnMessage = true,
+            recoverOthersMessage = true,
+            recoverAnyMessage = true,
+            getReadReceipts = true,
+            sendReadReceipt = true,
+            sendTypingNotification = true,
+        },
+        calling = new
+        {
+            addParticipants = true,
+            addPstnParticipants = true,
+            removeSelf = true,
+            leaveCall = true,
+            removeParticipants = true,
+            removePstnParticipant = true,
+            listParticipants = true,
+            getOwnData = true,
+            getOthersData = true,
+            updateOwnData = true,
+            updateOthersData = true,
+            getCallProperties = true,
+            updateCallProperties = true,
+            admitLobbyParticipants = true,
+            denyLobbyParticipants = true,
+            bypassLobby = true,
+            deleteCall = true,
+            joinMeeting = true,
+            turnOnVideo = true,
+            shareVideo = true,
+            sendVideo = true,
+            restrictOthersVideo = true,
+            unrestrictOthersVideo = true,
+            turnOnAudio = true,
+            shareAudio = true,
+            sendAudio = true,
+            restrictOthersAudio = true,
+            unrestrictOthersAudio = true,
+            shareScreen = true,
+            shareContent = true,
+            muteSelf = true,
+            unmuteSelf = true,
+            muteOthers = true,
+            spotlightParticipants = true,
+            removeSpotlights = true,
+            removeParticipantsSpotlight = true,
+            startRecording = true,
+            stopRecording = true,
+            startLiveCaptions = true,
+            stopLiveCaptions = true,
+            raiseHand = true,
+            sendReaction = true,
+            hangUpForEveryOne = true,
+            endCallForAll = true,
+        },
+    },
+});
+Response response = client.CreateOrUpdateRole("<id>", content, requestConditions: null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("name").ToString());
+Console.WriteLine(result.GetProperty("isEnabled").ToString());
+Console.WriteLine(result.GetProperty("createdAt").ToString());
+Console.WriteLine(result.GetProperty("updatedAt").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("addParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("removeSelf").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("leaveChatThread").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("removeParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("listParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getOwnData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getOthersData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("updateOwnData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("updateOthersData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("shareHistory").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getChatThreadProperties").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("updateChatThreadProperties").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("deleteChatThread").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("sendMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getMessages").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("readMessages").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("editOwnMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("editOthersMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("editAnyMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("annotateOwnMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("replyOwnMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("annotateOthersMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("replyOthersMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("deleteOwnMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("deleteOthersMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("deleteAnyMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("recoverOwnMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("recoverOthersMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("recoverAnyMessage").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getReadReceipts").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("sendReadReceipt").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("sendTypingNotification").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("addParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("addPstnParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removeSelf").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("leaveCall").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removeParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removePstnParticipant").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("listParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("getOwnData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("getOthersData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("updateOwnData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("updateOthersData").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("getCallProperties").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("updateCallProperties").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("admitLobbyParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("denyLobbyParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("bypassLobby").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("deleteCall").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("joinMeeting").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("turnOnVideo").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("shareVideo").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("sendVideo").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("restrictOthersVideo").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("unrestrictOthersVideo").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("turnOnAudio").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("shareAudio").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("sendAudio").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("restrictOthersAudio").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("unrestrictOthersAudio").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("shareScreen").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("shareContent").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("muteSelf").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("unmuteSelf").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("muteOthers").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("spotlightParticipants").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removeSpotlights").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removeParticipantsSpotlight").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("startRecording").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("stopRecording").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("startLiveCaptions").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("stopLiveCaptions").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("raiseHand").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("sendReaction").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("hangUpForEveryOne").ToString());
+Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("endCallForAll").ToString());
+]]></code></example>
+    </member>
+    <member name="DeleteRoleAsync(string,RequestConditions,RequestContext)">
+      <example>
+This sample shows how to call DeleteRoleAsync.
+<code><![CDATA[
+Roles client = new IdentityClient().GetClient(apiVersion: "2023-08-30-preview");
+
+Response response = await client.DeleteRoleAsync("<id>");
+
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call DeleteRoleAsync with all parameters.
+<code><![CDATA[
+Roles client = new IdentityClient().GetClient(apiVersion: "2023-08-30-preview");
+
+Response response = await client.DeleteRoleAsync("<id>", requestConditions: null);
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="DeleteRole(string,RequestConditions,RequestContext)">
+      <example>
+This sample shows how to call DeleteRole.
+<code><![CDATA[
+Roles client = new IdentityClient().GetClient(apiVersion: "2023-08-30-preview");
+
+Response response = client.DeleteRole("<id>");
+
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call DeleteRole with all parameters.
+<code><![CDATA[
+Roles client = new IdentityClient().GetClient(apiVersion: "2023-08-30-preview");
+
+Response response = client.DeleteRole("<id>", requestConditions: null);
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="CreateRoleAsync(Role,RequestConditions,CancellationToken)">
+      <example>
+This sample shows how to call CreateRoleAsync.
+<code><![CDATA[
+Roles client = new IdentityClient().GetClient(apiVersion: "2023-08-30-preview");
+
+Role resource = new Role("<name>", true, new Permissions(new ChatPermissions(true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true), new CallingPermissions(true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true)));
+Response response = await client.CreateRoleAsync(resource);
+]]></code>
+This sample shows how to call CreateRoleAsync with all parameters.
+<code><![CDATA[
+Roles client = new IdentityClient().GetClient(apiVersion: "2023-08-30-preview");
+
+Role resource = new Role("<name>", true, new Permissions(new ChatPermissions(true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true), new CallingPermissions(true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true)));
+Response response = await client.CreateRoleAsync(resource, requestConditions: null);
+]]></code></example>
+    </member>
+    <member name="CreateRole(Role,RequestConditions,CancellationToken)">
+      <example>
+This sample shows how to call CreateRole.
+<code><![CDATA[
+Roles client = new IdentityClient().GetClient(apiVersion: "2023-08-30-preview");
+
+Role resource = new Role("<name>", true, new Permissions(new ChatPermissions(true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true), new CallingPermissions(true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true)));
+Response response = client.CreateRole(resource);
+]]></code>
+This sample shows how to call CreateRole with all parameters.
+<code><![CDATA[
+Roles client = new IdentityClient().GetClient(apiVersion: "2023-08-30-preview");
+
+Role resource = new Role("<name>", true, new Permissions(new ChatPermissions(true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true), new CallingPermissions(true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true)));
+Response response = client.CreateRole(resource, requestConditions: null);
+]]></code></example>
+    </member>
+    <member name="CreateRoleAsync(RequestContent,RequestConditions,RequestContext)">
+      <example>
+This sample shows how to call CreateRoleAsync.
+<code><![CDATA[
+Roles client = new IdentityClient().GetClient(apiVersion: "2023-08-30-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    name = "<name>",
+    isEnabled = true,
+    permissions = new
+    {
+        chat = new
+        {
+            addParticipants = true,
+            removeSelf = true,
+            leaveChatThread = true,
+            removeParticipants = true,
+            listParticipants = true,
+            getOwnData = true,
+            getOthersData = true,
+            updateOwnData = true,
+            updateOthersData = true,
+            shareHistory = true,
+            getChatThreadProperties = true,
+            updateChatThreadProperties = true,
+            deleteChatThread = true,
+            sendMessage = true,
+            getMessages = true,
+            readMessages = true,
+            editOwnMessage = true,
+            editOthersMessage = true,
+            editAnyMessage = true,
+            annotateOwnMessage = true,
+            replyOwnMessage = true,
+            annotateOthersMessage = true,
+            replyOthersMessage = true,
+            deleteOwnMessage = true,
+            deleteOthersMessage = true,
+            deleteAnyMessage = true,
+            recoverOwnMessage = true,
+            recoverOthersMessage = true,
+            recoverAnyMessage = true,
+            getReadReceipts = true,
+            sendReadReceipt = true,
+            sendTypingNotification = true,
+        },
+        calling = new
+        {
+            addParticipants = true,
+            addPstnParticipants = true,
+            removeSelf = true,
+            leaveCall = true,
+            removeParticipants = true,
+            removePstnParticipant = true,
+            listParticipants = true,
+            getOwnData = true,
+            getOthersData = true,
+            updateOwnData = true,
+            updateOthersData = true,
+            getCallProperties = true,
+            updateCallProperties = true,
+            admitLobbyParticipants = true,
+            denyLobbyParticipants = true,
+            bypassLobby = true,
+            deleteCall = true,
+            joinMeeting = true,
+            turnOnVideo = true,
+            shareVideo = true,
+            sendVideo = true,
+            restrictOthersVideo = true,
+            unrestrictOthersVideo = true,
+            turnOnAudio = true,
+            shareAudio = true,
+            sendAudio = true,
+            restrictOthersAudio = true,
+            unrestrictOthersAudio = true,
+            shareScreen = true,
+            shareContent = true,
+            muteSelf = true,
+            unmuteSelf = true,
+            muteOthers = true,
+            spotlightParticipants = true,
+            removeSpotlights = true,
+            removeParticipantsSpotlight = true,
+            startRecording = true,
+            stopRecording = true,
+            startLiveCaptions = true,
+            stopLiveCaptions = true,
+            raiseHand = true,
+            sendReaction = true,
+            hangUpForEveryOne = true,
+            endCallForAll = true,
+        },
+    },
+});
+Response response = await client.CreateRoleAsync(content);
+
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call CreateRoleAsync with all parameters and request content.
+<code><![CDATA[
+Roles client = new IdentityClient().GetClient(apiVersion: "2023-08-30-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    name = "<name>",
+    isEnabled = true,
+    permissions = new
+    {
+        chat = new
+        {
+            addParticipants = true,
+            removeSelf = true,
+            leaveChatThread = true,
+            removeParticipants = true,
+            listParticipants = true,
+            getOwnData = true,
+            getOthersData = true,
+            updateOwnData = true,
+            updateOthersData = true,
+            shareHistory = true,
+            getChatThreadProperties = true,
+            updateChatThreadProperties = true,
+            deleteChatThread = true,
+            sendMessage = true,
+            getMessages = true,
+            readMessages = true,
+            editOwnMessage = true,
+            editOthersMessage = true,
+            editAnyMessage = true,
+            annotateOwnMessage = true,
+            replyOwnMessage = true,
+            annotateOthersMessage = true,
+            replyOthersMessage = true,
+            deleteOwnMessage = true,
+            deleteOthersMessage = true,
+            deleteAnyMessage = true,
+            recoverOwnMessage = true,
+            recoverOthersMessage = true,
+            recoverAnyMessage = true,
+            getReadReceipts = true,
+            sendReadReceipt = true,
+            sendTypingNotification = true,
+        },
+        calling = new
+        {
+            addParticipants = true,
+            addPstnParticipants = true,
+            removeSelf = true,
+            leaveCall = true,
+            removeParticipants = true,
+            removePstnParticipant = true,
+            listParticipants = true,
+            getOwnData = true,
+            getOthersData = true,
+            updateOwnData = true,
+            updateOthersData = true,
+            getCallProperties = true,
+            updateCallProperties = true,
+            admitLobbyParticipants = true,
+            denyLobbyParticipants = true,
+            bypassLobby = true,
+            deleteCall = true,
+            joinMeeting = true,
+            turnOnVideo = true,
+            shareVideo = true,
+            sendVideo = true,
+            restrictOthersVideo = true,
+            unrestrictOthersVideo = true,
+            turnOnAudio = true,
+            shareAudio = true,
+            sendAudio = true,
+            restrictOthersAudio = true,
+            unrestrictOthersAudio = true,
+            shareScreen = true,
+            shareContent = true,
+            muteSelf = true,
+            unmuteSelf = true,
+            muteOthers = true,
+            spotlightParticipants = true,
+            removeSpotlights = true,
+            removeParticipantsSpotlight = true,
+            startRecording = true,
+            stopRecording = true,
+            startLiveCaptions = true,
+            stopLiveCaptions = true,
+            raiseHand = true,
+            sendReaction = true,
+            hangUpForEveryOne = true,
+            endCallForAll = true,
+        },
+    },
+});
+Response response = await client.CreateRoleAsync(content, requestConditions: null);
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="CreateRole(RequestContent,RequestConditions,RequestContext)">
+      <example>
+This sample shows how to call CreateRole.
+<code><![CDATA[
+Roles client = new IdentityClient().GetClient(apiVersion: "2023-08-30-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    name = "<name>",
+    isEnabled = true,
+    permissions = new
+    {
+        chat = new
+        {
+            addParticipants = true,
+            removeSelf = true,
+            leaveChatThread = true,
+            removeParticipants = true,
+            listParticipants = true,
+            getOwnData = true,
+            getOthersData = true,
+            updateOwnData = true,
+            updateOthersData = true,
+            shareHistory = true,
+            getChatThreadProperties = true,
+            updateChatThreadProperties = true,
+            deleteChatThread = true,
+            sendMessage = true,
+            getMessages = true,
+            readMessages = true,
+            editOwnMessage = true,
+            editOthersMessage = true,
+            editAnyMessage = true,
+            annotateOwnMessage = true,
+            replyOwnMessage = true,
+            annotateOthersMessage = true,
+            replyOthersMessage = true,
+            deleteOwnMessage = true,
+            deleteOthersMessage = true,
+            deleteAnyMessage = true,
+            recoverOwnMessage = true,
+            recoverOthersMessage = true,
+            recoverAnyMessage = true,
+            getReadReceipts = true,
+            sendReadReceipt = true,
+            sendTypingNotification = true,
+        },
+        calling = new
+        {
+            addParticipants = true,
+            addPstnParticipants = true,
+            removeSelf = true,
+            leaveCall = true,
+            removeParticipants = true,
+            removePstnParticipant = true,
+            listParticipants = true,
+            getOwnData = true,
+            getOthersData = true,
+            updateOwnData = true,
+            updateOthersData = true,
+            getCallProperties = true,
+            updateCallProperties = true,
+            admitLobbyParticipants = true,
+            denyLobbyParticipants = true,
+            bypassLobby = true,
+            deleteCall = true,
+            joinMeeting = true,
+            turnOnVideo = true,
+            shareVideo = true,
+            sendVideo = true,
+            restrictOthersVideo = true,
+            unrestrictOthersVideo = true,
+            turnOnAudio = true,
+            shareAudio = true,
+            sendAudio = true,
+            restrictOthersAudio = true,
+            unrestrictOthersAudio = true,
+            shareScreen = true,
+            shareContent = true,
+            muteSelf = true,
+            unmuteSelf = true,
+            muteOthers = true,
+            spotlightParticipants = true,
+            removeSpotlights = true,
+            removeParticipantsSpotlight = true,
+            startRecording = true,
+            stopRecording = true,
+            startLiveCaptions = true,
+            stopLiveCaptions = true,
+            raiseHand = true,
+            sendReaction = true,
+            hangUpForEveryOne = true,
+            endCallForAll = true,
+        },
+    },
+});
+Response response = client.CreateRole(content);
+
+Console.WriteLine(response.Status);
+]]></code>
+This sample shows how to call CreateRole with all parameters and request content.
+<code><![CDATA[
+Roles client = new IdentityClient().GetClient(apiVersion: "2023-08-30-preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    name = "<name>",
+    isEnabled = true,
+    permissions = new
+    {
+        chat = new
+        {
+            addParticipants = true,
+            removeSelf = true,
+            leaveChatThread = true,
+            removeParticipants = true,
+            listParticipants = true,
+            getOwnData = true,
+            getOthersData = true,
+            updateOwnData = true,
+            updateOthersData = true,
+            shareHistory = true,
+            getChatThreadProperties = true,
+            updateChatThreadProperties = true,
+            deleteChatThread = true,
+            sendMessage = true,
+            getMessages = true,
+            readMessages = true,
+            editOwnMessage = true,
+            editOthersMessage = true,
+            editAnyMessage = true,
+            annotateOwnMessage = true,
+            replyOwnMessage = true,
+            annotateOthersMessage = true,
+            replyOthersMessage = true,
+            deleteOwnMessage = true,
+            deleteOthersMessage = true,
+            deleteAnyMessage = true,
+            recoverOwnMessage = true,
+            recoverOthersMessage = true,
+            recoverAnyMessage = true,
+            getReadReceipts = true,
+            sendReadReceipt = true,
+            sendTypingNotification = true,
+        },
+        calling = new
+        {
+            addParticipants = true,
+            addPstnParticipants = true,
+            removeSelf = true,
+            leaveCall = true,
+            removeParticipants = true,
+            removePstnParticipant = true,
+            listParticipants = true,
+            getOwnData = true,
+            getOthersData = true,
+            updateOwnData = true,
+            updateOthersData = true,
+            getCallProperties = true,
+            updateCallProperties = true,
+            admitLobbyParticipants = true,
+            denyLobbyParticipants = true,
+            bypassLobby = true,
+            deleteCall = true,
+            joinMeeting = true,
+            turnOnVideo = true,
+            shareVideo = true,
+            sendVideo = true,
+            restrictOthersVideo = true,
+            unrestrictOthersVideo = true,
+            turnOnAudio = true,
+            shareAudio = true,
+            sendAudio = true,
+            restrictOthersAudio = true,
+            unrestrictOthersAudio = true,
+            shareScreen = true,
+            shareContent = true,
+            muteSelf = true,
+            unmuteSelf = true,
+            muteOthers = true,
+            spotlightParticipants = true,
+            removeSpotlights = true,
+            removeParticipantsSpotlight = true,
+            startRecording = true,
+            stopRecording = true,
+            startLiveCaptions = true,
+            stopLiveCaptions = true,
+            raiseHand = true,
+            sendReaction = true,
+            hangUpForEveryOne = true,
+            endCallForAll = true,
+        },
+    },
+});
+Response response = client.CreateRole(content, requestConditions: null);
+
+Console.WriteLine(response.Status);
+]]></code></example>
+    </member>
+    <member name="GetRolesAsync(CancellationToken)">
+      <example>
+This sample shows how to call GetRolesAsync.
+<code><![CDATA[
+Roles client = new IdentityClient().GetClient(apiVersion: "2023-08-30-preview");
+
+await foreach (Role item in client.GetRolesAsync())
+{
+}
+]]></code>
+This sample shows how to call GetRolesAsync with all parameters.
+<code><![CDATA[
+Roles client = new IdentityClient().GetClient(apiVersion: "2023-08-30-preview");
+
+await foreach (Role item in client.GetRolesAsync())
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetRoles(CancellationToken)">
+      <example>
+This sample shows how to call GetRoles.
+<code><![CDATA[
+Roles client = new IdentityClient().GetClient(apiVersion: "2023-08-30-preview");
+
+foreach (Role item in client.GetRoles())
+{
+}
+]]></code>
+This sample shows how to call GetRoles with all parameters.
+<code><![CDATA[
+Roles client = new IdentityClient().GetClient(apiVersion: "2023-08-30-preview");
+
+foreach (Role item in client.GetRoles())
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetRolesAsync(RequestContext)">
+      <example>
+This sample shows how to call GetRolesAsync and parse the result.
+<code><![CDATA[
+Roles client = new IdentityClient().GetClient(apiVersion: "2023-08-30-preview");
+
+await foreach (BinaryData item in client.GetRolesAsync(null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("isEnabled").ToString());
+    Console.WriteLine(result.GetProperty("createdAt").ToString());
+    Console.WriteLine(result.GetProperty("updatedAt").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("addParticipants").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("removeSelf").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("leaveChatThread").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("removeParticipants").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("listParticipants").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getOwnData").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getOthersData").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("updateOwnData").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("updateOthersData").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("shareHistory").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getChatThreadProperties").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("updateChatThreadProperties").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("deleteChatThread").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("sendMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getMessages").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("readMessages").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("editOwnMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("editOthersMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("editAnyMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("annotateOwnMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("replyOwnMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("annotateOthersMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("replyOthersMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("deleteOwnMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("deleteOthersMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("deleteAnyMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("recoverOwnMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("recoverOthersMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("recoverAnyMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getReadReceipts").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("sendReadReceipt").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("sendTypingNotification").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("addParticipants").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("addPstnParticipants").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removeSelf").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("leaveCall").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removeParticipants").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removePstnParticipant").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("listParticipants").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("getOwnData").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("getOthersData").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("updateOwnData").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("updateOthersData").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("getCallProperties").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("updateCallProperties").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("admitLobbyParticipants").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("denyLobbyParticipants").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("bypassLobby").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("deleteCall").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("joinMeeting").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("turnOnVideo").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("shareVideo").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("sendVideo").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("restrictOthersVideo").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("unrestrictOthersVideo").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("turnOnAudio").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("shareAudio").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("sendAudio").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("restrictOthersAudio").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("unrestrictOthersAudio").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("shareScreen").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("shareContent").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("muteSelf").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("unmuteSelf").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("muteOthers").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("spotlightParticipants").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removeSpotlights").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removeParticipantsSpotlight").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("startRecording").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("stopRecording").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("startLiveCaptions").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("stopLiveCaptions").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("raiseHand").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("sendReaction").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("hangUpForEveryOne").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("endCallForAll").ToString());
+}
+]]></code>
+This sample shows how to call GetRolesAsync with all parameters and parse the result.
+<code><![CDATA[
+Roles client = new IdentityClient().GetClient(apiVersion: "2023-08-30-preview");
+
+await foreach (BinaryData item in client.GetRolesAsync(null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("isEnabled").ToString());
+    Console.WriteLine(result.GetProperty("createdAt").ToString());
+    Console.WriteLine(result.GetProperty("updatedAt").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("addParticipants").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("removeSelf").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("leaveChatThread").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("removeParticipants").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("listParticipants").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getOwnData").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getOthersData").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("updateOwnData").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("updateOthersData").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("shareHistory").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getChatThreadProperties").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("updateChatThreadProperties").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("deleteChatThread").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("sendMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getMessages").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("readMessages").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("editOwnMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("editOthersMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("editAnyMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("annotateOwnMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("replyOwnMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("annotateOthersMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("replyOthersMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("deleteOwnMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("deleteOthersMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("deleteAnyMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("recoverOwnMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("recoverOthersMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("recoverAnyMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getReadReceipts").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("sendReadReceipt").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("sendTypingNotification").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("addParticipants").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("addPstnParticipants").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removeSelf").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("leaveCall").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removeParticipants").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removePstnParticipant").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("listParticipants").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("getOwnData").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("getOthersData").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("updateOwnData").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("updateOthersData").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("getCallProperties").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("updateCallProperties").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("admitLobbyParticipants").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("denyLobbyParticipants").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("bypassLobby").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("deleteCall").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("joinMeeting").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("turnOnVideo").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("shareVideo").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("sendVideo").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("restrictOthersVideo").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("unrestrictOthersVideo").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("turnOnAudio").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("shareAudio").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("sendAudio").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("restrictOthersAudio").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("unrestrictOthersAudio").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("shareScreen").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("shareContent").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("muteSelf").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("unmuteSelf").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("muteOthers").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("spotlightParticipants").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removeSpotlights").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removeParticipantsSpotlight").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("startRecording").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("stopRecording").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("startLiveCaptions").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("stopLiveCaptions").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("raiseHand").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("sendReaction").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("hangUpForEveryOne").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("endCallForAll").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetRoles(RequestContext)">
+      <example>
+This sample shows how to call GetRoles and parse the result.
+<code><![CDATA[
+Roles client = new IdentityClient().GetClient(apiVersion: "2023-08-30-preview");
+
+foreach (BinaryData item in client.GetRoles(null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("isEnabled").ToString());
+    Console.WriteLine(result.GetProperty("createdAt").ToString());
+    Console.WriteLine(result.GetProperty("updatedAt").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("addParticipants").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("removeSelf").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("leaveChatThread").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("removeParticipants").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("listParticipants").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getOwnData").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getOthersData").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("updateOwnData").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("updateOthersData").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("shareHistory").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getChatThreadProperties").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("updateChatThreadProperties").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("deleteChatThread").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("sendMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getMessages").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("readMessages").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("editOwnMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("editOthersMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("editAnyMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("annotateOwnMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("replyOwnMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("annotateOthersMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("replyOthersMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("deleteOwnMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("deleteOthersMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("deleteAnyMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("recoverOwnMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("recoverOthersMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("recoverAnyMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getReadReceipts").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("sendReadReceipt").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("sendTypingNotification").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("addParticipants").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("addPstnParticipants").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removeSelf").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("leaveCall").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removeParticipants").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removePstnParticipant").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("listParticipants").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("getOwnData").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("getOthersData").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("updateOwnData").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("updateOthersData").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("getCallProperties").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("updateCallProperties").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("admitLobbyParticipants").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("denyLobbyParticipants").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("bypassLobby").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("deleteCall").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("joinMeeting").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("turnOnVideo").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("shareVideo").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("sendVideo").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("restrictOthersVideo").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("unrestrictOthersVideo").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("turnOnAudio").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("shareAudio").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("sendAudio").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("restrictOthersAudio").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("unrestrictOthersAudio").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("shareScreen").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("shareContent").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("muteSelf").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("unmuteSelf").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("muteOthers").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("spotlightParticipants").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removeSpotlights").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removeParticipantsSpotlight").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("startRecording").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("stopRecording").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("startLiveCaptions").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("stopLiveCaptions").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("raiseHand").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("sendReaction").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("hangUpForEveryOne").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("endCallForAll").ToString());
+}
+]]></code>
+This sample shows how to call GetRoles with all parameters and parse the result.
+<code><![CDATA[
+Roles client = new IdentityClient().GetClient(apiVersion: "2023-08-30-preview");
+
+foreach (BinaryData item in client.GetRoles(null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("name").ToString());
+    Console.WriteLine(result.GetProperty("isEnabled").ToString());
+    Console.WriteLine(result.GetProperty("createdAt").ToString());
+    Console.WriteLine(result.GetProperty("updatedAt").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("addParticipants").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("removeSelf").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("leaveChatThread").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("removeParticipants").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("listParticipants").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getOwnData").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getOthersData").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("updateOwnData").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("updateOthersData").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("shareHistory").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getChatThreadProperties").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("updateChatThreadProperties").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("deleteChatThread").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("sendMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getMessages").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("readMessages").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("editOwnMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("editOthersMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("editAnyMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("annotateOwnMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("replyOwnMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("annotateOthersMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("replyOthersMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("deleteOwnMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("deleteOthersMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("deleteAnyMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("recoverOwnMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("recoverOthersMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("recoverAnyMessage").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("getReadReceipts").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("sendReadReceipt").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("chat").GetProperty("sendTypingNotification").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("addParticipants").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("addPstnParticipants").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removeSelf").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("leaveCall").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removeParticipants").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removePstnParticipant").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("listParticipants").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("getOwnData").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("getOthersData").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("updateOwnData").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("updateOthersData").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("getCallProperties").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("updateCallProperties").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("admitLobbyParticipants").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("denyLobbyParticipants").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("bypassLobby").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("deleteCall").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("joinMeeting").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("turnOnVideo").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("shareVideo").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("sendVideo").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("restrictOthersVideo").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("unrestrictOthersVideo").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("turnOnAudio").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("shareAudio").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("sendAudio").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("restrictOthersAudio").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("unrestrictOthersAudio").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("shareScreen").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("shareContent").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("muteSelf").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("unmuteSelf").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("muteOthers").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("spotlightParticipants").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removeSpotlights").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("removeParticipantsSpotlight").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("startRecording").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("stopRecording").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("startLiveCaptions").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("stopLiveCaptions").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("raiseHand").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("sendReaction").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("hangUpForEveryOne").ToString());
+    Console.WriteLine(result.GetProperty("permissions").GetProperty("calling").GetProperty("endCallForAll").ToString());
+}
+]]></code></example>
+    </member>
+  </members>
+</doc>
