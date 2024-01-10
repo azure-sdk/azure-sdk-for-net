@@ -49,6 +49,18 @@ namespace Azure.ResourceManager.AppPlatform.Mocking
         }
 
         /// <summary>
+        /// Gets an object representing an <see cref="ApmResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="ApmResource.CreateResourceIdentifier" /> to create an <see cref="ApmResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="ApmResource"/> object. </returns>
+        public virtual ApmResource GetApmResource(ResourceIdentifier id)
+        {
+            ApmResource.ValidateResourceId(id);
+            return new ApmResource(Client, id);
+        }
+
+        /// <summary>
         /// Gets an object representing an <see cref="AppPlatformConfigServerResource"/> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="AppPlatformConfigServerResource.CreateResourceIdentifier" /> to create an <see cref="AppPlatformConfigServerResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>
@@ -82,6 +94,42 @@ namespace Azure.ResourceManager.AppPlatform.Mocking
         {
             AppPlatformServiceRegistryResource.ValidateResourceId(id);
             return new AppPlatformServiceRegistryResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing an <see cref="ApplicationLiveViewResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="ApplicationLiveViewResource.CreateResourceIdentifier" /> to create an <see cref="ApplicationLiveViewResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="ApplicationLiveViewResource"/> object. </returns>
+        public virtual ApplicationLiveViewResource GetApplicationLiveViewResource(ResourceIdentifier id)
+        {
+            ApplicationLiveViewResource.ValidateResourceId(id);
+            return new ApplicationLiveViewResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="DevToolPortalResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="DevToolPortalResource.CreateResourceIdentifier" /> to create a <see cref="DevToolPortalResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="DevToolPortalResource"/> object. </returns>
+        public virtual DevToolPortalResource GetDevToolPortalResource(ResourceIdentifier id)
+        {
+            DevToolPortalResource.ValidateResourceId(id);
+            return new DevToolPortalResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="ContainerRegistryResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="ContainerRegistryResource.CreateResourceIdentifier" /> to create a <see cref="ContainerRegistryResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="ContainerRegistryResource"/> object. </returns>
+        public virtual ContainerRegistryResource GetContainerRegistryResource(ResourceIdentifier id)
+        {
+            ContainerRegistryResource.ValidateResourceId(id);
+            return new ContainerRegistryResource(Client, id);
         }
 
         /// <summary>
@@ -322,6 +370,42 @@ namespace Azure.ResourceManager.AppPlatform.Mocking
         {
             AppPlatformApiPortalCustomDomainResource.ValidateResourceId(id);
             return new AppPlatformApiPortalCustomDomainResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing an <see cref="ApplicationAcceleratorResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="ApplicationAcceleratorResource.CreateResourceIdentifier" /> to create an <see cref="ApplicationAcceleratorResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="ApplicationAcceleratorResource"/> object. </returns>
+        public virtual ApplicationAcceleratorResource GetApplicationAcceleratorResource(ResourceIdentifier id)
+        {
+            ApplicationAcceleratorResource.ValidateResourceId(id);
+            return new ApplicationAcceleratorResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="CustomizedAcceleratorResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="CustomizedAcceleratorResource.CreateResourceIdentifier" /> to create a <see cref="CustomizedAcceleratorResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="CustomizedAcceleratorResource"/> object. </returns>
+        public virtual CustomizedAcceleratorResource GetCustomizedAcceleratorResource(ResourceIdentifier id)
+        {
+            CustomizedAcceleratorResource.ValidateResourceId(id);
+            return new CustomizedAcceleratorResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="PredefinedAcceleratorResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="PredefinedAcceleratorResource.CreateResourceIdentifier" /> to create a <see cref="PredefinedAcceleratorResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="PredefinedAcceleratorResource"/> object. </returns>
+        public virtual PredefinedAcceleratorResource GetPredefinedAcceleratorResource(ResourceIdentifier id)
+        {
+            PredefinedAcceleratorResource.ValidateResourceId(id);
+            return new PredefinedAcceleratorResource(Client, id);
         }
     }
 }

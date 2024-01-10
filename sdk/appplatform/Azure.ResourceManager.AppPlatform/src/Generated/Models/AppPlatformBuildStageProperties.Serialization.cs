@@ -20,6 +20,8 @@ namespace Azure.ResourceManager.AppPlatform.Models
             }
             Optional<string> name = default;
             Optional<KPackBuildStageProvisioningState> status = default;
+            Optional<string> exitCode = default;
+            Optional<string> reason = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("name"u8))
@@ -36,8 +38,18 @@ namespace Azure.ResourceManager.AppPlatform.Models
                     status = new KPackBuildStageProvisioningState(property.Value.GetString());
                     continue;
                 }
+                if (property.NameEquals("exitCode"u8))
+                {
+                    exitCode = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("reason"u8))
+                {
+                    reason = property.Value.GetString();
+                    continue;
+                }
             }
-            return new AppPlatformBuildStageProperties(name.Value, Optional.ToNullable(status));
+            return new AppPlatformBuildStageProperties(name.Value, Optional.ToNullable(status), exitCode.Value, reason.Value);
         }
     }
 }
