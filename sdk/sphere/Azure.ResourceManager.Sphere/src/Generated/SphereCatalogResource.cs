@@ -166,7 +166,7 @@ namespace Azure.ResourceManager.Sphere
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="imageName"> Image name. Use .default for image creation. </param>
+        /// <param name="imageName"> Image name. Use an image GUID for GA versions of the API. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="imageName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="imageName"/> is an empty string, and was expected to be non-empty. </exception>
@@ -189,7 +189,7 @@ namespace Azure.ResourceManager.Sphere
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="imageName"> Image name. Use .default for image creation. </param>
+        /// <param name="imageName"> Image name. Use an image GUID for GA versions of the API. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="imageName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="imageName"/> is an empty string, and was expected to be non-empty. </exception>
