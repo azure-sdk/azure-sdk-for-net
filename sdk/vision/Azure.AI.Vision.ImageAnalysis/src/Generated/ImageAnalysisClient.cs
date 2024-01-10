@@ -79,7 +79,6 @@ namespace Azure.AI.Vision.ImageAnalysis
         /// The desired language for result generation (a two-letter language code).
         /// If this option is not specified, the default value 'en' is used (English).
         /// See https://aka.ms/cv-languages for a list of supported languages.
-        /// At the moment, only tags can be generated in none-English languages.
         /// </param>
         /// <param name="genderNeutralCaption">
         /// Boolean flag for enabling gender-neutral captioning for Caption and Dense Captions features.
@@ -123,7 +122,6 @@ namespace Azure.AI.Vision.ImageAnalysis
         /// The desired language for result generation (a two-letter language code).
         /// If this option is not specified, the default value 'en' is used (English).
         /// See https://aka.ms/cv-languages for a list of supported languages.
-        /// At the moment, only tags can be generated in none-English languages.
         /// </param>
         /// <param name="genderNeutralCaption">
         /// Boolean flag for enabling gender-neutral captioning for Caption and Dense Captions features.
@@ -181,7 +179,6 @@ namespace Azure.AI.Vision.ImageAnalysis
         /// The desired language for result generation (a two-letter language code).
         /// If this option is not specified, the default value 'en' is used (English).
         /// See https://aka.ms/cv-languages for a list of supported languages.
-        /// At the moment, only tags can be generated in none-English languages.
         /// </param>
         /// <param name="genderNeutralCaption">
         /// Boolean flag for enabling gender-neutral captioning for Caption and Dense Captions features.
@@ -249,7 +246,6 @@ namespace Azure.AI.Vision.ImageAnalysis
         /// The desired language for result generation (a two-letter language code).
         /// If this option is not specified, the default value 'en' is used (English).
         /// See https://aka.ms/cv-languages for a list of supported languages.
-        /// At the moment, only tags can be generated in none-English languages.
         /// </param>
         /// <param name="genderNeutralCaption">
         /// Boolean flag for enabling gender-neutral captioning for Caption and Dense Captions features.
@@ -303,7 +299,6 @@ namespace Azure.AI.Vision.ImageAnalysis
         /// The desired language for result generation (a two-letter language code).
         /// If this option is not specified, the default value 'en' is used (English).
         /// See https://aka.ms/cv-languages for a list of supported languages.
-        /// At the moment, only tags can be generated in none-English languages.
         /// </param>
         /// <param name="genderNeutralCaption">
         /// Boolean flag for enabling gender-neutral captioning for Caption and Dense Captions features.
@@ -347,7 +342,6 @@ namespace Azure.AI.Vision.ImageAnalysis
         /// The desired language for result generation (a two-letter language code).
         /// If this option is not specified, the default value 'en' is used (English).
         /// See https://aka.ms/cv-languages for a list of supported languages.
-        /// At the moment, only tags can be generated in none-English languages.
         /// </param>
         /// <param name="genderNeutralCaption">
         /// Boolean flag for enabling gender-neutral captioning for Caption and Dense Captions features.
@@ -405,7 +399,6 @@ namespace Azure.AI.Vision.ImageAnalysis
         /// The desired language for result generation (a two-letter language code).
         /// If this option is not specified, the default value 'en' is used (English).
         /// See https://aka.ms/cv-languages for a list of supported languages.
-        /// At the moment, only tags can be generated in none-English languages.
         /// </param>
         /// <param name="genderNeutralCaption">
         /// Boolean flag for enabling gender-neutral captioning for Caption and Dense Captions features.
@@ -473,7 +466,6 @@ namespace Azure.AI.Vision.ImageAnalysis
         /// The desired language for result generation (a two-letter language code).
         /// If this option is not specified, the default value 'en' is used (English).
         /// See https://aka.ms/cv-languages for a list of supported languages.
-        /// At the moment, only tags can be generated in none-English languages.
         /// </param>
         /// <param name="genderNeutralCaption">
         /// Boolean flag for enabling gender-neutral captioning for Caption and Dense Captions features.
