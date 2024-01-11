@@ -21,6 +21,7 @@ namespace Azure.ResourceManager.Billing.Models
                 return null;
             }
             Optional<IReadOnlyList<BillingSubscriptionData>> value = default;
+            Optional<int> totalCount = default;
             Optional<string> nextLink = default;
             foreach (var property in element.EnumerateObject())
             {
@@ -38,13 +39,22 @@ namespace Azure.ResourceManager.Billing.Models
                     value = array;
                     continue;
                 }
+                if (property.NameEquals("totalCount"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    totalCount = property.Value.GetInt32();
+                    continue;
+                }
                 if (property.NameEquals("nextLink"u8))
                 {
                     nextLink = property.Value.GetString();
                     continue;
                 }
             }
-            return new BillingSubscriptionsListResult(Optional.ToList(value), nextLink.Value);
+            return new BillingSubscriptionsListResult(Optional.ToList(value), Optional.ToNullable(totalCount), nextLink.Value);
         }
     }
 }
