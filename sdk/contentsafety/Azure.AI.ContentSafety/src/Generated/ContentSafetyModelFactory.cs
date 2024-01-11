@@ -17,13 +17,17 @@ namespace Azure.AI.ContentSafety
         /// <summary> Initializes a new instance of <see cref="ContentSafety.AnalyzeTextResult"/>. </summary>
         /// <param name="blocklistsMatch"> The blocklist match details. </param>
         /// <param name="categoriesAnalysis"> Analysis result for categories. </param>
+        /// <param name="incidentMatches"> The incident match details. </param>
+        /// <param name="citation"> Chunks in the original text detected as harmful content. Analysis result and scores are caused by these. </param>
         /// <returns> A new <see cref="ContentSafety.AnalyzeTextResult"/> instance for mocking. </returns>
-        public static AnalyzeTextResult AnalyzeTextResult(IEnumerable<TextBlocklistMatch> blocklistsMatch = null, IEnumerable<TextCategoriesAnalysis> categoriesAnalysis = null)
+        public static AnalyzeTextResult AnalyzeTextResult(IEnumerable<TextBlocklistMatch> blocklistsMatch = null, IEnumerable<TextCategoriesAnalysis> categoriesAnalysis = null, IEnumerable<IncidentMatch> incidentMatches = null, IEnumerable<string> citation = null)
         {
             blocklistsMatch ??= new List<TextBlocklistMatch>();
             categoriesAnalysis ??= new List<TextCategoriesAnalysis>();
+            incidentMatches ??= new List<IncidentMatch>();
+            citation ??= new List<string>();
 
-            return new AnalyzeTextResult(blocklistsMatch?.ToList(), categoriesAnalysis?.ToList());
+            return new AnalyzeTextResult(blocklistsMatch?.ToList(), categoriesAnalysis?.ToList(), incidentMatches?.ToList(), citation?.ToList());
         }
 
         /// <summary> Initializes a new instance of <see cref="ContentSafety.TextBlocklistMatch"/>. </summary>
@@ -59,14 +63,30 @@ namespace Azure.AI.ContentSafety
             return new TextCategoriesAnalysis(category, severity);
         }
 
+        /// <summary> Initializes a new instance of <see cref="ContentSafety.IncidentMatch"/>. </summary>
+        /// <param name="incidentName"> The name of the matched incident. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="incidentName"/> is null. </exception>
+        /// <returns> A new <see cref="ContentSafety.IncidentMatch"/> instance for mocking. </returns>
+        public static IncidentMatch IncidentMatch(string incidentName = null)
+        {
+            if (incidentName == null)
+            {
+                throw new ArgumentNullException(nameof(incidentName));
+            }
+
+            return new IncidentMatch(incidentName);
+        }
+
         /// <summary> Initializes a new instance of <see cref="ContentSafety.AnalyzeImageResult"/>. </summary>
         /// <param name="categoriesAnalysis"> Analysis result for categories. </param>
+        /// <param name="incidentMatches"> The incident match details. </param>
         /// <returns> A new <see cref="ContentSafety.AnalyzeImageResult"/> instance for mocking. </returns>
-        public static AnalyzeImageResult AnalyzeImageResult(IEnumerable<ImageCategoriesAnalysis> categoriesAnalysis = null)
+        public static AnalyzeImageResult AnalyzeImageResult(IEnumerable<ImageCategoriesAnalysis> categoriesAnalysis = null, IEnumerable<IncidentMatch> incidentMatches = null)
         {
             categoriesAnalysis ??= new List<ImageCategoriesAnalysis>();
+            incidentMatches ??= new List<IncidentMatch>();
 
-            return new AnalyzeImageResult(categoriesAnalysis?.ToList());
+            return new AnalyzeImageResult(categoriesAnalysis?.ToList(), incidentMatches?.ToList());
         }
 
         /// <summary> Initializes a new instance of <see cref="ContentSafety.ImageCategoriesAnalysis"/>. </summary>
@@ -76,6 +96,50 @@ namespace Azure.AI.ContentSafety
         public static ImageCategoriesAnalysis ImageCategoriesAnalysis(ImageCategory category = default, int? severity = null)
         {
             return new ImageCategoriesAnalysis(category, severity);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="ContentSafety.AnalyzeTextJailbreakResult"/>. </summary>
+        /// <param name="jailbreakAnalysis"> Analysis result for jailbreak. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="jailbreakAnalysis"/> is null. </exception>
+        /// <returns> A new <see cref="ContentSafety.AnalyzeTextJailbreakResult"/> instance for mocking. </returns>
+        public static AnalyzeTextJailbreakResult AnalyzeTextJailbreakResult(JailbreakAnalysisResult jailbreakAnalysis = null)
+        {
+            if (jailbreakAnalysis == null)
+            {
+                throw new ArgumentNullException(nameof(jailbreakAnalysis));
+            }
+
+            return new AnalyzeTextJailbreakResult(jailbreakAnalysis);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="ContentSafety.JailbreakAnalysisResult"/>. </summary>
+        /// <param name="detected"> Analysis result for jailbreak. </param>
+        /// <returns> A new <see cref="ContentSafety.JailbreakAnalysisResult"/> instance for mocking. </returns>
+        public static JailbreakAnalysisResult JailbreakAnalysisResult(bool detected = default)
+        {
+            return new JailbreakAnalysisResult(detected);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="ContentSafety.AnalyzeTextProtectedMaterialResult"/>. </summary>
+        /// <param name="protectedMaterialAnalysis"> Analysis result for protected material. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="protectedMaterialAnalysis"/> is null. </exception>
+        /// <returns> A new <see cref="ContentSafety.AnalyzeTextProtectedMaterialResult"/> instance for mocking. </returns>
+        public static AnalyzeTextProtectedMaterialResult AnalyzeTextProtectedMaterialResult(ProtectedMaterialAnalysisResult protectedMaterialAnalysis = null)
+        {
+            if (protectedMaterialAnalysis == null)
+            {
+                throw new ArgumentNullException(nameof(protectedMaterialAnalysis));
+            }
+
+            return new AnalyzeTextProtectedMaterialResult(protectedMaterialAnalysis);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="ContentSafety.ProtectedMaterialAnalysisResult"/>. </summary>
+        /// <param name="detected"> Analysis result for protected material.. </param>
+        /// <returns> A new <see cref="ContentSafety.ProtectedMaterialAnalysisResult"/> instance for mocking. </returns>
+        public static ProtectedMaterialAnalysisResult ProtectedMaterialAnalysisResult(bool detected = default)
+        {
+            return new ProtectedMaterialAnalysisResult(detected);
         }
 
         /// <summary> Initializes a new instance of <see cref="ContentSafety.TextBlocklistItem"/>. </summary>
