@@ -30,6 +30,11 @@ namespace Azure.ResourceManager.Network.Models
                 writer.WritePropertyName("capacity"u8);
                 writer.WriteNumberValue(Capacity.Value);
             }
+            if (Optional.IsDefined(Family))
+            {
+                writer.WritePropertyName("family"u8);
+                writer.WriteStringValue(Family.Value.ToString());
+            }
             writer.WriteEndObject();
         }
 
@@ -42,6 +47,7 @@ namespace Azure.ResourceManager.Network.Models
             Optional<ApplicationGatewaySkuName> name = default;
             Optional<ApplicationGatewayTier> tier = default;
             Optional<int> capacity = default;
+            Optional<ApplicationGatewaySkuFamily> family = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("name"u8))
@@ -71,8 +77,17 @@ namespace Azure.ResourceManager.Network.Models
                     capacity = property.Value.GetInt32();
                     continue;
                 }
+                if (property.NameEquals("family"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    family = new ApplicationGatewaySkuFamily(property.Value.GetString());
+                    continue;
+                }
             }
-            return new ApplicationGatewaySku(Optional.ToNullable(name), Optional.ToNullable(tier), Optional.ToNullable(capacity));
+            return new ApplicationGatewaySku(Optional.ToNullable(name), Optional.ToNullable(tier), Optional.ToNullable(capacity), Optional.ToNullable(family));
         }
     }
 }
