@@ -10,15 +10,15 @@ using Azure.Core;
 
 namespace Azure.AI.OpenAI
 {
-    public partial class ChatMessageImageContentItem : IUtf8JsonSerializable
+    public partial class OnYourDataAccessTokenAuthenticationOptions : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
-            writer.WritePropertyName("image_url"u8);
-            writer.WriteObjectValue(InternalImageUrlOrData);
+            writer.WritePropertyName("accessToken"u8);
+            writer.WriteStringValue(AccessToken);
             writer.WritePropertyName("type"u8);
-            writer.WriteStringValue(Type);
+            writer.WriteStringValue(Type.ToString());
             writer.WriteEndObject();
         }
 

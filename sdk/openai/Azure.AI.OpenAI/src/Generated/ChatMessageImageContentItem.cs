@@ -14,25 +14,25 @@ namespace Azure.AI.OpenAI
     public partial class ChatMessageImageContentItem : ChatMessageContentItem
     {
         /// <summary> Initializes a new instance of <see cref="ChatMessageImageContentItem"/>. </summary>
-        /// <param name="imageUrl"> An internet location, which must be accessible to the model,from which the image may be retrieved. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="imageUrl"/> is null. </exception>
-        public ChatMessageImageContentItem(ChatMessageImageUrl imageUrl)
+        /// <param name="internalImageUrlOrData"> An internet location, which must be accessible to the model,from which the image may be retrieved. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="internalImageUrlOrData"/> is null. </exception>
+        public ChatMessageImageContentItem(InternalChatMessageImageUrl internalImageUrlOrData)
         {
-            Argument.AssertNotNull(imageUrl, nameof(imageUrl));
+            Argument.AssertNotNull(internalImageUrlOrData, nameof(internalImageUrlOrData));
 
             Type = "image_url";
-            ImageUrl = imageUrl;
+            InternalImageUrlOrData = internalImageUrlOrData;
         }
 
         /// <summary> Initializes a new instance of <see cref="ChatMessageImageContentItem"/>. </summary>
         /// <param name="type"> The discriminated object type. </param>
-        /// <param name="imageUrl"> An internet location, which must be accessible to the model,from which the image may be retrieved. </param>
-        internal ChatMessageImageContentItem(string type, ChatMessageImageUrl imageUrl) : base(type)
+        /// <param name="internalImageUrlOrData"> An internet location, which must be accessible to the model,from which the image may be retrieved. </param>
+        internal ChatMessageImageContentItem(string type, InternalChatMessageImageUrl internalImageUrlOrData) : base(type)
         {
-            ImageUrl = imageUrl;
+            InternalImageUrlOrData = internalImageUrlOrData;
         }
 
         /// <summary> An internet location, which must be accessible to the model,from which the image may be retrieved. </summary>
-        public ChatMessageImageUrl ImageUrl { get; }
+        public InternalChatMessageImageUrl InternalImageUrlOrData { get; }
     }
 }

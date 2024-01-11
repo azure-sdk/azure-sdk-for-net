@@ -46,11 +46,8 @@ namespace Azure.AI.OpenAI
             writer.WriteStringValue(IndexName);
             writer.WritePropertyName("fieldsMapping"u8);
             writer.WriteObjectValue(FieldMappingOptions);
-            if (Optional.IsDefined(EmbeddingDependency))
-            {
-                writer.WritePropertyName("embeddingDependency"u8);
-                writer.WriteObjectValue(EmbeddingDependency);
-            }
+            writer.WritePropertyName("embeddingDependency"u8);
+            writer.WriteObjectValue(EmbeddingDependency);
             writer.WriteEndObject();
         }
 
