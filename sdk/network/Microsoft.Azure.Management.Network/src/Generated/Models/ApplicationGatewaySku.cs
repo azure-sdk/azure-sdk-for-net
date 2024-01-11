@@ -32,16 +32,20 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <param name="name">Name of an application gateway SKU. Possible
         /// values include: 'Standard_Small', 'Standard_Medium',
         /// 'Standard_Large', 'WAF_Medium', 'WAF_Large', 'Standard_v2',
-        /// 'WAF_v2'</param>
+        /// 'WAF_v2', 'Basic'</param>
         /// <param name="tier">Tier of an application gateway. Possible values
-        /// include: 'Standard', 'WAF', 'Standard_v2', 'WAF_v2'</param>
+        /// include: 'Standard', 'WAF', 'Standard_v2', 'WAF_v2',
+        /// 'Basic'</param>
         /// <param name="capacity">Capacity (instance count) of an application
         /// gateway.</param>
-        public ApplicationGatewaySku(string name = default(string), string tier = default(string), int? capacity = default(int?))
+        /// <param name="family">Family of an application gateway SKU. Possible
+        /// values include: 'Generation_1', 'Generation_2'</param>
+        public ApplicationGatewaySku(string name = default(string), string tier = default(string), int? capacity = default(int?), string family = default(string))
         {
             Name = name;
             Tier = tier;
             Capacity = capacity;
+            Family = family;
             CustomInit();
         }
 
@@ -53,14 +57,14 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <summary>
         /// Gets or sets name of an application gateway SKU. Possible values
         /// include: 'Standard_Small', 'Standard_Medium', 'Standard_Large',
-        /// 'WAF_Medium', 'WAF_Large', 'Standard_v2', 'WAF_v2'
+        /// 'WAF_Medium', 'WAF_Large', 'Standard_v2', 'WAF_v2', 'Basic'
         /// </summary>
         [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
 
         /// <summary>
         /// Gets or sets tier of an application gateway. Possible values
-        /// include: 'Standard', 'WAF', 'Standard_v2', 'WAF_v2'
+        /// include: 'Standard', 'WAF', 'Standard_v2', 'WAF_v2', 'Basic'
         /// </summary>
         [JsonProperty(PropertyName = "tier")]
         public string Tier { get; set; }
@@ -70,6 +74,13 @@ namespace Microsoft.Azure.Management.Network.Models
         /// </summary>
         [JsonProperty(PropertyName = "capacity")]
         public int? Capacity { get; set; }
+
+        /// <summary>
+        /// Gets or sets family of an application gateway SKU. Possible values
+        /// include: 'Generation_1', 'Generation_2'
+        /// </summary>
+        [JsonProperty(PropertyName = "family")]
+        public string Family { get; set; }
 
     }
 }
