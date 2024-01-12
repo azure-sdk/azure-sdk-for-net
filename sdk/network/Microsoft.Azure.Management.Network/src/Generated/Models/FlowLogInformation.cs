@@ -42,15 +42,17 @@ namespace Microsoft.Azure.Management.Network.Models
         /// policy for flow log.</param>
         /// <param name="format">Parameters that define the flow log
         /// format.</param>
+        /// <param name="identity">Identity of the workspace</param>
         /// <param name="flowAnalyticsConfiguration">Parameters that define the
         /// configuration of traffic analytics.</param>
-        public FlowLogInformation(string targetResourceId, string storageId, bool enabled, RetentionPolicyParameters retentionPolicy = default(RetentionPolicyParameters), FlowLogFormatParameters format = default(FlowLogFormatParameters), TrafficAnalyticsProperties flowAnalyticsConfiguration = default(TrafficAnalyticsProperties))
+        public FlowLogInformation(string targetResourceId, string storageId, bool enabled, RetentionPolicyParameters retentionPolicy = default(RetentionPolicyParameters), FlowLogFormatParameters format = default(FlowLogFormatParameters), ManagedIdentityObjectForUserAssigned identity = default(ManagedIdentityObjectForUserAssigned), TrafficAnalyticsProperties flowAnalyticsConfiguration = default(TrafficAnalyticsProperties))
         {
             TargetResourceId = targetResourceId;
             StorageId = storageId;
             Enabled = enabled;
             RetentionPolicy = retentionPolicy;
             Format = format;
+            Identity = identity;
             FlowAnalyticsConfiguration = flowAnalyticsConfiguration;
             CustomInit();
         }
@@ -92,6 +94,12 @@ namespace Microsoft.Azure.Management.Network.Models
         /// </summary>
         [JsonProperty(PropertyName = "properties.format")]
         public FlowLogFormatParameters Format { get; set; }
+
+        /// <summary>
+        /// Gets or sets identity of the workspace
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.identity")]
+        public ManagedIdentityObjectForUserAssigned Identity { get; set; }
 
         /// <summary>
         /// Gets or sets parameters that define the configuration of traffic

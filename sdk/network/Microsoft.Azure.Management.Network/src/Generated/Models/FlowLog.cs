@@ -55,9 +55,10 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <param name="provisioningState">The provisioning state of the flow
         /// log. Possible values include: 'Succeeded', 'Updating', 'Deleting',
         /// 'Failed'</param>
+        /// <param name="identity">Identity of the workspace</param>
         /// <param name="etag">A unique read-only string that changes whenever
         /// the resource is updated.</param>
-        public FlowLog(string targetResourceId, string storageId, string id = default(string), string name = default(string), string type = default(string), string location = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), string targetResourceGuid = default(string), bool? enabled = default(bool?), RetentionPolicyParameters retentionPolicy = default(RetentionPolicyParameters), FlowLogFormatParameters format = default(FlowLogFormatParameters), TrafficAnalyticsProperties flowAnalyticsConfiguration = default(TrafficAnalyticsProperties), string provisioningState = default(string), string etag = default(string))
+        public FlowLog(string targetResourceId, string storageId, string id = default(string), string name = default(string), string type = default(string), string location = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), string targetResourceGuid = default(string), bool? enabled = default(bool?), RetentionPolicyParameters retentionPolicy = default(RetentionPolicyParameters), FlowLogFormatParameters format = default(FlowLogFormatParameters), TrafficAnalyticsProperties flowAnalyticsConfiguration = default(TrafficAnalyticsProperties), string provisioningState = default(string), ManagedIdentityObjectForUserAssigned identity = default(ManagedIdentityObjectForUserAssigned), string etag = default(string))
             : base(id, name, type, location, tags)
         {
             TargetResourceId = targetResourceId;
@@ -68,6 +69,7 @@ namespace Microsoft.Azure.Management.Network.Models
             Format = format;
             FlowAnalyticsConfiguration = flowAnalyticsConfiguration;
             ProvisioningState = provisioningState;
+            Identity = identity;
             Etag = etag;
             CustomInit();
         }
@@ -130,6 +132,12 @@ namespace Microsoft.Azure.Management.Network.Models
         /// </summary>
         [JsonProperty(PropertyName = "properties.provisioningState")]
         public string ProvisioningState { get; private set; }
+
+        /// <summary>
+        /// Gets or sets identity of the workspace
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.identity")]
+        public ManagedIdentityObjectForUserAssigned Identity { get; set; }
 
         /// <summary>
         /// Gets a unique read-only string that changes whenever the resource
