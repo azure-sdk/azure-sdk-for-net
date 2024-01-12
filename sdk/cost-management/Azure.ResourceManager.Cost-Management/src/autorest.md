@@ -3,13 +3,11 @@
 Run `dotnet build /t:GenerateCode` to generate code.
 
 ``` yaml
-
 azure-arm: true
 csharp: true
-library-name: Advisor
-namespace: Azure.ResourceManager.Advisor
-require: /mnt/vss/_work/1/s/azure-rest-api-specs/specification/advisor/resource-manager/readme.md
-tag: package-2020-01
+library-name: cost-management
+namespace: Azure.ResourceManager.cost-management
+require: /mnt/vss/_work/1/s/azure-rest-api-specs/specification/cost-management/resource-manager/readme.md
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
 sample-gen:
@@ -19,6 +17,11 @@ skip-csproj: true
 modelerfour:
   flatten-payloads: false
 use-model-reader-writer: true
+
+#mgmt-debug:
+#  show-serialized-names: true
+
+ 
 
 format-by-name-rules:
   'tenantId': 'uuid'
@@ -49,20 +52,5 @@ acronym-mapping:
   SSO: Sso
   URI: Uri
   Etag: ETag|etag
-
-list-exception:
-  - /{resourceUri}/providers/Microsoft.Advisor/recommendations/{recommendationId}/suppressions/{name}
-
-override-operation-name:
-  Configurations_ListBySubscription: GetConfigurations
-  Configurations_ListByResourceGroup: GetConfigurations
-  Configurations_CreateInResourceGroup: CreateConfiguration
-  Configurations_CreateInSubscription: CreateConfiguration
-
-directive:
-  - from: advisor.json
-    where: $.paths..parameters[?(@.name === 'resourceUri')]
-    transform: >
-      $['x-ms-skip-url-encoding'] = true;
 
 ```
