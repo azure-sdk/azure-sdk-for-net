@@ -43,14 +43,20 @@ namespace Azure.ResourceManager.Authorization.Models
         /// <param name="principals"> Array of principals to which the deny assignment applies. </param>
         /// <param name="excludePrincipals"> Array of principals to which the deny assignment does not apply. </param>
         /// <param name="isSystemProtected"> Specifies whether this deny assignment was created by Azure and cannot be edited or deleted. </param>
+        /// <param name="condition"> The conditions on the deny assignment. This limits the resources it can be assigned to. e.g.: @Resource[Microsoft.Storage/storageAccounts/blobServices/containers:ContainerName] StringEqualsIgnoreCase 'foo_storage_container'. </param>
+        /// <param name="conditionVersion"> Version of the condition. </param>
+        /// <param name="createdOn"> Time it was created. </param>
+        /// <param name="updatedOn"> Time it was updated. </param>
+        /// <param name="createdBy"> Id of the user who created the assignment. </param>
+        /// <param name="updatedBy"> Id of the user who updated the assignment. </param>
         /// <returns> A new <see cref="Authorization.DenyAssignmentData"/> instance for mocking. </returns>
-        public static DenyAssignmentData DenyAssignmentData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string denyAssignmentName = null, string description = null, IEnumerable<DenyAssignmentPermission> permissions = null, string scope = null, bool? isAppliedToChildScopes = null, IEnumerable<RoleManagementPrincipal> principals = null, IEnumerable<RoleManagementPrincipal> excludePrincipals = null, bool? isSystemProtected = null)
+        public static DenyAssignmentData DenyAssignmentData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string denyAssignmentName = null, string description = null, IEnumerable<DenyAssignmentPermission> permissions = null, string scope = null, bool? isAppliedToChildScopes = null, IEnumerable<RoleManagementPrincipal> principals = null, IEnumerable<RoleManagementPrincipal> excludePrincipals = null, bool? isSystemProtected = null, string condition = null, string conditionVersion = null, DateTimeOffset? createdOn = null, DateTimeOffset? updatedOn = null, string createdBy = null, string updatedBy = null)
         {
             permissions ??= new List<DenyAssignmentPermission>();
             principals ??= new List<RoleManagementPrincipal>();
             excludePrincipals ??= new List<RoleManagementPrincipal>();
 
-            return new DenyAssignmentData(id, name, resourceType, systemData, denyAssignmentName, description, permissions?.ToList(), scope, isAppliedToChildScopes, principals?.ToList(), excludePrincipals?.ToList(), isSystemProtected);
+            return new DenyAssignmentData(id, name, resourceType, systemData, denyAssignmentName, description, permissions?.ToList(), scope, isAppliedToChildScopes, principals?.ToList(), excludePrincipals?.ToList(), isSystemProtected, condition, conditionVersion, createdOn, updatedOn, createdBy, updatedBy);
         }
 
         /// <summary> Initializes a new instance of <see cref="Models.DenyAssignmentPermission"/>. </summary>
@@ -157,13 +163,17 @@ namespace Azure.ResourceManager.Authorization.Models
         /// <param name="roleType"> The role type. </param>
         /// <param name="permissions"> Role definition permissions. </param>
         /// <param name="assignableScopes"> Role definition assignable scopes. </param>
+        /// <param name="createdOn"> Time it was created. </param>
+        /// <param name="updatedOn"> Time it was updated. </param>
+        /// <param name="createdBy"> Id of the user who created the assignment. </param>
+        /// <param name="updatedBy"> Id of the user who updated the assignment. </param>
         /// <returns> A new <see cref="Authorization.AuthorizationRoleDefinitionData"/> instance for mocking. </returns>
-        public static AuthorizationRoleDefinitionData AuthorizationRoleDefinitionData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string roleName = null, string description = null, AuthorizationRoleType? roleType = null, IEnumerable<RoleDefinitionPermission> permissions = null, IEnumerable<string> assignableScopes = null)
+        public static AuthorizationRoleDefinitionData AuthorizationRoleDefinitionData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string roleName = null, string description = null, AuthorizationRoleType? roleType = null, IEnumerable<RoleDefinitionPermission> permissions = null, IEnumerable<string> assignableScopes = null, DateTimeOffset? createdOn = null, DateTimeOffset? updatedOn = null, string createdBy = null, string updatedBy = null)
         {
             permissions ??= new List<RoleDefinitionPermission>();
             assignableScopes ??= new List<string>();
 
-            return new AuthorizationRoleDefinitionData(id, name, resourceType, systemData, roleName, description, roleType, permissions?.ToList(), assignableScopes?.ToList());
+            return new AuthorizationRoleDefinitionData(id, name, resourceType, systemData, roleName, description, roleType, permissions?.ToList(), assignableScopes?.ToList(), createdOn, updatedOn, createdBy, updatedBy);
         }
 
         /// <summary> Initializes a new instance of <see cref="Models.EligibleChildResource"/>. </summary>

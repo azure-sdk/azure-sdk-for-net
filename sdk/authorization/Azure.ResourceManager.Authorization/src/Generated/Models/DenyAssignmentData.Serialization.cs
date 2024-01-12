@@ -5,6 +5,7 @@
 
 #nullable disable
 
+using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
@@ -33,6 +34,12 @@ namespace Azure.ResourceManager.Authorization
             Optional<IReadOnlyList<RoleManagementPrincipal>> principals = default;
             Optional<IReadOnlyList<RoleManagementPrincipal>> excludePrincipals = default;
             Optional<bool> isSystemProtected = default;
+            Optional<string> condition = default;
+            Optional<string> conditionVersion = default;
+            Optional<DateTimeOffset> createdOn = default;
+            Optional<DateTimeOffset> updatedOn = default;
+            Optional<string> createdBy = default;
+            Optional<string> updatedBy = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("id"u8))
@@ -143,11 +150,49 @@ namespace Azure.ResourceManager.Authorization
                             isSystemProtected = property0.Value.GetBoolean();
                             continue;
                         }
+                        if (property0.NameEquals("condition"u8))
+                        {
+                            condition = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("conditionVersion"u8))
+                        {
+                            conditionVersion = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("createdOn"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            createdOn = property0.Value.GetDateTimeOffset("O");
+                            continue;
+                        }
+                        if (property0.NameEquals("updatedOn"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            updatedOn = property0.Value.GetDateTimeOffset("O");
+                            continue;
+                        }
+                        if (property0.NameEquals("createdBy"u8))
+                        {
+                            createdBy = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("updatedBy"u8))
+                        {
+                            updatedBy = property0.Value.GetString();
+                            continue;
+                        }
                     }
                     continue;
                 }
             }
-            return new DenyAssignmentData(id, name, type, systemData.Value, denyAssignmentName.Value, description.Value, Optional.ToList(permissions), scope.Value, Optional.ToNullable(doNotApplyToChildScopes), Optional.ToList(principals), Optional.ToList(excludePrincipals), Optional.ToNullable(isSystemProtected));
+            return new DenyAssignmentData(id, name, type, systemData.Value, denyAssignmentName.Value, description.Value, Optional.ToList(permissions), scope.Value, Optional.ToNullable(doNotApplyToChildScopes), Optional.ToList(principals), Optional.ToList(excludePrincipals), Optional.ToNullable(isSystemProtected), condition.Value, conditionVersion.Value, Optional.ToNullable(createdOn), Optional.ToNullable(updatedOn), createdBy.Value, updatedBy.Value);
         }
     }
 }
