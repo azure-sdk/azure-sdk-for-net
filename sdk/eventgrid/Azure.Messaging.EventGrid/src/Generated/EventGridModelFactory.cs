@@ -8,6 +8,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Azure.Messaging.EventGrid.Models;
 using Azure.Messaging.EventGrid.SystemEvents;
 
 namespace Azure.Messaging.EventGrid
@@ -183,6 +184,27 @@ namespace Azure.Messaging.EventGrid
         public static StorageTaskCompletedEventData StorageTaskCompletedEventData(StorageTaskCompletedStatus? status = null, DateTimeOffset? completedDateTime = null, string taskExecutionId = null, string taskName = null, Uri summaryReportBlobUri = null)
         {
             return new StorageTaskCompletedEventData(status, completedDateTime, taskExecutionId, taskName, summaryReportBlobUri);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.StorageTaskAssignmentQueuedEventData"/>. </summary>
+        /// <param name="queuedOn"> The time at which a storage task was queued. </param>
+        /// <param name="taskExecutionId"> The execution id for a storage task. </param>
+        /// <returns> A new <see cref="SystemEvents.StorageTaskAssignmentQueuedEventData"/> instance for mocking. </returns>
+        public static StorageTaskAssignmentQueuedEventData StorageTaskAssignmentQueuedEventData(DateTimeOffset? queuedOn = null, string taskExecutionId = null)
+        {
+            return new StorageTaskAssignmentQueuedEventData(queuedOn, taskExecutionId);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="SystemEvents.StorageTaskAssignmentCompletedEventData"/>. </summary>
+        /// <param name="status"> The status for a storage task. </param>
+        /// <param name="completedOn"> The time at which a storage task was completed. </param>
+        /// <param name="taskExecutionId"> The execution id for a storage task. </param>
+        /// <param name="taskName"> The task name for a storage task. </param>
+        /// <param name="summaryReportBlobUri"> The summary report blob url for a storage task. </param>
+        /// <returns> A new <see cref="SystemEvents.StorageTaskAssignmentCompletedEventData"/> instance for mocking. </returns>
+        public static StorageTaskAssignmentCompletedEventData StorageTaskAssignmentCompletedEventData(StorageTaskAssignmentCompletedStatus? status = null, DateTimeOffset? completedOn = null, string taskExecutionId = null, string taskName = null, Uri summaryReportBlobUri = null)
+        {
+            return new StorageTaskAssignmentCompletedEventData(status, completedOn, taskExecutionId, taskName, summaryReportBlobUri);
         }
 
         /// <summary> Initializes a new instance of <see cref="SystemEvents.EventHubCaptureFileCreatedEventData"/>. </summary>
@@ -1924,7 +1946,7 @@ namespace Azure.Messaging.EventGrid
         /// <param name="scheduledOn"> Router Job Received Scheduled Time in UTC. </param>
         /// <param name="unavailableForMatching"> Unavailable For Matching for Router Job Received. </param>
         /// <returns> A new <see cref="SystemEvents.AcsRouterJobReceivedEventData"/> instance for mocking. </returns>
-        public static AcsRouterJobReceivedEventData AcsRouterJobReceivedEventData(string jobId = null, string channelReference = null, string channelId = null, string queueId = null, IReadOnlyDictionary<string, string> labels = null, IReadOnlyDictionary<string, string> tags = null, AcsRouterJobStatus? status = null, string classificationPolicyId = null, int? priority = null, IEnumerable<AcsRouterWorkerSelector> requestedWorkerSelectors = null, DateTimeOffset? scheduledOn = null, bool unavailableForMatching = default)
+        public static AcsRouterJobReceivedEventData AcsRouterJobReceivedEventData(string jobId = null, string channelReference = null, string channelId = null, string queueId = null, IReadOnlyDictionary<string, string> labels = null, IReadOnlyDictionary<string, string> tags = null, SystemEvents.AcsRouterJobStatus? status = null, string classificationPolicyId = null, int? priority = null, IEnumerable<AcsRouterWorkerSelector> requestedWorkerSelectors = null, DateTimeOffset? scheduledOn = null, bool unavailableForMatching = default)
         {
             labels ??= new Dictionary<string, string>();
             tags ??= new Dictionary<string, string>();
