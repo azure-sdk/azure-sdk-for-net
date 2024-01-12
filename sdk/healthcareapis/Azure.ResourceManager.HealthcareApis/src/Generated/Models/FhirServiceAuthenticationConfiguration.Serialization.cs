@@ -5,6 +5,7 @@
 
 #nullable disable
 
+using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
 
@@ -30,6 +31,16 @@ namespace Azure.ResourceManager.HealthcareApis.Models
                 writer.WritePropertyName("smartProxyEnabled"u8);
                 writer.WriteBooleanValue(IsSmartProxyEnabled.Value);
             }
+            if (Optional.IsCollectionDefined(SmartIdentityProviders))
+            {
+                writer.WritePropertyName("smartIdentityProviders"u8);
+                writer.WriteStartArray();
+                foreach (var item in SmartIdentityProviders)
+                {
+                    writer.WriteObjectValue(item);
+                }
+                writer.WriteEndArray();
+            }
             writer.WriteEndObject();
         }
 
@@ -42,6 +53,7 @@ namespace Azure.ResourceManager.HealthcareApis.Models
             Optional<string> authority = default;
             Optional<string> audience = default;
             Optional<bool> smartProxyEnabled = default;
+            Optional<IList<SmartIdentityProviderConfiguration>> smartIdentityProviders = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("authority"u8))
@@ -63,8 +75,22 @@ namespace Azure.ResourceManager.HealthcareApis.Models
                     smartProxyEnabled = property.Value.GetBoolean();
                     continue;
                 }
+                if (property.NameEquals("smartIdentityProviders"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<SmartIdentityProviderConfiguration> array = new List<SmartIdentityProviderConfiguration>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(SmartIdentityProviderConfiguration.DeserializeSmartIdentityProviderConfiguration(item));
+                    }
+                    smartIdentityProviders = array;
+                    continue;
+                }
             }
-            return new FhirServiceAuthenticationConfiguration(authority.Value, audience.Value, Optional.ToNullable(smartProxyEnabled));
+            return new FhirServiceAuthenticationConfiguration(authority.Value, audience.Value, Optional.ToNullable(smartProxyEnabled), Optional.ToList(smartIdentityProviders));
         }
     }
 }

@@ -575,6 +575,7 @@ namespace Azure.ResourceManager.HealthcareApis.Models
         public string Audience { get { throw null; } set { } }
         public string Authority { get { throw null; } set { } }
         public bool? IsSmartProxyEnabled { get { throw null; } set { } }
+        public System.Collections.Generic.IList<Azure.ResourceManager.HealthcareApis.Models.SmartIdentityProviderConfiguration> SmartIdentityProviders { get { throw null; } }
     }
     public partial class FhirServiceCorsConfiguration
     {
@@ -875,5 +876,35 @@ namespace Azure.ResourceManager.HealthcareApis.Models
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.HealthcareApis.HealthcareApisPrivateEndpointConnectionData> PrivateEndpointConnections { get { throw null; } }
         public Azure.ResourceManager.HealthcareApis.Models.HealthcareApisProvisioningState? ProvisioningState { get { throw null; } }
         public Azure.ResourceManager.HealthcareApis.Models.HealthcareApisPublicNetworkAccess? PublicNetworkAccess { get { throw null; } set { } }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct SmartDataAction : System.IEquatable<Azure.ResourceManager.HealthcareApis.Models.SmartDataAction>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public SmartDataAction(string value) { throw null; }
+        public static Azure.ResourceManager.HealthcareApis.Models.SmartDataAction Read { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.HealthcareApis.Models.SmartDataAction other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.HealthcareApis.Models.SmartDataAction left, Azure.ResourceManager.HealthcareApis.Models.SmartDataAction right) { throw null; }
+        public static implicit operator Azure.ResourceManager.HealthcareApis.Models.SmartDataAction (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.HealthcareApis.Models.SmartDataAction left, Azure.ResourceManager.HealthcareApis.Models.SmartDataAction right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    public partial class SmartIdentityProviderApplication
+    {
+        public SmartIdentityProviderApplication() { }
+        public System.Collections.Generic.IList<Azure.ResourceManager.HealthcareApis.Models.SmartDataAction> AllowedDataActions { get { throw null; } }
+        public string Audience { get { throw null; } set { } }
+        public string ClientId { get { throw null; } set { } }
+    }
+    public partial class SmartIdentityProviderConfiguration
+    {
+        public SmartIdentityProviderConfiguration() { }
+        public System.Collections.Generic.IList<Azure.ResourceManager.HealthcareApis.Models.SmartIdentityProviderApplication> Applications { get { throw null; } }
+        public string Authority { get { throw null; } set { } }
     }
 }

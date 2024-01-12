@@ -5,6 +5,9 @@
 
 #nullable disable
 
+using System.Collections.Generic;
+using Azure.Core;
+
 namespace Azure.ResourceManager.HealthcareApis.Models
 {
     /// <summary> Authentication configuration information. </summary>
@@ -13,17 +16,20 @@ namespace Azure.ResourceManager.HealthcareApis.Models
         /// <summary> Initializes a new instance of <see cref="FhirServiceAuthenticationConfiguration"/>. </summary>
         public FhirServiceAuthenticationConfiguration()
         {
+            SmartIdentityProviders = new ChangeTrackingList<SmartIdentityProviderConfiguration>();
         }
 
         /// <summary> Initializes a new instance of <see cref="FhirServiceAuthenticationConfiguration"/>. </summary>
         /// <param name="authority"> The authority url for the service. </param>
         /// <param name="audience"> The audience url for the service. </param>
         /// <param name="isSmartProxyEnabled"> If the SMART on FHIR proxy is enabled. </param>
-        internal FhirServiceAuthenticationConfiguration(string authority, string audience, bool? isSmartProxyEnabled)
+        /// <param name="smartIdentityProviders"> The array of identity provider configurations for SMART on FHIR authentication. </param>
+        internal FhirServiceAuthenticationConfiguration(string authority, string audience, bool? isSmartProxyEnabled, IList<SmartIdentityProviderConfiguration> smartIdentityProviders)
         {
             Authority = authority;
             Audience = audience;
             IsSmartProxyEnabled = isSmartProxyEnabled;
+            SmartIdentityProviders = smartIdentityProviders;
         }
 
         /// <summary> The authority url for the service. </summary>
@@ -32,5 +38,7 @@ namespace Azure.ResourceManager.HealthcareApis.Models
         public string Audience { get; set; }
         /// <summary> If the SMART on FHIR proxy is enabled. </summary>
         public bool? IsSmartProxyEnabled { get; set; }
+        /// <summary> The array of identity provider configurations for SMART on FHIR authentication. </summary>
+        public IList<SmartIdentityProviderConfiguration> SmartIdentityProviders { get; }
     }
 }
