@@ -35,7 +35,8 @@ namespace Azure.ResourceManager.Network.Models
         /// <param name="enabled"> Flag to enable/disable flow logging. </param>
         /// <param name="retentionPolicy"> Parameters that define the retention policy for flow log. </param>
         /// <param name="format"> Parameters that define the flow log format. </param>
-        internal FlowLogInformation(ResourceIdentifier targetResourceId, TrafficAnalyticsProperties flowAnalyticsConfiguration, ResourceIdentifier storageId, bool enabled, RetentionPolicyParameters retentionPolicy, FlowLogProperties format)
+        /// <param name="identity"> Identity of the workspace. </param>
+        internal FlowLogInformation(ResourceIdentifier targetResourceId, TrafficAnalyticsProperties flowAnalyticsConfiguration, ResourceIdentifier storageId, bool enabled, RetentionPolicyParameters retentionPolicy, FlowLogProperties format, ManagedIdentityObjectForUserAssigned identity)
         {
             TargetResourceId = targetResourceId;
             FlowAnalyticsConfiguration = flowAnalyticsConfiguration;
@@ -43,6 +44,7 @@ namespace Azure.ResourceManager.Network.Models
             Enabled = enabled;
             RetentionPolicy = retentionPolicy;
             Format = format;
+            Identity = identity;
         }
 
         /// <summary> The ID of the resource to configure for flow log and traffic analytics (optional) . </summary>
@@ -69,5 +71,7 @@ namespace Azure.ResourceManager.Network.Models
         public RetentionPolicyParameters RetentionPolicy { get; set; }
         /// <summary> Parameters that define the flow log format. </summary>
         public FlowLogProperties Format { get; set; }
+        /// <summary> Identity of the workspace. </summary>
+        public ManagedIdentityObjectForUserAssigned Identity { get; set; }
     }
 }

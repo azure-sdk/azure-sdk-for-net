@@ -72,6 +72,11 @@ namespace Azure.ResourceManager.Network
                 writer.WritePropertyName("flowAnalyticsConfiguration"u8);
                 writer.WriteObjectValue(FlowAnalyticsConfiguration);
             }
+            if (Optional.IsDefined(Identity))
+            {
+                writer.WritePropertyName("identity"u8);
+                writer.WriteObjectValue(Identity);
+            }
             writer.WriteEndObject();
             writer.WriteEndObject();
         }
@@ -96,6 +101,7 @@ namespace Azure.ResourceManager.Network
             Optional<FlowLogProperties> format = default;
             Optional<TrafficAnalyticsProperties> flowAnalyticsConfiguration = default;
             Optional<NetworkProvisioningState> provisioningState = default;
+            Optional<ManagedIdentityObjectForUserAssigned> identity = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("etag"u8))
@@ -234,11 +240,20 @@ namespace Azure.ResourceManager.Network
                             provisioningState = new NetworkProvisioningState(property0.Value.GetString());
                             continue;
                         }
+                        if (property0.NameEquals("identity"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            identity = ManagedIdentityObjectForUserAssigned.DeserializeManagedIdentityObjectForUserAssigned(property0.Value);
+                            continue;
+                        }
                     }
                     continue;
                 }
             }
-            return new FlowLogData(id.Value, name.Value, Optional.ToNullable(type), Optional.ToNullable(location), Optional.ToDictionary(tags), Optional.ToNullable(etag), targetResourceId.Value, Optional.ToNullable(targetResourceGuid), storageId.Value, Optional.ToNullable(enabled), retentionPolicy.Value, format.Value, flowAnalyticsConfiguration.Value, Optional.ToNullable(provisioningState));
+            return new FlowLogData(id.Value, name.Value, Optional.ToNullable(type), Optional.ToNullable(location), Optional.ToDictionary(tags), Optional.ToNullable(etag), targetResourceId.Value, Optional.ToNullable(targetResourceGuid), storageId.Value, Optional.ToNullable(enabled), retentionPolicy.Value, format.Value, flowAnalyticsConfiguration.Value, Optional.ToNullable(provisioningState), identity.Value);
         }
     }
 }

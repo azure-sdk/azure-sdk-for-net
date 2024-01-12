@@ -39,7 +39,8 @@ namespace Azure.ResourceManager.Network
         /// <param name="format"> Parameters that define the flow log format. </param>
         /// <param name="flowAnalyticsConfiguration"> Parameters that define the configuration of traffic analytics. </param>
         /// <param name="provisioningState"> The provisioning state of the flow log. </param>
-        internal FlowLogData(ResourceIdentifier id, string name, ResourceType? resourceType, AzureLocation? location, IDictionary<string, string> tags, ETag? etag, ResourceIdentifier targetResourceId, Guid? targetResourceGuid, ResourceIdentifier storageId, bool? enabled, RetentionPolicyParameters retentionPolicy, FlowLogProperties format, TrafficAnalyticsProperties flowAnalyticsConfiguration, NetworkProvisioningState? provisioningState) : base(id, name, resourceType, location, tags)
+        /// <param name="identity"> Identity of the workspace. </param>
+        internal FlowLogData(ResourceIdentifier id, string name, ResourceType? resourceType, AzureLocation? location, IDictionary<string, string> tags, ETag? etag, ResourceIdentifier targetResourceId, Guid? targetResourceGuid, ResourceIdentifier storageId, bool? enabled, RetentionPolicyParameters retentionPolicy, FlowLogProperties format, TrafficAnalyticsProperties flowAnalyticsConfiguration, NetworkProvisioningState? provisioningState, ManagedIdentityObjectForUserAssigned identity) : base(id, name, resourceType, location, tags)
         {
             ETag = etag;
             TargetResourceId = targetResourceId;
@@ -50,6 +51,7 @@ namespace Azure.ResourceManager.Network
             Format = format;
             FlowAnalyticsConfiguration = flowAnalyticsConfiguration;
             ProvisioningState = provisioningState;
+            Identity = identity;
         }
 
         /// <summary> A unique read-only string that changes whenever the resource is updated. </summary>
@@ -82,5 +84,7 @@ namespace Azure.ResourceManager.Network
 
         /// <summary> The provisioning state of the flow log. </summary>
         public NetworkProvisioningState? ProvisioningState { get; }
+        /// <summary> Identity of the workspace. </summary>
+        public ManagedIdentityObjectForUserAssigned Identity { get; set; }
     }
 }

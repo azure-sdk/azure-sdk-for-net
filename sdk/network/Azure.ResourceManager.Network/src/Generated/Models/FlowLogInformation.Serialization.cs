@@ -38,6 +38,11 @@ namespace Azure.ResourceManager.Network.Models
                 writer.WritePropertyName("format"u8);
                 writer.WriteObjectValue(Format);
             }
+            if (Optional.IsDefined(Identity))
+            {
+                writer.WritePropertyName("identity"u8);
+                writer.WriteObjectValue(Identity);
+            }
             writer.WriteEndObject();
             writer.WriteEndObject();
         }
@@ -54,6 +59,7 @@ namespace Azure.ResourceManager.Network.Models
             bool enabled = default;
             Optional<RetentionPolicyParameters> retentionPolicy = default;
             Optional<FlowLogProperties> format = default;
+            Optional<ManagedIdentityObjectForUserAssigned> identity = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("targetResourceId"u8))
@@ -107,11 +113,20 @@ namespace Azure.ResourceManager.Network.Models
                             format = FlowLogProperties.DeserializeFlowLogProperties(property0.Value);
                             continue;
                         }
+                        if (property0.NameEquals("identity"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            identity = ManagedIdentityObjectForUserAssigned.DeserializeManagedIdentityObjectForUserAssigned(property0.Value);
+                            continue;
+                        }
                     }
                     continue;
                 }
             }
-            return new FlowLogInformation(targetResourceId, flowAnalyticsConfiguration.Value, storageId, enabled, retentionPolicy.Value, format.Value);
+            return new FlowLogInformation(targetResourceId, flowAnalyticsConfiguration.Value, storageId, enabled, retentionPolicy.Value, format.Value, identity.Value);
         }
     }
 }
