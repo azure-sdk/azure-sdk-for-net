@@ -26,6 +26,11 @@ namespace Azure.ResourceManager.EdgeOrder.Models
                 }
                 writer.WriteEndObject();
             }
+            if (Optional.IsDefined(Identity))
+            {
+                writer.WritePropertyName("identity"u8);
+                JsonSerializer.Serialize(writer, Identity);
+            }
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
             if (Optional.IsDefined(ForwardAddress))
@@ -47,6 +52,11 @@ namespace Azure.ResourceManager.EdgeOrder.Models
                     writer.WriteStringValue(item);
                 }
                 writer.WriteEndArray();
+            }
+            if (Optional.IsDefined(OrderItemDetails))
+            {
+                writer.WritePropertyName("orderItemDetails"u8);
+                writer.WriteObjectValue(OrderItemDetails);
             }
             writer.WriteEndObject();
             writer.WriteEndObject();

@@ -5,37 +5,27 @@
 
 #nullable disable
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Azure.Core;
-
 namespace Azure.ResourceManager.EdgeOrder.Models
 {
     /// <summary> Configuration request object. </summary>
     public partial class ConfigurationsContent
     {
         /// <summary> Initializes a new instance of <see cref="ConfigurationsContent"/>. </summary>
-        /// <param name="configurationFilters"> Holds details about product hierarchy information and filterable property. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="configurationFilters"/> is null. </exception>
-        public ConfigurationsContent(IEnumerable<ConfigurationFilters> configurationFilters)
+        public ConfigurationsContent()
         {
-            Argument.AssertNotNull(configurationFilters, nameof(configurationFilters));
-
-            ConfigurationFilters = configurationFilters.ToList();
         }
 
         /// <summary> Initializes a new instance of <see cref="ConfigurationsContent"/>. </summary>
-        /// <param name="configurationFilters"> Holds details about product hierarchy information and filterable property. </param>
+        /// <param name="configurationFilter"> Holds details about product hierarchy information and filterable property. </param>
         /// <param name="customerSubscriptionDetails"> Customer subscription properties. Clients can display available products to unregistered customers by explicitly passing subscription details. </param>
-        internal ConfigurationsContent(IList<ConfigurationFilters> configurationFilters, CustomerSubscriptionDetails customerSubscriptionDetails)
+        internal ConfigurationsContent(ConfigurationFilter configurationFilter, CustomerSubscriptionDetails customerSubscriptionDetails)
         {
-            ConfigurationFilters = configurationFilters;
+            ConfigurationFilter = configurationFilter;
             CustomerSubscriptionDetails = customerSubscriptionDetails;
         }
 
         /// <summary> Holds details about product hierarchy information and filterable property. </summary>
-        public IList<ConfigurationFilters> ConfigurationFilters { get; }
+        public ConfigurationFilter ConfigurationFilter { get; set; }
         /// <summary> Customer subscription properties. Clients can display available products to unregistered customers by explicitly passing subscription details. </summary>
         public CustomerSubscriptionDetails CustomerSubscriptionDetails { get; set; }
     }

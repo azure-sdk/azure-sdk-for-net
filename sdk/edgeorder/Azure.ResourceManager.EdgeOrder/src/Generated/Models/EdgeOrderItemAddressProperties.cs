@@ -5,40 +5,40 @@
 
 #nullable disable
 
-using System;
-using Azure.Core;
-
 namespace Azure.ResourceManager.EdgeOrder.Models
 {
     /// <summary> Address Properties. </summary>
     public partial class EdgeOrderItemAddressProperties
     {
         /// <summary> Initializes a new instance of <see cref="EdgeOrderItemAddressProperties"/>. </summary>
-        /// <param name="contactDetails"> Contact details for the address. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="contactDetails"/> is null. </exception>
-        public EdgeOrderItemAddressProperties(EdgeOrderAddressContactDetails contactDetails)
+        public EdgeOrderItemAddressProperties()
         {
-            Argument.AssertNotNull(contactDetails, nameof(contactDetails));
-
-            ContactDetails = contactDetails;
         }
 
         /// <summary> Initializes a new instance of <see cref="EdgeOrderItemAddressProperties"/>. </summary>
+        /// <param name="addressClassification"> Type of address based on its usage context. </param>
         /// <param name="shippingAddress"> Shipping details for the address. </param>
         /// <param name="contactDetails"> Contact details for the address. </param>
         /// <param name="addressValidationStatus"> Status of address validation. </param>
-        internal EdgeOrderItemAddressProperties(EdgeOrderShippingAddress shippingAddress, EdgeOrderAddressContactDetails contactDetails, EdgeOrderAddressValidationStatus? addressValidationStatus)
+        /// <param name="provisioningState"> Provisioning state. </param>
+        internal EdgeOrderItemAddressProperties(AddressClassification? addressClassification, EdgeOrderShippingAddress shippingAddress, EdgeOrderAddressContactDetails contactDetails, EdgeOrderAddressValidationStatus? addressValidationStatus, ProvisioningState? provisioningState)
         {
+            AddressClassification = addressClassification;
             ShippingAddress = shippingAddress;
             ContactDetails = contactDetails;
             AddressValidationStatus = addressValidationStatus;
+            ProvisioningState = provisioningState;
         }
 
+        /// <summary> Type of address based on its usage context. </summary>
+        public AddressClassification? AddressClassification { get; set; }
         /// <summary> Shipping details for the address. </summary>
         public EdgeOrderShippingAddress ShippingAddress { get; set; }
         /// <summary> Contact details for the address. </summary>
         public EdgeOrderAddressContactDetails ContactDetails { get; set; }
         /// <summary> Status of address validation. </summary>
         public EdgeOrderAddressValidationStatus? AddressValidationStatus { get; }
+        /// <summary> Provisioning state. </summary>
+        public ProvisioningState? ProvisioningState { get; }
     }
 }

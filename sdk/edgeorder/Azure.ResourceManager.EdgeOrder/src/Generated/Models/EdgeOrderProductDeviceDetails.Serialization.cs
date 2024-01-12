@@ -19,13 +19,21 @@ namespace Azure.ResourceManager.EdgeOrder.Models
                 return null;
             }
             Optional<string> serialNumber = default;
+            Optional<string> displaySerialNumber = default;
             Optional<string> managementResourceId = default;
             Optional<string> managementResourceTenantId = default;
+            Optional<ProvisioningSupport> provisioningSupport = default;
+            Optional<ProvisioningDetails> provisioningDetails = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("serialNumber"u8))
                 {
                     serialNumber = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("displaySerialNumber"u8))
+                {
+                    displaySerialNumber = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("managementResourceId"u8))
@@ -38,8 +46,26 @@ namespace Azure.ResourceManager.EdgeOrder.Models
                     managementResourceTenantId = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("provisioningSupport"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    provisioningSupport = new ProvisioningSupport(property.Value.GetString());
+                    continue;
+                }
+                if (property.NameEquals("provisioningDetails"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    provisioningDetails = ProvisioningDetails.DeserializeProvisioningDetails(property.Value);
+                    continue;
+                }
             }
-            return new EdgeOrderProductDeviceDetails(serialNumber.Value, managementResourceId.Value, managementResourceTenantId.Value);
+            return new EdgeOrderProductDeviceDetails(serialNumber.Value, displaySerialNumber.Value, managementResourceId.Value, managementResourceTenantId.Value, Optional.ToNullable(provisioningSupport), provisioningDetails.Value);
         }
     }
 }

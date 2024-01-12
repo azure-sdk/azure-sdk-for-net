@@ -15,8 +15,11 @@ namespace Azure.ResourceManager.EdgeOrder.Models
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
-            writer.WritePropertyName("streetAddress1"u8);
-            writer.WriteStringValue(StreetAddress1);
+            if (Optional.IsDefined(StreetAddress1))
+            {
+                writer.WritePropertyName("streetAddress1"u8);
+                writer.WriteStringValue(StreetAddress1);
+            }
             if (Optional.IsDefined(StreetAddress2))
             {
                 writer.WritePropertyName("streetAddress2"u8);
@@ -68,7 +71,7 @@ namespace Azure.ResourceManager.EdgeOrder.Models
             {
                 return null;
             }
-            string streetAddress1 = default;
+            Optional<string> streetAddress1 = default;
             Optional<string> streetAddress2 = default;
             Optional<string> streetAddress3 = default;
             Optional<string> city = default;
@@ -135,7 +138,7 @@ namespace Azure.ResourceManager.EdgeOrder.Models
                     continue;
                 }
             }
-            return new EdgeOrderShippingAddress(streetAddress1, streetAddress2.Value, streetAddress3.Value, city.Value, stateOrProvince.Value, country, postalCode.Value, zipExtendedCode.Value, companyName.Value, Optional.ToNullable(addressType));
+            return new EdgeOrderShippingAddress(streetAddress1.Value, streetAddress2.Value, streetAddress3.Value, city.Value, stateOrProvince.Value, country, postalCode.Value, zipExtendedCode.Value, companyName.Value, Optional.ToNullable(addressType));
         }
     }
 }

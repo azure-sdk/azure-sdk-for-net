@@ -16,10 +16,16 @@ namespace Azure.ResourceManager.EdgeOrder.Models
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
-            writer.WritePropertyName("contactName"u8);
-            writer.WriteStringValue(ContactName);
-            writer.WritePropertyName("phone"u8);
-            writer.WriteStringValue(Phone);
+            if (Optional.IsDefined(ContactName))
+            {
+                writer.WritePropertyName("contactName"u8);
+                writer.WriteStringValue(ContactName);
+            }
+            if (Optional.IsDefined(Phone))
+            {
+                writer.WritePropertyName("phone"u8);
+                writer.WriteStringValue(Phone);
+            }
             if (Optional.IsDefined(PhoneExtension))
             {
                 writer.WritePropertyName("phoneExtension"u8);
@@ -30,13 +36,16 @@ namespace Azure.ResourceManager.EdgeOrder.Models
                 writer.WritePropertyName("mobile"u8);
                 writer.WriteStringValue(Mobile);
             }
-            writer.WritePropertyName("emailList"u8);
-            writer.WriteStartArray();
-            foreach (var item in EmailList)
+            if (Optional.IsCollectionDefined(EmailList))
             {
-                writer.WriteStringValue(item);
+                writer.WritePropertyName("emailList"u8);
+                writer.WriteStartArray();
+                foreach (var item in EmailList)
+                {
+                    writer.WriteStringValue(item);
+                }
+                writer.WriteEndArray();
             }
-            writer.WriteEndArray();
             writer.WriteEndObject();
         }
 
@@ -46,11 +55,11 @@ namespace Azure.ResourceManager.EdgeOrder.Models
             {
                 return null;
             }
-            string contactName = default;
-            string phone = default;
+            Optional<string> contactName = default;
+            Optional<string> phone = default;
             Optional<string> phoneExtension = default;
             Optional<string> mobile = default;
-            IList<string> emailList = default;
+            Optional<IList<string>> emailList = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("contactName"u8))
@@ -75,6 +84,10 @@ namespace Azure.ResourceManager.EdgeOrder.Models
                 }
                 if (property.NameEquals("emailList"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     List<string> array = new List<string>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
@@ -84,7 +97,7 @@ namespace Azure.ResourceManager.EdgeOrder.Models
                     continue;
                 }
             }
-            return new EdgeOrderAddressContactDetails(contactName, phone, phoneExtension.Value, mobile.Value, emailList);
+            return new EdgeOrderAddressContactDetails(contactName.Value, phone.Value, phoneExtension.Value, mobile.Value, Optional.ToList(emailList));
         }
     }
 }

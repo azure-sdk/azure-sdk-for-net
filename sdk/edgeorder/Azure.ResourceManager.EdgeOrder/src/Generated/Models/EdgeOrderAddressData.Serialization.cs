@@ -33,13 +33,21 @@ namespace Azure.ResourceManager.EdgeOrder
             writer.WriteStringValue(Location);
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
+            if (Optional.IsDefined(AddressClassification))
+            {
+                writer.WritePropertyName("addressClassification"u8);
+                writer.WriteStringValue(AddressClassification.Value.ToString());
+            }
             if (Optional.IsDefined(ShippingAddress))
             {
                 writer.WritePropertyName("shippingAddress"u8);
                 writer.WriteObjectValue(ShippingAddress);
             }
-            writer.WritePropertyName("contactDetails"u8);
-            writer.WriteObjectValue(ContactDetails);
+            if (Optional.IsDefined(ContactDetails))
+            {
+                writer.WritePropertyName("contactDetails"u8);
+                writer.WriteObjectValue(ContactDetails);
+            }
             writer.WriteEndObject();
             writer.WriteEndObject();
         }
@@ -56,9 +64,11 @@ namespace Azure.ResourceManager.EdgeOrder
             string name = default;
             ResourceType type = default;
             Optional<SystemData> systemData = default;
+            Optional<AddressClassification> addressClassification = default;
             Optional<EdgeOrderShippingAddress> shippingAddress = default;
-            EdgeOrderAddressContactDetails contactDetails = default;
+            Optional<EdgeOrderAddressContactDetails> contactDetails = default;
             Optional<EdgeOrderAddressValidationStatus> addressValidationStatus = default;
+            Optional<ProvisioningState> provisioningState = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("tags"u8))
@@ -113,6 +123,15 @@ namespace Azure.ResourceManager.EdgeOrder
                     }
                     foreach (var property0 in property.Value.EnumerateObject())
                     {
+                        if (property0.NameEquals("addressClassification"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            addressClassification = new AddressClassification(property0.Value.GetString());
+                            continue;
+                        }
                         if (property0.NameEquals("shippingAddress"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -124,6 +143,10 @@ namespace Azure.ResourceManager.EdgeOrder
                         }
                         if (property0.NameEquals("contactDetails"u8))
                         {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
                             contactDetails = EdgeOrderAddressContactDetails.DeserializeEdgeOrderAddressContactDetails(property0.Value);
                             continue;
                         }
@@ -136,11 +159,20 @@ namespace Azure.ResourceManager.EdgeOrder
                             addressValidationStatus = new EdgeOrderAddressValidationStatus(property0.Value.GetString());
                             continue;
                         }
+                        if (property0.NameEquals("provisioningState"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            provisioningState = new ProvisioningState(property0.Value.GetString());
+                            continue;
+                        }
                     }
                     continue;
                 }
             }
-            return new EdgeOrderAddressData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, shippingAddress.Value, contactDetails, Optional.ToNullable(addressValidationStatus));
+            return new EdgeOrderAddressData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, Optional.ToNullable(addressClassification), shippingAddress.Value, contactDetails.Value, Optional.ToNullable(addressValidationStatus), Optional.ToNullable(provisioningState));
         }
     }
 }

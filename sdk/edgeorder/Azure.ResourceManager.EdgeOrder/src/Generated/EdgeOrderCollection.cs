@@ -24,8 +24,8 @@ namespace Azure.ResourceManager.EdgeOrder
     /// </summary>
     public partial class EdgeOrderCollection : ArmCollection
     {
-        private readonly ClientDiagnostics _edgeOrderClientDiagnostics;
-        private readonly EdgeOrderManagementRestOperations _edgeOrderRestClient;
+        private readonly ClientDiagnostics _edgeOrderOrdersClientDiagnostics;
+        private readonly OrdersRestOperations _edgeOrderOrdersRestClient;
 
         /// <summary> Initializes a new instance of the <see cref="EdgeOrderCollection"/> class for mocking. </summary>
         protected EdgeOrderCollection()
@@ -37,9 +37,9 @@ namespace Azure.ResourceManager.EdgeOrder
         /// <param name="id"> The identifier of the parent resource that is the target of operations. </param>
         internal EdgeOrderCollection(ArmClient client, ResourceIdentifier id) : base(client, id)
         {
-            _edgeOrderClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.EdgeOrder", EdgeOrderResource.ResourceType.Namespace, Diagnostics);
-            TryGetApiVersion(EdgeOrderResource.ResourceType, out string edgeOrderApiVersion);
-            _edgeOrderRestClient = new EdgeOrderManagementRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, edgeOrderApiVersion);
+            _edgeOrderOrdersClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.EdgeOrder", EdgeOrderResource.ResourceType.Namespace, Diagnostics);
+            TryGetApiVersion(EdgeOrderResource.ResourceType, out string edgeOrderOrdersApiVersion);
+            _edgeOrderOrdersRestClient = new OrdersRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, edgeOrderOrdersApiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -52,7 +52,7 @@ namespace Azure.ResourceManager.EdgeOrder
         }
 
         /// <summary>
-        /// Gets an order.
+        /// Get an order.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -60,11 +60,11 @@ namespace Azure.ResourceManager.EdgeOrder
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>GetOrderByName</description>
+        /// <description>Orders_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-12-01</description>
+        /// <description>2024-02-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -72,7 +72,7 @@ namespace Azure.ResourceManager.EdgeOrder
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="location"> The name of Azure region. </param>
+        /// <param name="location"> The name of the Azure region. </param>
         /// <param name="orderName"> The name of the order. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="orderName"/> is an empty string, and was expected to be non-empty. </exception>
@@ -81,11 +81,11 @@ namespace Azure.ResourceManager.EdgeOrder
         {
             Argument.AssertNotNullOrEmpty(orderName, nameof(orderName));
 
-            using var scope = _edgeOrderClientDiagnostics.CreateScope("EdgeOrderCollection.Get");
+            using var scope = _edgeOrderOrdersClientDiagnostics.CreateScope("EdgeOrderCollection.Get");
             scope.Start();
             try
             {
-                var response = await _edgeOrderRestClient.GetOrderByNameAsync(Id.SubscriptionId, Id.ResourceGroupName, location, orderName, cancellationToken).ConfigureAwait(false);
+                var response = await _edgeOrderOrdersRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, location, orderName, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new EdgeOrderResource(Client, response.Value), response.GetRawResponse());
@@ -98,7 +98,7 @@ namespace Azure.ResourceManager.EdgeOrder
         }
 
         /// <summary>
-        /// Gets an order.
+        /// Get an order.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -106,11 +106,11 @@ namespace Azure.ResourceManager.EdgeOrder
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>GetOrderByName</description>
+        /// <description>Orders_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-12-01</description>
+        /// <description>2024-02-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -118,7 +118,7 @@ namespace Azure.ResourceManager.EdgeOrder
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="location"> The name of Azure region. </param>
+        /// <param name="location"> The name of the Azure region. </param>
         /// <param name="orderName"> The name of the order. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="orderName"/> is an empty string, and was expected to be non-empty. </exception>
@@ -127,11 +127,11 @@ namespace Azure.ResourceManager.EdgeOrder
         {
             Argument.AssertNotNullOrEmpty(orderName, nameof(orderName));
 
-            using var scope = _edgeOrderClientDiagnostics.CreateScope("EdgeOrderCollection.Get");
+            using var scope = _edgeOrderOrdersClientDiagnostics.CreateScope("EdgeOrderCollection.Get");
             scope.Start();
             try
             {
-                var response = _edgeOrderRestClient.GetOrderByName(Id.SubscriptionId, Id.ResourceGroupName, location, orderName, cancellationToken);
+                var response = _edgeOrderOrdersRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, location, orderName, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new EdgeOrderResource(Client, response.Value), response.GetRawResponse());
@@ -152,11 +152,11 @@ namespace Azure.ResourceManager.EdgeOrder
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>GetOrderByName</description>
+        /// <description>Orders_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-12-01</description>
+        /// <description>2024-02-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -164,7 +164,7 @@ namespace Azure.ResourceManager.EdgeOrder
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="location"> The name of Azure region. </param>
+        /// <param name="location"> The name of the Azure region. </param>
         /// <param name="orderName"> The name of the order. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="orderName"/> is an empty string, and was expected to be non-empty. </exception>
@@ -173,11 +173,11 @@ namespace Azure.ResourceManager.EdgeOrder
         {
             Argument.AssertNotNullOrEmpty(orderName, nameof(orderName));
 
-            using var scope = _edgeOrderClientDiagnostics.CreateScope("EdgeOrderCollection.Exists");
+            using var scope = _edgeOrderOrdersClientDiagnostics.CreateScope("EdgeOrderCollection.Exists");
             scope.Start();
             try
             {
-                var response = await _edgeOrderRestClient.GetOrderByNameAsync(Id.SubscriptionId, Id.ResourceGroupName, location, orderName, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var response = await _edgeOrderOrdersRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, location, orderName, cancellationToken: cancellationToken).ConfigureAwait(false);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -196,11 +196,11 @@ namespace Azure.ResourceManager.EdgeOrder
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>GetOrderByName</description>
+        /// <description>Orders_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-12-01</description>
+        /// <description>2024-02-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -208,7 +208,7 @@ namespace Azure.ResourceManager.EdgeOrder
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="location"> The name of Azure region. </param>
+        /// <param name="location"> The name of the Azure region. </param>
         /// <param name="orderName"> The name of the order. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="orderName"/> is an empty string, and was expected to be non-empty. </exception>
@@ -217,11 +217,11 @@ namespace Azure.ResourceManager.EdgeOrder
         {
             Argument.AssertNotNullOrEmpty(orderName, nameof(orderName));
 
-            using var scope = _edgeOrderClientDiagnostics.CreateScope("EdgeOrderCollection.Exists");
+            using var scope = _edgeOrderOrdersClientDiagnostics.CreateScope("EdgeOrderCollection.Exists");
             scope.Start();
             try
             {
-                var response = _edgeOrderRestClient.GetOrderByName(Id.SubscriptionId, Id.ResourceGroupName, location, orderName, cancellationToken: cancellationToken);
+                var response = _edgeOrderOrdersRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, location, orderName, cancellationToken: cancellationToken);
                 return Response.FromValue(response.Value != null, response.GetRawResponse());
             }
             catch (Exception e)
@@ -240,11 +240,11 @@ namespace Azure.ResourceManager.EdgeOrder
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>GetOrderByName</description>
+        /// <description>Orders_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-12-01</description>
+        /// <description>2024-02-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -252,7 +252,7 @@ namespace Azure.ResourceManager.EdgeOrder
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="location"> The name of Azure region. </param>
+        /// <param name="location"> The name of the Azure region. </param>
         /// <param name="orderName"> The name of the order. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="orderName"/> is an empty string, and was expected to be non-empty. </exception>
@@ -261,11 +261,11 @@ namespace Azure.ResourceManager.EdgeOrder
         {
             Argument.AssertNotNullOrEmpty(orderName, nameof(orderName));
 
-            using var scope = _edgeOrderClientDiagnostics.CreateScope("EdgeOrderCollection.GetIfExists");
+            using var scope = _edgeOrderOrdersClientDiagnostics.CreateScope("EdgeOrderCollection.GetIfExists");
             scope.Start();
             try
             {
-                var response = await _edgeOrderRestClient.GetOrderByNameAsync(Id.SubscriptionId, Id.ResourceGroupName, location, orderName, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var response = await _edgeOrderOrdersRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, location, orderName, cancellationToken: cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     return new NoValueResponse<EdgeOrderResource>(response.GetRawResponse());
                 return Response.FromValue(new EdgeOrderResource(Client, response.Value), response.GetRawResponse());
@@ -286,11 +286,11 @@ namespace Azure.ResourceManager.EdgeOrder
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>GetOrderByName</description>
+        /// <description>Orders_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-12-01</description>
+        /// <description>2024-02-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -298,7 +298,7 @@ namespace Azure.ResourceManager.EdgeOrder
         /// </item>
         /// </list>
         /// </summary>
-        /// <param name="location"> The name of Azure region. </param>
+        /// <param name="location"> The name of the Azure region. </param>
         /// <param name="orderName"> The name of the order. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="orderName"/> is an empty string, and was expected to be non-empty. </exception>
@@ -307,11 +307,11 @@ namespace Azure.ResourceManager.EdgeOrder
         {
             Argument.AssertNotNullOrEmpty(orderName, nameof(orderName));
 
-            using var scope = _edgeOrderClientDiagnostics.CreateScope("EdgeOrderCollection.GetIfExists");
+            using var scope = _edgeOrderOrdersClientDiagnostics.CreateScope("EdgeOrderCollection.GetIfExists");
             scope.Start();
             try
             {
-                var response = _edgeOrderRestClient.GetOrderByName(Id.SubscriptionId, Id.ResourceGroupName, location, orderName, cancellationToken: cancellationToken);
+                var response = _edgeOrderOrdersRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, location, orderName, cancellationToken: cancellationToken);
                 if (response.Value == null)
                     return new NoValueResponse<EdgeOrderResource>(response.GetRawResponse());
                 return Response.FromValue(new EdgeOrderResource(Client, response.Value), response.GetRawResponse());
