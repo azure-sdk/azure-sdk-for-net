@@ -103,11 +103,6 @@ namespace Azure.ResourceManager.Advisor
                 writer.WritePropertyName("recommendationTypeId"u8);
                 writer.WriteStringValue(RecommendationTypeId);
             }
-            if (Optional.IsDefined(Risk))
-            {
-                writer.WritePropertyName("risk"u8);
-                writer.WriteStringValue(Risk.Value.ToString());
-            }
             if (Optional.IsDefined(ShortDescription))
             {
                 writer.WritePropertyName("shortDescription"u8);
@@ -288,7 +283,6 @@ namespace Azure.ResourceManager.Advisor
             Optional<DateTimeOffset> lastUpdated = default;
             Optional<IDictionary<string, BinaryData>> metadata = default;
             Optional<string> recommendationTypeId = default;
-            Optional<Risk> risk = default;
             Optional<ShortDescription> shortDescription = default;
             Optional<IList<Guid>> suppressionIds = default;
             Optional<IDictionary<string, string>> extendedProperties = default;
@@ -398,15 +392,6 @@ namespace Azure.ResourceManager.Advisor
                         if (property0.NameEquals("recommendationTypeId"u8))
                         {
                             recommendationTypeId = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("risk"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            risk = new Risk(property0.Value.GetString());
                             continue;
                         }
                         if (property0.NameEquals("shortDescription"u8))
@@ -559,7 +544,7 @@ namespace Azure.ResourceManager.Advisor
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new ResourceRecommendationBaseData(id, name, type, systemData.Value, Optional.ToNullable(category), Optional.ToNullable(impact), impactedField.Value, impactedValue.Value, Optional.ToNullable(lastUpdated), Optional.ToDictionary(metadata), recommendationTypeId.Value, Optional.ToNullable(risk), shortDescription.Value, Optional.ToList(suppressionIds), Optional.ToDictionary(extendedProperties), resourceMetadata.Value, description.Value, label.Value, learnMoreLink.Value, potentialBenefits.Value, Optional.ToList(actions), Optional.ToDictionary(remediation), Optional.ToDictionary(exposedMetadataProperties), serializedAdditionalRawData);
+            return new ResourceRecommendationBaseData(id, name, type, systemData.Value, Optional.ToNullable(category), Optional.ToNullable(impact), impactedField.Value, impactedValue.Value, Optional.ToNullable(lastUpdated), Optional.ToDictionary(metadata), recommendationTypeId.Value, shortDescription.Value, Optional.ToList(suppressionIds), Optional.ToDictionary(extendedProperties), resourceMetadata.Value, description.Value, label.Value, learnMoreLink.Value, potentialBenefits.Value, Optional.ToList(actions), Optional.ToDictionary(remediation), Optional.ToDictionary(exposedMetadataProperties), serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<ResourceRecommendationBaseData>.Write(ModelReaderWriterOptions options)
