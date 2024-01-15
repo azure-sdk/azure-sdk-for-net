@@ -57,6 +57,11 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                 writer.WritePropertyName("policyType"u8);
                 writer.WriteStringValue(PolicyType.Value.ToString());
             }
+            if (Optional.IsDefined(SnapshotConsistencyType))
+            {
+                writer.WritePropertyName("snapshotConsistencyType"u8);
+                writer.WriteStringValue(SnapshotConsistencyType.Value.ToString());
+            }
             if (Optional.IsDefined(ProtectedItemsCount))
             {
                 writer.WritePropertyName("protectedItemsCount"u8);
@@ -90,6 +95,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             Optional<int> instantRpRetentionRangeInDays = default;
             Optional<string> timeZone = default;
             Optional<IaasVmPolicyType> policyType = default;
+            Optional<IaasVmSnapshotConsistencyType> snapshotConsistencyType = default;
             Optional<int> protectedItemsCount = default;
             string backupManagementType = default;
             Optional<IList<string>> resourceGuardOperationRequests = default;
@@ -159,6 +165,15 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                     policyType = new IaasVmPolicyType(property.Value.GetString());
                     continue;
                 }
+                if (property.NameEquals("snapshotConsistencyType"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    snapshotConsistencyType = new IaasVmSnapshotConsistencyType(property.Value.GetString());
+                    continue;
+                }
                 if (property.NameEquals("protectedItemsCount"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -188,7 +203,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                     continue;
                 }
             }
-            return new IaasVmProtectionPolicy(Optional.ToNullable(protectedItemsCount), backupManagementType, Optional.ToList(resourceGuardOperationRequests), instantRPDetails.Value, schedulePolicy.Value, retentionPolicy.Value, Optional.ToDictionary(tieringPolicy), Optional.ToNullable(instantRpRetentionRangeInDays), timeZone.Value, Optional.ToNullable(policyType));
+            return new IaasVmProtectionPolicy(Optional.ToNullable(protectedItemsCount), backupManagementType, Optional.ToList(resourceGuardOperationRequests), instantRPDetails.Value, schedulePolicy.Value, retentionPolicy.Value, Optional.ToDictionary(tieringPolicy), Optional.ToNullable(instantRpRetentionRangeInDays), timeZone.Value, Optional.ToNullable(policyType), Optional.ToNullable(snapshotConsistencyType));
         }
     }
 }
