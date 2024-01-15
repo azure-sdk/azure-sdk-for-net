@@ -67,7 +67,7 @@ namespace Azure.ResourceManager.Automation
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2020-01-13-preview</description>
+        /// <description>2023-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -77,20 +77,20 @@ namespace Azure.ResourceManager.Automation
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="moduleName"> The name of module. </param>
-        /// <param name="content"> The create or update parameters for module. </param>
+        /// <param name="moduleCreateOrUpdateParameters"> The create or update parameters for module. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="moduleName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="moduleName"/> or <paramref name="content"/> is null. </exception>
-        public virtual async Task<ArmOperation<AutomationAccountModuleResource>> CreateOrUpdateAsync(WaitUntil waitUntil, string moduleName, AutomationAccountModuleCreateOrUpdateContent content, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="moduleName"/> or <paramref name="moduleCreateOrUpdateParameters"/> is null. </exception>
+        public virtual async Task<ArmOperation<AutomationAccountModuleResource>> CreateOrUpdateAsync(WaitUntil waitUntil, string moduleName, ModuleCreateOrUpdateParameters moduleCreateOrUpdateParameters, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(moduleName, nameof(moduleName));
-            Argument.AssertNotNull(content, nameof(content));
+            Argument.AssertNotNull(moduleCreateOrUpdateParameters, nameof(moduleCreateOrUpdateParameters));
 
             using var scope = _automationAccountModuleModuleClientDiagnostics.CreateScope("AutomationAccountModuleCollection.CreateOrUpdate");
             scope.Start();
             try
             {
-                var response = await _automationAccountModuleModuleRestClient.CreateOrUpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, moduleName, content, cancellationToken).ConfigureAwait(false);
+                var response = await _automationAccountModuleModuleRestClient.CreateOrUpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, moduleName, moduleCreateOrUpdateParameters, cancellationToken).ConfigureAwait(false);
                 var operation = new AutomationArmOperation<AutomationAccountModuleResource>(Response.FromValue(new AutomationAccountModuleResource(Client, response), response.GetRawResponse()));
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
@@ -116,7 +116,7 @@ namespace Azure.ResourceManager.Automation
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2020-01-13-preview</description>
+        /// <description>2023-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -126,20 +126,20 @@ namespace Azure.ResourceManager.Automation
         /// </summary>
         /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="moduleName"> The name of module. </param>
-        /// <param name="content"> The create or update parameters for module. </param>
+        /// <param name="moduleCreateOrUpdateParameters"> The create or update parameters for module. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentException"> <paramref name="moduleName"/> is an empty string, and was expected to be non-empty. </exception>
-        /// <exception cref="ArgumentNullException"> <paramref name="moduleName"/> or <paramref name="content"/> is null. </exception>
-        public virtual ArmOperation<AutomationAccountModuleResource> CreateOrUpdate(WaitUntil waitUntil, string moduleName, AutomationAccountModuleCreateOrUpdateContent content, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="moduleName"/> or <paramref name="moduleCreateOrUpdateParameters"/> is null. </exception>
+        public virtual ArmOperation<AutomationAccountModuleResource> CreateOrUpdate(WaitUntil waitUntil, string moduleName, ModuleCreateOrUpdateParameters moduleCreateOrUpdateParameters, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNullOrEmpty(moduleName, nameof(moduleName));
-            Argument.AssertNotNull(content, nameof(content));
+            Argument.AssertNotNull(moduleCreateOrUpdateParameters, nameof(moduleCreateOrUpdateParameters));
 
             using var scope = _automationAccountModuleModuleClientDiagnostics.CreateScope("AutomationAccountModuleCollection.CreateOrUpdate");
             scope.Start();
             try
             {
-                var response = _automationAccountModuleModuleRestClient.CreateOrUpdate(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, moduleName, content, cancellationToken);
+                var response = _automationAccountModuleModuleRestClient.CreateOrUpdate(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, moduleName, moduleCreateOrUpdateParameters, cancellationToken);
                 var operation = new AutomationArmOperation<AutomationAccountModuleResource>(Response.FromValue(new AutomationAccountModuleResource(Client, response), response.GetRawResponse()));
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
@@ -165,7 +165,7 @@ namespace Azure.ResourceManager.Automation
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2020-01-13-preview</description>
+        /// <description>2023-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -210,7 +210,7 @@ namespace Azure.ResourceManager.Automation
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2020-01-13-preview</description>
+        /// <description>2023-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -255,7 +255,7 @@ namespace Azure.ResourceManager.Automation
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2020-01-13-preview</description>
+        /// <description>2023-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -285,7 +285,7 @@ namespace Azure.ResourceManager.Automation
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2020-01-13-preview</description>
+        /// <description>2023-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -315,7 +315,7 @@ namespace Azure.ResourceManager.Automation
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2020-01-13-preview</description>
+        /// <description>2023-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -358,7 +358,7 @@ namespace Azure.ResourceManager.Automation
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2020-01-13-preview</description>
+        /// <description>2023-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -401,7 +401,7 @@ namespace Azure.ResourceManager.Automation
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2020-01-13-preview</description>
+        /// <description>2023-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -446,7 +446,7 @@ namespace Azure.ResourceManager.Automation
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2020-01-13-preview</description>
+        /// <description>2023-11-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>

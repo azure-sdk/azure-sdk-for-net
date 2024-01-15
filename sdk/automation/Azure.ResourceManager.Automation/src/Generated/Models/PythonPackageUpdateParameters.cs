@@ -11,17 +11,17 @@ using Azure.Core;
 namespace Azure.ResourceManager.Automation.Models
 {
     /// <summary> The parameters supplied to the update module operation. </summary>
-    public partial class AutomationAccountPython2PackagePatch
+    public partial class PythonPackageUpdateParameters
     {
-        /// <summary> Initializes a new instance of <see cref="AutomationAccountPython2PackagePatch"/>. </summary>
-        public AutomationAccountPython2PackagePatch()
+        /// <summary> Initializes a new instance of <see cref="PythonPackageUpdateParameters"/>. </summary>
+        public PythonPackageUpdateParameters()
         {
             Tags = new ChangeTrackingDictionary<string, string>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="AutomationAccountPython2PackagePatch"/>. </summary>
+        /// <summary> Initializes a new instance of <see cref="PythonPackageUpdateParameters"/>. </summary>
         /// <param name="tags"> Gets or sets the tags attached to the resource. </param>
-        internal AutomationAccountPython2PackagePatch(IDictionary<string, string> tags)
+        internal PythonPackageUpdateParameters(IDictionary<string, string> tags)
         {
             Tags = tags;
         }
