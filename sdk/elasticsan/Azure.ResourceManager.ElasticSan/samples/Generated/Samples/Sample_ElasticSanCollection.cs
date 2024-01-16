@@ -116,7 +116,7 @@ namespace Azure.ResourceManager.ElasticSan.Samples
 
             // invoke the operation
             string elasticSanName = "elasticsanname";
-            ElasticSanData data = new ElasticSanData(new AzureLocation("France Central"), new ElasticSanSku(ElasticSanSkuName.PremiumLrs)
+            ElasticSanData data = new ElasticSanData(new AzureLocation("France Central"), new ElasticSanProperties(new ElasticSanSku(ElasticSanSkuName.PremiumLrs)
             {
                 Tier = ElasticSanSkuTier.Premium,
             }, 5, 25)
@@ -126,6 +126,8 @@ namespace Azure.ResourceManager.ElasticSan.Samples
 "1"
 },
                 PublicNetworkAccess = PublicNetworkAccess.Enabled,
+            })
+            {
                 Tags =
 {
 ["key9316"] = "ihndtieqibtob",
@@ -166,7 +168,7 @@ namespace Azure.ResourceManager.ElasticSan.Samples
 
             // invoke the operation
             string elasticSanName = "elasticsanname";
-            ElasticSanData data = new ElasticSanData(new AzureLocation("France Central"), new ElasticSanSku(ElasticSanSkuName.PremiumLrs), 15, 27);
+            ElasticSanData data = new ElasticSanData(new AzureLocation("France Central"), new ElasticSanProperties(new ElasticSanSku(ElasticSanSkuName.PremiumLrs), 15, 27));
             ArmOperation<ElasticSanResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, elasticSanName, data);
             ElasticSanResource result = lro.Value;
 

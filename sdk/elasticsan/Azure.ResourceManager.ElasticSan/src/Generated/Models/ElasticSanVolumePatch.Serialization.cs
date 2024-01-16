@@ -15,19 +15,11 @@ namespace Azure.ResourceManager.ElasticSan.Models
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
-            writer.WritePropertyName("properties"u8);
-            writer.WriteStartObject();
-            if (Optional.IsDefined(SizeGiB))
+            if (Optional.IsDefined(Properties))
             {
-                writer.WritePropertyName("sizeGiB"u8);
-                writer.WriteNumberValue(SizeGiB.Value);
+                writer.WritePropertyName("properties"u8);
+                writer.WriteObjectValue(Properties);
             }
-            if (Optional.IsDefined(ManagedBy))
-            {
-                writer.WritePropertyName("managedBy"u8);
-                writer.WriteObjectValue(ManagedBy);
-            }
-            writer.WriteEndObject();
             writer.WriteEndObject();
         }
     }

@@ -128,25 +128,28 @@ namespace Azure.ResourceManager.ElasticSan.Samples
 [new ResourceIdentifier("key7482")] = new UserAssignedIdentity(),
 },
                 },
-                ProtocolType = StorageTargetType.Iscsi,
-                Encryption = ElasticSanEncryptionType.EncryptionAtRestWithCustomerManagedKey,
-                EncryptionProperties = new Models.EncryptionProperties()
+                Properties = new VolumeGroupProperties()
                 {
-                    KeyVaultProperties = new Models.KeyVaultProperties()
+                    ProtocolType = StorageTargetType.Iscsi,
+                    Encryption = ElasticSanEncryptionType.EncryptionAtRestWithCustomerManagedKey,
+                    EncryptionProperties = new Models.EncryptionProperties()
                     {
-                        KeyName = "sftaiernmrzypnrkpakrrawxcbsqzc",
-                        KeyVersion = "c",
-                        KeyVaultUri = new Uri("https://microsoft.com/axmblwp"),
+                        KeyVaultProperties = new Models.KeyVaultProperties()
+                        {
+                            KeyName = "sftaiernmrzypnrkpakrrawxcbsqzc",
+                            KeyVersion = "c",
+                            KeyVaultUri = new Uri("https://microsoft.com/axmblwp"),
+                        },
+                        EncryptionUserAssignedIdentity = "im",
                     },
-                    EncryptionUserAssignedIdentity = "im",
-                },
-                VirtualNetworkRules =
+                    VirtualNetworkRules =
 {
 new ElasticSanVirtualNetworkRule(new ResourceIdentifier("/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworks/{vnetName}/subnets/{subnetName}"))
 {
 Action = ElasticSanVirtualNetworkRuleAction.Allow,
 }
 },
+                },
             };
             ArmOperation<ElasticSanVolumeGroupResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, volumeGroupName, data);
             ElasticSanVolumeGroupResource result = lro.Value;

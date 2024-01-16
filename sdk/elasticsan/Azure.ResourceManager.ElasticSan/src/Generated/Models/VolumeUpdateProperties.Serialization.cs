@@ -10,20 +10,20 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.ElasticSan.Models
 {
-    public partial class ElasticSanVolumeGroupPatch : IUtf8JsonSerializable
+    public partial class VolumeUpdateProperties : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
-            if (Optional.IsDefined(Identity))
+            if (Optional.IsDefined(SizeGiB))
             {
-                writer.WritePropertyName("identity"u8);
-                JsonSerializer.Serialize(writer, Identity);
+                writer.WritePropertyName("sizeGiB"u8);
+                writer.WriteNumberValue(SizeGiB.Value);
             }
-            if (Optional.IsDefined(Properties))
+            if (Optional.IsDefined(ManagedBy))
             {
-                writer.WritePropertyName("properties"u8);
-                writer.WriteObjectValue(Properties);
+                writer.WritePropertyName("managedBy"u8);
+                writer.WriteObjectValue(ManagedBy);
             }
             writer.WriteEndObject();
         }

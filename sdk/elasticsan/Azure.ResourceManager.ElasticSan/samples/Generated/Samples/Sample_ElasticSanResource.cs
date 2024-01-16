@@ -107,13 +107,16 @@ namespace Azure.ResourceManager.ElasticSan.Samples
             // invoke the operation
             ElasticSanPatch patch = new ElasticSanPatch()
             {
+                Properties = new ElasticSanUpdateProperties()
+                {
+                    BaseSizeTiB = 13,
+                    ExtendedCapacitySizeTiB = 29,
+                    PublicNetworkAccess = PublicNetworkAccess.Enabled,
+                },
                 Tags =
 {
 ["key1931"] = "yhjwkgmrrwrcoxblgwgzjqusch",
 },
-                BaseSizeTiB = 13,
-                ExtendedCapacitySizeTiB = 29,
-                PublicNetworkAccess = PublicNetworkAccess.Enabled,
             };
             ArmOperation<ElasticSanResource> lro = await elasticSan.UpdateAsync(WaitUntil.Completed, patch);
             ElasticSanResource result = lro.Value;

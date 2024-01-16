@@ -21,19 +21,13 @@ namespace Azure.ResourceManager.ElasticSan
     {
         /// <summary> Initializes a new instance of <see cref="ElasticSanData"/>. </summary>
         /// <param name="location"> The location. </param>
-        /// <param name="sku"> resource sku. </param>
-        /// <param name="baseSizeTiB"> Base size of the Elastic San appliance in TiB. </param>
-        /// <param name="extendedCapacitySizeTiB"> Extended size of the Elastic San appliance in TiB. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="sku"/> is null. </exception>
-        public ElasticSanData(AzureLocation location, ElasticSanSku sku, long baseSizeTiB, long extendedCapacitySizeTiB) : base(location)
+        /// <param name="properties"> Properties of ElasticSan. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="properties"/> is null. </exception>
+        public ElasticSanData(AzureLocation location, ElasticSanProperties properties) : base(location)
         {
-            Argument.AssertNotNull(sku, nameof(sku));
+            Argument.AssertNotNull(properties, nameof(properties));
 
-            Sku = sku;
-            AvailabilityZones = new ChangeTrackingList<string>();
-            BaseSizeTiB = baseSizeTiB;
-            ExtendedCapacitySizeTiB = extendedCapacitySizeTiB;
-            PrivateEndpointConnections = new ChangeTrackingList<ElasticSanPrivateEndpointConnectionData>();
+            Properties = properties;
         }
 
         /// <summary> Initializes a new instance of <see cref="ElasticSanData"/>. </summary>
@@ -43,57 +37,13 @@ namespace Azure.ResourceManager.ElasticSan
         /// <param name="systemData"> The systemData. </param>
         /// <param name="tags"> The tags. </param>
         /// <param name="location"> The location. </param>
-        /// <param name="sku"> resource sku. </param>
-        /// <param name="availabilityZones"> Logical zone for Elastic San resource; example: ["1"]. </param>
-        /// <param name="provisioningState"> State of the operation on the resource. </param>
-        /// <param name="baseSizeTiB"> Base size of the Elastic San appliance in TiB. </param>
-        /// <param name="extendedCapacitySizeTiB"> Extended size of the Elastic San appliance in TiB. </param>
-        /// <param name="totalVolumeSizeGiB"> Total size of the provisioned Volumes in GiB. </param>
-        /// <param name="volumeGroupCount"> Total number of volume groups in this Elastic San appliance. </param>
-        /// <param name="totalIops"> Total Provisioned IOPS of the Elastic San appliance. </param>
-        /// <param name="totalMbps"> Total Provisioned MBps Elastic San appliance. </param>
-        /// <param name="totalSizeTiB"> Total size of the Elastic San appliance in TB. </param>
-        /// <param name="privateEndpointConnections"> The list of Private Endpoint Connections. </param>
-        /// <param name="publicNetworkAccess"> Allow or disallow public network access to ElasticSan. Value is optional but if passed in, must be 'Enabled' or 'Disabled'. </param>
-        internal ElasticSanData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ElasticSanSku sku, IList<string> availabilityZones, ElasticSanProvisioningState? provisioningState, long baseSizeTiB, long extendedCapacitySizeTiB, long? totalVolumeSizeGiB, long? volumeGroupCount, long? totalIops, long? totalMbps, long? totalSizeTiB, IReadOnlyList<ElasticSanPrivateEndpointConnectionData> privateEndpointConnections, PublicNetworkAccess? publicNetworkAccess) : base(id, name, resourceType, systemData, tags, location)
+        /// <param name="properties"> Properties of ElasticSan. </param>
+        internal ElasticSanData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ElasticSanProperties properties) : base(id, name, resourceType, systemData, tags, location)
         {
-            Sku = sku;
-            AvailabilityZones = availabilityZones;
-            ProvisioningState = provisioningState;
-            BaseSizeTiB = baseSizeTiB;
-            ExtendedCapacitySizeTiB = extendedCapacitySizeTiB;
-            TotalVolumeSizeGiB = totalVolumeSizeGiB;
-            VolumeGroupCount = volumeGroupCount;
-            TotalIops = totalIops;
-            TotalMbps = totalMbps;
-            TotalSizeTiB = totalSizeTiB;
-            PrivateEndpointConnections = privateEndpointConnections;
-            PublicNetworkAccess = publicNetworkAccess;
+            Properties = properties;
         }
 
-        /// <summary> resource sku. </summary>
-        public ElasticSanSku Sku { get; set; }
-        /// <summary> Logical zone for Elastic San resource; example: ["1"]. </summary>
-        public IList<string> AvailabilityZones { get; }
-        /// <summary> State of the operation on the resource. </summary>
-        public ElasticSanProvisioningState? ProvisioningState { get; }
-        /// <summary> Base size of the Elastic San appliance in TiB. </summary>
-        public long BaseSizeTiB { get; set; }
-        /// <summary> Extended size of the Elastic San appliance in TiB. </summary>
-        public long ExtendedCapacitySizeTiB { get; set; }
-        /// <summary> Total size of the provisioned Volumes in GiB. </summary>
-        public long? TotalVolumeSizeGiB { get; }
-        /// <summary> Total number of volume groups in this Elastic San appliance. </summary>
-        public long? VolumeGroupCount { get; }
-        /// <summary> Total Provisioned IOPS of the Elastic San appliance. </summary>
-        public long? TotalIops { get; }
-        /// <summary> Total Provisioned MBps Elastic San appliance. </summary>
-        public long? TotalMbps { get; }
-        /// <summary> Total size of the Elastic San appliance in TB. </summary>
-        public long? TotalSizeTiB { get; }
-        /// <summary> The list of Private Endpoint Connections. </summary>
-        public IReadOnlyList<ElasticSanPrivateEndpointConnectionData> PrivateEndpointConnections { get; }
-        /// <summary> Allow or disallow public network access to ElasticSan. Value is optional but if passed in, must be 'Enabled' or 'Disabled'. </summary>
-        public PublicNetworkAccess? PublicNetworkAccess { get; set; }
+        /// <summary> Properties of ElasticSan. </summary>
+        public ElasticSanProperties Properties { get; set; }
     }
 }

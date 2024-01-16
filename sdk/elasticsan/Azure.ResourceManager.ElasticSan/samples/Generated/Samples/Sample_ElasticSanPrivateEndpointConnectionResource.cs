@@ -41,7 +41,7 @@ namespace Azure.ResourceManager.ElasticSan.Samples
             ElasticSanPrivateEndpointConnectionResource elasticSanPrivateEndpointConnection = client.GetElasticSanPrivateEndpointConnectionResource(elasticSanPrivateEndpointConnectionResourceId);
 
             // invoke the operation
-            ElasticSanPrivateEndpointConnectionData data = new ElasticSanPrivateEndpointConnectionData(new ElasticSanPrivateLinkServiceConnectionState()
+            ElasticSanPrivateEndpointConnectionData data = new ElasticSanPrivateEndpointConnectionData(new PrivateEndpointConnectionProperties(new ElasticSanPrivateLinkServiceConnectionState()
             {
                 Status = ElasticSanPrivateEndpointServiceConnectionStatus.Pending,
                 Description = "dxl",
@@ -52,7 +52,7 @@ namespace Azure.ResourceManager.ElasticSan.Samples
 {
 "jdwrzpemdjrpiwzvy"
 },
-            };
+            });
             ArmOperation<ElasticSanPrivateEndpointConnectionResource> lro = await elasticSanPrivateEndpointConnection.UpdateAsync(WaitUntil.Completed, data);
             ElasticSanPrivateEndpointConnectionResource result = lro.Value;
 
@@ -86,7 +86,7 @@ namespace Azure.ResourceManager.ElasticSan.Samples
             ElasticSanPrivateEndpointConnectionResource elasticSanPrivateEndpointConnection = client.GetElasticSanPrivateEndpointConnectionResource(elasticSanPrivateEndpointConnectionResourceId);
 
             // invoke the operation
-            ElasticSanPrivateEndpointConnectionData data = new ElasticSanPrivateEndpointConnectionData(new ElasticSanPrivateLinkServiceConnectionState());
+            ElasticSanPrivateEndpointConnectionData data = new ElasticSanPrivateEndpointConnectionData(new PrivateEndpointConnectionProperties(new ElasticSanPrivateLinkServiceConnectionState()));
             ArmOperation<ElasticSanPrivateEndpointConnectionResource> lro = await elasticSanPrivateEndpointConnection.UpdateAsync(WaitUntil.Completed, data);
             ElasticSanPrivateEndpointConnectionResource result = lro.Value;
 

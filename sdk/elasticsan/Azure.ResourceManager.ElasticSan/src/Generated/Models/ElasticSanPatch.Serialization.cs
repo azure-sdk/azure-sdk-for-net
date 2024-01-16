@@ -15,6 +15,11 @@ namespace Azure.ResourceManager.ElasticSan.Models
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
             writer.WriteStartObject();
+            if (Optional.IsDefined(Properties))
+            {
+                writer.WritePropertyName("properties"u8);
+                writer.WriteObjectValue(Properties);
+            }
             if (Optional.IsCollectionDefined(Tags))
             {
                 writer.WritePropertyName("tags"u8);
@@ -26,24 +31,6 @@ namespace Azure.ResourceManager.ElasticSan.Models
                 }
                 writer.WriteEndObject();
             }
-            writer.WritePropertyName("properties"u8);
-            writer.WriteStartObject();
-            if (Optional.IsDefined(BaseSizeTiB))
-            {
-                writer.WritePropertyName("baseSizeTiB"u8);
-                writer.WriteNumberValue(BaseSizeTiB.Value);
-            }
-            if (Optional.IsDefined(ExtendedCapacitySizeTiB))
-            {
-                writer.WritePropertyName("extendedCapacitySizeTiB"u8);
-                writer.WriteNumberValue(ExtendedCapacitySizeTiB.Value);
-            }
-            if (Optional.IsDefined(PublicNetworkAccess))
-            {
-                writer.WritePropertyName("publicNetworkAccess"u8);
-                writer.WriteStringValue(PublicNetworkAccess.Value.ToString());
-            }
-            writer.WriteEndObject();
             writer.WriteEndObject();
         }
     }

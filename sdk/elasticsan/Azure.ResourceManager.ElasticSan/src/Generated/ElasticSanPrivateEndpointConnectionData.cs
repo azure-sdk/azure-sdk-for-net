@@ -6,11 +6,9 @@
 #nullable disable
 
 using System;
-using System.Collections.Generic;
 using Azure.Core;
 using Azure.ResourceManager.ElasticSan.Models;
 using Azure.ResourceManager.Models;
-using Azure.ResourceManager.Resources.Models;
 
 namespace Azure.ResourceManager.ElasticSan
 {
@@ -21,14 +19,13 @@ namespace Azure.ResourceManager.ElasticSan
     public partial class ElasticSanPrivateEndpointConnectionData : ResourceData
     {
         /// <summary> Initializes a new instance of <see cref="ElasticSanPrivateEndpointConnectionData"/>. </summary>
-        /// <param name="connectionState"> Private Link Service Connection State. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="connectionState"/> is null. </exception>
-        public ElasticSanPrivateEndpointConnectionData(ElasticSanPrivateLinkServiceConnectionState connectionState)
+        /// <param name="properties"> Private Endpoint Connection Properties. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="properties"/> is null. </exception>
+        public ElasticSanPrivateEndpointConnectionData(PrivateEndpointConnectionProperties properties)
         {
-            Argument.AssertNotNull(connectionState, nameof(connectionState));
+            Argument.AssertNotNull(properties, nameof(properties));
 
-            ConnectionState = connectionState;
-            GroupIds = new ChangeTrackingList<string>();
+            Properties = properties;
         }
 
         /// <summary> Initializes a new instance of <see cref="ElasticSanPrivateEndpointConnectionData"/>. </summary>
@@ -36,31 +33,13 @@ namespace Azure.ResourceManager.ElasticSan
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="provisioningState"> Provisioning State of Private Endpoint connection resource. </param>
-        /// <param name="privateEndpoint"> Private Endpoint resource. </param>
-        /// <param name="connectionState"> Private Link Service Connection State. </param>
-        /// <param name="groupIds"> List of resources private endpoint is mapped. </param>
-        internal ElasticSanPrivateEndpointConnectionData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, ElasticSanProvisioningState? provisioningState, SubResource privateEndpoint, ElasticSanPrivateLinkServiceConnectionState connectionState, IList<string> groupIds) : base(id, name, resourceType, systemData)
+        /// <param name="properties"> Private Endpoint Connection Properties. </param>
+        internal ElasticSanPrivateEndpointConnectionData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, PrivateEndpointConnectionProperties properties) : base(id, name, resourceType, systemData)
         {
-            ProvisioningState = provisioningState;
-            PrivateEndpoint = privateEndpoint;
-            ConnectionState = connectionState;
-            GroupIds = groupIds;
+            Properties = properties;
         }
 
-        /// <summary> Provisioning State of Private Endpoint connection resource. </summary>
-        public ElasticSanProvisioningState? ProvisioningState { get; }
-        /// <summary> Private Endpoint resource. </summary>
-        internal SubResource PrivateEndpoint { get; set; }
-        /// <summary> Gets Id. </summary>
-        public ResourceIdentifier PrivateEndpointId
-        {
-            get => PrivateEndpoint is null ? default : PrivateEndpoint.Id;
-        }
-
-        /// <summary> Private Link Service Connection State. </summary>
-        public ElasticSanPrivateLinkServiceConnectionState ConnectionState { get; set; }
-        /// <summary> List of resources private endpoint is mapped. </summary>
-        public IList<string> GroupIds { get; }
+        /// <summary> Private Endpoint Connection Properties. </summary>
+        public PrivateEndpointConnectionProperties Properties { get; set; }
     }
 }

@@ -18,10 +18,7 @@ namespace Azure.ResourceManager.ElasticSan
         {
             writer.WriteStartObject();
             writer.WritePropertyName("properties"u8);
-            writer.WriteStartObject();
-            writer.WritePropertyName("creationData"u8);
-            writer.WriteObjectValue(CreationData);
-            writer.WriteEndObject();
+            writer.WriteObjectValue(Properties);
             writer.WriteEndObject();
         }
 
@@ -31,16 +28,18 @@ namespace Azure.ResourceManager.ElasticSan
             {
                 return null;
             }
+            SnapshotProperties properties = default;
             ResourceIdentifier id = default;
             string name = default;
             ResourceType type = default;
             Optional<SystemData> systemData = default;
-            SnapshotCreationData creationData = default;
-            Optional<ElasticSanProvisioningState> provisioningState = default;
-            Optional<long> sourceVolumeSizeGiB = default;
-            Optional<string> volumeName = default;
             foreach (var property in element.EnumerateObject())
             {
+                if (property.NameEquals("properties"u8))
+                {
+                    properties = SnapshotProperties.DeserializeSnapshotProperties(property.Value);
+                    continue;
+                }
                 if (property.NameEquals("id"u8))
                 {
                     id = new ResourceIdentifier(property.Value.GetString());
@@ -65,48 +64,8 @@ namespace Azure.ResourceManager.ElasticSan
                     systemData = JsonSerializer.Deserialize<SystemData>(property.Value.GetRawText());
                     continue;
                 }
-                if (property.NameEquals("properties"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
-                    foreach (var property0 in property.Value.EnumerateObject())
-                    {
-                        if (property0.NameEquals("creationData"u8))
-                        {
-                            creationData = SnapshotCreationData.DeserializeSnapshotCreationData(property0.Value);
-                            continue;
-                        }
-                        if (property0.NameEquals("provisioningState"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            provisioningState = new ElasticSanProvisioningState(property0.Value.GetString());
-                            continue;
-                        }
-                        if (property0.NameEquals("sourceVolumeSizeGiB"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            sourceVolumeSizeGiB = property0.Value.GetInt64();
-                            continue;
-                        }
-                        if (property0.NameEquals("volumeName"u8))
-                        {
-                            volumeName = property0.Value.GetString();
-                            continue;
-                        }
-                    }
-                    continue;
-                }
             }
-            return new ElasticSanSnapshotData(id, name, type, systemData.Value, creationData, Optional.ToNullable(provisioningState), Optional.ToNullable(sourceVolumeSizeGiB), volumeName.Value);
+            return new ElasticSanSnapshotData(id, name, type, systemData.Value, properties);
         }
     }
 }

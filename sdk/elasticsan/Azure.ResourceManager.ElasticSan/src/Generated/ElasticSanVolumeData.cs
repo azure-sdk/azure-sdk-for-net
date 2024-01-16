@@ -19,10 +19,13 @@ namespace Azure.ResourceManager.ElasticSan
     public partial class ElasticSanVolumeData : ResourceData
     {
         /// <summary> Initializes a new instance of <see cref="ElasticSanVolumeData"/>. </summary>
-        /// <param name="sizeGiB"> Volume size. </param>
-        public ElasticSanVolumeData(long sizeGiB)
+        /// <param name="properties"> Properties of Volume. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="properties"/> is null. </exception>
+        public ElasticSanVolumeData(VolumeProperties properties)
         {
-            SizeGiB = sizeGiB;
+            Argument.AssertNotNull(properties, nameof(properties));
+
+            Properties = properties;
         }
 
         /// <summary> Initializes a new instance of <see cref="ElasticSanVolumeData"/>. </summary>
@@ -30,45 +33,13 @@ namespace Azure.ResourceManager.ElasticSan
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="volumeId"> Unique Id of the volume in GUID format. </param>
-        /// <param name="creationData"> State of the operation on the resource. </param>
-        /// <param name="sizeGiB"> Volume size. </param>
-        /// <param name="storageTarget"> Storage target information. </param>
-        /// <param name="managedBy"> Parent resource information. </param>
-        /// <param name="provisioningState"> State of the operation on the resource. </param>
-        internal ElasticSanVolumeData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, Guid? volumeId, ElasticSanVolumeDataSourceInfo creationData, long sizeGiB, IscsiTargetInfo storageTarget, ManagedByInfo managedBy, ElasticSanProvisioningState? provisioningState) : base(id, name, resourceType, systemData)
+        /// <param name="properties"> Properties of Volume. </param>
+        internal ElasticSanVolumeData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, VolumeProperties properties) : base(id, name, resourceType, systemData)
         {
-            VolumeId = volumeId;
-            CreationData = creationData;
-            SizeGiB = sizeGiB;
-            StorageTarget = storageTarget;
-            ManagedBy = managedBy;
-            ProvisioningState = provisioningState;
+            Properties = properties;
         }
 
-        /// <summary> Unique Id of the volume in GUID format. </summary>
-        public Guid? VolumeId { get; }
-        /// <summary> State of the operation on the resource. </summary>
-        public ElasticSanVolumeDataSourceInfo CreationData { get; set; }
-        /// <summary> Volume size. </summary>
-        public long SizeGiB { get; set; }
-        /// <summary> Storage target information. </summary>
-        public IscsiTargetInfo StorageTarget { get; }
-        /// <summary> Parent resource information. </summary>
-        internal ManagedByInfo ManagedBy { get; set; }
-        /// <summary> Resource ID of the resource managing the volume, this is a restricted field and can only be set for internal use. </summary>
-        public ResourceIdentifier ManagedByResourceId
-        {
-            get => ManagedBy is null ? default : ManagedBy.ResourceId;
-            set
-            {
-                if (ManagedBy is null)
-                    ManagedBy = new ManagedByInfo();
-                ManagedBy.ResourceId = value;
-            }
-        }
-
-        /// <summary> State of the operation on the resource. </summary>
-        public ElasticSanProvisioningState? ProvisioningState { get; }
+        /// <summary> Properties of Volume. </summary>
+        public VolumeProperties Properties { get; set; }
     }
 }

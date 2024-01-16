@@ -44,7 +44,7 @@ namespace Azure.ResourceManager.ElasticSan.Samples
 
             // invoke the operation
             string privateEndpointConnectionName = "privateendpointconnectionname";
-            ElasticSanPrivateEndpointConnectionData data = new ElasticSanPrivateEndpointConnectionData(new ElasticSanPrivateLinkServiceConnectionState()
+            ElasticSanPrivateEndpointConnectionData data = new ElasticSanPrivateEndpointConnectionData(new PrivateEndpointConnectionProperties(new ElasticSanPrivateLinkServiceConnectionState()
             {
                 Status = ElasticSanPrivateEndpointServiceConnectionStatus.Pending,
                 Description = "dxl",
@@ -55,7 +55,7 @@ namespace Azure.ResourceManager.ElasticSan.Samples
 {
 "jdwrzpemdjrpiwzvy"
 },
-            };
+            });
             ArmOperation<ElasticSanPrivateEndpointConnectionResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, privateEndpointConnectionName, data);
             ElasticSanPrivateEndpointConnectionResource result = lro.Value;
 
@@ -92,7 +92,7 @@ namespace Azure.ResourceManager.ElasticSan.Samples
 
             // invoke the operation
             string privateEndpointConnectionName = "privateendpointconnectionname";
-            ElasticSanPrivateEndpointConnectionData data = new ElasticSanPrivateEndpointConnectionData(new ElasticSanPrivateLinkServiceConnectionState());
+            ElasticSanPrivateEndpointConnectionData data = new ElasticSanPrivateEndpointConnectionData(new PrivateEndpointConnectionProperties(new ElasticSanPrivateLinkServiceConnectionState()));
             ArmOperation<ElasticSanPrivateEndpointConnectionResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, privateEndpointConnectionName, data);
             ElasticSanPrivateEndpointConnectionResource result = lro.Value;
 

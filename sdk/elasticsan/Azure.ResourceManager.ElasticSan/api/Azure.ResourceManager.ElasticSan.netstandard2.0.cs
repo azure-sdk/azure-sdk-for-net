@@ -19,19 +19,8 @@ namespace Azure.ResourceManager.ElasticSan
     }
     public partial class ElasticSanData : Azure.ResourceManager.Models.TrackedResourceData
     {
-        public ElasticSanData(Azure.Core.AzureLocation location, Azure.ResourceManager.ElasticSan.Models.ElasticSanSku sku, long baseSizeTiB, long extendedCapacitySizeTiB) { }
-        public System.Collections.Generic.IList<string> AvailabilityZones { get { throw null; } }
-        public long BaseSizeTiB { get { throw null; } set { } }
-        public long ExtendedCapacitySizeTiB { get { throw null; } set { } }
-        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.ElasticSan.ElasticSanPrivateEndpointConnectionData> PrivateEndpointConnections { get { throw null; } }
-        public Azure.ResourceManager.ElasticSan.Models.ElasticSanProvisioningState? ProvisioningState { get { throw null; } }
-        public Azure.ResourceManager.ElasticSan.Models.PublicNetworkAccess? PublicNetworkAccess { get { throw null; } set { } }
-        public Azure.ResourceManager.ElasticSan.Models.ElasticSanSku Sku { get { throw null; } set { } }
-        public long? TotalIops { get { throw null; } }
-        public long? TotalMbps { get { throw null; } }
-        public long? TotalSizeTiB { get { throw null; } }
-        public long? TotalVolumeSizeGiB { get { throw null; } }
-        public long? VolumeGroupCount { get { throw null; } }
+        public ElasticSanData(Azure.Core.AzureLocation location, Azure.ResourceManager.ElasticSan.Models.ElasticSanProperties properties) { }
+        public Azure.ResourceManager.ElasticSan.Models.ElasticSanProperties Properties { get { throw null; } set { } }
     }
     public static partial class ElasticSanExtensions
     {
@@ -67,11 +56,8 @@ namespace Azure.ResourceManager.ElasticSan
     }
     public partial class ElasticSanPrivateEndpointConnectionData : Azure.ResourceManager.Models.ResourceData
     {
-        public ElasticSanPrivateEndpointConnectionData(Azure.ResourceManager.ElasticSan.Models.ElasticSanPrivateLinkServiceConnectionState connectionState) { }
-        public Azure.ResourceManager.ElasticSan.Models.ElasticSanPrivateLinkServiceConnectionState ConnectionState { get { throw null; } set { } }
-        public System.Collections.Generic.IList<string> GroupIds { get { throw null; } }
-        public Azure.Core.ResourceIdentifier PrivateEndpointId { get { throw null; } }
-        public Azure.ResourceManager.ElasticSan.Models.ElasticSanProvisioningState? ProvisioningState { get { throw null; } }
+        public ElasticSanPrivateEndpointConnectionData(Azure.ResourceManager.ElasticSan.Models.PrivateEndpointConnectionProperties properties) { }
+        public Azure.ResourceManager.ElasticSan.Models.PrivateEndpointConnectionProperties Properties { get { throw null; } set { } }
     }
     public partial class ElasticSanPrivateEndpointConnectionResource : Azure.ResourceManager.ArmResource
     {
@@ -134,11 +120,8 @@ namespace Azure.ResourceManager.ElasticSan
     }
     public partial class ElasticSanSnapshotData : Azure.ResourceManager.Models.ResourceData
     {
-        public ElasticSanSnapshotData(Azure.ResourceManager.ElasticSan.Models.SnapshotCreationData creationData) { }
-        public Azure.Core.ResourceIdentifier CreationDataSourceId { get { throw null; } set { } }
-        public Azure.ResourceManager.ElasticSan.Models.ElasticSanProvisioningState? ProvisioningState { get { throw null; } }
-        public long? SourceVolumeSizeGiB { get { throw null; } }
-        public string VolumeName { get { throw null; } }
+        public ElasticSanSnapshotData(Azure.ResourceManager.ElasticSan.Models.SnapshotProperties properties) { }
+        public Azure.ResourceManager.ElasticSan.Models.SnapshotProperties Properties { get { throw null; } set { } }
     }
     public partial class ElasticSanSnapshotResource : Azure.ResourceManager.ArmResource
     {
@@ -173,13 +156,8 @@ namespace Azure.ResourceManager.ElasticSan
     }
     public partial class ElasticSanVolumeData : Azure.ResourceManager.Models.ResourceData
     {
-        public ElasticSanVolumeData(long sizeGiB) { }
-        public Azure.ResourceManager.ElasticSan.Models.ElasticSanVolumeDataSourceInfo CreationData { get { throw null; } set { } }
-        public Azure.Core.ResourceIdentifier ManagedByResourceId { get { throw null; } set { } }
-        public Azure.ResourceManager.ElasticSan.Models.ElasticSanProvisioningState? ProvisioningState { get { throw null; } }
-        public long SizeGiB { get { throw null; } set { } }
-        public Azure.ResourceManager.ElasticSan.Models.IscsiTargetInfo StorageTarget { get { throw null; } }
-        public System.Guid? VolumeId { get { throw null; } }
+        public ElasticSanVolumeData(Azure.ResourceManager.ElasticSan.Models.VolumeProperties properties) { }
+        public Azure.ResourceManager.ElasticSan.Models.VolumeProperties Properties { get { throw null; } set { } }
     }
     public partial class ElasticSanVolumeGroupCollection : Azure.ResourceManager.ArmCollection, System.Collections.Generic.IAsyncEnumerable<Azure.ResourceManager.ElasticSan.ElasticSanVolumeGroupResource>, System.Collections.Generic.IEnumerable<Azure.ResourceManager.ElasticSan.ElasticSanVolumeGroupResource>, System.Collections.IEnumerable
     {
@@ -201,13 +179,8 @@ namespace Azure.ResourceManager.ElasticSan
     public partial class ElasticSanVolumeGroupData : Azure.ResourceManager.Models.ResourceData
     {
         public ElasticSanVolumeGroupData() { }
-        public Azure.ResourceManager.ElasticSan.Models.ElasticSanEncryptionType? Encryption { get { throw null; } set { } }
-        public Azure.ResourceManager.ElasticSan.Models.EncryptionProperties EncryptionProperties { get { throw null; } set { } }
         public Azure.ResourceManager.Models.ManagedServiceIdentity Identity { get { throw null; } set { } }
-        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.ElasticSan.ElasticSanPrivateEndpointConnectionData> PrivateEndpointConnections { get { throw null; } }
-        public Azure.ResourceManager.ElasticSan.Models.StorageTargetType? ProtocolType { get { throw null; } set { } }
-        public Azure.ResourceManager.ElasticSan.Models.ElasticSanProvisioningState? ProvisioningState { get { throw null; } }
-        public System.Collections.Generic.IList<Azure.ResourceManager.ElasticSan.Models.ElasticSanVirtualNetworkRule> VirtualNetworkRules { get { throw null; } }
+        public Azure.ResourceManager.ElasticSan.Models.VolumeGroupProperties Properties { get { throw null; } set { } }
     }
     public partial class ElasticSanVolumeGroupResource : Azure.ResourceManager.ArmResource
     {
@@ -275,17 +248,23 @@ namespace Azure.ResourceManager.ElasticSan.Models
 {
     public static partial class ArmElasticSanModelFactory
     {
-        public static Azure.ResourceManager.ElasticSan.ElasticSanData ElasticSanData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, System.Collections.Generic.IDictionary<string, string> tags = null, Azure.Core.AzureLocation location = default(Azure.Core.AzureLocation), Azure.ResourceManager.ElasticSan.Models.ElasticSanSku sku = null, System.Collections.Generic.IEnumerable<string> availabilityZones = null, Azure.ResourceManager.ElasticSan.Models.ElasticSanProvisioningState? provisioningState = default(Azure.ResourceManager.ElasticSan.Models.ElasticSanProvisioningState?), long baseSizeTiB = (long)0, long extendedCapacitySizeTiB = (long)0, long? totalVolumeSizeGiB = default(long?), long? volumeGroupCount = default(long?), long? totalIops = default(long?), long? totalMbps = default(long?), long? totalSizeTiB = default(long?), System.Collections.Generic.IEnumerable<Azure.ResourceManager.ElasticSan.ElasticSanPrivateEndpointConnectionData> privateEndpointConnections = null, Azure.ResourceManager.ElasticSan.Models.PublicNetworkAccess? publicNetworkAccess = default(Azure.ResourceManager.ElasticSan.Models.PublicNetworkAccess?)) { throw null; }
-        public static Azure.ResourceManager.ElasticSan.ElasticSanPrivateEndpointConnectionData ElasticSanPrivateEndpointConnectionData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.ResourceManager.ElasticSan.Models.ElasticSanProvisioningState? provisioningState = default(Azure.ResourceManager.ElasticSan.Models.ElasticSanProvisioningState?), Azure.Core.ResourceIdentifier privateEndpointId = null, Azure.ResourceManager.ElasticSan.Models.ElasticSanPrivateLinkServiceConnectionState connectionState = null, System.Collections.Generic.IEnumerable<string> groupIds = null) { throw null; }
-        public static Azure.ResourceManager.ElasticSan.Models.ElasticSanPrivateLinkResource ElasticSanPrivateLinkResource(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, string groupId = null, System.Collections.Generic.IEnumerable<string> requiredMembers = null, System.Collections.Generic.IEnumerable<string> requiredZoneNames = null) { throw null; }
+        public static Azure.ResourceManager.ElasticSan.ElasticSanData ElasticSanData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, System.Collections.Generic.IDictionary<string, string> tags = null, Azure.Core.AzureLocation location = default(Azure.Core.AzureLocation), Azure.ResourceManager.ElasticSan.Models.ElasticSanProperties properties = null) { throw null; }
+        public static Azure.ResourceManager.ElasticSan.ElasticSanPrivateEndpointConnectionData ElasticSanPrivateEndpointConnectionData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.ResourceManager.ElasticSan.Models.PrivateEndpointConnectionProperties properties = null) { throw null; }
+        public static Azure.ResourceManager.ElasticSan.Models.ElasticSanPrivateLinkResource ElasticSanPrivateLinkResource(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.ResourceManager.ElasticSan.Models.ElasticSanPrivateLinkResourceProperties properties = null) { throw null; }
+        public static Azure.ResourceManager.ElasticSan.Models.ElasticSanPrivateLinkResourceProperties ElasticSanPrivateLinkResourceProperties(string groupId = null, System.Collections.Generic.IEnumerable<string> requiredMembers = null, System.Collections.Generic.IEnumerable<string> requiredZoneNames = null) { throw null; }
+        public static Azure.ResourceManager.ElasticSan.Models.ElasticSanProperties ElasticSanProperties(Azure.ResourceManager.ElasticSan.Models.ElasticSanSku sku = null, System.Collections.Generic.IEnumerable<string> availabilityZones = null, Azure.ResourceManager.ElasticSan.Models.ElasticSanProvisioningState? provisioningState = default(Azure.ResourceManager.ElasticSan.Models.ElasticSanProvisioningState?), long baseSizeTiB = (long)0, long extendedCapacitySizeTiB = (long)0, long? totalVolumeSizeGiB = default(long?), long? volumeGroupCount = default(long?), long? totalIops = default(long?), long? totalMbps = default(long?), long? totalSizeTiB = default(long?), System.Collections.Generic.IEnumerable<Azure.ResourceManager.ElasticSan.ElasticSanPrivateEndpointConnectionData> privateEndpointConnections = null, Azure.ResourceManager.ElasticSan.Models.PublicNetworkAccess? publicNetworkAccess = default(Azure.ResourceManager.ElasticSan.Models.PublicNetworkAccess?)) { throw null; }
         public static Azure.ResourceManager.ElasticSan.Models.ElasticSanSkuCapability ElasticSanSkuCapability(string name = null, string value = null) { throw null; }
         public static Azure.ResourceManager.ElasticSan.Models.ElasticSanSkuInformation ElasticSanSkuInformation(Azure.ResourceManager.ElasticSan.Models.ElasticSanSkuName name = default(Azure.ResourceManager.ElasticSan.Models.ElasticSanSkuName), Azure.ResourceManager.ElasticSan.Models.ElasticSanSkuTier? tier = default(Azure.ResourceManager.ElasticSan.Models.ElasticSanSkuTier?), string resourceType = null, System.Collections.Generic.IEnumerable<string> locations = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.ElasticSan.Models.ElasticSanSkuLocationInfo> locationInfo = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.ElasticSan.Models.ElasticSanSkuCapability> capabilities = null) { throw null; }
         public static Azure.ResourceManager.ElasticSan.Models.ElasticSanSkuLocationInfo ElasticSanSkuLocationInfo(Azure.Core.AzureLocation? location = default(Azure.Core.AzureLocation?), System.Collections.Generic.IEnumerable<string> zones = null) { throw null; }
-        public static Azure.ResourceManager.ElasticSan.ElasticSanSnapshotData ElasticSanSnapshotData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.Core.ResourceIdentifier creationDataSourceId = null, Azure.ResourceManager.ElasticSan.Models.ElasticSanProvisioningState? provisioningState = default(Azure.ResourceManager.ElasticSan.Models.ElasticSanProvisioningState?), long? sourceVolumeSizeGiB = default(long?), string volumeName = null) { throw null; }
-        public static Azure.ResourceManager.ElasticSan.ElasticSanVolumeData ElasticSanVolumeData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, System.Guid? volumeId = default(System.Guid?), Azure.ResourceManager.ElasticSan.Models.ElasticSanVolumeDataSourceInfo creationData = null, long sizeGiB = (long)0, Azure.ResourceManager.ElasticSan.Models.IscsiTargetInfo storageTarget = null, Azure.Core.ResourceIdentifier managedByResourceId = null, Azure.ResourceManager.ElasticSan.Models.ElasticSanProvisioningState? provisioningState = default(Azure.ResourceManager.ElasticSan.Models.ElasticSanProvisioningState?)) { throw null; }
-        public static Azure.ResourceManager.ElasticSan.ElasticSanVolumeGroupData ElasticSanVolumeGroupData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.ResourceManager.Models.ManagedServiceIdentity identity = null, Azure.ResourceManager.ElasticSan.Models.ElasticSanProvisioningState? provisioningState = default(Azure.ResourceManager.ElasticSan.Models.ElasticSanProvisioningState?), Azure.ResourceManager.ElasticSan.Models.StorageTargetType? protocolType = default(Azure.ResourceManager.ElasticSan.Models.StorageTargetType?), Azure.ResourceManager.ElasticSan.Models.ElasticSanEncryptionType? encryption = default(Azure.ResourceManager.ElasticSan.Models.ElasticSanEncryptionType?), Azure.ResourceManager.ElasticSan.Models.EncryptionProperties encryptionProperties = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.ElasticSan.Models.ElasticSanVirtualNetworkRule> virtualNetworkRules = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.ElasticSan.ElasticSanPrivateEndpointConnectionData> privateEndpointConnections = null) { throw null; }
+        public static Azure.ResourceManager.ElasticSan.ElasticSanSnapshotData ElasticSanSnapshotData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.ResourceManager.ElasticSan.Models.SnapshotProperties properties = null) { throw null; }
+        public static Azure.ResourceManager.ElasticSan.ElasticSanVolumeData ElasticSanVolumeData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.ResourceManager.ElasticSan.Models.VolumeProperties properties = null) { throw null; }
+        public static Azure.ResourceManager.ElasticSan.ElasticSanVolumeGroupData ElasticSanVolumeGroupData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, Azure.ResourceManager.Models.ManagedServiceIdentity identity = null, Azure.ResourceManager.ElasticSan.Models.VolumeGroupProperties properties = null) { throw null; }
         public static Azure.ResourceManager.ElasticSan.Models.IscsiTargetInfo IscsiTargetInfo(string targetIqn = null, string targetPortalHostname = null, int? targetPortalPort = default(int?), Azure.ResourceManager.ElasticSan.Models.ElasticSanProvisioningState? provisioningState = default(Azure.ResourceManager.ElasticSan.Models.ElasticSanProvisioningState?), Azure.ResourceManager.ElasticSan.Models.ResourceOperationalStatus? status = default(Azure.ResourceManager.ElasticSan.Models.ResourceOperationalStatus?)) { throw null; }
         public static Azure.ResourceManager.ElasticSan.Models.KeyVaultProperties KeyVaultProperties(string keyName = null, string keyVersion = null, System.Uri keyVaultUri = null, string currentVersionedKeyIdentifier = null, System.DateTimeOffset? lastKeyRotationTimestamp = default(System.DateTimeOffset?), System.DateTimeOffset? currentVersionedKeyExpirationTimestamp = default(System.DateTimeOffset?)) { throw null; }
+        public static Azure.ResourceManager.ElasticSan.Models.PrivateEndpointConnectionProperties PrivateEndpointConnectionProperties(Azure.ResourceManager.ElasticSan.Models.ElasticSanProvisioningState? provisioningState = default(Azure.ResourceManager.ElasticSan.Models.ElasticSanProvisioningState?), Azure.Core.ResourceIdentifier privateEndpointId = null, Azure.ResourceManager.ElasticSan.Models.ElasticSanPrivateLinkServiceConnectionState connectionState = null, System.Collections.Generic.IEnumerable<string> groupIds = null) { throw null; }
+        public static Azure.ResourceManager.ElasticSan.Models.SnapshotProperties SnapshotProperties(Azure.Core.ResourceIdentifier creationDataSourceId = null, Azure.ResourceManager.ElasticSan.Models.ElasticSanProvisioningState? provisioningState = default(Azure.ResourceManager.ElasticSan.Models.ElasticSanProvisioningState?), long? sourceVolumeSizeGiB = default(long?), string volumeName = null) { throw null; }
+        public static Azure.ResourceManager.ElasticSan.Models.VolumeGroupProperties VolumeGroupProperties(Azure.ResourceManager.ElasticSan.Models.ElasticSanProvisioningState? provisioningState = default(Azure.ResourceManager.ElasticSan.Models.ElasticSanProvisioningState?), Azure.ResourceManager.ElasticSan.Models.StorageTargetType? protocolType = default(Azure.ResourceManager.ElasticSan.Models.StorageTargetType?), Azure.ResourceManager.ElasticSan.Models.ElasticSanEncryptionType? encryption = default(Azure.ResourceManager.ElasticSan.Models.ElasticSanEncryptionType?), Azure.ResourceManager.ElasticSan.Models.EncryptionProperties encryptionProperties = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.ElasticSan.Models.ElasticSanVirtualNetworkRule> virtualNetworkRules = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.ElasticSan.ElasticSanPrivateEndpointConnectionData> privateEndpointConnections = null) { throw null; }
+        public static Azure.ResourceManager.ElasticSan.Models.VolumeProperties VolumeProperties(string volumeId = null, Azure.ResourceManager.ElasticSan.Models.ElasticSanVolumeDataSourceInfo creationData = null, long sizeGiB = (long)0, Azure.ResourceManager.ElasticSan.Models.IscsiTargetInfo storageTarget = null, Azure.Core.ResourceIdentifier managedByResourceId = null, Azure.ResourceManager.ElasticSan.Models.ElasticSanProvisioningState? provisioningState = default(Azure.ResourceManager.ElasticSan.Models.ElasticSanProvisioningState?)) { throw null; }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct ElasticSanEncryptionType : System.IEquatable<Azure.ResourceManager.ElasticSan.Models.ElasticSanEncryptionType>
@@ -308,9 +287,7 @@ namespace Azure.ResourceManager.ElasticSan.Models
     public partial class ElasticSanPatch
     {
         public ElasticSanPatch() { }
-        public long? BaseSizeTiB { get { throw null; } set { } }
-        public long? ExtendedCapacitySizeTiB { get { throw null; } set { } }
-        public Azure.ResourceManager.ElasticSan.Models.PublicNetworkAccess? PublicNetworkAccess { get { throw null; } set { } }
+        public Azure.ResourceManager.ElasticSan.Models.ElasticSanUpdateProperties Properties { get { throw null; } set { } }
         public System.Collections.Generic.IDictionary<string, string> Tags { get { throw null; } }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
@@ -336,6 +313,11 @@ namespace Azure.ResourceManager.ElasticSan.Models
     public partial class ElasticSanPrivateLinkResource : Azure.ResourceManager.Models.ResourceData
     {
         public ElasticSanPrivateLinkResource() { }
+        public Azure.ResourceManager.ElasticSan.Models.ElasticSanPrivateLinkResourceProperties Properties { get { throw null; } set { } }
+    }
+    public partial class ElasticSanPrivateLinkResourceProperties
+    {
+        public ElasticSanPrivateLinkResourceProperties() { }
         public string GroupId { get { throw null; } }
         public System.Collections.Generic.IReadOnlyList<string> RequiredMembers { get { throw null; } }
         public System.Collections.Generic.IList<string> RequiredZoneNames { get { throw null; } }
@@ -346,6 +328,22 @@ namespace Azure.ResourceManager.ElasticSan.Models
         public string ActionsRequired { get { throw null; } set { } }
         public string Description { get { throw null; } set { } }
         public Azure.ResourceManager.ElasticSan.Models.ElasticSanPrivateEndpointServiceConnectionStatus? Status { get { throw null; } set { } }
+    }
+    public partial class ElasticSanProperties
+    {
+        public ElasticSanProperties(Azure.ResourceManager.ElasticSan.Models.ElasticSanSku sku, long baseSizeTiB, long extendedCapacitySizeTiB) { }
+        public System.Collections.Generic.IList<string> AvailabilityZones { get { throw null; } }
+        public long BaseSizeTiB { get { throw null; } set { } }
+        public long ExtendedCapacitySizeTiB { get { throw null; } set { } }
+        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.ElasticSan.ElasticSanPrivateEndpointConnectionData> PrivateEndpointConnections { get { throw null; } }
+        public Azure.ResourceManager.ElasticSan.Models.ElasticSanProvisioningState? ProvisioningState { get { throw null; } }
+        public Azure.ResourceManager.ElasticSan.Models.PublicNetworkAccess? PublicNetworkAccess { get { throw null; } set { } }
+        public Azure.ResourceManager.ElasticSan.Models.ElasticSanSku Sku { get { throw null; } set { } }
+        public long? TotalIops { get { throw null; } }
+        public long? TotalMbps { get { throw null; } }
+        public long? TotalSizeTiB { get { throw null; } }
+        public long? TotalVolumeSizeGiB { get { throw null; } }
+        public long? VolumeGroupCount { get { throw null; } }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct ElasticSanProvisioningState : System.IEquatable<Azure.ResourceManager.ElasticSan.Models.ElasticSanProvisioningState>
@@ -434,6 +432,13 @@ namespace Azure.ResourceManager.ElasticSan.Models
         public static bool operator !=(Azure.ResourceManager.ElasticSan.Models.ElasticSanSkuTier left, Azure.ResourceManager.ElasticSan.Models.ElasticSanSkuTier right) { throw null; }
         public override string ToString() { throw null; }
     }
+    public partial class ElasticSanUpdateProperties
+    {
+        public ElasticSanUpdateProperties() { }
+        public long? BaseSizeTiB { get { throw null; } set { } }
+        public long? ExtendedCapacitySizeTiB { get { throw null; } set { } }
+        public Azure.ResourceManager.ElasticSan.Models.PublicNetworkAccess? PublicNetworkAccess { get { throw null; } set { } }
+    }
     public partial class ElasticSanVirtualNetworkRule
     {
         public ElasticSanVirtualNetworkRule(Azure.Core.ResourceIdentifier virtualNetworkResourceId) { }
@@ -487,17 +492,13 @@ namespace Azure.ResourceManager.ElasticSan.Models
     public partial class ElasticSanVolumeGroupPatch
     {
         public ElasticSanVolumeGroupPatch() { }
-        public Azure.ResourceManager.ElasticSan.Models.ElasticSanEncryptionType? Encryption { get { throw null; } set { } }
-        public Azure.ResourceManager.ElasticSan.Models.EncryptionProperties EncryptionProperties { get { throw null; } set { } }
         public Azure.ResourceManager.Models.ManagedServiceIdentity Identity { get { throw null; } set { } }
-        public Azure.ResourceManager.ElasticSan.Models.StorageTargetType? ProtocolType { get { throw null; } set { } }
-        public System.Collections.Generic.IList<Azure.ResourceManager.ElasticSan.Models.ElasticSanVirtualNetworkRule> VirtualNetworkRules { get { throw null; } }
+        public Azure.ResourceManager.ElasticSan.Models.VolumeGroupUpdateProperties Properties { get { throw null; } set { } }
     }
     public partial class ElasticSanVolumePatch
     {
         public ElasticSanVolumePatch() { }
-        public Azure.Core.ResourceIdentifier ManagedByResourceId { get { throw null; } set { } }
-        public long? SizeGiB { get { throw null; } set { } }
+        public Azure.ResourceManager.ElasticSan.Models.VolumeUpdateProperties Properties { get { throw null; } set { } }
     }
     public partial class EncryptionProperties
     {
@@ -523,6 +524,14 @@ namespace Azure.ResourceManager.ElasticSan.Models
         public System.Uri KeyVaultUri { get { throw null; } set { } }
         public string KeyVersion { get { throw null; } set { } }
         public System.DateTimeOffset? LastKeyRotationTimestamp { get { throw null; } }
+    }
+    public partial class PrivateEndpointConnectionProperties
+    {
+        public PrivateEndpointConnectionProperties(Azure.ResourceManager.ElasticSan.Models.ElasticSanPrivateLinkServiceConnectionState connectionState) { }
+        public Azure.ResourceManager.ElasticSan.Models.ElasticSanPrivateLinkServiceConnectionState ConnectionState { get { throw null; } set { } }
+        public System.Collections.Generic.IList<string> GroupIds { get { throw null; } }
+        public Azure.Core.ResourceIdentifier PrivateEndpointId { get { throw null; } }
+        public Azure.ResourceManager.ElasticSan.Models.ElasticSanProvisioningState? ProvisioningState { get { throw null; } }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct PublicNetworkAccess : System.IEquatable<Azure.ResourceManager.ElasticSan.Models.PublicNetworkAccess>
@@ -571,6 +580,14 @@ namespace Azure.ResourceManager.ElasticSan.Models
         public SnapshotCreationData(Azure.Core.ResourceIdentifier sourceId) { }
         public Azure.Core.ResourceIdentifier SourceId { get { throw null; } set { } }
     }
+    public partial class SnapshotProperties
+    {
+        public SnapshotProperties(Azure.ResourceManager.ElasticSan.Models.SnapshotCreationData creationData) { }
+        public Azure.Core.ResourceIdentifier CreationDataSourceId { get { throw null; } set { } }
+        public Azure.ResourceManager.ElasticSan.Models.ElasticSanProvisioningState? ProvisioningState { get { throw null; } }
+        public long? SourceVolumeSizeGiB { get { throw null; } }
+        public string VolumeName { get { throw null; } }
+    }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct StorageTargetType : System.IEquatable<Azure.ResourceManager.ElasticSan.Models.StorageTargetType>
     {
@@ -588,6 +605,40 @@ namespace Azure.ResourceManager.ElasticSan.Models
         public static implicit operator Azure.ResourceManager.ElasticSan.Models.StorageTargetType (string value) { throw null; }
         public static bool operator !=(Azure.ResourceManager.ElasticSan.Models.StorageTargetType left, Azure.ResourceManager.ElasticSan.Models.StorageTargetType right) { throw null; }
         public override string ToString() { throw null; }
+    }
+    public partial class VolumeGroupProperties
+    {
+        public VolumeGroupProperties() { }
+        public Azure.ResourceManager.ElasticSan.Models.ElasticSanEncryptionType? Encryption { get { throw null; } set { } }
+        public Azure.ResourceManager.ElasticSan.Models.EncryptionProperties EncryptionProperties { get { throw null; } set { } }
+        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.ElasticSan.ElasticSanPrivateEndpointConnectionData> PrivateEndpointConnections { get { throw null; } }
+        public Azure.ResourceManager.ElasticSan.Models.StorageTargetType? ProtocolType { get { throw null; } set { } }
+        public Azure.ResourceManager.ElasticSan.Models.ElasticSanProvisioningState? ProvisioningState { get { throw null; } }
+        public System.Collections.Generic.IList<Azure.ResourceManager.ElasticSan.Models.ElasticSanVirtualNetworkRule> VirtualNetworkRules { get { throw null; } }
+    }
+    public partial class VolumeGroupUpdateProperties
+    {
+        public VolumeGroupUpdateProperties() { }
+        public Azure.ResourceManager.ElasticSan.Models.ElasticSanEncryptionType? Encryption { get { throw null; } set { } }
+        public Azure.ResourceManager.ElasticSan.Models.EncryptionProperties EncryptionProperties { get { throw null; } set { } }
+        public Azure.ResourceManager.ElasticSan.Models.StorageTargetType? ProtocolType { get { throw null; } set { } }
+        public System.Collections.Generic.IList<Azure.ResourceManager.ElasticSan.Models.ElasticSanVirtualNetworkRule> VirtualNetworkRules { get { throw null; } }
+    }
+    public partial class VolumeProperties
+    {
+        public VolumeProperties(long sizeGiB) { }
+        public Azure.ResourceManager.ElasticSan.Models.ElasticSanVolumeDataSourceInfo CreationData { get { throw null; } set { } }
+        public Azure.Core.ResourceIdentifier ManagedByResourceId { get { throw null; } set { } }
+        public Azure.ResourceManager.ElasticSan.Models.ElasticSanProvisioningState? ProvisioningState { get { throw null; } }
+        public long SizeGiB { get { throw null; } set { } }
+        public Azure.ResourceManager.ElasticSan.Models.IscsiTargetInfo StorageTarget { get { throw null; } }
+        public string VolumeId { get { throw null; } }
+    }
+    public partial class VolumeUpdateProperties
+    {
+        public VolumeUpdateProperties() { }
+        public Azure.Core.ResourceIdentifier ManagedByResourceId { get { throw null; } set { } }
+        public long? SizeGiB { get { throw null; } set { } }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct XMsDeleteSnapshot : System.IEquatable<Azure.ResourceManager.ElasticSan.Models.XMsDeleteSnapshot>

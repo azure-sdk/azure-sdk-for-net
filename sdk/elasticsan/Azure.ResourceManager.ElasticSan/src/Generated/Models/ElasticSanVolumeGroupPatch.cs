@@ -5,7 +5,6 @@
 
 #nullable disable
 
-using System.Collections.Generic;
 using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.ElasticSan.Models
@@ -20,38 +19,16 @@ namespace Azure.ResourceManager.ElasticSan.Models
 
         /// <summary> Initializes a new instance of <see cref="ElasticSanVolumeGroupPatch"/>. </summary>
         /// <param name="identity"> The identity of the resource. Current supported identity types: None, SystemAssigned, UserAssigned. </param>
-        /// <param name="protocolType"> Type of storage target. </param>
-        /// <param name="encryption"> Type of encryption. </param>
-        /// <param name="encryptionProperties"> Encryption Properties describing Key Vault and Identity information. </param>
-        /// <param name="networkAcls"> A collection of rules governing the accessibility from specific network locations. </param>
-        internal ElasticSanVolumeGroupPatch(ManagedServiceIdentity identity, StorageTargetType? protocolType, ElasticSanEncryptionType? encryption, EncryptionProperties encryptionProperties, NetworkRuleSet networkAcls)
+        /// <param name="properties"> Properties of VolumeGroup. </param>
+        internal ElasticSanVolumeGroupPatch(ManagedServiceIdentity identity, VolumeGroupUpdateProperties properties)
         {
             Identity = identity;
-            ProtocolType = protocolType;
-            Encryption = encryption;
-            EncryptionProperties = encryptionProperties;
-            NetworkAcls = networkAcls;
+            Properties = properties;
         }
 
         /// <summary> The identity of the resource. Current supported identity types: None, SystemAssigned, UserAssigned. </summary>
         public ManagedServiceIdentity Identity { get; set; }
-        /// <summary> Type of storage target. </summary>
-        public StorageTargetType? ProtocolType { get; set; }
-        /// <summary> Type of encryption. </summary>
-        public ElasticSanEncryptionType? Encryption { get; set; }
-        /// <summary> Encryption Properties describing Key Vault and Identity information. </summary>
-        public EncryptionProperties EncryptionProperties { get; set; }
-        /// <summary> A collection of rules governing the accessibility from specific network locations. </summary>
-        internal NetworkRuleSet NetworkAcls { get; set; }
-        /// <summary> The list of virtual network rules. </summary>
-        public IList<ElasticSanVirtualNetworkRule> VirtualNetworkRules
-        {
-            get
-            {
-                if (NetworkAcls is null)
-                    NetworkAcls = new NetworkRuleSet();
-                return NetworkAcls.VirtualNetworkRules;
-            }
-        }
+        /// <summary> Properties of VolumeGroup. </summary>
+        public VolumeGroupUpdateProperties Properties { get; set; }
     }
 }
