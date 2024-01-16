@@ -41,6 +41,11 @@ namespace Azure.ResourceManager.Network.Models
                 writer.WritePropertyName("capacity"u8);
                 writer.WriteNumberValue(Capacity.Value);
             }
+            if (Optional.IsDefined(Family))
+            {
+                writer.WritePropertyName("family"u8);
+                writer.WriteStringValue(Family.Value.ToString());
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -82,6 +87,7 @@ namespace Azure.ResourceManager.Network.Models
             Optional<ApplicationGatewaySkuName> name = default;
             Optional<ApplicationGatewayTier> tier = default;
             Optional<int> capacity = default;
+            Optional<ApplicationGatewaySkuFamily> family = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -113,13 +119,22 @@ namespace Azure.ResourceManager.Network.Models
                     capacity = property.Value.GetInt32();
                     continue;
                 }
+                if (property.NameEquals("family"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    family = new ApplicationGatewaySkuFamily(property.Value.GetString());
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new ApplicationGatewaySku(Optional.ToNullable(name), Optional.ToNullable(tier), Optional.ToNullable(capacity), serializedAdditionalRawData);
+            return new ApplicationGatewaySku(Optional.ToNullable(name), Optional.ToNullable(tier), Optional.ToNullable(capacity), Optional.ToNullable(family), serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<ApplicationGatewaySku>.Write(ModelReaderWriterOptions options)

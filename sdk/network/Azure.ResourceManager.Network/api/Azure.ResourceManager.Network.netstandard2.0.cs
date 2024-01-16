@@ -7738,6 +7738,7 @@ namespace Azure.ResourceManager.Network.Models
     {
         public ApplicationGatewaySku() { }
         public int? Capacity { get { throw null; } set { } }
+        public Azure.ResourceManager.Network.Models.ApplicationGatewaySkuFamily? Family { get { throw null; } set { } }
         public Azure.ResourceManager.Network.Models.ApplicationGatewaySkuName? Name { get { throw null; } set { } }
         public Azure.ResourceManager.Network.Models.ApplicationGatewayTier? Tier { get { throw null; } set { } }
         Azure.ResourceManager.Network.Models.ApplicationGatewaySku System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Network.Models.ApplicationGatewaySku>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -7745,6 +7746,24 @@ namespace Azure.ResourceManager.Network.Models
         Azure.ResourceManager.Network.Models.ApplicationGatewaySku System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Network.Models.ApplicationGatewaySku>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Network.Models.ApplicationGatewaySku>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Network.Models.ApplicationGatewaySku>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct ApplicationGatewaySkuFamily : System.IEquatable<Azure.ResourceManager.Network.Models.ApplicationGatewaySkuFamily>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public ApplicationGatewaySkuFamily(string value) { throw null; }
+        public static Azure.ResourceManager.Network.Models.ApplicationGatewaySkuFamily Generation1 { get { throw null; } }
+        public static Azure.ResourceManager.Network.Models.ApplicationGatewaySkuFamily Generation2 { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.Network.Models.ApplicationGatewaySkuFamily other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.Network.Models.ApplicationGatewaySkuFamily left, Azure.ResourceManager.Network.Models.ApplicationGatewaySkuFamily right) { throw null; }
+        public static implicit operator Azure.ResourceManager.Network.Models.ApplicationGatewaySkuFamily (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.Network.Models.ApplicationGatewaySkuFamily left, Azure.ResourceManager.Network.Models.ApplicationGatewaySkuFamily right) { throw null; }
+        public override string ToString() { throw null; }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct ApplicationGatewaySkuName : System.IEquatable<Azure.ResourceManager.Network.Models.ApplicationGatewaySkuName>
