@@ -68,6 +68,11 @@ namespace Azure.ResourceManager.Compute.Models
                 writer.WritePropertyName("elasticSanResourceId"u8);
                 writer.WriteStringValue(ElasticSanResourceId);
             }
+            if (Optional.IsDefined(ProvisionedBandwidthCopySpeed))
+            {
+                writer.WritePropertyName("provisionedBandwidthCopySpeed"u8);
+                writer.WriteStringValue(ProvisionedBandwidthCopySpeed.Value.ToString());
+            }
             writer.WriteEndObject();
         }
 
@@ -89,6 +94,7 @@ namespace Azure.ResourceManager.Compute.Models
             Optional<Uri> securityDataUri = default;
             Optional<bool> performancePlus = default;
             Optional<ResourceIdentifier> elasticSanResourceId = default;
+            Optional<ProvisionedBandwidthCopyOption> provisionedBandwidthCopySpeed = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("createOption"u8))
@@ -191,8 +197,17 @@ namespace Azure.ResourceManager.Compute.Models
                     elasticSanResourceId = new ResourceIdentifier(property.Value.GetString());
                     continue;
                 }
+                if (property.NameEquals("provisionedBandwidthCopySpeed"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    provisionedBandwidthCopySpeed = new ProvisionedBandwidthCopyOption(property.Value.GetString());
+                    continue;
+                }
             }
-            return new DiskCreationData(createOption, storageAccountId.Value, imageReference.Value, galleryImageReference.Value, sourceUri.Value, sourceResourceId.Value, sourceUniqueId.Value, Optional.ToNullable(uploadSizeBytes), Optional.ToNullable(logicalSectorSize), securityDataUri.Value, Optional.ToNullable(performancePlus), elasticSanResourceId.Value);
+            return new DiskCreationData(createOption, storageAccountId.Value, imageReference.Value, galleryImageReference.Value, sourceUri.Value, sourceResourceId.Value, sourceUniqueId.Value, Optional.ToNullable(uploadSizeBytes), Optional.ToNullable(logicalSectorSize), securityDataUri.Value, Optional.ToNullable(performancePlus), elasticSanResourceId.Value, Optional.ToNullable(provisionedBandwidthCopySpeed));
         }
     }
 }
