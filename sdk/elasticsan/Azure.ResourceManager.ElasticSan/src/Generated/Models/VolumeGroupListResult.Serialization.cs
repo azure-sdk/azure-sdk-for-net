@@ -14,16 +14,16 @@ using Azure.ResourceManager.ElasticSan;
 
 namespace Azure.ResourceManager.ElasticSan.Models
 {
-    internal partial class ElasticSanPrivateEndpointConnectionListResult : IUtf8JsonSerializable, IJsonModel<ElasticSanPrivateEndpointConnectionListResult>
+    internal partial class VolumeGroupListResult : IUtf8JsonSerializable, IJsonModel<VolumeGroupListResult>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<ElasticSanPrivateEndpointConnectionListResult>)this).Write(writer, new ModelReaderWriterOptions("W"));
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<VolumeGroupListResult>)this).Write(writer, new ModelReaderWriterOptions("W"));
 
-        void IJsonModel<ElasticSanPrivateEndpointConnectionListResult>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<VolumeGroupListResult>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ElasticSanPrivateEndpointConnectionListResult>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<VolumeGroupListResult>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(ElasticSanPrivateEndpointConnectionListResult)} does not support '{format}' format.");
+                throw new FormatException($"The model {nameof(VolumeGroupListResult)} does not support '{format}' format.");
             }
 
             writer.WriteStartObject();
@@ -57,19 +57,19 @@ namespace Azure.ResourceManager.ElasticSan.Models
             writer.WriteEndObject();
         }
 
-        ElasticSanPrivateEndpointConnectionListResult IJsonModel<ElasticSanPrivateEndpointConnectionListResult>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        VolumeGroupListResult IJsonModel<VolumeGroupListResult>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ElasticSanPrivateEndpointConnectionListResult>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<VolumeGroupListResult>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(ElasticSanPrivateEndpointConnectionListResult)} does not support '{format}' format.");
+                throw new FormatException($"The model {nameof(VolumeGroupListResult)} does not support '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeElasticSanPrivateEndpointConnectionListResult(document.RootElement, options);
+            return DeserializeVolumeGroupListResult(document.RootElement, options);
         }
 
-        internal static ElasticSanPrivateEndpointConnectionListResult DeserializeElasticSanPrivateEndpointConnectionListResult(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static VolumeGroupListResult DeserializeVolumeGroupListResult(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= new ModelReaderWriterOptions("W");
 
@@ -77,7 +77,7 @@ namespace Azure.ResourceManager.ElasticSan.Models
             {
                 return null;
             }
-            IReadOnlyList<ElasticSanPrivateEndpointConnectionData> value = default;
+            IReadOnlyList<ElasticSanVolumeGroupData> value = default;
             Optional<Uri> nextLink = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
@@ -85,10 +85,10 @@ namespace Azure.ResourceManager.ElasticSan.Models
             {
                 if (property.NameEquals("value"u8))
                 {
-                    List<ElasticSanPrivateEndpointConnectionData> array = new List<ElasticSanPrivateEndpointConnectionData>();
+                    List<ElasticSanVolumeGroupData> array = new List<ElasticSanVolumeGroupData>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(ElasticSanPrivateEndpointConnectionData.DeserializeElasticSanPrivateEndpointConnectionData(item));
+                        array.Add(ElasticSanVolumeGroupData.DeserializeElasticSanVolumeGroupData(item));
                     }
                     value = array;
                     continue;
@@ -108,38 +108,38 @@ namespace Azure.ResourceManager.ElasticSan.Models
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new ElasticSanPrivateEndpointConnectionListResult(value, nextLink.Value, serializedAdditionalRawData);
+            return new VolumeGroupListResult(value, nextLink.Value, serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<ElasticSanPrivateEndpointConnectionListResult>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<VolumeGroupListResult>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ElasticSanPrivateEndpointConnectionListResult>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<VolumeGroupListResult>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(ElasticSanPrivateEndpointConnectionListResult)} does not support '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(VolumeGroupListResult)} does not support '{options.Format}' format.");
             }
         }
 
-        ElasticSanPrivateEndpointConnectionListResult IPersistableModel<ElasticSanPrivateEndpointConnectionListResult>.Create(BinaryData data, ModelReaderWriterOptions options)
+        VolumeGroupListResult IPersistableModel<VolumeGroupListResult>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ElasticSanPrivateEndpointConnectionListResult>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<VolumeGroupListResult>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializeElasticSanPrivateEndpointConnectionListResult(document.RootElement, options);
+                        return DeserializeVolumeGroupListResult(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(ElasticSanPrivateEndpointConnectionListResult)} does not support '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(VolumeGroupListResult)} does not support '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<ElasticSanPrivateEndpointConnectionListResult>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<VolumeGroupListResult>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }

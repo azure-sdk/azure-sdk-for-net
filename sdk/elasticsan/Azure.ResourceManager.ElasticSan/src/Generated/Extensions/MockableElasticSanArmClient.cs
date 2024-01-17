@@ -49,30 +49,6 @@ namespace Azure.ResourceManager.ElasticSan.Mocking
         }
 
         /// <summary>
-        /// Gets an object representing an <see cref="ElasticSanVolumeGroupResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="ElasticSanVolumeGroupResource.CreateResourceIdentifier" /> to create an <see cref="ElasticSanVolumeGroupResource"/> <see cref="ResourceIdentifier"/> from its components.
-        /// </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="ElasticSanVolumeGroupResource"/> object. </returns>
-        public virtual ElasticSanVolumeGroupResource GetElasticSanVolumeGroupResource(ResourceIdentifier id)
-        {
-            ElasticSanVolumeGroupResource.ValidateResourceId(id);
-            return new ElasticSanVolumeGroupResource(Client, id);
-        }
-
-        /// <summary>
-        /// Gets an object representing an <see cref="ElasticSanVolumeResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="ElasticSanVolumeResource.CreateResourceIdentifier" /> to create an <see cref="ElasticSanVolumeResource"/> <see cref="ResourceIdentifier"/> from its components.
-        /// </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="ElasticSanVolumeResource"/> object. </returns>
-        public virtual ElasticSanVolumeResource GetElasticSanVolumeResource(ResourceIdentifier id)
-        {
-            ElasticSanVolumeResource.ValidateResourceId(id);
-            return new ElasticSanVolumeResource(Client, id);
-        }
-
-        /// <summary>
         /// Gets an object representing an <see cref="ElasticSanPrivateEndpointConnectionResource"/> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="ElasticSanPrivateEndpointConnectionResource.CreateResourceIdentifier" /> to create an <see cref="ElasticSanPrivateEndpointConnectionResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>
@@ -85,6 +61,18 @@ namespace Azure.ResourceManager.ElasticSan.Mocking
         }
 
         /// <summary>
+        /// Gets an object representing an <see cref="ElasticSanVolumeGroupResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="ElasticSanVolumeGroupResource.CreateResourceIdentifier" /> to create an <see cref="ElasticSanVolumeGroupResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="ElasticSanVolumeGroupResource"/> object. </returns>
+        public virtual ElasticSanVolumeGroupResource GetElasticSanVolumeGroupResource(ResourceIdentifier id)
+        {
+            ElasticSanVolumeGroupResource.ValidateResourceId(id);
+            return new ElasticSanVolumeGroupResource(Client, id);
+        }
+
+        /// <summary>
         /// Gets an object representing an <see cref="ElasticSanSnapshotResource"/> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="ElasticSanSnapshotResource.CreateResourceIdentifier" /> to create an <see cref="ElasticSanSnapshotResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>
@@ -94,6 +82,18 @@ namespace Azure.ResourceManager.ElasticSan.Mocking
         {
             ElasticSanSnapshotResource.ValidateResourceId(id);
             return new ElasticSanSnapshotResource(Client, id);
+        }
+
+        /// <summary>
+        /// Gets an object representing an <see cref="ElasticSanVolumeResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="ElasticSanVolumeResource.CreateResourceIdentifier" /> to create an <see cref="ElasticSanVolumeResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="ElasticSanVolumeResource"/> object. </returns>
+        public virtual ElasticSanVolumeResource GetElasticSanVolumeResource(ResourceIdentifier id)
+        {
+            ElasticSanVolumeResource.ValidateResourceId(id);
+            return new ElasticSanVolumeResource(Client, id);
         }
     }
 }

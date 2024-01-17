@@ -7,13 +7,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Azure.Core;
 using Azure.ResourceManager.ElasticSan;
 
 namespace Azure.ResourceManager.ElasticSan.Models
 {
-    /// <summary> List of Volumes. </summary>
-    internal partial class ElasticSanVolumeList
+    /// <summary> The response of a Volume list operation. </summary>
+    internal partial class VolumeListResult
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -47,26 +48,35 @@ namespace Azure.ResourceManager.ElasticSan.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="ElasticSanVolumeList"/>. </summary>
-        internal ElasticSanVolumeList()
+        /// <summary> Initializes a new instance of <see cref="VolumeListResult"/>. </summary>
+        /// <param name="value"> The Volume items on this page. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
+        internal VolumeListResult(IEnumerable<ElasticSanVolumeData> value)
         {
-            Value = new ChangeTrackingList<ElasticSanVolumeData>();
+            Argument.AssertNotNull(value, nameof(value));
+
+            Value = value.ToList();
         }
 
-        /// <summary> Initializes a new instance of <see cref="ElasticSanVolumeList"/>. </summary>
-        /// <param name="value"> An array of Volume objects. </param>
-        /// <param name="nextLink"> URI to fetch the next section of the paginated response. </param>
+        /// <summary> Initializes a new instance of <see cref="VolumeListResult"/>. </summary>
+        /// <param name="value"> The Volume items on this page. </param>
+        /// <param name="nextLink"> The link to the next page of items. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ElasticSanVolumeList(IReadOnlyList<ElasticSanVolumeData> value, string nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal VolumeListResult(IReadOnlyList<ElasticSanVolumeData> value, Uri nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Value = value;
             NextLink = nextLink;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> An array of Volume objects. </summary>
+        /// <summary> Initializes a new instance of <see cref="VolumeListResult"/> for deserialization. </summary>
+        internal VolumeListResult()
+        {
+        }
+
+        /// <summary> The Volume items on this page. </summary>
         public IReadOnlyList<ElasticSanVolumeData> Value { get; }
-        /// <summary> URI to fetch the next section of the paginated response. </summary>
-        public string NextLink { get; }
+        /// <summary> The link to the next page of items. </summary>
+        public Uri NextLink { get; }
     }
 }

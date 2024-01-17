@@ -14,33 +14,30 @@ using Azure.ResourceManager.ElasticSan;
 
 namespace Azure.ResourceManager.ElasticSan.Models
 {
-    internal partial class ElasticSanList : IUtf8JsonSerializable, IJsonModel<ElasticSanList>
+    internal partial class ElasticSanListResult : IUtf8JsonSerializable, IJsonModel<ElasticSanListResult>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<ElasticSanList>)this).Write(writer, new ModelReaderWriterOptions("W"));
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<ElasticSanListResult>)this).Write(writer, new ModelReaderWriterOptions("W"));
 
-        void IJsonModel<ElasticSanList>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<ElasticSanListResult>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ElasticSanList>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ElasticSanListResult>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(ElasticSanList)} does not support '{format}' format.");
+                throw new FormatException($"The model {nameof(ElasticSanListResult)} does not support '{format}' format.");
             }
 
             writer.WriteStartObject();
-            if (Optional.IsCollectionDefined(Value))
+            writer.WritePropertyName("value"u8);
+            writer.WriteStartArray();
+            foreach (var item in Value)
             {
-                writer.WritePropertyName("value"u8);
-                writer.WriteStartArray();
-                foreach (var item in Value)
-                {
-                    writer.WriteObjectValue(item);
-                }
-                writer.WriteEndArray();
+                writer.WriteObjectValue(item);
             }
-            if (options.Format != "W" && Optional.IsDefined(NextLink))
+            writer.WriteEndArray();
+            if (Optional.IsDefined(NextLink))
             {
                 writer.WritePropertyName("nextLink"u8);
-                writer.WriteStringValue(NextLink);
+                writer.WriteStringValue(NextLink.AbsoluteUri);
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -60,19 +57,19 @@ namespace Azure.ResourceManager.ElasticSan.Models
             writer.WriteEndObject();
         }
 
-        ElasticSanList IJsonModel<ElasticSanList>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        ElasticSanListResult IJsonModel<ElasticSanListResult>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ElasticSanList>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ElasticSanListResult>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(ElasticSanList)} does not support '{format}' format.");
+                throw new FormatException($"The model {nameof(ElasticSanListResult)} does not support '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeElasticSanList(document.RootElement, options);
+            return DeserializeElasticSanListResult(document.RootElement, options);
         }
 
-        internal static ElasticSanList DeserializeElasticSanList(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static ElasticSanListResult DeserializeElasticSanListResult(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= new ModelReaderWriterOptions("W");
 
@@ -80,18 +77,14 @@ namespace Azure.ResourceManager.ElasticSan.Models
             {
                 return null;
             }
-            Optional<IReadOnlyList<ElasticSanData>> value = default;
-            Optional<string> nextLink = default;
+            IReadOnlyList<ElasticSanData> value = default;
+            Optional<Uri> nextLink = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("value"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
                     List<ElasticSanData> array = new List<ElasticSanData>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
@@ -102,7 +95,11 @@ namespace Azure.ResourceManager.ElasticSan.Models
                 }
                 if (property.NameEquals("nextLink"u8))
                 {
-                    nextLink = property.Value.GetString();
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    nextLink = new Uri(property.Value.GetString());
                     continue;
                 }
                 if (options.Format != "W")
@@ -111,38 +108,38 @@ namespace Azure.ResourceManager.ElasticSan.Models
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new ElasticSanList(Optional.ToList(value), nextLink.Value, serializedAdditionalRawData);
+            return new ElasticSanListResult(value, nextLink.Value, serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<ElasticSanList>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<ElasticSanListResult>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ElasticSanList>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ElasticSanListResult>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(ElasticSanList)} does not support '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ElasticSanListResult)} does not support '{options.Format}' format.");
             }
         }
 
-        ElasticSanList IPersistableModel<ElasticSanList>.Create(BinaryData data, ModelReaderWriterOptions options)
+        ElasticSanListResult IPersistableModel<ElasticSanListResult>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<ElasticSanList>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<ElasticSanListResult>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializeElasticSanList(document.RootElement, options);
+                        return DeserializeElasticSanListResult(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(ElasticSanList)} does not support '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ElasticSanListResult)} does not support '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<ElasticSanList>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<ElasticSanListResult>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }

@@ -17,43 +17,6 @@ namespace Azure.ResourceManager.ElasticSan.Models
     /// <summary> Model factory for models. </summary>
     public static partial class ArmElasticSanModelFactory
     {
-        /// <summary> Initializes a new instance of <see cref="Models.ElasticSanSkuInformation"/>. </summary>
-        /// <param name="name"> Sku Name. </param>
-        /// <param name="tier"> Sku Tier. </param>
-        /// <param name="resourceType"> The type of the resource. </param>
-        /// <param name="locations"> The set of locations that the SKU is available. This will be supported and registered Azure Geo Regions (e.g. West US, East US, Southeast Asia, etc.). </param>
-        /// <param name="locationInfo"> Availability of the SKU for the location/zone. </param>
-        /// <param name="capabilities"> The capability information in the specified SKU. </param>
-        /// <returns> A new <see cref="Models.ElasticSanSkuInformation"/> instance for mocking. </returns>
-        public static ElasticSanSkuInformation ElasticSanSkuInformation(ElasticSanSkuName name = default, ElasticSanSkuTier? tier = null, string resourceType = null, IEnumerable<string> locations = null, IEnumerable<ElasticSanSkuLocationInfo> locationInfo = null, IEnumerable<ElasticSanSkuCapability> capabilities = null)
-        {
-            locations ??= new List<string>();
-            locationInfo ??= new List<ElasticSanSkuLocationInfo>();
-            capabilities ??= new List<ElasticSanSkuCapability>();
-
-            return new ElasticSanSkuInformation(name, tier, resourceType, locations?.ToList(), locationInfo?.ToList(), capabilities?.ToList(), serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.ElasticSanSkuLocationInfo"/>. </summary>
-        /// <param name="location"> The location. </param>
-        /// <param name="zones"> The zones. </param>
-        /// <returns> A new <see cref="Models.ElasticSanSkuLocationInfo"/> instance for mocking. </returns>
-        public static ElasticSanSkuLocationInfo ElasticSanSkuLocationInfo(AzureLocation? location = null, IEnumerable<string> zones = null)
-        {
-            zones ??= new List<string>();
-
-            return new ElasticSanSkuLocationInfo(location, zones?.ToList(), serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.ElasticSanSkuCapability"/>. </summary>
-        /// <param name="name"> The name of capability. </param>
-        /// <param name="value"> A string value to indicate states of given capability. </param>
-        /// <returns> A new <see cref="Models.ElasticSanSkuCapability"/> instance for mocking. </returns>
-        public static ElasticSanSkuCapability ElasticSanSkuCapability(string name = null, string value = null)
-        {
-            return new ElasticSanSkuCapability(name, value, serializedAdditionalRawData: null);
-        }
-
         /// <summary> Initializes a new instance of <see cref="ElasticSan.ElasticSanData"/>. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
@@ -100,6 +63,60 @@ namespace Azure.ResourceManager.ElasticSan.Models
             return new ElasticSanPrivateEndpointConnectionData(id, name, resourceType, systemData, provisioningState, privateEndpointId != null ? ResourceManagerModelFactory.SubResource(privateEndpointId) : null, connectionState, groupIds?.ToList(), serializedAdditionalRawData: null);
         }
 
+        /// <summary> Initializes a new instance of <see cref="Models.ElasticSanSkuInformation"/>. </summary>
+        /// <param name="name"> Sku Name. </param>
+        /// <param name="tier"> Sku Tier. </param>
+        /// <param name="resourceType"> The type of the resource. </param>
+        /// <param name="locations"> The set of locations that the SKU is available. This will be supported and registered Azure Geo Regions (e.g. West US, East US, Southeast Asia, etc.). </param>
+        /// <param name="locationInfo"> Availability of the SKU for the location/zone. </param>
+        /// <param name="capabilities"> The capability information in the specified SKU. </param>
+        /// <returns> A new <see cref="Models.ElasticSanSkuInformation"/> instance for mocking. </returns>
+        public static ElasticSanSkuInformation ElasticSanSkuInformation(ElasticSanSkuName name = default, ElasticSanSkuTier? tier = null, string resourceType = null, IEnumerable<string> locations = null, IEnumerable<ElasticSanSkuLocationInfo> locationInfo = null, IEnumerable<ElasticSanSkuCapability> capabilities = null)
+        {
+            locations ??= new List<string>();
+            locationInfo ??= new List<ElasticSanSkuLocationInfo>();
+            capabilities ??= new List<ElasticSanSkuCapability>();
+
+            return new ElasticSanSkuInformation(name, tier, resourceType, locations?.ToList(), locationInfo?.ToList(), capabilities?.ToList(), serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.ElasticSanSkuLocationInfo"/>. </summary>
+        /// <param name="location"> The location. </param>
+        /// <param name="zones"> The zones. </param>
+        /// <returns> A new <see cref="Models.ElasticSanSkuLocationInfo"/> instance for mocking. </returns>
+        public static ElasticSanSkuLocationInfo ElasticSanSkuLocationInfo(AzureLocation? location = null, IEnumerable<string> zones = null)
+        {
+            zones ??= new List<string>();
+
+            return new ElasticSanSkuLocationInfo(location, zones?.ToList(), serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.ElasticSanSkuCapability"/>. </summary>
+        /// <param name="name"> The name of capability. </param>
+        /// <param name="value"> A string value to indicate states of given capability. </param>
+        /// <returns> A new <see cref="Models.ElasticSanSkuCapability"/> instance for mocking. </returns>
+        public static ElasticSanSkuCapability ElasticSanSkuCapability(string name = null, string value = null)
+        {
+            return new ElasticSanSkuCapability(name, value, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.ElasticSanPrivateLinkResource"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="groupId"> The private link resource group id. </param>
+        /// <param name="requiredMembers"> The private link resource required member names. </param>
+        /// <param name="requiredZoneNames"> The private link resource Private link DNS zone name. </param>
+        /// <returns> A new <see cref="Models.ElasticSanPrivateLinkResource"/> instance for mocking. </returns>
+        public static ElasticSanPrivateLinkResource ElasticSanPrivateLinkResource(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string groupId = null, IEnumerable<string> requiredMembers = null, IEnumerable<string> requiredZoneNames = null)
+        {
+            requiredMembers ??= new List<string>();
+            requiredZoneNames ??= new List<string>();
+
+            return new ElasticSanPrivateLinkResource(id, name, resourceType, systemData, groupId, requiredMembers?.ToList(), requiredZoneNames?.ToList(), serializedAdditionalRawData: null);
+        }
+
         /// <summary> Initializes a new instance of <see cref="ElasticSan.ElasticSanVolumeGroupData"/>. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
@@ -134,6 +151,21 @@ namespace Azure.ResourceManager.ElasticSan.Models
             return new ElasticSanKeyVaultProperties(keyName, keyVersion, keyVaultUri, currentVersionedKeyIdentifier, lastKeyRotationTimestamp, currentVersionedKeyExpirationTimestamp, serializedAdditionalRawData: null);
         }
 
+        /// <summary> Initializes a new instance of <see cref="ElasticSan.ElasticSanSnapshotData"/>. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="creationDataSourceId"> Data used when creating a volume snapshot. </param>
+        /// <param name="provisioningState"> State of the operation on the resource. </param>
+        /// <param name="sourceVolumeSizeGiB"> Size of Source Volume. </param>
+        /// <param name="volumeName"> Source Volume Name of a snapshot. </param>
+        /// <returns> A new <see cref="ElasticSan.ElasticSanSnapshotData"/> instance for mocking. </returns>
+        public static ElasticSanSnapshotData ElasticSanSnapshotData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, ResourceIdentifier creationDataSourceId = null, ElasticSanProvisioningState? provisioningState = null, long? sourceVolumeSizeGiB = null, string volumeName = null)
+        {
+            return new ElasticSanSnapshotData(id, name, resourceType, systemData, creationDataSourceId != null ? new SnapshotCreationInfo(creationDataSourceId, serializedAdditionalRawData: null) : null, provisioningState, sourceVolumeSizeGiB, volumeName, serializedAdditionalRawData: null);
+        }
+
         /// <summary> Initializes a new instance of <see cref="ElasticSan.ElasticSanVolumeData"/>. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
@@ -161,38 +193,6 @@ namespace Azure.ResourceManager.ElasticSan.Models
         public static IscsiTargetInfo IscsiTargetInfo(string targetIqn = null, string targetPortalHostname = null, int? targetPortalPort = null, ElasticSanProvisioningState? provisioningState = null, ResourceOperationalStatus? status = null)
         {
             return new IscsiTargetInfo(targetIqn, targetPortalHostname, targetPortalPort, provisioningState, status, serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.ElasticSanPrivateLinkResource"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="groupId"> The private link resource group id. </param>
-        /// <param name="requiredMembers"> The private link resource required member names. </param>
-        /// <param name="requiredZoneNames"> The private link resource Private link DNS zone name. </param>
-        /// <returns> A new <see cref="Models.ElasticSanPrivateLinkResource"/> instance for mocking. </returns>
-        public static ElasticSanPrivateLinkResource ElasticSanPrivateLinkResource(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string groupId = null, IEnumerable<string> requiredMembers = null, IEnumerable<string> requiredZoneNames = null)
-        {
-            requiredMembers ??= new List<string>();
-            requiredZoneNames ??= new List<string>();
-
-            return new ElasticSanPrivateLinkResource(id, name, resourceType, systemData, groupId, requiredMembers?.ToList(), requiredZoneNames?.ToList(), serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="ElasticSan.ElasticSanSnapshotData"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
-        /// <param name="creationDataSourceId"> Data used when creating a volume snapshot. </param>
-        /// <param name="provisioningState"> State of the operation on the resource. </param>
-        /// <param name="sourceVolumeSizeGiB"> Size of Source Volume. </param>
-        /// <param name="volumeName"> Source Volume Name of a snapshot. </param>
-        /// <returns> A new <see cref="ElasticSan.ElasticSanSnapshotData"/> instance for mocking. </returns>
-        public static ElasticSanSnapshotData ElasticSanSnapshotData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, ResourceIdentifier creationDataSourceId = null, ElasticSanProvisioningState? provisioningState = null, long? sourceVolumeSizeGiB = null, string volumeName = null)
-        {
-            return new ElasticSanSnapshotData(id, name, resourceType, systemData, creationDataSourceId != null ? new SnapshotCreationInfo(creationDataSourceId, serializedAdditionalRawData: null) : null, provisioningState, sourceVolumeSizeGiB, volumeName, serializedAdditionalRawData: null);
         }
     }
 }

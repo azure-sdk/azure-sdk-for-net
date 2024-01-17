@@ -14,33 +14,30 @@ using Azure.ResourceManager.ElasticSan;
 
 namespace Azure.ResourceManager.ElasticSan.Models
 {
-    internal partial class SnapshotList : IUtf8JsonSerializable, IJsonModel<SnapshotList>
+    internal partial class SnapshotListResult : IUtf8JsonSerializable, IJsonModel<SnapshotListResult>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<SnapshotList>)this).Write(writer, new ModelReaderWriterOptions("W"));
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<SnapshotListResult>)this).Write(writer, new ModelReaderWriterOptions("W"));
 
-        void IJsonModel<SnapshotList>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<SnapshotListResult>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<SnapshotList>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<SnapshotListResult>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(SnapshotList)} does not support '{format}' format.");
+                throw new FormatException($"The model {nameof(SnapshotListResult)} does not support '{format}' format.");
             }
 
             writer.WriteStartObject();
-            if (Optional.IsCollectionDefined(Value))
+            writer.WritePropertyName("value"u8);
+            writer.WriteStartArray();
+            foreach (var item in Value)
             {
-                writer.WritePropertyName("value"u8);
-                writer.WriteStartArray();
-                foreach (var item in Value)
-                {
-                    writer.WriteObjectValue(item);
-                }
-                writer.WriteEndArray();
+                writer.WriteObjectValue(item);
             }
-            if (options.Format != "W" && Optional.IsDefined(NextLink))
+            writer.WriteEndArray();
+            if (Optional.IsDefined(NextLink))
             {
                 writer.WritePropertyName("nextLink"u8);
-                writer.WriteStringValue(NextLink);
+                writer.WriteStringValue(NextLink.AbsoluteUri);
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -60,19 +57,19 @@ namespace Azure.ResourceManager.ElasticSan.Models
             writer.WriteEndObject();
         }
 
-        SnapshotList IJsonModel<SnapshotList>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        SnapshotListResult IJsonModel<SnapshotListResult>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<SnapshotList>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<SnapshotListResult>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(SnapshotList)} does not support '{format}' format.");
+                throw new FormatException($"The model {nameof(SnapshotListResult)} does not support '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeSnapshotList(document.RootElement, options);
+            return DeserializeSnapshotListResult(document.RootElement, options);
         }
 
-        internal static SnapshotList DeserializeSnapshotList(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static SnapshotListResult DeserializeSnapshotListResult(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= new ModelReaderWriterOptions("W");
 
@@ -80,18 +77,14 @@ namespace Azure.ResourceManager.ElasticSan.Models
             {
                 return null;
             }
-            Optional<IReadOnlyList<ElasticSanSnapshotData>> value = default;
-            Optional<string> nextLink = default;
+            IReadOnlyList<ElasticSanSnapshotData> value = default;
+            Optional<Uri> nextLink = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("value"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
                     List<ElasticSanSnapshotData> array = new List<ElasticSanSnapshotData>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
@@ -102,7 +95,11 @@ namespace Azure.ResourceManager.ElasticSan.Models
                 }
                 if (property.NameEquals("nextLink"u8))
                 {
-                    nextLink = property.Value.GetString();
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    nextLink = new Uri(property.Value.GetString());
                     continue;
                 }
                 if (options.Format != "W")
@@ -111,38 +108,38 @@ namespace Azure.ResourceManager.ElasticSan.Models
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new SnapshotList(Optional.ToList(value), nextLink.Value, serializedAdditionalRawData);
+            return new SnapshotListResult(value, nextLink.Value, serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<SnapshotList>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<SnapshotListResult>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<SnapshotList>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<SnapshotListResult>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(SnapshotList)} does not support '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(SnapshotListResult)} does not support '{options.Format}' format.");
             }
         }
 
-        SnapshotList IPersistableModel<SnapshotList>.Create(BinaryData data, ModelReaderWriterOptions options)
+        SnapshotListResult IPersistableModel<SnapshotListResult>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<SnapshotList>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<SnapshotListResult>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializeSnapshotList(document.RootElement, options);
+                        return DeserializeSnapshotListResult(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(SnapshotList)} does not support '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(SnapshotListResult)} does not support '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<SnapshotList>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<SnapshotListResult>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }
