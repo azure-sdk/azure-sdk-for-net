@@ -76,7 +76,7 @@ namespace Microsoft.Azure.Management.Network
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<PeerRouteList>> ListLearnedRoutesWithHttpMessagesAsync(string resourceGroupName, string hubName, string connectionName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<IDictionary<string, IList<PeerRoute>>>> ListLearnedRoutesWithHttpMessagesAsync(string resourceGroupName, string hubName, string connectionName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Retrieves a list of routes the virtual hub bgp connection is
         /// advertising to the specified peer.
@@ -105,7 +105,7 @@ namespace Microsoft.Azure.Management.Network
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<PeerRouteList>> ListAdvertisedRoutesWithHttpMessagesAsync(string resourceGroupName, string hubName, string connectionName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<IDictionary<string, IList<PeerRoute>>>> ListAdvertisedRoutesWithHttpMessagesAsync(string resourceGroupName, string hubName, string connectionName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Retrieves a list of routes the virtual hub bgp connection has
         /// learned.
@@ -134,7 +134,7 @@ namespace Microsoft.Azure.Management.Network
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<PeerRouteList>> BeginListLearnedRoutesWithHttpMessagesAsync(string resourceGroupName, string hubName, string connectionName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<IDictionary<string, IList<PeerRoute>>>> BeginListLearnedRoutesWithHttpMessagesAsync(string resourceGroupName, string hubName, string connectionName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Retrieves a list of routes the virtual hub bgp connection is
         /// advertising to the specified peer.
@@ -163,7 +163,7 @@ namespace Microsoft.Azure.Management.Network
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<PeerRouteList>> BeginListAdvertisedRoutesWithHttpMessagesAsync(string resourceGroupName, string hubName, string connectionName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<IDictionary<string, IList<PeerRoute>>>> BeginListAdvertisedRoutesWithHttpMessagesAsync(string resourceGroupName, string hubName, string connectionName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Retrieves the details of all VirtualHubBgpConnections.
         /// </summary>
