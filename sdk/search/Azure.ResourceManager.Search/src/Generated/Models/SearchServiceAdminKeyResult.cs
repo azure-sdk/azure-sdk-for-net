@@ -7,7 +7,7 @@
 
 namespace Azure.ResourceManager.Search.Models
 {
-    /// <summary> Response containing the primary and secondary admin API keys for a given Azure Cognitive Search service. </summary>
+    /// <summary> Response containing the primary and secondary admin API keys for a given search service. </summary>
     public partial class SearchServiceAdminKeyResult
     {
         /// <summary> Initializes a new instance of <see cref="SearchServiceAdminKeyResult"/>. </summary>

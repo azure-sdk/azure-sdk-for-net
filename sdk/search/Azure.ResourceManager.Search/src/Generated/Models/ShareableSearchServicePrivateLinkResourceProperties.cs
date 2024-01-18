@@ -7,7 +7,7 @@
 
 namespace Azure.ResourceManager.Search.Models
 {
-    /// <summary> Describes the properties of a resource type that has been onboarded to private link service, supported by Azure Cognitive Search. </summary>
+    /// <summary> Describes the properties of a resource type that has been onboarded to private link service and that's supported by search. </summary>
     public partial class ShareableSearchServicePrivateLinkResourceProperties
     {
         /// <summary> Initializes a new instance of <see cref="ShareableSearchServicePrivateLinkResourceProperties"/>. </summary>
@@ -16,9 +16,9 @@ namespace Azure.ResourceManager.Search.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="ShareableSearchServicePrivateLinkResourceProperties"/>. </summary>
-        /// <param name="shareablePrivateLinkResourcePropertiesType"> The resource provider type for the resource that has been onboarded to private link service, supported by Azure Cognitive Search. </param>
-        /// <param name="groupId"> The resource provider group id for the resource that has been onboarded to private link service, supported by Azure Cognitive Search. </param>
-        /// <param name="description"> The description of the resource type that has been onboarded to private link service, supported by Azure Cognitive Search. </param>
+        /// <param name="shareablePrivateLinkResourcePropertiesType"> The resource provider type for the resource that has been onboarded to private link service and that's supported by search. </param>
+        /// <param name="groupId"> The resource provider group id for the resource that has been onboarded to private link service and that's supported by search. </param>
+        /// <param name="description"> The description of the resource type that has been onboarded to private link service and that's supported by search. </param>
         internal ShareableSearchServicePrivateLinkResourceProperties(string shareablePrivateLinkResourcePropertiesType, string groupId, string description)
         {
             ShareablePrivateLinkResourcePropertiesType = shareablePrivateLinkResourcePropertiesType;
@@ -26,11 +26,11 @@ namespace Azure.ResourceManager.Search.Models
             Description = description;
         }
 
-        /// <summary> The resource provider type for the resource that has been onboarded to private link service, supported by Azure Cognitive Search. </summary>
+        /// <summary> The resource provider type for the resource that has been onboarded to private link service and that's supported by search. </summary>
         public string ShareablePrivateLinkResourcePropertiesType { get; }
-        /// <summary> The resource provider group id for the resource that has been onboarded to private link service, supported by Azure Cognitive Search. </summary>
+        /// <summary> The resource provider group id for the resource that has been onboarded to private link service and that's supported by search. </summary>
         public string GroupId { get; }
-        /// <summary> The description of the resource type that has been onboarded to private link service, supported by Azure Cognitive Search. </summary>
+        /// <summary> The description of the resource type that has been onboarded to private link service and that's supported by search. </summary>
         public string Description { get; }
     }
 }

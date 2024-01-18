@@ -7,7 +7,7 @@
 
 namespace Azure.ResourceManager.Search.Models
 {
-    /// <summary> The name of the sku supported by Azure Cognitive Search. </summary>
+    /// <summary> The name of the SKU supported by Azure AI Search. </summary>
     public partial class QuotaUsageResultName
     {
         /// <summary> Initializes a new instance of <see cref="QuotaUsageResultName"/>. </summary>
@@ -16,17 +16,17 @@ namespace Azure.ResourceManager.Search.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="QuotaUsageResultName"/>. </summary>
-        /// <param name="value"> The sku name supported by Azure Cognitive Search. </param>
-        /// <param name="localizedValue"> The localized string value for the sku supported by Azure Cognitive Search. </param>
+        /// <param name="value"> The SKU name supported by Azure AI Search. </param>
+        /// <param name="localizedValue"> The localized string value for the SKU name. </param>
         internal QuotaUsageResultName(string value, string localizedValue)
         {
             Value = value;
             LocalizedValue = localizedValue;
         }
 
-        /// <summary> The sku name supported by Azure Cognitive Search. </summary>
+        /// <summary> The SKU name supported by Azure AI Search. </summary>
         public string Value { get; }
-        /// <summary> The localized string value for the sku supported by Azure Cognitive Search. </summary>
+        /// <summary> The localized string value for the SKU name. </summary>
         public string LocalizedValue { get; }
     }
 }

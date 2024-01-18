@@ -13,7 +13,7 @@ namespace Azure.ResourceManager.Search
 {
     /// <summary>
     /// A class representing the SharedSearchServicePrivateLinkResource data model.
-    /// Describes a Shared Private Link Resource managed by the Azure Cognitive Search service.
+    /// Describes a Shared Private Link Resource managed by the search service.
     /// </summary>
     public partial class SharedSearchServicePrivateLinkResourceData : ResourceData
     {
@@ -27,13 +27,13 @@ namespace Azure.ResourceManager.Search
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="properties"> Describes the properties of a Shared Private Link Resource managed by the Azure Cognitive Search service. </param>
+        /// <param name="properties"> Describes the properties of a Shared Private Link Resource managed by the search service. </param>
         internal SharedSearchServicePrivateLinkResourceData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, SharedSearchServicePrivateLinkResourceProperties properties) : base(id, name, resourceType, systemData)
         {
             Properties = properties;
         }
 
-        /// <summary> Describes the properties of a Shared Private Link Resource managed by the Azure Cognitive Search service. </summary>
+        /// <summary> Describes the properties of a Shared Private Link Resource managed by the search service. </summary>
         public SharedSearchServicePrivateLinkResourceProperties Properties { get; set; }
     }
 }

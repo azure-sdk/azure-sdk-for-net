@@ -7,7 +7,7 @@
 
 namespace Azure.ResourceManager.Search.Models
 {
-    /// <summary> Indicates that either the API key or an access token from Azure Active Directory can be used for authentication. </summary>
+    /// <summary> Indicates that either the API key or an access token from a Microsoft Entra ID tenant can be used for authentication. </summary>
     internal partial class DataPlaneAadOrApiKeyAuthOption
     {
         /// <summary> Initializes a new instance of <see cref="DataPlaneAadOrApiKeyAuthOption"/>. </summary>
@@ -16,13 +16,13 @@ namespace Azure.ResourceManager.Search.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="DataPlaneAadOrApiKeyAuthOption"/>. </summary>
-        /// <param name="aadAuthFailureMode"> Describes what response the data plane API of a Search service would send for requests that failed authentication. </param>
+        /// <param name="aadAuthFailureMode"> Describes what response the data plane API of a search service would send for requests that failed authentication. </param>
         internal DataPlaneAadOrApiKeyAuthOption(SearchAadAuthFailureMode? aadAuthFailureMode)
         {
             AadAuthFailureMode = aadAuthFailureMode;
         }
 
-        /// <summary> Describes what response the data plane API of a Search service would send for requests that failed authentication. </summary>
+        /// <summary> Describes what response the data plane API of a search service would send for requests that failed authentication. </summary>
         public SearchAadAuthFailureMode? AadAuthFailureMode { get; set; }
     }
 }

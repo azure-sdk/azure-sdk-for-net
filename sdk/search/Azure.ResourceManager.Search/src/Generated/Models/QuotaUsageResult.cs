@@ -9,7 +9,7 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.Search.Models
 {
-    /// <summary> Describes the quota usage for a particular sku supported by Azure Cognitive Search. </summary>
+    /// <summary> Describes the quota usage for a particular SKU. </summary>
     public partial class QuotaUsageResult
     {
         /// <summary> Initializes a new instance of <see cref="QuotaUsageResult"/>. </summary>
@@ -18,11 +18,11 @@ namespace Azure.ResourceManager.Search.Models
         }
 
         /// <summary> Initializes a new instance of <see cref="QuotaUsageResult"/>. </summary>
-        /// <param name="id"> The resource id of the quota usage sku endpoint for Microsoft.Search provider. </param>
-        /// <param name="unit"> The unit of measurement for the search sku. </param>
-        /// <param name="currentValue"> The currently used up value for the particular search sku. </param>
-        /// <param name="limit"> The quota limit for the particular search sku. </param>
-        /// <param name="name"> The name of the sku supported by Azure Cognitive Search. </param>
+        /// <param name="id"> The resource ID of the quota usage SKU endpoint for Microsoft.Search provider. </param>
+        /// <param name="unit"> The unit of measurement for the search SKU. </param>
+        /// <param name="currentValue"> The currently used up value for the particular search SKU. </param>
+        /// <param name="limit"> The quota limit for the particular search SKU. </param>
+        /// <param name="name"> The name of the SKU supported by Azure AI Search. </param>
         internal QuotaUsageResult(ResourceIdentifier id, string unit, int? currentValue, int? limit, QuotaUsageResultName name)
         {
             Id = id;
@@ -32,15 +32,15 @@ namespace Azure.ResourceManager.Search.Models
             Name = name;
         }
 
-        /// <summary> The resource id of the quota usage sku endpoint for Microsoft.Search provider. </summary>
+        /// <summary> The resource ID of the quota usage SKU endpoint for Microsoft.Search provider. </summary>
         public ResourceIdentifier Id { get; }
-        /// <summary> The unit of measurement for the search sku. </summary>
+        /// <summary> The unit of measurement for the search SKU. </summary>
         public string Unit { get; }
-        /// <summary> The currently used up value for the particular search sku. </summary>
+        /// <summary> The currently used up value for the particular search SKU. </summary>
         public int? CurrentValue { get; }
-        /// <summary> The quota limit for the particular search sku. </summary>
+        /// <summary> The quota limit for the particular search SKU. </summary>
         public int? Limit { get; }
-        /// <summary> The name of the sku supported by Azure Cognitive Search. </summary>
+        /// <summary> The name of the SKU supported by Azure AI Search. </summary>
         public QuotaUsageResultName Name { get; }
     }
 }

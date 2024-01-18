@@ -10,7 +10,7 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.Search.Models
 {
-    /// <summary> Describes the properties of a supported private link resource for the Azure Cognitive Search service. For a given API version, this represents the 'supported' groupIds when creating a shared private link resource. </summary>
+    /// <summary> Describes the properties of a supported private link resource for the search service. For a given API version, this represents the 'supported' groupIds when creating a shared private link resource. </summary>
     public partial class SearchPrivateLinkResourceProperties
     {
         /// <summary> Initializes a new instance of <see cref="SearchPrivateLinkResourceProperties"/>. </summary>
@@ -25,7 +25,7 @@ namespace Azure.ResourceManager.Search.Models
         /// <param name="groupId"> The group ID of the private link resource. </param>
         /// <param name="requiredMembers"> The list of required members of the private link resource. </param>
         /// <param name="requiredZoneNames"> The list of required DNS zone names of the private link resource. </param>
-        /// <param name="shareablePrivateLinkResourceTypes"> The list of resources that are onboarded to private link service, that are supported by Azure Cognitive Search. </param>
+        /// <param name="shareablePrivateLinkResourceTypes"> The list of resources that are onboarded to private link service and that are supported by search. </param>
         internal SearchPrivateLinkResourceProperties(string groupId, IReadOnlyList<string> requiredMembers, IReadOnlyList<string> requiredZoneNames, IReadOnlyList<ShareableSearchServicePrivateLinkResourceType> shareablePrivateLinkResourceTypes)
         {
             GroupId = groupId;
@@ -40,7 +40,7 @@ namespace Azure.ResourceManager.Search.Models
         public IReadOnlyList<string> RequiredMembers { get; }
         /// <summary> The list of required DNS zone names of the private link resource. </summary>
         public IReadOnlyList<string> RequiredZoneNames { get; }
-        /// <summary> The list of resources that are onboarded to private link service, that are supported by Azure Cognitive Search. </summary>
+        /// <summary> The list of resources that are onboarded to private link service and that are supported by search. </summary>
         public IReadOnlyList<ShareableSearchServicePrivateLinkResourceType> ShareablePrivateLinkResourceTypes { get; }
     }
 }
