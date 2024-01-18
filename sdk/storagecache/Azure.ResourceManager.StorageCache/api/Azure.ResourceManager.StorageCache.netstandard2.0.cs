@@ -28,6 +28,7 @@ namespace Azure.ResourceManager.StorageCache
         public Azure.ResourceManager.StorageCache.Models.StorageCacheEncryptionKeyVaultKeyReference KeyEncryptionKey { get { throw null; } set { } }
         public Azure.ResourceManager.StorageCache.Models.AmlFileSystemPropertiesMaintenanceWindow MaintenanceWindow { get { throw null; } set { } }
         public Azure.ResourceManager.StorageCache.Models.AmlFileSystemProvisioningStateType? ProvisioningState { get { throw null; } }
+        public Azure.ResourceManager.StorageCache.Models.AmlFileSystemRootSquashSettings RootSquashSettings { get { throw null; } set { } }
         public string SkuName { get { throw null; } set { } }
         public float? StorageCapacityTiB { get { throw null; } set { } }
         public int? ThroughputProvisionedMBps { get { throw null; } }
@@ -45,11 +46,15 @@ namespace Azure.ResourceManager.StorageCache
         public virtual System.Threading.Tasks.Task<Azure.Response> ArchiveAsync(Azure.ResourceManager.StorageCache.Models.AmlFileSystemArchiveContent content = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response CancelArchive(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response> CancelArchiveAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response CancelImport(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response> CancelImportAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public static Azure.Core.ResourceIdentifier CreateResourceIdentifier(string subscriptionId, string resourceGroupName, string amlFileSystemName) { throw null; }
         public virtual Azure.ResourceManager.ArmOperation Delete(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.ResourceManager.ArmOperation> DeleteAsync(Azure.WaitUntil waitUntil, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.StorageCache.AmlFileSystemResource> Get(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.StorageCache.AmlFileSystemResource>> GetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual Azure.Response Import(Azure.ResourceManager.StorageCache.Models.AmlFileSystemImportContent content = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
+        public virtual System.Threading.Tasks.Task<Azure.Response> ImportAsync(Azure.ResourceManager.StorageCache.Models.AmlFileSystemImportContent content = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.StorageCache.AmlFileSystemResource> RemoveTag(string key, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual System.Threading.Tasks.Task<Azure.Response<Azure.ResourceManager.StorageCache.AmlFileSystemResource>> RemoveTagAsync(string key, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
         public virtual Azure.Response<Azure.ResourceManager.StorageCache.AmlFileSystemResource> SetTags(System.Collections.Generic.IDictionary<string, string> tags, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) { throw null; }
@@ -338,17 +343,43 @@ namespace Azure.ResourceManager.StorageCache.Models
         public string ImportPrefix { get { throw null; } set { } }
         public string LoggingContainer { get { throw null; } set { } }
     }
+    public partial class AmlFileSystemImport
+    {
+        internal AmlFileSystemImport() { }
+        public Azure.ResourceManager.StorageCache.Models.ConflictResolutionMode? ConflictResolutionMode { get { throw null; } }
+        public string FilesystemPath { get { throw null; } }
+        public Azure.ResourceManager.StorageCache.Models.AmlFileSystemImportStatus Status { get { throw null; } }
+    }
+    public partial class AmlFileSystemImportContent
+    {
+        public AmlFileSystemImportContent() { }
+        public Azure.ResourceManager.StorageCache.Models.ConflictResolutionMode? ConflictResolutionMode { get { throw null; } set { } }
+        public string FilesystemPath { get { throw null; } set { } }
+    }
+    public partial class AmlFileSystemImportStatus
+    {
+        internal AmlFileSystemImportStatus() { }
+        public int? BlobsImportedPerSecond { get { throw null; } }
+        public int? BlobsWalkedPerSecond { get { throw null; } }
+        public Azure.ResourceManager.StorageCache.Models.ImportStatusType? State { get { throw null; } }
+        public int? TotalBlobsImported { get { throw null; } }
+        public int? TotalBlobsWalked { get { throw null; } }
+        public int? TotalConflicts { get { throw null; } }
+        public int? TotalErrors { get { throw null; } }
+    }
     public partial class AmlFileSystemPatch
     {
         public AmlFileSystemPatch() { }
         public Azure.ResourceManager.StorageCache.Models.StorageCacheEncryptionKeyVaultKeyReference KeyEncryptionKey { get { throw null; } set { } }
         public Azure.ResourceManager.StorageCache.Models.AmlFileSystemUpdatePropertiesMaintenanceWindow MaintenanceWindow { get { throw null; } set { } }
+        public Azure.ResourceManager.StorageCache.Models.AmlFileSystemRootSquashSettings RootSquashSettings { get { throw null; } set { } }
         public System.Collections.Generic.IDictionary<string, string> Tags { get { throw null; } }
     }
     public partial class AmlFileSystemPropertiesHsm
     {
         public AmlFileSystemPropertiesHsm() { }
         public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.StorageCache.Models.AmlFileSystemArchive> ArchiveStatus { get { throw null; } }
+        public System.Collections.Generic.IReadOnlyList<Azure.ResourceManager.StorageCache.Models.AmlFileSystemImport> ImportStatus { get { throw null; } }
         public Azure.ResourceManager.StorageCache.Models.AmlFileSystemHsmSettings Settings { get { throw null; } set { } }
     }
     public partial class AmlFileSystemPropertiesMaintenanceWindow
@@ -377,6 +408,34 @@ namespace Azure.ResourceManager.StorageCache.Models
         public static bool operator ==(Azure.ResourceManager.StorageCache.Models.AmlFileSystemProvisioningStateType left, Azure.ResourceManager.StorageCache.Models.AmlFileSystemProvisioningStateType right) { throw null; }
         public static implicit operator Azure.ResourceManager.StorageCache.Models.AmlFileSystemProvisioningStateType (string value) { throw null; }
         public static bool operator !=(Azure.ResourceManager.StorageCache.Models.AmlFileSystemProvisioningStateType left, Azure.ResourceManager.StorageCache.Models.AmlFileSystemProvisioningStateType right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    public partial class AmlFileSystemRootSquashSettings
+    {
+        public AmlFileSystemRootSquashSettings() { }
+        public Azure.ResourceManager.StorageCache.Models.AmlFileSystemSquashMode? Mode { get { throw null; } set { } }
+        public string NoSquashNidLists { get { throw null; } set { } }
+        public long? SquashGID { get { throw null; } set { } }
+        public long? SquashUID { get { throw null; } set { } }
+        public string Status { get { throw null; } }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct AmlFileSystemSquashMode : System.IEquatable<Azure.ResourceManager.StorageCache.Models.AmlFileSystemSquashMode>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public AmlFileSystemSquashMode(string value) { throw null; }
+        public static Azure.ResourceManager.StorageCache.Models.AmlFileSystemSquashMode All { get { throw null; } }
+        public static Azure.ResourceManager.StorageCache.Models.AmlFileSystemSquashMode None { get { throw null; } }
+        public static Azure.ResourceManager.StorageCache.Models.AmlFileSystemSquashMode RootOnly { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.StorageCache.Models.AmlFileSystemSquashMode other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.StorageCache.Models.AmlFileSystemSquashMode left, Azure.ResourceManager.StorageCache.Models.AmlFileSystemSquashMode right) { throw null; }
+        public static implicit operator Azure.ResourceManager.StorageCache.Models.AmlFileSystemSquashMode (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.StorageCache.Models.AmlFileSystemSquashMode left, Azure.ResourceManager.StorageCache.Models.AmlFileSystemSquashMode right) { throw null; }
         public override string ToString() { throw null; }
     }
     public partial class AmlFileSystemSubnetContent
@@ -423,9 +482,16 @@ namespace Azure.ResourceManager.StorageCache.Models
         public static Azure.ResourceManager.StorageCache.Models.AmlFileSystemArchiveStatus AmlFileSystemArchiveStatus(Azure.ResourceManager.StorageCache.Models.ArchiveStatusType? state = default(Azure.ResourceManager.StorageCache.Models.ArchiveStatusType?), System.DateTimeOffset? lastCompletionOn = default(System.DateTimeOffset?), System.DateTimeOffset? lastStartedOn = default(System.DateTimeOffset?), int? percentComplete = default(int?), string errorCode = null, string errorMessage = null) { throw null; }
         public static Azure.ResourceManager.StorageCache.Models.AmlFileSystemClientInfo AmlFileSystemClientInfo(string mgsAddress = null, string mountCommand = null, string lustreVersion = null, Azure.ResourceManager.StorageCache.Models.AmlFileSystemContainerStorageInterface containerStorageInterface = null) { throw null; }
         public static Azure.ResourceManager.StorageCache.Models.AmlFileSystemContainerStorageInterface AmlFileSystemContainerStorageInterface(string persistentVolumeClaim = null, string persistentVolume = null, string storageClass = null) { throw null; }
-        public static Azure.ResourceManager.StorageCache.AmlFileSystemData AmlFileSystemData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, System.Collections.Generic.IDictionary<string, string> tags = null, Azure.Core.AzureLocation location = default(Azure.Core.AzureLocation), Azure.ResourceManager.Models.ManagedServiceIdentity identity = null, string skuName = null, System.Collections.Generic.IEnumerable<string> zones = null, float? storageCapacityTiB = default(float?), Azure.ResourceManager.StorageCache.Models.AmlFileSystemHealth health = null, Azure.ResourceManager.StorageCache.Models.AmlFileSystemProvisioningStateType? provisioningState = default(Azure.ResourceManager.StorageCache.Models.AmlFileSystemProvisioningStateType?), string filesystemSubnet = null, Azure.ResourceManager.StorageCache.Models.AmlFileSystemClientInfo clientInfo = null, int? throughputProvisionedMBps = default(int?), Azure.ResourceManager.StorageCache.Models.StorageCacheEncryptionKeyVaultKeyReference keyEncryptionKey = null, Azure.ResourceManager.StorageCache.Models.AmlFileSystemPropertiesMaintenanceWindow maintenanceWindow = null, Azure.ResourceManager.StorageCache.Models.AmlFileSystemPropertiesHsm hsm = null) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public static Azure.ResourceManager.StorageCache.AmlFileSystemData AmlFileSystemData(Azure.Core.ResourceIdentifier id, string name, Azure.Core.ResourceType resourceType, Azure.ResourceManager.Models.SystemData systemData, System.Collections.Generic.IDictionary<string, string> tags, Azure.Core.AzureLocation location, Azure.ResourceManager.Models.ManagedServiceIdentity identity, string skuName, System.Collections.Generic.IEnumerable<string> zones, float? storageCapacityTiB, Azure.ResourceManager.StorageCache.Models.AmlFileSystemHealth health, Azure.ResourceManager.StorageCache.Models.AmlFileSystemProvisioningStateType? provisioningState, string filesystemSubnet, Azure.ResourceManager.StorageCache.Models.AmlFileSystemClientInfo clientInfo, int? throughputProvisionedMBps, Azure.ResourceManager.StorageCache.Models.StorageCacheEncryptionKeyVaultKeyReference keyEncryptionKey, Azure.ResourceManager.StorageCache.Models.AmlFileSystemPropertiesMaintenanceWindow maintenanceWindow, Azure.ResourceManager.StorageCache.Models.AmlFileSystemPropertiesHsm hsm) { throw null; }
+        public static Azure.ResourceManager.StorageCache.AmlFileSystemData AmlFileSystemData(Azure.Core.ResourceIdentifier id = null, string name = null, Azure.Core.ResourceType resourceType = default(Azure.Core.ResourceType), Azure.ResourceManager.Models.SystemData systemData = null, System.Collections.Generic.IDictionary<string, string> tags = null, Azure.Core.AzureLocation location = default(Azure.Core.AzureLocation), Azure.ResourceManager.Models.ManagedServiceIdentity identity = null, string skuName = null, System.Collections.Generic.IEnumerable<string> zones = null, float? storageCapacityTiB = default(float?), Azure.ResourceManager.StorageCache.Models.AmlFileSystemHealth health = null, Azure.ResourceManager.StorageCache.Models.AmlFileSystemProvisioningStateType? provisioningState = default(Azure.ResourceManager.StorageCache.Models.AmlFileSystemProvisioningStateType?), string filesystemSubnet = null, Azure.ResourceManager.StorageCache.Models.AmlFileSystemClientInfo clientInfo = null, int? throughputProvisionedMBps = default(int?), Azure.ResourceManager.StorageCache.Models.StorageCacheEncryptionKeyVaultKeyReference keyEncryptionKey = null, Azure.ResourceManager.StorageCache.Models.AmlFileSystemPropertiesMaintenanceWindow maintenanceWindow = null, Azure.ResourceManager.StorageCache.Models.AmlFileSystemPropertiesHsm hsm = null, Azure.ResourceManager.StorageCache.Models.AmlFileSystemRootSquashSettings rootSquashSettings = null) { throw null; }
         public static Azure.ResourceManager.StorageCache.Models.AmlFileSystemHealth AmlFileSystemHealth(Azure.ResourceManager.StorageCache.Models.AmlFileSystemHealthStateType? state = default(Azure.ResourceManager.StorageCache.Models.AmlFileSystemHealthStateType?), string statusCode = null, string statusDescription = null) { throw null; }
-        public static Azure.ResourceManager.StorageCache.Models.AmlFileSystemPropertiesHsm AmlFileSystemPropertiesHsm(Azure.ResourceManager.StorageCache.Models.AmlFileSystemHsmSettings settings = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.StorageCache.Models.AmlFileSystemArchive> archiveStatus = null) { throw null; }
+        public static Azure.ResourceManager.StorageCache.Models.AmlFileSystemImport AmlFileSystemImport(string filesystemPath = null, Azure.ResourceManager.StorageCache.Models.ConflictResolutionMode? conflictResolutionMode = default(Azure.ResourceManager.StorageCache.Models.ConflictResolutionMode?), Azure.ResourceManager.StorageCache.Models.AmlFileSystemImportStatus status = null) { throw null; }
+        public static Azure.ResourceManager.StorageCache.Models.AmlFileSystemImportStatus AmlFileSystemImportStatus(Azure.ResourceManager.StorageCache.Models.ImportStatusType? state = default(Azure.ResourceManager.StorageCache.Models.ImportStatusType?), int? totalBlobsWalked = default(int?), int? blobsWalkedPerSecond = default(int?), int? totalBlobsImported = default(int?), int? blobsImportedPerSecond = default(int?), int? totalErrors = default(int?), int? totalConflicts = default(int?)) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public static Azure.ResourceManager.StorageCache.Models.AmlFileSystemPropertiesHsm AmlFileSystemPropertiesHsm(Azure.ResourceManager.StorageCache.Models.AmlFileSystemHsmSettings settings, System.Collections.Generic.IEnumerable<Azure.ResourceManager.StorageCache.Models.AmlFileSystemArchive> archiveStatus) { throw null; }
+        public static Azure.ResourceManager.StorageCache.Models.AmlFileSystemPropertiesHsm AmlFileSystemPropertiesHsm(Azure.ResourceManager.StorageCache.Models.AmlFileSystemHsmSettings settings = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.StorageCache.Models.AmlFileSystemArchive> archiveStatus = null, System.Collections.Generic.IEnumerable<Azure.ResourceManager.StorageCache.Models.AmlFileSystemImport> importStatus = null) { throw null; }
+        public static Azure.ResourceManager.StorageCache.Models.AmlFileSystemRootSquashSettings AmlFileSystemRootSquashSettings(Azure.ResourceManager.StorageCache.Models.AmlFileSystemSquashMode? mode = default(Azure.ResourceManager.StorageCache.Models.AmlFileSystemSquashMode?), string noSquashNidLists = null, long? squashUID = default(long?), long? squashGID = default(long?), string status = null) { throw null; }
         public static Azure.ResourceManager.StorageCache.Models.OutstandingCondition OutstandingCondition(System.DateTimeOffset? timestamp = default(System.DateTimeOffset?), string message = null) { throw null; }
         public static Azure.ResourceManager.StorageCache.Models.PrimingJob PrimingJob(string primingJobName = null, System.Uri primingManifestUri = null, string primingJobId = null, Azure.ResourceManager.StorageCache.Models.PrimingJobState? primingJobState = default(Azure.ResourceManager.StorageCache.Models.PrimingJobState?), string primingJobStatus = null, string primingJobDetails = null, double? primingJobPercentComplete = default(double?)) { throw null; }
         public static Azure.ResourceManager.StorageCache.Models.RequiredAmlFileSystemSubnetsSize RequiredAmlFileSystemSubnetsSize(int? filesystemSubnetSize = default(int?)) { throw null; }
@@ -453,6 +519,26 @@ namespace Azure.ResourceManager.StorageCache.Models
         public int? WriteBackDelayInSeconds { get { throw null; } set { } }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct ConflictResolutionMode : System.IEquatable<Azure.ResourceManager.StorageCache.Models.ConflictResolutionMode>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public ConflictResolutionMode(string value) { throw null; }
+        public static Azure.ResourceManager.StorageCache.Models.ConflictResolutionMode Fail { get { throw null; } }
+        public static Azure.ResourceManager.StorageCache.Models.ConflictResolutionMode OverwriteAlways { get { throw null; } }
+        public static Azure.ResourceManager.StorageCache.Models.ConflictResolutionMode OverwriteIfDirty { get { throw null; } }
+        public static Azure.ResourceManager.StorageCache.Models.ConflictResolutionMode Skip { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.StorageCache.Models.ConflictResolutionMode other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.StorageCache.Models.ConflictResolutionMode left, Azure.ResourceManager.StorageCache.Models.ConflictResolutionMode right) { throw null; }
+        public static implicit operator Azure.ResourceManager.StorageCache.Models.ConflictResolutionMode (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.StorageCache.Models.ConflictResolutionMode left, Azure.ResourceManager.StorageCache.Models.ConflictResolutionMode right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct DomainJoinedType : System.IEquatable<Azure.ResourceManager.StorageCache.Models.DomainJoinedType>
     {
         private readonly object _dummy;
@@ -469,6 +555,27 @@ namespace Azure.ResourceManager.StorageCache.Models
         public static bool operator ==(Azure.ResourceManager.StorageCache.Models.DomainJoinedType left, Azure.ResourceManager.StorageCache.Models.DomainJoinedType right) { throw null; }
         public static implicit operator Azure.ResourceManager.StorageCache.Models.DomainJoinedType (string value) { throw null; }
         public static bool operator !=(Azure.ResourceManager.StorageCache.Models.DomainJoinedType left, Azure.ResourceManager.StorageCache.Models.DomainJoinedType right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct ImportStatusType : System.IEquatable<Azure.ResourceManager.StorageCache.Models.ImportStatusType>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public ImportStatusType(string value) { throw null; }
+        public static Azure.ResourceManager.StorageCache.Models.ImportStatusType Canceled { get { throw null; } }
+        public static Azure.ResourceManager.StorageCache.Models.ImportStatusType Completed { get { throw null; } }
+        public static Azure.ResourceManager.StorageCache.Models.ImportStatusType CompletedPartial { get { throw null; } }
+        public static Azure.ResourceManager.StorageCache.Models.ImportStatusType Failed { get { throw null; } }
+        public static Azure.ResourceManager.StorageCache.Models.ImportStatusType InProgress { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.StorageCache.Models.ImportStatusType other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.StorageCache.Models.ImportStatusType left, Azure.ResourceManager.StorageCache.Models.ImportStatusType right) { throw null; }
+        public static implicit operator Azure.ResourceManager.StorageCache.Models.ImportStatusType (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.StorageCache.Models.ImportStatusType left, Azure.ResourceManager.StorageCache.Models.ImportStatusType right) { throw null; }
         public override string ToString() { throw null; }
     }
     public enum MaintenanceDayOfWeekType

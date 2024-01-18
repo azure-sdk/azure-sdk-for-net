@@ -17,20 +17,25 @@ namespace Azure.ResourceManager.StorageCache.Models
         public AmlFileSystemPropertiesHsm()
         {
             ArchiveStatus = new ChangeTrackingList<AmlFileSystemArchive>();
+            ImportStatus = new ChangeTrackingList<AmlFileSystemImport>();
         }
 
         /// <summary> Initializes a new instance of <see cref="AmlFileSystemPropertiesHsm"/>. </summary>
         /// <param name="settings"> Specifies HSM settings of the AML file system. </param>
         /// <param name="archiveStatus"> Archive status. </param>
-        internal AmlFileSystemPropertiesHsm(AmlFileSystemHsmSettings settings, IReadOnlyList<AmlFileSystemArchive> archiveStatus)
+        /// <param name="importStatus"> Import status. </param>
+        internal AmlFileSystemPropertiesHsm(AmlFileSystemHsmSettings settings, IReadOnlyList<AmlFileSystemArchive> archiveStatus, IReadOnlyList<AmlFileSystemImport> importStatus)
         {
             Settings = settings;
             ArchiveStatus = archiveStatus;
+            ImportStatus = importStatus;
         }
 
         /// <summary> Specifies HSM settings of the AML file system. </summary>
         public AmlFileSystemHsmSettings Settings { get; set; }
         /// <summary> Archive status. </summary>
         public IReadOnlyList<AmlFileSystemArchive> ArchiveStatus { get; }
+        /// <summary> Import status. </summary>
+        public IReadOnlyList<AmlFileSystemImport> ImportStatus { get; }
     }
 }

@@ -32,6 +32,7 @@ namespace Azure.ResourceManager.StorageCache.Models
             }
             Optional<AmlFileSystemHsmSettings> settings = default;
             Optional<IReadOnlyList<AmlFileSystemArchive>> archiveStatus = default;
+            Optional<IReadOnlyList<AmlFileSystemImport>> importStatus = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("settings"u8))
@@ -57,8 +58,22 @@ namespace Azure.ResourceManager.StorageCache.Models
                     archiveStatus = array;
                     continue;
                 }
+                if (property.NameEquals("importStatus"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<AmlFileSystemImport> array = new List<AmlFileSystemImport>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(AmlFileSystemImport.DeserializeAmlFileSystemImport(item));
+                    }
+                    importStatus = array;
+                    continue;
+                }
             }
-            return new AmlFileSystemPropertiesHsm(settings.Value, Optional.ToList(archiveStatus));
+            return new AmlFileSystemPropertiesHsm(settings.Value, Optional.ToList(archiveStatus), Optional.ToList(importStatus));
         }
     }
 }

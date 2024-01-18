@@ -29,7 +29,7 @@ namespace Azure.ResourceManager.StorageCache.Models
         /// <summary> Initializes a new instance of <see cref="AmlFileSystemHsmSettings"/>. </summary>
         /// <param name="container"> Resource ID of storage container used for hydrating the namespace and archiving from the namespace. The resource provider must have permission to create SAS tokens on the storage account. </param>
         /// <param name="loggingContainer"> Resource ID of storage container used for logging events and errors.  Must be a separate container in the same storage account as the hydration and archive container. The resource provider must have permission to create SAS tokens on the storage account. </param>
-        /// <param name="importPrefix"> Only blobs in the non-logging container that start with this path/prefix get hydrated into the cluster namespace. </param>
+        /// <param name="importPrefix"> Only blobs in the non-logging container that start with this path/prefix get imported into the cluster namespace. This is only used during initial creation of the AML file system. </param>
         internal AmlFileSystemHsmSettings(string container, string loggingContainer, string importPrefix)
         {
             Container = container;
@@ -41,7 +41,7 @@ namespace Azure.ResourceManager.StorageCache.Models
         public string Container { get; set; }
         /// <summary> Resource ID of storage container used for logging events and errors.  Must be a separate container in the same storage account as the hydration and archive container. The resource provider must have permission to create SAS tokens on the storage account. </summary>
         public string LoggingContainer { get; set; }
-        /// <summary> Only blobs in the non-logging container that start with this path/prefix get hydrated into the cluster namespace. </summary>
+        /// <summary> Only blobs in the non-logging container that start with this path/prefix get imported into the cluster namespace. This is only used during initial creation of the AML file system. </summary>
         public string ImportPrefix { get; set; }
     }
 }

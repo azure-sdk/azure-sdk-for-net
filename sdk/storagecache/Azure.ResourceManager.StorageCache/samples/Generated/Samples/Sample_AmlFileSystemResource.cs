@@ -25,7 +25,7 @@ namespace Azure.ResourceManager.StorageCache.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetAmlFileSystems_AmlFilesystemsList()
         {
-            // Generated from example definition: specification/storagecache/resource-manager/Microsoft.StorageCache/stable/2023-05-01/examples/amlFilesystems_List.json
+            // Generated from example definition: specification/storagecache/resource-manager/Microsoft.StorageCache/stable/2024-03-01/examples/amlFilesystems_List.json
             // this example is just showing the usage of "amlFilesystems_List" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -57,7 +57,7 @@ namespace Azure.ResourceManager.StorageCache.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Delete_AmlFilesystemsDelete()
         {
-            // Generated from example definition: specification/storagecache/resource-manager/Microsoft.StorageCache/stable/2023-05-01/examples/amlFilesystems_Delete.json
+            // Generated from example definition: specification/storagecache/resource-manager/Microsoft.StorageCache/stable/2024-03-01/examples/amlFilesystems_Delete.json
             // this example is just showing the usage of "amlFilesystems_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -84,7 +84,7 @@ namespace Azure.ResourceManager.StorageCache.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_AmlFilesystemsGet()
         {
-            // Generated from example definition: specification/storagecache/resource-manager/Microsoft.StorageCache/stable/2023-05-01/examples/amlFilesystems_Get.json
+            // Generated from example definition: specification/storagecache/resource-manager/Microsoft.StorageCache/stable/2024-03-01/examples/amlFilesystems_Get.json
             // this example is just showing the usage of "amlFilesystems_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -115,7 +115,7 @@ namespace Azure.ResourceManager.StorageCache.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_AmlFilesystemsUpdate()
         {
-            // Generated from example definition: specification/storagecache/resource-manager/Microsoft.StorageCache/stable/2023-05-01/examples/amlFilesystems_Update.json
+            // Generated from example definition: specification/storagecache/resource-manager/Microsoft.StorageCache/stable/2024-03-01/examples/amlFilesystems_Update.json
             // this example is just showing the usage of "amlFilesystems_Update" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -147,6 +147,13 @@ namespace Azure.ResourceManager.StorageCache.Samples
                     DayOfWeek = MaintenanceDayOfWeekType.Friday,
                     TimeOfDayUTC = "22:00",
                 },
+                RootSquashSettings = new AmlFileSystemRootSquashSettings()
+                {
+                    Mode = AmlFileSystemSquashMode.All,
+                    NoSquashNidLists = "10.0.0.[5-6]@tcp;10.0.1.2@tcp",
+                    SquashUID = 99,
+                    SquashGID = 99,
+                },
             };
             ArmOperation<AmlFileSystemResource> lro = await amlFileSystem.UpdateAsync(WaitUntil.Completed, patch);
             AmlFileSystemResource result = lro.Value;
@@ -163,7 +170,7 @@ namespace Azure.ResourceManager.StorageCache.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Archive_AmlFilesystemsArchive()
         {
-            // Generated from example definition: specification/storagecache/resource-manager/Microsoft.StorageCache/stable/2023-05-01/examples/amlFilesystems_Archive.json
+            // Generated from example definition: specification/storagecache/resource-manager/Microsoft.StorageCache/stable/2024-03-01/examples/amlFilesystems_Archive.json
             // this example is just showing the usage of "amlFilesystems_Archive" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -194,7 +201,7 @@ namespace Azure.ResourceManager.StorageCache.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CancelArchive_AmlFilesystemsCancelArchive()
         {
-            // Generated from example definition: specification/storagecache/resource-manager/Microsoft.StorageCache/stable/2023-05-01/examples/amlFilesystems_CancelArchive.json
+            // Generated from example definition: specification/storagecache/resource-manager/Microsoft.StorageCache/stable/2024-03-01/examples/amlFilesystems_CancelArchive.json
             // this example is just showing the usage of "amlFilesystems_CancelArchive" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -212,6 +219,65 @@ namespace Azure.ResourceManager.StorageCache.Samples
 
             // invoke the operation
             await amlFileSystem.CancelArchiveAsync();
+
+            Console.WriteLine($"Succeeded");
+        }
+
+        // amlFilesystems_Import
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task Import_AmlFilesystemsImport()
+        {
+            // Generated from example definition: specification/storagecache/resource-manager/Microsoft.StorageCache/stable/2024-03-01/examples/amlFilesystems_Import.json
+            // this example is just showing the usage of "amlFilesystems_Import" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this AmlFileSystemResource created on azure
+            // for more information of creating AmlFileSystemResource, please refer to the document of AmlFileSystemResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "scgroup";
+            string amlFileSystemName = "sc";
+            ResourceIdentifier amlFileSystemResourceId = AmlFileSystemResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, amlFileSystemName);
+            AmlFileSystemResource amlFileSystem = client.GetAmlFileSystemResource(amlFileSystemResourceId);
+
+            // invoke the operation
+            AmlFileSystemImportContent content = new AmlFileSystemImportContent()
+            {
+                FilesystemPath = "/",
+                ConflictResolutionMode = ConflictResolutionMode.OverwriteAlways,
+            };
+            await amlFileSystem.ImportAsync(content: content);
+
+            Console.WriteLine($"Succeeded");
+        }
+
+        // amlFilesystems_CancelImport
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task CancelImport_AmlFilesystemsCancelImport()
+        {
+            // Generated from example definition: specification/storagecache/resource-manager/Microsoft.StorageCache/stable/2024-03-01/examples/amlFilesystems_CancelImport.json
+            // this example is just showing the usage of "amlFilesystems_CancelImport" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this AmlFileSystemResource created on azure
+            // for more information of creating AmlFileSystemResource, please refer to the document of AmlFileSystemResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "scgroup";
+            string amlFileSystemName = "sc";
+            ResourceIdentifier amlFileSystemResourceId = AmlFileSystemResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, amlFileSystemName);
+            AmlFileSystemResource amlFileSystem = client.GetAmlFileSystemResource(amlFileSystemResourceId);
+
+            // invoke the operation
+            await amlFileSystem.CancelImportAsync();
 
             Console.WriteLine($"Succeeded");
         }
