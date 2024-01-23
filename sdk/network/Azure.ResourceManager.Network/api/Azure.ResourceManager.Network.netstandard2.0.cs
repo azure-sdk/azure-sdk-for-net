@@ -7324,6 +7324,7 @@ namespace Azure.ResourceManager.Network.Models
         public ApplicationGatewayHeaderConfiguration() { }
         public string HeaderName { get { throw null; } set { } }
         public string HeaderValue { get { throw null; } set { } }
+        public Azure.ResourceManager.Network.Models.HeaderValueMatcher HeaderValueMatcher { get { throw null; } set { } }
         Azure.ResourceManager.Network.Models.ApplicationGatewayHeaderConfiguration System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Network.Models.ApplicationGatewayHeaderConfiguration>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Network.Models.ApplicationGatewayHeaderConfiguration>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.Network.Models.ApplicationGatewayHeaderConfiguration System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Network.Models.ApplicationGatewayHeaderConfiguration>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -11482,6 +11483,18 @@ namespace Azure.ResourceManager.Network.Models
         public static implicit operator Azure.ResourceManager.Network.Models.GroupConnectivity (string value) { throw null; }
         public static bool operator !=(Azure.ResourceManager.Network.Models.GroupConnectivity left, Azure.ResourceManager.Network.Models.GroupConnectivity right) { throw null; }
         public override string ToString() { throw null; }
+    }
+    public partial class HeaderValueMatcher : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Network.Models.HeaderValueMatcher>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Network.Models.HeaderValueMatcher>
+    {
+        public HeaderValueMatcher() { }
+        public bool? IgnoreCase { get { throw null; } set { } }
+        public bool? Negate { get { throw null; } set { } }
+        public string Pattern { get { throw null; } set { } }
+        Azure.ResourceManager.Network.Models.HeaderValueMatcher System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Network.Models.HeaderValueMatcher>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Network.Models.HeaderValueMatcher>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.ResourceManager.Network.Models.HeaderValueMatcher System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Network.Models.HeaderValueMatcher>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Network.Models.HeaderValueMatcher>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Network.Models.HeaderValueMatcher>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
     }
     public partial class HopLink : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Network.Models.HopLink>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Network.Models.HopLink>
     {
