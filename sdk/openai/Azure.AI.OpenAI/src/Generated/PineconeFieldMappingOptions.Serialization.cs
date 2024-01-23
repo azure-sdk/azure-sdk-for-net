@@ -30,40 +30,17 @@ namespace Azure.AI.OpenAI
                 writer.WritePropertyName("filepathField"u8);
                 writer.WriteStringValue(FilepathFieldName);
             }
-            if (Optional.IsCollectionDefined(ContentFieldNames))
+            writer.WritePropertyName("contentFields"u8);
+            writer.WriteStartArray();
+            foreach (var item in ContentFieldNames)
             {
-                writer.WritePropertyName("contentFields"u8);
-                writer.WriteStartArray();
-                foreach (var item in ContentFieldNames)
-                {
-                    writer.WriteStringValue(item);
-                }
-                writer.WriteEndArray();
+                writer.WriteStringValue(item);
             }
+            writer.WriteEndArray();
             if (Optional.IsDefined(ContentFieldSeparator))
             {
                 writer.WritePropertyName("contentFieldsSeparator"u8);
                 writer.WriteStringValue(ContentFieldSeparator);
-            }
-            if (Optional.IsCollectionDefined(VectorFieldNames))
-            {
-                writer.WritePropertyName("vectorFields"u8);
-                writer.WriteStartArray();
-                foreach (var item in VectorFieldNames)
-                {
-                    writer.WriteStringValue(item);
-                }
-                writer.WriteEndArray();
-            }
-            if (Optional.IsCollectionDefined(ImageVectorFieldNames))
-            {
-                writer.WritePropertyName("imageVectorFields"u8);
-                writer.WriteStartArray();
-                foreach (var item in ImageVectorFieldNames)
-                {
-                    writer.WriteStringValue(item);
-                }
-                writer.WriteEndArray();
             }
             writer.WriteEndObject();
         }
