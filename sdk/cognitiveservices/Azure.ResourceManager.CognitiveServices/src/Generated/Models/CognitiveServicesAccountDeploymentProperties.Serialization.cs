@@ -77,6 +77,21 @@ namespace Azure.ResourceManager.CognitiveServices.Models
                 writer.WritePropertyName("versionUpgradeOption"u8);
                 writer.WriteStringValue(VersionUpgradeOption.Value.ToString());
             }
+            if (options.Format != "W" && Optional.IsDefined(DynamicThrottlingEnabled))
+            {
+                writer.WritePropertyName("dynamicThrottlingEnabled"u8);
+                writer.WriteBooleanValue(DynamicThrottlingEnabled.Value);
+            }
+            if (Optional.IsDefined(CurrentCapacity))
+            {
+                writer.WritePropertyName("currentCapacity"u8);
+                writer.WriteNumberValue(CurrentCapacity.Value);
+            }
+            if (Optional.IsDefined(CapacitySettings))
+            {
+                writer.WritePropertyName("capacitySettings"u8);
+                writer.WriteObjectValue(CapacitySettings);
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -123,6 +138,9 @@ namespace Azure.ResourceManager.CognitiveServices.Models
             Optional<ServiceAccountCallRateLimit> callRateLimit = default;
             Optional<IReadOnlyList<ServiceAccountThrottlingRule>> rateLimits = default;
             Optional<DeploymentModelVersionUpgradeOption> versionUpgradeOption = default;
+            Optional<bool> dynamicThrottlingEnabled = default;
+            Optional<int> currentCapacity = default;
+            Optional<DeploymentCapacitySettings> capacitySettings = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -205,13 +223,40 @@ namespace Azure.ResourceManager.CognitiveServices.Models
                     versionUpgradeOption = new DeploymentModelVersionUpgradeOption(property.Value.GetString());
                     continue;
                 }
+                if (property.NameEquals("dynamicThrottlingEnabled"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    dynamicThrottlingEnabled = property.Value.GetBoolean();
+                    continue;
+                }
+                if (property.NameEquals("currentCapacity"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    currentCapacity = property.Value.GetInt32();
+                    continue;
+                }
+                if (property.NameEquals("capacitySettings"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    capacitySettings = DeploymentCapacitySettings.DeserializeDeploymentCapacitySettings(property.Value);
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new CognitiveServicesAccountDeploymentProperties(Optional.ToNullable(provisioningState), model.Value, scaleSettings.Value, Optional.ToDictionary(capabilities), raiPolicyName.Value, callRateLimit.Value, Optional.ToList(rateLimits), Optional.ToNullable(versionUpgradeOption), serializedAdditionalRawData);
+            return new CognitiveServicesAccountDeploymentProperties(Optional.ToNullable(provisioningState), model.Value, scaleSettings.Value, Optional.ToDictionary(capabilities), raiPolicyName.Value, callRateLimit.Value, Optional.ToList(rateLimits), Optional.ToNullable(versionUpgradeOption), Optional.ToNullable(dynamicThrottlingEnabled), Optional.ToNullable(currentCapacity), capacitySettings.Value, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<CognitiveServicesAccountDeploymentProperties>.Write(ModelReaderWriterOptions options)

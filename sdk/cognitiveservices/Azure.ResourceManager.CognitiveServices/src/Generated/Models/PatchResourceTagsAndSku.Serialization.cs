@@ -13,16 +13,16 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.CognitiveServices.Models
 {
-    public partial class CognitiveServicesCommitmentPlanPatch : IUtf8JsonSerializable, IJsonModel<CognitiveServicesCommitmentPlanPatch>
+    public partial class PatchResourceTagsAndSku : IUtf8JsonSerializable, IJsonModel<PatchResourceTagsAndSku>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<CognitiveServicesCommitmentPlanPatch>)this).Write(writer, new ModelReaderWriterOptions("W"));
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<PatchResourceTagsAndSku>)this).Write(writer, new ModelReaderWriterOptions("W"));
 
-        void IJsonModel<CognitiveServicesCommitmentPlanPatch>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<PatchResourceTagsAndSku>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<CognitiveServicesCommitmentPlanPatch>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<PatchResourceTagsAndSku>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(CognitiveServicesCommitmentPlanPatch)} does not support '{format}' format.");
+                throw new FormatException($"The model {nameof(PatchResourceTagsAndSku)} does not support '{format}' format.");
             }
 
             writer.WriteStartObject();
@@ -60,19 +60,19 @@ namespace Azure.ResourceManager.CognitiveServices.Models
             writer.WriteEndObject();
         }
 
-        CognitiveServicesCommitmentPlanPatch IJsonModel<CognitiveServicesCommitmentPlanPatch>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        PatchResourceTagsAndSku IJsonModel<PatchResourceTagsAndSku>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<CognitiveServicesCommitmentPlanPatch>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<PatchResourceTagsAndSku>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(CognitiveServicesCommitmentPlanPatch)} does not support '{format}' format.");
+                throw new FormatException($"The model {nameof(PatchResourceTagsAndSku)} does not support '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeCognitiveServicesCommitmentPlanPatch(document.RootElement, options);
+            return DeserializePatchResourceTagsAndSku(document.RootElement, options);
         }
 
-        internal static CognitiveServicesCommitmentPlanPatch DeserializeCognitiveServicesCommitmentPlanPatch(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static PatchResourceTagsAndSku DeserializePatchResourceTagsAndSku(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= new ModelReaderWriterOptions("W");
 
@@ -115,38 +115,38 @@ namespace Azure.ResourceManager.CognitiveServices.Models
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new CognitiveServicesCommitmentPlanPatch(Optional.ToDictionary(tags), serializedAdditionalRawData, sku.Value);
+            return new PatchResourceTagsAndSku(Optional.ToDictionary(tags), serializedAdditionalRawData, sku.Value);
         }
 
-        BinaryData IPersistableModel<CognitiveServicesCommitmentPlanPatch>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<PatchResourceTagsAndSku>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<CognitiveServicesCommitmentPlanPatch>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<PatchResourceTagsAndSku>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(CognitiveServicesCommitmentPlanPatch)} does not support '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(PatchResourceTagsAndSku)} does not support '{options.Format}' format.");
             }
         }
 
-        CognitiveServicesCommitmentPlanPatch IPersistableModel<CognitiveServicesCommitmentPlanPatch>.Create(BinaryData data, ModelReaderWriterOptions options)
+        PatchResourceTagsAndSku IPersistableModel<PatchResourceTagsAndSku>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<CognitiveServicesCommitmentPlanPatch>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<PatchResourceTagsAndSku>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializeCognitiveServicesCommitmentPlanPatch(document.RootElement, options);
+                        return DeserializePatchResourceTagsAndSku(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(CognitiveServicesCommitmentPlanPatch)} does not support '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(PatchResourceTagsAndSku)} does not support '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<CognitiveServicesCommitmentPlanPatch>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<PatchResourceTagsAndSku>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }

@@ -55,12 +55,14 @@ namespace Azure.ResourceManager.CognitiveServices.Models
 
         /// <summary> Initializes a new instance of <see cref="CognitiveServicesNetworkRuleSet"/>. </summary>
         /// <param name="defaultAction"> The default action when no rule from ipRules and from virtualNetworkRules match. This is only used after the bypass property has been evaluated. </param>
+        /// <param name="bypass"> Setting for trusted services. </param>
         /// <param name="ipRules"> The list of IP address rules. </param>
         /// <param name="virtualNetworkRules"> The list of virtual network rules. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal CognitiveServicesNetworkRuleSet(CognitiveServicesNetworkRuleAction? defaultAction, IList<CognitiveServicesIPRule> ipRules, IList<CognitiveServicesVirtualNetworkRule> virtualNetworkRules, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal CognitiveServicesNetworkRuleSet(CognitiveServicesNetworkRuleAction? defaultAction, ByPassSelection? bypass, IList<CognitiveServicesIPRule> ipRules, IList<CognitiveServicesVirtualNetworkRule> virtualNetworkRules, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             DefaultAction = defaultAction;
+            Bypass = bypass;
             IPRules = ipRules;
             VirtualNetworkRules = virtualNetworkRules;
             _serializedAdditionalRawData = serializedAdditionalRawData;
@@ -68,6 +70,8 @@ namespace Azure.ResourceManager.CognitiveServices.Models
 
         /// <summary> The default action when no rule from ipRules and from virtualNetworkRules match. This is only used after the bypass property has been evaluated. </summary>
         public CognitiveServicesNetworkRuleAction? DefaultAction { get; set; }
+        /// <summary> Setting for trusted services. </summary>
+        public ByPassSelection? Bypass { get; set; }
         /// <summary> The list of IP address rules. </summary>
         public IList<CognitiveServicesIPRule> IPRules { get; }
         /// <summary> The list of virtual network rules. </summary>

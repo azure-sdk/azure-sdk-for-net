@@ -56,14 +56,17 @@ namespace Azure.ResourceManager.CognitiveServices.Models
         /// <summary> Initializes a new instance of <see cref="CognitiveServicesAccountDeploymentProperties"/>. </summary>
         /// <param name="provisioningState"> Gets the status of the resource at the time the operation was called. </param>
         /// <param name="model"> Properties of Cognitive Services account deployment model. </param>
-        /// <param name="scaleSettings"> Properties of Cognitive Services account deployment model. </param>
+        /// <param name="scaleSettings"> Properties of Cognitive Services account deployment model. (Deprecated, please use Deployment.sku instead.). </param>
         /// <param name="capabilities"> The capabilities. </param>
         /// <param name="raiPolicyName"> The name of RAI policy. </param>
         /// <param name="callRateLimit"> The call rate limit Cognitive Services account. </param>
         /// <param name="rateLimits"></param>
         /// <param name="versionUpgradeOption"> Deployment model version upgrade option. </param>
+        /// <param name="dynamicThrottlingEnabled"> If the dynamic throttling is enabled. </param>
+        /// <param name="currentCapacity"> The current capacity. </param>
+        /// <param name="capacitySettings"> Internal use only. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal CognitiveServicesAccountDeploymentProperties(CognitiveServicesAccountDeploymentProvisioningState? provisioningState, CognitiveServicesAccountDeploymentModel model, CognitiveServicesAccountDeploymentScaleSettings scaleSettings, IReadOnlyDictionary<string, string> capabilities, string raiPolicyName, ServiceAccountCallRateLimit callRateLimit, IReadOnlyList<ServiceAccountThrottlingRule> rateLimits, DeploymentModelVersionUpgradeOption? versionUpgradeOption, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal CognitiveServicesAccountDeploymentProperties(CognitiveServicesAccountDeploymentProvisioningState? provisioningState, CognitiveServicesAccountDeploymentModel model, CognitiveServicesAccountDeploymentScaleSettings scaleSettings, IReadOnlyDictionary<string, string> capabilities, string raiPolicyName, ServiceAccountCallRateLimit callRateLimit, IReadOnlyList<ServiceAccountThrottlingRule> rateLimits, DeploymentModelVersionUpgradeOption? versionUpgradeOption, bool? dynamicThrottlingEnabled, int? currentCapacity, DeploymentCapacitySettings capacitySettings, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             ProvisioningState = provisioningState;
             Model = model;
@@ -73,6 +76,9 @@ namespace Azure.ResourceManager.CognitiveServices.Models
             CallRateLimit = callRateLimit;
             RateLimits = rateLimits;
             VersionUpgradeOption = versionUpgradeOption;
+            DynamicThrottlingEnabled = dynamicThrottlingEnabled;
+            CurrentCapacity = currentCapacity;
+            CapacitySettings = capacitySettings;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -80,7 +86,7 @@ namespace Azure.ResourceManager.CognitiveServices.Models
         public CognitiveServicesAccountDeploymentProvisioningState? ProvisioningState { get; }
         /// <summary> Properties of Cognitive Services account deployment model. </summary>
         public CognitiveServicesAccountDeploymentModel Model { get; set; }
-        /// <summary> Properties of Cognitive Services account deployment model. </summary>
+        /// <summary> Properties of Cognitive Services account deployment model. (Deprecated, please use Deployment.sku instead.). </summary>
         public CognitiveServicesAccountDeploymentScaleSettings ScaleSettings { get; set; }
         /// <summary> The capabilities. </summary>
         public IReadOnlyDictionary<string, string> Capabilities { get; }
@@ -92,5 +98,11 @@ namespace Azure.ResourceManager.CognitiveServices.Models
         public IReadOnlyList<ServiceAccountThrottlingRule> RateLimits { get; }
         /// <summary> Deployment model version upgrade option. </summary>
         public DeploymentModelVersionUpgradeOption? VersionUpgradeOption { get; set; }
+        /// <summary> If the dynamic throttling is enabled. </summary>
+        public bool? DynamicThrottlingEnabled { get; }
+        /// <summary> The current capacity. </summary>
+        public int? CurrentCapacity { get; set; }
+        /// <summary> Internal use only. </summary>
+        public DeploymentCapacitySettings CapacitySettings { get; set; }
     }
 }

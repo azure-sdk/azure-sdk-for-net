@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.Core;
 
 namespace Azure.ResourceManager.CognitiveServices.Models
 {
@@ -48,6 +49,7 @@ namespace Azure.ResourceManager.CognitiveServices.Models
         /// <summary> Initializes a new instance of <see cref="CognitiveServicesCapacityConfig"/>. </summary>
         public CognitiveServicesCapacityConfig()
         {
+            AllowedValues = new ChangeTrackingList<int>();
         }
 
         /// <summary> Initializes a new instance of <see cref="CognitiveServicesCapacityConfig"/>. </summary>
@@ -55,13 +57,15 @@ namespace Azure.ResourceManager.CognitiveServices.Models
         /// <param name="maximum"> The maximum capacity. </param>
         /// <param name="step"> The minimal incremental between allowed values for capacity. </param>
         /// <param name="default"> The default capacity. </param>
+        /// <param name="allowedValues"> The array of allowed values for capacity. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal CognitiveServicesCapacityConfig(int? minimum, int? maximum, int? step, int? @default, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal CognitiveServicesCapacityConfig(int? minimum, int? maximum, int? step, int? @default, IList<int> allowedValues, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Minimum = minimum;
             Maximum = maximum;
             Step = step;
             Default = @default;
+            AllowedValues = allowedValues;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -73,5 +77,7 @@ namespace Azure.ResourceManager.CognitiveServices.Models
         public int? Step { get; set; }
         /// <summary> The default capacity. </summary>
         public int? Default { get; set; }
+        /// <summary> The array of allowed values for capacity. </summary>
+        public IList<int> AllowedValues { get; }
     }
 }

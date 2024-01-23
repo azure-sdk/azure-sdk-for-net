@@ -87,6 +87,11 @@ namespace Azure.ResourceManager.CognitiveServices.Models
                 }
                 writer.WriteEndArray();
             }
+            if (Optional.IsDefined(AmlWorkspace))
+            {
+                writer.WritePropertyName("amlWorkspace"u8);
+                writer.WriteObjectValue(AmlWorkspace);
+            }
             if (options.Format != "W" && Optional.IsCollectionDefined(PrivateEndpointConnections))
             {
                 writer.WritePropertyName("privateEndpointConnections"u8);
@@ -241,6 +246,7 @@ namespace Azure.ResourceManager.CognitiveServices.Models
             Optional<CognitiveServicesNetworkRuleSet> networkAcls = default;
             Optional<ServiceAccountEncryptionProperties> encryption = default;
             Optional<IList<ServiceAccountUserOwnedStorage>> userOwnedStorage = default;
+            Optional<UserOwnedAmlWorkspace> amlWorkspace = default;
             Optional<IReadOnlyList<CognitiveServicesPrivateEndpointConnectionData>> privateEndpointConnections = default;
             Optional<ServiceAccountPublicNetworkAccess> publicNetworkAccess = default;
             Optional<ServiceAccountApiProperties> apiProperties = default;
@@ -348,6 +354,15 @@ namespace Azure.ResourceManager.CognitiveServices.Models
                         array.Add(ServiceAccountUserOwnedStorage.DeserializeServiceAccountUserOwnedStorage(item));
                     }
                     userOwnedStorage = array;
+                    continue;
+                }
+                if (property.NameEquals("amlWorkspace"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    amlWorkspace = UserOwnedAmlWorkspace.DeserializeUserOwnedAmlWorkspace(property.Value);
                     continue;
                 }
                 if (property.NameEquals("privateEndpointConnections"u8))
@@ -525,7 +540,7 @@ namespace Azure.ResourceManager.CognitiveServices.Models
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new CognitiveServicesAccountProperties(Optional.ToNullable(provisioningState), endpoint.Value, Optional.ToList(capabilities), Optional.ToNullable(isMigrated), migrationToken.Value, skuChangeInfo.Value, customSubDomainName.Value, networkAcls.Value, encryption.Value, Optional.ToList(userOwnedStorage), Optional.ToList(privateEndpointConnections), Optional.ToNullable(publicNetworkAccess), apiProperties.Value, Optional.ToNullable(dateCreated), callRateLimit.Value, Optional.ToNullable(dynamicThrottlingEnabled), quotaLimit.Value, Optional.ToNullable(restrictOutboundNetworkAccess), Optional.ToList(allowedFqdnList), Optional.ToNullable(disableLocalAuth), Optional.ToDictionary(endpoints), Optional.ToNullable(restore), Optional.ToNullable(deletionDate), scheduledPurgeDate.Value, locations.Value, Optional.ToList(commitmentPlanAssociations), abusePenalty.Value, serializedAdditionalRawData);
+            return new CognitiveServicesAccountProperties(Optional.ToNullable(provisioningState), endpoint.Value, Optional.ToList(capabilities), Optional.ToNullable(isMigrated), migrationToken.Value, skuChangeInfo.Value, customSubDomainName.Value, networkAcls.Value, encryption.Value, Optional.ToList(userOwnedStorage), amlWorkspace.Value, Optional.ToList(privateEndpointConnections), Optional.ToNullable(publicNetworkAccess), apiProperties.Value, Optional.ToNullable(dateCreated), callRateLimit.Value, Optional.ToNullable(dynamicThrottlingEnabled), quotaLimit.Value, Optional.ToNullable(restrictOutboundNetworkAccess), Optional.ToList(allowedFqdnList), Optional.ToNullable(disableLocalAuth), Optional.ToDictionary(endpoints), Optional.ToNullable(restore), Optional.ToNullable(deletionDate), scheduledPurgeDate.Value, locations.Value, Optional.ToList(commitmentPlanAssociations), abusePenalty.Value, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<CognitiveServicesAccountProperties>.Write(ModelReaderWriterOptions options)

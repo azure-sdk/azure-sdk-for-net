@@ -46,6 +46,16 @@ namespace Azure.ResourceManager.CognitiveServices.Models
                 writer.WritePropertyName("default"u8);
                 writer.WriteNumberValue(Default.Value);
             }
+            if (Optional.IsCollectionDefined(AllowedValues))
+            {
+                writer.WritePropertyName("allowedValues"u8);
+                writer.WriteStartArray();
+                foreach (var item in AllowedValues)
+                {
+                    writer.WriteNumberValue(item);
+                }
+                writer.WriteEndArray();
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -88,6 +98,7 @@ namespace Azure.ResourceManager.CognitiveServices.Models
             Optional<int> maximum = default;
             Optional<int> step = default;
             Optional<int> @default = default;
+            Optional<IList<int>> allowedValues = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -128,13 +139,27 @@ namespace Azure.ResourceManager.CognitiveServices.Models
                     @default = property.Value.GetInt32();
                     continue;
                 }
+                if (property.NameEquals("allowedValues"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<int> array = new List<int>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(item.GetInt32());
+                    }
+                    allowedValues = array;
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new CognitiveServicesCapacityConfig(Optional.ToNullable(minimum), Optional.ToNullable(maximum), Optional.ToNullable(step), Optional.ToNullable(@default), serializedAdditionalRawData);
+            return new CognitiveServicesCapacityConfig(Optional.ToNullable(minimum), Optional.ToNullable(maximum), Optional.ToNullable(step), Optional.ToNullable(@default), Optional.ToList(allowedValues), serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<CognitiveServicesCapacityConfig>.Write(ModelReaderWriterOptions options)
