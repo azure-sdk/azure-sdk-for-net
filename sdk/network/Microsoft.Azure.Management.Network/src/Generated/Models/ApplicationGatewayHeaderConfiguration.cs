@@ -33,11 +33,17 @@ namespace Microsoft.Azure.Management.Network.Models
         /// </summary>
         /// <param name="headerName">Header name of the header
         /// configuration.</param>
+        /// <param name="headerValueMatcher">An optional field under "Rewrite
+        /// Action". It lets you capture and modify the value(s) of a specific
+        /// header when multiple headers with the same name exist. Currently
+        /// supported for Set-Cookie Response header only. For more details,
+        /// visit https://aka.ms/appgwheadercrud</param>
         /// <param name="headerValue">Header value of the header
         /// configuration.</param>
-        public ApplicationGatewayHeaderConfiguration(string headerName = default(string), string headerValue = default(string))
+        public ApplicationGatewayHeaderConfiguration(string headerName = default(string), HeaderValueMatcher headerValueMatcher = default(HeaderValueMatcher), string headerValue = default(string))
         {
             HeaderName = headerName;
+            HeaderValueMatcher = headerValueMatcher;
             HeaderValue = headerValue;
             CustomInit();
         }
@@ -52,6 +58,16 @@ namespace Microsoft.Azure.Management.Network.Models
         /// </summary>
         [JsonProperty(PropertyName = "headerName")]
         public string HeaderName { get; set; }
+
+        /// <summary>
+        /// Gets or sets an optional field under "Rewrite Action". It lets you
+        /// capture and modify the value(s) of a specific header when multiple
+        /// headers with the same name exist. Currently supported for
+        /// Set-Cookie Response header only. For more details, visit
+        /// https://aka.ms/appgwheadercrud
+        /// </summary>
+        [JsonProperty(PropertyName = "headerValueMatcher")]
+        public HeaderValueMatcher HeaderValueMatcher { get; set; }
 
         /// <summary>
         /// Gets or sets header value of the header configuration.
