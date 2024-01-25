@@ -35,7 +35,7 @@ namespace Azure.ResourceManager.Sphere.Samples
             string subscriptionId = "00000000-0000-0000-0000-000000000000";
             string resourceGroupName = "MyResourceGroup1";
             string catalogName = "MyCatalog1";
-            string imageName = "myImageId";
+            string imageName = "00000000-0000-0000-0000-000000000000";
             ResourceIdentifier sphereImageResourceId = SphereImageResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, catalogName, imageName);
             SphereImageResource sphereImage = client.GetSphereImageResource(sphereImageResourceId);
 
@@ -67,7 +67,7 @@ namespace Azure.ResourceManager.Sphere.Samples
             string subscriptionId = "00000000-0000-0000-0000-000000000000";
             string resourceGroupName = "MyResourceGroup1";
             string catalogName = "MyCatalog1";
-            string imageName = "default";
+            string imageName = ".default";
             ResourceIdentifier sphereImageResourceId = SphereImageResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, catalogName, imageName);
             SphereImageResource sphereImage = client.GetSphereImageResource(sphereImageResourceId);
 
@@ -104,7 +104,7 @@ namespace Azure.ResourceManager.Sphere.Samples
             string subscriptionId = "00000000-0000-0000-0000-000000000000";
             string resourceGroupName = "MyResourceGroup1";
             string catalogName = "MyCatalog1";
-            string imageName = "imageID";
+            string imageName = "00000000-0000-0000-0000-000000000000";
             ResourceIdentifier sphereImageResourceId = SphereImageResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, catalogName, imageName);
             SphereImageResource sphereImage = client.GetSphereImageResource(sphereImageResourceId);
 

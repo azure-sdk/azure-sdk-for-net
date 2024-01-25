@@ -79,7 +79,7 @@ namespace Azure.ResourceManager.Sphere.Samples
             SphereImageCollection collection = sphereCatalog.GetSphereImages();
 
             // invoke the operation
-            string imageName = "myImageId";
+            string imageName = "00000000-0000-0000-0000-000000000000";
             SphereImageResource result = await collection.GetAsync(imageName);
 
             // the variable result is a resource, you could call other operations on this instance as well
@@ -114,7 +114,7 @@ namespace Azure.ResourceManager.Sphere.Samples
             SphereImageCollection collection = sphereCatalog.GetSphereImages();
 
             // invoke the operation
-            string imageName = "myImageId";
+            string imageName = "00000000-0000-0000-0000-000000000000";
             bool result = await collection.ExistsAsync(imageName);
 
             Console.WriteLine($"Succeeded: {result}");
@@ -145,7 +145,7 @@ namespace Azure.ResourceManager.Sphere.Samples
             SphereImageCollection collection = sphereCatalog.GetSphereImages();
 
             // invoke the operation
-            string imageName = "myImageId";
+            string imageName = "00000000-0000-0000-0000-000000000000";
             NullableResponse<SphereImageResource> response = await collection.GetIfExistsAsync(imageName);
             SphereImageResource result = response.HasValue ? response.Value : null;
 
@@ -188,7 +188,7 @@ namespace Azure.ResourceManager.Sphere.Samples
             SphereImageCollection collection = sphereCatalog.GetSphereImages();
 
             // invoke the operation
-            string imageName = "default";
+            string imageName = ".default";
             SphereImageData data = new SphereImageData()
             {
                 Image = "bXliYXNlNjRzdHJpbmc=",
