@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Azure;
 using Azure.Core;
@@ -28,12 +29,26 @@ namespace Azure.ResourceManager.ContainerServiceFleet.Models
         /// <param name="eTag"> If eTag is provided in the response body, it may also be provided as a header per the normal etag convention.  Entity tags are used for comparing two or more entities from the same requested resource. HTTP/1.1 uses entity tags in the etag (section 14.19), If-Match (section 14.24), If-None-Match (section 14.26), and If-Range (section 14.27) header fields. </param>
         /// <param name="identity"> Managed identity. </param>
         /// <param name="provisioningState"> The status of the last operation. </param>
+        /// <param name="hubProfile"> The FleetHubProfile configures the Fleet's hub. </param>
         /// <returns> A new <see cref="ContainerServiceFleet.ContainerServiceFleetData"/> instance for mocking. </returns>
-        public static ContainerServiceFleetData ContainerServiceFleetData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, ETag? eTag = null, ManagedServiceIdentity identity = null, FleetProvisioningState? provisioningState = null)
+        public static ContainerServiceFleetData ContainerServiceFleetData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, ETag? eTag = null, ManagedServiceIdentity identity = null, FleetProvisioningState? provisioningState = null, FleetHubProfile hubProfile = null)
         {
             tags ??= new Dictionary<string, string>();
 
-            return new ContainerServiceFleetData(id, name, resourceType, systemData, tags, location, eTag, identity, provisioningState, serializedAdditionalRawData: null);
+            return new ContainerServiceFleetData(id, name, resourceType, systemData, tags, location, eTag, identity, provisioningState, hubProfile, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.FleetHubProfile"/>. </summary>
+        /// <param name="dnsPrefix"> DNS prefix used to create the FQDN for the Fleet hub. </param>
+        /// <param name="apiServerAccessProfile"> The access profile for the Fleet hub API server. </param>
+        /// <param name="agentProfile"> The agent profile for the Fleet hub. </param>
+        /// <param name="fqdn"> The FQDN of the Fleet hub. </param>
+        /// <param name="kubernetesVersion"> The Kubernetes version of the Fleet hub. </param>
+        /// <param name="portalFqdn"> The Azure Portal FQDN of the Fleet hub. </param>
+        /// <returns> A new <see cref="Models.FleetHubProfile"/> instance for mocking. </returns>
+        public static FleetHubProfile FleetHubProfile(string dnsPrefix = null, ContainerServiceFleetAPIServerAccessProfile apiServerAccessProfile = null, ContainerServiceFleetAgentProfile agentProfile = null, string fqdn = null, string kubernetesVersion = null, string portalFqdn = null)
+        {
+            return new FleetHubProfile(dnsPrefix, apiServerAccessProfile, agentProfile, fqdn, kubernetesVersion, portalFqdn, serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="Models.FleetCredentialResults"/>. </summary>
@@ -198,6 +213,23 @@ namespace Azure.ResourceManager.ContainerServiceFleet.Models
             strategyStages ??= new List<ContainerServiceFleetUpdateStage>();
 
             return new FleetUpdateStrategyData(id, name, resourceType, systemData, eTag, provisioningState, strategyStages != null ? new ContainerServiceFleetUpdateRunStrategy(strategyStages?.ToList(), serializedAdditionalRawData: null) : null, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="T:Azure.ResourceManager.ContainerServiceFleet.ContainerServiceFleetData" />. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="tags"> The tags. </param>
+        /// <param name="location"> The location. </param>
+        /// <param name="eTag"> If eTag is provided in the response body, it may also be provided as a header per the normal etag convention.  Entity tags are used for comparing two or more entities from the same requested resource. HTTP/1.1 uses entity tags in the etag (section 14.19), If-Match (section 14.24), If-None-Match (section 14.26), and If-Range (section 14.27) header fields. </param>
+        /// <param name="identity"> Managed identity. </param>
+        /// <param name="provisioningState"> The status of the last operation. </param>
+        /// <returns> A new <see cref="T:Azure.ResourceManager.ContainerServiceFleet.ContainerServiceFleetData" /> instance for mocking. </returns>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static ContainerServiceFleetData ContainerServiceFleetData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ETag? eTag, ManagedServiceIdentity identity, FleetProvisioningState? provisioningState)
+        {
+            return ContainerServiceFleetData(id: id, name: name, resourceType: resourceType, systemData: systemData, tags: tags, location: location, eTag: eTag, identity: identity, provisioningState: provisioningState, hubProfile: default);
         }
     }
 }
