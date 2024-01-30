@@ -79,6 +79,11 @@ namespace Azure.ResourceManager.ContainerServiceFleet
                 writer.WritePropertyName("provisioningState"u8);
                 writer.WriteStringValue(ProvisioningState.Value.ToString());
             }
+            if (Optional.IsDefined(HubProfile))
+            {
+                writer.WritePropertyName("hubProfile"u8);
+                writer.WriteObjectValue(HubProfile);
+            }
             writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -127,6 +132,7 @@ namespace Azure.ResourceManager.ContainerServiceFleet
             ResourceType type = default;
             Optional<SystemData> systemData = default;
             Optional<FleetProvisioningState> provisioningState = default;
+            Optional<FleetHubProfile> hubProfile = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -210,6 +216,15 @@ namespace Azure.ResourceManager.ContainerServiceFleet
                             provisioningState = new FleetProvisioningState(property0.Value.GetString());
                             continue;
                         }
+                        if (property0.NameEquals("hubProfile"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            hubProfile = FleetHubProfile.DeserializeFleetHubProfile(property0.Value);
+                            continue;
+                        }
                     }
                     continue;
                 }
@@ -219,7 +234,7 @@ namespace Azure.ResourceManager.ContainerServiceFleet
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new ContainerServiceFleetData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, Optional.ToNullable(eTag), identity, Optional.ToNullable(provisioningState), serializedAdditionalRawData);
+            return new ContainerServiceFleetData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, Optional.ToNullable(eTag), identity, Optional.ToNullable(provisioningState), hubProfile.Value, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<ContainerServiceFleetData>.Write(ModelReaderWriterOptions options)
