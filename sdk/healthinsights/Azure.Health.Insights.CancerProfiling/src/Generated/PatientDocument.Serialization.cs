@@ -46,6 +46,26 @@ namespace Azure.Health.Insights.CancerProfiling
                 writer.WritePropertyName("createdDateTime"u8);
                 writer.WriteStringValue(CreatedDateTime.Value, "O");
             }
+            if (Optional.IsCollectionDefined(Authors))
+            {
+                writer.WritePropertyName("authors"u8);
+                writer.WriteStartArray();
+                foreach (var item in Authors)
+                {
+                    writer.WriteObjectValue(item);
+                }
+                writer.WriteEndArray();
+            }
+            if (Optional.IsDefined(SpecialtyType))
+            {
+                writer.WritePropertyName("specialtyType"u8);
+                writer.WriteStringValue(SpecialtyType.Value.ToString());
+            }
+            if (Optional.IsDefined(AdministrativeMetadata))
+            {
+                writer.WritePropertyName("administrativeMetadata"u8);
+                writer.WriteObjectValue(AdministrativeMetadata);
+            }
             writer.WritePropertyName("content"u8);
             writer.WriteObjectValue(Content);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
@@ -91,6 +111,9 @@ namespace Azure.Health.Insights.CancerProfiling
             string id = default;
             Optional<string> language = default;
             Optional<DateTimeOffset> createdDateTime = default;
+            Optional<IList<DocumentAuthor>> authors = default;
+            Optional<SpecialtyType> specialtyType = default;
+            Optional<DocumentAdministrativeMetadata> administrativeMetadata = default;
             DocumentContent content = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
@@ -129,6 +152,38 @@ namespace Azure.Health.Insights.CancerProfiling
                     createdDateTime = property.Value.GetDateTimeOffset("O");
                     continue;
                 }
+                if (property.NameEquals("authors"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<DocumentAuthor> array = new List<DocumentAuthor>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(DocumentAuthor.DeserializeDocumentAuthor(item));
+                    }
+                    authors = array;
+                    continue;
+                }
+                if (property.NameEquals("specialtyType"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    specialtyType = new SpecialtyType(property.Value.GetString());
+                    continue;
+                }
+                if (property.NameEquals("administrativeMetadata"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    administrativeMetadata = DocumentAdministrativeMetadata.DeserializeDocumentAdministrativeMetadata(property.Value);
+                    continue;
+                }
                 if (property.NameEquals("content"u8))
                 {
                     content = DocumentContent.DeserializeDocumentContent(property.Value);
@@ -140,7 +195,7 @@ namespace Azure.Health.Insights.CancerProfiling
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new PatientDocument(type, Optional.ToNullable(clinicalType), id, language.Value, Optional.ToNullable(createdDateTime), content, serializedAdditionalRawData);
+            return new PatientDocument(type, Optional.ToNullable(clinicalType), id, language.Value, Optional.ToNullable(createdDateTime), Optional.ToList(authors), Optional.ToNullable(specialtyType), administrativeMetadata.Value, content, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<PatientDocument>.Write(ModelReaderWriterOptions options)
