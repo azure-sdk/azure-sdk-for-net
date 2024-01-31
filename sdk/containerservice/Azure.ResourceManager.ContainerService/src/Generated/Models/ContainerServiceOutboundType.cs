@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace Azure.ResourceManager.ContainerService.Models
 {
-    /// <summary> This can only be set at cluster creation time and cannot be changed later. For more information see [egress outbound type](https://docs.microsoft.com/azure/aks/egress-outboundtype). </summary>
+    /// <summary> For more information see [egress outbound type](https://docs.microsoft.com/azure/aks/egress-outboundtype). </summary>
     public readonly partial struct ContainerServiceOutboundType : IEquatable<ContainerServiceOutboundType>
     {
         private readonly string _value;

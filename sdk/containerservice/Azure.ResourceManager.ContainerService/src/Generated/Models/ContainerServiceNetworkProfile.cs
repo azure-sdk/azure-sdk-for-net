@@ -63,7 +63,7 @@ namespace Azure.ResourceManager.ContainerService.Models
         /// <param name="podCidr"> A CIDR notation IP range from which to assign pod IPs when kubenet is used. </param>
         /// <param name="serviceCidr"> A CIDR notation IP range from which to assign service cluster IPs. It must not overlap with any Subnet IP ranges. </param>
         /// <param name="dnsServiceIP"> An IP address assigned to the Kubernetes DNS service. It must be within the Kubernetes service address range specified in serviceCidr. </param>
-        /// <param name="outboundType"> This can only be set at cluster creation time and cannot be changed later. For more information see [egress outbound type](https://docs.microsoft.com/azure/aks/egress-outboundtype). </param>
+        /// <param name="outboundType"> For more information see [egress outbound type](https://docs.microsoft.com/azure/aks/egress-outboundtype). </param>
         /// <param name="loadBalancerSku"> The default is 'standard'. See [Azure Load Balancer SKUs](https://docs.microsoft.com/azure/load-balancer/skus) for more information about the differences between load balancer SKUs. </param>
         /// <param name="loadBalancerProfile"> Profile of the cluster load balancer. </param>
         /// <param name="natGatewayProfile"> Profile of the cluster NAT gateway. </param>
@@ -107,7 +107,7 @@ namespace Azure.ResourceManager.ContainerService.Models
         public string ServiceCidr { get; set; }
         /// <summary> An IP address assigned to the Kubernetes DNS service. It must be within the Kubernetes service address range specified in serviceCidr. </summary>
         public string DnsServiceIP { get; set; }
-        /// <summary> This can only be set at cluster creation time and cannot be changed later. For more information see [egress outbound type](https://docs.microsoft.com/azure/aks/egress-outboundtype). </summary>
+        /// <summary> For more information see [egress outbound type](https://docs.microsoft.com/azure/aks/egress-outboundtype). </summary>
         public ContainerServiceOutboundType? OutboundType { get; set; }
         /// <summary> The default is 'standard'. See [Azure Load Balancer SKUs](https://docs.microsoft.com/azure/load-balancer/skus) for more information about the differences between load balancer SKUs. </summary>
         public ContainerServiceLoadBalancerSku? LoadBalancerSku { get; set; }
