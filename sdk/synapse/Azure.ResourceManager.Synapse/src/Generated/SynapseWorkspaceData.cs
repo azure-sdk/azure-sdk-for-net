@@ -57,7 +57,6 @@ namespace Azure.ResourceManager.Synapse
         {
             ConnectivityEndpoints = new ChangeTrackingDictionary<string, string>();
             PrivateEndpointConnections = new ChangeTrackingList<SynapsePrivateEndpointConnectionData>();
-            ExtraProperties = new ChangeTrackingDictionary<string, BinaryData>();
             Settings = new ChangeTrackingDictionary<string, BinaryData>();
         }
 
@@ -91,7 +90,7 @@ namespace Azure.ResourceManager.Synapse
         /// <param name="isAadOnlyAuthenticationEnabled"> Enable or Disable AzureADOnlyAuthentication on All Workspace subresource. </param>
         /// <param name="isTrustedServiceBypassEnabled"> Is trustedServiceBypassEnabled for the workspace. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal SynapseWorkspaceData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ManagedServiceIdentity identity, SynapseDataLakeStorageAccountDetails defaultDataLakeStorage, string sqlAdministratorLoginPassword, string managedResourceGroupName, string provisioningState, string sqlAdministratorLogin, VirtualNetworkProfile virtualNetworkProfile, IDictionary<string, string> connectivityEndpoints, string managedVirtualNetwork, IList<SynapsePrivateEndpointConnectionData> privateEndpointConnections, SynapseEncryptionDetails encryption, Guid? workspaceUid, IReadOnlyDictionary<string, BinaryData> extraProperties, SynapseManagedVirtualNetworkSettings managedVirtualNetworkSettings, SynapseWorkspaceRepositoryConfiguration workspaceRepositoryConfiguration, PurviewConfiguration purviewConfiguration, ResourceIdentifier adlaResourceId, WorkspacePublicNetworkAccess? publicNetworkAccess, CspWorkspaceAdminProperties cspWorkspaceAdminProperties, IReadOnlyDictionary<string, BinaryData> settings, bool? isAadOnlyAuthenticationEnabled, bool? isTrustedServiceBypassEnabled, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
+        internal SynapseWorkspaceData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, ManagedServiceIdentity identity, SynapseDataLakeStorageAccountDetails defaultDataLakeStorage, string sqlAdministratorLoginPassword, string managedResourceGroupName, string provisioningState, string sqlAdministratorLogin, VirtualNetworkProfile virtualNetworkProfile, IReadOnlyDictionary<string, string> connectivityEndpoints, string managedVirtualNetwork, IList<SynapsePrivateEndpointConnectionData> privateEndpointConnections, SynapseEncryptionDetails encryption, Guid? workspaceUid, BinaryData extraProperties, SynapseManagedVirtualNetworkSettings managedVirtualNetworkSettings, SynapseWorkspaceRepositoryConfiguration workspaceRepositoryConfiguration, PurviewConfiguration purviewConfiguration, ResourceIdentifier adlaResourceId, WorkspacePublicNetworkAccess? publicNetworkAccess, CspWorkspaceAdminProperties cspWorkspaceAdminProperties, IReadOnlyDictionary<string, BinaryData> settings, bool? isAadOnlyAuthenticationEnabled, bool? isTrustedServiceBypassEnabled, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
         {
             Identity = identity;
             DefaultDataLakeStorage = defaultDataLakeStorage;
@@ -150,7 +149,7 @@ namespace Azure.ResourceManager.Synapse
         }
 
         /// <summary> Connectivity endpoints. </summary>
-        public IDictionary<string, string> ConnectivityEndpoints { get; }
+        public IReadOnlyDictionary<string, string> ConnectivityEndpoints { get; }
         /// <summary> Setting this to 'default' will ensure that all compute for this workspace is in a virtual network managed on behalf of the user. </summary>
         public string ManagedVirtualNetwork { get; set; }
         /// <summary> Private endpoint connections to the workspace. </summary>
@@ -162,7 +161,7 @@ namespace Azure.ResourceManager.Synapse
         /// <summary>
         /// Workspace level configs and feature flags
         /// <para>
-        /// To assign an object to the value of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
+        /// To assign an object to this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
         /// </para>
         /// <para>
         /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
@@ -189,7 +188,7 @@ namespace Azure.ResourceManager.Synapse
         /// </list>
         /// </para>
         /// </summary>
-        public IReadOnlyDictionary<string, BinaryData> ExtraProperties { get; }
+        public BinaryData ExtraProperties { get; }
         /// <summary> Managed Virtual Network Settings. </summary>
         public SynapseManagedVirtualNetworkSettings ManagedVirtualNetworkSettings { get; set; }
         /// <summary> Git integration settings. </summary>
