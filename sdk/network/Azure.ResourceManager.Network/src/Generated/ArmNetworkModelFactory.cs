@@ -2343,6 +2343,48 @@ namespace Azure.ResourceManager.Network.Models
             return new SignatureOverridesFilterValuesResult(filterValues?.ToList(), serializedAdditionalRawData: null);
         }
 
+        /// <summary> Initializes a new instance of <see cref="Network.FirewallPolicyDraftData"/>. </summary>
+        /// <param name="id"> Resource ID. </param>
+        /// <param name="name"> Resource name. </param>
+        /// <param name="resourceType"> Resource type. </param>
+        /// <param name="location"> Resource location. </param>
+        /// <param name="tags"> Resource tags. </param>
+        /// <param name="basePolicyId"> The parent firewall policy from which rules are inherited. </param>
+        /// <param name="threatIntelMode"> The operation mode for Threat Intelligence. </param>
+        /// <param name="threatIntelWhitelist"> ThreatIntel Whitelist for Firewall Policy. </param>
+        /// <param name="insights"> Insights on Firewall Policy. </param>
+        /// <param name="snat"> The private IP addresses/IP ranges to which traffic will not be SNAT. </param>
+        /// <param name="allowSqlRedirect"> SQL Settings definition. </param>
+        /// <param name="dnsSettings"> DNS Proxy Settings definition. </param>
+        /// <param name="explicitProxy"> Explicit Proxy Settings definition. </param>
+        /// <param name="intrusionDetection"> The configuration for Intrusion detection. </param>
+        /// <returns> A new <see cref="Network.FirewallPolicyDraftData"/> instance for mocking. </returns>
+        public static FirewallPolicyDraftData FirewallPolicyDraftData(ResourceIdentifier id = null, string name = null, ResourceType? resourceType = null, AzureLocation? location = null, IDictionary<string, string> tags = null, ResourceIdentifier basePolicyId = null, AzureFirewallThreatIntelMode? threatIntelMode = null, FirewallPolicyThreatIntelWhitelist threatIntelWhitelist = null, FirewallPolicyInsights insights = null, FirewallPolicySnat snat = null, bool? allowSqlRedirect = null, DnsSettings dnsSettings = null, FirewallPolicyExplicitProxy explicitProxy = null, FirewallPolicyIntrusionDetection intrusionDetection = null)
+        {
+            tags ??= new Dictionary<string, string>();
+
+            return new FirewallPolicyDraftData(id, name, resourceType, location, tags, serializedAdditionalRawData: null, basePolicyId != null ? ResourceManagerModelFactory.WritableSubResource(basePolicyId) : null, threatIntelMode, threatIntelWhitelist, insights, snat, allowSqlRedirect != null ? new FirewallPolicySQL(allowSqlRedirect, serializedAdditionalRawData: null) : null, dnsSettings, explicitProxy, intrusionDetection);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Network.FirewallPolicyRuleCollectionGroupDraftData"/>. </summary>
+        /// <param name="id"> Resource ID. </param>
+        /// <param name="name"> Resource name. </param>
+        /// <param name="resourceType"> Resource type. </param>
+        /// <param name="size"> A read-only string that represents the size of the FirewallPolicyRuleCollectionGroupProperties in MB. (ex 1.2MB). </param>
+        /// <param name="priority"> Priority of the Firewall Policy Rule Collection Group resource. </param>
+        /// <param name="ruleCollections">
+        /// Group of Firewall Policy rule collections.
+        /// Please note <see cref="FirewallPolicyRuleCollectionInfo"/> is the base class. According to the scenario, a derived class of the base class might need to be assigned here, or this property needs to be casted to one of the possible derived classes.
+        /// The available derived classes include <see cref="FirewallPolicyFilterRuleCollectionInfo"/> and <see cref="FirewallPolicyNatRuleCollectionInfo"/>.
+        /// </param>
+        /// <returns> A new <see cref="Network.FirewallPolicyRuleCollectionGroupDraftData"/> instance for mocking. </returns>
+        public static FirewallPolicyRuleCollectionGroupDraftData FirewallPolicyRuleCollectionGroupDraftData(ResourceIdentifier id = null, string name = null, ResourceType? resourceType = null, string size = null, int? priority = null, IEnumerable<FirewallPolicyRuleCollectionInfo> ruleCollections = null)
+        {
+            ruleCollections ??= new List<FirewallPolicyRuleCollectionInfo>();
+
+            return new FirewallPolicyRuleCollectionGroupDraftData(id, name, resourceType, serializedAdditionalRawData: null, size, priority, ruleCollections?.ToList());
+        }
+
         /// <summary> Initializes a new instance of <see cref="Network.IPAllocationData"/>. </summary>
         /// <param name="id"> Resource ID. </param>
         /// <param name="name"> Resource name. </param>
