@@ -184,6 +184,7 @@ namespace Azure.ResourceManager.DataFactory.Models
                     case "SapOpenHub": return SapOpenHubLinkedService.DeserializeSapOpenHubLinkedService(element);
                     case "SapTable": return SapTableLinkedService.DeserializeSapTableLinkedService(element);
                     case "ServiceNow": return ServiceNowLinkedService.DeserializeServiceNowLinkedService(element);
+                    case "ServiceNowV2": return ServiceNowV2LinkedService.DeserializeServiceNowV2LinkedService(element);
                     case "Sftp": return SftpServerLinkedService.DeserializeSftpServerLinkedService(element);
                     case "SharePointOnlineList": return SharePointOnlineListLinkedService.DeserializeSharePointOnlineListLinkedService(element);
                     case "Shopify": return ShopifyLinkedService.DeserializeShopifyLinkedService(element);

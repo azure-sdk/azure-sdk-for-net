@@ -183,6 +183,7 @@ namespace Azure.ResourceManager.DataFactory.Models
                     case "SapOpenHubTable": return SapOpenHubTableDataset.DeserializeSapOpenHubTableDataset(element);
                     case "SapTableResource": return SapTableResourceDataset.DeserializeSapTableResourceDataset(element);
                     case "ServiceNowObject": return ServiceNowObjectDataset.DeserializeServiceNowObjectDataset(element);
+                    case "ServiceNowV2Object": return ServiceNowV2ObjectDataset.DeserializeServiceNowV2ObjectDataset(element);
                     case "SharePointOnlineListResource": return SharePointOnlineListResourceDataset.DeserializeSharePointOnlineListResourceDataset(element);
                     case "ShopifyObject": return ShopifyObjectDataset.DeserializeShopifyObjectDataset(element);
                     case "SnowflakeTable": return SnowflakeDataset.DeserializeSnowflakeDataset(element);

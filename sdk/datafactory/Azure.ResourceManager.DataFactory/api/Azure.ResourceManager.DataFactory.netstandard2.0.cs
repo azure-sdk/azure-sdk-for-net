@@ -3408,6 +3408,34 @@ namespace Azure.ResourceManager.DataFactory.Models
         public string FeatureName { get { throw null; } }
         public string Value { get { throw null; } }
     }
+    public partial class ExpressionV2
+    {
+        public ExpressionV2() { }
+        public System.Collections.Generic.IList<Azure.ResourceManager.DataFactory.Models.ExpressionV2> Operands { get { throw null; } }
+        public string Operator { get { throw null; } set { } }
+        public Azure.ResourceManager.DataFactory.Models.ExpressionV2Type? V2Type { get { throw null; } set { } }
+        public string Value { get { throw null; } set { } }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct ExpressionV2Type : System.IEquatable<Azure.ResourceManager.DataFactory.Models.ExpressionV2Type>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public ExpressionV2Type(string value) { throw null; }
+        public static Azure.ResourceManager.DataFactory.Models.ExpressionV2Type Binary { get { throw null; } }
+        public static Azure.ResourceManager.DataFactory.Models.ExpressionV2Type Constant { get { throw null; } }
+        public static Azure.ResourceManager.DataFactory.Models.ExpressionV2Type Field { get { throw null; } }
+        public static Azure.ResourceManager.DataFactory.Models.ExpressionV2Type Unary { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.DataFactory.Models.ExpressionV2Type other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.DataFactory.Models.ExpressionV2Type left, Azure.ResourceManager.DataFactory.Models.ExpressionV2Type right) { throw null; }
+        public static implicit operator Azure.ResourceManager.DataFactory.Models.ExpressionV2Type (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.DataFactory.Models.ExpressionV2Type left, Azure.ResourceManager.DataFactory.Models.ExpressionV2Type right) { throw null; }
+        public override string ToString() { throw null; }
+    }
     public partial class FactoryGitHubClientSecret
     {
         public FactoryGitHubClientSecret() { }
@@ -6674,6 +6702,46 @@ namespace Azure.ResourceManager.DataFactory.Models
     {
         public ServiceNowSource() { }
         public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> Query { get { throw null; } set { } }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct ServiceNowV2AuthenticationType : System.IEquatable<Azure.ResourceManager.DataFactory.Models.ServiceNowV2AuthenticationType>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public ServiceNowV2AuthenticationType(string value) { throw null; }
+        public static Azure.ResourceManager.DataFactory.Models.ServiceNowV2AuthenticationType Basic { get { throw null; } }
+        public static Azure.ResourceManager.DataFactory.Models.ServiceNowV2AuthenticationType OAuth2 { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.DataFactory.Models.ServiceNowV2AuthenticationType other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.DataFactory.Models.ServiceNowV2AuthenticationType left, Azure.ResourceManager.DataFactory.Models.ServiceNowV2AuthenticationType right) { throw null; }
+        public static implicit operator Azure.ResourceManager.DataFactory.Models.ServiceNowV2AuthenticationType (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.DataFactory.Models.ServiceNowV2AuthenticationType left, Azure.ResourceManager.DataFactory.Models.ServiceNowV2AuthenticationType right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    public partial class ServiceNowV2LinkedService : Azure.ResourceManager.DataFactory.Models.DataFactoryLinkedServiceProperties
+    {
+        public ServiceNowV2LinkedService(Azure.Core.Expressions.DataFactory.DataFactoryElement<string> endpoint, Azure.ResourceManager.DataFactory.Models.ServiceNowV2AuthenticationType authenticationType) { }
+        public Azure.ResourceManager.DataFactory.Models.ServiceNowV2AuthenticationType AuthenticationType { get { throw null; } set { } }
+        public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> ClientId { get { throw null; } set { } }
+        public Azure.Core.Expressions.DataFactory.DataFactorySecretBaseDefinition ClientSecret { get { throw null; } set { } }
+        public string EncryptedCredential { get { throw null; } set { } }
+        public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> Endpoint { get { throw null; } set { } }
+        public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> GrantType { get { throw null; } set { } }
+        public Azure.Core.Expressions.DataFactory.DataFactorySecretBaseDefinition Password { get { throw null; } set { } }
+        public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> Username { get { throw null; } set { } }
+    }
+    public partial class ServiceNowV2ObjectDataset : Azure.ResourceManager.DataFactory.Models.DataFactoryDatasetProperties
+    {
+        public ServiceNowV2ObjectDataset(Azure.Core.Expressions.DataFactory.DataFactoryLinkedServiceReference linkedServiceName) : base (default(Azure.Core.Expressions.DataFactory.DataFactoryLinkedServiceReference)) { }
+        public Azure.Core.Expressions.DataFactory.DataFactoryElement<string> TableName { get { throw null; } set { } }
+    }
+    public partial class ServiceNowV2Source : Azure.ResourceManager.DataFactory.Models.TabularSource
+    {
+        public ServiceNowV2Source() { }
+        public Azure.ResourceManager.DataFactory.Models.ExpressionV2 Expression { get { throw null; } set { } }
     }
     public partial class ServicePrincipalCredential : Azure.ResourceManager.DataFactory.Models.DataFactoryCredential
     {

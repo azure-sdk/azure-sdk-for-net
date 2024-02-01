@@ -130,6 +130,7 @@ namespace Azure.ResourceManager.DataFactory.Models
                     case "SapOpenHubSource": return SapOpenHubSource.DeserializeSapOpenHubSource(element);
                     case "SapTableSource": return SapTableSource.DeserializeSapTableSource(element);
                     case "ServiceNowSource": return ServiceNowSource.DeserializeServiceNowSource(element);
+                    case "ServiceNowV2Source": return ServiceNowV2Source.DeserializeServiceNowV2Source(element);
                     case "ShopifySource": return ShopifySource.DeserializeShopifySource(element);
                     case "SparkSource": return SparkSource.DeserializeSparkSource(element);
                     case "SqlDWSource": return SqlDWSource.DeserializeSqlDWSource(element);
