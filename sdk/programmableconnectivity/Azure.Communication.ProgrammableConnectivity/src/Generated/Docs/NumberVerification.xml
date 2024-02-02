@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="VerifyAsync(string,NumberVerificationContent,CancellationToken)">
+      <example>
+This sample shows how to call VerifyAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+NumberVerification client = new ProgrammableConnectivityClient(endpoint, credential).GetNumberVerificationClient(apiVersion: "v2024_01_09_preview");
+
+NumberVerificationContent numberVerificationContent = new NumberVerificationContent(new NetworkIdentifier("<identifierType>", "<identifier>"));
+Response<NumberVerificationResult> response = await client.VerifyAsync("<apcGatewayId>", numberVerificationContent);
+]]></code>
+This sample shows how to call VerifyAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+NumberVerification client = new ProgrammableConnectivityClient(endpoint, credential).GetNumberVerificationClient(apiVersion: "v2024_01_09_preview");
+
+NumberVerificationContent numberVerificationContent = new NumberVerificationContent(new NetworkIdentifier("<identifierType>", "<identifier>"))
+{
+    PhoneNumber = "<phoneNumber>",
+    HashedPhoneNumber = "<hashedPhoneNumber>",
+};
+Response<NumberVerificationResult> response = await client.VerifyAsync("<apcGatewayId>", numberVerificationContent);
+]]></code></example>
+    </member>
+    <member name="Verify(string,NumberVerificationContent,CancellationToken)">
+      <example>
+This sample shows how to call Verify.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+NumberVerification client = new ProgrammableConnectivityClient(endpoint, credential).GetNumberVerificationClient(apiVersion: "v2024_01_09_preview");
+
+NumberVerificationContent numberVerificationContent = new NumberVerificationContent(new NetworkIdentifier("<identifierType>", "<identifier>"));
+Response<NumberVerificationResult> response = client.Verify("<apcGatewayId>", numberVerificationContent);
+]]></code>
+This sample shows how to call Verify with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+NumberVerification client = new ProgrammableConnectivityClient(endpoint, credential).GetNumberVerificationClient(apiVersion: "v2024_01_09_preview");
+
+NumberVerificationContent numberVerificationContent = new NumberVerificationContent(new NetworkIdentifier("<identifierType>", "<identifier>"))
+{
+    PhoneNumber = "<phoneNumber>",
+    HashedPhoneNumber = "<hashedPhoneNumber>",
+};
+Response<NumberVerificationResult> response = client.Verify("<apcGatewayId>", numberVerificationContent);
+]]></code></example>
+    </member>
+    <member name="VerifyAsync(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call VerifyAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+NumberVerification client = new ProgrammableConnectivityClient(endpoint, credential).GetNumberVerificationClient(apiVersion: "v2024_01_09_preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    networkIdentifier = new
+    {
+        identifierType = "<identifierType>",
+        identifier = "<identifier>",
+    },
+});
+Response response = await client.VerifyAsync("<apcGatewayId>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("verificationResult").ToString());
+]]></code>
+This sample shows how to call VerifyAsync with all parameters and request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+NumberVerification client = new ProgrammableConnectivityClient(endpoint, credential).GetNumberVerificationClient(apiVersion: "v2024_01_09_preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    networkIdentifier = new
+    {
+        identifierType = "<identifierType>",
+        identifier = "<identifier>",
+    },
+    phoneNumber = "<phoneNumber>",
+    hashedPhoneNumber = "<hashedPhoneNumber>",
+});
+Response response = await client.VerifyAsync("<apcGatewayId>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("verificationResult").ToString());
+]]></code></example>
+    </member>
+    <member name="Verify(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call Verify and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+NumberVerification client = new ProgrammableConnectivityClient(endpoint, credential).GetNumberVerificationClient(apiVersion: "v2024_01_09_preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    networkIdentifier = new
+    {
+        identifierType = "<identifierType>",
+        identifier = "<identifier>",
+    },
+});
+Response response = client.Verify("<apcGatewayId>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("verificationResult").ToString());
+]]></code>
+This sample shows how to call Verify with all parameters and request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+NumberVerification client = new ProgrammableConnectivityClient(endpoint, credential).GetNumberVerificationClient(apiVersion: "v2024_01_09_preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    networkIdentifier = new
+    {
+        identifierType = "<identifierType>",
+        identifier = "<identifier>",
+    },
+    phoneNumber = "<phoneNumber>",
+    hashedPhoneNumber = "<hashedPhoneNumber>",
+});
+Response response = client.Verify("<apcGatewayId>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("verificationResult").ToString());
+]]></code></example>
+    </member>
+    <member name="RetrieveAsync(string,NetworkIdentifier,CancellationToken)">
+      <example>
+This sample shows how to call RetrieveAsync.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+NumberVerification client = new ProgrammableConnectivityClient(endpoint, credential).GetNumberVerificationClient(apiVersion: "v2024_01_09_preview");
+
+NetworkIdentifier networkIdentifier = new NetworkIdentifier("<identifierType>", "<identifier>");
+Response<NumberRetrievalResult> response = await client.RetrieveAsync("<apcGatewayId>", networkIdentifier);
+]]></code>
+This sample shows how to call RetrieveAsync with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+NumberVerification client = new ProgrammableConnectivityClient(endpoint, credential).GetNumberVerificationClient(apiVersion: "v2024_01_09_preview");
+
+NetworkIdentifier networkIdentifier = new NetworkIdentifier("<identifierType>", "<identifier>");
+Response<NumberRetrievalResult> response = await client.RetrieveAsync("<apcGatewayId>", networkIdentifier);
+]]></code></example>
+    </member>
+    <member name="Retrieve(string,NetworkIdentifier,CancellationToken)">
+      <example>
+This sample shows how to call Retrieve.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+NumberVerification client = new ProgrammableConnectivityClient(endpoint, credential).GetNumberVerificationClient(apiVersion: "v2024_01_09_preview");
+
+NetworkIdentifier networkIdentifier = new NetworkIdentifier("<identifierType>", "<identifier>");
+Response<NumberRetrievalResult> response = client.Retrieve("<apcGatewayId>", networkIdentifier);
+]]></code>
+This sample shows how to call Retrieve with all parameters.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+NumberVerification client = new ProgrammableConnectivityClient(endpoint, credential).GetNumberVerificationClient(apiVersion: "v2024_01_09_preview");
+
+NetworkIdentifier networkIdentifier = new NetworkIdentifier("<identifierType>", "<identifier>");
+Response<NumberRetrievalResult> response = client.Retrieve("<apcGatewayId>", networkIdentifier);
+]]></code></example>
+    </member>
+    <member name="RetrieveAsync(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call RetrieveAsync and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+NumberVerification client = new ProgrammableConnectivityClient(endpoint, credential).GetNumberVerificationClient(apiVersion: "v2024_01_09_preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    identifierType = "<identifierType>",
+    identifier = "<identifier>",
+});
+Response response = await client.RetrieveAsync("<apcGatewayId>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("phoneNumber").ToString());
+]]></code>
+This sample shows how to call RetrieveAsync with all parameters and request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+NumberVerification client = new ProgrammableConnectivityClient(endpoint, credential).GetNumberVerificationClient(apiVersion: "v2024_01_09_preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    identifierType = "<identifierType>",
+    identifier = "<identifier>",
+});
+Response response = await client.RetrieveAsync("<apcGatewayId>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("phoneNumber").ToString());
+]]></code></example>
+    </member>
+    <member name="Retrieve(string,RequestContent,RequestContext)">
+      <example>
+This sample shows how to call Retrieve and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+NumberVerification client = new ProgrammableConnectivityClient(endpoint, credential).GetNumberVerificationClient(apiVersion: "v2024_01_09_preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    identifierType = "<identifierType>",
+    identifier = "<identifier>",
+});
+Response response = client.Retrieve("<apcGatewayId>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("phoneNumber").ToString());
+]]></code>
+This sample shows how to call Retrieve with all parameters and request content and parse the result.
+<code><![CDATA[
+Uri endpoint = new Uri("<https://my-service.azure.com>");
+TokenCredential credential = new DefaultAzureCredential();
+NumberVerification client = new ProgrammableConnectivityClient(endpoint, credential).GetNumberVerificationClient(apiVersion: "v2024_01_09_preview");
+
+using RequestContent content = RequestContent.Create(new
+{
+    identifierType = "<identifierType>",
+    identifier = "<identifier>",
+});
+Response response = client.Retrieve("<apcGatewayId>", content);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("phoneNumber").ToString());
+]]></code></example>
+    </member>
+  </members>
+</doc>
