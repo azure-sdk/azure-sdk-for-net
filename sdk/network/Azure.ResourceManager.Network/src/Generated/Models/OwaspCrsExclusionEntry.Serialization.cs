@@ -26,12 +26,38 @@ namespace Azure.ResourceManager.Network.Models
             }
 
             writer.WriteStartObject();
+            if (Optional.IsDefined(Exclude))
+            {
+                writer.WritePropertyName("exclude"u8);
+                writer.WriteStringValue(Exclude.Value.ToString());
+            }
             writer.WritePropertyName("matchVariable"u8);
             writer.WriteStringValue(MatchVariable.ToString());
-            writer.WritePropertyName("selectorMatchOperator"u8);
-            writer.WriteStringValue(SelectorMatchOperator.ToString());
-            writer.WritePropertyName("selector"u8);
-            writer.WriteStringValue(Selector);
+            if (Optional.IsDefined(SelectorMatchOperator))
+            {
+                writer.WritePropertyName("selectorMatchOperator"u8);
+                writer.WriteStringValue(SelectorMatchOperator.Value.ToString());
+            }
+            if (Optional.IsDefined(Selector))
+            {
+                writer.WritePropertyName("selector"u8);
+                writer.WriteStringValue(Selector);
+            }
+            if (Optional.IsCollectionDefined(Values))
+            {
+                writer.WritePropertyName("values"u8);
+                writer.WriteStartArray();
+                foreach (var item in Values)
+                {
+                    writer.WriteStringValue(item);
+                }
+                writer.WriteEndArray();
+            }
+            if (Optional.IsDefined(ValueMatchOperator))
+            {
+                writer.WritePropertyName("valueMatchOperator "u8);
+                writer.WriteStringValue(ValueMatchOperator.Value.ToString());
+            }
             if (Optional.IsCollectionDefined(ExclusionManagedRuleSets))
             {
                 writer.WritePropertyName("exclusionManagedRuleSets"u8);
@@ -80,14 +106,26 @@ namespace Azure.ResourceManager.Network.Models
             {
                 return null;
             }
+            Optional<OwaspCrsExclusionEntryExclude> exclude = default;
             OwaspCrsExclusionEntryMatchVariable matchVariable = default;
-            OwaspCrsExclusionEntrySelectorMatchOperator selectorMatchOperator = default;
-            string selector = default;
+            Optional<OwaspCrsExclusionEntrySelectorMatchOperator> selectorMatchOperator = default;
+            Optional<string> selector = default;
+            Optional<IList<string>> values = default;
+            Optional<OwaspCrsExclusionEntryValueMatchOperator> valueMatchOperator = default;
             Optional<IList<ExclusionManagedRuleSet>> exclusionManagedRuleSets = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
+                if (property.NameEquals("exclude"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    exclude = new OwaspCrsExclusionEntryExclude(property.Value.GetString());
+                    continue;
+                }
                 if (property.NameEquals("matchVariable"u8))
                 {
                     matchVariable = new OwaspCrsExclusionEntryMatchVariable(property.Value.GetString());
@@ -95,12 +133,39 @@ namespace Azure.ResourceManager.Network.Models
                 }
                 if (property.NameEquals("selectorMatchOperator"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     selectorMatchOperator = new OwaspCrsExclusionEntrySelectorMatchOperator(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("selector"u8))
                 {
                     selector = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("values"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<string> array = new List<string>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(item.GetString());
+                    }
+                    values = array;
+                    continue;
+                }
+                if (property.NameEquals("valueMatchOperator "u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    valueMatchOperator = new OwaspCrsExclusionEntryValueMatchOperator(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("exclusionManagedRuleSets"u8))
@@ -123,7 +188,7 @@ namespace Azure.ResourceManager.Network.Models
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new OwaspCrsExclusionEntry(matchVariable, selectorMatchOperator, selector, Optional.ToList(exclusionManagedRuleSets), serializedAdditionalRawData);
+            return new OwaspCrsExclusionEntry(Optional.ToNullable(exclude), matchVariable, Optional.ToNullable(selectorMatchOperator), selector.Value, Optional.ToList(values), Optional.ToNullable(valueMatchOperator), Optional.ToList(exclusionManagedRuleSets), serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<OwaspCrsExclusionEntry>.Write(ModelReaderWriterOptions options)

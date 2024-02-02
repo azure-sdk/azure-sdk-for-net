@@ -11,7 +11,7 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.Network.Models
 {
-    /// <summary> Allow to exclude some variable satisfy the condition for the WAF check. </summary>
+    /// <summary> Allows exclusion of a variable or the whole request from WAF check when the exclusion condition is satisfied. </summary>
     public partial class OwaspCrsExclusionEntry
     {
         /// <summary>
@@ -47,31 +47,31 @@ namespace Azure.ResourceManager.Network.Models
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="OwaspCrsExclusionEntry"/>. </summary>
-        /// <param name="matchVariable"> The variable to be excluded. </param>
-        /// <param name="selectorMatchOperator"> When matchVariable is a collection, operate on the selector to specify which elements in the collection this exclusion applies to. </param>
-        /// <param name="selector"> When matchVariable is a collection, operator used to specify which elements in the collection this exclusion applies to. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="selector"/> is null. </exception>
-        public OwaspCrsExclusionEntry(OwaspCrsExclusionEntryMatchVariable matchVariable, OwaspCrsExclusionEntrySelectorMatchOperator selectorMatchOperator, string selector)
+        /// <param name="matchVariable"> The variable on which we evaluate the exclusion condition. </param>
+        public OwaspCrsExclusionEntry(OwaspCrsExclusionEntryMatchVariable matchVariable)
         {
-            Argument.AssertNotNull(selector, nameof(selector));
-
             MatchVariable = matchVariable;
-            SelectorMatchOperator = selectorMatchOperator;
-            Selector = selector;
+            Values = new ChangeTrackingList<string>();
             ExclusionManagedRuleSets = new ChangeTrackingList<ExclusionManagedRuleSet>();
         }
 
         /// <summary> Initializes a new instance of <see cref="OwaspCrsExclusionEntry"/>. </summary>
-        /// <param name="matchVariable"> The variable to be excluded. </param>
+        /// <param name="exclude"> Exclusion type that determines if only a variable is to be excluded or the whole request. </param>
+        /// <param name="matchVariable"> The variable on which we evaluate the exclusion condition. </param>
         /// <param name="selectorMatchOperator"> When matchVariable is a collection, operate on the selector to specify which elements in the collection this exclusion applies to. </param>
         /// <param name="selector"> When matchVariable is a collection, operator used to specify which elements in the collection this exclusion applies to. </param>
+        /// <param name="values"> Allowed values for request exclusion. </param>
+        /// <param name="valueMatchOperator"> Operates on the allowed values for request exclusion. </param>
         /// <param name="exclusionManagedRuleSets"> The managed rule sets that are associated with the exclusion. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal OwaspCrsExclusionEntry(OwaspCrsExclusionEntryMatchVariable matchVariable, OwaspCrsExclusionEntrySelectorMatchOperator selectorMatchOperator, string selector, IList<ExclusionManagedRuleSet> exclusionManagedRuleSets, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal OwaspCrsExclusionEntry(OwaspCrsExclusionEntryExclude? exclude, OwaspCrsExclusionEntryMatchVariable matchVariable, OwaspCrsExclusionEntrySelectorMatchOperator? selectorMatchOperator, string selector, IList<string> values, OwaspCrsExclusionEntryValueMatchOperator? valueMatchOperator, IList<ExclusionManagedRuleSet> exclusionManagedRuleSets, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
+            Exclude = exclude;
             MatchVariable = matchVariable;
             SelectorMatchOperator = selectorMatchOperator;
             Selector = selector;
+            Values = values;
+            ValueMatchOperator = valueMatchOperator;
             ExclusionManagedRuleSets = exclusionManagedRuleSets;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
@@ -81,12 +81,18 @@ namespace Azure.ResourceManager.Network.Models
         {
         }
 
-        /// <summary> The variable to be excluded. </summary>
+        /// <summary> Exclusion type that determines if only a variable is to be excluded or the whole request. </summary>
+        public OwaspCrsExclusionEntryExclude? Exclude { get; set; }
+        /// <summary> The variable on which we evaluate the exclusion condition. </summary>
         public OwaspCrsExclusionEntryMatchVariable MatchVariable { get; set; }
         /// <summary> When matchVariable is a collection, operate on the selector to specify which elements in the collection this exclusion applies to. </summary>
-        public OwaspCrsExclusionEntrySelectorMatchOperator SelectorMatchOperator { get; set; }
+        public OwaspCrsExclusionEntrySelectorMatchOperator? SelectorMatchOperator { get; set; }
         /// <summary> When matchVariable is a collection, operator used to specify which elements in the collection this exclusion applies to. </summary>
         public string Selector { get; set; }
+        /// <summary> Allowed values for request exclusion. </summary>
+        public IList<string> Values { get; }
+        /// <summary> Operates on the allowed values for request exclusion. </summary>
+        public OwaspCrsExclusionEntryValueMatchOperator? ValueMatchOperator { get; set; }
         /// <summary> The managed rule sets that are associated with the exclusion. </summary>
         public IList<ExclusionManagedRuleSet> ExclusionManagedRuleSets { get; }
     }

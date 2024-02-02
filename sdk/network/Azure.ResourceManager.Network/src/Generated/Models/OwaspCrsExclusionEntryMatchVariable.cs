@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace Azure.ResourceManager.Network.Models
 {
-    /// <summary> The variable to be excluded. </summary>
+    /// <summary> The variable on which we evaluate the exclusion condition. </summary>
     public readonly partial struct OwaspCrsExclusionEntryMatchVariable : IEquatable<OwaspCrsExclusionEntryMatchVariable>
     {
         private readonly string _value;
@@ -31,6 +31,9 @@ namespace Azure.ResourceManager.Network.Models
         private const string RequestCookieValuesValue = "RequestCookieValues";
         private const string RequestArgKeysValue = "RequestArgKeys";
         private const string RequestArgValuesValue = "RequestArgValues";
+        private const string RequestUriValue = "RequestURI";
+        private const string RemoteAddrValue = "RemoteAddr";
+        private const string RequestHeaderValue = "RequestHeader";
 
         /// <summary> RequestHeaderNames. </summary>
         public static OwaspCrsExclusionEntryMatchVariable RequestHeaderNames { get; } = new OwaspCrsExclusionEntryMatchVariable(RequestHeaderNamesValue);
@@ -50,6 +53,12 @@ namespace Azure.ResourceManager.Network.Models
         public static OwaspCrsExclusionEntryMatchVariable RequestArgKeys { get; } = new OwaspCrsExclusionEntryMatchVariable(RequestArgKeysValue);
         /// <summary> RequestArgValues. </summary>
         public static OwaspCrsExclusionEntryMatchVariable RequestArgValues { get; } = new OwaspCrsExclusionEntryMatchVariable(RequestArgValuesValue);
+        /// <summary> RequestURI. </summary>
+        public static OwaspCrsExclusionEntryMatchVariable RequestUri { get; } = new OwaspCrsExclusionEntryMatchVariable(RequestUriValue);
+        /// <summary> RemoteAddr. </summary>
+        public static OwaspCrsExclusionEntryMatchVariable RemoteAddr { get; } = new OwaspCrsExclusionEntryMatchVariable(RemoteAddrValue);
+        /// <summary> RequestHeader. </summary>
+        public static OwaspCrsExclusionEntryMatchVariable RequestHeader { get; } = new OwaspCrsExclusionEntryMatchVariable(RequestHeaderValue);
         /// <summary> Determines if two <see cref="OwaspCrsExclusionEntryMatchVariable"/> values are the same. </summary>
         public static bool operator ==(OwaspCrsExclusionEntryMatchVariable left, OwaspCrsExclusionEntryMatchVariable right) => left.Equals(right);
         /// <summary> Determines if two <see cref="OwaspCrsExclusionEntryMatchVariable"/> values are not the same. </summary>

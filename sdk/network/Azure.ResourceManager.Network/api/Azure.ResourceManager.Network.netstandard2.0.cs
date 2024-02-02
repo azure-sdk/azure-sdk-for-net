@@ -13259,11 +13259,14 @@ namespace Azure.ResourceManager.Network.Models
     }
     public partial class OwaspCrsExclusionEntry : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntry>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntry>
     {
-        public OwaspCrsExclusionEntry(Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntryMatchVariable matchVariable, Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntrySelectorMatchOperator selectorMatchOperator, string selector) { }
+        public OwaspCrsExclusionEntry(Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntryMatchVariable matchVariable) { }
+        public Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntryExclude? Exclude { get { throw null; } set { } }
         public System.Collections.Generic.IList<Azure.ResourceManager.Network.Models.ExclusionManagedRuleSet> ExclusionManagedRuleSets { get { throw null; } }
         public Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntryMatchVariable MatchVariable { get { throw null; } set { } }
         public string Selector { get { throw null; } set { } }
-        public Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntrySelectorMatchOperator SelectorMatchOperator { get { throw null; } set { } }
+        public Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntrySelectorMatchOperator? SelectorMatchOperator { get { throw null; } set { } }
+        public Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntryValueMatchOperator? ValueMatchOperator { get { throw null; } set { } }
+        public System.Collections.Generic.IList<string> Values { get { throw null; } }
         Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntry System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntry>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntry>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntry System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntry>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -13271,20 +13274,41 @@ namespace Azure.ResourceManager.Network.Models
         System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntry>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct OwaspCrsExclusionEntryExclude : System.IEquatable<Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntryExclude>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public OwaspCrsExclusionEntryExclude(string value) { throw null; }
+        public static Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntryExclude MatchVariable { get { throw null; } }
+        public static Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntryExclude Request { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntryExclude other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntryExclude left, Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntryExclude right) { throw null; }
+        public static implicit operator Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntryExclude (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntryExclude left, Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntryExclude right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct OwaspCrsExclusionEntryMatchVariable : System.IEquatable<Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntryMatchVariable>
     {
         private readonly object _dummy;
         private readonly int _dummyPrimitive;
         public OwaspCrsExclusionEntryMatchVariable(string value) { throw null; }
+        public static Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntryMatchVariable RemoteAddr { get { throw null; } }
         public static Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntryMatchVariable RequestArgKeys { get { throw null; } }
         public static Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntryMatchVariable RequestArgNames { get { throw null; } }
         public static Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntryMatchVariable RequestArgValues { get { throw null; } }
         public static Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntryMatchVariable RequestCookieKeys { get { throw null; } }
         public static Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntryMatchVariable RequestCookieNames { get { throw null; } }
         public static Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntryMatchVariable RequestCookieValues { get { throw null; } }
+        public static Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntryMatchVariable RequestHeader { get { throw null; } }
         public static Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntryMatchVariable RequestHeaderKeys { get { throw null; } }
         public static Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntryMatchVariable RequestHeaderNames { get { throw null; } }
         public static Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntryMatchVariable RequestHeaderValues { get { throw null; } }
+        public static Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntryMatchVariable RequestUri { get { throw null; } }
         public bool Equals(Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntryMatchVariable other) { throw null; }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public override bool Equals(object obj) { throw null; }
@@ -13314,6 +13338,26 @@ namespace Azure.ResourceManager.Network.Models
         public static bool operator ==(Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntrySelectorMatchOperator left, Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntrySelectorMatchOperator right) { throw null; }
         public static implicit operator Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntrySelectorMatchOperator (string value) { throw null; }
         public static bool operator !=(Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntrySelectorMatchOperator left, Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntrySelectorMatchOperator right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct OwaspCrsExclusionEntryValueMatchOperator : System.IEquatable<Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntryValueMatchOperator>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public OwaspCrsExclusionEntryValueMatchOperator(string value) { throw null; }
+        public static Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntryValueMatchOperator Contains { get { throw null; } }
+        public static Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntryValueMatchOperator EndsWith { get { throw null; } }
+        public static Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntryValueMatchOperator EqualsValue { get { throw null; } }
+        public static Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntryValueMatchOperator StartsWith { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntryValueMatchOperator other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntryValueMatchOperator left, Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntryValueMatchOperator right) { throw null; }
+        public static implicit operator Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntryValueMatchOperator (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntryValueMatchOperator left, Azure.ResourceManager.Network.Models.OwaspCrsExclusionEntryValueMatchOperator right) { throw null; }
         public override string ToString() { throw null; }
     }
     public partial class P2SConnectionConfiguration : Azure.ResourceManager.Network.Models.NetworkResourceData, System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Network.Models.P2SConnectionConfiguration>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Network.Models.P2SConnectionConfiguration>
