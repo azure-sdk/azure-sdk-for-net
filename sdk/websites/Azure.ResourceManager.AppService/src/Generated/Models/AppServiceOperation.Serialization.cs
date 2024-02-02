@@ -9,7 +9,6 @@ using System;
 using System.ClientModel.Primitives;
 using System.Collections.Generic;
 using System.Text.Json;
-using Azure;
 using Azure.Core;
 
 namespace Azure.ResourceManager.AppService.Models
@@ -48,7 +47,7 @@ namespace Azure.ResourceManager.AppService.Models
                 writer.WriteStartArray();
                 foreach (var item in Errors)
                 {
-                    JsonSerializer.Serialize(writer, item);
+                    writer.WriteObjectValue(item);
                 }
                 writer.WriteEndArray();
             }
@@ -113,7 +112,7 @@ namespace Azure.ResourceManager.AppService.Models
             Optional<string> id = default;
             Optional<string> name = default;
             Optional<AppServiceOperationStatus> status = default;
-            Optional<IReadOnlyList<ResponseError>> errors = default;
+            Optional<IReadOnlyList<ErrorEntity>> errors = default;
             Optional<DateTimeOffset> createdTime = default;
             Optional<DateTimeOffset> modifiedTime = default;
             Optional<DateTimeOffset> expirationTime = default;
@@ -147,10 +146,10 @@ namespace Azure.ResourceManager.AppService.Models
                     {
                         continue;
                     }
-                    List<ResponseError> array = new List<ResponseError>();
+                    List<ErrorEntity> array = new List<ErrorEntity>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(JsonSerializer.Deserialize<ResponseError>(item.GetRawText()));
+                        array.Add(ErrorEntity.DeserializeErrorEntity(item));
                     }
                     errors = array;
                     continue;
