@@ -17,7 +17,8 @@ namespace Microsoft.Azure.Management.Network.Models
     using System.Linq;
 
     /// <summary>
-    /// Allow to exclude some variable satisfy the condition for the WAF check.
+    /// Allows exclusion of a variable or the whole request from WAF check when
+    /// the exclusion condition is satisfied.
     /// </summary>
     public partial class OwaspCrsExclusionEntry
     {
@@ -32,11 +33,15 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <summary>
         /// Initializes a new instance of the OwaspCrsExclusionEntry class.
         /// </summary>
-        /// <param name="matchVariable">The variable to be excluded. Possible
-        /// values include: 'RequestHeaderNames', 'RequestCookieNames',
-        /// 'RequestArgNames', 'RequestHeaderKeys', 'RequestHeaderValues',
-        /// 'RequestCookieKeys', 'RequestCookieValues', 'RequestArgKeys',
-        /// 'RequestArgValues'</param>
+        /// <param name="matchVariable">The variable on which we evaluate the
+        /// exclusion condition. Possible values include: 'RequestHeaderNames',
+        /// 'RequestCookieNames', 'RequestArgNames', 'RequestHeaderKeys',
+        /// 'RequestHeaderValues', 'RequestCookieKeys', 'RequestCookieValues',
+        /// 'RequestArgKeys', 'RequestArgValues', 'RequestURI', 'RemoteAddr',
+        /// 'RequestHeader'</param>
+        /// <param name="exclude">Exclusion type that determines if only a
+        /// variable is to be excluded or the whole request. Possible values
+        /// include: 'MatchVariable', 'Request'</param>
         /// <param name="selectorMatchOperator">When matchVariable is a
         /// collection, operate on the selector to specify which elements in
         /// the collection this exclusion applies to. Possible values include:
@@ -44,13 +49,20 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <param name="selector">When matchVariable is a collection, operator
         /// used to specify which elements in the collection this exclusion
         /// applies to.</param>
+        /// <param name="values">Allowed values for request exclusion</param>
+        /// <param name="valueMatchOperator">Operates on the allowed values for
+        /// request exclusion. Possible values include: 'Equals', 'Contains',
+        /// 'StartsWith', 'EndsWith'</param>
         /// <param name="exclusionManagedRuleSets">The managed rule sets that
         /// are associated with the exclusion.</param>
-        public OwaspCrsExclusionEntry(string matchVariable, string selectorMatchOperator, string selector, IList<ExclusionManagedRuleSet> exclusionManagedRuleSets = default(IList<ExclusionManagedRuleSet>))
+        public OwaspCrsExclusionEntry(string matchVariable, string exclude = default(string), string selectorMatchOperator = default(string), string selector = default(string), IList<string> values = default(IList<string>), string valueMatchOperator = default(string), IList<ExclusionManagedRuleSet> exclusionManagedRuleSets = default(IList<ExclusionManagedRuleSet>))
         {
+            Exclude = exclude;
             MatchVariable = matchVariable;
             SelectorMatchOperator = selectorMatchOperator;
             Selector = selector;
+            Values = values;
+            ValueMatchOperator = valueMatchOperator;
             ExclusionManagedRuleSets = exclusionManagedRuleSets;
             CustomInit();
         }
@@ -61,10 +73,20 @@ namespace Microsoft.Azure.Management.Network.Models
         partial void CustomInit();
 
         /// <summary>
-        /// Gets or sets the variable to be excluded. Possible values include:
-        /// 'RequestHeaderNames', 'RequestCookieNames', 'RequestArgNames',
-        /// 'RequestHeaderKeys', 'RequestHeaderValues', 'RequestCookieKeys',
-        /// 'RequestCookieValues', 'RequestArgKeys', 'RequestArgValues'
+        /// Gets or sets exclusion type that determines if only a variable is
+        /// to be excluded or the whole request. Possible values include:
+        /// 'MatchVariable', 'Request'
+        /// </summary>
+        [JsonProperty(PropertyName = "exclude")]
+        public string Exclude { get; set; }
+
+        /// <summary>
+        /// Gets or sets the variable on which we evaluate the exclusion
+        /// condition. Possible values include: 'RequestHeaderNames',
+        /// 'RequestCookieNames', 'RequestArgNames', 'RequestHeaderKeys',
+        /// 'RequestHeaderValues', 'RequestCookieKeys', 'RequestCookieValues',
+        /// 'RequestArgKeys', 'RequestArgValues', 'RequestURI', 'RemoteAddr',
+        /// 'RequestHeader'
         /// </summary>
         [JsonProperty(PropertyName = "matchVariable")]
         public string MatchVariable { get; set; }
@@ -86,6 +108,20 @@ namespace Microsoft.Azure.Management.Network.Models
         public string Selector { get; set; }
 
         /// <summary>
+        /// Gets or sets allowed values for request exclusion
+        /// </summary>
+        [JsonProperty(PropertyName = "values")]
+        public IList<string> Values { get; set; }
+
+        /// <summary>
+        /// Gets or sets operates on the allowed values for request exclusion.
+        /// Possible values include: 'Equals', 'Contains', 'StartsWith',
+        /// 'EndsWith'
+        /// </summary>
+        [JsonProperty(PropertyName = "valueMatchOperator ")]
+        public string ValueMatchOperator { get; set; }
+
+        /// <summary>
         /// Gets or sets the managed rule sets that are associated with the
         /// exclusion.
         /// </summary>
@@ -103,14 +139,6 @@ namespace Microsoft.Azure.Management.Network.Models
             if (MatchVariable == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "MatchVariable");
-            }
-            if (SelectorMatchOperator == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "SelectorMatchOperator");
-            }
-            if (Selector == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "Selector");
             }
             if (ExclusionManagedRuleSets != null)
             {

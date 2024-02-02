@@ -25,5 +25,8 @@ namespace Microsoft.Azure.Management.Network.Models
         public const string RequestCookieValues = "RequestCookieValues";
         public const string RequestArgKeys = "RequestArgKeys";
         public const string RequestArgValues = "RequestArgValues";
+        public const string RequestURI = "RequestURI";
+        public const string RemoteAddr = "RemoteAddr";
+        public const string RequestHeader = "RequestHeader";
     }
 }
