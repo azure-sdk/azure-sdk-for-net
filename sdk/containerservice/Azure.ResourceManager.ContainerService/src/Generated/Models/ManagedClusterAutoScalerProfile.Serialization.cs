@@ -31,6 +31,21 @@ namespace Azure.ResourceManager.ContainerService.Models
                 writer.WritePropertyName("balance-similar-node-groups"u8);
                 writer.WriteStringValue(BalanceSimilarNodeGroups);
             }
+            if (Optional.IsDefined(DaemonsetEvictionForEmptyNodes))
+            {
+                writer.WritePropertyName("daemonset-eviction-for-empty-nodes"u8);
+                writer.WriteBooleanValue(DaemonsetEvictionForEmptyNodes.Value);
+            }
+            if (Optional.IsDefined(DaemonsetEvictionForOccupiedNodes))
+            {
+                writer.WritePropertyName("daemonset-eviction-for-occupied-nodes"u8);
+                writer.WriteBooleanValue(DaemonsetEvictionForOccupiedNodes.Value);
+            }
+            if (Optional.IsDefined(IgnoreDaemonsetsUtilization))
+            {
+                writer.WritePropertyName("ignore-daemonsets-utilization"u8);
+                writer.WriteBooleanValue(IgnoreDaemonsetsUtilization.Value);
+            }
             if (Optional.IsDefined(Expander))
             {
                 writer.WritePropertyName("expander"u8);
@@ -150,6 +165,9 @@ namespace Azure.ResourceManager.ContainerService.Models
                 return null;
             }
             Optional<string> balanceSimilarNodeGroups = default;
+            Optional<bool> daemonsetEvictionForEmptyNodes = default;
+            Optional<bool> daemonsetEvictionForOccupiedNodes = default;
+            Optional<bool> ignoreDaemonsetsUtilization = default;
             Optional<AutoScaleExpander> expander = default;
             Optional<string> maxEmptyBulkDelete = default;
             Optional<string> maxGracefulTerminationSec = default;
@@ -173,6 +191,33 @@ namespace Azure.ResourceManager.ContainerService.Models
                 if (property.NameEquals("balance-similar-node-groups"u8))
                 {
                     balanceSimilarNodeGroups = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("daemonset-eviction-for-empty-nodes"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    daemonsetEvictionForEmptyNodes = property.Value.GetBoolean();
+                    continue;
+                }
+                if (property.NameEquals("daemonset-eviction-for-occupied-nodes"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    daemonsetEvictionForOccupiedNodes = property.Value.GetBoolean();
+                    continue;
+                }
+                if (property.NameEquals("ignore-daemonsets-utilization"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    ignoreDaemonsetsUtilization = property.Value.GetBoolean();
                     continue;
                 }
                 if (property.NameEquals("expander"u8))
@@ -265,7 +310,7 @@ namespace Azure.ResourceManager.ContainerService.Models
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new ManagedClusterAutoScalerProfile(balanceSimilarNodeGroups.Value, Optional.ToNullable(expander), maxEmptyBulkDelete.Value, maxGracefulTerminationSec.Value, maxNodeProvisionTime.Value, maxTotalUnreadyPercentage.Value, newPodScaleUpDelay.Value, okTotalUnreadyCount.Value, scanInterval.Value, scaleDownDelayAfterAdd.Value, scaleDownDelayAfterDelete.Value, scaleDownDelayAfterFailure.Value, scaleDownUnneededTime.Value, scaleDownUnreadyTime.Value, scaleDownUtilizationThreshold.Value, skipNodesWithLocalStorage.Value, skipNodesWithSystemPods.Value, serializedAdditionalRawData);
+            return new ManagedClusterAutoScalerProfile(balanceSimilarNodeGroups.Value, Optional.ToNullable(daemonsetEvictionForEmptyNodes), Optional.ToNullable(daemonsetEvictionForOccupiedNodes), Optional.ToNullable(ignoreDaemonsetsUtilization), Optional.ToNullable(expander), maxEmptyBulkDelete.Value, maxGracefulTerminationSec.Value, maxNodeProvisionTime.Value, maxTotalUnreadyPercentage.Value, newPodScaleUpDelay.Value, okTotalUnreadyCount.Value, scanInterval.Value, scaleDownDelayAfterAdd.Value, scaleDownDelayAfterDelete.Value, scaleDownDelayAfterFailure.Value, scaleDownUnneededTime.Value, scaleDownUnreadyTime.Value, scaleDownUtilizationThreshold.Value, skipNodesWithLocalStorage.Value, skipNodesWithSystemPods.Value, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<ManagedClusterAutoScalerProfile>.Write(ModelReaderWriterOptions options)

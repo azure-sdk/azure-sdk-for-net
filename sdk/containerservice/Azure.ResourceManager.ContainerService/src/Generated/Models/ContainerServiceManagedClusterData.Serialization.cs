@@ -89,6 +89,11 @@ namespace Azure.ResourceManager.ContainerService
                 writer.WritePropertyName("powerState"u8);
                 writer.WriteObjectValue(PowerState);
             }
+            if (Optional.IsDefined(CreationData))
+            {
+                writer.WritePropertyName("creationData"u8);
+                writer.WriteObjectValue(CreationData);
+            }
             if (options.Format != "W" && Optional.IsDefined(MaxAgentPools))
             {
                 writer.WritePropertyName("maxAgentPools"u8);
@@ -180,6 +185,11 @@ namespace Azure.ResourceManager.ContainerService
                 writer.WritePropertyName("nodeResourceGroup"u8);
                 writer.WriteStringValue(NodeResourceGroup);
             }
+            if (Optional.IsDefined(NodeResourceGroupProfile))
+            {
+                writer.WritePropertyName("nodeResourceGroupProfile"u8);
+                writer.WriteObjectValue(NodeResourceGroupProfile);
+            }
             if (Optional.IsDefined(EnableRbac))
             {
                 writer.WritePropertyName("enableRBAC"u8);
@@ -194,6 +204,11 @@ namespace Azure.ResourceManager.ContainerService
             {
                 writer.WritePropertyName("enablePodSecurityPolicy"u8);
                 writer.WriteBooleanValue(EnablePodSecurityPolicy.Value);
+            }
+            if (Optional.IsDefined(EnableNamespaceResources))
+            {
+                writer.WritePropertyName("enableNamespaceResources"u8);
+                writer.WriteBooleanValue(EnableNamespaceResources.Value);
             }
             if (Optional.IsDefined(NetworkProfile))
             {
@@ -271,6 +286,11 @@ namespace Azure.ResourceManager.ContainerService
                 writer.WritePropertyName("storageProfile"u8);
                 writer.WriteObjectValue(StorageProfile);
             }
+            if (Optional.IsDefined(IngressProfile))
+            {
+                writer.WritePropertyName("ingressProfile"u8);
+                writer.WriteObjectValue(IngressProfile);
+            }
             if (Optional.IsDefined(PublicNetworkAccess))
             {
                 writer.WritePropertyName("publicNetworkAccess"u8);
@@ -286,6 +306,11 @@ namespace Azure.ResourceManager.ContainerService
                 writer.WritePropertyName("azureMonitorProfile"u8);
                 writer.WriteObjectValue(AzureMonitorProfile);
             }
+            if (Optional.IsDefined(SafeguardsProfile))
+            {
+                writer.WritePropertyName("safeguardsProfile"u8);
+                writer.WriteObjectValue(SafeguardsProfile);
+            }
             if (Optional.IsDefined(ServiceMeshProfile))
             {
                 writer.WritePropertyName("serviceMeshProfile"u8);
@@ -295,6 +320,21 @@ namespace Azure.ResourceManager.ContainerService
             {
                 writer.WritePropertyName("resourceUID"u8);
                 writer.WriteStringValue(ResourceId);
+            }
+            if (Optional.IsDefined(MetricsProfile))
+            {
+                writer.WritePropertyName("metricsProfile"u8);
+                writer.WriteObjectValue(MetricsProfile);
+            }
+            if (Optional.IsDefined(AiToolchainOperatorProfile))
+            {
+                writer.WritePropertyName("aiToolchainOperatorProfile"u8);
+                writer.WriteObjectValue(AiToolchainOperatorProfile);
+            }
+            if (Optional.IsDefined(NodeProvisioningProfile))
+            {
+                writer.WritePropertyName("nodeProvisioningProfile"u8);
+                writer.WriteObjectValue(NodeProvisioningProfile);
             }
             writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
@@ -346,6 +386,7 @@ namespace Azure.ResourceManager.ContainerService
             Optional<SystemData> systemData = default;
             Optional<string> provisioningState = default;
             Optional<ContainerServicePowerState> powerState = default;
+            Optional<ContainerServiceCreationData> creationData = default;
             Optional<int> maxAgentPools = default;
             Optional<string> kubernetesVersion = default;
             Optional<string> currentKubernetesVersion = default;
@@ -362,9 +403,11 @@ namespace Azure.ResourceManager.ContainerService
             Optional<ManagedClusterPodIdentityProfile> podIdentityProfile = default;
             Optional<ManagedClusterOidcIssuerProfile> oidcIssuerProfile = default;
             Optional<string> nodeResourceGroup = default;
+            Optional<ManagedClusterNodeResourceGroupProfile> nodeResourceGroupProfile = default;
             Optional<bool> enableRBAC = default;
             Optional<KubernetesSupportPlan> supportPlan = default;
             Optional<bool> enablePodSecurityPolicy = default;
+            Optional<bool> enableNamespaceResources = default;
             Optional<ContainerServiceNetworkProfile> networkProfile = default;
             Optional<ManagedClusterAadProfile> aadProfile = default;
             Optional<ManagedClusterAutoUpgradeProfile> autoUpgradeProfile = default;
@@ -378,11 +421,16 @@ namespace Azure.ResourceManager.ContainerService
             Optional<ManagedClusterHttpProxyConfig> httpProxyConfig = default;
             Optional<ManagedClusterSecurityProfile> securityProfile = default;
             Optional<ManagedClusterStorageProfile> storageProfile = default;
+            Optional<ManagedClusterIngressProfile> ingressProfile = default;
             Optional<ContainerServicePublicNetworkAccess> publicNetworkAccess = default;
             Optional<ManagedClusterWorkloadAutoScalerProfile> workloadAutoScalerProfile = default;
             Optional<ManagedClusterAzureMonitorProfile> azureMonitorProfile = default;
+            Optional<SafeguardsProfile> safeguardsProfile = default;
             Optional<ServiceMeshProfile> serviceMeshProfile = default;
             Optional<ResourceIdentifier> resourceUID = default;
+            Optional<ManagedClusterMetricsProfile> metricsProfile = default;
+            Optional<ManagedClusterAIToolchainOperatorProfile> aiToolchainOperatorProfile = default;
+            Optional<ManagedClusterNodeProvisioningProfile> nodeProvisioningProfile = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -478,6 +526,15 @@ namespace Azure.ResourceManager.ContainerService
                                 continue;
                             }
                             powerState = ContainerServicePowerState.DeserializeContainerServicePowerState(property0.Value);
+                            continue;
+                        }
+                        if (property0.NameEquals("creationData"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            creationData = ContainerServiceCreationData.DeserializeContainerServiceCreationData(property0.Value);
                             continue;
                         }
                         if (property0.NameEquals("maxAgentPools"u8))
@@ -602,6 +659,15 @@ namespace Azure.ResourceManager.ContainerService
                             nodeResourceGroup = property0.Value.GetString();
                             continue;
                         }
+                        if (property0.NameEquals("nodeResourceGroupProfile"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            nodeResourceGroupProfile = ManagedClusterNodeResourceGroupProfile.DeserializeManagedClusterNodeResourceGroupProfile(property0.Value);
+                            continue;
+                        }
                         if (property0.NameEquals("enableRBAC"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -627,6 +693,15 @@ namespace Azure.ResourceManager.ContainerService
                                 continue;
                             }
                             enablePodSecurityPolicy = property0.Value.GetBoolean();
+                            continue;
+                        }
+                        if (property0.NameEquals("enableNamespaceResources"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            enableNamespaceResources = property0.Value.GetBoolean();
                             continue;
                         }
                         if (property0.NameEquals("networkProfile"u8))
@@ -756,6 +831,15 @@ namespace Azure.ResourceManager.ContainerService
                             storageProfile = ManagedClusterStorageProfile.DeserializeManagedClusterStorageProfile(property0.Value);
                             continue;
                         }
+                        if (property0.NameEquals("ingressProfile"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            ingressProfile = ManagedClusterIngressProfile.DeserializeManagedClusterIngressProfile(property0.Value);
+                            continue;
+                        }
                         if (property0.NameEquals("publicNetworkAccess"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -783,6 +867,15 @@ namespace Azure.ResourceManager.ContainerService
                             azureMonitorProfile = ManagedClusterAzureMonitorProfile.DeserializeManagedClusterAzureMonitorProfile(property0.Value);
                             continue;
                         }
+                        if (property0.NameEquals("safeguardsProfile"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            safeguardsProfile = SafeguardsProfile.DeserializeSafeguardsProfile(property0.Value);
+                            continue;
+                        }
                         if (property0.NameEquals("serviceMeshProfile"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -801,6 +894,33 @@ namespace Azure.ResourceManager.ContainerService
                             resourceUID = new ResourceIdentifier(property0.Value.GetString());
                             continue;
                         }
+                        if (property0.NameEquals("metricsProfile"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            metricsProfile = ManagedClusterMetricsProfile.DeserializeManagedClusterMetricsProfile(property0.Value);
+                            continue;
+                        }
+                        if (property0.NameEquals("aiToolchainOperatorProfile"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            aiToolchainOperatorProfile = ManagedClusterAIToolchainOperatorProfile.DeserializeManagedClusterAIToolchainOperatorProfile(property0.Value);
+                            continue;
+                        }
+                        if (property0.NameEquals("nodeProvisioningProfile"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            nodeProvisioningProfile = ManagedClusterNodeProvisioningProfile.DeserializeManagedClusterNodeProvisioningProfile(property0.Value);
+                            continue;
+                        }
                     }
                     continue;
                 }
@@ -810,7 +930,7 @@ namespace Azure.ResourceManager.ContainerService
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new ContainerServiceManagedClusterData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, sku.Value, extendedLocation, identity.Value, provisioningState.Value, powerState.Value, Optional.ToNullable(maxAgentPools), kubernetesVersion.Value, currentKubernetesVersion.Value, dnsPrefix.Value, fqdnSubdomain.Value, fqdn.Value, privateFQDN.Value, azurePortalFQDN.Value, Optional.ToList(agentPoolProfiles), linuxProfile.Value, windowsProfile.Value, servicePrincipalProfile.Value, Optional.ToDictionary(addonProfiles), podIdentityProfile.Value, oidcIssuerProfile.Value, nodeResourceGroup.Value, Optional.ToNullable(enableRBAC), Optional.ToNullable(supportPlan), Optional.ToNullable(enablePodSecurityPolicy), networkProfile.Value, aadProfile.Value, autoUpgradeProfile.Value, upgradeSettings.Value, autoScalerProfile.Value, apiServerAccessProfile.Value, diskEncryptionSetId.Value, Optional.ToDictionary(identityProfile), Optional.ToList(privateLinkResources), Optional.ToNullable(disableLocalAccounts), httpProxyConfig.Value, securityProfile.Value, storageProfile.Value, Optional.ToNullable(publicNetworkAccess), workloadAutoScalerProfile.Value, azureMonitorProfile.Value, serviceMeshProfile.Value, resourceUID.Value, serializedAdditionalRawData);
+            return new ContainerServiceManagedClusterData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, sku.Value, extendedLocation, identity.Value, provisioningState.Value, powerState.Value, creationData.Value, Optional.ToNullable(maxAgentPools), kubernetesVersion.Value, currentKubernetesVersion.Value, dnsPrefix.Value, fqdnSubdomain.Value, fqdn.Value, privateFQDN.Value, azurePortalFQDN.Value, Optional.ToList(agentPoolProfiles), linuxProfile.Value, windowsProfile.Value, servicePrincipalProfile.Value, Optional.ToDictionary(addonProfiles), podIdentityProfile.Value, oidcIssuerProfile.Value, nodeResourceGroup.Value, nodeResourceGroupProfile.Value, Optional.ToNullable(enableRBAC), Optional.ToNullable(supportPlan), Optional.ToNullable(enablePodSecurityPolicy), Optional.ToNullable(enableNamespaceResources), networkProfile.Value, aadProfile.Value, autoUpgradeProfile.Value, upgradeSettings.Value, autoScalerProfile.Value, apiServerAccessProfile.Value, diskEncryptionSetId.Value, Optional.ToDictionary(identityProfile), Optional.ToList(privateLinkResources), Optional.ToNullable(disableLocalAccounts), httpProxyConfig.Value, securityProfile.Value, storageProfile.Value, ingressProfile.Value, Optional.ToNullable(publicNetworkAccess), workloadAutoScalerProfile.Value, azureMonitorProfile.Value, safeguardsProfile.Value, serviceMeshProfile.Value, resourceUID.Value, metricsProfile.Value, aiToolchainOperatorProfile.Value, nodeProvisioningProfile.Value, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<ContainerServiceManagedClusterData>.Write(ModelReaderWriterOptions options)
