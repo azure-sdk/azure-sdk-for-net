@@ -80,7 +80,7 @@ namespace Azure.ResourceManager.Sql.Samples
                 State = SecurityAlertsPolicyState.Enabled,
                 DisabledAlerts =
 {
-"Sql_Injection","Usage_Anomaly"
+"Sql_Injection","Access_Anomaly"
 },
                 EmailAddresses =
 {

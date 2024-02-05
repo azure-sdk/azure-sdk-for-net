@@ -78,7 +78,7 @@ namespace Azure.ResourceManager.Sql.Samples
                 State = SecurityAlertsPolicyState.Enabled,
                 DisabledAlerts =
 {
-"Access_Anomaly","Usage_Anomaly"
+"Access_Anomaly"
 },
                 EmailAddresses =
 {
