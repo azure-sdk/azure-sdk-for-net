@@ -21,7 +21,6 @@ namespace Azure.ResourceManager.Compute
         /// <summary> Initializes a new instance of <see cref="CommunityGalleryImageVersionData"/>. </summary>
         internal CommunityGalleryImageVersionData()
         {
-            ArtifactTags = new ChangeTrackingDictionary<string, string>();
         }
 
         /// <summary> Initializes a new instance of <see cref="CommunityGalleryImageVersionData"/>. </summary>
@@ -34,16 +33,12 @@ namespace Azure.ResourceManager.Compute
         /// <param name="endOfLifeOn"> The end of life date of the gallery image version Definition. This property can be used for decommissioning purposes. This property is updatable. </param>
         /// <param name="isExcludedFromLatest"> If set to true, Virtual Machines deployed from the latest version of the Image Definition won't use this Image Version. </param>
         /// <param name="storageProfile"> Describes the storage profile of the image version. </param>
-        /// <param name="disclaimer"> The disclaimer for a community gallery resource. </param>
-        /// <param name="artifactTags"> The artifact tags of a community gallery resource. </param>
-        internal CommunityGalleryImageVersionData(string name, AzureLocation? location, ResourceType? resourceType, string uniqueId, IDictionary<string, BinaryData> serializedAdditionalRawData, DateTimeOffset? publishedOn, DateTimeOffset? endOfLifeOn, bool? isExcludedFromLatest, SharedGalleryImageVersionStorageProfile storageProfile, string disclaimer, IReadOnlyDictionary<string, string> artifactTags) : base(name, location, resourceType, uniqueId, serializedAdditionalRawData)
+        internal CommunityGalleryImageVersionData(string name, AzureLocation? location, ResourceType? resourceType, string uniqueId, IDictionary<string, BinaryData> serializedAdditionalRawData, DateTimeOffset? publishedOn, DateTimeOffset? endOfLifeOn, bool? isExcludedFromLatest, SharedGalleryImageVersionStorageProfile storageProfile) : base(name, location, resourceType, uniqueId, serializedAdditionalRawData)
         {
             PublishedOn = publishedOn;
             EndOfLifeOn = endOfLifeOn;
             IsExcludedFromLatest = isExcludedFromLatest;
             StorageProfile = storageProfile;
-            Disclaimer = disclaimer;
-            ArtifactTags = artifactTags;
         }
 
         /// <summary> The published date of the gallery image version Definition. This property can be used for decommissioning purposes. This property is updatable. </summary>
@@ -54,10 +49,6 @@ namespace Azure.ResourceManager.Compute
         public bool? IsExcludedFromLatest { get; }
         /// <summary> Describes the storage profile of the image version. </summary>
         public SharedGalleryImageVersionStorageProfile StorageProfile { get; }
-        /// <summary> The disclaimer for a community gallery resource. </summary>
-        public string Disclaimer { get; }
-        /// <summary> The artifact tags of a community gallery resource. </summary>
-        public IReadOnlyDictionary<string, string> ArtifactTags { get; }
         /// <summary> The resource identifier. </summary>
         public ResourceIdentifier Id { get; internal set; }
     }

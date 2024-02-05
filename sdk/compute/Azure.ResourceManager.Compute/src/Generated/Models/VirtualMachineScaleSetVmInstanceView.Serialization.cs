@@ -101,26 +101,6 @@ namespace Azure.ResourceManager.Compute.Models
                 writer.WritePropertyName("placementGroupId"u8);
                 writer.WriteStringValue(PlacementGroupId);
             }
-            if (Optional.IsDefined(ComputerName))
-            {
-                writer.WritePropertyName("computerName"u8);
-                writer.WriteStringValue(ComputerName);
-            }
-            if (Optional.IsDefined(OSName))
-            {
-                writer.WritePropertyName("osName"u8);
-                writer.WriteStringValue(OSName);
-            }
-            if (Optional.IsDefined(OSVersion))
-            {
-                writer.WritePropertyName("osVersion"u8);
-                writer.WriteStringValue(OSVersion);
-            }
-            if (Optional.IsDefined(HyperVGeneration))
-            {
-                writer.WritePropertyName("hyperVGeneration"u8);
-                writer.WriteStringValue(HyperVGeneration.Value.ToString());
-            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -171,10 +151,6 @@ namespace Azure.ResourceManager.Compute.Models
             Optional<IReadOnlyList<InstanceViewStatus>> statuses = default;
             Optional<ResourceIdentifier> assignedHost = default;
             Optional<string> placementGroupId = default;
-            Optional<string> computerName = default;
-            Optional<string> osName = default;
-            Optional<string> osVersion = default;
-            Optional<HyperVGeneration> hyperVGeneration = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -294,37 +270,13 @@ namespace Azure.ResourceManager.Compute.Models
                     placementGroupId = property.Value.GetString();
                     continue;
                 }
-                if (property.NameEquals("computerName"u8))
-                {
-                    computerName = property.Value.GetString();
-                    continue;
-                }
-                if (property.NameEquals("osName"u8))
-                {
-                    osName = property.Value.GetString();
-                    continue;
-                }
-                if (property.NameEquals("osVersion"u8))
-                {
-                    osVersion = property.Value.GetString();
-                    continue;
-                }
-                if (property.NameEquals("hyperVGeneration"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    hyperVGeneration = new HyperVGeneration(property.Value.GetString());
-                    continue;
-                }
                 if (options.Format != "W")
                 {
                     additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new VirtualMachineScaleSetVmInstanceView(Optional.ToNullable(platformUpdateDomain), Optional.ToNullable(platformFaultDomain), rdpThumbPrint.Value, vmAgent.Value, maintenanceRedeployStatus.Value, Optional.ToList(disks), Optional.ToList(extensions), vmHealth.Value, bootDiagnostics.Value, Optional.ToList(statuses), assignedHost.Value, placementGroupId.Value, computerName.Value, osName.Value, osVersion.Value, Optional.ToNullable(hyperVGeneration), serializedAdditionalRawData);
+            return new VirtualMachineScaleSetVmInstanceView(Optional.ToNullable(platformUpdateDomain), Optional.ToNullable(platformFaultDomain), rdpThumbPrint.Value, vmAgent.Value, maintenanceRedeployStatus.Value, Optional.ToList(disks), Optional.ToList(extensions), vmHealth.Value, bootDiagnostics.Value, Optional.ToList(statuses), assignedHost.Value, placementGroupId.Value, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<VirtualMachineScaleSetVmInstanceView>.Write(ModelReaderWriterOptions options)

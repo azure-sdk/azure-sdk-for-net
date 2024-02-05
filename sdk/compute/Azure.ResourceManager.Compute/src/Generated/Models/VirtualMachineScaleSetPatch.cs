@@ -36,10 +36,7 @@ namespace Azure.ResourceManager.Compute.Models
         /// <param name="additionalCapabilities"> Specifies additional capabilities enabled or disabled on the Virtual Machines in the Virtual Machine Scale Set. For instance: whether the Virtual Machines have the capability to support attaching managed data disks with UltraSSD_LRS storage account type. </param>
         /// <param name="scaleInPolicy"> Specifies the policies applied when scaling in Virtual Machines in the Virtual Machine Scale Set. </param>
         /// <param name="proximityPlacementGroup"> Specifies information about the proximity placement group that the virtual machine scale set should be assigned to. &lt;br&gt;&lt;br&gt;Minimum api-version: 2018-04-01. </param>
-        /// <param name="priorityMixPolicy"> Specifies the desired targets for mixing Spot and Regular priority VMs within the same VMSS Flex instance. </param>
-        /// <param name="spotRestorePolicy"> Specifies the Spot Restore properties for the virtual machine scale set. </param>
-        /// <param name="resiliencyPolicy"> Policy for Resiliency. </param>
-        internal VirtualMachineScaleSetPatch(IDictionary<string, string> tags, IDictionary<string, BinaryData> serializedAdditionalRawData, ComputeSku sku, ComputePlan plan, ManagedServiceIdentity identity, VirtualMachineScaleSetUpgradePolicy upgradePolicy, AutomaticRepairsPolicy automaticRepairsPolicy, VirtualMachineScaleSetUpdateVmProfile virtualMachineProfile, bool? overprovision, bool? doNotRunExtensionsOnOverprovisionedVms, bool? singlePlacementGroup, AdditionalCapabilities additionalCapabilities, ScaleInPolicy scaleInPolicy, WritableSubResource proximityPlacementGroup, VirtualMachineScaleSetPriorityMixPolicy priorityMixPolicy, SpotRestorePolicy spotRestorePolicy, ResiliencyPolicy resiliencyPolicy) : base(tags, serializedAdditionalRawData)
+        internal VirtualMachineScaleSetPatch(IDictionary<string, string> tags, IDictionary<string, BinaryData> serializedAdditionalRawData, ComputeSku sku, ComputePlan plan, ManagedServiceIdentity identity, VirtualMachineScaleSetUpgradePolicy upgradePolicy, AutomaticRepairsPolicy automaticRepairsPolicy, VirtualMachineScaleSetUpdateVmProfile virtualMachineProfile, bool? overprovision, bool? doNotRunExtensionsOnOverprovisionedVms, bool? singlePlacementGroup, AdditionalCapabilities additionalCapabilities, ScaleInPolicy scaleInPolicy, WritableSubResource proximityPlacementGroup) : base(tags, serializedAdditionalRawData)
         {
             Sku = sku;
             Plan = plan;
@@ -53,9 +50,6 @@ namespace Azure.ResourceManager.Compute.Models
             AdditionalCapabilities = additionalCapabilities;
             ScaleInPolicy = scaleInPolicy;
             ProximityPlacementGroup = proximityPlacementGroup;
-            PriorityMixPolicy = priorityMixPolicy;
-            SpotRestorePolicy = spotRestorePolicy;
-            ResiliencyPolicy = resiliencyPolicy;
         }
 
         /// <summary> The virtual machine scale set sku. </summary>
@@ -93,12 +87,5 @@ namespace Azure.ResourceManager.Compute.Models
                 ProximityPlacementGroup.Id = value;
             }
         }
-
-        /// <summary> Specifies the desired targets for mixing Spot and Regular priority VMs within the same VMSS Flex instance. </summary>
-        public VirtualMachineScaleSetPriorityMixPolicy PriorityMixPolicy { get; set; }
-        /// <summary> Specifies the Spot Restore properties for the virtual machine scale set. </summary>
-        public SpotRestorePolicy SpotRestorePolicy { get; set; }
-        /// <summary> Policy for Resiliency. </summary>
-        public ResiliencyPolicy ResiliencyPolicy { get; set; }
     }
 }

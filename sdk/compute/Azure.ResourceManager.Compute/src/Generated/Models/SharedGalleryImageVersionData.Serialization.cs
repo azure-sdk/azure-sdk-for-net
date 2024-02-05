@@ -59,17 +59,6 @@ namespace Azure.ResourceManager.Compute
                 writer.WritePropertyName("storageProfile"u8);
                 writer.WriteObjectValue(StorageProfile);
             }
-            if (Optional.IsCollectionDefined(ArtifactTags))
-            {
-                writer.WritePropertyName("artifactTags"u8);
-                writer.WriteStartObject();
-                foreach (var item in ArtifactTags)
-                {
-                    writer.WritePropertyName(item.Key);
-                    writer.WriteStringValue(item.Value);
-                }
-                writer.WriteEndObject();
-            }
             writer.WriteEndObject();
             writer.WritePropertyName("identifier"u8);
             writer.WriteStartObject();
@@ -123,7 +112,6 @@ namespace Azure.ResourceManager.Compute
             Optional<DateTimeOffset> endOfLifeDate = default;
             Optional<bool> excludeFromLatest = default;
             Optional<SharedGalleryImageVersionStorageProfile> storageProfile = default;
-            Optional<IReadOnlyDictionary<string, string>> artifactTags = default;
             Optional<string> uniqueId = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
@@ -188,20 +176,6 @@ namespace Azure.ResourceManager.Compute
                             storageProfile = SharedGalleryImageVersionStorageProfile.DeserializeSharedGalleryImageVersionStorageProfile(property0.Value);
                             continue;
                         }
-                        if (property0.NameEquals("artifactTags"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            Dictionary<string, string> dictionary = new Dictionary<string, string>();
-                            foreach (var property1 in property0.Value.EnumerateObject())
-                            {
-                                dictionary.Add(property1.Name, property1.Value.GetString());
-                            }
-                            artifactTags = dictionary;
-                            continue;
-                        }
                     }
                     continue;
                 }
@@ -228,7 +202,7 @@ namespace Azure.ResourceManager.Compute
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new SharedGalleryImageVersionData(name.Value, Optional.ToNullable(location), serializedAdditionalRawData, uniqueId.Value, Optional.ToNullable(publishedDate), Optional.ToNullable(endOfLifeDate), Optional.ToNullable(excludeFromLatest), storageProfile.Value, Optional.ToDictionary(artifactTags));
+            return new SharedGalleryImageVersionData(name.Value, Optional.ToNullable(location), serializedAdditionalRawData, uniqueId.Value, Optional.ToNullable(publishedDate), Optional.ToNullable(endOfLifeDate), Optional.ToNullable(excludeFromLatest), storageProfile.Value);
         }
 
         BinaryData IPersistableModel<SharedGalleryImageVersionData>.Write(ModelReaderWriterOptions options)

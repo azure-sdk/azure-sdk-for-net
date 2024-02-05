@@ -93,7 +93,8 @@ namespace Azure.ResourceManager.Compute.Models
         /// <summary> The idle timeout of the public IP address. </summary>
         public int? IdleTimeoutInMinutes { get; set; }
         /// <summary> The dns settings to be applied on the publicIP addresses . </summary>
-        public VirtualMachineScaleSetPublicIPAddressConfigurationDnsSettings DnsSettings { get; set; }
+        internal VirtualMachineScaleSetPublicIPAddressConfigurationDnsSettings DnsSettings { get; set; }
+
         /// <summary> The list of IP tags associated with the public IP address. </summary>
         public IList<VirtualMachineScaleSetIPTag> IPTags { get; }
         /// <summary> The PublicIPPrefix from which to allocate publicIP addresses. </summary>

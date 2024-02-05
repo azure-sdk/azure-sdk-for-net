@@ -23,7 +23,7 @@ namespace Azure.ResourceManager.Compute.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CreateOrUpdate_CreateOrUpdateADedicatedHost()
         {
-            // Generated from example definition: specification/compute/resource-manager/Microsoft.Compute/ComputeRP/stable/2023-09-01/examples/dedicatedHostExamples/DedicatedHost_CreateOrUpdate.json
+            // Generated from example definition: specification/compute/resource-manager/Microsoft.Compute/ComputeRP/stable/2022-11-01/examples/dedicatedHostExamples/DedicatedHost_CreateOrUpdate.json
             // this example is just showing the usage of "DedicatedHosts_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -70,7 +70,7 @@ namespace Azure.ResourceManager.Compute.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_GetADedicatedHost()
         {
-            // Generated from example definition: specification/compute/resource-manager/Microsoft.Compute/ComputeRP/stable/2023-09-01/examples/dedicatedHostExamples/DedicatedHost_Get.json
+            // Generated from example definition: specification/compute/resource-manager/Microsoft.Compute/ComputeRP/stable/2022-11-01/examples/dedicatedHostExamples/DedicatedHost_Get.json
             // this example is just showing the usage of "DedicatedHosts_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -91,8 +91,7 @@ namespace Azure.ResourceManager.Compute.Samples
 
             // invoke the operation
             string hostName = "myHost";
-            InstanceViewType? expand = InstanceViewType.InstanceView;
-            DedicatedHostResource result = await collection.GetAsync(hostName, expand: expand);
+            DedicatedHostResource result = await collection.GetAsync(hostName);
 
             // the variable result is a resource, you could call other operations on this instance as well
             // but just for demo, we get its data from this resource instance
@@ -106,7 +105,7 @@ namespace Azure.ResourceManager.Compute.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Exists_GetADedicatedHost()
         {
-            // Generated from example definition: specification/compute/resource-manager/Microsoft.Compute/ComputeRP/stable/2023-09-01/examples/dedicatedHostExamples/DedicatedHost_Get.json
+            // Generated from example definition: specification/compute/resource-manager/Microsoft.Compute/ComputeRP/stable/2022-11-01/examples/dedicatedHostExamples/DedicatedHost_Get.json
             // this example is just showing the usage of "DedicatedHosts_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -127,8 +126,7 @@ namespace Azure.ResourceManager.Compute.Samples
 
             // invoke the operation
             string hostName = "myHost";
-            InstanceViewType? expand = InstanceViewType.InstanceView;
-            bool result = await collection.ExistsAsync(hostName, expand: expand);
+            bool result = await collection.ExistsAsync(hostName);
 
             Console.WriteLine($"Succeeded: {result}");
         }
@@ -138,7 +136,7 @@ namespace Azure.ResourceManager.Compute.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetIfExists_GetADedicatedHost()
         {
-            // Generated from example definition: specification/compute/resource-manager/Microsoft.Compute/ComputeRP/stable/2023-09-01/examples/dedicatedHostExamples/DedicatedHost_Get.json
+            // Generated from example definition: specification/compute/resource-manager/Microsoft.Compute/ComputeRP/stable/2022-11-01/examples/dedicatedHostExamples/DedicatedHost_Get.json
             // this example is just showing the usage of "DedicatedHosts_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -159,8 +157,7 @@ namespace Azure.ResourceManager.Compute.Samples
 
             // invoke the operation
             string hostName = "myHost";
-            InstanceViewType? expand = InstanceViewType.InstanceView;
-            NullableResponse<DedicatedHostResource> response = await collection.GetIfExistsAsync(hostName, expand: expand);
+            NullableResponse<DedicatedHostResource> response = await collection.GetIfExistsAsync(hostName);
             DedicatedHostResource result = response.HasValue ? response.Value : null;
 
             if (result == null)
@@ -177,12 +174,12 @@ namespace Azure.ResourceManager.Compute.Samples
             }
         }
 
-        // DedicatedHost_ListByHostGroup_MaximumSet_Gen
+        // DedicatedHosts_ListByHostGroup_MaximumSet_Gen
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task GetAll_DedicatedHostListByHostGroupMaximumSetGen()
+        public async Task GetAll_DedicatedHostsListByHostGroupMaximumSetGen()
         {
-            // Generated from example definition: specification/compute/resource-manager/Microsoft.Compute/ComputeRP/stable/2023-09-01/examples/dedicatedHostExamples/DedicatedHost_ListByHostGroup_MaximumSet_Gen.json
+            // Generated from example definition: specification/compute/resource-manager/Microsoft.Compute/ComputeRP/stable/2022-11-01/examples/dedicatedHostExamples/DedicatedHosts_ListByHostGroup_MaximumSet_Gen.json
             // this example is just showing the usage of "DedicatedHosts_ListByHostGroup" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -214,12 +211,12 @@ namespace Azure.ResourceManager.Compute.Samples
             Console.WriteLine($"Succeeded");
         }
 
-        // DedicatedHost_ListByHostGroup_MinimumSet_Gen
+        // DedicatedHosts_ListByHostGroup_MinimumSet_Gen
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
-        public async Task GetAll_DedicatedHostListByHostGroupMinimumSetGen()
+        public async Task GetAll_DedicatedHostsListByHostGroupMinimumSetGen()
         {
-            // Generated from example definition: specification/compute/resource-manager/Microsoft.Compute/ComputeRP/stable/2023-09-01/examples/dedicatedHostExamples/DedicatedHost_ListByHostGroup_MinimumSet_Gen.json
+            // Generated from example definition: specification/compute/resource-manager/Microsoft.Compute/ComputeRP/stable/2022-11-01/examples/dedicatedHostExamples/DedicatedHosts_ListByHostGroup_MinimumSet_Gen.json
             // this example is just showing the usage of "DedicatedHosts_ListByHostGroup" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line

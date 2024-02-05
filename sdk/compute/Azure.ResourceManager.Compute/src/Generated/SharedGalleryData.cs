@@ -21,7 +21,6 @@ namespace Azure.ResourceManager.Compute
         /// <summary> Initializes a new instance of <see cref="SharedGalleryData"/>. </summary>
         internal SharedGalleryData()
         {
-            ArtifactTags = new ChangeTrackingDictionary<string, string>();
         }
 
         /// <summary> Initializes a new instance of <see cref="SharedGalleryData"/>. </summary>
@@ -29,14 +28,10 @@ namespace Azure.ResourceManager.Compute
         /// <param name="location"> Resource location. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         /// <param name="uniqueId"> The unique id of this shared gallery. </param>
-        /// <param name="artifactTags"> The artifact tags of a shared gallery resource. </param>
-        internal SharedGalleryData(string name, AzureLocation? location, IDictionary<string, BinaryData> serializedAdditionalRawData, string uniqueId, IReadOnlyDictionary<string, string> artifactTags) : base(name, location, serializedAdditionalRawData, uniqueId)
+        internal SharedGalleryData(string name, AzureLocation? location, IDictionary<string, BinaryData> serializedAdditionalRawData, string uniqueId) : base(name, location, serializedAdditionalRawData, uniqueId)
         {
-            ArtifactTags = artifactTags;
         }
 
-        /// <summary> The artifact tags of a shared gallery resource. </summary>
-        public IReadOnlyDictionary<string, string> ArtifactTags { get; }
         /// <summary> The resource identifier. </summary>
         public ResourceIdentifier Id { get; internal set; }
     }

@@ -36,20 +36,6 @@ namespace Azure.ResourceManager.Compute
                 writer.WritePropertyName("location"u8);
                 writer.WriteStringValue(Location.Value);
             }
-            writer.WritePropertyName("properties"u8);
-            writer.WriteStartObject();
-            if (options.Format != "W" && Optional.IsCollectionDefined(ArtifactTags))
-            {
-                writer.WritePropertyName("artifactTags"u8);
-                writer.WriteStartObject();
-                foreach (var item in ArtifactTags)
-                {
-                    writer.WritePropertyName(item.Key);
-                    writer.WriteStringValue(item.Value);
-                }
-                writer.WriteEndObject();
-            }
-            writer.WriteEndObject();
             writer.WritePropertyName("identifier"u8);
             writer.WriteStartObject();
             if (Optional.IsDefined(UniqueId))
@@ -98,7 +84,6 @@ namespace Azure.ResourceManager.Compute
             }
             Optional<string> name = default;
             Optional<AzureLocation> location = default;
-            Optional<IReadOnlyDictionary<string, string>> artifactTags = default;
             Optional<string> uniqueId = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
@@ -116,32 +101,6 @@ namespace Azure.ResourceManager.Compute
                         continue;
                     }
                     location = new AzureLocation(property.Value.GetString());
-                    continue;
-                }
-                if (property.NameEquals("properties"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
-                    foreach (var property0 in property.Value.EnumerateObject())
-                    {
-                        if (property0.NameEquals("artifactTags"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            Dictionary<string, string> dictionary = new Dictionary<string, string>();
-                            foreach (var property1 in property0.Value.EnumerateObject())
-                            {
-                                dictionary.Add(property1.Name, property1.Value.GetString());
-                            }
-                            artifactTags = dictionary;
-                            continue;
-                        }
-                    }
                     continue;
                 }
                 if (property.NameEquals("identifier"u8))
@@ -167,7 +126,7 @@ namespace Azure.ResourceManager.Compute
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new SharedGalleryData(name.Value, Optional.ToNullable(location), serializedAdditionalRawData, uniqueId.Value, Optional.ToDictionary(artifactTags));
+            return new SharedGalleryData(name.Value, Optional.ToNullable(location), serializedAdditionalRawData, uniqueId.Value);
         }
 
         BinaryData IPersistableModel<SharedGalleryData>.Write(ModelReaderWriterOptions options)

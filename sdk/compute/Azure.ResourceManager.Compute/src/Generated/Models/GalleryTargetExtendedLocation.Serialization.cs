@@ -92,7 +92,7 @@ namespace Azure.ResourceManager.Compute.Models
             Optional<string> name = default;
             Optional<GalleryExtendedLocation> extendedLocation = default;
             Optional<int> extendedLocationReplicaCount = default;
-            Optional<EdgeZoneStorageAccountType> storageAccountType = default;
+            Optional<ImageStorageAccountType> storageAccountType = default;
             Optional<EncryptionImages> encryption = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
@@ -127,7 +127,7 @@ namespace Azure.ResourceManager.Compute.Models
                     {
                         continue;
                     }
-                    storageAccountType = new EdgeZoneStorageAccountType(property.Value.GetString());
+                    storageAccountType = new ImageStorageAccountType(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("encryption"u8))

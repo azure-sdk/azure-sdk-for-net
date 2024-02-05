@@ -54,7 +54,6 @@ namespace Azure.ResourceManager.Compute
         /// <summary> Initializes a new instance of <see cref="VirtualMachineScaleSetVmExtensionData"/>. </summary>
         public VirtualMachineScaleSetVmExtensionData()
         {
-            ProvisionAfterExtensions = new ChangeTrackingList<string>();
         }
 
         /// <summary> Initializes a new instance of <see cref="VirtualMachineScaleSetVmExtensionData"/>. </summary>
@@ -62,7 +61,6 @@ namespace Azure.ResourceManager.Compute
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
-        /// <param name="location"> The location of the extension. </param>
         /// <param name="forceUpdateTag"> How the extension handler should be forced to update even if the extension configuration has not changed. </param>
         /// <param name="publisher"> The name of the extension handler publisher. </param>
         /// <param name="extensionType"> Specifies the type of the extension; an example is "CustomScriptExtension". </param>
@@ -75,11 +73,9 @@ namespace Azure.ResourceManager.Compute
         /// <param name="instanceView"> The virtual machine extension instance view. </param>
         /// <param name="suppressFailures"> Indicates whether failures stemming from the extension will be suppressed (Operational failures such as not connecting to the VM will not be suppressed regardless of this value). The default is false. </param>
         /// <param name="keyVaultProtectedSettings"> The extensions protected settings that are passed by reference, and consumed from key vault. </param>
-        /// <param name="provisionAfterExtensions"> Collection of extension names after which this extension needs to be provisioned. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal VirtualMachineScaleSetVmExtensionData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, AzureLocation? location, string forceUpdateTag, string publisher, string extensionType, string typeHandlerVersion, bool? autoUpgradeMinorVersion, bool? enableAutomaticUpgrade, BinaryData settings, BinaryData protectedSettings, string provisioningState, VirtualMachineExtensionInstanceView instanceView, bool? suppressFailures, KeyVaultSecretReference keyVaultProtectedSettings, IList<string> provisionAfterExtensions, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
+        internal VirtualMachineScaleSetVmExtensionData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string forceUpdateTag, string publisher, string extensionType, string typeHandlerVersion, bool? autoUpgradeMinorVersion, bool? enableAutomaticUpgrade, BinaryData settings, BinaryData protectedSettings, string provisioningState, VirtualMachineExtensionInstanceView instanceView, bool? suppressFailures, KeyVaultSecretReference keyVaultProtectedSettings, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
         {
-            Location = location;
             ForceUpdateTag = forceUpdateTag;
             Publisher = publisher;
             ExtensionType = extensionType;
@@ -92,12 +88,9 @@ namespace Azure.ResourceManager.Compute
             InstanceView = instanceView;
             SuppressFailures = suppressFailures;
             KeyVaultProtectedSettings = keyVaultProtectedSettings;
-            ProvisionAfterExtensions = provisionAfterExtensions;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> The location of the extension. </summary>
-        public AzureLocation? Location { get; set; }
         /// <summary> How the extension handler should be forced to update even if the extension configuration has not changed. </summary>
         public string ForceUpdateTag { get; set; }
         /// <summary> The name of the extension handler publisher. </summary>
@@ -180,7 +173,5 @@ namespace Azure.ResourceManager.Compute
         public bool? SuppressFailures { get; set; }
         /// <summary> The extensions protected settings that are passed by reference, and consumed from key vault. </summary>
         public KeyVaultSecretReference KeyVaultProtectedSettings { get; set; }
-        /// <summary> Collection of extension names after which this extension needs to be provisioned. </summary>
-        public IList<string> ProvisionAfterExtensions { get; }
     }
 }

@@ -13,7 +13,7 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.Compute.Models
 {
-    public partial class LinuxVmGuestPatchAutomaticByPlatformSettings : IUtf8JsonSerializable, IJsonModel<LinuxVmGuestPatchAutomaticByPlatformSettings>
+    internal partial class LinuxVmGuestPatchAutomaticByPlatformSettings : IUtf8JsonSerializable, IJsonModel<LinuxVmGuestPatchAutomaticByPlatformSettings>
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<LinuxVmGuestPatchAutomaticByPlatformSettings>)this).Write(writer, new ModelReaderWriterOptions("W"));
 
@@ -30,11 +30,6 @@ namespace Azure.ResourceManager.Compute.Models
             {
                 writer.WritePropertyName("rebootSetting"u8);
                 writer.WriteStringValue(RebootSetting.Value.ToString());
-            }
-            if (Optional.IsDefined(BypassPlatformSafetyChecksOnUserSchedule))
-            {
-                writer.WritePropertyName("bypassPlatformSafetyChecksOnUserSchedule"u8);
-                writer.WriteBooleanValue(BypassPlatformSafetyChecksOnUserSchedule.Value);
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -75,7 +70,6 @@ namespace Azure.ResourceManager.Compute.Models
                 return null;
             }
             Optional<LinuxVmGuestPatchAutomaticByPlatformRebootSetting> rebootSetting = default;
-            Optional<bool> bypassPlatformSafetyChecksOnUserSchedule = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -89,22 +83,13 @@ namespace Azure.ResourceManager.Compute.Models
                     rebootSetting = new LinuxVmGuestPatchAutomaticByPlatformRebootSetting(property.Value.GetString());
                     continue;
                 }
-                if (property.NameEquals("bypassPlatformSafetyChecksOnUserSchedule"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    bypassPlatformSafetyChecksOnUserSchedule = property.Value.GetBoolean();
-                    continue;
-                }
                 if (options.Format != "W")
                 {
                     additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new LinuxVmGuestPatchAutomaticByPlatformSettings(Optional.ToNullable(rebootSetting), Optional.ToNullable(bypassPlatformSafetyChecksOnUserSchedule), serializedAdditionalRawData);
+            return new LinuxVmGuestPatchAutomaticByPlatformSettings(Optional.ToNullable(rebootSetting), serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<LinuxVmGuestPatchAutomaticByPlatformSettings>.Write(ModelReaderWriterOptions options)

@@ -41,11 +41,6 @@ namespace Azure.ResourceManager.Compute.Models
                 }
                 writer.WriteEndArray();
             }
-            if (options.Format != "W" && Optional.IsDefined(DiskControllerType))
-            {
-                writer.WritePropertyName("diskControllerType"u8);
-                writer.WriteStringValue(DiskControllerType.Value.ToString());
-            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -85,8 +80,7 @@ namespace Azure.ResourceManager.Compute.Models
                 return null;
             }
             Optional<RestorePointSourceVmOSDisk> osDisk = default;
-            Optional<IList<RestorePointSourceVmDataDisk>> dataDisks = default;
-            Optional<DiskControllerType> diskControllerType = default;
+            Optional<IReadOnlyList<RestorePointSourceVmDataDisk>> dataDisks = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -114,22 +108,13 @@ namespace Azure.ResourceManager.Compute.Models
                     dataDisks = array;
                     continue;
                 }
-                if (property.NameEquals("diskControllerType"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    diskControllerType = new DiskControllerType(property.Value.GetString());
-                    continue;
-                }
                 if (options.Format != "W")
                 {
                     additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new RestorePointSourceVmStorageProfile(osDisk.Value, Optional.ToList(dataDisks), Optional.ToNullable(diskControllerType), serializedAdditionalRawData);
+            return new RestorePointSourceVmStorageProfile(osDisk.Value, Optional.ToList(dataDisks), serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<RestorePointSourceVmStorageProfile>.Write(ModelReaderWriterOptions options)

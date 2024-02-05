@@ -39,9 +39,7 @@ namespace Azure.ResourceManager.Compute.Models
         /// <param name="ipConfigurations"> Specifies the IP configurations of the network interface. </param>
         /// <param name="enableIPForwarding"> Whether IP forwarding enabled on this NIC. </param>
         /// <param name="deleteOption"> Specify what happens to the network interface when the VM is deleted. </param>
-        /// <param name="auxiliaryMode"> Specifies whether the Auxiliary mode is enabled for the Network Interface resource. </param>
-        /// <param name="auxiliarySku"> Specifies whether the Auxiliary sku is enabled for the Network Interface resource. </param>
-        internal VirtualMachineScaleSetNetworkConfiguration(ResourceIdentifier id, IDictionary<string, BinaryData> serializedAdditionalRawData, string name, bool? primary, bool? enableAcceleratedNetworking, bool? isTcpStateTrackingDisabled, bool? enableFpga, WritableSubResource networkSecurityGroup, VirtualMachineScaleSetNetworkConfigurationDnsSettings dnsSettings, IList<VirtualMachineScaleSetIPConfiguration> ipConfigurations, bool? enableIPForwarding, ComputeDeleteOption? deleteOption, ComputeNetworkInterfaceAuxiliaryMode? auxiliaryMode, ComputeNetworkInterfaceAuxiliarySku? auxiliarySku) : base(id, serializedAdditionalRawData)
+        internal VirtualMachineScaleSetNetworkConfiguration(ResourceIdentifier id, IDictionary<string, BinaryData> serializedAdditionalRawData, string name, bool? primary, bool? enableAcceleratedNetworking, bool? isTcpStateTrackingDisabled, bool? enableFpga, WritableSubResource networkSecurityGroup, VirtualMachineScaleSetNetworkConfigurationDnsSettings dnsSettings, IList<VirtualMachineScaleSetIPConfiguration> ipConfigurations, bool? enableIPForwarding, ComputeDeleteOption? deleteOption) : base(id, serializedAdditionalRawData)
         {
             Name = name;
             Primary = primary;
@@ -53,8 +51,6 @@ namespace Azure.ResourceManager.Compute.Models
             IPConfigurations = ipConfigurations;
             EnableIPForwarding = enableIPForwarding;
             DeleteOption = deleteOption;
-            AuxiliaryMode = auxiliaryMode;
-            AuxiliarySku = auxiliarySku;
         }
 
         /// <summary> Initializes a new instance of <see cref="VirtualMachineScaleSetNetworkConfiguration"/> for deserialization. </summary>
@@ -105,9 +101,5 @@ namespace Azure.ResourceManager.Compute.Models
         public bool? EnableIPForwarding { get; set; }
         /// <summary> Specify what happens to the network interface when the VM is deleted. </summary>
         public ComputeDeleteOption? DeleteOption { get; set; }
-        /// <summary> Specifies whether the Auxiliary mode is enabled for the Network Interface resource. </summary>
-        public ComputeNetworkInterfaceAuxiliaryMode? AuxiliaryMode { get; set; }
-        /// <summary> Specifies whether the Auxiliary sku is enabled for the Network Interface resource. </summary>
-        public ComputeNetworkInterfaceAuxiliarySku? AuxiliarySku { get; set; }
     }
 }

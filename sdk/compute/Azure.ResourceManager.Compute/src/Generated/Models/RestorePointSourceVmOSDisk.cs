@@ -7,6 +7,8 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.Core;
+using Azure.ResourceManager.Resources.Models;
 
 namespace Azure.ResourceManager.Compute.Models
 {
@@ -46,7 +48,7 @@ namespace Azure.ResourceManager.Compute.Models
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="RestorePointSourceVmOSDisk"/>. </summary>
-        public RestorePointSourceVmOSDisk()
+        internal RestorePointSourceVmOSDisk()
         {
         }
 
@@ -57,10 +59,9 @@ namespace Azure.ResourceManager.Compute.Models
         /// <param name="caching"> Gets the caching type. </param>
         /// <param name="diskSizeGB"> Gets the disk size in GB. </param>
         /// <param name="managedDisk"> Gets the managed disk details. </param>
-        /// <param name="diskRestorePoint"> Contains Disk Restore Point properties. </param>
-        /// <param name="writeAcceleratorEnabled"> Shows true if the disk is write-accelerator enabled. </param>
+        /// <param name="diskRestorePoint"> Gets the disk restore point Id. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal RestorePointSourceVmOSDisk(OperatingSystemType? osType, DiskEncryptionSettings encryptionSettings, string name, CachingType? caching, int? diskSizeGB, VirtualMachineManagedDisk managedDisk, DiskRestorePointAttributes diskRestorePoint, bool? writeAcceleratorEnabled, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal RestorePointSourceVmOSDisk(OperatingSystemType? osType, DiskEncryptionSettings encryptionSettings, string name, CachingType? caching, int? diskSizeGB, VirtualMachineManagedDisk managedDisk, WritableSubResource diskRestorePoint, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             OSType = osType;
             EncryptionSettings = encryptionSettings;
@@ -69,7 +70,6 @@ namespace Azure.ResourceManager.Compute.Models
             DiskSizeGB = diskSizeGB;
             ManagedDisk = managedDisk;
             DiskRestorePoint = diskRestorePoint;
-            WriteAcceleratorEnabled = writeAcceleratorEnabled;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -84,10 +84,8 @@ namespace Azure.ResourceManager.Compute.Models
         /// <summary> Gets the disk size in GB. </summary>
         public int? DiskSizeGB { get; }
         /// <summary> Gets the managed disk details. </summary>
-        public VirtualMachineManagedDisk ManagedDisk { get; set; }
-        /// <summary> Contains Disk Restore Point properties. </summary>
-        public DiskRestorePointAttributes DiskRestorePoint { get; set; }
-        /// <summary> Shows true if the disk is write-accelerator enabled. </summary>
-        public bool? WriteAcceleratorEnabled { get; }
+        public VirtualMachineManagedDisk ManagedDisk { get; }
+        /// <summary> Gets the disk restore point Id. </summary>
+        internal WritableSubResource DiskRestorePoint { get; }
     }
 }

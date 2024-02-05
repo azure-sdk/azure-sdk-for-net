@@ -99,11 +99,6 @@ namespace Azure.ResourceManager.Compute
                 writer.WritePropertyName("instanceView"u8);
                 writer.WriteObjectValue(InstanceView);
             }
-            if (Optional.IsDefined(SharingProfile))
-            {
-                writer.WritePropertyName("sharingProfile"u8);
-                writer.WriteObjectValue(SharingProfile);
-            }
             writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -153,7 +148,6 @@ namespace Azure.ResourceManager.Compute
             Optional<IReadOnlyList<SubResource>> capacityReservations = default;
             Optional<IReadOnlyList<SubResource>> virtualMachinesAssociated = default;
             Optional<CapacityReservationGroupInstanceView> instanceView = default;
-            Optional<ResourceSharingProfile> sharingProfile = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -261,15 +255,6 @@ namespace Azure.ResourceManager.Compute
                             instanceView = CapacityReservationGroupInstanceView.DeserializeCapacityReservationGroupInstanceView(property0.Value);
                             continue;
                         }
-                        if (property0.NameEquals("sharingProfile"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            sharingProfile = ResourceSharingProfile.DeserializeResourceSharingProfile(property0.Value);
-                            continue;
-                        }
                     }
                     continue;
                 }
@@ -279,7 +264,7 @@ namespace Azure.ResourceManager.Compute
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new CapacityReservationGroupData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, Optional.ToList(zones), Optional.ToList(capacityReservations), Optional.ToList(virtualMachinesAssociated), instanceView.Value, sharingProfile.Value, serializedAdditionalRawData);
+            return new CapacityReservationGroupData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, Optional.ToList(zones), Optional.ToList(capacityReservations), Optional.ToList(virtualMachinesAssociated), instanceView.Value, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<CapacityReservationGroupData>.Write(ModelReaderWriterOptions options)

@@ -97,7 +97,8 @@ namespace Azure.ResourceManager.Compute.Models
         /// <summary> Specify what happens to the public IP address when the VM is deleted. </summary>
         public ComputeDeleteOption? DeleteOption { get; set; }
         /// <summary> The dns settings to be applied on the publicIP addresses . </summary>
-        public VirtualMachinePublicIPAddressDnsSettingsConfiguration DnsSettings { get; set; }
+        internal VirtualMachinePublicIPAddressDnsSettingsConfiguration DnsSettings { get; set; }
+
         /// <summary> The list of IP tags associated with the public IP address. </summary>
         public IList<VirtualMachineIPTag> IPTags { get; }
         /// <summary> The PublicIPPrefix from which to allocate publicIP addresses. </summary>

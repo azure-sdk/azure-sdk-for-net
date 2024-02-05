@@ -121,11 +121,6 @@ namespace Azure.ResourceManager.Compute.Models
                 writer.WritePropertyName("patchStatus"u8);
                 writer.WriteObjectValue(PatchStatus);
             }
-            if (options.Format != "W" && Optional.IsDefined(IsVmInStandbyPool))
-            {
-                writer.WritePropertyName("isVMInStandbyPool"u8);
-                writer.WriteBooleanValue(IsVmInStandbyPool.Value);
-            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -180,7 +175,6 @@ namespace Azure.ResourceManager.Compute.Models
             Optional<string> assignedHost = default;
             Optional<IReadOnlyList<InstanceViewStatus>> statuses = default;
             Optional<VirtualMachinePatchStatus> patchStatus = default;
-            Optional<bool> isVmInStandbyPool = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -324,22 +318,13 @@ namespace Azure.ResourceManager.Compute.Models
                     patchStatus = VirtualMachinePatchStatus.DeserializeVirtualMachinePatchStatus(property.Value);
                     continue;
                 }
-                if (property.NameEquals("isVMInStandbyPool"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    isVmInStandbyPool = property.Value.GetBoolean();
-                    continue;
-                }
                 if (options.Format != "W")
                 {
                     additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new VirtualMachineInstanceView(Optional.ToNullable(platformUpdateDomain), Optional.ToNullable(platformFaultDomain), computerName.Value, osName.Value, osVersion.Value, Optional.ToNullable(hyperVGeneration), rdpThumbPrint.Value, vmAgent.Value, maintenanceRedeployStatus.Value, Optional.ToList(disks), Optional.ToList(extensions), vmHealth.Value, bootDiagnostics.Value, assignedHost.Value, Optional.ToList(statuses), patchStatus.Value, Optional.ToNullable(isVmInStandbyPool), serializedAdditionalRawData);
+            return new VirtualMachineInstanceView(Optional.ToNullable(platformUpdateDomain), Optional.ToNullable(platformFaultDomain), computerName.Value, osName.Value, osVersion.Value, Optional.ToNullable(hyperVGeneration), rdpThumbPrint.Value, vmAgent.Value, maintenanceRedeployStatus.Value, Optional.ToList(disks), Optional.ToList(extensions), vmHealth.Value, bootDiagnostics.Value, assignedHost.Value, Optional.ToList(statuses), patchStatus.Value, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<VirtualMachineInstanceView>.Write(ModelReaderWriterOptions options)

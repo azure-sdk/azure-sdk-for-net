@@ -85,11 +85,6 @@ namespace Azure.ResourceManager.Compute.Models
                 writer.WritePropertyName("replicationStatus"u8);
                 writer.WriteObjectValue(ReplicationStatus);
             }
-            if (Optional.IsDefined(SecurityProfile))
-            {
-                writer.WritePropertyName("securityProfile"u8);
-                writer.WriteObjectValue(SecurityProfile);
-            }
             writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -139,7 +134,6 @@ namespace Azure.ResourceManager.Compute.Models
             Optional<GalleryImageVersionStorageProfile> storageProfile = default;
             Optional<GalleryImageVersionSafetyProfile> safetyProfile = default;
             Optional<ReplicationStatus> replicationStatus = default;
-            Optional<ImageVersionSecurityProfile> securityProfile = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -236,15 +230,6 @@ namespace Azure.ResourceManager.Compute.Models
                             replicationStatus = ReplicationStatus.DeserializeReplicationStatus(property0.Value);
                             continue;
                         }
-                        if (property0.NameEquals("securityProfile"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            securityProfile = ImageVersionSecurityProfile.DeserializeImageVersionSecurityProfile(property0.Value);
-                            continue;
-                        }
                     }
                     continue;
                 }
@@ -254,7 +239,7 @@ namespace Azure.ResourceManager.Compute.Models
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new GalleryImageVersionPatch(id, name, type, systemData.Value, publishingProfile.Value, Optional.ToNullable(provisioningState), storageProfile.Value, safetyProfile.Value, replicationStatus.Value, securityProfile.Value, Optional.ToDictionary(tags), serializedAdditionalRawData);
+            return new GalleryImageVersionPatch(id, name, type, systemData.Value, publishingProfile.Value, Optional.ToNullable(provisioningState), storageProfile.Value, safetyProfile.Value, replicationStatus.Value, Optional.ToDictionary(tags), serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<GalleryImageVersionPatch>.Write(ModelReaderWriterOptions options)

@@ -86,16 +86,6 @@ namespace Azure.ResourceManager.Compute.Models
                 writer.WritePropertyName("dscpConfiguration"u8);
                 JsonSerializer.Serialize(writer, DscpConfiguration);
             }
-            if (Optional.IsDefined(AuxiliaryMode))
-            {
-                writer.WritePropertyName("auxiliaryMode"u8);
-                writer.WriteStringValue(AuxiliaryMode.Value.ToString());
-            }
-            if (Optional.IsDefined(AuxiliarySku))
-            {
-                writer.WritePropertyName("auxiliarySku"u8);
-                writer.WriteStringValue(AuxiliarySku.Value.ToString());
-            }
             writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -146,8 +136,6 @@ namespace Azure.ResourceManager.Compute.Models
             Optional<VirtualMachineNetworkInterfaceDnsSettingsConfiguration> dnsSettings = default;
             Optional<IList<VirtualMachineNetworkInterfaceIPConfiguration>> ipConfigurations = default;
             Optional<WritableSubResource> dscpConfiguration = default;
-            Optional<ComputeNetworkInterfaceAuxiliaryMode> auxiliaryMode = default;
-            Optional<ComputeNetworkInterfaceAuxiliarySku> auxiliarySku = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -261,24 +249,6 @@ namespace Azure.ResourceManager.Compute.Models
                             dscpConfiguration = JsonSerializer.Deserialize<WritableSubResource>(property0.Value.GetRawText());
                             continue;
                         }
-                        if (property0.NameEquals("auxiliaryMode"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            auxiliaryMode = new ComputeNetworkInterfaceAuxiliaryMode(property0.Value.GetString());
-                            continue;
-                        }
-                        if (property0.NameEquals("auxiliarySku"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            auxiliarySku = new ComputeNetworkInterfaceAuxiliarySku(property0.Value.GetString());
-                            continue;
-                        }
                     }
                     continue;
                 }
@@ -288,7 +258,7 @@ namespace Azure.ResourceManager.Compute.Models
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new VirtualMachineNetworkInterfaceConfiguration(name, Optional.ToNullable(primary), Optional.ToNullable(deleteOption), Optional.ToNullable(enableAcceleratedNetworking), Optional.ToNullable(disableTcpStateTracking), Optional.ToNullable(enableFpga), Optional.ToNullable(enableIPForwarding), networkSecurityGroup, dnsSettings.Value, Optional.ToList(ipConfigurations), dscpConfiguration, Optional.ToNullable(auxiliaryMode), Optional.ToNullable(auxiliarySku), serializedAdditionalRawData);
+            return new VirtualMachineNetworkInterfaceConfiguration(name, Optional.ToNullable(primary), Optional.ToNullable(deleteOption), Optional.ToNullable(enableAcceleratedNetworking), Optional.ToNullable(disableTcpStateTracking), Optional.ToNullable(enableFpga), Optional.ToNullable(enableIPForwarding), networkSecurityGroup, dnsSettings.Value, Optional.ToList(ipConfigurations), dscpConfiguration, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<VirtualMachineNetworkInterfaceConfiguration>.Write(ModelReaderWriterOptions options)

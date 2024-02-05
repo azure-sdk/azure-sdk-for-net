@@ -8,12 +8,11 @@
 using System;
 using System.Collections.Generic;
 using Azure.Core;
-using Azure.ResourceManager.Resources.Models;
 
 namespace Azure.ResourceManager.Compute.Models
 {
     /// <summary> The CapacityReservationGroupInstanceView. </summary>
-    public partial class CapacityReservationGroupInstanceView
+    internal partial class CapacityReservationGroupInstanceView
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -51,23 +50,18 @@ namespace Azure.ResourceManager.Compute.Models
         internal CapacityReservationGroupInstanceView()
         {
             CapacityReservations = new ChangeTrackingList<CapacityReservationInstanceViewWithName>();
-            SharedSubscriptionIds = new ChangeTrackingList<SubResource>();
         }
 
         /// <summary> Initializes a new instance of <see cref="CapacityReservationGroupInstanceView"/>. </summary>
         /// <param name="capacityReservations"> List of instance view of the capacity reservations under the capacity reservation group. </param>
-        /// <param name="sharedSubscriptionIds"> List of the subscriptions that the capacity reservation group is shared with. **Note:** Minimum api-version: 2023-09-01. Please refer to https://aka.ms/computereservationsharing for more details. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal CapacityReservationGroupInstanceView(IReadOnlyList<CapacityReservationInstanceViewWithName> capacityReservations, IReadOnlyList<SubResource> sharedSubscriptionIds, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal CapacityReservationGroupInstanceView(IReadOnlyList<CapacityReservationInstanceViewWithName> capacityReservations, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             CapacityReservations = capacityReservations;
-            SharedSubscriptionIds = sharedSubscriptionIds;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
         /// <summary> List of instance view of the capacity reservations under the capacity reservation group. </summary>
         public IReadOnlyList<CapacityReservationInstanceViewWithName> CapacityReservations { get; }
-        /// <summary> List of the subscriptions that the capacity reservation group is shared with. **Note:** Minimum api-version: 2023-09-01. Please refer to https://aka.ms/computereservationsharing for more details. </summary>
-        public IReadOnlyList<SubResource> SharedSubscriptionIds { get; }
     }
 }

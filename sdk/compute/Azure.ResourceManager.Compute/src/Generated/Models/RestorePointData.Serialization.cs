@@ -61,7 +61,7 @@ namespace Azure.ResourceManager.Compute
                 }
                 writer.WriteEndArray();
             }
-            if (Optional.IsDefined(SourceMetadata))
+            if (options.Format != "W" && Optional.IsDefined(SourceMetadata))
             {
                 writer.WritePropertyName("sourceMetadata"u8);
                 writer.WriteObjectValue(SourceMetadata);

@@ -35,11 +35,6 @@ namespace Azure.ResourceManager.Compute.Models
                 writer.WritePropertyName("getSecureVMGuestStateSAS"u8);
                 writer.WriteBooleanValue(GetSecureVmGuestStateSas.Value);
             }
-            if (Optional.IsDefined(FileFormat))
-            {
-                writer.WritePropertyName("fileFormat"u8);
-                writer.WriteStringValue(FileFormat.Value.ToString());
-            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -81,7 +76,6 @@ namespace Azure.ResourceManager.Compute.Models
             AccessLevel access = default;
             int durationInSeconds = default;
             Optional<bool> getSecureVmGuestStateSas = default;
-            Optional<DiskImageFileFormat> fileFormat = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -105,22 +99,13 @@ namespace Azure.ResourceManager.Compute.Models
                     getSecureVmGuestStateSas = property.Value.GetBoolean();
                     continue;
                 }
-                if (property.NameEquals("fileFormat"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    fileFormat = new DiskImageFileFormat(property.Value.GetString());
-                    continue;
-                }
                 if (options.Format != "W")
                 {
                     additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new GrantAccessData(access, durationInSeconds, Optional.ToNullable(getSecureVmGuestStateSas), Optional.ToNullable(fileFormat), serializedAdditionalRawData);
+            return new GrantAccessData(access, durationInSeconds, Optional.ToNullable(getSecureVmGuestStateSas), serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<GrantAccessData>.Write(ModelReaderWriterOptions options)

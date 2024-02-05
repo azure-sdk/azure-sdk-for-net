@@ -55,7 +55,6 @@ namespace Azure.ResourceManager.Compute
         /// <param name="location"> The location. </param>
         public VirtualMachineExtensionData(AzureLocation location) : base(location)
         {
-            ProvisionAfterExtensions = new ChangeTrackingList<string>();
         }
 
         /// <summary> Initializes a new instance of <see cref="VirtualMachineExtensionData"/>. </summary>
@@ -77,9 +76,8 @@ namespace Azure.ResourceManager.Compute
         /// <param name="instanceView"> The virtual machine extension instance view. </param>
         /// <param name="suppressFailures"> Indicates whether failures stemming from the extension will be suppressed (Operational failures such as not connecting to the VM will not be suppressed regardless of this value). The default is false. </param>
         /// <param name="keyVaultProtectedSettings"> The extensions protected settings that are passed by reference, and consumed from key vault. </param>
-        /// <param name="provisionAfterExtensions"> Collection of extension names after which this extension needs to be provisioned. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal VirtualMachineExtensionData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, string forceUpdateTag, string publisher, string extensionType, string typeHandlerVersion, bool? autoUpgradeMinorVersion, bool? enableAutomaticUpgrade, BinaryData settings, BinaryData protectedSettings, string provisioningState, VirtualMachineExtensionInstanceView instanceView, bool? suppressFailures, KeyVaultSecretReference keyVaultProtectedSettings, IList<string> provisionAfterExtensions, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
+        internal VirtualMachineExtensionData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, IDictionary<string, string> tags, AzureLocation location, string forceUpdateTag, string publisher, string extensionType, string typeHandlerVersion, bool? autoUpgradeMinorVersion, bool? enableAutomaticUpgrade, BinaryData settings, BinaryData protectedSettings, string provisioningState, VirtualMachineExtensionInstanceView instanceView, bool? suppressFailures, KeyVaultSecretReference keyVaultProtectedSettings, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData, tags, location)
         {
             ForceUpdateTag = forceUpdateTag;
             Publisher = publisher;
@@ -93,7 +91,6 @@ namespace Azure.ResourceManager.Compute
             InstanceView = instanceView;
             SuppressFailures = suppressFailures;
             KeyVaultProtectedSettings = keyVaultProtectedSettings;
-            ProvisionAfterExtensions = provisionAfterExtensions;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -184,7 +181,5 @@ namespace Azure.ResourceManager.Compute
         public bool? SuppressFailures { get; set; }
         /// <summary> The extensions protected settings that are passed by reference, and consumed from key vault. </summary>
         public KeyVaultSecretReference KeyVaultProtectedSettings { get; set; }
-        /// <summary> Collection of extension names after which this extension needs to be provisioned. </summary>
-        public IList<string> ProvisionAfterExtensions { get; }
     }
 }

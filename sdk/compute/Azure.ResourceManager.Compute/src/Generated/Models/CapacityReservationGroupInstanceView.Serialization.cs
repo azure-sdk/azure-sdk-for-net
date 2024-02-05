@@ -10,11 +10,10 @@ using System.ClientModel.Primitives;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
-using Azure.ResourceManager.Resources.Models;
 
 namespace Azure.ResourceManager.Compute.Models
 {
-    public partial class CapacityReservationGroupInstanceView : IUtf8JsonSerializable, IJsonModel<CapacityReservationGroupInstanceView>
+    internal partial class CapacityReservationGroupInstanceView : IUtf8JsonSerializable, IJsonModel<CapacityReservationGroupInstanceView>
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<CapacityReservationGroupInstanceView>)this).Write(writer, new ModelReaderWriterOptions("W"));
 
@@ -34,16 +33,6 @@ namespace Azure.ResourceManager.Compute.Models
                 foreach (var item in CapacityReservations)
                 {
                     writer.WriteObjectValue(item);
-                }
-                writer.WriteEndArray();
-            }
-            if (options.Format != "W" && Optional.IsCollectionDefined(SharedSubscriptionIds))
-            {
-                writer.WritePropertyName("sharedSubscriptionIds"u8);
-                writer.WriteStartArray();
-                foreach (var item in SharedSubscriptionIds)
-                {
-                    JsonSerializer.Serialize(writer, item);
                 }
                 writer.WriteEndArray();
             }
@@ -86,7 +75,6 @@ namespace Azure.ResourceManager.Compute.Models
                 return null;
             }
             Optional<IReadOnlyList<CapacityReservationInstanceViewWithName>> capacityReservations = default;
-            Optional<IReadOnlyList<SubResource>> sharedSubscriptionIds = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -105,27 +93,13 @@ namespace Azure.ResourceManager.Compute.Models
                     capacityReservations = array;
                     continue;
                 }
-                if (property.NameEquals("sharedSubscriptionIds"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    List<SubResource> array = new List<SubResource>();
-                    foreach (var item in property.Value.EnumerateArray())
-                    {
-                        array.Add(JsonSerializer.Deserialize<SubResource>(item.GetRawText()));
-                    }
-                    sharedSubscriptionIds = array;
-                    continue;
-                }
                 if (options.Format != "W")
                 {
                     additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new CapacityReservationGroupInstanceView(Optional.ToList(capacityReservations), Optional.ToList(sharedSubscriptionIds), serializedAdditionalRawData);
+            return new CapacityReservationGroupInstanceView(Optional.ToList(capacityReservations), serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<CapacityReservationGroupInstanceView>.Write(ModelReaderWriterOptions options)
