@@ -11,7 +11,7 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.Marketplace.Models
 {
-    /// <summary> Private plans subscriptions. </summary>
+    /// <summary> Private plans subscriptions properties. </summary>
     public partial class StopSellSubscriptions
     {
         /// <summary>

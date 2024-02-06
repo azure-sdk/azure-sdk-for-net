@@ -11,7 +11,7 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.Marketplace.Models
 {
-    /// <summary> The SetRulesContent. </summary>
+    /// <summary> Set collection rules properties. </summary>
     public partial class SetRulesContent
     {
         /// <summary>

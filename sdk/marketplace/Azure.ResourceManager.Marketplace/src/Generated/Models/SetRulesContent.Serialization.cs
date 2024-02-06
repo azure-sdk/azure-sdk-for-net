@@ -26,6 +26,8 @@ namespace Azure.ResourceManager.Marketplace.Models
             }
 
             writer.WriteStartObject();
+            writer.WritePropertyName("properties"u8);
+            writer.WriteStartObject();
             if (Optional.IsCollectionDefined(Value))
             {
                 writer.WritePropertyName("value"u8);
@@ -41,6 +43,7 @@ namespace Azure.ResourceManager.Marketplace.Models
                 writer.WritePropertyName("nextLink"u8);
                 writer.WriteStringValue(NextLink);
             }
+            writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -85,23 +88,35 @@ namespace Azure.ResourceManager.Marketplace.Models
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("value"u8))
+                if (property.NameEquals("properties"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
+                        property.ThrowNonNullablePropertyIsNull();
                         continue;
                     }
-                    List<MarketplaceRule> array = new List<MarketplaceRule>();
-                    foreach (var item in property.Value.EnumerateArray())
+                    foreach (var property0 in property.Value.EnumerateObject())
                     {
-                        array.Add(MarketplaceRule.DeserializeMarketplaceRule(item));
+                        if (property0.NameEquals("value"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            List<MarketplaceRule> array = new List<MarketplaceRule>();
+                            foreach (var item in property0.Value.EnumerateArray())
+                            {
+                                array.Add(MarketplaceRule.DeserializeMarketplaceRule(item));
+                            }
+                            value = array;
+                            continue;
+                        }
+                        if (property0.NameEquals("nextLink"u8))
+                        {
+                            nextLink = property0.Value.GetString();
+                            continue;
+                        }
                     }
-                    value = array;
-                    continue;
-                }
-                if (property.NameEquals("nextLink"u8))
-                {
-                    nextLink = property.Value.GetString();
                     continue;
                 }
                 if (options.Format != "W")
