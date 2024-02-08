@@ -14,34 +14,39 @@ using Azure.Core;
 
 namespace Azure.Health.Insights.ClinicalMatching
 {
-    public partial class PatientInfo : IUtf8JsonSerializable, IJsonModel<PatientInfo>
+    public partial class FhirR4Range : IUtf8JsonSerializable, IJsonModel<FhirR4Range>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<PatientInfo>)this).Write(writer, new ModelReaderWriterOptions("W"));
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<FhirR4Range>)this).Write(writer, new ModelReaderWriterOptions("W"));
 
-        void IJsonModel<PatientInfo>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<FhirR4Range>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<PatientInfo>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<FhirR4Range>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(PatientInfo)} does not support '{format}' format.");
+                throw new FormatException($"The model {nameof(FhirR4Range)} does not support '{format}' format.");
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(Sex))
+            if (Optional.IsDefined(Low))
             {
-                writer.WritePropertyName("sex"u8);
-                writer.WriteStringValue(Sex.Value.ToString());
+                writer.WritePropertyName("low"u8);
+                writer.WriteObjectValue(Low);
             }
-            if (Optional.IsDefined(BirthDate))
+            if (Optional.IsDefined(High))
             {
-                writer.WritePropertyName("birthDate"u8);
-                writer.WriteStringValue(BirthDate.Value, "D");
+                writer.WritePropertyName("high"u8);
+                writer.WriteObjectValue(High);
             }
-            if (Optional.IsCollectionDefined(ClinicalInfo))
+            if (Optional.IsDefined(Id))
             {
-                writer.WritePropertyName("clinicalInfo"u8);
+                writer.WritePropertyName("id"u8);
+                writer.WriteStringValue(Id);
+            }
+            if (Optional.IsCollectionDefined(Extension))
+            {
+                writer.WritePropertyName("extension"u8);
                 writer.WriteStartArray();
-                foreach (var item in ClinicalInfo)
+                foreach (var item in Extension)
                 {
                     writer.WriteObjectValue(item);
                 }
@@ -65,19 +70,19 @@ namespace Azure.Health.Insights.ClinicalMatching
             writer.WriteEndObject();
         }
 
-        PatientInfo IJsonModel<PatientInfo>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        FhirR4Range IJsonModel<FhirR4Range>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<PatientInfo>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<FhirR4Range>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(PatientInfo)} does not support '{format}' format.");
+                throw new FormatException($"The model {nameof(FhirR4Range)} does not support '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializePatientInfo(document.RootElement, options);
+            return DeserializeFhirR4Range(document.RootElement, options);
         }
 
-        internal static PatientInfo DeserializePatientInfo(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static FhirR4Range DeserializeFhirR4Range(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= new ModelReaderWriterOptions("W");
 
@@ -85,43 +90,49 @@ namespace Azure.Health.Insights.ClinicalMatching
             {
                 return null;
             }
-            Optional<PatientInfoSex> sex = default;
-            Optional<DateTimeOffset> birthDate = default;
-            Optional<IList<ClinicalCodedElement>> clinicalInfo = default;
+            Optional<FhirR4Quantity> low = default;
+            Optional<FhirR4Quantity> high = default;
+            Optional<string> id = default;
+            Optional<IReadOnlyList<FhirR4Extension>> extension = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("sex"u8))
+                if (property.NameEquals("low"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    sex = new PatientInfoSex(property.Value.GetString());
+                    low = FhirR4Quantity.DeserializeFhirR4Quantity(property.Value);
                     continue;
                 }
-                if (property.NameEquals("birthDate"u8))
+                if (property.NameEquals("high"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    birthDate = property.Value.GetDateTimeOffset("D");
+                    high = FhirR4Quantity.DeserializeFhirR4Quantity(property.Value);
                     continue;
                 }
-                if (property.NameEquals("clinicalInfo"u8))
+                if (property.NameEquals("id"u8))
+                {
+                    id = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("extension"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    List<ClinicalCodedElement> array = new List<ClinicalCodedElement>();
+                    List<FhirR4Extension> array = new List<FhirR4Extension>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(ClinicalCodedElement.DeserializeClinicalCodedElement(item));
+                        array.Add(FhirR4Extension.DeserializeFhirR4Extension(item));
                     }
-                    clinicalInfo = array;
+                    extension = array;
                     continue;
                 }
                 if (options.Format != "W")
@@ -130,50 +141,50 @@ namespace Azure.Health.Insights.ClinicalMatching
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new PatientInfo(Optional.ToNullable(sex), Optional.ToNullable(birthDate), Optional.ToList(clinicalInfo), serializedAdditionalRawData);
+            return new FhirR4Range(id.Value, Optional.ToList(extension), serializedAdditionalRawData, low.Value, high.Value);
         }
 
-        BinaryData IPersistableModel<PatientInfo>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<FhirR4Range>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<PatientInfo>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<FhirR4Range>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(PatientInfo)} does not support '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(FhirR4Range)} does not support '{options.Format}' format.");
             }
         }
 
-        PatientInfo IPersistableModel<PatientInfo>.Create(BinaryData data, ModelReaderWriterOptions options)
+        FhirR4Range IPersistableModel<FhirR4Range>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<PatientInfo>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<FhirR4Range>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializePatientInfo(document.RootElement, options);
+                        return DeserializeFhirR4Range(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(PatientInfo)} does not support '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(FhirR4Range)} does not support '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<PatientInfo>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<FhirR4Range>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static PatientInfo FromResponse(Response response)
+        internal static new FhirR4Range FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content);
-            return DeserializePatientInfo(document.RootElement);
+            return DeserializeFhirR4Range(document.RootElement);
         }
 
         /// <summary> Convert into a Utf8JsonRequestContent. </summary>
-        internal virtual RequestContent ToRequestContent()
+        internal override RequestContent ToRequestContent()
         {
             var content = new Utf8JsonRequestContent();
             content.JsonWriter.WriteObjectValue(this);

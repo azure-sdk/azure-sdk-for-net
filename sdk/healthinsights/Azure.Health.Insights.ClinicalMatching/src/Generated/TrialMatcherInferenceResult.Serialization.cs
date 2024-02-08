@@ -14,22 +14,22 @@ using Azure.Core;
 
 namespace Azure.Health.Insights.ClinicalMatching
 {
-    public partial class TrialMatcherResults : IUtf8JsonSerializable, IJsonModel<TrialMatcherResults>
+    public partial class TrialMatcherInferenceResult : IUtf8JsonSerializable, IJsonModel<TrialMatcherInferenceResult>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<TrialMatcherResults>)this).Write(writer, new ModelReaderWriterOptions("W"));
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<TrialMatcherInferenceResult>)this).Write(writer, new ModelReaderWriterOptions("W"));
 
-        void IJsonModel<TrialMatcherResults>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<TrialMatcherInferenceResult>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<TrialMatcherResults>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<TrialMatcherInferenceResult>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(TrialMatcherResults)} does not support '{format}' format.");
+                throw new FormatException($"The model {nameof(TrialMatcherInferenceResult)} does not support '{format}' format.");
             }
 
             writer.WriteStartObject();
-            writer.WritePropertyName("patients"u8);
+            writer.WritePropertyName("patientResults"u8);
             writer.WriteStartArray();
-            foreach (var item in Patients)
+            foreach (var item in PatientResults)
             {
                 writer.WriteObjectValue(item);
             }
@@ -59,19 +59,19 @@ namespace Azure.Health.Insights.ClinicalMatching
             writer.WriteEndObject();
         }
 
-        TrialMatcherResults IJsonModel<TrialMatcherResults>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        TrialMatcherInferenceResult IJsonModel<TrialMatcherInferenceResult>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<TrialMatcherResults>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<TrialMatcherInferenceResult>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(TrialMatcherResults)} does not support '{format}' format.");
+                throw new FormatException($"The model {nameof(TrialMatcherInferenceResult)} does not support '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeTrialMatcherResults(document.RootElement, options);
+            return DeserializeTrialMatcherInferenceResult(document.RootElement, options);
         }
 
-        internal static TrialMatcherResults DeserializeTrialMatcherResults(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static TrialMatcherInferenceResult DeserializeTrialMatcherInferenceResult(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= new ModelReaderWriterOptions("W");
 
@@ -79,21 +79,21 @@ namespace Azure.Health.Insights.ClinicalMatching
             {
                 return null;
             }
-            IReadOnlyList<TrialMatcherPatientResult> patients = default;
+            IReadOnlyList<TrialMatcherPatientResult> patientResults = default;
             string modelVersion = default;
             Optional<DateTimeOffset> knowledgeGraphLastUpdateDate = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("patients"u8))
+                if (property.NameEquals("patientResults"u8))
                 {
                     List<TrialMatcherPatientResult> array = new List<TrialMatcherPatientResult>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
                         array.Add(TrialMatcherPatientResult.DeserializeTrialMatcherPatientResult(item));
                     }
-                    patients = array;
+                    patientResults = array;
                     continue;
                 }
                 if (property.NameEquals("modelVersion"u8))
@@ -116,46 +116,46 @@ namespace Azure.Health.Insights.ClinicalMatching
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new TrialMatcherResults(patients, modelVersion, Optional.ToNullable(knowledgeGraphLastUpdateDate), serializedAdditionalRawData);
+            return new TrialMatcherInferenceResult(patientResults, modelVersion, Optional.ToNullable(knowledgeGraphLastUpdateDate), serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<TrialMatcherResults>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<TrialMatcherInferenceResult>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<TrialMatcherResults>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<TrialMatcherInferenceResult>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(TrialMatcherResults)} does not support '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(TrialMatcherInferenceResult)} does not support '{options.Format}' format.");
             }
         }
 
-        TrialMatcherResults IPersistableModel<TrialMatcherResults>.Create(BinaryData data, ModelReaderWriterOptions options)
+        TrialMatcherInferenceResult IPersistableModel<TrialMatcherInferenceResult>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<TrialMatcherResults>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<TrialMatcherInferenceResult>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializeTrialMatcherResults(document.RootElement, options);
+                        return DeserializeTrialMatcherInferenceResult(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(TrialMatcherResults)} does not support '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(TrialMatcherInferenceResult)} does not support '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<TrialMatcherResults>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<TrialMatcherInferenceResult>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static TrialMatcherResults FromResponse(Response response)
+        internal static TrialMatcherInferenceResult FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content);
-            return DeserializeTrialMatcherResults(document.RootElement);
+            return DeserializeTrialMatcherInferenceResult(document.RootElement);
         }
 
         /// <summary> Convert into a Utf8JsonRequestContent. </summary>

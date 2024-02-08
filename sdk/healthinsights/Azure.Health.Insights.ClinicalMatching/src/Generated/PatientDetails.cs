@@ -7,11 +7,12 @@
 
 using System;
 using System.Collections.Generic;
+using Azure.Core;
 
 namespace Azure.Health.Insights.ClinicalMatching
 {
-    /// <summary> Demographic criteria for a clinical trial. </summary>
-    public partial class ClinicalTrialDemographics
+    /// <summary> Patient structured information, including demographics and known structured clinical information. </summary>
+    public partial class PatientDetails
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,25 +46,30 @@ namespace Azure.Health.Insights.ClinicalMatching
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="ClinicalTrialDemographics"/>. </summary>
-        public ClinicalTrialDemographics()
+        /// <summary> Initializes a new instance of <see cref="PatientDetails"/>. </summary>
+        public PatientDetails()
         {
+            ClinicalInfo = new ChangeTrackingList<FhirR4Resource>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="ClinicalTrialDemographics"/>. </summary>
-        /// <param name="acceptedSex"> Indication of the sex of people who may participate in the clinical trial. </param>
-        /// <param name="acceptedAgeRange"> A definition of the range of ages accepted by a clinical trial. Contains a minimum age and/or a maximum age. </param>
+        /// <summary> Initializes a new instance of <see cref="PatientDetails"/>. </summary>
+        /// <param name="sex"> The patient's sex. </param>
+        /// <param name="birthDate"> The patient's date of birth. </param>
+        /// <param name="clinicalInfo"> Known clinical information for the patient, structured. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ClinicalTrialDemographics(ClinicalTrialAcceptedSex? acceptedSex, AcceptedAgeRange acceptedAgeRange, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal PatientDetails(PatientSex? sex, DateTimeOffset? birthDate, IList<FhirR4Resource> clinicalInfo, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            AcceptedSex = acceptedSex;
-            AcceptedAgeRange = acceptedAgeRange;
+            Sex = sex;
+            BirthDate = birthDate;
+            ClinicalInfo = clinicalInfo;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Indication of the sex of people who may participate in the clinical trial. </summary>
-        public ClinicalTrialAcceptedSex? AcceptedSex { get; set; }
-        /// <summary> A definition of the range of ages accepted by a clinical trial. Contains a minimum age and/or a maximum age. </summary>
-        public AcceptedAgeRange AcceptedAgeRange { get; set; }
+        /// <summary> The patient's sex. </summary>
+        public PatientSex? Sex { get; set; }
+        /// <summary> The patient's date of birth. </summary>
+        public DateTimeOffset? BirthDate { get; set; }
+        /// <summary> Known clinical information for the patient, structured. </summary>
+        public IList<FhirR4Resource> ClinicalInfo { get; }
     }
 }

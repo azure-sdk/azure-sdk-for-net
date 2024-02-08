@@ -13,7 +13,7 @@ using Azure.Core;
 namespace Azure.Health.Insights.ClinicalMatching
 {
     /// <summary> The inference results for the Trial Matcher request. </summary>
-    public partial class TrialMatcherResults
+    public partial class TrialMatcherInferenceResult
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -47,39 +47,39 @@ namespace Azure.Health.Insights.ClinicalMatching
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="TrialMatcherResults"/>. </summary>
-        /// <param name="patients"> Results for the patients given in the request. </param>
+        /// <summary> Initializes a new instance of <see cref="TrialMatcherInferenceResult"/>. </summary>
+        /// <param name="patientResults"> Results for the patients given in the request. </param>
         /// <param name="modelVersion"> The version of the model used for inference, expressed as the model date. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="patients"/> or <paramref name="modelVersion"/> is null. </exception>
-        internal TrialMatcherResults(IEnumerable<TrialMatcherPatientResult> patients, string modelVersion)
+        /// <exception cref="ArgumentNullException"> <paramref name="patientResults"/> or <paramref name="modelVersion"/> is null. </exception>
+        internal TrialMatcherInferenceResult(IEnumerable<TrialMatcherPatientResult> patientResults, string modelVersion)
         {
-            Argument.AssertNotNull(patients, nameof(patients));
+            Argument.AssertNotNull(patientResults, nameof(patientResults));
             Argument.AssertNotNull(modelVersion, nameof(modelVersion));
 
-            Patients = patients.ToList();
+            PatientResults = patientResults.ToList();
             ModelVersion = modelVersion;
         }
 
-        /// <summary> Initializes a new instance of <see cref="TrialMatcherResults"/>. </summary>
-        /// <param name="patients"> Results for the patients given in the request. </param>
+        /// <summary> Initializes a new instance of <see cref="TrialMatcherInferenceResult"/>. </summary>
+        /// <param name="patientResults"> Results for the patients given in the request. </param>
         /// <param name="modelVersion"> The version of the model used for inference, expressed as the model date. </param>
         /// <param name="knowledgeGraphLastUpdateDate"> The date when the clinical trials knowledge graph was last updated. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal TrialMatcherResults(IReadOnlyList<TrialMatcherPatientResult> patients, string modelVersion, DateTimeOffset? knowledgeGraphLastUpdateDate, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal TrialMatcherInferenceResult(IReadOnlyList<TrialMatcherPatientResult> patientResults, string modelVersion, DateTimeOffset? knowledgeGraphLastUpdateDate, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Patients = patients;
+            PatientResults = patientResults;
             ModelVersion = modelVersion;
             KnowledgeGraphLastUpdateDate = knowledgeGraphLastUpdateDate;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="TrialMatcherResults"/> for deserialization. </summary>
-        internal TrialMatcherResults()
+        /// <summary> Initializes a new instance of <see cref="TrialMatcherInferenceResult"/> for deserialization. </summary>
+        internal TrialMatcherInferenceResult()
         {
         }
 
         /// <summary> Results for the patients given in the request. </summary>
-        public IReadOnlyList<TrialMatcherPatientResult> Patients { get; }
+        public IReadOnlyList<TrialMatcherPatientResult> PatientResults { get; }
         /// <summary> The version of the model used for inference, expressed as the model date. </summary>
         public string ModelVersion { get; }
         /// <summary> The date when the clinical trials knowledge graph was last updated. </summary>

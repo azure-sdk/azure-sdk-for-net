@@ -14,28 +14,30 @@ using Azure.Core;
 
 namespace Azure.Health.Insights.ClinicalMatching
 {
-    public partial class AcceptedAgeRange : IUtf8JsonSerializable, IJsonModel<AcceptedAgeRange>
+    public partial class Encounter : IUtf8JsonSerializable, IJsonModel<Encounter>
     {
-        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<AcceptedAgeRange>)this).Write(writer, new ModelReaderWriterOptions("W"));
+        void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<Encounter>)this).Write(writer, new ModelReaderWriterOptions("W"));
 
-        void IJsonModel<AcceptedAgeRange>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<Encounter>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<AcceptedAgeRange>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<Encounter>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(AcceptedAgeRange)} does not support '{format}' format.");
+                throw new FormatException($"The model {nameof(Encounter)} does not support '{format}' format.");
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(MinimumAge))
+            writer.WritePropertyName("id"u8);
+            writer.WriteStringValue(Id);
+            if (Optional.IsDefined(Period))
             {
-                writer.WritePropertyName("minimumAge"u8);
-                writer.WriteObjectValue(MinimumAge);
+                writer.WritePropertyName("period"u8);
+                writer.WriteObjectValue(Period);
             }
-            if (Optional.IsDefined(MaximumAge))
+            if (Optional.IsDefined(Class))
             {
-                writer.WritePropertyName("maximumAge"u8);
-                writer.WriteObjectValue(MaximumAge);
+                writer.WritePropertyName("class"u8);
+                writer.WriteStringValue(Class.Value.ToString());
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -55,19 +57,19 @@ namespace Azure.Health.Insights.ClinicalMatching
             writer.WriteEndObject();
         }
 
-        AcceptedAgeRange IJsonModel<AcceptedAgeRange>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        Encounter IJsonModel<Encounter>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<AcceptedAgeRange>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<Encounter>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(AcceptedAgeRange)} does not support '{format}' format.");
+                throw new FormatException($"The model {nameof(Encounter)} does not support '{format}' format.");
             }
 
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeAcceptedAgeRange(document.RootElement, options);
+            return DeserializeEncounter(document.RootElement, options);
         }
 
-        internal static AcceptedAgeRange DeserializeAcceptedAgeRange(JsonElement element, ModelReaderWriterOptions options = null)
+        internal static Encounter DeserializeEncounter(JsonElement element, ModelReaderWriterOptions options = null)
         {
             options ??= new ModelReaderWriterOptions("W");
 
@@ -75,28 +77,34 @@ namespace Azure.Health.Insights.ClinicalMatching
             {
                 return null;
             }
-            Optional<AcceptedAge> minimumAge = default;
-            Optional<AcceptedAge> maximumAge = default;
+            string id = default;
+            Optional<TimePeriod> period = default;
+            Optional<EncounterClass> @class = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("minimumAge"u8))
+                if (property.NameEquals("id"u8))
                 {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    minimumAge = AcceptedAge.DeserializeAcceptedAge(property.Value);
+                    id = property.Value.GetString();
                     continue;
                 }
-                if (property.NameEquals("maximumAge"u8))
+                if (property.NameEquals("period"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    maximumAge = AcceptedAge.DeserializeAcceptedAge(property.Value);
+                    period = TimePeriod.DeserializeTimePeriod(property.Value);
+                    continue;
+                }
+                if (property.NameEquals("class"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    @class = new EncounterClass(property.Value.GetString());
                     continue;
                 }
                 if (options.Format != "W")
@@ -105,46 +113,46 @@ namespace Azure.Health.Insights.ClinicalMatching
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new AcceptedAgeRange(minimumAge.Value, maximumAge.Value, serializedAdditionalRawData);
+            return new Encounter(id, period.Value, Optional.ToNullable(@class), serializedAdditionalRawData);
         }
 
-        BinaryData IPersistableModel<AcceptedAgeRange>.Write(ModelReaderWriterOptions options)
+        BinaryData IPersistableModel<Encounter>.Write(ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<AcceptedAgeRange>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<Encounter>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(AcceptedAgeRange)} does not support '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(Encounter)} does not support '{options.Format}' format.");
             }
         }
 
-        AcceptedAgeRange IPersistableModel<AcceptedAgeRange>.Create(BinaryData data, ModelReaderWriterOptions options)
+        Encounter IPersistableModel<Encounter>.Create(BinaryData data, ModelReaderWriterOptions options)
         {
-            var format = options.Format == "W" ? ((IPersistableModel<AcceptedAgeRange>)this).GetFormatFromOptions(options) : options.Format;
+            var format = options.Format == "W" ? ((IPersistableModel<Encounter>)this).GetFormatFromOptions(options) : options.Format;
 
             switch (format)
             {
                 case "J":
                     {
                         using JsonDocument document = JsonDocument.Parse(data);
-                        return DeserializeAcceptedAgeRange(document.RootElement, options);
+                        return DeserializeEncounter(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(AcceptedAgeRange)} does not support '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(Encounter)} does not support '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<AcceptedAgeRange>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<Encounter>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
         /// <summary> Deserializes the model from a raw response. </summary>
         /// <param name="response"> The response to deserialize the model from. </param>
-        internal static AcceptedAgeRange FromResponse(Response response)
+        internal static Encounter FromResponse(Response response)
         {
             using var document = JsonDocument.Parse(response.Content);
-            return DeserializeAcceptedAgeRange(document.RootElement);
+            return DeserializeEncounter(document.RootElement);
         }
 
         /// <summary> Convert into a Utf8JsonRequestContent. </summary>

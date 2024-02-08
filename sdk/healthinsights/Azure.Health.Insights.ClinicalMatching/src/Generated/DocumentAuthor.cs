@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.Health.Insights.ClinicalMatching
 {
-    /// <summary> A definition of the range of ages accepted by a clinical trial. Contains a minimum age and/or a maximum age. </summary>
-    public partial class AcceptedAgeRange
+    /// <summary> Document author. </summary>
+    public partial class DocumentAuthor
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -45,25 +45,25 @@ namespace Azure.Health.Insights.ClinicalMatching
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="AcceptedAgeRange"/>. </summary>
-        public AcceptedAgeRange()
+        /// <summary> Initializes a new instance of <see cref="DocumentAuthor"/>. </summary>
+        public DocumentAuthor()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="AcceptedAgeRange"/>. </summary>
-        /// <param name="minimumAge"> A person's age, given as a number (value) and a unit (e.g. years, months). </param>
-        /// <param name="maximumAge"> A person's age, given as a number (value) and a unit (e.g. years, months). </param>
+        /// <summary> Initializes a new instance of <see cref="DocumentAuthor"/>. </summary>
+        /// <param name="id"> author id. </param>
+        /// <param name="fullName"> Text representation of the full name. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AcceptedAgeRange(AcceptedAge minimumAge, AcceptedAge maximumAge, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal DocumentAuthor(string id, string fullName, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            MinimumAge = minimumAge;
-            MaximumAge = maximumAge;
+            Id = id;
+            FullName = fullName;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> A person's age, given as a number (value) and a unit (e.g. years, months). </summary>
-        public AcceptedAge MinimumAge { get; set; }
-        /// <summary> A person's age, given as a number (value) and a unit (e.g. years, months). </summary>
-        public AcceptedAge MaximumAge { get; set; }
+        /// <summary> author id. </summary>
+        public string Id { get; set; }
+        /// <summary> Text representation of the full name. </summary>
+        public string FullName { get; set; }
     }
 }

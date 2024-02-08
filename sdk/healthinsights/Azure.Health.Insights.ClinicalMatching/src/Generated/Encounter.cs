@@ -11,8 +11,8 @@ using Azure.Core;
 
 namespace Azure.Health.Insights.ClinicalMatching
 {
-    /// <summary> Patient structured information, including demographics and known structured clinical information. </summary>
-    public partial class PatientInfo
+    /// <summary> visit/encounter information. </summary>
+    public partial class Encounter
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -46,30 +46,45 @@ namespace Azure.Health.Insights.ClinicalMatching
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="PatientInfo"/>. </summary>
-        public PatientInfo()
+        /// <summary> Initializes a new instance of <see cref="Encounter"/>. </summary>
+        /// <param name="id"> The id of the visit. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="id"/> is null. </exception>
+        public Encounter(string id)
         {
-            ClinicalInfo = new ChangeTrackingList<ClinicalCodedElement>();
+            Argument.AssertNotNull(id, nameof(id));
+
+            Id = id;
         }
 
-        /// <summary> Initializes a new instance of <see cref="PatientInfo"/>. </summary>
-        /// <param name="sex"> The patient's sex. </param>
-        /// <param name="birthDate"> The patient's date of birth. </param>
-        /// <param name="clinicalInfo"> Known clinical information for the patient, structured. </param>
+        /// <summary> Initializes a new instance of <see cref="Encounter"/>. </summary>
+        /// <param name="id"> The id of the visit. </param>
+        /// <param name="period">
+        /// Time period of the visit.
+        /// In case of admission, use timePeriod.start to indicate the admission time and timePeriod.end to indicate the discharge time.
+        /// </param>
+        /// <param name="class"> The class of the encounter. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal PatientInfo(PatientInfoSex? sex, DateTimeOffset? birthDate, IList<ClinicalCodedElement> clinicalInfo, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal Encounter(string id, TimePeriod period, EncounterClass? @class, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Sex = sex;
-            BirthDate = birthDate;
-            ClinicalInfo = clinicalInfo;
+            Id = id;
+            Period = period;
+            Class = @class;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> The patient's sex. </summary>
-        public PatientInfoSex? Sex { get; set; }
-        /// <summary> The patient's date of birth. </summary>
-        public DateTimeOffset? BirthDate { get; set; }
-        /// <summary> Known clinical information for the patient, structured. </summary>
-        public IList<ClinicalCodedElement> ClinicalInfo { get; }
+        /// <summary> Initializes a new instance of <see cref="Encounter"/> for deserialization. </summary>
+        internal Encounter()
+        {
+        }
+
+        /// <summary> The id of the visit. </summary>
+        public string Id { get; }
+        /// <summary>
+        /// Time period of the visit.
+        /// In case of admission, use timePeriod.start to indicate the admission time and timePeriod.end to indicate the discharge time.
+        /// </summary>
+        public TimePeriod Period { get; set; }
+        /// <summary> The class of the encounter. </summary>
+        public EncounterClass? Class { get; set; }
     }
 }
