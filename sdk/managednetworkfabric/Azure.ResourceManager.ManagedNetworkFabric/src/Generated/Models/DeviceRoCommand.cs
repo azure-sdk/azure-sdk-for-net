@@ -10,8 +10,8 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.ManagedNetworkFabric.Models
 {
-    /// <summary> Update version properties. </summary>
-    public partial class NetworkFabricUpdateVersionContent
+    /// <summary> Provide the RO command. </summary>
+    public partial class DeviceRoCommand
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -43,23 +43,23 @@ namespace Azure.ResourceManager.ManagedNetworkFabric.Models
         /// </list>
         /// </para>
         /// </summary>
-        private protected IDictionary<string, BinaryData> _serializedAdditionalRawData;
+        private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="NetworkFabricUpdateVersionContent"/>. </summary>
-        public NetworkFabricUpdateVersionContent()
+        /// <summary> Initializes a new instance of <see cref="DeviceRoCommand"/>. </summary>
+        public DeviceRoCommand()
         {
         }
 
-        /// <summary> Initializes a new instance of <see cref="NetworkFabricUpdateVersionContent"/>. </summary>
-        /// <param name="version"> Specify the version. </param>
+        /// <summary> Initializes a new instance of <see cref="DeviceRoCommand"/>. </summary>
+        /// <param name="command"> Specify the command. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal NetworkFabricUpdateVersionContent(string version, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal DeviceRoCommand(string command, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Version = version;
+            Command = command;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Specify the version. </summary>
-        public string Version { get; set; }
+        /// <summary> Specify the command. </summary>
+        public string Command { get; set; }
     }
 }

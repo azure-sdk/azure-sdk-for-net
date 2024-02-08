@@ -342,11 +342,11 @@ namespace Azure.ResourceManager.ManagedNetworkFabric.Models
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
         /// <param name="annotation"> Switch configuration description. </param>
+        /// <param name="networkToNetworkInterconnectId"> ARM Resource ID of the networkToNetworkInterconnectId of the ExternalNetwork resource. </param>
         /// <param name="importRoutePolicyId"> ARM Resource ID of the RoutePolicy. This is used for the backward compatibility. </param>
         /// <param name="exportRoutePolicyId"> ARM Resource ID of the RoutePolicy. This is used for the backward compatibility. </param>
         /// <param name="importRoutePolicy"> Import Route Policy either IPv4 or IPv6. </param>
         /// <param name="exportRoutePolicy"> Export Route Policy either IPv4 or IPv6. </param>
-        /// <param name="networkToNetworkInterconnectId"> Gets the networkToNetworkInterconnectId of the resource. </param>
         /// <param name="peeringOption"> Peering option list. </param>
         /// <param name="optionBProperties"> option B properties object. </param>
         /// <param name="optionAProperties"> option A properties object. </param>
@@ -354,9 +354,9 @@ namespace Azure.ResourceManager.ManagedNetworkFabric.Models
         /// <param name="provisioningState"> Provisioning state of the resource. </param>
         /// <param name="administrativeState"> Administrative state of the resource. </param>
         /// <returns> A new <see cref="ManagedNetworkFabric.NetworkFabricExternalNetworkData"/> instance for mocking. </returns>
-        public static NetworkFabricExternalNetworkData NetworkFabricExternalNetworkData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string annotation = null, ResourceIdentifier importRoutePolicyId = null, ResourceIdentifier exportRoutePolicyId = null, ImportRoutePolicy importRoutePolicy = null, ExportRoutePolicy exportRoutePolicy = null, ResourceIdentifier networkToNetworkInterconnectId = null, PeeringOption peeringOption = default, L3OptionBProperties optionBProperties = null, ExternalNetworkOptionAProperties optionAProperties = null, NetworkFabricConfigurationState? configurationState = null, NetworkFabricProvisioningState? provisioningState = null, NetworkFabricAdministrativeState? administrativeState = null)
+        public static NetworkFabricExternalNetworkData NetworkFabricExternalNetworkData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string annotation = null, ResourceIdentifier networkToNetworkInterconnectId = null, ResourceIdentifier importRoutePolicyId = null, ResourceIdentifier exportRoutePolicyId = null, ImportRoutePolicy importRoutePolicy = null, ExportRoutePolicy exportRoutePolicy = null, PeeringOption peeringOption = default, L3OptionBProperties optionBProperties = null, ExternalNetworkOptionAProperties optionAProperties = null, NetworkFabricConfigurationState? configurationState = null, NetworkFabricProvisioningState? provisioningState = null, NetworkFabricAdministrativeState? administrativeState = null)
         {
-            return new NetworkFabricExternalNetworkData(id, name, resourceType, systemData, annotation, importRoutePolicyId, exportRoutePolicyId, importRoutePolicy, exportRoutePolicy, networkToNetworkInterconnectId, peeringOption, optionBProperties, optionAProperties, configurationState, provisioningState, administrativeState, serializedAdditionalRawData: null);
+            return new NetworkFabricExternalNetworkData(id, name, resourceType, systemData, annotation, networkToNetworkInterconnectId, importRoutePolicyId, exportRoutePolicyId, importRoutePolicy, exportRoutePolicy, peeringOption, optionBProperties, optionAProperties, configurationState, provisioningState, administrativeState, serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="Models.ExternalNetworkOptionAProperties"/>. </summary>
@@ -482,6 +482,16 @@ namespace Azure.ResourceManager.ManagedNetworkFabric.Models
         public static NetworkDeviceInterfaceData NetworkDeviceInterfaceData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, string annotation = null, string physicalIdentifier = null, string connectedTo = null, NetworkDeviceInterfaceType? interfaceType = null, IPAddress ipv4Address = null, string ipv6Address = null, NetworkFabricProvisioningState? provisioningState = null, NetworkFabricAdministrativeState? administrativeState = null)
         {
             return new NetworkDeviceInterfaceData(id, name, resourceType, systemData, annotation, physicalIdentifier, connectedTo, interfaceType, ipv4Address, ipv6Address, provisioningState, administrativeState, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="Models.CommonPostActionResponseForDeviceROCommands"/>. </summary>
+        /// <param name="error"> The error object. </param>
+        /// <param name="configurationState"> Gets the configuration state. </param>
+        /// <param name="outputUri"> Predefined link containing Device RO Command output. </param>
+        /// <returns> A new <see cref="Models.CommonPostActionResponseForDeviceROCommands"/> instance for mocking. </returns>
+        public static CommonPostActionResponseForDeviceROCommands CommonPostActionResponseForDeviceROCommands(ResponseError error = null, NetworkFabricConfigurationState? configurationState = null, Uri outputUri = null)
+        {
+            return new CommonPostActionResponseForDeviceROCommands(error, serializedAdditionalRawData: null, configurationState, outputUri);
         }
 
         /// <summary> Initializes a new instance of <see cref="ManagedNetworkFabric.NetworkFabricControllerData"/>. </summary>

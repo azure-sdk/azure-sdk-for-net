@@ -33,6 +33,11 @@ namespace Azure.ResourceManager.ManagedNetworkFabric.Models
                 writer.WritePropertyName("annotation"u8);
                 writer.WriteStringValue(Annotation);
             }
+            if (Optional.IsDefined(NetworkToNetworkInterconnectId))
+            {
+                writer.WritePropertyName("networkToNetworkInterconnectId"u8);
+                writer.WriteStringValue(NetworkToNetworkInterconnectId);
+            }
             if (Optional.IsDefined(ImportRoutePolicyId))
             {
                 writer.WritePropertyName("importRoutePolicyId"u8);
@@ -108,6 +113,7 @@ namespace Azure.ResourceManager.ManagedNetworkFabric.Models
                 return null;
             }
             Optional<string> annotation = default;
+            Optional<ResourceIdentifier> networkToNetworkInterconnectId = default;
             Optional<ResourceIdentifier> importRoutePolicyId = default;
             Optional<ResourceIdentifier> exportRoutePolicyId = default;
             Optional<ImportRoutePolicy> importRoutePolicy = default;
@@ -131,6 +137,15 @@ namespace Azure.ResourceManager.ManagedNetworkFabric.Models
                         if (property0.NameEquals("annotation"u8))
                         {
                             annotation = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("networkToNetworkInterconnectId"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            networkToNetworkInterconnectId = new ResourceIdentifier(property0.Value.GetString());
                             continue;
                         }
                         if (property0.NameEquals("importRoutePolicyId"u8))
@@ -205,7 +220,7 @@ namespace Azure.ResourceManager.ManagedNetworkFabric.Models
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new NetworkFabricExternalNetworkPatch(annotation.Value, importRoutePolicyId.Value, exportRoutePolicyId.Value, importRoutePolicy.Value, exportRoutePolicy.Value, Optional.ToNullable(peeringOption), optionBProperties.Value, optionAProperties.Value, serializedAdditionalRawData);
+            return new NetworkFabricExternalNetworkPatch(annotation.Value, networkToNetworkInterconnectId.Value, importRoutePolicyId.Value, exportRoutePolicyId.Value, importRoutePolicy.Value, exportRoutePolicy.Value, Optional.ToNullable(peeringOption), optionBProperties.Value, optionAProperties.Value, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<NetworkFabricExternalNetworkPatch>.Write(ModelReaderWriterOptions options)

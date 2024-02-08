@@ -278,5 +278,37 @@ new ResourceIdentifier("")
 
             Console.WriteLine($"Succeeded: {result}");
         }
+
+        // NetworkDevices_Upgrade_MaximumSet_Gen
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task RunRoCommand_NetworkDevicesUpgradeMaximumSetGen()
+        {
+            // Generated from example definition: specification/managednetworkfabric/resource-manager/Microsoft.ManagedNetworkFabric/stable/2023-06-15/examples/NetworkDevices_RunDeviceRoCommand_MaximumSet_Gen.json
+            // this example is just showing the usage of "NetworkDevices_runRoCommand" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this NetworkDeviceResource created on azure
+            // for more information of creating NetworkDeviceResource, please refer to the document of NetworkDeviceResource
+            string subscriptionId = "1234ABCD-0A1B-1234-5678-123456ABCDEF";
+            string resourceGroupName = "rgNetworkDevices";
+            string networkDeviceName = "example-device";
+            ResourceIdentifier networkDeviceResourceId = NetworkDeviceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, networkDeviceName);
+            NetworkDeviceResource networkDevice = client.GetNetworkDeviceResource(networkDeviceResourceId);
+
+            // invoke the operation
+            DeviceRoCommand body = new DeviceRoCommand()
+            {
+                Command = "sh version",
+            };
+            ArmOperation<CommonPostActionResponseForDeviceROCommands> lro = await networkDevice.RunRoCommandAsync(WaitUntil.Completed, body);
+            CommonPostActionResponseForDeviceROCommands result = lro.Value;
+
+            Console.WriteLine($"Succeeded: {result}");
+        }
     }
 }
