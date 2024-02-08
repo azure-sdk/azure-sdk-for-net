@@ -9,7 +9,6 @@ using System;
 using System.ClientModel.Primitives;
 using System.Collections.Generic;
 using System.Text.Json;
-using Azure;
 using Azure.Core;
 using Azure.ResourceManager.Models;
 
@@ -68,7 +67,7 @@ namespace Azure.ResourceManager.AppService.Models
             if (options.Format != "W" && Optional.IsDefined(CustomDomainVerificationFailureInfo))
             {
                 writer.WritePropertyName("customDomainVerificationFailureInfo"u8);
-                JsonSerializer.Serialize(writer, CustomDomainVerificationFailureInfo);
+                writer.WriteObjectValue(CustomDomainVerificationFailureInfo);
             }
             if (options.Format != "W" && Optional.IsDefined(HasConflictOnScaleUnit))
             {
@@ -181,7 +180,7 @@ namespace Azure.ResourceManager.AppService.Models
             Optional<SystemData> systemData = default;
             Optional<bool> isHostnameAlreadyVerified = default;
             Optional<DnsVerificationTestResult> customDomainVerificationTest = default;
-            Optional<ResponseError> customDomainVerificationFailureInfo = default;
+            Optional<ErrorEntity> customDomainVerificationFailureInfo = default;
             Optional<bool> hasConflictOnScaleUnit = default;
             Optional<bool> hasConflictAcrossSubscription = default;
             Optional<string> conflictingAppResourceId = default;
@@ -256,7 +255,7 @@ namespace Azure.ResourceManager.AppService.Models
                             {
                                 continue;
                             }
-                            customDomainVerificationFailureInfo = JsonSerializer.Deserialize<ResponseError>(property0.Value.GetRawText());
+                            customDomainVerificationFailureInfo = ErrorEntity.DeserializeErrorEntity(property0.Value);
                             continue;
                         }
                         if (property0.NameEquals("hasConflictOnScaleUnit"u8))

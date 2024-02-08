@@ -116,7 +116,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -147,7 +147,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -178,7 +178,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -218,7 +218,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -258,7 +258,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -266,10 +266,11 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// </list>
         /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="data"> JSON representation of a SiteConfig object. See example. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="data"/> is null. </exception>
-        public virtual async Task<Response<WebSiteConfigResource>> UpdateAsync(SiteConfigData data, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation<WebSiteConfigResource>> UpdateAsync(WaitUntil waitUntil, SiteConfigData data, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(data, nameof(data));
 
@@ -278,7 +279,10 @@ namespace Azure.ResourceManager.AppService
             try
             {
                 var response = await _webSiteConfigWebAppsRestClient.UpdateConfigurationAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, data, cancellationToken).ConfigureAwait(false);
-                return Response.FromValue(new WebSiteConfigResource(Client, response.Value), response.GetRawResponse());
+                var operation = new AppServiceArmOperation<WebSiteConfigResource>(new WebSiteConfigOperationSource(Client), _webSiteConfigWebAppsClientDiagnostics, Pipeline, _webSiteConfigWebAppsRestClient.CreateUpdateConfigurationRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, data).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
             }
             catch (Exception e)
             {
@@ -300,7 +304,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -308,10 +312,11 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// </list>
         /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="data"> JSON representation of a SiteConfig object. See example. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="data"/> is null. </exception>
-        public virtual Response<WebSiteConfigResource> Update(SiteConfigData data, CancellationToken cancellationToken = default)
+        public virtual ArmOperation<WebSiteConfigResource> Update(WaitUntil waitUntil, SiteConfigData data, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(data, nameof(data));
 
@@ -320,7 +325,10 @@ namespace Azure.ResourceManager.AppService
             try
             {
                 var response = _webSiteConfigWebAppsRestClient.UpdateConfiguration(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, data, cancellationToken);
-                return Response.FromValue(new WebSiteConfigResource(Client, response.Value), response.GetRawResponse());
+                var operation = new AppServiceArmOperation<WebSiteConfigResource>(new WebSiteConfigOperationSource(Client), _webSiteConfigWebAppsClientDiagnostics, Pipeline, _webSiteConfigWebAppsRestClient.CreateUpdateConfigurationRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, data).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletion(cancellationToken);
+                return operation;
             }
             catch (Exception e)
             {
@@ -342,7 +350,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -363,7 +371,7 @@ namespace Azure.ResourceManager.AppService
             try
             {
                 var response = await _webSiteConfigWebAppsRestClient.CreateOrUpdateConfigurationAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, data, cancellationToken).ConfigureAwait(false);
-                var operation = new AppServiceArmOperation<WebSiteConfigResource>(Response.FromValue(new WebSiteConfigResource(Client, response), response.GetRawResponse()));
+                var operation = new AppServiceArmOperation<WebSiteConfigResource>(new WebSiteConfigOperationSource(Client), _webSiteConfigWebAppsClientDiagnostics, Pipeline, _webSiteConfigWebAppsRestClient.CreateCreateOrUpdateConfigurationRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, data).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -388,7 +396,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -409,7 +417,7 @@ namespace Azure.ResourceManager.AppService
             try
             {
                 var response = _webSiteConfigWebAppsRestClient.CreateOrUpdateConfiguration(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, data, cancellationToken);
-                var operation = new AppServiceArmOperation<WebSiteConfigResource>(Response.FromValue(new WebSiteConfigResource(Client, response), response.GetRawResponse()));
+                var operation = new AppServiceArmOperation<WebSiteConfigResource>(new WebSiteConfigOperationSource(Client), _webSiteConfigWebAppsClientDiagnostics, Pipeline, _webSiteConfigWebAppsRestClient.CreateCreateOrUpdateConfigurationRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, data).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -434,7 +442,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -464,7 +472,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>

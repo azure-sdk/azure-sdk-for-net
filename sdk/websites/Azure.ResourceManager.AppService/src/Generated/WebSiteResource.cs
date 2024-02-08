@@ -45,6 +45,10 @@ namespace Azure.ResourceManager.AppService
         private readonly RecommendationsRestOperations _recommendationsRestClient;
         private readonly ClientDiagnostics _siteRecommendationRecommendationsClientDiagnostics;
         private readonly RecommendationsRestOperations _siteRecommendationRecommendationsRestClient;
+        private readonly ClientDiagnostics _siteExtensionWebAppsClientDiagnostics;
+        private readonly WebAppsRestOperations _siteExtensionWebAppsRestClient;
+        private readonly ClientDiagnostics _workflowsClientDiagnostics;
+        private readonly WorkflowsRestOperations _workflowsRestClient;
         private readonly WebSiteData _data;
 
         /// <summary> Gets the resource type for the operations. </summary>
@@ -77,6 +81,11 @@ namespace Azure.ResourceManager.AppService
             _siteRecommendationRecommendationsClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.AppService", SiteRecommendationResource.ResourceType.Namespace, Diagnostics);
             TryGetApiVersion(SiteRecommendationResource.ResourceType, out string siteRecommendationRecommendationsApiVersion);
             _siteRecommendationRecommendationsRestClient = new RecommendationsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, siteRecommendationRecommendationsApiVersion);
+            _siteExtensionWebAppsClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.AppService", SiteExtensionResource.ResourceType.Namespace, Diagnostics);
+            TryGetApiVersion(SiteExtensionResource.ResourceType, out string siteExtensionWebAppsApiVersion);
+            _siteExtensionWebAppsRestClient = new WebAppsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, siteExtensionWebAppsApiVersion);
+            _workflowsClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.AppService", ProviderConstants.DefaultProviderNamespace, Diagnostics);
+            _workflowsRestClient = new WorkflowsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -123,7 +132,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -157,7 +166,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -198,7 +207,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -229,7 +238,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -267,7 +276,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -299,7 +308,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -338,7 +347,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -369,7 +378,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -407,7 +416,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -438,7 +447,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -476,7 +485,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -509,7 +518,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -556,7 +565,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -587,7 +596,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -625,7 +634,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -656,7 +665,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -688,6 +697,13 @@ namespace Azure.ResourceManager.AppService
             return new ScmSiteBasicPublishingCredentialsPolicyResource(Client, Id.AppendChildResource("basicPublishingCredentialsPolicies", "scm"));
         }
 
+        /// <summary> Gets an object representing a AuthsettingsV2SiteConfigResource along with the instance operations that can be performed on it in the WebSite. </summary>
+        /// <returns> Returns a <see cref="AuthsettingsV2SiteConfigResource"/> object. </returns>
+        public virtual AuthsettingsV2SiteConfigResource GetAuthsettingsV2SiteConfig()
+        {
+            return new AuthsettingsV2SiteConfigResource(Client, Id.AppendChildResource("config", "authsettingsV2"));
+        }
+
         /// <summary> Gets a collection of SiteConfigAppsettingResources in the WebSite. </summary>
         /// <returns> An object representing collection of SiteConfigAppsettingResources and their operations over a SiteConfigAppsettingResource. </returns>
         public virtual SiteConfigAppsettingCollection GetSiteConfigAppsettings()
@@ -708,7 +724,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -739,7 +755,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -777,7 +793,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -808,7 +824,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -867,7 +883,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -898,7 +914,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -914,6 +930,77 @@ namespace Azure.ResourceManager.AppService
         public virtual Response<WebSiteContinuousWebJobResource> GetWebSiteContinuousWebJob(string webJobName, CancellationToken cancellationToken = default)
         {
             return GetWebSiteContinuousWebJobs().Get(webJobName, cancellationToken);
+        }
+
+        /// <summary> Gets a collection of SiteDeploymentStatuResources in the WebSite. </summary>
+        /// <returns> An object representing collection of SiteDeploymentStatuResources and their operations over a SiteDeploymentStatuResource. </returns>
+        public virtual SiteDeploymentStatuCollection GetSiteDeploymentStatus()
+        {
+            return GetCachedClient(client => new SiteDeploymentStatuCollection(client, Id));
+        }
+
+        /// <summary>
+        /// Gets the deployment status for an app (or deployment slot, if specified).
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/deploymentStatus/{deploymentStatusId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WebApps_GetProductionSiteDeploymentStatus</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-12-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="SiteDeploymentStatuResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="deploymentStatusId"> GUID of the deployment operation. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="deploymentStatusId"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="deploymentStatusId"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<ArmOperation<SiteDeploymentStatuResource>> GetSiteDeploymentStatuAsync(WaitUntil waitUntil, string deploymentStatusId, CancellationToken cancellationToken = default)
+        {
+            return await GetSiteDeploymentStatus().GetAsync(waitUntil, deploymentStatusId, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets the deployment status for an app (or deployment slot, if specified).
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/deploymentStatus/{deploymentStatusId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WebApps_GetProductionSiteDeploymentStatus</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-12-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="SiteDeploymentStatuResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="deploymentStatusId"> GUID of the deployment operation. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="deploymentStatusId"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="deploymentStatusId"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual ArmOperation<SiteDeploymentStatuResource> GetSiteDeploymentStatu(WaitUntil waitUntil, string deploymentStatusId, CancellationToken cancellationToken = default)
+        {
+            return GetSiteDeploymentStatus().Get(waitUntil, deploymentStatusId, cancellationToken);
         }
 
         /// <summary> Gets a collection of SiteDeploymentResources in the WebSite. </summary>
@@ -936,7 +1023,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -967,7 +1054,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1005,7 +1092,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1036,7 +1123,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1081,7 +1168,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1112,7 +1199,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1150,7 +1237,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1181,7 +1268,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1219,7 +1306,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1250,7 +1337,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1288,7 +1375,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1319,7 +1406,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1357,7 +1444,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1388,7 +1475,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1433,7 +1520,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1464,7 +1551,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1509,7 +1596,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1540,7 +1627,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1578,7 +1665,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1609,7 +1696,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1654,7 +1741,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1685,7 +1772,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1723,7 +1810,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1754,7 +1841,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1772,6 +1859,297 @@ namespace Azure.ResourceManager.AppService
             return GetWebSiteWebJobs().Get(webJobName, cancellationToken);
         }
 
+        /// <summary> Gets a collection of SiteWorkflowResources in the WebSite. </summary>
+        /// <returns> An object representing collection of SiteWorkflowResources and their operations over a SiteWorkflowResource. </returns>
+        public virtual SiteWorkflowCollection GetSiteWorkflows()
+        {
+            return GetCachedClient(client => new SiteWorkflowCollection(client, Id));
+        }
+
+        /// <summary>
+        /// Get workflow information by its ID for web site, or a deployment slot.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/workflows/{workflowName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WebApps_GetWorkflow</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-12-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="SiteWorkflowResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="workflowName"> Workflow name. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="workflowName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="workflowName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<SiteWorkflowResource>> GetSiteWorkflowAsync(string workflowName, CancellationToken cancellationToken = default)
+        {
+            return await GetSiteWorkflows().GetAsync(workflowName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Get workflow information by its ID for web site, or a deployment slot.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/workflows/{workflowName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WebApps_GetWorkflow</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-12-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="SiteWorkflowResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="workflowName"> Workflow name. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="workflowName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="workflowName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<SiteWorkflowResource> GetSiteWorkflow(string workflowName, CancellationToken cancellationToken = default)
+        {
+            return GetSiteWorkflows().Get(workflowName, cancellationToken);
+        }
+
+        /// <summary> Gets a collection of WorkflowRunResources in the WebSite. </summary>
+        /// <param name="workflowName"> The workflow name. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="workflowName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="workflowName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <returns> An object representing collection of WorkflowRunResources and their operations over a WorkflowRunResource. </returns>
+        public virtual WorkflowRunCollection GetWorkflowRuns(string workflowName)
+        {
+            return new WorkflowRunCollection(Client, Id, workflowName);
+        }
+
+        /// <summary>
+        /// Gets a workflow run.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/hostruntime/runtime/webhooks/workflow/api/management/workflows/{workflowName}/runs/{runName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkflowRuns_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-12-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="WorkflowRunResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="workflowName"> The workflow name. </param>
+        /// <param name="runName"> The workflow run name. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="workflowName"/> or <paramref name="runName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="workflowName"/> or <paramref name="runName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<WorkflowRunResource>> GetWorkflowRunAsync(string workflowName, string runName, CancellationToken cancellationToken = default)
+        {
+            return await GetWorkflowRuns(workflowName).GetAsync(runName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets a workflow run.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/hostruntime/runtime/webhooks/workflow/api/management/workflows/{workflowName}/runs/{runName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkflowRuns_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-12-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="WorkflowRunResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="workflowName"> The workflow name. </param>
+        /// <param name="runName"> The workflow run name. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="workflowName"/> or <paramref name="runName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="workflowName"/> or <paramref name="runName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<WorkflowRunResource> GetWorkflowRun(string workflowName, string runName, CancellationToken cancellationToken = default)
+        {
+            return GetWorkflowRuns(workflowName).Get(runName, cancellationToken);
+        }
+
+        /// <summary> Gets a collection of WorkflowTriggerResources in the WebSite. </summary>
+        /// <param name="workflowName"> The workflow name. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="workflowName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="workflowName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <returns> An object representing collection of WorkflowTriggerResources and their operations over a WorkflowTriggerResource. </returns>
+        public virtual WorkflowTriggerCollection GetWorkflowTriggers(string workflowName)
+        {
+            return new WorkflowTriggerCollection(Client, Id, workflowName);
+        }
+
+        /// <summary>
+        /// Gets a workflow trigger.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/hostruntime/runtime/webhooks/workflow/api/management/workflows/{workflowName}/triggers/{triggerName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkflowTriggers_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-12-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="WorkflowTriggerResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="workflowName"> The workflow name. </param>
+        /// <param name="triggerName"> The workflow trigger name. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="workflowName"/> or <paramref name="triggerName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="workflowName"/> or <paramref name="triggerName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<WorkflowTriggerResource>> GetWorkflowTriggerAsync(string workflowName, string triggerName, CancellationToken cancellationToken = default)
+        {
+            return await GetWorkflowTriggers(workflowName).GetAsync(triggerName, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets a workflow trigger.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/hostruntime/runtime/webhooks/workflow/api/management/workflows/{workflowName}/triggers/{triggerName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkflowTriggers_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-12-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="WorkflowTriggerResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="workflowName"> The workflow name. </param>
+        /// <param name="triggerName"> The workflow trigger name. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="workflowName"/> or <paramref name="triggerName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="workflowName"/> or <paramref name="triggerName"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<WorkflowTriggerResource> GetWorkflowTrigger(string workflowName, string triggerName, CancellationToken cancellationToken = default)
+        {
+            return GetWorkflowTriggers(workflowName).Get(triggerName, cancellationToken);
+        }
+
+        /// <summary> Gets a collection of WorkflowVersionResources in the WebSite. </summary>
+        /// <param name="workflowName"> The workflow name. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="workflowName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="workflowName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <returns> An object representing collection of WorkflowVersionResources and their operations over a WorkflowVersionResource. </returns>
+        public virtual WorkflowVersionCollection GetWorkflowVersions(string workflowName)
+        {
+            return new WorkflowVersionCollection(Client, Id, workflowName);
+        }
+
+        /// <summary>
+        /// Gets a workflow version.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/hostruntime/runtime/webhooks/workflow/api/management/workflows/{workflowName}/versions/{versionId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkflowVersions_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-12-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="WorkflowVersionResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="workflowName"> The workflow name. </param>
+        /// <param name="versionId"> The workflow versionId. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="workflowName"/> or <paramref name="versionId"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="workflowName"/> or <paramref name="versionId"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual async Task<Response<WorkflowVersionResource>> GetWorkflowVersionAsync(string workflowName, string versionId, CancellationToken cancellationToken = default)
+        {
+            return await GetWorkflowVersions(workflowName).GetAsync(versionId, cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets a workflow version.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/hostruntime/runtime/webhooks/workflow/api/management/workflows/{workflowName}/versions/{versionId}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WorkflowVersions_Get</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-12-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="WorkflowVersionResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="workflowName"> The workflow name. </param>
+        /// <param name="versionId"> The workflow versionId. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="workflowName"/> or <paramref name="versionId"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="workflowName"/> or <paramref name="versionId"/> is an empty string, and was expected to be non-empty. </exception>
+        [ForwardsClientCalls]
+        public virtual Response<WorkflowVersionResource> GetWorkflowVersion(string workflowName, string versionId, CancellationToken cancellationToken = default)
+        {
+            return GetWorkflowVersions(workflowName).Get(versionId, cancellationToken);
+        }
+
         /// <summary>
         /// Description for Gets the details of a web, mobile, or API app.
         /// <list type="bullet">
@@ -1785,7 +2163,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1825,7 +2203,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1865,7 +2243,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1884,7 +2262,7 @@ namespace Azure.ResourceManager.AppService
             try
             {
                 var response = await _webSiteWebAppsRestClient.DeleteAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, deleteMetrics, deleteEmptyServerFarm, cancellationToken).ConfigureAwait(false);
-                var operation = new AppServiceArmOperation(response);
+                var operation = new AppServiceArmOperation(_webSiteWebAppsClientDiagnostics, Pipeline, _webSiteWebAppsRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, deleteMetrics, deleteEmptyServerFarm).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -1909,7 +2287,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1928,7 +2306,7 @@ namespace Azure.ResourceManager.AppService
             try
             {
                 var response = _webSiteWebAppsRestClient.Delete(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, deleteMetrics, deleteEmptyServerFarm, cancellationToken);
-                var operation = new AppServiceArmOperation(response);
+                var operation = new AppServiceArmOperation(_webSiteWebAppsClientDiagnostics, Pipeline, _webSiteWebAppsRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, deleteMetrics, deleteEmptyServerFarm).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletionResponse(cancellationToken);
                 return operation;
@@ -1953,7 +2331,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -1961,10 +2339,11 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// </list>
         /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="info"> A JSON representation of the app properties. See example. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="info"/> is null. </exception>
-        public virtual async Task<Response<WebSiteResource>> UpdateAsync(SitePatchInfo info, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation<WebSiteResource>> UpdateAsync(WaitUntil waitUntil, SitePatchInfo info, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(info, nameof(info));
 
@@ -1973,7 +2352,10 @@ namespace Azure.ResourceManager.AppService
             try
             {
                 var response = await _webSiteWebAppsRestClient.UpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, info, cancellationToken).ConfigureAwait(false);
-                return Response.FromValue(new WebSiteResource(Client, response.Value), response.GetRawResponse());
+                var operation = new AppServiceArmOperation<WebSiteResource>(new WebSiteOperationSource(Client), _webSiteWebAppsClientDiagnostics, Pipeline, _webSiteWebAppsRestClient.CreateUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, info).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
             }
             catch (Exception e)
             {
@@ -1995,7 +2377,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -2003,10 +2385,11 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// </list>
         /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="info"> A JSON representation of the app properties. See example. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="info"/> is null. </exception>
-        public virtual Response<WebSiteResource> Update(SitePatchInfo info, CancellationToken cancellationToken = default)
+        public virtual ArmOperation<WebSiteResource> Update(WaitUntil waitUntil, SitePatchInfo info, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(info, nameof(info));
 
@@ -2015,7 +2398,10 @@ namespace Azure.ResourceManager.AppService
             try
             {
                 var response = _webSiteWebAppsRestClient.Update(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, info, cancellationToken);
-                return Response.FromValue(new WebSiteResource(Client, response.Value), response.GetRawResponse());
+                var operation = new AppServiceArmOperation<WebSiteResource>(new WebSiteOperationSource(Client), _webSiteWebAppsClientDiagnostics, Pipeline, _webSiteWebAppsRestClient.CreateUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, info).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletion(cancellationToken);
+                return operation;
             }
             catch (Exception e)
             {
@@ -2037,7 +2423,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -2065,7 +2451,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -2093,7 +2479,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -2125,7 +2511,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -2157,7 +2543,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -2191,7 +2577,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -2225,7 +2611,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -2259,7 +2645,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -2293,7 +2679,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -2332,7 +2718,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -2371,7 +2757,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -2413,7 +2799,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -2455,7 +2841,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -2497,7 +2883,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -2539,7 +2925,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -2547,10 +2933,11 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// </list>
         /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="appSettings"> Application settings of the app. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="appSettings"/> is null. </exception>
-        public virtual async Task<Response<AppServiceConfigurationDictionary>> UpdateApplicationSettingsAsync(AppServiceConfigurationDictionary appSettings, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation<AppServiceConfigurationDictionary>> UpdateApplicationSettingsAsync(WaitUntil waitUntil, AppServiceConfigurationDictionary appSettings, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(appSettings, nameof(appSettings));
 
@@ -2559,7 +2946,10 @@ namespace Azure.ResourceManager.AppService
             try
             {
                 var response = await _webSiteWebAppsRestClient.UpdateApplicationSettingsAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, appSettings, cancellationToken).ConfigureAwait(false);
-                return response;
+                var operation = new AppServiceArmOperation<AppServiceConfigurationDictionary>(new AppServiceConfigurationDictionaryOperationSource(), _webSiteWebAppsClientDiagnostics, Pipeline, _webSiteWebAppsRestClient.CreateUpdateApplicationSettingsRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, appSettings).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
             }
             catch (Exception e)
             {
@@ -2581,7 +2971,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -2589,10 +2979,11 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// </list>
         /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="appSettings"> Application settings of the app. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="appSettings"/> is null. </exception>
-        public virtual Response<AppServiceConfigurationDictionary> UpdateApplicationSettings(AppServiceConfigurationDictionary appSettings, CancellationToken cancellationToken = default)
+        public virtual ArmOperation<AppServiceConfigurationDictionary> UpdateApplicationSettings(WaitUntil waitUntil, AppServiceConfigurationDictionary appSettings, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(appSettings, nameof(appSettings));
 
@@ -2601,7 +2992,10 @@ namespace Azure.ResourceManager.AppService
             try
             {
                 var response = _webSiteWebAppsRestClient.UpdateApplicationSettings(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, appSettings, cancellationToken);
-                return response;
+                var operation = new AppServiceArmOperation<AppServiceConfigurationDictionary>(new AppServiceConfigurationDictionaryOperationSource(), _webSiteWebAppsClientDiagnostics, Pipeline, _webSiteWebAppsRestClient.CreateUpdateApplicationSettingsRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, appSettings).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletion(cancellationToken);
+                return operation;
             }
             catch (Exception e)
             {
@@ -2623,7 +3017,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -2657,7 +3051,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -2691,7 +3085,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -2733,7 +3127,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -2775,7 +3169,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -2809,7 +3203,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -2821,158 +3215,6 @@ namespace Azure.ResourceManager.AppService
             try
             {
                 var response = _webSiteWebAppsRestClient.GetAuthSettings(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
-                return response;
-            }
-            catch (Exception e)
-            {
-                scope.Failed(e);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Description for Updates site's Authentication / Authorization settings for apps via the V2 format
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/authsettingsV2</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>WebApps_UpdateAuthSettingsV2</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="WebSiteResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="siteAuthSettingsV2"> Auth settings associated with web app. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="siteAuthSettingsV2"/> is null. </exception>
-        public virtual async Task<Response<SiteAuthSettingsV2>> UpdateAuthSettingsV2Async(SiteAuthSettingsV2 siteAuthSettingsV2, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNull(siteAuthSettingsV2, nameof(siteAuthSettingsV2));
-
-            using var scope = _webSiteWebAppsClientDiagnostics.CreateScope("WebSiteResource.UpdateAuthSettingsV2");
-            scope.Start();
-            try
-            {
-                var response = await _webSiteWebAppsRestClient.UpdateAuthSettingsV2Async(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, siteAuthSettingsV2, cancellationToken).ConfigureAwait(false);
-                return response;
-            }
-            catch (Exception e)
-            {
-                scope.Failed(e);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Description for Updates site's Authentication / Authorization settings for apps via the V2 format
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/authsettingsV2</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>WebApps_UpdateAuthSettingsV2</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
-        /// </item>
-        /// <item>
-        /// <term>Resource</term>
-        /// <description><see cref="WebSiteResource"/></description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="siteAuthSettingsV2"> Auth settings associated with web app. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="siteAuthSettingsV2"/> is null. </exception>
-        public virtual Response<SiteAuthSettingsV2> UpdateAuthSettingsV2(SiteAuthSettingsV2 siteAuthSettingsV2, CancellationToken cancellationToken = default)
-        {
-            Argument.AssertNotNull(siteAuthSettingsV2, nameof(siteAuthSettingsV2));
-
-            using var scope = _webSiteWebAppsClientDiagnostics.CreateScope("WebSiteResource.UpdateAuthSettingsV2");
-            scope.Start();
-            try
-            {
-                var response = _webSiteWebAppsRestClient.UpdateAuthSettingsV2(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, siteAuthSettingsV2, cancellationToken);
-                return response;
-            }
-            catch (Exception e)
-            {
-                scope.Failed(e);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Description for Gets site's Authentication / Authorization settings for apps via the V2 format
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/authsettingsV2/list</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>WebApps_GetAuthSettingsV2</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual async Task<Response<SiteAuthSettingsV2>> GetAuthSettingsV2Async(CancellationToken cancellationToken = default)
-        {
-            using var scope = _webSiteWebAppsClientDiagnostics.CreateScope("WebSiteResource.GetAuthSettingsV2");
-            scope.Start();
-            try
-            {
-                var response = await _webSiteWebAppsRestClient.GetAuthSettingsV2Async(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
-                return response;
-            }
-            catch (Exception e)
-            {
-                scope.Failed(e);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Description for Gets site's Authentication / Authorization settings for apps via the V2 format
-        /// <list type="bullet">
-        /// <item>
-        /// <term>Request Path</term>
-        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/authsettingsV2/list</description>
-        /// </item>
-        /// <item>
-        /// <term>Operation Id</term>
-        /// <description>WebApps_GetAuthSettingsV2</description>
-        /// </item>
-        /// <item>
-        /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual Response<SiteAuthSettingsV2> GetAuthSettingsV2(CancellationToken cancellationToken = default)
-        {
-            using var scope = _webSiteWebAppsClientDiagnostics.CreateScope("WebSiteResource.GetAuthSettingsV2");
-            scope.Start();
-            try
-            {
-                var response = _webSiteWebAppsRestClient.GetAuthSettingsV2(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
                 return response;
             }
             catch (Exception e)
@@ -2995,7 +3237,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -3037,7 +3279,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -3079,7 +3321,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -3113,7 +3355,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -3147,7 +3389,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -3189,7 +3431,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -3231,7 +3473,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -3269,7 +3511,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -3307,7 +3549,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -3341,7 +3583,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -3375,7 +3617,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -3383,10 +3625,11 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// </list>
         /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="connectionStrings"> Connection strings of the app or deployment slot. See example. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="connectionStrings"/> is null. </exception>
-        public virtual async Task<Response<ConnectionStringDictionary>> UpdateConnectionStringsAsync(ConnectionStringDictionary connectionStrings, CancellationToken cancellationToken = default)
+        public virtual async Task<ArmOperation<ConnectionStringDictionary>> UpdateConnectionStringsAsync(WaitUntil waitUntil, ConnectionStringDictionary connectionStrings, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(connectionStrings, nameof(connectionStrings));
 
@@ -3395,7 +3638,10 @@ namespace Azure.ResourceManager.AppService
             try
             {
                 var response = await _webSiteWebAppsRestClient.UpdateConnectionStringsAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, connectionStrings, cancellationToken).ConfigureAwait(false);
-                return response;
+                var operation = new AppServiceArmOperation<ConnectionStringDictionary>(new ConnectionStringDictionaryOperationSource(), _webSiteWebAppsClientDiagnostics, Pipeline, _webSiteWebAppsRestClient.CreateUpdateConnectionStringsRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, connectionStrings).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
             }
             catch (Exception e)
             {
@@ -3417,7 +3663,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -3425,10 +3671,11 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// </list>
         /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
         /// <param name="connectionStrings"> Connection strings of the app or deployment slot. See example. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="connectionStrings"/> is null. </exception>
-        public virtual Response<ConnectionStringDictionary> UpdateConnectionStrings(ConnectionStringDictionary connectionStrings, CancellationToken cancellationToken = default)
+        public virtual ArmOperation<ConnectionStringDictionary> UpdateConnectionStrings(WaitUntil waitUntil, ConnectionStringDictionary connectionStrings, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(connectionStrings, nameof(connectionStrings));
 
@@ -3437,7 +3684,10 @@ namespace Azure.ResourceManager.AppService
             try
             {
                 var response = _webSiteWebAppsRestClient.UpdateConnectionStrings(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, connectionStrings, cancellationToken);
-                return response;
+                var operation = new AppServiceArmOperation<ConnectionStringDictionary>(new ConnectionStringDictionaryOperationSource(), _webSiteWebAppsClientDiagnostics, Pipeline, _webSiteWebAppsRestClient.CreateUpdateConnectionStringsRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, connectionStrings).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletion(cancellationToken);
+                return operation;
             }
             catch (Exception e)
             {
@@ -3459,7 +3709,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -3493,7 +3743,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -3527,7 +3777,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -3569,7 +3819,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -3611,7 +3861,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -3645,7 +3895,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -3679,7 +3929,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -3717,7 +3967,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -3755,7 +4005,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -3797,7 +4047,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -3839,7 +4089,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -3873,7 +4123,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -3907,7 +4157,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -3945,7 +4195,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -3983,7 +4233,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -4017,7 +4267,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -4051,7 +4301,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -4093,7 +4343,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -4123,6 +4373,150 @@ namespace Azure.ResourceManager.AppService
         }
 
         /// <summary>
+        /// Description for Invoke onedeploy status API /api/deployments and gets the deployment status for the site
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/extensions/onedeploy</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WebApps_GetOneDeployStatus</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-12-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual async Task<Response<BinaryData>> GetOneDeployStatusAsync(CancellationToken cancellationToken = default)
+        {
+            using var scope = _webSiteWebAppsClientDiagnostics.CreateScope("WebSiteResource.GetOneDeployStatus");
+            scope.Start();
+            try
+            {
+                var response = await _webSiteWebAppsRestClient.GetOneDeployStatusAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Description for Invoke onedeploy status API /api/deployments and gets the deployment status for the site
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/extensions/onedeploy</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WebApps_GetOneDeployStatus</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-12-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual Response<BinaryData> GetOneDeployStatus(CancellationToken cancellationToken = default)
+        {
+            using var scope = _webSiteWebAppsClientDiagnostics.CreateScope("WebSiteResource.GetOneDeployStatus");
+            scope.Start();
+            try
+            {
+                var response = _webSiteWebAppsRestClient.GetOneDeployStatus(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Description for Invoke the OneDeploy publish web app extension.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/extensions/onedeploy</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WebApps_CreateOneDeployOperation</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-12-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="SiteExtensionResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual async Task<Response<BinaryData>> CreateOneDeployOperationAsync(CancellationToken cancellationToken = default)
+        {
+            using var scope = _siteExtensionWebAppsClientDiagnostics.CreateScope("WebSiteResource.CreateOneDeployOperation");
+            scope.Start();
+            try
+            {
+                var response = await _siteExtensionWebAppsRestClient.CreateOneDeployOperationAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Description for Invoke the OneDeploy publish web app extension.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/extensions/onedeploy</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WebApps_CreateOneDeployOperation</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-12-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="SiteExtensionResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual Response<BinaryData> CreateOneDeployOperation(CancellationToken cancellationToken = default)
+        {
+            using var scope = _siteExtensionWebAppsClientDiagnostics.CreateScope("WebSiteResource.CreateOneDeployOperation");
+            scope.Start();
+            try
+            {
+                var response = _siteExtensionWebAppsRestClient.CreateOneDeployOperation(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
         /// Description for Fetch a short lived token that can be exchanged for a master key.
         /// <list type="bullet">
         /// <item>
@@ -4135,7 +4529,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -4169,7 +4563,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -4203,7 +4597,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -4237,7 +4631,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -4271,7 +4665,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -4305,7 +4699,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -4339,7 +4733,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -4373,7 +4767,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -4407,7 +4801,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -4450,7 +4844,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -4493,7 +4887,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -4534,7 +4928,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -4575,7 +4969,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -4613,7 +5007,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -4651,7 +5045,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -4689,7 +5083,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -4727,7 +5121,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -4775,7 +5169,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -4823,7 +5217,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -4869,7 +5263,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -4915,7 +5309,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -4949,7 +5343,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -4983,7 +5377,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -5022,7 +5416,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -5061,7 +5455,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -5091,7 +5485,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -5121,7 +5515,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -5158,7 +5552,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -5195,7 +5589,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -5236,7 +5630,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -5277,7 +5671,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -5311,7 +5705,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -5345,7 +5739,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -5375,7 +5769,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -5405,7 +5799,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -5435,7 +5829,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -5465,7 +5859,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -5495,7 +5889,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// </summary>
@@ -5525,7 +5919,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -5563,7 +5957,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -5601,7 +5995,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -5632,7 +6026,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -5663,7 +6057,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -5701,7 +6095,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -5739,7 +6133,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -5768,7 +6162,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -5797,7 +6191,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -5839,7 +6233,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -5881,7 +6275,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -5919,7 +6313,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -5957,7 +6351,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -5997,7 +6391,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -6037,7 +6431,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -6083,7 +6477,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -6129,7 +6523,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -6175,7 +6569,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -6221,7 +6615,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -6267,7 +6661,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -6313,7 +6707,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -6347,7 +6741,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -6381,7 +6775,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -6427,7 +6821,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -6473,7 +6867,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -6503,7 +6897,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -6533,7 +6927,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -6563,7 +6957,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -6593,7 +6987,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -6631,7 +7025,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -6669,7 +7063,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -6714,7 +7108,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -6759,7 +7153,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -6797,7 +7191,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -6835,7 +7229,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -6873,7 +7267,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -6911,7 +7305,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -6949,7 +7343,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -6987,7 +7381,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -7025,7 +7419,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -7063,7 +7457,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -7094,7 +7488,7 @@ namespace Azure.ResourceManager.AppService
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-02-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -7110,6 +7504,324 @@ namespace Azure.ResourceManager.AppService
             HttpMessage FirstPageRequest(int? pageSizeHint) => _webSiteWebAppsRestClient.CreateListUsagesRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, filter);
             HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => _webSiteWebAppsRestClient.CreateListUsagesNextPageRequest(nextLink, Id.SubscriptionId, Id.ResourceGroupName, Id.Name, filter);
             return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => CsmUsageQuota.DeserializeCsmUsageQuota(e), _webSiteWebAppsClientDiagnostics, Pipeline, "WebSiteResource.GetUsages", "value", "nextLink", cancellationToken);
+        }
+
+        /// <summary>
+        /// Description for Creates the artifacts for web site, or a deployment slot.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/deployWorkflowArtifacts</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WebApps_DeployWorkflowArtifacts</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-12-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="WebSiteResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="workflowArtifacts"> Application settings and files of the workflow. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual async Task<Response> DeployWorkflowArtifactsAsync(WorkflowArtifacts workflowArtifacts = null, CancellationToken cancellationToken = default)
+        {
+            using var scope = _webSiteWebAppsClientDiagnostics.CreateScope("WebSiteResource.DeployWorkflowArtifacts");
+            scope.Start();
+            try
+            {
+                var response = await _webSiteWebAppsRestClient.DeployWorkflowArtifactsAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, workflowArtifacts, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Description for Creates the artifacts for web site, or a deployment slot.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/deployWorkflowArtifacts</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WebApps_DeployWorkflowArtifacts</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-12-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="WebSiteResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="workflowArtifacts"> Application settings and files of the workflow. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual Response DeployWorkflowArtifacts(WorkflowArtifacts workflowArtifacts = null, CancellationToken cancellationToken = default)
+        {
+            using var scope = _webSiteWebAppsClientDiagnostics.CreateScope("WebSiteResource.DeployWorkflowArtifacts");
+            scope.Start();
+            try
+            {
+                var response = _webSiteWebAppsRestClient.DeployWorkflowArtifacts(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, workflowArtifacts, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Lists logic app's connections for web site, or a deployment slot.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/listWorkflowsConnections</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WebApps_ListWorkflowsConnections</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-12-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="WebSiteResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual async Task<Response<WorkflowEnvelopeData>> GetWorkflowsConnectionsAsync(CancellationToken cancellationToken = default)
+        {
+            using var scope = _webSiteWebAppsClientDiagnostics.CreateScope("WebSiteResource.GetWorkflowsConnections");
+            scope.Start();
+            try
+            {
+                var response = await _webSiteWebAppsRestClient.ListWorkflowsConnectionsAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Lists logic app's connections for web site, or a deployment slot.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/listWorkflowsConnections</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>WebApps_ListWorkflowsConnections</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-12-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="WebSiteResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        public virtual Response<WorkflowEnvelopeData> GetWorkflowsConnections(CancellationToken cancellationToken = default)
+        {
+            using var scope = _webSiteWebAppsClientDiagnostics.CreateScope("WebSiteResource.GetWorkflowsConnections");
+            scope.Start();
+            try
+            {
+                var response = _webSiteWebAppsRestClient.ListWorkflowsConnections(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Regenerates the callback URL access key for request triggers.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/hostruntime/runtime/webhooks/workflow/api/management/workflows/{workflowName}/regenerateAccessKey</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Workflows_RegenerateAccessKey</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-12-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="workflowName"> The workflow name. </param>
+        /// <param name="keyType"> The access key type. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="workflowName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="workflowName"/> or <paramref name="keyType"/> is null. </exception>
+        public virtual async Task<Response> RegenerateAccessKeyWorkflowAsync(string workflowName, RegenerateActionParameter keyType, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(workflowName, nameof(workflowName));
+            Argument.AssertNotNull(keyType, nameof(keyType));
+
+            using var scope = _workflowsClientDiagnostics.CreateScope("WebSiteResource.RegenerateAccessKeyWorkflow");
+            scope.Start();
+            try
+            {
+                var response = await _workflowsRestClient.RegenerateAccessKeyAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, workflowName, keyType, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Regenerates the callback URL access key for request triggers.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/hostruntime/runtime/webhooks/workflow/api/management/workflows/{workflowName}/regenerateAccessKey</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Workflows_RegenerateAccessKey</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-12-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="workflowName"> The workflow name. </param>
+        /// <param name="keyType"> The access key type. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="workflowName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="workflowName"/> or <paramref name="keyType"/> is null. </exception>
+        public virtual Response RegenerateAccessKeyWorkflow(string workflowName, RegenerateActionParameter keyType, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(workflowName, nameof(workflowName));
+            Argument.AssertNotNull(keyType, nameof(keyType));
+
+            using var scope = _workflowsClientDiagnostics.CreateScope("WebSiteResource.RegenerateAccessKeyWorkflow");
+            scope.Start();
+            try
+            {
+                var response = _workflowsRestClient.RegenerateAccessKey(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, workflowName, keyType, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Validates the workflow definition.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/hostruntime/runtime/webhooks/workflow/api/management/workflows/{workflowName}/validate</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Workflows_Validate</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-12-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="workflowName"> The workflow name. </param>
+        /// <param name="validate"> The workflow. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="workflowName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="workflowName"/> or <paramref name="validate"/> is null. </exception>
+        public virtual async Task<Response> ValidateWorkflowAsync(string workflowName, Workflow validate, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(workflowName, nameof(workflowName));
+            Argument.AssertNotNull(validate, nameof(validate));
+
+            using var scope = _workflowsClientDiagnostics.CreateScope("WebSiteResource.ValidateWorkflow");
+            scope.Start();
+            try
+            {
+                var response = await _workflowsRestClient.ValidateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, workflowName, validate, cancellationToken).ConfigureAwait(false);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Validates the workflow definition.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/hostruntime/runtime/webhooks/workflow/api/management/workflows/{workflowName}/validate</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>Workflows_Validate</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-12-01</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="workflowName"> The workflow name. </param>
+        /// <param name="validate"> The workflow. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="workflowName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="workflowName"/> or <paramref name="validate"/> is null. </exception>
+        public virtual Response ValidateWorkflow(string workflowName, Workflow validate, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(workflowName, nameof(workflowName));
+            Argument.AssertNotNull(validate, nameof(validate));
+
+            using var scope = _workflowsClientDiagnostics.CreateScope("WebSiteResource.ValidateWorkflow");
+            scope.Start();
+            try
+            {
+                var response = _workflowsRestClient.Validate(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, workflowName, validate, cancellationToken);
+                return response;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
     }
 }

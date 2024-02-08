@@ -35,6 +35,11 @@ namespace Azure.ResourceManager.AppService.Models
                 writer.WritePropertyName("isFqdn"u8);
                 writer.WriteBooleanValue(IsFqdn.Value);
             }
+            if (Optional.IsDefined(EnvironmentId))
+            {
+                writer.WritePropertyName("environmentId"u8);
+                writer.WriteStringValue(EnvironmentId);
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -76,6 +81,7 @@ namespace Azure.ResourceManager.AppService.Models
             string name = default;
             CheckNameResourceType type = default;
             Optional<bool> isFqdn = default;
+            Optional<string> environmentId = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -99,13 +105,18 @@ namespace Azure.ResourceManager.AppService.Models
                     isFqdn = property.Value.GetBoolean();
                     continue;
                 }
+                if (property.NameEquals("environmentId"u8))
+                {
+                    environmentId = property.Value.GetString();
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new ResourceNameAvailabilityContent(name, type, Optional.ToNullable(isFqdn), serializedAdditionalRawData);
+            return new ResourceNameAvailabilityContent(name, type, Optional.ToNullable(isFqdn), environmentId.Value, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<ResourceNameAvailabilityContent>.Write(ModelReaderWriterOptions options)
