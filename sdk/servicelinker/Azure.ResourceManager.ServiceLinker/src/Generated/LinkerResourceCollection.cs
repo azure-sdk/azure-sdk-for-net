@@ -56,7 +56,7 @@ namespace Azure.ResourceManager.ServiceLinker
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-05-01</description>
+        /// <description>2023-05-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -105,7 +105,7 @@ namespace Azure.ResourceManager.ServiceLinker
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-05-01</description>
+        /// <description>2023-05-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -154,7 +154,7 @@ namespace Azure.ResourceManager.ServiceLinker
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-05-01</description>
+        /// <description>2023-05-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -199,7 +199,7 @@ namespace Azure.ResourceManager.ServiceLinker
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-05-01</description>
+        /// <description>2023-05-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -244,7 +244,7 @@ namespace Azure.ResourceManager.ServiceLinker
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-05-01</description>
+        /// <description>2023-05-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -274,7 +274,7 @@ namespace Azure.ResourceManager.ServiceLinker
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-05-01</description>
+        /// <description>2023-05-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -304,7 +304,7 @@ namespace Azure.ResourceManager.ServiceLinker
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-05-01</description>
+        /// <description>2023-05-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -347,7 +347,7 @@ namespace Azure.ResourceManager.ServiceLinker
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-05-01</description>
+        /// <description>2023-05-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -390,7 +390,7 @@ namespace Azure.ResourceManager.ServiceLinker
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-05-01</description>
+        /// <description>2023-05-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -435,7 +435,7 @@ namespace Azure.ResourceManager.ServiceLinker
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-05-01</description>
+        /// <description>2023-05-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
