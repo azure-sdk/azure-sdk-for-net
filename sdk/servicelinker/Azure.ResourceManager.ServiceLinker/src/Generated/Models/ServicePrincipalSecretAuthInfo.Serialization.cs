@@ -32,6 +32,33 @@ namespace Azure.ResourceManager.ServiceLinker.Models
             writer.WriteStringValue(PrincipalId);
             writer.WritePropertyName("secret"u8);
             writer.WriteStringValue(Secret);
+            if (Optional.IsDefined(DeleteOrUpdateBehavior))
+            {
+                writer.WritePropertyName("deleteOrUpdateBehavior"u8);
+                writer.WriteStringValue(DeleteOrUpdateBehavior.Value.ToString());
+            }
+            if (Optional.IsCollectionDefined(Roles))
+            {
+                writer.WritePropertyName("roles"u8);
+                writer.WriteStartArray();
+                foreach (var item in Roles)
+                {
+                    writer.WriteStringValue(item);
+                }
+                writer.WriteEndArray();
+            }
+            if (Optional.IsDefined(UserName))
+            {
+                if (UserName != null)
+                {
+                    writer.WritePropertyName("userName"u8);
+                    writer.WriteStringValue(UserName);
+                }
+                else
+                {
+                    writer.WriteNull("userName");
+                }
+            }
             writer.WritePropertyName("authType"u8);
             writer.WriteStringValue(AuthType.ToString());
             if (options.Format != "W" && _serializedAdditionalRawData != null)
@@ -75,6 +102,9 @@ namespace Azure.ResourceManager.ServiceLinker.Models
             string clientId = default;
             Guid principalId = default;
             string secret = default;
+            Optional<DeleteOrUpdateBehavior> deleteOrUpdateBehavior = default;
+            Optional<IList<string>> roles = default;
+            Optional<string> userName = default;
             LinkerAuthType authType = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
@@ -95,6 +125,39 @@ namespace Azure.ResourceManager.ServiceLinker.Models
                     secret = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("deleteOrUpdateBehavior"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    deleteOrUpdateBehavior = new DeleteOrUpdateBehavior(property.Value.GetString());
+                    continue;
+                }
+                if (property.NameEquals("roles"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<string> array = new List<string>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(item.GetString());
+                    }
+                    roles = array;
+                    continue;
+                }
+                if (property.NameEquals("userName"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        userName = null;
+                        continue;
+                    }
+                    userName = property.Value.GetString();
+                    continue;
+                }
                 if (property.NameEquals("authType"u8))
                 {
                     authType = new LinkerAuthType(property.Value.GetString());
@@ -106,7 +169,7 @@ namespace Azure.ResourceManager.ServiceLinker.Models
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new ServicePrincipalSecretAuthInfo(authType, serializedAdditionalRawData, clientId, principalId, secret);
+            return new ServicePrincipalSecretAuthInfo(authType, serializedAdditionalRawData, clientId, principalId, secret, Optional.ToNullable(deleteOrUpdateBehavior), Optional.ToList(roles), userName.Value);
         }
 
         BinaryData IPersistableModel<ServicePrincipalSecretAuthInfo>.Write(ModelReaderWriterOptions options)

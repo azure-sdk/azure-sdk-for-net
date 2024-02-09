@@ -13,7 +13,7 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.ServiceLinker.Models
 {
-    internal partial class VnetSolution : IUtf8JsonSerializable, IJsonModel<VnetSolution>
+    public partial class VnetSolution : IUtf8JsonSerializable, IJsonModel<VnetSolution>
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<VnetSolution>)this).Write(writer, new ModelReaderWriterOptions("W"));
 
@@ -37,6 +37,11 @@ namespace Azure.ResourceManager.ServiceLinker.Models
                 {
                     writer.WriteNull("type");
                 }
+            }
+            if (Optional.IsDefined(DeleteOrUpdateBehavior))
+            {
+                writer.WritePropertyName("deleteOrUpdateBehavior"u8);
+                writer.WriteStringValue(DeleteOrUpdateBehavior.Value.ToString());
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -77,6 +82,7 @@ namespace Azure.ResourceManager.ServiceLinker.Models
                 return null;
             }
             Optional<VnetSolutionType?> type = default;
+            Optional<DeleteOrUpdateBehavior> deleteOrUpdateBehavior = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -91,13 +97,22 @@ namespace Azure.ResourceManager.ServiceLinker.Models
                     type = new VnetSolutionType(property.Value.GetString());
                     continue;
                 }
+                if (property.NameEquals("deleteOrUpdateBehavior"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    deleteOrUpdateBehavior = new DeleteOrUpdateBehavior(property.Value.GetString());
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new VnetSolution(Optional.ToNullable(type), serializedAdditionalRawData);
+            return new VnetSolution(Optional.ToNullable(type), Optional.ToNullable(deleteOrUpdateBehavior), serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<VnetSolution>.Write(ModelReaderWriterOptions options)

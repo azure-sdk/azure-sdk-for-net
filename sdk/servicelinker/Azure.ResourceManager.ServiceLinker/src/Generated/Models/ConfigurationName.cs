@@ -7,12 +7,11 @@
 
 using System;
 using System.Collections.Generic;
-using Azure.Core;
 
 namespace Azure.ResourceManager.ServiceLinker.Models
 {
-    /// <summary> Configurations for source resource, include appSettings, connectionString and serviceBindings. </summary>
-    public partial class SourceConfigurationResult
+    /// <summary> The configuration names. </summary>
+    public partial class ConfigurationName
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -46,22 +45,29 @@ namespace Azure.ResourceManager.ServiceLinker.Models
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="SourceConfigurationResult"/>. </summary>
-        internal SourceConfigurationResult()
+        /// <summary> Initializes a new instance of <see cref="ConfigurationName"/>. </summary>
+        internal ConfigurationName()
         {
-            Configurations = new ChangeTrackingList<SourceConfiguration>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="SourceConfigurationResult"/>. </summary>
-        /// <param name="configurations"> The configuration properties for source resource. </param>
+        /// <summary> Initializes a new instance of <see cref="ConfigurationName"/>. </summary>
+        /// <param name="value"></param>
+        /// <param name="description"> Description for the configuration name. </param>
+        /// <param name="required"> Represent the configuration is required or not. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal SourceConfigurationResult(IReadOnlyList<SourceConfiguration> configurations, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ConfigurationName(string value, string description, bool? required, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            Configurations = configurations;
+            Value = value;
+            Description = description;
+            Required = required;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> The configuration properties for source resource. </summary>
-        public IReadOnlyList<SourceConfiguration> Configurations { get; }
+        /// <summary> Gets the value. </summary>
+        public string Value { get; }
+        /// <summary> Description for the configuration name. </summary>
+        public string Description { get; }
+        /// <summary> Represent the configuration is required or not. </summary>
+        public bool? Required { get; }
     }
 }
