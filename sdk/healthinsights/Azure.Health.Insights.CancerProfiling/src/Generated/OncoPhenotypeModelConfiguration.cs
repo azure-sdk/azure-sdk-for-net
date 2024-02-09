@@ -49,7 +49,7 @@ namespace Azure.Health.Insights.CancerProfiling
         /// <summary> Initializes a new instance of <see cref="OncoPhenotypeModelConfiguration"/>. </summary>
         public OncoPhenotypeModelConfiguration()
         {
-            InferenceTypes = new ChangeTrackingList<OncoPhenotypeInferenceType>();
+            InferenceTypes = new ChangeTrackingList<BinaryData>();
         }
 
         /// <summary> Initializes a new instance of <see cref="OncoPhenotypeModelConfiguration"/>. </summary>
@@ -62,7 +62,7 @@ namespace Azure.Health.Insights.CancerProfiling
         /// </param>
         /// <param name="checkForCancerCase"> An indication whether to perform a preliminary step on the patient's documents to determine whether they relate to a Cancer case. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal OncoPhenotypeModelConfiguration(bool? verbose, bool? includeEvidence, IList<OncoPhenotypeInferenceType> inferenceTypes, bool? checkForCancerCase, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal OncoPhenotypeModelConfiguration(bool? verbose, bool? includeEvidence, IList<BinaryData> inferenceTypes, bool? checkForCancerCase, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Verbose = verbose;
             IncludeEvidence = includeEvidence;
@@ -79,8 +79,35 @@ namespace Azure.Health.Insights.CancerProfiling
         /// A list of inference types to be inferred for the current request.
         /// This could be used if only part of the Onco Phenotype inferences are required.
         /// If this list is omitted or empty, the model will return all the inference types.
+        /// <para>
+        /// To assign an object to the element of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
+        /// </para>
+        /// <para>
+        /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
+        /// </para>
+        /// <para>
+        /// Examples:
+        /// <list type="bullet">
+        /// <item>
+        /// <term>BinaryData.FromObjectAsJson("foo")</term>
+        /// <description>Creates a payload of "foo".</description>
+        /// </item>
+        /// <item>
+        /// <term>BinaryData.FromString("\"foo\"")</term>
+        /// <description>Creates a payload of "foo".</description>
+        /// </item>
+        /// <item>
+        /// <term>BinaryData.FromObjectAsJson(new { key = "value" })</term>
+        /// <description>Creates a payload of { "key": "value" }.</description>
+        /// </item>
+        /// <item>
+        /// <term>BinaryData.FromString("{\"key\": \"value\"}")</term>
+        /// <description>Creates a payload of { "key": "value" }.</description>
+        /// </item>
+        /// </list>
+        /// </para>
         /// </summary>
-        public IList<OncoPhenotypeInferenceType> InferenceTypes { get; }
+        public IList<BinaryData> InferenceTypes { get; }
         /// <summary> An indication whether to perform a preliminary step on the patient's documents to determine whether they relate to a Cancer case. </summary>
         public bool? CheckForCancerCase { get; set; }
     }
