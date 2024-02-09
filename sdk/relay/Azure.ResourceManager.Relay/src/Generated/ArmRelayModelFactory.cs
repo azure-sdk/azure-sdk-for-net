@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Azure.Core;
 using Azure.ResourceManager.Models;
@@ -166,15 +167,16 @@ namespace Azure.ResourceManager.Relay.Models
         /// <param name="name"> The name. </param>
         /// <param name="resourceType"> The resourceType. </param>
         /// <param name="systemData"> The systemData. </param>
+        /// <param name="trustedServiceAccessEnabled"> Value that indicates whether Trusted Service Access is Enabled or not. </param>
         /// <param name="defaultAction"> Default Action for Network Rule Set. </param>
         /// <param name="publicNetworkAccess"> This determines if traffic is allowed over public network. By default it is enabled. </param>
         /// <param name="ipRules"> List of IpRules. </param>
         /// <returns> A new <see cref="Relay.RelayNetworkRuleSetData"/> instance for mocking. </returns>
-        public static RelayNetworkRuleSetData RelayNetworkRuleSetData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, RelayNetworkRuleSetDefaultAction? defaultAction = null, RelayPublicNetworkAccess? publicNetworkAccess = null, IEnumerable<RelayNetworkRuleSetIPRule> ipRules = null)
+        public static RelayNetworkRuleSetData RelayNetworkRuleSetData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, bool? trustedServiceAccessEnabled = null, RelayNetworkRuleSetDefaultAction? defaultAction = null, RelayPublicNetworkAccess? publicNetworkAccess = null, IEnumerable<RelayNetworkRuleSetIPRule> ipRules = null)
         {
             ipRules ??= new List<RelayNetworkRuleSetIPRule>();
 
-            return new RelayNetworkRuleSetData(id, name, resourceType, systemData, defaultAction, publicNetworkAccess, ipRules?.ToList(), serializedAdditionalRawData: null);
+            return new RelayNetworkRuleSetData(id, name, resourceType, systemData, trustedServiceAccessEnabled, defaultAction, publicNetworkAccess, ipRules?.ToList(), serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="Relay.WcfRelayData"/>. </summary>
@@ -195,6 +197,21 @@ namespace Azure.ResourceManager.Relay.Models
         public static WcfRelayData WcfRelayData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, bool? isDynamic = null, DateTimeOffset? createdOn = null, DateTimeOffset? updatedOn = null, int? listenerCount = null, RelayType? relayType = null, bool? isClientAuthorizationRequired = null, bool? isTransportSecurityRequired = null, string userMetadata = null, AzureLocation? location = null)
         {
             return new WcfRelayData(id, name, resourceType, systemData, isDynamic, createdOn, updatedOn, listenerCount, relayType, isClientAuthorizationRequired, isTransportSecurityRequired, userMetadata, location, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="T:Azure.ResourceManager.Relay.RelayNetworkRuleSetData" />. </summary>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="resourceType"> The resourceType. </param>
+        /// <param name="systemData"> The systemData. </param>
+        /// <param name="defaultAction"> Default Action for Network Rule Set. </param>
+        /// <param name="publicNetworkAccess"> This determines if traffic is allowed over public network. By default it is enabled. </param>
+        /// <param name="ipRules"> List of IpRules. </param>
+        /// <returns> A new <see cref="T:Azure.ResourceManager.Relay.RelayNetworkRuleSetData" /> instance for mocking. </returns>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static RelayNetworkRuleSetData RelayNetworkRuleSetData(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, RelayNetworkRuleSetDefaultAction? defaultAction, RelayPublicNetworkAccess? publicNetworkAccess, IEnumerable<RelayNetworkRuleSetIPRule> ipRules)
+        {
+            return RelayNetworkRuleSetData(id: id, name: name, resourceType: resourceType, systemData: systemData, trustedServiceAccessEnabled: default, defaultAction: defaultAction, publicNetworkAccess: publicNetworkAccess, ipRules: ipRules);
         }
     }
 }

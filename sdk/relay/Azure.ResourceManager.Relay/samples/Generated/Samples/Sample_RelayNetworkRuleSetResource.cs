@@ -42,6 +42,7 @@ namespace Azure.ResourceManager.Relay.Samples
             // invoke the operation
             RelayNetworkRuleSetData data = new RelayNetworkRuleSetData()
             {
+                TrustedServiceAccessEnabled = false,
                 DefaultAction = RelayNetworkRuleSetDefaultAction.Deny,
                 IPRules =
 {

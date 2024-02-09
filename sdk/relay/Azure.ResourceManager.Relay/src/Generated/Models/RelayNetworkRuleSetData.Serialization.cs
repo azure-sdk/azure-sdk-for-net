@@ -50,6 +50,11 @@ namespace Azure.ResourceManager.Relay
             }
             writer.WritePropertyName("properties"u8);
             writer.WriteStartObject();
+            if (Optional.IsDefined(TrustedServiceAccessEnabled))
+            {
+                writer.WritePropertyName("trustedServiceAccessEnabled"u8);
+                writer.WriteBooleanValue(TrustedServiceAccessEnabled.Value);
+            }
             if (Optional.IsDefined(DefaultAction))
             {
                 writer.WritePropertyName("defaultAction"u8);
@@ -113,6 +118,7 @@ namespace Azure.ResourceManager.Relay
             string name = default;
             ResourceType type = default;
             Optional<SystemData> systemData = default;
+            Optional<bool> trustedServiceAccessEnabled = default;
             Optional<RelayNetworkRuleSetDefaultAction> defaultAction = default;
             Optional<RelayPublicNetworkAccess> publicNetworkAccess = default;
             Optional<IList<RelayNetworkRuleSetIPRule>> ipRules = default;
@@ -153,6 +159,15 @@ namespace Azure.ResourceManager.Relay
                     }
                     foreach (var property0 in property.Value.EnumerateObject())
                     {
+                        if (property0.NameEquals("trustedServiceAccessEnabled"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            trustedServiceAccessEnabled = property0.Value.GetBoolean();
+                            continue;
+                        }
                         if (property0.NameEquals("defaultAction"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -194,7 +209,7 @@ namespace Azure.ResourceManager.Relay
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new RelayNetworkRuleSetData(id, name, type, systemData.Value, Optional.ToNullable(defaultAction), Optional.ToNullable(publicNetworkAccess), Optional.ToList(ipRules), serializedAdditionalRawData);
+            return new RelayNetworkRuleSetData(id, name, type, systemData.Value, Optional.ToNullable(trustedServiceAccessEnabled), Optional.ToNullable(defaultAction), Optional.ToNullable(publicNetworkAccess), Optional.ToList(ipRules), serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<RelayNetworkRuleSetData>.Write(ModelReaderWriterOptions options)
