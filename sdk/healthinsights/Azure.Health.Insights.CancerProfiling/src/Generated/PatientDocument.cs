@@ -51,13 +51,14 @@ namespace Azure.Health.Insights.CancerProfiling
         /// <param name="id"> A given identifier for the document. Has to be unique across all documents for a single patient. </param>
         /// <param name="content"> The content of the patient document. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="id"/> or <paramref name="content"/> is null. </exception>
-        public PatientDocument(DocumentType type, string id, DocumentContent content)
+        public PatientDocument(PatientDocumentType type, string id, DocumentContent content)
         {
             Argument.AssertNotNull(id, nameof(id));
             Argument.AssertNotNull(content, nameof(content));
 
             Type = type;
             Id = id;
+            Authors = new ChangeTrackingList<DocumentAuthor>();
             Content = content;
         }
 
@@ -67,15 +68,21 @@ namespace Azure.Health.Insights.CancerProfiling
         /// <param name="id"> A given identifier for the document. Has to be unique across all documents for a single patient. </param>
         /// <param name="language"> A 2 letter ISO 639-1 representation of the language of the document. </param>
         /// <param name="createdDateTime"> The date and time when the document was created. </param>
+        /// <param name="authors"> Document author(s). </param>
+        /// <param name="specialtyType"> specialty type the document. </param>
+        /// <param name="administrativeMetadata"> Administrative metadata for the document. </param>
         /// <param name="content"> The content of the patient document. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal PatientDocument(DocumentType type, ClinicalDocumentType? clinicalType, string id, string language, DateTimeOffset? createdDateTime, DocumentContent content, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal PatientDocument(PatientDocumentType type, PatientDocumentClinicalType? clinicalType, string id, string language, DateTimeOffset? createdDateTime, IList<DocumentAuthor> authors, PatientDocumentSpecialtyType? specialtyType, DocumentAdministrativeMetadata administrativeMetadata, DocumentContent content, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Type = type;
             ClinicalType = clinicalType;
             Id = id;
             Language = language;
             CreatedDateTime = createdDateTime;
+            Authors = authors;
+            SpecialtyType = specialtyType;
+            AdministrativeMetadata = administrativeMetadata;
             Content = content;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
@@ -86,15 +93,21 @@ namespace Azure.Health.Insights.CancerProfiling
         }
 
         /// <summary> The type of the patient document, such as 'note' (text document) or 'fhirBundle' (FHIR JSON document). </summary>
-        public DocumentType Type { get; }
+        public PatientDocumentType Type { get; }
         /// <summary> The type of the clinical document. </summary>
-        public ClinicalDocumentType? ClinicalType { get; set; }
+        public PatientDocumentClinicalType? ClinicalType { get; set; }
         /// <summary> A given identifier for the document. Has to be unique across all documents for a single patient. </summary>
         public string Id { get; }
         /// <summary> A 2 letter ISO 639-1 representation of the language of the document. </summary>
         public string Language { get; set; }
         /// <summary> The date and time when the document was created. </summary>
         public DateTimeOffset? CreatedDateTime { get; set; }
+        /// <summary> Document author(s). </summary>
+        public IList<DocumentAuthor> Authors { get; }
+        /// <summary> specialty type the document. </summary>
+        public PatientDocumentSpecialtyType? SpecialtyType { get; set; }
+        /// <summary> Administrative metadata for the document. </summary>
+        public DocumentAdministrativeMetadata AdministrativeMetadata { get; set; }
         /// <summary> The content of the patient document. </summary>
         public DocumentContent Content { get; }
     }

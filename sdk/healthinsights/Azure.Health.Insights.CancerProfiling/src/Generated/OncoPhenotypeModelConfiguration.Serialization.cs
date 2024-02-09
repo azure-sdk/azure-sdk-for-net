@@ -43,7 +43,19 @@ namespace Azure.Health.Insights.CancerProfiling
                 writer.WriteStartArray();
                 foreach (var item in InferenceTypes)
                 {
-                    writer.WriteStringValue(item.ToString());
+                    if (item == null)
+                    {
+                        writer.WriteNullValue();
+                        continue;
+                    }
+#if NET6_0_OR_GREATER
+				writer.WriteRawValue(item);
+#else
+                    using (JsonDocument document = JsonDocument.Parse(item))
+                    {
+                        JsonSerializer.Serialize(writer, document.RootElement);
+                    }
+#endif
                 }
                 writer.WriteEndArray();
             }
@@ -92,7 +104,7 @@ namespace Azure.Health.Insights.CancerProfiling
             }
             Optional<bool> verbose = default;
             Optional<bool> includeEvidence = default;
-            Optional<IList<OncoPhenotypeInferenceType>> inferenceTypes = default;
+            Optional<IList<BinaryData>> inferenceTypes = default;
             Optional<bool> checkForCancerCase = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
@@ -122,10 +134,17 @@ namespace Azure.Health.Insights.CancerProfiling
                     {
                         continue;
                     }
-                    List<OncoPhenotypeInferenceType> array = new List<OncoPhenotypeInferenceType>();
+                    List<BinaryData> array = new List<BinaryData>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(new OncoPhenotypeInferenceType(item.GetString()));
+                        if (item.ValueKind == JsonValueKind.Null)
+                        {
+                            array.Add(null);
+                        }
+                        else
+                        {
+                            array.Add(BinaryData.FromString(item.GetRawText()));
+                        }
                     }
                     inferenceTypes = array;
                     continue;
