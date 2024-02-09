@@ -33,9 +33,9 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='networkVirtualApplianceName'>
             /// The name of Network Virtual Appliance.
             /// </param>
-            public static void Delete(this INetworkVirtualAppliancesOperations operations, string resourceGroupName, string networkVirtualApplianceName)
+            public static NetworkVirtualAppliancesDeleteHeaders Delete(this INetworkVirtualAppliancesOperations operations, string resourceGroupName, string networkVirtualApplianceName)
             {
-                operations.DeleteAsync(resourceGroupName, networkVirtualApplianceName).GetAwaiter().GetResult();
+                return operations.DeleteAsync(resourceGroupName, networkVirtualApplianceName).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -53,9 +53,12 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task DeleteAsync(this INetworkVirtualAppliancesOperations operations, string resourceGroupName, string networkVirtualApplianceName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<NetworkVirtualAppliancesDeleteHeaders> DeleteAsync(this INetworkVirtualAppliancesOperations operations, string resourceGroupName, string networkVirtualApplianceName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.DeleteWithHttpMessagesAsync(resourceGroupName, networkVirtualApplianceName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.DeleteWithHttpMessagesAsync(resourceGroupName, networkVirtualApplianceName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
@@ -197,6 +200,53 @@ namespace Microsoft.Azure.Management.Network
             }
 
             /// <summary>
+            /// Restarts one or more VMs belonging to the specified Network Virtual
+            /// Appliance.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group.
+            /// </param>
+            /// <param name='networkVirtualApplianceName'>
+            /// The name of Network Virtual Appliance.
+            /// </param>
+            /// <param name='networkVirtualApplianceInstanceIds'>
+            /// Specifies a list of virtual machine instance IDs from the Network Virtual
+            /// Appliance VM instances.
+            /// </param>
+            public static void Restart(this INetworkVirtualAppliancesOperations operations, string resourceGroupName, string networkVirtualApplianceName, NetworkVirtualApplianceInstanceIds networkVirtualApplianceInstanceIds = default(NetworkVirtualApplianceInstanceIds))
+            {
+                operations.RestartAsync(resourceGroupName, networkVirtualApplianceName, networkVirtualApplianceInstanceIds).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Restarts one or more VMs belonging to the specified Network Virtual
+            /// Appliance.
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// The name of the resource group.
+            /// </param>
+            /// <param name='networkVirtualApplianceName'>
+            /// The name of Network Virtual Appliance.
+            /// </param>
+            /// <param name='networkVirtualApplianceInstanceIds'>
+            /// Specifies a list of virtual machine instance IDs from the Network Virtual
+            /// Appliance VM instances.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task RestartAsync(this INetworkVirtualAppliancesOperations operations, string resourceGroupName, string networkVirtualApplianceName, NetworkVirtualApplianceInstanceIds networkVirtualApplianceInstanceIds = default(NetworkVirtualApplianceInstanceIds), CancellationToken cancellationToken = default(CancellationToken))
+            {
+                (await operations.RestartWithHttpMessagesAsync(resourceGroupName, networkVirtualApplianceName, networkVirtualApplianceInstanceIds, null, cancellationToken).ConfigureAwait(false)).Dispose();
+            }
+
+            /// <summary>
             /// Lists all Network Virtual Appliances in a resource group.
             /// </summary>
             /// <param name='operations'>
@@ -270,9 +320,9 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='networkVirtualApplianceName'>
             /// The name of Network Virtual Appliance.
             /// </param>
-            public static void BeginDelete(this INetworkVirtualAppliancesOperations operations, string resourceGroupName, string networkVirtualApplianceName)
+            public static NetworkVirtualAppliancesDeleteHeaders BeginDelete(this INetworkVirtualAppliancesOperations operations, string resourceGroupName, string networkVirtualApplianceName)
             {
-                operations.BeginDeleteAsync(resourceGroupName, networkVirtualApplianceName).GetAwaiter().GetResult();
+                return operations.BeginDeleteAsync(resourceGroupName, networkVirtualApplianceName).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -290,9 +340,12 @@ namespace Microsoft.Azure.Management.Network
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task BeginDeleteAsync(this INetworkVirtualAppliancesOperations operations, string resourceGroupName, string networkVirtualApplianceName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<NetworkVirtualAppliancesDeleteHeaders> BeginDeleteAsync(this INetworkVirtualAppliancesOperations operations, string resourceGroupName, string networkVirtualApplianceName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, networkVirtualApplianceName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                using (var _result = await operations.BeginDeleteWithHttpMessagesAsync(resourceGroupName, networkVirtualApplianceName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Headers;
+                }
             }
 
             /// <summary>
