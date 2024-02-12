@@ -7,13 +7,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Azure.Core;
 
 namespace Azure.AI.ContentSafety
 {
-    /// <summary> The image analysis response. </summary>
-    public partial class AnalyzeImageResult
+    /// <summary> The text analysis request. </summary>
+    public partial class IncidentOptions
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -47,36 +46,26 @@ namespace Azure.AI.ContentSafety
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="AnalyzeImageResult"/>. </summary>
-        /// <param name="categoriesAnalysis"> Analysis result for categories. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="categoriesAnalysis"/> is null. </exception>
-        internal AnalyzeImageResult(IEnumerable<ImageCategoriesAnalysis> categoriesAnalysis)
+        /// <summary> Initializes a new instance of <see cref="IncidentOptions"/>. </summary>
+        public IncidentOptions()
         {
-            Argument.AssertNotNull(categoriesAnalysis, nameof(categoriesAnalysis));
-
-            CategoriesAnalysis = categoriesAnalysis.ToList();
-            IncidentMatches = new ChangeTrackingList<IncidentMatch>();
+            IncidentNames = new ChangeTrackingList<string>();
         }
 
-        /// <summary> Initializes a new instance of <see cref="AnalyzeImageResult"/>. </summary>
-        /// <param name="categoriesAnalysis"> Analysis result for categories. </param>
-        /// <param name="incidentMatches"> The incident match details. </param>
+        /// <summary> Initializes a new instance of <see cref="IncidentOptions"/>. </summary>
+        /// <param name="incidentNames"> The accept decision made by service. </param>
+        /// <param name="haltOnIncidentHit"> When set to true, further analyses of harmful content will not be performed in cases where incidents are hit. When set to false, all analyses of harmful content will be performed, whether or not incidents are hit. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AnalyzeImageResult(IReadOnlyList<ImageCategoriesAnalysis> categoriesAnalysis, IReadOnlyList<IncidentMatch> incidentMatches, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal IncidentOptions(IList<string> incidentNames, bool? haltOnIncidentHit, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            CategoriesAnalysis = categoriesAnalysis;
-            IncidentMatches = incidentMatches;
+            IncidentNames = incidentNames;
+            HaltOnIncidentHit = haltOnIncidentHit;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="AnalyzeImageResult"/> for deserialization. </summary>
-        internal AnalyzeImageResult()
-        {
-        }
-
-        /// <summary> Analysis result for categories. </summary>
-        public IReadOnlyList<ImageCategoriesAnalysis> CategoriesAnalysis { get; }
-        /// <summary> The incident match details. </summary>
-        public IReadOnlyList<IncidentMatch> IncidentMatches { get; }
+        /// <summary> The accept decision made by service. </summary>
+        public IList<string> IncidentNames { get; }
+        /// <summary> When set to true, further analyses of harmful content will not be performed in cases where incidents are hit. When set to false, all analyses of harmful content will be performed, whether or not incidents are hit. </summary>
+        public bool? HaltOnIncidentHit { get; set; }
     }
 }

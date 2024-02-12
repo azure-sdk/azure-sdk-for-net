@@ -7,13 +7,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Azure.Core;
 
 namespace Azure.AI.ContentSafety
 {
-    /// <summary> The image analysis response. </summary>
-    public partial class AnalyzeImageResult
+    /// <summary> The text jailbreak analysis request. </summary>
+    public partial class AnalyzeTextJailbreakResult
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -47,36 +46,31 @@ namespace Azure.AI.ContentSafety
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="AnalyzeImageResult"/>. </summary>
-        /// <param name="categoriesAnalysis"> Analysis result for categories. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="categoriesAnalysis"/> is null. </exception>
-        internal AnalyzeImageResult(IEnumerable<ImageCategoriesAnalysis> categoriesAnalysis)
+        /// <summary> Initializes a new instance of <see cref="AnalyzeTextJailbreakResult"/>. </summary>
+        /// <param name="jailbreakAnalysis"> Analysis result for jailbreak. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="jailbreakAnalysis"/> is null. </exception>
+        internal AnalyzeTextJailbreakResult(JailbreakAnalysisResult jailbreakAnalysis)
         {
-            Argument.AssertNotNull(categoriesAnalysis, nameof(categoriesAnalysis));
+            Argument.AssertNotNull(jailbreakAnalysis, nameof(jailbreakAnalysis));
 
-            CategoriesAnalysis = categoriesAnalysis.ToList();
-            IncidentMatches = new ChangeTrackingList<IncidentMatch>();
+            JailbreakAnalysis = jailbreakAnalysis;
         }
 
-        /// <summary> Initializes a new instance of <see cref="AnalyzeImageResult"/>. </summary>
-        /// <param name="categoriesAnalysis"> Analysis result for categories. </param>
-        /// <param name="incidentMatches"> The incident match details. </param>
+        /// <summary> Initializes a new instance of <see cref="AnalyzeTextJailbreakResult"/>. </summary>
+        /// <param name="jailbreakAnalysis"> Analysis result for jailbreak. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AnalyzeImageResult(IReadOnlyList<ImageCategoriesAnalysis> categoriesAnalysis, IReadOnlyList<IncidentMatch> incidentMatches, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal AnalyzeTextJailbreakResult(JailbreakAnalysisResult jailbreakAnalysis, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            CategoriesAnalysis = categoriesAnalysis;
-            IncidentMatches = incidentMatches;
+            JailbreakAnalysis = jailbreakAnalysis;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="AnalyzeImageResult"/> for deserialization. </summary>
-        internal AnalyzeImageResult()
+        /// <summary> Initializes a new instance of <see cref="AnalyzeTextJailbreakResult"/> for deserialization. </summary>
+        internal AnalyzeTextJailbreakResult()
         {
         }
 
-        /// <summary> Analysis result for categories. </summary>
-        public IReadOnlyList<ImageCategoriesAnalysis> CategoriesAnalysis { get; }
-        /// <summary> The incident match details. </summary>
-        public IReadOnlyList<IncidentMatch> IncidentMatches { get; }
+        /// <summary> Analysis result for jailbreak. </summary>
+        public JailbreakAnalysisResult JailbreakAnalysis { get; }
     }
 }

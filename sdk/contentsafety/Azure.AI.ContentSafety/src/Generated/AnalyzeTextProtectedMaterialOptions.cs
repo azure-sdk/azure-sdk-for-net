@@ -7,13 +7,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Azure.Core;
 
 namespace Azure.AI.ContentSafety
 {
-    /// <summary> The image analysis response. </summary>
-    public partial class AnalyzeImageResult
+    /// <summary> The protected material analysis request. </summary>
+    public partial class AnalyzeTextProtectedMaterialOptions
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -47,36 +46,31 @@ namespace Azure.AI.ContentSafety
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="AnalyzeImageResult"/>. </summary>
-        /// <param name="categoriesAnalysis"> Analysis result for categories. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="categoriesAnalysis"/> is null. </exception>
-        internal AnalyzeImageResult(IEnumerable<ImageCategoriesAnalysis> categoriesAnalysis)
+        /// <summary> Initializes a new instance of <see cref="AnalyzeTextProtectedMaterialOptions"/>. </summary>
+        /// <param name="text"> The text needs to be analyzed. We support a maximum of 1k Unicode characters (Unicode code points) in the text of one request. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="text"/> is null. </exception>
+        public AnalyzeTextProtectedMaterialOptions(string text)
         {
-            Argument.AssertNotNull(categoriesAnalysis, nameof(categoriesAnalysis));
+            Argument.AssertNotNull(text, nameof(text));
 
-            CategoriesAnalysis = categoriesAnalysis.ToList();
-            IncidentMatches = new ChangeTrackingList<IncidentMatch>();
+            Text = text;
         }
 
-        /// <summary> Initializes a new instance of <see cref="AnalyzeImageResult"/>. </summary>
-        /// <param name="categoriesAnalysis"> Analysis result for categories. </param>
-        /// <param name="incidentMatches"> The incident match details. </param>
+        /// <summary> Initializes a new instance of <see cref="AnalyzeTextProtectedMaterialOptions"/>. </summary>
+        /// <param name="text"> The text needs to be analyzed. We support a maximum of 1k Unicode characters (Unicode code points) in the text of one request. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AnalyzeImageResult(IReadOnlyList<ImageCategoriesAnalysis> categoriesAnalysis, IReadOnlyList<IncidentMatch> incidentMatches, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal AnalyzeTextProtectedMaterialOptions(string text, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            CategoriesAnalysis = categoriesAnalysis;
-            IncidentMatches = incidentMatches;
+            Text = text;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="AnalyzeImageResult"/> for deserialization. </summary>
-        internal AnalyzeImageResult()
+        /// <summary> Initializes a new instance of <see cref="AnalyzeTextProtectedMaterialOptions"/> for deserialization. </summary>
+        internal AnalyzeTextProtectedMaterialOptions()
         {
         }
 
-        /// <summary> Analysis result for categories. </summary>
-        public IReadOnlyList<ImageCategoriesAnalysis> CategoriesAnalysis { get; }
-        /// <summary> The incident match details. </summary>
-        public IReadOnlyList<IncidentMatch> IncidentMatches { get; }
+        /// <summary> The text needs to be analyzed. We support a maximum of 1k Unicode characters (Unicode code points) in the text of one request. </summary>
+        public string Text { get; }
     }
 }

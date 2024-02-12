@@ -34,6 +34,16 @@ namespace Azure.AI.ContentSafety
                 writer.WriteObjectValue(item);
             }
             writer.WriteEndArray();
+            if (Optional.IsCollectionDefined(IncidentMatches))
+            {
+                writer.WritePropertyName("incidentMatches"u8);
+                writer.WriteStartArray();
+                foreach (var item in IncidentMatches)
+                {
+                    writer.WriteObjectValue(item);
+                }
+                writer.WriteEndArray();
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -73,6 +83,7 @@ namespace Azure.AI.ContentSafety
                 return null;
             }
             IReadOnlyList<ImageCategoriesAnalysis> categoriesAnalysis = default;
+            Optional<IReadOnlyList<IncidentMatch>> incidentMatches = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -87,13 +98,27 @@ namespace Azure.AI.ContentSafety
                     categoriesAnalysis = array;
                     continue;
                 }
+                if (property.NameEquals("incidentMatches"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<IncidentMatch> array = new List<IncidentMatch>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(IncidentMatch.DeserializeIncidentMatch(item));
+                    }
+                    incidentMatches = array;
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new AnalyzeImageResult(categoriesAnalysis, serializedAdditionalRawData);
+            return new AnalyzeImageResult(categoriesAnalysis, Optional.ToList(incidentMatches), serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<AnalyzeImageResult>.Write(ModelReaderWriterOptions options)

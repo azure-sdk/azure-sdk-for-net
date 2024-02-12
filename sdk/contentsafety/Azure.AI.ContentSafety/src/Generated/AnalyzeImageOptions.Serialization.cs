@@ -44,6 +44,11 @@ namespace Azure.AI.ContentSafety
                 writer.WritePropertyName("outputType"u8);
                 writer.WriteStringValue(OutputType.Value.ToString());
             }
+            if (Optional.IsDefined(Incidents))
+            {
+                writer.WritePropertyName("incidents"u8);
+                writer.WriteObjectValue(Incidents);
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -85,6 +90,7 @@ namespace Azure.AI.ContentSafety
             ContentSafetyImageData image = default;
             Optional<IList<ImageCategory>> categories = default;
             Optional<AnalyzeImageOutputType> outputType = default;
+            Optional<IncidentOptions> incidents = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -117,13 +123,22 @@ namespace Azure.AI.ContentSafety
                     outputType = new AnalyzeImageOutputType(property.Value.GetString());
                     continue;
                 }
+                if (property.NameEquals("incidents"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    incidents = IncidentOptions.DeserializeIncidentOptions(property.Value);
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new AnalyzeImageOptions(image, Optional.ToList(categories), Optional.ToNullable(outputType), serializedAdditionalRawData);
+            return new AnalyzeImageOptions(image, Optional.ToList(categories), Optional.ToNullable(outputType), incidents.Value, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<AnalyzeImageOptions>.Write(ModelReaderWriterOptions options)

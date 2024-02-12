@@ -8,6 +8,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Azure;
 
 namespace Azure.AI.ContentSafety
 {
@@ -20,25 +21,30 @@ namespace Azure.AI.ContentSafety
         /// <param name="blocklistNames"> The names of blocklists. </param>
         /// <param name="haltOnBlocklistHit"> When set to true, further analyses of harmful content will not be performed in cases where blocklists are hit. When set to false, all analyses of harmful content will be performed, whether or not blocklists are hit. </param>
         /// <param name="outputType"> This refers to the type of text analysis output. If no value is assigned, the default value will be "FourSeverityLevels". </param>
+        /// <param name="incidents"> The incidents to detect. </param>
         /// <returns> A new <see cref="ContentSafety.AnalyzeTextOptions"/> instance for mocking. </returns>
-        public static AnalyzeTextOptions AnalyzeTextOptions(string text = null, IEnumerable<TextCategory> categories = null, IEnumerable<string> blocklistNames = null, bool? haltOnBlocklistHit = null, AnalyzeTextOutputType? outputType = null)
+        public static AnalyzeTextOptions AnalyzeTextOptions(string text = null, IEnumerable<TextCategory> categories = null, IEnumerable<string> blocklistNames = null, bool? haltOnBlocklistHit = null, AnalyzeTextOutputType? outputType = null, IncidentOptions incidents = null)
         {
             categories ??= new List<TextCategory>();
             blocklistNames ??= new List<string>();
 
-            return new AnalyzeTextOptions(text, categories?.ToList(), blocklistNames?.ToList(), haltOnBlocklistHit, outputType, serializedAdditionalRawData: null);
+            return new AnalyzeTextOptions(text, categories?.ToList(), blocklistNames?.ToList(), haltOnBlocklistHit, outputType, incidents, serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="ContentSafety.AnalyzeTextResult"/>. </summary>
         /// <param name="blocklistsMatch"> The blocklist match details. </param>
         /// <param name="categoriesAnalysis"> Analysis result for categories. </param>
+        /// <param name="incidentMatches"> The incident match details. </param>
+        /// <param name="citation"> Chunks in the original text detected as harmful content. Analysis result and scores are caused by these. </param>
         /// <returns> A new <see cref="ContentSafety.AnalyzeTextResult"/> instance for mocking. </returns>
-        public static AnalyzeTextResult AnalyzeTextResult(IEnumerable<TextBlocklistMatch> blocklistsMatch = null, IEnumerable<TextCategoriesAnalysis> categoriesAnalysis = null)
+        public static AnalyzeTextResult AnalyzeTextResult(IEnumerable<TextBlocklistMatch> blocklistsMatch = null, IEnumerable<TextCategoriesAnalysis> categoriesAnalysis = null, IEnumerable<IncidentMatch> incidentMatches = null, IEnumerable<string> citation = null)
         {
             blocklistsMatch ??= new List<TextBlocklistMatch>();
             categoriesAnalysis ??= new List<TextCategoriesAnalysis>();
+            incidentMatches ??= new List<IncidentMatch>();
+            citation ??= new List<string>();
 
-            return new AnalyzeTextResult(blocklistsMatch?.ToList(), categoriesAnalysis?.ToList(), serializedAdditionalRawData: null);
+            return new AnalyzeTextResult(blocklistsMatch?.ToList(), categoriesAnalysis?.ToList(), incidentMatches?.ToList(), citation?.ToList(), serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="ContentSafety.TextBlocklistMatch"/>. </summary>
@@ -60,26 +66,37 @@ namespace Azure.AI.ContentSafety
             return new TextCategoriesAnalysis(category, severity, serializedAdditionalRawData: null);
         }
 
+        /// <summary> Initializes a new instance of <see cref="ContentSafety.IncidentMatch"/>. </summary>
+        /// <param name="incidentName"> The name of the matched incident. </param>
+        /// <returns> A new <see cref="ContentSafety.IncidentMatch"/> instance for mocking. </returns>
+        public static IncidentMatch IncidentMatch(string incidentName = null)
+        {
+            return new IncidentMatch(incidentName, serializedAdditionalRawData: null);
+        }
+
         /// <summary> Initializes a new instance of <see cref="ContentSafety.AnalyzeImageOptions"/>. </summary>
         /// <param name="image"> The image needs to be analyzed. </param>
         /// <param name="categories"> The categories will be analyzed. If they are not assigned, a default set of analysis results for the categories will be returned. </param>
         /// <param name="outputType"> This refers to the type of image analysis output. If no value is assigned, the default value will be "FourSeverityLevels". </param>
+        /// <param name="incidents"> The incidents to detect. </param>
         /// <returns> A new <see cref="ContentSafety.AnalyzeImageOptions"/> instance for mocking. </returns>
-        public static AnalyzeImageOptions AnalyzeImageOptions(ContentSafetyImageData image = null, IEnumerable<ImageCategory> categories = null, AnalyzeImageOutputType? outputType = null)
+        public static AnalyzeImageOptions AnalyzeImageOptions(ContentSafetyImageData image = null, IEnumerable<ImageCategory> categories = null, AnalyzeImageOutputType? outputType = null, IncidentOptions incidents = null)
         {
             categories ??= new List<ImageCategory>();
 
-            return new AnalyzeImageOptions(image, categories?.ToList(), outputType, serializedAdditionalRawData: null);
+            return new AnalyzeImageOptions(image, categories?.ToList(), outputType, incidents, serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="ContentSafety.AnalyzeImageResult"/>. </summary>
         /// <param name="categoriesAnalysis"> Analysis result for categories. </param>
+        /// <param name="incidentMatches"> The incident match details. </param>
         /// <returns> A new <see cref="ContentSafety.AnalyzeImageResult"/> instance for mocking. </returns>
-        public static AnalyzeImageResult AnalyzeImageResult(IEnumerable<ImageCategoriesAnalysis> categoriesAnalysis = null)
+        public static AnalyzeImageResult AnalyzeImageResult(IEnumerable<ImageCategoriesAnalysis> categoriesAnalysis = null, IEnumerable<IncidentMatch> incidentMatches = null)
         {
             categoriesAnalysis ??= new List<ImageCategoriesAnalysis>();
+            incidentMatches ??= new List<IncidentMatch>();
 
-            return new AnalyzeImageResult(categoriesAnalysis?.ToList(), serializedAdditionalRawData: null);
+            return new AnalyzeImageResult(categoriesAnalysis?.ToList(), incidentMatches?.ToList(), serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="ContentSafety.ImageCategoriesAnalysis"/>. </summary>
@@ -89,6 +106,38 @@ namespace Azure.AI.ContentSafety
         public static ImageCategoriesAnalysis ImageCategoriesAnalysis(ImageCategory category = default, int? severity = null)
         {
             return new ImageCategoriesAnalysis(category, severity, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="ContentSafety.AnalyzeTextJailbreakResult"/>. </summary>
+        /// <param name="jailbreakAnalysis"> Analysis result for jailbreak. </param>
+        /// <returns> A new <see cref="ContentSafety.AnalyzeTextJailbreakResult"/> instance for mocking. </returns>
+        public static AnalyzeTextJailbreakResult AnalyzeTextJailbreakResult(JailbreakAnalysisResult jailbreakAnalysis = null)
+        {
+            return new AnalyzeTextJailbreakResult(jailbreakAnalysis, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="ContentSafety.JailbreakAnalysisResult"/>. </summary>
+        /// <param name="detected"> Analysis result for jailbreak. </param>
+        /// <returns> A new <see cref="ContentSafety.JailbreakAnalysisResult"/> instance for mocking. </returns>
+        public static JailbreakAnalysisResult JailbreakAnalysisResult(bool detected = default)
+        {
+            return new JailbreakAnalysisResult(detected, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="ContentSafety.AnalyzeTextProtectedMaterialResult"/>. </summary>
+        /// <param name="protectedMaterialAnalysis"> Analysis result for protected material. </param>
+        /// <returns> A new <see cref="ContentSafety.AnalyzeTextProtectedMaterialResult"/> instance for mocking. </returns>
+        public static AnalyzeTextProtectedMaterialResult AnalyzeTextProtectedMaterialResult(ProtectedMaterialAnalysisResult protectedMaterialAnalysis = null)
+        {
+            return new AnalyzeTextProtectedMaterialResult(protectedMaterialAnalysis, serializedAdditionalRawData: null);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="ContentSafety.ProtectedMaterialAnalysisResult"/>. </summary>
+        /// <param name="detected"> Analysis result for protected material.. </param>
+        /// <returns> A new <see cref="ContentSafety.ProtectedMaterialAnalysisResult"/> instance for mocking. </returns>
+        public static ProtectedMaterialAnalysisResult ProtectedMaterialAnalysisResult(bool detected = default)
+        {
+            return new ProtectedMaterialAnalysisResult(detected, serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="ContentSafety.TextBlocklistItem"/>. </summary>

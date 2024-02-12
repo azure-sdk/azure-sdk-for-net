@@ -7,13 +7,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Azure.Core;
 
 namespace Azure.AI.ContentSafety
 {
-    /// <summary> The image analysis response. </summary>
-    public partial class AnalyzeImageResult
+    /// <summary> The result of text incident match. </summary>
+    public partial class IncidentMatch
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -47,36 +46,31 @@ namespace Azure.AI.ContentSafety
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="AnalyzeImageResult"/>. </summary>
-        /// <param name="categoriesAnalysis"> Analysis result for categories. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="categoriesAnalysis"/> is null. </exception>
-        internal AnalyzeImageResult(IEnumerable<ImageCategoriesAnalysis> categoriesAnalysis)
+        /// <summary> Initializes a new instance of <see cref="IncidentMatch"/>. </summary>
+        /// <param name="incidentName"> The name of the matched incident. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="incidentName"/> is null. </exception>
+        internal IncidentMatch(string incidentName)
         {
-            Argument.AssertNotNull(categoriesAnalysis, nameof(categoriesAnalysis));
+            Argument.AssertNotNull(incidentName, nameof(incidentName));
 
-            CategoriesAnalysis = categoriesAnalysis.ToList();
-            IncidentMatches = new ChangeTrackingList<IncidentMatch>();
+            IncidentName = incidentName;
         }
 
-        /// <summary> Initializes a new instance of <see cref="AnalyzeImageResult"/>. </summary>
-        /// <param name="categoriesAnalysis"> Analysis result for categories. </param>
-        /// <param name="incidentMatches"> The incident match details. </param>
+        /// <summary> Initializes a new instance of <see cref="IncidentMatch"/>. </summary>
+        /// <param name="incidentName"> The name of the matched incident. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AnalyzeImageResult(IReadOnlyList<ImageCategoriesAnalysis> categoriesAnalysis, IReadOnlyList<IncidentMatch> incidentMatches, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal IncidentMatch(string incidentName, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            CategoriesAnalysis = categoriesAnalysis;
-            IncidentMatches = incidentMatches;
+            IncidentName = incidentName;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="AnalyzeImageResult"/> for deserialization. </summary>
-        internal AnalyzeImageResult()
+        /// <summary> Initializes a new instance of <see cref="IncidentMatch"/> for deserialization. </summary>
+        internal IncidentMatch()
         {
         }
 
-        /// <summary> Analysis result for categories. </summary>
-        public IReadOnlyList<ImageCategoriesAnalysis> CategoriesAnalysis { get; }
-        /// <summary> The incident match details. </summary>
-        public IReadOnlyList<IncidentMatch> IncidentMatches { get; }
+        /// <summary> The name of the matched incident. </summary>
+        public string IncidentName { get; }
     }
 }

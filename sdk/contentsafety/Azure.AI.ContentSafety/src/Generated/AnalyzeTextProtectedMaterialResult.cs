@@ -7,13 +7,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Azure.Core;
 
 namespace Azure.AI.ContentSafety
 {
-    /// <summary> The image analysis response. </summary>
-    public partial class AnalyzeImageResult
+    /// <summary> The protected material analysis response. </summary>
+    public partial class AnalyzeTextProtectedMaterialResult
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -47,36 +46,31 @@ namespace Azure.AI.ContentSafety
         /// </summary>
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
-        /// <summary> Initializes a new instance of <see cref="AnalyzeImageResult"/>. </summary>
-        /// <param name="categoriesAnalysis"> Analysis result for categories. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="categoriesAnalysis"/> is null. </exception>
-        internal AnalyzeImageResult(IEnumerable<ImageCategoriesAnalysis> categoriesAnalysis)
+        /// <summary> Initializes a new instance of <see cref="AnalyzeTextProtectedMaterialResult"/>. </summary>
+        /// <param name="protectedMaterialAnalysis"> Analysis result for protected material. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="protectedMaterialAnalysis"/> is null. </exception>
+        internal AnalyzeTextProtectedMaterialResult(ProtectedMaterialAnalysisResult protectedMaterialAnalysis)
         {
-            Argument.AssertNotNull(categoriesAnalysis, nameof(categoriesAnalysis));
+            Argument.AssertNotNull(protectedMaterialAnalysis, nameof(protectedMaterialAnalysis));
 
-            CategoriesAnalysis = categoriesAnalysis.ToList();
-            IncidentMatches = new ChangeTrackingList<IncidentMatch>();
+            ProtectedMaterialAnalysis = protectedMaterialAnalysis;
         }
 
-        /// <summary> Initializes a new instance of <see cref="AnalyzeImageResult"/>. </summary>
-        /// <param name="categoriesAnalysis"> Analysis result for categories. </param>
-        /// <param name="incidentMatches"> The incident match details. </param>
+        /// <summary> Initializes a new instance of <see cref="AnalyzeTextProtectedMaterialResult"/>. </summary>
+        /// <param name="protectedMaterialAnalysis"> Analysis result for protected material. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AnalyzeImageResult(IReadOnlyList<ImageCategoriesAnalysis> categoriesAnalysis, IReadOnlyList<IncidentMatch> incidentMatches, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal AnalyzeTextProtectedMaterialResult(ProtectedMaterialAnalysisResult protectedMaterialAnalysis, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
-            CategoriesAnalysis = categoriesAnalysis;
-            IncidentMatches = incidentMatches;
+            ProtectedMaterialAnalysis = protectedMaterialAnalysis;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
-        /// <summary> Initializes a new instance of <see cref="AnalyzeImageResult"/> for deserialization. </summary>
-        internal AnalyzeImageResult()
+        /// <summary> Initializes a new instance of <see cref="AnalyzeTextProtectedMaterialResult"/> for deserialization. </summary>
+        internal AnalyzeTextProtectedMaterialResult()
         {
         }
 
-        /// <summary> Analysis result for categories. </summary>
-        public IReadOnlyList<ImageCategoriesAnalysis> CategoriesAnalysis { get; }
-        /// <summary> The incident match details. </summary>
-        public IReadOnlyList<IncidentMatch> IncidentMatches { get; }
+        /// <summary> Analysis result for protected material. </summary>
+        public ProtectedMaterialAnalysisResult ProtectedMaterialAnalysis { get; }
     }
 }
