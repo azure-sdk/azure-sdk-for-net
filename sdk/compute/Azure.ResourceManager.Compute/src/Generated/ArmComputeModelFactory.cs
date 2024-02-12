@@ -145,7 +145,7 @@ namespace Azure.ResourceManager.Compute.Models
         /// <param name="hardwareVmSizeProperties"> Specifies the hardware profile related details of a scale set. Minimum api-version: 2021-11-01. </param>
         /// <param name="serviceArtifactReferenceId"> Specifies the service artifact reference id used to set same image version for all virtual machines in the scale set when using 'latest' image version. Minimum api-version: 2022-11-01. </param>
         /// <param name="securityPostureReference"> Specifies the security posture to be used for all virtual machines in the scale set. Minimum api-version: 2023-03-01. </param>
-        /// <param name="timeCreated"> Specifies the time in which this VM profile for the Virtual Machine Scale Set was created. Minimum API version for this property is 2023-09-01. This value will be added to VMSS Flex VM tags when creating/updating the VMSS VM Profile with minimum api-version 2023-09-01. </param>
+        /// <param name="timeCreated"> Specifies the time in which this VM profile for the Virtual Machine Scale Set was created. Minimum API version for this property is 2024-03-01. This value will be added to VMSS Flex VM tags when creating/updating the VMSS VM Profile with minimum api-version 2024-03-01. </param>
         /// <returns> A new <see cref="Models.VirtualMachineScaleSetVmProfile"/> instance for mocking. </returns>
         public static VirtualMachineScaleSetVmProfile VirtualMachineScaleSetVmProfile(VirtualMachineScaleSetOSProfile osProfile = null, VirtualMachineScaleSetStorageProfile storageProfile = null, VirtualMachineScaleSetNetworkProfile networkProfile = null, SecurityProfile securityProfile = null, BootDiagnostics bootDiagnostics = null, VirtualMachineScaleSetExtensionProfile extensionProfile = null, string licenseType = null, VirtualMachinePriorityType? priority = null, VirtualMachineEvictionPolicyType? evictionPolicy = null, double? billingMaxPrice = null, ComputeScheduledEventsProfile scheduledEventsProfile = null, string userData = null, ResourceIdentifier capacityReservationGroupId = null, IEnumerable<VirtualMachineGalleryApplication> galleryApplications = null, VirtualMachineSizeProperties hardwareVmSizeProperties = null, ResourceIdentifier serviceArtifactReferenceId = null, ComputeSecurityPostureReference securityPostureReference = null, DateTimeOffset? timeCreated = null)
         {
@@ -626,10 +626,14 @@ namespace Azure.ResourceManager.Compute.Models
         /// <summary> Initializes a new instance of <see cref="Models.DataDisksToAttach"/>. </summary>
         /// <param name="diskId"> ID of the managed data disk. </param>
         /// <param name="lun"> The logical unit number of the data disk. This value is used to identify data disks within the VM and therefore must be unique for each data disk attached to a VM. If not specified, lun would be auto assigned. </param>
+        /// <param name="caching"> Specifies the caching requirements. Possible values are: **None,** **ReadOnly,** **ReadWrite.** The defaulting behavior is: **None for Standard storage. ReadOnly for Premium storage.**. </param>
+        /// <param name="deleteOption"> Specifies whether data disk should be deleted or detached upon VM deletion. Possible values are: **Delete.** If this value is used, the data disk is deleted when VM is deleted. **Detach.** If this value is used, the data disk is retained after VM is deleted. The default value is set to **Detach**. </param>
+        /// <param name="diskEncryptionSetId"> Specifies the customer managed disk encryption set resource id for the managed disk. </param>
+        /// <param name="writeAcceleratorEnabled"> Specifies whether writeAccelerator should be enabled or disabled on the disk. </param>
         /// <returns> A new <see cref="Models.DataDisksToAttach"/> instance for mocking. </returns>
-        public static DataDisksToAttach DataDisksToAttach(string diskId = null, int? lun = null)
+        public static DataDisksToAttach DataDisksToAttach(string diskId = null, int? lun = null, CachingType? caching = null, DiskDeleteOptionType? deleteOption = null, ResourceIdentifier diskEncryptionSetId = null, bool? writeAcceleratorEnabled = null)
         {
-            return new DataDisksToAttach(diskId, lun, serializedAdditionalRawData: null);
+            return new DataDisksToAttach(diskId, lun, caching, deleteOption, diskEncryptionSetId != null ? ResourceManagerModelFactory.WritableSubResource(diskEncryptionSetId) : null, writeAcceleratorEnabled, serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="Models.DataDisksToDetach"/>. </summary>
@@ -1358,7 +1362,7 @@ namespace Azure.ResourceManager.Compute.Models
         /// <param name="capacityReservations"> A list of all capacity reservation resource ids that belong to capacity reservation group. </param>
         /// <param name="virtualMachinesAssociated"> A list of references to all virtual machines associated to the capacity reservation group. </param>
         /// <param name="instanceView"> The capacity reservation group instance view which has the list of instance views for all the capacity reservations that belong to the capacity reservation group. </param>
-        /// <param name="sharingSubscriptionIds"> Specifies the settings to enable sharing across subscriptions for the capacity reservation group resource. Pls. keep in mind the capacity reservation group resource generally can be shared across subscriptions belonging to a single azure AAD tenant or cross AAD tenant if there is a trust relationship established between the AAD tenants. **Note:** Minimum api-version: 2023-09-01. Please refer to https://aka.ms/computereservationsharing for more details. </param>
+        /// <param name="sharingSubscriptionIds"> Specifies the settings to enable sharing across subscriptions for the capacity reservation group resource. Pls. keep in mind the capacity reservation group resource generally can be shared across subscriptions belonging to a single azure AAD tenant or cross AAD tenant if there is a trust relationship established between the AAD tenants. **Note:** Minimum api-version: 2024-03-01. Please refer to https://aka.ms/computereservationsharing for more details. </param>
         /// <returns> A new <see cref="Compute.CapacityReservationGroupData"/> instance for mocking. </returns>
         public static CapacityReservationGroupData CapacityReservationGroupData(ResourceIdentifier id = null, string name = null, ResourceType resourceType = default, SystemData systemData = null, IDictionary<string, string> tags = null, AzureLocation location = default, IEnumerable<string> zones = null, IEnumerable<SubResource> capacityReservations = null, IEnumerable<SubResource> virtualMachinesAssociated = null, CapacityReservationGroupInstanceView instanceView = null, IEnumerable<WritableSubResource> sharingSubscriptionIds = null)
         {
@@ -1373,7 +1377,7 @@ namespace Azure.ResourceManager.Compute.Models
 
         /// <summary> Initializes a new instance of <see cref="Models.CapacityReservationGroupInstanceView"/>. </summary>
         /// <param name="capacityReservations"> List of instance view of the capacity reservations under the capacity reservation group. </param>
-        /// <param name="sharedSubscriptionIds"> List of the subscriptions that the capacity reservation group is shared with. **Note:** Minimum api-version: 2023-09-01. Please refer to https://aka.ms/computereservationsharing for more details. </param>
+        /// <param name="sharedSubscriptionIds"> List of the subscriptions that the capacity reservation group is shared with. **Note:** Minimum api-version: 2024-03-01. Please refer to https://aka.ms/computereservationsharing for more details. </param>
         /// <returns> A new <see cref="Models.CapacityReservationGroupInstanceView"/> instance for mocking. </returns>
         public static CapacityReservationGroupInstanceView CapacityReservationGroupInstanceView(IEnumerable<CapacityReservationInstanceViewWithName> capacityReservations = null, IEnumerable<SubResource> sharedSubscriptionIds = null)
         {
@@ -1422,7 +1426,7 @@ namespace Azure.ResourceManager.Compute.Models
         /// <param name="capacityReservations"> A list of all capacity reservation resource ids that belong to capacity reservation group. </param>
         /// <param name="virtualMachinesAssociated"> A list of references to all virtual machines associated to the capacity reservation group. </param>
         /// <param name="instanceView"> The capacity reservation group instance view which has the list of instance views for all the capacity reservations that belong to the capacity reservation group. </param>
-        /// <param name="sharingSubscriptionIds"> Specifies the settings to enable sharing across subscriptions for the capacity reservation group resource. Pls. keep in mind the capacity reservation group resource generally can be shared across subscriptions belonging to a single azure AAD tenant or cross AAD tenant if there is a trust relationship established between the AAD tenants. **Note:** Minimum api-version: 2023-09-01. Please refer to https://aka.ms/computereservationsharing for more details. </param>
+        /// <param name="sharingSubscriptionIds"> Specifies the settings to enable sharing across subscriptions for the capacity reservation group resource. Pls. keep in mind the capacity reservation group resource generally can be shared across subscriptions belonging to a single azure AAD tenant or cross AAD tenant if there is a trust relationship established between the AAD tenants. **Note:** Minimum api-version: 2024-03-01. Please refer to https://aka.ms/computereservationsharing for more details. </param>
         /// <returns> A new <see cref="Models.CapacityReservationGroupPatch"/> instance for mocking. </returns>
         public static CapacityReservationGroupPatch CapacityReservationGroupPatch(IDictionary<string, string> tags = null, IEnumerable<SubResource> capacityReservations = null, IEnumerable<SubResource> virtualMachinesAssociated = null, CapacityReservationGroupInstanceView instanceView = null, IEnumerable<WritableSubResource> sharingSubscriptionIds = null)
         {
