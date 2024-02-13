@@ -36,7 +36,7 @@ namespace Azure.AI.OpenAI
             }
             if (Optional.IsDefined(ResponseFormat))
             {
-                writer.WritePropertyName("response_format"u8);
+                writer.WritePropertyName("responseFormat"u8);
                 writer.WriteStringValue(ResponseFormat.Value.ToString());
             }
             if (Optional.IsDefined(Prompt))
@@ -112,7 +112,7 @@ namespace Azure.AI.OpenAI
                     filename = property.Value.GetString();
                     continue;
                 }
-                if (property.NameEquals("response_format"u8))
+                if (property.NameEquals("responseFormat"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
