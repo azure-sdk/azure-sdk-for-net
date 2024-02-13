@@ -36,7 +36,7 @@ namespace Azure.AI.OpenAI
             writer.WriteEndArray();
             if (Optional.IsDefined(MaxTokens))
             {
-                writer.WritePropertyName("max_tokens"u8);
+                writer.WritePropertyName("maxTokens"u8);
                 writer.WriteNumberValue(MaxTokens.Value);
             }
             if (Optional.IsDefined(Temperature))
@@ -46,12 +46,12 @@ namespace Azure.AI.OpenAI
             }
             if (Optional.IsDefined(NucleusSamplingFactor))
             {
-                writer.WritePropertyName("top_p"u8);
+                writer.WritePropertyName("topP"u8);
                 writer.WriteNumberValue(NucleusSamplingFactor.Value);
             }
             if (Optional.IsCollectionDefined(TokenSelectionBiases))
             {
-                writer.WritePropertyName("logit_bias"u8);
+                writer.WritePropertyName("logitBias"u8);
                 SerializeTokenSelectionBiases(writer);
             }
             if (Optional.IsDefined(User))
@@ -86,17 +86,17 @@ namespace Azure.AI.OpenAI
             }
             if (Optional.IsDefined(PresencePenalty))
             {
-                writer.WritePropertyName("presence_penalty"u8);
+                writer.WritePropertyName("presencePenalty"u8);
                 writer.WriteNumberValue(PresencePenalty.Value);
             }
             if (Optional.IsDefined(FrequencyPenalty))
             {
-                writer.WritePropertyName("frequency_penalty"u8);
+                writer.WritePropertyName("frequencyPenalty"u8);
                 writer.WriteNumberValue(FrequencyPenalty.Value);
             }
             if (Optional.IsDefined(GenerationSampleCount))
             {
-                writer.WritePropertyName("best_of"u8);
+                writer.WritePropertyName("bestOf"u8);
                 writer.WriteNumberValue(GenerationSampleCount.Value);
             }
             if (Optional.IsDefined(InternalShouldStreamResponse))
@@ -176,7 +176,7 @@ namespace Azure.AI.OpenAI
                     prompt = array;
                     continue;
                 }
-                if (property.NameEquals("max_tokens"u8))
+                if (property.NameEquals("maxTokens"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
@@ -194,7 +194,7 @@ namespace Azure.AI.OpenAI
                     temperature = property.Value.GetSingle();
                     continue;
                 }
-                if (property.NameEquals("top_p"u8))
+                if (property.NameEquals("topP"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
@@ -203,7 +203,7 @@ namespace Azure.AI.OpenAI
                     topP = property.Value.GetSingle();
                     continue;
                 }
-                if (property.NameEquals("logit_bias"u8))
+                if (property.NameEquals("logitBias"u8))
                 {
                     DeserializeTokenSelectionBiases(property, ref logitBias);
                     continue;
@@ -254,7 +254,7 @@ namespace Azure.AI.OpenAI
                     stop = array;
                     continue;
                 }
-                if (property.NameEquals("presence_penalty"u8))
+                if (property.NameEquals("presencePenalty"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
@@ -263,7 +263,7 @@ namespace Azure.AI.OpenAI
                     presencePenalty = property.Value.GetSingle();
                     continue;
                 }
-                if (property.NameEquals("frequency_penalty"u8))
+                if (property.NameEquals("frequencyPenalty"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
@@ -272,7 +272,7 @@ namespace Azure.AI.OpenAI
                     frequencyPenalty = property.Value.GetSingle();
                     continue;
                 }
-                if (property.NameEquals("best_of"u8))
+                if (property.NameEquals("bestOf"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
