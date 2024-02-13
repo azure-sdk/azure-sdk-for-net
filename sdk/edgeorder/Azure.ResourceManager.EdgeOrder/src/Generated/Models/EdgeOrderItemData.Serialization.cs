@@ -28,6 +28,11 @@ namespace Azure.ResourceManager.EdgeOrder
             }
 
             writer.WriteStartObject();
+            if (Optional.IsDefined(Identity))
+            {
+                writer.WritePropertyName("identity"u8);
+                JsonSerializer.Serialize(writer, Identity);
+            }
             if (Optional.IsCollectionDefined(Tags))
             {
                 writer.WritePropertyName("tags"u8);
@@ -65,8 +70,11 @@ namespace Azure.ResourceManager.EdgeOrder
             writer.WriteStartObject();
             writer.WritePropertyName("orderItemDetails"u8);
             writer.WriteObjectValue(OrderItemDetails);
-            writer.WritePropertyName("addressDetails"u8);
-            writer.WriteObjectValue(AddressDetails);
+            if (Optional.IsDefined(AddressDetails))
+            {
+                writer.WritePropertyName("addressDetails"u8);
+                writer.WriteObjectValue(AddressDetails);
+            }
             if (options.Format != "W" && Optional.IsDefined(StartOn))
             {
                 writer.WritePropertyName("startTime"u8);
@@ -74,6 +82,11 @@ namespace Azure.ResourceManager.EdgeOrder
             }
             writer.WritePropertyName("orderId"u8);
             writer.WriteStringValue(OrderId);
+            if (options.Format != "W" && Optional.IsDefined(ProvisioningState))
+            {
+                writer.WritePropertyName("provisioningState"u8);
+                writer.WriteStringValue(ProvisioningState.Value.ToString());
+            }
             writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -113,6 +126,7 @@ namespace Azure.ResourceManager.EdgeOrder
             {
                 return null;
             }
+            Optional<ManagedServiceIdentity> identity = default;
             Optional<IDictionary<string, string>> tags = default;
             AzureLocation location = default;
             ResourceIdentifier id = default;
@@ -120,13 +134,23 @@ namespace Azure.ResourceManager.EdgeOrder
             ResourceType type = default;
             Optional<SystemData> systemData = default;
             EdgeOrderItemDetails orderItemDetails = default;
-            EdgeOrderItemAddressDetails addressDetails = default;
+            Optional<EdgeOrderItemAddressDetails> addressDetails = default;
             Optional<DateTimeOffset> startTime = default;
             ResourceIdentifier orderId = default;
+            Optional<ProvisioningState> provisioningState = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
+                if (property.NameEquals("identity"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    identity = JsonSerializer.Deserialize<ManagedServiceIdentity>(property.Value.GetRawText());
+                    continue;
+                }
                 if (property.NameEquals("tags"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -186,6 +210,10 @@ namespace Azure.ResourceManager.EdgeOrder
                         }
                         if (property0.NameEquals("addressDetails"u8))
                         {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
                             addressDetails = EdgeOrderItemAddressDetails.DeserializeEdgeOrderItemAddressDetails(property0.Value);
                             continue;
                         }
@@ -203,6 +231,15 @@ namespace Azure.ResourceManager.EdgeOrder
                             orderId = new ResourceIdentifier(property0.Value.GetString());
                             continue;
                         }
+                        if (property0.NameEquals("provisioningState"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            provisioningState = new ProvisioningState(property0.Value.GetString());
+                            continue;
+                        }
                     }
                     continue;
                 }
@@ -212,7 +249,7 @@ namespace Azure.ResourceManager.EdgeOrder
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new EdgeOrderItemData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, orderItemDetails, addressDetails, Optional.ToNullable(startTime), orderId, serializedAdditionalRawData);
+            return new EdgeOrderItemData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, identity, orderItemDetails, addressDetails.Value, Optional.ToNullable(startTime), orderId, Optional.ToNullable(provisioningState), serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<EdgeOrderItemData>.Write(ModelReaderWriterOptions options)

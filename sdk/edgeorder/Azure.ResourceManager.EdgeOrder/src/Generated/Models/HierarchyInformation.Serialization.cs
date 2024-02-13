@@ -46,6 +46,11 @@ namespace Azure.ResourceManager.EdgeOrder.Models
                 writer.WritePropertyName("configurationName"u8);
                 writer.WriteStringValue(ConfigurationName);
             }
+            if (Optional.IsDefined(ConfigurationIdDisplayName))
+            {
+                writer.WritePropertyName("configurationIdDisplayName"u8);
+                writer.WriteStringValue(ConfigurationIdDisplayName);
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -88,6 +93,7 @@ namespace Azure.ResourceManager.EdgeOrder.Models
             Optional<string> productLineName = default;
             Optional<string> productName = default;
             Optional<string> configurationName = default;
+            Optional<string> configurationIdDisplayName = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -112,13 +118,18 @@ namespace Azure.ResourceManager.EdgeOrder.Models
                     configurationName = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("configurationIdDisplayName"u8))
+                {
+                    configurationIdDisplayName = property.Value.GetString();
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new HierarchyInformation(productFamilyName.Value, productLineName.Value, productName.Value, configurationName.Value, serializedAdditionalRawData);
+            return new HierarchyInformation(productFamilyName.Value, productLineName.Value, productName.Value, configurationName.Value, configurationIdDisplayName.Value, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<HierarchyInformation>.Write(ModelReaderWriterOptions options)
