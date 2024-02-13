@@ -13,7 +13,7 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.HDInsight.Containers.Models
 {
-    internal partial class ComputeProfile : IUtf8JsonSerializable, IJsonModel<ComputeProfile>
+    public partial class ComputeProfile : IUtf8JsonSerializable, IJsonModel<ComputeProfile>
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<ComputeProfile>)this).Write(writer, new ModelReaderWriterOptions("W"));
 
