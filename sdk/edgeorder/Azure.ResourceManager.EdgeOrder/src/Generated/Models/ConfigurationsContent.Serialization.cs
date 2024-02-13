@@ -26,13 +26,11 @@ namespace Azure.ResourceManager.EdgeOrder.Models
             }
 
             writer.WriteStartObject();
-            writer.WritePropertyName("configurationFilters"u8);
-            writer.WriteStartArray();
-            foreach (var item in ConfigurationFilters)
+            if (Optional.IsDefined(ConfigurationFilter))
             {
-                writer.WriteObjectValue(item);
+                writer.WritePropertyName("configurationFilter"u8);
+                writer.WriteObjectValue(ConfigurationFilter);
             }
-            writer.WriteEndArray();
             if (Optional.IsDefined(CustomerSubscriptionDetails))
             {
                 writer.WritePropertyName("customerSubscriptionDetails"u8);
@@ -76,20 +74,19 @@ namespace Azure.ResourceManager.EdgeOrder.Models
             {
                 return null;
             }
-            IList<ConfigurationFilters> configurationFilters = default;
+            Optional<ConfigurationFilter> configurationFilter = default;
             Optional<CustomerSubscriptionDetails> customerSubscriptionDetails = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("configurationFilters"u8))
+                if (property.NameEquals("configurationFilter"u8))
                 {
-                    List<ConfigurationFilters> array = new List<ConfigurationFilters>();
-                    foreach (var item in property.Value.EnumerateArray())
+                    if (property.Value.ValueKind == JsonValueKind.Null)
                     {
-                        array.Add(Models.ConfigurationFilters.DeserializeConfigurationFilters(item));
+                        continue;
                     }
-                    configurationFilters = array;
+                    configurationFilter = ConfigurationFilter.DeserializeConfigurationFilter(property.Value);
                     continue;
                 }
                 if (property.NameEquals("customerSubscriptionDetails"u8))
@@ -107,7 +104,7 @@ namespace Azure.ResourceManager.EdgeOrder.Models
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new ConfigurationsContent(configurationFilters, customerSubscriptionDetails.Value, serializedAdditionalRawData);
+            return new ConfigurationsContent(configurationFilter.Value, customerSubscriptionDetails.Value, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<ConfigurationsContent>.Write(ModelReaderWriterOptions options)
