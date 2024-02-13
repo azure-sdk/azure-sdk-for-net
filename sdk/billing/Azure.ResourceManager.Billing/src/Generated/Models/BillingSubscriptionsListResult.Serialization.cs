@@ -37,6 +37,11 @@ namespace Azure.ResourceManager.Billing.Models
                 }
                 writer.WriteEndArray();
             }
+            if (options.Format != "W" && Optional.IsDefined(TotalCount))
+            {
+                writer.WritePropertyName("totalCount"u8);
+                writer.WriteNumberValue(TotalCount.Value);
+            }
             if (options.Format != "W" && Optional.IsDefined(NextLink))
             {
                 writer.WritePropertyName("nextLink"u8);
@@ -81,6 +86,7 @@ namespace Azure.ResourceManager.Billing.Models
                 return null;
             }
             Optional<IReadOnlyList<BillingSubscriptionData>> value = default;
+            Optional<int> totalCount = default;
             Optional<string> nextLink = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
@@ -100,6 +106,15 @@ namespace Azure.ResourceManager.Billing.Models
                     value = array;
                     continue;
                 }
+                if (property.NameEquals("totalCount"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    totalCount = property.Value.GetInt32();
+                    continue;
+                }
                 if (property.NameEquals("nextLink"u8))
                 {
                     nextLink = property.Value.GetString();
@@ -111,7 +126,7 @@ namespace Azure.ResourceManager.Billing.Models
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new BillingSubscriptionsListResult(Optional.ToList(value), nextLink.Value, serializedAdditionalRawData);
+            return new BillingSubscriptionsListResult(Optional.ToList(value), Optional.ToNullable(totalCount), nextLink.Value, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<BillingSubscriptionsListResult>.Write(ModelReaderWriterOptions options)

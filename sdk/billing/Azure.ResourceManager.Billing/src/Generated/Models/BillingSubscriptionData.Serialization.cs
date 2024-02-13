@@ -106,6 +106,11 @@ namespace Azure.ResourceManager.Billing
                 writer.WritePropertyName("customerDisplayName"u8);
                 writer.WriteStringValue(CustomerDisplayName);
             }
+            if (options.Format != "W" && Optional.IsDefined(CustomerName))
+            {
+                writer.WritePropertyName("customerName"u8);
+                writer.WriteStringValue(CustomerName);
+            }
             if (Optional.IsDefined(DisplayName))
             {
                 writer.WritePropertyName("displayName"u8);
@@ -302,6 +307,7 @@ namespace Azure.ResourceManager.Billing
             Optional<string> consumptionCostCenter = default;
             Optional<string> customerId = default;
             Optional<string> customerDisplayName = default;
+            Optional<string> customerName = default;
             Optional<string> displayName = default;
             Optional<string> enrollmentAccountId = default;
             Optional<string> enrollmentAccountDisplayName = default;
@@ -431,6 +437,11 @@ namespace Azure.ResourceManager.Billing
                         if (property0.NameEquals("customerDisplayName"u8))
                         {
                             customerDisplayName = property0.Value.GetString();
+                            continue;
+                        }
+                        if (property0.NameEquals("customerName"u8))
+                        {
+                            customerName = property0.Value.GetString();
                             continue;
                         }
                         if (property0.NameEquals("displayName"u8))
@@ -654,7 +665,7 @@ namespace Azure.ResourceManager.Billing
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new BillingSubscriptionData(id, name, type, systemData.Value, Optional.ToNullable(autoRenew), beneficiaryTenantId.Value, billingFrequency.Value, billingProfileId.Value, Optional.ToDictionary(billingPolicies), billingProfileDisplayName.Value, billingProfileName.Value, consumptionCostCenter.Value, customerId.Value, customerDisplayName.Value, displayName.Value, enrollmentAccountId.Value, enrollmentAccountDisplayName.Value, invoiceSectionId.Value, invoiceSectionDisplayName.Value, invoiceSectionName.Value, lastMonthCharges.Value, monthToDateCharges.Value, nextBillingCycleDetails.Value, offerId.Value, productCategory.Value, productType.Value, productTypeId.Value, Optional.ToNullable(purchaseDate), Optional.ToNullable(quantity), reseller.Value, renewalTermDetails.Value, skuDescription.Value, skuId.Value, Optional.ToNullable(status), subscriptionId.Value, Optional.ToList(suspensionReasons), Optional.ToNullable(termDuration), Optional.ToNullable(termStartDate), Optional.ToNullable(termEndDate), Optional.ToNullable(subscriptionEnrollmentAccountStatus), Optional.ToNullable(enrollmentAccountStartDate), serializedAdditionalRawData);
+            return new BillingSubscriptionData(id, name, type, systemData.Value, Optional.ToNullable(autoRenew), beneficiaryTenantId.Value, billingFrequency.Value, billingProfileId.Value, Optional.ToDictionary(billingPolicies), billingProfileDisplayName.Value, billingProfileName.Value, consumptionCostCenter.Value, customerId.Value, customerDisplayName.Value, customerName.Value, displayName.Value, enrollmentAccountId.Value, enrollmentAccountDisplayName.Value, invoiceSectionId.Value, invoiceSectionDisplayName.Value, invoiceSectionName.Value, lastMonthCharges.Value, monthToDateCharges.Value, nextBillingCycleDetails.Value, offerId.Value, productCategory.Value, productType.Value, productTypeId.Value, Optional.ToNullable(purchaseDate), Optional.ToNullable(quantity), reseller.Value, renewalTermDetails.Value, skuDescription.Value, skuId.Value, Optional.ToNullable(status), subscriptionId.Value, Optional.ToList(suspensionReasons), Optional.ToNullable(termDuration), Optional.ToNullable(termStartDate), Optional.ToNullable(termEndDate), Optional.ToNullable(subscriptionEnrollmentAccountStatus), Optional.ToNullable(enrollmentAccountStartDate), serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<BillingSubscriptionData>.Write(ModelReaderWriterOptions options)

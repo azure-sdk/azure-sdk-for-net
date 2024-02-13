@@ -55,17 +55,21 @@ namespace Azure.ResourceManager.Billing.Models
 
         /// <summary> Initializes a new instance of <see cref="BillingSubscriptionsListResult"/>. </summary>
         /// <param name="value"> The list of billing subscriptions. </param>
+        /// <param name="totalCount"> Total number of records. </param>
         /// <param name="nextLink"> The link (url) to the next page of results. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal BillingSubscriptionsListResult(IReadOnlyList<BillingSubscriptionData> value, string nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal BillingSubscriptionsListResult(IReadOnlyList<BillingSubscriptionData> value, int? totalCount, string nextLink, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Value = value;
+            TotalCount = totalCount;
             NextLink = nextLink;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
         /// <summary> The list of billing subscriptions. </summary>
         public IReadOnlyList<BillingSubscriptionData> Value { get; }
+        /// <summary> Total number of records. </summary>
+        public int? TotalCount { get; }
         /// <summary> The link (url) to the next page of results. </summary>
         public string NextLink { get; }
     }
