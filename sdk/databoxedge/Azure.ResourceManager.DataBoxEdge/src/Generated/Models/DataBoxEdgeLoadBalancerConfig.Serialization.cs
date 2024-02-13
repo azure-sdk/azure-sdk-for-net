@@ -36,6 +36,16 @@ namespace Azure.ResourceManager.DataBoxEdge.Models
                 writer.WritePropertyName("version"u8);
                 writer.WriteStringValue(Version);
             }
+            if (Optional.IsCollectionDefined(IPRange))
+            {
+                writer.WritePropertyName("ipRange"u8);
+                writer.WriteStartArray();
+                foreach (var item in IPRange)
+                {
+                    writer.WriteStringValue(item);
+                }
+                writer.WriteEndArray();
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -76,6 +86,7 @@ namespace Azure.ResourceManager.DataBoxEdge.Models
             }
             Optional<string> type = default;
             Optional<string> version = default;
+            Optional<IReadOnlyList<string>> ipRange = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -90,13 +101,27 @@ namespace Azure.ResourceManager.DataBoxEdge.Models
                     version = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("ipRange"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<string> array = new List<string>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(item.GetString());
+                    }
+                    ipRange = array;
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new DataBoxEdgeLoadBalancerConfig(type.Value, version.Value, serializedAdditionalRawData);
+            return new DataBoxEdgeLoadBalancerConfig(type.Value, version.Value, Optional.ToList(ipRange), serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<DataBoxEdgeLoadBalancerConfig>.Write(ModelReaderWriterOptions options)
