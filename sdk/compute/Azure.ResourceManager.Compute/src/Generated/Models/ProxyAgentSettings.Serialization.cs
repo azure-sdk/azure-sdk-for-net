@@ -31,15 +31,20 @@ namespace Azure.ResourceManager.Compute.Models
                 writer.WritePropertyName("enabled"u8);
                 writer.WriteBooleanValue(Enabled.Value);
             }
-            if (Optional.IsDefined(Mode))
-            {
-                writer.WritePropertyName("mode"u8);
-                writer.WriteStringValue(Mode.Value.ToString());
-            }
             if (Optional.IsDefined(KeyIncarnationId))
             {
                 writer.WritePropertyName("keyIncarnationId"u8);
                 writer.WriteNumberValue(KeyIncarnationId.Value);
+            }
+            if (Optional.IsDefined(Imds))
+            {
+                writer.WritePropertyName("imds"u8);
+                writer.WriteObjectValue(Imds);
+            }
+            if (Optional.IsDefined(Wireserver))
+            {
+                writer.WritePropertyName("wireserver"u8);
+                writer.WriteObjectValue(Wireserver);
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -80,8 +85,9 @@ namespace Azure.ResourceManager.Compute.Models
                 return null;
             }
             Optional<bool> enabled = default;
-            Optional<Mode> mode = default;
             Optional<int> keyIncarnationId = default;
+            Optional<ProxyAgentSettingsImds> imds = default;
+            Optional<ProxyAgentSettingsWireserver> wireserver = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -95,15 +101,6 @@ namespace Azure.ResourceManager.Compute.Models
                     enabled = property.Value.GetBoolean();
                     continue;
                 }
-                if (property.NameEquals("mode"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    mode = new Mode(property.Value.GetString());
-                    continue;
-                }
                 if (property.NameEquals("keyIncarnationId"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -113,13 +110,31 @@ namespace Azure.ResourceManager.Compute.Models
                     keyIncarnationId = property.Value.GetInt32();
                     continue;
                 }
+                if (property.NameEquals("imds"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    imds = ProxyAgentSettingsImds.DeserializeProxyAgentSettingsImds(property.Value);
+                    continue;
+                }
+                if (property.NameEquals("wireserver"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    wireserver = ProxyAgentSettingsWireserver.DeserializeProxyAgentSettingsWireserver(property.Value);
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new ProxyAgentSettings(Optional.ToNullable(enabled), Optional.ToNullable(mode), Optional.ToNullable(keyIncarnationId), serializedAdditionalRawData);
+            return new ProxyAgentSettings(Optional.ToNullable(enabled), Optional.ToNullable(keyIncarnationId), imds.Value, wireserver.Value, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<ProxyAgentSettings>.Write(ModelReaderWriterOptions options)

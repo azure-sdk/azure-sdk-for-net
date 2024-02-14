@@ -4820,6 +4820,22 @@ namespace Azure.ResourceManager.Compute.Models
         public static bool operator !=(Azure.ResourceManager.Compute.Models.ExpandTypesForListVm left, Azure.ResourceManager.Compute.Models.ExpandTypesForListVm right) { throw null; }
         public override string ToString() { throw null; }
     }
+    public partial class FilterDefinition : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.FilterDefinition>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.FilterDefinition>
+    {
+        public FilterDefinition() { }
+        public string CommandLine { get { throw null; } set { } }
+        public string ProcessName { get { throw null; } set { } }
+        public string RunAsElevated { get { throw null; } set { } }
+        public string UserGroupId { get { throw null; } set { } }
+        public string UserGroupName { get { throw null; } set { } }
+        public string UserId { get { throw null; } set { } }
+        public string UserName { get { throw null; } set { } }
+        Azure.ResourceManager.Compute.Models.FilterDefinition System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.FilterDefinition>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.FilterDefinition>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.ResourceManager.Compute.Models.FilterDefinition System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.FilterDefinition>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.FilterDefinition>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.FilterDefinition>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
     public partial class GalleryApplicationCustomAction : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.GalleryApplicationCustomAction>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.GalleryApplicationCustomAction>
     {
         public GalleryApplicationCustomAction(string name, string script) { }
@@ -5851,6 +5867,7 @@ namespace Azure.ResourceManager.Compute.Models
         private readonly int _dummyPrimitive;
         public Mode(string value) { throw null; }
         public static Azure.ResourceManager.Compute.Models.Mode Audit { get { throw null; } }
+        public static Azure.ResourceManager.Compute.Models.Mode Disabled { get { throw null; } }
         public static Azure.ResourceManager.Compute.Models.Mode Enforce { get { throw null; } }
         public bool Equals(Azure.ResourceManager.Compute.Models.Mode other) { throw null; }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
@@ -6262,13 +6279,60 @@ namespace Azure.ResourceManager.Compute.Models
     {
         public ProxyAgentSettings() { }
         public bool? Enabled { get { throw null; } set { } }
+        public Azure.ResourceManager.Compute.Models.ProxyAgentSettingsImds Imds { get { throw null; } set { } }
         public int? KeyIncarnationId { get { throw null; } set { } }
-        public Azure.ResourceManager.Compute.Models.Mode? Mode { get { throw null; } set { } }
+        public Azure.ResourceManager.Compute.Models.ProxyAgentSettingsWireserver Wireserver { get { throw null; } set { } }
         Azure.ResourceManager.Compute.Models.ProxyAgentSettings System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.ProxyAgentSettings>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.ProxyAgentSettings>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.Compute.Models.ProxyAgentSettings System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.ProxyAgentSettings>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.ProxyAgentSettings>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.ProxyAgentSettings>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
+    public partial class ProxyAgentSettingsImds : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.ProxyAgentSettingsImds>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.ProxyAgentSettingsImds>
+    {
+        public ProxyAgentSettingsImds() { }
+        public Azure.ResourceManager.Compute.Models.ProxyAgentSettingsImdsAccessControlProfile AccessControlProfile { get { throw null; } set { } }
+        public string AccessControlProfileReferenceId { get { throw null; } set { } }
+        public bool? AutoUpgradeAccessControlProfile { get { throw null; } set { } }
+        Azure.ResourceManager.Compute.Models.ProxyAgentSettingsImds System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.ProxyAgentSettingsImds>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.ProxyAgentSettingsImds>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.ResourceManager.Compute.Models.ProxyAgentSettingsImds System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.ProxyAgentSettingsImds>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.ProxyAgentSettingsImds>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.ProxyAgentSettingsImds>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
+    public partial class ProxyAgentSettingsImdsAccessControlProfile : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.ProxyAgentSettingsImdsAccessControlProfile>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.ProxyAgentSettingsImdsAccessControlProfile>
+    {
+        public ProxyAgentSettingsImdsAccessControlProfile() { }
+        public Azure.ResourceManager.Compute.Models.Mode? Mode { get { throw null; } set { } }
+        public System.Collections.Generic.IDictionary<string, System.Collections.Generic.IList<Azure.ResourceManager.Compute.Models.RuleDefinition>> Rules { get { throw null; } }
+        Azure.ResourceManager.Compute.Models.ProxyAgentSettingsImdsAccessControlProfile System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.ProxyAgentSettingsImdsAccessControlProfile>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.ProxyAgentSettingsImdsAccessControlProfile>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.ResourceManager.Compute.Models.ProxyAgentSettingsImdsAccessControlProfile System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.ProxyAgentSettingsImdsAccessControlProfile>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.ProxyAgentSettingsImdsAccessControlProfile>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.ProxyAgentSettingsImdsAccessControlProfile>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
+    public partial class ProxyAgentSettingsWireserver : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.ProxyAgentSettingsWireserver>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.ProxyAgentSettingsWireserver>
+    {
+        public ProxyAgentSettingsWireserver() { }
+        public Azure.ResourceManager.Compute.Models.ProxyAgentSettingsWireserverAccessControlProfile AccessControlProfile { get { throw null; } set { } }
+        public string AccessControlProfileReferenceId { get { throw null; } set { } }
+        public bool? AutoUpgradeAccessControlProfile { get { throw null; } set { } }
+        Azure.ResourceManager.Compute.Models.ProxyAgentSettingsWireserver System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.ProxyAgentSettingsWireserver>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.ProxyAgentSettingsWireserver>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.ResourceManager.Compute.Models.ProxyAgentSettingsWireserver System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.ProxyAgentSettingsWireserver>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.ProxyAgentSettingsWireserver>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.ProxyAgentSettingsWireserver>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
+    public partial class ProxyAgentSettingsWireserverAccessControlProfile : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.ProxyAgentSettingsWireserverAccessControlProfile>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.ProxyAgentSettingsWireserverAccessControlProfile>
+    {
+        public ProxyAgentSettingsWireserverAccessControlProfile() { }
+        public Azure.ResourceManager.Compute.Models.Mode? Mode { get { throw null; } set { } }
+        public System.Collections.Generic.IDictionary<string, System.Collections.Generic.IList<Azure.ResourceManager.Compute.Models.RuleDefinition>> Rules { get { throw null; } }
+        Azure.ResourceManager.Compute.Models.ProxyAgentSettingsWireserverAccessControlProfile System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.ProxyAgentSettingsWireserverAccessControlProfile>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.ProxyAgentSettingsWireserverAccessControlProfile>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.ResourceManager.Compute.Models.ProxyAgentSettingsWireserverAccessControlProfile System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.ProxyAgentSettingsWireserverAccessControlProfile>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.ProxyAgentSettingsWireserverAccessControlProfile>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.ProxyAgentSettingsWireserverAccessControlProfile>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
     }
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public readonly partial struct PublicIPAllocationMethod : System.IEquatable<Azure.ResourceManager.Compute.Models.PublicIPAllocationMethod>
@@ -6741,6 +6805,17 @@ namespace Azure.ResourceManager.Compute.Models
         Cancelled = 1,
         Completed = 2,
         Faulted = 3,
+    }
+    public partial class RuleDefinition : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.RuleDefinition>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.RuleDefinition>
+    {
+        public RuleDefinition() { }
+        public System.Collections.Generic.IList<Azure.ResourceManager.Compute.Models.FilterDefinition> Filters { get { throw null; } }
+        public System.Collections.Generic.IDictionary<string, string> QueryParameters { get { throw null; } }
+        Azure.ResourceManager.Compute.Models.RuleDefinition System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.RuleDefinition>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.RuleDefinition>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.ResourceManager.Compute.Models.RuleDefinition System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.RuleDefinition>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.RuleDefinition>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.RuleDefinition>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
     }
     public partial class RunCommandDocument : Azure.ResourceManager.Compute.Models.RunCommandDocumentBase, System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.Compute.Models.RunCommandDocument>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.Compute.Models.RunCommandDocument>
     {

@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.Compute.Models
 {
-    /// <summary> Specifies ProxyAgent settings while creating the virtual machine. Minimum api-version: 2023-09-01. </summary>
+    /// <summary> Specifies ProxyAgent settings while creating the virtual machine. Minimum api-version: 2024-03-01. </summary>
     public partial class ProxyAgentSettings
     {
         /// <summary>
@@ -52,22 +52,26 @@ namespace Azure.ResourceManager.Compute.Models
 
         /// <summary> Initializes a new instance of <see cref="ProxyAgentSettings"/>. </summary>
         /// <param name="enabled"> Specifies whether ProxyAgent feature should be enabled on the virtual machine or virtual machine scale set. </param>
-        /// <param name="mode"> Specifies the mode that ProxyAgent will execute on if the feature is enabled. ProxyAgent will start to audit or monitor but not enforce access control over requests to host endpoints in Audit mode, while in Enforce mode it will enforce access control. The default value is Enforce mode. </param>
         /// <param name="keyIncarnationId"> Increase the value of this property allows user to reset the key used for securing communication channel between guest and host. </param>
+        /// <param name="imds"></param>
+        /// <param name="wireserver"></param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ProxyAgentSettings(bool? enabled, Mode? mode, int? keyIncarnationId, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ProxyAgentSettings(bool? enabled, int? keyIncarnationId, ProxyAgentSettingsImds imds, ProxyAgentSettingsWireserver wireserver, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Enabled = enabled;
-            Mode = mode;
             KeyIncarnationId = keyIncarnationId;
+            Imds = imds;
+            Wireserver = wireserver;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
         /// <summary> Specifies whether ProxyAgent feature should be enabled on the virtual machine or virtual machine scale set. </summary>
         public bool? Enabled { get; set; }
-        /// <summary> Specifies the mode that ProxyAgent will execute on if the feature is enabled. ProxyAgent will start to audit or monitor but not enforce access control over requests to host endpoints in Audit mode, while in Enforce mode it will enforce access control. The default value is Enforce mode. </summary>
-        public Mode? Mode { get; set; }
         /// <summary> Increase the value of this property allows user to reset the key used for securing communication channel between guest and host. </summary>
         public int? KeyIncarnationId { get; set; }
+        /// <summary> Gets or sets the imds. </summary>
+        public ProxyAgentSettingsImds Imds { get; set; }
+        /// <summary> Gets or sets the wireserver. </summary>
+        public ProxyAgentSettingsWireserver Wireserver { get; set; }
     }
 }

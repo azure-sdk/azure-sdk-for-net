@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace Azure.ResourceManager.Compute.Models
 {
-    /// <summary> Specifies the mode that ProxyAgent will execute on if the feature is enabled. ProxyAgent will start to audit or monitor but not enforce access control over requests to host endpoints in Audit mode, while in Enforce mode it will enforce access control. The default value is Enforce mode. </summary>
+    /// <summary> Specifies the mode that ProxyAgent will execute on. ProxyAgent will start to simulate and log access control over requests to IMDS endpoints in Audit mode, while in Enforce mode it will enforce access control. The default value is Disabled mode. </summary>
     public readonly partial struct Mode : IEquatable<Mode>
     {
         private readonly string _value;
@@ -24,11 +24,14 @@ namespace Azure.ResourceManager.Compute.Models
 
         private const string AuditValue = "Audit";
         private const string EnforceValue = "Enforce";
+        private const string DisabledValue = "Disabled";
 
         /// <summary> Audit. </summary>
         public static Mode Audit { get; } = new Mode(AuditValue);
         /// <summary> Enforce. </summary>
         public static Mode Enforce { get; } = new Mode(EnforceValue);
+        /// <summary> Disabled. </summary>
+        public static Mode Disabled { get; } = new Mode(DisabledValue);
         /// <summary> Determines if two <see cref="Mode"/> values are the same. </summary>
         public static bool operator ==(Mode left, Mode right) => left.Equals(right);
         /// <summary> Determines if two <see cref="Mode"/> values are not the same. </summary>
