@@ -87,7 +87,7 @@ namespace Azure.Health.Insights.ClinicalMatching
             }
             Optional<PatientInfoSex> sex = default;
             Optional<DateTimeOffset> birthDate = default;
-            Optional<IList<ClinicalCodedElement>> clinicalInfo = default;
+            Optional<IList<Resource>> clinicalInfo = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -116,10 +116,10 @@ namespace Azure.Health.Insights.ClinicalMatching
                     {
                         continue;
                     }
-                    List<ClinicalCodedElement> array = new List<ClinicalCodedElement>();
+                    List<Resource> array = new List<Resource>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(ClinicalCodedElement.DeserializeClinicalCodedElement(item));
+                        array.Add(Resource.DeserializeResource(item));
                     }
                     clinicalInfo = array;
                     continue;

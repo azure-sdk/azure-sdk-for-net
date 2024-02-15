@@ -49,7 +49,7 @@ namespace Azure.Health.Insights.ClinicalMatching
         /// <summary> Initializes a new instance of <see cref="PatientInfo"/>. </summary>
         public PatientInfo()
         {
-            ClinicalInfo = new ChangeTrackingList<ClinicalCodedElement>();
+            ClinicalInfo = new ChangeTrackingList<Resource>();
         }
 
         /// <summary> Initializes a new instance of <see cref="PatientInfo"/>. </summary>
@@ -57,7 +57,7 @@ namespace Azure.Health.Insights.ClinicalMatching
         /// <param name="birthDate"> The patient's date of birth. </param>
         /// <param name="clinicalInfo"> Known clinical information for the patient, structured. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal PatientInfo(PatientInfoSex? sex, DateTimeOffset? birthDate, IList<ClinicalCodedElement> clinicalInfo, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal PatientInfo(PatientInfoSex? sex, DateTimeOffset? birthDate, IList<Resource> clinicalInfo, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Sex = sex;
             BirthDate = birthDate;
@@ -70,6 +70,6 @@ namespace Azure.Health.Insights.ClinicalMatching
         /// <summary> The patient's date of birth. </summary>
         public DateTimeOffset? BirthDate { get; set; }
         /// <summary> Known clinical information for the patient, structured. </summary>
-        public IList<ClinicalCodedElement> ClinicalInfo { get; }
+        public IList<Resource> ClinicalInfo { get; }
     }
 }
