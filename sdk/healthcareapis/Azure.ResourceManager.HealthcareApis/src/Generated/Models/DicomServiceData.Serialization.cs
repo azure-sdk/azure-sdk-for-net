@@ -120,6 +120,11 @@ namespace Azure.ResourceManager.HealthcareApis
                 writer.WritePropertyName("encryption"u8);
                 writer.WriteObjectValue(Encryption);
             }
+            if (Optional.IsDefined(StorageConfiguration))
+            {
+                writer.WritePropertyName("storageConfiguration"u8);
+                writer.WriteObjectValue(StorageConfiguration);
+            }
             writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -175,6 +180,7 @@ namespace Azure.ResourceManager.HealthcareApis
             Optional<HealthcareApisPublicNetworkAccess> publicNetworkAccess = default;
             Optional<FhirServiceEventState> eventState = default;
             Optional<Encryption> encryption = default;
+            Optional<StorageConfiguration> storageConfiguration = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -327,6 +333,15 @@ namespace Azure.ResourceManager.HealthcareApis
                             encryption = Encryption.DeserializeEncryption(property0.Value);
                             continue;
                         }
+                        if (property0.NameEquals("storageConfiguration"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            storageConfiguration = StorageConfiguration.DeserializeStorageConfiguration(property0.Value);
+                            continue;
+                        }
                     }
                     continue;
                 }
@@ -336,7 +351,7 @@ namespace Azure.ResourceManager.HealthcareApis
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new DicomServiceData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, Optional.ToNullable(provisioningState), authenticationConfiguration.Value, corsConfiguration.Value, serviceUrl.Value, Optional.ToList(privateEndpointConnections), Optional.ToNullable(publicNetworkAccess), Optional.ToNullable(eventState), encryption.Value, identity, Optional.ToNullable(etag), serializedAdditionalRawData);
+            return new DicomServiceData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, Optional.ToNullable(provisioningState), authenticationConfiguration.Value, corsConfiguration.Value, serviceUrl.Value, Optional.ToList(privateEndpointConnections), Optional.ToNullable(publicNetworkAccess), Optional.ToNullable(eventState), encryption.Value, storageConfiguration.Value, identity, Optional.ToNullable(etag), serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<DicomServiceData>.Write(ModelReaderWriterOptions options)
