@@ -77,8 +77,6 @@ namespace Azure.ResourceManager.Sql.Samples
             // invoke the operation
             LongTermRetentionPolicyData data = new LongTermRetentionPolicyData()
             {
-                MakeBackupsImmutable = true,
-                BackupStorageAccessTier = SqlBackupStorageAccessTier.Hot,
                 WeeklyRetention = "P1M",
                 MonthlyRetention = "P1Y",
                 YearlyRetention = "P5Y",
