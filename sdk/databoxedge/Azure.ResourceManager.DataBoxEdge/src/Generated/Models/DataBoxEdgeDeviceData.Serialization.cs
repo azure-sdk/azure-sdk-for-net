@@ -174,6 +174,11 @@ namespace Azure.ResourceManager.DataBoxEdge
                 writer.WritePropertyName("dataResidency"u8);
                 writer.WriteObjectValue(DataResidency);
             }
+            if (options.Format != "W" && Optional.IsDefined(KubernetesWorkloadProfile))
+            {
+                writer.WritePropertyName("kubernetesWorkloadProfile"u8);
+                writer.WriteStringValue(KubernetesWorkloadProfile);
+            }
             writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -240,6 +245,7 @@ namespace Azure.ResourceManager.DataBoxEdge
             Optional<DataBoxEdgeResourceMoveDetails> resourceMoveDetails = default;
             Optional<EdgeProfile> edgeProfile = default;
             Optional<DataResidency> dataResidency = default;
+            Optional<string> kubernetesWorkloadProfile = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -454,6 +460,11 @@ namespace Azure.ResourceManager.DataBoxEdge
                             dataResidency = DataResidency.DeserializeDataResidency(property0.Value);
                             continue;
                         }
+                        if (property0.NameEquals("kubernetesWorkloadProfile"u8))
+                        {
+                            kubernetesWorkloadProfile = property0.Value.GetString();
+                            continue;
+                        }
                     }
                     continue;
                 }
@@ -463,7 +474,7 @@ namespace Azure.ResourceManager.DataBoxEdge
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new DataBoxEdgeDeviceData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, sku.Value, Optional.ToNullable(etag), identity, Optional.ToNullable(kind), Optional.ToNullable(dataBoxEdgeDeviceStatus), serialNumber.Value, description.Value, modelDescription.Value, Optional.ToNullable(deviceType), friendlyName.Value, culture.Value, deviceModel.Value, deviceSoftwareVersion.Value, Optional.ToNullable(deviceLocalCapacity), timeZone.Value, deviceHcsVersion.Value, Optional.ToList(configuredRoleTypes), Optional.ToNullable(nodeCount), resourceMoveDetails.Value, edgeProfile.Value, dataResidency.Value, serializedAdditionalRawData);
+            return new DataBoxEdgeDeviceData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, sku.Value, Optional.ToNullable(etag), identity, Optional.ToNullable(kind), Optional.ToNullable(dataBoxEdgeDeviceStatus), serialNumber.Value, description.Value, modelDescription.Value, Optional.ToNullable(deviceType), friendlyName.Value, culture.Value, deviceModel.Value, deviceSoftwareVersion.Value, Optional.ToNullable(deviceLocalCapacity), timeZone.Value, deviceHcsVersion.Value, Optional.ToList(configuredRoleTypes), Optional.ToNullable(nodeCount), resourceMoveDetails.Value, edgeProfile.Value, dataResidency.Value, kubernetesWorkloadProfile.Value, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<DataBoxEdgeDeviceData>.Write(ModelReaderWriterOptions options)
