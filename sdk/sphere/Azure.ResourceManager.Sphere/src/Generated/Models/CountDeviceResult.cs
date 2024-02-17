@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace Azure.ResourceManager.Sphere.Models
 {
-    /// <summary> Response to the action call for count devices in a catalog. </summary>
+    /// <summary> Response to the action call for count devices in a catalog (preview API). </summary>
     public partial class CountDeviceResult : CountElementsResult
     {
         /// <summary> Initializes a new instance of <see cref="CountDeviceResult"/>. </summary>
