@@ -28,6 +28,11 @@ namespace Azure.ResourceManager.HDInsight.Containers
             }
 
             writer.WriteStartObject();
+            if (Optional.IsDefined(Properties))
+            {
+                writer.WritePropertyName("properties"u8);
+                writer.WriteObjectValue(Properties);
+            }
             if (Optional.IsCollectionDefined(Tags))
             {
                 writer.WritePropertyName("tags"u8);
@@ -61,39 +66,6 @@ namespace Azure.ResourceManager.HDInsight.Containers
                 writer.WritePropertyName("systemData"u8);
                 JsonSerializer.Serialize(writer, SystemData);
             }
-            writer.WritePropertyName("properties"u8);
-            writer.WriteStartObject();
-            if (options.Format != "W" && Optional.IsDefined(ProvisioningState))
-            {
-                writer.WritePropertyName("provisioningState"u8);
-                writer.WriteStringValue(ProvisioningState.Value.ToString());
-            }
-            if (Optional.IsDefined(ClusterType))
-            {
-                writer.WritePropertyName("clusterType"u8);
-                writer.WriteStringValue(ClusterType);
-            }
-            if (options.Format != "W" && Optional.IsDefined(DeploymentId))
-            {
-                writer.WritePropertyName("deploymentId"u8);
-                writer.WriteStringValue(DeploymentId);
-            }
-            if (Optional.IsDefined(ComputeProfile))
-            {
-                writer.WritePropertyName("computeProfile"u8);
-                writer.WriteObjectValue(ComputeProfile);
-            }
-            if (Optional.IsDefined(ClusterProfile))
-            {
-                writer.WritePropertyName("clusterProfile"u8);
-                writer.WriteObjectValue(ClusterProfile);
-            }
-            if (options.Format != "W" && Optional.IsDefined(Status))
-            {
-                writer.WritePropertyName("status"u8);
-                writer.WriteStringValue(Status);
-            }
-            writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -132,22 +104,26 @@ namespace Azure.ResourceManager.HDInsight.Containers
             {
                 return null;
             }
+            Optional<ClusterResourceProperties> properties = default;
             Optional<IDictionary<string, string>> tags = default;
             AzureLocation location = default;
             ResourceIdentifier id = default;
             string name = default;
             ResourceType type = default;
             Optional<SystemData> systemData = default;
-            Optional<HDInsightProvisioningStatus> provisioningState = default;
-            Optional<string> clusterType = default;
-            Optional<string> deploymentId = default;
-            Optional<ComputeProfile> computeProfile = default;
-            Optional<ClusterProfile> clusterProfile = default;
-            Optional<string> status = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
+                if (property.NameEquals("properties"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    properties = ClusterResourceProperties.DeserializeClusterResourceProperties(property.Value);
+                    continue;
+                }
                 if (property.NameEquals("tags"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -191,67 +167,13 @@ namespace Azure.ResourceManager.HDInsight.Containers
                     systemData = JsonSerializer.Deserialize<SystemData>(property.Value.GetRawText());
                     continue;
                 }
-                if (property.NameEquals("properties"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
-                    foreach (var property0 in property.Value.EnumerateObject())
-                    {
-                        if (property0.NameEquals("provisioningState"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            provisioningState = new HDInsightProvisioningStatus(property0.Value.GetString());
-                            continue;
-                        }
-                        if (property0.NameEquals("clusterType"u8))
-                        {
-                            clusterType = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("deploymentId"u8))
-                        {
-                            deploymentId = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("computeProfile"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            computeProfile = ComputeProfile.DeserializeComputeProfile(property0.Value);
-                            continue;
-                        }
-                        if (property0.NameEquals("clusterProfile"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            clusterProfile = ClusterProfile.DeserializeClusterProfile(property0.Value);
-                            continue;
-                        }
-                        if (property0.NameEquals("status"u8))
-                        {
-                            status = property0.Value.GetString();
-                            continue;
-                        }
-                    }
-                    continue;
-                }
                 if (options.Format != "W")
                 {
                     additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new HDInsightClusterData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, Optional.ToNullable(provisioningState), clusterType.Value, deploymentId.Value, computeProfile.Value, clusterProfile.Value, status.Value, serializedAdditionalRawData);
+            return new HDInsightClusterData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, properties.Value, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<HDInsightClusterData>.Write(ModelReaderWriterOptions options)
