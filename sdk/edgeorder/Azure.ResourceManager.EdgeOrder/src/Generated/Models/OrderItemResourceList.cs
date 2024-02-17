@@ -12,7 +12,7 @@ using Azure.ResourceManager.EdgeOrder;
 
 namespace Azure.ResourceManager.EdgeOrder.Models
 {
-    /// <summary> List of orderItems. </summary>
+    /// <summary> List of order items. </summary>
     internal partial class OrderItemResourceList
     {
         /// <summary>
