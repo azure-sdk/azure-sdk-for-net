@@ -23,7 +23,7 @@ namespace Azure.ResourceManager.DataBoxEdge.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_ShareGet()
         {
-            // Generated from example definition: specification/databoxedge/resource-manager/Microsoft.DataBoxEdge/stable/2022-03-01/examples/ShareGet.json
+            // Generated from example definition: specification/databoxedge/resource-manager/Microsoft.DataBoxEdge/stable/2023-12-01/examples/ShareGet.json
             // this example is just showing the usage of "Shares_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -55,7 +55,7 @@ namespace Azure.ResourceManager.DataBoxEdge.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_SharePut()
         {
-            // Generated from example definition: specification/databoxedge/resource-manager/Microsoft.DataBoxEdge/stable/2022-03-01/examples/SharePut.json
+            // Generated from example definition: specification/databoxedge/resource-manager/Microsoft.DataBoxEdge/stable/2023-12-01/examples/SharePut.json
             // this example is just showing the usage of "Shares_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -98,7 +98,7 @@ new UserAccessRight(new ResourceIdentifier("/subscriptions/4385cf00-2d3a-425a-83
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Delete_ShareDelete()
         {
-            // Generated from example definition: specification/databoxedge/resource-manager/Microsoft.DataBoxEdge/stable/2022-03-01/examples/ShareDelete.json
+            // Generated from example definition: specification/databoxedge/resource-manager/Microsoft.DataBoxEdge/stable/2023-12-01/examples/ShareDelete.json
             // this example is just showing the usage of "Shares_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -126,7 +126,7 @@ new UserAccessRight(new ResourceIdentifier("/subscriptions/4385cf00-2d3a-425a-83
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Refresh_ShareRefreshPost()
         {
-            // Generated from example definition: specification/databoxedge/resource-manager/Microsoft.DataBoxEdge/stable/2022-03-01/examples/ShareRefreshPost.json
+            // Generated from example definition: specification/databoxedge/resource-manager/Microsoft.DataBoxEdge/stable/2023-12-01/examples/ShareRefreshPost.json
             // this example is just showing the usage of "Shares_Refresh" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line

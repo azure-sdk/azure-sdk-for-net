@@ -80,6 +80,11 @@ namespace Azure.ResourceManager.EdgeOrder
                 }
                 writer.WriteEndArray();
             }
+            if (options.Format != "W" && Optional.IsDefined(OrderMode))
+            {
+                writer.WritePropertyName("orderMode"u8);
+                writer.WriteStringValue(OrderMode.Value.ToString());
+            }
             writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -126,6 +131,7 @@ namespace Azure.ResourceManager.EdgeOrder
             Optional<IReadOnlyList<ResourceIdentifier>> orderItemIds = default;
             Optional<EdgeOrderStageDetails> currentStage = default;
             Optional<IReadOnlyList<EdgeOrderStageDetails>> orderStageHistory = default;
+            Optional<OrderMode> orderMode = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -207,6 +213,15 @@ namespace Azure.ResourceManager.EdgeOrder
                             orderStageHistory = array;
                             continue;
                         }
+                        if (property0.NameEquals("orderMode"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            orderMode = new OrderMode(property0.Value.GetString());
+                            continue;
+                        }
                     }
                     continue;
                 }
@@ -216,7 +231,7 @@ namespace Azure.ResourceManager.EdgeOrder
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new EdgeOrderData(id, name, type, systemData.Value, Optional.ToList(orderItemIds), currentStage.Value, Optional.ToList(orderStageHistory), serializedAdditionalRawData);
+            return new EdgeOrderData(id, name, type, systemData.Value, Optional.ToList(orderItemIds), currentStage.Value, Optional.ToList(orderStageHistory), Optional.ToNullable(orderMode), serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<EdgeOrderData>.Write(ModelReaderWriterOptions options)
