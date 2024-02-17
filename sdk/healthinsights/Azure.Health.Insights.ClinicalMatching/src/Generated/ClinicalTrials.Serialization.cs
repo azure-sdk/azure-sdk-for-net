@@ -85,7 +85,7 @@ namespace Azure.Health.Insights.ClinicalMatching
             {
                 return null;
             }
-            Optional<IList<ClinicalTrialDetails>> customTrials = default;
+            Optional<IList<FhirR4ResearchStudy>> customTrials = default;
             Optional<IList<ClinicalTrialRegistryFilter>> registryFilters = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
@@ -97,10 +97,10 @@ namespace Azure.Health.Insights.ClinicalMatching
                     {
                         continue;
                     }
-                    List<ClinicalTrialDetails> array = new List<ClinicalTrialDetails>();
+                    List<FhirR4ResearchStudy> array = new List<FhirR4ResearchStudy>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(ClinicalTrialDetails.DeserializeClinicalTrialDetails(item));
+                        array.Add(FhirR4ResearchStudy.DeserializeFhirR4ResearchStudy(item));
                     }
                     customTrials = array;
                     continue;

@@ -29,12 +29,12 @@ namespace Azure.AI.Vision.ImageAnalysis
             writer.WriteStartObject();
             if (Optional.IsDefined(Caption))
             {
-                writer.WritePropertyName("captionResult"u8);
+                writer.WritePropertyName("caption"u8);
                 writer.WriteObjectValue(Caption);
             }
             if (Optional.IsDefined(DenseCaptions))
             {
-                writer.WritePropertyName("denseCaptionsResult"u8);
+                writer.WritePropertyName("denseCaptions"u8);
                 writer.WriteObjectValue(DenseCaptions);
             }
             writer.WritePropertyName("metadata"u8);
@@ -43,27 +43,27 @@ namespace Azure.AI.Vision.ImageAnalysis
             writer.WriteStringValue(ModelVersion);
             if (Optional.IsDefined(Objects))
             {
-                writer.WritePropertyName("objectsResult"u8);
+                writer.WritePropertyName("objects"u8);
                 writer.WriteObjectValue(Objects);
             }
             if (Optional.IsDefined(People))
             {
-                writer.WritePropertyName("peopleResult"u8);
+                writer.WritePropertyName("people"u8);
                 writer.WriteObjectValue(People);
             }
             if (Optional.IsDefined(Read))
             {
-                writer.WritePropertyName("readResult"u8);
+                writer.WritePropertyName("read"u8);
                 writer.WriteObjectValue(Read);
             }
             if (Optional.IsDefined(SmartCrops))
             {
-                writer.WritePropertyName("smartCropsResult"u8);
+                writer.WritePropertyName("smartCrops"u8);
                 writer.WriteObjectValue(SmartCrops);
             }
             if (Optional.IsDefined(Tags))
             {
-                writer.WritePropertyName("tagsResult"u8);
+                writer.WritePropertyName("tags"u8);
                 writer.WriteObjectValue(Tags);
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
@@ -104,35 +104,35 @@ namespace Azure.AI.Vision.ImageAnalysis
             {
                 return null;
             }
-            Optional<CaptionResult> captionResult = default;
-            Optional<DenseCaptionsResult> denseCaptionsResult = default;
+            Optional<CaptionResult> caption = default;
+            Optional<DenseCaptionsResult> denseCaptions = default;
             ImageMetadata metadata = default;
             string modelVersion = default;
-            Optional<ObjectsResult> objectsResult = default;
-            Optional<PeopleResult> peopleResult = default;
-            Optional<ReadResult> readResult = default;
-            Optional<SmartCropsResult> smartCropsResult = default;
-            Optional<TagsResult> tagsResult = default;
+            Optional<ObjectsResult> objects = default;
+            Optional<PeopleResult> people = default;
+            Optional<ReadResult> read = default;
+            Optional<SmartCropsResult> smartCrops = default;
+            Optional<TagsResult> tags = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("captionResult"u8))
+                if (property.NameEquals("caption"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    captionResult = CaptionResult.DeserializeCaptionResult(property.Value);
+                    caption = CaptionResult.DeserializeCaptionResult(property.Value);
                     continue;
                 }
-                if (property.NameEquals("denseCaptionsResult"u8))
+                if (property.NameEquals("denseCaptions"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    denseCaptionsResult = DenseCaptionsResult.DeserializeDenseCaptionsResult(property.Value);
+                    denseCaptions = DenseCaptionsResult.DeserializeDenseCaptionsResult(property.Value);
                     continue;
                 }
                 if (property.NameEquals("metadata"u8))
@@ -145,49 +145,49 @@ namespace Azure.AI.Vision.ImageAnalysis
                     modelVersion = property.Value.GetString();
                     continue;
                 }
-                if (property.NameEquals("objectsResult"u8))
+                if (property.NameEquals("objects"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    objectsResult = ObjectsResult.DeserializeObjectsResult(property.Value);
+                    objects = ObjectsResult.DeserializeObjectsResult(property.Value);
                     continue;
                 }
-                if (property.NameEquals("peopleResult"u8))
+                if (property.NameEquals("people"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    peopleResult = PeopleResult.DeserializePeopleResult(property.Value);
+                    people = PeopleResult.DeserializePeopleResult(property.Value);
                     continue;
                 }
-                if (property.NameEquals("readResult"u8))
+                if (property.NameEquals("read"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    readResult = ReadResult.DeserializeReadResult(property.Value);
+                    read = ReadResult.DeserializeReadResult(property.Value);
                     continue;
                 }
-                if (property.NameEquals("smartCropsResult"u8))
+                if (property.NameEquals("smartCrops"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    smartCropsResult = SmartCropsResult.DeserializeSmartCropsResult(property.Value);
+                    smartCrops = SmartCropsResult.DeserializeSmartCropsResult(property.Value);
                     continue;
                 }
-                if (property.NameEquals("tagsResult"u8))
+                if (property.NameEquals("tags"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    tagsResult = TagsResult.DeserializeTagsResult(property.Value);
+                    tags = TagsResult.DeserializeTagsResult(property.Value);
                     continue;
                 }
                 if (options.Format != "W")
@@ -196,7 +196,7 @@ namespace Azure.AI.Vision.ImageAnalysis
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new ImageAnalysisResult(captionResult.Value, denseCaptionsResult.Value, metadata, modelVersion, objectsResult.Value, peopleResult.Value, readResult.Value, smartCropsResult.Value, tagsResult.Value, serializedAdditionalRawData);
+            return new ImageAnalysisResult(caption.Value, denseCaptions.Value, metadata, modelVersion, objects.Value, people.Value, read.Value, smartCrops.Value, tags.Value, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<ImageAnalysisResult>.Write(ModelReaderWriterOptions options)
