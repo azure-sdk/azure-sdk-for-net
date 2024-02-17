@@ -26,10 +26,16 @@ namespace Azure.ResourceManager.EdgeOrder.Models
             }
 
             writer.WriteStartObject();
-            writer.WritePropertyName("contactName"u8);
-            writer.WriteStringValue(ContactName);
-            writer.WritePropertyName("phone"u8);
-            writer.WriteStringValue(Phone);
+            if (Optional.IsDefined(ContactName))
+            {
+                writer.WritePropertyName("contactName"u8);
+                writer.WriteStringValue(ContactName);
+            }
+            if (Optional.IsDefined(Phone))
+            {
+                writer.WritePropertyName("phone"u8);
+                writer.WriteStringValue(Phone);
+            }
             if (Optional.IsDefined(PhoneExtension))
             {
                 writer.WritePropertyName("phoneExtension"u8);
@@ -40,13 +46,16 @@ namespace Azure.ResourceManager.EdgeOrder.Models
                 writer.WritePropertyName("mobile"u8);
                 writer.WriteStringValue(Mobile);
             }
-            writer.WritePropertyName("emailList"u8);
-            writer.WriteStartArray();
-            foreach (var item in EmailList)
+            if (Optional.IsCollectionDefined(EmailList))
             {
-                writer.WriteStringValue(item);
+                writer.WritePropertyName("emailList"u8);
+                writer.WriteStartArray();
+                foreach (var item in EmailList)
+                {
+                    writer.WriteStringValue(item);
+                }
+                writer.WriteEndArray();
             }
-            writer.WriteEndArray();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -85,11 +94,11 @@ namespace Azure.ResourceManager.EdgeOrder.Models
             {
                 return null;
             }
-            string contactName = default;
-            string phone = default;
+            Optional<string> contactName = default;
+            Optional<string> phone = default;
             Optional<string> phoneExtension = default;
             Optional<string> mobile = default;
-            IList<string> emailList = default;
+            Optional<IList<string>> emailList = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -116,6 +125,10 @@ namespace Azure.ResourceManager.EdgeOrder.Models
                 }
                 if (property.NameEquals("emailList"u8))
                 {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     List<string> array = new List<string>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
@@ -130,7 +143,7 @@ namespace Azure.ResourceManager.EdgeOrder.Models
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new EdgeOrderAddressContactDetails(contactName, phone, phoneExtension.Value, mobile.Value, emailList, serializedAdditionalRawData);
+            return new EdgeOrderAddressContactDetails(contactName.Value, phone.Value, phoneExtension.Value, mobile.Value, Optional.ToList(emailList), serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<EdgeOrderAddressContactDetails>.Write(ModelReaderWriterOptions options)

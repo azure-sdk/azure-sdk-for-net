@@ -641,6 +641,7 @@ namespace Azure.ResourceManager.HealthcareApis.Models
         public string Audience { get { throw null; } set { } }
         public string Authority { get { throw null; } set { } }
         public bool? IsSmartProxyEnabled { get { throw null; } set { } }
+        public System.Collections.Generic.IList<Azure.ResourceManager.HealthcareApis.Models.SmartIdentityProviderConfiguration> SmartIdentityProviders { get { throw null; } }
         Azure.ResourceManager.HealthcareApis.Models.FhirServiceAuthenticationConfiguration System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.HealthcareApis.Models.FhirServiceAuthenticationConfiguration>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.HealthcareApis.Models.FhirServiceAuthenticationConfiguration>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
         Azure.ResourceManager.HealthcareApis.Models.FhirServiceAuthenticationConfiguration System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.HealthcareApis.Models.FhirServiceAuthenticationConfiguration>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
@@ -1056,5 +1057,45 @@ namespace Azure.ResourceManager.HealthcareApis.Models
         Azure.ResourceManager.HealthcareApis.Models.HealthcareApisWorkspaceProperties System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.HealthcareApis.Models.HealthcareApisWorkspaceProperties>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.HealthcareApis.Models.HealthcareApisWorkspaceProperties>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.HealthcareApis.Models.HealthcareApisWorkspaceProperties>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public readonly partial struct SmartDataAction : System.IEquatable<Azure.ResourceManager.HealthcareApis.Models.SmartDataAction>
+    {
+        private readonly object _dummy;
+        private readonly int _dummyPrimitive;
+        public SmartDataAction(string value) { throw null; }
+        public static Azure.ResourceManager.HealthcareApis.Models.SmartDataAction Read { get { throw null; } }
+        public bool Equals(Azure.ResourceManager.HealthcareApis.Models.SmartDataAction other) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override bool Equals(object obj) { throw null; }
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public override int GetHashCode() { throw null; }
+        public static bool operator ==(Azure.ResourceManager.HealthcareApis.Models.SmartDataAction left, Azure.ResourceManager.HealthcareApis.Models.SmartDataAction right) { throw null; }
+        public static implicit operator Azure.ResourceManager.HealthcareApis.Models.SmartDataAction (string value) { throw null; }
+        public static bool operator !=(Azure.ResourceManager.HealthcareApis.Models.SmartDataAction left, Azure.ResourceManager.HealthcareApis.Models.SmartDataAction right) { throw null; }
+        public override string ToString() { throw null; }
+    }
+    public partial class SmartIdentityProviderApplication : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.HealthcareApis.Models.SmartIdentityProviderApplication>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.HealthcareApis.Models.SmartIdentityProviderApplication>
+    {
+        public SmartIdentityProviderApplication() { }
+        public System.Collections.Generic.IList<Azure.ResourceManager.HealthcareApis.Models.SmartDataAction> AllowedDataActions { get { throw null; } }
+        public string Audience { get { throw null; } set { } }
+        public string ClientId { get { throw null; } set { } }
+        Azure.ResourceManager.HealthcareApis.Models.SmartIdentityProviderApplication System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.HealthcareApis.Models.SmartIdentityProviderApplication>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.HealthcareApis.Models.SmartIdentityProviderApplication>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.ResourceManager.HealthcareApis.Models.SmartIdentityProviderApplication System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.HealthcareApis.Models.SmartIdentityProviderApplication>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.HealthcareApis.Models.SmartIdentityProviderApplication>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.HealthcareApis.Models.SmartIdentityProviderApplication>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+    }
+    public partial class SmartIdentityProviderConfiguration : System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.HealthcareApis.Models.SmartIdentityProviderConfiguration>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.HealthcareApis.Models.SmartIdentityProviderConfiguration>
+    {
+        public SmartIdentityProviderConfiguration() { }
+        public System.Collections.Generic.IList<Azure.ResourceManager.HealthcareApis.Models.SmartIdentityProviderApplication> Applications { get { throw null; } }
+        public string Authority { get { throw null; } set { } }
+        Azure.ResourceManager.HealthcareApis.Models.SmartIdentityProviderConfiguration System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.HealthcareApis.Models.SmartIdentityProviderConfiguration>.Create(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        void System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.HealthcareApis.Models.SmartIdentityProviderConfiguration>.Write(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
+        Azure.ResourceManager.HealthcareApis.Models.SmartIdentityProviderConfiguration System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.HealthcareApis.Models.SmartIdentityProviderConfiguration>.Create(System.BinaryData data, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        string System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.HealthcareApis.Models.SmartIdentityProviderConfiguration>.GetFormatFromOptions(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
+        System.BinaryData System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.HealthcareApis.Models.SmartIdentityProviderConfiguration>.Write(System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
     }
 }
