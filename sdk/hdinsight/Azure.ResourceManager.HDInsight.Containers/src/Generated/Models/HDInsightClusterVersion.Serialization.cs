@@ -27,6 +27,11 @@ namespace Azure.ResourceManager.HDInsight.Containers.Models
             }
 
             writer.WriteStartObject();
+            if (Optional.IsDefined(Properties))
+            {
+                writer.WritePropertyName("properties"u8);
+                writer.WriteObjectValue(Properties);
+            }
             if (options.Format != "W")
             {
                 writer.WritePropertyName("id"u8);
@@ -47,44 +52,6 @@ namespace Azure.ResourceManager.HDInsight.Containers.Models
                 writer.WritePropertyName("systemData"u8);
                 JsonSerializer.Serialize(writer, SystemData);
             }
-            writer.WritePropertyName("properties"u8);
-            writer.WriteStartObject();
-            if (Optional.IsDefined(ClusterType))
-            {
-                writer.WritePropertyName("clusterType"u8);
-                writer.WriteStringValue(ClusterType);
-            }
-            if (Optional.IsDefined(ClusterVersion))
-            {
-                writer.WritePropertyName("clusterVersion"u8);
-                writer.WriteStringValue(ClusterVersion);
-            }
-            if (Optional.IsDefined(OssVersion))
-            {
-                writer.WritePropertyName("ossVersion"u8);
-                writer.WriteStringValue(OssVersion);
-            }
-            if (Optional.IsDefined(ClusterPoolVersion))
-            {
-                writer.WritePropertyName("clusterPoolVersion"u8);
-                writer.WriteStringValue(ClusterPoolVersion);
-            }
-            if (Optional.IsDefined(IsPreview))
-            {
-                writer.WritePropertyName("isPreview"u8);
-                writer.WriteBooleanValue(IsPreview.Value);
-            }
-            if (options.Format != "W" && Optional.IsCollectionDefined(Components))
-            {
-                writer.WritePropertyName("components"u8);
-                writer.WriteStartArray();
-                foreach (var item in Components)
-                {
-                    writer.WriteObjectValue(item);
-                }
-                writer.WriteEndArray();
-            }
-            writer.WriteEndObject();
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -123,20 +90,24 @@ namespace Azure.ResourceManager.HDInsight.Containers.Models
             {
                 return null;
             }
+            Optional<ClusterVersionProperties> properties = default;
             ResourceIdentifier id = default;
             string name = default;
             ResourceType type = default;
             Optional<SystemData> systemData = default;
-            Optional<string> clusterType = default;
-            Optional<string> clusterVersion = default;
-            Optional<string> ossVersion = default;
-            Optional<string> clusterPoolVersion = default;
-            Optional<bool> isPreview = default;
-            Optional<IReadOnlyList<ClusterComponentItem>> components = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
+                if (property.NameEquals("properties"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    properties = ClusterVersionProperties.DeserializeClusterVersionProperties(property.Value);
+                    continue;
+                }
                 if (property.NameEquals("id"u8))
                 {
                     id = new ResourceIdentifier(property.Value.GetString());
@@ -161,68 +132,13 @@ namespace Azure.ResourceManager.HDInsight.Containers.Models
                     systemData = JsonSerializer.Deserialize<SystemData>(property.Value.GetRawText());
                     continue;
                 }
-                if (property.NameEquals("properties"u8))
-                {
-                    if (property.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        property.ThrowNonNullablePropertyIsNull();
-                        continue;
-                    }
-                    foreach (var property0 in property.Value.EnumerateObject())
-                    {
-                        if (property0.NameEquals("clusterType"u8))
-                        {
-                            clusterType = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("clusterVersion"u8))
-                        {
-                            clusterVersion = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("ossVersion"u8))
-                        {
-                            ossVersion = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("clusterPoolVersion"u8))
-                        {
-                            clusterPoolVersion = property0.Value.GetString();
-                            continue;
-                        }
-                        if (property0.NameEquals("isPreview"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            isPreview = property0.Value.GetBoolean();
-                            continue;
-                        }
-                        if (property0.NameEquals("components"u8))
-                        {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            List<ClusterComponentItem> array = new List<ClusterComponentItem>();
-                            foreach (var item in property0.Value.EnumerateArray())
-                            {
-                                array.Add(ClusterComponentItem.DeserializeClusterComponentItem(item));
-                            }
-                            components = array;
-                            continue;
-                        }
-                    }
-                    continue;
-                }
                 if (options.Format != "W")
                 {
                     additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new HDInsightClusterVersion(id, name, type, systemData.Value, clusterType.Value, clusterVersion.Value, ossVersion.Value, clusterPoolVersion.Value, Optional.ToNullable(isPreview), Optional.ToList(components), serializedAdditionalRawData);
+            return new HDInsightClusterVersion(id, name, type, systemData.Value, properties.Value, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<HDInsightClusterVersion>.Write(ModelReaderWriterOptions options)
