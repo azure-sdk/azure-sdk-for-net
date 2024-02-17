@@ -8,7 +8,7 @@ azure-arm: true
 csharp: true
 library-name: AppPlatform
 namespace: Azure.ResourceManager.AppPlatform
-require: https://github.com/Azure/azure-rest-api-specs/blob/e99a45d498a1c7fadc18229ecba5d84a471a8771/specification/appplatform/resource-manager/readme.md
+require: https://github.com/Azure/azure-rest-api-specs/blob/70a4ccdd2be61ae5bc524250c70270b0f4f2b540/specification/appplatform/resource-manager/readme.md
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
 skip-csproj: true
