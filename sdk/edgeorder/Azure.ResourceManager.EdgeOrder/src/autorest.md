@@ -8,7 +8,7 @@ azure-arm: true
 csharp: true
 library-name: EdgeOrder
 namespace: Azure.ResourceManager.EdgeOrder
-require: https://github.com/Azure/azure-rest-api-specs/blob/58891380ba22c3565ca884dee3831445f638b545/specification/edgeorder/resource-manager/readme.md
+require: https://github.com/Azure/azure-rest-api-specs/blob/b8c62daf440b67339df08c2226fb40e89c2b4009/specification/edgeorder/resource-manager/readme.md
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
 sample-gen:

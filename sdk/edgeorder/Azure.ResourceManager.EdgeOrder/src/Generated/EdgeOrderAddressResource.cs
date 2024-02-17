@@ -37,8 +37,8 @@ namespace Azure.ResourceManager.EdgeOrder
             return new ResourceIdentifier(resourceId);
         }
 
-        private readonly ClientDiagnostics _edgeOrderAddressClientDiagnostics;
-        private readonly EdgeOrderManagementRestOperations _edgeOrderAddressRestClient;
+        private readonly ClientDiagnostics _edgeOrderAddressAddressesClientDiagnostics;
+        private readonly AddressesRestOperations _edgeOrderAddressAddressesRestClient;
         private readonly EdgeOrderAddressData _data;
 
         /// <summary> Gets the resource type for the operations. </summary>
@@ -63,9 +63,9 @@ namespace Azure.ResourceManager.EdgeOrder
         /// <param name="id"> The identifier of the resource that is the target of operations. </param>
         internal EdgeOrderAddressResource(ArmClient client, ResourceIdentifier id) : base(client, id)
         {
-            _edgeOrderAddressClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.EdgeOrder", ResourceType.Namespace, Diagnostics);
-            TryGetApiVersion(ResourceType, out string edgeOrderAddressApiVersion);
-            _edgeOrderAddressRestClient = new EdgeOrderManagementRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, edgeOrderAddressApiVersion);
+            _edgeOrderAddressAddressesClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.EdgeOrder", ResourceType.Namespace, Diagnostics);
+            TryGetApiVersion(ResourceType, out string edgeOrderAddressAddressesApiVersion);
+            _edgeOrderAddressAddressesRestClient = new AddressesRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, edgeOrderAddressAddressesApiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -93,7 +93,7 @@ namespace Azure.ResourceManager.EdgeOrder
         }
 
         /// <summary>
-        /// Gets information about the specified address.
+        /// Get information about the specified address.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -101,11 +101,11 @@ namespace Azure.ResourceManager.EdgeOrder
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>GetAddressByName</description>
+        /// <description>Addresses_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-12-01</description>
+        /// <description>2024-02-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -116,11 +116,11 @@ namespace Azure.ResourceManager.EdgeOrder
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual async Task<Response<EdgeOrderAddressResource>> GetAsync(CancellationToken cancellationToken = default)
         {
-            using var scope = _edgeOrderAddressClientDiagnostics.CreateScope("EdgeOrderAddressResource.Get");
+            using var scope = _edgeOrderAddressAddressesClientDiagnostics.CreateScope("EdgeOrderAddressResource.Get");
             scope.Start();
             try
             {
-                var response = await _edgeOrderAddressRestClient.GetAddressByNameAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
+                var response = await _edgeOrderAddressAddressesRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new EdgeOrderAddressResource(Client, response.Value), response.GetRawResponse());
@@ -133,7 +133,7 @@ namespace Azure.ResourceManager.EdgeOrder
         }
 
         /// <summary>
-        /// Gets information about the specified address.
+        /// Get information about the specified address.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -141,11 +141,11 @@ namespace Azure.ResourceManager.EdgeOrder
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>GetAddressByName</description>
+        /// <description>Addresses_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-12-01</description>
+        /// <description>2024-02-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -156,11 +156,11 @@ namespace Azure.ResourceManager.EdgeOrder
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual Response<EdgeOrderAddressResource> Get(CancellationToken cancellationToken = default)
         {
-            using var scope = _edgeOrderAddressClientDiagnostics.CreateScope("EdgeOrderAddressResource.Get");
+            using var scope = _edgeOrderAddressAddressesClientDiagnostics.CreateScope("EdgeOrderAddressResource.Get");
             scope.Start();
             try
             {
-                var response = _edgeOrderAddressRestClient.GetAddressByName(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
+                var response = _edgeOrderAddressAddressesRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
                 if (response.Value == null)
                     throw new RequestFailedException(response.GetRawResponse());
                 return Response.FromValue(new EdgeOrderAddressResource(Client, response.Value), response.GetRawResponse());
@@ -173,7 +173,7 @@ namespace Azure.ResourceManager.EdgeOrder
         }
 
         /// <summary>
-        /// Deletes an address.
+        /// Delete an address.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -181,11 +181,11 @@ namespace Azure.ResourceManager.EdgeOrder
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>DeleteAddressByName</description>
+        /// <description>Addresses_Delete</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-12-01</description>
+        /// <description>2024-02-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -197,12 +197,12 @@ namespace Azure.ResourceManager.EdgeOrder
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual async Task<ArmOperation> DeleteAsync(WaitUntil waitUntil, CancellationToken cancellationToken = default)
         {
-            using var scope = _edgeOrderAddressClientDiagnostics.CreateScope("EdgeOrderAddressResource.Delete");
+            using var scope = _edgeOrderAddressAddressesClientDiagnostics.CreateScope("EdgeOrderAddressResource.Delete");
             scope.Start();
             try
             {
-                var response = await _edgeOrderAddressRestClient.DeleteAddressByNameAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
-                var operation = new EdgeOrderArmOperation(_edgeOrderAddressClientDiagnostics, Pipeline, _edgeOrderAddressRestClient.CreateDeleteAddressByNameRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response, OperationFinalStateVia.Location);
+                var response = await _edgeOrderAddressAddressesRestClient.DeleteAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
+                var operation = new EdgeOrderArmOperation(_edgeOrderAddressAddressesClientDiagnostics, Pipeline, _edgeOrderAddressAddressesRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -215,7 +215,7 @@ namespace Azure.ResourceManager.EdgeOrder
         }
 
         /// <summary>
-        /// Deletes an address.
+        /// Delete an address.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -223,11 +223,11 @@ namespace Azure.ResourceManager.EdgeOrder
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>DeleteAddressByName</description>
+        /// <description>Addresses_Delete</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-12-01</description>
+        /// <description>2024-02-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -239,12 +239,12 @@ namespace Azure.ResourceManager.EdgeOrder
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         public virtual ArmOperation Delete(WaitUntil waitUntil, CancellationToken cancellationToken = default)
         {
-            using var scope = _edgeOrderAddressClientDiagnostics.CreateScope("EdgeOrderAddressResource.Delete");
+            using var scope = _edgeOrderAddressAddressesClientDiagnostics.CreateScope("EdgeOrderAddressResource.Delete");
             scope.Start();
             try
             {
-                var response = _edgeOrderAddressRestClient.DeleteAddressByName(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
-                var operation = new EdgeOrderArmOperation(_edgeOrderAddressClientDiagnostics, Pipeline, _edgeOrderAddressRestClient.CreateDeleteAddressByNameRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response, OperationFinalStateVia.Location);
+                var response = _edgeOrderAddressAddressesRestClient.Delete(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
+                var operation = new EdgeOrderArmOperation(_edgeOrderAddressAddressesClientDiagnostics, Pipeline, _edgeOrderAddressAddressesRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletionResponse(cancellationToken);
                 return operation;
@@ -257,7 +257,7 @@ namespace Azure.ResourceManager.EdgeOrder
         }
 
         /// <summary>
-        /// Updates the properties of an existing address.
+        /// Update the properties of an existing address.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -265,11 +265,11 @@ namespace Azure.ResourceManager.EdgeOrder
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>UpdateAddress</description>
+        /// <description>Addresses_Update</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-12-01</description>
+        /// <description>2024-02-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -286,12 +286,12 @@ namespace Azure.ResourceManager.EdgeOrder
         {
             Argument.AssertNotNull(patch, nameof(patch));
 
-            using var scope = _edgeOrderAddressClientDiagnostics.CreateScope("EdgeOrderAddressResource.Update");
+            using var scope = _edgeOrderAddressAddressesClientDiagnostics.CreateScope("EdgeOrderAddressResource.Update");
             scope.Start();
             try
             {
-                var response = await _edgeOrderAddressRestClient.UpdateAddressAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, patch, ifMatch, cancellationToken).ConfigureAwait(false);
-                var operation = new EdgeOrderArmOperation<EdgeOrderAddressResource>(new EdgeOrderAddressOperationSource(Client), _edgeOrderAddressClientDiagnostics, Pipeline, _edgeOrderAddressRestClient.CreateUpdateAddressRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, patch, ifMatch).Request, response, OperationFinalStateVia.Location);
+                var response = await _edgeOrderAddressAddressesRestClient.UpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, patch, ifMatch, cancellationToken).ConfigureAwait(false);
+                var operation = new EdgeOrderArmOperation<EdgeOrderAddressResource>(new EdgeOrderAddressOperationSource(Client), _edgeOrderAddressAddressesClientDiagnostics, Pipeline, _edgeOrderAddressAddressesRestClient.CreateUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, patch, ifMatch).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -304,7 +304,7 @@ namespace Azure.ResourceManager.EdgeOrder
         }
 
         /// <summary>
-        /// Updates the properties of an existing address.
+        /// Update the properties of an existing address.
         /// <list type="bullet">
         /// <item>
         /// <term>Request Path</term>
@@ -312,11 +312,11 @@ namespace Azure.ResourceManager.EdgeOrder
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>UpdateAddress</description>
+        /// <description>Addresses_Update</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-12-01</description>
+        /// <description>2024-02-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -333,12 +333,12 @@ namespace Azure.ResourceManager.EdgeOrder
         {
             Argument.AssertNotNull(patch, nameof(patch));
 
-            using var scope = _edgeOrderAddressClientDiagnostics.CreateScope("EdgeOrderAddressResource.Update");
+            using var scope = _edgeOrderAddressAddressesClientDiagnostics.CreateScope("EdgeOrderAddressResource.Update");
             scope.Start();
             try
             {
-                var response = _edgeOrderAddressRestClient.UpdateAddress(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, patch, ifMatch, cancellationToken);
-                var operation = new EdgeOrderArmOperation<EdgeOrderAddressResource>(new EdgeOrderAddressOperationSource(Client), _edgeOrderAddressClientDiagnostics, Pipeline, _edgeOrderAddressRestClient.CreateUpdateAddressRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, patch, ifMatch).Request, response, OperationFinalStateVia.Location);
+                var response = _edgeOrderAddressAddressesRestClient.Update(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, patch, ifMatch, cancellationToken);
+                var operation = new EdgeOrderArmOperation<EdgeOrderAddressResource>(new EdgeOrderAddressOperationSource(Client), _edgeOrderAddressAddressesClientDiagnostics, Pipeline, _edgeOrderAddressAddressesRestClient.CreateUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, patch, ifMatch).Request, response, OperationFinalStateVia.Location);
                 if (waitUntil == WaitUntil.Completed)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -359,11 +359,11 @@ namespace Azure.ResourceManager.EdgeOrder
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>GetAddressByName</description>
+        /// <description>Addresses_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-12-01</description>
+        /// <description>2024-02-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -380,7 +380,7 @@ namespace Azure.ResourceManager.EdgeOrder
             Argument.AssertNotNull(key, nameof(key));
             Argument.AssertNotNull(value, nameof(value));
 
-            using var scope = _edgeOrderAddressClientDiagnostics.CreateScope("EdgeOrderAddressResource.AddTag");
+            using var scope = _edgeOrderAddressAddressesClientDiagnostics.CreateScope("EdgeOrderAddressResource.AddTag");
             scope.Start();
             try
             {
@@ -389,7 +389,7 @@ namespace Azure.ResourceManager.EdgeOrder
                     var originalTags = await GetTagResource().GetAsync(cancellationToken).ConfigureAwait(false);
                     originalTags.Value.Data.TagValues[key] = value;
                     await GetTagResource().CreateOrUpdateAsync(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken).ConfigureAwait(false);
-                    var originalResponse = await _edgeOrderAddressRestClient.GetAddressByNameAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
+                    var originalResponse = await _edgeOrderAddressAddressesRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
                     return Response.FromValue(new EdgeOrderAddressResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else
@@ -421,11 +421,11 @@ namespace Azure.ResourceManager.EdgeOrder
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>GetAddressByName</description>
+        /// <description>Addresses_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-12-01</description>
+        /// <description>2024-02-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -442,7 +442,7 @@ namespace Azure.ResourceManager.EdgeOrder
             Argument.AssertNotNull(key, nameof(key));
             Argument.AssertNotNull(value, nameof(value));
 
-            using var scope = _edgeOrderAddressClientDiagnostics.CreateScope("EdgeOrderAddressResource.AddTag");
+            using var scope = _edgeOrderAddressAddressesClientDiagnostics.CreateScope("EdgeOrderAddressResource.AddTag");
             scope.Start();
             try
             {
@@ -451,7 +451,7 @@ namespace Azure.ResourceManager.EdgeOrder
                     var originalTags = GetTagResource().Get(cancellationToken);
                     originalTags.Value.Data.TagValues[key] = value;
                     GetTagResource().CreateOrUpdate(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken);
-                    var originalResponse = _edgeOrderAddressRestClient.GetAddressByName(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
+                    var originalResponse = _edgeOrderAddressAddressesRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
                     return Response.FromValue(new EdgeOrderAddressResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else
@@ -483,11 +483,11 @@ namespace Azure.ResourceManager.EdgeOrder
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>GetAddressByName</description>
+        /// <description>Addresses_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-12-01</description>
+        /// <description>2024-02-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -502,7 +502,7 @@ namespace Azure.ResourceManager.EdgeOrder
         {
             Argument.AssertNotNull(tags, nameof(tags));
 
-            using var scope = _edgeOrderAddressClientDiagnostics.CreateScope("EdgeOrderAddressResource.SetTags");
+            using var scope = _edgeOrderAddressAddressesClientDiagnostics.CreateScope("EdgeOrderAddressResource.SetTags");
             scope.Start();
             try
             {
@@ -512,7 +512,7 @@ namespace Azure.ResourceManager.EdgeOrder
                     var originalTags = await GetTagResource().GetAsync(cancellationToken).ConfigureAwait(false);
                     originalTags.Value.Data.TagValues.ReplaceWith(tags);
                     await GetTagResource().CreateOrUpdateAsync(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken).ConfigureAwait(false);
-                    var originalResponse = await _edgeOrderAddressRestClient.GetAddressByNameAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
+                    var originalResponse = await _edgeOrderAddressAddressesRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
                     return Response.FromValue(new EdgeOrderAddressResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else
@@ -540,11 +540,11 @@ namespace Azure.ResourceManager.EdgeOrder
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>GetAddressByName</description>
+        /// <description>Addresses_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-12-01</description>
+        /// <description>2024-02-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -559,7 +559,7 @@ namespace Azure.ResourceManager.EdgeOrder
         {
             Argument.AssertNotNull(tags, nameof(tags));
 
-            using var scope = _edgeOrderAddressClientDiagnostics.CreateScope("EdgeOrderAddressResource.SetTags");
+            using var scope = _edgeOrderAddressAddressesClientDiagnostics.CreateScope("EdgeOrderAddressResource.SetTags");
             scope.Start();
             try
             {
@@ -569,7 +569,7 @@ namespace Azure.ResourceManager.EdgeOrder
                     var originalTags = GetTagResource().Get(cancellationToken);
                     originalTags.Value.Data.TagValues.ReplaceWith(tags);
                     GetTagResource().CreateOrUpdate(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken);
-                    var originalResponse = _edgeOrderAddressRestClient.GetAddressByName(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
+                    var originalResponse = _edgeOrderAddressAddressesRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
                     return Response.FromValue(new EdgeOrderAddressResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else
@@ -597,11 +597,11 @@ namespace Azure.ResourceManager.EdgeOrder
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>GetAddressByName</description>
+        /// <description>Addresses_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-12-01</description>
+        /// <description>2024-02-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -616,7 +616,7 @@ namespace Azure.ResourceManager.EdgeOrder
         {
             Argument.AssertNotNull(key, nameof(key));
 
-            using var scope = _edgeOrderAddressClientDiagnostics.CreateScope("EdgeOrderAddressResource.RemoveTag");
+            using var scope = _edgeOrderAddressAddressesClientDiagnostics.CreateScope("EdgeOrderAddressResource.RemoveTag");
             scope.Start();
             try
             {
@@ -625,7 +625,7 @@ namespace Azure.ResourceManager.EdgeOrder
                     var originalTags = await GetTagResource().GetAsync(cancellationToken).ConfigureAwait(false);
                     originalTags.Value.Data.TagValues.Remove(key);
                     await GetTagResource().CreateOrUpdateAsync(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken).ConfigureAwait(false);
-                    var originalResponse = await _edgeOrderAddressRestClient.GetAddressByNameAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
+                    var originalResponse = await _edgeOrderAddressAddressesRestClient.GetAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
                     return Response.FromValue(new EdgeOrderAddressResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else
@@ -657,11 +657,11 @@ namespace Azure.ResourceManager.EdgeOrder
         /// </item>
         /// <item>
         /// <term>Operation Id</term>
-        /// <description>GetAddressByName</description>
+        /// <description>Addresses_Get</description>
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2021-12-01</description>
+        /// <description>2024-02-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -676,7 +676,7 @@ namespace Azure.ResourceManager.EdgeOrder
         {
             Argument.AssertNotNull(key, nameof(key));
 
-            using var scope = _edgeOrderAddressClientDiagnostics.CreateScope("EdgeOrderAddressResource.RemoveTag");
+            using var scope = _edgeOrderAddressAddressesClientDiagnostics.CreateScope("EdgeOrderAddressResource.RemoveTag");
             scope.Start();
             try
             {
@@ -685,7 +685,7 @@ namespace Azure.ResourceManager.EdgeOrder
                     var originalTags = GetTagResource().Get(cancellationToken);
                     originalTags.Value.Data.TagValues.Remove(key);
                     GetTagResource().CreateOrUpdate(WaitUntil.Completed, originalTags.Value.Data, cancellationToken: cancellationToken);
-                    var originalResponse = _edgeOrderAddressRestClient.GetAddressByName(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
+                    var originalResponse = _edgeOrderAddressAddressesRestClient.Get(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
                     return Response.FromValue(new EdgeOrderAddressResource(Client, originalResponse.Value), originalResponse.GetRawResponse());
                 }
                 else
