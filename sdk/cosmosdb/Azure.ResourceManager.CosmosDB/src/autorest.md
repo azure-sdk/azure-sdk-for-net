@@ -9,7 +9,7 @@ azure-arm: true
 csharp: true
 library-name: CosmosDB
 namespace: Azure.ResourceManager.CosmosDB
-require: https://github.com/Azure/azure-rest-api-specs/blob/fa285f544fa37cd839c4befe1109db3547b016ab/specification/cosmos-db/resource-manager/readme.md
+require: https://github.com/Azure/azure-rest-api-specs/blob/70a4ccdd2be61ae5bc524250c70270b0f4f2b540/specification/cosmos-db/resource-manager/readme.md
 #tag: package-preview-2023-09
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
