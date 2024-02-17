@@ -31,9 +31,9 @@ namespace Azure.AI.Vision.ImageAnalysis
             writer.WriteNumberValue(X);
             writer.WritePropertyName("y"u8);
             writer.WriteNumberValue(Y);
-            writer.WritePropertyName("w"u8);
+            writer.WritePropertyName("width"u8);
             writer.WriteNumberValue(Width);
-            writer.WritePropertyName("h"u8);
+            writer.WritePropertyName("height"u8);
             writer.WriteNumberValue(Height);
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -75,8 +75,8 @@ namespace Azure.AI.Vision.ImageAnalysis
             }
             int x = default;
             int y = default;
-            int w = default;
-            int h = default;
+            int width = default;
+            int height = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -91,14 +91,14 @@ namespace Azure.AI.Vision.ImageAnalysis
                     y = property.Value.GetInt32();
                     continue;
                 }
-                if (property.NameEquals("w"u8))
+                if (property.NameEquals("width"u8))
                 {
-                    w = property.Value.GetInt32();
+                    width = property.Value.GetInt32();
                     continue;
                 }
-                if (property.NameEquals("h"u8))
+                if (property.NameEquals("height"u8))
                 {
-                    h = property.Value.GetInt32();
+                    height = property.Value.GetInt32();
                     continue;
                 }
                 if (options.Format != "W")
@@ -107,7 +107,7 @@ namespace Azure.AI.Vision.ImageAnalysis
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new ImageBoundingBox(x, y, w, h, serializedAdditionalRawData);
+            return new ImageBoundingBox(x, y, width, height, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<ImageBoundingBox>.Write(ModelReaderWriterOptions options)
