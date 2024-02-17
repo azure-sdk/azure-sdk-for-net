@@ -13,7 +13,7 @@ using Azure.Core;
 namespace Azure.ResourceManager.HDInsight.Containers.Models
 {
     /// <summary> The compute profile. </summary>
-    internal partial class ComputeProfile
+    public partial class ComputeProfile
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
