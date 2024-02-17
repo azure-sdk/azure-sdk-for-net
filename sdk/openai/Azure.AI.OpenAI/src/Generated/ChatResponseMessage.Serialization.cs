@@ -40,7 +40,7 @@ namespace Azure.AI.OpenAI
             }
             if (Optional.IsCollectionDefined(ToolCalls))
             {
-                writer.WritePropertyName("tool_calls"u8);
+                writer.WritePropertyName("toolCalls"u8);
                 writer.WriteStartArray();
                 foreach (var item in ToolCalls)
                 {
@@ -50,7 +50,7 @@ namespace Azure.AI.OpenAI
             }
             if (Optional.IsDefined(FunctionCall))
             {
-                writer.WritePropertyName("function_call"u8);
+                writer.WritePropertyName("functionCall"u8);
                 writer.WriteObjectValue(FunctionCall);
             }
             if (Optional.IsDefined(AzureExtensionsContext))
@@ -120,7 +120,7 @@ namespace Azure.AI.OpenAI
                     content = property.Value.GetString();
                     continue;
                 }
-                if (property.NameEquals("tool_calls"u8))
+                if (property.NameEquals("toolCalls"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
@@ -134,7 +134,7 @@ namespace Azure.AI.OpenAI
                     toolCalls = array;
                     continue;
                 }
-                if (property.NameEquals("function_call"u8))
+                if (property.NameEquals("functionCall"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {

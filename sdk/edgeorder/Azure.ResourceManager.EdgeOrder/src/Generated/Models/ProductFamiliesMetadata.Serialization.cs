@@ -63,6 +63,11 @@ namespace Azure.ResourceManager.EdgeOrder.Models
                 writer.WritePropertyName("hierarchyInformation"u8);
                 writer.WriteObjectValue(HierarchyInformation);
             }
+            if (options.Format != "W" && Optional.IsDefined(FulfilledBy))
+            {
+                writer.WritePropertyName("fulfilledBy"u8);
+                writer.WriteStringValue(FulfilledBy.Value.ToString());
+            }
             if (options.Format != "W" && Optional.IsCollectionDefined(FilterableProperties))
             {
                 writer.WritePropertyName("filterableProperties"u8);
@@ -138,6 +143,7 @@ namespace Azure.ResourceManager.EdgeOrder.Models
             Optional<EdgeOrderProductCostInformation> costInformation = default;
             Optional<ProductAvailabilityInformation> availabilityInformation = default;
             Optional<HierarchyInformation> hierarchyInformation = default;
+            Optional<FulfillmentType> fulfilledBy = default;
             Optional<IReadOnlyList<FilterableProperty>> filterableProperties = default;
             Optional<IReadOnlyList<ProductLine>> productLines = default;
             Optional<IReadOnlyList<ResourceProviderDetails>> resourceProviderDetails = default;
@@ -209,6 +215,15 @@ namespace Azure.ResourceManager.EdgeOrder.Models
                             hierarchyInformation = HierarchyInformation.DeserializeHierarchyInformation(property0.Value);
                             continue;
                         }
+                        if (property0.NameEquals("fulfilledBy"u8))
+                        {
+                            if (property0.Value.ValueKind == JsonValueKind.Null)
+                            {
+                                continue;
+                            }
+                            fulfilledBy = new FulfillmentType(property0.Value.GetString());
+                            continue;
+                        }
                         if (property0.NameEquals("filterableProperties"u8))
                         {
                             if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -260,7 +275,7 @@ namespace Azure.ResourceManager.EdgeOrder.Models
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new ProductFamiliesMetadata(displayName.Value, description.Value, Optional.ToList(imageInformation), costInformation.Value, availabilityInformation.Value, hierarchyInformation.Value, Optional.ToList(filterableProperties), Optional.ToList(productLines), Optional.ToList(resourceProviderDetails), serializedAdditionalRawData);
+            return new ProductFamiliesMetadata(displayName.Value, description.Value, Optional.ToList(imageInformation), costInformation.Value, availabilityInformation.Value, hierarchyInformation.Value, Optional.ToNullable(fulfilledBy), Optional.ToList(filterableProperties), Optional.ToList(productLines), Optional.ToList(resourceProviderDetails), serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<ProductFamiliesMetadata>.Write(ModelReaderWriterOptions options)
