@@ -8,7 +8,7 @@ azure-arm: true
 csharp: true
 library-name: ServiceFabric
 namespace: Azure.ResourceManager.ServiceFabric
-require: https://github.com/Azure/azure-rest-api-specs/blob/784dcbc568c61801a33dfe197cb785ffe22a9dec/specification/servicefabric/resource-manager/readme.md
+require: https://github.com/Azure/azure-rest-api-specs/blob/b8c62daf440b67339df08c2226fb40e89c2b4009/specification/servicefabric/resource-manager/readme.md
 tag: package-2023-11-preview
 output-folder: $(this-folder)/Generated
 clear-output-folder: true
