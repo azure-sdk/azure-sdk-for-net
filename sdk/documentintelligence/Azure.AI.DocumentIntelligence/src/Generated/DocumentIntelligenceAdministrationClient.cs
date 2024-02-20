@@ -915,6 +915,23 @@ namespace Azure.AI.DocumentIntelligence
             return ProtocolOperationHelpers.Convert(response, FetchDocumentClassifierDetailsFromDocumentClassifierBuildOperationDetails, ClientDiagnostics, "DocumentIntelligenceAdministrationClient.BuildClassifier");
         }
 
+        internal HttpMessage CreateBuildDocumentModelRequest(RequestContent content, RequestContext context)
+        {
+            var message = _pipeline.CreateMessage(context, ResponseClassifier202);
+            var request = message.Request;
+            request.Method = RequestMethod.Post;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendRaw("/documentintelligence", false);
+            uri.AppendPath("/documentModels:build", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            request.Headers.Add("Content-Type", "application/json");
+            request.Content = content;
+            return message;
+        }
+
         internal HttpMessage CreateAuthorizeModelCopyRequest(RequestContent content, RequestContext context)
         {
             var message = _pipeline.CreateMessage(context, ResponseClassifier200);
@@ -1142,12 +1159,30 @@ namespace Azure.AI.DocumentIntelligence
             return new RequestContext() { CancellationToken = cancellationToken };
         }
 
+        private static ResponseClassifier _responseClassifier202;
+        private static ResponseClassifier ResponseClassifier202 => _responseClassifier202 ??= new StatusCodeClassifier(stackalloc ushort[] { 202 });
         private static ResponseClassifier _responseClassifier200;
         private static ResponseClassifier ResponseClassifier200 => _responseClassifier200 ??= new StatusCodeClassifier(stackalloc ushort[] { 200 });
         private static ResponseClassifier _responseClassifier204;
         private static ResponseClassifier ResponseClassifier204 => _responseClassifier204 ??= new StatusCodeClassifier(stackalloc ushort[] { 204 });
-        private static ResponseClassifier _responseClassifier202;
-        private static ResponseClassifier ResponseClassifier202 => _responseClassifier202 ??= new StatusCodeClassifier(stackalloc ushort[] { 202 });
+
+        private DocumentModelDetails FetchDocumentModelDetailsFromDocumentModelBuildOperationDetails(Response response)
+        {
+            var resultJsonElement = JsonDocument.Parse(response.Content).RootElement.GetProperty("result");
+            return DocumentModelDetails.DeserializeDocumentModelDetails(resultJsonElement);
+        }
+
+        private DocumentModelDetails FetchDocumentModelDetailsFromDocumentModelComposeOperationDetails(Response response)
+        {
+            var resultJsonElement = JsonDocument.Parse(response.Content).RootElement.GetProperty("result");
+            return DocumentModelDetails.DeserializeDocumentModelDetails(resultJsonElement);
+        }
+
+        private DocumentModelDetails FetchDocumentModelDetailsFromDocumentModelCopyToOperationDetails(Response response)
+        {
+            var resultJsonElement = JsonDocument.Parse(response.Content).RootElement.GetProperty("result");
+            return DocumentModelDetails.DeserializeDocumentModelDetails(resultJsonElement);
+        }
 
         private DocumentClassifierDetails FetchDocumentClassifierDetailsFromDocumentClassifierBuildOperationDetails(Response response)
         {
