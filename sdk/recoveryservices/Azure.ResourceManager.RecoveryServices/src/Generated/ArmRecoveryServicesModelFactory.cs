@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Azure;
 using Azure.Core;
@@ -148,12 +149,13 @@ namespace Azure.ResourceManager.RecoveryServices.Models
         /// <param name="redundancySettings"> The redundancy Settings of a Vault. </param>
         /// <param name="securitySettings"> Security Settings of the vault. </param>
         /// <param name="secureScore"> Secure Score of Recovery Services Vault. </param>
+        /// <param name="bcdrSecurityLevel"> Security Level of Backup Vault. </param>
         /// <returns> A new <see cref="Models.RecoveryServicesVaultProperties"/> instance for mocking. </returns>
-        public static RecoveryServicesVaultProperties RecoveryServicesVaultProperties(string provisioningState = null, VaultUpgradeDetails upgradeDetails = null, IEnumerable<RecoveryServicesPrivateEndpointConnectionVaultProperties> privateEndpointConnections = null, VaultPrivateEndpointState? privateEndpointStateForBackup = null, VaultPrivateEndpointState? privateEndpointStateForSiteRecovery = null, VaultPropertiesEncryption encryption = null, VaultPropertiesMoveDetails moveDetails = null, ResourceMoveState? moveState = null, BackupStorageVersion? backupStorageVersion = null, VaultPublicNetworkAccess? publicNetworkAccess = null, VaultMonitoringSettings monitoringSettings = null, CrossSubscriptionRestoreState? crossSubscriptionRestoreState = null, VaultPropertiesRedundancySettings redundancySettings = null, RecoveryServicesSecuritySettings securitySettings = null, SecureScoreLevel? secureScore = null)
+        public static RecoveryServicesVaultProperties RecoveryServicesVaultProperties(string provisioningState = null, VaultUpgradeDetails upgradeDetails = null, IEnumerable<RecoveryServicesPrivateEndpointConnectionVaultProperties> privateEndpointConnections = null, VaultPrivateEndpointState? privateEndpointStateForBackup = null, VaultPrivateEndpointState? privateEndpointStateForSiteRecovery = null, VaultPropertiesEncryption encryption = null, VaultPropertiesMoveDetails moveDetails = null, ResourceMoveState? moveState = null, BackupStorageVersion? backupStorageVersion = null, VaultPublicNetworkAccess? publicNetworkAccess = null, VaultMonitoringSettings monitoringSettings = null, CrossSubscriptionRestoreState? crossSubscriptionRestoreState = null, VaultPropertiesRedundancySettings redundancySettings = null, RecoveryServicesSecuritySettings securitySettings = null, SecureScoreLevel? secureScore = null, BcdrSecurityLevel? bcdrSecurityLevel = null)
         {
             privateEndpointConnections ??= new List<RecoveryServicesPrivateEndpointConnectionVaultProperties>();
 
-            return new RecoveryServicesVaultProperties(provisioningState, upgradeDetails, privateEndpointConnections?.ToList(), privateEndpointStateForBackup, privateEndpointStateForSiteRecovery, encryption, moveDetails, moveState, backupStorageVersion, publicNetworkAccess, monitoringSettings, crossSubscriptionRestoreState != null ? new RestoreSettings(new CrossSubscriptionRestoreSettings(crossSubscriptionRestoreState, serializedAdditionalRawData: null), serializedAdditionalRawData: null) : null, redundancySettings, securitySettings, secureScore, serializedAdditionalRawData: null);
+            return new RecoveryServicesVaultProperties(provisioningState, upgradeDetails, privateEndpointConnections?.ToList(), privateEndpointStateForBackup, privateEndpointStateForSiteRecovery, encryption, moveDetails, moveState, backupStorageVersion, publicNetworkAccess, monitoringSettings, crossSubscriptionRestoreState != null ? new RestoreSettings(new CrossSubscriptionRestoreSettings(crossSubscriptionRestoreState, serializedAdditionalRawData: null), serializedAdditionalRawData: null) : null, redundancySettings, securitySettings, secureScore, bcdrSecurityLevel, serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="Models.VaultUpgradeDetails"/>. </summary>
@@ -218,15 +220,6 @@ namespace Azure.ResourceManager.RecoveryServices.Models
         public static VaultPropertiesMoveDetails VaultPropertiesMoveDetails(string operationId = null, DateTimeOffset? startOn = null, DateTimeOffset? completedOn = null, ResourceIdentifier sourceResourceId = null, ResourceIdentifier targetResourceId = null)
         {
             return new VaultPropertiesMoveDetails(operationId, startOn, completedOn, sourceResourceId, targetResourceId, serializedAdditionalRawData: null);
-        }
-
-        /// <summary> Initializes a new instance of <see cref="Models.VaultPropertiesRedundancySettings"/>. </summary>
-        /// <param name="standardTierStorageRedundancy"> The storage redundancy setting of a vault. </param>
-        /// <param name="crossRegionRestore"> Flag to show if Cross Region Restore is enabled on the Vault or not. </param>
-        /// <returns> A new <see cref="Models.VaultPropertiesRedundancySettings"/> instance for mocking. </returns>
-        public static VaultPropertiesRedundancySettings VaultPropertiesRedundancySettings(StandardTierStorageRedundancy? standardTierStorageRedundancy = null, CrossRegionRestore? crossRegionRestore = null)
-        {
-            return new VaultPropertiesRedundancySettings(standardTierStorageRedundancy, crossRegionRestore, serializedAdditionalRawData: null);
         }
 
         /// <summary> Initializes a new instance of <see cref="Models.RecoveryServicesSecuritySettings"/>. </summary>
@@ -334,6 +327,29 @@ namespace Azure.ResourceManager.RecoveryServices.Models
         public static ResourceCertificateAndAcsDetails ResourceCertificateAndAcsDetails(byte[] certificate = null, string friendlyName = null, string issuer = null, long? resourceId = null, string subject = null, BinaryData thumbprint = null, DateTimeOffset? validStartOn = null, DateTimeOffset? validEndOn = null, string globalAcsNamespace = null, string globalAcsHostName = null, string globalAcsRPRealm = null)
         {
             return new ResourceCertificateAndAcsDetails("AccessControlService", certificate, friendlyName, issuer, resourceId, subject, thumbprint, validStartOn, validEndOn, serializedAdditionalRawData: null, globalAcsNamespace, globalAcsHostName, globalAcsRPRealm);
+        }
+
+        /// <summary> Initializes a new instance of <see cref="T:Azure.ResourceManager.RecoveryServices.Models.RecoveryServicesVaultProperties" />. </summary>
+        /// <param name="provisioningState"> Provisioning State. </param>
+        /// <param name="upgradeDetails"> Details for upgrading vault. </param>
+        /// <param name="privateEndpointConnections"> List of private endpoint connection. </param>
+        /// <param name="privateEndpointStateForBackup"> Private endpoint state for backup. </param>
+        /// <param name="privateEndpointStateForSiteRecovery"> Private endpoint state for site recovery. </param>
+        /// <param name="encryption"> Customer Managed Key details of the resource. </param>
+        /// <param name="moveDetails"> The details of the latest move operation performed on the Azure Resource. </param>
+        /// <param name="moveState"> The State of the Resource after the move operation. </param>
+        /// <param name="backupStorageVersion"> Backup storage version. </param>
+        /// <param name="publicNetworkAccess"> property to enable or disable resource provider inbound network traffic from public clients. </param>
+        /// <param name="monitoringSettings"> Monitoring Settings of the vault. </param>
+        /// <param name="crossSubscriptionRestoreState"> Restore Settings of the vault. </param>
+        /// <param name="redundancySettings"> The redundancy Settings of a Vault. </param>
+        /// <param name="securitySettings"> Security Settings of the vault. </param>
+        /// <param name="secureScore"> Secure Score of Recovery Services Vault. </param>
+        /// <returns> A new <see cref="T:Azure.ResourceManager.RecoveryServices.Models.RecoveryServicesVaultProperties" /> instance for mocking. </returns>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static RecoveryServicesVaultProperties RecoveryServicesVaultProperties(string provisioningState, VaultUpgradeDetails upgradeDetails, IEnumerable<RecoveryServicesPrivateEndpointConnectionVaultProperties> privateEndpointConnections, VaultPrivateEndpointState? privateEndpointStateForBackup, VaultPrivateEndpointState? privateEndpointStateForSiteRecovery, VaultPropertiesEncryption encryption, VaultPropertiesMoveDetails moveDetails, ResourceMoveState? moveState, BackupStorageVersion? backupStorageVersion, VaultPublicNetworkAccess? publicNetworkAccess, VaultMonitoringSettings monitoringSettings, CrossSubscriptionRestoreState? crossSubscriptionRestoreState, VaultPropertiesRedundancySettings redundancySettings, RecoveryServicesSecuritySettings securitySettings, SecureScoreLevel? secureScore)
+        {
+            return RecoveryServicesVaultProperties(provisioningState: provisioningState, upgradeDetails: upgradeDetails, privateEndpointConnections: privateEndpointConnections, privateEndpointStateForBackup: privateEndpointStateForBackup, privateEndpointStateForSiteRecovery: privateEndpointStateForSiteRecovery, encryption: encryption, moveDetails: moveDetails, moveState: moveState, backupStorageVersion: backupStorageVersion, publicNetworkAccess: publicNetworkAccess, monitoringSettings: monitoringSettings, crossSubscriptionRestoreState: crossSubscriptionRestoreState, redundancySettings: redundancySettings, securitySettings: securitySettings, secureScore: secureScore, bcdrSecurityLevel: default);
         }
     }
 }

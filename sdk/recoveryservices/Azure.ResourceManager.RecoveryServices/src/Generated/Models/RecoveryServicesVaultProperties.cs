@@ -68,8 +68,9 @@ namespace Azure.ResourceManager.RecoveryServices.Models
         /// <param name="redundancySettings"> The redundancy Settings of a Vault. </param>
         /// <param name="securitySettings"> Security Settings of the vault. </param>
         /// <param name="secureScore"> Secure Score of Recovery Services Vault. </param>
+        /// <param name="bcdrSecurityLevel"> Security Level of Backup Vault. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal RecoveryServicesVaultProperties(string provisioningState, VaultUpgradeDetails upgradeDetails, IReadOnlyList<RecoveryServicesPrivateEndpointConnectionVaultProperties> privateEndpointConnections, VaultPrivateEndpointState? privateEndpointStateForBackup, VaultPrivateEndpointState? privateEndpointStateForSiteRecovery, VaultPropertiesEncryption encryption, VaultPropertiesMoveDetails moveDetails, ResourceMoveState? moveState, BackupStorageVersion? backupStorageVersion, VaultPublicNetworkAccess? publicNetworkAccess, VaultMonitoringSettings monitoringSettings, RestoreSettings restoreSettings, VaultPropertiesRedundancySettings redundancySettings, RecoveryServicesSecuritySettings securitySettings, SecureScoreLevel? secureScore, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal RecoveryServicesVaultProperties(string provisioningState, VaultUpgradeDetails upgradeDetails, IReadOnlyList<RecoveryServicesPrivateEndpointConnectionVaultProperties> privateEndpointConnections, VaultPrivateEndpointState? privateEndpointStateForBackup, VaultPrivateEndpointState? privateEndpointStateForSiteRecovery, VaultPropertiesEncryption encryption, VaultPropertiesMoveDetails moveDetails, ResourceMoveState? moveState, BackupStorageVersion? backupStorageVersion, VaultPublicNetworkAccess? publicNetworkAccess, VaultMonitoringSettings monitoringSettings, RestoreSettings restoreSettings, VaultPropertiesRedundancySettings redundancySettings, RecoveryServicesSecuritySettings securitySettings, SecureScoreLevel? secureScore, BcdrSecurityLevel? bcdrSecurityLevel, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             ProvisioningState = provisioningState;
             UpgradeDetails = upgradeDetails;
@@ -86,6 +87,7 @@ namespace Azure.ResourceManager.RecoveryServices.Models
             RedundancySettings = redundancySettings;
             SecuritySettings = securitySettings;
             SecureScore = secureScore;
+            BcdrSecurityLevel = bcdrSecurityLevel;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -131,5 +133,7 @@ namespace Azure.ResourceManager.RecoveryServices.Models
         public RecoveryServicesSecuritySettings SecuritySettings { get; set; }
         /// <summary> Secure Score of Recovery Services Vault. </summary>
         public SecureScoreLevel? SecureScore { get; }
+        /// <summary> Security Level of Backup Vault. </summary>
+        public BcdrSecurityLevel? BcdrSecurityLevel { get; }
     }
 }

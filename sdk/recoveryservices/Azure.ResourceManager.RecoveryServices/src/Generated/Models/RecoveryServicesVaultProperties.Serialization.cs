@@ -106,6 +106,11 @@ namespace Azure.ResourceManager.RecoveryServices.Models
                 writer.WritePropertyName("secureScore"u8);
                 writer.WriteStringValue(SecureScore.Value.ToString());
             }
+            if (options.Format != "W" && Optional.IsDefined(BcdrSecurityLevel))
+            {
+                writer.WritePropertyName("bcdrSecurityLevel"u8);
+                writer.WriteStringValue(BcdrSecurityLevel.Value.ToString());
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -159,6 +164,7 @@ namespace Azure.ResourceManager.RecoveryServices.Models
             Optional<VaultPropertiesRedundancySettings> redundancySettings = default;
             Optional<RecoveryServicesSecuritySettings> securitySettings = default;
             Optional<SecureScoreLevel> secureScore = default;
+            Optional<BcdrSecurityLevel> bcdrSecurityLevel = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -299,13 +305,22 @@ namespace Azure.ResourceManager.RecoveryServices.Models
                     secureScore = new SecureScoreLevel(property.Value.GetString());
                     continue;
                 }
+                if (property.NameEquals("bcdrSecurityLevel"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    bcdrSecurityLevel = new BcdrSecurityLevel(property.Value.GetString());
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new RecoveryServicesVaultProperties(provisioningState.Value, upgradeDetails.Value, Optional.ToList(privateEndpointConnections), Optional.ToNullable(privateEndpointStateForBackup), Optional.ToNullable(privateEndpointStateForSiteRecovery), encryption.Value, moveDetails.Value, Optional.ToNullable(moveState), Optional.ToNullable(backupStorageVersion), Optional.ToNullable(publicNetworkAccess), monitoringSettings.Value, restoreSettings.Value, redundancySettings.Value, securitySettings.Value, Optional.ToNullable(secureScore), serializedAdditionalRawData);
+            return new RecoveryServicesVaultProperties(provisioningState.Value, upgradeDetails.Value, Optional.ToList(privateEndpointConnections), Optional.ToNullable(privateEndpointStateForBackup), Optional.ToNullable(privateEndpointStateForSiteRecovery), encryption.Value, moveDetails.Value, Optional.ToNullable(moveState), Optional.ToNullable(backupStorageVersion), Optional.ToNullable(publicNetworkAccess), monitoringSettings.Value, restoreSettings.Value, redundancySettings.Value, securitySettings.Value, Optional.ToNullable(secureScore), Optional.ToNullable(bcdrSecurityLevel), serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<RecoveryServicesVaultProperties>.Write(ModelReaderWriterOptions options)
