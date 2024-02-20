@@ -1477,6 +1477,18 @@ namespace Azure.ResourceManager.Sql.Mocking
         }
 
         /// <summary>
+        /// Gets an object representing a <see cref="SqlServerResource"/> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="SqlServerResource.CreateResourceIdentifier" /> to create a <see cref="SqlServerResource"/> <see cref="ResourceIdentifier"/> from its components.
+        /// </summary>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <returns> Returns a <see cref="SqlServerResource"/> object. </returns>
+        public virtual SqlServerResource GetSqlServerResource(ResourceIdentifier id)
+        {
+            SqlServerResource.ValidateResourceId(id);
+            return new SqlServerResource(Client, id);
+        }
+
+        /// <summary>
         /// Gets an object representing a <see cref="FailoverGroupResource"/> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="FailoverGroupResource.CreateResourceIdentifier" /> to create a <see cref="FailoverGroupResource"/> <see cref="ResourceIdentifier"/> from its components.
         /// </summary>
@@ -1534,18 +1546,6 @@ namespace Azure.ResourceManager.Sql.Mocking
         {
             LongTermRetentionPolicyResource.ValidateResourceId(id);
             return new LongTermRetentionPolicyResource(Client, id);
-        }
-
-        /// <summary>
-        /// Gets an object representing a <see cref="SqlServerResource"/> along with the instance operations that can be performed on it but with no data.
-        /// You can use <see cref="SqlServerResource.CreateResourceIdentifier" /> to create a <see cref="SqlServerResource"/> <see cref="ResourceIdentifier"/> from its components.
-        /// </summary>
-        /// <param name="id"> The resource ID of the resource to get. </param>
-        /// <returns> Returns a <see cref="SqlServerResource"/> object. </returns>
-        public virtual SqlServerResource GetSqlServerResource(ResourceIdentifier id)
-        {
-            SqlServerResource.ValidateResourceId(id);
-            return new SqlServerResource(Client, id);
         }
     }
 }

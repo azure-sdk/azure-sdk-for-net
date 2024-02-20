@@ -197,8 +197,6 @@ namespace Azure.ResourceManager.Sql.Samples
             LongTermRetentionPolicyName policyName = LongTermRetentionPolicyName.Default;
             LongTermRetentionPolicyData data = new LongTermRetentionPolicyData()
             {
-                MakeBackupsImmutable = true,
-                BackupStorageAccessTier = SqlBackupStorageAccessTier.Hot,
                 WeeklyRetention = "P1M",
                 MonthlyRetention = "P1Y",
                 YearlyRetention = "P5Y",

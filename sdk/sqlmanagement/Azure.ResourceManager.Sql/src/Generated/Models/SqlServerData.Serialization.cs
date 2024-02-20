@@ -112,7 +112,7 @@ namespace Azure.ResourceManager.Sql
             if (Optional.IsDefined(MinTlsVersion))
             {
                 writer.WritePropertyName("minimalTlsVersion"u8);
-                writer.WriteStringValue(MinTlsVersion.Value.ToString());
+                writer.WriteStringValue(MinTlsVersion);
             }
             if (Optional.IsDefined(PublicNetworkAccess))
             {
@@ -212,7 +212,7 @@ namespace Azure.ResourceManager.Sql
             Optional<string> state = default;
             Optional<string> fullyQualifiedDomainName = default;
             Optional<IReadOnlyList<SqlServerPrivateEndpointConnection>> privateEndpointConnections = default;
-            Optional<SqlMinimalTlsVersion> minimalTlsVersion = default;
+            Optional<string> minimalTlsVersion = default;
             Optional<ServerNetworkAccessFlag> publicNetworkAccess = default;
             Optional<ServerWorkspaceFeature> workspaceFeature = default;
             Optional<ResourceIdentifier> primaryUserAssignedIdentityId = default;
@@ -334,11 +334,7 @@ namespace Azure.ResourceManager.Sql
                         }
                         if (property0.NameEquals("minimalTlsVersion"u8))
                         {
-                            if (property0.Value.ValueKind == JsonValueKind.Null)
-                            {
-                                continue;
-                            }
-                            minimalTlsVersion = new SqlMinimalTlsVersion(property0.Value.GetString());
+                            minimalTlsVersion = property0.Value.GetString();
                             continue;
                         }
                         if (property0.NameEquals("publicNetworkAccess"u8))
@@ -431,7 +427,7 @@ namespace Azure.ResourceManager.Sql
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new SqlServerData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, identity, kind.Value, administratorLogin.Value, administratorLoginPassword.Value, version.Value, state.Value, fullyQualifiedDomainName.Value, Optional.ToList(privateEndpointConnections), Optional.ToNullable(minimalTlsVersion), Optional.ToNullable(publicNetworkAccess), Optional.ToNullable(workspaceFeature), primaryUserAssignedIdentityId.Value, Optional.ToNullable(federatedClientId), keyId.Value, administrators.Value, Optional.ToNullable(restrictOutboundNetworkAccess), Optional.ToNullable(isIPv6Enabled), Optional.ToNullable(externalGovernanceStatus), serializedAdditionalRawData);
+            return new SqlServerData(id, name, type, systemData.Value, Optional.ToDictionary(tags), location, identity, kind.Value, administratorLogin.Value, administratorLoginPassword.Value, version.Value, state.Value, fullyQualifiedDomainName.Value, Optional.ToList(privateEndpointConnections), minimalTlsVersion.Value, Optional.ToNullable(publicNetworkAccess), Optional.ToNullable(workspaceFeature), primaryUserAssignedIdentityId.Value, Optional.ToNullable(federatedClientId), keyId.Value, administrators.Value, Optional.ToNullable(restrictOutboundNetworkAccess), Optional.ToNullable(isIPv6Enabled), Optional.ToNullable(externalGovernanceStatus), serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<SqlServerData>.Write(ModelReaderWriterOptions options)
