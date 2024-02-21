@@ -13,7 +13,7 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.Search.Models
 {
-    internal partial class NetworkRuleSet : IUtf8JsonSerializable, IJsonModel<NetworkRuleSet>
+    public partial class NetworkRuleSet : IUtf8JsonSerializable, IJsonModel<NetworkRuleSet>
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<NetworkRuleSet>)this).Write(writer, new ModelReaderWriterOptions("W"));
 
@@ -35,6 +35,11 @@ namespace Azure.ResourceManager.Search.Models
                     writer.WriteObjectValue(item);
                 }
                 writer.WriteEndArray();
+            }
+            if (Optional.IsDefined(Bypass))
+            {
+                writer.WritePropertyName("bypass"u8);
+                writer.WriteStringValue(Bypass.Value.ToString());
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -75,6 +80,7 @@ namespace Azure.ResourceManager.Search.Models
                 return null;
             }
             Optional<IList<SearchServiceIPRule>> ipRules = default;
+            Optional<SearchBypass> bypass = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -93,13 +99,22 @@ namespace Azure.ResourceManager.Search.Models
                     ipRules = array;
                     continue;
                 }
+                if (property.NameEquals("bypass"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    bypass = new SearchBypass(property.Value.GetString());
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new NetworkRuleSet(Optional.ToList(ipRules), serializedAdditionalRawData);
+            return new NetworkRuleSet(Optional.ToList(ipRules), Optional.ToNullable(bypass), serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<NetworkRuleSet>.Write(ModelReaderWriterOptions options)
