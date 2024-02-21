@@ -161,6 +161,7 @@ namespace Azure.ResourceManager.DataFactory.Models
                     case "FileShare": return FileShareDataset.DeserializeFileShareDataset(element);
                     case "GoogleAdWordsObject": return GoogleAdWordsObjectDataset.DeserializeGoogleAdWordsObjectDataset(element);
                     case "GoogleBigQueryObject": return GoogleBigQueryObjectDataset.DeserializeGoogleBigQueryObjectDataset(element);
+                    case "GoogleBigQueryV2Object": return GoogleBigQueryV2ObjectDataset.DeserializeGoogleBigQueryV2ObjectDataset(element);
                     case "GreenplumTable": return GreenplumTableDataset.DeserializeGreenplumTableDataset(element);
                     case "HBaseObject": return HBaseObjectDataset.DeserializeHBaseObjectDataset(element);
                     case "HiveObject": return HiveObjectDataset.DeserializeHiveObjectDataset(element);

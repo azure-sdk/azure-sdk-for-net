@@ -122,6 +122,7 @@ namespace Azure.ResourceManager.DataFactory.Models
                     case "EloquaSource": return EloquaSource.DeserializeEloquaSource(element);
                     case "GoogleAdWordsSource": return GoogleAdWordsSource.DeserializeGoogleAdWordsSource(element);
                     case "GoogleBigQuerySource": return GoogleBigQuerySource.DeserializeGoogleBigQuerySource(element);
+                    case "GoogleBigQueryV2Source": return GoogleBigQueryV2Source.DeserializeGoogleBigQueryV2Source(element);
                     case "GreenplumSource": return GreenplumSource.DeserializeGreenplumSource(element);
                     case "HBaseSource": return HBaseSource.DeserializeHBaseSource(element);
                     case "HiveSource": return HiveSource.DeserializeHiveSource(element);

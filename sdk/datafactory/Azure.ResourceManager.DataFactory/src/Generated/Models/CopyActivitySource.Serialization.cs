@@ -121,6 +121,7 @@ namespace Azure.ResourceManager.DataFactory.Models
                     case "FileSystemSource": return FileSystemSource.DeserializeFileSystemSource(element);
                     case "GoogleAdWordsSource": return GoogleAdWordsSource.DeserializeGoogleAdWordsSource(element);
                     case "GoogleBigQuerySource": return GoogleBigQuerySource.DeserializeGoogleBigQuerySource(element);
+                    case "GoogleBigQueryV2Source": return GoogleBigQueryV2Source.DeserializeGoogleBigQueryV2Source(element);
                     case "GreenplumSource": return GreenplumSource.DeserializeGreenplumSource(element);
                     case "HBaseSource": return HBaseSource.DeserializeHBaseSource(element);
                     case "HdfsSource": return HdfsSource.DeserializeHdfsSource(element);

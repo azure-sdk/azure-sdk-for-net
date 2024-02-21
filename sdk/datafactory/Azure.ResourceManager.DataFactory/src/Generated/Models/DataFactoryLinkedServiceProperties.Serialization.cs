@@ -159,6 +159,7 @@ namespace Azure.ResourceManager.DataFactory.Models
                     case "FtpServer": return FtpServerLinkedService.DeserializeFtpServerLinkedService(element);
                     case "GoogleAdWords": return GoogleAdWordsLinkedService.DeserializeGoogleAdWordsLinkedService(element);
                     case "GoogleBigQuery": return GoogleBigQueryLinkedService.DeserializeGoogleBigQueryLinkedService(element);
+                    case "GoogleBigQueryV2": return GoogleBigQueryV2LinkedService.DeserializeGoogleBigQueryV2LinkedService(element);
                     case "GoogleCloudStorage": return GoogleCloudStorageLinkedService.DeserializeGoogleCloudStorageLinkedService(element);
                     case "GoogleSheets": return GoogleSheetsLinkedService.DeserializeGoogleSheetsLinkedService(element);
                     case "Greenplum": return GreenplumLinkedService.DeserializeGreenplumLinkedService(element);
