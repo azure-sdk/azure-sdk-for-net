@@ -13,7 +13,7 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.ContainerService.Models
 {
-    internal partial class ManagedClusterAzureMonitorProfile : IUtf8JsonSerializable, IJsonModel<ManagedClusterAzureMonitorProfile>
+    public partial class ManagedClusterAzureMonitorProfile : IUtf8JsonSerializable, IJsonModel<ManagedClusterAzureMonitorProfile>
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<ManagedClusterAzureMonitorProfile>)this).Write(writer, new ModelReaderWriterOptions("W"));
 
@@ -30,6 +30,16 @@ namespace Azure.ResourceManager.ContainerService.Models
             {
                 writer.WritePropertyName("metrics"u8);
                 writer.WriteObjectValue(Metrics);
+            }
+            if (Optional.IsDefined(ContainerInsights))
+            {
+                writer.WritePropertyName("containerInsights"u8);
+                writer.WriteObjectValue(ContainerInsights);
+            }
+            if (Optional.IsDefined(AppMonitoring))
+            {
+                writer.WritePropertyName("appMonitoring"u8);
+                writer.WriteObjectValue(AppMonitoring);
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -70,6 +80,8 @@ namespace Azure.ResourceManager.ContainerService.Models
                 return null;
             }
             Optional<ManagedClusterMonitorProfileMetrics> metrics = default;
+            Optional<ManagedClusterAzureMonitorProfileContainerInsights> containerInsights = default;
+            Optional<ManagedClusterAzureMonitorProfileAppMonitoring> appMonitoring = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -83,13 +95,31 @@ namespace Azure.ResourceManager.ContainerService.Models
                     metrics = ManagedClusterMonitorProfileMetrics.DeserializeManagedClusterMonitorProfileMetrics(property.Value);
                     continue;
                 }
+                if (property.NameEquals("containerInsights"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    containerInsights = ManagedClusterAzureMonitorProfileContainerInsights.DeserializeManagedClusterAzureMonitorProfileContainerInsights(property.Value);
+                    continue;
+                }
+                if (property.NameEquals("appMonitoring"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    appMonitoring = ManagedClusterAzureMonitorProfileAppMonitoring.DeserializeManagedClusterAzureMonitorProfileAppMonitoring(property.Value);
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new ManagedClusterAzureMonitorProfile(metrics.Value, serializedAdditionalRawData);
+            return new ManagedClusterAzureMonitorProfile(metrics.Value, containerInsights.Value, appMonitoring.Value, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<ManagedClusterAzureMonitorProfile>.Write(ModelReaderWriterOptions options)
