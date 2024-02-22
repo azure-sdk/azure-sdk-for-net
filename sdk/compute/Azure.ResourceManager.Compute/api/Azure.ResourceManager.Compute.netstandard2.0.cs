@@ -4289,6 +4289,7 @@ namespace Azure.ResourceManager.Compute.Models
         private readonly int _dummyPrimitive;
         public DiffDiskPlacement(string value) { throw null; }
         public static Azure.ResourceManager.Compute.Models.DiffDiskPlacement CacheDisk { get { throw null; } }
+        public static Azure.ResourceManager.Compute.Models.DiffDiskPlacement NvmeDisk { get { throw null; } }
         public static Azure.ResourceManager.Compute.Models.DiffDiskPlacement ResourceDisk { get { throw null; } }
         public bool Equals(Azure.ResourceManager.Compute.Models.DiffDiskPlacement other) { throw null; }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
