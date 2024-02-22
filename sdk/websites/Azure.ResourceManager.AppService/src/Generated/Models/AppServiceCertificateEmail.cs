@@ -7,13 +7,11 @@
 
 using System;
 using System.Collections.Generic;
-using Azure.Core;
-using Azure.ResourceManager.Models;
 
 namespace Azure.ResourceManager.AppService.Models
 {
     /// <summary> SSL certificate email. </summary>
-    public partial class AppServiceCertificateEmail : ResourceData
+    public partial class AppServiceCertificateEmail
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -48,32 +46,24 @@ namespace Azure.ResourceManager.AppService.Models
         private IDictionary<string, BinaryData> _serializedAdditionalRawData;
 
         /// <summary> Initializes a new instance of <see cref="AppServiceCertificateEmail"/>. </summary>
-        public AppServiceCertificateEmail()
+        internal AppServiceCertificateEmail()
         {
         }
 
         /// <summary> Initializes a new instance of <see cref="AppServiceCertificateEmail"/>. </summary>
-        /// <param name="id"> The id. </param>
-        /// <param name="name"> The name. </param>
-        /// <param name="resourceType"> The resourceType. </param>
-        /// <param name="systemData"> The systemData. </param>
         /// <param name="emailId"> Email id. </param>
         /// <param name="timeStamp"> Time stamp. </param>
-        /// <param name="kind"> Kind of resource. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AppServiceCertificateEmail(ResourceIdentifier id, string name, ResourceType resourceType, SystemData systemData, string emailId, DateTimeOffset? timeStamp, string kind, IDictionary<string, BinaryData> serializedAdditionalRawData) : base(id, name, resourceType, systemData)
+        internal AppServiceCertificateEmail(string emailId, DateTimeOffset? timeStamp, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             EmailId = emailId;
             TimeStamp = timeStamp;
-            Kind = kind;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
         /// <summary> Email id. </summary>
-        public string EmailId { get; set; }
+        public string EmailId { get; }
         /// <summary> Time stamp. </summary>
-        public DateTimeOffset? TimeStamp { get; set; }
-        /// <summary> Kind of resource. </summary>
-        public string Kind { get; set; }
+        public DateTimeOffset? TimeStamp { get; }
     }
 }

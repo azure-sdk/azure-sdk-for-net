@@ -35,7 +35,7 @@ namespace Azure.ResourceManager.AppService
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2021-02-01";
+            _apiVersion = apiVersion ?? "2023-12-01";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
@@ -3095,7 +3095,132 @@ namespace Azure.ResourceManager.AppService
             }
         }
 
-        internal HttpMessage CreateUpdateAuthSettingsV2Request(string subscriptionId, string resourceGroupName, string name, SiteAuthSettingsV2 siteAuthSettingsV2)
+        internal HttpMessage CreateGetAuthSettingsV2WithoutSecretsRequest(string subscriptionId, string resourceGroupName, string name)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Get;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/subscriptions/", false);
+            uri.AppendPath(subscriptionId, true);
+            uri.AppendPath("/resourceGroups/", false);
+            uri.AppendPath(resourceGroupName, true);
+            uri.AppendPath("/providers/Microsoft.Web/sites/", false);
+            uri.AppendPath(name, true);
+            uri.AppendPath("/config/authsettingsV2", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> Description for Gets site's Authentication / Authorization settings for apps via the V2 format. </summary>
+        /// <param name="subscriptionId"> Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
+        /// <param name="resourceGroupName"> Name of the resource group to which the resource belongs. </param>
+        /// <param name="name"> Name of the app. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="name"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<SiteAuthSettingsV2Data>> GetAuthSettingsV2WithoutSecretsAsync(string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
+        {
+            if (subscriptionId == null)
+            {
+                throw new ArgumentNullException(nameof(subscriptionId));
+            }
+            if (subscriptionId.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(subscriptionId));
+            }
+            if (resourceGroupName == null)
+            {
+                throw new ArgumentNullException(nameof(resourceGroupName));
+            }
+            if (resourceGroupName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(resourceGroupName));
+            }
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (name.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(name));
+            }
+
+            using var message = CreateGetAuthSettingsV2WithoutSecretsRequest(subscriptionId, resourceGroupName, name);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        SiteAuthSettingsV2Data value = default;
+                        using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+                        value = SiteAuthSettingsV2Data.DeserializeSiteAuthSettingsV2Data(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                case 404:
+                    return Response.FromValue((SiteAuthSettingsV2Data)null, message.Response);
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> Description for Gets site's Authentication / Authorization settings for apps via the V2 format. </summary>
+        /// <param name="subscriptionId"> Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
+        /// <param name="resourceGroupName"> Name of the resource group to which the resource belongs. </param>
+        /// <param name="name"> Name of the app. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="name"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<SiteAuthSettingsV2Data> GetAuthSettingsV2WithoutSecrets(string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
+        {
+            if (subscriptionId == null)
+            {
+                throw new ArgumentNullException(nameof(subscriptionId));
+            }
+            if (subscriptionId.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(subscriptionId));
+            }
+            if (resourceGroupName == null)
+            {
+                throw new ArgumentNullException(nameof(resourceGroupName));
+            }
+            if (resourceGroupName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(resourceGroupName));
+            }
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (name.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(name));
+            }
+
+            using var message = CreateGetAuthSettingsV2WithoutSecretsRequest(subscriptionId, resourceGroupName, name);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        SiteAuthSettingsV2Data value = default;
+                        using var document = JsonDocument.Parse(message.Response.ContentStream);
+                        value = SiteAuthSettingsV2Data.DeserializeSiteAuthSettingsV2Data(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                case 404:
+                    return Response.FromValue((SiteAuthSettingsV2Data)null, message.Response);
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        internal HttpMessage CreateUpdateAuthSettingsV2Request(string subscriptionId, string resourceGroupName, string name, SiteAuthSettingsV2Data data)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -3114,7 +3239,7 @@ namespace Azure.ResourceManager.AppService
             request.Headers.Add("Accept", "application/json");
             request.Headers.Add("Content-Type", "application/json");
             var content = new Utf8JsonRequestContent();
-            content.JsonWriter.WriteObjectValue(siteAuthSettingsV2);
+            content.JsonWriter.WriteObjectValue(data);
             request.Content = content;
             _userAgent.Apply(message);
             return message;
@@ -3124,11 +3249,11 @@ namespace Azure.ResourceManager.AppService
         /// <param name="subscriptionId"> Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
         /// <param name="resourceGroupName"> Name of the resource group to which the resource belongs. </param>
         /// <param name="name"> Name of web app. </param>
-        /// <param name="siteAuthSettingsV2"> Auth settings associated with web app. </param>
+        /// <param name="data"> Auth settings associated with web app. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="siteAuthSettingsV2"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="data"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<SiteAuthSettingsV2>> UpdateAuthSettingsV2Async(string subscriptionId, string resourceGroupName, string name, SiteAuthSettingsV2 siteAuthSettingsV2, CancellationToken cancellationToken = default)
+        public async Task<Response<SiteAuthSettingsV2Data>> UpdateAuthSettingsV2Async(string subscriptionId, string resourceGroupName, string name, SiteAuthSettingsV2Data data, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -3154,20 +3279,20 @@ namespace Azure.ResourceManager.AppService
             {
                 throw new ArgumentException("Value cannot be an empty string.", nameof(name));
             }
-            if (siteAuthSettingsV2 == null)
+            if (data == null)
             {
-                throw new ArgumentNullException(nameof(siteAuthSettingsV2));
+                throw new ArgumentNullException(nameof(data));
             }
 
-            using var message = CreateUpdateAuthSettingsV2Request(subscriptionId, resourceGroupName, name, siteAuthSettingsV2);
+            using var message = CreateUpdateAuthSettingsV2Request(subscriptionId, resourceGroupName, name, data);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
                 case 200:
                     {
-                        SiteAuthSettingsV2 value = default;
+                        SiteAuthSettingsV2Data value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = SiteAuthSettingsV2.DeserializeSiteAuthSettingsV2(document.RootElement);
+                        value = SiteAuthSettingsV2Data.DeserializeSiteAuthSettingsV2Data(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -3179,11 +3304,11 @@ namespace Azure.ResourceManager.AppService
         /// <param name="subscriptionId"> Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
         /// <param name="resourceGroupName"> Name of the resource group to which the resource belongs. </param>
         /// <param name="name"> Name of web app. </param>
-        /// <param name="siteAuthSettingsV2"> Auth settings associated with web app. </param>
+        /// <param name="data"> Auth settings associated with web app. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="siteAuthSettingsV2"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="data"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<SiteAuthSettingsV2> UpdateAuthSettingsV2(string subscriptionId, string resourceGroupName, string name, SiteAuthSettingsV2 siteAuthSettingsV2, CancellationToken cancellationToken = default)
+        public Response<SiteAuthSettingsV2Data> UpdateAuthSettingsV2(string subscriptionId, string resourceGroupName, string name, SiteAuthSettingsV2Data data, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -3209,20 +3334,20 @@ namespace Azure.ResourceManager.AppService
             {
                 throw new ArgumentException("Value cannot be an empty string.", nameof(name));
             }
-            if (siteAuthSettingsV2 == null)
+            if (data == null)
             {
-                throw new ArgumentNullException(nameof(siteAuthSettingsV2));
+                throw new ArgumentNullException(nameof(data));
             }
 
-            using var message = CreateUpdateAuthSettingsV2Request(subscriptionId, resourceGroupName, name, siteAuthSettingsV2);
+            using var message = CreateUpdateAuthSettingsV2Request(subscriptionId, resourceGroupName, name, data);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
                 case 200:
                     {
-                        SiteAuthSettingsV2 value = default;
+                        SiteAuthSettingsV2Data value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = SiteAuthSettingsV2.DeserializeSiteAuthSettingsV2(document.RootElement);
+                        value = SiteAuthSettingsV2Data.DeserializeSiteAuthSettingsV2Data(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -3258,7 +3383,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="name"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<SiteAuthSettingsV2>> GetAuthSettingsV2Async(string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
+        public async Task<Response<SiteAuthSettingsV2Data>> GetAuthSettingsV2Async(string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -3291,9 +3416,9 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        SiteAuthSettingsV2 value = default;
+                        SiteAuthSettingsV2Data value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = SiteAuthSettingsV2.DeserializeSiteAuthSettingsV2(document.RootElement);
+                        value = SiteAuthSettingsV2Data.DeserializeSiteAuthSettingsV2Data(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -3308,7 +3433,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="name"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<SiteAuthSettingsV2> GetAuthSettingsV2(string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
+        public Response<SiteAuthSettingsV2Data> GetAuthSettingsV2(string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -3341,9 +3466,9 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        SiteAuthSettingsV2 value = default;
+                        SiteAuthSettingsV2Data value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = SiteAuthSettingsV2.DeserializeSiteAuthSettingsV2(document.RootElement);
+                        value = SiteAuthSettingsV2Data.DeserializeSiteAuthSettingsV2Data(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -7595,6 +7720,259 @@ namespace Azure.ResourceManager.AppService
             }
         }
 
+        internal HttpMessage CreateListProductionSiteDeploymentStatusesRequest(string subscriptionId, string resourceGroupName, string name)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Get;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/subscriptions/", false);
+            uri.AppendPath(subscriptionId, true);
+            uri.AppendPath("/resourceGroups/", false);
+            uri.AppendPath(resourceGroupName, true);
+            uri.AppendPath("/providers/Microsoft.Web/sites/", false);
+            uri.AppendPath(name, true);
+            uri.AppendPath("/deploymentStatus", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> List deployment statuses for an app (or deployment slot, if specified). </summary>
+        /// <param name="subscriptionId"> Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
+        /// <param name="resourceGroupName"> Name of the resource group to which the resource belongs. </param>
+        /// <param name="name"> Name of the app. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="name"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<CsmDeploymentStatusCollection>> ListProductionSiteDeploymentStatusesAsync(string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
+        {
+            if (subscriptionId == null)
+            {
+                throw new ArgumentNullException(nameof(subscriptionId));
+            }
+            if (subscriptionId.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(subscriptionId));
+            }
+            if (resourceGroupName == null)
+            {
+                throw new ArgumentNullException(nameof(resourceGroupName));
+            }
+            if (resourceGroupName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(resourceGroupName));
+            }
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (name.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(name));
+            }
+
+            using var message = CreateListProductionSiteDeploymentStatusesRequest(subscriptionId, resourceGroupName, name);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        CsmDeploymentStatusCollection value = default;
+                        using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+                        value = CsmDeploymentStatusCollection.DeserializeCsmDeploymentStatusCollection(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> List deployment statuses for an app (or deployment slot, if specified). </summary>
+        /// <param name="subscriptionId"> Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
+        /// <param name="resourceGroupName"> Name of the resource group to which the resource belongs. </param>
+        /// <param name="name"> Name of the app. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="name"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<CsmDeploymentStatusCollection> ListProductionSiteDeploymentStatuses(string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
+        {
+            if (subscriptionId == null)
+            {
+                throw new ArgumentNullException(nameof(subscriptionId));
+            }
+            if (subscriptionId.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(subscriptionId));
+            }
+            if (resourceGroupName == null)
+            {
+                throw new ArgumentNullException(nameof(resourceGroupName));
+            }
+            if (resourceGroupName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(resourceGroupName));
+            }
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (name.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(name));
+            }
+
+            using var message = CreateListProductionSiteDeploymentStatusesRequest(subscriptionId, resourceGroupName, name);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        CsmDeploymentStatusCollection value = default;
+                        using var document = JsonDocument.Parse(message.Response.ContentStream);
+                        value = CsmDeploymentStatusCollection.DeserializeCsmDeploymentStatusCollection(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        internal HttpMessage CreateGetProductionSiteDeploymentStatusRequest(string subscriptionId, string resourceGroupName, string name, string deploymentStatusId)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Get;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/subscriptions/", false);
+            uri.AppendPath(subscriptionId, true);
+            uri.AppendPath("/resourceGroups/", false);
+            uri.AppendPath(resourceGroupName, true);
+            uri.AppendPath("/providers/Microsoft.Web/sites/", false);
+            uri.AppendPath(name, true);
+            uri.AppendPath("/deploymentStatus/", false);
+            uri.AppendPath(deploymentStatusId, true);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> Gets the deployment status for an app (or deployment slot, if specified). </summary>
+        /// <param name="subscriptionId"> Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
+        /// <param name="resourceGroupName"> Name of the resource group to which the resource belongs. </param>
+        /// <param name="name"> Name of the app. </param>
+        /// <param name="deploymentStatusId"> GUID of the deployment operation. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="deploymentStatusId"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="deploymentStatusId"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response> GetProductionSiteDeploymentStatusAsync(string subscriptionId, string resourceGroupName, string name, string deploymentStatusId, CancellationToken cancellationToken = default)
+        {
+            if (subscriptionId == null)
+            {
+                throw new ArgumentNullException(nameof(subscriptionId));
+            }
+            if (subscriptionId.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(subscriptionId));
+            }
+            if (resourceGroupName == null)
+            {
+                throw new ArgumentNullException(nameof(resourceGroupName));
+            }
+            if (resourceGroupName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(resourceGroupName));
+            }
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (name.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(name));
+            }
+            if (deploymentStatusId == null)
+            {
+                throw new ArgumentNullException(nameof(deploymentStatusId));
+            }
+            if (deploymentStatusId.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(deploymentStatusId));
+            }
+
+            using var message = CreateGetProductionSiteDeploymentStatusRequest(subscriptionId, resourceGroupName, name, deploymentStatusId);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 200:
+                case 202:
+                    return message.Response;
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> Gets the deployment status for an app (or deployment slot, if specified). </summary>
+        /// <param name="subscriptionId"> Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
+        /// <param name="resourceGroupName"> Name of the resource group to which the resource belongs. </param>
+        /// <param name="name"> Name of the app. </param>
+        /// <param name="deploymentStatusId"> GUID of the deployment operation. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="deploymentStatusId"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="deploymentStatusId"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response GetProductionSiteDeploymentStatus(string subscriptionId, string resourceGroupName, string name, string deploymentStatusId, CancellationToken cancellationToken = default)
+        {
+            if (subscriptionId == null)
+            {
+                throw new ArgumentNullException(nameof(subscriptionId));
+            }
+            if (subscriptionId.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(subscriptionId));
+            }
+            if (resourceGroupName == null)
+            {
+                throw new ArgumentNullException(nameof(resourceGroupName));
+            }
+            if (resourceGroupName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(resourceGroupName));
+            }
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (name.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(name));
+            }
+            if (deploymentStatusId == null)
+            {
+                throw new ArgumentNullException(nameof(deploymentStatusId));
+            }
+            if (deploymentStatusId.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(deploymentStatusId));
+            }
+
+            using var message = CreateGetProductionSiteDeploymentStatusRequest(subscriptionId, resourceGroupName, name, deploymentStatusId);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 200:
+                case 202:
+                    return message.Response;
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
         internal HttpMessage CreateListDeploymentsRequest(string subscriptionId, string resourceGroupName, string name)
         {
             var message = _pipeline.CreateMessage();
@@ -9491,6 +9869,244 @@ namespace Azure.ResourceManager.AppService
                         WebAppMSDeployLog value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
                         value = WebAppMSDeployLog.DeserializeWebAppMSDeployLog(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        internal HttpMessage CreateGetOneDeployStatusRequest(string subscriptionId, string resourceGroupName, string name)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Get;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/subscriptions/", false);
+            uri.AppendPath(subscriptionId, true);
+            uri.AppendPath("/resourceGroups/", false);
+            uri.AppendPath(resourceGroupName, true);
+            uri.AppendPath("/providers/Microsoft.Web/sites/", false);
+            uri.AppendPath(name, true);
+            uri.AppendPath("/extensions/onedeploy", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> Description for Invoke onedeploy status API /api/deployments and gets the deployment status for the site. </summary>
+        /// <param name="subscriptionId"> Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
+        /// <param name="resourceGroupName"> Name of the resource group to which the resource belongs. </param>
+        /// <param name="name"> Name of web app. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="name"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<BinaryData>> GetOneDeployStatusAsync(string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
+        {
+            if (subscriptionId == null)
+            {
+                throw new ArgumentNullException(nameof(subscriptionId));
+            }
+            if (subscriptionId.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(subscriptionId));
+            }
+            if (resourceGroupName == null)
+            {
+                throw new ArgumentNullException(nameof(resourceGroupName));
+            }
+            if (resourceGroupName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(resourceGroupName));
+            }
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (name.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(name));
+            }
+
+            using var message = CreateGetOneDeployStatusRequest(subscriptionId, resourceGroupName, name);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        BinaryData value = default;
+                        value = await BinaryData.FromStreamAsync(message.Response.ContentStream).ConfigureAwait(false);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> Description for Invoke onedeploy status API /api/deployments and gets the deployment status for the site. </summary>
+        /// <param name="subscriptionId"> Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
+        /// <param name="resourceGroupName"> Name of the resource group to which the resource belongs. </param>
+        /// <param name="name"> Name of web app. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="name"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<BinaryData> GetOneDeployStatus(string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
+        {
+            if (subscriptionId == null)
+            {
+                throw new ArgumentNullException(nameof(subscriptionId));
+            }
+            if (subscriptionId.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(subscriptionId));
+            }
+            if (resourceGroupName == null)
+            {
+                throw new ArgumentNullException(nameof(resourceGroupName));
+            }
+            if (resourceGroupName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(resourceGroupName));
+            }
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (name.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(name));
+            }
+
+            using var message = CreateGetOneDeployStatusRequest(subscriptionId, resourceGroupName, name);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        BinaryData value = default;
+                        value = BinaryData.FromStream(message.Response.ContentStream);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        internal HttpMessage CreateCreateOneDeployOperationRequest(string subscriptionId, string resourceGroupName, string name)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Put;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/subscriptions/", false);
+            uri.AppendPath(subscriptionId, true);
+            uri.AppendPath("/resourceGroups/", false);
+            uri.AppendPath(resourceGroupName, true);
+            uri.AppendPath("/providers/Microsoft.Web/sites/", false);
+            uri.AppendPath(name, true);
+            uri.AppendPath("/extensions/onedeploy", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> Description for Invoke the OneDeploy publish web app extension. </summary>
+        /// <param name="subscriptionId"> Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
+        /// <param name="resourceGroupName"> Name of the resource group to which the resource belongs. </param>
+        /// <param name="name"> Name of web app. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="name"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<BinaryData>> CreateOneDeployOperationAsync(string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
+        {
+            if (subscriptionId == null)
+            {
+                throw new ArgumentNullException(nameof(subscriptionId));
+            }
+            if (subscriptionId.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(subscriptionId));
+            }
+            if (resourceGroupName == null)
+            {
+                throw new ArgumentNullException(nameof(resourceGroupName));
+            }
+            if (resourceGroupName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(resourceGroupName));
+            }
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (name.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(name));
+            }
+
+            using var message = CreateCreateOneDeployOperationRequest(subscriptionId, resourceGroupName, name);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        BinaryData value = default;
+                        value = await BinaryData.FromStreamAsync(message.Response.ContentStream).ConfigureAwait(false);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> Description for Invoke the OneDeploy publish web app extension. </summary>
+        /// <param name="subscriptionId"> Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
+        /// <param name="resourceGroupName"> Name of the resource group to which the resource belongs. </param>
+        /// <param name="name"> Name of web app. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="name"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<BinaryData> CreateOneDeployOperation(string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
+        {
+            if (subscriptionId == null)
+            {
+                throw new ArgumentNullException(nameof(subscriptionId));
+            }
+            if (subscriptionId.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(subscriptionId));
+            }
+            if (resourceGroupName == null)
+            {
+                throw new ArgumentNullException(nameof(resourceGroupName));
+            }
+            if (resourceGroupName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(resourceGroupName));
+            }
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (name.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(name));
+            }
+
+            using var message = CreateCreateOneDeployOperationRequest(subscriptionId, resourceGroupName, name);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        BinaryData value = default;
+                        value = BinaryData.FromStream(message.Response.ContentStream);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -16059,7 +16675,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="name"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<SwiftVirtualNetworkData>> GetSwiftVirtualNetworkConnectionAsync(string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
+        public async Task<Response<SwiftVirtualNetworkProxyData>> GetSwiftVirtualNetworkConnectionAsync(string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -16092,13 +16708,13 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        SwiftVirtualNetworkData value = default;
+                        SwiftVirtualNetworkProxyData value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = SwiftVirtualNetworkData.DeserializeSwiftVirtualNetworkData(document.RootElement);
+                        value = SwiftVirtualNetworkProxyData.DeserializeSwiftVirtualNetworkProxyData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 case 404:
-                    return Response.FromValue((SwiftVirtualNetworkData)null, message.Response);
+                    return Response.FromValue((SwiftVirtualNetworkProxyData)null, message.Response);
                 default:
                     throw new RequestFailedException(message.Response);
             }
@@ -16111,7 +16727,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="name"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<SwiftVirtualNetworkData> GetSwiftVirtualNetworkConnection(string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
+        public Response<SwiftVirtualNetworkProxyData> GetSwiftVirtualNetworkConnection(string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -16144,19 +16760,19 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        SwiftVirtualNetworkData value = default;
+                        SwiftVirtualNetworkProxyData value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = SwiftVirtualNetworkData.DeserializeSwiftVirtualNetworkData(document.RootElement);
+                        value = SwiftVirtualNetworkProxyData.DeserializeSwiftVirtualNetworkProxyData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 case 404:
-                    return Response.FromValue((SwiftVirtualNetworkData)null, message.Response);
+                    return Response.FromValue((SwiftVirtualNetworkProxyData)null, message.Response);
                 default:
                     throw new RequestFailedException(message.Response);
             }
         }
 
-        internal HttpMessage CreateCreateOrUpdateSwiftVirtualNetworkConnectionWithCheckRequest(string subscriptionId, string resourceGroupName, string name, SwiftVirtualNetworkData data)
+        internal HttpMessage CreateCreateOrUpdateSwiftVirtualNetworkConnectionWithCheckRequest(string subscriptionId, string resourceGroupName, string name, SwiftVirtualNetworkProxyData data)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -16192,7 +16808,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="data"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<SwiftVirtualNetworkData>> CreateOrUpdateSwiftVirtualNetworkConnectionWithCheckAsync(string subscriptionId, string resourceGroupName, string name, SwiftVirtualNetworkData data, CancellationToken cancellationToken = default)
+        public async Task<Response<SwiftVirtualNetworkProxyData>> CreateOrUpdateSwiftVirtualNetworkConnectionWithCheckAsync(string subscriptionId, string resourceGroupName, string name, SwiftVirtualNetworkProxyData data, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -16229,9 +16845,9 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        SwiftVirtualNetworkData value = default;
+                        SwiftVirtualNetworkProxyData value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = SwiftVirtualNetworkData.DeserializeSwiftVirtualNetworkData(document.RootElement);
+                        value = SwiftVirtualNetworkProxyData.DeserializeSwiftVirtualNetworkProxyData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -16250,7 +16866,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="data"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<SwiftVirtualNetworkData> CreateOrUpdateSwiftVirtualNetworkConnectionWithCheck(string subscriptionId, string resourceGroupName, string name, SwiftVirtualNetworkData data, CancellationToken cancellationToken = default)
+        public Response<SwiftVirtualNetworkProxyData> CreateOrUpdateSwiftVirtualNetworkConnectionWithCheck(string subscriptionId, string resourceGroupName, string name, SwiftVirtualNetworkProxyData data, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -16287,9 +16903,9 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        SwiftVirtualNetworkData value = default;
+                        SwiftVirtualNetworkProxyData value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = SwiftVirtualNetworkData.DeserializeSwiftVirtualNetworkData(document.RootElement);
+                        value = SwiftVirtualNetworkProxyData.DeserializeSwiftVirtualNetworkProxyData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -16408,7 +17024,7 @@ namespace Azure.ResourceManager.AppService
             }
         }
 
-        internal HttpMessage CreateUpdateSwiftVirtualNetworkConnectionWithCheckRequest(string subscriptionId, string resourceGroupName, string name, SwiftVirtualNetworkData data)
+        internal HttpMessage CreateUpdateSwiftVirtualNetworkConnectionWithCheckRequest(string subscriptionId, string resourceGroupName, string name, SwiftVirtualNetworkProxyData data)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -16444,7 +17060,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="data"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<SwiftVirtualNetworkData>> UpdateSwiftVirtualNetworkConnectionWithCheckAsync(string subscriptionId, string resourceGroupName, string name, SwiftVirtualNetworkData data, CancellationToken cancellationToken = default)
+        public async Task<Response<SwiftVirtualNetworkProxyData>> UpdateSwiftVirtualNetworkConnectionWithCheckAsync(string subscriptionId, string resourceGroupName, string name, SwiftVirtualNetworkProxyData data, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -16481,9 +17097,9 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        SwiftVirtualNetworkData value = default;
+                        SwiftVirtualNetworkProxyData value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = SwiftVirtualNetworkData.DeserializeSwiftVirtualNetworkData(document.RootElement);
+                        value = SwiftVirtualNetworkProxyData.DeserializeSwiftVirtualNetworkProxyData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -16502,7 +17118,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="data"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<SwiftVirtualNetworkData> UpdateSwiftVirtualNetworkConnectionWithCheck(string subscriptionId, string resourceGroupName, string name, SwiftVirtualNetworkData data, CancellationToken cancellationToken = default)
+        public Response<SwiftVirtualNetworkProxyData> UpdateSwiftVirtualNetworkConnectionWithCheck(string subscriptionId, string resourceGroupName, string name, SwiftVirtualNetworkProxyData data, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -16539,9 +17155,9 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        SwiftVirtualNetworkData value = default;
+                        SwiftVirtualNetworkProxyData value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = SwiftVirtualNetworkData.DeserializeSwiftVirtualNetworkData(document.RootElement);
+                        value = SwiftVirtualNetworkProxyData.DeserializeSwiftVirtualNetworkProxyData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -19265,7 +19881,7 @@ namespace Azure.ResourceManager.AppService
             }
         }
 
-        internal HttpMessage CreateApproveOrRejectPrivateEndpointConnectionRequest(string subscriptionId, string resourceGroupName, string name, string privateEndpointConnectionName, PrivateLinkConnectionApprovalRequestInfo info)
+        internal HttpMessage CreateApproveOrRejectPrivateEndpointConnectionRequest(string subscriptionId, string resourceGroupName, string name, string privateEndpointConnectionName, RemotePrivateEndpointConnectionARMResourceData data)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -19285,7 +19901,7 @@ namespace Azure.ResourceManager.AppService
             request.Headers.Add("Accept", "application/json");
             request.Headers.Add("Content-Type", "application/json");
             var content = new Utf8JsonRequestContent();
-            content.JsonWriter.WriteObjectValue(info);
+            content.JsonWriter.WriteObjectValue(data);
             request.Content = content;
             _userAgent.Apply(message);
             return message;
@@ -19296,11 +19912,11 @@ namespace Azure.ResourceManager.AppService
         /// <param name="resourceGroupName"> Name of the resource group to which the resource belongs. </param>
         /// <param name="name"> Name of the site. </param>
         /// <param name="privateEndpointConnectionName"> The <see cref="string"/> to use. </param>
-        /// <param name="info"> The <see cref="PrivateLinkConnectionApprovalRequestInfo"/> to use. </param>
+        /// <param name="data"> The <see cref="RemotePrivateEndpointConnectionARMResourceData"/> to use. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, <paramref name="privateEndpointConnectionName"/> or <paramref name="info"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, <paramref name="privateEndpointConnectionName"/> or <paramref name="data"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="privateEndpointConnectionName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response> ApproveOrRejectPrivateEndpointConnectionAsync(string subscriptionId, string resourceGroupName, string name, string privateEndpointConnectionName, PrivateLinkConnectionApprovalRequestInfo info, CancellationToken cancellationToken = default)
+        public async Task<Response> ApproveOrRejectPrivateEndpointConnectionAsync(string subscriptionId, string resourceGroupName, string name, string privateEndpointConnectionName, RemotePrivateEndpointConnectionARMResourceData data, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -19334,12 +19950,12 @@ namespace Azure.ResourceManager.AppService
             {
                 throw new ArgumentException("Value cannot be an empty string.", nameof(privateEndpointConnectionName));
             }
-            if (info == null)
+            if (data == null)
             {
-                throw new ArgumentNullException(nameof(info));
+                throw new ArgumentNullException(nameof(data));
             }
 
-            using var message = CreateApproveOrRejectPrivateEndpointConnectionRequest(subscriptionId, resourceGroupName, name, privateEndpointConnectionName, info);
+            using var message = CreateApproveOrRejectPrivateEndpointConnectionRequest(subscriptionId, resourceGroupName, name, privateEndpointConnectionName, data);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
@@ -19356,11 +19972,11 @@ namespace Azure.ResourceManager.AppService
         /// <param name="resourceGroupName"> Name of the resource group to which the resource belongs. </param>
         /// <param name="name"> Name of the site. </param>
         /// <param name="privateEndpointConnectionName"> The <see cref="string"/> to use. </param>
-        /// <param name="info"> The <see cref="PrivateLinkConnectionApprovalRequestInfo"/> to use. </param>
+        /// <param name="data"> The <see cref="RemotePrivateEndpointConnectionARMResourceData"/> to use. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, <paramref name="privateEndpointConnectionName"/> or <paramref name="info"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, <paramref name="privateEndpointConnectionName"/> or <paramref name="data"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="privateEndpointConnectionName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response ApproveOrRejectPrivateEndpointConnection(string subscriptionId, string resourceGroupName, string name, string privateEndpointConnectionName, PrivateLinkConnectionApprovalRequestInfo info, CancellationToken cancellationToken = default)
+        public Response ApproveOrRejectPrivateEndpointConnection(string subscriptionId, string resourceGroupName, string name, string privateEndpointConnectionName, RemotePrivateEndpointConnectionARMResourceData data, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -19394,12 +20010,12 @@ namespace Azure.ResourceManager.AppService
             {
                 throw new ArgumentException("Value cannot be an empty string.", nameof(privateEndpointConnectionName));
             }
-            if (info == null)
+            if (data == null)
             {
-                throw new ArgumentNullException(nameof(info));
+                throw new ArgumentNullException(nameof(data));
             }
 
-            using var message = CreateApproveOrRejectPrivateEndpointConnectionRequest(subscriptionId, resourceGroupName, name, privateEndpointConnectionName, info);
+            using var message = CreateApproveOrRejectPrivateEndpointConnectionRequest(subscriptionId, resourceGroupName, name, privateEndpointConnectionName, data);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
@@ -25897,7 +26513,152 @@ namespace Azure.ResourceManager.AppService
             }
         }
 
-        internal HttpMessage CreateUpdateAuthSettingsV2SlotRequest(string subscriptionId, string resourceGroupName, string name, string slot, SiteAuthSettingsV2 siteAuthSettingsV2)
+        internal HttpMessage CreateGetAuthSettingsV2WithoutSecretsSlotRequest(string subscriptionId, string resourceGroupName, string name, string slot)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Get;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/subscriptions/", false);
+            uri.AppendPath(subscriptionId, true);
+            uri.AppendPath("/resourceGroups/", false);
+            uri.AppendPath(resourceGroupName, true);
+            uri.AppendPath("/providers/Microsoft.Web/sites/", false);
+            uri.AppendPath(name, true);
+            uri.AppendPath("/slots/", false);
+            uri.AppendPath(slot, true);
+            uri.AppendPath("/config/authsettingsV2", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> Gets site's Authentication / Authorization settings for apps via the V2 format. </summary>
+        /// <param name="subscriptionId"> Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
+        /// <param name="resourceGroupName"> Name of the resource group to which the resource belongs. </param>
+        /// <param name="name"> Name of the app. </param>
+        /// <param name="slot"> Name of the deployment slot. If a slot is not specified, the API will get the settings for the production slot. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="slot"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="slot"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<SiteAuthSettingsV2Data>> GetAuthSettingsV2WithoutSecretsSlotAsync(string subscriptionId, string resourceGroupName, string name, string slot, CancellationToken cancellationToken = default)
+        {
+            if (subscriptionId == null)
+            {
+                throw new ArgumentNullException(nameof(subscriptionId));
+            }
+            if (subscriptionId.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(subscriptionId));
+            }
+            if (resourceGroupName == null)
+            {
+                throw new ArgumentNullException(nameof(resourceGroupName));
+            }
+            if (resourceGroupName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(resourceGroupName));
+            }
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (name.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(name));
+            }
+            if (slot == null)
+            {
+                throw new ArgumentNullException(nameof(slot));
+            }
+            if (slot.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(slot));
+            }
+
+            using var message = CreateGetAuthSettingsV2WithoutSecretsSlotRequest(subscriptionId, resourceGroupName, name, slot);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        SiteAuthSettingsV2Data value = default;
+                        using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+                        value = SiteAuthSettingsV2Data.DeserializeSiteAuthSettingsV2Data(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                case 404:
+                    return Response.FromValue((SiteAuthSettingsV2Data)null, message.Response);
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> Gets site's Authentication / Authorization settings for apps via the V2 format. </summary>
+        /// <param name="subscriptionId"> Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
+        /// <param name="resourceGroupName"> Name of the resource group to which the resource belongs. </param>
+        /// <param name="name"> Name of the app. </param>
+        /// <param name="slot"> Name of the deployment slot. If a slot is not specified, the API will get the settings for the production slot. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="slot"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="slot"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<SiteAuthSettingsV2Data> GetAuthSettingsV2WithoutSecretsSlot(string subscriptionId, string resourceGroupName, string name, string slot, CancellationToken cancellationToken = default)
+        {
+            if (subscriptionId == null)
+            {
+                throw new ArgumentNullException(nameof(subscriptionId));
+            }
+            if (subscriptionId.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(subscriptionId));
+            }
+            if (resourceGroupName == null)
+            {
+                throw new ArgumentNullException(nameof(resourceGroupName));
+            }
+            if (resourceGroupName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(resourceGroupName));
+            }
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (name.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(name));
+            }
+            if (slot == null)
+            {
+                throw new ArgumentNullException(nameof(slot));
+            }
+            if (slot.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(slot));
+            }
+
+            using var message = CreateGetAuthSettingsV2WithoutSecretsSlotRequest(subscriptionId, resourceGroupName, name, slot);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        SiteAuthSettingsV2Data value = default;
+                        using var document = JsonDocument.Parse(message.Response.ContentStream);
+                        value = SiteAuthSettingsV2Data.DeserializeSiteAuthSettingsV2Data(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                case 404:
+                    return Response.FromValue((SiteAuthSettingsV2Data)null, message.Response);
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        internal HttpMessage CreateUpdateAuthSettingsV2SlotRequest(string subscriptionId, string resourceGroupName, string name, string slot, SiteAuthSettingsV2Data data)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -25918,7 +26679,7 @@ namespace Azure.ResourceManager.AppService
             request.Headers.Add("Accept", "application/json");
             request.Headers.Add("Content-Type", "application/json");
             var content = new Utf8JsonRequestContent();
-            content.JsonWriter.WriteObjectValue(siteAuthSettingsV2);
+            content.JsonWriter.WriteObjectValue(data);
             request.Content = content;
             _userAgent.Apply(message);
             return message;
@@ -25929,11 +26690,11 @@ namespace Azure.ResourceManager.AppService
         /// <param name="resourceGroupName"> Name of the resource group to which the resource belongs. </param>
         /// <param name="name"> Name of web app. </param>
         /// <param name="slot"> Name of web app slot. If not specified then will default to production slot. </param>
-        /// <param name="siteAuthSettingsV2"> Auth settings associated with web app. </param>
+        /// <param name="data"> Auth settings associated with web app. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, <paramref name="slot"/> or <paramref name="siteAuthSettingsV2"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, <paramref name="slot"/> or <paramref name="data"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="slot"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<SiteAuthSettingsV2>> UpdateAuthSettingsV2SlotAsync(string subscriptionId, string resourceGroupName, string name, string slot, SiteAuthSettingsV2 siteAuthSettingsV2, CancellationToken cancellationToken = default)
+        public async Task<Response<SiteAuthSettingsV2Data>> UpdateAuthSettingsV2SlotAsync(string subscriptionId, string resourceGroupName, string name, string slot, SiteAuthSettingsV2Data data, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -25967,20 +26728,20 @@ namespace Azure.ResourceManager.AppService
             {
                 throw new ArgumentException("Value cannot be an empty string.", nameof(slot));
             }
-            if (siteAuthSettingsV2 == null)
+            if (data == null)
             {
-                throw new ArgumentNullException(nameof(siteAuthSettingsV2));
+                throw new ArgumentNullException(nameof(data));
             }
 
-            using var message = CreateUpdateAuthSettingsV2SlotRequest(subscriptionId, resourceGroupName, name, slot, siteAuthSettingsV2);
+            using var message = CreateUpdateAuthSettingsV2SlotRequest(subscriptionId, resourceGroupName, name, slot, data);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
                 case 200:
                     {
-                        SiteAuthSettingsV2 value = default;
+                        SiteAuthSettingsV2Data value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = SiteAuthSettingsV2.DeserializeSiteAuthSettingsV2(document.RootElement);
+                        value = SiteAuthSettingsV2Data.DeserializeSiteAuthSettingsV2Data(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -25993,11 +26754,11 @@ namespace Azure.ResourceManager.AppService
         /// <param name="resourceGroupName"> Name of the resource group to which the resource belongs. </param>
         /// <param name="name"> Name of web app. </param>
         /// <param name="slot"> Name of web app slot. If not specified then will default to production slot. </param>
-        /// <param name="siteAuthSettingsV2"> Auth settings associated with web app. </param>
+        /// <param name="data"> Auth settings associated with web app. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, <paramref name="slot"/> or <paramref name="siteAuthSettingsV2"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, <paramref name="slot"/> or <paramref name="data"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="slot"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<SiteAuthSettingsV2> UpdateAuthSettingsV2Slot(string subscriptionId, string resourceGroupName, string name, string slot, SiteAuthSettingsV2 siteAuthSettingsV2, CancellationToken cancellationToken = default)
+        public Response<SiteAuthSettingsV2Data> UpdateAuthSettingsV2Slot(string subscriptionId, string resourceGroupName, string name, string slot, SiteAuthSettingsV2Data data, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -26031,20 +26792,20 @@ namespace Azure.ResourceManager.AppService
             {
                 throw new ArgumentException("Value cannot be an empty string.", nameof(slot));
             }
-            if (siteAuthSettingsV2 == null)
+            if (data == null)
             {
-                throw new ArgumentNullException(nameof(siteAuthSettingsV2));
+                throw new ArgumentNullException(nameof(data));
             }
 
-            using var message = CreateUpdateAuthSettingsV2SlotRequest(subscriptionId, resourceGroupName, name, slot, siteAuthSettingsV2);
+            using var message = CreateUpdateAuthSettingsV2SlotRequest(subscriptionId, resourceGroupName, name, slot, data);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
                 case 200:
                     {
-                        SiteAuthSettingsV2 value = default;
+                        SiteAuthSettingsV2Data value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = SiteAuthSettingsV2.DeserializeSiteAuthSettingsV2(document.RootElement);
+                        value = SiteAuthSettingsV2Data.DeserializeSiteAuthSettingsV2Data(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -26083,7 +26844,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="slot"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="slot"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<SiteAuthSettingsV2>> GetAuthSettingsV2SlotAsync(string subscriptionId, string resourceGroupName, string name, string slot, CancellationToken cancellationToken = default)
+        public async Task<Response<SiteAuthSettingsV2Data>> GetAuthSettingsV2SlotAsync(string subscriptionId, string resourceGroupName, string name, string slot, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -26124,9 +26885,9 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        SiteAuthSettingsV2 value = default;
+                        SiteAuthSettingsV2Data value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = SiteAuthSettingsV2.DeserializeSiteAuthSettingsV2(document.RootElement);
+                        value = SiteAuthSettingsV2Data.DeserializeSiteAuthSettingsV2Data(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -26142,7 +26903,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="slot"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="slot"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<SiteAuthSettingsV2> GetAuthSettingsV2Slot(string subscriptionId, string resourceGroupName, string name, string slot, CancellationToken cancellationToken = default)
+        public Response<SiteAuthSettingsV2Data> GetAuthSettingsV2Slot(string subscriptionId, string resourceGroupName, string name, string slot, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -26183,9 +26944,9 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        SiteAuthSettingsV2 value = default;
+                        SiteAuthSettingsV2Data value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = SiteAuthSettingsV2.DeserializeSiteAuthSettingsV2(document.RootElement);
+                        value = SiteAuthSettingsV2Data.DeserializeSiteAuthSettingsV2Data(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -30791,6 +31552,299 @@ namespace Azure.ResourceManager.AppService
             switch (message.Response.Status)
             {
                 case 200:
+                    return message.Response;
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        internal HttpMessage CreateListSlotSiteDeploymentStatusesSlotRequest(string subscriptionId, string resourceGroupName, string name, string slot)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Get;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/subscriptions/", false);
+            uri.AppendPath(subscriptionId, true);
+            uri.AppendPath("/resourceGroups/", false);
+            uri.AppendPath(resourceGroupName, true);
+            uri.AppendPath("/providers/Microsoft.Web/sites/", false);
+            uri.AppendPath(name, true);
+            uri.AppendPath("/slots/", false);
+            uri.AppendPath(slot, true);
+            uri.AppendPath("/deploymentStatus", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> List deployment statuses for an app (or deployment slot, if specified). </summary>
+        /// <param name="subscriptionId"> Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
+        /// <param name="resourceGroupName"> Name of the resource group to which the resource belongs. </param>
+        /// <param name="name"> Name of the app. </param>
+        /// <param name="slot"> Name of the deployment slot. If a slot is not specified, the API will get the deployment status for the production slot. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="slot"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="slot"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<CsmDeploymentStatusCollection>> ListSlotSiteDeploymentStatusesSlotAsync(string subscriptionId, string resourceGroupName, string name, string slot, CancellationToken cancellationToken = default)
+        {
+            if (subscriptionId == null)
+            {
+                throw new ArgumentNullException(nameof(subscriptionId));
+            }
+            if (subscriptionId.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(subscriptionId));
+            }
+            if (resourceGroupName == null)
+            {
+                throw new ArgumentNullException(nameof(resourceGroupName));
+            }
+            if (resourceGroupName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(resourceGroupName));
+            }
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (name.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(name));
+            }
+            if (slot == null)
+            {
+                throw new ArgumentNullException(nameof(slot));
+            }
+            if (slot.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(slot));
+            }
+
+            using var message = CreateListSlotSiteDeploymentStatusesSlotRequest(subscriptionId, resourceGroupName, name, slot);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        CsmDeploymentStatusCollection value = default;
+                        using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+                        value = CsmDeploymentStatusCollection.DeserializeCsmDeploymentStatusCollection(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> List deployment statuses for an app (or deployment slot, if specified). </summary>
+        /// <param name="subscriptionId"> Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
+        /// <param name="resourceGroupName"> Name of the resource group to which the resource belongs. </param>
+        /// <param name="name"> Name of the app. </param>
+        /// <param name="slot"> Name of the deployment slot. If a slot is not specified, the API will get the deployment status for the production slot. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="slot"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="slot"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<CsmDeploymentStatusCollection> ListSlotSiteDeploymentStatusesSlot(string subscriptionId, string resourceGroupName, string name, string slot, CancellationToken cancellationToken = default)
+        {
+            if (subscriptionId == null)
+            {
+                throw new ArgumentNullException(nameof(subscriptionId));
+            }
+            if (subscriptionId.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(subscriptionId));
+            }
+            if (resourceGroupName == null)
+            {
+                throw new ArgumentNullException(nameof(resourceGroupName));
+            }
+            if (resourceGroupName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(resourceGroupName));
+            }
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (name.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(name));
+            }
+            if (slot == null)
+            {
+                throw new ArgumentNullException(nameof(slot));
+            }
+            if (slot.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(slot));
+            }
+
+            using var message = CreateListSlotSiteDeploymentStatusesSlotRequest(subscriptionId, resourceGroupName, name, slot);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        CsmDeploymentStatusCollection value = default;
+                        using var document = JsonDocument.Parse(message.Response.ContentStream);
+                        value = CsmDeploymentStatusCollection.DeserializeCsmDeploymentStatusCollection(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        internal HttpMessage CreateGetSlotSiteDeploymentStatusSlotRequest(string subscriptionId, string resourceGroupName, string name, string slot, string deploymentStatusId)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Get;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/subscriptions/", false);
+            uri.AppendPath(subscriptionId, true);
+            uri.AppendPath("/resourceGroups/", false);
+            uri.AppendPath(resourceGroupName, true);
+            uri.AppendPath("/providers/Microsoft.Web/sites/", false);
+            uri.AppendPath(name, true);
+            uri.AppendPath("/slots/", false);
+            uri.AppendPath(slot, true);
+            uri.AppendPath("/deploymentStatus/", false);
+            uri.AppendPath(deploymentStatusId, true);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> Gets the deployment status for an app (or deployment slot, if specified). </summary>
+        /// <param name="subscriptionId"> Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
+        /// <param name="resourceGroupName"> Name of the resource group to which the resource belongs. </param>
+        /// <param name="name"> Name of the app. </param>
+        /// <param name="slot"> Name of the deployment slot. If a slot is not specified, the API will get the deployment status for the production slot. </param>
+        /// <param name="deploymentStatusId"> GUID of the deployment operation. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, <paramref name="slot"/> or <paramref name="deploymentStatusId"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, <paramref name="slot"/> or <paramref name="deploymentStatusId"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response> GetSlotSiteDeploymentStatusSlotAsync(string subscriptionId, string resourceGroupName, string name, string slot, string deploymentStatusId, CancellationToken cancellationToken = default)
+        {
+            if (subscriptionId == null)
+            {
+                throw new ArgumentNullException(nameof(subscriptionId));
+            }
+            if (subscriptionId.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(subscriptionId));
+            }
+            if (resourceGroupName == null)
+            {
+                throw new ArgumentNullException(nameof(resourceGroupName));
+            }
+            if (resourceGroupName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(resourceGroupName));
+            }
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (name.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(name));
+            }
+            if (slot == null)
+            {
+                throw new ArgumentNullException(nameof(slot));
+            }
+            if (slot.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(slot));
+            }
+            if (deploymentStatusId == null)
+            {
+                throw new ArgumentNullException(nameof(deploymentStatusId));
+            }
+            if (deploymentStatusId.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(deploymentStatusId));
+            }
+
+            using var message = CreateGetSlotSiteDeploymentStatusSlotRequest(subscriptionId, resourceGroupName, name, slot, deploymentStatusId);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 200:
+                case 202:
+                    return message.Response;
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> Gets the deployment status for an app (or deployment slot, if specified). </summary>
+        /// <param name="subscriptionId"> Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
+        /// <param name="resourceGroupName"> Name of the resource group to which the resource belongs. </param>
+        /// <param name="name"> Name of the app. </param>
+        /// <param name="slot"> Name of the deployment slot. If a slot is not specified, the API will get the deployment status for the production slot. </param>
+        /// <param name="deploymentStatusId"> GUID of the deployment operation. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, <paramref name="slot"/> or <paramref name="deploymentStatusId"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, <paramref name="slot"/> or <paramref name="deploymentStatusId"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response GetSlotSiteDeploymentStatusSlot(string subscriptionId, string resourceGroupName, string name, string slot, string deploymentStatusId, CancellationToken cancellationToken = default)
+        {
+            if (subscriptionId == null)
+            {
+                throw new ArgumentNullException(nameof(subscriptionId));
+            }
+            if (subscriptionId.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(subscriptionId));
+            }
+            if (resourceGroupName == null)
+            {
+                throw new ArgumentNullException(nameof(resourceGroupName));
+            }
+            if (resourceGroupName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(resourceGroupName));
+            }
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (name.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(name));
+            }
+            if (slot == null)
+            {
+                throw new ArgumentNullException(nameof(slot));
+            }
+            if (slot.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(slot));
+            }
+            if (deploymentStatusId == null)
+            {
+                throw new ArgumentNullException(nameof(deploymentStatusId));
+            }
+            if (deploymentStatusId.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(deploymentStatusId));
+            }
+
+            using var message = CreateGetSlotSiteDeploymentStatusSlotRequest(subscriptionId, resourceGroupName, name, slot, deploymentStatusId);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 200:
+                case 202:
                     return message.Response;
                 default:
                     throw new RequestFailedException(message.Response);
@@ -40167,7 +41221,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="slot"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="slot"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<SwiftVirtualNetworkData>> GetSwiftVirtualNetworkConnectionSlotAsync(string subscriptionId, string resourceGroupName, string name, string slot, CancellationToken cancellationToken = default)
+        public async Task<Response<SwiftVirtualNetworkProxyData>> GetSwiftVirtualNetworkConnectionSlotAsync(string subscriptionId, string resourceGroupName, string name, string slot, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -40208,13 +41262,13 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        SwiftVirtualNetworkData value = default;
+                        SwiftVirtualNetworkProxyData value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = SwiftVirtualNetworkData.DeserializeSwiftVirtualNetworkData(document.RootElement);
+                        value = SwiftVirtualNetworkProxyData.DeserializeSwiftVirtualNetworkProxyData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 case 404:
-                    return Response.FromValue((SwiftVirtualNetworkData)null, message.Response);
+                    return Response.FromValue((SwiftVirtualNetworkProxyData)null, message.Response);
                 default:
                     throw new RequestFailedException(message.Response);
             }
@@ -40228,7 +41282,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="slot"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="slot"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<SwiftVirtualNetworkData> GetSwiftVirtualNetworkConnectionSlot(string subscriptionId, string resourceGroupName, string name, string slot, CancellationToken cancellationToken = default)
+        public Response<SwiftVirtualNetworkProxyData> GetSwiftVirtualNetworkConnectionSlot(string subscriptionId, string resourceGroupName, string name, string slot, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -40269,19 +41323,19 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        SwiftVirtualNetworkData value = default;
+                        SwiftVirtualNetworkProxyData value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = SwiftVirtualNetworkData.DeserializeSwiftVirtualNetworkData(document.RootElement);
+                        value = SwiftVirtualNetworkProxyData.DeserializeSwiftVirtualNetworkProxyData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 case 404:
-                    return Response.FromValue((SwiftVirtualNetworkData)null, message.Response);
+                    return Response.FromValue((SwiftVirtualNetworkProxyData)null, message.Response);
                 default:
                     throw new RequestFailedException(message.Response);
             }
         }
 
-        internal HttpMessage CreateCreateOrUpdateSwiftVirtualNetworkConnectionWithCheckSlotRequest(string subscriptionId, string resourceGroupName, string name, string slot, SwiftVirtualNetworkData data)
+        internal HttpMessage CreateCreateOrUpdateSwiftVirtualNetworkConnectionWithCheckSlotRequest(string subscriptionId, string resourceGroupName, string name, string slot, SwiftVirtualNetworkProxyData data)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -40320,7 +41374,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, <paramref name="slot"/> or <paramref name="data"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="slot"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<SwiftVirtualNetworkData>> CreateOrUpdateSwiftVirtualNetworkConnectionWithCheckSlotAsync(string subscriptionId, string resourceGroupName, string name, string slot, SwiftVirtualNetworkData data, CancellationToken cancellationToken = default)
+        public async Task<Response<SwiftVirtualNetworkProxyData>> CreateOrUpdateSwiftVirtualNetworkConnectionWithCheckSlotAsync(string subscriptionId, string resourceGroupName, string name, string slot, SwiftVirtualNetworkProxyData data, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -40365,9 +41419,9 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        SwiftVirtualNetworkData value = default;
+                        SwiftVirtualNetworkProxyData value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = SwiftVirtualNetworkData.DeserializeSwiftVirtualNetworkData(document.RootElement);
+                        value = SwiftVirtualNetworkProxyData.DeserializeSwiftVirtualNetworkProxyData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -40387,7 +41441,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, <paramref name="slot"/> or <paramref name="data"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="slot"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<SwiftVirtualNetworkData> CreateOrUpdateSwiftVirtualNetworkConnectionWithCheckSlot(string subscriptionId, string resourceGroupName, string name, string slot, SwiftVirtualNetworkData data, CancellationToken cancellationToken = default)
+        public Response<SwiftVirtualNetworkProxyData> CreateOrUpdateSwiftVirtualNetworkConnectionWithCheckSlot(string subscriptionId, string resourceGroupName, string name, string slot, SwiftVirtualNetworkProxyData data, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -40432,9 +41486,9 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        SwiftVirtualNetworkData value = default;
+                        SwiftVirtualNetworkProxyData value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = SwiftVirtualNetworkData.DeserializeSwiftVirtualNetworkData(document.RootElement);
+                        value = SwiftVirtualNetworkProxyData.DeserializeSwiftVirtualNetworkProxyData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -40573,7 +41627,7 @@ namespace Azure.ResourceManager.AppService
             }
         }
 
-        internal HttpMessage CreateUpdateSwiftVirtualNetworkConnectionWithCheckSlotRequest(string subscriptionId, string resourceGroupName, string name, string slot, SwiftVirtualNetworkData data)
+        internal HttpMessage CreateUpdateSwiftVirtualNetworkConnectionWithCheckSlotRequest(string subscriptionId, string resourceGroupName, string name, string slot, SwiftVirtualNetworkProxyData data)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -40612,7 +41666,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, <paramref name="slot"/> or <paramref name="data"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="slot"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<SwiftVirtualNetworkData>> UpdateSwiftVirtualNetworkConnectionWithCheckSlotAsync(string subscriptionId, string resourceGroupName, string name, string slot, SwiftVirtualNetworkData data, CancellationToken cancellationToken = default)
+        public async Task<Response<SwiftVirtualNetworkProxyData>> UpdateSwiftVirtualNetworkConnectionWithCheckSlotAsync(string subscriptionId, string resourceGroupName, string name, string slot, SwiftVirtualNetworkProxyData data, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -40657,9 +41711,9 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        SwiftVirtualNetworkData value = default;
+                        SwiftVirtualNetworkProxyData value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = SwiftVirtualNetworkData.DeserializeSwiftVirtualNetworkData(document.RootElement);
+                        value = SwiftVirtualNetworkProxyData.DeserializeSwiftVirtualNetworkProxyData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -40679,7 +41733,7 @@ namespace Azure.ResourceManager.AppService
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, <paramref name="slot"/> or <paramref name="data"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="slot"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<SwiftVirtualNetworkData> UpdateSwiftVirtualNetworkConnectionWithCheckSlot(string subscriptionId, string resourceGroupName, string name, string slot, SwiftVirtualNetworkData data, CancellationToken cancellationToken = default)
+        public Response<SwiftVirtualNetworkProxyData> UpdateSwiftVirtualNetworkConnectionWithCheckSlot(string subscriptionId, string resourceGroupName, string name, string slot, SwiftVirtualNetworkProxyData data, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -40724,9 +41778,9 @@ namespace Azure.ResourceManager.AppService
             {
                 case 200:
                     {
-                        SwiftVirtualNetworkData value = default;
+                        SwiftVirtualNetworkProxyData value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = SwiftVirtualNetworkData.DeserializeSwiftVirtualNetworkData(document.RootElement);
+                        value = SwiftVirtualNetworkProxyData.DeserializeSwiftVirtualNetworkProxyData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -43854,7 +44908,7 @@ namespace Azure.ResourceManager.AppService
             }
         }
 
-        internal HttpMessage CreateApproveOrRejectPrivateEndpointConnectionSlotRequest(string subscriptionId, string resourceGroupName, string name, string slot, string privateEndpointConnectionName, PrivateLinkConnectionApprovalRequestInfo info)
+        internal HttpMessage CreateApproveOrRejectPrivateEndpointConnectionSlotRequest(string subscriptionId, string resourceGroupName, string name, string slot, string privateEndpointConnectionName, RemotePrivateEndpointConnectionARMResourceData data)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -43876,7 +44930,7 @@ namespace Azure.ResourceManager.AppService
             request.Headers.Add("Accept", "application/json");
             request.Headers.Add("Content-Type", "application/json");
             var content = new Utf8JsonRequestContent();
-            content.JsonWriter.WriteObjectValue(info);
+            content.JsonWriter.WriteObjectValue(data);
             request.Content = content;
             _userAgent.Apply(message);
             return message;
@@ -43888,11 +44942,11 @@ namespace Azure.ResourceManager.AppService
         /// <param name="name"> Name of the site. </param>
         /// <param name="slot"> The <see cref="string"/> to use. </param>
         /// <param name="privateEndpointConnectionName"> The <see cref="string"/> to use. </param>
-        /// <param name="info"> The <see cref="PrivateLinkConnectionApprovalRequestInfo"/> to use. </param>
+        /// <param name="data"> The <see cref="RemotePrivateEndpointConnectionARMResourceData"/> to use. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, <paramref name="slot"/>, <paramref name="privateEndpointConnectionName"/> or <paramref name="info"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, <paramref name="slot"/>, <paramref name="privateEndpointConnectionName"/> or <paramref name="data"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, <paramref name="slot"/> or <paramref name="privateEndpointConnectionName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response> ApproveOrRejectPrivateEndpointConnectionSlotAsync(string subscriptionId, string resourceGroupName, string name, string slot, string privateEndpointConnectionName, PrivateLinkConnectionApprovalRequestInfo info, CancellationToken cancellationToken = default)
+        public async Task<Response> ApproveOrRejectPrivateEndpointConnectionSlotAsync(string subscriptionId, string resourceGroupName, string name, string slot, string privateEndpointConnectionName, RemotePrivateEndpointConnectionARMResourceData data, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -43934,12 +44988,12 @@ namespace Azure.ResourceManager.AppService
             {
                 throw new ArgumentException("Value cannot be an empty string.", nameof(privateEndpointConnectionName));
             }
-            if (info == null)
+            if (data == null)
             {
-                throw new ArgumentNullException(nameof(info));
+                throw new ArgumentNullException(nameof(data));
             }
 
-            using var message = CreateApproveOrRejectPrivateEndpointConnectionSlotRequest(subscriptionId, resourceGroupName, name, slot, privateEndpointConnectionName, info);
+            using var message = CreateApproveOrRejectPrivateEndpointConnectionSlotRequest(subscriptionId, resourceGroupName, name, slot, privateEndpointConnectionName, data);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
@@ -43957,11 +45011,11 @@ namespace Azure.ResourceManager.AppService
         /// <param name="name"> Name of the site. </param>
         /// <param name="slot"> The <see cref="string"/> to use. </param>
         /// <param name="privateEndpointConnectionName"> The <see cref="string"/> to use. </param>
-        /// <param name="info"> The <see cref="PrivateLinkConnectionApprovalRequestInfo"/> to use. </param>
+        /// <param name="data"> The <see cref="RemotePrivateEndpointConnectionARMResourceData"/> to use. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, <paramref name="slot"/>, <paramref name="privateEndpointConnectionName"/> or <paramref name="info"/> is null. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, <paramref name="slot"/>, <paramref name="privateEndpointConnectionName"/> or <paramref name="data"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, <paramref name="slot"/> or <paramref name="privateEndpointConnectionName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response ApproveOrRejectPrivateEndpointConnectionSlot(string subscriptionId, string resourceGroupName, string name, string slot, string privateEndpointConnectionName, PrivateLinkConnectionApprovalRequestInfo info, CancellationToken cancellationToken = default)
+        public Response ApproveOrRejectPrivateEndpointConnectionSlot(string subscriptionId, string resourceGroupName, string name, string slot, string privateEndpointConnectionName, RemotePrivateEndpointConnectionARMResourceData data, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -44003,12 +45057,12 @@ namespace Azure.ResourceManager.AppService
             {
                 throw new ArgumentException("Value cannot be an empty string.", nameof(privateEndpointConnectionName));
             }
-            if (info == null)
+            if (data == null)
             {
-                throw new ArgumentNullException(nameof(info));
+                throw new ArgumentNullException(nameof(data));
             }
 
-            using var message = CreateApproveOrRejectPrivateEndpointConnectionSlotRequest(subscriptionId, resourceGroupName, name, slot, privateEndpointConnectionName, info);
+            using var message = CreateApproveOrRejectPrivateEndpointConnectionSlotRequest(subscriptionId, resourceGroupName, name, slot, privateEndpointConnectionName, data);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
@@ -56475,6 +57529,1098 @@ namespace Azure.ResourceManager.AppService
             }
         }
 
+        internal HttpMessage CreateDeployWorkflowArtifactsRequest(string subscriptionId, string resourceGroupName, string name, WorkflowArtifacts workflowArtifacts)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Post;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/subscriptions/", false);
+            uri.AppendPath(subscriptionId, true);
+            uri.AppendPath("/resourceGroups/", false);
+            uri.AppendPath(resourceGroupName, true);
+            uri.AppendPath("/providers/Microsoft.Web/sites/", false);
+            uri.AppendPath(name, true);
+            uri.AppendPath("/deployWorkflowArtifacts", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            if (workflowArtifacts != null)
+            {
+                request.Headers.Add("Content-Type", "application/json");
+                var content = new Utf8JsonRequestContent();
+                content.JsonWriter.WriteObjectValue(workflowArtifacts);
+                request.Content = content;
+            }
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> Description for Creates the artifacts for web site, or a deployment slot. </summary>
+        /// <param name="subscriptionId"> Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
+        /// <param name="resourceGroupName"> Name of the resource group to which the resource belongs. </param>
+        /// <param name="name"> Site name. </param>
+        /// <param name="workflowArtifacts"> Application settings and files of the workflow. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="name"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response> DeployWorkflowArtifactsAsync(string subscriptionId, string resourceGroupName, string name, WorkflowArtifacts workflowArtifacts = null, CancellationToken cancellationToken = default)
+        {
+            if (subscriptionId == null)
+            {
+                throw new ArgumentNullException(nameof(subscriptionId));
+            }
+            if (subscriptionId.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(subscriptionId));
+            }
+            if (resourceGroupName == null)
+            {
+                throw new ArgumentNullException(nameof(resourceGroupName));
+            }
+            if (resourceGroupName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(resourceGroupName));
+            }
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (name.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(name));
+            }
+
+            using var message = CreateDeployWorkflowArtifactsRequest(subscriptionId, resourceGroupName, name, workflowArtifacts);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    return message.Response;
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> Description for Creates the artifacts for web site, or a deployment slot. </summary>
+        /// <param name="subscriptionId"> Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
+        /// <param name="resourceGroupName"> Name of the resource group to which the resource belongs. </param>
+        /// <param name="name"> Site name. </param>
+        /// <param name="workflowArtifacts"> Application settings and files of the workflow. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="name"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response DeployWorkflowArtifacts(string subscriptionId, string resourceGroupName, string name, WorkflowArtifacts workflowArtifacts = null, CancellationToken cancellationToken = default)
+        {
+            if (subscriptionId == null)
+            {
+                throw new ArgumentNullException(nameof(subscriptionId));
+            }
+            if (subscriptionId.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(subscriptionId));
+            }
+            if (resourceGroupName == null)
+            {
+                throw new ArgumentNullException(nameof(resourceGroupName));
+            }
+            if (resourceGroupName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(resourceGroupName));
+            }
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (name.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(name));
+            }
+
+            using var message = CreateDeployWorkflowArtifactsRequest(subscriptionId, resourceGroupName, name, workflowArtifacts);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    return message.Response;
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        internal HttpMessage CreateDeployWorkflowArtifactsSlotRequest(string subscriptionId, string resourceGroupName, string name, string slot, WorkflowArtifacts workflowArtifacts)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Post;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/subscriptions/", false);
+            uri.AppendPath(subscriptionId, true);
+            uri.AppendPath("/resourceGroups/", false);
+            uri.AppendPath(resourceGroupName, true);
+            uri.AppendPath("/providers/Microsoft.Web/sites/", false);
+            uri.AppendPath(name, true);
+            uri.AppendPath("/slots/", false);
+            uri.AppendPath(slot, true);
+            uri.AppendPath("/deployWorkflowArtifacts", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            if (workflowArtifacts != null)
+            {
+                request.Headers.Add("Content-Type", "application/json");
+                var content = new Utf8JsonRequestContent();
+                content.JsonWriter.WriteObjectValue(workflowArtifacts);
+                request.Content = content;
+            }
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> Description for Creates the artifacts for web site, or a deployment slot. </summary>
+        /// <param name="subscriptionId"> Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
+        /// <param name="resourceGroupName"> Name of the resource group to which the resource belongs. </param>
+        /// <param name="name"> Site name. </param>
+        /// <param name="slot"> Name of the deployment slot. </param>
+        /// <param name="workflowArtifacts"> Application settings and files of the workflow. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="slot"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="slot"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response> DeployWorkflowArtifactsSlotAsync(string subscriptionId, string resourceGroupName, string name, string slot, WorkflowArtifacts workflowArtifacts = null, CancellationToken cancellationToken = default)
+        {
+            if (subscriptionId == null)
+            {
+                throw new ArgumentNullException(nameof(subscriptionId));
+            }
+            if (subscriptionId.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(subscriptionId));
+            }
+            if (resourceGroupName == null)
+            {
+                throw new ArgumentNullException(nameof(resourceGroupName));
+            }
+            if (resourceGroupName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(resourceGroupName));
+            }
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (name.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(name));
+            }
+            if (slot == null)
+            {
+                throw new ArgumentNullException(nameof(slot));
+            }
+            if (slot.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(slot));
+            }
+
+            using var message = CreateDeployWorkflowArtifactsSlotRequest(subscriptionId, resourceGroupName, name, slot, workflowArtifacts);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    return message.Response;
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> Description for Creates the artifacts for web site, or a deployment slot. </summary>
+        /// <param name="subscriptionId"> Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
+        /// <param name="resourceGroupName"> Name of the resource group to which the resource belongs. </param>
+        /// <param name="name"> Site name. </param>
+        /// <param name="slot"> Name of the deployment slot. </param>
+        /// <param name="workflowArtifacts"> Application settings and files of the workflow. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="slot"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="slot"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response DeployWorkflowArtifactsSlot(string subscriptionId, string resourceGroupName, string name, string slot, WorkflowArtifacts workflowArtifacts = null, CancellationToken cancellationToken = default)
+        {
+            if (subscriptionId == null)
+            {
+                throw new ArgumentNullException(nameof(subscriptionId));
+            }
+            if (subscriptionId.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(subscriptionId));
+            }
+            if (resourceGroupName == null)
+            {
+                throw new ArgumentNullException(nameof(resourceGroupName));
+            }
+            if (resourceGroupName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(resourceGroupName));
+            }
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (name.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(name));
+            }
+            if (slot == null)
+            {
+                throw new ArgumentNullException(nameof(slot));
+            }
+            if (slot.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(slot));
+            }
+
+            using var message = CreateDeployWorkflowArtifactsSlotRequest(subscriptionId, resourceGroupName, name, slot, workflowArtifacts);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    return message.Response;
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        internal HttpMessage CreateListInstanceWorkflowsSlotRequest(string subscriptionId, string resourceGroupName, string name, string slot)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Get;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/subscriptions/", false);
+            uri.AppendPath(subscriptionId, true);
+            uri.AppendPath("/resourceGroups/", false);
+            uri.AppendPath(resourceGroupName, true);
+            uri.AppendPath("/providers/Microsoft.Web/sites/", false);
+            uri.AppendPath(name, true);
+            uri.AppendPath("/slots/", false);
+            uri.AppendPath(slot, true);
+            uri.AppendPath("/workflows", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> List the workflows for a web site, or a deployment slot. </summary>
+        /// <param name="subscriptionId"> Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
+        /// <param name="resourceGroupName"> Name of the resource group to which the resource belongs. </param>
+        /// <param name="name"> Site name. </param>
+        /// <param name="slot"> Name of the deployment slot. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="slot"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="slot"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<WorkflowEnvelopeCollection>> ListInstanceWorkflowsSlotAsync(string subscriptionId, string resourceGroupName, string name, string slot, CancellationToken cancellationToken = default)
+        {
+            if (subscriptionId == null)
+            {
+                throw new ArgumentNullException(nameof(subscriptionId));
+            }
+            if (subscriptionId.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(subscriptionId));
+            }
+            if (resourceGroupName == null)
+            {
+                throw new ArgumentNullException(nameof(resourceGroupName));
+            }
+            if (resourceGroupName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(resourceGroupName));
+            }
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (name.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(name));
+            }
+            if (slot == null)
+            {
+                throw new ArgumentNullException(nameof(slot));
+            }
+            if (slot.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(slot));
+            }
+
+            using var message = CreateListInstanceWorkflowsSlotRequest(subscriptionId, resourceGroupName, name, slot);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        WorkflowEnvelopeCollection value = default;
+                        using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+                        value = WorkflowEnvelopeCollection.DeserializeWorkflowEnvelopeCollection(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> List the workflows for a web site, or a deployment slot. </summary>
+        /// <param name="subscriptionId"> Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
+        /// <param name="resourceGroupName"> Name of the resource group to which the resource belongs. </param>
+        /// <param name="name"> Site name. </param>
+        /// <param name="slot"> Name of the deployment slot. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="slot"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="slot"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<WorkflowEnvelopeCollection> ListInstanceWorkflowsSlot(string subscriptionId, string resourceGroupName, string name, string slot, CancellationToken cancellationToken = default)
+        {
+            if (subscriptionId == null)
+            {
+                throw new ArgumentNullException(nameof(subscriptionId));
+            }
+            if (subscriptionId.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(subscriptionId));
+            }
+            if (resourceGroupName == null)
+            {
+                throw new ArgumentNullException(nameof(resourceGroupName));
+            }
+            if (resourceGroupName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(resourceGroupName));
+            }
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (name.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(name));
+            }
+            if (slot == null)
+            {
+                throw new ArgumentNullException(nameof(slot));
+            }
+            if (slot.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(slot));
+            }
+
+            using var message = CreateListInstanceWorkflowsSlotRequest(subscriptionId, resourceGroupName, name, slot);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        WorkflowEnvelopeCollection value = default;
+                        using var document = JsonDocument.Parse(message.Response.ContentStream);
+                        value = WorkflowEnvelopeCollection.DeserializeWorkflowEnvelopeCollection(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        internal HttpMessage CreateGetInstanceWorkflowSlotRequest(string subscriptionId, string resourceGroupName, string name, string slot, string workflowName)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Get;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/subscriptions/", false);
+            uri.AppendPath(subscriptionId, true);
+            uri.AppendPath("/resourceGroups/", false);
+            uri.AppendPath(resourceGroupName, true);
+            uri.AppendPath("/providers/Microsoft.Web/sites/", false);
+            uri.AppendPath(name, true);
+            uri.AppendPath("/slots/", false);
+            uri.AppendPath(slot, true);
+            uri.AppendPath("/workflows/", false);
+            uri.AppendPath(workflowName, true);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> Get workflow information by its ID for web site, or a deployment slot. </summary>
+        /// <param name="subscriptionId"> Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
+        /// <param name="resourceGroupName"> Name of the resource group to which the resource belongs. </param>
+        /// <param name="name"> Site name. </param>
+        /// <param name="slot"> Name of the deployment slot. </param>
+        /// <param name="workflowName"> Workflow name. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, <paramref name="slot"/> or <paramref name="workflowName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, <paramref name="slot"/> or <paramref name="workflowName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<WorkflowEnvelopeData>> GetInstanceWorkflowSlotAsync(string subscriptionId, string resourceGroupName, string name, string slot, string workflowName, CancellationToken cancellationToken = default)
+        {
+            if (subscriptionId == null)
+            {
+                throw new ArgumentNullException(nameof(subscriptionId));
+            }
+            if (subscriptionId.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(subscriptionId));
+            }
+            if (resourceGroupName == null)
+            {
+                throw new ArgumentNullException(nameof(resourceGroupName));
+            }
+            if (resourceGroupName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(resourceGroupName));
+            }
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (name.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(name));
+            }
+            if (slot == null)
+            {
+                throw new ArgumentNullException(nameof(slot));
+            }
+            if (slot.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(slot));
+            }
+            if (workflowName == null)
+            {
+                throw new ArgumentNullException(nameof(workflowName));
+            }
+            if (workflowName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(workflowName));
+            }
+
+            using var message = CreateGetInstanceWorkflowSlotRequest(subscriptionId, resourceGroupName, name, slot, workflowName);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        WorkflowEnvelopeData value = default;
+                        using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+                        value = WorkflowEnvelopeData.DeserializeWorkflowEnvelopeData(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                case 404:
+                    return Response.FromValue((WorkflowEnvelopeData)null, message.Response);
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> Get workflow information by its ID for web site, or a deployment slot. </summary>
+        /// <param name="subscriptionId"> Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
+        /// <param name="resourceGroupName"> Name of the resource group to which the resource belongs. </param>
+        /// <param name="name"> Site name. </param>
+        /// <param name="slot"> Name of the deployment slot. </param>
+        /// <param name="workflowName"> Workflow name. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, <paramref name="slot"/> or <paramref name="workflowName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/>, <paramref name="slot"/> or <paramref name="workflowName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<WorkflowEnvelopeData> GetInstanceWorkflowSlot(string subscriptionId, string resourceGroupName, string name, string slot, string workflowName, CancellationToken cancellationToken = default)
+        {
+            if (subscriptionId == null)
+            {
+                throw new ArgumentNullException(nameof(subscriptionId));
+            }
+            if (subscriptionId.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(subscriptionId));
+            }
+            if (resourceGroupName == null)
+            {
+                throw new ArgumentNullException(nameof(resourceGroupName));
+            }
+            if (resourceGroupName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(resourceGroupName));
+            }
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (name.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(name));
+            }
+            if (slot == null)
+            {
+                throw new ArgumentNullException(nameof(slot));
+            }
+            if (slot.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(slot));
+            }
+            if (workflowName == null)
+            {
+                throw new ArgumentNullException(nameof(workflowName));
+            }
+            if (workflowName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(workflowName));
+            }
+
+            using var message = CreateGetInstanceWorkflowSlotRequest(subscriptionId, resourceGroupName, name, slot, workflowName);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        WorkflowEnvelopeData value = default;
+                        using var document = JsonDocument.Parse(message.Response.ContentStream);
+                        value = WorkflowEnvelopeData.DeserializeWorkflowEnvelopeData(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                case 404:
+                    return Response.FromValue((WorkflowEnvelopeData)null, message.Response);
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        internal HttpMessage CreateListWorkflowsConnectionsSlotRequest(string subscriptionId, string resourceGroupName, string name, string slot)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Post;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/subscriptions/", false);
+            uri.AppendPath(subscriptionId, true);
+            uri.AppendPath("/resourceGroups/", false);
+            uri.AppendPath(resourceGroupName, true);
+            uri.AppendPath("/providers/Microsoft.Web/sites/", false);
+            uri.AppendPath(name, true);
+            uri.AppendPath("/slots/", false);
+            uri.AppendPath(slot, true);
+            uri.AppendPath("/listWorkflowsConnections", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> Lists logic app's connections for web site, or a deployment slot. </summary>
+        /// <param name="subscriptionId"> Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
+        /// <param name="resourceGroupName"> Name of the resource group to which the resource belongs. </param>
+        /// <param name="name"> Site name. </param>
+        /// <param name="slot"> Name of the deployment slot. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="slot"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="slot"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<WorkflowEnvelopeData>> ListWorkflowsConnectionsSlotAsync(string subscriptionId, string resourceGroupName, string name, string slot, CancellationToken cancellationToken = default)
+        {
+            if (subscriptionId == null)
+            {
+                throw new ArgumentNullException(nameof(subscriptionId));
+            }
+            if (subscriptionId.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(subscriptionId));
+            }
+            if (resourceGroupName == null)
+            {
+                throw new ArgumentNullException(nameof(resourceGroupName));
+            }
+            if (resourceGroupName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(resourceGroupName));
+            }
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (name.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(name));
+            }
+            if (slot == null)
+            {
+                throw new ArgumentNullException(nameof(slot));
+            }
+            if (slot.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(slot));
+            }
+
+            using var message = CreateListWorkflowsConnectionsSlotRequest(subscriptionId, resourceGroupName, name, slot);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        WorkflowEnvelopeData value = default;
+                        using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+                        value = WorkflowEnvelopeData.DeserializeWorkflowEnvelopeData(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> Lists logic app's connections for web site, or a deployment slot. </summary>
+        /// <param name="subscriptionId"> Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
+        /// <param name="resourceGroupName"> Name of the resource group to which the resource belongs. </param>
+        /// <param name="name"> Site name. </param>
+        /// <param name="slot"> Name of the deployment slot. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="slot"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="slot"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<WorkflowEnvelopeData> ListWorkflowsConnectionsSlot(string subscriptionId, string resourceGroupName, string name, string slot, CancellationToken cancellationToken = default)
+        {
+            if (subscriptionId == null)
+            {
+                throw new ArgumentNullException(nameof(subscriptionId));
+            }
+            if (subscriptionId.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(subscriptionId));
+            }
+            if (resourceGroupName == null)
+            {
+                throw new ArgumentNullException(nameof(resourceGroupName));
+            }
+            if (resourceGroupName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(resourceGroupName));
+            }
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (name.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(name));
+            }
+            if (slot == null)
+            {
+                throw new ArgumentNullException(nameof(slot));
+            }
+            if (slot.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(slot));
+            }
+
+            using var message = CreateListWorkflowsConnectionsSlotRequest(subscriptionId, resourceGroupName, name, slot);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        WorkflowEnvelopeData value = default;
+                        using var document = JsonDocument.Parse(message.Response.ContentStream);
+                        value = WorkflowEnvelopeData.DeserializeWorkflowEnvelopeData(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        internal HttpMessage CreateListWorkflowsRequest(string subscriptionId, string resourceGroupName, string name)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Get;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/subscriptions/", false);
+            uri.AppendPath(subscriptionId, true);
+            uri.AppendPath("/resourceGroups/", false);
+            uri.AppendPath(resourceGroupName, true);
+            uri.AppendPath("/providers/Microsoft.Web/sites/", false);
+            uri.AppendPath(name, true);
+            uri.AppendPath("/workflows", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> List the workflows for a web site, or a deployment slot. </summary>
+        /// <param name="subscriptionId"> Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
+        /// <param name="resourceGroupName"> Name of the resource group to which the resource belongs. </param>
+        /// <param name="name"> Site name. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="name"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<WorkflowEnvelopeCollection>> ListWorkflowsAsync(string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
+        {
+            if (subscriptionId == null)
+            {
+                throw new ArgumentNullException(nameof(subscriptionId));
+            }
+            if (subscriptionId.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(subscriptionId));
+            }
+            if (resourceGroupName == null)
+            {
+                throw new ArgumentNullException(nameof(resourceGroupName));
+            }
+            if (resourceGroupName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(resourceGroupName));
+            }
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (name.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(name));
+            }
+
+            using var message = CreateListWorkflowsRequest(subscriptionId, resourceGroupName, name);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        WorkflowEnvelopeCollection value = default;
+                        using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+                        value = WorkflowEnvelopeCollection.DeserializeWorkflowEnvelopeCollection(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> List the workflows for a web site, or a deployment slot. </summary>
+        /// <param name="subscriptionId"> Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
+        /// <param name="resourceGroupName"> Name of the resource group to which the resource belongs. </param>
+        /// <param name="name"> Site name. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="name"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<WorkflowEnvelopeCollection> ListWorkflows(string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
+        {
+            if (subscriptionId == null)
+            {
+                throw new ArgumentNullException(nameof(subscriptionId));
+            }
+            if (subscriptionId.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(subscriptionId));
+            }
+            if (resourceGroupName == null)
+            {
+                throw new ArgumentNullException(nameof(resourceGroupName));
+            }
+            if (resourceGroupName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(resourceGroupName));
+            }
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (name.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(name));
+            }
+
+            using var message = CreateListWorkflowsRequest(subscriptionId, resourceGroupName, name);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        WorkflowEnvelopeCollection value = default;
+                        using var document = JsonDocument.Parse(message.Response.ContentStream);
+                        value = WorkflowEnvelopeCollection.DeserializeWorkflowEnvelopeCollection(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        internal HttpMessage CreateGetWorkflowRequest(string subscriptionId, string resourceGroupName, string name, string workflowName)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Get;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/subscriptions/", false);
+            uri.AppendPath(subscriptionId, true);
+            uri.AppendPath("/resourceGroups/", false);
+            uri.AppendPath(resourceGroupName, true);
+            uri.AppendPath("/providers/Microsoft.Web/sites/", false);
+            uri.AppendPath(name, true);
+            uri.AppendPath("/workflows/", false);
+            uri.AppendPath(workflowName, true);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> Get workflow information by its ID for web site, or a deployment slot. </summary>
+        /// <param name="subscriptionId"> Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
+        /// <param name="resourceGroupName"> Name of the resource group to which the resource belongs. </param>
+        /// <param name="name"> Site name. </param>
+        /// <param name="workflowName"> Workflow name. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="workflowName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="workflowName"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<WorkflowEnvelopeData>> GetWorkflowAsync(string subscriptionId, string resourceGroupName, string name, string workflowName, CancellationToken cancellationToken = default)
+        {
+            if (subscriptionId == null)
+            {
+                throw new ArgumentNullException(nameof(subscriptionId));
+            }
+            if (subscriptionId.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(subscriptionId));
+            }
+            if (resourceGroupName == null)
+            {
+                throw new ArgumentNullException(nameof(resourceGroupName));
+            }
+            if (resourceGroupName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(resourceGroupName));
+            }
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (name.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(name));
+            }
+            if (workflowName == null)
+            {
+                throw new ArgumentNullException(nameof(workflowName));
+            }
+            if (workflowName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(workflowName));
+            }
+
+            using var message = CreateGetWorkflowRequest(subscriptionId, resourceGroupName, name, workflowName);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        WorkflowEnvelopeData value = default;
+                        using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+                        value = WorkflowEnvelopeData.DeserializeWorkflowEnvelopeData(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                case 404:
+                    return Response.FromValue((WorkflowEnvelopeData)null, message.Response);
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> Get workflow information by its ID for web site, or a deployment slot. </summary>
+        /// <param name="subscriptionId"> Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
+        /// <param name="resourceGroupName"> Name of the resource group to which the resource belongs. </param>
+        /// <param name="name"> Site name. </param>
+        /// <param name="workflowName"> Workflow name. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="workflowName"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="workflowName"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<WorkflowEnvelopeData> GetWorkflow(string subscriptionId, string resourceGroupName, string name, string workflowName, CancellationToken cancellationToken = default)
+        {
+            if (subscriptionId == null)
+            {
+                throw new ArgumentNullException(nameof(subscriptionId));
+            }
+            if (subscriptionId.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(subscriptionId));
+            }
+            if (resourceGroupName == null)
+            {
+                throw new ArgumentNullException(nameof(resourceGroupName));
+            }
+            if (resourceGroupName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(resourceGroupName));
+            }
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (name.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(name));
+            }
+            if (workflowName == null)
+            {
+                throw new ArgumentNullException(nameof(workflowName));
+            }
+            if (workflowName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(workflowName));
+            }
+
+            using var message = CreateGetWorkflowRequest(subscriptionId, resourceGroupName, name, workflowName);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        WorkflowEnvelopeData value = default;
+                        using var document = JsonDocument.Parse(message.Response.ContentStream);
+                        value = WorkflowEnvelopeData.DeserializeWorkflowEnvelopeData(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                case 404:
+                    return Response.FromValue((WorkflowEnvelopeData)null, message.Response);
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        internal HttpMessage CreateListWorkflowsConnectionsRequest(string subscriptionId, string resourceGroupName, string name)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Post;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/subscriptions/", false);
+            uri.AppendPath(subscriptionId, true);
+            uri.AppendPath("/resourceGroups/", false);
+            uri.AppendPath(resourceGroupName, true);
+            uri.AppendPath("/providers/Microsoft.Web/sites/", false);
+            uri.AppendPath(name, true);
+            uri.AppendPath("/listWorkflowsConnections", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> Lists logic app's connections for web site, or a deployment slot. </summary>
+        /// <param name="subscriptionId"> Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
+        /// <param name="resourceGroupName"> Name of the resource group to which the resource belongs. </param>
+        /// <param name="name"> Site name. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="name"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<WorkflowEnvelopeData>> ListWorkflowsConnectionsAsync(string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
+        {
+            if (subscriptionId == null)
+            {
+                throw new ArgumentNullException(nameof(subscriptionId));
+            }
+            if (subscriptionId.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(subscriptionId));
+            }
+            if (resourceGroupName == null)
+            {
+                throw new ArgumentNullException(nameof(resourceGroupName));
+            }
+            if (resourceGroupName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(resourceGroupName));
+            }
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (name.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(name));
+            }
+
+            using var message = CreateListWorkflowsConnectionsRequest(subscriptionId, resourceGroupName, name);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        WorkflowEnvelopeData value = default;
+                        using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+                        value = WorkflowEnvelopeData.DeserializeWorkflowEnvelopeData(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> Lists logic app's connections for web site, or a deployment slot. </summary>
+        /// <param name="subscriptionId"> Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
+        /// <param name="resourceGroupName"> Name of the resource group to which the resource belongs. </param>
+        /// <param name="name"> Site name. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="name"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<WorkflowEnvelopeData> ListWorkflowsConnections(string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
+        {
+            if (subscriptionId == null)
+            {
+                throw new ArgumentNullException(nameof(subscriptionId));
+            }
+            if (subscriptionId.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(subscriptionId));
+            }
+            if (resourceGroupName == null)
+            {
+                throw new ArgumentNullException(nameof(resourceGroupName));
+            }
+            if (resourceGroupName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(resourceGroupName));
+            }
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (name.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(name));
+            }
+
+            using var message = CreateListWorkflowsConnectionsRequest(subscriptionId, resourceGroupName, name);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        WorkflowEnvelopeData value = default;
+                        using var document = JsonDocument.Parse(message.Response.ContentStream);
+                        value = WorkflowEnvelopeData.DeserializeWorkflowEnvelopeData(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
         internal HttpMessage CreateListNextPageRequest(string nextLink, string subscriptionId)
         {
             var message = _pipeline.CreateMessage();
@@ -57532,6 +59678,130 @@ namespace Azure.ResourceManager.AppService
                         ContinuousWebJobListResult value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
                         value = ContinuousWebJobListResult.DeserializeContinuousWebJobListResult(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        internal HttpMessage CreateListProductionSiteDeploymentStatusesNextPageRequest(string nextLink, string subscriptionId, string resourceGroupName, string name)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Get;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendRawNextLink(nextLink, false);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> List deployment statuses for an app (or deployment slot, if specified). </summary>
+        /// <param name="nextLink"> The URL to the next page of results. </param>
+        /// <param name="subscriptionId"> Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
+        /// <param name="resourceGroupName"> Name of the resource group to which the resource belongs. </param>
+        /// <param name="name"> Name of the app. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="name"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<CsmDeploymentStatusCollection>> ListProductionSiteDeploymentStatusesNextPageAsync(string nextLink, string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
+        {
+            if (nextLink == null)
+            {
+                throw new ArgumentNullException(nameof(nextLink));
+            }
+            if (subscriptionId == null)
+            {
+                throw new ArgumentNullException(nameof(subscriptionId));
+            }
+            if (subscriptionId.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(subscriptionId));
+            }
+            if (resourceGroupName == null)
+            {
+                throw new ArgumentNullException(nameof(resourceGroupName));
+            }
+            if (resourceGroupName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(resourceGroupName));
+            }
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (name.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(name));
+            }
+
+            using var message = CreateListProductionSiteDeploymentStatusesNextPageRequest(nextLink, subscriptionId, resourceGroupName, name);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        CsmDeploymentStatusCollection value = default;
+                        using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+                        value = CsmDeploymentStatusCollection.DeserializeCsmDeploymentStatusCollection(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> List deployment statuses for an app (or deployment slot, if specified). </summary>
+        /// <param name="nextLink"> The URL to the next page of results. </param>
+        /// <param name="subscriptionId"> Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
+        /// <param name="resourceGroupName"> Name of the resource group to which the resource belongs. </param>
+        /// <param name="name"> Name of the app. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="name"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<CsmDeploymentStatusCollection> ListProductionSiteDeploymentStatusesNextPage(string nextLink, string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
+        {
+            if (nextLink == null)
+            {
+                throw new ArgumentNullException(nameof(nextLink));
+            }
+            if (subscriptionId == null)
+            {
+                throw new ArgumentNullException(nameof(subscriptionId));
+            }
+            if (subscriptionId.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(subscriptionId));
+            }
+            if (resourceGroupName == null)
+            {
+                throw new ArgumentNullException(nameof(resourceGroupName));
+            }
+            if (resourceGroupName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(resourceGroupName));
+            }
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (name.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(name));
+            }
+
+            using var message = CreateListProductionSiteDeploymentStatusesNextPageRequest(nextLink, subscriptionId, resourceGroupName, name);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        CsmDeploymentStatusCollection value = default;
+                        using var document = JsonDocument.Parse(message.Response.ContentStream);
+                        value = CsmDeploymentStatusCollection.DeserializeCsmDeploymentStatusCollection(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -60762,6 +63032,148 @@ namespace Azure.ResourceManager.AppService
                         ContinuousWebJobListResult value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
                         value = ContinuousWebJobListResult.DeserializeContinuousWebJobListResult(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        internal HttpMessage CreateListSlotSiteDeploymentStatusesSlotNextPageRequest(string nextLink, string subscriptionId, string resourceGroupName, string name, string slot)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Get;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendRawNextLink(nextLink, false);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> List deployment statuses for an app (or deployment slot, if specified). </summary>
+        /// <param name="nextLink"> The URL to the next page of results. </param>
+        /// <param name="subscriptionId"> Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
+        /// <param name="resourceGroupName"> Name of the resource group to which the resource belongs. </param>
+        /// <param name="name"> Name of the app. </param>
+        /// <param name="slot"> Name of the deployment slot. If a slot is not specified, the API will get the deployment status for the production slot. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="slot"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="slot"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<CsmDeploymentStatusCollection>> ListSlotSiteDeploymentStatusesSlotNextPageAsync(string nextLink, string subscriptionId, string resourceGroupName, string name, string slot, CancellationToken cancellationToken = default)
+        {
+            if (nextLink == null)
+            {
+                throw new ArgumentNullException(nameof(nextLink));
+            }
+            if (subscriptionId == null)
+            {
+                throw new ArgumentNullException(nameof(subscriptionId));
+            }
+            if (subscriptionId.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(subscriptionId));
+            }
+            if (resourceGroupName == null)
+            {
+                throw new ArgumentNullException(nameof(resourceGroupName));
+            }
+            if (resourceGroupName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(resourceGroupName));
+            }
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (name.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(name));
+            }
+            if (slot == null)
+            {
+                throw new ArgumentNullException(nameof(slot));
+            }
+            if (slot.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(slot));
+            }
+
+            using var message = CreateListSlotSiteDeploymentStatusesSlotNextPageRequest(nextLink, subscriptionId, resourceGroupName, name, slot);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        CsmDeploymentStatusCollection value = default;
+                        using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+                        value = CsmDeploymentStatusCollection.DeserializeCsmDeploymentStatusCollection(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> List deployment statuses for an app (or deployment slot, if specified). </summary>
+        /// <param name="nextLink"> The URL to the next page of results. </param>
+        /// <param name="subscriptionId"> Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
+        /// <param name="resourceGroupName"> Name of the resource group to which the resource belongs. </param>
+        /// <param name="name"> Name of the app. </param>
+        /// <param name="slot"> Name of the deployment slot. If a slot is not specified, the API will get the deployment status for the production slot. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="slot"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="slot"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<CsmDeploymentStatusCollection> ListSlotSiteDeploymentStatusesSlotNextPage(string nextLink, string subscriptionId, string resourceGroupName, string name, string slot, CancellationToken cancellationToken = default)
+        {
+            if (nextLink == null)
+            {
+                throw new ArgumentNullException(nameof(nextLink));
+            }
+            if (subscriptionId == null)
+            {
+                throw new ArgumentNullException(nameof(subscriptionId));
+            }
+            if (subscriptionId.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(subscriptionId));
+            }
+            if (resourceGroupName == null)
+            {
+                throw new ArgumentNullException(nameof(resourceGroupName));
+            }
+            if (resourceGroupName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(resourceGroupName));
+            }
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (name.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(name));
+            }
+            if (slot == null)
+            {
+                throw new ArgumentNullException(nameof(slot));
+            }
+            if (slot.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(slot));
+            }
+
+            using var message = CreateListSlotSiteDeploymentStatusesSlotNextPageRequest(nextLink, subscriptionId, resourceGroupName, name, slot);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        CsmDeploymentStatusCollection value = default;
+                        using var document = JsonDocument.Parse(message.Response.ContentStream);
+                        value = CsmDeploymentStatusCollection.DeserializeCsmDeploymentStatusCollection(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -65084,6 +67496,272 @@ namespace Azure.ResourceManager.AppService
                         WebJobCListResult value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
                         value = WebJobCListResult.DeserializeWebJobCListResult(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        internal HttpMessage CreateListInstanceWorkflowsSlotNextPageRequest(string nextLink, string subscriptionId, string resourceGroupName, string name, string slot)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Get;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendRawNextLink(nextLink, false);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> List the workflows for a web site, or a deployment slot. </summary>
+        /// <param name="nextLink"> The URL to the next page of results. </param>
+        /// <param name="subscriptionId"> Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
+        /// <param name="resourceGroupName"> Name of the resource group to which the resource belongs. </param>
+        /// <param name="name"> Site name. </param>
+        /// <param name="slot"> Name of the deployment slot. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="slot"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="slot"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<WorkflowEnvelopeCollection>> ListInstanceWorkflowsSlotNextPageAsync(string nextLink, string subscriptionId, string resourceGroupName, string name, string slot, CancellationToken cancellationToken = default)
+        {
+            if (nextLink == null)
+            {
+                throw new ArgumentNullException(nameof(nextLink));
+            }
+            if (subscriptionId == null)
+            {
+                throw new ArgumentNullException(nameof(subscriptionId));
+            }
+            if (subscriptionId.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(subscriptionId));
+            }
+            if (resourceGroupName == null)
+            {
+                throw new ArgumentNullException(nameof(resourceGroupName));
+            }
+            if (resourceGroupName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(resourceGroupName));
+            }
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (name.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(name));
+            }
+            if (slot == null)
+            {
+                throw new ArgumentNullException(nameof(slot));
+            }
+            if (slot.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(slot));
+            }
+
+            using var message = CreateListInstanceWorkflowsSlotNextPageRequest(nextLink, subscriptionId, resourceGroupName, name, slot);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        WorkflowEnvelopeCollection value = default;
+                        using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+                        value = WorkflowEnvelopeCollection.DeserializeWorkflowEnvelopeCollection(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> List the workflows for a web site, or a deployment slot. </summary>
+        /// <param name="nextLink"> The URL to the next page of results. </param>
+        /// <param name="subscriptionId"> Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
+        /// <param name="resourceGroupName"> Name of the resource group to which the resource belongs. </param>
+        /// <param name="name"> Site name. </param>
+        /// <param name="slot"> Name of the deployment slot. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="slot"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/>, <paramref name="name"/> or <paramref name="slot"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<WorkflowEnvelopeCollection> ListInstanceWorkflowsSlotNextPage(string nextLink, string subscriptionId, string resourceGroupName, string name, string slot, CancellationToken cancellationToken = default)
+        {
+            if (nextLink == null)
+            {
+                throw new ArgumentNullException(nameof(nextLink));
+            }
+            if (subscriptionId == null)
+            {
+                throw new ArgumentNullException(nameof(subscriptionId));
+            }
+            if (subscriptionId.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(subscriptionId));
+            }
+            if (resourceGroupName == null)
+            {
+                throw new ArgumentNullException(nameof(resourceGroupName));
+            }
+            if (resourceGroupName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(resourceGroupName));
+            }
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (name.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(name));
+            }
+            if (slot == null)
+            {
+                throw new ArgumentNullException(nameof(slot));
+            }
+            if (slot.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(slot));
+            }
+
+            using var message = CreateListInstanceWorkflowsSlotNextPageRequest(nextLink, subscriptionId, resourceGroupName, name, slot);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        WorkflowEnvelopeCollection value = default;
+                        using var document = JsonDocument.Parse(message.Response.ContentStream);
+                        value = WorkflowEnvelopeCollection.DeserializeWorkflowEnvelopeCollection(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        internal HttpMessage CreateListWorkflowsNextPageRequest(string nextLink, string subscriptionId, string resourceGroupName, string name)
+        {
+            var message = _pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Get;
+            var uri = new RawRequestUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendRawNextLink(nextLink, false);
+            request.Uri = uri;
+            request.Headers.Add("Accept", "application/json");
+            _userAgent.Apply(message);
+            return message;
+        }
+
+        /// <summary> List the workflows for a web site, or a deployment slot. </summary>
+        /// <param name="nextLink"> The URL to the next page of results. </param>
+        /// <param name="subscriptionId"> Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
+        /// <param name="resourceGroupName"> Name of the resource group to which the resource belongs. </param>
+        /// <param name="name"> Site name. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="name"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
+        public async Task<Response<WorkflowEnvelopeCollection>> ListWorkflowsNextPageAsync(string nextLink, string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
+        {
+            if (nextLink == null)
+            {
+                throw new ArgumentNullException(nameof(nextLink));
+            }
+            if (subscriptionId == null)
+            {
+                throw new ArgumentNullException(nameof(subscriptionId));
+            }
+            if (subscriptionId.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(subscriptionId));
+            }
+            if (resourceGroupName == null)
+            {
+                throw new ArgumentNullException(nameof(resourceGroupName));
+            }
+            if (resourceGroupName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(resourceGroupName));
+            }
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (name.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(name));
+            }
+
+            using var message = CreateListWorkflowsNextPageRequest(nextLink, subscriptionId, resourceGroupName, name);
+            await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        WorkflowEnvelopeCollection value = default;
+                        using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
+                        value = WorkflowEnvelopeCollection.DeserializeWorkflowEnvelopeCollection(document.RootElement);
+                        return Response.FromValue(value, message.Response);
+                    }
+                default:
+                    throw new RequestFailedException(message.Response);
+            }
+        }
+
+        /// <summary> List the workflows for a web site, or a deployment slot. </summary>
+        /// <param name="nextLink"> The URL to the next page of results. </param>
+        /// <param name="subscriptionId"> Your Azure subscription ID. This is a GUID-formatted string (e.g. 00000000-0000-0000-0000-000000000000). </param>
+        /// <param name="resourceGroupName"> Name of the resource group to which the resource belongs. </param>
+        /// <param name="name"> Site name. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="name"/> is null. </exception>
+        /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="name"/> is an empty string, and was expected to be non-empty. </exception>
+        public Response<WorkflowEnvelopeCollection> ListWorkflowsNextPage(string nextLink, string subscriptionId, string resourceGroupName, string name, CancellationToken cancellationToken = default)
+        {
+            if (nextLink == null)
+            {
+                throw new ArgumentNullException(nameof(nextLink));
+            }
+            if (subscriptionId == null)
+            {
+                throw new ArgumentNullException(nameof(subscriptionId));
+            }
+            if (subscriptionId.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(subscriptionId));
+            }
+            if (resourceGroupName == null)
+            {
+                throw new ArgumentNullException(nameof(resourceGroupName));
+            }
+            if (resourceGroupName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(resourceGroupName));
+            }
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+            if (name.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(name));
+            }
+
+            using var message = CreateListWorkflowsNextPageRequest(nextLink, subscriptionId, resourceGroupName, name);
+            _pipeline.Send(message, cancellationToken);
+            switch (message.Response.Status)
+            {
+                case 200:
+                    {
+                        WorkflowEnvelopeCollection value = default;
+                        using var document = JsonDocument.Parse(message.Response.ContentStream);
+                        value = WorkflowEnvelopeCollection.DeserializeWorkflowEnvelopeCollection(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
