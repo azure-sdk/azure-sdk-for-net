@@ -33,6 +33,11 @@ namespace Azure.ResourceManager.ContainerService.Models
                 writer.WritePropertyName("kubeStateMetrics"u8);
                 writer.WriteObjectValue(KubeStateMetrics);
             }
+            if (Optional.IsDefined(AppMonitoringOpenTelemetryMetrics))
+            {
+                writer.WritePropertyName("appMonitoringOpenTelemetryMetrics"u8);
+                writer.WriteObjectValue(AppMonitoringOpenTelemetryMetrics);
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -73,6 +78,7 @@ namespace Azure.ResourceManager.ContainerService.Models
             }
             bool enabled = default;
             Optional<ManagedClusterMonitorProfileKubeStateMetrics> kubeStateMetrics = default;
+            Optional<ManagedClusterAzureMonitorProfileAppMonitoringOpenTelemetryMetrics> appMonitoringOpenTelemetryMetrics = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -91,13 +97,22 @@ namespace Azure.ResourceManager.ContainerService.Models
                     kubeStateMetrics = ManagedClusterMonitorProfileKubeStateMetrics.DeserializeManagedClusterMonitorProfileKubeStateMetrics(property.Value, options);
                     continue;
                 }
+                if (property.NameEquals("appMonitoringOpenTelemetryMetrics"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    appMonitoringOpenTelemetryMetrics = ManagedClusterAzureMonitorProfileAppMonitoringOpenTelemetryMetrics.DeserializeManagedClusterAzureMonitorProfileAppMonitoringOpenTelemetryMetrics(property.Value, options);
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new ManagedClusterMonitorProfileMetrics(enabled, kubeStateMetrics.Value, serializedAdditionalRawData);
+            return new ManagedClusterMonitorProfileMetrics(enabled, kubeStateMetrics.Value, appMonitoringOpenTelemetryMetrics.Value, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<ManagedClusterMonitorProfileMetrics>.Write(ModelReaderWriterOptions options)

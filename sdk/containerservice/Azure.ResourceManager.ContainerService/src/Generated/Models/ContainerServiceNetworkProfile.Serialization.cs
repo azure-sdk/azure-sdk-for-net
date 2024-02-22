@@ -116,6 +116,16 @@ namespace Azure.ResourceManager.ContainerService.Models
                 }
                 writer.WriteEndArray();
             }
+            if (Optional.IsDefined(KubeProxyConfig))
+            {
+                writer.WritePropertyName("kubeProxyConfig"u8);
+                writer.WriteObjectValue(KubeProxyConfig);
+            }
+            if (Optional.IsDefined(Monitoring))
+            {
+                writer.WritePropertyName("monitoring"u8);
+                writer.WriteObjectValue(Monitoring);
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -169,6 +179,8 @@ namespace Azure.ResourceManager.ContainerService.Models
             Optional<IList<string>> podCidrs = default;
             Optional<IList<string>> serviceCidrs = default;
             Optional<IList<IPFamily>> ipFamilies = default;
+            Optional<ContainerServiceNetworkProfileKubeProxyConfig> kubeProxyConfig = default;
+            Optional<NetworkMonitoring> monitoring = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -311,13 +323,31 @@ namespace Azure.ResourceManager.ContainerService.Models
                     ipFamilies = array;
                     continue;
                 }
+                if (property.NameEquals("kubeProxyConfig"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    kubeProxyConfig = ContainerServiceNetworkProfileKubeProxyConfig.DeserializeContainerServiceNetworkProfileKubeProxyConfig(property.Value, options);
+                    continue;
+                }
+                if (property.NameEquals("monitoring"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    monitoring = NetworkMonitoring.DeserializeNetworkMonitoring(property.Value, options);
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new ContainerServiceNetworkProfile(Optional.ToNullable(networkPlugin), Optional.ToNullable(networkPluginMode), Optional.ToNullable(networkPolicy), Optional.ToNullable(networkMode), Optional.ToNullable(networkDataplane), podCidr.Value, serviceCidr.Value, dnsServiceIP.Value, Optional.ToNullable(outboundType), Optional.ToNullable(loadBalancerSku), loadBalancerProfile.Value, natGatewayProfile.Value, Optional.ToList(podCidrs), Optional.ToList(serviceCidrs), Optional.ToList(ipFamilies), serializedAdditionalRawData);
+            return new ContainerServiceNetworkProfile(Optional.ToNullable(networkPlugin), Optional.ToNullable(networkPluginMode), Optional.ToNullable(networkPolicy), Optional.ToNullable(networkMode), Optional.ToNullable(networkDataplane), podCidr.Value, serviceCidr.Value, dnsServiceIP.Value, Optional.ToNullable(outboundType), Optional.ToNullable(loadBalancerSku), loadBalancerProfile.Value, natGatewayProfile.Value, Optional.ToList(podCidrs), Optional.ToList(serviceCidrs), Optional.ToList(ipFamilies), kubeProxyConfig.Value, monitoring.Value, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<ContainerServiceNetworkProfile>.Write(ModelReaderWriterOptions options)
