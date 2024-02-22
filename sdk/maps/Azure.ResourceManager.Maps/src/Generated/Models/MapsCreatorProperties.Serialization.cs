@@ -33,6 +33,16 @@ namespace Azure.ResourceManager.Maps.Models
             }
             writer.WritePropertyName("storageUnits"u8);
             writer.WriteNumberValue(StorageUnits);
+            if (Optional.IsDefined(TotalStorageUnitSizeInBytes))
+            {
+                writer.WritePropertyName("totalStorageUnitSizeInBytes"u8);
+                writer.WriteNumberValue(TotalStorageUnitSizeInBytes.Value);
+            }
+            if (Optional.IsDefined(ConsumedStorageUnitSizeInBytes))
+            {
+                writer.WritePropertyName("consumedStorageUnitSizeInBytes"u8);
+                writer.WriteNumberValue(ConsumedStorageUnitSizeInBytes.Value);
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -73,6 +83,8 @@ namespace Azure.ResourceManager.Maps.Models
             }
             Optional<string> provisioningState = default;
             int storageUnits = default;
+            Optional<int> totalStorageUnitSizeInBytes = default;
+            Optional<int> consumedStorageUnitSizeInBytes = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -87,13 +99,31 @@ namespace Azure.ResourceManager.Maps.Models
                     storageUnits = property.Value.GetInt32();
                     continue;
                 }
+                if (property.NameEquals("totalStorageUnitSizeInBytes"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    totalStorageUnitSizeInBytes = property.Value.GetInt32();
+                    continue;
+                }
+                if (property.NameEquals("consumedStorageUnitSizeInBytes"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    consumedStorageUnitSizeInBytes = property.Value.GetInt32();
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new MapsCreatorProperties(provisioningState.Value, storageUnits, serializedAdditionalRawData);
+            return new MapsCreatorProperties(provisioningState.Value, storageUnits, Optional.ToNullable(totalStorageUnitSizeInBytes), Optional.ToNullable(consumedStorageUnitSizeInBytes), serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<MapsCreatorProperties>.Write(ModelReaderWriterOptions options)
