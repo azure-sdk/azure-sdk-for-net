@@ -56,6 +56,31 @@ namespace Azure.ResourceManager.AppPlatform.Models
                 }
                 writer.WriteEndArray();
             }
+            if (Optional.IsDefined(SsoEnabled))
+            {
+                writer.WritePropertyName("ssoEnabled"u8);
+                writer.WriteBooleanValue(SsoEnabled.Value);
+            }
+            if (Optional.IsCollectionDefined(Predicates))
+            {
+                writer.WritePropertyName("predicates"u8);
+                writer.WriteStartArray();
+                foreach (var item in Predicates)
+                {
+                    writer.WriteStringValue(item);
+                }
+                writer.WriteEndArray();
+            }
+            if (Optional.IsCollectionDefined(Filters))
+            {
+                writer.WritePropertyName("filters"u8);
+                writer.WriteStartArray();
+                foreach (var item in Filters)
+                {
+                    writer.WriteStringValue(item);
+                }
+                writer.WriteEndArray();
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -99,6 +124,9 @@ namespace Azure.ResourceManager.AppPlatform.Models
             Optional<GatewayRouteConfigOpenApiProperties> openApi = default;
             Optional<AppPlatformGatewayRouteConfigProtocol> protocol = default;
             Optional<IList<AppPlatformGatewayApiRoute>> routes = default;
+            Optional<bool> ssoEnabled = default;
+            Optional<IList<string>> predicates = default;
+            Optional<IList<string>> filters = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -153,13 +181,50 @@ namespace Azure.ResourceManager.AppPlatform.Models
                     routes = array;
                     continue;
                 }
+                if (property.NameEquals("ssoEnabled"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    ssoEnabled = property.Value.GetBoolean();
+                    continue;
+                }
+                if (property.NameEquals("predicates"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<string> array = new List<string>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(item.GetString());
+                    }
+                    predicates = array;
+                    continue;
+                }
+                if (property.NameEquals("filters"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<string> array = new List<string>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(item.GetString());
+                    }
+                    filters = array;
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new AppPlatformGatewayRouteConfigProperties(Optional.ToNullable(provisioningState), appResourceId.Value, openApi.Value, Optional.ToNullable(protocol), Optional.ToList(routes), serializedAdditionalRawData);
+            return new AppPlatformGatewayRouteConfigProperties(Optional.ToNullable(provisioningState), appResourceId.Value, openApi.Value, Optional.ToNullable(protocol), Optional.ToList(routes), Optional.ToNullable(ssoEnabled), Optional.ToList(predicates), Optional.ToList(filters), serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<AppPlatformGatewayRouteConfigProperties>.Write(ModelReaderWriterOptions options)

@@ -667,7 +667,6 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
         public static Azure.ResourceManager.RedisEnterprise.Models.RedisEnterpriseSkuName EnterpriseE10 { get { throw null; } }
         public static Azure.ResourceManager.RedisEnterprise.Models.RedisEnterpriseSkuName EnterpriseE100 { get { throw null; } }
         public static Azure.ResourceManager.RedisEnterprise.Models.RedisEnterpriseSkuName EnterpriseE20 { get { throw null; } }
-        public static Azure.ResourceManager.RedisEnterprise.Models.RedisEnterpriseSkuName EnterpriseE5 { get { throw null; } }
         public static Azure.ResourceManager.RedisEnterprise.Models.RedisEnterpriseSkuName EnterpriseE50 { get { throw null; } }
         public static Azure.ResourceManager.RedisEnterprise.Models.RedisEnterpriseSkuName EnterpriseFlashF1500 { get { throw null; } }
         public static Azure.ResourceManager.RedisEnterprise.Models.RedisEnterpriseSkuName EnterpriseFlashF300 { get { throw null; } }
