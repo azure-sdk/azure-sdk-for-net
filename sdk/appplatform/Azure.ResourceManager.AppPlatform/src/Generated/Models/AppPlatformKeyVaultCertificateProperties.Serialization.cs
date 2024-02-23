@@ -40,6 +40,11 @@ namespace Azure.ResourceManager.AppPlatform.Models
                 writer.WritePropertyName("excludePrivateKey"u8);
                 writer.WriteBooleanValue(IsPrivateKeyExcluded.Value);
             }
+            if (Optional.IsDefined(AutoSync))
+            {
+                writer.WritePropertyName("autoSync"u8);
+                writer.WriteStringValue(AutoSync.Value.ToString());
+            }
             writer.WritePropertyName("type"u8);
             writer.WriteStringValue(CertificatePropertiesType);
             if (options.Format != "W" && Optional.IsDefined(Thumbprint))
@@ -129,6 +134,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
             string keyVaultCertName = default;
             Optional<string> certVersion = default;
             Optional<bool> excludePrivateKey = default;
+            Optional<KeyVaultCertificateAutoSync> autoSync = default;
             string type = default;
             Optional<string> thumbprint = default;
             Optional<string> issuer = default;
@@ -164,6 +170,15 @@ namespace Azure.ResourceManager.AppPlatform.Models
                         continue;
                     }
                     excludePrivateKey = property.Value.GetBoolean();
+                    continue;
+                }
+                if (property.NameEquals("autoSync"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    autoSync = new KeyVaultCertificateAutoSync(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("type"u8))
@@ -242,7 +257,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new AppPlatformKeyVaultCertificateProperties(type, thumbprint.Value, issuer.Value, Optional.ToNullable(issuedDate), Optional.ToNullable(expirationDate), Optional.ToNullable(activateDate), subjectName.Value, Optional.ToList(dnsNames), Optional.ToNullable(provisioningState), serializedAdditionalRawData, vaultUri, keyVaultCertName, certVersion.Value, Optional.ToNullable(excludePrivateKey));
+            return new AppPlatformKeyVaultCertificateProperties(type, thumbprint.Value, issuer.Value, Optional.ToNullable(issuedDate), Optional.ToNullable(expirationDate), Optional.ToNullable(activateDate), subjectName.Value, Optional.ToList(dnsNames), Optional.ToNullable(provisioningState), serializedAdditionalRawData, vaultUri, keyVaultCertName, certVersion.Value, Optional.ToNullable(excludePrivateKey), Optional.ToNullable(autoSync));
         }
 
         BinaryData IPersistableModel<AppPlatformKeyVaultCertificateProperties>.Write(ModelReaderWriterOptions options)

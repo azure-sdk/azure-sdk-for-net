@@ -22,7 +22,6 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
             _value = value ?? throw new ArgumentNullException(nameof(value));
         }
 
-        private const string EnterpriseE5Value = "Enterprise_E5";
         private const string EnterpriseE10Value = "Enterprise_E10";
         private const string EnterpriseE20Value = "Enterprise_E20";
         private const string EnterpriseE50Value = "Enterprise_E50";
@@ -31,8 +30,6 @@ namespace Azure.ResourceManager.RedisEnterprise.Models
         private const string EnterpriseFlashF700Value = "EnterpriseFlash_F700";
         private const string EnterpriseFlashF1500Value = "EnterpriseFlash_F1500";
 
-        /// <summary> Enterprise_E5. </summary>
-        public static RedisEnterpriseSkuName EnterpriseE5 { get; } = new RedisEnterpriseSkuName(EnterpriseE5Value);
         /// <summary> Enterprise_E10. </summary>
         public static RedisEnterpriseSkuName EnterpriseE10 { get; } = new RedisEnterpriseSkuName(EnterpriseE10Value);
         /// <summary> Enterprise_E20. </summary>

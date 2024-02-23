@@ -63,6 +63,28 @@ namespace Azure.ResourceManager.AppPlatform
         }
 
         /// <summary>
+        /// Gets an object representing an <see cref="ApmResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="ApmResource.CreateResourceIdentifier" /> to create an <see cref="ApmResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableAppPlatformArmClient.GetApmResource(ResourceIdentifier)"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
+        /// <returns> Returns a <see cref="ApmResource"/> object. </returns>
+        public static ApmResource GetApmResource(this ArmClient client, ResourceIdentifier id)
+        {
+            if (client == null)
+            {
+                throw new ArgumentNullException(nameof(client));
+            }
+
+            return GetMockableAppPlatformArmClient(client).GetApmResource(id);
+        }
+
+        /// <summary>
         /// Gets an object representing an <see cref="AppPlatformConfigServerResource" /> along with the instance operations that can be performed on it but with no data.
         /// You can use <see cref="AppPlatformConfigServerResource.CreateResourceIdentifier" /> to create an <see cref="AppPlatformConfigServerResource" /> <see cref="ResourceIdentifier" /> from its components.
         /// <item>
@@ -126,6 +148,72 @@ namespace Azure.ResourceManager.AppPlatform
             }
 
             return GetMockableAppPlatformArmClient(client).GetAppPlatformServiceRegistryResource(id);
+        }
+
+        /// <summary>
+        /// Gets an object representing an <see cref="ApplicationLiveViewResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="ApplicationLiveViewResource.CreateResourceIdentifier" /> to create an <see cref="ApplicationLiveViewResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableAppPlatformArmClient.GetApplicationLiveViewResource(ResourceIdentifier)"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
+        /// <returns> Returns a <see cref="ApplicationLiveViewResource"/> object. </returns>
+        public static ApplicationLiveViewResource GetApplicationLiveViewResource(this ArmClient client, ResourceIdentifier id)
+        {
+            if (client == null)
+            {
+                throw new ArgumentNullException(nameof(client));
+            }
+
+            return GetMockableAppPlatformArmClient(client).GetApplicationLiveViewResource(id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="DevToolPortalResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="DevToolPortalResource.CreateResourceIdentifier" /> to create a <see cref="DevToolPortalResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableAppPlatformArmClient.GetDevToolPortalResource(ResourceIdentifier)"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
+        /// <returns> Returns a <see cref="DevToolPortalResource"/> object. </returns>
+        public static DevToolPortalResource GetDevToolPortalResource(this ArmClient client, ResourceIdentifier id)
+        {
+            if (client == null)
+            {
+                throw new ArgumentNullException(nameof(client));
+            }
+
+            return GetMockableAppPlatformArmClient(client).GetDevToolPortalResource(id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="ContainerRegistryResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="ContainerRegistryResource.CreateResourceIdentifier" /> to create a <see cref="ContainerRegistryResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableAppPlatformArmClient.GetContainerRegistryResource(ResourceIdentifier)"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
+        /// <returns> Returns a <see cref="ContainerRegistryResource"/> object. </returns>
+        public static ContainerRegistryResource GetContainerRegistryResource(this ArmClient client, ResourceIdentifier id)
+        {
+            if (client == null)
+            {
+                throw new ArgumentNullException(nameof(client));
+            }
+
+            return GetMockableAppPlatformArmClient(client).GetContainerRegistryResource(id);
         }
 
         /// <summary>
@@ -569,6 +657,72 @@ namespace Azure.ResourceManager.AppPlatform
         }
 
         /// <summary>
+        /// Gets an object representing an <see cref="ApplicationAcceleratorResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="ApplicationAcceleratorResource.CreateResourceIdentifier" /> to create an <see cref="ApplicationAcceleratorResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableAppPlatformArmClient.GetApplicationAcceleratorResource(ResourceIdentifier)"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
+        /// <returns> Returns a <see cref="ApplicationAcceleratorResource"/> object. </returns>
+        public static ApplicationAcceleratorResource GetApplicationAcceleratorResource(this ArmClient client, ResourceIdentifier id)
+        {
+            if (client == null)
+            {
+                throw new ArgumentNullException(nameof(client));
+            }
+
+            return GetMockableAppPlatformArmClient(client).GetApplicationAcceleratorResource(id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="CustomizedAcceleratorResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="CustomizedAcceleratorResource.CreateResourceIdentifier" /> to create a <see cref="CustomizedAcceleratorResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableAppPlatformArmClient.GetCustomizedAcceleratorResource(ResourceIdentifier)"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
+        /// <returns> Returns a <see cref="CustomizedAcceleratorResource"/> object. </returns>
+        public static CustomizedAcceleratorResource GetCustomizedAcceleratorResource(this ArmClient client, ResourceIdentifier id)
+        {
+            if (client == null)
+            {
+                throw new ArgumentNullException(nameof(client));
+            }
+
+            return GetMockableAppPlatformArmClient(client).GetCustomizedAcceleratorResource(id);
+        }
+
+        /// <summary>
+        /// Gets an object representing a <see cref="PredefinedAcceleratorResource" /> along with the instance operations that can be performed on it but with no data.
+        /// You can use <see cref="PredefinedAcceleratorResource.CreateResourceIdentifier" /> to create a <see cref="PredefinedAcceleratorResource" /> <see cref="ResourceIdentifier" /> from its components.
+        /// <item>
+        /// <term>Mocking</term>
+        /// <description>To mock this method, please mock <see cref="MockableAppPlatformArmClient.GetPredefinedAcceleratorResource(ResourceIdentifier)"/> instead.</description>
+        /// </item>
+        /// </summary>
+        /// <param name="client"> The <see cref="ArmClient" /> instance the method will execute against. </param>
+        /// <param name="id"> The resource ID of the resource to get. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="client"/> is null. </exception>
+        /// <returns> Returns a <see cref="PredefinedAcceleratorResource"/> object. </returns>
+        public static PredefinedAcceleratorResource GetPredefinedAcceleratorResource(this ArmClient client, ResourceIdentifier id)
+        {
+            if (client == null)
+            {
+                throw new ArgumentNullException(nameof(client));
+            }
+
+            return GetMockableAppPlatformArmClient(client).GetPredefinedAcceleratorResource(id);
+        }
+
+        /// <summary>
         /// Gets a collection of AppPlatformServiceResources in the ResourceGroupResource.
         /// <item>
         /// <term>Mocking</term>
@@ -601,7 +755,7 @@ namespace Azure.ResourceManager.AppPlatform
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-12-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -642,7 +796,7 @@ namespace Azure.ResourceManager.AppPlatform
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-12-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -683,7 +837,7 @@ namespace Azure.ResourceManager.AppPlatform
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-12-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -723,7 +877,7 @@ namespace Azure.ResourceManager.AppPlatform
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-12-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -763,7 +917,7 @@ namespace Azure.ResourceManager.AppPlatform
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-12-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -802,7 +956,7 @@ namespace Azure.ResourceManager.AppPlatform
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-12-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -841,7 +995,7 @@ namespace Azure.ResourceManager.AppPlatform
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-12-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -876,7 +1030,7 @@ namespace Azure.ResourceManager.AppPlatform
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-12-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -911,7 +1065,7 @@ namespace Azure.ResourceManager.AppPlatform
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-12-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// <item>
@@ -946,7 +1100,7 @@ namespace Azure.ResourceManager.AppPlatform
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-12-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// </list>
         /// <item>

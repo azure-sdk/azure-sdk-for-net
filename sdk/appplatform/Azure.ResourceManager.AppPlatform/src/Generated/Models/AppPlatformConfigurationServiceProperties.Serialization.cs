@@ -31,6 +31,11 @@ namespace Azure.ResourceManager.AppPlatform.Models
                 writer.WritePropertyName("provisioningState"u8);
                 writer.WriteStringValue(ProvisioningState.Value.ToString());
             }
+            if (Optional.IsDefined(Generation))
+            {
+                writer.WritePropertyName("generation"u8);
+                writer.WriteStringValue(Generation.Value.ToString());
+            }
             if (options.Format != "W" && Optional.IsDefined(ResourceRequests))
             {
                 writer.WritePropertyName("resourceRequests"u8);
@@ -90,6 +95,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
                 return null;
             }
             Optional<AppPlatformConfigurationServiceProvisioningState> provisioningState = default;
+            Optional<ConfigurationServiceGeneration> generation = default;
             Optional<AppPlatformConfigurationServiceRequirements> resourceRequests = default;
             Optional<IReadOnlyList<AppPlatformConfigurationServiceInstance>> instances = default;
             Optional<AppPlatformConfigurationServiceSettings> settings = default;
@@ -104,6 +110,15 @@ namespace Azure.ResourceManager.AppPlatform.Models
                         continue;
                     }
                     provisioningState = new AppPlatformConfigurationServiceProvisioningState(property.Value.GetString());
+                    continue;
+                }
+                if (property.NameEquals("generation"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    generation = new ConfigurationServiceGeneration(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("resourceRequests"u8))
@@ -144,7 +159,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new AppPlatformConfigurationServiceProperties(Optional.ToNullable(provisioningState), resourceRequests.Value, Optional.ToList(instances), settings.Value, serializedAdditionalRawData);
+            return new AppPlatformConfigurationServiceProperties(Optional.ToNullable(provisioningState), Optional.ToNullable(generation), resourceRequests.Value, Optional.ToList(instances), settings.Value, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<AppPlatformConfigurationServiceProperties>.Write(ModelReaderWriterOptions options)
