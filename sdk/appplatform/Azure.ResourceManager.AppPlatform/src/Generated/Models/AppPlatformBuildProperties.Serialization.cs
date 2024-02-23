@@ -10,7 +10,6 @@ using System.ClientModel.Primitives;
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
-using Azure.ResourceManager.Resources.Models;
 
 namespace Azure.ResourceManager.AppPlatform.Models
 {
@@ -58,10 +57,30 @@ namespace Azure.ResourceManager.AppPlatform.Models
                 }
                 writer.WriteEndObject();
             }
+            if (Optional.IsCollectionDefined(Apms))
+            {
+                writer.WritePropertyName("apms"u8);
+                writer.WriteStartArray();
+                foreach (var item in Apms)
+                {
+                    writer.WriteObjectValue(item);
+                }
+                writer.WriteEndArray();
+            }
+            if (Optional.IsCollectionDefined(Certificates))
+            {
+                writer.WritePropertyName("certificates"u8);
+                writer.WriteStartArray();
+                foreach (var item in Certificates)
+                {
+                    writer.WriteObjectValue(item);
+                }
+                writer.WriteEndArray();
+            }
             if (options.Format != "W" && Optional.IsDefined(TriggeredBuildResult))
             {
                 writer.WritePropertyName("triggeredBuildResult"u8);
-                JsonSerializer.Serialize(writer, TriggeredBuildResult);
+                writer.WriteObjectValue(TriggeredBuildResult);
             }
             if (Optional.IsDefined(ResourceRequests))
             {
@@ -111,7 +130,9 @@ namespace Azure.ResourceManager.AppPlatform.Models
             Optional<string> agentPool = default;
             Optional<AppPlatformBuildProvisioningState> provisioningState = default;
             Optional<IDictionary<string, string>> env = default;
-            Optional<SubResource> triggeredBuildResult = default;
+            Optional<IList<ApmReference>> apms = default;
+            Optional<IList<CertificateReference>> certificates = default;
+            Optional<TriggeredBuildResult> triggeredBuildResult = default;
             Optional<AppPlatformBuildResourceRequirements> resourceRequests = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
@@ -155,13 +176,41 @@ namespace Azure.ResourceManager.AppPlatform.Models
                     env = dictionary;
                     continue;
                 }
+                if (property.NameEquals("apms"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<ApmReference> array = new List<ApmReference>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(ApmReference.DeserializeApmReference(item, options));
+                    }
+                    apms = array;
+                    continue;
+                }
+                if (property.NameEquals("certificates"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    List<CertificateReference> array = new List<CertificateReference>();
+                    foreach (var item in property.Value.EnumerateArray())
+                    {
+                        array.Add(CertificateReference.DeserializeCertificateReference(item, options));
+                    }
+                    certificates = array;
+                    continue;
+                }
                 if (property.NameEquals("triggeredBuildResult"u8))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
                     {
                         continue;
                     }
-                    triggeredBuildResult = JsonSerializer.Deserialize<SubResource>(property.Value.GetRawText());
+                    triggeredBuildResult = TriggeredBuildResult.DeserializeTriggeredBuildResult(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("resourceRequests"u8))
@@ -179,7 +228,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new AppPlatformBuildProperties(relativePath.Value, builder.Value, agentPool.Value, Optional.ToNullable(provisioningState), Optional.ToDictionary(env), triggeredBuildResult, resourceRequests.Value, serializedAdditionalRawData);
+            return new AppPlatformBuildProperties(relativePath.Value, builder.Value, agentPool.Value, Optional.ToNullable(provisioningState), Optional.ToDictionary(env), Optional.ToList(apms), Optional.ToList(certificates), triggeredBuildResult.Value, resourceRequests.Value, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<AppPlatformBuildProperties>.Write(ModelReaderWriterOptions options)

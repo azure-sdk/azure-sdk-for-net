@@ -22,7 +22,7 @@ namespace Azure.ResourceManager.AppPlatform.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetRuntimeVersions_RuntimeVersionsListRuntimeVersions()
         {
-            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2022-12-01/examples/RuntimeVersions_ListRuntimeVersions.json
+            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2023-12-01/examples/RuntimeVersions_ListRuntimeVersions.json
             // this example is just showing the usage of "RuntimeVersions_ListRuntimeVersions" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line

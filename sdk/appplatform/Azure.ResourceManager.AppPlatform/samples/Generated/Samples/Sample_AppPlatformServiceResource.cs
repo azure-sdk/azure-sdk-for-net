@@ -24,7 +24,7 @@ namespace Azure.ResourceManager.AppPlatform.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_ServicesGet()
         {
-            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2022-12-01/examples/Services_Get.json
+            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2023-12-01/examples/Services_Get.json
             // this example is just showing the usage of "Services_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -55,7 +55,7 @@ namespace Azure.ResourceManager.AppPlatform.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Delete_ServicesDelete()
         {
-            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2022-12-01/examples/Services_Delete.json
+            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2023-12-01/examples/Services_Delete.json
             // this example is just showing the usage of "Services_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -82,7 +82,7 @@ namespace Azure.ResourceManager.AppPlatform.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_ServicesUpdate()
         {
-            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2022-12-01/examples/Services_Update.json
+            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2023-12-01/examples/Services_Update.json
             // this example is just showing the usage of "Services_Update" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -127,7 +127,7 @@ namespace Azure.ResourceManager.AppPlatform.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetTestKeys_ServicesListTestKeys()
         {
-            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2022-12-01/examples/Services_ListTestKeys.json
+            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2023-12-01/examples/Services_ListTestKeys.json
             // this example is just showing the usage of "Services_ListTestKeys" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -154,7 +154,7 @@ namespace Azure.ResourceManager.AppPlatform.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task RegenerateTestKey_ServicesRegenerateTestKey()
         {
-            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2022-12-01/examples/Services_RegenerateTestKey.json
+            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2023-12-01/examples/Services_RegenerateTestKey.json
             // this example is just showing the usage of "Services_RegenerateTestKey" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -182,7 +182,7 @@ namespace Azure.ResourceManager.AppPlatform.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task DisableTestEndpoint_ServicesDisableTestEndpoint()
         {
-            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2022-12-01/examples/Services_DisableTestEndpoint.json
+            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2023-12-01/examples/Services_DisableTestEndpoint.json
             // this example is just showing the usage of "Services_DisableTestEndpoint" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -209,7 +209,7 @@ namespace Azure.ResourceManager.AppPlatform.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task EnableTestEndpoint_ServicesEnableTestEndpoint()
         {
-            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2022-12-01/examples/Services_EnableTestEndpoint.json
+            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2023-12-01/examples/Services_EnableTestEndpoint.json
             // this example is just showing the usage of "Services_EnableTestEndpoint" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -236,7 +236,7 @@ namespace Azure.ResourceManager.AppPlatform.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Stop_ServicesStop()
         {
-            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2022-12-01/examples/Services_Stop.json
+            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2023-12-01/examples/Services_Stop.json
             // this example is just showing the usage of "Services_Stop" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -263,7 +263,7 @@ namespace Azure.ResourceManager.AppPlatform.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Start_ServicesStart()
         {
-            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2022-12-01/examples/Services_Start.json
+            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2023-12-01/examples/Services_Start.json
             // this example is just showing the usage of "Services_Start" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -285,12 +285,155 @@ namespace Azure.ResourceManager.AppPlatform.Samples
             Console.WriteLine($"Succeeded");
         }
 
+        // Services_FlushVnetDnsSetting
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task FlushVnetDnsSetting_ServicesFlushVnetDnsSetting()
+        {
+            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2023-12-01/examples/Services_FlushVnetDnsSetting.json
+            // this example is just showing the usage of "Services_FlushVnetDnsSetting" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this AppPlatformServiceResource created on azure
+            // for more information of creating AppPlatformServiceResource, please refer to the document of AppPlatformServiceResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "myResourceGroup";
+            string serviceName = "myservice";
+            ResourceIdentifier appPlatformServiceResourceId = AppPlatformServiceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, serviceName);
+            AppPlatformServiceResource appPlatformService = client.GetAppPlatformServiceResource(appPlatformServiceResourceId);
+
+            // invoke the operation
+            await appPlatformService.FlushVnetDnsSettingAsync(WaitUntil.Completed);
+
+            Console.WriteLine($"Succeeded");
+        }
+
+        // Services_ListSupportedApmTypes
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task GetSupportedApmTypes_ServicesListSupportedApmTypes()
+        {
+            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2023-12-01/examples/Services_ListSupportedApmTypes.json
+            // this example is just showing the usage of "Services_ListSupportedApmTypes" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this AppPlatformServiceResource created on azure
+            // for more information of creating AppPlatformServiceResource, please refer to the document of AppPlatformServiceResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "myResourceGroup";
+            string serviceName = "myservice";
+            ResourceIdentifier appPlatformServiceResourceId = AppPlatformServiceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, serviceName);
+            AppPlatformServiceResource appPlatformService = client.GetAppPlatformServiceResource(appPlatformServiceResourceId);
+
+            // invoke the operation and iterate over the result
+            await foreach (SupportedApmType item in appPlatformService.GetSupportedApmTypesAsync())
+            {
+                Console.WriteLine($"Succeeded: {item}");
+            }
+
+            Console.WriteLine($"Succeeded");
+        }
+
+        // Services_ListGloballyEnabledApms
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task GetGloballyEnabledApms_ServicesListGloballyEnabledApms()
+        {
+            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2023-12-01/examples/Services_ListGloballyEnabledApms.json
+            // this example is just showing the usage of "Services_ListGloballyEnabledApms" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this AppPlatformServiceResource created on azure
+            // for more information of creating AppPlatformServiceResource, please refer to the document of AppPlatformServiceResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "myResourceGroup";
+            string serviceName = "myservice";
+            ResourceIdentifier appPlatformServiceResourceId = AppPlatformServiceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, serviceName);
+            AppPlatformServiceResource appPlatformService = client.GetAppPlatformServiceResource(appPlatformServiceResourceId);
+
+            // invoke the operation and iterate over the result
+            await foreach (string item in appPlatformService.GetGloballyEnabledApmsAsync())
+            {
+                Console.WriteLine($"Succeeded: {item}");
+            }
+
+            Console.WriteLine($"Succeeded");
+        }
+
+        // Services_EnableApmGlobally
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task EnableApmGlobally_ServicesEnableApmGlobally()
+        {
+            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2023-12-01/examples/Services_EnableApmGlobally.json
+            // this example is just showing the usage of "Services_EnableApmGlobally" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this AppPlatformServiceResource created on azure
+            // for more information of creating AppPlatformServiceResource, please refer to the document of AppPlatformServiceResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "myResourceGroup";
+            string serviceName = "myservice";
+            ResourceIdentifier appPlatformServiceResourceId = AppPlatformServiceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, serviceName);
+            AppPlatformServiceResource appPlatformService = client.GetAppPlatformServiceResource(appPlatformServiceResourceId);
+
+            // invoke the operation
+            ApmReference apm = new ApmReference(new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.AppPlatform/Spring/myservice/apms/myappinsights"));
+            await appPlatformService.EnableApmGloballyAsync(WaitUntil.Completed, apm);
+
+            Console.WriteLine($"Succeeded");
+        }
+
+        // Services_DisableApmGlobally
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task DisableApmGlobally_ServicesDisableApmGlobally()
+        {
+            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2023-12-01/examples/Services_DisableApmGlobally.json
+            // this example is just showing the usage of "Services_DisableApmGlobally" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this AppPlatformServiceResource created on azure
+            // for more information of creating AppPlatformServiceResource, please refer to the document of AppPlatformServiceResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "myResourceGroup";
+            string serviceName = "myservice";
+            ResourceIdentifier appPlatformServiceResourceId = AppPlatformServiceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, serviceName);
+            AppPlatformServiceResource appPlatformService = client.GetAppPlatformServiceResource(appPlatformServiceResourceId);
+
+            // invoke the operation
+            ApmReference apm = new ApmReference(new ResourceIdentifier("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myResourceGroup/providers/Microsoft.AppPlatform/Spring/myservice/apms/myappinsights"));
+            await appPlatformService.DisableApmGloballyAsync(WaitUntil.Completed, apm);
+
+            Console.WriteLine($"Succeeded");
+        }
+
         // Services_CheckNameAvailability
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task CheckAppPlatformNameAvailability_ServicesCheckNameAvailability()
         {
-            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2022-12-01/examples/Services_CheckNameAvailability.json
+            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2023-12-01/examples/Services_CheckNameAvailability.json
             // this example is just showing the usage of "Services_CheckNameAvailability" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -317,7 +460,7 @@ namespace Azure.ResourceManager.AppPlatform.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetAppPlatformServices_ServicesListBySubscription()
         {
-            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2022-12-01/examples/Services_ListBySubscription.json
+            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2023-12-01/examples/Services_ListBySubscription.json
             // this example is just showing the usage of "Services_ListBySubscription" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -344,12 +487,42 @@ namespace Azure.ResourceManager.AppPlatform.Samples
             Console.WriteLine($"Succeeded");
         }
 
+        // Services_ListSupportedServerVersions
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task GetSupportedServerVersions_ServicesListSupportedServerVersions()
+        {
+            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2023-12-01/examples/Services_ListSupportedServerVersions.json
+            // this example is just showing the usage of "Services_ListSupportedServerVersions" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this AppPlatformServiceResource created on azure
+            // for more information of creating AppPlatformServiceResource, please refer to the document of AppPlatformServiceResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "myResourceGroup";
+            string serviceName = "myservice";
+            ResourceIdentifier appPlatformServiceResourceId = AppPlatformServiceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, serviceName);
+            AppPlatformServiceResource appPlatformService = client.GetAppPlatformServiceResource(appPlatformServiceResourceId);
+
+            // invoke the operation and iterate over the result
+            await foreach (SupportedServerVersion item in appPlatformService.GetSupportedServerVersionsAsync())
+            {
+                Console.WriteLine($"Succeeded: {item}");
+            }
+
+            Console.WriteLine($"Succeeded");
+        }
+
         // ConfigServers_Validate
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task ValidateConfigServer_ConfigServersValidate()
         {
-            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2022-12-01/examples/ConfigServers_Validate.json
+            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2023-12-01/examples/ConfigServers_Validate.json
             // this example is just showing the usage of "ConfigServers_Validate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -383,12 +556,46 @@ namespace Azure.ResourceManager.AppPlatform.Samples
             Console.WriteLine($"Succeeded: {result}");
         }
 
+        // BuildpackBinding_ListForCluster
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task GetForClusterBuildpackBindings_BuildpackBindingListForCluster()
+        {
+            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2023-12-01/examples/BuildpackBinding_ListForCluster.json
+            // this example is just showing the usage of "BuildpackBinding_ListForCluster" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this AppPlatformServiceResource created on azure
+            // for more information of creating AppPlatformServiceResource, please refer to the document of AppPlatformServiceResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "myResourceGroup";
+            string serviceName = "myservice";
+            ResourceIdentifier appPlatformServiceResourceId = AppPlatformServiceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, serviceName);
+            AppPlatformServiceResource appPlatformService = client.GetAppPlatformServiceResource(appPlatformServiceResourceId);
+
+            // invoke the operation and iterate over the result
+            await foreach (AppPlatformBuildpackBindingResource item in appPlatformService.GetForClusterBuildpackBindingsAsync())
+            {
+                // the variable item is a resource, you could call other operations on this instance as well
+                // but just for demo, we get its data from this resource instance
+                AppPlatformBuildpackBindingData resourceData = item.Data;
+                // for demo we just print out the id
+                Console.WriteLine($"Succeeded on id: {resourceData.Id}");
+            }
+
+            Console.WriteLine($"Succeeded");
+        }
+
         // Deployments_ListForCluster
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task GetDeployments_DeploymentsListForCluster()
         {
-            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2022-12-01/examples/Deployments_ListForCluster.json
+            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2023-12-01/examples/Deployments_ListForCluster.json
             // this example is just showing the usage of "Deployments_ListForCluster" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
