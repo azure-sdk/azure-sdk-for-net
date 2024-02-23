@@ -36,6 +36,16 @@ namespace Azure.ResourceManager.AppPlatform.Models
                 writer.WritePropertyName("status"u8);
                 writer.WriteStringValue(Status.Value.ToString());
             }
+            if (options.Format != "W" && Optional.IsDefined(ExitCode))
+            {
+                writer.WritePropertyName("exitCode"u8);
+                writer.WriteStringValue(ExitCode);
+            }
+            if (options.Format != "W" && Optional.IsDefined(Reason))
+            {
+                writer.WritePropertyName("reason"u8);
+                writer.WriteStringValue(Reason);
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -76,6 +86,8 @@ namespace Azure.ResourceManager.AppPlatform.Models
             }
             Optional<string> name = default;
             Optional<KPackBuildStageProvisioningState> status = default;
+            Optional<string> exitCode = default;
+            Optional<string> reason = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -94,13 +106,23 @@ namespace Azure.ResourceManager.AppPlatform.Models
                     status = new KPackBuildStageProvisioningState(property.Value.GetString());
                     continue;
                 }
+                if (property.NameEquals("exitCode"u8))
+                {
+                    exitCode = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("reason"u8))
+                {
+                    reason = property.Value.GetString();
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new AppPlatformBuildStageProperties(name.Value, Optional.ToNullable(status), serializedAdditionalRawData);
+            return new AppPlatformBuildStageProperties(name.Value, Optional.ToNullable(status), exitCode.Value, reason.Value, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<AppPlatformBuildStageProperties>.Write(ModelReaderWriterOptions options)

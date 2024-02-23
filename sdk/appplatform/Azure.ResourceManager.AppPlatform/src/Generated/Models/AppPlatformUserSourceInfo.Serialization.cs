@@ -81,6 +81,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
                     case "NetCoreZip": return NetCoreZipUploadedUserSourceInfo.DeserializeNetCoreZipUploadedUserSourceInfo(element, options);
                     case "Source": return SourceUploadedUserSourceInfo.DeserializeSourceUploadedUserSourceInfo(element, options);
                     case "UploadedUserSourceInfo": return AppPlatformUploadedUserSourceInfo.DeserializeAppPlatformUploadedUserSourceInfo(element, options);
+                    case "War": return WarUploadedUserSourceInfo.DeserializeWarUploadedUserSourceInfo(element, options);
                 }
             }
             return UnknownUserSourceInfo.DeserializeUnknownUserSourceInfo(element, options);

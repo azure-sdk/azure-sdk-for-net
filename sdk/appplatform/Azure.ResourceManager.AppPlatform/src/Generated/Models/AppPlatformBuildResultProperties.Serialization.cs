@@ -36,6 +36,11 @@ namespace Azure.ResourceManager.AppPlatform.Models
                 writer.WritePropertyName("provisioningState"u8);
                 writer.WriteStringValue(ProvisioningState.Value.ToString());
             }
+            if (Optional.IsDefined(Error))
+            {
+                writer.WritePropertyName("error"u8);
+                writer.WriteObjectValue(Error);
+            }
             if (Optional.IsDefined(BuildPodName))
             {
                 writer.WritePropertyName("buildPodName"u8);
@@ -50,6 +55,11 @@ namespace Azure.ResourceManager.AppPlatform.Models
                     writer.WriteObjectValue(item);
                 }
                 writer.WriteEndArray();
+            }
+            if (options.Format != "W" && Optional.IsDefined(Image))
+            {
+                writer.WritePropertyName("image"u8);
+                writer.WriteStringValue(Image);
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -91,8 +101,10 @@ namespace Azure.ResourceManager.AppPlatform.Models
             }
             Optional<string> name = default;
             Optional<AppPlatformBuildResultProvisioningState> provisioningState = default;
+            Optional<AppPlatformErrorInfo> error = default;
             Optional<string> buildPodName = default;
             Optional<IReadOnlyList<AppPlatformBuildStageProperties>> buildStages = default;
+            Optional<string> image = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -109,6 +121,15 @@ namespace Azure.ResourceManager.AppPlatform.Models
                         continue;
                     }
                     provisioningState = new AppPlatformBuildResultProvisioningState(property.Value.GetString());
+                    continue;
+                }
+                if (property.NameEquals("error"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    error = AppPlatformErrorInfo.DeserializeAppPlatformErrorInfo(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("buildPodName"u8))
@@ -130,13 +151,18 @@ namespace Azure.ResourceManager.AppPlatform.Models
                     buildStages = array;
                     continue;
                 }
+                if (property.NameEquals("image"u8))
+                {
+                    image = property.Value.GetString();
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new AppPlatformBuildResultProperties(name.Value, Optional.ToNullable(provisioningState), buildPodName.Value, Optional.ToList(buildStages), serializedAdditionalRawData);
+            return new AppPlatformBuildResultProperties(name.Value, Optional.ToNullable(provisioningState), error.Value, buildPodName.Value, Optional.ToList(buildStages), image.Value, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<AppPlatformBuildResultProperties>.Write(ModelReaderWriterOptions options)
