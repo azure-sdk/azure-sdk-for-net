@@ -31,6 +31,11 @@ namespace Azure.ResourceManager.Network.Models
                 writer.WritePropertyName("headerName"u8);
                 writer.WriteStringValue(HeaderName);
             }
+            if (Optional.IsDefined(HeaderValueMatcher))
+            {
+                writer.WritePropertyName("headerValueMatcher"u8);
+                writer.WriteObjectValue(HeaderValueMatcher);
+            }
             if (Optional.IsDefined(HeaderValue))
             {
                 writer.WritePropertyName("headerValue"u8);
@@ -75,6 +80,7 @@ namespace Azure.ResourceManager.Network.Models
                 return null;
             }
             Optional<string> headerName = default;
+            Optional<HeaderValueMatcher> headerValueMatcher = default;
             Optional<string> headerValue = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
@@ -83,6 +89,15 @@ namespace Azure.ResourceManager.Network.Models
                 if (property.NameEquals("headerName"u8))
                 {
                     headerName = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("headerValueMatcher"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    headerValueMatcher = HeaderValueMatcher.DeserializeHeaderValueMatcher(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("headerValue"u8))
@@ -96,7 +111,7 @@ namespace Azure.ResourceManager.Network.Models
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new ApplicationGatewayHeaderConfiguration(headerName.Value, headerValue.Value, serializedAdditionalRawData);
+            return new ApplicationGatewayHeaderConfiguration(headerName.Value, headerValueMatcher.Value, headerValue.Value, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<ApplicationGatewayHeaderConfiguration>.Write(ModelReaderWriterOptions options)
