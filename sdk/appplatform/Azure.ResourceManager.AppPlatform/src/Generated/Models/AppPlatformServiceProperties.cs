@@ -55,12 +55,13 @@ namespace Azure.ResourceManager.AppPlatform.Models
         /// <param name="networkProfile"> Network profile of the Service. </param>
         /// <param name="vnetAddons"> Additional Service settings in vnet injection instance. </param>
         /// <param name="version"> Version of the Service. </param>
-        /// <param name="serviceInstanceId"> ServiceInstanceEntity GUID which uniquely identifies a created resource. </param>
+        /// <param name="serviceInstanceId"> ServiceInstanceEntity Id which uniquely identifies a created resource. </param>
         /// <param name="powerState"> Power state of the Service. </param>
         /// <param name="isZoneRedundant"></param>
         /// <param name="fqdn"> Fully qualified dns name of the service instance. </param>
+        /// <param name="marketplaceResource"> Purchasing 3rd party product of the Service resource. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AppPlatformServiceProperties(AppPlatformServiceProvisioningState? provisioningState, AppPlatformServiceNetworkProfile networkProfile, ServiceVnetAddons vnetAddons, int? version, string serviceInstanceId, AppPlatformServicePowerState? powerState, bool? isZoneRedundant, string fqdn, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal AppPlatformServiceProperties(AppPlatformServiceProvisioningState? provisioningState, AppPlatformServiceNetworkProfile networkProfile, ServiceVnetAddons vnetAddons, int? version, string serviceInstanceId, AppPlatformServicePowerState? powerState, bool? isZoneRedundant, string fqdn, MarketplaceResource marketplaceResource, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             ProvisioningState = provisioningState;
             NetworkProfile = networkProfile;
@@ -70,6 +71,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
             PowerState = powerState;
             IsZoneRedundant = isZoneRedundant;
             Fqdn = fqdn;
+            MarketplaceResource = marketplaceResource;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -78,22 +80,10 @@ namespace Azure.ResourceManager.AppPlatform.Models
         /// <summary> Network profile of the Service. </summary>
         public AppPlatformServiceNetworkProfile NetworkProfile { get; set; }
         /// <summary> Additional Service settings in vnet injection instance. </summary>
-        internal ServiceVnetAddons VnetAddons { get; set; }
-        /// <summary> Indicates whether the log stream in vnet injection instance could be accessed from internet. </summary>
-        public bool? IsLogStreamPublicEndpoint
-        {
-            get => VnetAddons is null ? default : VnetAddons.IsLogStreamPublicEndpoint;
-            set
-            {
-                if (VnetAddons is null)
-                    VnetAddons = new ServiceVnetAddons();
-                VnetAddons.IsLogStreamPublicEndpoint = value;
-            }
-        }
-
+        public ServiceVnetAddons VnetAddons { get; set; }
         /// <summary> Version of the Service. </summary>
         public int? Version { get; }
-        /// <summary> ServiceInstanceEntity GUID which uniquely identifies a created resource. </summary>
+        /// <summary> ServiceInstanceEntity Id which uniquely identifies a created resource. </summary>
         public string ServiceInstanceId { get; }
         /// <summary> Power state of the Service. </summary>
         public AppPlatformServicePowerState? PowerState { get; }
@@ -101,5 +91,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
         public bool? IsZoneRedundant { get; set; }
         /// <summary> Fully qualified dns name of the service instance. </summary>
         public string Fqdn { get; }
+        /// <summary> Purchasing 3rd party product of the Service resource. </summary>
+        public MarketplaceResource MarketplaceResource { get; set; }
     }
 }

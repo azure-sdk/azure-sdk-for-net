@@ -50,6 +50,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
         public AppPlatformGatewayCorsProperties()
         {
             AllowedOrigins = new ChangeTrackingList<string>();
+            AllowedOriginPatterns = new ChangeTrackingList<string>();
             AllowedMethods = new ChangeTrackingList<string>();
             AllowedHeaders = new ChangeTrackingList<string>();
             ExposedHeaders = new ChangeTrackingList<string>();
@@ -57,15 +58,17 @@ namespace Azure.ResourceManager.AppPlatform.Models
 
         /// <summary> Initializes a new instance of <see cref="AppPlatformGatewayCorsProperties"/>. </summary>
         /// <param name="allowedOrigins"> Allowed origins to make cross-site requests. The special value `*` allows all domains. </param>
+        /// <param name="allowedOriginPatterns"> Allowed origin patterns to make cross-site requests. </param>
         /// <param name="allowedMethods"> Allowed HTTP methods on cross-site requests. The special value `*` allows all methods. If not set, `GET` and `HEAD` are allowed by default. </param>
         /// <param name="allowedHeaders"> Allowed headers in cross-site requests. The special value `*` allows actual requests to send any header. </param>
         /// <param name="maxAge"> How long, in seconds, the response from a pre-flight request can be cached by clients. </param>
         /// <param name="areCredentialsAllowed"> Whether user credentials are supported on cross-site requests. Valid values: `true`, `false`. </param>
         /// <param name="exposedHeaders"> HTTP response headers to expose for cross-site requests. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AppPlatformGatewayCorsProperties(IList<string> allowedOrigins, IList<string> allowedMethods, IList<string> allowedHeaders, int? maxAge, bool? areCredentialsAllowed, IList<string> exposedHeaders, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal AppPlatformGatewayCorsProperties(IList<string> allowedOrigins, IList<string> allowedOriginPatterns, IList<string> allowedMethods, IList<string> allowedHeaders, int? maxAge, bool? areCredentialsAllowed, IList<string> exposedHeaders, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             AllowedOrigins = allowedOrigins;
+            AllowedOriginPatterns = allowedOriginPatterns;
             AllowedMethods = allowedMethods;
             AllowedHeaders = allowedHeaders;
             MaxAge = maxAge;
@@ -76,6 +79,8 @@ namespace Azure.ResourceManager.AppPlatform.Models
 
         /// <summary> Allowed origins to make cross-site requests. The special value `*` allows all domains. </summary>
         public IList<string> AllowedOrigins { get; }
+        /// <summary> Allowed origin patterns to make cross-site requests. </summary>
+        public IList<string> AllowedOriginPatterns { get; }
         /// <summary> Allowed HTTP methods on cross-site requests. The special value `*` allows all methods. If not set, `GET` and `HEAD` are allowed by default. </summary>
         public IList<string> AllowedMethods { get; }
         /// <summary> Allowed headers in cross-site requests. The special value `*` allows actual requests to send any header. </summary>

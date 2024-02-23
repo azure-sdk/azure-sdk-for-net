@@ -35,6 +35,11 @@ namespace Azure.ResourceManager.AppPlatform.Models
                 writer.WritePropertyName("readOnly"u8);
                 writer.WriteBooleanValue(IsReadOnly.Value);
             }
+            if (Optional.IsDefined(EnableSubPath))
+            {
+                writer.WritePropertyName("enableSubPath"u8);
+                writer.WriteBooleanValue(EnableSubPath.Value);
+            }
             if (Optional.IsCollectionDefined(MountOptions))
             {
                 writer.WritePropertyName("mountOptions"u8);

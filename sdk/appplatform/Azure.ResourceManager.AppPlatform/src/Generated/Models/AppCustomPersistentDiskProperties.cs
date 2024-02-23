@@ -68,13 +68,15 @@ namespace Azure.ResourceManager.AppPlatform.Models
         /// <param name="underlyingResourceType"> The type of the underlying resource to mount as a persistent disk. </param>
         /// <param name="mountPath"> The mount path of the persistent disk. </param>
         /// <param name="isReadOnly"> Indicates whether the persistent disk is a readOnly one. </param>
+        /// <param name="enableSubPath"> If set to true, it will create and mount a dedicated directory for every individual app instance. </param>
         /// <param name="mountOptions"> These are the mount options for a persistent disk. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AppCustomPersistentDiskProperties(UnderlyingResourceType underlyingResourceType, string mountPath, bool? isReadOnly, IList<string> mountOptions, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal AppCustomPersistentDiskProperties(UnderlyingResourceType underlyingResourceType, string mountPath, bool? isReadOnly, bool? enableSubPath, IList<string> mountOptions, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             UnderlyingResourceType = underlyingResourceType;
             MountPath = mountPath;
             IsReadOnly = isReadOnly;
+            EnableSubPath = enableSubPath;
             MountOptions = mountOptions;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
@@ -90,6 +92,8 @@ namespace Azure.ResourceManager.AppPlatform.Models
         public string MountPath { get; set; }
         /// <summary> Indicates whether the persistent disk is a readOnly one. </summary>
         public bool? IsReadOnly { get; set; }
+        /// <summary> If set to true, it will create and mount a dedicated directory for every individual app instance. </summary>
+        public bool? EnableSubPath { get; set; }
         /// <summary> These are the mount options for a persistent disk. </summary>
         public IList<string> MountOptions { get; }
     }
