@@ -192,12 +192,12 @@ namespace Azure.ResourceManager.HDInsight.Containers.Samples
             string clusterName = "cluster1";
             HDInsightClusterData data = new HDInsightClusterData(new AzureLocation("West US 2"))
             {
-                ClusterType = "kafka",
+                ClusterType = "Trino",
                 ComputeNodes =
 {
-new ClusterComputeNodeProfile("worker","Standard_D3_v2",4)
+new ClusterComputeNodeProfile("Head","Standard_E8as_v5",2),new ClusterComputeNodeProfile("Worker","Standard_E8as_v5",3)
 },
-                ClusterProfile = new ClusterProfile("1.0.1", "2.4.1", new HDInsightIdentityProfile(new ResourceIdentifier("/subscriptions/subid/resourceGroups/hiloResourcegroup/providers/Microsoft.ManagedIdentity/userAssignedIdentities/test-msi"), "de91f1d8-767f-460a-ac11-3cf103f74b34", "40491351-c240-4042-91e0-f644a1d2b441"), new AuthorizationProfile()
+                ClusterProfile = new ClusterProfile("1.0.6", "0.410.0", new HDInsightIdentityProfile(new ResourceIdentifier("/subscriptions/subid/resourceGroups/hiloResourcegroup/providers/Microsoft.ManagedIdentity/userAssignedIdentities/test-msi"), "de91f1d8-767f-460a-ac11-3cf103f74b34", "40491351-c240-4042-91e0-f644a1d2b441"), new AuthorizationProfile()
                 {
                     UserIds =
 {
@@ -229,9 +229,7 @@ new ScalingRule(ScaleActionType.ScaleUp,3,"cpu",new HDInsightComparisonRule(HDIn
                             CooldownPeriod = 300,
                         },
                     },
-                    KafkaProfile =
-{
-},
+                    TrinoProfile = new TrinoProfile(),
                 },
             };
             ArmOperation<HDInsightClusterResource> lro = await collection.CreateOrUpdateAsync(WaitUntil.Completed, clusterName, data);

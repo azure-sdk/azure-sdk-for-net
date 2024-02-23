@@ -23,7 +23,7 @@ namespace Azure.ResourceManager.AppPlatform.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Get_ConfigurationServicesGet()
         {
-            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2022-12-01/examples/ConfigurationServices_Get.json
+            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2023-12-01/examples/ConfigurationServices_Get.json
             // this example is just showing the usage of "ConfigurationServices_Get" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -55,7 +55,7 @@ namespace Azure.ResourceManager.AppPlatform.Samples
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Update_ConfigurationServicesCreateOrUpdate()
         {
-            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2022-12-01/examples/ConfigurationServices_CreateOrUpdate.json
+            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2023-12-01/examples/ConfigurationServices_CreateOrUpdate.json
             // this example is just showing the usage of "ConfigurationServices_CreateOrUpdate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -101,7 +101,7 @@ new AppPlatformConfigurationServiceGitRepository("fake",new string[]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Delete_ConfigurationServicesDelete()
         {
-            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2022-12-01/examples/ConfigurationServices_Delete.json
+            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2023-12-01/examples/ConfigurationServices_Delete.json
             // this example is just showing the usage of "ConfigurationServices_Delete" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -129,7 +129,7 @@ new AppPlatformConfigurationServiceGitRepository("fake",new string[]
         [NUnit.Framework.Ignore("Only verifying that the sample builds")]
         public async Task Validate_ConfigurationServicesValidate()
         {
-            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2022-12-01/examples/ConfigurationServices_Validate.json
+            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2023-12-01/examples/ConfigurationServices_Validate.json
             // this example is just showing the usage of "ConfigurationServices_Validate" operation, for the dependent resources, they will have to be created separately.
 
             // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
@@ -158,6 +158,48 @@ new AppPlatformConfigurationServiceGitRepository("fake",new string[]
 },
             };
             ArmOperation<AppPlatformConfigurationServiceSettingsValidateResult> lro = await appPlatformConfigurationService.ValidateAsync(WaitUntil.Completed, settings);
+            AppPlatformConfigurationServiceSettingsValidateResult result = lro.Value;
+
+            Console.WriteLine($"Succeeded: {result}");
+        }
+
+        // ConfigurationServices_ValidateResource
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("Only verifying that the sample builds")]
+        public async Task ValidateResource_ConfigurationServicesValidateResource()
+        {
+            // Generated from example definition: specification/appplatform/resource-manager/Microsoft.AppPlatform/stable/2023-12-01/examples/ConfigurationServices_ValidateResource.json
+            // this example is just showing the usage of "ConfigurationServices_ValidateResource" operation, for the dependent resources, they will have to be created separately.
+
+            // get your azure access token, for more details of how Azure SDK get your access token, please refer to https://learn.microsoft.com/en-us/dotnet/azure/sdk/authentication?tabs=command-line
+            TokenCredential cred = new DefaultAzureCredential();
+            // authenticate your client
+            ArmClient client = new ArmClient(cred);
+
+            // this example assumes you already have this AppPlatformConfigurationServiceResource created on azure
+            // for more information of creating AppPlatformConfigurationServiceResource, please refer to the document of AppPlatformConfigurationServiceResource
+            string subscriptionId = "00000000-0000-0000-0000-000000000000";
+            string resourceGroupName = "myResourceGroup";
+            string serviceName = "myservice";
+            string configurationServiceName = "default";
+            ResourceIdentifier appPlatformConfigurationServiceResourceId = AppPlatformConfigurationServiceResource.CreateResourceIdentifier(subscriptionId, resourceGroupName, serviceName, configurationServiceName);
+            AppPlatformConfigurationServiceResource appPlatformConfigurationService = client.GetAppPlatformConfigurationServiceResource(appPlatformConfigurationServiceResourceId);
+
+            // invoke the operation
+            AppPlatformConfigurationServiceData data = new AppPlatformConfigurationServiceData()
+            {
+                Properties = new AppPlatformConfigurationServiceProperties()
+                {
+                    ConfigurationServiceGitRepositories =
+{
+new AppPlatformConfigurationServiceGitRepository("fake",new string[]
+{
+"app/dev"
+},new Uri("https://github.com/fake-user/fake-repository"),"master")
+},
+                },
+            };
+            ArmOperation<AppPlatformConfigurationServiceSettingsValidateResult> lro = await appPlatformConfigurationService.ValidateResourceAsync(WaitUntil.Completed, data);
             AppPlatformConfigurationServiceSettingsValidateResult result = lro.Value;
 
             Console.WriteLine($"Succeeded: {result}");

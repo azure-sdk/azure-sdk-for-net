@@ -220,15 +220,6 @@ namespace Azure.ResourceManager.RecoveryServices.Models
             return new VaultPropertiesMoveDetails(operationId, startOn, completedOn, sourceResourceId, targetResourceId, serializedAdditionalRawData: null);
         }
 
-        /// <summary> Initializes a new instance of <see cref="Models.VaultPropertiesRedundancySettings"/>. </summary>
-        /// <param name="standardTierStorageRedundancy"> The storage redundancy setting of a vault. </param>
-        /// <param name="crossRegionRestore"> Flag to show if Cross Region Restore is enabled on the Vault or not. </param>
-        /// <returns> A new <see cref="Models.VaultPropertiesRedundancySettings"/> instance for mocking. </returns>
-        public static VaultPropertiesRedundancySettings VaultPropertiesRedundancySettings(StandardTierStorageRedundancy? standardTierStorageRedundancy = null, CrossRegionRestore? crossRegionRestore = null)
-        {
-            return new VaultPropertiesRedundancySettings(standardTierStorageRedundancy, crossRegionRestore, serializedAdditionalRawData: null);
-        }
-
         /// <summary> Initializes a new instance of <see cref="Models.RecoveryServicesSecuritySettings"/>. </summary>
         /// <param name="immutabilityState"> Immutability Settings of a vault. </param>
         /// <param name="softDeleteSettings"> Soft delete Settings of a vault. </param>
