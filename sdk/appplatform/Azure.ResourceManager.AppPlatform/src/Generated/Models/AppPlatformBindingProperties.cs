@@ -49,7 +49,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
         /// <summary> Initializes a new instance of <see cref="AppPlatformBindingProperties"/>. </summary>
         public AppPlatformBindingProperties()
         {
-            BindingParameters = new ChangeTrackingDictionary<string, BinaryData>();
+            BindingParameters = new ChangeTrackingDictionary<string, string>();
         }
 
         /// <summary> Initializes a new instance of <see cref="AppPlatformBindingProperties"/>. </summary>
@@ -62,7 +62,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
         /// <param name="createdOn"> Creation time of the Binding resource. </param>
         /// <param name="updatedOn"> Update time of the Binding resource. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AppPlatformBindingProperties(string resourceName, string resourceType, ResourceIdentifier resourceId, string key, IDictionary<string, BinaryData> bindingParameters, string generatedProperties, DateTimeOffset? createdOn, DateTimeOffset? updatedOn, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal AppPlatformBindingProperties(string resourceName, string resourceType, ResourceIdentifier resourceId, string key, IDictionary<string, string> bindingParameters, string generatedProperties, DateTimeOffset? createdOn, DateTimeOffset? updatedOn, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             ResourceName = resourceName;
             ResourceType = resourceType;
@@ -83,37 +83,8 @@ namespace Azure.ResourceManager.AppPlatform.Models
         public ResourceIdentifier ResourceId { get; set; }
         /// <summary> The key of the bound resource. </summary>
         public string Key { get; set; }
-        /// <summary>
-        /// Binding parameters of the Binding resource
-        /// <para>
-        /// To assign an object to the value of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, System.Text.Json.JsonSerializerOptions?)"/>.
-        /// </para>
-        /// <para>
-        /// To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>.
-        /// </para>
-        /// <para>
-        /// Examples:
-        /// <list type="bullet">
-        /// <item>
-        /// <term>BinaryData.FromObjectAsJson("foo")</term>
-        /// <description>Creates a payload of "foo".</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromString("\"foo\"")</term>
-        /// <description>Creates a payload of "foo".</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromObjectAsJson(new { key = "value" })</term>
-        /// <description>Creates a payload of { "key": "value" }.</description>
-        /// </item>
-        /// <item>
-        /// <term>BinaryData.FromString("{\"key\": \"value\"}")</term>
-        /// <description>Creates a payload of { "key": "value" }.</description>
-        /// </item>
-        /// </list>
-        /// </para>
-        /// </summary>
-        public IDictionary<string, BinaryData> BindingParameters { get; }
+        /// <summary> Binding parameters of the Binding resource. </summary>
+        public IDictionary<string, string> BindingParameters { get; }
         /// <summary> The generated Spring Boot property file for this binding. The secret will be deducted. </summary>
         public string GeneratedProperties { get; }
         /// <summary> Creation time of the Binding resource. </summary>

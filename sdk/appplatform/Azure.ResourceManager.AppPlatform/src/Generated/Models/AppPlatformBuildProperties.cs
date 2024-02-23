@@ -8,7 +8,6 @@
 using System;
 using System.Collections.Generic;
 using Azure.Core;
-using Azure.ResourceManager.Resources.Models;
 
 namespace Azure.ResourceManager.AppPlatform.Models
 {
@@ -51,6 +50,8 @@ namespace Azure.ResourceManager.AppPlatform.Models
         public AppPlatformBuildProperties()
         {
             Env = new ChangeTrackingDictionary<string, string>();
+            Apms = new ChangeTrackingList<ApmReference>();
+            Certificates = new ChangeTrackingList<CertificateReference>();
         }
 
         /// <summary> Initializes a new instance of <see cref="AppPlatformBuildProperties"/>. </summary>
@@ -59,16 +60,20 @@ namespace Azure.ResourceManager.AppPlatform.Models
         /// <param name="agentPool"> The resource id of agent pool. </param>
         /// <param name="provisioningState"> Provisioning state of the KPack build result. </param>
         /// <param name="env"> The environment variables for this build. </param>
+        /// <param name="apms"> The APMs for this build. </param>
+        /// <param name="certificates"> The CA Certificates for this build. </param>
         /// <param name="triggeredBuildResult"> The build result triggered by this build. </param>
         /// <param name="resourceRequests"> The customized build resource for this build. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AppPlatformBuildProperties(string relativePath, string builder, string agentPool, AppPlatformBuildProvisioningState? provisioningState, IDictionary<string, string> env, SubResource triggeredBuildResult, AppPlatformBuildResourceRequirements resourceRequests, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal AppPlatformBuildProperties(string relativePath, string builder, string agentPool, AppPlatformBuildProvisioningState? provisioningState, IDictionary<string, string> env, IList<ApmReference> apms, IList<CertificateReference> certificates, TriggeredBuildResult triggeredBuildResult, AppPlatformBuildResourceRequirements resourceRequests, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             RelativePath = relativePath;
             Builder = builder;
             AgentPool = agentPool;
             ProvisioningState = provisioningState;
             Env = env;
+            Apms = apms;
+            Certificates = certificates;
             TriggeredBuildResult = triggeredBuildResult;
             ResourceRequests = resourceRequests;
             _serializedAdditionalRawData = serializedAdditionalRawData;
@@ -84,14 +89,12 @@ namespace Azure.ResourceManager.AppPlatform.Models
         public AppPlatformBuildProvisioningState? ProvisioningState { get; }
         /// <summary> The environment variables for this build. </summary>
         public IDictionary<string, string> Env { get; }
+        /// <summary> The APMs for this build. </summary>
+        public IList<ApmReference> Apms { get; }
+        /// <summary> The CA Certificates for this build. </summary>
+        public IList<CertificateReference> Certificates { get; }
         /// <summary> The build result triggered by this build. </summary>
-        internal SubResource TriggeredBuildResult { get; }
-        /// <summary> Gets Id. </summary>
-        public ResourceIdentifier TriggeredBuildResultId
-        {
-            get => TriggeredBuildResult?.Id;
-        }
-
+        public TriggeredBuildResult TriggeredBuildResult { get; }
         /// <summary> The customized build resource for this build. </summary>
         public AppPlatformBuildResourceRequirements ResourceRequests { get; set; }
     }
