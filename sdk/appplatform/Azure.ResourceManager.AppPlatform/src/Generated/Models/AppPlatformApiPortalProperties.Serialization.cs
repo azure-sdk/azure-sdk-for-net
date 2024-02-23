@@ -96,6 +96,11 @@ namespace Azure.ResourceManager.AppPlatform.Models
                 }
                 writer.WriteEndArray();
             }
+            if (Optional.IsDefined(ApiTryOutEnabledState))
+            {
+                writer.WritePropertyName("apiTryOutEnabledState"u8);
+                writer.WriteStringValue(ApiTryOutEnabledState.Value.ToString());
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -143,6 +148,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
             Optional<AppPlatformSsoProperties> ssoProperties = default;
             Optional<AppPlatformApiPortalResourceRequirements> resourceRequests = default;
             Optional<IReadOnlyList<AppPlatformApiPortalInstance>> instances = default;
+            Optional<ApiPortalApiTryOutEnabledState> apiTryOutEnabledState = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -257,13 +263,22 @@ namespace Azure.ResourceManager.AppPlatform.Models
                     instances = array;
                     continue;
                 }
+                if (property.NameEquals("apiTryOutEnabledState"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    apiTryOutEnabledState = new ApiPortalApiTryOutEnabledState(property.Value.GetString());
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new AppPlatformApiPortalProperties(Optional.ToNullable(provisioningState), Optional.ToNullable(@public), uri.Value, Optional.ToNullable(httpsOnly), Optional.ToList(gatewayIds), Optional.ToList(sourceUris), ssoProperties.Value, resourceRequests.Value, Optional.ToList(instances), serializedAdditionalRawData);
+            return new AppPlatformApiPortalProperties(Optional.ToNullable(provisioningState), Optional.ToNullable(@public), uri.Value, Optional.ToNullable(httpsOnly), Optional.ToList(gatewayIds), Optional.ToList(sourceUris), ssoProperties.Value, resourceRequests.Value, Optional.ToList(instances), Optional.ToNullable(apiTryOutEnabledState), serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<AppPlatformApiPortalProperties>.Write(ModelReaderWriterOptions options)

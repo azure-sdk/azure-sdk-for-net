@@ -15,20 +15,14 @@ namespace Azure.ResourceManager.AppPlatform.Models
     {
         /// <summary> Initializes a new instance of <see cref="AppPlatformAzureFileVolume"/>. </summary>
         /// <param name="mountPath"> The mount path of the persistent disk. </param>
-        /// <param name="shareName"> The share name of the Azure File share. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="mountPath"/> or <paramref name="shareName"/> is null. </exception>
-        public AppPlatformAzureFileVolume(string mountPath, string shareName) : base(mountPath)
+        /// <exception cref="ArgumentNullException"> <paramref name="mountPath"/> is null. </exception>
+        public AppPlatformAzureFileVolume(string mountPath) : base(mountPath)
         {
             if (mountPath == null)
             {
                 throw new ArgumentNullException(nameof(mountPath));
             }
-            if (shareName == null)
-            {
-                throw new ArgumentNullException(nameof(shareName));
-            }
 
-            ShareName = shareName;
             UnderlyingResourceType = UnderlyingResourceType.AzureFileVolume;
         }
 
@@ -36,10 +30,11 @@ namespace Azure.ResourceManager.AppPlatform.Models
         /// <param name="underlyingResourceType"> The type of the underlying resource to mount as a persistent disk. </param>
         /// <param name="mountPath"> The mount path of the persistent disk. </param>
         /// <param name="isReadOnly"> Indicates whether the persistent disk is a readOnly one. </param>
+        /// <param name="enableSubPath"> If set to true, it will create and mount a dedicated directory for every individual app instance. </param>
         /// <param name="mountOptions"> These are the mount options for a persistent disk. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         /// <param name="shareName"> The share name of the Azure File share. </param>
-        internal AppPlatformAzureFileVolume(UnderlyingResourceType underlyingResourceType, string mountPath, bool? isReadOnly, IList<string> mountOptions, IDictionary<string, BinaryData> serializedAdditionalRawData, string shareName) : base(underlyingResourceType, mountPath, isReadOnly, mountOptions, serializedAdditionalRawData)
+        internal AppPlatformAzureFileVolume(UnderlyingResourceType underlyingResourceType, string mountPath, bool? isReadOnly, bool? enableSubPath, IList<string> mountOptions, IDictionary<string, BinaryData> serializedAdditionalRawData, string shareName) : base(underlyingResourceType, mountPath, isReadOnly, enableSubPath, mountOptions, serializedAdditionalRawData)
         {
             ShareName = shareName;
             UnderlyingResourceType = underlyingResourceType;
