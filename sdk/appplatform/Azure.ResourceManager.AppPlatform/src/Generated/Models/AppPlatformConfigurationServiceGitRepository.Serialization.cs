@@ -79,6 +79,16 @@ namespace Azure.ResourceManager.AppPlatform.Models
                 writer.WritePropertyName("strictHostKeyChecking"u8);
                 writer.WriteBooleanValue(IsHostKeyCheckingStrict.Value);
             }
+            if (Optional.IsDefined(GitImplementation))
+            {
+                writer.WritePropertyName("gitImplementation"u8);
+                writer.WriteStringValue(GitImplementation.Value.ToString());
+            }
+            if (Optional.IsDefined(CaCertResourceId))
+            {
+                writer.WritePropertyName("caCertResourceId"u8);
+                writer.WriteStringValue(CaCertResourceId);
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -128,6 +138,8 @@ namespace Azure.ResourceManager.AppPlatform.Models
             Optional<string> hostKeyAlgorithm = default;
             Optional<string> privateKey = default;
             Optional<bool> strictHostKeyChecking = default;
+            Optional<GitImplementation> gitImplementation = default;
+            Optional<string> caCertResourceId = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -205,13 +217,27 @@ namespace Azure.ResourceManager.AppPlatform.Models
                     strictHostKeyChecking = property.Value.GetBoolean();
                     continue;
                 }
+                if (property.NameEquals("gitImplementation"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    gitImplementation = new GitImplementation(property.Value.GetString());
+                    continue;
+                }
+                if (property.NameEquals("caCertResourceId"u8))
+                {
+                    caCertResourceId = property.Value.GetString();
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new AppPlatformConfigurationServiceGitRepository(name, patterns, uri, label, Optional.ToList(searchPaths), username.Value, password.Value, hostKey.Value, hostKeyAlgorithm.Value, privateKey.Value, Optional.ToNullable(strictHostKeyChecking), serializedAdditionalRawData);
+            return new AppPlatformConfigurationServiceGitRepository(name, patterns, uri, label, Optional.ToList(searchPaths), username.Value, password.Value, hostKey.Value, hostKeyAlgorithm.Value, privateKey.Value, Optional.ToNullable(strictHostKeyChecking), Optional.ToNullable(gitImplementation), caCertResourceId.Value, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<AppPlatformConfigurationServiceGitRepository>.Write(ModelReaderWriterOptions options)
