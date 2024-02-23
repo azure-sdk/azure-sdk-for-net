@@ -91,8 +91,10 @@ namespace Azure.ResourceManager.AppPlatform.Models
         /// <param name="hostKeyAlgorithm"> SshKey algorithm of git repository. </param>
         /// <param name="privateKey"> Private sshKey algorithm of git repository. </param>
         /// <param name="isHostKeyCheckingStrict"> Strict host key checking or not. </param>
+        /// <param name="gitImplementation"> Git libraries used to support various repository providers. </param>
+        /// <param name="caCertResourceId"> Resource Id of CA certificate for https URL of Git repository. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AppPlatformConfigurationServiceGitRepository(string name, IList<string> patterns, Uri uri, string label, IList<string> searchPaths, string username, string password, string hostKey, string hostKeyAlgorithm, string privateKey, bool? isHostKeyCheckingStrict, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal AppPlatformConfigurationServiceGitRepository(string name, IList<string> patterns, Uri uri, string label, IList<string> searchPaths, string username, string password, string hostKey, string hostKeyAlgorithm, string privateKey, bool? isHostKeyCheckingStrict, GitImplementation? gitImplementation, string caCertResourceId, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             Name = name;
             Patterns = patterns;
@@ -105,6 +107,8 @@ namespace Azure.ResourceManager.AppPlatform.Models
             HostKeyAlgorithm = hostKeyAlgorithm;
             PrivateKey = privateKey;
             IsHostKeyCheckingStrict = isHostKeyCheckingStrict;
+            GitImplementation = gitImplementation;
+            CaCertResourceId = caCertResourceId;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -135,5 +139,9 @@ namespace Azure.ResourceManager.AppPlatform.Models
         public string PrivateKey { get; set; }
         /// <summary> Strict host key checking or not. </summary>
         public bool? IsHostKeyCheckingStrict { get; set; }
+        /// <summary> Git libraries used to support various repository providers. </summary>
+        public GitImplementation? GitImplementation { get; set; }
+        /// <summary> Resource Id of CA certificate for https URL of Git repository. </summary>
+        public string CaCertResourceId { get; set; }
     }
 }
