@@ -13,7 +13,7 @@ using Azure.Core;
 
 namespace Azure.ResourceManager.AppPlatform.Models
 {
-    internal partial class ServiceVnetAddons : IUtf8JsonSerializable, IJsonModel<ServiceVnetAddons>
+    public partial class ServiceVnetAddons : IUtf8JsonSerializable, IJsonModel<ServiceVnetAddons>
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer) => ((IJsonModel<ServiceVnetAddons>)this).Write(writer, new ModelReaderWriterOptions("W"));
 
@@ -30,6 +30,11 @@ namespace Azure.ResourceManager.AppPlatform.Models
             {
                 writer.WritePropertyName("logStreamPublicEndpoint"u8);
                 writer.WriteBooleanValue(IsLogStreamPublicEndpoint.Value);
+            }
+            if (Optional.IsDefined(DataPlanePublicEndpoint))
+            {
+                writer.WritePropertyName("dataPlanePublicEndpoint"u8);
+                writer.WriteBooleanValue(DataPlanePublicEndpoint.Value);
             }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
@@ -70,6 +75,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
                 return null;
             }
             Optional<bool> logStreamPublicEndpoint = default;
+            Optional<bool> dataPlanePublicEndpoint = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -83,13 +89,22 @@ namespace Azure.ResourceManager.AppPlatform.Models
                     logStreamPublicEndpoint = property.Value.GetBoolean();
                     continue;
                 }
+                if (property.NameEquals("dataPlanePublicEndpoint"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    dataPlanePublicEndpoint = property.Value.GetBoolean();
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new ServiceVnetAddons(Optional.ToNullable(logStreamPublicEndpoint), serializedAdditionalRawData);
+            return new ServiceVnetAddons(Optional.ToNullable(logStreamPublicEndpoint), Optional.ToNullable(dataPlanePublicEndpoint), serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<ServiceVnetAddons>.Write(ModelReaderWriterOptions options)

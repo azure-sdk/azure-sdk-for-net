@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace Azure.ResourceManager.AppPlatform.Models
 {
     /// <summary> Additional Service settings in vnet injection instance. </summary>
-    internal partial class ServiceVnetAddons
+    public partial class ServiceVnetAddons
     {
         /// <summary>
         /// Keeps track of any properties unknown to the library.
@@ -52,14 +52,18 @@ namespace Azure.ResourceManager.AppPlatform.Models
 
         /// <summary> Initializes a new instance of <see cref="ServiceVnetAddons"/>. </summary>
         /// <param name="isLogStreamPublicEndpoint"> Indicates whether the log stream in vnet injection instance could be accessed from internet. </param>
+        /// <param name="dataPlanePublicEndpoint"> Indicates whether the data plane components(log stream, app connect, remote debugging) in vnet injection instance could be accessed from internet. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal ServiceVnetAddons(bool? isLogStreamPublicEndpoint, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal ServiceVnetAddons(bool? isLogStreamPublicEndpoint, bool? dataPlanePublicEndpoint, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             IsLogStreamPublicEndpoint = isLogStreamPublicEndpoint;
+            DataPlanePublicEndpoint = dataPlanePublicEndpoint;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
         /// <summary> Indicates whether the log stream in vnet injection instance could be accessed from internet. </summary>
         public bool? IsLogStreamPublicEndpoint { get; set; }
+        /// <summary> Indicates whether the data plane components(log stream, app connect, remote debugging) in vnet injection instance could be accessed from internet. </summary>
+        public bool? DataPlanePublicEndpoint { get; set; }
     }
 }
