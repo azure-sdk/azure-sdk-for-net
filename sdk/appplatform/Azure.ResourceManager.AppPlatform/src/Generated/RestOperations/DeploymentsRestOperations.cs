@@ -34,7 +34,7 @@ namespace Azure.ResourceManager.AppPlatform
         {
             _pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             _endpoint = endpoint ?? new Uri("https://management.azure.com");
-            _apiVersion = apiVersion ?? "2022-12-01";
+            _apiVersion = apiVersion ?? "2023-12-01";
             _userAgent = new TelemetryDetails(GetType().Assembly, applicationId);
         }
 
@@ -840,7 +840,7 @@ namespace Azure.ResourceManager.AppPlatform
             }
         }
 
-        internal HttpMessage CreateListForClusterRequest(string subscriptionId, string resourceGroupName, string serviceName, IEnumerable<string> version)
+        internal HttpMessage CreateListForClusterRequest(string subscriptionId, string resourceGroupName, string serviceName, IEnumerable<string> version, string expand)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -862,6 +862,10 @@ namespace Azure.ResourceManager.AppPlatform
                     uri.AppendQuery("version", param, true);
                 }
             }
+            if (expand != null)
+            {
+                uri.AppendQuery("$expand", expand, true);
+            }
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
             _userAgent.Apply(message);
@@ -873,10 +877,11 @@ namespace Azure.ResourceManager.AppPlatform
         /// <param name="resourceGroupName"> The name of the resource group that contains the resource. You can obtain this value from the Azure Resource Manager API or the portal. </param>
         /// <param name="serviceName"> The name of the Service resource. </param>
         /// <param name="version"> Version of the deployments to be listed. </param>
+        /// <param name="expand"> The expand expression to apply on the operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="serviceName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="serviceName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<DeploymentResourceList>> ListForClusterAsync(string subscriptionId, string resourceGroupName, string serviceName, IEnumerable<string> version = null, CancellationToken cancellationToken = default)
+        public async Task<Response<DeploymentResourceList>> ListForClusterAsync(string subscriptionId, string resourceGroupName, string serviceName, IEnumerable<string> version = null, string expand = null, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -903,7 +908,7 @@ namespace Azure.ResourceManager.AppPlatform
                 throw new ArgumentException("Value cannot be an empty string.", nameof(serviceName));
             }
 
-            using var message = CreateListForClusterRequest(subscriptionId, resourceGroupName, serviceName, version);
+            using var message = CreateListForClusterRequest(subscriptionId, resourceGroupName, serviceName, version, expand);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
@@ -924,10 +929,11 @@ namespace Azure.ResourceManager.AppPlatform
         /// <param name="resourceGroupName"> The name of the resource group that contains the resource. You can obtain this value from the Azure Resource Manager API or the portal. </param>
         /// <param name="serviceName"> The name of the Service resource. </param>
         /// <param name="version"> Version of the deployments to be listed. </param>
+        /// <param name="expand"> The expand expression to apply on the operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="serviceName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="serviceName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<DeploymentResourceList> ListForCluster(string subscriptionId, string resourceGroupName, string serviceName, IEnumerable<string> version = null, CancellationToken cancellationToken = default)
+        public Response<DeploymentResourceList> ListForCluster(string subscriptionId, string resourceGroupName, string serviceName, IEnumerable<string> version = null, string expand = null, CancellationToken cancellationToken = default)
         {
             if (subscriptionId == null)
             {
@@ -954,7 +960,7 @@ namespace Azure.ResourceManager.AppPlatform
                 throw new ArgumentException("Value cannot be an empty string.", nameof(serviceName));
             }
 
-            using var message = CreateListForClusterRequest(subscriptionId, resourceGroupName, serviceName, version);
+            using var message = CreateListForClusterRequest(subscriptionId, resourceGroupName, serviceName, version, expand);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
@@ -2715,7 +2721,7 @@ namespace Azure.ResourceManager.AppPlatform
             }
         }
 
-        internal HttpMessage CreateListForClusterNextPageRequest(string nextLink, string subscriptionId, string resourceGroupName, string serviceName, IEnumerable<string> version)
+        internal HttpMessage CreateListForClusterNextPageRequest(string nextLink, string subscriptionId, string resourceGroupName, string serviceName, IEnumerable<string> version, string expand)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -2735,10 +2741,11 @@ namespace Azure.ResourceManager.AppPlatform
         /// <param name="resourceGroupName"> The name of the resource group that contains the resource. You can obtain this value from the Azure Resource Manager API or the portal. </param>
         /// <param name="serviceName"> The name of the Service resource. </param>
         /// <param name="version"> Version of the deployments to be listed. </param>
+        /// <param name="expand"> The expand expression to apply on the operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="serviceName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="serviceName"/> is an empty string, and was expected to be non-empty. </exception>
-        public async Task<Response<DeploymentResourceList>> ListForClusterNextPageAsync(string nextLink, string subscriptionId, string resourceGroupName, string serviceName, IEnumerable<string> version = null, CancellationToken cancellationToken = default)
+        public async Task<Response<DeploymentResourceList>> ListForClusterNextPageAsync(string nextLink, string subscriptionId, string resourceGroupName, string serviceName, IEnumerable<string> version = null, string expand = null, CancellationToken cancellationToken = default)
         {
             if (nextLink == null)
             {
@@ -2769,7 +2776,7 @@ namespace Azure.ResourceManager.AppPlatform
                 throw new ArgumentException("Value cannot be an empty string.", nameof(serviceName));
             }
 
-            using var message = CreateListForClusterNextPageRequest(nextLink, subscriptionId, resourceGroupName, serviceName, version);
+            using var message = CreateListForClusterNextPageRequest(nextLink, subscriptionId, resourceGroupName, serviceName, version, expand);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
@@ -2791,10 +2798,11 @@ namespace Azure.ResourceManager.AppPlatform
         /// <param name="resourceGroupName"> The name of the resource group that contains the resource. You can obtain this value from the Azure Resource Manager API or the portal. </param>
         /// <param name="serviceName"> The name of the Service resource. </param>
         /// <param name="version"> Version of the deployments to be listed. </param>
+        /// <param name="expand"> The expand expression to apply on the operation. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nextLink"/>, <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="serviceName"/> is null. </exception>
         /// <exception cref="ArgumentException"> <paramref name="subscriptionId"/>, <paramref name="resourceGroupName"/> or <paramref name="serviceName"/> is an empty string, and was expected to be non-empty. </exception>
-        public Response<DeploymentResourceList> ListForClusterNextPage(string nextLink, string subscriptionId, string resourceGroupName, string serviceName, IEnumerable<string> version = null, CancellationToken cancellationToken = default)
+        public Response<DeploymentResourceList> ListForClusterNextPage(string nextLink, string subscriptionId, string resourceGroupName, string serviceName, IEnumerable<string> version = null, string expand = null, CancellationToken cancellationToken = default)
         {
             if (nextLink == null)
             {
@@ -2825,7 +2833,7 @@ namespace Azure.ResourceManager.AppPlatform
                 throw new ArgumentException("Value cannot be an empty string.", nameof(serviceName));
             }
 
-            using var message = CreateListForClusterNextPageRequest(nextLink, subscriptionId, resourceGroupName, serviceName, version);
+            using var message = CreateListForClusterNextPageRequest(nextLink, subscriptionId, resourceGroupName, serviceName, version, expand);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {

@@ -48,25 +48,14 @@ namespace Azure.ResourceManager.AppPlatform.Models
                         writer.WriteNullValue();
                         continue;
                     }
-                    writer.WriteStartObject();
-                    foreach (var item0 in item.Value)
-                    {
-                        writer.WritePropertyName(item0.Key);
-                        if (item0.Value == null)
-                        {
-                            writer.WriteNullValue();
-                            continue;
-                        }
 #if NET6_0_OR_GREATER
-				writer.WriteRawValue(item0.Value);
+				writer.WriteRawValue(item.Value);
 #else
-                        using (JsonDocument document = JsonDocument.Parse(item0.Value))
-                        {
-                            JsonSerializer.Serialize(writer, document.RootElement);
-                        }
-#endif
+                    using (JsonDocument document = JsonDocument.Parse(item.Value))
+                    {
+                        JsonSerializer.Serialize(writer, document.RootElement);
                     }
-                    writer.WriteEndObject();
+#endif
                 }
                 writer.WriteEndObject();
             }
@@ -170,7 +159,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
             }
             Optional<bool> @public = default;
             Optional<string> uri = default;
-            Optional<IDictionary<string, IDictionary<string, BinaryData>>> addonConfigs = default;
+            Optional<IDictionary<string, BinaryData>> addonConfigs = default;
             Optional<AppPlatformAppProvisioningState> provisioningState = default;
             Optional<string> fqdn = default;
             Optional<bool> httpsOnly = default;
@@ -205,7 +194,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
                     {
                         continue;
                     }
-                    Dictionary<string, IDictionary<string, BinaryData>> dictionary = new Dictionary<string, IDictionary<string, BinaryData>>();
+                    Dictionary<string, BinaryData> dictionary = new Dictionary<string, BinaryData>();
                     foreach (var property0 in property.Value.EnumerateObject())
                     {
                         if (property0.Value.ValueKind == JsonValueKind.Null)
@@ -214,19 +203,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
                         }
                         else
                         {
-                            Dictionary<string, BinaryData> dictionary0 = new Dictionary<string, BinaryData>();
-                            foreach (var property1 in property0.Value.EnumerateObject())
-                            {
-                                if (property1.Value.ValueKind == JsonValueKind.Null)
-                                {
-                                    dictionary0.Add(property1.Name, null);
-                                }
-                                else
-                                {
-                                    dictionary0.Add(property1.Name, BinaryData.FromString(property1.Value.GetRawText()));
-                                }
-                            }
-                            dictionary.Add(property0.Name, dictionary0);
+                            dictionary.Add(property0.Name, BinaryData.FromString(property0.Value.GetRawText()));
                         }
                     }
                     addonConfigs = dictionary;
