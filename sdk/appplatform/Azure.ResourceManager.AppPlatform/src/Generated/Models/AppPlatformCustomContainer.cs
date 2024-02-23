@@ -59,7 +59,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
         /// <param name="command"> Entrypoint array. Not executed within a shell. The docker image's ENTRYPOINT is used if this is not provided. </param>
         /// <param name="args"> Arguments to the entrypoint. The docker image's CMD is used if this is not provided. </param>
         /// <param name="imageRegistryCredential"> Credential of the image registry. </param>
-        /// <param name="languageFramework"> Language framework of the container image uploaded. </param>
+        /// <param name="languageFramework"> Language framework of the container image uploaded. Supported values: "springboot", "", null. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
         internal AppPlatformCustomContainer(string server, string containerImage, IList<string> command, IList<string> args, AppPlatformImageRegistryCredential imageRegistryCredential, string languageFramework, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
@@ -82,7 +82,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
         public IList<string> Args { get; }
         /// <summary> Credential of the image registry. </summary>
         public AppPlatformImageRegistryCredential ImageRegistryCredential { get; set; }
-        /// <summary> Language framework of the container image uploaded. </summary>
+        /// <summary> Language framework of the container image uploaded. Supported values: "springboot", "", null. </summary>
         public string LanguageFramework { get; set; }
     }
 }

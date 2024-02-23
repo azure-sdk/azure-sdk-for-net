@@ -26,7 +26,12 @@ namespace Azure.ResourceManager.AppPlatform.Models
             }
 
             writer.WriteStartObject();
-            if (Optional.IsDefined(KPackVersion))
+            if (Optional.IsDefined(ContainerRegistry))
+            {
+                writer.WritePropertyName("containerRegistry"u8);
+                writer.WriteStringValue(ContainerRegistry);
+            }
+            if (options.Format != "W" && Optional.IsDefined(KPackVersion))
             {
                 writer.WritePropertyName("kPackVersion"u8);
                 writer.WriteStringValue(KPackVersion);
@@ -79,6 +84,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
             {
                 return null;
             }
+            Optional<string> containerRegistry = default;
             Optional<string> kPackVersion = default;
             Optional<AppPlatformBuildServiceProvisioningState> provisioningState = default;
             Optional<AppPlatformBuildServiceResourceRequirements> resourceRequests = default;
@@ -86,6 +92,11 @@ namespace Azure.ResourceManager.AppPlatform.Models
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
             {
+                if (property.NameEquals("containerRegistry"u8))
+                {
+                    containerRegistry = property.Value.GetString();
+                    continue;
+                }
                 if (property.NameEquals("kPackVersion"u8))
                 {
                     kPackVersion = property.Value.GetString();
@@ -115,7 +126,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new AppPlatformBuildServiceProperties(kPackVersion.Value, Optional.ToNullable(provisioningState), resourceRequests.Value, serializedAdditionalRawData);
+            return new AppPlatformBuildServiceProperties(containerRegistry.Value, kPackVersion.Value, Optional.ToNullable(provisioningState), resourceRequests.Value, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<AppPlatformBuildServiceProperties>.Write(ModelReaderWriterOptions options)
