@@ -66,6 +66,11 @@ namespace Azure.ResourceManager.AppPlatform.Models
                 writer.WritePropertyName("fqdn"u8);
                 writer.WriteStringValue(Fqdn);
             }
+            if (Optional.IsDefined(MarketplaceResource))
+            {
+                writer.WritePropertyName("marketplaceResource"u8);
+                writer.WriteObjectValue(MarketplaceResource);
+            }
             if (options.Format != "W" && _serializedAdditionalRawData != null)
             {
                 foreach (var item in _serializedAdditionalRawData)
@@ -112,6 +117,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
             Optional<AppPlatformServicePowerState> powerState = default;
             Optional<bool> zoneRedundant = default;
             Optional<string> fqdn = default;
+            Optional<MarketplaceResource> marketplaceResource = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> additionalPropertiesDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -180,13 +186,22 @@ namespace Azure.ResourceManager.AppPlatform.Models
                     fqdn = property.Value.GetString();
                     continue;
                 }
+                if (property.NameEquals("marketplaceResource"u8))
+                {
+                    if (property.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    marketplaceResource = MarketplaceResource.DeserializeMarketplaceResource(property.Value, options);
+                    continue;
+                }
                 if (options.Format != "W")
                 {
                     additionalPropertiesDictionary.Add(property.Name, BinaryData.FromString(property.Value.GetRawText()));
                 }
             }
             serializedAdditionalRawData = additionalPropertiesDictionary;
-            return new AppPlatformServiceProperties(Optional.ToNullable(provisioningState), networkProfile.Value, vnetAddons.Value, Optional.ToNullable(version), serviceId.Value, Optional.ToNullable(powerState), Optional.ToNullable(zoneRedundant), fqdn.Value, serializedAdditionalRawData);
+            return new AppPlatformServiceProperties(Optional.ToNullable(provisioningState), networkProfile.Value, vnetAddons.Value, Optional.ToNullable(version), serviceId.Value, Optional.ToNullable(powerState), Optional.ToNullable(zoneRedundant), fqdn.Value, marketplaceResource.Value, serializedAdditionalRawData);
         }
 
         BinaryData IPersistableModel<AppPlatformServiceProperties>.Write(ModelReaderWriterOptions options)

@@ -64,8 +64,9 @@ namespace Azure.ResourceManager.AppPlatform.Models
         /// <param name="ssoProperties"> Single sign-on related configuration. </param>
         /// <param name="resourceRequests"> The requested resource quantity for required CPU and Memory. </param>
         /// <param name="instances"> Collection of instances belong to API portal. </param>
+        /// <param name="apiTryOutEnabledState"> Indicates whether the API try-out feature is enabled or disabled. When enabled, users can try out the API by sending requests and viewing responses in API portal. When disabled, users cannot try out the API. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AppPlatformApiPortalProperties(AppPlatformApiPortalProvisioningState? provisioningState, bool? isPublic, Uri uri, bool? isHttpsOnly, IList<ResourceIdentifier> gatewayIds, IList<Uri> sourceUris, AppPlatformSsoProperties ssoProperties, AppPlatformApiPortalResourceRequirements resourceRequests, IReadOnlyList<AppPlatformApiPortalInstance> instances, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal AppPlatformApiPortalProperties(AppPlatformApiPortalProvisioningState? provisioningState, bool? isPublic, Uri uri, bool? isHttpsOnly, IList<ResourceIdentifier> gatewayIds, IList<Uri> sourceUris, AppPlatformSsoProperties ssoProperties, AppPlatformApiPortalResourceRequirements resourceRequests, IReadOnlyList<AppPlatformApiPortalInstance> instances, ApiPortalApiTryOutEnabledState? apiTryOutEnabledState, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             ProvisioningState = provisioningState;
             IsPublic = isPublic;
@@ -76,6 +77,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
             SsoProperties = ssoProperties;
             ResourceRequests = resourceRequests;
             Instances = instances;
+            ApiTryOutEnabledState = apiTryOutEnabledState;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -97,5 +99,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
         public AppPlatformApiPortalResourceRequirements ResourceRequests { get; }
         /// <summary> Collection of instances belong to API portal. </summary>
         public IReadOnlyList<AppPlatformApiPortalInstance> Instances { get; }
+        /// <summary> Indicates whether the API try-out feature is enabled or disabled. When enabled, users can try out the API by sending requests and viewing responses in API portal. When disabled, users cannot try out the API. </summary>
+        public ApiPortalApiTryOutEnabledState? ApiTryOutEnabledState { get; set; }
     }
 }

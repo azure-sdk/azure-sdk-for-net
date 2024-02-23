@@ -54,6 +54,124 @@ namespace Azure.ResourceManager.AppPlatform
         }
 
         /// <summary>
+        /// Create a build service resource.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/buildServices/{buildServiceName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>BuildService_CreateOrUpdate</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-12-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="AppPlatformBuildServiceResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="buildServiceName"> The name of the build service resource. </param>
+        /// <param name="data"> Parameters for the create operation. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="buildServiceName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="buildServiceName"/> or <paramref name="data"/> is null. </exception>
+        public virtual async Task<ArmOperation<AppPlatformBuildServiceResource>> CreateOrUpdateAsync(WaitUntil waitUntil, string buildServiceName, AppPlatformBuildServiceData data, CancellationToken cancellationToken = default)
+        {
+            if (buildServiceName == null)
+            {
+                throw new ArgumentNullException(nameof(buildServiceName));
+            }
+            if (buildServiceName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(buildServiceName));
+            }
+            if (data == null)
+            {
+                throw new ArgumentNullException(nameof(data));
+            }
+
+            using var scope = _appPlatformBuildServiceBuildServiceClientDiagnostics.CreateScope("AppPlatformBuildServiceCollection.CreateOrUpdate");
+            scope.Start();
+            try
+            {
+                var response = await _appPlatformBuildServiceBuildServiceRestClient.CreateOrUpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, buildServiceName, data, cancellationToken).ConfigureAwait(false);
+                var operation = new AppPlatformArmOperation<AppPlatformBuildServiceResource>(new AppPlatformBuildServiceOperationSource(Client), _appPlatformBuildServiceBuildServiceClientDiagnostics, Pipeline, _appPlatformBuildServiceBuildServiceRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, buildServiceName, data).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Create a build service resource.
+        /// <list type="bullet">
+        /// <item>
+        /// <term>Request Path</term>
+        /// <description>/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/buildServices/{buildServiceName}</description>
+        /// </item>
+        /// <item>
+        /// <term>Operation Id</term>
+        /// <description>BuildService_CreateOrUpdate</description>
+        /// </item>
+        /// <item>
+        /// <term>Default Api Version</term>
+        /// <description>2023-12-01</description>
+        /// </item>
+        /// <item>
+        /// <term>Resource</term>
+        /// <description><see cref="AppPlatformBuildServiceResource"/></description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="waitUntil"> <see cref="WaitUntil.Completed"/> if the method should wait to return until the long-running operation has completed on the service; <see cref="WaitUntil.Started"/> if it should return after starting the operation. For more information on long-running operations, please see <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/LongRunningOperations.md"> Azure.Core Long-Running Operation samples</see>. </param>
+        /// <param name="buildServiceName"> The name of the build service resource. </param>
+        /// <param name="data"> Parameters for the create operation. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <exception cref="ArgumentException"> <paramref name="buildServiceName"/> is an empty string, and was expected to be non-empty. </exception>
+        /// <exception cref="ArgumentNullException"> <paramref name="buildServiceName"/> or <paramref name="data"/> is null. </exception>
+        public virtual ArmOperation<AppPlatformBuildServiceResource> CreateOrUpdate(WaitUntil waitUntil, string buildServiceName, AppPlatformBuildServiceData data, CancellationToken cancellationToken = default)
+        {
+            if (buildServiceName == null)
+            {
+                throw new ArgumentNullException(nameof(buildServiceName));
+            }
+            if (buildServiceName.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty string.", nameof(buildServiceName));
+            }
+            if (data == null)
+            {
+                throw new ArgumentNullException(nameof(data));
+            }
+
+            using var scope = _appPlatformBuildServiceBuildServiceClientDiagnostics.CreateScope("AppPlatformBuildServiceCollection.CreateOrUpdate");
+            scope.Start();
+            try
+            {
+                var response = _appPlatformBuildServiceBuildServiceRestClient.CreateOrUpdate(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, buildServiceName, data, cancellationToken);
+                var operation = new AppPlatformArmOperation<AppPlatformBuildServiceResource>(new AppPlatformBuildServiceOperationSource(Client), _appPlatformBuildServiceBuildServiceClientDiagnostics, Pipeline, _appPlatformBuildServiceBuildServiceRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, buildServiceName, data).Request, response, OperationFinalStateVia.Location);
+                if (waitUntil == WaitUntil.Completed)
+                    operation.WaitForCompletion(cancellationToken);
+                return operation;
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
+        }
+
+        /// <summary>
         /// Get a build service resource.
         /// <list type="bullet">
         /// <item>
@@ -66,7 +184,7 @@ namespace Azure.ResourceManager.AppPlatform
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-12-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -118,7 +236,7 @@ namespace Azure.ResourceManager.AppPlatform
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-12-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -170,7 +288,7 @@ namespace Azure.ResourceManager.AppPlatform
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-12-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -200,7 +318,7 @@ namespace Azure.ResourceManager.AppPlatform
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-12-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -230,7 +348,7 @@ namespace Azure.ResourceManager.AppPlatform
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-12-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -280,7 +398,7 @@ namespace Azure.ResourceManager.AppPlatform
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-12-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -330,7 +448,7 @@ namespace Azure.ResourceManager.AppPlatform
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-12-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>
@@ -382,7 +500,7 @@ namespace Azure.ResourceManager.AppPlatform
         /// </item>
         /// <item>
         /// <term>Default Api Version</term>
-        /// <description>2022-12-01</description>
+        /// <description>2023-12-01</description>
         /// </item>
         /// <item>
         /// <term>Resource</term>

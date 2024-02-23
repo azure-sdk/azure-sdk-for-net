@@ -50,6 +50,8 @@ namespace Azure.ResourceManager.AppPlatform.Models
         public AppPlatformGatewayRouteConfigProperties()
         {
             Routes = new ChangeTrackingList<AppPlatformGatewayApiRoute>();
+            Predicates = new ChangeTrackingList<string>();
+            Filters = new ChangeTrackingList<string>();
         }
 
         /// <summary> Initializes a new instance of <see cref="AppPlatformGatewayRouteConfigProperties"/>. </summary>
@@ -58,14 +60,20 @@ namespace Azure.ResourceManager.AppPlatform.Models
         /// <param name="openApi"> OpenAPI properties of Spring Cloud Gateway route config. </param>
         /// <param name="protocol"> Protocol of routed Azure Spring Apps applications. </param>
         /// <param name="routes"> Array of API routes, each route contains properties such as `title`, `uri`, `ssoEnabled`, `predicates`, `filters`. </param>
+        /// <param name="ssoEnabled"> Enable Single Sign-On in app level. </param>
+        /// <param name="predicates"> A number of conditions to evaluate a route for each request in app level. Each predicate may be evaluated against request headers and parameter values. All of the predicates associated with a route must evaluate to true for the route to be matched to the request. </param>
+        /// <param name="filters"> To modify the request before sending it to the target endpoint, or the received response in app level. </param>
         /// <param name="serializedAdditionalRawData"> Keeps track of any properties unknown to the library. </param>
-        internal AppPlatformGatewayRouteConfigProperties(AppPlatformGatewayProvisioningState? provisioningState, ResourceIdentifier appResourceId, GatewayRouteConfigOpenApiProperties openApi, AppPlatformGatewayRouteConfigProtocol? protocol, IList<AppPlatformGatewayApiRoute> routes, IDictionary<string, BinaryData> serializedAdditionalRawData)
+        internal AppPlatformGatewayRouteConfigProperties(AppPlatformGatewayProvisioningState? provisioningState, ResourceIdentifier appResourceId, GatewayRouteConfigOpenApiProperties openApi, AppPlatformGatewayRouteConfigProtocol? protocol, IList<AppPlatformGatewayApiRoute> routes, bool? ssoEnabled, IList<string> predicates, IList<string> filters, IDictionary<string, BinaryData> serializedAdditionalRawData)
         {
             ProvisioningState = provisioningState;
             AppResourceId = appResourceId;
             OpenApi = openApi;
             Protocol = protocol;
             Routes = routes;
+            SsoEnabled = ssoEnabled;
+            Predicates = predicates;
+            Filters = filters;
             _serializedAdditionalRawData = serializedAdditionalRawData;
         }
 
@@ -91,5 +99,11 @@ namespace Azure.ResourceManager.AppPlatform.Models
         public AppPlatformGatewayRouteConfigProtocol? Protocol { get; set; }
         /// <summary> Array of API routes, each route contains properties such as `title`, `uri`, `ssoEnabled`, `predicates`, `filters`. </summary>
         public IList<AppPlatformGatewayApiRoute> Routes { get; }
+        /// <summary> Enable Single Sign-On in app level. </summary>
+        public bool? SsoEnabled { get; set; }
+        /// <summary> A number of conditions to evaluate a route for each request in app level. Each predicate may be evaluated against request headers and parameter values. All of the predicates associated with a route must evaluate to true for the route to be matched to the request. </summary>
+        public IList<string> Predicates { get; }
+        /// <summary> To modify the request before sending it to the target endpoint, or the received response in app level. </summary>
+        public IList<string> Filters { get; }
     }
 }
