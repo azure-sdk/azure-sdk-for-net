@@ -83,6 +83,7 @@ namespace Azure.ResourceManager.AppPlatform.Models
                     case "Jar": return JarUploadedUserSourceInfo.DeserializeJarUploadedUserSourceInfo(element, options);
                     case "NetCoreZip": return NetCoreZipUploadedUserSourceInfo.DeserializeNetCoreZipUploadedUserSourceInfo(element, options);
                     case "Source": return SourceUploadedUserSourceInfo.DeserializeSourceUploadedUserSourceInfo(element, options);
+                    case "War": return WarUploadedUserSourceInfo.DeserializeWarUploadedUserSourceInfo(element, options);
                 }
             }
             Optional<string> relativePath = default;
